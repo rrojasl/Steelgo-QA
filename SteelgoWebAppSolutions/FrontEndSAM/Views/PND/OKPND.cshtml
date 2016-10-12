@@ -74,14 +74,14 @@
                 <label id="lblSpoolID"></label>
                 <input id="InputNumeroControl" class="item-select general-input" />
             </div>
-            @*<div class="col-sm-6 col-md-4 col-lg-2 altoControl">
-                    <label id="lblMostrar"></label>
-                    <input type="radio" name="Muestra" style=" width:auto;" value="SinCaptura" /><span id="lblSinCaptura"></span>
-                    <input type="radio" name="Muestra" style=" width:auto;" value="Todos" /><span id="lblTodos"> </span>
-                </div>*@
+            <div class="col-sm-6 col-md-4 col-lg-2 altoControl">
+                <label id="lblMostrar"></label>
+                <input type="radio" name="Muestra" style=" width:auto;" value="SinCaptura" /><span id="lblSinCaptura"></span>
+                <input type="radio" name="Muestra" style=" width:auto;" value="Todos" /><span id="lblTodos"> </span>
+            </div>
             <div class="col-sm-1 col-md-1 col-lg-1">
                 <label id="">&nbsp;</label>
-                <button type="button" id="ButtonBuscar" class="btn btn-blue botonSizeGeneral"><span id="lblMostrar"></span></button>
+                <button type="button" id="ButtonBuscar" class="btn btn-blue botonSizeGeneral"><span id="botonMostrar"></span></button>
             </div>
         </div>
         @*GRID*@
@@ -90,7 +90,7 @@
                 <div class="row" id="containerDiv">
                     <div class="col-sm-2 col-md-2 col-lg-2" id="CapturaArmadoHeaderSpoolIDDiv">
                         <label id="lblSeleccionarTodos"></label>
-                        <input type="checkbox" style="width:40%" id="InputSeleccionTodos" class="item-select general-input" />
+                        <input type="checkbox" id="InputSeleccionTodos"/>
                     </div>
                     <div class="col-sm-1 col-md-1 col-lg-1">
                         <label id="">&nbsp;</label>

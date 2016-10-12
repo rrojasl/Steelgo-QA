@@ -27,7 +27,8 @@ function AjaxGetListaProyectos() {
 
 function AjaxGetListaElementos(proyectoID, numControl) {
     loadingStart();
-    $OKPND.OKPND.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), ProyectoID: proyectoID, NumControl: numControl }).done(function (data) {
+
+    $OKPND.OKPND.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), ProyectoID: proyectoID, NumControl: numControl, muestra: $('input:radio[name=Muestra]:checked').val() }).done(function (data) {
         $("#grid").data("kendoGrid").dataSource.data([]);
 
         var ds = $("#grid").data("kendoGrid").dataSource;
@@ -77,57 +78,25 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardado) {
 
     var ds = $("#grid").data("kendoGrid").dataSource;
 
-    if (ds._data.length > 0) {
-
-        loadingStop();
-
-        var modalTitle = "";
-        modalTitle = _dictionary.guardarCambiosOKPND[$("#language").data("kendoDropDownList").value()];
-
-        var ventanaConfirm = $("#ventanaConfirm").kendoWindow({
-            iframe: true,
-            title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
-            visible: false,
-            width: 450,
-            height: 90,
-            draggable: false,
-            modal: true,
-            animation: {
-                close: false,
-                open: false
-            }
-        }).data("kendoWindow");
-
-        ventanaConfirm.content("<center>" + _dictionary.msgGuardarCambios[$("#language").data("kendoDropDownList").value()] + "</center>" +
-            "</br><center><button class='btn btn-blue' id='yesButton'>Si</button><button class='btn btn-blue' id='noButton'>No</button></center>");
-
-        ventanaConfirm.open().center();
-
-        $("#yesButton").click(function (handler) {
-            ventanaConfirm.close();
-            $OKPND.OKPND.create(Captura[0], { lenguaje: $("#language").val(), token: Cookies.get("token") }).done(function (data) {
-                if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
-                    if (data.ReturnMessage[0] != undefined) {
-                        if (tipoGuardado == 1) {
-                            Limpiar();
-                            opcionHabilitarView(false, "FieldSetView");
-                        }
-                        else {
-                            AjaxGetListaElementos($("#Proyecto").data("kendoComboBox").value(), $("#InputNumeroControl").val())
-                            opcionHabilitarView(true, "FieldSetView");
-                        }
-
-                        displayNotify("", "Datos guardados correctamente.", "0");
+    if (Captura[0].Detalle.length > 0) {
+        $OKPND.OKPND.create(Captura[0], { lenguaje: $("#language").val(), token: Cookies.get("token") }).done(function (data) {
+            if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
+                if (data.ReturnMessage[0] != undefined) {
+                    if (tipoGuardado == 1) {
+                        Limpiar();
+                        opcionHabilitarView(false, "FieldSetView");
                     }
-                }
-                else {
-                    opcionHabilitarView(false, "FieldSetView");
-                }
-            });
-        });
+                    else {
+                        AjaxGetListaElementos($("#Proyecto").data("kendoComboBox").value(), $("#InputNumeroControl").val(), $('input:radio[name=Muestra]:checked').val());
+                        opcionHabilitarView(true, "FieldSetView");
+                    }
 
-        $("#noButton").click(function (handler) {
-            ventanaConfirm.close();
+                    displayNotify("", "Datos guardados correctamente.", "0");
+                }
+            }
+            else {
+                opcionHabilitarView(false, "FieldSetView");
+            }
         });
     }
     else {
