@@ -47,7 +47,7 @@ namespace BackEndSAM.DataAcces.Pintura.SistemaPinturaAplicable
                     {
                         list.Add(new SistemaPinturaData {
                             SistemaPinturaID = item.SistemaPinturaID,
-                            Nombre = item.Nombre
+                            Nombre = item.Nombre.Split('~')[0]
                         });
                     }
                     return list;
@@ -119,7 +119,7 @@ namespace BackEndSAM.DataAcces.Pintura.SistemaPinturaAplicable
                             NumeroControl = item.NumeroControl,
                             Diametro = item.Diametro.GetValueOrDefault(),
                             SistemaPinturaID = item.SistemaPinturaID.GetValueOrDefault(),
-                            SistemaPintura = item.SistemaPintura != null ? item.SistemaPintura : "",
+                            SistemaPintura = item.SistemaPintura != null ? item.SistemaPintura.Split('~')[0] : "",
                             SistemaPinturaColorID = item.SistemaPinturaColorID.GetValueOrDefault(),
                             ColorPinturaID = item.ColorID.GetValueOrDefault(),
                             Color = item.Color != null ? item.Color : "",
