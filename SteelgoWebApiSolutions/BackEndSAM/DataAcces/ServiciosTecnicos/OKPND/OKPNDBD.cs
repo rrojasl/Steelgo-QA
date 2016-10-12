@@ -32,14 +32,14 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.OKPND
             }
         }
 
-        public object ObtenerListadoElementos(string lenguaje, int ProyectoID, string NumControl)
+        public object ObtenerListadoElementos(string lenguaje, int ProyectoID, string NumControl, int all)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
                     List<Elementos> listaElementos = new List<Elementos>();
-                    List<Sam3_ST_OKPND_Get_Elementos_Result> listaElementosCTX = ctx.Sam3_ST_OKPND_Get_Elementos(lenguaje, ProyectoID, NumControl).ToList();
+                    List<Sam3_ST_OKPND_Get_Elementos_Result> listaElementosCTX = ctx.Sam3_ST_OKPND_Get_Elementos(lenguaje, ProyectoID, NumControl, all).ToList();
 
                     foreach (Sam3_ST_OKPND_Get_Elementos_Result item in listaElementosCTX)
                     {

@@ -17,17 +17,18 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.OKPND
     public class OKPNDController : ApiController
     {
         [HttpGet]
-        public object ObtieneElementos(string token, string lenguaje, int ProyectoID, string NumControl)
+        public object ObtieneElementos(string token, string lenguaje, int ProyectoID, string NumControl, string Muestra)
         {
             string payload = "";
             string newToken = "";
+            int all = Muestra.ToLower() == "todos" ? 1 : 0;
             bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
             if (tokenValido)
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                return OKPNDBD.Instance.ObtenerListadoElementos(lenguaje, ProyectoID, NumControl == null ? "" : NumControl);
+                return OKPNDBD.Instance.ObtenerListadoElementos(lenguaje, ProyectoID, NumControl == null ? "" : NumControl, all);
             }
             else
             {
