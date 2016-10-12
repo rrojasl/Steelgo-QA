@@ -121,7 +121,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardado) {
                             opcionHabilitarView(false, "FieldSetView");
                         }
                         else {
-                            $('input[name="Muestra"][value="Todos"]').prop('checked', true);
+                            AjaxGetListaElementos($("#Proyecto").data("kendoComboBox").value(), $("#InputNumeroControl").val())
                             opcionHabilitarView(true, "FieldSetView");
                         }
 
