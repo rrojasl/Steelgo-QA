@@ -8549,7 +8549,7 @@ _dictionary = {
         "en-US": "OK PND"
     },
     "msgGuardarCambios": {
-        "es-MX": "¿Está seguro guardar los cambios?",
+        "es-MX": "¿Está seguro de guardar los cambios?",
         "en-US": "Are you sure to save the changes?"
     },
     "guardarCambiosOKPND": {
