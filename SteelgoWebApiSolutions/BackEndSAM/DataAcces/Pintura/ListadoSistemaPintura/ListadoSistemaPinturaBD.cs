@@ -112,7 +112,7 @@ namespace BackEndSAM.DataAcces.Pintura.ListadoSistemaPintura
                         list.Add(new DetalleSistemaPintura {
                             Accion = 1,
                             SistemaPinturaID = item.SistemaPinturaID,
-                            SistemaPintura = item.SistemaPintura,
+                            SistemaPintura = item.SistemaPintura.Split('~')[0],
                             ProyectoProcesoShotblastID = item.ProyectoProcesoShotblastID.GetValueOrDefault(),
                             ProyectoProcesoPrimarioID = item.ProyectoProcesoPrimarioID.GetValueOrDefault(),
                             ProyectoProcesoIntermedioID = item.ProyectoProcesoIntermedioID.GetValueOrDefault(),
