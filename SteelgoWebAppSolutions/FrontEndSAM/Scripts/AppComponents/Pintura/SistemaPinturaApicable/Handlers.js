@@ -370,7 +370,7 @@ function csvToJson(data, idField, ti) {
 }
 
 function SuscribirEventoDescargarCsv() {
-    $("#btnDescargaCsv, #btnDescargaCsv").click(function (e) {
+    $("#btnDescargaCsv, #btnDescargaCsv1").click(function (e) {
         window.location.href = "/PlantillaSistemaPinturaAplicable.csv";
     });
 }
