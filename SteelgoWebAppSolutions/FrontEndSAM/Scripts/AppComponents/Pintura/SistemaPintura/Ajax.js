@@ -241,6 +241,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                             $("#inputSistemaPinturaID").val("");
                             $("#divComboProyecto").css("display", "none");
                             $("#divMultiselectProyecto").css("display", "block");
+                            $("#inputNoAplicable").prop("checked", false);
                         }
                         else {
                             $("#grid").data("kendoGrid").dataSource.data([]);
@@ -307,14 +308,17 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                                     $("#grid").data("kendoGrid").dataSource.data([]);
                                     opcionHabilitarView(false, "FieldSetView");
                                     AjaxObtenerColor();
+                                    $("#inputNombre").val("");
+                                    $("#inputSistemaPinturaID").val("");
+                                    $("#divComboProyecto").css("display", "none");
+                                    $("#divMultiselectProyecto").css("display", "block");
+                                    $("#inputNoAplicable").prop("checked", false);
                                 }
                                 else {
                                     $("#grid").data("kendoGrid").dataSource.data([]);
                                     opcionHabilitarView(true, "FieldSetView");
                                     $("#inputSistemaPinturaID").val(data.ReturnMessage[1]);
                                     AjaxObtenerColor();
-                                    $("#inputNombre").val("");
-                                    $("#inputSistemaPinturaID").val("");
                                 }
                                 displayNotify("MensajeGuardadoExistoso", "", "0");
                             }
