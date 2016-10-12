@@ -7630,6 +7630,10 @@ _dictionary = {
         "es-MX": "Seleccionar Archivo",
         "en-US": "Select File"
     },
+    "botonMostrar": {
+        "es-MX": "Mostrar",
+        "en-US": "Show"
+    },
     // Finalizan etiquetas Header y Footer
 
     //Inician mensajes Generales
