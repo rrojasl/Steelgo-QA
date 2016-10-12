@@ -1,4 +1,5 @@
-﻿using BackEndSAM.DataAcces.ServiciosTecnicos.ValidacionRT;
+﻿using BackEndSAM.DataAcces.ServiciosTecnicos.ReporteRT;
+using BackEndSAM.DataAcces.ServiciosTecnicos.ValidacionRT;
 using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
 using SecurityManager.TokenHandler;
@@ -218,6 +219,30 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.ValidacionRT
                 result.ReturnCode = 500;
                 result.ReturnStatus = false;
                 result.IsAuthenicated = true;
+                return result;
+            }
+        }
+
+        public object GetRequisicionesDetalle(string token, int proyectoID, int tipoPruebaID, int proveedorID, int requisicionID, int equipoID, int turnoID, string lenguaje)
+        {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+
+
+                return ValidacionRTDB.Instance.ObtenerRequisicionesDetalle(proyectoID, tipoPruebaID, proveedorID, requisicionID, equipoID, turnoID, lenguaje);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
                 return result;
             }
         }
