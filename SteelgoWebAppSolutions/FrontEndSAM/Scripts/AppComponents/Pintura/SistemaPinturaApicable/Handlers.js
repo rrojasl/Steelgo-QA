@@ -36,8 +36,8 @@ function SuscribirEventoProyecto() {
                     iframe: true,
                     title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
                     visible: false,
-                    width: 450,
-                    height: 70,
+                    width: "30%",
+                    height: "auto",
                     draggable: false,
                     modal: true,
                     animation: {
@@ -143,7 +143,7 @@ function SuscribirEventoPlanchado() {
                     iframe: true,
                     title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
                     visible: false,
-                    width: "auto",
+                    width: "30%",
                     height: "auto",
                     modal: true
                 }).data("kendoWindow");
@@ -180,8 +180,8 @@ function SuscribirEventoTipoBusqueda() {
                 iframe: true,
                 title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
                 visible: false,
-                width: 450,
-                height: 70,
+                width: "30%",
+                height: "auto",
                 draggable: false,
                 modal: true,
                 animation: {
@@ -262,7 +262,8 @@ function SuscribirEventoCargarCsv() {
             iframe: true,
             title: _dictionary.SPATituloCargarCsv[$("#language").data("kendoDropDownList").value()],
             visible: false,
-            width: "40%",
+            width: "30%",
+            height: "auto",
             modal: true,
             animation: {
                 close: false,
@@ -277,6 +278,7 @@ function SuscribirEventoCargarCsv() {
     });
 
     $("#btntFile").on('click', function () {
+        $("#inputFile").val("");
         $("#inputFile").click();
     });
 
@@ -321,6 +323,7 @@ function SuscribirEventoCargarCsv() {
         } else {
             displayNotify("ListadoCatalogos0010", "", '2');
         }
+        windowLoadFile.close();
     });
 
     $("#btnCerrarPopup").click(function (e) {

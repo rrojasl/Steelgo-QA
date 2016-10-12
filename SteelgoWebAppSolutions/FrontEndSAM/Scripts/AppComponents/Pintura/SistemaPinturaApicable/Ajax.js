@@ -128,14 +128,31 @@ function AjaxGuardarCaptura(listaCaptura, GuardarYNuevo) {
         listaDetalles[i].SistemaPinturaID = listaCaptura[i].SistemaPinturaID;
         listaDetalles[i].SistemaPinturaColorID = listaCaptura[i].SistemaPinturaColorID;
 
-        if (listaDetalles[i].Accion!=3) {
-            if (listaDetalles[i].SistemaPinturaID == 0) {
-                listaDetalles[i].Estatus = 0;
-                $('tr[data-uid="' + listaCaptura[i].uid + '"] ').css("background-color", "#ffcccc");
-            }
-            if (listaDetalles[i].SistemaPinturaColorID == 0) {
-                listaDetalles[i].Estatus = 0;
-                $('tr[data-uid="' + listaCaptura[i].uid + '"] ').css("background-color", "#ffcccc");
+        if (listaDetalles[i].Accion === 1 || listaDetalles[i].Accion === 2) {
+            if (listaDetalles[i].Accion === 2) {
+                if (listaDetalles[i].SistemaPinturaID == 0 && listaDetalles[i].SistemaPinturaColorID == 0) {
+                    listaDetalles[i].Accion = 4;
+                } else {
+
+                    if (listaDetalles[i].SistemaPinturaID == 0) {
+                        listaDetalles[i].Estatus = 0;
+                        $('tr[data-uid="' + listaCaptura[i].uid + '"] ').css("background-color", "#ffcccc");
+                    }
+                    if (listaDetalles[i].SistemaPinturaColorID == 0) {
+                        listaDetalles[i].Estatus = 0;
+                        $('tr[data-uid="' + listaCaptura[i].uid + '"] ').css("background-color", "#ffcccc");
+                    }
+                }
+            }else{
+                
+                if (listaDetalles[i].SistemaPinturaID == 0) {
+                    listaDetalles[i].Estatus = 0;
+                    $('tr[data-uid="' + listaCaptura[i].uid + '"] ').css("background-color", "#ffcccc");
+                }
+                if (listaDetalles[i].SistemaPinturaColorID == 0) {
+                    listaDetalles[i].Estatus = 0;
+                    $('tr[data-uid="' + listaCaptura[i].uid + '"] ').css("background-color", "#ffcccc");
+                }
             }
         }
     }
@@ -172,8 +189,8 @@ function AjaxGuardarCaptura(listaCaptura, GuardarYNuevo) {
             iframe: true,
             title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
             visible: false,
-            width: 450,
-            height: 70,
+            width: "30%",
+            height: "auto",
             draggable: false,
             modal: true,
             animation: {
@@ -182,7 +199,7 @@ function AjaxGuardarCaptura(listaCaptura, GuardarYNuevo) {
             }
         }).data("kendoWindow");
 
-        ventanaConfirm.content(_dictionary.EntregaPlacasGraficasMensajePreguntaGuardado[$("#language").data("kendoDropDownList").value()] +
+        ventanaConfirm.content('<center>'+_dictionary.EntregaPlacasGraficasMensajePreguntaGuardado[$("#language").data("kendoDropDownList").value()] + '</center>'+
             "</br><center><button class='btn btn-blue' id='yesButton'>Si</button><button class='btn btn-blue' id='noButton'>No</button></center>");
 
         ventanaConfirm.open().center();
@@ -254,10 +271,12 @@ function AjaxGuardarCaptura(listaCaptura, GuardarYNuevo) {
 }
 
 function AjaxGuardaCargaMasiva(data, tipoCarga) {
-    var Captura = {detalle: data}
+    var Captura = { detalle: data }
+    loadingStart();
     $SistemaPinturaAplicable.SistemaPinturaAplicable.create(Captura, { token: Cookies.get("token"), TipoCarga: tipoCarga, Lenguaje: $("#language").val() }).done(function (data) {
-            windowLoadFile.close();
+            
             download(data, "export.csv", "text/csv");
             displayNotify("SistemaPinturaAplicableMensajeGuardadoExistoso", "", '0');
+            loadingStop();
     });
 }

@@ -72,7 +72,8 @@ function CargarGrid() {
                 logic: "or",
                 filters: [
                   { field: "Accion", operator: "eq", value: 1 },
-                  { field: "Accion", operator: "eq", value: 2 }
+                  { field: "Accion", operator: "eq", value: 2 },
+                  { field: "Accion", operator: "eq", value: 4 }
                 ]
             },
             pageSize: 10,
@@ -99,7 +100,7 @@ function CargarGrid() {
             { field: "Diametro", title: _dictionary.columnDiametro[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "100px", width: "95px", format: "{0:n4}", attributes: { style: "text-align:right;" } },
             { field: "SistemaPintura", title: _dictionary.columnSistemaPintura[$("#language").data("kendoDropDownList").value()], editor: comboBoxSistemaPintura, filterable: getGridFilterableCellMaftec(), width: "120px" },
             { field: "Color", title: _dictionary.columnColor[$("#language").data("kendoDropDownList").value()], editor: comboBoxColor, filterable: getGridFilterableCellMaftec(), width: "110px" },
-            { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: eliminaCaptura }, title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], width: "99px", attributes: { style: "text-align:center;" } }
+            { command: { text: _dictionary.botonLimpiar[$("#language").data("kendoDropDownList").value()], click: eliminaCaptura }, title: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()], width: "99px", attributes: { style: "text-align:center;" } }
 
         ],
         beforeEdit: function (e) {
@@ -125,40 +126,15 @@ function isEditable(fieldName, model) {
 function eliminaCaptura(e) {
     if ($('#Guardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
         e.preventDefault();
-        var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+        var itemToClean = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+        itemToClean.SistemaPinturaColorID = 0;
+        itemToClean.SistemaPinturaID = 0
+        itemToClean.SistemaPintura = "";
+        itemToClean.ColorPinturaID = 0;
+        itemToClean.Color = "";
 
-        ventanaConfirm = $("#ventanaConfirm").kendoWindow({
-            iframe: true,
-            title: _dictionary.PinturaCargaTitulo[$("#language").data("kendoDropDownList").value()],
-            visible: false, 
-            width: "auto",
-            height: "auto",
-            modal: true,
-            animation: {
-                close: false,
-                open: false
-            }
-        }).data("kendoWindow");
-
-        ventanaConfirm.content(_dictionary.SistemaPinturaAplicableMensajeConfirmaEliminar[$("#language").data("kendoDropDownList").value()] +
-                     "</br><center><button class='confirm_yes btn btn-blue' id='yesButton'>Si</button><button class='confirm_yes btn btn-blue' id='noButton'> No</button></center>");
-
-        ventanaConfirm.open().center();
-
-        $("#yesButton").click(function () {
-            var dataSource = $("#grid").data("kendoGrid").dataSource;
-            if(dataItem.Accion === 2){
-                dataItem.Accion = 3;
-            }else {
-                dataSource.remove(dataItem);
-            }
-            
-            ventanaConfirm.close();
-            dataSource.sync();
-        });
-        $("#noButton").click(function () {
-            ventanaConfirm.close();
-        });
+        var dataSource = $("#grid").data("kendoGrid").dataSource;
+        dataSource.sync();
     }
 }
 
@@ -170,7 +146,7 @@ function plancharTodo(tipoLlenado) {
     if (itemSistemaPintura != undefined && itemSistemaPintura.SistemaPinturaID!= 0) {
         PlanchadoSistemaPintura(tipoLlenado);
     }
-    if (itemColor != undefined && itemColor.ColorID != 0) {
+    if (itemColor != undefined && itemColor.ColorPinturaID != 0) {
         PlanchadoColor(tipoLlenado);
     }
 }
@@ -188,12 +164,14 @@ function PlanchadoSistemaPintura(tipoLlenado) {
             data[i].SistemaPintura = $("#inputSistemaPintura").data("kendoComboBox").text();
             data[i].SistemaPinturaID = $("#inputSistemaPintura").data("kendoComboBox").value();
             data[i].EstatusCaptura = 1;
+            data[i].ListaColorPintura = $("#inputColorPintura").data("kendoComboBox").dataSource._data;
         }
         else if (tipoLlenado === "Vacios") {
             if (data[i].SistemaPintura === "" || data[i].SistemaPintura === null || data[i].SistemaPintura === undefined) {
                 data[i].SistemaPintura = $("#inputSistemaPintura").data("kendoComboBox").text();
                 data[i].SistemaPinturaID = $("#inputSistemaPintura").data("kendoComboBox").value();
                 data[i].EstatusCaptura = 1;
+                data[i].ListaColorPintura = $("#inputColorPintura").data("kendoComboBox").dataSource._data;
             }           
         }
     }
