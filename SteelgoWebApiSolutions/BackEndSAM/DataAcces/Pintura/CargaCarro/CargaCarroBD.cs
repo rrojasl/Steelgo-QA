@@ -167,7 +167,7 @@ namespace BackEndSAM.DataAcces.Pintura.CargaCarro
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Pintura_Get_SpoolCarroBackLog_Result> result = ctx.Sam3_Pintura_Get_SpoolCarroBackLog(medioTransporteCargaID, medioTransporteID, proyectoID, todos).ToList();
+                    List<Sam3_Pintura_Get_SpoolCarroBackLog_Result> result = ctx.Sam3_Pintura_Get_SpoolCarroBackLog(medioTransporteCargaID, medioTransporteID, proyectoID, lenguaje).ToList();
                     List<CargaCarroBackLog> lista = new List<CargaCarroBackLog>();
                     foreach (Sam3_Pintura_Get_SpoolCarroBackLog_Result item in result)
                     {

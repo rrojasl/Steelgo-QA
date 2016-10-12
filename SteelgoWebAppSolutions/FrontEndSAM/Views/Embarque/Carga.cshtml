@@ -1,5 +1,5 @@
 ﻿@{
-
+    ViewBag.Title = "Carga";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @section breadcrumb {
@@ -55,36 +55,36 @@
     </div>
     @*Controles Superior*@
     <div class="row">
-        <div class="col-sm-2 col-md-2 col-lg-2 altoControl" id="divProveedor">
+        <div class="col-xs-12 col-sm-4 col-md-2 col-lg-2 altoControl" id="divProveedor">
             <label id="EmbarqueCargaProveedor">Proyecto</label>
             <input id="inputProyecto" />
         </div>
-        <div class="col-sm-2 col-md-2 col-lg-2 altoControl" id="divProveedor">
+        <div class="col-xs-12 col-sm-4 col-md-2 col-lg-2 altoControl" id="divProveedor">
             <label id="EmbarqueCargaProveedor">Proveedor</label>
             <input id="inputProveedor" />
         </div>
-        <div class="col-sm-2 col-md-2 col-lg-2 altoControl" id="divPlana">
+        <div class="col-xs-12 col-sm-4 col-md-2 col-lg-2 altoControl" id="divPlana">
             <label id="EmbarqueCargaPLaca">Plana</label>
             <input id="inputEmbarqueCargaPLacaPlana" />
         </div>
-        <div class="col-sm-2 col-md-2 col-lg-2 altoControl">
+        <div class="col-xs-12 col-sm-4 col-md-2 col-lg-2 altoControl">
             <label>Estatus</label>
             <label id="lblEstatus"></label>
         </div>
-        <div class="col-sm-2 col-md-2 col-lg-2 altoControl">
+        <div class="col-xs-12 col-sm-4 col-md-2 col-lg-2 altoControl">
             <label id="EmbarqueCargaTotalPiezas">Total piezas</label>
             <label id="lblEmbarqueCargaTotalPiezas"></label>
         </div>
-        <div class="col-sm-2 col-md-2 col-lg-2 altoControl">
+        <div class="col-xs-12 col-sm-4 col-md-2 col-lg-2 altoControl">
             <label id="EmbarqueCargaToneladasCargadas">Toneladas cargadas</label>
             <label id="lblEmbarqueCargaToneladasCargadas"></label>
             <label id="LabelProyecto" style="display:none;">Proyecto</label>
         </div>
 
-        <div class="col-sm-12 col-md-12 col-lg-12 altoControl">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 altoControl">
             <hr />
         </div>
-        <div class="col-sm-2 col-md-2 col-lg-3">
+        <div class="col-xs-12 col-sm-2 col-md-2 col-lg-3">
             <div class="btn-group " role="group">
                 <label id="EmbarqueCargaSelecciona">Tipo carga</label>
                 <label id="styleReporte">
@@ -98,19 +98,19 @@
                 </label>
             </div>
         </div>
-        <div class="col-sm-3 col-md-3 col-lg-3" id="divSpool">
+        <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3" id="divSpool">
             <label id="lblSpoolID"></label>
             <input style="width:40%" id="InputOrdenTrabajo" class="item-select general-input" />-<input id="InputID" placeholder="ID" style="width:40%;" />
         </div>
-        <div class="col-sm-3 col-md-3 col-lg-3" id="divPaquete" style="display:none;">
+        <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3" id="divPaquete" style="display:none;">
             <label id="EmbarqueCargaPaquete">Paquete</label>
             <input id="inputPaquete" />
         </div>
-        <div class="col-sm-3 col-md-3 col-lg-2" id="divCodigo" style="display:none;">
+        <div class="col-xs-4 col-sm-3 col-md-3 col-lg-2" id="divCodigo" style="display:none;">
             <label id="EmbarqueCargaCodigo">Código</label>
             <input id="inputCodigo" class="item-select general-input"/>
         </div>
-        <div class="col-sm-3 col-md-3 col-lg-1">
+        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-1">
             <label id="">&nbsp;</label>
             <button type="button" id="btnAgregar" class="btn btn-blue"><span id="EmbarqueCargaAgregar">Agregar</span></button>
 

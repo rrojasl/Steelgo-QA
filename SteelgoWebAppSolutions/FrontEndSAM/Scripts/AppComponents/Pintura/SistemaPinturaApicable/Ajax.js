@@ -142,7 +142,7 @@ function AjaxGuardarCaptura(listaCaptura, GuardarYNuevo) {
     if (!ExistRowEmpty(listaDetalles)) {
         Captura.detalle = listaDetalles;
         $SistemaPinturaAplicable.SistemaPinturaAplicable.create(Captura,{ token: Cookies.get("token")}).done(function (data) {
-            if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
+            if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "OK") {
 
                 if (GuardarYNuevo) {
                     LimpiarPantalla();

@@ -11,7 +11,7 @@
     });
 }
 
-function AjaxEliminaSistemaPintura(sistemaPinturaID, proyectoProcesoShotblastID, proyectoProcesoPrimarioID, proyectoProcesoIntermedioID, proyectoProcesoAcabadoID) {
+function AjaxEliminaSistemaPintura(sistemaPinturaID) {
     $ListadoSistemaPintura.ListadoSistemaPintura.read({ token: Cookies.get("token"), SistemaPinturaID: sistemaPinturaID }).done(function (data) {
         if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
          

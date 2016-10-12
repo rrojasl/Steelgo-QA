@@ -304,11 +304,11 @@ function SuscribirEventoCargarCsv() {
             reader.readAsText(dt[0].files[0]);
             reader.onload = function (event) {
                 var csvData = event.target.result;
-                csvToJson(csvData, "Nombre").forEach(function (c) {
-                    //validaVacios(c);
-                    data.push(c);
-                });
-                if (data.length) {
+                var csvJsonData = csvToJson(csvData, "NombreSpool");
+                if (csvJsonData.length > 0) {
+                    csvJsonData.forEach(function (c) {
+                        data.push(c);
+                    });
                     AjaxGuardaCargaMasiva(data, tipoCarga);
                 } else {
                     displayNotify("SPAExcepcionArchivo", "", '2');
@@ -329,12 +329,9 @@ function SuscribirEventoCargarCsv() {
     });
 }
 
-function csvToJson(data, idField) {
-    data = data.split("\n");
+function csvToJson(data, idField, ti) {
+    data = data.split("\r\n");
     data.shift();
-    data.pop();
-    data = data.join("\n");
-    data = data.split("\r").join("");
 
     var encabezados= [];
     encabezados[0] = "NombreSpool";
@@ -344,7 +341,7 @@ function csvToJson(data, idField) {
 
     var csv = [];
     try {
-        data.split("\n").forEach(function (d, i) {
+        data.forEach(function (d, i) {
             if (d.substring(0, d.length).split(",").length === encabezados.length) {
                 var tmp = {};
                 tmp[idField] = null;
@@ -353,15 +350,21 @@ function csvToJson(data, idField) {
                 });
                 csv.push(tmp);
             } else {
-                throw -1;
+                if (d.substring(0, d.length).split(",").length != 1) {
+                    throw -1;
+                    csv = [];
+                }
+                    
+                    
             }
         })
     } catch (e) {
         if (e !== -1) {
             throw e;
         } else {
-            displayMessage("ListadoCatalogos0012", "", '2');
+            displayNotify("ListadoCatalogos0012", "", '2');
         }
+        csv = [];
     }
     return csv;
 }

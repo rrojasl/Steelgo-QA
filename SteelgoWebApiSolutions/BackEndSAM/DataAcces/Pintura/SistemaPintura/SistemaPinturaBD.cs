@@ -49,7 +49,7 @@ namespace BackEndSAM.DataAcces.Pintura.SistemaPintura
                     {
                         listaColor.Add(new SistemaPinturaNuevo
                         {
-                            Accion = item.SistemaPinturaID == 0 ?  1 : 2,
+                            Accion = 1,
                             Agregar = item.SistemaPinturaProyectoProcesoID == 0 ? false : true,
                             Proceso = item.NombreProceso,
                             ProcesoPinturaID = item.ProcesoPinturaID,
@@ -65,7 +65,7 @@ namespace BackEndSAM.DataAcces.Pintura.SistemaPintura
                         });
                     }
 
-                    return listaColor;
+                    return listaColor.OrderBy(x=> x.ProcesoPinturaID).ToList<SistemaPinturaNuevo>();
                 }
             }
             catch (Exception ex)
@@ -164,7 +164,7 @@ namespace BackEndSAM.DataAcces.Pintura.SistemaPintura
                     {
                         listaDetallePruebasProceso.Add(new DetallePruebas
                         {
-                            Accion = 2,
+                            Accion = 1,
                             ProyectoProcesoPruebaID = item.ProyectoProcesoPruebaID,
                             SistemaPinturaProyectoProcesoID = item.SistemaPinturaProyectoProcesoID,
                             UnidadMaxima = item.UnidadMaxima,
@@ -205,7 +205,7 @@ namespace BackEndSAM.DataAcces.Pintura.SistemaPintura
                     {
                         DetalleSistemaPintura.Add(new SistemaPinturaEdicion
                         {
-                            Nombre = item.Nombre,
+                            Nombre = item.Nombre.Split('~')[0],
                             SistemaPinturaID = item.SistemaPinturaID,
                             NoPintable = item.NoPintable.GetValueOrDefault(),
                             listadoColor = (List<Color>)ObtenerColoresSistemaPintura(lenguaje, sistemaPinturaID),
@@ -327,6 +327,37 @@ namespace BackEndSAM.DataAcces.Pintura.SistemaPintura
             }
         }
 
+        public object CrearNuevoSistemaPintura(DataTable dtDetalleSPNuevo, DataTable dtDetalleSPColor, DataTable dtDetalleSPProyecto, DataTable dtDetalleProyectoProceso, DataTable dtPruebasProceso,string lenguaje,int UsuarioID  )
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    ObjetosSQL _SQL = new ObjetosSQL();
+                    string[,] parametro = { { "@UsuarioID", UsuarioID.ToString() }, { "@Lenguaje", lenguaje } };
 
+                    int valorSPID= _SQL.Ejecuta(Stords.GUARDARCAPTURASISTEMAPINTURA, dtDetalleSPNuevo, "@TTSPNuevo", dtDetalleSPProyecto, "@TTSProyecto", dtDetalleSPColor, "@TTSPColor", dtDetalleProyectoProceso, "@TTSPProyectoProceso", dtPruebasProceso, "@TTSProyectoProcesoPrueba", parametro);
+
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add("Ok");
+                    result.ReturnMessage.Add(valorSPID.ToString());
+                    result.ReturnCode = 200;
+                    result.ReturnStatus = true;
+                    result.IsAuthenicated = true;
+
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
     }
 }

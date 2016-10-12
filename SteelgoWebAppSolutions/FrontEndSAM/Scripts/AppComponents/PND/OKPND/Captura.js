@@ -25,7 +25,7 @@ function CargarGrid() {
         autoBind: true,
         autoSync: true,
         edit: function (e) {
-            if ($('#botonGuardar').text() != _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()])
+            if ($('#BotonGuardar').text() != _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()])
                 this.closeCell();
         },
         dataSource: {
@@ -84,9 +84,9 @@ function CargarGrid() {
         ],
         dataBound: function (a) {
             $(".ob-paid").bind("change", function (e) {
-                if ($('#botonGuardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
-                    var grid = $("#grid").data("kendoGrid"),
-                        dataItem = grid.dataItem($(e.target).closest("tr"));
+                if ($('#BotonGuardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
+                    var grid = $("#grid").data("kendoGrid");
+                    dataItem = grid.dataItem($(e.target).closest("tr"));
                     if (e.target.checked == true)
                         dataItem.OkPND = true;
                     else
@@ -112,7 +112,7 @@ function CargarGrid() {
         autoBind: true,
         autoSync: true,
         edit: function (e) {
-            if ($('#botonGuardar').text() != _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()])
+            if ($('#BotonGuardar').text() != _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()])
                 this.closeCell();
         },
         dataSource: {
@@ -231,7 +231,7 @@ function CargarGridPopUp() {
             { field: "Cedula", title: _dictionary.columnCedula[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "105px" },
             { field: "Diametro", title: _dictionary.columnDiametro[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "94px", attributes: { style: "text-align:right;" } },
             { field: "Espesor", title: _dictionary.columnEspesor[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "112px", attributes: { style: "text-align:right;" } },
-            { field: "Nombre", title: _dictionary.columnRequisicion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "135px" }
+            { field: "Nombre", title: _dictionary.columnClasificacion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "135px" }
         ],
         editable: false,
         navigatable: true

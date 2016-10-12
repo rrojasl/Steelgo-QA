@@ -87,16 +87,16 @@ function CargarGrid() {
             { field: "Proyecto", title: _dictionary.columnProyecto[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "135px" },
             { field: "Color", title: _dictionary.columnColor[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "160px" },
             { field: "PruebaShotblast", title: _dictionary.columnPrueba[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "120px", template: "<div class='DetalleShotblast' style='text-align:center;'><a href='\\#'  > <span >#=PruebaShotblast#</span></a></div> " },
-            { field: "PruebaPorLoteShotblast", title: _dictionary.columnPruebasPorLote[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), format: "{0:n2}", width: "130px", attributes: { style: "text-align:right;" } },
+            { field: "PruebaPorLoteShotblast", title: _dictionary.columnPruebasPorLote[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "130px", attributes: { style: "text-align:right;" } },
             { field: "MetrosPorLoteShotblast", title: _dictionary.columnMetrosPorLote[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), format: "{0:n2}", width: "120px", attributes: { style: "text-align:right;" } },
             { field: "PruebaPrimario", title: _dictionary.columnPrueba1[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "120px", template: "<div class='DetallePrimario' style='text-align:center;'><a href='\\#'  > <span>#=PruebaPrimario#</span></a></div> " },
-            { field: "PruebaPorLotePrimario", title: _dictionary.columnPruebasPorLote1[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), format: "{0:n2}", width: "130px", attributes: { style: "text-align:right;" } },
+            { field: "PruebaPorLotePrimario", title: _dictionary.columnPruebasPorLote1[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "130px", attributes: { style: "text-align:right;" } },
             { field: "MetrosPorLotePrimario", title: _dictionary.columnMetrosPorLote1[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), format: "{0:n2}", width: "120px", attributes: { style: "text-align:right;" } },
             { field: "PruebaIntermedio", title: _dictionary.columnPrueba2[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "120px", template: "<div class='DetalleItermedio' style='text-align:center;'><a href='\\#'  > <span>#=PruebaIntermedio#</span></a></div> " },
-            { field: "PruebaPorLoteIntermedio", title: _dictionary.columnPruebasPorLote2[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), format: "{0:n2}", width: "130px", attributes: { style: "text-align:right;" } },
+            { field: "PruebaPorLoteIntermedio", title: _dictionary.columnPruebasPorLote2[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "130px", attributes: { style: "text-align:right;" } },
             { field: "MetrosPorLoteIntermedio", title: _dictionary.columnMetrosPorLote2[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), format: "{0:n2}", width: "120px", attributes: { style: "text-align:right;" } },
             { field: "PruebaAcabado", title: _dictionary.columnPrueba3[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "120px", template: "<div class='DetalleAcabado' style='text-align:center;'><a href='\\#'  > <span>#=PruebaAcabado#</span></a></div> " },
-            { field: "PruebaPorLoteAcabado", title: _dictionary.columnPruebasPorLote3[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), format: "{0:n2}", width: "130px", attributes: { style: "text-align:right;" } },
+            { field: "PruebaPorLoteAcabado", title: _dictionary.columnPruebasPorLote3[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "130px", attributes: { style: "text-align:right;" } },
             { field: "MetrosPorLoteAcabado", title: _dictionary.columnMetrosPorLote3[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), format: "{0:n2}", width: "120px", attributes: { style: "text-align:right;" } },
             { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: eliminarCaptura }, title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], width: "50px" },
             //{ command: { text: _dictionary.botonEditar1[$("#language").data("kendoDropDownList").value()], click: editaSistemaPintura }, title: _dictionary.columnEditar[$("#language").data("kendoDropDownList").value()], width: "50px", attributes: { style: "text-align:center;" } }
@@ -133,8 +133,7 @@ function eliminarCaptura(e) {
             ventanaConfirm.open().center();
 
             $("#yesButton").click(function () {                
-                AjaxEliminaSistemaPintura(dataItem.SistemaPinturaID, dataItem.ProyectoProcesoShotblastID, dataItem.ProyectoProcesoPrimarioID,
-                    dataItem.ProyectoProcesoIntermedioID, dataItem.ProyectoProcesoAcabadoID);
+                AjaxEliminaSistemaPintura(dataItem.SistemaPinturaID);
                 ventanaConfirm.close();
             });
             $("#noButton").click(function () {
@@ -146,7 +145,7 @@ function editaSistemaPintura(dataItem) {
     
     if ($('#Guardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {        
         var SistemaPinturaID = dataItem.SistemaPinturaID;
-        var url = '/Pintura/SistemaPintura/?sistemaPinturaID=' + SistemaPinturaID
+        var url = '/Pintura/SistemaPintura?SistemaPinturaID=' + SistemaPinturaID
         window.location.href = url;
     }
 }

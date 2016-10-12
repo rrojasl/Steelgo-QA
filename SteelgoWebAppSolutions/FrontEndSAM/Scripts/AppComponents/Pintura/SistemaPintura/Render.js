@@ -65,6 +65,77 @@ function comboBoxUnidadMedida(container, options) {
 }
 
 
+function RenderUnidadMinima(container, options) {
+    if ($('#Guardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
+
+        var dataItem;
+        $('<input data-text-field="UnidadMinima" id=' + options.model.uid + ' data-value-field="UnidadMinima" data-bind="value:' + options.field + '"/>')
+        .appendTo(container)
+        .kendoNumericTextBox({
+            format: "#",
+            min: 0,
+            change: function (e) {
+                //hayDatosCapturados = true;
+            }
+        });
+    };
+}
+
+function RenderUnidadMaxima(container, options) {
+    if ($('#Guardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
+
+        var dataItem;
+        $('<input data-text-field="UnidadMaxima" id=' + options.model.uid + ' data-value-field="UnidadMaxima" data-bind="value:' + options.field + '"/>')
+        .appendTo(container)
+        .kendoNumericTextBox({
+            format: "#",
+            min: 0,
+            change: function (e) {
+                //hayDatosCapturados = true;
+            }
+        });
+    };
+}
+
+
+
+function RenderMetrosLote(container, options) {
+    if ($('#Guardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
+
+        var dataItem;
+        $('<input data-text-field="MetrosLote" id=' + options.model.uid + ' data-value-field="MetrosLote" data-bind="value:' + options.field + '"/>')
+        .appendTo(container)
+        .kendoNumericTextBox({
+            format: "#",
+            min: 0,
+            change: function (e) {
+                //hayDatosCapturados = true;
+            }
+        });
+    };
+}
+
+function RenderNumeroPruebas(container, options) {
+    if ($('#Guardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
+
+        var dataItem;
+        $('<input data-text-field="NumeroPruebas" id=' + options.model.uid + ' data-value-field="NumeroPruebas" data-bind="value:' + options.field + '"/>')
+        .appendTo(container)
+        .kendoNumericTextBox({
+            format: "#",
+            min: 0,
+            change: function (e) {
+                //hayDatosCapturados = true;
+            }
+        });
+    };
+}
+
+
+
+
+
+
 function tieneClase(item) {
     for (var i = 0; i < item.classList.length; i++) {
         if (item.classList[i] == "k-state-border-up" || item.classList[i] == "k-state-border-down") {
