@@ -27,10 +27,12 @@ function AjaxObtenerColor() {
             if ($("#inputSistemaPinturaID").val() != "") {//muestro combobox
                 $("#divComboProyecto").css("display", "block");
                 $("#divMultiselectProyecto").css("display", "none");
+                $('.eliminarSistema').css("display", "block");
                 AjaxCargarEdicionSistemaPintura();
             }
             else {
                 AjaxObtenerProyectos();
+                $('.eliminarSistema').css("display", "none");
             }
 
 
