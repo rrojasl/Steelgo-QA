@@ -118,7 +118,7 @@ function eliminarCaptura(e) {
                 iframe: true,
                 title: _dictionary.PinturaCargaTitulo[$("#language").data("kendoDropDownList").value()],
                 visible: false, //the window will not appear before its .open method is called
-                width: "30%",
+                width: "23%",
                 height: "auto",
                 draggable: false,
                 modal: true,
@@ -128,8 +128,8 @@ function eliminarCaptura(e) {
                 }
             }).data("kendoWindow");
 
-            ventanaConfirm.content(_dictionary.SistemaPinturaMensajeConfirmaEliminar[$("#language").data("kendoDropDownList").value()] +
-                         "</br><center><button class='confirm_yes btn btn-blue' id='yesButton'>Si</button><button class='confirm_yes btn btn-blue' id='noButton'> No</button></center>");
+            ventanaConfirm.content('<center>' + _dictionary.SistemaPinturaMensajeConfirmaEliminar[$("#language").data("kendoDropDownList").value()] + '</center>' +
+                         "</br><center><button class='confirm_yes btn btn-blue' id='yesButton'>Si</button>  <button class='confirm_yes btn btn-blue' id='noButton'> No</button></center>");
 
             ventanaConfirm.open().center();
 
