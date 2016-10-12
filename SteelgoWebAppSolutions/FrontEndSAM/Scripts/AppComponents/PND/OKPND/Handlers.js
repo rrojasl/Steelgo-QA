@@ -157,7 +157,7 @@ function opcionHabilitarView(valor, name) {
 }
 
 function suscribirEventoDescarGaCSV() {
-    $("#btnDescargaCsv, #btnDescargaCsv").click(function (e) {
+    $("#btnDescargaCsv, #btnDescargaCsv1").click(function (e) {
         window.location.href = "/TemplateOKPND.csv";
     });
 }

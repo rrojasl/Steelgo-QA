@@ -1,4 +1,5 @@
-﻿using BackEndSAM.Models.ServiciosTecnicos.ValidacionRT;
+﻿using BackEndSAM.Models.ServiciosTecnicos.ReporteRT;
+using BackEndSAM.Models.ServiciosTecnicos.ValidacionRT;
 using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
 using System;
@@ -339,5 +340,302 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ValidacionRT
                 return "";
             }
         }
+
+        public object ObtenerRequisicionesDetalle(int proyectoID, int tipoPruebaID, int proveedorID, int requisicionID, int equipoID, int turnoID, string lenguaje)
+        {
+            try
+            {
+
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Sam3_ST_VR_Get_Requisiciones_Detalle_Result> result = ctx.Sam3_ST_VR_Get_Requisiciones_Detalle(proyectoID, tipoPruebaID, proveedorID, requisicionID, equipoID, turnoID, lenguaje).ToList();
+
+                    int? numPlacas = 0;
+
+                    List<Resultados> listaResultados = ObtenerReportesRTResultados(lenguaje);
+
+                    List<ResultadoConciliacion> listaResultadoConciliacion = ObtenerResultadoConciliacion(lenguaje);
+                    List<RazonNoConciliacion> listaRazonNoConciliacion = ObtenerRazonNoConciliacion(lenguaje, tipoPruebaID);
+
+                    List<DetalleCapturaRT> listaDetalleJunta = new List<DetalleCapturaRT>();
+                    DetalleCapturaRT detalle = null;
+                    foreach (Sam3_ST_VR_Get_Requisiciones_Detalle_Result item in result)
+                    {
+                        numPlacas = 0;
+
+                        List<Defectos> listaDefectos = ObtenerCatalogoDefectos(item.JuntaSpoolID == null ? 0 : 1, lenguaje);//por junta
+
+                        List<DetallePorPlacas> listaDetallePorPlacas = ObtenerDetallePorPlacas(item.OrdenTrabajoID, item.SpoolID.GetValueOrDefault(), item.JuntaSpoolID.GetValueOrDefault(), out numPlacas, lenguaje, listaResultados, listaDefectos);
+
+                        numPlacas = (numPlacas == 0 ? null : numPlacas);
+
+
+
+                        detalle = new DetalleCapturaRT
+                        {
+                            OrdenTrabajoID = item.OrdenTrabajoID,
+                            NumeroControl = item.NumeroControl,
+                            SpoolID = item.SpoolID.GetValueOrDefault(),
+                            JuntaSpoolID = item.JuntaSpoolID.GetValueOrDefault(),
+                            Junta = int.Parse(item.Etiqueta.ToString()),
+                            ClasificacionPND = item.ClasificacionPND,
+                            TipoPrueba = item.TipoPrueba,
+                            Observaciones = item.Observaciones,
+                            CodigoAsme = item.CodigoAsme,
+                            NumeroPlacas = numPlacas,
+                            Tamano = item.Tamano,
+                            Densidad = item.Densidad,
+                            ResultadoConciliacionID = item.ResultadoConciliacionID,
+                            ResultadoConciliacion = item.ResultadoConciliacion,
+                            ListaResultadoConciliacion = listaResultadoConciliacion,
+                            RazonNoConciliacionID = item.RazonNoConciliacionID,
+                            RazonNoConciliacion = item.RazonNoConciliacion,
+                            ListaRazonNoConciliacion = listaRazonNoConciliacion,
+                            ListaDetallePorPlacas = listaDetallePorPlacas,
+                            Accion = item.ReporteRTID == null ? 1 : 2,//falta negocio.
+                            ListaResultados = listaResultados,
+                            ListaDefectos = listaDefectos,
+                            TemplateDetalleElemento = lenguaje == "es-MX" ? "Ver detalle" : " View detail ",
+                            EstatusRequisicion = item.Estatus,
+                            RequisicionID = item.RequisicionID,
+                            Comentarios = item.Comentarios
+                        };
+                        listaDetalleJunta.Add(detalle);
+
+                    }
+                    return listaDetalleJunta;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public List<Resultados> ObtenerReportesRTResultados(string lenguaje)
+        {
+            List<Resultados> listaResultados = new List<Resultados>();
+
+            try
+            {
+
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Sam3_ReportesRT_ST_CRRT_Get_Resultado_Result> result = ctx.Sam3_ReportesRT_ST_CRRT_Get_Resultado(lenguaje).ToList();
+
+                    Resultados resultado = null;
+                    listaResultados.Add(new Resultados());
+                    foreach (Sam3_ReportesRT_ST_CRRT_Get_Resultado_Result item in result)
+                    {
+                        resultado = new Resultados
+                        {
+                            ResultadosID = item.ResultadosID,
+                            Resultado = item.Resultado
+                        };
+
+                        listaResultados.Add(resultado);
+                    }
+                    return listaResultados;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return listaResultados;
+            }
+        }
+
+
+        public List<DetallePorPlacas> ObtenerDetallePorPlacas(int ordenTrabajoID, int spoolID, int juntaSpoolID, out int? numeroPlacas, string lenguaje, List<Resultados> listaResultados, List<Defectos> listaDefectos)
+        {
+            List<DetallePorPlacas> listaDetalleResultado = new List<DetallePorPlacas>();
+            try
+            {
+
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Sam3_ReportesRT_Get_Resultados_Result> result = ctx.Sam3_ReportesRT_Get_Resultados(ordenTrabajoID, spoolID, juntaSpoolID, lenguaje).ToList();
+
+                    numeroPlacas = result.Count;
+
+                    DetallePorPlacas detalleResultado = null;
+
+                    foreach (Sam3_ReportesRT_Get_Resultados_Result item in result)
+                    {
+                        List<DetalleResultadosDefectos> listadoDetalleResultadoDefectos = ObtenerReportesRTResultadosDetalle(item.ResultadosID, item.OrdenTrabajoID, item.SpoolID, item.JuntaSpoolID.GetValueOrDefault(), listaDefectos, lenguaje);
+
+                        detalleResultado = new DetallePorPlacas
+                        {
+                            OrdenTrabajoID = item.OrdenTrabajoID,
+                            SpoolID = item.SpoolID,
+                            JuntaSpoolID = item.JuntaSpoolID.GetValueOrDefault(),
+                            Ubicacion = item.Ubicacion,
+                            ResultadoID = int.Parse(item.ResultadosID.ToString()),
+                            Resultado = item.Resultado,
+                            ListaDetalleDefectos = listadoDetalleResultadoDefectos,
+                            TemplateDetallePorPlaca = (lenguaje == "es-MX" ? "Tienes " : "You have ") + listadoDetalleResultadoDefectos.Count + (lenguaje == "es-MX" ? " Defecto (s)" : " Defects"),
+                            Accion = 2,
+                            ListaResultados = listaResultados,
+                            ListaDefectos = listaDefectos
+                        };
+                        listaDetalleResultado.Add(detalleResultado);
+                    }
+                    return listaDetalleResultado;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                numeroPlacas = 0;
+                return listaDetalleResultado;
+            }
+        }
+
+        public List<DetalleResultadosDefectos> ObtenerReportesRTResultadosDetalle(int resultadosDefectoID, int ordenTrabajoID, int spoolID, int juntaSpoolID, List<Defectos> listaDefectos, string lenguaje)
+        {
+            List<DetalleResultadosDefectos> listaDetalleDefectos = new List<DetalleResultadosDefectos>();
+            try
+            {
+
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Sam3_ReportesRT_Get_Resultados_Detalle_Result> result = ctx.Sam3_ReportesRT_Get_Resultados_Detalle(ordenTrabajoID, spoolID, juntaSpoolID, lenguaje).ToList();
+                    DetalleResultadosDefectos detalleDefecto = null;
+
+                    int posicion = 0;
+                    foreach (Sam3_ReportesRT_Get_Resultados_Detalle_Result item in result)
+                    {
+                        posicion++;
+                        detalleDefecto = new DetalleResultadosDefectos
+                        {
+                            OrdenTrabajoID = item.OrdenTrabajoID,
+                            SpoolID = item.SpoolID,
+                            JuntaSpoolID = item.JuntaSpoolID.GetValueOrDefault(),
+                            DefectoID = item.DefectoID,
+                            Defecto = item.Defecto,
+                            InicioMM = item.InicioMM,
+                            FinMM = item.FinMM,
+                            Accion = 2,
+                            Posicion = posicion,//item.Posicion.GetValueOrDefault(),
+                        };
+                        listaDetalleDefectos.Add(detalleDefecto);
+                    }
+
+                    return listaDetalleDefectos;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return listaDetalleDefectos;
+            }
+        }
+
+        public List<Defectos> ObtenerCatalogoDefectos(int catalogo, string lenguaje)
+        {
+            List<Defectos> listaDefectos = new List<Defectos>();
+            try
+            {
+
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Sam3_ReportesRT_ST_CRRT_Get_CatalogoDefectos_Result> result = ctx.Sam3_ReportesRT_ST_CRRT_Get_CatalogoDefectos(catalogo, lenguaje).ToList();
+
+                    Defectos defecto = null;
+                    listaDefectos.Add(new Defectos());
+                    foreach (Sam3_ReportesRT_ST_CRRT_Get_CatalogoDefectos_Result item in result)
+                    {
+                        defecto = new Defectos
+                        {
+                            DefectoID = item.DefectoID,
+                            Defecto = item.Defecto
+                        };
+
+                        listaDefectos.Add(defecto);
+                    }
+                    return listaDefectos;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return listaDefectos;
+            }
+        }
+
+        public List<ResultadoConciliacion> ObtenerResultadoConciliacion(string lenguaje)
+        {
+            List<ResultadoConciliacion> listaResultados = new List<ResultadoConciliacion>();
+
+            try
+            {
+
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Sam3_ST_VR_Get_ListadoResultadoConciliaciones_Result> result = ctx.Sam3_ST_VR_Get_ListadoResultadoConciliaciones(lenguaje).ToList();
+
+                    ResultadoConciliacion resultado = null;
+                    listaResultados.Add(new ResultadoConciliacion());
+                    foreach (Sam3_ST_VR_Get_ListadoResultadoConciliaciones_Result item in result)
+                    {
+                        resultado = new ResultadoConciliacion
+                        {
+                            ResultadoConciliacionID = item.ResultadoConciliacionID,
+                            Descripcion = item.Resultado
+                        };
+
+                        listaResultados.Add(resultado);
+                    }
+                    return listaResultados;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return listaResultados;
+            }
+        }
+
+        public List<RazonNoConciliacion> ObtenerRazonNoConciliacion(string lenguaje, int tipoPruebaID)
+        {
+            List<RazonNoConciliacion> listaResultados = new List<RazonNoConciliacion>();
+
+            try
+            {
+
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Sam3_ST_VR_Get_ListadoRazonesNoConciliacion_Result> result = ctx.Sam3_ST_VR_Get_ListadoRazonesNoConciliacion(lenguaje, tipoPruebaID).ToList();
+
+                    RazonNoConciliacion resultado = null;
+                    listaResultados.Add(new RazonNoConciliacion());
+                    foreach (Sam3_ST_VR_Get_ListadoRazonesNoConciliacion_Result item in result)
+                    {
+                        resultado = new RazonNoConciliacion
+                        {
+                            RazonNoConciliacionID = item.RazonNoConciliacionID,
+                            Descripcion = item.Descripcion
+                        };
+
+                        listaResultados.Add(resultado);
+                    }
+                    return listaResultados;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return listaResultados;
+            }
+        }
+
+
     }
 }
