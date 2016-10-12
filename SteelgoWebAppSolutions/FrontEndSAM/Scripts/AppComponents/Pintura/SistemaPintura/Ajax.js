@@ -28,7 +28,9 @@ function AjaxObtenerColor() {
                 $("#divComboProyecto").css("display", "block");
                 $("#divMultiselectProyecto").css("display", "none");
                 $('.eliminarSistema').css("display", "block");
+                $("#inputNombre").attr('disabled', true);
                 AjaxCargarEdicionSistemaPintura();
+
             }
             else {
                 AjaxObtenerProyectos();
@@ -244,11 +246,13 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                             $("#divComboProyecto").css("display", "none");
                             $("#divMultiselectProyecto").css("display", "block");
                             $("#inputNoAplicable").prop("checked", false);
+                            $("#inputNombre").attr('disabled', false);
                         }
                         else {
                             $("#grid").data("kendoGrid").dataSource.data([]);
                             opcionHabilitarView(true, "FieldSetView");
                             $("#inputSistemaPinturaID").val(data.ReturnMessage[1]);
+                            $("#inputNombre").attr('disabled', true);
                             AjaxObtenerColor();
                             
                         }

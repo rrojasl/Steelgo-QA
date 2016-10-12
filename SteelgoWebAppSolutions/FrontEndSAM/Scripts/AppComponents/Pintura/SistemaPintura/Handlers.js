@@ -119,8 +119,8 @@ function GuardarDetallePruebas() {
                 displayNotify("", "Todos los campos son mandatorios, revisar captura", 1);
                 return;
             }
-            else if (parseInt(ds._data[i].UnidadMinima) >= parseInt(ds._data[i].UnidadMaxima)) {
-                displayNotify("", "La unidad maxima  debe ser mayor a la minima", 1);
+            else if (parseInt(ds._data[i].UnidadMinima) > parseInt(ds._data[i].UnidadMaxima)) {
+                displayNotify("", "La unidad maxima  debe ser mayor o igual a la minima", 1);
                 return;
             }
 
@@ -316,6 +316,7 @@ function opcionHabilitarView(valor, name) {
     }
     else {
         $('#FieldSetView').find('*').attr('disabled', false);
+        $("#inputNombre").attr('disabled', true);
         $("#inputColor").data("kendoMultiSelect").enable(true);
         $('#botonGuardar2').text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);
         $("#botonGuardar").text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);
