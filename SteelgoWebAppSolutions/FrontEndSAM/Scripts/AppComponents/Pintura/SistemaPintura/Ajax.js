@@ -239,6 +239,8 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                             AjaxObtenerColor();
                             $("#inputNombre").val("");
                             $("#inputSistemaPinturaID").val("");
+                            $("#divComboProyecto").css("display", "none");
+                            $("#divMultiselectProyecto").css("display", "block");
                         }
                         else {
                             $("#grid").data("kendoGrid").dataSource.data([]);
