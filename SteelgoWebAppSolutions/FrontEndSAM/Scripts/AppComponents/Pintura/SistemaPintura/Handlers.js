@@ -33,9 +33,7 @@ function suscribirEventoChangeAplicable() {
                     width: "auto",
                     height: "auto",
                     modal: true,
-                    close: function () {
-                        $("#inputNoAplicable").prop("checked", false);
-                    },
+                    actions: [],
                     animation: {
                         close: false,
                         open: false
@@ -51,6 +49,7 @@ function suscribirEventoChangeAplicable() {
 
                 $("#yesButton").click(function () {
                     LimpiarGrid();
+                    $("#inputNoAplicable").prop("checked", true);
                     ventanaConfirm.close();
                 });
                 $("#noButton").click(function () {

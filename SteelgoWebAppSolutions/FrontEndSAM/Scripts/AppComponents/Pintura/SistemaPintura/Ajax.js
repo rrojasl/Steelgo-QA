@@ -157,9 +157,14 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
 
         }
 
-        if ($('#comboProyecto').is(':visible')) {
+        if ($("#inputSistemaPinturaID").val() != "") {
             if ($("#comboProyecto").data("kendoComboBox").text() != "") {
                 ProyectoID = $("#comboProyecto").data("kendoComboBox").value();
+                
+                    ListaProyectos[0] = { ProyectoID: "", Accion: "" };
+                    ListaProyectos[0].ProyectoID = ProyectoID;
+                    ListaProyectos[0].Accion = 1;
+                
             }
             else {
                 displayNotify("", "Selecciona un proyecto", 1);
@@ -206,7 +211,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                         ListaDetalles[i].ListadoPruebas[j].UnidadMaxima = arregloCaptura[index].listadoPruebasDetalle[j].UnidadMaxima;
                         ListaDetalles[i].ListadoPruebas[j].PruebaProcesoPinturaID = arregloCaptura[index].listadoPruebasDetalle[j].PruebaProcesoPinturaID;
                     }
-                    if (arregloCaptura[index].Agregar && (arregloCaptura[index].MetrosLote == "" || arregloCaptura[index].NumeroPruebas == "")) {
+                    if (arregloCaptura[index].Agregar && (arregloCaptura[index].MetrosLote == 0 || arregloCaptura[index].NumeroPruebas == 0)) {
                         ListaDetalles[i].Estatus = 0;
                         $('tr[data-uid="' + arregloCaptura[index].uid + '"] ').css("background-color", "#ffcccc");
                     }
@@ -223,111 +228,115 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
         Captura[0].Detalles = ListasCaptura;
 
 
-        //if (!ExistRowEmpty(ListaDetalles)) {
-        loadingStart();
-        $SistemaPintura.SistemaPintura.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
-            if (Error(data)) {
-                if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
-                    if (tipoGuardar == 1) {
-                        $("#grid").data("kendoGrid").dataSource.data([]);
-                        opcionHabilitarView(false, "FieldSetView");
-                        AjaxObtenerColor();
+        if (!ExistRowEmpty(ListaDetalles)) {
+            loadingStart();
+            $SistemaPintura.SistemaPintura.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
+                if (Error(data)) {
+                    if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
+                        if (tipoGuardar == 1) {
+                            $("#grid").data("kendoGrid").dataSource.data([]);
+                            opcionHabilitarView(false, "FieldSetView");
+                            AjaxObtenerColor();
+                            $("#inputNombre").val("");
+                            $("#inputSistemaPinturaID").val("");
+                        }
+                        else {
+                            $("#grid").data("kendoGrid").dataSource.data([]);
+                            opcionHabilitarView(true, "FieldSetView");
+                            $("#inputSistemaPinturaID").val(data.ReturnMessage[1]);
+                            AjaxObtenerColor();
+                            
+                        }
+                        displayNotify("MensajeGuardadoExistoso", "", "0");
                     }
-                    else {
-                        $("#grid").data("kendoGrid").dataSource.data([]);
-                        opcionHabilitarView(true, "FieldSetView");
-                        $("#inputSistemaPinturaID").val(data.ReturnMessage[1]);
-                        AjaxObtenerColor();
-                        $("#inputNombre").val("");
+                    else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
+                        mensaje = "No se guardo la informacion el error es: " + data.ReturnMessage[0] + "-2"
+                        displayNotify("MensajeGuardadoErroneo", "", '2');
                     }
-                    displayNotify("MensajeGuardadoExistoso", "", "0");
                 }
-                else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
-                    mensaje = "No se guardo la informacion el error es: " + data.ReturnMessage[0] + "-2"
-                    displayNotify("MensajeGuardadoErroneo", "", '2');
+            });
+        }
+        else {
+            loadingStop();
+
+
+            ventanaConfirm = $("#ventanaConfirm").kendoWindow({
+                iframe: true,
+                title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
+                visible: false, //the window will not appear before its .open method is called
+                width: "auto",
+                height: "auto",
+                modal: true,
+                animation: {
+                    close: false,
+                    open: false
                 }
-            }
-        });
-        //}
-        //else {
-        //    loadingStop();
+            }).data("kendoWindow");
 
+            ventanaConfirm.content(_dictionary.EntregaPlacasGraficasMensajePreguntaGuardado[$("#language").data("kendoDropDownList").value()] +
+                "</br><center><button class='btn btn-blue' id='yesButton'>Si</button><button class='btn btn-blue' id='noButton'> No</button></center>");
 
-        //    ventanaConfirm = $("#ventanaConfirm").kendoWindow({
-        //        iframe: true,
-        //        title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
-        //        visible: false, //the window will not appear before its .open method is called
-        //        width: "auto",
-        //        height: "auto",
-        //        modal: true,
-        //        animation: {
-        //            close: false,
-        //            open: false
-        //        }
-        //    }).data("kendoWindow");
-
-        //    ventanaConfirm.content(_dictionary.EntregaPlacasGraficasMensajePreguntaGuardado[$("#language").data("kendoDropDownList").value()] +
-        //        "</br><center><button class='btn btn-blue' id='yesButton'>Si</button><button class='btn btn-blue' id='noButton'> No</button></center>");
-
-        //    ventanaConfirm.open().center();
+            ventanaConfirm.open().center();
 
 
 
-        //    $("#yesButton").click(function () {
-        //        loadingStart();
+            $("#yesButton").click(function () {
+                loadingStart();
 
-        //        ArregloGuardado = [];
-        //        var indice = 0;
-        //        for (var i = 0; i < Captura[0].Detalles.length; i++) {
-        //            if (Captura[0].Detalles[i].Estatus == 1) {
-        //                ArregloGuardado[indice] = Captura[0].Detalles[i];
-        //                indice++;
-        //            }
-        //        }
+                ArregloGuardado = [];
+                var indice = 0;
+                for (var i = 0; i < Captura[0].Detalles[0].ListaSPProyectoProceso.length; i++) {
+                    if (Captura[0].Detalles[0].ListaSPProyectoProceso[i].Estatus == 1) {
+                        ArregloGuardado[indice] = Captura[0].Detalles[0].ListaSPProyectoProceso[i];
+                        indice++;
+                    }
+                }
 
-        //        Captura[0].Detalles = [];
-        //        Captura[0].Detalles = ArregloGuardado;
+                Captura[0].Detalles[0].ListaSPProyectoProceso = [];
+                Captura[0].Detalles[0].ListaSPProyectoProceso = ArregloGuardado;
 
 
-        //        if (ArregloGuardado.length > 0) {
-        //            //$AsignarRequisicion.AsignarRequisicion.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
-        //            //    editado = true;
-        //            //    if (Error(data)) {
-        //            //        if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
-        //            //            if (tipo<add name="SqlServer" connectionString="server=LAPMAFTEC04;initial catalog=steelgo-sam3;User=sa;Password=maftec04;MultipleActiveResultSets=True;Connect Timeout=2000" /> == 1) {
-        //            //                AjaxCargarRequisicionAsignacion();
-        //            //                opcionHabilitarView(false, "FieldSetView");
-        //            //            }
-        //            //            else {
-        //            //                $("#grid").data("kendoGrid").dataSource.data([]);
-        //            //                AjaxCargarRequisicionAsignacion();
-        //            //                opcionHabilitarView(true, "FieldSetView");
+                if (ArregloGuardado.length > 0) {
+                    loadingStart();
+                    $SistemaPintura.SistemaPintura.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
+                        if (Error(data)) {
+                            if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
+                                if (tipoGuardar == 1) {
+                                    $("#grid").data("kendoGrid").dataSource.data([]);
+                                    opcionHabilitarView(false, "FieldSetView");
+                                    AjaxObtenerColor();
+                                }
+                                else {
+                                    $("#grid").data("kendoGrid").dataSource.data([]);
+                                    opcionHabilitarView(true, "FieldSetView");
+                                    $("#inputSistemaPinturaID").val(data.ReturnMessage[1]);
+                                    AjaxObtenerColor();
+                                    $("#inputNombre").val("");
+                                    $("#inputSistemaPinturaID").val("");
+                                }
+                                displayNotify("MensajeGuardadoExistoso", "", "0");
+                            }
+                            else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
+                                mensaje = "No se guardo la informacion el error es: " + data.ReturnMessage[0] + "-2"
+                                displayNotify("MensajeGuardadoErroneo", "", '2');
+                            }
+                        }
+                    });
+                    loadingStop();
+                }
+                else {
+                    loadingStop();
+                    displayNotify("MensajeAdverteciaExcepcionGuardado", "", '1');
+                }
+                opcionHabilitarView(false, "FieldSetView");
+                ventanaConfirm.close();
+            });
+            $("#noButton").click(function () {
+                ventanaConfirm.close();
+                opcionHabilitarView(false, "FieldSetView");
+            });
 
-        //            //            }
-        //            //            displayNotify("MensajeGuardadoExistoso", "", '0');
-        //            //            editado = false;
-        //            //        }
-        //            //        else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
-        //            //            mensaje = "No se guardo la informacion el error es: " + data.ReturnMessage[0] + "-2"
-        //            //            displayNotify("MensajeGuardadoErroneo", "", '2');
-        //            //        }
-        //            //    }
-        //            //});
-        //            loadingStop();
-        //        }
-        //        else {
-        //            loadingStop();
-        //            displayNotify("MensajeAdverteciaExcepcionGuardado", "", '1');
-        //        }
-        //        opcionHabilitarView(false, "FieldSetView");
-        //        ventanaConfirm.close();
-        //    });
-        //    $("#noButton").click(function () {
-        //        ventanaConfirm.close();
-        //        opcionHabilitarView(false, "FieldSetView");
-        //    });
-
-        //}
+        }
 
     } catch (e) {
         loadingStop();

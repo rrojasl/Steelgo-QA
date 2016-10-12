@@ -49,7 +49,7 @@ namespace BackEndSAM.DataAcces.Pintura.SistemaPintura
                     {
                         listaColor.Add(new SistemaPinturaNuevo
                         {
-                            Accion = item.SistemaPinturaID == 0 ?  1 : 2,
+                            Accion = 1,
                             Agregar = item.SistemaPinturaProyectoProcesoID == 0 ? false : true,
                             Proceso = item.NombreProceso,
                             ProcesoPinturaID = item.ProcesoPinturaID,
@@ -65,7 +65,7 @@ namespace BackEndSAM.DataAcces.Pintura.SistemaPintura
                         });
                     }
 
-                    return listaColor;
+                    return listaColor.OrderBy(x=> x.ProcesoPinturaID).ToList<SistemaPinturaNuevo>();
                 }
             }
             catch (Exception ex)
@@ -164,7 +164,7 @@ namespace BackEndSAM.DataAcces.Pintura.SistemaPintura
                     {
                         listaDetallePruebasProceso.Add(new DetallePruebas
                         {
-                            Accion = 2,
+                            Accion = 1,
                             ProyectoProcesoPruebaID = item.ProyectoProcesoPruebaID,
                             SistemaPinturaProyectoProcesoID = item.SistemaPinturaProyectoProcesoID,
                             UnidadMaxima = item.UnidadMaxima,
