@@ -133,8 +133,7 @@ function eliminarCaptura(e) {
             ventanaConfirm.open().center();
 
             $("#yesButton").click(function () {                
-                AjaxEliminaSistemaPintura(dataItem.SistemaPinturaID, dataItem.ProyectoProcesoShotblastID, dataItem.ProyectoProcesoPrimarioID,
-                    dataItem.ProyectoProcesoIntermedioID, dataItem.ProyectoProcesoAcabadoID);
+                AjaxEliminaSistemaPintura(dataItem.SistemaPinturaID);
                 ventanaConfirm.close();
             });
             $("#noButton").click(function () {

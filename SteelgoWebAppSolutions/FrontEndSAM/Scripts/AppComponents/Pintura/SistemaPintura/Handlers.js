@@ -11,6 +11,7 @@ function SuscribirEventos() {
     suscribirEventoProyecto();
     SuscribirEventoComboProyecto();
     suscribirEventoChangeAplicable();
+    SuscribirEventoEliminarSistemaPintura();
 };
 
 function suscribirEventoChangeAplicable() {
@@ -265,6 +266,39 @@ function suscribirEventoGuardar() {
         var ds = $("#grid").data("kendoGrid").dataSource;
         AjaxGuardarCaptura(ds._data, 1);
         //Limpiar();
+    });
+}
+
+function SuscribirEventoEliminarSistemaPintura() {
+    $('.eliminarSistema').click(function (e) {
+        e.preventDefault();
+        var SistemaPinturaID = $("#inputSistemaPinturaID").val();
+
+        ventanaConfirm = $("#ventanaConfirm").kendoWindow({
+            iframe: true,
+            title: _dictionary.PinturaCargaTitulo[$("#language").data("kendoDropDownList").value()],
+            visible: false, //the window will not appear before its .open method is called
+            width: "auto",
+            height: "auto",
+            modal: true,
+            animation: {
+                close: false,
+                open: false
+            }
+        }).data("kendoWindow");
+
+        ventanaConfirm.content(_dictionary.SistemaPinturaMensajeConfirmaEliminar[$("#language").data("kendoDropDownList").value()] +
+                     "</br><center><button class='confirm_yes btn btn-blue' id='yesButton'>Si</button><button class='confirm_yes btn btn-blue' id='noButton'> No</button></center>");
+
+        ventanaConfirm.open().center();
+
+        $("#yesButton").click(function () {
+            AjaxEliminaSistemaPintura(SistemaPinturaID);
+            ventanaConfirm.close();
+        });
+        $("#noButton").click(function () {
+            ventanaConfirm.close();
+        });
     });
 }
 
