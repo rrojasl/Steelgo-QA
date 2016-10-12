@@ -349,7 +349,17 @@ function csvToJson(data, idField, ti) {
                     tmp[encabezados[z]] = cell;
                 });
                 csv.push(tmp);
-            } else {
+            }
+            else if (d.substring(0, d.length).split(";").length === encabezados.length) {
+                var tmp = {};
+                tmp[idField] = null;
+                d.split(";").forEach(function (cell, z) {
+                    tmp[encabezados[z]] = cell;
+                });
+                csv.push(tmp);
+            }
+
+            else {
                 if (d.substring(0, d.length).split(",").length != 1) {
                     throw -1;
                     csv = [];

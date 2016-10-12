@@ -358,7 +358,12 @@ function AjaxEliminaSistemaPintura(sistemaPinturaID) {
     $ListadoSistemaPintura.ListadoSistemaPintura.read({ token: Cookies.get("token"), SistemaPinturaID: sistemaPinturaID }).done(function (data) {
         if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
 
-            setTimeout(function () { AjaxCargaDetalleSistemaPintura(); }, 1100);
+            AjaxObtenerColor();
+            $("#inputNombre").val("");
+            $("#inputSistemaPinturaID").val("");
+            $("#divComboProyecto").css("display", "none");
+            $("#divMultiselectProyecto").css("display", "block");
+            $("#inputNoAplicable").prop("checked", false);
             displayNotify("SistemaPinturaEliminadoExitoso", "", '0');
         }
         else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
