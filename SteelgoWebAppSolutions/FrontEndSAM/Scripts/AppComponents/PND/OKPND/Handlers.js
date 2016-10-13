@@ -282,12 +282,11 @@ function suscribirEventoChangeRadio() {
                 iframe: true,
                 title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
                 visible: false,
+                animation: false,
                 width: "auto",
                 height: "auto",
-                modal: true,
-                close: function () {
-                    $('input[name="Muestra"][value="Todos"]').prop('checked', true);
-                }
+                actions: [],
+                modal: true
             }).data("kendoWindow");
 
             ventanaConfirm.content(_dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] +
@@ -321,9 +320,7 @@ function suscribirEventoChangeRadio() {
                 width: "auto",
                 height: "auto",
                 modal: true,
-                close: function () {
-                    $('input[name="Muestra"][value="SinCaptura"]').prop('checked', true);
-                }
+                actions: []
             }).data("kendoWindow");
 
             ventanaConfirm.content(_dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] +
@@ -331,8 +328,8 @@ function suscribirEventoChangeRadio() {
 
             ventanaConfirm.open().center();
             $("#yesButtonProy").click(function () {
-                AjaxGetListaElementos(proyectoID, NumControl);
                 ventanaConfirm.close();
+                AjaxGetListaElementos(proyectoID, NumControl);
             });
 
             $("#noButtonProy").click(function () {
@@ -357,12 +354,11 @@ function suscribirEventoNumeroControl() {
                     iframe: true,
                     title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
                     visible: false,
+                    animation: false,
                     width: "auto",
                     height: "auto",
                     modal: true,
-                    close: function () {
-                        $('input[name="Muestra"][value="SinCaptura"]').prop('checked', true);
-                    }
+                    actions: []
                 }).data("kendoWindow");
 
                 ventanaConfirm.content(_dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] +
@@ -370,12 +366,12 @@ function suscribirEventoNumeroControl() {
 
                 ventanaConfirm.open().center();
                 $("#yesButtonProy").click(function () {
-                    AjaxGetListaElementos(proyectoID, NumControl);
                     ventanaConfirm.close();
+                    AjaxGetListaElementos(proyectoID, NumControl);
                 });
 
                 $("#noButtonProy").click(function () {
-                    $('input[name="Muestra"][value="SinCaptura"]').prop('checked', true);
+                    $("#InputNumeroControl").val(SpoolContiene);
                     ventanaConfirm.close();
                 });
             }

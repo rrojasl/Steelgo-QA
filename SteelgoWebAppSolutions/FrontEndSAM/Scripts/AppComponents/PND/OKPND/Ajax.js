@@ -1,12 +1,13 @@
-﻿var TipoMuestraPredeterminadoID = 3049;
+﻿var SpoolContiene = "";
+var TipoMuestraPredeterminadoID = 3049;
 
 function AjaxCargarCamposPredeterminados() {
     $CamposPredeterminados.CamposPredeterminados.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), id: TipoMuestraPredeterminadoID }).done(function (data) {
         if (data == "sin captura") {
-            $('input:radio[name=Muestra]:nth(0)').trigger("click");
+            $('input[name="Muestra"][value="SinCaptura"]').prop('checked', true);
         }
         else if (data == "Todos") {
-            $('input:radio[name=Muestra]:nth(1)').trigger("click");
+            $('input[name="Muestra"][value="Todos"]').prop('checked', true);
         }
         loadingStop();
     });
@@ -27,6 +28,7 @@ function AjaxGetListaProyectos() {
 
 function AjaxGetListaElementos(proyectoID, numControl) {
     loadingStart();
+    SpoolContiene = numControl;
 
     $OKPND.OKPND.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), ProyectoID: proyectoID, NumControl: numControl, muestra: $('input:radio[name=Muestra]:checked').val() }).done(function (data) {
         $("#grid").data("kendoGrid").dataSource.data([]);
@@ -79,6 +81,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardado) {
     var ds = $("#grid").data("kendoGrid").dataSource;
 
     if (Captura[0].Detalle.length > 0) {
+        $("#InputNumeroControl").val(SpoolContiene);
         $OKPND.OKPND.create(Captura[0], { lenguaje: $("#language").val(), token: Cookies.get("token") }).done(function (data) {
             if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
                 if (data.ReturnMessage[0] != undefined) {
