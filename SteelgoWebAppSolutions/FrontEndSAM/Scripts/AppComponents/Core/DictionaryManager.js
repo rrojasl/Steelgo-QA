@@ -7554,6 +7554,10 @@ _dictionary = {
         "es-MX": "Cancelar",
         "en-US": "Cancel"
     },
+    "botonCancelar2": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
     "botonCerrar": {
         "es-MX": "Cerrar",
         "en-US": "Close"
@@ -7629,6 +7633,10 @@ _dictionary = {
     "botonSeleccionarArchivo": {
         "es-MX": "Seleccionar Archivo",
         "en-US": "Select File"
+    },
+    "botonMostrar": {
+        "es-MX": "Mostrar",
+        "en-US": "Show"
     },
     // Finalizan etiquetas Header y Footer
 
@@ -7810,8 +7818,12 @@ _dictionary = {
         "en-US": "System Paint"
     },
     "menuListadoSistemaPintura": {
-        "es-MX": "Listado Sistema de Pintura",
-        "en-US": "List System Paint"
+        "es-MX": "Sistema de Pintura",
+        "en-US": "Paint System"
+    },
+    "menuListadoSistemaPintura2": {
+        "es-MX": "Sistema de Pintura",
+        "en-US": "Paint System"
     },
     "menuConfiguracionSoldadura": {
         "es-MX": "Configuración de soldadura",
@@ -8362,6 +8374,32 @@ _dictionary = {
         "es-MX": "Spool",
         "en-US": "Spool"
     },
+    "columnprocesoPintura": {
+        "es-MX": "Proceso",
+        "en-US": "Process"
+    },
+    "columnMetrosLote": {
+        "es-MX": "Mts. Lote",
+        "en-US": "Lote Mts."
+    },
+    "columnPruebasLote": {
+        "es-MX": "Pbas. lote",
+        "en-US": "Lote Test"
+    },
+    "columnUnidadMedida": {
+        "es-MX": "U. medida",
+        "en-US": "Measure U"
+    },
+    "columnUnidadMinima": {
+        "es-MX": "U. min",
+        "en-US": "Min U"
+    },
+    "columnUnidadMaxima": {
+        "es-MX": "U. max",
+        "en-US": "Max U"
+    },
+    
+
     // Finalizan Etiquetas Grid
     // Finalizan Etiquetas generales
 
@@ -9196,6 +9234,8 @@ _dictionary = {
         "es-MX": "Descarga de Carro",
         "en-US": "Download Carrige "
     },
+
+
     // Finaliza Condiciones Climatologicas 
     //Comienza Listado Sistema Pintura
     "SistemaPinturaAplicableSpool": {
@@ -9266,5 +9306,44 @@ _dictionary = {
         "es-MX": "Imposible leer el archivo",
         "en-US": "Unable to read file "
     },
+    "SPAMensajeAlertaCantidadRegistros": {
+        "es-MX": "El tipo de búsqueda que ejecuto obtendrá mas de 100 registros, eso puedo tardar varios minutos. ¿Desea Continuar?",
+        "en-US": "The type of search you get run over 100 records, it can take several minutes. Continue anyway?"
+    },
     // Finaliza Listado Sistema Pintura
+
+    //Comienza Sistema Pintura
+    "lblNoPintable": {
+        "es-MX": "No pintable",
+        "en-US": "No paint"
+    },
+    "SistemaPinturaMensajeCamposMandatorios": {
+        "es-MX": "Todos los campos son mandatorios",
+        "en-US": "All fields has mandatory"
+    },
+    "SistemaPinturaMensajeUnidadMedidaError": {
+        "es-MX": "La unidad maxima  debe ser mayor o igual a la minima",
+        "en-US": "The maximum unit must be greater than or equal to the minimum"
+    },
+    "SistemaPinturaMensajeUnidadMedidaError": {
+        "es-MX": "La unidad maxima  debe ser mayor o igual a la minima",
+        "en-US": "The maximum unit must be greater than or equal to the minimum"
+    },
+    "SistemaPinturaMensajeErrorNombre": {
+        "es-MX": "El campo nombre no puede ir vacio",
+        "en-US": "The name field cant be empty"
+    },
+    "SistemaPinturaMensajeErrorColor": {
+        "es-MX": "Selecciona al menos un color",
+        "en-US": "Select at least one color"
+    },
+    "SistemaPinturaMensajeErrorProyecto": {
+        "es-MX": "Selecciona un proyecto",
+        "en-US": "Select a project"
+    },
+    "SistemaPinturaMensajeErrorListadoProyecto": {
+        "es-MX": "Selecciona al menos un proyecto",
+        "en-US": "Select at least one project"
+    },
+    // Finaliza Sistema Pintura
 };

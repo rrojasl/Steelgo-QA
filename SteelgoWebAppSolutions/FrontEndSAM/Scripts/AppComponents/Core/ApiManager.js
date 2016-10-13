@@ -33,6 +33,14 @@ var $SearchSAMUri = 'http://localhost:61066';
 var $SearchSAMUri2 = 'http://10.15.10.185:8089';
 var $FilesSAMUri = 'http://localhost:60971';
 
+
+//DEVELOPMENT Steelgo BASE URL's
+//var $BackEndSAMUri = 'http://newm.samaltamira.net:9071';
+//var $SecuritySAMUri = 'http://newm.samaltamira.net:9074';
+//var $MessagesSAMUri = 'http://newm.samaltamira.net:9073';
+//var $SearchSAMUri = 'http://newm.samaltamira.net:9075';
+//var $FilesSAMUri = 'http://newm.samaltamira.net:9072';
+
 //Combos Base URL
 var $DocumentoAvisoLlegadaUploadFiles = $BackEndSAMUri+"/backendsam/api/DocumentoAvisoLlegada?folioAvisoLlegadaID=";
 var $DocumentoPermisoAduana = $BackEndSAMUri + "/backendsam/api/DocumentoPermisoAduana";

@@ -136,10 +136,10 @@ function CargarGrid() {
                     dataSource: [{ Etiquetado: true }, { Etiquetado: false }]
                 }, template: "<input name='fullyPaid' class='chk-agregar' type='checkbox' data-bind='checked: Agregar' #= Agregar ? checked='checked' : '' #/>", width: "50px", attributes: { style: "text-align:center;" }
             },
-            { field: "Proceso", title: "Proceso", filterable: getGridFilterableCellMaftec(), width: "130px" },
-            { field: "MetrosLote", title: "Mts. Lote", filterable: getGridFilterableCellNumberMaftec(), width: "130px", editor: RenderMetrosLote, attributes: { style: "text-align:right;" }, format: "{0: }" },
-            { field: "NumeroPruebas", title: "Pbas. lote", filterable: getGridFilterableCellNumberMaftec(), width: "100px",editor: RenderNumeroPruebas, attributes: { style: "text-align:right;" }, format: "{0: }" },
-            { field: "Pruebas", title: "Pruebas", template: "<div class='EnlaceDetallePruebas' style='text-align:center;'><a href='\\#/'  > <span>Detalle Pruebas</span></a></div>", filterable: getGridFilterableCellNumberMaftec(), width: "90px" },
+            { field: "Proceso", title: _dictionary.columnprocesoPintura[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px" },
+            { field: "MetrosLote", title: _dictionary.columnMetrosLote[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "130px", editor: RenderMetrosLote, attributes: { style: "text-align:right;" }, format: "{0: }" },
+            { field: "NumeroPruebas", title: _dictionary.columnPruebasLote[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "100px", editor: RenderNumeroPruebas, attributes: { style: "text-align:right;" }, format: "{0: }" },
+            { field: "Pruebas", title: _dictionary.columnPrueba[$("#language").data("kendoDropDownList").value()], template: "<div class='EnlaceDetallePruebas' style='text-align:center;'><a href='\\#/'  > <span>Detalle Pruebas</span></a></div>", filterable: getGridFilterableCellNumberMaftec(), width: "90px" },
 
         ],
         beforeEdit: function (e) {
@@ -370,10 +370,10 @@ function CargarGridPopUp() {
         filterable: getGridFilterableMaftec(),
 
         columns: [
-            { field: "ProyectoProcesoPrueba", title: "Prueba", filterable: getGridFilterableCellMaftecpopUp(), width: "120px", editor: comboBoxPruebas },
-            { field: "UnidadMedida", title: "U. medida", filterable: getGridFilterableCellMaftecpopUp(), width: "120px", editor: comboBoxUnidadMedida },
-            { field: "UnidadMinima", title: "U. min", filterable: getGridFilterableCellNumberMaftec(), width: "50px", editor: RenderUnidadMinima, attributes: { style: "text-align:right;" }, format: "{0: }" },
-            { field: "UnidadMaxima", title: "U max", filterable: getGridFilterableCellNumberMaftec(), width: "50px", editor: RenderUnidadMaxima, attributes: { style: "text-align:right;" }, format: "{0: }" },
+            { field: "ProyectoProcesoPrueba", title: _dictionary.lblPrueba[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftecpopUp(), width: "120px", editor: comboBoxPruebas },
+            { field: "UnidadMedida", title: _dictionary.columnUnidadMedida[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftecpopUp(), width: "120px", editor: comboBoxUnidadMedida },
+            { field: "UnidadMinima", title: _dictionary.columnUnidadMinima[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "50px", editor: RenderUnidadMinima, attributes: { style: "text-align:right;" }, format: "{0: }" },
+            { field: "UnidadMaxima", title: _dictionary.columnUnidadMaxima[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "50px", editor: RenderUnidadMaxima, attributes: { style: "text-align:right;" }, format: "{0: }" },
             { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: cancelarCaptura }, title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], width: "50px" },
             { command: { text: _dictionary.botonLimpiar[$("#language").data("kendoDropDownList").value()], click: limpiarRenglon }, title: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()], width: "50px" }
         ],

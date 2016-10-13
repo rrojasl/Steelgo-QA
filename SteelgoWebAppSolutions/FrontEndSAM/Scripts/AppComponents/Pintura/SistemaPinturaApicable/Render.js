@@ -16,14 +16,13 @@
                     options.model.SistemaPintura = dataItem.Nombre;
                     options.model.EstatusCaptura = 1;
 
+                    options.model.ListaColorPintura = null;
+                    options.model.ColorPinturaID = 0;
+                    options.model.SistemaPinturaColorID = 0;
+                    options.model.Color = "";
+
                     if (dataItem.SistemaPinturaID != 0) {
                         AjaxCargarColorPinturaRender(dataItem.SistemaPinturaID, options);
-                    } else {
-                        options.model.ListaColorPintura = null;
-                        options.model.ColorPinturaID = 0;
-                        options.model.SistemaPinturaColorID = 0;
-                        options.model.Color = "";
-
                     }
 
                 } else {

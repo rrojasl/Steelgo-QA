@@ -28,7 +28,9 @@ function AjaxObtenerColor() {
                 $("#divComboProyecto").css("display", "block");
                 $("#divMultiselectProyecto").css("display", "none");
                 $('.eliminarSistema').css("display", "block");
+                $("#inputNombre").attr('disabled', true);
                 AjaxCargarEdicionSistemaPintura();
+
             }
             else {
                 AjaxObtenerProyectos();
@@ -142,12 +144,12 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
         SistemaPinturaID = $("#inputSistemaPinturaID").val() == "" ? 0 : $("#inputSistemaPinturaID").val();
         Nombre = $("#inputNombre").val();
         if (Nombre == "") {
-            displayNotify("", "El campo nombre no puede ir vacio", 1);
+            displayNotify("SistemaPinturaMensajeErrorNombre", "", 1);
             return;
         }
 
         if ($("#inputColor").data("kendoMultiSelect")._values.length == 0 && necesitaColor) {
-            displayNotify("", "Selecciona al menos un color", 1);
+            displayNotify("SistemaPinturaMensajeErrorColor", "", 1);
             return;
         }
         else {
@@ -169,13 +171,13 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                 
             }
             else {
-                displayNotify("", "Selecciona un proyecto", 1);
+                displayNotify("SistemaPinturaMensajeErrorProyecto", "", 1);
                 return;
             }
         }
         else {
             if ($("#inputProyecto").data("kendoMultiSelect")._values.length == 0) {
-                displayNotify("", "Selecciona al menos un proyecto", 1);
+                displayNotify("SistemaPinturaMensajeErrorListadoProyecto", "", 1);
                 return;
             }
             else {
@@ -244,11 +246,13 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                             $("#divComboProyecto").css("display", "none");
                             $("#divMultiselectProyecto").css("display", "block");
                             $("#inputNoAplicable").prop("checked", false);
+                            $("#inputNombre").attr('disabled', false);
                         }
                         else {
                             $("#grid").data("kendoGrid").dataSource.data([]);
                             opcionHabilitarView(true, "FieldSetView");
                             $("#inputSistemaPinturaID").val(data.ReturnMessage[1]);
+                            $("#inputNombre").attr('disabled', true);
                             AjaxObtenerColor();
                             
                         }
@@ -358,7 +362,12 @@ function AjaxEliminaSistemaPintura(sistemaPinturaID) {
     $ListadoSistemaPintura.ListadoSistemaPintura.read({ token: Cookies.get("token"), SistemaPinturaID: sistemaPinturaID }).done(function (data) {
         if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
 
-            setTimeout(function () { AjaxCargaDetalleSistemaPintura(); }, 1100);
+            AjaxObtenerColor();
+            $("#inputNombre").val("");
+            $("#inputSistemaPinturaID").val("");
+            $("#divComboProyecto").css("display", "none");
+            $("#divMultiselectProyecto").css("display", "block");
+            $("#inputNoAplicable").prop("checked", false);
             displayNotify("SistemaPinturaEliminadoExitoso", "", '0');
         }
         else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
