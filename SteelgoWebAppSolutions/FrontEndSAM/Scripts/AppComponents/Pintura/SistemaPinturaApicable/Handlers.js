@@ -40,15 +40,8 @@ function SuscribirEventoProyecto() {
                     height: "auto",
                     draggable: false,
                     modal: true,
-                    animation: {
-                        close: function () {
-
-                        },
-                        open: false
-                    },
-                    actions: [
-                        "Close"
-                    ]
+                    actions: [],
+                    animation: false,
                 }).data("kendoWindow");
 
                 ventanaConfirm.content('<center>' + _dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] + '</center>' +
@@ -93,15 +86,8 @@ function SuscribirEventoContiene() {
                 height: "auto",
                 draggable: false,
                 modal: true,
-                animation: {
-                    close: function () {
-
-                    },
-                    open: false
-                },
-                actions: [
-                    "Close"
-                ]
+                actions: [],
+                animation: false,
             }).data("kendoWindow");
 
             ventanaConfirm.content('<center>' + _dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] + '</center>' +
@@ -141,15 +127,8 @@ function SuscribirEventoContiene() {
                 height: "auto",
                 draggable: false,
                 modal: true,
-                animation: {
-                    close: function () {
-
-                    },
-                    open: false
-                },
-                actions: [
-                    "Close"
-                ]
+                actions: [],
+                animation: false,
             }).data("kendoWindow");
 
             ventanaConfirm.content('<center>' + _dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] + '</center>' +
@@ -226,8 +205,10 @@ function SuscribirEventoPlanchado() {
                     visible: false,
                     width: "25%",
                     height: "auto",
+                    actions: [],
                     draggable: false,
-                    modal: true
+                    modal: true,
+                    animation: false,
                 }).data("kendoWindow");
 
                 ventanaConfirm.content('<center>'+_dictionary.EntregaPlacasGraficasPlancharTodos[$("#language").data("kendoDropDownList").value()] +'</center>'+
@@ -266,15 +247,8 @@ function SuscribirEventoTipoBusqueda() {
                 height: "auto",
                 draggable: false,
                 modal: true,
-                animation: {
-                    close: function () {
-
-                    },
-                    open: false
-                },
-                actions: [
-                    "Close"
-                ]
+                actions: [],
+                animation: false
             }).data("kendoWindow");
 
             ventanaConfirm.content('<center>' + _dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] + '</center>' +
@@ -308,15 +282,8 @@ function SuscribirEventoTipoBusqueda() {
                 height: "auto",
                 draggable: false,
                 modal: true,
-                animation: {
-                    close: function () {
-
-                    },
-                    open: false
-                },
-                actions: [
-                    "Close"
-                ]
+                actions: [],
+                animation: false,
             }).data("kendoWindow");
 
             ventanaConfirm.content('<center>' + _dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] + '</center>' +
@@ -348,10 +315,8 @@ function SuscribirEventoCargarCsv() {
             height: "auto",
             draggable: false,
             modal: true,
-            animation: {
-                close: false,
-                open: false
-            },
+            actions: [],
+            animation: false,
             close: function onClose(e) {
                 $('input[value="spool"]').prop("checked", true);
                 $("#inputFile").val("");
@@ -561,15 +526,8 @@ function SuscribirEventoBusqueda() {
                     height: "auto",
                     draggable: false,
                     modal: true,
-                    animation: {
-                        close: function () {
-
-                        },
-                        open: false
-                    },
-                    actions: [
-                        "Close"
-                    ]
+                    actions: [],
+                    animation: false,
                 }).data("kendoWindow");
 
                 ventanaConfirm.content('<center>' + _dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] + '</center>' +
@@ -613,15 +571,8 @@ function SuscribirEventoBusqueda() {
                     height: "auto",
                     draggable: false,
                     modal: true,
-                    animation: {
-                        close: function () {
-
-                        },
-                        open: false
-                    },
-                    actions: [
-                        "Close"
-                    ]
+                    actions: [],
+                    animation: false,
                 }).data("kendoWindow");
 
                 ventanaConfirm.content('<center>' + _dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] + '</center>' +
