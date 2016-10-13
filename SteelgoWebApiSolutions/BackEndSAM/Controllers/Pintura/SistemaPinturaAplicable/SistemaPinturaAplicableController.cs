@@ -66,6 +66,30 @@ namespace BackEndSAM.Controllers.Pintura.SistemaPinturaAplicable
         }
 
         [HttpGet]
+        public object ObtieneNumeroElementosPorBusqueda(string token, int ProyectoID, int TipoBusqueda, string Cadena)
+        {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+
+                return SistemaPinturaAplicableBD.Instance.ObtieneNumeroElementosPorBusqueda(ProyectoID, TipoBusqueda, Cadena);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
+
+        [HttpGet]
         public object ObtieneDetalleSpool(string token, int ProyectoID, int TipoBusqueda, string Cadena, string Lenguaje) {
             string payload = "";
             string newToken = "";

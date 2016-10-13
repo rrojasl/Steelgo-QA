@@ -7614,6 +7614,22 @@ _dictionary = {
         "es-MX": "Nuevo",
         "en-US": "New"
     },
+    "botonNuevo1": {
+        "es-MX": "Nuevo",
+        "en-US": "New"
+    },
+    "botonNuevo2": {
+        "es-MX": "Nuevo",
+        "en-US": "New"
+    },
+    "botonNuevo3": {
+        "es-MX": "Nuevo",
+        "en-US": "New"
+    },
+    "botonNuevo4": {
+        "es-MX": "Nuevo",
+        "en-US": "New"
+    },
     "botonCargaExcel": {
         "es-MX": "Cargar CSV",
         "en-US": "New"

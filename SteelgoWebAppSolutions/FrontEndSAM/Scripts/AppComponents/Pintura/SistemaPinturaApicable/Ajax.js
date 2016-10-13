@@ -81,6 +81,43 @@ function AjaxCargarColorPintura(sistemaPinturaID) {
     });
 }
 
+function AjaxCargarNumeroElementosPorBusqueda(proyectoID, tipoBusqueda, cadena) {
+    $SistemaPinturaAplicable.SistemaPinturaAplicable.read({ token: Cookies.get("token"), ProyectoID: proyectoID, TipoBusqueda: tipoBusqueda, Cadena: cadena}).done(function (data) {
+        if(data!=null){
+            if(data>100){
+                var ventanaConfirmBusqueda = $("#ventanaConfirm").kendoWindow({
+                    iframe: true,
+                    title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
+                    visible: false,
+                    width: "45%",
+                    height: "auto",
+                    draggable: false,
+                    modal: true,
+                    animation: {
+                        close: false,
+                        open: false
+                    }
+                }).data("kendoWindow");
+                ventanaConfirmBusqueda.content('<center>' + _dictionary.SPAMensajeAlertaCantidadRegistros[$("#language").data("kendoDropDownList").value()] + '</center>' +
+                    "</br><center><button class='btn btn-blue' id='btnContinuarBusqueda'>Si</button> <button class='btn btn-blue' id='btnCancelarBusqueda'>No</button></center>");
+
+                ventanaConfirmBusqueda.open().center();
+                $("#btnContinuarBusqueda").click(function () {
+                    AjaxCargarDetalleSpool(proyectoID, tipoBusqueda, cadena);
+                    ventanaConfirmBusqueda.close();
+                });
+                $("#btnCancelarBusqueda").click(function () {                    
+                    ventanaConfirmBusqueda.close();
+                });
+            } else {
+                AjaxCargarDetalleSpool(proyectoID, tipoBusqueda, cadena);
+            }
+        } else {
+
+        }
+    });
+}
+
 function AjaxCargarDetalleSpool(proyectoID, tipoBusqueda, cadena) {
     $SistemaPinturaAplicable.SistemaPinturaAplicable.read({ token: Cookies.get("token"), ProyectoID: proyectoID, TipoBusqueda: tipoBusqueda, Cadena: cadena, Lenguaje: $("#language").val() }).done(function (data) {
         $("#grid").data("kendoGrid").dataSource.data([]);

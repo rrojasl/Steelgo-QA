@@ -76,19 +76,100 @@ function SuscribirEventoProyecto() {
     });
 }
 function SuscribirEventoContiene() {
-    $("#inputSpool").blur(function (e) {
-        if($(this).val()!=""){
+    $("#inputSpool").change(function (e) {
+        if (!ValidaInformacionCapturada()) {
+            $("#inputSpool").attr("saAttr", $("#inputSpool").val());
+            if ($(this).val() != "") {
 
-        }else{
-            $("#grid").data("kendoGrid").dataSource.data([]);
-        }
-    });
-    $("#inputNc").blur(function (e) {
-        if ($(this).val() != "") {
-
+            } else {
+                $("#grid").data("kendoGrid").dataSource.data([]);
+            }
         } else {
-            $("#grid").data("kendoGrid").dataSource.data([]);
+            var ventanaConfirm = $("#ventanaConfirmCaptura").kendoWindow({
+                iframe: true,
+                title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
+                visible: false,
+                width: "40%",
+                height: "auto",
+                draggable: false,
+                modal: true,
+                animation: {
+                    close: function () {
+
+                    },
+                    open: false
+                },
+                actions: [
+                    "Close"
+                ]
+            }).data("kendoWindow");
+
+            ventanaConfirm.content('<center>' + _dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] + '</center>' +
+                "</br><center><button class='btn btn-blue' id='yesButtonProy'>Si</button> <button class='btn btn-blue' id='noButtonProy'>No</button></center>");
+
+            ventanaConfirm.open().center();
+            $("#yesButtonProy").click(function () {
+                $("#inputSpool").attr("saAttr", $("#inputSpool").val());
+                if ($(this).val() != "") {
+
+                } else {
+                    $("#grid").data("kendoGrid").dataSource.data([]);
+                }
+                ventanaConfirm.close();
+            });
+            $("#noButtonProy").click(function () {
+                $("#inputSpool").val($("#inputSpool").attr("saAttr"));
+                ventanaConfirm.close();
+            });
         }
+
+    });
+    $("#inputNc").change(function (e) {
+        if (!ValidaInformacionCapturada()) {
+            $("#inputNc").attr("ncaAttr", $("#inputNc").val());
+            if ($(this).val() != "") {
+
+            } else {
+                $("#grid").data("kendoGrid").dataSource.data([]);
+            }
+        } else {
+            var ventanaConfirm = $("#ventanaConfirmCaptura").kendoWindow({
+                iframe: true,
+                title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
+                visible: false,
+                width: "40%",
+                height: "auto",
+                draggable: false,
+                modal: true,
+                animation: {
+                    close: function () {
+
+                    },
+                    open: false
+                },
+                actions: [
+                    "Close"
+                ]
+            }).data("kendoWindow");
+
+            ventanaConfirm.content('<center>' + _dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] + '</center>' +
+                "</br><center><button class='btn btn-blue' id='yesButtonProy'>Si</button> <button class='btn btn-blue' id='noButtonProy'>No</button></center>");
+
+            ventanaConfirm.open().center();
+            $("#yesButtonProy").click(function () {
+                $("#inputNc").attr("ncaAttr", $("#inputNc").val());
+                if ($(this).val() != "") {
+
+                } else {
+                    $("#grid").data("kendoGrid").dataSource.data([]);
+                }
+                ventanaConfirm.close();
+            });
+            $("#noButtonProy").click(function () {
+                $("#inputNc").val($("#inputNc").attr("ncaAttr"));
+                ventanaConfirm.close();
+            });
+        }        
     });
 }
 function SuscribirEventoSistemaPintura() {
@@ -263,7 +344,7 @@ function SuscribirEventoCargarCsv() {
             iframe: true,
             title: _dictionary.SPATituloCargarCsv[$("#language").data("kendoDropDownList").value()],
             visible: false,
-            width: "40%",
+            width: "50%",
             height: "auto",
             draggable: false,
             modal: true,
@@ -289,14 +370,15 @@ function SuscribirEventoCargarCsv() {
     $("#inputFile").on('change', function (e) {
         $("#lblRutaArchivo").text("");
         
-
-        if (!(window.File && window.FileReader && window.FileList && window.Blob)) {
-            displayNotify("ListadoCatalogos0007", "", '2');
-        } else {
-            if ($(this).val().substring($(this).val().lastIndexOf(".")) == ".csv") {
-                $("#lblRutaArchivo").text($(this).val());
+        if ($(this).val() != "") {
+            if (!(window.File && window.FileReader && window.FileList && window.Blob)) {
+                displayNotify("ListadoCatalogos0007", "", '2');
             } else {
-                displayNotify("", "El formato del archivo debe ser .CSV", '1');
+                if ($(this).val().substring($(this).val().lastIndexOf(".")) == ".csv") {
+                    $("#lblRutaArchivo").text($(this).val());
+                } else {
+                    displayNotify("", "El formato del archivo debe ser .CSV", '1');
+                }
             }
         }
     });
@@ -310,7 +392,7 @@ function SuscribirEventoCargarCsv() {
             reader.readAsText(dt[0].files[0]);
             reader.onload = function (event) {
                 var csvData = event.target.result;
-                var csvJsonData = csvToJson(csvData, "NombreSpool");
+                var csvJsonData = csvToJson(csvData, "NombreSpool", tipoCarga);
                 if (csvJsonData.length > 0) {
                     csvJsonData.forEach(function (c) {
                         data.push(c);
@@ -338,7 +420,7 @@ function SuscribirEventoCargarCsv() {
     });
 }
 
-function csvToJson(data, idField, ti) {
+function csvToJson(data, idField, tipoCarga) {
     data = data.split("\r\n");
     data.shift();
 
@@ -351,19 +433,50 @@ function csvToJson(data, idField, ti) {
     var csv = [];
     try {
         data.forEach(function (d, i) {
-            if (d.substring(0, d.length).split(",").length === encabezados.length) {
+            if (d.substring(0, d.length).split(",").length === encabezados.length - 1) {
                 var tmp = {};
                 tmp[idField] = null;
                 d.split(",").forEach(function (cell, z) {
-                    tmp[encabezados[z]] = cell;
+                    if (tipoCarga == 1) {
+                        if (z == 0) {
+                            tmp[encabezados[z]] = cell.replace(' ', '');
+                            tmp[encabezados[z + 1]] = "";
+                        }
+                        else {
+                            tmp[encabezados[z + 1]] = cell.replace(' ', '');
+                        }
+
+                    }
+                    else {
+                        if (z == 0) {
+                            tmp[encabezados[z]] = "";
+                        }
+                        tmp[encabezados[z + 1]] = cell.replace(' ', '');
+                    }
+
                 });
                 csv.push(tmp);
             }
-            else if (d.substring(0, d.length).split(";").length === encabezados.length) {
+            else if (d.substring(0, d.length).split(";").length === encabezados.length - 1) {
                 var tmp = {};
                 tmp[idField] = null;
                 d.split(";").forEach(function (cell, z) {
-                    tmp[encabezados[z]] = cell;
+                    if (tipoCarga == 1) {
+                        if (z == 0) {
+                            tmp[encabezados[z]] = "";
+                            tmp[encabezados[z + 1]] = cell.replace(' ', '');
+                        }
+                        else {
+                            tmp[encabezados[z + 1]] = cell.replace(' ', '');
+                        }
+
+                    }
+                    else {
+                        if (z == 0) {
+                            tmp[encabezados[z]] = "";
+                        }
+                        tmp[encabezados[z + 1]] = cell.replace(' ', '');
+                    }
                 });
                 csv.push(tmp);
             }
@@ -373,10 +486,10 @@ function csvToJson(data, idField, ti) {
                     throw -1;
                     csv = [];
                 }
-                    
-                    
+
+
             }
-        })
+        });
     } catch (e) {
         if (e !== -1) {
             throw e;
@@ -405,7 +518,8 @@ function SuscribirEventoBusqueda() {
                 if ($("#inputSpool").val() != null && $("#inputSpool").val() != "") {
                     tipoBusqueda = 1;
                     cadena = $("#inputSpool").val().trim();
-                    AjaxCargarDetalleSpool(Proyecto.ProyectoID, tipoBusqueda, cadena);
+                    AjaxCargarNumeroElementosPorBusqueda(Proyecto.ProyectoID, tipoBusqueda, cadena);
+                    //AjaxCargarDetalleSpool(Proyecto.ProyectoID, tipoBusqueda, cadena);
                 } else {
                     displayNotify("SPAMensajeIngresaSpool", "", '1');
                 }
@@ -414,7 +528,8 @@ function SuscribirEventoBusqueda() {
                 if ($("#inputNc").val() != null && $("#inputNc").val() != "") {
                     tipoBusqueda = 2;
                     cadena = $("#inputNc").val().trim();
-                    AjaxCargarDetalleSpool(Proyecto.ProyectoID, tipoBusqueda, cadena);
+                    AjaxCargarNumeroElementosPorBusqueda(Proyecto.ProyectoID, tipoBusqueda, cadena);
+                    //AjaxCargarDetalleSpool(Proyecto.ProyectoID, tipoBusqueda, cadena);
                 } else {
                     displayNotify("SPAMensajeIngresaNc", "", '1');
                 }
@@ -427,27 +542,108 @@ function SuscribirEventoBusqueda() {
 
     $("#inputSpool").keydown(function (e) {
         var Proyecto = $("#inputProyecto").data("kendoComboBox").dataItem($("#inputProyecto").data("kendoComboBox").select());
+        if (e.keyCode == 13) {
+            
+            if (!ValidaInformacionCapturada()) {
+                $("#inputSpool").attr("saAttr", $("#inputSpool").val());
+                if ($('#inputSpool').val() != "") {
 
-        if ($('#inputSpool').val() != "") {
-            if (e.keyCode == 13) {
-                AjaxCargarDetalleSpool(Proyecto.ProyectoID, 1, $('#inputSpool').val());
+                    AjaxCargarNumeroElementosPorBusqueda(Proyecto.ProyectoID, 1, $('#inputSpool').val());
+                } else {
+                    $("#grid").data("kendoGrid").dataSource.data([]);
+                }
+            } else {
+                var ventanaConfirm = $("#ventanaConfirmCaptura").kendoWindow({
+                    iframe: true,
+                    title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
+                    visible: false,
+                    width: "40%",
+                    height: "auto",
+                    draggable: false,
+                    modal: true,
+                    animation: {
+                        close: function () {
+
+                        },
+                        open: false
+                    },
+                    actions: [
+                        "Close"
+                    ]
+                }).data("kendoWindow");
+
+                ventanaConfirm.content('<center>' + _dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] + '</center>' +
+                    "</br><center><button class='btn btn-blue' id='yesButtonProy'>Si</button> <button class='btn btn-blue' id='noButtonProy'>No</button></center>");
+
+                ventanaConfirm.open().center();
+                $("#yesButtonProy").click(function () {
+                    $("#inputSpool").attr("saAttr", $("#inputSpool").val());
+                    if ($('#inputSpool').val() != "") {
+
+                        AjaxCargarNumeroElementosPorBusqueda(Proyecto.ProyectoID, 1, $('#inputSpool').val());
+                    } else {
+                        $("#grid").data("kendoGrid").dataSource.data([]);
+                    }
+                    ventanaConfirm.close();
+                });
+                $("#noButtonProy").click(function () {
+                    $("#inputSpool").val($("#inputSpool").attr("saAttr"));
+                    ventanaConfirm.close();
+                });
             }
-        } else {
-            $("#grid").data("kendoGrid").dataSource.data([]);
         }
 
     });
     $("#inputNc").keydown(function (e) {
         var Proyecto = $("#inputProyecto").data("kendoComboBox").dataItem($("#inputProyecto").data("kendoComboBox").select());
+        if (e.keyCode == 13) {            
+            if (!ValidaInformacionCapturada()) {
+                $("#inputNc").attr("ncaAttr", $("#inputNc").val());
+                if ($('#inputNc').val() != "") {
+                    AjaxCargarNumeroElementosPorBusqueda(Proyecto.ProyectoID, 2, $('#inputNc').val());
+                } else {
+                    $("#grid").data("kendoGrid").dataSource.data([]);
+                }
+            } else {
+                var ventanaConfirm = $("#ventanaConfirmCaptura").kendoWindow({
+                    iframe: true,
+                    title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
+                    visible: false,
+                    width: "40%",
+                    height: "auto",
+                    draggable: false,
+                    modal: true,
+                    animation: {
+                        close: function () {
 
-        if ($('#inputNc').val() != "") {
-            if (e.keyCode == 13) {
-                AjaxCargarDetalleSpool(Proyecto.ProyectoID, 2, $('#inputNc').val());
+                        },
+                        open: false
+                    },
+                    actions: [
+                        "Close"
+                    ]
+                }).data("kendoWindow");
+
+                ventanaConfirm.content('<center>' + _dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] + '</center>' +
+                    "</br><center><button class='btn btn-blue' id='yesButtonNc'>Si</button> <button class='btn btn-blue' id='noButtonProy'>No</button></center>");
+
+                ventanaConfirm.open().center();
+
+                $("#yesButtonNc").click(function () {
+                    $("#inputNc").attr("ncaAttr", $("#inputNc").val());
+                    if ($('#inputNc').val() != "") {
+                        AjaxCargarNumeroElementosPorBusqueda(Proyecto.ProyectoID, 2, $('#inputNc').val());
+                    } else {
+                        $("#grid").data("kendoGrid").dataSource.data([]);
+                    }
+                    ventanaConfirm.close();
+                });
+                $("#noButtonProy").click(function () {
+                    $("#inputNc").val($("#inputNc").attr("ncaAttr"));
+                    ventanaConfirm.close();
+                });
             }
-        } else {
-            $("#grid").data("kendoGrid").dataSource.data([]);
         }
-
     });
 }
 function SuscribirEventoGuardar() {
@@ -464,7 +660,7 @@ function SuscribirEventoGuardar() {
         }
 
     });
-    $("#btnGuardarYNuevo, btnGuardarYNuevo1").click(function (e) {
+    $("#btnGuardarYNuevo, #btnGuardarYNuevo1").click(function (e) {
         var ds = $("#grid").data("kendoGrid").dataSource;
         if (ds._data.length) {
             AjaxGuardarCaptura(ds._data, true);
@@ -486,6 +682,7 @@ function opcionHabilitarView(disable){
         $("#inputSistemaPintura").data("kendoComboBox").enable(false);
         $("#inputColorPintura").data("kendoComboBox").enable(false);
 
+        $("#btnBuscar").attr("disabled", true);
         $("#Guardar").text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
         $("#btnGuardar").text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
         $("#Guardar1").text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
@@ -502,6 +699,7 @@ function opcionHabilitarView(disable){
         $("#inputSistemaPintura").data("kendoComboBox").enable(true);
         $("#inputColorPintura").data("kendoComboBox").enable(true);
 
+        $("#btnBuscar").attr("disabled", false);
         $("#Guardar").text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);
         $("#btnGuardar").text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);
         $("#Guardar1").text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);
@@ -512,6 +710,10 @@ function opcionHabilitarView(disable){
 function LimpiaTipoBusqueda() {
     $("#inputSpool").val("");
     $("#inputNc").val("");
+    $("#inputSistemaPintura").data("kendoComboBox").dataSource.data([]);
+    $("#inputSistemaPintura").data("kendoComboBox").value("");
+    $("#inputColorPintura").data("kendoComboBox").dataSource.data([]);
+    $("#inputColorPintura").data("kendoComboBox").value("");
     $("#grid").data("kendoGrid").dataSource.data([]);
 }
 
@@ -541,7 +743,7 @@ function LimpiarPantalla() {
     $("#inputSpool").val("");
     $("#inputNc").val("");
     $("#grid").data("kendoGrid").dataSource.data([]);
-
+    opcionHabilitarView(false);
     AjaxCargarCamposPredeterminados();
     AjaxCargaProyecto();
 }

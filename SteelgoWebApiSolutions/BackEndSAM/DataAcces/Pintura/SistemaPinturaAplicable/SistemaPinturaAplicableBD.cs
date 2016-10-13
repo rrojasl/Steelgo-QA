@@ -99,6 +99,30 @@ namespace BackEndSAM.DataAcces.Pintura.SistemaPinturaAplicable
             }
         }
 
+        public object ObtieneNumeroElementosPorBusqueda(int ProyectoID, int TipoBusqueda, string Cadena)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    ObjectResult<int?> result = ctx.Sam3_SPA_NumeroElementosPorBusqueda(ProyectoID, TipoBusqueda, Cadena);
+                    var valor = result.Where(x => x.HasValue).Select(x => x.Value).ToList()[0];
+
+                    return valor;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
         public object ObtieneDetalleSpool(int ProyectoID, int TipoBusqueda, string Cadena, string Lenguaje)
         {
             try
