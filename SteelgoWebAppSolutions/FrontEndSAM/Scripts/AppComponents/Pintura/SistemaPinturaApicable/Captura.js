@@ -118,7 +118,7 @@ function CargarGrid() {
 function isEditable(fieldName, model) {
     if (fieldName === "Color") {
         var sistemaPinturaID = model.SistemaPinturaID
-        if (sistemaPinturaID == 0) {
+        if (sistemaPinturaID == 0 || model.NoPintable) {
             return false;
         }
     }
@@ -153,7 +153,7 @@ function plancharTodo(tipoLlenado) {
 }
 
 function PlanchadoSistemaPintura(tipoLlenado) {
-
+    var itemSistemaPintura = $("#inputSistemaPintura").data("kendoComboBox").dataItem($("#inputSistemaPintura").data("kendoComboBox").select());
     var ds = $("#grid").data("kendoGrid").dataSource;
     var filters = ds.filter();
     var allData = ds.data();
@@ -162,15 +162,17 @@ function PlanchadoSistemaPintura(tipoLlenado) {
 
     for (var i = 0; i < data.length; i++) {
         if (tipoLlenado === "Todos") {
-            data[i].SistemaPintura = $("#inputSistemaPintura").data("kendoComboBox").text();
-            data[i].SistemaPinturaID = $("#inputSistemaPintura").data("kendoComboBox").value();
+            data[i].SistemaPintura = itemSistemaPintura.Nombre;
+            data[i].SistemaPinturaID = itemSistemaPintura.SistemaPinturaID;
+            data[i].NoPintable = itemSistemaPintura.NoPintable;
             data[i].EstatusCaptura = 1;
             data[i].ListaColorPintura = $("#inputColorPintura").data("kendoComboBox").dataSource._data;
         }
         else if (tipoLlenado === "Vacios") {
             if (data[i].SistemaPintura === "" || data[i].SistemaPintura === null || data[i].SistemaPintura === undefined) {
-                data[i].SistemaPintura = $("#inputSistemaPintura").data("kendoComboBox").text();
-                data[i].SistemaPinturaID = $("#inputSistemaPintura").data("kendoComboBox").value();
+                data[i].SistemaPintura = itemSistemaPintura.Nombre;
+                data[i].SistemaPinturaID = itemSistemaPintura.SistemaPinturaID;
+                data[i].NoPintable = itemSistemaPintura.NoPintable;
                 data[i].EstatusCaptura = 1;
                 data[i].ListaColorPintura = $("#inputColorPintura").data("kendoComboBox").dataSource._data;
             }           

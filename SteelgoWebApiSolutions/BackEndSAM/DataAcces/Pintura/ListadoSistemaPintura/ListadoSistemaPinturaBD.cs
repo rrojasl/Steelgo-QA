@@ -113,6 +113,7 @@ namespace BackEndSAM.DataAcces.Pintura.ListadoSistemaPintura
                             Accion = 1,
                             SistemaPinturaID = item.SistemaPinturaID,
                             SistemaPintura = item.SistemaPintura.Split('~')[0],
+                            AsignadoSpool = item.AsignadoSpool.GetValueOrDefault(),
                             ProyectoProcesoShotblastID = item.ProyectoProcesoShotblastID.GetValueOrDefault(),
                             ProyectoProcesoPrimarioID = item.ProyectoProcesoPrimarioID.GetValueOrDefault(),
                             ProyectoProcesoIntermedioID = item.ProyectoProcesoIntermedioID.GetValueOrDefault(),

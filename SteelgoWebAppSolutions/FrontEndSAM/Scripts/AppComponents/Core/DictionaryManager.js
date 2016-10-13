@@ -8989,8 +8989,8 @@ _dictionary = {
         "en-US": "Advance Intermediate Finish"
     },
     "PinturaEdicionSPBreadcrumb": {
-        "es-MX": "Listado Sistema de Pintura",
-        "en-US": "List System Paint"
+        "es-MX": "Sistema de Pintura",
+        "en-US": "Paint System"
     },
     "PinturaLotesCapturaPruebaBreadcrumb": {
         "es-MX": "Lotes Captura Prueba",
@@ -9291,7 +9291,7 @@ _dictionary = {
         "en-US": "The paint system was successfully removed"
     },
     "SistemaPinturaErrorEliminado": {
-        "es-MX": "El sistema de pintura no se puede eliminar porque tiene asignados spool",
+        "es-MX": "El sistema de pintura no puede ser eliminado porque tiene spools asignados",
         "en-US": "The paint system can't be deleted because it has assigned spool"
     },
     "SistemaPinturaAplicableExcepcionGuardado": {

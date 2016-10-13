@@ -47,7 +47,8 @@ namespace BackEndSAM.DataAcces.Pintura.SistemaPinturaAplicable
                     {
                         list.Add(new SistemaPinturaData {
                             SistemaPinturaID = item.SistemaPinturaID,
-                            Nombre = item.Nombre.Split('~')[0]
+                            Nombre = item.Nombre.Split('~')[0],
+                            NoPintable = item.NoPintable.GetValueOrDefault()
                         });
                     }
                     return list;
@@ -144,6 +145,7 @@ namespace BackEndSAM.DataAcces.Pintura.SistemaPinturaAplicable
                             Diametro = item.Diametro.GetValueOrDefault(),
                             SistemaPinturaID = item.SistemaPinturaID.GetValueOrDefault(),
                             SistemaPintura = item.SistemaPintura != null ? item.SistemaPintura.Split('~')[0] : "",
+                            NoPintable = item.NoPintable.GetValueOrDefault(),
                             SistemaPinturaColorID = item.SistemaPinturaColorID.GetValueOrDefault(),
                             ColorPinturaID = item.ColorID.GetValueOrDefault(),
                             Color = item.Color != null ? item.Color : "",

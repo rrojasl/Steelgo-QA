@@ -13,6 +13,7 @@
                 dataItem = this.dataItem(e.sender.selectedIndex);
                 if (dataItem != undefined) {
                     options.model.SistemaPinturaID = dataItem.SistemaPinturaID;
+                    options.model.NoPintable = dataItem.NoPintable;
                     options.model.SistemaPintura = dataItem.Nombre;
                     options.model.EstatusCaptura = 1;
 
@@ -21,7 +22,7 @@
                     options.model.SistemaPinturaColorID = 0;
                     options.model.Color = "";
 
-                    if (dataItem.SistemaPinturaID != 0) {
+                    if (dataItem.SistemaPinturaID != 0 && !dataItem.NoPintable) {
                         AjaxCargarColorPinturaRender(dataItem.SistemaPinturaID, options);
                     }
 

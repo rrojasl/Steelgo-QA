@@ -153,6 +153,7 @@ function AjaxGuardarCaptura(listaCaptura, GuardarYNuevo) {
             SpoolAplicableID: "",
             OrdenTrabajoID: "",
             SpoolID: "",
+            ProyectoID : "",
             SistemaPinturaID: "",
             SistemaPinturaColorID: "",
             Estatus: 1
@@ -162,6 +163,7 @@ function AjaxGuardarCaptura(listaCaptura, GuardarYNuevo) {
         listaDetalles[i].SpoolAplicableID = listaCaptura[i].SpoolAplicableID;
         listaDetalles[i].OrdenTrabajoID = listaCaptura[i].OrdenTrabajoID;
         listaDetalles[i].SpoolID = listaCaptura[i].SpoolID;
+        listaDetalles[i].ProyectoID = Proyecto.ProyectoID;
         listaDetalles[i].SistemaPinturaID = listaCaptura[i].SistemaPinturaID;
         listaDetalles[i].SistemaPinturaColorID = listaCaptura[i].SistemaPinturaColorID;
 
@@ -175,7 +177,7 @@ function AjaxGuardarCaptura(listaCaptura, GuardarYNuevo) {
                         listaDetalles[i].Estatus = 0;
                         $('tr[data-uid="' + listaCaptura[i].uid + '"] ').css("background-color", "#ffcccc");
                     }
-                    if (listaDetalles[i].SistemaPinturaColorID == 0) {
+                    if (listaDetalles[i].SistemaPinturaColorID == 0 && !listaCaptura[i].NoPintable) {
                         listaDetalles[i].Estatus = 0;
                         $('tr[data-uid="' + listaCaptura[i].uid + '"] ').css("background-color", "#ffcccc");
                     }
@@ -186,7 +188,7 @@ function AjaxGuardarCaptura(listaCaptura, GuardarYNuevo) {
                     listaDetalles[i].Estatus = 0;
                     $('tr[data-uid="' + listaCaptura[i].uid + '"] ').css("background-color", "#ffcccc");
                 }
-                if (listaDetalles[i].SistemaPinturaColorID == 0) {
+                if (listaDetalles[i].SistemaPinturaColorID == 0 && !listaCaptura[i].NoPintable) {
                     listaDetalles[i].Estatus = 0;
                     $('tr[data-uid="' + listaCaptura[i].uid + '"] ').css("background-color", "#ffcccc");
                 }
@@ -250,6 +252,7 @@ function AjaxGuardarCaptura(listaCaptura, GuardarYNuevo) {
                         SpoolAplicableID: "",
                         OrdenTrabajoID: "",
                         SpoolID: "",
+                        ProyectoID: "",
                         SistemaPinturaID: "",
                         SistemaPinturaColorID: "",
                         Estatus: 1
@@ -258,6 +261,7 @@ function AjaxGuardarCaptura(listaCaptura, GuardarYNuevo) {
                     listaDetallesGuardar[x].SpoolAplicableID = listaDetalles[i].SpoolAplicableID;
                     listaDetallesGuardar[x].OrdenTrabajoID = listaDetalles[i].OrdenTrabajoID;
                     listaDetallesGuardar[x].SpoolID = listaDetalles[i].SpoolID;
+                    listaDetallesGuardar[x].ProyectoID = listaDetalles[i].ProyectoID;
                     listaDetallesGuardar[x].SistemaPinturaID = listaDetalles[i].SistemaPinturaID;
                     listaDetallesGuardar[x].SistemaPinturaColorID = listaDetalles[i].SistemaPinturaColorID;
                     listaDetallesGuardar[x].Estatus = listaDetalles[i].Estatus;

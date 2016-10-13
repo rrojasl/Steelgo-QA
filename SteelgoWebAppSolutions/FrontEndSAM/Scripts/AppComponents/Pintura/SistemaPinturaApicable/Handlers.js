@@ -184,7 +184,7 @@ function SuscribirEventoSistemaPintura() {
             var dataItem = this.dataItem(e.sender.selectedIndex);
             LimpiaCargaSP();
             if (dataItem != undefined) {
-                if(dataItem.SistemaPinturaID!=0){                    
+                if (dataItem.SistemaPinturaID != 0 && !dataItem.NoPintable) {
                     AjaxCargarColorPintura(dataItem.SistemaPinturaID);
                 }
             } else {
@@ -710,9 +710,7 @@ function opcionHabilitarView(disable){
 function LimpiaTipoBusqueda() {
     $("#inputSpool").val("");
     $("#inputNc").val("");
-    $("#inputSistemaPintura").data("kendoComboBox").dataSource.data([]);
     $("#inputSistemaPintura").data("kendoComboBox").value("");
-    $("#inputColorPintura").data("kendoComboBox").dataSource.data([]);
     $("#inputColorPintura").data("kendoComboBox").value("");
     $("#grid").data("kendoGrid").dataSource.data([]);
 }

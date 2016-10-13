@@ -7,7 +7,7 @@ function IniciarEdicionSistemaPintura() {
 function changeLanguageCall() {
     CargarGrid();
     CargarGridDetalle();
-    //document.title = _dictionary.PinturaHeaderCargaCarro[$("#language").data("kendoDropDownList").value()];
+    document.title = _dictionary.PinturaEdicionSPBreadcrumb[$("#language").data("kendoDropDownList").value()];
     AjaxCargaDetalleSistemaPintura();
 }
 
@@ -133,8 +133,12 @@ function eliminarCaptura(e) {
             ventanaConfirm.open().center();
 
             $("#yesButton").click(function () {
-                //alert(dataItem.SistemaPinturaID);
-                AjaxEliminaSistemaPintura(dataItem.SistemaPinturaID);
+                if (!dataItem.AsignadoSpool) {
+                    AjaxEliminaSistemaPintura(dataItem.SistemaPinturaID);
+                    
+                } else {
+                    displayNotify("SistemaPinturaErrorEliminado", "", '2');
+                }
                 ventanaConfirm.close();
             });
             $("#noButton").click(function () {
