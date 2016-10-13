@@ -147,7 +147,7 @@ function plancharTodo(tipoLlenado) {
     if (itemSistemaPintura != undefined && itemSistemaPintura.SistemaPinturaID!= 0) {
         PlanchadoSistemaPintura(tipoLlenado);
     }
-    if (itemColor != undefined && itemColor.ColorPinturaID != 0) {
+    if (itemColor != undefined && itemColor.ColorPinturaID != 0 && !itemSistemaPintura.NoPintable) {
         PlanchadoColor(tipoLlenado);
     }
 }
@@ -167,6 +167,11 @@ function PlanchadoSistemaPintura(tipoLlenado) {
             data[i].NoPintable = itemSistemaPintura.NoPintable;
             data[i].EstatusCaptura = 1;
             data[i].ListaColorPintura = $("#inputColorPintura").data("kendoComboBox").dataSource._data;
+            if (itemSistemaPintura.NoPintable) {
+                data[i].Color = "";
+                data[i].ColorPinturaID = 0;
+                data[i].SistemaPinturaColorID = 0;
+            }
         }
         else if (tipoLlenado === "Vacios") {
             if (data[i].SistemaPintura === "" || data[i].SistemaPintura === null || data[i].SistemaPintura === undefined) {
@@ -175,6 +180,11 @@ function PlanchadoSistemaPintura(tipoLlenado) {
                 data[i].NoPintable = itemSistemaPintura.NoPintable;
                 data[i].EstatusCaptura = 1;
                 data[i].ListaColorPintura = $("#inputColorPintura").data("kendoComboBox").dataSource._data;
+                if (itemSistemaPintura.NoPintable) {
+                    data[i].Color = "";
+                    data[i].ColorPinturaID = 0;
+                    data[i].SistemaPinturaColorID = 0;
+                }
             }           
         }
     }
@@ -192,18 +202,31 @@ function PlanchadoColor(tipoLlenado) {
 
     for (var i = 0; i < data.length; i++) {
         if (tipoLlenado === "Todos") {
-            data[i].Color = itemColor.Nombre;
-            data[i].ColorPinturaID = itemColor.ColorPinturaID;
-            data[i].SistemaPinturaColorID = itemColor.SistemaPinturaColorID;
-            data[i].EstatusCaptura = 1;
-        }
-        else if (tipoLlenado === "Vacios") {
-            if (data[i].Color === "" || data[i].Color === null || data[i].Color === undefined) {
+            if (itemSistemaPintura.NoPintable) {
+                data[i].Color = "";
+                data[i].ColorPinturaID = 0;
+                data[i].SistemaPinturaColorID = 0;
+            } else {
 
                 data[i].Color = itemColor.Nombre;
                 data[i].ColorPinturaID = itemColor.ColorPinturaID;
                 data[i].SistemaPinturaColorID = itemColor.SistemaPinturaColorID;
                 data[i].EstatusCaptura = 1;
+            }
+        }
+        else if (tipoLlenado === "Vacios") {
+            if (data[i].Color === "" || data[i].Color === null || data[i].Color === undefined) {
+                if (itemSistemaPintura.NoPintable) {
+                    data[i].Color = "";
+                    data[i].ColorPinturaID = 0;
+                    data[i].SistemaPinturaColorID = 0;
+                } else {
+
+                    data[i].Color = itemColor.Nombre;
+                    data[i].ColorPinturaID = itemColor.ColorPinturaID;
+                    data[i].SistemaPinturaColorID = itemColor.SistemaPinturaColorID;
+                    data[i].EstatusCaptura = 1;
+                }
             }            
         }
     }
