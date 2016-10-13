@@ -104,10 +104,38 @@ function suscribirEventoProyecto() {
 
 function SuscribirEventoBuscar() {
     $('#ButtonBuscar').click(function (e) {
+        var ds = $("#grid").data("kendoGrid").dataSource;
         var proyectoID = $("#Proyecto").data("kendoComboBox").value();
         var NumControl = $("#InputNumeroControl").val();
 
-        AjaxGetListaElementos(proyectoID, NumControl);
+        if (!existenCambios(ds._data)) {
+            AjaxGetListaElementos(proyectoID, NumControl);
+        }
+        else {
+            var ventanaConfirm = $("#ventanaConfirmCaptura").kendoWindow({
+                iframe: true,
+                title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
+                visible: false,
+                animation: false,
+                width: "auto",
+                height: "auto",
+                actions: [],
+                modal: true
+            }).data("kendoWindow");
+
+            ventanaConfirm.content(_dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] +
+                "</br><center><button class='btn btn-blue' id='yesButtonProy'>Si</button><button class='btn btn-blue' id='noButtonProy'>No</button></center>");
+
+            ventanaConfirm.open().center();
+            $("#yesButtonProy").click(function () {
+                ventanaConfirm.close();
+                AjaxGetListaElementos(proyectoID, NumControl);
+            });
+
+            $("#noButtonProy").click(function () {
+                ventanaConfirm.close();
+            });
+        }
     });
 };
 
