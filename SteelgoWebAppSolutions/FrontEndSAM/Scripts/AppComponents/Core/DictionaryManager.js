@@ -7554,6 +7554,10 @@ _dictionary = {
         "es-MX": "Cancelar",
         "en-US": "Cancel"
     },
+    "botonCancelar2": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
     "botonCerrar": {
         "es-MX": "Cerrar",
         "en-US": "Close"
