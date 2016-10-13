@@ -7818,12 +7818,12 @@ _dictionary = {
         "en-US": "System Paint"
     },
     "menuListadoSistemaPintura": {
-        "es-MX": "Listado Sistema de Pintura",
-        "en-US": "List System Paint"
+        "es-MX": "Sistema de Pintura",
+        "en-US": "Paint System"
     },
     "menuListadoSistemaPintura2": {
-        "es-MX": "Listado Sistema de Pintura",
-        "en-US": "List System Paint"
+        "es-MX": "Sistema de Pintura",
+        "en-US": "Paint System"
     },
     "menuConfiguracionSoldadura": {
         "es-MX": "Configuración de soldadura",
@@ -9305,6 +9305,10 @@ _dictionary = {
     "SPAExcepcionArchivo1": {
         "es-MX": "Imposible leer el archivo",
         "en-US": "Unable to read file "
+    },
+    "SPAMensajeAlertaCantidadRegistros": {
+        "es-MX": "El tipo de búsqueda que ejecuto obtendrá mas de 100 registros, eso puedo tardar varios minutos. ¿Desea Continuar?",
+        "en-US": "The type of search you get run over 100 records, it can take several minutes. Continue anyway?"
     },
     // Finaliza Listado Sistema Pintura
 
