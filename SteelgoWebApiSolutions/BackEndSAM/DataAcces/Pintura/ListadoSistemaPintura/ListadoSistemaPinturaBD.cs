@@ -131,11 +131,7 @@ namespace BackEndSAM.DataAcces.Pintura.ListadoSistemaPintura
                             PruebaIntermedio = lenguaje.Equals("es-MX") ? "Detalle Pruebas" : "Detail Testing",
                             PruebaPorLoteAcabado = item.PruebaPorLoteAcabado.GetValueOrDefault(),
                             MetrosPorLoteAcabado = item.MetrosPorLoteAcabado.GetValueOrDefault(),
-                            PruebaAcabado = lenguaje.Equals("es-MX") ? "Detalle Pruebas" : "Detail Testing",
-                            ListaPruebasSB = (List<DetallePruebas>)ListadoSistemaPinturaBD.Instance.ObtieneListadoPruebas(item.ProyectoProcesoShotblastID.GetValueOrDefault(), lenguaje),
-                            ListaPruebasP = (List<DetallePruebas>)ListadoSistemaPinturaBD.Instance.ObtieneListadoPruebas(item.ProyectoProcesoPrimarioID.GetValueOrDefault(), lenguaje),
-                            ListaPruebasI = (List<DetallePruebas>)ListadoSistemaPinturaBD.Instance.ObtieneListadoPruebas(item.ProyectoProcesoIntermedioID.GetValueOrDefault(), lenguaje),
-                            ListaPruebasA = (List<DetallePruebas>)ListadoSistemaPinturaBD.Instance.ObtieneListadoPruebas(item.ProyectoProcesoAcabadoID.GetValueOrDefault(), lenguaje),
+                            PruebaAcabado = lenguaje.Equals("es-MX") ? "Detalle Pruebas" : "Detail Testing"
 
                         });
                     }

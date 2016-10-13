@@ -138,7 +138,7 @@ namespace BackEndSAM.Controllers.Pintura.SistemaPinturaAplicable
         }
 
         [HttpPost]
-        public object GuardaCapturaSistemaPinturaAplicableMasivo(CargaMasiva captura, string token, int TipoCarga, string Lenguaje)
+        public object GuardaCapturaSistemaPinturaAplicableMasivo(CargaMasiva captura, string token, int TipoCarga, string Lenguaje, int ProyectoID)
         {
             string payload = "";
             string newToken = "";
@@ -148,23 +148,23 @@ namespace BackEndSAM.Controllers.Pintura.SistemaPinturaAplicable
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
                
-                int posicion = 0;
-                while (captura.detalle.Count>0 && posicion < captura.detalle.Count)
-                {
-                    if (captura.detalle[posicion].Color == null && captura.detalle[posicion].NombreSpool == null && captura.detalle[posicion].NumeroControl == null && captura.detalle[posicion].SistemaPintura == null)
-                    {
-                        captura.detalle.RemoveAt(posicion);
-                        posicion--;
-                    }
-                    else
-                        posicion++;
-                }
+                //int posicion = 0;
+                //while (captura.detalle.Count>0 && posicion < captura.detalle.Count)
+                //{
+                //    if (captura.detalle[posicion].Color == null && captura.detalle[posicion].NombreSpool == null && captura.detalle[posicion].NumeroControl == null && captura.detalle[posicion].SistemaPintura == null)
+                //    {
+                //        captura.detalle.RemoveAt(posicion);
+                //        posicion--;
+                //    }
+                //    else
+                //        posicion++;
+                //}
 
                 DataTable dtDetalleCaptura = Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(captura.detalle);
 
 
 
-                return SistemaPinturaAplicableBD.Instance.InsertaCapturaSistemaPinturaAplicableMasivo(dtDetalleCaptura, usuario.UsuarioID, TipoCarga, Lenguaje);
+                return SistemaPinturaAplicableBD.Instance.InsertaCapturaSistemaPinturaAplicableMasivo(dtDetalleCaptura, usuario.UsuarioID, TipoCarga, Lenguaje, ProyectoID);
             }
             else
             {

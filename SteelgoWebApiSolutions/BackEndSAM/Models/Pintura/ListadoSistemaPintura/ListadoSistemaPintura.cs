@@ -30,10 +30,6 @@ namespace BackEndSAM.Models.Pintura.ListadoSistemaPintura
         public int PruebaPorLoteAcabado { get; set; }
         public double MetrosPorLoteAcabado { get; set; }
         public string PruebaAcabado { get; set; }
-        public List<DetallePruebas> ListaPruebasSB { get; set; }
-        public List<DetallePruebas> ListaPruebasP { get; set; }
-        public List<DetallePruebas> ListaPruebasI { get; set; }
-        public List<DetallePruebas> ListaPruebasA { get; set; }
     }
 
     public class DetallePruebas

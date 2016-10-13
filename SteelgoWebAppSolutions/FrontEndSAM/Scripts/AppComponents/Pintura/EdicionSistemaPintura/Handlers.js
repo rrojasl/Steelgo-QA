@@ -32,28 +32,28 @@ function SuscribirEventoMostrarDetalle() {
         e.preventDefault();
         var grid = $("#grid").data("kendoGrid");
         dataItem = grid.dataItem($(e.target).closest("tr"));
-        showModalDetail(dataItem.ListaPruebasSB);
+        AjaxObtieneDetallePruebas(dataItem.ProyectoProcesoShotblastID);
 
     });
     $(document).on('click', '.DetallePrimario', function (e) {
         e.preventDefault();
         var grid = $("#grid").data("kendoGrid");
         dataItem = grid.dataItem($(e.target).closest("tr"));
-        showModalDetail(dataItem.ListaPruebasP);
+        AjaxObtieneDetallePruebas(dataItem.ProyectoProcesoPrimarioID);
 
     });
     $(document).on('click', '.DetalleItermedio', function (e) {
         e.preventDefault();
         var grid = $("#grid").data("kendoGrid");
         dataItem = grid.dataItem($(e.target).closest("tr"));
-        showModalDetail(dataItem.ListaPruebasI);
+        AjaxObtieneDetallePruebas(dataItem.ProyectoProcesoIntermedioID);
 
     });
     $(document).on('click', '.DetalleAcabado', function (e) {
         e.preventDefault();
         var grid = $("#grid").data("kendoGrid");
         dataItem = grid.dataItem($(e.target).closest("tr"));
-        showModalDetail(dataItem.ListaPruebasA);
+        AjaxObtieneDetallePruebas(dataItem.ProyectoProcesoAcabadoID);
 
     });
     $("#btnCerrarPopup").click(function (e) {

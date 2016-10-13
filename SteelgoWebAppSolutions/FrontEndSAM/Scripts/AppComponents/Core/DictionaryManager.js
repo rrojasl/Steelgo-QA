@@ -7834,8 +7834,8 @@ _dictionary = {
         "en-US": "System Paint"
     },
     "menuListadoSistemaPintura": {
-        "es-MX": "Sistema de Pintura",
-        "en-US": "Paint System"
+        "es-MX": "Sistemas de Pintura",
+        "en-US": "Paint Systems"
     },
     "menuListadoSistemaPintura2": {
         "es-MX": "Sistema de Pintura",
@@ -7864,6 +7864,14 @@ _dictionary = {
     "menuSistemaAplicable": {
         "es-MX": "Sistema Pintura Aplicable",
         "en-US": "Applicable Paint System"
+    },
+    "menuListadosModuloPintura": {
+        "es-MX": "Pintura",
+        "en-US": "Paint"
+    },
+    "menuConfigModuloPintura": {
+        "es-MX": "Pintura",
+        "en-US": "Paint"
     },
     // Finalizan Etiquetas de Menú General
 
@@ -9315,8 +9323,8 @@ _dictionary = {
         "en-US": "Control No."
     },
     "SPAExcepcionArchivo": {
-        "es-MX": "No hay datos en el archivo",
-        "en-US": "No data on file"
+        "es-MX": "El contenido del csv no es correcto, favor de revisarlo",
+        "en-US": "Csv content is not correct, please review it"
     },
     "SPAExcepcionArchivo1": {
         "es-MX": "Imposible leer el archivo",
@@ -9325,6 +9333,10 @@ _dictionary = {
     "SPAMensajeAlertaCantidadRegistros": {
         "es-MX": "El tipo de búsqueda que ejecuto obtendrá mas de 100 registros, eso puedo tardar varios minutos. ¿Desea Continuar?",
         "en-US": "The type of search you get run over 100 records, it can take several minutes. Continue anyway?"
+    },
+    "SPAProyectoCargaMasiva": {
+        "es-MX": "Se debe seleccionar un proyecto para la carga masiva",
+        "en-US": "Select a project to massive upload"
     },
     // Finaliza Listado Sistema Pintura
 

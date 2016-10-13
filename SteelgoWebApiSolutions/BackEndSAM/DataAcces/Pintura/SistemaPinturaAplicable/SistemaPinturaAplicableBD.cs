@@ -203,14 +203,14 @@ namespace BackEndSAM.DataAcces.Pintura.SistemaPinturaAplicable
             }
         }
 
-        public object InsertaCapturaSistemaPinturaAplicableMasivo(DataTable dtDetalleCaptura, int UsuarioID, int TipoCarga, string Lenguaje)
+        public object InsertaCapturaSistemaPinturaAplicableMasivo(DataTable dtDetalleCaptura, int UsuarioID, int TipoCarga, string Lenguaje, int ProyectoID)
         {
             try
             {
                 using (SamContext ctx = new SamContext()) {
 
                     ObjetosSQL _SQL = new ObjetosSQL();
-                    string[,] parametro = { { "@UsuarioID", UsuarioID.ToString() }, { "@TipoCarga", TipoCarga.ToString() }, { "@Lenguaje", Lenguaje.ToString() } };
+                    string[,] parametro = { { "@UsuarioID", UsuarioID.ToString() }, { "@TipoCarga", TipoCarga.ToString() }, { "@Lenguaje", Lenguaje }, { "@ProyectoID", ProyectoID.ToString() } };
 
                     DataTable list = _SQL.EjecutaDataAdapter(Stords.GUARDACAPTURASISTEMAAPLICABLEMASIVO, dtDetalleCaptura, "@TablaCargaMasiva", parametro);
 
