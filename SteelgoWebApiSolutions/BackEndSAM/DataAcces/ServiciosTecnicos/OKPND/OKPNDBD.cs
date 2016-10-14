@@ -93,7 +93,9 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.OKPND
                             Codigo = item.Codigo,
                             Diametro = item.Diametro,
                             Espesor = item.Espesor.GetValueOrDefault(),
-                            Nombre = item.Nombre
+                            Nombre = item.Nombre,
+                            TipoPrueba = item.TipoPrueba,
+                            NumeroRequisicion = item.NumeroRequisicion
                         });
                     }
 
@@ -144,7 +146,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.OKPND
             }
         }
 
-        public object actualizarOKPND(DataTable data, string lenguaje, Sam3_Usuario usuario)
+        public object actualizarOKPND(DataTable data, int ProyectoID, string lenguaje, Sam3_Usuario usuario)
         {
             try
             {
@@ -155,6 +157,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.OKPND
 
                     ObjetosSQL _SQL = new ObjetosSQL();
                     string[,] parametro = {
+                        { "@ProyectoID", ProyectoID.ToString()},
                         { "@UsuarioID", usuario.UsuarioID.ToString()},
                         { "@Lenguaje", lenguaje } };
 

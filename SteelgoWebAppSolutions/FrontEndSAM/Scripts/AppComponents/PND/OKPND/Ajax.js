@@ -1,4 +1,5 @@
 ﻿var SpoolContiene = "";
+var ProyectoIDAnterior = 0;
 var TipoMuestraPredeterminadoID = 3049;
 
 function AjaxCargarCamposPredeterminados() {
@@ -22,6 +23,10 @@ function AjaxGetListaProyectos() {
         if ($("#Proyecto").data("kendoComboBox").dataSource._data.length == 2) {
             $("#Proyecto").data("kendoComboBox").select(1);
             $("#Proyecto").data("kendoComboBox").trigger("change");
+            ProyectoIDAnterior = data[1].ProyectoID;
+        }
+        else {
+            ProyectoIDAnterior = 0;
         }
     });
 }
@@ -41,7 +46,7 @@ function AjaxGetListaElementos(proyectoID, numControl) {
             }
             ds.page(1);
         } else {
-            displayNotify("", "No se han encontrado elementos que coincidan con la busqueda", "1");
+            displayNotify("MensajeNoResultados", "", "1");
             ds.page(0);
         }
         ds.sync();
@@ -95,7 +100,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardado) {
                         opcionHabilitarView(true, "FieldSetView");
                     }
 
-                    displayNotify("", "Datos guardados correctamente.", "0");
+                    displayNotify("MensajeGuardadoExistoso", "", "0");
                 }
             }
             else {
@@ -112,10 +117,11 @@ function AjaxGuardadoMasivo(data) {
     CapturaMasiva = [];
     CapturaMasiva[0] = { Detalle: "" };
     CapturaMasiva[0].Detalle = JSON.stringify(data);
-    $OKPND.OKPND.create(CapturaMasiva[0], { lenguaje: $("#language").val(), token: Cookies.get("token"), isGuardadoMasivo: 1 }).done(function (data) {
+    var proyectoID = $("#Proyecto").data("kendoComboBox").value();
+    $OKPND.OKPND.create(CapturaMasiva[0], { lenguaje: $("#language").val(), token: Cookies.get("token"), ProyectoID: proyectoID }).done(function (data) {
         //if (data) {
-        download(data, "export.csv", "text/csv");
-        displayNotify("", "Datos guardados correctamente.", "0");
+        download(data, "ResultadoCargaMasiva.csv", "text/csv");
+        displayNotify("MensajeGuardadoExistoso", "", "0");
         //}
     });
 };

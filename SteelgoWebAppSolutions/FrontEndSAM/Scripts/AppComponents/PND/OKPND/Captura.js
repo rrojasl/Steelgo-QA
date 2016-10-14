@@ -171,8 +171,14 @@ function existenCambios(arregloCaptura) {
 }
 
 function aplicarPlanchado(arregloCaptura, value) {
-    for (index = 0; index < arregloCaptura.length; index++) {
-        arregloCaptura[index].OkPND = value;
+    var dataSource = $("#grid").data("kendoGrid").dataSource;
+    var filters = dataSource.filter();
+    var allData = dataSource.data();
+    var query = new kendo.data.Query(allData);
+    var data = query.filter(filters).data;
+
+    for (index = 0; index < data.length; index++) {
+        data[index].OkPND = value;
     }
 }
 
@@ -207,6 +213,8 @@ function CargarGridPopUp() {
                         Diametro: { type: "number", editable: false },
                         Espesor: { type: "number", editable: false },
                         Nombre: { type: "string", editable: false },
+                        TipoPrueba: { type: "string", editable: false },
+                        NumeroRequisicion: { type: "string", editable: false }
                     }
                 }
             },
@@ -231,7 +239,9 @@ function CargarGridPopUp() {
             { field: "Cedula", title: _dictionary.columnCedula[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "105px" },
             { field: "Diametro", title: _dictionary.columnDiametro[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "94px", attributes: { style: "text-align:right;" } },
             { field: "Espesor", title: _dictionary.columnEspesor[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "112px", attributes: { style: "text-align:right;" } },
-            { field: "Nombre", title: _dictionary.columnClasificacion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "135px" }
+            { field: "Nombre", title: _dictionary.columnClasificacion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "135px" },
+            { field: "TipoPrueba", title: _dictionary.columnTipoPrueba[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "135px" },
+            { field: "NumeroRequisicion", title: _dictionary.columnRequisicion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "135px" },
         ],
         editable: false,
         navigatable: true
