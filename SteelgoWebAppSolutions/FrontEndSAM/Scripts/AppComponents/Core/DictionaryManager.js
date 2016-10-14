@@ -7690,6 +7690,10 @@ _dictionary = {
         "es-MX": "No hay cambios por guardar",
         "en-US": "There aren´t any change"
     },
+    "MensajeNoResultados": {
+        "es-MX": "No se han encontrado elementos que coincidan con la busqueda",
+        "en-US": "No items found matching the search"
+    },
     // Finalizan Mensajes generales
 
     // Menú lateral
