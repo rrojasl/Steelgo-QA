@@ -392,7 +392,7 @@ function AjaxVerificarNombre(Nombre, arregloCaptura, tipoGuardar) {
     }
 
     if ($("#inputProyecto").data("kendoMultiSelect")._values.length == 0) {
-        displayNotify("SistemaPinturaMensajeErrorListadoProyecto", "", 1);
+        displayNotify("SistemaPinturaMensajeErrorListadoProyecto", "", '1');
         return;
     }
 
@@ -412,12 +412,13 @@ function AjaxVerificarNombre(Nombre, arregloCaptura, tipoGuardar) {
                 if (data[i].Existe == 1) {
                     proyectosExistentes = data[i].Proyecto;
                     if (data[i].length - 1 != i) {
-                        proyectosExistentes = ", ";
+                        proyectosExistentes += ",";
                     }
                 }
             }
+
             if (proyectosExistentes != "") {
-                displayNotify("SistemaPinturaMensajeErrorNombreConProyectoExistente", proyectosExistentes, '1');
+                displayNotify("SistemaPinturaMensajeErrorNombreConProyectoExistente", proyectosExistentes+"", '1');
             }
             else {
                 AjaxGuardarCaptura(arregloCaptura, tipoGuardar);
