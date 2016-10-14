@@ -97,7 +97,42 @@ function suscribirEventoProyecto() {
         filter: "contains",
         index: 3,
         change: function (e) {
-            Limpiar();
+            var ds = $("#grid").data("kendoGrid").dataSource;
+            var proyectoID = $("#Proyecto").data("kendoComboBox").value();
+            var NumControl = $("#InputNumeroControl").val();
+
+            if (existenCambios(ds._data)) {
+                var ventanaConfirm = $("#ventanaConfirmCaptura").kendoWindow({
+                    iframe: true,
+                    title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
+                    visible: false,
+                    animation: false,
+                    width: "auto",
+                    height: "auto",
+                    actions: [],
+                    modal: true
+                }).data("kendoWindow");
+
+                ventanaConfirm.content(_dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] +
+                    "</br><center><button class='btn btn-blue' id='yesButtonProy'>Si</button><button class='btn btn-blue' id='noButtonProy'>No</button></center>");
+
+                ventanaConfirm.open().center();
+                $("#yesButtonProy").click(function () {
+                    ventanaConfirm.close();
+                    ProyectoIDAnterior = proyectoID;
+                    Limpiar();
+                });
+
+                $("#noButtonProy").click(function () {
+                    $("#InputNumeroControl").val(SpoolContiene);
+                    $("#Proyecto").data("kendoComboBox").value(ProyectoIDAnterior);
+                    ventanaConfirm.close();
+                });
+            }
+            else {
+                ProyectoIDAnterior = proyectoID;
+                Limpiar();
+            }
         }
     });
 }
@@ -108,33 +143,39 @@ function SuscribirEventoBuscar() {
         var proyectoID = $("#Proyecto").data("kendoComboBox").value();
         var NumControl = $("#InputNumeroControl").val();
 
-        if (!existenCambios(ds._data)) {
-            AjaxGetListaElementos(proyectoID, NumControl);
+        if (proyectoID != 0 && proyectoID != undefined && proyectoID != "") {
+            if (!existenCambios(ds._data)) {
+                AjaxGetListaElementos(proyectoID, NumControl);
+            }
+            else {
+                var ventanaConfirm = $("#ventanaConfirmCaptura").kendoWindow({
+                    iframe: true,
+                    title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
+                    visible: false,
+                    animation: false,
+                    width: "auto",
+                    height: "auto",
+                    actions: [],
+                    modal: true
+                }).data("kendoWindow");
+
+                ventanaConfirm.content(_dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] +
+                    "</br><center><button class='btn btn-blue' id='yesButtonProy'>Si</button><button class='btn btn-blue' id='noButtonProy'>No</button></center>");
+
+                ventanaConfirm.open().center();
+                $("#yesButtonProy").click(function () {
+                    ventanaConfirm.close();
+                    AjaxGetListaElementos(proyectoID, NumControl);
+                });
+
+                $("#noButtonProy").click(function () {
+                    $("#InputNumeroControl").val(SpoolContiene);
+                    ventanaConfirm.close();
+                });
+            }
         }
         else {
-            var ventanaConfirm = $("#ventanaConfirmCaptura").kendoWindow({
-                iframe: true,
-                title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
-                visible: false,
-                animation: false,
-                width: "auto",
-                height: "auto",
-                actions: [],
-                modal: true
-            }).data("kendoWindow");
-
-            ventanaConfirm.content(_dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] +
-                "</br><center><button class='btn btn-blue' id='yesButtonProy'>Si</button><button class='btn btn-blue' id='noButtonProy'>No</button></center>");
-
-            ventanaConfirm.open().center();
-            $("#yesButtonProy").click(function () {
-                ventanaConfirm.close();
-                AjaxGetListaElementos(proyectoID, NumControl);
-            });
-
-            $("#noButtonProy").click(function () {
-                ventanaConfirm.close();
-            });
+            displayNotify("SistemaPinturaMensajeErrorProyecto", "", '1');
         }
     });
 };
@@ -193,14 +234,15 @@ function suscribirEventoDescarGaCSV() {
 }
 
 function suscribirEventoCarGaCSV() {
-    $('#btnCargaCsv').click(function (e) {
-        $("#files").val("");
-        $("#files").click();
-    });
-
-    $('#btnCargaCsv1').click(function (e) {
-        $("#files").val("");
-        $("#files").click();
+    $('#btnCargaCsv, btnCargaCsv1').click(function (e) {
+        var proyectoID = $("#Proyecto").data("kendoComboBox").value();
+        if (proyectoID != 0 && proyectoID != undefined && proyectoID != "") {
+            $("#files").val("");
+            $("#files").click();
+        }
+        else {
+            displayNotify("SPAProyectoCargaMasiva", "", '1');
+        }
     });
 
     document.getElementById("files").addEventListener("change", function (evt) {
@@ -327,6 +369,7 @@ function suscribirEventoChangeRadio() {
             });
 
             $("#noButtonProy").click(function () {
+                $("#InputNumeroControl").val(SpoolContiene);
                 $('input[name="Muestra"][value="Todos"]').prop('checked', true);
                 ventanaConfirm.close();
             });
@@ -345,6 +388,7 @@ function suscribirEventoChangeRadio() {
                 iframe: true,
                 title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
                 visible: false,
+                animation: false,
                 width: "auto",
                 height: "auto",
                 modal: true,
@@ -361,6 +405,7 @@ function suscribirEventoChangeRadio() {
             });
 
             $("#noButtonProy").click(function () {
+                $("#InputNumeroControl").val(SpoolContiene);
                 $('input[name="Muestra"][value="SinCaptura"]').prop('checked', true);
                 ventanaConfirm.close();
             });
