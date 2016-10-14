@@ -164,11 +164,11 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
         if ($("#inputSistemaPinturaID").val() != "") {
             if ($("#comboProyecto").data("kendoComboBox").text() != "") {
                 ProyectoID = $("#comboProyecto").data("kendoComboBox").value();
-                
-                    ListaProyectos[0] = { ProyectoID: "", Accion: "" };
-                    ListaProyectos[0].ProyectoID = ProyectoID;
-                    ListaProyectos[0].Accion = 1;
-                
+
+                ListaProyectos[0] = { ProyectoID: "", Accion: "" };
+                ListaProyectos[0].ProyectoID = ProyectoID;
+                ListaProyectos[0].Accion = 1;
+
             }
             else {
                 displayNotify("SistemaPinturaMensajeErrorProyecto", "", 1);
@@ -254,7 +254,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                             $("#inputSistemaPinturaID").val(data.ReturnMessage[1]);
                             $("#inputNombre").attr('disabled', true);
                             AjaxObtenerColor();
-                            
+
                         }
                         displayNotify("MensajeGuardadoExistoso", "", "0");
                     }
@@ -374,4 +374,56 @@ function AjaxEliminaSistemaPintura(sistemaPinturaID) {
             displayNotify("SistemaPinturaErrorEliminado", "", '2');
         }
     });
+}
+
+
+function AjaxVerificarNombre(Nombre, arregloCaptura, tipoGuardar) {
+
+    Existencia = [];
+    Existencia[0] = { Detalles: "" };
+    ListaValidarNombre = [];
+
+    var necesitaColor = false;
+    var ds = $("#grid").data("kendoGrid").dataSource;
+
+    if (Nombre == "") {
+        displayNotify("SistemaPinturaMensajeErrorNombre", "", 1);
+        return;
+    }
+
+    if ($("#inputProyecto").data("kendoMultiSelect")._values.length == 0) {
+        displayNotify("SistemaPinturaMensajeErrorListadoProyecto", "", 1);
+        return;
+    }
+
+
+    for (var i = 0; i < $("#inputProyecto").data("kendoMultiSelect")._values.length; i++) {
+        ListaValidarNombre[i] = { Nombre: "", ProyectoID: "", Existe: "" };
+        ListaValidarNombre[i].Nombre = Nombre;
+        ListaValidarNombre[i].ProyectoID = $("#inputProyecto").data("kendoMultiSelect")._values[i];
+
+    }
+    Existencia[0].Detalles = ListaValidarNombre;
+    loadingStart();
+    $SistemaPintura.SistemaPintura.create(Existencia[0], { token: Cookies.get("token"), lenguaje: $("#language").val(), comprobar: 1 }).done(function (data) {
+        if (Error(data)) {
+            var proyectosExistentes = "";
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].Existe == 1) {
+                    proyectosExistentes = data[i].Proyecto;
+                    if (data[i].length - 1 != i) {
+                        proyectosExistentes = ", ";
+                    }
+                }
+            }
+            if (proyectosExistentes != "") {
+                displayNotify("SistemaPinturaMensajeErrorNombreConProyectoExistente", proyectosExistentes, '1');
+            }
+            else {
+                AjaxGuardarCaptura(arregloCaptura, tipoGuardar);
+            }
+        }
+        loadingStop();
+    });
+
 }

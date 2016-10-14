@@ -9377,5 +9377,9 @@ _dictionary = {
         "es-MX": "Selecciona al menos un proyecto",
         "en-US": "Select at least one project"
     },
+    "SistemaPinturaMensajeErrorNombreConProyectoExistente": {
+        "es-MX": "El nombre del sistema de pintura ya esta asignado en: ",
+        "en-US": "The name of paint system is assigned in: "
+    },
     // Finaliza Sistema Pintura
 };
