@@ -8,6 +8,9 @@
         <a href="@Url.Action("landing","Home" )"><span id="lblInicio"></span></a>
     </li>
     <li>
+        <a href="#"><span id="menuConfiguracion"></span></a>
+    </li>
+    <li>
         <a href="#"><span id="PinturaBreadcrumb"></span></a>
     </li>
     <li class="active">
@@ -67,28 +70,28 @@
         </div>
         <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3" id="divSpool">
             <label id="lblSpoolContiene"></label>
-            <input id="inputSpool" class="general-input" maxlength="1023"/>
-        </div>       
+            <input id="inputSpool" class="general-input" maxlength="1023" />
+        </div>
         <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3" id="divNc" style="display:none">
             <label id="lblNcContiene"></label>
-            <input id="inputNc" class="general-input" maxlength="1023"/>
+            <input id="inputNc" class="general-input" maxlength="1023" />
         </div>
         <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
             <label id="">&nbsp;</label>
             <button type="button" id="btnBuscar" class="btn btn-blue botonSizeGeneral"><span id="lblMostrar"></span></button>
         </div>
-    </div>  
+    </div>
     @*GRID*@
     <div class="row addedSectionInLine">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="row">
                 <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2" id="divSistemaPintura">
                     <label id="lblSistemaPintura"></label>
-                    <input id="inputSistemaPintura"/>
+                    <input id="inputSistemaPintura" />
                 </div>
                 <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2" id="divColor">
                     <label id="lblColor"></label>
-                    <input id="inputColorPintura"/>
+                    <input id="inputColorPintura" />
                 </div>
                 <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2" id="div">
                     <label id="lblPlanchar">Planchado</label>
@@ -143,8 +146,8 @@
     <div class="row" style="margin:0px">
         <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
             <label>Tipo de Carga</label><br />
-            <input type="radio" name="TipoCarga" style="width:auto;" value="spool"/><span id="SPAlblSpool"></span>
-            <input type="radio" name="TipoCarga" style="width:auto;" value="nc" /><span id="SPAlblNc"> </span>   
+            <input type="radio" name="TipoCarga" style="width:auto;" value="spool" /><span id="SPAlblSpool"></span>
+            <input type="radio" name="TipoCarga" style="width:auto;" value="nc" /><span id="SPAlblNc"> </span>
         </div>
         <div class="form-group col-xs-12 col-sm-4 col-md-4 col-lg-4 selectFilesDiv">
             <input type="file" name="File Upload" id="inputFile" class="hidden" accept=".csv" />

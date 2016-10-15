@@ -7877,6 +7877,14 @@ _dictionary = {
         "es-MX": "Pintura",
         "en-US": "Paint"
     },
+    "menuListados": {
+        "es-MX": "Listados",
+        "en-US": "List"
+    },
+    "menuConfiguracion": {
+        "es-MX": "Configuraciones",
+        "en-US": "Configurations"
+    },
     // Finalizan Etiquetas de Menú General
 
 
