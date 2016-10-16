@@ -270,7 +270,7 @@ function SuscribirEventoCargarCsv() {
                 displayNotify("ListadoCatalogos0007", "", '2');
             } else {
                 if ($(this).val().substring($(this).val().lastIndexOf(".")) == ".csv") {
-                    $("#lblRutaArchivo").text($(this).val());
+                    $("#lblRutaArchivo").text($(this)[0].files['0'].name);
                 } else {
                     displayNotify("", "El formato del archivo debe ser .CSV", '1');
                 }

@@ -83,7 +83,7 @@ function SuscribirEventoEdicion() {
 }
 
 function SuscribirEventoNuevoSistemaPintura() {
-    $("#Nuevo").click(function (e) {
+    $(".nuevo").click(function (e) {
         var detalleIdeaUrl = "/Pintura/SistemaPintura";
         window.location.href = detalleIdeaUrl + "?leng=" + $("#language").data("kendoDropDownList").value();
     });
