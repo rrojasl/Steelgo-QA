@@ -1,9 +1,11 @@
 ﻿using BackEndSAM.Models.ServiciosTecnicos.ReporteRT;
 using BackEndSAM.Models.ServiciosTecnicos.ValidacionRT;
+using DatabaseManager.Constantes;
 using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 
 namespace BackEndSAM.DataAcces.ServiciosTecnicos.ValidacionRT
@@ -398,7 +400,8 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ValidacionRT
                             TemplateDetalleElemento = lenguaje == "es-MX" ? "Ver detalle" : " View detail ",
                             EstatusRequisicion = item.Estatus,
                             RequisicionID = item.RequisicionID,
-                            Comentarios = item.Comentarios
+                            Comentarios = item.Comentarios,
+                            ReporteRTID = item.ReporteRTID
                         };
                         listaDetalleJunta.Add(detalle);
 
@@ -636,6 +639,33 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ValidacionRT
             }
         }
 
+        public object ActualizaCapturaReportesRT(DataTable dtDetalleCaptura, int usuario, string lenguaje)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    ObjetosSQL _SQL = new ObjetosSQL();
+                    string[,] parametro = { { "@UsuarioID", usuario.ToString() }, { "@lenguaje", lenguaje } };
+                    _SQL.Ejecuta(Stords.GUARDARCAPTURAREPORTEVALIDACION, dtDetalleCaptura, "@ReporteRT", parametro);
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add("Ok");
+                    result.ReturnCode = 200;
+                    result.ReturnStatus = true;
+                    result.IsAuthenicated = true;
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
 
+                return result;
+            }
+        }
     }
 }

@@ -34,5 +34,6 @@ namespace BackEndSAM.Models.ServiciosTecnicos.ValidacionRT
         public List<Defectos> ListaDefectos { get; set; }
         public string Comentarios { get; set; }
         public string TemplateDetalleElemento { get; set; }
+        public int? ReporteRTID { get; set; }
     }
 }

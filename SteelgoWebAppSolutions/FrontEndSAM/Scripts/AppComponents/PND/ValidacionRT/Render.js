@@ -242,7 +242,7 @@ function comboBoxRazonNoConciliacion(container, options) {
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
 
-                options.model.ResultadoConciliacionID = dataItem.RazonNoConciliacionID;
+                options.model.RazonNoConciliacionID = dataItem.RazonNoConciliacionID;
                 options.model.Descripcion = dataItem.Descripcion;
 
 
@@ -381,6 +381,7 @@ function disableEnableView(disable) {
         $("#inputFuente").data("kendoComboBox").enable(false);
         $("#inputTurno").data("kendoComboBox").enable(false);
         $("#inputPrueba").data("kendoComboBox").enable(false);
+        $("#inputUsuarioVR").data("kendoComboBox").enable(false);
         //$("input[name='Muestra']").attr("disabled", true);
         $("#btnAgregar").attr("disabled", true);
 
@@ -400,6 +401,7 @@ function disableEnableView(disable) {
         $("#inputFuente").data("kendoComboBox").enable(true);
         $("#inputTurno").data("kendoComboBox").enable(true);
         $("#inputPrueba").data("kendoComboBox").enable(true);
+        $("#inputUsuarioVR").data("kendoComboBox").enable(true);
 
         $("#btnAgregar").attr("disabled", false);
 
@@ -421,6 +423,7 @@ function cleanView() {
     $("#inputFuente").data("kendoComboBox").value("");
     $("#inputTurno").data("kendoComboBox").value("");
     $("#inputPrueba").data("kendoComboBox").value("");
+    $("#inputUsuarioVR").data("kendoComboBox").value("");
 
     $("#grid").data("kendoGrid").dataSource.data([]);
     //if (paramReq == null) {

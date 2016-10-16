@@ -12,6 +12,7 @@ function SuscribirEventos() {
     suscribirEventTurno();
     suscribirEventoDetallePlaca();
     suscribirEventoDetalleDefectoPorPlaca();
+    suscribirUsuarioVR();
 }
 
 function suscribirEventoDetallePlaca() {
@@ -526,4 +527,118 @@ function suscribirEventTurno() {
         index: 3
     });
 }
+
+var currentUsuarioProveedor = null;
+function suscribirUsuarioVR() {
+    $('#inputUsuarioVR').kendoComboBox({
+        dataTextField: "Accion",
+        dataValueField: "AccionID",
+        suggest: true,
+        filter: "contains",
+        index: 3,
+        change: function (e) {
+            dataItem = this.dataItem(e.sender.selectedIndex);
+            if (dataItem != undefined) {
+                //alert("Resp: " + dataItem.AccionID);
+                if (dataItem.AccionID == 2) {
+                    ventanaConfirm = $("#ventanaConfirm").kendoWindow({
+                        iframe: true,
+                        title: _dictionary.lblVentanaVRLogin[$("#language").data("kendoDropDownList").value()],
+                        visible: false, //the window will not appear before its .open method is called
+                        width: "auto",
+                        height: "auto",
+                        modal: true,
+                        animation: {
+                            close: false,
+                            open: false
+                        }
+                    }).data("kendoWindow");
+
+                    //ventanaConfirm.content(_dictionary.CapturaReportePruebasMensajeEliminarDatosCapturados[$("#language").data("kendoDropDownList").value()] +
+                    //            "</br><center><button class='btn btn-blue' id='yesButton'>Si</button><button class='btn btn-blue' id='noButton'> No</button></center>");
+                    ventanaConfirm.content('<div id="ventanaConfirm" z-index: inherit">' +
+                        '<div class="col-sm-11 col-md-11 col-lg-11">' +
+                            '<div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">' +
+                                '<label id=""><span>' + _dictionary.lblUsuarioVRLogin[$("#language").data("kendoDropDownList").value()] + '</span></label>' +
+                                '<input id="ProveedorLogin" class="form-control" />' +
+                            '</div>' +
+                            '<div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">' +
+                                '<label id=""><span>' + _dictionary.lblContraseniaVRLogin[$("#language").data("kendoDropDownList").value()] + '</span></label>' +
+                                '<input id="PasswordLogin" type="password" class="form-control" />' +
+                            '</div>' +
+                            '<div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">' +
+                                '<center><button class="btn btn-blue" id="yesButton"> Aceptar</button>&nbsp;<button class="btn btn-blue" id="noButton"> Cancelar</button></center>' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>');
+
+                    ventanaConfirm.open().center();
+
+                    $("#yesButton").click(function () {
+                        var User = $('#ProveedorLogin').val();
+                        var Pass = $('#PasswordLogin').val();
+
+                        var proveedorID = $('#inputProveedor').data("kendoComboBox").value();
+                        var proyectoID = $("#inputProyecto").data("kendoComboBox").value();
+
+                        loadingStart();
+
+                        $ValidacionRT.ValidacionRT.read({ token: Cookies.get("token"), ProveedorID: proveedorID, ProyectoID: proyectoID, NombreProveedor: User, Password: Pass }).done(function (data) {
+                            if (Error(data)) {
+                                //$("#inputProveedor").data("kendoComboBox").dataSource.data(data);
+
+                                if (data.length >= 1) {
+                                    //    $("#inputProveedor").data("kendoComboBox").select(1);
+                                    //    $("#inputProveedor").data("kendoComboBox").trigger("change");
+                                    $('#proveedorContainerDiv').show();
+
+                                    currentUsuarioProveedor = data[0];
+
+                                    $('#lblProveedorVRValue').text(data[0].Nombre);
+
+                                    displayNotify("NotificacionDeficit0006", "", '0');
+                                }
+                                else {
+                                    $('#proveedorContainerDiv').hide();
+                                    //$('#usuarioContainerDiv').hide();
+
+                                    //$('#lblUsuarioVRValue').text("");
+                                    $('#lblProveedorVRValue').text("");
+
+                                    //$('input[name="Revision"]').prop('checked', false);
+                                    currentUsuarioProveedor = null;
+                                    $("#inputUsuarioVR").data("kendoComboBox").select(0);
+                                    displayNotify("loginLabel0010", "", '2');
+                                }
+                            }
+                            loadingStop();
+                            ventanaConfirm.close();
+                        });
+                    });
+                    $("#noButton").click(function () {
+                        $('#proveedorContainerDiv').hide();
+                        $('#lblProveedorVRValue').text("");
+
+                        currentUsuarioProveedor = null;
+                        $("#inputUsuarioVR").data("kendoComboBox").select(0);
+
+                        ventanaConfirm.close();
+                    });
+
+                }
+                else {
+                    $('#proveedorContainerDiv').hide();
+                    $('#lblProveedorVRValue').text("");
+                    currentUsuarioProveedor = null;
+                }
+            }
+        }
+    });
+
+    var data = [{ AccionID: 1, Accion: 'Sin Presencia' }, { AccionID: 2, Accion: 'Con Presencia' }];
+    $("#inputUsuarioVR").data("kendoComboBox").dataSource.data(data);
+    $("#inputUsuarioVR").data("kendoComboBox").select(0);
+
+}
+
 

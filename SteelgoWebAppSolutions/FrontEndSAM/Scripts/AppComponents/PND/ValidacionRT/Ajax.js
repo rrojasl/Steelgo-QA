@@ -148,8 +148,10 @@ function AjaxGuardarCaptura(ds, guardarYNuevo) {
         var RequisicionID = 0;
         var Captura = [];
         Captura[0] = { Detalles: "" }
+        var CapturaValidacion = [];
+        CapturaValidacion[0] = { Detalles: "" }
         var listaDetalles = [];
-        var listaErrores = "";
+        var listaDetallesValidacion = [];
         var cont = 0;
         for (var i = 0; i < ds.length; i++) {
             //valida que tenga numero de placas y se ha capturado tamaño y densidad
@@ -177,6 +179,19 @@ function AjaxGuardarCaptura(ds, guardarYNuevo) {
                 Estatus: 1
             };
 
+            
+            listaDetallesValidacion[cont] = {
+                Accion: "",
+                Estatus: 0,
+                ReporteRTID: 0,
+                ResultadoConciliacionID: 0,
+                RazonNoConciliacionID: 0,
+                ComentarioValidacion: "",
+                UsuarioIDConciliacion: 0,
+                ProveedorIDConciliacion: 0
+            };
+
+
             listaDetalles[cont].ReporteRTID = ds[i].ReporteRTID;
             listaDetalles[cont].RequisicionID = ds[i].RequisicionID;
             listaDetalles[cont].OrdenTrabajoID = ds[i].OrdenTrabajoID;
@@ -194,6 +209,14 @@ function AjaxGuardarCaptura(ds, guardarYNuevo) {
             listaDetalles[cont].ResultadoConciliacion = ds[i].ResultadoConciliacion;
             listaDetalles[cont].ResultadoConciliacion = ds[i].ResultadoConciliacion;
 
+            listaDetallesValidacion[cont].Accion = ds[i].Accion;
+            listaDetallesValidacion[cont].Estatus = ds[i].EstatusRequisicion;
+            listaDetallesValidacion[cont].ReporteRTID = ds[i].RequisicionID;
+            listaDetallesValidacion[cont].ResultadoConciliacionID = ds[i].ResultadoConciliacionID;
+            listaDetallesValidacion[cont].RazonNoConciliacionID = ds[i].RazonNoConciliacionID;
+            listaDetallesValidacion[cont].ComentarioValidacion = ds[i].Comentarios;
+            listaDetallesValidacion[cont].UsuarioIDConciliacion = 0;
+            listaDetallesValidacion[cont].ProveedorIDConciliacion = ((currentUsuarioProveedor == null) ? (0) : (currentUsuarioProveedor.ProveedorID));
 
             var informacion = [];
             for (var j = 0; j < ds[i].ListaDetallePorPlacas.length; j++) {
@@ -224,9 +247,7 @@ function AjaxGuardarCaptura(ds, guardarYNuevo) {
                 }
                 listaDetalles[cont].ListaDetallePorPlacas[j].ListaDetalleDefectos = detalles;
             }
-           
-
-            //listaErrores += ds[i].NumeroControl + ",";
+            
             if ((ds[i].NumeroPlacas > 0) && ($.isNumeric(ds[i].Tamano)) && ($.isNumeric(ds[i].Densidad)) && ds[i].Tamano > 0 && ds[i].Densidad > 0) {
                 
                 if (ds[i].ListaDetallePorPlacas.length > 0) {
@@ -234,22 +255,13 @@ function AjaxGuardarCaptura(ds, guardarYNuevo) {
                         if (!(($.isNumeric(ds[i].ListaDetallePorPlacas[l].ResultadoID)) || ($.isNumeric(ds[i].ListaDetallePorPlacas[l].ResultadoID != 0)))) {
                             listaDetalles[cont].Estatus = 0 //el elemento esta mal.
                             $('tr[data-uid="' + ds[i].uid + '"] ').css("background-color", "#ffcccc");
-                            //listaErrores += "Te falta asignar resultados las placas,";
+                            
                             break;
                         }
                         else {
                             listaDetalles[cont].Estatus = 1 // el elemento esta bien.
                             $('tr[data-uid="' + ds[i].uid + '"] ').css("background-color", "#FFFFFF"); // si antes estaba rojo , lo completa el usuario entonces ya se pone de color blanco.
 
-                            //if (ds[i].ListaDetallePorPlacas[l].ListaDetalleDefectos.length > 0) {
-                            //    listaDetalles[cont].Estatus = 1 // el elemento esta bien.
-                            //    $('tr[data-uid="' + ds[i].uid + '"] ').css("background-color", "#FFFFFF"); // si antes estaba rojo , lo completa el usuario entonces ya se pone de color blanco.
-                            //}
-                            //else {
-                            //    listaDetalles[cont].Estatus = 0 //el elemento esta mal.
-                            //    $('tr[data-uid="' + ds[i].uid + '"] ').css("background-color", "#ffcccc");
-                            //    break;
-                            //}
                         }
 
                     }
@@ -257,36 +269,44 @@ function AjaxGuardarCaptura(ds, guardarYNuevo) {
                 else {
                     listaDetalles[cont].Estatus = 0 //el elemento esta mal.
                     $('tr[data-uid="' + ds[i].uid + '"] ').css("background-color", "#ffcccc");
-                    //listaErrores += "No tiene placas,";
+                    
                 }
                 
             }
             else {
                 listaDetalles[cont].Estatus = 0 //el elemento esta mal.
                 $('tr[data-uid="' + ds[i].uid + '"] ').css("background-color", "#ffcccc");
-                //listaErrores += "Te falta llenar el tamaño o la densidad,";
+                
             }
-            //listaErrores += "|";
+            
             cont++;
 
 
             Captura[0].Detalles = listaDetalles;
+
+            CapturaValidacion[0].Detalles = listaDetallesValidacion;
         }
 
         if (!ExistRowEmpty(listaDetalles)) {
             $ReporteRT.ReporteRT.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
                 if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
 
-                    if (guardarYNuevo) {
-                        cleanView();
-                    } else {
+                    $ValidacionRT.ValidacionRT.create(CapturaValidacion[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data2) {
+                        if (data2.ReturnMessage.length > 0 && data2.ReturnMessage[0] == "Ok") {
 
-                        //AjaxObtieneDetalleRequisicion();
-                        ajaxResultadosDetalle($("#inputProyecto").data("kendoComboBox").value(), $("#inputProveedor").data("kendoComboBox").value(), $("#inputRequisicion").data("kendoComboBox").value());
-                        disableEnableView(true);
-                    }
 
-                    displayNotify("EntregaPlacasGraficasMensajeGuardadoExistoso", "", '0');
+                            if (guardarYNuevo) {
+                                cleanView();
+                            } else {
+
+                                //AjaxObtieneDetalleRequisicion();
+                                ajaxResultadosDetalle($("#inputProyecto").data("kendoComboBox").value(), $("#inputProveedor").data("kendoComboBox").value(), $("#inputRequisicion").data("kendoComboBox").value());
+                                disableEnableView(true);
+                            }
+
+                            displayNotify("EntregaPlacasGraficasMensajeGuardadoExistoso", "", '0');
+                        }
+                    });
                 } else {
                     displayNotify("CapturaReporteGuardadoErroneo", "", '2');
                 }

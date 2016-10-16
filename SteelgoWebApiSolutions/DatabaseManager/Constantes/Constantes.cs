@@ -33,6 +33,7 @@
         public static string GUARDARCAPTURAREQUISICIONASIGNACION = "Sam3_ST_ARPND_GuardaCaptura";
         public static string GUARDARCAPTURAIMPRESIONPRUEBAS = "Sam3_ST_IP_GuardaCaptura";
         public static string GUARDARCAPTURAREPORTE = "Sam3_ST_CRRT_Guarda";
+        public static string GUARDARCAPTURAREPORTEVALIDACION = "Sam3_ST_CRVT_Actualiza";
         public static string ELIMINAREQUISICIONPND = "Sam3_ERPND_EliminaRequisicion";
         public static string GUARDACAPTURANUEVOMEDIOTRANSPORTE = "Sam3_Pintura_Guardar_NuevoMedioTransporte";
         public static string GUARDACAPTURAPINTURASPOOLCARGA = "Sam3_Pintura_Guardar_CargaMedioTransporte";
