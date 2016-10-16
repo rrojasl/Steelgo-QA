@@ -213,8 +213,12 @@ function suscribirEventoGuardar() {
         e.preventDefault();
         var ds = $("#grid").data("kendoGrid").dataSource;
         if ($('#botonGuardar').text() == "Guardar") {
-            // opcionHabilitarView(true, "FieldSetView");
-            AjaxGuardarCaptura(ds._data, 0);
+            if ($("#inputSistemaPinturaID").val() == "") {
+                AjaxVerificarNombre($("#inputNombre").val(), ds._data, 0);
+            } else {
+                AjaxGuardarCaptura(ds._data, 0);
+            }
+            
         }
         else if ($('#botonGuardar').text() == "Editar")
             opcionHabilitarView(false, "FieldSetView")
@@ -224,8 +228,11 @@ function suscribirEventoGuardar() {
         e.preventDefault();
         var ds = $("#grid").data("kendoGrid").dataSource;
         if ($('#botonGuardar').text() == "Guardar") {
-            //opcionHabilitarView(true, "FieldSetView");
-            AjaxGuardarCaptura(ds._data, 0);
+            if ($("#inputSistemaPinturaID").val() == "") {
+                AjaxVerificarNombre($("#inputNombre").val(), ds._data, 0);
+            } else {
+                AjaxGuardarCaptura(ds._data, 0);
+            }
         }
         else if ($('#botonGuardar').text() == "Editar")
             opcionHabilitarView(false, "FieldSetView")
@@ -234,8 +241,12 @@ function suscribirEventoGuardar() {
     $('#btnGuardarYNuevo').click(function (e) {
         e.preventDefault();
         var ds = $("#grid").data("kendoGrid").dataSource;
-        AjaxGuardarCaptura(ds._data, 1);
-        //Limpiar();
+        if ($("#inputSistemaPinturaID").val() == "") {
+            AjaxVerificarNombre($("#inputNombre").val(), ds._data, 1);
+        } else {
+            AjaxGuardarCaptura(ds._data, 1);
+        }
+        
     });
 
 
@@ -243,8 +254,11 @@ function suscribirEventoGuardar() {
         e.preventDefault();
         var ds = $("#grid").data("kendoGrid").dataSource;
         if ($('#botonGuardar').text() == "Guardar") {
-            // opcionHabilitarView(true, "FieldSetView");
-            AjaxGuardarCaptura(ds._data, 0);
+            if ($("#inputSistemaPinturaID").val() == "") {
+                AjaxVerificarNombre($("#inputNombre").val(), ds._data, 0);
+            } else {
+                AjaxGuardarCaptura(ds._data, 0);
+            }
         }
         else if ($('#botonGuardar').text() == "Editar")
             opcionHabilitarView(false, "FieldSetView")
@@ -254,8 +268,11 @@ function suscribirEventoGuardar() {
         e.preventDefault();
         var ds = $("#grid").data("kendoGrid").dataSource;
         if ($('#botonGuardar').text() == "Guardar") {
-            //opcionHabilitarView(true, "FieldSetView");
-            AjaxGuardarCaptura(ds._data, 0);
+            if ($("#inputSistemaPinturaID").val() == "") {
+                AjaxVerificarNombre($("#inputNombre").val(), ds._data, 0);
+            } else {
+                AjaxGuardarCaptura(ds._data, 0);
+            }
         }
         else if ($('#botonGuardar').text() == "Editar")
             opcionHabilitarView(false, "FieldSetView")
@@ -264,8 +281,11 @@ function suscribirEventoGuardar() {
     $('#btnGuardarYNuevo1').click(function (e) {
         e.preventDefault();
         var ds = $("#grid").data("kendoGrid").dataSource;
-        AjaxGuardarCaptura(ds._data, 1);
-        //Limpiar();
+        if ($("#inputSistemaPinturaID").val() == "") {
+            AjaxVerificarNombre($("#inputNombre").val(), ds._data, 1);
+        } else {
+            AjaxGuardarCaptura(ds._data, 1);
+        }
     });
 }
 
@@ -307,6 +327,7 @@ function opcionHabilitarView(valor, name) {
     if (valor) {
         $('#FieldSetView').find('*').attr('disabled', true);
         $("#inputColor").data("kendoMultiSelect").enable(false);
+        $("#comboProyecto").data("kendoComboBox").enable(false);
 
         $('#botonGuardar2').text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
         $("#botonGuardar").text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
@@ -318,6 +339,7 @@ function opcionHabilitarView(valor, name) {
         $('#FieldSetView').find('*').attr('disabled', false);
         $("#inputNombre").attr('disabled', true);
         $("#inputColor").data("kendoMultiSelect").enable(true);
+        $("#comboProyecto").data("kendoComboBox").enable(true);
         $('#botonGuardar2').text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);
         $("#botonGuardar").text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);
         $("#botonGuardar3").text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);

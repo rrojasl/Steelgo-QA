@@ -7614,6 +7614,22 @@ _dictionary = {
         "es-MX": "Nuevo",
         "en-US": "New"
     },
+    "botonNuevo1": {
+        "es-MX": "Nuevo",
+        "en-US": "New"
+    },
+    "botonNuevo2": {
+        "es-MX": "Nuevo",
+        "en-US": "New"
+    },
+    "botonNuevo3": {
+        "es-MX": "Nuevo",
+        "en-US": "New"
+    },
+    "botonNuevo4": {
+        "es-MX": "Nuevo",
+        "en-US": "New"
+    },
     "botonCargaExcel": {
         "es-MX": "Cargar CSV",
         "en-US": "New"
@@ -7673,6 +7689,10 @@ _dictionary = {
     "MensajeAdverteciaExcepcionGuardado": {
         "es-MX": "No hay cambios por guardar",
         "en-US": "There aren´t any change"
+    },
+    "MensajeNoResultados": {
+        "es-MX": "No se han encontrado elementos que coincidan con la busqueda",
+        "en-US": "No items found matching the search"
     },
     // Finalizan Mensajes generales
 
@@ -7818,8 +7838,8 @@ _dictionary = {
         "en-US": "System Paint"
     },
     "menuListadoSistemaPintura": {
-        "es-MX": "Sistema de Pintura",
-        "en-US": "Paint System"
+        "es-MX": "Sistemas de Pintura",
+        "en-US": "Paint Systems"
     },
     "menuListadoSistemaPintura2": {
         "es-MX": "Sistema de Pintura",
@@ -7848,6 +7868,22 @@ _dictionary = {
     "menuSistemaAplicable": {
         "es-MX": "Sistema Pintura Aplicable",
         "en-US": "Applicable Paint System"
+    },
+    "menuListadosModuloPintura": {
+        "es-MX": "Pintura",
+        "en-US": "Paint"
+    },
+    "menuConfigModuloPintura": {
+        "es-MX": "Pintura",
+        "en-US": "Paint"
+    },
+    "menuListados": {
+        "es-MX": "Listados",
+        "en-US": "List"
+    },
+    "menuConfiguracion": {
+        "es-MX": "Configuraciones",
+        "en-US": "Configurations"
     },
     // Finalizan Etiquetas de Menú General
 
@@ -8973,8 +9009,8 @@ _dictionary = {
         "en-US": "Advance Intermediate Finish"
     },
     "PinturaEdicionSPBreadcrumb": {
-        "es-MX": "Listado Sistema de Pintura",
-        "en-US": "List System Paint"
+        "es-MX": "Sistema de Pintura",
+        "en-US": "Paint System"
     },
     "PinturaLotesCapturaPruebaBreadcrumb": {
         "es-MX": "Lotes Captura Prueba",
@@ -9275,7 +9311,7 @@ _dictionary = {
         "en-US": "The paint system was successfully removed"
     },
     "SistemaPinturaErrorEliminado": {
-        "es-MX": "El sistema de pintura no se puede eliminar porque tiene asignados spool",
+        "es-MX": "El sistema de pintura no puede ser eliminado porque tiene spools asignados",
         "en-US": "The paint system can't be deleted because it has assigned spool"
     },
     "SistemaPinturaAplicableExcepcionGuardado": {
@@ -9299,8 +9335,8 @@ _dictionary = {
         "en-US": "Control No."
     },
     "SPAExcepcionArchivo": {
-        "es-MX": "No hay datos en el archivo",
-        "en-US": "No data on file"
+        "es-MX": "El contenido del csv no es correcto, favor de revisarlo",
+        "en-US": "Csv content is not correct, please review it"
     },
     "SPAExcepcionArchivo1": {
         "es-MX": "Imposible leer el archivo",
@@ -9309,6 +9345,10 @@ _dictionary = {
     "SPAMensajeAlertaCantidadRegistros": {
         "es-MX": "El tipo de búsqueda que ejecuto obtendrá mas de 100 registros, eso puedo tardar varios minutos. ¿Desea Continuar?",
         "en-US": "The type of search you get run over 100 records, it can take several minutes. Continue anyway?"
+    },
+    "SPAProyectoCargaMasiva": {
+        "es-MX": "Se debe seleccionar un proyecto para la carga masiva",
+        "en-US": "Select a project to massive upload"
     },
     // Finaliza Listado Sistema Pintura
 
@@ -9344,6 +9384,10 @@ _dictionary = {
     "SistemaPinturaMensajeErrorListadoProyecto": {
         "es-MX": "Selecciona al menos un proyecto",
         "en-US": "Select at least one project"
+    },
+    "SistemaPinturaMensajeErrorNombreConProyectoExistente": {
+        "es-MX": "El nombre del sistema de pintura ya esta asignado en: ",
+        "en-US": "The name of paint system is assigned in: "
     },
     // Finaliza Sistema Pintura
 };

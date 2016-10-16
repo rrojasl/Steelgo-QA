@@ -1,7 +1,7 @@
 ﻿function getGridFilterableMaftec(val) {
     return {
         mode: "menu, row",
-        extra: true,
+        extra: false,
         operators: {
             string: {
                 startswith: _dictionary.KendoGridFilterable0001[$("#language").data("kendoDropDownList").value()],
@@ -36,9 +36,9 @@ function getGridFilterableCellNumberMaftec() {
     return {
         extra: true, 
         cell: {
-            operator: "gte,lte",
+            operator: "equals",
             template: function (args) {
-                //$(args).prop('type', 'number');
+                $(args).prop('type', 'number');
                 args.css("width", "95%").addClass("general-input").keydown(function (e) {
                     setTimeout(function () {
                         $(e.target).trigger("change");

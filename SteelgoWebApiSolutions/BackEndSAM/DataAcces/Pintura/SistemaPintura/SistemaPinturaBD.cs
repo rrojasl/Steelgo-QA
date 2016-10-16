@@ -10,6 +10,7 @@ using BackEndSAM.Models;
 using BackEndSAM.Models.Sam3General;
 using System.Data;
 using DatabaseManager.Constantes;
+using BackEndSAM.Utilities.ConvertirDataTable;
 
 namespace BackEndSAM.DataAcces.Pintura.SistemaPintura
 {
@@ -359,5 +360,62 @@ namespace BackEndSAM.DataAcces.Pintura.SistemaPintura
                 return result;
             }
         }
+
+        public object RevisaSistemaCaptura(DataTable dtDetalleCaptura, string Lenguaje)
+        { 
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+
+                    ObjetosSQL _SQL = new ObjetosSQL();
+                    string[,] parametro = {  { "@Lenguaje", Lenguaje }  };
+
+                    DataTable list = _SQL.EjecutaDataAdapter(Stords.COMPROBARSISTEMAPINTURANOMBREPROYECTO, dtDetalleCaptura, "@TablaComprobacionNombreProyecto", parametro);
+
+                    List<DataRow> listadoDatatable = list.AsEnumerable().ToList();
+                    List<NombreProyectoExisteResult> listadoResult = new List<NombreProyectoExisteResult>();
+
+                    foreach (DataRow item in listadoDatatable)
+                    {
+                        listadoResult.Add(new NombreProyectoExisteResult
+                        {
+                            Nombre = item["Nombre"].ToString(),
+                            Proyecto = item["Proyecto"].ToString(),
+                            Existe = int.Parse( item["Existe"].ToString()),
+                            ProyectoID = int.Parse(item["ProyectoID"].ToString())
+                            
+                        });
+                    }
+
+                    return listadoResult;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+
+        public static List<NombreProyectoExiste> table_to_List(DataTable table)
+        {
+            List<NombreProyectoExiste> result = new List<NombreProyectoExiste>();
+            foreach (var row in table.Rows.Cast<DataRow>().Select((r, i) => new { Row = r, Index = i }))
+            {
+                result.Add(new NombreProyectoExiste
+                {
+                });
+            }
+
+            return result;
+        }
+
     }
 }

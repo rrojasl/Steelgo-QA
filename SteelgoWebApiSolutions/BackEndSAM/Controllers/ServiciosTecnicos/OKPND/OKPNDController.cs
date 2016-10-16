@@ -75,7 +75,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.OKPND
         }
 
         [HttpPost]
-        public object Post(CapturaMasiva datos, string lenguaje, string token, int isGuardadoMasivo)
+        public object Post(CapturaMasiva datos, string lenguaje, string token, int ProyectoID)
         {
             string payload = "";
             string newToken = "";
@@ -92,7 +92,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.OKPND
                     dtDetalleCaptura = ToDataTable(elementos);
                 }
 
-                return OKPNDBD.Instance.actualizarOKPND(dtDetalleCaptura, lenguaje, usuario);
+                return OKPNDBD.Instance.actualizarOKPND(dtDetalleCaptura, ProyectoID, lenguaje, usuario);
             }
             else
             {

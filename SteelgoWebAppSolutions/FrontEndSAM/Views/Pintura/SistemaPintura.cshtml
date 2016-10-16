@@ -6,8 +6,12 @@
     <li>
         <a href="@Url.Action("landing", "Home")"><span id="lblInicio"></span></a>
     </li>
+
     <li>
-        <a href="#"><span id="lblPintura">Pintura</span></a>
+        <a href="#"><span id="layoutLabel0003"></span></a>
+    </li>
+    <li>
+        <a href="#"><span id="PinturaBreadcrumb"></span></a>
     </li>
     <li class="active">
         <a href="@Url.Action("SistemaPintura", "Pintura")"><span id="menuSistemaPintura"></span></a>
@@ -31,7 +35,7 @@
                     </div>
                     <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar"></span></a>
                 </div>
-                
+
                 <div class="button-section actionButtonSection">
                     <div class="dropdown action-group">
                         <a id="Acciones" data-target="#" href="#/" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
@@ -39,7 +43,7 @@
                             <span class="caretBlue"></span>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="Acciones" class="eliminarSistema">
-                            <li><a href="@Url.Action("SistemaPintura", "Pintura")"><span id="menuListadoSistemaPintura"></span></a></li>
+                            <li><a href="@Url.Action("ListadoSistemaPintura", "Pintura")"><span id="menuListadoSistemaPintura"></span></a></li>
                             <li> <a href="#" class="eliminarSistema"><span id="botonAccionEliminar"></span></a></li>
                         </ul>
                     </div>
@@ -67,7 +71,7 @@
         </div>
         <div class="col-sm-3 col-d-3 col-lg-3" style="display:none; " id="divComboProyecto">
             <label id="columnProyecto"></label>
-            <input id="comboProyecto"  />
+            <input id="comboProyecto" />
         </div>
         <div class="col-sm-3 col-d-3 col-lg-3">
             <label id="lblNoPintable"></label>
@@ -92,7 +96,7 @@
     @*GRID POPUP*@
     <div id="windowGrid" style="display: none; z-index:inherit;">
 
-        <div class="row col-sm-12 col-md-12 col-lg-12" style="width: 100%; padding-right:20px;">
+        <div class="row col-sm-12 col-md-12 col-lg-12" style="width: 100%; padding-right:0px; ">
             <div class="form-group">
                 <div id="ContenedorGridPopUp">
                     <div id="gridPopUp" data-role="grid" class="k-grid k-widget">
@@ -100,7 +104,7 @@
                 </div>
             </div>
         </div>
-        <div class="row col-sm-12 col-md-12 col-lg-12">
+        <div class="row col-sm-12 col-md-12 col-lg-12" style="padding-right:0px;">
             <div class="col-sm-2 col-md-2 col-lg-2">
 
             </div>
@@ -139,15 +143,15 @@
                     </div>
                     <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar1"></span></a>
                 </div>
-                
+
                 <div class="button-section actionButtonSection">
                     <div class="dropdown action-group">
-                        <a id="Acciones2" data-target="#" href="#Acciones2" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
+                        <a id="Acciones" data-target="#" href="#/" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
                             <span id="botonAcciones2"></span>
                             <span class="caretBlue"></span>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="Acciones">
-                            <li><a href="@Url.Action("SistemaPintura", "Pintura")"><span id="menuListadoSistemaPintura2"></span></a></li>
+                            <li><a href="@Url.Action("ListadoSistemaPintura", "Pintura")"><span id="menuListadoSistemaPintura2"></span></a></li>
                             <li> <a href="#" class="eliminarSistema"><span id="botonAccionEliminar2"></span></a></li>
                         </ul>
                     </div>

@@ -81,6 +81,43 @@ function AjaxCargarColorPintura(sistemaPinturaID) {
     });
 }
 
+function AjaxCargarNumeroElementosPorBusqueda(proyectoID, tipoBusqueda, cadena) {
+    $SistemaPinturaAplicable.SistemaPinturaAplicable.read({ token: Cookies.get("token"), ProyectoID: proyectoID, TipoBusqueda: tipoBusqueda, Cadena: cadena}).done(function (data) {
+        if(data!=null){
+            if(data>100){
+                var ventanaConfirmBusqueda = $("#ventanaConfirm").kendoWindow({
+                    iframe: true,
+                    title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
+                    visible: false,
+                    width: "45%",
+                    height: "auto",
+                    draggable: false,
+                    modal: true,
+                    animation: {
+                        close: false,
+                        open: false
+                    }
+                }).data("kendoWindow");
+                ventanaConfirmBusqueda.content('<center>' + _dictionary.SPAMensajeAlertaCantidadRegistros[$("#language").data("kendoDropDownList").value()] + '</center>' +
+                    "</br><center><button class='btn btn-blue' id='btnContinuarBusqueda'>Si</button> <button class='btn btn-blue' id='btnCancelarBusqueda'>No</button></center>");
+
+                ventanaConfirmBusqueda.open().center();
+                $("#btnContinuarBusqueda").click(function () {
+                    AjaxCargarDetalleSpool(proyectoID, tipoBusqueda, cadena);
+                    ventanaConfirmBusqueda.close();
+                });
+                $("#btnCancelarBusqueda").click(function () {                    
+                    ventanaConfirmBusqueda.close();
+                });
+            } else {
+                AjaxCargarDetalleSpool(proyectoID, tipoBusqueda, cadena);
+            }
+        } else {
+
+        }
+    });
+}
+
 function AjaxCargarDetalleSpool(proyectoID, tipoBusqueda, cadena) {
     $SistemaPinturaAplicable.SistemaPinturaAplicable.read({ token: Cookies.get("token"), ProyectoID: proyectoID, TipoBusqueda: tipoBusqueda, Cadena: cadena, Lenguaje: $("#language").val() }).done(function (data) {
         $("#grid").data("kendoGrid").dataSource.data([]);
@@ -88,6 +125,9 @@ function AjaxCargarDetalleSpool(proyectoID, tipoBusqueda, cadena) {
         var ds = $("#grid").data("kendoGrid").dataSource;
         if(data.length>0){
             for (var i = 0; i < data.length; i++) {
+                if (data[i].ListaColorPintura == null)
+                    data[i].ListaColorPintura = [];
+                
                 ds.add(data[i]);
             }
         }    
@@ -116,6 +156,7 @@ function AjaxGuardarCaptura(listaCaptura, GuardarYNuevo) {
             SpoolAplicableID: "",
             OrdenTrabajoID: "",
             SpoolID: "",
+            ProyectoID : "",
             SistemaPinturaID: "",
             SistemaPinturaColorID: "",
             Estatus: 1
@@ -125,6 +166,7 @@ function AjaxGuardarCaptura(listaCaptura, GuardarYNuevo) {
         listaDetalles[i].SpoolAplicableID = listaCaptura[i].SpoolAplicableID;
         listaDetalles[i].OrdenTrabajoID = listaCaptura[i].OrdenTrabajoID;
         listaDetalles[i].SpoolID = listaCaptura[i].SpoolID;
+        listaDetalles[i].ProyectoID = Proyecto.ProyectoID;
         listaDetalles[i].SistemaPinturaID = listaCaptura[i].SistemaPinturaID;
         listaDetalles[i].SistemaPinturaColorID = listaCaptura[i].SistemaPinturaColorID;
 
@@ -138,7 +180,7 @@ function AjaxGuardarCaptura(listaCaptura, GuardarYNuevo) {
                         listaDetalles[i].Estatus = 0;
                         $('tr[data-uid="' + listaCaptura[i].uid + '"] ').css("background-color", "#ffcccc");
                     }
-                    if (listaDetalles[i].SistemaPinturaColorID == 0) {
+                    if (listaDetalles[i].SistemaPinturaColorID == 0 && listaCaptura[i].ListaColorPintura.length > 1) {
                         listaDetalles[i].Estatus = 0;
                         $('tr[data-uid="' + listaCaptura[i].uid + '"] ').css("background-color", "#ffcccc");
                     }
@@ -149,7 +191,7 @@ function AjaxGuardarCaptura(listaCaptura, GuardarYNuevo) {
                     listaDetalles[i].Estatus = 0;
                     $('tr[data-uid="' + listaCaptura[i].uid + '"] ').css("background-color", "#ffcccc");
                 }
-                if (listaDetalles[i].SistemaPinturaColorID == 0) {
+                if (listaDetalles[i].SistemaPinturaColorID == 0 && listaCaptura[i].ListaColorPintura.length>1) {
                     listaDetalles[i].Estatus = 0;
                     $('tr[data-uid="' + listaCaptura[i].uid + '"] ').css("background-color", "#ffcccc");
                 }
@@ -213,6 +255,7 @@ function AjaxGuardarCaptura(listaCaptura, GuardarYNuevo) {
                         SpoolAplicableID: "",
                         OrdenTrabajoID: "",
                         SpoolID: "",
+                        ProyectoID: "",
                         SistemaPinturaID: "",
                         SistemaPinturaColorID: "",
                         Estatus: 1
@@ -221,6 +264,7 @@ function AjaxGuardarCaptura(listaCaptura, GuardarYNuevo) {
                     listaDetallesGuardar[x].SpoolAplicableID = listaDetalles[i].SpoolAplicableID;
                     listaDetallesGuardar[x].OrdenTrabajoID = listaDetalles[i].OrdenTrabajoID;
                     listaDetallesGuardar[x].SpoolID = listaDetalles[i].SpoolID;
+                    listaDetallesGuardar[x].ProyectoID = listaDetalles[i].ProyectoID;
                     listaDetallesGuardar[x].SistemaPinturaID = listaDetalles[i].SistemaPinturaID;
                     listaDetallesGuardar[x].SistemaPinturaColorID = listaDetalles[i].SistemaPinturaColorID;
                     listaDetallesGuardar[x].Estatus = listaDetalles[i].Estatus;
@@ -273,7 +317,7 @@ function AjaxGuardarCaptura(listaCaptura, GuardarYNuevo) {
 function AjaxGuardaCargaMasiva(data, tipoCarga) {
     var Captura = { detalle: data }
     loadingStart();
-    $SistemaPinturaAplicable.SistemaPinturaAplicable.create(Captura, { token: Cookies.get("token"), TipoCarga: tipoCarga, Lenguaje: $("#language").val() }).done(function (data) {
+    $SistemaPinturaAplicable.SistemaPinturaAplicable.create(Captura, { token: Cookies.get("token"), TipoCarga: tipoCarga, Lenguaje: $("#language").val(), ProyectoID: $("#inputProyecto").data("kendoComboBox").value() }).done(function (data) {
             
             download(data, "export.csv", "text/csv");
             displayNotify("SistemaPinturaAplicableMensajeGuardadoExistoso", "", '0');

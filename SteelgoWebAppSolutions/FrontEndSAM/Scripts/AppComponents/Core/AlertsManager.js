@@ -97,13 +97,10 @@ function displayError(message, messageComplement, type) {
 function displayNotify(message, extraMessage, type) {
     var messageNotify;
 
-    if (extraMessage.length > 0) {
-        messageNotify = extraMessage;
-    }
-    else {
+    if (message.length > 0) {
         messageNotify = _dictionary[message][$("#language").data("kendoDropDownList").value()];
     }
-
+    messageNotify = messageNotify + extraMessage;
     var options = {
 
         text: messageNotify,

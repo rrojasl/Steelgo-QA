@@ -41,6 +41,8 @@ namespace BackEndSAM.Models.ServiciosTecnicos.OKPND
         public decimal Diametro { get; set; }
         public decimal Espesor { get; set; }
         public string Nombre { get; set; }
+        public string TipoPrueba { get; set; }
+        public string NumeroRequisicion { get; set; }
     }
 
     public class Captura{

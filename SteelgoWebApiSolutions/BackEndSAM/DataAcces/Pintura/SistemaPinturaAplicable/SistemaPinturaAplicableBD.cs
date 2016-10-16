@@ -47,7 +47,8 @@ namespace BackEndSAM.DataAcces.Pintura.SistemaPinturaAplicable
                     {
                         list.Add(new SistemaPinturaData {
                             SistemaPinturaID = item.SistemaPinturaID,
-                            Nombre = item.Nombre.Split('~')[0]
+                            Nombre = item.Nombre.Split('~')[0],
+                            NoPintable = item.NoPintable.GetValueOrDefault()
                         });
                     }
                     return list;
@@ -99,6 +100,30 @@ namespace BackEndSAM.DataAcces.Pintura.SistemaPinturaAplicable
             }
         }
 
+        public object ObtieneNumeroElementosPorBusqueda(int ProyectoID, int TipoBusqueda, string Cadena)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    ObjectResult<int?> result = ctx.Sam3_SPA_NumeroElementosPorBusqueda(ProyectoID, TipoBusqueda, Cadena);
+                    var valor = result.Where(x => x.HasValue).Select(x => x.Value).ToList()[0];
+
+                    return valor;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
         public object ObtieneDetalleSpool(int ProyectoID, int TipoBusqueda, string Cadena, string Lenguaje)
         {
             try
@@ -120,6 +145,7 @@ namespace BackEndSAM.DataAcces.Pintura.SistemaPinturaAplicable
                             Diametro = item.Diametro.GetValueOrDefault(),
                             SistemaPinturaID = item.SistemaPinturaID.GetValueOrDefault(),
                             SistemaPintura = item.SistemaPintura != null ? item.SistemaPintura.Split('~')[0] : "",
+                            NoPintable = item.NoPintable.GetValueOrDefault(),
                             SistemaPinturaColorID = item.SistemaPinturaColorID.GetValueOrDefault(),
                             ColorPinturaID = item.ColorID.GetValueOrDefault(),
                             Color = item.Color != null ? item.Color : "",
@@ -177,14 +203,14 @@ namespace BackEndSAM.DataAcces.Pintura.SistemaPinturaAplicable
             }
         }
 
-        public object InsertaCapturaSistemaPinturaAplicableMasivo(DataTable dtDetalleCaptura, int UsuarioID, int TipoCarga, string Lenguaje)
+        public object InsertaCapturaSistemaPinturaAplicableMasivo(DataTable dtDetalleCaptura, int UsuarioID, int TipoCarga, string Lenguaje, int ProyectoID)
         {
             try
             {
                 using (SamContext ctx = new SamContext()) {
 
                     ObjetosSQL _SQL = new ObjetosSQL();
-                    string[,] parametro = { { "@UsuarioID", UsuarioID.ToString() }, { "@TipoCarga", TipoCarga.ToString() }, { "@Lenguaje", Lenguaje.ToString() } };
+                    string[,] parametro = { { "@UsuarioID", UsuarioID.ToString() }, { "@TipoCarga", TipoCarga.ToString() }, { "@Lenguaje", Lenguaje }, { "@ProyectoID", ProyectoID.ToString() } };
 
                     DataTable list = _SQL.EjecutaDataAdapter(Stords.GUARDACAPTURASISTEMAAPLICABLEMASIVO, dtDetalleCaptura, "@TablaCargaMasiva", parametro);
 

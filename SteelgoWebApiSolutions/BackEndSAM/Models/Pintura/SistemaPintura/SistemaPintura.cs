@@ -70,6 +70,25 @@ namespace BackEndSAM.Models.Pintura.SistemaPintura
         public List<Color> listadoColor { get; set; }
     }
 
+    public class Existencia
+    {
+        public List<NombreProyectoExiste> Detalles { get; set; }
+    }
+    public class NombreProyectoExiste
+    {
+        public string Nombre { get; set; }
+        public string ProyectoID { get; set; }
+    }
+
+    public class NombreProyectoExisteResult
+    {
+        public string Nombre { get; set; }
+        public string Proyecto { get; set; }
+        public int ProyectoID { get; set; }
+        public int Existe { get; set; }
+    }
+
+
     public class Captura
     {
         public List<GuardarSistemaPintura> Detalles { get; set; }

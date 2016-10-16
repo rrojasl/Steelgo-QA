@@ -45,6 +45,7 @@
         public static string ELIMINASISTEMAPINTURA = "Sam3_SP_EliminaSistemaPintura";
         public static string GUARDACAPTURASISTEMAAPLICABLEMASIVO = "Sam3_SPA_GuardaCargaMasiva";
         public static string GUARDARCAPTURASISTEMAPINTURA = "Sam3_SP_Guardar";
-        
+        public static string COMPROBARSISTEMAPINTURANOMBREPROYECTO = "Sam3_SP_ComprobarNombreProyecto";
+
     }
 }

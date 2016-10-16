@@ -117,6 +117,32 @@ namespace BackEndSAM.Controllers.Pintura.SistemaPintura
                 return result;
             }
         }
+        [HttpPost]
+        public object ComprobarExistente(Existencia listaExistencia, string token, string lenguaje, int comprobar)
+        {
+            string payload = "";
+            string newToken = "";
+
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+
+
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                DataTable dtDetalle = Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(listaExistencia.Detalles);
+                return SistemaPinturaBD.Instance.RevisaSistemaCaptura(dtDetalle, lenguaje);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
 
     }
 }

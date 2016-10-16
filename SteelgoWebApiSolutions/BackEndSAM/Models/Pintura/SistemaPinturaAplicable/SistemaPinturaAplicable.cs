@@ -11,9 +11,11 @@ namespace BackEndSAM.Models.Pintura.SistemaPinturaAplicable
         public SistemaPinturaData()
         {
             SistemaPinturaID = 0;
+            NoPintable = false;
             Nombre = "";
         }
         public int SistemaPinturaID { get; set; }
+        public bool NoPintable { get; set; }
         public string Nombre { get; set; }
     }
 
@@ -42,6 +44,7 @@ namespace BackEndSAM.Models.Pintura.SistemaPinturaAplicable
         public decimal Diametro { get; set; }
         public int SistemaPinturaID { get; set; }
         public string SistemaPintura { get; set; }
+        public bool NoPintable { get; set; }
         public int SistemaPinturaColorID { get; set; }
         public int ColorPinturaID { get; set; }
         public string Color { get; set; }
@@ -56,6 +59,7 @@ namespace BackEndSAM.Models.Pintura.SistemaPinturaAplicable
         public int SpoolAplicableID { get; set; }
         public int OrdenTrabajoID { get; set; }
         public int SpoolID { get; set; }
+        public int ProyectoID { get; set; }
         public int SistemaPinturaID { get; set; }
         public int SistemaPinturaColorID { get; set; }
         public int Estatus { get; set; }
