@@ -65,7 +65,7 @@ var $UrlOrdenTrabajo = $BackEndSAMUri + '/backendsam/api/OrdenTrabajo?';
 var $UrlMaterialSpool = $BackEndSAMUri + '/backendsam/api/MaterialSpool?';
 var $CatalogoEspesor = $BackEndSAMUri + '/backendsam/api/Espesor?';
 var $MTR = $BackEndSAMUri + '/backendsam/api/MTR?';
-
+var $PQR = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 //Base API's
 var $BackEndSAM = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 //var $FileManager = new $.RestClient($FilesSAMUri + '/filemanager/api/');
@@ -209,6 +209,7 @@ function apiManagerToBeExecutedOnDocumentReady() {
 
 $BackEndSAM.add('DummyListadoAvisoLlegada');
 $BackEndSAM.add('perfil');
+$BackEndSAM.add("PQR");
 $SecurityManager.add('authentication');
 
 
@@ -333,3 +334,9 @@ $CargaCarro.add("CargaCarro");
 $CapturaAvance.add('CapturaAvance');
 $SistemaPinturaAplicable.add("SistemaPinturaAplicable");
 $ListadoSistemaPintura.add("ListadoSistemaPintura");
+
+
+//Soldadura
+
+
+$PQR.add("PQR");
