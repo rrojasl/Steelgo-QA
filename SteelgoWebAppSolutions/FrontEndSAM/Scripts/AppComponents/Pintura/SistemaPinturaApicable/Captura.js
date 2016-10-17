@@ -118,7 +118,7 @@ function CargarGrid() {
 function isEditable(fieldName, model) {
     if (fieldName === "Color") {
         var sistemaPinturaID = model.SistemaPinturaID
-        if (sistemaPinturaID == 0 || model.NoPintable) {
+        if (model.ListaColorPintura.length < 1) {
             return false;
         }
     }
@@ -167,7 +167,8 @@ function PlanchadoSistemaPintura(tipoLlenado) {
             data[i].EstatusCaptura = 1;
             data[i].ListaColorPintura = $("#inputColorPintura").data("kendoComboBox").dataSource._data;
 
-            if (itemSistemaPintura.NoPintable) {
+            if (data[i].ListaColorPintura.length < 1) {
+
                 data[i].Color = "";
                 data[i].ColorPinturaID = 0;
                 data[i].SistemaPinturaColorID = 0;
@@ -185,7 +186,7 @@ function PlanchadoSistemaPintura(tipoLlenado) {
                 data[i].EstatusCaptura = 1;
                 data[i].ListaColorPintura = $("#inputColorPintura").data("kendoComboBox").dataSource._data;
 
-                if (itemSistemaPintura.NoPintable) {
+                if (data[i].ListaColorPintura.length < 1) {
                     data[i].Color = "";
                     data[i].ColorPinturaID = 0;
                     data[i].SistemaPinturaColorID = 0;

@@ -63,21 +63,22 @@ function AjaxCargarSistemaPintura(proyectoID) {
 
 function AjaxCargarColorPintura(sistemaPinturaID) {    
     $SistemaPinturaAplicable.SistemaPinturaAplicable.read({ token: Cookies.get("token"), SistemaPinturaID: sistemaPinturaID, Lenguaje: $("#language").val() }).done(function (data) {
-        
-        $("#inputColorPintura").data("kendoComboBox").dataSource.data(data);
+        if (data.length > 1) {
+            $("#inputColorPintura").data("kendoComboBox").dataSource.data(data);
 
-        var cpid = 0;
+            var cpid = 0;
 
-        if (data.length < 3) {
-            for (var i = 0; i < data.length; i++) {
-                if (data[i].ColorPinturaID != 0) {
-                    cpid = data[i].ColorPinturaID;
+            if (data.length < 3) {
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].ColorPinturaID != 0) {
+                        cpid = data[i].ColorPinturaID;
+                    }
                 }
             }
-        }
 
-        $("#inputColorPintura").data("kendoComboBox").value(cpid);
-        $("#inputColorPintura").data("kendoComboBox").trigger("change");
+            $("#inputColorPintura").data("kendoComboBox").value(cpid);
+            $("#inputColorPintura").data("kendoComboBox").trigger("change");
+        }
     });
 }
 
@@ -123,7 +124,7 @@ function AjaxCargarDetalleSpool(proyectoID, tipoBusqueda, cadena) {
         $("#grid").data("kendoGrid").dataSource.data([]);
 
         var ds = $("#grid").data("kendoGrid").dataSource;
-        if(data.length>0){
+        if(data.length > 1){
             for (var i = 0; i < data.length; i++) {
                 if (data[i].ListaColorPintura == null)
                     data[i].ListaColorPintura = [];
@@ -319,7 +320,7 @@ function AjaxGuardaCargaMasiva(data, tipoCarga) {
     loadingStart();
     $SistemaPinturaAplicable.SistemaPinturaAplicable.create(Captura, { token: Cookies.get("token"), TipoCarga: tipoCarga, Lenguaje: $("#language").val(), ProyectoID: $("#inputProyecto").data("kendoComboBox").value() }).done(function (data) {
             
-            download(data, "export.csv", "text/csv");
+            download(data, "ResultadoSistemaPinturaAplicable.csv", "text/csv");
             displayNotify("SistemaPinturaAplicableMensajeGuardadoExistoso", "", '0');
             loadingStop();
     });
