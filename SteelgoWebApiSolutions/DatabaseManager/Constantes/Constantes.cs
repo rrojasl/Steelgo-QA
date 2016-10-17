@@ -46,6 +46,7 @@
         public static string GUARDACAPTURASISTEMAAPLICABLEMASIVO = "Sam3_SPA_GuardaCargaMasiva";
         public static string GUARDARCAPTURASISTEMAPINTURA = "Sam3_SP_Guardar";
         public static string COMPROBARSISTEMAPINTURANOMBREPROYECTO = "Sam3_SP_ComprobarNombreProyecto";
-
+        public static string GUARDAPQR = "Sam3_Soldadura_Set_PQR";
+        public static string GUARDANUEVOPQR = "Sam3_Soldadura_New_PQR";
     }
 }
