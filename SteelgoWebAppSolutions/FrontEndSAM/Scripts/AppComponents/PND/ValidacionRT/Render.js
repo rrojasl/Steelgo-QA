@@ -10,7 +10,7 @@ function RenderNumeroPlacas(container, options) {
 
 
 
-        numeroPlacasAnteriorElemento = { NumeroPlacas: options.model.NumeroPlacas, OrdenTrabajoID: options.model.OrdenTrabajoID, SpoolID: options.model.SpoolID, JuntaSpoolID: options.model.JuntaSpoolID };
+        numeroPlacasAnteriorElemento = { NumeroPlacas: options.model.NumeroPlacas, OrdenTrabajoID: options.model.OrdenTrabajoID, SpoolID: options.model.SpoolID, JuntaSpoolID: options.model.JuntaSpoolID, ResultadoConciliacionID: options.model.ResultadoConciliacionID };
         $('<input data-text-field="NumeroPlacas" id=' + options.model.uid + ' data-value-field="NumeroPlacas" data-bind="value:' + options.field + '" />')
         .appendTo(container)
         .kendoNumericTextBox({
@@ -23,34 +23,50 @@ function RenderNumeroPlacas(container, options) {
                 hayDatosCapturados = true;
 
                 var value = this.value();
-                if (numeroPlacasAnteriorElemento.NumeroPlacas != null && numeroPlacasAnteriorElemento.NumeroPlacas != this.value()) {
-                    //hayDatosCapturados = true;
+                if (numeroPlacasAnteriorElemento.ResultadoConciliacionID > 1) {//La razon no es Aceptada y se va a evaluar
+                    if (numeroPlacasAnteriorElemento.NumeroPlacas != null && numeroPlacasAnteriorElemento.NumeroPlacas > this.value()) {
+                        //hayDatosCapturados = true;
 
-                    ventanaConfirm = $("#ventanaConfirm").kendoWindow({
-                        iframe: true,
-                        title: _dictionary.WarningTitle[$("#language").data("kendoDropDownList").value()],
-                        visible: false, //the window will not appear before its .open method is called
-                        width: "auto",
-                        height: "auto",
-                        modal: true,
-                        animation: {
-                            close: false,
-                            open: false
-                        }
-                    }).data("kendoWindow");
+                        ventanaConfirm = $("#ventanaConfirm").kendoWindow({
+                            iframe: true,
+                            title: _dictionary.WarningTitle[$("#language").data("kendoDropDownList").value()],
+                            visible: false, //the window will not appear before its .open method is called
+                            width: "auto",
+                            height: "auto",
+                            modal: true,
+                            animation: {
+                                close: false,
+                                open: false
+                            }
+                        }).data("kendoWindow");
 
-                    ventanaConfirm.content(_dictionary.CapturaReporteModificarNoPlacas[$("#language").data("kendoDropDownList").value()] +
-                                "</br><center><button class='btn btn-blue' id='yesButton'>Si</button><button class='btn btn-blue' id='noButton'> No</button></center>");
+                        ventanaConfirm.content(_dictionary.CapturaReporteModificarNoPlacas[$("#language").data("kendoDropDownList").value()] +
+                                    "</br><center><button class='btn btn-blue' id='yesButton'>Si</button><button class='btn btn-blue' id='noButton'> No</button></center>");
 
-                    ventanaConfirm.open().center();
+                        ventanaConfirm.open().center();
 
-                    $("#yesButton").click(function () {
+                        $("#yesButton").click(function () {
+                            renderGenerarJsonNumeroPlacas(options.model.SpoolID, options.model.JuntaSpoolID, options.model.OrdenTrabajoID);
+
+                            ventanaConfirm.close();
+                        });
+                        $("#noButton").click(function () {
+                            //dataItem.NumeroPlacas = numeroPlacasAnteriorElemento;
+                            for (var i = 0; i < $("#grid").data("kendoGrid").dataSource._data.length; i++) {
+                                if ((numeroPlacasAnteriorElemento.SpoolID == $("#grid").data("kendoGrid").dataSource._data[i].SpoolID) && (numeroPlacasAnteriorElemento.JuntaSpoolID == $("#grid").data("kendoGrid").dataSource._data[i].JuntaSpoolID) && (numeroPlacasAnteriorElemento.OrdenTrabajoID == $("#grid").data("kendoGrid").dataSource._data[i].OrdenTrabajoID)) {
+                                    $("#grid").data("kendoGrid").dataSource._data[i].NumeroPlacas = numeroPlacasAnteriorElemento.NumeroPlacas;
+                                    $("#grid").data("kendoGrid").refresh();
+                                    break;
+                                }
+                            }
+
+                            ventanaConfirm.close();
+                        });
+                    }
+                    else if (numeroPlacasAnteriorElemento.NumeroPlacas == null) {
                         renderGenerarJsonNumeroPlacas(options.model.SpoolID, options.model.JuntaSpoolID, options.model.OrdenTrabajoID);
-
-                        ventanaConfirm.close();
-                    });
-                    $("#noButton").click(function () {
-                        //dataItem.NumeroPlacas = numeroPlacasAnteriorElemento;
+                    }
+                    else {
                         for (var i = 0; i < $("#grid").data("kendoGrid").dataSource._data.length; i++) {
                             if ((numeroPlacasAnteriorElemento.SpoolID == $("#grid").data("kendoGrid").dataSource._data[i].SpoolID) && (numeroPlacasAnteriorElemento.JuntaSpoolID == $("#grid").data("kendoGrid").dataSource._data[i].JuntaSpoolID) && (numeroPlacasAnteriorElemento.OrdenTrabajoID == $("#grid").data("kendoGrid").dataSource._data[i].OrdenTrabajoID)) {
                                 $("#grid").data("kendoGrid").dataSource._data[i].NumeroPlacas = numeroPlacasAnteriorElemento.NumeroPlacas;
@@ -58,45 +74,77 @@ function RenderNumeroPlacas(container, options) {
                                 break;
                             }
                         }
-
-                        ventanaConfirm.close();
-                    });
+                    }
                 }
-                else if (numeroPlacasAnteriorElemento.NumeroPlacas == null) {
-                    renderGenerarJsonNumeroPlacas(options.model.SpoolID, options.model.JuntaSpoolID, options.model.OrdenTrabajoID);
+                else {
+                    for (var i = 0; i < $("#grid").data("kendoGrid").dataSource._data.length; i++) {
+                        if ((numeroPlacasAnteriorElemento.SpoolID == $("#grid").data("kendoGrid").dataSource._data[i].SpoolID) && (numeroPlacasAnteriorElemento.JuntaSpoolID == $("#grid").data("kendoGrid").dataSource._data[i].JuntaSpoolID) && (numeroPlacasAnteriorElemento.OrdenTrabajoID == $("#grid").data("kendoGrid").dataSource._data[i].OrdenTrabajoID)) {
+                            $("#grid").data("kendoGrid").dataSource._data[i].NumeroPlacas = numeroPlacasAnteriorElemento.NumeroPlacas;
+                            $("#grid").data("kendoGrid").refresh();
+                            break;
+                        }
+                    }
                 }
             }
         });
     };
 }
 
+var tamanoAnteriorElemento;
 function RenderTamano(container, options) {
     if ($('#Guardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
 
         var dataItem;
+        tamanoAnteriorElemento = { NumeroPlacas: options.model.NumeroPlacas, OrdenTrabajoID: options.model.OrdenTrabajoID, SpoolID: options.model.SpoolID, JuntaSpoolID: options.model.JuntaSpoolID, ResultadoConciliacionID: options.model.ResultadoConciliacionID, Tamano: options.model.Tamano};
         $('<input data-text-field="Tamano" id=' + options.model.uid + ' data-value-field="Tamano" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoNumericTextBox({
             format: "#.0000",
             min: 0,
             change: function (e) {
-                hayDatosCapturados = true;
+                
+                if (tamanoAnteriorElemento.ResultadoConciliacionID > 1) {
+                    hayDatosCapturados = true;
+                }
+                else {
+                    for (var i = 0; i < $("#grid").data("kendoGrid").dataSource._data.length; i++) {
+                        if ((tamanoAnteriorElemento.SpoolID == $("#grid").data("kendoGrid").dataSource._data[i].SpoolID) && (tamanoAnteriorElemento.JuntaSpoolID == $("#grid").data("kendoGrid").dataSource._data[i].JuntaSpoolID) && (tamanoAnteriorElemento.OrdenTrabajoID == $("#grid").data("kendoGrid").dataSource._data[i].OrdenTrabajoID)) {
+                            $("#grid").data("kendoGrid").dataSource._data[i].Tamano = tamanoAnteriorElemento.Tamano;
+                            $("#grid").data("kendoGrid").refresh();
+                            break;
+                        }
+                    }
+                }
             }
         });
     };
 }
 
+var densidadAnteriorElemento;
 function RenderDensidad(container, options) {
     if ($('#Guardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
 
         var dataItem;
+        densidadAnteriorElemento = { NumeroPlacas: options.model.NumeroPlacas, OrdenTrabajoID: options.model.OrdenTrabajoID, SpoolID: options.model.SpoolID, JuntaSpoolID: options.model.JuntaSpoolID, ResultadoConciliacionID: options.model.ResultadoConciliacionID, Densidad: options.model.Densidad };
         $('<input data-text-field="Densidad" id=' + options.model.uid + ' data-value-field="Densidad" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoNumericTextBox({
             format: "#.0000",
             min: 0,
             change: function (e) {
-                hayDatosCapturados = true;
+                
+                if (densidadAnteriorElemento.ResultadoConciliacionID > 1) {
+                    hayDatosCapturados = true;
+                }
+                else {
+                    for (var i = 0; i < $("#grid").data("kendoGrid").dataSource._data.length; i++) {
+                        if ((densidadAnteriorElemento.SpoolID == $("#grid").data("kendoGrid").dataSource._data[i].SpoolID) && (densidadAnteriorElemento.JuntaSpoolID == $("#grid").data("kendoGrid").dataSource._data[i].JuntaSpoolID) && (densidadAnteriorElemento.OrdenTrabajoID == $("#grid").data("kendoGrid").dataSource._data[i].OrdenTrabajoID)) {
+                            $("#grid").data("kendoGrid").dataSource._data[i].Densidad = densidadAnteriorElemento.Densidad;
+                            $("#grid").data("kendoGrid").refresh();
+                            break;
+                        }
+                    }
+                }
             }
         });
     }
