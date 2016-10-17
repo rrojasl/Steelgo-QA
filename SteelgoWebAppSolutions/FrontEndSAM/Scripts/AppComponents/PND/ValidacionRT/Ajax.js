@@ -248,7 +248,7 @@ function AjaxGuardarCaptura(ds, guardarYNuevo) {
                 listaDetalles[cont].ListaDetallePorPlacas[j].ListaDetalleDefectos = detalles;
             }
             
-            if ((ds[i].NumeroPlacas > 0) && ($.isNumeric(ds[i].Tamano)) && ($.isNumeric(ds[i].Densidad)) && ds[i].Tamano > 0 && ds[i].Densidad > 0) {
+            if ((ds[i].NumeroPlacas > 0) && ($.isNumeric(ds[i].Tamano)) && ($.isNumeric(ds[i].Densidad)) && ds[i].Tamano > 0 && ds[i].Densidad > 0 && (ds[i].ResultadoConciliacionID != 0) && (ds[i].RazonNoConciliacionID != 0) && (ds[i].Comentarios != "")) {
                 
                 if (ds[i].ListaDetallePorPlacas.length > 0) {
                     for (var l = 0; l < ds[i].ListaDetallePorPlacas.length; l++) {
