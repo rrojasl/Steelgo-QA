@@ -7654,6 +7654,30 @@ _dictionary = {
         "es-MX": "Mostrar",
         "en-US": "Show"
     },
+    "botonGuardarLiberar": {
+        "es-MX": "Guardar y Liberar",
+        "en-US": "Save and Release"
+    },
+    "botonGuardarLiberar1": {
+        "es-MX": "Guardar y Liberar",
+        "en-US": "Save and Release"
+    },
+    "botonGuardarLiberar2": {
+        "es-MX": "Guardar y Liberar",
+        "en-US": "Save and Release"
+    },
+    "botonGuardarLiberar3": {
+        "es-MX": "Guardar y Liberar",
+        "en-US": "Save and Release"
+    },
+    "botonGuardarLiberarYNuevo": {
+        "es-MX": "Guardar, Liberar y Nuevo",
+        "en-US": "Save, Release and New"
+    },
+    "botonGuardarLiberarYNuevo1": {
+        "es-MX": "Guardar, Liberar y Nuevo",
+        "en-US": "Save, Release and New"
+    },
     // Finalizan etiquetas Header y Footer
 
     //Inician mensajes Generales
@@ -7884,6 +7908,10 @@ _dictionary = {
     "menuOkPintura": {
         "es-MX": "OK Pintura",
         "en-US": "Paint OK"
+    },
+    "menuCapturaPruebaSpool": {
+        "es-MX": "Captura Pruebas por Spool",
+        "en-US": "Spool Capture Test"
     },
     // Finalizan Etiquetas de Menú General
 
@@ -9033,6 +9061,10 @@ _dictionary = {
         "en-US": "Applicable Paint System"
     },
     "PinturaSistemaPinturaAplicableBreadcrumb": {
+        "es-MX": "Captura Pruebas por Spool",
+        "en-US": "Spool Capture Test"
+    },
+    "PinturaCapturaPruebaSpoolBreadcrumb": {
         "es-MX": "Captura Pruebas por Spool",
         "en-US": "Spool Capture Test"
     },
