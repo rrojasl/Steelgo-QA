@@ -28,6 +28,7 @@
     public static class Stords
     {
         public static string GUARDARCAPTURAARMADO = "Sam3_Armado_JuntaArmado";
+        public static string GUARDARCAPTURASOLDADURA = "Sam3_Soldadura_JuntaSoldadura";
         public static string GUARDACAPTURAENTREGAPLACASGRAFICAS = "dbo.Sam3_ST_EPG_GuardaCaptura";
         public static string GUARDARNUEVAREQUISICION = "Sam3_ST_RPND_GuardaCaptura";
         public static string GUARDARCAPTURAREQUISICIONASIGNACION = "Sam3_ST_ARPND_GuardaCaptura";
