@@ -208,6 +208,12 @@ namespace BackEndSAM.Controllers
         {
             List<Tubero> listaTuberos = new List<Tubero>();
 
+            listaTuberos.Add(new Tubero
+            {
+                Codigo = "",
+                ObreroID = 0,
+                TipoObrero = ""
+            });
             foreach (Sam3_Steelgo_Get_Obrero_Result item in listaTubero)
             {
                 Tubero tubero = new Tubero

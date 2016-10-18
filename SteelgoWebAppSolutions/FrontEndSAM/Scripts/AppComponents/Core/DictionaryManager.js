@@ -8512,6 +8512,11 @@ _dictionary = {
         "es-MX": "Soldadura",
         "en-US": "Welding"
     },
+    "CapturaSoldaduraHeaderAdicionales": {
+        "es-MX": "Trabajos Adicionales",
+        "en-US": "Additional Work"
+    },
+
     //Finaliza Armado
 
     //Pantalla Soldadura
