@@ -138,9 +138,9 @@ function SuscribirEventoPatio() {
 }
 //Zonas
 function suscribirEventoArea() {
-    $("#Area").kendoComboBox({
+    $("#Zona").kendoComboBox({
         dataTextField: "Nombre",
-        dataValueField: "AreaID",
+        dataValueField: "ZonaID",
         suggest: true,
         filter: "contains",
         cascadeFrom: "cbxPatios",
@@ -287,7 +287,7 @@ function SubscribeHora() {
         if ($(this).val().match("^[0-2][0-3]:[0-5][0-9]$")) {
 
         } else {
-            displayNotify("", "El formato de hora es incorrecto", 1);
+            displayNotify("", "El formato de hora es incorrecto", '1');
             $(this).val("");
         }
 

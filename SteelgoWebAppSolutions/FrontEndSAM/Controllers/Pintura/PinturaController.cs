@@ -27,7 +27,12 @@ namespace FrontEndSAM.Controllers.Pintura
         {
             return View();
         }
-       
+
+        public ActionResult CapturaPruebaSpool()
+        {
+            return View();
+        }
+
         public ActionResult DescargaCarritos()
         {
             return View();
@@ -44,6 +49,11 @@ namespace FrontEndSAM.Controllers.Pintura
         }
 
         public ActionResult SistemaPinturaAplicable()
+        {
+            return View();
+        }
+
+        public ActionResult OKPintura()
         {
             return View();
         }

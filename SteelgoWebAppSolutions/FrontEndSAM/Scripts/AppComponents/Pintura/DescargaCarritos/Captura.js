@@ -21,19 +21,23 @@ function CargarGrid() {
         dataSource: {
             data: [{
                 Accion:1,
-                NombreSpool: "X001-01",
+                NombreSpool: "X001-001",
                 SistemaPintura:"18.1",
                 Color: "Amarillo",
-                M2:"40 m2",
-                NombreCuadrante:"ZZ0-01"
+                M2: 40,
+                NombreCuadrante: "ZZ0-01",
+                ListaCuandrantes: [{ CuadranteID: 0, Nombre: "" }, { CuadranteID: 1, Nombre: "1A" },
+                    { CuadranteID: 2, Nombre: "1B" }]
             },
             {
                 Accion: 1,
                 NombreSpool: "X001-016",
-                SistemaPintura: "A1",
+                SistemaPintura: "18.1",
                 Color: "Cafe",
-                M2: "60 m2",
-                NombreCuadrante: "E-01"
+                M2: 60,
+                NombreCuadrante: "E-01",
+                ListaCuandrantes: [{ CuadranteID: 0, Nombre: "" }, { CuadranteID: 1, Nombre: "1A" },
+                    { CuadranteID: 2, Nombre: "1B" }]
             }
             ],
             schema: {
@@ -82,9 +86,9 @@ function CargarGrid() {
             { field: "SistemaPintura", title: _dictionary.columnSistemaPintura[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec() },
             { field: "Color", title: _dictionary.columnColor[$("#language").data("kendoDropDownList").value()], width: "150px", filterable: getGridFilterableCellMaftec() },
             { field: "M2", title: _dictionary.columnM2[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), format: "{0:n2}", width: "95px", attributes: { style: "text-align:right;" } },
-            { field: "NombreCuadrante", title: _dictionary.columnCuadrante[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec() },
+            { field: "NombreCuadrante", title: _dictionary.columnCuadrante[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxCuadrante },
             //{ field: "CapturaPrueba", title: _dictionary.columnSeRealizoPrueba[$("#language").data("kendoDropDownList").value()], filterable: false, template: '<input type="checkbox" #= CapturaPrueba ? "checked=checked" : "" # class="chkbx"  ></input>  ' }
-           { command: { text: _dictionary.botonDescarga[$("#language").data("kendoDropDownList").value()], click: eliminarCapturaPatio }, title: _dictionary.columnDescargar1[$("#language").data("kendoDropDownList").value()], width: "100px", attributes: { style: "text-align:center;" } }
+           //{ command: { text: _dictionary.botonDescarga[$("#language").data("kendoDropDownList").value()], click: eliminarCapturaPatio }, title: _dictionary.columnDescargar1[$("#language").data("kendoDropDownList").value()], width: "100px", attributes: { style: "text-align:center;" } }
 
         ]
 
@@ -95,8 +99,7 @@ function CargarGrid() {
 
 
 function llenarCombo() {
-    //var data = [{Accion: 1, }]
-
+    
     var c = [
              { MedioTransporteID: 0, NombreMedioTransporte: "" },
              { MedioTransporteID: 1, NombreMedioTransporte: "Carro-1" },
@@ -104,10 +107,10 @@ function llenarCombo() {
     ];
 
     var sp = [
-        { SistemaPinturaID: 0, Nombre: "" },
-        { SistemaPinturaID: 1, Nombre: "A1" },
-        { SistemaPinturaID: 2, Nombre: "A2" },
-        { SistemaPinturaID: 3, Nombre: "18.1" },
+        { ZonaID: 0, Nombre: "" },
+        { ZonaID: 1, Nombre: "Zona 1" },
+        { ZonaID: 2, Nombre: "Zona 2" },
+        { ZonaID: 3, Nombre: "Zona 3" },
     ];
 
     $("#inputCarro").data("kendoComboBox").dataSource.data([]);
@@ -116,8 +119,8 @@ function llenarCombo() {
     $("#inputCarro").data("kendoComboBox").trigger('changes');
     
 
-    $("#inputSistemaPintura").data("kendoComboBox").dataSource.data([]);
-    $("#inputSistemaPintura").data("kendoComboBox").dataSource.data(sp);
+    $("#inputZona").data("kendoComboBox").dataSource.data([]);
+    $("#inputZona").data("kendoComboBox").dataSource.data(sp);
 
 }
 

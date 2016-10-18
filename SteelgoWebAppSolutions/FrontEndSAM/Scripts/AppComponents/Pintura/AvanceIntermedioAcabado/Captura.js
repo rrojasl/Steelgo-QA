@@ -62,8 +62,6 @@ function CargarGridCapturaAvanceIntAcabado() {
                     fields: {
                       Accion: { type: "number", editable: false },
                       Spool: { type: "string", editable: false },
-                      SistemaPintura: { type: "string", editable: true },
-                      Color: { type: "string", editable: true },
                       M2: { type: "number", editable: false },
                       Lote: { type: "string", editable: true },
                        // FechaPintura: {type:"Date",editable:true},
@@ -99,13 +97,11 @@ function CargarGridCapturaAvanceIntAcabado() {
         },
         columns: [
             { field: "Spool", title: "Spool", filterable: getGridFilterableCellMaftec(), width: "140px" },
-            { field: "SistemaPintura", title: _dictionary.columnSistemaPintura1[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "150px" },
-            { field: "Color", title: _dictionary.columnColor[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "90px", editor: RenderComboBoxColor },
             { field: "M2", title: _dictionary.columnM2[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), format: "{0:n2}", width: "95px", attributes: { style: "text-align:right;" } },
             { field: "Lote", title: _dictionary.columnLote[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "100px", editor: RenderComboBoxLote },
             { field: "FechaPintura", title: _dictionary.columnFechaPintura[$("#language").data("kendoDropDownList").value()], width: "90px", filterable: getKendoGridFilterableDateMaftec(), width: "130px", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()] },
             { field: "ListaDetallePintoresPorSpool", title: _dictionary.columnPintores[$("#language").data("kendoDropDownList").value()], width: "120px", filterable: false, editor: RenderMultiselectPintores, template: "#:TemplatePintoresPorSpool#" },
-            { command: { text: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], click: eliminarCaptura }, title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], width: "99px" }
+            { command: { text: _dictionary.botonLimpiar[$("#language").data("kendoDropDownList").value()], click: eliminarCaptura }, title: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()], width: "99px" }
         ]
     });
     CustomisaGrid($("#grid"));
@@ -126,24 +122,11 @@ function llenarCombo() {
         { SistemaPinturaID: 3, Nombre: "18.1" },
     ];
 
-   var l = [
-       { LotePinturaID: 0, NumeroLote: "" },
-       { LotePinturaID: 1, NumeroLote: "1/33" },
-       { LotePinturaID: 2, NumeroLote: "12" },
-       { LotePinturaID: 3, NumeroLote: "123/23" },
-   ];
-
-
-
     $("#inputCuadrante").data("kendoComboBox").dataSource.data([]);
     $("#inputCuadrante").data("kendoComboBox").dataSource.data(c);
 
     $("#inputSistemaPintura").data("kendoComboBox").dataSource.data([]);
    $("#inputSistemaPintura").data("kendoComboBox").dataSource.data(sp);
-
-   $("#inputLote").data("kendoComboBox").dataSource.data([]);
-   $("#inputLote").data("kendoComboBox").dataSource.data(l);
-
 
 }
 

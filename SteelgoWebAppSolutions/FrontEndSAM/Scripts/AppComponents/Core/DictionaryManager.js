@@ -7766,8 +7766,8 @@ _dictionary = {
         "en-US": "Load Carriage"
     },
     "menuPinturaCargaAvance": {
-        "es-MX": "Avance",
-        "en-US": "Progress"
+        "es-MX": "Avance Shotblast Primario",
+        "en-US": "Progress Shotblast Primary"
     },
     "menuCapturaAvanceIntAcabado": {
         "es-MX": "Avance Intermedio Acabado",
@@ -7778,11 +7778,7 @@ _dictionary = {
         "en-US": "Download Carriage"
     },
     "menuLotesCapturaPrueba": {
-        "es-MX": "Lote Captura Prueba",
-        "en-US": "Batch Capture Test "
-    },
-    "menuLotesCapturaPrueba": {
-        "es-MX": "Lote Captura Prueba",
+        "es-MX": "Captura Pruebas por Lotes",
         "en-US": "Batch Capture Test "
     },
     "menuEmbarque": {
@@ -7884,6 +7880,10 @@ _dictionary = {
     "menuConfiguracion": {
         "es-MX": "Configuraciones",
         "en-US": "Configurations"
+    },
+    "menuOkPintura": {
+        "es-MX": "OK Pintura",
+        "en-US": "Paint OK"
     },
     // Finalizan Etiquetas de Menú General
 
@@ -8139,8 +8139,8 @@ _dictionary = {
         "en-US": "Component"
     },
     "columnFechaPintura": {
-        "es-MX": "Fecha Pintura",
-        "en-US": "Painting Date"
+        "es-MX": "Fecha Proceso",
+        "en-US": "Process Date"
     },
     "columnPintores": {
         "es-MX": "Pintores",
@@ -9001,8 +9001,8 @@ _dictionary = {
         "en-US": "Load Carriage"
     },
     "PinturaCapturaAvanceBreadcrumb": {
-        "es-MX": "Avance",
-        "en-US": "Progress"
+        "es-MX": "Avance Shotblast Primario",
+        "en-US": "Progress Shotblast Primary"
     },
     "PinturaAvanceIntermedioAcabadoBreadcrumb": {
         "es-MX": "Avance Intermedio Acabado",
@@ -9013,8 +9013,8 @@ _dictionary = {
         "en-US": "Paint System"
     },
     "PinturaLotesCapturaPruebaBreadcrumb": {
-        "es-MX": "Lotes Captura Prueba",
-        "en-US": "Batch Capture Tes"
+        "es-MX": "Captura Pruebas por Lotes",
+        "en-US": "Batch Capture Test"
     },
     "PinturaDescargaCarritosBreadcrumb": {
         "es-MX": "Descarga de Carro",
@@ -9032,6 +9032,10 @@ _dictionary = {
         "es-MX": "Sistema de Pintura Aplicable",
         "en-US": "Applicable Paint System"
     },
+    "PinturaSistemaPinturaAplicableBreadcrumb": {
+        "es-MX": "Captura Pruebas por Spool",
+        "en-US": "Spool Capture Test"
+    },
     //Finaliza Etiquetas Generales Pintura
 
     //Inicia Carga de Carro
@@ -9044,12 +9048,12 @@ _dictionary = {
         "en-US": "Areway"
     },
     "PinturaCapturaAvanceSup": {
-        "es-MX": "Avance",
-        "en-US": "Progress"
+        "es-MX": "Avance Shotblast Primario",
+        "en-US": "Progress Shotblast Primary"
     },
     "PinturaCapturaAvanceInf": {
-        "es-MX": "Avance",
-        "en-US": "Progress"
+        "es-MX": "Avance Shotblast Primario",
+        "en-US": "Progress Shotblast Primary"
     },
     "PinturaCargaTitulo": {
         "es-MX": "Alerta!!!",
