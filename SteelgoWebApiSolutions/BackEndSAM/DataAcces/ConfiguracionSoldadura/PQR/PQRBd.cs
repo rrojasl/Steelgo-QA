@@ -1,14 +1,14 @@
-﻿using BackEndSAM.Models.Fabricacion.Soldadura;
+﻿using BackEndSAM.Models.ConfiguracionSoldadura.PQR;
 using DatabaseManager.Constantes;
 using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
-using System.Web;
 
-namespace BackEndSAM.DataAcces.Fabricacion.Soldadura
+namespace BackEndSAM.DataAcces.ConfiguracionSoldadura
 {
     public class PQRBd
     {

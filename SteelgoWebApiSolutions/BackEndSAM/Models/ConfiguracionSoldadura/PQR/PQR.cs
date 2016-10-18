@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
-namespace BackEndSAM.Models.Fabricacion.Soldadura
+namespace BackEndSAM.Models.ConfiguracionSoldadura.PQR
 {
     public class PQR
     {
-
-
         //Grid PQR
         public int PQRID { get; set; }
         public string Nombre { get; set; }

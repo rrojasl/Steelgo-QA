@@ -1,14 +1,17 @@
-﻿using SecurityManager.Api.Models;
+﻿using BackEndSAM.DataAcces.ConfiguracionSoldadura;
+using BackEndSAM.Models.ConfiguracionSoldadura.PQR;
+using DatabaseManager.Sam3;
+using SecurityManager.Api.Models;
 using SecurityManager.TokenHandler;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+using System.Data;
+using System.Reflection;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using System.Web.Script.Serialization;
 
-namespace BackEndSAM.Controllers.Fabricacion.Soldadura
+namespace BackEndSAM.Controllers.ConfiguracionSoldadura.PQR
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class PQRController : ApiController
@@ -236,8 +239,6 @@ namespace BackEndSAM.Controllers.Fabricacion.Soldadura
                 result.IsAuthenicated = true;
                 return result;
             }
-
-
         }
 
         public object Get(string token, string nombre)
