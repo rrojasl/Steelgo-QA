@@ -48,5 +48,7 @@
         public static string COMPROBARSISTEMAPINTURANOMBREPROYECTO = "Sam3_SP_ComprobarNombreProyecto";
         public static string GUARDAPQR = "Sam3_Soldadura_Set_PQR";
         public static string GUARDANUEVOPQR = "Sam3_Soldadura_New_PQR";
+        public static string GUARDAWPS = "Sam3_Soldadura_Set_WPS";
+        public static string GUARDARSOLDADORCERTIFICACION = "Sam3_Soldador_Certificacion_Set_Captura";
     }
 }
