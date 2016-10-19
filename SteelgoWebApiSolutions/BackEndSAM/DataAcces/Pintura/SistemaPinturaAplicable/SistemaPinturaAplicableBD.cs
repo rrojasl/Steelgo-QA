@@ -212,9 +212,9 @@ namespace BackEndSAM.DataAcces.Pintura.SistemaPinturaAplicable
                     ObjetosSQL _SQL = new ObjetosSQL();
                     string[,] parametro = { { "@UsuarioID", UsuarioID.ToString() }, { "@TipoCarga", TipoCarga.ToString() }, { "@Lenguaje", Lenguaje }, { "@ProyectoID", ProyectoID.ToString() } };
 
-                    DataTable list = _SQL.EjecutaDataAdapter(Stords.GUARDACAPTURASISTEMAAPLICABLEMASIVO, dtDetalleCaptura, "@TablaCargaMasiva", parametro);
+                    int resultado = _SQL.EjecutaInsertUpdate(Stords.GUARDACAPTURASISTEMAAPLICABLEMASIVO, dtDetalleCaptura, "@TablaCargaMasiva", parametro);
 
-                    return ToDataTable.table_to_csv(list);
+                    return resultado == 1 ?"Si": resultado >= 1 ?"Actualizo mas de 1": "No"; //ToDataTable.table_to_csv(list);
                 }
             }
             catch (Exception ex)
@@ -225,7 +225,7 @@ namespace BackEndSAM.DataAcces.Pintura.SistemaPinturaAplicable
                 result.ReturnStatus = false;
                 result.IsAuthenicated = true;
 
-                return result;
+                return "DB error";
             }
         }
     }

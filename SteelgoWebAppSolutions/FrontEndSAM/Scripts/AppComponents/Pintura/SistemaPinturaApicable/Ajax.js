@@ -124,7 +124,7 @@ function AjaxCargarDetalleSpool(proyectoID, tipoBusqueda, cadena) {
         $("#grid").data("kendoGrid").dataSource.data([]);
 
         var ds = $("#grid").data("kendoGrid").dataSource;
-        if(data.length > 1){
+        if(data.length > 0){
             for (var i = 0; i < data.length; i++) {
                 if (data[i].ListaColorPintura == null)
                     data[i].ListaColorPintura = [];
@@ -319,9 +319,14 @@ function AjaxGuardaCargaMasiva(data, tipoCarga) {
     var Captura = { detalle: data }
     loadingStart();
     $SistemaPinturaAplicable.SistemaPinturaAplicable.create(Captura, { token: Cookies.get("token"), TipoCarga: tipoCarga, Lenguaje: $("#language").val(), ProyectoID: $("#inputProyecto").data("kendoComboBox").value() }).done(function (data) {
-            
+        if(data.length>0){
             download(data, "ResultadoSistemaPinturaAplicable.csv", "text/csv");
             displayNotify("SistemaPinturaAplicableMensajeGuardadoExistoso", "", '0');
-            loadingStop();
+        } else {
+
+            displayNotify("", _dictionary.notificationslabel0009[$("#language").data("kendoDropDownList").value()] + data.ReturnMessage[0], '2');
+        }
+
+        loadingStop();
     });
 }
