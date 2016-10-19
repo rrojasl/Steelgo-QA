@@ -8524,7 +8524,124 @@ _dictionary = {
         "es-MX": "Trabajos Adicionales",
         "en-US": "Additional Work"
     },
+    "TituloPopupCancelar": {
+        "es-MX": "Alerta!!!",
+        "en-US": "Warning!!!"
+    },
+    "TituloPopUpError": {
+        "es-MX": "Error al guardar",
+        "en-US": "Error"
+    },
+    "MensajeCamposErroneos": {
+        "es-MX": "Los spools marcados en rojo no se pueden guardar favor de eliminarlos y/o limpiarlos.",
+        "en-US": "The spools marked in red can not be saved please remove them and/or clean them."
+    },
+    "CapturaArmadoPreguntaBorradoCaptura": {
+        "es-MX": "¿Está seguro de eliminar el detalle de la captura de armado?",
+        "en-US": "Are you sure you want to delete the detail of the capture of armed ?"
+    },
+    "CapturaArmadoMensajeJuntaExistente": {
+        "es-MX": "La junta ya existe",
+        "en-US": "The Joint already exists"
+    },
+    "CapturaArmadoMensajeOrdenTrabajo": {
+        "es-MX": "La Orden de trabajo no es valida.",
+        "en-US": "The work order is not valid."
+    },
+    "CapturaArmadoMensajeOrdenTrabajoNoEncontrada": {
+        "es-MX": "Orden de trabajo no encontrada",
+        "en-US": "Work order is not found"
+    },
+    "CapturaArmadoMensajeGuardadoExitoso": {
+        "es-MX": "Datos guardados correctamente.",
+        "en-US": "Data saved correctly."
+    },
+    "CapturaArmadoTemplateNoHayTrabajosAdicionales": {
+        "es-MX": "No hay trabajos adicionales",
+        "en-US": "No additional work"
+    },
+    "CapturaArmadoMsgExiste": {
+        "es-MX": "La junta ",
+        "en-US": "The joint "
+    },
 
+    "CapturaArmadoJuntaCapturada": {
+        "es-MX": "La junta ya fue capturada",
+        "en-US": "The joint is captured"
+    },
+
+    "CapturaArmadoMsgExisteListado": {
+        "es-MX": " ya existe en el listado",
+        "en-US": " already exist in the list"
+    },
+    "CapturaArmadoMsgExisteReporte": {
+        "es-MX": " ya existe en el spool",
+        "en-US": " already exist in the spool"
+    },
+    "CapturaArmadoMsgNuevoEnListado": {
+        "es-MX": " se agregó en el listado",
+        "en-US": " already add in the list"
+    },
+    "CapturaArmadoMsgNuevoEnReporte": {
+        "es-MX": " se agregó en el spool",
+        "en-US": " already add in the spool"
+    },
+    "CapturaArmadoTrabajoMandatorio": {
+        "es-MX": "El campo de trabajo, es mandatorio",
+        "en-US": "The work field is mandatory"
+    },
+    "CapturaArmadoNoExisteSpool": {
+        "es-MX": "La junta no existe en el spool",
+        "en-US": "The joint not exist in the spool"
+    },
+    "CapturaArmadoNoExisteLista": {
+        "es-MX": "La junta no existe en el listado de sin captura, revisar opción Todos",
+        "en-US": "The joint not exist in the list without capture, check option All"
+    },
+    "CapturaArmadoNoExistenJuntasSpool": {
+        "es-MX": "El spool no contiene juntas en estado sin captura, revisar opción Todos",
+        "en-US": "The spool don't have joints with status without capture, check option all"
+    },
+    "CapturaArmadoNoTieneJuntas": {
+        "es-MX": "El spool no tiene juntas",
+        "en-US": "The spool don't have joints"
+    },
+    "CapturaArmadoHeaderObservacion": {
+        "es-MX": "Observación",
+        "en-US": "Observation"
+    },
+    "CapturaArmadoHeaderTrabajo": {
+        "es-MX": "Trabajo",
+        "en-US": "Work"
+    },
+    "JuntaSinSeleccionar": {
+        "es-MX": "se necesita una junta",
+        "en-US": "you need a joint"
+    },
+    "NoExisteSpoolID": {
+        "es-MX": "No existe el spool",
+        "en-US": "No spool"
+    },
+    "MensajeErrorSpoolHold":
+    {
+        "es-MX": "No se permite su captura, debido a que transcurrieron 2 dias despues de salir de retención",
+        "en-US": "capture is not allowed , because they passed two days after leaving retention"
+    },
+    "radioMostrar":
+    {
+        "es-MX": "No esta seleccionado que tipo de busqueda se realizará Sin Captura/Todos",
+        "en-US": "Not selected what type of search will be performed without capture / All"
+    },
+    "radioTipoAgregado":
+    {
+        "es-MX": "No esta seleccionado que tipo de agregado (spool o junta)",
+        "en-US": "Not selected what type of aggregate (spool or join)"
+    },
+    "radioLLenadoMasivo":
+   {
+       "es-MX": "No esta seleccionado la opcion llenado masivo",
+       "en-US": "Not selected the massive filling option"
+   },
     //Finaliza Armado
 
     //Pantalla Soldadura

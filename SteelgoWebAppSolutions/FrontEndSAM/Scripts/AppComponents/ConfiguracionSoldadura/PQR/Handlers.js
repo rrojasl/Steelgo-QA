@@ -3,22 +3,26 @@
     VentanaModal();
 };
 
+
+
 function suscribirEventoGuardar() {
+
     $('.accionGuardar').click(function (e) {
         var ds = $("#grid").data("kendoGrid").dataSource;
         if (ds._data.length > 0) {
             if ($('#Guardar').text() == "Guardar" || $('#Guardar').text() == "Save") {
                 opcionHabilitarView(true);
-                //AjaxGuardarListado();
+                AjaxGuardarListado();
             }
-            //else if ($('#Guardar').text() == "Editar" || $('#Guardar').text() == "Edit") {
-            //    opcionHabilitarView(false)
-            //}
+            else if ($('#Guardar').text() == "Editar" || $('#Guardar').text() == "Edit") {
+                opcionHabilitarView(false)
+            }
         }
     });
 }
 
 function opcionHabilitarView(valor, name) {
+
     if (valor) {
         $('#FieldSetView').find('*').attr('disabled', true);
         $('#AAgregarPQR').prop('disabled', true);

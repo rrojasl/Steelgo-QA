@@ -392,7 +392,7 @@ function SuscribirEventosJunta() {
                             displayNotify("JuntaSinSeleccionar", "", '2');
                     }
                     else {
-                        displayNotify("Mensajes_error", "Favor de seleccionar un Tipo de Captura", '2');
+                        displayNotify("", "Favor de seleccionar un Tipo de Captura", '2');
                     }
                 }
                 else {
@@ -674,7 +674,7 @@ function SuscribirEventoSpoolID() {
                             if ($('input:radio[name=TipoAgregado]:checked').val() == "Reporte") {
                                 if ($("#InputID").data("kendoComboBox").select() != -1) {
                                     //BusquedaSpoolIDSelect(null);
-                                    AjaxJuntaModoSpool($("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()).Valor);
+                                    AjaxJuntaModoSpool($("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()).Valor, true);
 
                                     //setTimeout(function () { AjaxCargarReporteJuntas(); }, 500);
                                 }
@@ -906,12 +906,12 @@ function opcionHabilitarView(valor, name) {
         $("#inputTubero").data("kendoComboBox").enable(false);
         $("#inputTaller").data("kendoComboBox").enable(false);
         $("#FechaArmado").data("kendoDatePicker").enable(false);
-        $('#botonGuardar').text(_dictionary.textoEditar[$("#language").data("kendoDropDownList").value()]);
-        $("#DetalleAvisoLlegada0017").text(_dictionary.textoEditar[$("#language").data("kendoDropDownList").value()]);
+        $('#botonGuardar').text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
+        $("#DetalleAvisoLlegada0017").text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
         $('#ButtonPlanchar').attr('disabled', true);
-        $("#GuardarPie").text(_dictionary.textoEditar[$("#language").data("kendoDropDownList").value()]);
-        $('#btnGuardarPiePagina').text(_dictionary.textoEditar[$("#language").data("kendoDropDownList").value()]);
-        $("#btnGuardar").text(_dictionary.textoEditar[$("#language").data("kendoDropDownList").value()]);
+        $("#GuardarPie").text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
+        $('#btnGuardarPiePagina').text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
+        $("#btnGuardar").text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
 
     }
     else {
@@ -923,11 +923,11 @@ function opcionHabilitarView(valor, name) {
         $("#inputTubero").data("kendoComboBox").enable(true);
         $("#inputTaller").data("kendoComboBox").enable(true);
         $("#FechaArmado").data("kendoDatePicker").enable(true);
-        $('#botonGuardar').text(_dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]);
-        $("#DetalleAvisoLlegada0017").text(_dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]);
+        $('#botonGuardar').text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);
+        $("#DetalleAvisoLlegada0017").text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);
         $('#ButtonPlanchar').attr('disabled', false);
-        $("#GuardarPie").text(_dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]);
-        $('#btnGuardarPiePagina').text(_dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]);
-        $("#btnGuardar").text(_dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]);
+        $("#GuardarPie").text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);
+        $('#btnGuardarPiePagina').text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);
+        $("#btnGuardar").text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);
     }
 }

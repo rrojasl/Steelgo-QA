@@ -1,18 +1,19 @@
-﻿function LlenaGridAjax() {
+﻿
+function LlenaGridAjax() {
 
     var TipoDato = 1;
 
-    //$PQR.PQR.read({ TipoDato: TipoDato, Proyecto: 28, PruebaID: 2, Especificacion: null, Codigo: null, token: Cookies.get("token") }).done(function (data) {
-    //    if (Error(data)) {
-    //        resultadoJson = data;
-    //        if (resultadoJson.length > 0) {
-    //            $("#grid").data("kendoGrid").dataSource.data(resultadoJson);
-    //        } else {
-    //            $("#grid").data("kendoGrid").dataSource.data([]);
-    //        };
-    //        $("#grid").data("kendoGrid").dataSource.sync();
-    //    }
-    //});
+    $PQR.PQR.read({ TipoDato: TipoDato, Proyecto: 28, PruebaID: 2, Especificacion: null, Codigo: null, token: Cookies.get("token") }).done(function (data) {
+        if (Error(data)) {
+            resultadoJson = data;
+            if (resultadoJson.length > 0) {
+                $("#grid").data("kendoGrid").dataSource.data(resultadoJson);
+            } else {
+                $("#grid").data("kendoGrid").dataSource.data([]);
+            };
+            $("#grid").data("kendoGrid").dataSource.sync();
+        }
+    });
 };
 
 function AjaxGuardarListado() {

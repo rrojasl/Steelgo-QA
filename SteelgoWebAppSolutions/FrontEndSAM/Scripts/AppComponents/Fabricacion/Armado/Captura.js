@@ -221,8 +221,8 @@ function CargarGrid() {
             { field: "NumeroUnico1", title: _dictionary.columnNumeroUnico1[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxNumeroUnico1, width: "100px" },
             { field: "NumeroUnico2", title: _dictionary.columnNumeroUnico2[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxNumeroUnico2, width: "100px" },
             { field: "InformacionDetalle", title: _dictionary.columnAdicionales[$("#language").data("kendoDropDownList").value()], filterable: false, width: "115px", template: "<div class='botonAdicionales'><a href='\\#'  > <span>#=TemplateMensajeTrabajosAdicionales#</span></a></div>" },
-            { command: { text: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], click: eliminarCaptura }, title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], width: "50px" },
-            { command: { text: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()], click: limpiarRenglon }, title: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()], width: "50px" }
+            { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: eliminarCaptura }, title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], width: "50px" },
+            { command: { text: _dictionary.botonLimpiar[$("#language").data("kendoDropDownList").value()], click: limpiarRenglon }, title: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()], width: "50px" }
         ],
 
     });
@@ -629,11 +629,11 @@ function eliminarCaptura(e) {
         var spoolIDRegistro = dataItem.SpoolID;
 
 
-        windowTemplate = kendo.template($("#windowTemplate").html());
+        //windowTemplate = kendo.template($("#windowTemplate").html());
 
         ventanaConfirm = $("#ventanaConfirm").kendoWindow({
             iframe: true,
-            title: _dictionary.CapturaAvanceTitulo[$("#language").data("kendoDropDownList").value()],
+            title: _dictionary.TituloPopupCancelar[$("#language").data("kendoDropDownList").value()],
             visible: false, //the window will not appear before its .open method is called
             width: "auto",
             height: "auto",

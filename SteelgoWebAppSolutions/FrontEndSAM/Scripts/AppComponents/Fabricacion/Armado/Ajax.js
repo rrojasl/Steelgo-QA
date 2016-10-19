@@ -192,7 +192,7 @@ function AjaxEjecutarGuardado(rows, tipoGuardar) {
     $Armado.Armado.create(rows, { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
 
         if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
-            //displayNotify("CapturaMensajeGuardadoExitoso", "", '0');
+            displayNotify("MensajeGuardadoExistoso", "", '0');
 
             if (tipoGuardar == 1) {
                 opcionHabilitarView(false, "FieldSetView");
@@ -206,9 +206,9 @@ function AjaxEjecutarGuardado(rows, tipoGuardar) {
             loadingStop();
 
         }
-        else  /*(data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") */ {
+        else {
             //mensaje = "No se guardo la informacion el error es: " + data.ReturnMessage[0] + "-2";
-            //displayNotify("CapturaMensajeGuardadoErroneo", "", '2');
+            displayNotify("MensajeGuardadoErroneo", "", '2');
             loadingStop();
 
         }
@@ -318,11 +318,11 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
         }
         else {
             loadingStop();
-            windowTemplate = kendo.template($("#windowTemplate").html());
+            //windowTemplate = kendo.template($("#windowTemplate").html());
 
             ventanaConfirm = $("#ventanaConfirm").kendoWindow({
                 iframe: true,
-                title: _dictionary.CapturaAvanceIntAcabadoMensajeErrorGuardado[$("#language").data("kendoDropDownList").value()],
+                title: _dictionary.TituloPopUpError[$("#language").data("kendoDropDownList").value()],
                 visible: false, //the window will not appear before its .open method is called
                 width: "auto",
                 height: "auto",
@@ -333,7 +333,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                 }
             }).data("kendoWindow");
 
-            ventanaConfirm.content(_dictionary.CapturaGuardarInformacionConNumerosUnicos[$("#language").data("kendoDropDownList").value()] +
+            ventanaConfirm.content(_dictionary.MensajeCamposErroneos[$("#language").data("kendoDropDownList").value()] +
                 "</br><center><button class='btn btn-blue' id='noButton'> Ok</button></center>");
 
             ventanaConfirm.open().center();
