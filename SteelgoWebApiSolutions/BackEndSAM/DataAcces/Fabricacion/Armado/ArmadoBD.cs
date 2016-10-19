@@ -202,25 +202,10 @@ namespace BackEndSAM.DataAcces.ArmadoBD
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Tubero> result = new List<Tubero>();
-                    result.Add(new Tubero
-                    {
-                        Codigo = "",
-                        ObreroID = 0,
-                        TipoObrero = ""
-                    });
+                    
                     List<Sam3_Steelgo_Get_Obrero_Result> lista = ctx.Sam3_Steelgo_Get_Obrero(tipo, "Tubero", idProyecto, null, null).ToList();
-                    foreach (Sam3_Steelgo_Get_Obrero_Result item in lista)
-                    {
-                        result.Add(new Tubero
-                        {
-                            Codigo = item.Codigo,
-                            ObreroID = item.ObreroID,
-                            TipoObrero = item.TipoObrero,
-                            NombreCompleto = item.NombreCompleto
-                        });
-                    }
-                    return result;
+                    
+                    return lista;
                 }
             }
             catch (Exception ex)

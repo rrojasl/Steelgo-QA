@@ -124,7 +124,7 @@ function SuscribirEventoSpoolID() {
 
         if ($("#InputOrdenTrabajo").val().match("^[a-zA-Z][0-9]*$")) {
             try {
-                //AjaxObtenerSpoolID();
+                AjaxObtenerSpoolID();
             } catch (e) {
                 MensajesSteelGO('Mensajes_error', e.message);
             }
@@ -163,8 +163,8 @@ function SuscribirEventoSpoolID() {
             if ($("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select(0)) != undefined) {
                 if ($('input:radio[name=Muestra]:checked').val() != undefined) {
                     if ($("#InputID").val() != "" && $("#InputOrdenTrabajo").val()) {
-                        ////AjaxobtenerDetalleDimensional($("#InputID").val());
-                        //AjaxObtenerJSonGrid();
+                        //AjaxobtenerDetalleDimensional($("#InputID").val());
+                        AjaxObtenerJSonGrid();
                         $("#InputID").data("kendoComboBox").value("");
                     }
                 }
@@ -282,8 +282,8 @@ function suscribirEventoAgregar() {
             if (!eventoAgreagarGridEscrito) {
                 if ($("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()) != undefined) {
                     if ($('input:radio[name=Muestra]:checked').val() != undefined) {
-                        ////AjaxobtenerDetalleDimensional($("#InputID").val());
-                        //AjaxObtenerJSonGrid();
+                        //AjaxobtenerDetalleDimensional($("#InputID").val());
+                        AjaxObtenerJSonGrid();
                         eventoAgreagarGridEscrito = true;
                     }
                     else {
@@ -299,8 +299,8 @@ function suscribirEventoAgregar() {
             else {
                 if ($("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select(0)) != undefined) {
                     if ($('input:radio[name=Muestra]:checked').val() != undefined) {
-                        ////AjaxobtenerDetalleDimensional($("#InputID").val());
-                        //AjaxObtenerJSonGrid();
+                        //AjaxobtenerDetalleDimensional($("#InputID").val());
+                        AjaxObtenerJSonGrid();
                     }
                     else {
                         MensajesSteelGO('radioMostrar', '')
@@ -327,7 +327,7 @@ function suscribirEventoGuardar() {
         if (ds._data.length > 0) {
             if ($('#Guardar').text() == "Guardar" || $('#Guardar').text() == "Save") {
 
-                //AjaxGuardar(ds._data, 0);
+                AjaxGuardar(ds._data, 0);
             }
             else if ($('#Guardar').text() == "Editar" || $('#Guardar').text() == "Edit") {
                 opcionHabilitarView(false, "FieldSetView")
@@ -341,7 +341,7 @@ function suscribirEventoGuardar() {
         e.preventDefault();
         var ds = $("#grid").data("kendoGrid").dataSource;
         if (ds._data.length > 0) {
-            //AjaxGuardar(ds._data, 1);
+            AjaxGuardar(ds._data, 1);
         }
 
     });
@@ -352,7 +352,7 @@ function suscribirEventoGuardar() {
         e.preventDefault();
         var ds = $("#grid").data("kendoGrid").dataSource;
         if (ds._data.length > 0) {
-            //AjaxGuardar(ds._data, 1);
+            AjaxGuardar(ds._data, 1);
         }
     });
 };

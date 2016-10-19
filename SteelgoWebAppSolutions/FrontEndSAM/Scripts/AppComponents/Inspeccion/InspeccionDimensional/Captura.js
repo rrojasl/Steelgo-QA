@@ -29,8 +29,8 @@ function changeLanguageCall() {
     endRangeDate.data("kendoDatePicker").setOptions({
         format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()]
     });
-    //AjaxObtenerListaDefectos();
-    //AjaxCargaCamposPredetrminados();
+    AjaxObtenerListaDefectos();
+    AjaxCargaCamposPredetrminados();
     limpiar();
     $('#Guardar1').text(_dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]);
     $("#Guardar").text(_dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]);
