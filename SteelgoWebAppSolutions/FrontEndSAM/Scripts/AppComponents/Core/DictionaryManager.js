@@ -9049,6 +9049,10 @@ _dictionary = {
         "es-MX": "Captura Pruebas por Lotes",
         "en-US": "Batch Capture Test"
     },
+    "PinturaDashboardBreadcrumb": {
+        "es-MX": "Dashboard Pintura",
+        "en-US": "Paint Dashboard"
+    },
     "PinturaDescargaCarritosBreadcrumb": {
         "es-MX": "Descarga de Carro",
         "en-US": "Download Carriage"
@@ -9431,4 +9435,28 @@ _dictionary = {
         "en-US": "The name of paint system is assigned in: "
     },
     // Finaliza Sistema Pintura
+
+    //Comienza Dashboard Pintura 
+    "lbDashboardShotblast": {
+        "es-MX": "Shotblast ",
+        "en-US": "Shotblast"
+    },
+    "lbDashboardPrimario": {
+        "es-MX": "Primario ",
+        "en-US": "Primary"
+    },
+    "lbDashboardIntermedio": {
+        "es-MX": "Intermedio ",
+        "en-US": "Intermediate"
+    },
+    "lbDashboardAcabado": {
+        "es-MX": "Acabado ",
+        "en-US": "Finished"
+    },
+    "lbDashboardOKPND": {
+        "es-MX": "OK PND ",
+        "en-US": "OK PND"
+    },
+
+    // Finaliza Dashboard Pitura 
 };
