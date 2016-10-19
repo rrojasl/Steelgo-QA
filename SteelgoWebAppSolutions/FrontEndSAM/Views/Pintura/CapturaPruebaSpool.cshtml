@@ -36,9 +36,9 @@
                             </div>
                             <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar"></span></a>
                         </div>
-                        <div id="LotesCapturaReporteDivSuperior" class="button-section">
+                        @*<div id="LotesCapturaReporteDivSuperior" class="button-section">
                             <a id="LotesCapturaReporteSuperior" href="@Url.Action("Consulta", "Embarque")" class="btn btn-primary"><span id="lblDescargaDeCarroSup"></span></a>
-                        </div>
+                        </div>*@
                         <div class="button-section actionButtonSection">
                             <div class="dropdown action-group">
                                 <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
@@ -58,13 +58,17 @@
     <div class="row" id="FieldSetView">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="row">
-                <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 altoControl" id="CapturaArmadoHeaderSpoolIDDiv">
+                @*<div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 altoControl" id="CapturaArmadoHeaderSpoolIDDiv">
                     <label id="lblProyecto"></label>
                     <input id="inputProyecto" class="" />
-                </div>
-                <div class="col-xs-12 col-sm-4 col-md-2 col-lg-2 altoControl" id="CapturaArmadoHeaderSpoolIDDiv">
+                </div>*@
+                @*<div class="col-xs-12 col-sm-4 col-md-2 col-lg-2 altoControl" id="CapturaArmadoHeaderSpoolIDDiv">
                     <label id="lblSistemaPintura"></label>
                     <input id="inputSistemaPintura" class="" />
+                </div>*@
+                <div class="col-xs-12 col-sm- col-md-2 col-lg-2 altoControl" id="CapturaArmadoHeaderSpoolIDDiv1">
+                    <label id="lblSpoolID"></label>
+                    <input style="width:40%" id="InputOrdenTrabajo" class="item-select general-input" />-<input id="InputID" placeholder="ID" style="width:40%;" />
                 </div>
                 <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 altoControl" id="CapturaArmadoHeaderSpoolIDDiv1">
                     <label>Proceso</label>
@@ -73,10 +77,6 @@
                 <div class="col-xs-12 col-sm- col-md-2 col-lg-2 altoControl" id="CapturaArmadoHeaderSpoolIDDiv1">
                     <label id="lblPrueba"></label>
                     <input id="inputPrueba" class="" />
-                </div>
-                <div class="col-xs-12 col-sm- col-md-2 col-lg-2 altoControl" id="CapturaArmadoHeaderSpoolIDDiv1">
-                    <label id="lblSpoolID"></label>
-                    <input style="width:40%" id="InputOrdenTrabajo" class="item-select general-input" />-<input id="InputID" placeholder="ID" style="width:40%;" />
                 </div>
                 <div class="col-xs-12 col-sm-8 col-md-3 col-lg-2 altoControl">
                     <label id="lblMostrar"></label>
@@ -95,6 +95,14 @@
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="col-xs-12 col-sm- col-md-2 col-lg-2 altoControl" id="CapturaArmadoHeaderSpoolIDDiv1">
+                        <label id="lblSpoolID1"></label>
+                        <input style="width:40%" id="InputOrdenTrabajo1" class="item-select general-input" />-<input id="InputID1" placeholder="ID" style="width:40%;" />
+                    </div>
+                    <div class="col-xs-12 col-sm-4 col-md-1 col-lg-2" id="CapturaArmadoHeaderSpoolIDDiv1">
+                        <label id="">&nbsp;</label>
+                        <button id="btnAgregar" onclick="javascript:void(0);" type="button" class="btn btn-blue"><span>Agregar</span></button>
+                    </div>
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <div id="ContenedorGrid" class="row">
                             <div id="grid" name="grid-Patio" data-role="grid" class="k-grid k-widget">
@@ -127,9 +135,9 @@
                             </div>
                             <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar1"></span></a>
                         </div>
-                        <div id="LotesCapturaReporteDivInferior" class="button-section">
+                        @*<div id="LotesCapturaReporteDivInferior" class="button-section">
                             <a id="LotesCapturaReporteInferior" href="@Url.Action("Consulta", "Embarque")" class="btn btn-primary"><span id="lblDescargaDeCarroInf"></span></a>
-                        </div>
+                        </div>*@
                         <div class="button-section actionButtonSection">
                             <div class="dropdown action-group">
                                 <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">

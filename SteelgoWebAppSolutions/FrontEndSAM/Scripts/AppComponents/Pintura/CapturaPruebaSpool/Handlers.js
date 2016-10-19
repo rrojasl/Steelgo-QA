@@ -1,37 +1,38 @@
 ﻿function SuscribirEventos() {
-    SuscribirEventoProyecto();
-    SuscribirEventoSistemaPintura();
+    //SuscribirEventoProyecto();
+    //SuscribirEventoSistemaPintura();
     SuscribirEventoProceso();
     SuscribirEventoPrueba();
     SuscribirEventoSpoolID();
+    SuscribirEventoSpoolIDAgregar();
     SuscribirEventoBuscar();
     SuscribirEventoGuardar();
 }
 
-function SuscribirEventoSistemaPintura() {
-    $("#inputSistemaPintura").kendoComboBox({
-        dataTextField: "Nombre",
-        dataValueField: "SistPintID",
-        suggest: true,
-        delay: 10,
-        filter: "contains",
-        index: 3
+//function SuscribirEventoSistemaPintura() {
+//    $("#inputSistemaPintura").kendoComboBox({
+//        dataTextField: "Nombre",
+//        dataValueField: "SistPintID",
+//        suggest: true,
+//        delay: 10,
+//        filter: "contains",
+//        index: 3
 
-    });
-}
+//    });
+//}
 
-function SuscribirEventoProyecto() {
-    $("#inputProyecto").kendoComboBox({
-        dataTextField: "Nombre",
-        dataValueField: "Proyecto",
-        suggest: true,
-        delay: 10,
-        filter: "contains",
-        index: 3
+//function SuscribirEventoProyecto() {
+//    $("#inputProyecto").kendoComboBox({
+//        dataTextField: "Nombre",
+//        dataValueField: "Proyecto",
+//        suggest: true,
+//        delay: 10,
+//        filter: "contains",
+//        index: 3
 
-    });
+//    });
 
-}
+//}
 
 function SuscribirEventoProceso() {
 
@@ -59,6 +60,17 @@ function SuscribirEventoPrueba() {
 
 function SuscribirEventoSpoolID() {
     $('#InputID').kendoComboBox({
+        dataTextField: "Spool",
+        dataValueField: "SpoolID ",
+        suggest: true,
+        filter: "contains",
+        index: 3,
+        change: function (e) { }
+    });
+}
+
+function SuscribirEventoSpoolIDAgregar() {
+    $('#InputID1').kendoComboBox({
         dataTextField: "Spool",
         dataValueField: "SpoolID ",
         suggest: true,

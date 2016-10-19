@@ -32,14 +32,14 @@ function AjaxCargaMostrarPredeterminado() {
     });
 }
 
-function AjaxCargarCuadranteMain() {
-    $Cuadrante.Cuadrante.read({ token: Cookies.get("token"), PatioID: 6 }).done(function (data) {
-        $("#inputCuadrante1").data("kendoComboBox").value("");
-        $("#inputCuadrante1").data("kendoComboBox").dataSource.data(data);
+//function AjaxCargarCuadranteMain() {
+//    $Cuadrante.Cuadrante.read({ token: Cookies.get("token"), PatioID: 6 }).done(function (data) {
+//        $("#inputCuadrante1").data("kendoComboBox").value("");
+//        $("#inputCuadrante1").data("kendoComboBox").dataSource.data(data);
 
-    });
+//    });
 
-}
+//}
 
 function AjaxCargarCuadrante(area) {
     loadingStart();

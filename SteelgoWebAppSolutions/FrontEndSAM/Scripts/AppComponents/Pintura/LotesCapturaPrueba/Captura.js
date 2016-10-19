@@ -79,8 +79,8 @@ function CargarGrid() {
             { field: "SistemaPintura", title: _dictionary.columnSistemaPintura[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec() },
             { field: "Color", title: _dictionary.columnColor[$("#language").data("kendoDropDownList").value()], width: "150px", filterable: getGridFilterableCellMaftec() },
             { field: "M2", title: _dictionary.columnM2[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), format: "{0:n2}", width: "95px", attributes: { style: "text-align:right;" } },
-            { field: "PruebasReq", title: "# Pruebas Req", filterable: getGridFilterableCellMaftec(), width: "150px"  },
-            { field: "PruebasEjec", title: "# Pruebas Ejec", filterable: getGridFilterableCellMaftec(), width: "150px" },
+            //{ field: "PruebasReq", title: "# Pruebas Req", filterable: getGridFilterableCellMaftec(), width: "150px"  },
+            //{ field: "PruebasEjec", title: "# Pruebas Ejec", filterable: getGridFilterableCellMaftec(), width: "150px" },
             { field: "NombreCuadrante", title: _dictionary.columnCuadrante[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec() },
             { field: "CapturaPrueba", title: _dictionary.columnSeRealizoPrueba[$("#language").data("kendoDropDownList").value()], filterable: false, template: "<div class='EnlaceDetallePrueba' style='text-align:center;'><a href='\\#'  > <span>#=CapturaPrueba#</span></a></div>", filterable: false, width: "190px" }
         ]
@@ -139,8 +139,11 @@ function CargarGridPopUp() {
                 { field: "Prueba", title: _dictionary.lblPrueba[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "20px" },
                 { field: "UnidadMedida", title: "U. Medida", filterable: getGridFilterableCellMaftec(), width: "20px" },
                 { field: "ValorUnidadMedida", title: "Valor U. Medida", filterable: getGridFilterableCellNumberMaftec(), width: "20px", attributes: { style: "text-align:right;" } },
-                { field: "Aprobado", title: "Aprobado", filterable: getGridFilterableCellNumberMaftec(), width: "20px" }
-        ]
+                { field: "Aprobado", title: "Aprobado", filterable: getGridFilterableCellNumberMaftec(), width: "20px" },
+                { command: { text: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()] }, title: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()], width: "10px", attributes: { style: "text-align:center;" } },
+                { command: { text: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()] }, title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], width: "10px", attributes: { style: "text-align:center;" } }
+        ],
+        toolbar: [{ name: "create" }]
 
     });
     CustomisaGrid($("#gridPopUp"));
@@ -167,10 +170,10 @@ function llenarCombo() {
 
               
 
-                $("#inputProyecto").data("kendoComboBox").dataSource.data([]);
-                $("#inputProyecto").data("kendoComboBox").dataSource.data(p);
-                $("#inputProyecto").data("kendoComboBox").value(16);
-                $("#inputProyecto").data("kendoComboBox").trigger('changes');
+                //$("#inputProyecto").data("kendoComboBox").dataSource.data([]);
+                //$("#inputProyecto").data("kendoComboBox").dataSource.data(p);
+                //$("#inputProyecto").data("kendoComboBox").value(16);
+                //$("#inputProyecto").data("kendoComboBox").trigger('changes');
 
                 $("#inputSistemaPintura").data("kendoComboBox").dataSource.data([]);
                 $("#inputSistemaPintura").data("kendoComboBox").dataSource.data(sp);

@@ -35,7 +35,7 @@
                             <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar"></span></a>
                         </div>
                         <div id="CapturaAvanceDivSuperior" class="button-section">
-                            <a id="CapturaAvanceSuperior" href="@Url.Action("AvanceIntermedioAcabado","Pintura")" class="btn btn-primary"><span id="CapturaAvanceIntermedioSup"></span></a>
+                            <a id="CapturaAvanceSuperior" href="@Url.Action("DescargaCarritos","Pintura")" class="btn btn-primary"><span id="lblDescargaDeCarroSup"></span></a>
                         </div>
                         <div class="button-section actionButtonSection">
                             <div class="dropdown action-group">
@@ -43,7 +43,10 @@
                                     <span id="botonAcciones1"></span>
                                     <span class="caretBlue"></span>
                                 </a>
-                                <ul class="dropdown-menu" aria-labelledby="Acciones"></ul>
+                                <ul class="dropdown-menu" aria-labelledby="Acciones">
+                                    <li><a href="#" id="CapturaLotes"><span id="PinturaLotesCapturaPruebaBreadcrumb"></span></a></li>
+                                    <li><a href="#" id="CapturaSpool"><span id="PinturaCapturaPruebaSpoolBreadcrumb"></span></a></li>
+                                </ul>
                             </div>
                         </div>
                         <a id="Imprimir" href="#" class="btn btn-fadeBlue actionButtonSection"></a>
@@ -90,10 +93,10 @@
             <label><span id="lblFechaPrimario"></span></label>
             <input id="Fechaprimario" />
         </div>
-        <div class="col-xs-12 col-sm-4 col-md-2 col-lg-2 altoControl">
+        @*<div class="col-xs-12 col-sm-4 col-md-2 col-lg-2 altoControl">
             <label><span id="lblCuadrante"></span></label>
             <input id="inputCuadrante1" />
-        </div>
+        </div>*@
         <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 altoControl" id="LlenaCapturaAvanceIntAcabadoDiv">
             <label id="lblPlanchar"></label>
             <input type="radio" id="LlenaTodos" name="LLena" class="radio-responsive" style="width:auto;" value="Todos" /><span id="lblTodos1"></span>
@@ -168,7 +171,7 @@
                     <a id="btnCancelar2" class="btn btn-black"><span id="botonCancelar1"></span></a>
                 </div>
                 <div id="CapturaAvanceDivInferior" class="button-section">
-                    <a id="CapturaAvanceInferior" href="@Url.Action("AvanceIntermedioAcabado","Pintura")" class="btn btn-primary"><span id="CapturaAvanceIntermedioInf"></span></a>
+                    <a id="CapturaAvanceInferior" href="@Url.Action("DescargaCarritos","Pintura")" class="btn btn-primary"><span id="lblDescargaDeCarroInf"></span></a>
                 </div>
                 <div class="button-section actionButtonSection">
                     <div class="dropdown action-group">
@@ -176,7 +179,10 @@
                             <span id="botonAcciones2"></span>
                             <span class="caretBlue"></span>
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="Acciones"></ul>
+                        <ul class="dropdown-menu" aria-labelledby="Acciones">
+                            <li><a href="#" id="CapturaLotes"><span id="PinturaLotesCapturaPruebaBreadcrumb1"></span></a></li>
+                            <li><a href="#" id="CapturaSpool"><span id="PinturaCapturaPruebaSpoolBreadcrumb1"></span></a></li>
+                        </ul>
                     </div>
                 </div>
                 <a id="Imprimir" href="#" class="btn btn-fadeBlue actionButtonSection"></a>

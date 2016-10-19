@@ -36,7 +36,7 @@
                             <a id="btnCancelar" class="btn btn-black btnCancelar"><span id="botonCancelar"></span></a>
                         </div>
                         <div id="CapturaAvanceIntAcabadoDivSuperior" class="button-section">
-                            <a id="CapturaAvanceIntAcabadoSuperior" href="@Url.Action("LotesCapturaReporte", "Pintura")" class="btn btn-primary"><span id="lblLotesCapturaReporteSup"></span></a>
+                            <a id="CapturaAvanceIntAcabadoSuperior" href="@Url.Action("LotesCapturaPrueba", "Pintura")" class="btn btn-primary"><span id="lblLotesCapturaReporteSup"></span></a>
                         </div>
                         <div class="button-section actionButtonSection">
                             <div class="dropdown action-group">
@@ -44,7 +44,9 @@
                                     <span id="botonAcciones1"></span>
                                     <span class="caretBlue"></span>
                                 </a>
-                                <ul class="dropdown-menu" aria-labelledby="Acciones"></ul>
+                                <ul class="dropdown-menu" aria-labelledby="Acciones">
+                                    <li><a href="#" id=""><span id="">Captura de pruebas por Spool</span></a></li>
+                                </ul>
                             </div>
                         </div>
                         <a id="Imprimir" href="#" class="btn btn-fadeBlue actionButtonSection"></a>
@@ -54,10 +56,10 @@
         </div>
     </div>
     @*Controles Superiores*@
-    <div class="row addedSectionInLineWithoutColor" id="FieldSetView">  
-        <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
+    <div class="row" id="FieldSetView">  
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <label>Proceso a capturar:</label>
             <div id="tipoVista" class="btn-group " data-toggle="buttons" role="group">
-                <label>&nbsp;</label>
                 <div class="btn btn-primary" id="">
                     <input type="radio" name="Proceso" style="width:auto;" value="Intermedio" /><span>Int</span>
                 </div>
@@ -66,6 +68,7 @@
                 </div>
             </div>
         </div>
+        <label>&nbsp;</label>
         <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 altoControl" id="diTipoPrueba">
             <label>Zona</label>
             <input id="inputZona" />
@@ -156,7 +159,7 @@
                     <a id="btnCancelar" class="btn btn-black btnCancelar"><span id="botonCancelar1"></span></a>
                 </div>
                 <div id="CapturaAvanceIntAcabadoDivInferior" class="button-section">
-                    <a id="CapturaAvanceIntAcabadoInferior" href="@Url.Action("LotesCapturaReporte", "Pintura")" class="btn btn-primary"><span id="lblLotesCapturaReporteInf"></span></a>
+                    <a id="CapturaAvanceIntAcabadoInferior" href="@Url.Action("LotesCapturaPrueba", "Pintura")" class="btn btn-primary"><span id="lblLotesCapturaReporteInf"></span></a>
                 </div>
                 <div class="button-section actionButtonSection">
                     <div class="dropdown action-group">
@@ -164,7 +167,9 @@
                             <span id="botonAcciones2"></span>
                             <span class="caretBlue" id="lblAccion002"></span>
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="Acciones"></ul>
+                        <ul class="dropdown-menu" aria-labelledby="Acciones">
+                            <li><a href="#" id=""><span id="">Captura de pruebas por Spool</span></a></li>
+                        </ul>
                     </div>
                 </div>
                 <a id="Imprimir" href="#" class="btn btn-fadeBlue actionButtonSection"></a>

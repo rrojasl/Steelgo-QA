@@ -90,7 +90,7 @@ function CargarGrid() {
             { field: "Lote", title: "Lote", filterable: getGridFilterableCellMaftec(), width: "150px" },
             { field: "NombreCuadrante", title: _dictionary.columnCuadrante[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "150px" },
             { field: "UnidadMedida", title: _dictionary.columnUnidadMedida[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "150px" },
-            { field: "ValorUnidadMedida", title: "Valor U. Medidad", filterable: getGridFilterableCellMaftec(), width: "170px" },
+            { field: "ValorUnidadMedida", title: "Valor de la prueba", filterable: getGridFilterableCellMaftec(), width: "170px" },
             {
                 field: "Aprobado", title: "Aprobado", filterable: {
                     multi: true,
@@ -102,6 +102,7 @@ function CargarGrid() {
                     dataSource: [{ Aprobado: true }, { Aprobado: false }]
                 }, template: '<input type="checkbox" #= Aprobado ? "checked=checked" : "" # class="chkbx" disabled></input>  ', width: "130px", attributes: { style: "text-align:center;" }
             },
+            { command: { text: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()] }, title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], width: "50px", attributes: { style: "text-align:center;" } }
         ],
         beforeEdit: function (e) {
             var columnIndex = this.cellIndex(e.container);
@@ -180,13 +181,13 @@ function LlenarCombo(){
 
 
 
-    $("#inputProyecto").data("kendoComboBox").dataSource.data([]);
-    $("#inputProyecto").data("kendoComboBox").dataSource.data(p);
-    $("#inputProyecto").data("kendoComboBox").value(16);
-    $("#inputProyecto").data("kendoComboBox").trigger('changes');
+    //$("#inputProyecto").data("kendoComboBox").dataSource.data([]);
+    //$("#inputProyecto").data("kendoComboBox").dataSource.data(p);
+    //$("#inputProyecto").data("kendoComboBox").value(16);
+    //$("#inputProyecto").data("kendoComboBox").trigger('changes');
 
-    $("#inputSistemaPintura").data("kendoComboBox").dataSource.data([]);
-    $("#inputSistemaPintura").data("kendoComboBox").dataSource.data(sp);
+    //$("#inputSistemaPintura").data("kendoComboBox").dataSource.data([]);
+    //$("#inputSistemaPintura").data("kendoComboBox").dataSource.data(sp);
 
     $("#inputProceso").data("kendoComboBox").dataSource.data([]);
     $("#inputProceso").data("kendoComboBox").dataSource.data(pp);

@@ -7000,6 +7000,10 @@ _dictionary = {
         "es-MX": "Spool ID",
         "en-US": "ID spool"
     },
+    "lblSpoolID1": {
+        "es-MX": "Spool ID",
+        "en-US": "ID spool"
+    },
     "lblJunta": {
         "es-MX": "Jta",
         "en-US": "Jnt"
@@ -7483,6 +7487,10 @@ _dictionary = {
     "lblSpoolContiene": {
         "es-MX": "Spool Contiene",
         "en-US": "Contain Spool"
+    },
+    "lblSpoolIDContiene": {
+        "es-MX": "Spool ID Contiene",
+        "en-US": "Contain Spool ID"
     },
     "lblNcContiene": {
         "es-MX": "No. de Control Contiene",
@@ -9033,6 +9041,14 @@ _dictionary = {
         "es-MX": "Carga Carro",
         "en-US": "Load Carriage"
     },
+    "PinturaCargaCarroSup": {
+        "es-MX": "Carga Carro",
+        "en-US": "Load Carriage"
+    },
+    "PinturaCargaCarroInf": {
+        "es-MX": "Carga Carro",
+        "en-US": "Load Carriage"
+    },
     "PinturaCapturaAvanceBreadcrumb": {
         "es-MX": "Avance Shotblast Primario",
         "en-US": "Progress Shotblast Primary"
@@ -9069,11 +9085,15 @@ _dictionary = {
         "es-MX": "Sistema de Pintura Aplicable",
         "en-US": "Applicable Paint System"
     },
-    "PinturaSistemaPinturaAplicableBreadcrumb": {
+    "PinturaCapturaPruebaSpoolBreadcrumb": {
         "es-MX": "Captura Pruebas por Spool",
         "en-US": "Spool Capture Test"
     },
-    "PinturaCapturaPruebaSpoolBreadcrumb": {
+    "PinturaLotesCapturaPruebaBreadcrumb1": {
+        "es-MX": "Captura Pruebas por Lotes",
+        "en-US": "Batch Capture Test"
+    },
+    "PinturaCapturaPruebaSpoolBreadcrumb1": {
         "es-MX": "Captura Pruebas por Spool",
         "en-US": "Spool Capture Test"
     },
@@ -9273,12 +9293,12 @@ _dictionary = {
 
     //Comienza Avance Intermedio Acabado
     "lblLotesCapturaReporteSup": {
-        "es-MX": "Lotes Captura Reporte",
-        "en-US": "Capture Report "
+        "es-MX": "Captura de pruebas por Lotes",
+        "en-US": "Batch Capture Test"
     },
     "lblLotesCapturaReporteInf": {
-        "es-MX": "Lotes Captura Reporte",
-        "en-US": "Capture Report "
+        "es-MX": "Captura de pruebas por Lotes",
+        "en-US": "Batch Capture Test"
     },
     // Finaliza Avance Intermedio Acabado
 

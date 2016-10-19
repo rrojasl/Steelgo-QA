@@ -21,8 +21,8 @@ function changeLanguageCall() {
     AjaxCargarCarrosCargados();
     AjaxCargarPintor();
     AjaxCargarShotBlastero();
-    AjaxCargarCuadrante(0);
-    AjaxCargarCuadranteMain();
+    //AjaxCargarCuadrante(0);
+    //AjaxCargarCuadranteMain();
     document.title = _dictionary.lblCapturaAvance[$("#language").data("kendoDropDownList").value()];
     $('#Guardar1').text(_dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]);
     $("#Guardar").text(_dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]);
@@ -108,8 +108,7 @@ function CargarGrid() {
                         Peso: { type: "string", editable: false },
                         Color: { type: "string", editable: false },
                         FechaShotblast: { type: "date", editable: true },
-                        FechaPrimario: { type: "date", editable: true },
-                        Cuadrante: { type: "string", editable: true },
+                        FechaPrimario: { type: "date", editable: true }
                     }
                 }
             },
@@ -147,8 +146,8 @@ function CargarGrid() {
             { field: "FechaPrimario", title: _dictionary.columnFechaPrimario[$("#language").data("kendoDropDownList").value()], type: "date", filterable: getKendoGridFilterableDateMaftec(), width: "140px", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()] },
             { field: "ListaShotblasteroGuargado", title: _dictionary.columnShotblastero[$("#language").data("kendoDropDownList").value()], filterable: false, editor: RendercomboBoxShotBlastero, template: "#:plantillaShotblastero#", width: "130px" },
             { field: "ListaPintorGuargado", title: _dictionary.columnPintor[$("#language").data("kendoDropDownList").value()], filterable: false, editor: RendercomboBoxPintor, template: "#:plantillaPintor#", width: "130px" },
-            { field: "Cuadrante", title: _dictionary.columnCuadrante[$("#language").data("kendoDropDownList").value()], filterable: false, editor: RendercomboBoxCuadrante, width: "130px" },
-            //{ command: { text: _dictionary.PinturaDescargaDescarga[$("#language").data("kendoDropDownList").value()], click: VentanaModalDescargarMedioTransporte }, title: _dictionary.CapturaAvanceDescargar[$("#language").data("kendoDropDownList").value()], width: "99px" }
+            { field: "Descarga", title: _dictionary.columnDescargar[$("#language").data("kendoDropDownList").value()], filterable: false, editor: RendercomboBoxCuadrante, width: "130px" },
+            { command: { text: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()], click: VentanaModalDescargarMedioTransporte }, title: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()], width: "99px" }
 
         ]
     });
