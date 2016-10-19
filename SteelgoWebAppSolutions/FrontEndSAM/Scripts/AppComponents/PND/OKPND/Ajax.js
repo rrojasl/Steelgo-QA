@@ -49,7 +49,11 @@ function AjaxGetListaElementos(proyectoID, numControl) {
             displayNotify("MensajeNoResultados", "", "1");
             ds.page(0);
         }
-        ds.sync();
+        var mostrar = $('input:radio[name=Muestra]:checked').val();
+        if (mostrar == 'SinCaptura')
+            FiltroMostrar(0);
+        else FiltroMostrar(1);
+
         loadingStop();
     });
 }

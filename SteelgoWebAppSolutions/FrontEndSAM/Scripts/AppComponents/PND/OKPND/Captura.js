@@ -20,6 +20,24 @@ function changeLanguageCall() {
     document.title = _dictionary.menuOKPND[$("#language").data("kendoDropDownList").value()];
 };
 
+function FiltroMostrar(mostrar) {
+    var ds = $("#grid").data("kendoGrid").dataSource;
+
+    if (mostrar == 1) {
+        var curr_filters = ds.filter().filters;
+        if (curr_filters.length != 0)
+            ds.filter().filters = [];
+        ds.sync();
+    }
+    else {
+        var filters = ds.filter();
+        filters.logic = "or"
+
+        filters.filters.push({ field: "OKPNDID", operator: "eq", value: 0 });
+        ds.sync();
+    }
+}
+
 function CargarGrid() {
     $("#grid").kendoGrid({
         autoBind: true,
@@ -45,6 +63,10 @@ function CargarGrid() {
                         Detalle: { type: "string", editable: false }
                     }
                 }
+            },
+            filter: {
+                logic: "or",
+                filters: []
             },
             pageSize: 10,
             serverPaging: false,

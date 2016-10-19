@@ -9571,6 +9571,10 @@ _dictionary = {
         "es-MX": "El nombre del sistema de pintura ya esta asignado en: ",
         "en-US": "The name of paint system is assigned in: "
     },
+    "SistemaPinturaMensajeErrorRequiereProceso": {
+        "es-MX": "Los sistemas de pintura pintables requieren al menos un proceso",
+        "en-US": "Paintable paint systems require at least one process"
+    },
     // Finaliza Sistema Pintura
 
     //Comienza Dashboard Pintura 

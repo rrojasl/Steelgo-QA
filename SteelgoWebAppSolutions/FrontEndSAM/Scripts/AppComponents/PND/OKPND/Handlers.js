@@ -345,7 +345,7 @@ function suscribirEventoChangeRadio() {
         var NumControl = $("#InputNumeroControl").val();
 
         if (!existenCambios(ds._data)) {
-            AjaxGetListaElementos(proyectoID, NumControl);
+            FiltroMostrar(0);
         }
         else {
             var ventanaConfirm = $("#ventanaConfirmCaptura").kendoWindow({
@@ -381,7 +381,7 @@ function suscribirEventoChangeRadio() {
         var NumControl = $("#InputNumeroControl").val();
 
         if (!existenCambios(ds._data)) {
-            AjaxGetListaElementos(proyectoID, NumControl);
+            FiltroMostrar(1);
         }
         else {
             var ventanaConfirm = $("#ventanaConfirmCaptura").kendoWindow({

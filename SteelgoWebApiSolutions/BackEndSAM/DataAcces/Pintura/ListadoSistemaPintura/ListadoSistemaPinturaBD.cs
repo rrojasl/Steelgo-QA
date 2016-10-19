@@ -82,6 +82,8 @@ namespace BackEndSAM.DataAcces.Pintura.ListadoSistemaPintura
                             cadena +=   " ,";
                         posicion++;
                     }
+                    if (cadena.Length == 0)
+                        cadena = "N/A";
 
                     return cadena;
                 }
