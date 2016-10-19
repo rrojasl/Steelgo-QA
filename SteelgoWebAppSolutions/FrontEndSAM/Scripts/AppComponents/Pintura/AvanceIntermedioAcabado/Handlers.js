@@ -1,4 +1,5 @@
 ﻿function SuscribirEventos() {
+    SuscribirEventoZona();
     SuscribirEventoCuadrante();
     SuscribirEventoPintor();
     SuscribirEventoLote();
@@ -70,6 +71,25 @@ function plancharTodo() {
 
 }
 
+function SuscribirEventoZona() {
+    $("#inputZona").kendoComboBox({
+        dataTextField: "Nombre",
+        dataValueField: "ZonaID",
+        suggest: true,
+        delay: 10,
+        filter: "contains",
+        index: 3,
+        change: function (e) {
+            var dataItem = this.dataItem(e.sender.selectedIndex);
+
+            if (dataItem != undefined) {
+
+            } else {
+                $("#inputSistemaPintura").data("kendoComboBox").value("");
+            }
+        }
+    });
+}
 
 function SuscribirEventoCuadrante() {
     $('#inputCuadrante').kendoComboBox({

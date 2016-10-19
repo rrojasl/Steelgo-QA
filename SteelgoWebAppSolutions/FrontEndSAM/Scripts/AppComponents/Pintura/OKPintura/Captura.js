@@ -19,6 +19,18 @@ function CargarGrid() {
             if ($('#BotonGuardar').text() != _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()])
                 this.closeCell();
         },
+        dataBound: function () {
+            var myElem = document.getElementById('trParentHeader');
+            if (myElem == null) {
+                $("#grid").find("th.k-header").parent().before("<tr id='trParentHeader'> " +
+                    "<th scope='col' colspan='3' class='k-header'></th><th width='auto'  colspan='2' class='k-header' style='text-align: center;'><span id=''>" + _dictionary.lblShotblast[$("#language").data("kendoDropDownList").value()] + "</span></th>" +
+                    "<th width='auto'  colspan='2' class='k-header' style='text-align: center;'><span>" + _dictionary.lblPrimario[$("#language").data("kendoDropDownList").value()] + "</span></th>" +
+                    "<th width='auto'  colspan='2' class='k-header' style='text-align: center;'><span id=''>" + _dictionary.lblIntermedio[$("#language").data("kendoDropDownList").value()] + "</span></th>" +
+                    "<th width='auto'  colspan='2' class='k-header' style='text-align: center;'><span id=''>" + _dictionary.lblAcabado[$("#language").data("kendoDropDownList").value()] + "</span></th>" +
+                    "<th width='auto'  colspan='1' class='k-header' style='text-align: center;'><span id=''></span></th>" +
+                    "</tr>");
+            }
+        },
         dataSource: {
             data: [{
                 Accion: 1,
@@ -29,7 +41,12 @@ function CargarGrid() {
                 SpoolID: 41719,
                 OrdenTrabajoSpoolID: 596,
                 OkPintura: false,
-                Detalle: "Ver Detalle"
+                Detalle: "Ver Pruebas",
+                ShotBlastFecha: new Date(),
+                PrimarioFecha: new Date(),
+                IntermedioFecha: new Date(),
+                AcabadoFecha: new Date()
+
             }
             ],
             schema: {
@@ -43,10 +60,14 @@ function CargarGrid() {
                         SpoolID: { type: "int", editable: false },
                         OrdenTrabajoSpoolID: { type: "int", editable: false },
                         OkPintura: { type: "boolean", editable: false },
-                        ShotBlats: { type: "string", editable: false },
-                        Primario: { type: "string", editable: false },
-                        Intermedio: { type: "string", editable: false },
-                        Acabado: { type: "string", editable: false }
+                        ShotBlastFecha: { type: "Date", editable: false },
+                        ShotBlastPrueba: { type: "string", editable: false },
+                        PrimarioFecha: { type: "Date", editable: false },
+                        PrimarioPrueba: { type: "string", editable: false },
+                        IntermedioFecha: { type: "Date", editable: false },
+                        IntermedioPrueba: { type: "string", editable: false },
+                        AcabadoFecha: { type: "Date", editable: false },
+                        AcabadoPrueba: { type: "string", editable: false }
                     }
                 }
             },
@@ -73,10 +94,14 @@ function CargarGrid() {
             { field: "NumeroControl", title: _dictionary.columnNumeroControl[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px" },
             { field: "Cuadrante", title: _dictionary.columnCuadrante[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "127px" },
             { field: "Prioridad", title: _dictionary.columnPrioridad[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "80px", attributes: { style: "text-align:right;" } },
-            { field: "ShotBlats", title: _dictionary.lblShotblast[$("#language").data("kendoDropDownList").value()], template: "<div class='EnlaceDetalleJunta' style='text-align:center;'><a href='\\#'  > <span>#=Detalle#</span></a></div>", filterable: false, width: "90px" },
-            { field: "Primario", title: _dictionary.lblPrimario[$("#language").data("kendoDropDownList").value()], template: "<div class='EnlaceDetalleJunta' style='text-align:center;'><a href='\\#'  > <span>#=Detalle#</span></a></div>", filterable: false, width: "90px" },
-            { field: "Intermedio", title: _dictionary.lblIntermedio[$("#language").data("kendoDropDownList").value()], template: "<div class='EnlaceDetalleJunta' style='text-align:center;'><a href='\\#'  > <span>#=Detalle#</span></a></div>", filterable: false, width: "90px" },
-            { field: "Acabado", title: _dictionary.lblAcabado[$("#language").data("kendoDropDownList").value()], template: "<div class='EnlaceDetalleJunta' style='text-align:center;'><a href='\\#'  > <span>#=Detalle#</span></a></div>", filterable: false, width: "90px" },
+            { field: "ShotBlastFecha", title: "Fecha Proceso", filterable: getKendoGridFilterableDateMaftec(), width: "150px", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()] },
+            { field: "ShotBlastPrueba", title: "Pruebas", template: "<div class='EnlaceDetalleJunta' style='text-align:center;'><a href='\\#'  > <span>#=Detalle#</span></a></div>", filterable: false, width: "110px" },
+            { field: "PrimarioFecha", title: "Fecha Proceso", filterable: getKendoGridFilterableDateMaftec(), width: "150px", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()] },
+            { field: "PrimarioPrueba", title: "Pruebas", template: "<div class='EnlaceDetalleJunta' style='text-align:center;'><a href='\\#'  > <span>#=Detalle#</span></a></div>", filterable: false, width: "110px" },
+            { field: "IntermedioFecha", title: "Fecha Proceso", filterable: getKendoGridFilterableDateMaftec(), width: "150px", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()] },
+            { field: "IntermedioPrueba", title: "Pruebas", template: "<div class='EnlaceDetalleJunta' style='text-align:center;'><a href='\\#'  > <span>#=Detalle#</span></a></div>", filterable: false, width: "110px" },
+            { field: "AcabadoFecha", title: "Fecha Proceso", filterable: getKendoGridFilterableDateMaftec(), width: "150px", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()] },
+            { field: "AcabadoPrueba", title: "Pruebas", template: "<div class='EnlaceDetalleJunta' style='text-align:center;'><a href='\\#'  > <span>#=Detalle#</span></a></div>", filterable: false, width: "110px" },
             {
                 field: "OkPintura", title: "OK Pintura", filterable: {
                     multi: true,
@@ -88,30 +113,8 @@ function CargarGrid() {
                     dataSource: [{ Etiquetado: true }, { Etiquetado: false }]
                 }, template: "<input name='fullyPaid' class='ob-paid' type='checkbox' #= OkPintura ? 'checked=checked':'' #/>", width: "100px", attributes: { style: "text-align:center;" }
             },
-        ],
-        dataBound: function (a) {
-            $(".ob-paid").bind("change", function (e) {
-                if ($('#BotonGuardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
-                    var grid = $("#grid").data("kendoGrid");
-                    dataItem = grid.dataItem($(e.target).closest("tr"));
-                    if (e.target.checked == true)
-                        dataItem.OkPND = true;
-                    else
-                        dataItem.OkPND = false;
-                }
-                else
-                    $("#grid").data("kendoGrid").closeCell();
-            });
-        }
+        ]
     });
-
-    $("#grid").on("change", ":checkbox", function (e) {
-        if ($('#Guardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
-            var grid = $("#grid").data("kendoGrid"),
-            dataItem = grid.dataItem($(e.target).closest("tr"));
-        }
-    });
-
     CustomisaGrid($("#grid"));
 };
 

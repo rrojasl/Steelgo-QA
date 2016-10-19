@@ -122,11 +122,22 @@ function llenarCombo() {
         { SistemaPinturaID: 3, Nombre: "18.1" },
     ];
 
+    var z = [
+        { ZonaID: 0, Nombre: "" },//Debe coincidir lo que tienes en tu dataTextField de tu combo por eso no te muestra nada 
+        { ZonaID: 1, Nombre: "Zona 1" },
+        { ZonaID: 2, Nombre: "Zona 2" },
+        { ZonaID: 3, Nombre: "Zona 3" },
+    ];
+
     $("#inputCuadrante").data("kendoComboBox").dataSource.data([]);
     $("#inputCuadrante").data("kendoComboBox").dataSource.data(c);
 
-    $("#inputSistemaPintura").data("kendoComboBox").dataSource.data([]);
+   $("#inputSistemaPintura").data("kendoComboBox").dataSource.data([]);
    $("#inputSistemaPintura").data("kendoComboBox").dataSource.data(sp);
+
+   $("#inputZona").data("kendoComboBox").dataSource.data([]);
+   $("#inputZona").data("kendoComboBox").dataSource.data(z);
+
 
 }
 

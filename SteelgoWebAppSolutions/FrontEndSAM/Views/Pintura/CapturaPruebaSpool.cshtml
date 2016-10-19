@@ -12,7 +12,7 @@
         <a href="#"><span id="PinturaBreadcrumb"></span></a>
     </li>
     <li class="active">
-        <a href="@Url.Action("CapturaPruebaSpool", "Pintura")"><span id="PinturaLotesCapturaPruebaBreadcrumb"></span></a>
+        <a href="@Url.Action("CapturaPruebaSpool", "Pintura")"><span id="PinturaCapturaPruebaSpoolBreadcrumb"></span></a>
     </li>
 }
 
@@ -75,25 +75,17 @@
                     <input id="inputPrueba" class="" />
                 </div>
                 <div class="col-xs-12 col-sm- col-md-2 col-lg-2 altoControl" id="CapturaArmadoHeaderSpoolIDDiv1">
-                    <label>Fecha Lote</label>
-                    <input id="inputFechaLote" class="" />
-                </div>
-                <div class="col-xs-12 col-sm- col-md-2 col-lg-2 altoControl" id="CapturaArmadoHeaderSpoolIDDiv1">
-                    <label id="lblLote"></label>
-                    <input id="inputLote" class="" />
+                    <label id="lblSpoolID"></label>
+                    <input style="width:40%" id="InputOrdenTrabajo" class="item-select general-input" />-<input id="InputID" placeholder="ID" style="width:40%;" />
                 </div>
                 <div class="col-xs-12 col-sm-8 col-md-3 col-lg-2 altoControl">
                     <label id="lblMostrar"></label>
                     <input type="radio" name="Muestra" class="radio-responsive" style="width:auto;" value="SinCaptura" /><span id="lblSinCaptura"></span>
-                    <input type="radio" name="Muestra" class="radio-responsive" style="width:auto;" value="Todos" /><span id="lblTodos"> </span>
-                </div>
-                <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2" id="CapturaArmadoHeaderSpoolIDDiv1">
-                    <label id="lblCerrarLote"></label>
-                    <input type="checkbox" style="width:auto;" id="chkCerrarLote" />
+                    <input type="radio" name="Muestra" class="radio-responsive" style="width:auto;" value="Todos" checked/><span id="lblTodos"> </span>
                 </div>
                 <div class="col-xs-12 col-sm-4 col-md-1 col-lg-2" id="CapturaArmadoHeaderSpoolIDDiv1">
                     <label id="">&nbsp;</label>
-                    <button id="btnBuscar" onclick="javascript:void(0);" type="button" class="btn btn-blue"><span id="botonBuscar"></span></button>
+                    <button id="btnBuscar" onclick="javascript:void(0);" type="button" class="btn btn-blue"><span >Mostrar</span></button>
                 </div>
             </div>
             <br />
