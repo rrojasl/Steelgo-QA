@@ -72,7 +72,7 @@ function AjaxPruebas(ProyectoID) {
 function AjaxRequisicion(proyectoID, proveedorID) {
     loadingStart();
     //console.log($CapturaReporteRT);
-    $ReporteRT.ReporteRT.read({ token: Cookies.get("token"), proyectoID: proyectoID, proveedorID: proveedorID, distinct: 0 }).done(function (data) {
+    $ReporteRT.ReporteRT.read({ token: Cookies.get("token"), proyectoID: proyectoID, proveedorID: proveedorID }).done(function (data) {
         //$Almacenaje.Almacenaje.read({ token: Cookies.get("token") }).done(function (data) {
         if (Error(data)) {
 
