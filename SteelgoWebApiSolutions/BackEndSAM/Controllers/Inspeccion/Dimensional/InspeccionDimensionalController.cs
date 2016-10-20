@@ -1,5 +1,8 @@
 ﻿using BackEndSAM.DataAcces.Inspeccion.Dimensional;
+using BackEndSAM.DataAcces.Sam3General;
 using BackEndSAM.DataAcces.Sam3General.CamposPredeterminados;
+using BackEndSAM.DataAcces.Sam3General.Defectos;
+
 using BackEndSAM.Models.Inspeccion.Dimensional;
 using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
@@ -13,6 +16,8 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Script.Serialization;
+using BackEndSAM.DataAcces.Sam3General.TipoResultado;
+using BackEndSAM.DataAcces.Sam3General.CapturasRapidas;
 
 namespace BackEndSAM.Controllers.Inspeccion.Dimensional
 {
