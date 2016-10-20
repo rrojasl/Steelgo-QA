@@ -66,6 +66,8 @@ var $UrlMaterialSpool = $BackEndSAMUri + '/backendsam/api/MaterialSpool?';
 var $CatalogoEspesor = $BackEndSAMUri + '/backendsam/api/Espesor?';
 var $MTR = $BackEndSAMUri + '/backendsam/api/MTR?';
 var $PQR = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $WPS = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $SoldadorCertificacion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 //Base API's
 var $BackEndSAM = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 //var $FileManager = new $.RestClient($FilesSAMUri + '/filemanager/api/');
@@ -222,8 +224,6 @@ $Obrero.add("Obrero");
 $InspeccionDimensional.add("InspeccionDimensional");
 $InspeccionVisualDimensional.add("VisualDimensional");
 $CapturasRapidas.add("CapturasRapidas");
-$WPS.add("WPS");
-$SoldadorCertficacion.add("SoldadorCertificacion");
 
 //Detalle Aviso Llegada
 $Plana.add("Plana");
