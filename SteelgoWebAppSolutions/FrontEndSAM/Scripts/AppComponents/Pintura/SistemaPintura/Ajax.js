@@ -362,6 +362,9 @@ function AjaxEliminaSistemaPintura(sistemaPinturaID) {
             $("#divMultiselectProyecto").css("display", "block");
             $("#inputNoAplicable").prop("checked", false);
 
+            opcionHabilitarView(false, "FieldSetView");
+            $("#inputNombre").attr('disabled', false);
+
             displayNotify("SistemaPinturaEliminadoExitoso", "", '0');
         }
         else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
