@@ -187,15 +187,17 @@ function AjaxGuardarCaptura(listaCaptura, GuardarYNuevo) {
                     }
                 }
             }else{
-                
-                if (listaDetalles[i].SistemaPinturaID == 0) {
                     listaDetalles[i].Estatus = 0;
                     $('tr[data-uid="' + listaCaptura[i].uid + '"] ').css("background-color", "#ffcccc");
-                }
-                if (listaDetalles[i].SistemaPinturaColorID == 0 && listaCaptura[i].ListaColorPintura.length>1) {
-                    listaDetalles[i].Estatus = 0;
-                    $('tr[data-uid="' + listaCaptura[i].uid + '"] ').css("background-color", "#ffcccc");
-                }
+
+                //if (listaDetalles[i].SistemaPinturaID == 0) {
+                //    listaDetalles[i].Estatus = 0;
+                //    $('tr[data-uid="' + listaCaptura[i].uid + '"] ').css("background-color", "#ffcccc");
+                //}
+                //if (listaDetalles[i].SistemaPinturaColorID == 0 && listaCaptura[i].ListaColorPintura.length>1) {
+                //    listaDetalles[i].Estatus = 0;
+                //    $('tr[data-uid="' + listaCaptura[i].uid + '"] ').css("background-color", "#ffcccc");
+                //}
             }
         }
     }
