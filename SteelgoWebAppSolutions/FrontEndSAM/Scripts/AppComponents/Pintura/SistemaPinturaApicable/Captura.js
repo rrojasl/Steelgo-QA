@@ -59,7 +59,7 @@ function CargarGrid() {
                         SpoolID: { type: "number", editable: false },
                         Spool: { type: "string", editable: false },
                         NumeroControl: { type: "string", editable: false },
-                        Diametro: { type: "decimal", editable: false },
+                        Diametro: { type: "number", editable: false },
                         SistemaPinturaColorID: { type: "number", editable: true },
                         SistemaPinturaID: { type: "number", editable: true },
                         SistemaPintura: { type: "string", editable: true },
@@ -98,7 +98,7 @@ function CargarGrid() {
         columns: [
             { field: "Spool", title: _dictionary.columnSpool[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "140px" },
             { field: "NumeroControl", title: _dictionary.columnNumeroControl2[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px" },
-            { field: "Diametro", title: _dictionary.columnDiametro[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "100px", width: "95px", format: "{0:n4}", attributes: { style: "text-align:right;" } },
+            { field: "Diametro", title: _dictionary.columnDiametro[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "100px", width: "95px", attributes: { style: "text-align:right;" } },
             { field: "SistemaPintura", title: _dictionary.columnSistemaPintura[$("#language").data("kendoDropDownList").value()], editor: comboBoxSistemaPintura, filterable: getGridFilterableCellMaftec(), width: "120px" },
             { field: "Color", title: _dictionary.columnColor[$("#language").data("kendoDropDownList").value()], editor: comboBoxColor, filterable: getGridFilterableCellMaftec(), width: "110px" },
             { command: { text: _dictionary.botonLimpiar[$("#language").data("kendoDropDownList").value()], click: eliminaCaptura }, title: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()], width: "99px", attributes: { style: "text-align:center;" } }

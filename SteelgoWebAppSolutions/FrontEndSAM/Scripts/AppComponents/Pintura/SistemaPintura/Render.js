@@ -17,6 +17,8 @@ function comboBoxPruebas(container, options) {
                 if (dataItem != undefined && dataItem.PruebaProcesoPinturaID != undefined) {
                     options.model.PruebaProcesoPinturaID = dataItem.PruebaProcesoPinturaID;
                     options.model.ProyectoProcesoPrueba = dataItem.Nombre;
+                    options.model.UnidadMedidaID = dataItem.UnidadMedidaID;
+                    options.model.UnidadMedida = dataItem.UnidadMedida;
                 }
                 $("#gridPopUp").data("kendoGrid").dataSource.sync();
             }

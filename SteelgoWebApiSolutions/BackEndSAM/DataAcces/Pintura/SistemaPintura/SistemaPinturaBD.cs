@@ -132,7 +132,9 @@ namespace BackEndSAM.DataAcces.Pintura.SistemaPintura
                         {
                             Nombre = item.Nombre,
                             ProcesoPinturaID = item.ProcesoPinturaID,
-                            PruebaProcesoPinturaID = item.PruebaProcesoPinturaID
+                            PruebaProcesoPinturaID = item.PruebaProcesoPinturaID,
+                            UnidadMedida = item.UnidadMedida,
+                            UnidadMedidaID = item.UnidadMedidaID
                         });
                     }
 

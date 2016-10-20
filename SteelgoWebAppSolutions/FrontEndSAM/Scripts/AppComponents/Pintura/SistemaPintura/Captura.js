@@ -344,7 +344,7 @@ function CargarGridPopUp() {
                     fields: {
                         Accion: { type: "int", editable: false },
                         Prueba: { type: "string", editable: true },
-                        UnidadMedida: { type: "string", editable: true },
+                        UnidadMedida: { type: "string", editable: false },
                         UnidadMinima: { type: "number", editable: true },
                         UnidadMaxima: { type: "number", editable: true },
                     }
@@ -371,7 +371,7 @@ function CargarGridPopUp() {
 
         columns: [
             { field: "ProyectoProcesoPrueba", title: _dictionary.lblPrueba[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftecpopUp(), width: "130px", editor: comboBoxPruebas },
-            { field: "UnidadMedida", title: _dictionary.columnUnidadMedida[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftecpopUp(), width: "130px", editor: comboBoxUnidadMedida },
+            { field: "UnidadMedida", title: _dictionary.columnUnidadMedida[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftecpopUp(), width: "130px" },
             { field: "UnidadMinima", title: _dictionary.columnUnidadMinima[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "80px", editor: RenderUnidadMinima, attributes: { style: "text-align:right;" }, format: "{0: }" },
             { field: "UnidadMaxima", title: _dictionary.columnUnidadMaxima[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "80px", editor: RenderUnidadMaxima, attributes: { style: "text-align:right;" }, format: "{0: }" },
             { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: cancelarCaptura }, title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], width: "50px" },
