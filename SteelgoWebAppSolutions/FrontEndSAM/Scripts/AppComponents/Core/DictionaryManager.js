@@ -8866,6 +8866,50 @@ _dictionary = {
 
 
     //Pantalla Soldadura
+    "CapturaSoldaduraSoldadoresRaiz": {
+        "es-MX": "Soldadores Raiz",
+        "en-US": "Root Welders"
+    },
+    "tituloEliminar": {
+        "es-MX": "ELM",
+        "en-US": "DEL"
+    },
+    "tituloLimpiar": {
+        "es-MX": "LMP",
+        "en-US": "CLN"
+    },
+    "CapturaSoldaduraMensajeCambioTrabajosAdicionales": {
+        "es-MX": " trabajos adicionales",
+        "en-US": " additional work"
+    },
+    "CapturaAvanceTitulo": {
+        "es-MX": "Alerta!!!",
+        "en-US": "Warning!!!"
+    },
+    "CapturaSoldaduraMensajeCambioLongitud": {
+        "es-MX": "Ahora tienes ",
+        "en-US": "Now you have "
+    },
+    "CapturaSoldaduraHeaderObservacion": {
+        "es-MX": "Observación",
+        "en-US": "Observation"
+    },
+    "ConfiguracionSoldaduraBreadcrumb": {
+        "es-MX": "Configuración de soldadura",
+        "en-US": "Welding Configuration"
+    },
+    "CapturaSoldaduraHeaderSoldadores": {
+        "es-MX": "Soldador",
+        "en-US": "Welders"
+    },
+    "CapturaSoldaduraMsgNuevoEnListado": {
+        "es-MX": " se agregó en el listado",
+        "en-US": " already add in the list"
+    },
+    "CapturaSoldaduraMsgExiste": {
+        "es-MX": "La junta ",
+        "en-US": "The joint "
+    },
     "lblSoldaduraBreadcrum": {
         "es-MX": "Soldadura",
         "en-US": "Welding"
@@ -8885,10 +8929,6 @@ _dictionary = {
     //Finaliza Soldadura
 
     //Pantalla PQR
-    "ConfiguracionSoldaduraBreadcrumb": {
-        "es-MX": "Configuración de soldadura",
-        "en-US": "Welding Configuration"
-    },
     "PQRBreadcrumb": {
         "es-MX": "PQR",
         "en-US": "PQR"

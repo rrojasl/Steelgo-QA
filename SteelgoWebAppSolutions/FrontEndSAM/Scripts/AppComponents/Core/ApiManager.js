@@ -202,6 +202,20 @@ var $CapturaAvance = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $SistemaPinturaAplicable = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $ListadoSistemaPintura = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 
+
+//#region Declaracion
+//#region Catalogos
+var $TrabajoAdicional = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $TipoTrabajoAdicional = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $TipoObrero = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Obrero = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $ObreroUbicacion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Defectos = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $ListadoCamposPredeterminados = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Taller = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Pruebas = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+//#endregion
+
 /****************************/
 /*    Document Ready        */
 /****************************/
@@ -355,3 +369,8 @@ $ListadoSistemaPintura.add("ListadoSistemaPintura");
 $PQR.add("PQR");
 $WPS.add("WPS");
 $SoldadorCertificacion.add("SoldadorCertificacion");
+
+//Catalogos
+$Taller.add("Taller");
+
+//#endregion
