@@ -9019,6 +9019,10 @@ _dictionary = {
         "es-MX": "Requisición PND",
         "en-US": "PND Requisition"
     },
+    "CapturaGuardarInformacionConNumerosUnicos": {
+        "es-MX": "Los spools marcados en rojo no se pueden guardar favor de eliminarlos y/o limpiarlos.",
+        "en-US": "The spools marked in red can not be saved please remove them and/or clean them."
+    },
     //Finaliza Inspeccion Dimensional
 
     // Pantalla RequisiciónPND
@@ -9836,6 +9840,15 @@ _dictionary = {
         "es-MX": "Los sistemas de pintura pintables requieren al menos un proceso",
         "en-US": "Paintable paint systems require at least one process"
     },
+    "MensajeEliminarColoresSistemaNoPintable": {
+        "es-MX": "Se eliminaran los datos de colores, ¿desea continuar?",
+        "en-US": "color data is deleted, continue?"
+    },
+    "MensajeEliminarColoresYProcesosSistemaNoPintable": {
+        "es-MX": "Se eliminaran los datos de los procesos y colores, ¿desea continuar?",
+        "en-US": "data processes and colors are removed, would you continue?"
+    },
+    
     // Finaliza Sistema Pintura
 
     //Comienza Dashboard Pintura 

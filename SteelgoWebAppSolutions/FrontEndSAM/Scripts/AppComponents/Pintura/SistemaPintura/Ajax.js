@@ -339,6 +339,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                 $("#noButton").click(function () {
                     ventanaConfirm.close();
                     opcionHabilitarView(false, "FieldSetView");
+                    $("#inputNombre").attr('disabled', false);
                 });
             }
 

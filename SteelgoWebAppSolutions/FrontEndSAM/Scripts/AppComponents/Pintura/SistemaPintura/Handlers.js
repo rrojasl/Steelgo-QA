@@ -18,12 +18,17 @@ function suscribirEventoChangeAplicable() {
     $('#inputNoAplicable').change(function () {
 
         var isEmptyGrid = false;
+        var isEmptyColor = false;
         var ds = $("#grid").data("kendoGrid").dataSource;
         for (var i = 0; i < ds._data.length; i++) {
             if (ds._data[i].Agregar) {
                 isEmptyGrid = true;
             }
         }
+        if ($("#inputColor").data("kendoMultiSelect")._values.length == 0 ) {
+            isEmptyColor = true;
+        }
+
         if (($("#inputNoAplicable").is(':checked'))) {
             if (isEmptyGrid) {
 
@@ -41,7 +46,7 @@ function suscribirEventoChangeAplicable() {
                     }
                 }).data("kendoWindow");
 
-                ventanaConfirm.content("Se eliminaran los datos de los procesos y colores, ¿desea continuar?" +
+                ventanaConfirm.content(_dictionary.MensajeEliminarColoresYProcesosSistemaNoPintable[$("#language").data("kendoDropDownList").value()] +
                     "</br><center><button class='btn btn-blue' id='yesButton'>Si</button><button class='btn btn-blue' id='noButton'> No</button></center>");
 
                 ventanaConfirm.open().center();
@@ -63,8 +68,46 @@ function suscribirEventoChangeAplicable() {
 
             }
             else {
-                $("#inputColor").data("kendoMultiSelect").value([]);
-                $("#inputColor").data("kendoMultiSelect").enable(false);
+                if (!isEmptyColor) {
+                    ventanaConfirm = $("#ventanaConfirm").kendoWindow({
+                        iframe: true,
+                        title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
+                        visible: false, //the window will not appear before its .open method is called
+                        width: "auto",
+                        height: "auto",
+                        modal: true,
+                        actions: [],
+                        animation: {
+                            close: false,
+                            open: false
+                        }
+                    }).data("kendoWindow");
+
+                    ventanaConfirm.content(_dictionary.MensajeEliminarColoresSistemaNoPintable[$("#language").data("kendoDropDownList").value()] + 
+                        "</br><center><button class='btn btn-blue' id='yesButton'>Si</button><button class='btn btn-blue' id='noButton'> No</button></center>");
+
+                    ventanaConfirm.open().center();
+
+
+
+                    $("#yesButton").click(function () {
+                        LimpiarGrid();
+                        $("#inputNoAplicable").prop("checked", true);
+                        $("#inputColor").data("kendoMultiSelect").value([]);
+                        $("#inputColor").data("kendoMultiSelect").enable(false);
+                        ventanaConfirm.close();
+                    });
+                    $("#noButton").click(function () {
+                        ventanaConfirm.close();
+                        $("#inputNoAplicable").prop("checked", false);
+
+                    });
+                }
+                else {
+                    $("#inputColor").data("kendoMultiSelect").value([]);
+                    $("#inputColor").data("kendoMultiSelect").enable(false);
+                }
+                
             }
         }
         else {

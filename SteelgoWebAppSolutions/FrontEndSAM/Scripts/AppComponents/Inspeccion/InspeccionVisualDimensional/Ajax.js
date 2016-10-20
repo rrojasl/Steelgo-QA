@@ -117,7 +117,7 @@ function ajaxObtenerSpoolID() {
 
         });
     } catch (e) {
-        displayNotify("Mensajes_error", e.message, '2');
+        displayNotify("", e.message, '2');
     }
 }
 
@@ -194,7 +194,7 @@ function ajaxObtenerJSonGrid() {
             loadingStop();
         });
     } catch (e) {
-        displayNotify("Mensajes_error", e.message, '2');
+        displayNotify("", e.message, '2');
     }
 }
 
@@ -372,10 +372,10 @@ function ajaxGuardado(jSonCaptura, tipoGuardar) {
 
     Captura[0].Detalles[0].ListaJuntas = inspeccionDimensional[0].ListaJuntas;
 
-    windowTemplate = kendo.template($("#windowTemplate").html());
+    //windowTemplate = kendo.template($("#windowTemplate").html());
     ventanaConfirm = $("#ventanaConfirm").kendoWindow({
         iframe: true,
-        title: _dictionary.CapturaAvanceIntAcabadoMensajeErrorGuardado[$("#language").data("kendoDropDownList").value()],
+        title: _dictionary.TituloPopUpError[$("#language").data("kendoDropDownList").value()],
         visible: false, //the window will not appear before its .open method is called
         width: "auto",
         height: "auto",
@@ -420,7 +420,7 @@ function ejecutaGuardado(Captura, guardadoSinInspeccionDimensional, guardadoSinI
             $("#grid").data('kendoGrid').dataSource.data([]);
 
             if (!guardadoSinInspeccionDimensional && !guardadoSinInspeccionVisual) {
-                displayNotify("CapturaMensajeGuardadoExitoso", "", '0');
+                displayNotify("MensajeGuardadoExistoso", "", '0');
             }
             else if (guardadoSinInspeccionDimensional) {
                 displayNotify("DimensionalVisualMensajeGuardadoVisual", "", '0');
@@ -441,7 +441,7 @@ function ejecutaGuardado(Captura, guardadoSinInspeccionDimensional, guardadoSinI
             }
         }
         else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
-            displayNotify("CapturaMensajeGuardadoErroneo", "", '2');
+            displayNotify("MensajeGuardadoErroneo", "", '2');
             opcionHabilitarView(false, "FieldSetView");
             deshabilitaSpool();
 

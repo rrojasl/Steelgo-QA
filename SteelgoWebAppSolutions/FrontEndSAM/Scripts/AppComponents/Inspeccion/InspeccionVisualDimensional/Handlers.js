@@ -1110,10 +1110,10 @@ function opcionHabilitarView(valor, name) {
         $("#inputDefectosVisual").data("kendoComboBox").enable(false);
         $("#ListaJuntas").data("kendoMultiSelect").enable(false);
 
-        $('#Guardar').text(_dictionary.textoEditar[$("#language").data("kendoDropDownList").value()]);
-        $('#btnGuardar').text(_dictionary.textoEditar[$("#language").data("kendoDropDownList").value()]);
-        $('#Guardar1').text(_dictionary.textoEditar[$("#language").data("kendoDropDownList").value()]);
-        $("#btnGuardar1").text(_dictionary.textoEditar[$("#language").data("kendoDropDownList").value()]);
+        $('#Guardar').text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
+        $('#btnGuardar').text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
+        $('#Guardar1').text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
+        $("#btnGuardar1").text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
         $("#grid tbody tr").attr("disabled", true);
     }
     else {
