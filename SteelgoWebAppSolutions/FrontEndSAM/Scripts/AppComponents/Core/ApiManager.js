@@ -174,6 +174,10 @@ var $Cuadrante = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 
 //Fabricación
 var $Armado = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Defectos = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Obrero = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $InspeccionDimensional = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $CapturasRapidas = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 
 //ServiciosTecnicos
 var $CamposPredeterminados = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
@@ -211,7 +215,10 @@ $BackEndSAM.add('DummyListadoAvisoLlegada');
 $BackEndSAM.add('perfil');
 $BackEndSAM.add("PQR");
 $SecurityManager.add('authentication');
-
+$Defectos.add("Defectos");
+$Obrero.add("Obrero");
+$InspeccionDimensional.add("InspeccionDimensional");
+$CapturasRapidas.add("CapturasRapidas");
 
 //Detalle Aviso Llegada
 $Plana.add("Plana");

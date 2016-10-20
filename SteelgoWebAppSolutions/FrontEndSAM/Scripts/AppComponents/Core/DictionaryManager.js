@@ -8642,7 +8642,224 @@ _dictionary = {
        "es-MX": "No esta seleccionado la opcion llenado masivo",
        "en-US": "Not selected the massive filling option"
    },
+    "radioResultadoDimensional":
+    {
+        "es-MX": "No esta seleccionado el tipo de resultado dimensional",
+        "en-US": "Not selected the type of dimensional result"
+    },
+    "SpoolIDExistente": {
+        "es-MX": "El spool ya existe en la captura",
+        "en-US": "The  already exist in the capture"
+    },
+    "DimensionalSpool": {
+        "es-MX": "Se agrego el spool ",
+        "en-US": "He added the spool "
+    },
     //Finaliza Armado
+
+    //Inspeccion
+
+    //#region Inspeccion
+    "CapturaInspeccionDimensionalNoExisteLista": {
+        "es-MX": "La spool ya se encuentra capturado, revisar la opción Todos",
+        "en-US": "The spool already captured, check option All"
+    },
+    "CapturaMensajeGuardadoExitoso": {
+        "es-MX": "Datos guardados correctamente.",
+        "en-US": "Data saved correctly."
+    },
+    "CapturaMensajeGuardadoErroneo": {
+        "es-MX": "No fue posible guardar la informacion.",
+        "en-US": "Could not save the information."
+    },
+    "DimensionalVisualHeaderListaJUnta": {
+        "es-MX": "Jta",
+        "en-US": "Jnt"
+    },
+    "DimensionalVisualHeaderJunta": {
+        "es-MX": "Junta",
+        "en-US": "Joint"
+    },
+    "DimensionalVisualHeaderSpoolID": {
+        "es-MX": "Spool ID",
+        "en-US": "Spool ID"
+    },
+    "DimensionalVisualHeaderResultadoDimesional": {
+        "es-MX": "Resultado dimensional",
+        "en-US": "Dimensional result"
+    },
+    "DimensionalVisualHeaderResultadoVisual": {
+        "es-MX": "Resultado Visual",
+        "en-US": "Visual result"
+    },
+    "DimensionalVisualAporbadoDimensional": {
+        "es-MX": "Aprobado",
+        "en-US": "Approved"
+    },
+    "DimensionalVisualRechazadoDimensional": {
+        "es-MX": "  Rechazado",
+        "en-US": "  Rejected"
+    },
+    "DimensionalVisualAporbadoVisual": {
+        "es-MX": "Aprobado",
+        "en-US": "Approved"
+    },
+    "DimensionalVisualRechazadoVisual": {
+        "es-MX": "Rechazado",
+        "en-US": "Rejected"
+    },
+    "DimensionalVisualHeaderDefectoDimesional": {
+        "es-MX": "Defecto Dimensional",
+        "en-US": "Dimensional defect"
+    },
+    "DimensionalVisualHeaderDefectoVisual": {
+        "es-MX": "Defecto visual",
+        "en-US": "Visual defect"
+    },
+    "DimensionalVisualHeaderDefecto": {
+        "es-MX": "Defecto",
+        "en-US": "Defect"
+    },
+    "DimensionalVisualHeaderInspectorDimesional": {
+        "es-MX": "Inspector",
+        "en-US": "Checker"
+    },
+    "DimensionalVisualHeaderInspectorVisual": {
+        "es-MX": "Inspector",
+        "en-US": "Checker"
+    },
+    "DimensionalVisualHeaderFechaDimesional": {
+        "es-MX": "Fecha de Inspección",
+        "en-US": "Inspection date"
+    },
+    "DimensionalVisualHeaderFechaVisual": {
+        "es-MX": "Fecha de Inspección",
+        "en-US": "Inspection date"
+    },
+    "DimensionalVisualHeaderTipoJunta": {
+        "es-MX": "Tipo junta",
+        "en-US": "Joint type"
+    },
+    "DimensionalVisualHeaderDiametro": {
+        "es-MX": "Diametro",
+        "en-US": "diameter"
+    },
+    "DimensionalVisualHeadeResultado": {
+        "es-MX": "Resultado",
+        "en-US": "Result"
+    },
+    "DimensionalVisualHeadeTaller": {
+        "es-MX": "Taller",
+        "en-US": "workshop"
+    },
+    "DimensionalVisualHeaderDefecto": {
+        "es-MX": "Defecto",
+        "en-US": "Defect"
+    },
+    "DimensionalVisualNumeroUnico1": {
+        "es-MX": "Único 1",
+        "en-US": "Unique 1"
+    },
+    "DimensionalVisualNumeroUnico2": {
+        "es-MX": "Único 2",
+        "en-US": "Unique 2"
+    },
+    "CapturaInspeccionPreguntaBorradoCaptura": {
+        "es-MX": "¿Está seguro de eliminar el detalle de la captura de Inspección?",
+        "en-US": "Are you sure you want to delete the detail of the capture of Inspection?"
+    },
+    "DimensionalVisualInspeccionDimensional": {
+        "es-MX": "Dimensional",
+        "en-US": "Dimensional"
+    },
+    "DimensionalVisualMensajeErrorNumeroUnico2": {
+        "es-MX": "Falta capturar Número unico 2",
+        "en-US": "Foul capture only Number 2"
+    },
+    "DimensionalVisualMensajeErrorNumeroUnico1": {
+        "es-MX": "Falta capturar Número unico 1",
+        "en-US": "Foul capture only Number 1"
+    },
+    "DimensionalVisualMensajeErrorInspector": {
+        "es-MX": "El inspector es requerido",
+        "en-US": "The inspector is required"
+    },
+    "DimensionalVisualMensajeErrorResultado": {
+        "es-MX": "El resultado es requerido",
+        "en-US": "The result is required"
+    },
+    "DimensionalVisualMensajeErrorDefectos": {
+        "es-MX": "Los defectos son requeridos",
+        "en-US": "The defects are required"
+    },
+    "DimensionalVisualMensajeErrorTaller": {
+        "es-MX": "El taller es requerido",
+        "en-US": "The workshop is required"
+    },
+    "DimensionalVisualMensajeOrdenTrabajo": {
+        "es-MX": "Orden de trabajo no encontrada",
+        "en-US": "Work order is not found"
+    },
+    "DimensionalVisualMensajeErrorDimensional": {
+        "es-MX": "Faltan campos por capturar en el apartado Inspección Dimensional",
+        "en-US": "Missing fields to capture in Dimensional Inspection"
+    },
+    "DimensionalVisualMensajeNoHayDatosPorGuardar": {
+        "es-MX": "No hay datos por guardar",
+        "en-US": "No data to save"
+    },
+    "DimensionalVisualMensajeDefectoRechazado": {
+        "es-MX": "Selecciona un defecto si el resultado dimensional es Rechazado",
+        "en-US": "Select a dimensional defect if the result is Rejected"
+    },
+    "DimensionalVisualMensajeJuntasAgregadas": {
+        "es-MX": "Las siguientes juntas se han añadido al grid: ",
+        "en-US": "The following joints have been added to grid: "
+    },
+    "DimensionalVisualMensajeGuardadoDimensional": {
+        "es-MX": "Datos del apartado Inspección Dimensional guardados correctamente.",
+        "en-US": "Dimensional Inspection data saved correctly."
+    },
+    "DimensionalVisualMensajeGuardadoVisual": {
+        "es-MX": "Datos del apartado Inspección Visual guardados correctamente.",
+        "en-US": "Visual Inspection data saved correctly."
+    },
+    "DimensionalVisualMensajeRequiereJuntas": {
+        "es-MX": "El defecto requiere especificar juntas",
+        "en-US": "The defect requires specified joints"
+    },
+    "DimensionalVisualMensajeNoRequiereJuntas": {
+        "es-MX": "El defecto no requiere especificar juntas",
+        "en-US": "The defect does not requires specified joints"
+    },
+    "DimensionalVisualMensajeRechazadoDefecto": {
+        "es-MX": "Si el Resultado Visual es rechazado debe seleccionar un defecto",
+        "en-US": "If the visual result is rejected must select a defect"
+    },
+    "DimensionalVisualMensajeRequeridos": {
+        "es-MX": "Los campos Resultado Dimensional, Inspector y Fecha deben ser capturados",
+        "en-US": "The Result Dimensional, Inspector and Date fields should be captured"
+    },
+    "mensajeEliminarInspeccionVisualDimensional": {
+        "es-MX": "Estas seguro de eliminar la informacion?",
+        "en-US": "do you want delete the row?"
+    },
+    "mensajeInspeccionVisualDimensionalNoAdmiteJuntasDefecto": {
+        "es-MX": "El defecto seleccionado, no requiere que se especifiquen juntas",
+        "en-US": "The select deffect, it does not required specified joints"
+    },
+    "mensajeInspeccionVisualDimensionalNoAdmiteJuntasDefectoSeleccionarDefecto": {
+        "es-MX": "Para especificar juntas, seleccione un defecto",
+        "en-US": "To specify joints, select a defect"
+    },
+    "mensajeInspeccionVisualDimensionalNoAdmiteJuntasDefectoSpoolAprobado": {
+        "es-MX": "El spool esta aprobado, no puedes especificar juntas",
+        "en-US": "The spool is aproved, can´t  especify joint"
+    },
+    //#endregion
+
+    //Finaliza Inspeccion
+
 
     //Pantalla Soldadura
     "lblSoldaduraBreadcrum": {

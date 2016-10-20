@@ -513,7 +513,7 @@ function MensajesSteelGO(control, mensajeExepcionTecnico) {
             displayNotify("OrdenTrabajoNoValida", "", '1');
             break;
         case 'Mensajes_error':
-            displayNotify("Mensajes_error", mensajeExepcionTecnico, '2');//muestra cualquier error indicando el error tecnico al usuario
+            displayNotify("", mensajeExepcionTecnico, '2');//muestra cualquier error indicando el error tecnico al usuario
             break;
         case 'InputID-SelectInvalid':
             displayNotify("NoExisteSpoolID", '', '2');//mensaje indicando que el id no es valido.

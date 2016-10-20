@@ -409,10 +409,10 @@ function opcionHabilitarView(valor, name) {
         $("#inputInspector").data("kendoComboBox").enable(false);
         $("#FechaInspeccion").data("kendoDatePicker").enable(false);
 
-        $('#Guardar1').text(_dictionary.lblEditar[$("#language").data("kendoDropDownList").value()]);
-        $("#Guardar").text(_dictionary.lblEditar[$("#language").data("kendoDropDownList").value()]);
-        $("#btnGuardar").text(_dictionary.lblEditar[$("#language").data("kendoDropDownList").value()]);
-        $("#btnGuardar1").text(_dictionary.lblEditar[$("#language").data("kendoDropDownList").value()]);
+        $('#Guardar1').text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
+        $("#Guardar").text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
+        $("#btnGuardar").text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
+        $("#btnGuardar1").text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
 
         $("#grid").children().prop('readonly', true);
         $('#btnAplicarCapturaRapida').prop('disabled', true);
@@ -429,10 +429,10 @@ function opcionHabilitarView(valor, name) {
         $("#inputDefecto").data("kendoComboBox").enable(true);
         $("#inputInspector").data("kendoComboBox").enable(true);
         $("#FechaInspeccion").data("kendoDatePicker").enable(true);
-        $('#Guardar1').text(_dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]);
-        $("#Guardar").text(_dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]);
-        $("#btnGuardar").text(_dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]);
-        $("#btnGuardar1").text(_dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]);
+        $('#Guardar1').text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);
+        $("#Guardar").text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);
+        $("#btnGuardar").text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);
+        $("#btnGuardar1").text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);
         $("#grid").children().prop('readonly', false);
         $('#btnAplicarCapturaRapida').prop('disabled', false);
     }
