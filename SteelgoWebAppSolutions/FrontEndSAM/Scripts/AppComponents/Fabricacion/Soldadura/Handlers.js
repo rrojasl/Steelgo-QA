@@ -455,7 +455,7 @@ function SuscribirEventosOrdenTrabajo() {
             try {
                 var OrdenTrabajoOrigianl = $("#InputOrdenTrabajo").val();
                 if (Error) {
-                    $CapturaSoldadura.Soldadura.read({ ordenTrabajo: $("#InputOrdenTrabajo").val(), tipo: '1', token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
+                    $Soldadura.Soldadura.read({ ordenTrabajo: $("#InputOrdenTrabajo").val(), tipo: '1', token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
                         if (data.OrdenTrabajo != "") {
                             $("#InputOrdenTrabajo").val(data.OrdenTrabajo);
                         }
@@ -538,14 +538,14 @@ function SuscribirEventoID() {
         else if (e.keyCode == 9) {
             if (tieneClase(e.currentTarget)) {
                 $("#InputID").data("kendoComboBox").select(0);
-                //AjaxJunta($("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()).Valor);
+                AjaxJunta($("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()).Valor);
             }
             dataItem = $("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select());
             if (dataItem != undefined) {
                 if ($("#InputID").val() != '' && $("#InputOrdenTrabajo").val() != '') {
                     Cookies.set("Proyecto", dataItem.ProyectoID + '°' + dataItem.Proyecto);
                     $("#LabelProyecto").text(dataItem.Proyecto);
-                    //AjaxJunta($("#InputID").val());
+                    AjaxJunta($("#InputID").val());
                     //AjaxObtenerListaTaller();
                 }
             }

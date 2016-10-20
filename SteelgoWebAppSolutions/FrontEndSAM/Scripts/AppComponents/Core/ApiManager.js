@@ -178,6 +178,7 @@ var $Defectos = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Obrero = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $InspeccionDimensional = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $CapturasRapidas = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Soldadura = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 
 //ServiciosTecnicos
 var $CamposPredeterminados = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
@@ -321,6 +322,7 @@ $Cuadrante.add('Cuadrante');
 
 //Fabricación
 $Armado.add("Armado");
+$Soldadura.add("Soldadura");
 
 // ServiciosTecnicos
 $CamposPredeterminados.add("CamposPredeterminados");
