@@ -295,8 +295,8 @@ function CargarGridSoldadura() {
             { field: "Relleno", title: _dictionary.columnSoldadoresRelleno[$("#language").data("kendoDropDownList").value()], filterable: false, width: "150px", template: "<div class='botonSoldadoresRelleno'><a href='\\#' > <span>#=TemplateSoldadoresRelleno#</span></a></div>" },
             { field: "WPSNombre", title: _dictionary.columnWPS[$("#language").data("kendoDropDownList").value()], editor: RenderComboBoxWPS, filterable: getGridFilterableCellMaftec(), width: "130px" },
             { field: "DetalleAdicional", title: _dictionary.columnDetalleAdicional[$("#language").data("kendoDropDownList").value()], filterable: false, width: "150px", template: "<div class='botonAdicionales'><a href='\\#' > <span>#=TemplateTrabajosAdicionales#</span></a></div>" },
-            { command: { text: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], click: cancelarCaptura }, filterable: false, title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], width: "50px" },
-            { command: { text: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()], click: limpiarRenglon }, filterable: false, title: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()], width: "60px" }
+            { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: cancelarCaptura }, filterable: false, title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], width: "50px" },
+            { command: { text: _dictionary.botonLimpiar[$("#language").data("kendoDropDownList").value()], click: limpiarRenglon }, filterable: false, title: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()], width: "60px" }
         ]
     });
 
@@ -904,7 +904,7 @@ function changeLanguageCall() {
     asignarProyecto();
     SuscribirEventos();
 
-    //AjaxCargarCamposPredeterminados();
+    AjaxCargarCamposPredeterminados();
     CargarGridSoldadura();
 
     opcionHabilitarView(false, "FieldSetView");

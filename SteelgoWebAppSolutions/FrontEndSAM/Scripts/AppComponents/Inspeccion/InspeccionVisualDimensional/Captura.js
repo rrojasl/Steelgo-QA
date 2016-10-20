@@ -15,11 +15,11 @@ function changeLanguageCall() {
 
     CargarGrid();
     limpiar();
-    $('#Guardar1').text(_dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]);
-    $("#Guardar").text(_dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]);
+    $('#Guardar1').text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);
+    $("#Guardar").text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);
     //document.title = _dictionary.InpeccionVisualEnlaceInspeccion[$("#language").data("kendoDropDownList").value()];
     opcionHabilitarView(false, "FieldSetView");
-    //IniciarPreCargas();
+    IniciarPreCargas();
 };
 function IniciarCapturaInspecion() {
 
@@ -29,11 +29,11 @@ function IniciarCapturaInspecion() {
 };
 
 function IniciarPreCargas() {
-    AjaxObtenerListaDefectosDimensionales();
-    AjaxObtenerListaDefectosVisuales();
-    AjaxObtenerListaInspector();
-    AjaxObtenerListaInspectorVisual();
-    AjaxCargaCamposPredeterminados();
+    ajaxObtenerListaDefectosDimensionales();
+    ajaxObtenerListaDefectosVisuales();
+    ajaxObtenerListaInspector();
+    ajaxObtenerListaInspectorVisual();
+    ajaxCargaCamposPredeterminados();
 
 }
 
@@ -60,8 +60,8 @@ function DatoDefaultNumeroUnico2() {
 }
 
 function MostrarDetalleVisualDimensional() {
-    AjaxobtenerDetalleDimensional($("#InputID").val());
-    AjaxObtenerListaTaller();
+    ajaxobtenerDetalleDimensional($("#InputID").val());
+    ajaxObtenerListaTaller();
 }
 
 function CargarGrid() {
@@ -156,7 +156,7 @@ function CargarGrid() {
         editable: true,
         autoHeight: true,
         sortable: true,
-        scrollable: true,
+        scrollable: false,
         selectable: true,
         pageable: {
             refresh: false,
@@ -165,7 +165,6 @@ function CargarGrid() {
             input: false,
             numeric: true,
         },
-        filterable: getGridFilterableMaftec(),
         columns: [
             { field: "Junta", title: _dictionary.columnJunta[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "55px" },
             { field: "DetalleJunta", title: _dictionary.columnDetalleJunta[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "55px" },
@@ -178,9 +177,10 @@ function CargarGrid() {
             { field: "NumeroUnico1", title: _dictionary.columnNumeroUnico1[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxNumeroUnico1, width: "55px" },
             { field: "NumeroUnico2", title: _dictionary.columnNumeroUnico2[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxNumeroUnico2, width: "55px" },
 
-            { command: { text: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], click: cancelarCaptura }, title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], width: "30px" },
-            { command: { text: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()], click: limpiarCaptura }, title: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()], width: "30px" }
+            { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: cancelarCaptura }, title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], width: "30px" },
+            { command: { text: _dictionary.botonLimpiar[$("#language").data("kendoDropDownList").value()], click: limpiarCaptura }, title: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()], width: "30px" }
         ],
+        filterable: getGridFilterableMaftec(),
         beforeEdit: function (e) {
             var columnIndex = this.cellIndex(e.container);
             var fieldName = this.thead.find("th").eq(columnIndex).data("field");

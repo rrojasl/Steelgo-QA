@@ -66,6 +66,8 @@ var $UrlMaterialSpool = $BackEndSAMUri + '/backendsam/api/MaterialSpool?';
 var $CatalogoEspesor = $BackEndSAMUri + '/backendsam/api/Espesor?';
 var $MTR = $BackEndSAMUri + '/backendsam/api/MTR?';
 var $PQR = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $WPS = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $SoldadorCertificacion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 //Base API's
 var $BackEndSAM = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 //var $FileManager = new $.RestClient($FilesSAMUri + '/filemanager/api/');
@@ -177,6 +179,7 @@ var $Armado = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Defectos = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Obrero = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $InspeccionDimensional = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $InspeccionVisualDimensional = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $CapturasRapidas = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Soldadura = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 
@@ -199,6 +202,20 @@ var $CapturaAvance = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $SistemaPinturaAplicable = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $ListadoSistemaPintura = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 
+
+//#region Declaracion
+//#region Catalogos
+var $TrabajoAdicional = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $TipoTrabajoAdicional = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $TipoObrero = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Obrero = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $ObreroUbicacion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Defectos = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $ListadoCamposPredeterminados = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Taller = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Pruebas = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+//#endregion
+
 /****************************/
 /*    Document Ready        */
 /****************************/
@@ -219,6 +236,7 @@ $SecurityManager.add('authentication');
 $Defectos.add("Defectos");
 $Obrero.add("Obrero");
 $InspeccionDimensional.add("InspeccionDimensional");
+$InspeccionVisualDimensional.add("VisualDimensional");
 $CapturasRapidas.add("CapturasRapidas");
 
 //Detalle Aviso Llegada
@@ -349,3 +367,10 @@ $ListadoSistemaPintura.add("ListadoSistemaPintura");
 
 
 $PQR.add("PQR");
+$WPS.add("WPS");
+$SoldadorCertificacion.add("SoldadorCertificacion");
+
+//Catalogos
+$Taller.add("Taller");
+
+//#endregion

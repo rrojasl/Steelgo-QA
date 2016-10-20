@@ -95,7 +95,7 @@ function displayError(message, messageComplement, type) {
 }
 
 function displayNotify(message, extraMessage, type) {
-    var messageNotify;
+    var messageNotify="";
 
     if (message.length > 0) {
         messageNotify = _dictionary[message][$("#language").data("kendoDropDownList").value()];
