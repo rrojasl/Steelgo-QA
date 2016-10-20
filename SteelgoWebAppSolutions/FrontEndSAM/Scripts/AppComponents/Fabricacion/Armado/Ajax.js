@@ -10,7 +10,7 @@
     });
 }
 
-function AjaxJuntaModoSpool(spoolID, ejecusionTotal) {
+function ajaxJuntaModoSpool(spoolID, ejecusionTotal) {
     loadingStart();
     $('input:radio[name=Muestra]:checked').val();
     $Armado.Armado.read({ ordenTrabajo: $("#InputOrdenTrabajo").val(), id: spoolID, sinCaptura: $('input:radio[name=Muestra]:checked').val(), token: Cookies.get("token") }).done(function (data) {

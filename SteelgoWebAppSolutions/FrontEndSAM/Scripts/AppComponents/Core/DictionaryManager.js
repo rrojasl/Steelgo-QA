@@ -8856,6 +8856,10 @@ _dictionary = {
         "es-MX": "El spool esta aprobado, no puedes especificar juntas",
         "en-US": "The spool is aproved, can´t  especify joint"
     },
+    "NoExistenJuntasSel": {
+        "es-MX": "No hay juntas seleccionadas",
+        "en-US": "No joints are selected"
+    },
     //#endregion
 
     //Finaliza Inspeccion

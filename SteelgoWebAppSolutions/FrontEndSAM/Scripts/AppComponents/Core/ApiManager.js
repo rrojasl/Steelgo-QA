@@ -177,6 +177,7 @@ var $Armado = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Defectos = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Obrero = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $InspeccionDimensional = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $InspeccionVisualDimensional = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $CapturasRapidas = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Soldadura = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 
@@ -219,7 +220,10 @@ $SecurityManager.add('authentication');
 $Defectos.add("Defectos");
 $Obrero.add("Obrero");
 $InspeccionDimensional.add("InspeccionDimensional");
+$InspeccionVisualDimensional.add("VisualDimensional");
 $CapturasRapidas.add("CapturasRapidas");
+$WPS.add("WPS");
+$SoldadorCertficacion.add("SoldadorCertificacion");
 
 //Detalle Aviso Llegada
 $Plana.add("Plana");
@@ -349,3 +353,5 @@ $ListadoSistemaPintura.add("ListadoSistemaPintura");
 
 
 $PQR.add("PQR");
+$WPS.add("WPS");
+$SoldadorCertificacion.add("SoldadorCertificacion");
