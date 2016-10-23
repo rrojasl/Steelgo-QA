@@ -8587,7 +8587,7 @@ _dictionary = {
         "en-US": " already add in the spool"
     },
     "CapturaArmadoTrabajoMandatorio": {
-        "es-MX": "El campo de trabajo, es mandatorio",
+        "es-MX": "El campo adicionales, es mandatorio",
         "en-US": "The work field is mandatory"
     },
     "CapturaArmadoNoExisteSpool": {
@@ -8654,6 +8654,14 @@ _dictionary = {
     "DimensionalSpool": {
         "es-MX": "Se agrego el spool ",
         "en-US": "He added the spool "
+    },
+    "CapturaMensajeArmadoPlancharTodos": {
+        "es-MX": "¿Esta seguro de reemplazar todos los datos?",
+        "en-US": "Are you sure to replace all data"
+    },
+    "CapturaArmadoTemplateNoHayTrabajosAdicionales": {
+        "es-MX": "No hay trabajos adicionales",
+        "en-US": "No additional work"
     },
     //Finaliza Armado
 

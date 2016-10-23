@@ -48,7 +48,7 @@ function SuscribirEventoPlanchar() {
                 MensajesSteelGO('LLenadoMasivo', '');
             }
             else if ($('input:radio[name=LLena]:checked').val() === "Todos") {
-                windowTemplate = kendo.template($("#windowTemplate").html());
+                //windowTemplate = kendo.template($("#windowTemplate").html());
 
                 ventanaConfirm = $("#ventanaConfirm").kendoWindow({
                     iframe: true,

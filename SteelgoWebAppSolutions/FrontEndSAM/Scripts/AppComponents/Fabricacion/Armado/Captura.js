@@ -245,7 +245,7 @@ function limpiarRenglon(e) {
         if (itemToClean.Accion == 2)
             itemToClean.Accion = 4;
         itemToClean.ListaDetalleTrabajoAdicional = [];
-        //itemToClean.TemplateMensajeTrabajosAdicionales = _dictionary.CapturaArmadoTemplateNoHayTrabajosAdicionales[$("#language").data("kendoDropDownList").value()];
+        itemToClean.TemplateMensajeTrabajosAdicionales = _dictionary.CapturaArmadoTemplateNoHayTrabajosAdicionales[$("#language").data("kendoDropDownList").value()];
         var dataSource = $("#grid").data("kendoGrid").dataSource;
         dataSource.sync();
     }
@@ -312,12 +312,12 @@ function CargarGridPopUp() {
 
         },
         columns: [
-          { field: "TrabajoAdicional", title: _dictionary.columnAdicionales[$("#language").data("kendoDropDownList").value()], editor: RenderComboBoxTrabajoAdicional, filterable: getGridFilterableCellMaftecpopUp(), width: "100px" },
-          { field: "Observacion", title: _dictionary.columnObservacion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftecpopUp(), width: "100px" },
+          { field: "TrabajoAdicional", title: _dictionary.columnAdicionales[$("#language").data("kendoDropDownList").value()], editor: RenderComboBoxTrabajoAdicional, filterable: getGridFilterableCellMaftecpopUp(), width: "150px" },
+          { field: "Observacion", title: _dictionary.columnObservacion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftecpopUp(), width: "240px" },
           {
               command: {
                   name: "",
-                  title: "",
+                  title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()],
                   text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()],
                   click: function (e) {
                       e.preventDefault();
@@ -394,7 +394,7 @@ function CargarGridPopUp() {
                       dataSource.sync();
 
                   }
-              }, width: "50px"//, title: _dictionary.tituloLimpiar[$("#language").data("kendoDropDownList").value()]
+              }, width: "50px", title:_dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()]
           }
         ], saveChanges: function (e) {
             if (!confirm("Are you sure you want to save all changes?")) {
@@ -431,11 +431,11 @@ function VentanaModal() {
         title: modalTitle,
         resizable: false,
         visible: true,
-        width: "50%",
+        width: "40%",
         minWidth: 30,
         position: {
-            top: "1%",
-            left: "1%"
+            top: "10%",
+            left: "10%"
         },
         actions: [
             "Close"
