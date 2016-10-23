@@ -25,7 +25,7 @@ namespace BackEndSAM.Models.Inspeccion.VisualDimensional
         public string Junta { get; set; }
         public string TipoJunta { get; set; }
         public string TipoJuntaID { get; set; }
-        public string Diametro { get; set; }
+        public decimal Diametro { get; set; }
         public string Resultado { get; set; }
         public string ResultadoID { get; set; }
         public string TallerID { get; set; }

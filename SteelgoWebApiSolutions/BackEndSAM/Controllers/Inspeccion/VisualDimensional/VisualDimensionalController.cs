@@ -63,7 +63,7 @@ namespace BackEndSAM.Controllers.Inspeccion.VisualDimensional
                         Junta = item.Etiqueta,
                         TipoJunta = item.TipoJunta,
                         TipoJuntaID = item.TipoJuntaID.ToString(),
-                        Diametro = item.Diametro.ToString(),
+                        Diametro = item.Diametro,
                         FechaInspeccion = item.FechaInspeccion,
                         Defectos = (item.Defecto == null ? "" : item.Defecto.ToString()),
                         DefectosID = (item.DefectoID == null ? "0" : item.DefectoID.ToString()),

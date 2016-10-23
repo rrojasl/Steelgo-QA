@@ -4,6 +4,7 @@ var listadoJsonCaptura;
 var anteriorlongitudTrabajosAdicionales;
 var actuallongitudTrabajosAdicionales;
 IniciarCapturaInspecion();
+
 //Cambia lenguaje
 function changeLanguageCall() {
     endRangeDate.data("kendoDatePicker").setOptions({
@@ -19,6 +20,7 @@ function changeLanguageCall() {
     $("#Guardar").text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);
     //document.title = _dictionary.InpeccionVisualEnlaceInspeccion[$("#language").data("kendoDropDownList").value()];
     opcionHabilitarView(false, "FieldSetView");
+
     IniciarPreCargas();
 };
 function IniciarCapturaInspecion() {
@@ -29,6 +31,7 @@ function IniciarCapturaInspecion() {
 };
 
 function IniciarPreCargas() {
+
     ajaxObtenerListaDefectosDimensionales();
     ajaxObtenerListaDefectosVisuales();
     ajaxObtenerListaInspector();
@@ -118,7 +121,7 @@ function CargarGrid() {
                         Junta: { type: "string", editable: false },
                         TipoJunta: { type: "string", editable: false },
                         TipoJuntaID: { type: "string", editable: false },
-                        Diametro: { type: "string", editable: false },
+                        Diametro: { type: "number", editable: false },
                         Resultado: { type: "string", editable: true },
                         ResultadoID: { type: "string", editable: true },
                         TallerID: { type: "string", editable: true },
@@ -176,7 +179,6 @@ function CargarGrid() {
             { field: "FechaInspeccion", title: _dictionary.columnFecha[$("#language").data("kendoDropDownList").value()], type: "date", filterable: getKendoGridFilterableDateMaftec(), format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()], width: "55px" },
             { field: "NumeroUnico1", title: _dictionary.columnNumeroUnico1[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxNumeroUnico1, width: "55px" },
             { field: "NumeroUnico2", title: _dictionary.columnNumeroUnico2[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxNumeroUnico2, width: "55px" },
-
             { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: cancelarCaptura }, title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], width: "30px" },
             { command: { text: _dictionary.botonLimpiar[$("#language").data("kendoDropDownList").value()], click: limpiarCaptura }, title: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()], width: "30px" }
         ],
