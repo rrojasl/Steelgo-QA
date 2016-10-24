@@ -114,7 +114,6 @@ function ajaxObtenerSpoolID() {
             $("#InputID").data("kendoComboBox").dataSource.data(data.idStatus)
             Cookies.set("LetraProyecto", data.OrdenTrabajo.substring(0, 1), { path: '/' });
             loadingStop();
-
         });
     } catch (e) {
         displayNotify("", e.message, '2');
@@ -157,9 +156,9 @@ function ajaxobtenerDetalleDimensional(spoolID) {
                 $("#ListaJuntas").data("kendoMultiSelect").value(valores);
             }
 
-            if ($("#ListaJuntas").data("kendoMultiSelect").value().length > 0) {
-                ajaxObtenerJSonGrid();
-            }
+            //if ($("#ListaJuntas").data("kendoMultiSelect").value().length > 0) {
+            //    ajaxObtenerJSonGrid();
+            //}
         }
     });
 }
@@ -168,6 +167,7 @@ function ajaxObtenerJSonGrid() {
     loadingStart();
     try {
         $InspeccionVisualDimensional.VisualDimensional.read({ JsonCaptura: JSON.stringify(ArregloListadoCaptura()), token: Cookies.get("token"), Lenguaje: $("#language").val(), juntasSeleccionadas: $("#ListaJuntas").data("kendoMultiSelect").value().toString() }).done(function (data) {
+            var desplegado = false;
             var ds = $("#grid").data("kendoGrid").dataSource;
             var array = JSON.parse(data);
 
@@ -188,8 +188,13 @@ function ajaxObtenerJSonGrid() {
                     ds.add(array[i]);
                 }
             }
-            if (array.length > 0 && !($('#Guardar').text() == "Editar" || $('#Guardar').text() == "Edit"))
-                displayNotify("", _dictionary.DimensionalVisualMensajeJuntasAgregadas[$("#language").data("kendoDropDownList").value()] + jointsAdded, '0');
+            if (array.length > 0 && !($('#Guardar').text() == "Editar" || $('#Guardar').text() == "Edit")) {
+                if (!desplegado) {
+                    desplegado = true;
+                    displayNotify("", _dictionary.DimensionalVisualMensajeJuntasAgregadas[$("#language").data("kendoDropDownList").value()] + jointsAdded, '0');
+                }
+            }
+
             deshabilitaSpool();
             loadingStop();
         });
