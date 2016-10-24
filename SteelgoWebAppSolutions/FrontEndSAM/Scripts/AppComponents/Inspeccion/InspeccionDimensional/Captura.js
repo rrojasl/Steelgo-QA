@@ -250,7 +250,7 @@ function cancelarCaptura(e) {
     var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
     if ($("#language").val() == "es-MX") {
         if ($('#Guardar').text().trim() != "Editar") {
-            windowTemplate = kendo.template($("#windowTemplate").html());
+            //windowTemplate = kendo.template($("#windowTemplate").html());
 
             ventanaConfirm = $("#ventanaConfirm").kendoWindow({
                 iframe: true,
@@ -293,7 +293,6 @@ function cancelarCaptura(e) {
     }
     else {
         if ($('#Guardar').text().trim() != "Edit") {
-            windowTemplate = kendo.template($("#windowTemplate").html());
 
             ventanaConfirm = $("#ventanaConfirm").kendoWindow({
                 iframe: true,
@@ -319,8 +318,9 @@ function cancelarCaptura(e) {
                 if (dataItem.Accion == 1)
                     dataSource.remove(dataItem);
                 else
-                    dataItem.Accion == 2;
-                dataSource.remove(dataItem);
+                    dataItem.Accion == 3;
+                //dataSource.remove(dataItem);
+
                 $("#grid").data("kendoGrid").dataSource.sync();
 
                 ventanaConfirm.close();

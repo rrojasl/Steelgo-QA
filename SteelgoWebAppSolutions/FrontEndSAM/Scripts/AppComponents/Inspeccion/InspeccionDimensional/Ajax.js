@@ -125,13 +125,13 @@ function AjaxObtenerJSonGrid() {
                                     array[i].FechaInspeccion = new Date(ObtenerDato(array[i].FechaInspeccion, 1), ObtenerDato(array[i].FechaInspeccion, 2), ObtenerDato(array[i].FechaInspeccion, 3));//año, mes, dia
                                 }
                                 ds.insert(0, array[i]);
-                                MensajesSteelGO("", array[i].OrdenTrabajoSpool)
+                                //displayNotify('', array[i].OrdenTrabajoSpool, '0')
                                 //como trae solo un registro se sincroniza se explica en el punto del comentario 1
                                 $("#grid").data("kendoGrid").dataSource.sync();
                                 $("#InputID").data("kendoComboBox").value("");
                             }
                             else {
-                                MensajesSteelGO("SpoolIDExistente", '');
+                                displayNotify("SpoolIDExistente", '', '1');
                             }
                         }
                     }
@@ -142,7 +142,7 @@ function AjaxObtenerJSonGrid() {
                 }
                 else {
                     //mensaje que no existe el spool.
-                    MensajesSteelGO("ResultAjaxEmpty", '');
+                    displayNotify("CapturaInspeccionDimensionalResultAjaxEmpty", '', '2');
                 }
             }
             loadingStop();
@@ -493,7 +493,8 @@ function AjaxGetSpoolGrid() {
                                     array[i].FechaInspeccion = new Date(ObtenerDato(array[i].FechaInspeccion, 1), ObtenerDato(array[i].FechaInspeccion, 2), ObtenerDato(array[i].FechaInspeccion, 3));//año, mes, dia
                                 }
                                 ds.add(array[i]);
-                                MensajesSteelGO("", array[i].OrdenTrabajoSpool)
+                                //displayNotify('', array[i].OrdenTrabajoSpool, '0');
+
                                 //como trae solo un registro se sincroniza se explica en el punto del comentario 1
                                 $("#grid").data("kendoGrid").dataSource.sync();
                                 $("#InputID").data("kendoComboBox").value("");
@@ -505,7 +506,7 @@ function AjaxGetSpoolGrid() {
                     }
                     else {
                         //mensaje que no existe el spool.
-                        MensajesSteelGO("ResultAjaxEmpty", '');
+                        displayNotify("CapturaInspeccionDimensionalResultAjaxEmpty", '', '2');
                     }
                 }
                 loadingStop();
