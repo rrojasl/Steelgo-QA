@@ -415,40 +415,50 @@ function cancelarCaptura(e) {
         if ($('#Guardar').text().trim() != "Editar") {
             var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
             var spoolIDRegistro = dataItem.SpoolID;
-            windowTemplate = kendo.template($("#windowTemplate").html());
-
-            ventanaConfirm = $("#ventanaConfirm").kendoWindow({
-                iframe: true,
-                title: _dictionary.CapturaAvanceTitulo[$("#language").data("kendoDropDownList").value()],
-                visible: false, //the window will not appear before its .open method is called
-                width: "auto",
-                height: "auto",
+            var modalTitle = "";
+            modalTitle = _dictionary.CapturaAvanceTitulo[$("#language").data("kendoDropDownList").value()];
+            var ventanaConfirm = $("#ventanaConfirm");
+            var window = ventanaConfirm.kendoWindow({
                 modal: true,
-                animation: {
-                    close: false,
-                    open: false
+                title: modalTitle,
+                resizable: false,
+                visible: true,
+                width: "50%",
+                minWidth: 30,
+                position: {
+                    top: "1%",
+                    left: "1%"
                 }
             }).data("kendoWindow");
 
-            ventanaConfirm.content(_dictionary.CapturaInspeccionPreguntaBorradoCaptura[$("#language").data("kendoDropDownList").value()] +
-                         "</br><center><button class='confirm_yes btn btn-blue' id='yesButton'>Si</button><button class='confirm_yes btn btn-blue' id='noButton'> No</button></center>");
+            window.content('<div id="ventanaConfirm" z-index: inherit">' +
+                                '<div class="col-sm-11 col-md-11 col-lg-11">' +
+                                    '<div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">' +
+                                        '<center><label id=""><span>' + _dictionary.mensajeEliminarInspeccionVisualDimensional[$("#language").data("kendoDropDownList").value()] + '</span></label></center>' +
+                                    '</div>' +
+                                    '<div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">' +
+                                        '<center><button class="btn btn-blue" id="YesButton"> Si</button>&nbsp;<button class="btn btn-blue" id="NoButton"> No</button></center>' +
+                                    '</div>' +
+                                '</div>' +
+                            '</div>');
 
-            ventanaConfirm.open().center();
+            ventanaConfirm.data("kendoWindow").title(modalTitle);
 
-            $("#yesButton").click(function (handler) {
+            ventanaConfirm.data("kendoWindow").center().open();
+
+            $("#YesButton").click(function (handler) {
                 var dataSource = $("#grid").data("kendoGrid").dataSource;
                 if (dataItem.Accion == 2 || dataItem.Accion == 4)
                     dataItem.Accion = 3;
                 if (dataItem.InspeccionVisualID == 0)
                     dataSource.remove(dataItem);
                 $("#grid").data("kendoGrid").dataSource.sync();
-                ventanaConfirm.close();
-            });
-            $("#noButton").click(function (handler) {
-                ventanaConfirm.close();
+                window.close();
             });
 
-
+            $("#NoButton").click(function (handler) {
+                window.close();
+            });
         }
     }
     else {
