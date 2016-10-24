@@ -179,9 +179,6 @@ function RenderComboBoxInspector(container, options) {
     });
 };
 
-
-
-
 function tieneClase(item) {
     for (var i = 0; i < item.classList.length; i++) {
         if (item.classList[i] == "k-state-border-up" || item.classList[i] == "k-state-border-down") {

@@ -385,11 +385,9 @@ function AjaxGuardar(jSonCaptura, tipoGuardado) {
     }
     else {
         loadingStop();
-        windowTemplate = kendo.template($("#windowTemplate").html());
-
         ventanaConfirm = $("#ventanaConfirm").kendoWindow({
             iframe: true,
-            title: _dictionary.CapturaAvanceIntAcabadoMensajeErrorGuardado[$("#language").data("kendoDropDownList").value()],
+            title: _dictionary.TituloPopUpError[$("#language").data("kendoDropDownList").value()],
             visible: false, //the window will not appear before its .open method is called
             width: "auto",
             height: "auto",
@@ -400,7 +398,7 @@ function AjaxGuardar(jSonCaptura, tipoGuardado) {
             }
         }).data("kendoWindow");
 
-        ventanaConfirm.content(_dictionary.CapturaAvanceIntAcabadoMensajePreguntaGuardado[$("#language").data("kendoDropDownList").value()] +
+        ventanaConfirm.content(_dictionary.CapturaGuardarInformacionConNumerosUnicos[$("#language").data("kendoDropDownList").value()] +
             "</br><center><button class='btn btn-blue' id='yesButton'>Si</button><button class='btn btn-blue' id='noButton'> No</button></center>");
 
         ventanaConfirm.open().center();

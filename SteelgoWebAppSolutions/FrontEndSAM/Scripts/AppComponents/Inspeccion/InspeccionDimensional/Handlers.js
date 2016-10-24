@@ -48,8 +48,7 @@ function SuscribirEventoAgregarCapturaRapida() {
         else if ($('input:radio[name=ResultadoDimensional]:checked').val() == undefined) {
             MensajesSteelGO('ResultadoDimensional', '');
         }
-        else if ($('input:radio[name=LLena]:checked').val() === "Todos") {
-            windowTemplate = kendo.template($("#windowTemplate").html());
+        else if ($('input:radio[name=LLena]:checked').val() === "Todos") {            
             ventanaConfirm = $("#ventanaConfirm").kendoWindow({
                 iframe: true,
                 title: _dictionary.CapturaAvanceTitulo[$("#language").data("kendoDropDownList").value()],
@@ -126,10 +125,10 @@ function SuscribirEventoSpoolID() {
             try {
                 AjaxObtenerSpoolID();
             } catch (e) {
-                MensajesSteelGO('Mensajes_error', e.message);
+                displayNotify('Mensajes_error', e.message, '2');
             }
         } else {
-            MensajesSteelGO('InputOrdenTrabajo', '');
+            displayNotify("DimensionalVisualMensajeOrdenTrabajo", "", '1');
         }
     });
 
