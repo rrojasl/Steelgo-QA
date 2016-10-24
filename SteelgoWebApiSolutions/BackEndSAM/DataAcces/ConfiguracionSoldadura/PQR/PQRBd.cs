@@ -156,6 +156,17 @@ namespace BackEndSAM.DataAcces.ConfiguracionSoldadura
                             });
                     }
 
+                    if (listaPQRJson.Count == 0)
+                    {
+                        listaPQR.Add(
+                            new PQR
+                            {
+                                ListaProcesosSoldadura = (List<ListaProcesoSoldadura>)obtenerListadoProcesos(1),
+                                ListaMaterialesBase = (List<ListaMaterialesBase>)obtenerListadoMaterialesBase(1),
+                                ListaCodigos = (List<ListaCodigos>)obtenerListadoCodigos(proyecto, pruebaID, null, null)
+                            });
+                    }
+
                     return listaPQR.OrderBy(x => x.Nombre).ToList<PQR>();
                 }
             }

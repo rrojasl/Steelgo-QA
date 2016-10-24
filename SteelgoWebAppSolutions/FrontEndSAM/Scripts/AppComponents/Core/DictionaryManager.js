@@ -7285,8 +7285,8 @@ _dictionary = {
         "en-US": "Workshop"
     },
     "lblFabricacion": {
-        "es-MX": "Fabricación",
-        "en-US": "Manufacturing"
+        "es-MX": "Produccción",
+        "en-US": "Production"
     },
     "lblResultadoDimensional": {
         "es-MX": "Resultado dimensional",
@@ -7730,8 +7730,8 @@ _dictionary = {
 
     // Menú lateral
     "menuFabricacion": {
-        "es-MX": "Fabricación",
-        "en-US": "Manufacturing"
+        "es-MX": "Produccción",
+        "en-US": "Production"
     },
     "menuArmado": {
         "es-MX": "Armado",

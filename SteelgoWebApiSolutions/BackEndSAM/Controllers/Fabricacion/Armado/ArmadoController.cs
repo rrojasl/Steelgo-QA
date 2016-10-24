@@ -326,7 +326,7 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return ArmadoBD.Instance.ObtenerTuberoXProyecto(usuario, idProyecto, tipo);
+                return ObtenerListaTubero((List<Sam3_Steelgo_Get_Obrero_Result>)ArmadoBD.Instance.ObtenerTuberoXProyecto(usuario, idProyecto, tipo));
             }
             else
             {

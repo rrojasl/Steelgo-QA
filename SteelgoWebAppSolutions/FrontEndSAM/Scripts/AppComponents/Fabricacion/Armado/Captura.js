@@ -27,7 +27,7 @@ function AltaFecha() {
 
     endRangeDate.on("keydown", function (e) {
         if (e.keyCode == 13) {
-            //PlanchaFecha();
+            ValidarFecha($("#FechaArmado").val());
         }
         //return false;
         if (e.keyCode == 9) {
