@@ -20,6 +20,7 @@ function asignarProyecto() {
 function AltaFecha() {
     endRangeDate = $("#FechaArmado").kendoDatePicker({
         max: new Date(),
+        //format: _dictionary.FormatoFecha2[$("#language").data("kendoDropDownList").value()],
         change: function (e) {
             ValidarFecha(e.sender._value)
         }
@@ -324,11 +325,11 @@ function CargarGridPopUp() {
                       var dataSource = this.dataSource;
                       var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
 
-                      windowTemplate = kendo.template($("#windowTemplate").html());
+                      //windowTemplate = kendo.template($("#windowTemplate").html());
 
                       ventanaConfirm = $("#ventanaConfirm").kendoWindow({
                           iframe: true,
-                          //title: _dictionary.CapturaAvanceTitulo[$("#language").data("kendoDropDownList").value()],
+                          title: _dictionary.CapturaAvanceTitulo[$("#language").data("kendoDropDownList").value()],
                           visible: false, //the window will not appear before its .open method is called
                           width: "auto",
                           height: "auto",
@@ -339,8 +340,8 @@ function CargarGridPopUp() {
                           }
                       }).data("kendoWindow");
 
-                      //ventanaConfirm.content(_dictionary.CapturaArmadoPreguntaBorradoCaptura[$("#language").data("kendoDropDownList").value()] +
-                      //             "</br><center><button class='confirm_yes btn btn-blue' id='yesButton'>Si</button><button class='confirm_yes btn btn-blue' id='noButton'> No</button></center>");
+                      ventanaConfirm.content(_dictionary.CapturaArmadoPreguntaBorradoCaptura[$("#language").data("kendoDropDownList").value()] +
+                                  "</br><center><button class='confirm_yes btn btn-blue' id='yesButton'>Si</button><button class='confirm_yes btn btn-blue' id='noButton'> No</button></center>");
 
                       ventanaConfirm.open().center();
 
@@ -394,7 +395,7 @@ function CargarGridPopUp() {
                       dataSource.sync();
 
                   }
-              }, width: "50px", title:_dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()]
+              }, width: "50px", title: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()]
           }
         ], saveChanges: function (e) {
             if (!confirm("Are you sure you want to save all changes?")) {

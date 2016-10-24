@@ -8663,6 +8663,10 @@ _dictionary = {
         "es-MX": "No hay trabajos adicionales",
         "en-US": "No additional work"
     },
+    "CapturaArmadoPreguntaBorradoCaptura": {
+        "es-MX": "¿Está seguro de eliminar el detalle de la captura de armado?",
+        "en-US": "Are you sure you want to delete the detail of the capture of armed ?"
+    },
     //Finaliza Armado
 
     //Inspeccion
