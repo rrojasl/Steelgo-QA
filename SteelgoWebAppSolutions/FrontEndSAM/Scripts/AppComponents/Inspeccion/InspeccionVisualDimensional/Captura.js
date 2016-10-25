@@ -68,31 +68,31 @@ function MostrarDetalleVisualDimensional() {
 }
 
 function CargarGrid() {
-    kendo.ui.Grid.fn.editCell = (function (editCell) {
-        return function (cell) {
-            cell = $(cell);
+    //kendo.ui.Grid.fn.editCell = (function (editCell) {
+    //    return function (cell) {
+    //        cell = $(cell);
 
-            var that = this,
-                column = that.columns[that.cellIndex(cell)],
-                model = that._modelForContainer(cell),
-                event = {
-                    container: cell,
-                    model: model,
-                    preventDefault: function () {
-                        this.isDefaultPrevented = true;
-                    }
-                };
+    //        var that = this,
+    //            column = that.columns[that.cellIndex(cell)],
+    //            model = that._modelForContainer(cell),
+    //            event = {
+    //                container: cell,
+    //                model: model,
+    //                preventDefault: function () {
+    //                    this.isDefaultPrevented = true;
+    //                }
+    //            };
 
-            if (model && typeof this.options.beforeEdit === "function") {
-                this.options.beforeEdit.call(this, event);
+    //        if (model && typeof this.options.beforeEdit === "function") {
+    //            this.options.beforeEdit.call(this, event);
 
-                // don't edit if prevented in beforeEdit
-                if (event.isDefaultPrevented) return;
-            }
+    //            // don't edit if prevented in beforeEdit
+    //            if (event.isDefaultPrevented) return;
+    //        }
 
-            editCell.call(this, cell);
-        };
-    })(kendo.ui.Grid.fn.editCell);
+    //        editCell.call(this, cell);
+    //    };
+    //})(kendo.ui.Grid.fn.editCell);
 
     $("#grid").kendoGrid({
         autoBind: true,
@@ -106,8 +106,6 @@ function CargarGrid() {
             var dataItem = this.dataSource.view()[this.select().index()];
         },
         dataSource: {
-
-            data: '',
             schema: {
                 model: {
                     fields: {
@@ -159,7 +157,7 @@ function CargarGrid() {
         editable: true,
         autoHeight: true,
         sortable: true,
-        scrollable: false,
+        scrollable: true,
         selectable: true,
         pageable: {
             refresh: false,
@@ -168,6 +166,7 @@ function CargarGrid() {
             input: false,
             numeric: true,
         },
+        filterable: getGridFilterableMaftec(),
         columns: [
             { field: "Junta", title: _dictionary.columnJunta[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "55px" },
             { field: "DetalleJunta", title: _dictionary.columnDetalleJunta[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "55px" },
@@ -182,20 +181,19 @@ function CargarGrid() {
             { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: cancelarCaptura }, title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], width: "30px" },
             { command: { text: _dictionary.botonLimpiar[$("#language").data("kendoDropDownList").value()], click: limpiarCaptura }, title: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()], width: "30px" }
         ],
-        filterable: getGridFilterableMaftec(),
-        beforeEdit: function (e) {
-            var columnIndex = this.cellIndex(e.container);
-            var fieldName = this.thead.find("th").eq(columnIndex).data("field");
+    //    beforeEdit: function (e) {
+    //        var columnIndex = this.cellIndex(e.container);
+    //        var fieldName = this.thead.find("th").eq(columnIndex).data("field");
 
-            if (!isEditable(fieldName, e.model)) {
-                e.preventDefault();
-            }
-        },
-        dataBound: function (e) {
-            $(".k-grid input.k-textbox").prop('readonly', true);
-            $(".k-grid td .k-button").text('');
-            $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
-        }
+    //        if (!isEditable(fieldName, e.model)) {
+    //            e.preventDefault();
+    //        }
+    //    },
+    //    dataBound: function (e) {
+    //        $(".k-grid input.k-textbox").prop('readonly', true);
+    //        $(".k-grid td .k-button").text('');
+    //        $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
+    //    }
     });
     CustomisaGrid($("#grid"));
 };
