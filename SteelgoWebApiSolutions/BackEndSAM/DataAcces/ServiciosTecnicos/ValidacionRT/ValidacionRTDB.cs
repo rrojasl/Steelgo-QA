@@ -398,7 +398,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ValidacionRT
                             ListaResultados = listaResultados,
                             ListaDefectos = listaDefectos,
                             TemplateDetalleElemento = lenguaje == "es-MX" ? "Ver detalle" : " View detail ",
-                            EstatusRequisicion = item.Estatus,
+                            EstatusRequisicion = item.Estatus.GetValueOrDefault(),
                             RequisicionID = item.RequisicionID,
                             Comentarios = item.Comentarios,
                             ReporteRTID = item.ReporteRTID
