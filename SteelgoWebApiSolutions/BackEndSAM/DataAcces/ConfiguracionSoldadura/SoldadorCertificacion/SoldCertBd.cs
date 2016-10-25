@@ -86,7 +86,7 @@ namespace BackEndSAM.DataAcces.ConfiguracionSoldadura.SoldCertBd
                                                         ListaTipoPrueba = listaTipoPrueba,
                                                         Posicion = Convert.ToInt32(SC.Posicion),
                                                         listadoPQR = (List<DetallePQR>)PQRBd.ObtenerListadoPQRActivos(),
-                                                        listaObreros = (List<Obrero>)ObtenerListaSoldadores(proyectoID, usuario.UsuarioID, patioID)
+                                                        listaObreros = (List<Obrero>)ObtenerListaSoldadores(usuario.UsuarioID)
                                                     }).AsParallel().ToList().OrderBy(x => x.NombreWPS).ToList<SoldadorCertificacion>();
                 return data;
 
@@ -94,30 +94,26 @@ namespace BackEndSAM.DataAcces.ConfiguracionSoldadura.SoldCertBd
             }
 
         }
-        public object ObtenerListaSoldadores(int proyectoID, int usuarioID, int patioID)
+        public object ObtenerListaSoldadores(int usuarioID)
         {
             using (SamContext ctx = new SamContext())
             {
 
-                List<Obrero> listaObreros = (from item in ctx.Sam3_Steelgo_Get_Obrero(4, "Soldador", proyectoID, usuarioID, patioID)
-                                             select new Obrero
+                List<ObreroSteelGo> listaObreros = (from item in ctx.Sam3_Inspeccion_Get_Obrero(usuarioID)
+                                             select new ObreroSteelGo
                                              {
-                                                 Activo = true,
                                                  Codigo = item.Codigo,
                                                  ObreroID = item.ObreroID,
-                                                 TipoObrero = item.TipoObrero
-                                             }).AsParallel().ToList().OrderBy(x => x.Codigo).ToList<Obrero>();
-                listaObreros.Insert(0, new Obrero());
+                                                 TipoObrero = item.TipoObrero,
+                                                 NombreCompleto = item.NombreCompleto
+                                             }).AsParallel().ToList().OrderBy(x => x.Codigo).ToList<ObreroSteelGo>();
+                listaObreros.Insert(0, new ObreroSteelGo());
                 return listaObreros;
             }
 
         }
-        public object ObtenerNuevoSoldadorCertificacion(int proyectoID, int usuarioID, int patioID)
+        public object ObtenerNuevoSoldadorCertificacion(int usuarioID, int patioID)
         {
-
-
-
-
             using (SamContext ctx = new SamContext())
             {
 
@@ -143,15 +139,15 @@ namespace BackEndSAM.DataAcces.ConfiguracionSoldadura.SoldCertBd
                                                     }).AsParallel().ToList().OrderBy(x => x.TipoDePrueba).ToList<TipoPrueba>();
                 listaTipoPrueba.Insert(0, new TipoPrueba());
 
-                List<Obrero> listaObreros = (from item in ctx.Sam3_Steelgo_Get_Obrero(4, "Soldador", proyectoID, usuarioID, patioID)
-                                             select new Obrero
+                List<ObreroSteelGo> listaObreros = (from item in ctx.Sam3_Inspeccion_Get_Obrero(usuarioID)
+                                             select new ObreroSteelGo
                                              {
-                                                 Activo = true,
                                                  Codigo = item.Codigo,
                                                  ObreroID = item.ObreroID,
-                                                 TipoObrero = item.TipoObrero
-                                             }).AsParallel().ToList().OrderBy(x => x.Codigo).ToList<Obrero>();
-                listaObreros.Insert(0, new Obrero());
+                                                 TipoObrero = item.TipoObrero,
+                                                 NombreCompleto = item.NombreCompleto
+                                             }).AsParallel().ToList().OrderBy(x => x.Codigo).ToList<ObreroSteelGo>();
+                listaObreros.Insert(0, new ObreroSteelGo());
 
                 NuevoSoldadorCertificacion nuevoSoldadorCertificacion = new NuevoSoldadorCertificacion
                 {

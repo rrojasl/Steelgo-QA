@@ -91,7 +91,7 @@ namespace BackEndSAM.Controllers.ConfiguracionSoldadura.SoldadorCertificacion
         }
 
         //Obtiene Informacion para genererar un nuevo soldador certificacion.
-        public object Get(string token, string Lenguaje, int proyectoID, int patioID)
+        public object Get(string token, string Lenguaje, int patioID)
         {
             try
             {
@@ -102,7 +102,7 @@ namespace BackEndSAM.Controllers.ConfiguracionSoldadura.SoldadorCertificacion
                 {
                     JavaScriptSerializer serializer = new JavaScriptSerializer();
                     Sam3_Usuario Usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                    return SoldCertBd.Instance.ObtenerNuevoSoldadorCertificacion(proyectoID, Usuario.UsuarioID, patioID);
+                    return SoldCertBd.Instance.ObtenerNuevoSoldadorCertificacion(Usuario.UsuarioID, patioID);
                 }
                 else
                 {
