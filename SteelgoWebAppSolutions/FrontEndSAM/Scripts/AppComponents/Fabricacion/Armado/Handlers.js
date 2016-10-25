@@ -34,6 +34,23 @@ function SuscribirEventoCancelarAdicionales() {
     $("#CancelarTrabajosAdicionales").click(function (e) {
         e.preventDefault();
 
+        //var ds = $("#gridPopUp").data("kendoGrid").dataSource;
+        //var cont = modeloRenglon.ListaDetalleTrabajoAdicional.length;
+        //for (var i = 0; i < ds._data.length; i++) {
+        //    if (ds._data[i].TrabajoAdicional == "" && !(ds._data[i].Accion == 3 || ds._data[i].Accion == 4))
+        //        cont--;
+        //}
+
+        
+
+        //actuallongitudTrabajosAdicionales = cont;
+        //actuallongitudTrabajosAdicionales++;
+        //if (actuallongitudTrabajosAdicionales == 0)
+        //    modeloRenglon.TemplateMensajeTrabajosAdicionales = _dictionary.CapturaArmadoTemplateNoHayTrabajosAdicionales[$("#language").data("kendoDropDownList").value()];
+        //else
+        //    modeloRenglon.TemplateMensajeTrabajosAdicionales = _dictionary.CapturaSoldaduraMensajeCambioLongitud[$("#language").data("kendoDropDownList").value()] + actuallongitudTrabajosAdicionales + _dictionary.CapturaSoldaduraMensajeCambioTrabajosAdicionales[$("#language").data("kendoDropDownList").value()];
+
+        //$("#grid").data("kendoGrid").dataSource.sync();
         $("#windowGrid").data("kendoWindow").close();
     });
 }
