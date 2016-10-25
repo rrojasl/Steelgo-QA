@@ -8680,6 +8680,10 @@ _dictionary = {
         "es-MX": "Datos guardados correctamente.",
         "en-US": "Data saved correctly."
     },
+    "CapturaInspeccionDimensionalResultAjaxEmpty": {
+        "es-MX": "No existe informacion",
+        "en-US": "There is no information"
+    },
     "CapturaMensajeGuardadoErroneo": {
         "es-MX": "No fue posible guardar la informacion.",
         "en-US": "Could not save the information."
