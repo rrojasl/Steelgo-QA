@@ -30,7 +30,7 @@ namespace BackEndSAM.DataAcces.ConfiguracionSoldadura
             }
         }
 
-        public object ObtenerListadoPQRActivos(int TipoAccion, int proyecto, int pruebaID, string especificacion, string codigo)
+        public object ObtenerListadoPQRActivos(int TipoAccion, int usuarioID, string especificacion, string codigo)
         {
             try
             {
@@ -69,7 +69,7 @@ namespace BackEndSAM.DataAcces.ConfiguracionSoldadura
                                 RegistrosWPS = item.RegistrosWPS.GetValueOrDefault(),
                                 ListaProcesosSoldadura = (List<ListaProcesoSoldadura>)obtenerListadoProcesos(TipoAccion),
                                 ListaMaterialesBase = (List<ListaMaterialesBase>)obtenerListadoMaterialesBase(TipoAccion),
-                                ListaCodigos = (List<ListaCodigos>)obtenerListadoCodigos(proyecto, pruebaID, especificacion, codigo)
+                                ListaCodigos = (List<ListaCodigos>)obtenerListadoCodigos(usuarioID, especificacion, codigo)
                             });
                     }
 
@@ -135,7 +135,7 @@ namespace BackEndSAM.DataAcces.ConfiguracionSoldadura
             }
         }
 
-        internal object ObtenerListasPQR(int proyecto, int pruebaID)
+        internal object ObtenerListasPQR(int usuarioID)
         {
             try
             {
@@ -152,7 +152,7 @@ namespace BackEndSAM.DataAcces.ConfiguracionSoldadura
                             {
                                 ListaProcesosSoldadura = (List<ListaProcesoSoldadura>)obtenerListadoProcesos(1),
                                 ListaMaterialesBase = (List<ListaMaterialesBase>)obtenerListadoMaterialesBase(1),
-                                ListaCodigos = (List<ListaCodigos>)obtenerListadoCodigos(proyecto, pruebaID, null, null)
+                                ListaCodigos = (List<ListaCodigos>)obtenerListadoCodigos(usuarioID, null, null)
                             });
                     }
 
@@ -163,7 +163,7 @@ namespace BackEndSAM.DataAcces.ConfiguracionSoldadura
                             {
                                 ListaProcesosSoldadura = (List<ListaProcesoSoldadura>)obtenerListadoProcesos(1),
                                 ListaMaterialesBase = (List<ListaMaterialesBase>)obtenerListadoMaterialesBase(1),
-                                ListaCodigos = (List<ListaCodigos>)obtenerListadoCodigos(proyecto, pruebaID, null, null)
+                                ListaCodigos = (List<ListaCodigos>)obtenerListadoCodigos(usuarioID, null, null)
                             });
                     }
 
@@ -249,7 +249,7 @@ namespace BackEndSAM.DataAcces.ConfiguracionSoldadura
             }
         }
 
-        public object obtenerListadoCodigos(int proyectoID, int pruebaID, string especificacion, string codigo)
+        public object obtenerListadoCodigos(int usuarioID, string especificacion, string codigo)
         {
             try
             {
@@ -257,15 +257,14 @@ namespace BackEndSAM.DataAcces.ConfiguracionSoldadura
                 listaCodigoResult.Add(new ListaCodigos());
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Cat_PQR_ListaCodigos_Result> listaCodigo = ctx.Sam3_Cat_PQR_ListaCodigos(proyectoID, pruebaID, especificacion, codigo).ToList();
+                    List<Sam3_Cat_PQR_ListaCodigos_Result> listaCodigo = ctx.Sam3_Cat_PQR_ListaCodigos(usuarioID, especificacion, codigo).ToList();
 
                     foreach (Sam3_Cat_PQR_ListaCodigos_Result item in listaCodigo)
                     {
                         listaCodigoResult.Add(new ListaCodigos
                         {
-                            CodigoAsmeID = item.CodigoAsmeID,
-                            Especificacion = item.Especificacion,
-                            TipoPruebaId = item.TipoPruebaId
+                            CodigoAsmeID = item.CodigoASMEID,
+                            Especificacion = item.Especificacion
                         });
                     }
 

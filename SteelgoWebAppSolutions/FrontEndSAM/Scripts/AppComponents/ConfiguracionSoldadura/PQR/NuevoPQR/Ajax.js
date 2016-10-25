@@ -3,7 +3,7 @@ function ObtenerListasPQR() {
 
     var TipoDato = 1;
 
-    $PQR.PQR.read({ Proyecto: 16, PruebaID: 2, token: Cookies.get("token") }).done(function (data) {
+    $PQR.PQR.read({ Proyecto: 16, PruebaID: 0, token: Cookies.get("token") }).done(function (data) {
         if (Error(data)) {
             if (data.length > 0)
             {
