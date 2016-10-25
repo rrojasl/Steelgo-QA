@@ -540,7 +540,7 @@ function opcionHabilitarView(valor, name) {
         $('#btnGuardar').text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
         $('#Guardar1').text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
         $("#btnGuardar1").text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
-        $("#grid tbody tr").attr("disabled", true);
+        $("#grid").children().prop('readonly', true);
     }
     else {
         $('#FieldSetView').find('*').attr('disabled', false);
@@ -574,6 +574,6 @@ function opcionHabilitarView(valor, name) {
         $("#Guardar").text(_dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]);
         $('#btnGuardar1').text(_dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]);
 
-        $("#grid tbody tr").attr("disabled", false);
+        $("#grid").children().prop('readonly', false);
     }
 } 

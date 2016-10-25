@@ -68,31 +68,31 @@ function MostrarDetalleVisualDimensional() {
 }
 
 function CargarGrid() {
-    //kendo.ui.Grid.fn.editCell = (function (editCell) {
-    //    return function (cell) {
-    //        cell = $(cell);
+    kendo.ui.Grid.fn.editCell = (function (editCell) {
+        return function (cell) {
+            cell = $(cell);
 
-    //        var that = this,
-    //            column = that.columns[that.cellIndex(cell)],
-    //            model = that._modelForContainer(cell),
-    //            event = {
-    //                container: cell,
-    //                model: model,
-    //                preventDefault: function () {
-    //                    this.isDefaultPrevented = true;
-    //                }
-    //            };
+            var that = this,
+                column = that.columns[that.cellIndex(cell)],
+                model = that._modelForContainer(cell),
+                event = {
+                    container: cell,
+                    model: model,
+                    preventDefault: function () {
+                        this.isDefaultPrevented = true;
+                    }
+                };
 
-    //        if (model && typeof this.options.beforeEdit === "function") {
-    //            this.options.beforeEdit.call(this, event);
+            if (model && typeof this.options.beforeEdit === "function") {
+                this.options.beforeEdit.call(this, event);
 
-    //            // don't edit if prevented in beforeEdit
-    //            if (event.isDefaultPrevented) return;
-    //        }
+                // don't edit if prevented in beforeEdit
+                if (event.isDefaultPrevented) return;
+            }
 
-    //        editCell.call(this, cell);
-    //    };
-    //})(kendo.ui.Grid.fn.editCell);
+            editCell.call(this, cell);
+        };
+    })(kendo.ui.Grid.fn.editCell);
 
     $("#grid").kendoGrid({
         autoBind: true,
@@ -106,6 +106,8 @@ function CargarGrid() {
             var dataItem = this.dataSource.view()[this.select().index()];
         },
         dataSource: {
+
+            data: '',
             schema: {
                 model: {
                     fields: {
@@ -166,7 +168,6 @@ function CargarGrid() {
             input: false,
             numeric: true,
         },
-        filterable: getGridFilterableMaftec(),
         columns: [
             { field: "Junta", title: _dictionary.columnJunta[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "55px" },
             { field: "DetalleJunta", title: _dictionary.columnDetalleJunta[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "55px" },
@@ -181,24 +182,26 @@ function CargarGrid() {
             { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: cancelarCaptura }, title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], width: "30px" },
             { command: { text: _dictionary.botonLimpiar[$("#language").data("kendoDropDownList").value()], click: limpiarCaptura }, title: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()], width: "30px" }
         ],
-    //    beforeEdit: function (e) {
-    //        var columnIndex = this.cellIndex(e.container);
-    //        var fieldName = this.thead.find("th").eq(columnIndex).data("field");
+        filterable: getGridFilterableMaftec(),
+        beforeEdit: function (e) {
+            var columnIndex = this.cellIndex(e.container);
+            var fieldName = this.thead.find("th").eq(columnIndex).data("field");
 
-    //        if (!isEditable(fieldName, e.model)) {
-    //            e.preventDefault();
-    //        }
-    //    },
-    //    dataBound: function (e) {
-    //        $(".k-grid input.k-textbox").prop('readonly', true);
-    //        $(".k-grid td .k-button").text('');
-    //        $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
-    //    }
+            if (!isEditable(fieldName, e.model)) {
+                e.preventDefault();
+            }
+        },
+        dataBound: function (e) {
+            $(".k-grid input.k-textbox").prop('readonly', true);
+            $(".k-grid td .k-button").text('');
+            $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
+        }
     });
     CustomisaGrid($("#grid"));
 };
+
 function isEditable(fieldName, model) {
-    if (fieldName === "Defectos") {
+    if (fieldName == "Defectos") {
         // condition for the field "ProductName"
         return model.Resultado !== "Aprobado";
     }
@@ -415,21 +418,22 @@ function cancelarCaptura(e) {
             var spoolIDRegistro = dataItem.SpoolID;
             var modalTitle = "";
             modalTitle = _dictionary.CapturaAvanceTitulo[$("#language").data("kendoDropDownList").value()];
-            var ventanaConfirm = $("#ventanaConfirm");
-            var window = ventanaConfirm.kendoWindow({
-                modal: true,
+            var window = $("#ventanaConfirm");
+            var ventanaConfirm = window.kendoWindow({
+                iframe: true,
                 title: modalTitle,
+                visible: false, //the window will not appear before its .open method is called
+                width: "auto",
+                height: "auto",
                 resizable: false,
-                visible: true,
-                width: "50%",
-                minWidth: 30,
-                position: {
-                    top: "1%",
-                    left: "1%"
+                modal: true,
+                animation: {
+                    close: false,
+                    open: false
                 }
             }).data("kendoWindow");
 
-            window.content('<div id="ventanaConfirm" z-index: inherit">' +
+            ventanaConfirm.content('<div id="ventanaConfirm" z-index: inherit">' +
                                 '<div class="col-sm-11 col-md-11 col-lg-11">' +
                                     '<div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">' +
                                         '<center><label id=""><span>' + _dictionary.mensajeEliminarInspeccionVisualDimensional[$("#language").data("kendoDropDownList").value()] + '</span></label></center>' +
@@ -440,9 +444,7 @@ function cancelarCaptura(e) {
                                 '</div>' +
                             '</div>');
 
-            ventanaConfirm.data("kendoWindow").title(modalTitle);
-
-            ventanaConfirm.data("kendoWindow").center().open();
+            ventanaConfirm.center().open();
 
             $("#YesButton").click(function (handler) {
                 var dataSource = $("#grid").data("kendoGrid").dataSource;
@@ -451,11 +453,11 @@ function cancelarCaptura(e) {
                 if (dataItem.InspeccionVisualID == 0)
                     dataSource.remove(dataItem);
                 $("#grid").data("kendoGrid").dataSource.sync();
-                window.close();
+                ventanaConfirm.close();
             });
 
             $("#NoButton").click(function (handler) {
-                window.close();
+                ventanaConfirm.close();
             });
         }
     }
@@ -473,6 +475,7 @@ function cancelarCaptura(e) {
                 visible: false, //the window will not appear before its .open method is called
                 width: "auto",
                 height: "auto",
+                resizable: false,
                 modal: true,
                 animation: {
                     close: false,
