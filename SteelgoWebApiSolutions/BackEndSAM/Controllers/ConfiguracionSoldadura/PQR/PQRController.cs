@@ -23,10 +23,13 @@ namespace BackEndSAM.Controllers.ConfiguracionSoldadura.PQR
             {
                 string payload = "";
                 string newToken = "";
-                bool totokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
-                if (totokenValido)
+                bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+                if (tokenValido)
                 {
-                    return PQRBd.Instance.ObtenerListadoPQRActivos(TipoDato, Proyecto, PruebaID, Especificacion, Codigo);
+                    JavaScriptSerializer serializer = new JavaScriptSerializer();
+                    Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+
+                    return PQRBd.Instance.ObtenerListadoPQRActivos(TipoDato, usuario.UsuarioID, Especificacion, Codigo);
                 }
                 else
                 {
@@ -49,16 +52,19 @@ namespace BackEndSAM.Controllers.ConfiguracionSoldadura.PQR
             }
         }
 
-        public object Get(int Proyecto, int PruebaID, string token)
+        public object Get(string token)
         {
             try
             {
                 string payload = "";
                 string newToken = "";
-                bool totokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
-                if (totokenValido)
+                bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+                if (tokenValido)
                 {
-                    return PQRBd.Instance.ObtenerListasPQR(Proyecto, PruebaID);
+                    JavaScriptSerializer serializer = new JavaScriptSerializer();
+                    Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+
+                    return PQRBd.Instance.ObtenerListasPQR(usuario.UsuarioID);
                 }
                 else
                 {
@@ -216,7 +222,7 @@ namespace BackEndSAM.Controllers.ConfiguracionSoldadura.PQR
                     JavaScriptSerializer serializer = new JavaScriptSerializer();
                     Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                    return PQRBd.Instance.ObtenerListadoPQRActivos(TipoAccion, 28, 2, null, null);
+                    return PQRBd.Instance.ObtenerListadoPQRActivos(TipoAccion, usuario.UsuarioID, null, null);
                 }
                 else
                 {

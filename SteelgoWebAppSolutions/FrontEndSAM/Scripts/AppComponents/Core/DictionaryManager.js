@@ -7360,7 +7360,7 @@ _dictionary = {
         "es-MX": "PREHEAT",
         "en-US": "PREHEAT"
     },
-    "lblPWHT1y": {
+    "lblPWHT1": {
         "es-MX": "PWHT",
         "en-US": "PWHT"
     },
@@ -8470,7 +8470,7 @@ _dictionary = {
         "es-MX": "U. max",
         "en-US": "Max U"
     },
-    
+
 
     // Finalizan Etiquetas Grid
     // Finalizan Etiquetas generales
@@ -8680,6 +8680,10 @@ _dictionary = {
         "es-MX": "Datos guardados correctamente.",
         "en-US": "Data saved correctly."
     },
+    "CapturaInspeccionDimensionalResultAjaxEmpty": {
+        "es-MX": "No existe informacion",
+        "en-US": "There is no information"
+    },
     "CapturaMensajeGuardadoErroneo": {
         "es-MX": "No fue posible guardar la informacion.",
         "en-US": "Could not save the information."
@@ -8853,8 +8857,8 @@ _dictionary = {
         "en-US": "The Result Dimensional, Inspector and Date fields should be captured"
     },
     "mensajeEliminarInspeccionVisualDimensional": {
-        "es-MX": "Estas seguro de eliminar la informacion?",
-        "en-US": "do you want delete the row?"
+        "es-MX": "¿Está seguro de eliminar el registro?",
+        "en-US": "Are you sure to delete the record?"
     },
     "mensajeInspeccionVisualDimensionalNoAdmiteJuntasDefecto": {
         "es-MX": "El defecto seleccionado, no requiere que se especifiquen juntas",
@@ -9784,11 +9788,11 @@ _dictionary = {
     "SistemaPinturaAplicableMensajeGuardadoErroneo": {
         "es-MX": "No fue posible guardar la informacion.",
         "en-US": "Could not save the information."
-    },    
+    },
     "SPAlblSpool": {
         "es-MX": "Spool",
         "en-US": "Spool"
-    },    
+    },
     "SPAlblNc": {
         "es-MX": "No. Control",
         "en-US": "Control No."
@@ -9860,7 +9864,7 @@ _dictionary = {
         "es-MX": "Se eliminaran los datos de los procesos y colores, ¿desea continuar?",
         "en-US": "data processes and colors are removed, would you continue?"
     },
-    
+
     // Finaliza Sistema Pintura
 
     //Comienza Dashboard Pintura 
