@@ -108,6 +108,6 @@ namespace BackEndSAM.Models.ConfiguracionSoldadura.SoldadorCertificacion
         public List<CedulaTuboCalificado> ListaCedulaTuboCalificado { get; set; }
         public List<TipoPrueba> ListaTipoPrueba { get; set; }
         public List<DetalleWPS> ListaWPS { get; set; }
-        public List<Obrero> ListaObrero { get; set; }
+        public List<ObreroSteelGo> ListaObrero { get; set; }
     }
 }

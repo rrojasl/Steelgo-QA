@@ -19,7 +19,7 @@ function SuscribirEventoSoldador() {
         suggest: true,
         delay: 10,
         filter: "contains",
-        dataTextField: "Codigo",
+        dataTextField: "NombreCompleto",
         dataValueField: "ObreroID",
         autoBind: false,
         change: function (e) {

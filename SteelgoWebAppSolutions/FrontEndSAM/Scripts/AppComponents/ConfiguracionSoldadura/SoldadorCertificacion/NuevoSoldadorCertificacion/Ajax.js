@@ -1,14 +1,14 @@
 ﻿function AjaxNuevoSoldadorCertificacion() {
 
-    //$SoldadorCertificacion.SoldadorCertificacion.read({ token: Cookies.get("token"), Lenguaje: $("#language").val(), proyectoID: 31, patioID: 1 /*Cookies.get("Proyecto").split('°')[0]*/ }).done(function (data) {
-    //    if (Error(data)) {
-    //        $("#inputSoldador").data("kendoComboBox").dataSource.data(data.ListaObrero);
-    //        $("#inputTipoPrueba").data("kendoComboBox").dataSource.data(data.ListaTipoPrueba);
-    //        $("#inputProcesoSol").data("kendoComboBox").dataSource.data(data.ListaTipoProcesosSoldadura);
-    //        $("#inputNombreWPS").data("kendoComboBox").dataSource.data(data.ListaWPS);
-    //        $("#inputCedulaTuboPQR").data("kendoComboBox").dataSource.data(data.ListaCedulaTuboCalificado);
-    //    }
-    //});
+    $SoldadorCertificacion.SoldadorCertificacion.read({ token: Cookies.get("token"), Lenguaje: $("#language").val(), patioID: 1 /*Cookies.get("Proyecto").split('°')[0]*/ }).done(function (data) {
+        if (Error(data)) {
+            $("#inputSoldador").data("kendoComboBox").dataSource.data(data.ListaObrero);
+            $("#inputTipoPrueba").data("kendoComboBox").dataSource.data(data.ListaTipoPrueba);
+            $("#inputProcesoSol").data("kendoComboBox").dataSource.data(data.ListaTipoProcesosSoldadura);
+            $("#inputNombreWPS").data("kendoComboBox").dataSource.data(data.ListaWPS);
+            $("#inputCedulaTuboPQR").data("kendoComboBox").dataSource.data(data.ListaCedulaTuboCalificado);
+        }
+    });
 }
 
 
