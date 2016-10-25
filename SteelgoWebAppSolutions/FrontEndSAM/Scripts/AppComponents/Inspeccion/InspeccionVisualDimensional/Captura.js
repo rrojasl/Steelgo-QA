@@ -433,16 +433,8 @@ function cancelarCaptura(e) {
                 }
             }).data("kendoWindow");
 
-            ventanaConfirm.content('<div id="ventanaConfirm" z-index: inherit">' +
-                                '<div class="col-sm-11 col-md-11 col-lg-11">' +
-                                    '<div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">' +
-                                        '<center><label id=""><span>' + _dictionary.mensajeEliminarInspeccionVisualDimensional[$("#language").data("kendoDropDownList").value()] + '</span></label></center>' +
-                                    '</div>' +
-                                    '<div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">' +
-                                        '<center><button class="btn btn-blue" id="YesButton"> Si</button>&nbsp;<button class="btn btn-blue" id="NoButton"> No</button></center>' +
-                                    '</div>' +
-                                '</div>' +
-                            '</div>');
+            ventanaConfirm.content('<center>' + _dictionary.mensajeEliminarInspeccionVisualDimensional[$("#language").data("kendoDropDownList").value()] + '</center>' +
+                                    '<center><button class="btn btn-blue" id="YesButton"> Si</button>&nbsp;<button class="btn btn-blue" id="NoButton"> No</button></center>');
 
             ventanaConfirm.center().open();
 
