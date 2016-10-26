@@ -191,3 +191,9 @@
 <script type="text/javascript" src="~/Scripts/AppComponents/Pintura/SistemaPinturaApicable/Render.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/Pintura/SistemaPinturaApicable/Captura.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/Pintura/SistemaPinturaApicable/Seguridad.js"></script>
+
+<script>
+    @section JavascriptDocumentReadyFunctions {
+    $authorizationModel["SistemaPinturaAplicable"] = $SistemaPinturaAplicableModel;
+    }
+</script>

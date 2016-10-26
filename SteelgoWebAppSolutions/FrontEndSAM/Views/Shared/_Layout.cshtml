@@ -57,6 +57,12 @@
     @Styles.Render("~/Scripts/Widgets/Notify/src/pnotify.css")
     @Styles.Render("~/Scripts/Widgets/Notify/src/pnotify.brighttheme.css")
 
+    @RenderSection("HtmlHead", required: false)
+    <script type="text/x-kendo-template" id="windowTemplate">
+        <button class="confirm_yes btn btn-blu" id="yesButton">Yes</button>
+        <button class="confirm_yes btn btn-blu" id="noButton"> No</button>
+    </script>
+
 </head>
 <body>
     <header class="clearfix">

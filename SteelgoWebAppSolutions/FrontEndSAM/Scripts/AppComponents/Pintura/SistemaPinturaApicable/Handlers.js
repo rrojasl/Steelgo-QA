@@ -646,7 +646,9 @@ function opcionHabilitarView(disable) {
         $("#styleSpool").attr("disabled", true);
         $("#styleNc").attr("disabled", true);
         $("#inputProyecto").data("kendoComboBox").enable(false);
+        $("#inputSpool").css('opacity', '0.6');
         $("#inputSpool").attr("disabled", true);
+        $("#inputNc").css('opacity', '0.6');
         $("#inputNc").attr("disabled", true);
         $("#inputSistemaPintura").data("kendoComboBox").enable(false);
         $("#inputColorPintura").data("kendoComboBox").enable(false);
@@ -663,7 +665,9 @@ function opcionHabilitarView(disable) {
         $("#styleSpool").attr("disabled", false);
         $("#styleNc").attr("disabled", false);
         $("#inputProyecto").data("kendoComboBox").enable(true);
+        $("#inputSpool").css('opacity', '1');
         $("#inputSpool").attr("disabled", false);
+        $("#inputNc").css('opacity', '1');
         $("#inputNc").attr("disabled", false);
         $("#inputSistemaPintura").data("kendoComboBox").enable(true);
         $("#inputColorPintura").data("kendoComboBox").enable(true);

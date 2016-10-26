@@ -191,13 +191,14 @@ function ExisteJunta() {
 
 
 function AjaxGuardar(jSonCaptura, tipoGuardado) {
+    loadingStart();
+
     Captura = [];
     Captura[0] = { Detalles: "" };
     $("#grid").data("kendoGrid").dataSource.sync();
     var mensaje = '';
     inspeccionDimensional = [];
     Juntas = [];
-    loadingStart();
     //if (InspectorCorrecto(jSonCaptura)) {
     for (index = 0; index < jSonCaptura.length; index++) {
         inspeccionDimensional[index] = { Accion: "", InspeccionDimensionalID: "", FechaInspeccion: "", ResultadoID: "", Resultado: "", InspectorID: "", Inspector: "", DefectosID: "", Defectos: "", OrdenTrabajoSpoolID: "", ListaJuntas: [], Estatus: 1 }
@@ -355,7 +356,6 @@ function AjaxGuardar(jSonCaptura, tipoGuardado) {
 
     if (!ExistRowEmpty(inspeccionDimensional)) {
         if (Captura[0].Detalles.length > 0) {
-            loadingStart();
             $InspeccionDimensional.InspeccionDimensional.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
                 if (Error(data)) {
                     if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
@@ -369,15 +369,13 @@ function AjaxGuardar(jSonCaptura, tipoGuardado) {
                             AjaxCargaCamposPredetrminados();
                         }
                         displayNotify("CapturaMensajeGuardadoExitoso", "", '0');
-                        loadingStop();
                     }
                     else {
                         displayNotify("CapturaMensajeGuardadoErroneo", "", '2');
-                        loadingStop();
                     }
                 }
             });
-
+            loadingStop();
         }
         else {
             loadingStop();
@@ -435,14 +433,13 @@ function AjaxGuardar(jSonCaptura, tipoGuardado) {
                                 AjaxCargaCamposPredetrminados();
                             }
                             displayNotify("CapturaMensajeGuardadoExitoso", "", '0');
-                            loadingStop();
                         }
                         else {
                             displayNotify("CapturaMensajeGuardadoErroneo", "", '2');
-                            loadingStop();
                         }
                     }
                 });
+                loadingStop();
             }
             else {
                 loadingStop();
@@ -474,12 +471,11 @@ function InspectorCorrecto(array) {
 
 function AjaxGetSpoolGrid() {
     try {
-
+        loadingStart();
         var listadogrid = $("#grid").data("kendoGrid").dataSource._data;
         $("#grid").data("kendoGrid").dataSource.data([]);
 
         for (var i = 0; i < listadogrid.length; i++) {
-            loadingStart();
             $InspeccionDimensional.InspeccionDimensional.read({ OrdenTrabajoSpoolID: listadogrid[i].OrdenTrabajoSpoolID, OrdenTrabajoSpool: listadogrid[i].OrdenTrabajoSpool, ProyectoID: listadogrid[i].ProyectoID, token: Cookies.get("token"), Lenguaje: $("#language").val() }).done(function (data) {
                 if (Error(data)) {
                     var ds = $("#grid").data("kendoGrid").dataSource;
@@ -509,11 +505,13 @@ function AjaxGetSpoolGrid() {
                         displayNotify("CapturaInspeccionDimensionalResultAjaxEmpty", '', '2');
                     }
                 }
-                loadingStop();
             });
+
+            //loadingStop();
         }
 
     } catch (e) {
+        loadingStop();
         displayNotify("Mensajes_error", e.message, '2');
 
     }

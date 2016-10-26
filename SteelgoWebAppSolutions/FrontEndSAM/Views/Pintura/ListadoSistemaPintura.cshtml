@@ -133,3 +133,8 @@
 <script type="text/javascript" src="~/Scripts/AppComponents/Pintura/EdicionSistemaPintura/Captura.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/Pintura/EdicionSistemaPintura/Seguridad.js"></script>
 
+<script>
+    @section JavascriptDocumentReadyFunctions {
+    $authorizationModel["SistemaPinturaAplicable"] = $ListadoSistemaPinturaModel;
+    }
+</script>
