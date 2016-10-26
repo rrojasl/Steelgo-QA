@@ -100,12 +100,14 @@
     </div>
 </div>
 
-@*<div id="windowPQR" style="display: none; z-index:inherit;">
-        @Html.Partial("~/Views/EditaPQR/_EditaPQR.cshtml")
-    </div>*@
-
 <script src="~/Scripts/AppComponents/ConfiguracionSoldadura/PQR/Ajax.js"></script>
 <script src="~/Scripts/AppComponents/ConfiguracionSoldadura/PQR/Handlers.js"></script>
 <script src="~/Scripts/AppComponents/ConfiguracionSoldadura/PQR/Captura.js"></script>
 <script src="~/Scripts/AppComponents/ConfiguracionSoldadura/PQR/Render.js"></script>
 <script src="~/Scripts/AppComponents/ConfiguracionSoldadura/PQR/Seguridad.js"></script>
+
+<script>
+    @section JavascriptDocumentReadyFunctions {
+        $authorizationModel["ListadoPQR"] = $ListadoPQRModel;
+    }
+</script>
