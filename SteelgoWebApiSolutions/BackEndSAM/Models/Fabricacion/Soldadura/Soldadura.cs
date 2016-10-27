@@ -102,6 +102,12 @@ namespace BackEndSAM.Models.Fabricacion.Soldadura
     {
         public int TallerID { get; set; }
         public string Nombre { get; set; }
+
+        public Taller()
+        {
+            TallerID = 0;
+            Nombre = "";
+        }
     }
 
     public class ProcesoSoldadura
@@ -125,6 +131,15 @@ namespace BackEndSAM.Models.Fabricacion.Soldadura
     {
         public int ObreroID { get; set; }
         public string Soldador { get; set; }
+
+        public ObreroSoldador()
+        {
+            ObreroID = 0;
+            Soldador = "";
+
+        }
+      
+
     }
 
     public class Raiz
@@ -146,7 +161,15 @@ namespace BackEndSAM.Models.Fabricacion.Soldadura
         public string Colada { get; set; }
         public string Observaciones { get; set; }
 
-
+        public Soldadores()
+        {
+            Accion = 0;
+            ObreroID = 0;
+            Soldador = "";
+            ColadaID = 0;
+            Colada = "";
+            Observaciones = "";
+        }
 
     }
     public class SoldadorRaizCertificado

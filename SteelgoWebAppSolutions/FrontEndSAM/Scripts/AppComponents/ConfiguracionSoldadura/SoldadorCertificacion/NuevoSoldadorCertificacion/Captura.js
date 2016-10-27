@@ -6,6 +6,13 @@
 }
 IniciarCapturaSC();
 function AsignarEncabezados() {
+    $("#inputFechaInicioCertificado").data("kendoDatePicker").setOptions({
+        format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()]
+    });
+    $("#inputFechaFinCertificado").data("kendoDatePicker").setOptions({
+        format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()]
+    });
+
     AjaxNuevoSoldadorCertificacion();
 }
 

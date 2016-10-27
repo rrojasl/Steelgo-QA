@@ -43,8 +43,7 @@ function SuscriborEventoPosicion() {
 function SuscribirEventoFechaVigenciaInicio() {
     $("#inputFechaInicioCertificado").kendoDatePicker({
 
-        //format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()]
-
+        //format: _dictionary.FormatoFecha2[$("#language").data("kendoDropDownList").value()],
         change: function (e) {
             if (ValidarFecha(this, e.sender._value))
                 startChange();
@@ -62,7 +61,7 @@ function SuscribirEventoFechaVigenciaInicio() {
 function SuscribirEventoFechaVigenciaFin() {
     $("#inputFechaFinCertificado").kendoDatePicker({
 
-        //format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()]
+        //format: _dictionary.FormatoFecha2[$("#language").data("kendoDropDownList").value()],
         change: function (e) {
             if (ValidarFecha(this, e.sender._value))
                 endChange();
