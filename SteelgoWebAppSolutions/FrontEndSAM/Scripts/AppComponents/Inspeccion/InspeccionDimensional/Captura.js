@@ -27,7 +27,7 @@ function IniciarPreCarga() {
 function changeLanguageCall() {
     CargarGrid();
     endRangeDate.data("kendoDatePicker").setOptions({
-        format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()]
+        format: _dictionary.FormatoFecha2[$("#language").data("kendoDropDownList").value()]
     });
     AjaxObtenerListaDefectos();
     AjaxCargaCamposPredetrminados();

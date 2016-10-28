@@ -425,7 +425,9 @@ function opcionHabilitarView(valor, name) {
         $("#InputID").data("kendoComboBox").enable(true);
         $("#InputOrdenTrabajo").prop('disabled', false);
         $('#InputOrdenTrabajo').css('opacity', '1');
-        $("#inputDefecto").data("kendoComboBox").enable(true);
+        if ($('input:radio[name=ResultadoDimensional]:checked').val() === "Rechazado") {            
+            $("#inputDefecto").data("kendoComboBox").enable(true);
+        }
         $("#inputInspector").data("kendoComboBox").enable(true);
         $("#FechaInspeccion").data("kendoDatePicker").enable(true);
         $('#Guardar1').text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);
