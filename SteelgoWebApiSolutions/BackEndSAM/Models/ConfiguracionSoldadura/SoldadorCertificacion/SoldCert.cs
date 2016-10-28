@@ -34,7 +34,7 @@ namespace BackEndSAM.Models.ConfiguracionSoldadura.SoldadorCertificacion
         public int UsuarioModificacion { get; set; }//no se requiere
         public List<TipoPrueba> ListaTipoPrueba { get; set; }
         public List<DetallePQR> listadoPQR { get; set; }
-        public List<Obrero> listaObreros { get; set; }
+        public List<ObreroSteelGo> listaObreros { get; set; }
 
     }
 

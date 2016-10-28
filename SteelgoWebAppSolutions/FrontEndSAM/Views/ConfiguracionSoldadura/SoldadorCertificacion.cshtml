@@ -118,3 +118,9 @@
 <script src="~/Scripts/AppComponents/ConfiguracionSoldadura/SoldadorCertificacion/Render.js"></script>
 <script src="~/Scripts/AppComponents/ConfiguracionSoldadura/SoldadorCertificacion/Captura.js"></script>
 <script src="~/Scripts/AppComponents/ConfiguracionSoldadura/SoldadorCertificacion/Seguridad.js"></script>
+
+<script type="text/javascript">
+    @section JavascriptDocumentReadyFunctions {
+    $authorizationModel["ListadSoldadorCertificacion"] = $SoldadorCertificacionModel;
+    }
+</script>

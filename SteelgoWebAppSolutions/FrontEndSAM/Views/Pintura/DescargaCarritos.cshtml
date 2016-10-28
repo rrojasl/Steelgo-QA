@@ -59,7 +59,7 @@
             <label id="lblCarro"></label>
             <input id="inputCarro" class="" />
         </div>
-        <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 altoControl" id="diTipoPrueba">
+        <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 altoControl" id="divInputZona">
             <label>Zona</label>
             <input id="inputZona" />
         </div>
@@ -144,8 +144,15 @@
         </div>
     </div>
 </div>
+
 <script type="text/javascript" src="~/Scripts/AppComponents/Pintura/DescargaCarritos/Render.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/Pintura/DescargaCarritos/Ajax.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/Pintura/DescargaCarritos/Handlers.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/Pintura/DescargaCarritos/Captura.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/Pintura/DescargaCarritos/Seguridad.js"></script>
+
+<script>
+        @section JavascriptDocumentReadyFunctions {
+        $authorizationModel["DescargaCarrito"] = $DescargaCarro;
+        }
+</script>

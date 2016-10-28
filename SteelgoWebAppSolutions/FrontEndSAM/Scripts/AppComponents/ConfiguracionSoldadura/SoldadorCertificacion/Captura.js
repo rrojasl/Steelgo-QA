@@ -65,7 +65,7 @@
             { field: "DiametroCalificado", title: _dictionary.columnDiametroCalificado[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px", attributes: { style: "text-align:right;" }, editor: renderDiametro },
             { field: "TipoDePrueba", title: _dictionary.columnTipoPrueba[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "145px", editor: RenderComboBoxTipoPrueba },
             { field: "Posicion", title: _dictionary.columnPosicion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "110px", editor: renderPosicion, format: "{0} °", attributes: { style: "text-align:right;" } },
-            { command: { text: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], click: EliminaSoldadorCertificacion }, title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], width: "50px" }
+            { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: EliminaSoldadorCertificacion }, title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], width: "50px" }
         ]
     });
     CustomisaGrid($("#grid"));

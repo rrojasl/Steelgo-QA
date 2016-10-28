@@ -4,7 +4,19 @@
 }
 
 _dictionary = {
+    "textoCancelar": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
     //Login Page Labels
+    "textoGuardar": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
+    "textoEditar": {
+        "es-MX": "Editar",
+        "en-US": "Edit"
+    },
     "loginLabel0001": {
         "es-MX": "Inicio de Sesión",
         "en-US": "Login"
@@ -7742,8 +7754,8 @@ _dictionary = {
         "en-US": "Welding"
     },
     "menuInspeccion": {
-        "es-MX": "Inspección",
-        "en-US": "Inspection"
+        "es-MX": "Calidad",
+        "en-US": "Quality"
     },
     "menuInspeccionDimensional": {
         "es-MX": "Inspección Dimensional",
@@ -8882,6 +8894,27 @@ _dictionary = {
 
 
     //Pantalla Soldadura
+    "CapturaSoldaduraSoldaduraSpool": {
+        "es-MX": "Soldadura",
+        "en-US": "Welding"
+    },
+    "GridSoldadoresRaizDescripcion": {
+            "es-MX": "Soldadores Raiz",
+            "en-US": "Welders root"
+        },
+    "CapturaSoldaduraJuntaCapturada": {
+        "es-MX": "La junta ya fue capturada",
+        "en-US": "The joint is captured"
+    },
+    "CapturaSoldaduraMsgExisteListado": {
+        "es-MX": " ya existe en el listado",
+        "en-US": " already exist in the list"
+    },
+
+    "CapturaSoldaduraSpoolNoCapturado": {
+        "es-MX": "El spool ID no ha sido capturado",
+        "en-US": "The spool ID has not been captured"
+    },
     "CapturaSoldaduraSoldadoresRaiz": {
         "es-MX": "Soldadores Raiz",
         "en-US": "Root Welders"
@@ -8967,9 +9000,80 @@ _dictionary = {
     //Finaliza WPS
 
     //Pantalla Soldador Certificacion
+    "SoldadorPQRExistente":
+    {
+        "es-MX": "El soldador ya existe con el WPS seleccionado ¿Deseas actualizarlo?",
+        "en-US": "The welder already exists with selected WPS Want to upgrade?"
+    },
+    "lblProcesoSoldadura":
+{
+    "es-MX": "Proceso Soldadura",
+    "en-US": "Welding process"
+},
+    "MensajeCamposIncorrector":
+   {
+       "es-MX": "los campos marcados con un asterisco (*) son obligatorios",
+       "en-US": "Fields marked with an asterisk ( *) are required"
+   },
     "SoldadorCertificacionBreadcrumb": {
         "es-MX": "Soldador Certificación",
         "en-US": "Certification Welder"
+    },
+    "CapturaSoldadorCertificacionDiametroMsg": {
+        "es-MX": "El Diametro calificado debe ser mayor a 0",
+        "en-US": "The Qualified diameter must be greater than 0"
+    },
+    "CapturaSoldadorCertificacionPosicionMsg": {
+        "es-MX": "La Posición debe ser mayor a 0",
+        "en-US": "The Position must be greater than 0"
+    },
+    "CapturaSoldadorCertificacionSoldadorVacio": {
+        "es-MX": "El campo Soldador no puede ser vacio",
+        "en-US": "The welder field can not be empty"
+    },
+    "CapturaSoldadorCertificacionNombreVacio": {
+        "es-MX": "El campo Nombre del PQR no puede ser vacio",
+        "en-US": "The PQR name field can not be empty"
+    },
+    "CapturaSoldadorCertificacionProcSolVacio": {
+        "es-MX": "El campo Proceso soldadura no puede ser vacio",
+        "en-US": "The PQR name field can not be empty"
+    },
+    "CapturaSoldadorCertificacionPasosVacio": {
+        "es-MX": "El campo # Pasos no puede ser vacio",
+        "en-US": "The # Steps field can not be empty"
+    },
+    "CapturaSoldadorCertificacionCedulaVacio": {
+        "es-MX": "El campo Cédula Tubo no puede ser vacio",
+        "en-US": "The pipe charter field can not be empty"
+    },
+    "CapturaSoldadorCertificacionEspesorVacio": {
+        "es-MX": "El campo Espesor tiene que ser mayor a cero",
+        "en-US": "The Thickness field must be greater than zero"
+    },
+    "CapturaSoldadorCertificacionDiametroVacio": {
+        "es-MX": "El campo diametro c. debe ser mayor a cero",
+        "en-US": "The Q. Diameter field must be greater than zero"
+    },
+    "CapturaSoldadorCertificacionTipoPruebaVacio": {
+        "es-MX": "El campo tipo de prueba no puede ser vacio",
+        "en-US": "The Type of test field can not be empty"
+    },
+    "CapturaSoldadorCertificacionPosicionVacio": {
+        "es-MX": "El campo posición tiene que ser mayor a cero",
+        "en-US": "The field position must be greater than zero"
+    },
+    "CapturaSoldadorCertificacionEspesorLimiteMaximo": {
+        "es-MX": "El espesor maximo es ilimitado",
+        "en-US": "The maximum thickness is unlimited"
+    },
+    "CapturaSoldadorCertificacionNoPasosMsg": {
+        "es-MX": "El número de pasos debe ser mayor a 0",
+        "en-US": "The number of steps must be greater than 0"
+    },
+    "CapturaSoldadorCertificacionPreguntaBorradoCaptura": {
+        "es-MX": "¿Está seguro de cancelar el detalle de la captura de Certificación?",
+        "en-US": "Are you sure you want to cancel the detail of the capture of Certification?"
     },
     //Finaliza Soldador Certificacion
 

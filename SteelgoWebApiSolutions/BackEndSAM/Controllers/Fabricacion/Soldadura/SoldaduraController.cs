@@ -218,7 +218,7 @@ namespace BackEndSAM.Controllers.Fabricacion.Soldadura
                             Junta = capturaDatosJson.Junta,
                             TallerID = item.TallerID.GetValueOrDefault().ToString(),
                             Taller = item.Taller,
-                            ListaTaller = ObtenerListaTaller((List<Sam3_SteelGo_Get_Taller_Result>)SoldaduraBD.Instance.ObtenerTallerXPoryecto(usuario, capturaDatosJson.IDProyecto)),
+                            ListaTaller = ObtenerListaTaller((List<Taller>)SoldaduraBD.Instance.ObtenerTallerXPoryecto(usuario, capturaDatosJson.IDProyecto)),
                             Diametro = item.Diametro,
                             FechaSoldadura = item.FechaSoldadura,
                             ListadoColadas = ListaConsumible,   //coladas iguales para raiz y relleno. se le dice consumible por el negocio que se tiene.
@@ -356,7 +356,7 @@ namespace BackEndSAM.Controllers.Fabricacion.Soldadura
                         //ListadoRaiz = (List<SoldadorRaizCertificado>)SoldaduraBD.Instance.ObtenerListadoRaiz(item.ProcesoSoldaduraRaizID == null ? 0 : int.Parse(item.ProcesoSoldaduraRaizID.ToString()), item.TipoJunta, item.Diametro, decimal.Parse(item.Espesor.ToString()), item.Cedula, 1, capturaDatosJson.IDProyecto),
                         //ListadoRelleno = (List<SoldadorRaizCertificado>)SoldaduraBD.Instance.ObtenerListadoRelleno(item.ProcesoSoldaduraRaizID == null ? 0 : int.Parse(item.ProcesoSoldaduraRellenoID.ToString()), item.TipoJunta, item.Diametro, decimal.Parse(item.Espesor.ToString()), item.Cedula, 0, capturaDatosJson.IDProyecto),
                         //ListadoSoldadoresTrabajos = (List<ObreroSoldador>)SoldaduraBD.Instance.ObtenerListadoSoldaduresTrabajo(),
-                        ListaTaller = ObtenerListaTaller((List<Sam3_SteelGo_Get_Taller_Result>)SoldaduraBD.Instance.ObtenerTallerXPoryecto(usuario, capturaDatosJson.IDProyecto))//,
+                        ListaTaller = ObtenerListaTaller((List<Taller>)SoldaduraBD.Instance.ObtenerTallerXPoryecto(usuario, capturaDatosJson.IDProyecto))//,
                         //ListadoProcesoSoldadura = (List<ProcesoSoldadura>)SoldaduraBD.Instance.ObtenerProcesosSoldadura()
                     };
                     listaDetalleDatos.Add(detalleDatos);
@@ -399,15 +399,10 @@ namespace BackEndSAM.Controllers.Fabricacion.Soldadura
             }
         }
 
-        private List<Taller> ObtenerListaTaller(List<Sam3_SteelGo_Get_Taller_Result> listaTaller)
+        private List<Taller> ObtenerListaTaller(List<Taller> listaTaller)
         {
             List<Taller> listaTalleres = new List<Taller>();
-            listaTalleres.Add(new Taller
-            {
-                TallerID = 0,
-                Nombre = ""
-            });
-            foreach (Sam3_SteelGo_Get_Taller_Result item in listaTaller)
+            foreach (Taller item in listaTaller)
             {
                 Taller taller = new Taller
                 {

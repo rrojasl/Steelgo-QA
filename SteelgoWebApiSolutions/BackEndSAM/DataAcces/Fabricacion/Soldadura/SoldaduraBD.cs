@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity.Core.Objects;
 using System.Linq;
-using System.Web;
 
 namespace BackEndSAM.DataAcces.Fabricacion.Soldadura
 {
@@ -109,10 +108,13 @@ namespace BackEndSAM.DataAcces.Fabricacion.Soldadura
             try
             {
                 List<Soldadores> listaProcesosSoldadura = new List<Soldadores>();
-
+               
                 using (SamContext ctx = new SamContext())
                 {
                     List<Sam3_Soldadura_GET_DetalleSoldadorColadas_Result> result = ctx.Sam3_Soldadura_GET_DetalleSoldadorColadas(idOrdenTrabajo, ordenTrabajoSpoolID, JuntaID, proyectoID).ToList();
+
+                    if(result.Count>0)
+                        listaProcesosSoldadura.Add(new Soldadores());
 
                     foreach (Sam3_Soldadura_GET_DetalleSoldadorColadas_Result item in result)
                     {
@@ -285,6 +287,10 @@ namespace BackEndSAM.DataAcces.Fabricacion.Soldadura
                 {
 
                     List<Sam3_Steelgo_Get_Obrero_Result> listresult = ctx.Sam3_Steelgo_Get_Obrero(tipo, "Soldador", null, null, null).ToList();
+
+                    if(listresult.Count>0)
+                    listaSoldadura.Add(new ObreroSoldador());
+
                     foreach (Sam3_Steelgo_Get_Obrero_Result item in listresult)
                     {
                         listaSoldadura.Add(new ObreroSoldador
@@ -557,7 +563,16 @@ namespace BackEndSAM.DataAcces.Fabricacion.Soldadura
                 using (SamContext ctx = new SamContext())
                 {
                     List<Sam3_SteelGo_Get_Taller_Result> lista = ctx.Sam3_SteelGo_Get_Taller(idProyecto).ToList();
-                    return lista;
+
+                    List<Taller> ListaTalleres = (from Talleres in ctx.Sam3_SteelGo_Get_Taller(idProyecto)
+                                                                            select new Taller
+                                                                            {
+                                                                                Nombre= Talleres.Nombre,
+                                                                                TallerID=Talleres.TallerID
+                                                                            }).AsParallel().ToList().OrderBy(x => x.Nombre).ToList<Taller>();
+                    ListaTalleres.Insert(0, new Taller());
+
+                    return ListaTalleres;
                 }
             }
             catch (Exception ex)

@@ -2,7 +2,7 @@
 Cookies.set("home", true, { path: '/' });
 Cookies.set("navegacion", "10007", { path: '/' });
 
-var $PQRModel = {
+var $NuevoPQRModel = {
     listContainer: {
         create: "",
         list: "",
@@ -11,52 +11,52 @@ var $PQRModel = {
     },
     properties: {
         Nombre: {
-            visible: "#lblPQRNombre",
+            visible: "#PQRNombreDiv",
             editable: "#NombreId",
             required: "#NombreId",
         },
         PREHEAT: {
-            visible: "#lblPQRPREHEAT",
+            visible: "#PQRPreheatDiv",
             editable: "#chkPreheat",
             required: "#chkPreheat",
         },
         PWHT: {
-            visible: "#lblPQRPWHT",
+            visible: "#PQRPWHTDiv",
             editable: "#chkPwht",
             required: "#chkPwht",
         },
         EspesorRelleno: {
-            visible: "#lblPQREspesorRelleno",
+            visible: "#PQREspesoRellenorDiV",
             editable: "#EspesorRelleno",
             required: "#EspesorRelleno",
         },
         EspesorRaiz: {
-            visible: "#lblPQREspesorRaiz",
+            visible: "#PQREspesorRaizDiV",
             editable: "#EspesorRaiz",
             required: "#EspesorRaiz",
         },
         ProcesoSoldaduraRelleno: {
-            visible: "#lblPQRProcesoSoldaduraRelleno",
+            visible: "#PQRProcesoSoldaduraRellenoDiv",
             editable: "#ProcesoSoldaduraRellenoID",
             required: "#ProcesoSoldaduraRellenoID",
         },
         ProcesoSoldaduraRaiz: {
-            visible: "#lblPQRProcesoSoldaduraRaiz",
+            visible: "#PQRProcesoSoldaduraRaizDiv",
             editable: "#ProcesoSoldaduraRaizID",
             required: "#ProcesoSoldaduraRaizID"
         },
         GrupoPMaterialBase1: {
-            visible: "#lblPQRGrupoPMaterialBase1",
+            visible: "#PQRGrupoPMaterialBase1Div",
             editable: "#GrupoPMaterialBase1ID",
             required: "#GrupoPMaterialBase1ID",
         },
         GrupoPMaterialBase2: {
-            visible: "#lblPQRGrupoPMaterialBase2",
+            visible: "#PQRGrupoPMaterialBase2Div",
             editable: "#GrupoPMaterialBase2ID",
             required: "#GrupoPMaterialBase2ID",
         },
         Codigo: {
-            visible: "#lblPQRCodigo",
+            visible: "#PQRCodigoDiv",
             editable: "#CodigoID",
             required: "#CodigoID",
         }
