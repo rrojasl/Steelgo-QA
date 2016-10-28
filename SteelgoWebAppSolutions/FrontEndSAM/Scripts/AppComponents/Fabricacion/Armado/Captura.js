@@ -554,12 +554,12 @@ function AplicarAsignacionAutomaticaNumeroUnico(rowitem, textoAnterior, combobox
                             (jsonGridArmado[i].NumeroUnico2ID == combobox.NumeroUnicoID)) {
                             jsonGridArmado[i].NumeroUnico2 = '';
                             jsonGridArmado[i].NumeroUnico2ID = null;
-                            //MensajesSteelGO("AvisoNumeroUnicoYaAsignado", combobox.JuntasEncontradas);
+                            MensajesSteelGO("AvisoNumeroUnicoYaAsignado", combobox.JuntasEncontradas);
                         }
                         else if (combobox.JuntasEncontradas != '' && ((jsonGridArmado[i].IdOrdenTrabajo + '-' + jsonGridArmado[i].IdVal) == (rowitem.IdOrdenTrabajo + '-' + rowitem.IdVal)) && (jsonGridArmado[i].NumeroUnico1ID == combobox.NumeroUnicoID)) {
                             jsonGridArmado[i].NumeroUnico1 = '';
                             jsonGridArmado[i].NumeroUnico1ID = null;
-                            //MensajesSteelGO("AvisoNumeroUnicoYaAsignado", combobox.JuntasEncontradas);
+                            MensajesSteelGO("AvisoNumeroUnicoYaAsignado", combobox.JuntasEncontradas);
                         }
                     }
                 }
@@ -872,37 +872,37 @@ function ValidarFecha(valor) {
 }
 
 
-//function MensajesSteelGO(control, mensajeExepcionTecnico) {
+function MensajesSteelGO(control, mensajeExepcionTecnico) {
 
-//    switch (control) {
+    switch (control) {
 
-//        case 'InputOrdenTrabajo':// el InputOrdenTrabajo no tiene el formato correcto.
-//            displayNotify("OrdenTrabajoNoValida", "", '1');
-//            break;
-//        case 'Mensajes_error':
-//            displayNotify("Mensajes_error", mensajeExepcionTecnico, '2');//muestra cualquier error indicando el error tecnico al usuario
-//            break;
-//        case 'InputID-SelectInvalid':
-//            displayNotify("NoExisteSpoolID", '', '2');//mensaje indicando que el id no es valido.
-//            break;
-//        case 'radioMostrar':
-//            displayNotify("radioMostrar", '', '2');//mensaje cuando el tipo de datos a Mostrar no se encuentre seleccionado
-//            break;
-//        case 'LLenadoMasivo':
-//            displayNotify("radioLLenadoMasivo", '', '2');//mensaje cuando el tipo de llenado masivo no esta seleccionado
-//            break;
-//        case 'ResultadoDimensional':
-//            displayNotify("radioResultadoDimensional", '', '2');//mensaje cuando el tipo de resultado dimensional no esta seleccionado
-//            break;
-//        case 'radioTipoAgregado':
-//            displayNotify("radioTipoAgregado", '', '2');//mensaje cuando el tipo de resultado dimensional no esta seleccionado
-//            break;
-//        case 'AvisoNumeroUnicoYaAsignado':
-//            displayNotify('', _dictionary.AvisoNumeroUnicoYaAsignado[$("#language").data("kendoDropDownList").value()].replace("?1", mensajeExepcionTecnico), '2');//mensaje cuando el numero unico ya se encuentra asignado.
-//            break;
+        case 'InputOrdenTrabajo':// el InputOrdenTrabajo no tiene el formato correcto.
+            displayNotify("OrdenTrabajoNoValida", "", '1');
+            break;
+        case 'Mensajes_error':
+            //displayNotify("Mensajes_error", mensajeExepcionTecnico, '2');//muestra cualquier error indicando el error tecnico al usuario
+            break;
+        case 'InputID-SelectInvalid':
+            displayNotify("NoExisteSpoolID", '', '2');//mensaje indicando que el id no es valido.
+            break;
+        case 'radioMostrar':
+            displayNotify("radioMostrar", '', '2');//mensaje cuando el tipo de datos a Mostrar no se encuentre seleccionado
+            break;
+        case 'LLenadoMasivo':
+            displayNotify("radioLLenadoMasivo", '', '2');//mensaje cuando el tipo de llenado masivo no esta seleccionado
+            break;
+        case 'ResultadoDimensional':
+            displayNotify("radioResultadoDimensional", '', '2');//mensaje cuando el tipo de resultado dimensional no esta seleccionado
+            break;
+        case 'radioTipoAgregado':
+            displayNotify("radioTipoAgregado", '', '2');//mensaje cuando el tipo de resultado dimensional no esta seleccionado
+            break;
+        case 'AvisoNumeroUnicoYaAsignado':
+            displayNotify('', _dictionary.AvisoNumeroUnicoYaAsignado[$("#language").data("kendoDropDownList").value()].replace("?1", mensajeExepcionTecnico), '2');//mensaje cuando el numero unico ya se encuentra asignado.
+            break;
 
-//    }
-//};
+    }
+};
 
 function ObjetoBorrado(item) {
     JsonCaptura = [];
