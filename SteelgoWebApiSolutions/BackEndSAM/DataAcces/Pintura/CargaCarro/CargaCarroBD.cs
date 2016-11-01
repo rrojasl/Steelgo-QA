@@ -127,10 +127,10 @@ namespace BackEndSAM.DataAcces.Pintura.CargaCarro
                         ListadoDetalleMedioTransporteCarga.Add(new DetalleMedioTransporteCarga
                         {
                             Accion = 2,
-                            MedioTransporteID = item.MedioTransporteID.GetValueOrDefault(),
+                            MedioTransporteID = item.MedioTransporteID,
                             Area = item.Area.GetValueOrDefault(),
                             ColorPintura = item.ColorPintura,
-                            MedioTransporteCargaID = item.MedioTransporteCargaID.GetValueOrDefault(),
+                            MedioTransporteCargaID = item.MedioTransporteCargaID,
                             OrdenImportancia = item.OrdenImportancia.GetValueOrDefault(),
                             Peso = item.Peso.GetValueOrDefault(),
                             SistemaPintura = item.SistemaPintura,
@@ -139,9 +139,9 @@ namespace BackEndSAM.DataAcces.Pintura.CargaCarro
                             NumeroControl = item.SpoolJunta,
                             CuadranteID = item.CuadranteID.GetValueOrDefault(),
                             CuadranteSpool = item.Cuadrante,
-                            CuadranteMT = item.EstatusCarga.GetValueOrDefault() ? item.Nombre : item.Cuadrante,
+                            CuadranteMT = item.EstatusCarga ? item.Nombre : item.Cuadrante,
                             ProyectoID = item.ProyectoID,
-                            CarroCerrado = item.CarroCerrado.GetValueOrDefault()
+                            CarroCerrado = item.CarroCerrado
 
                         });
 

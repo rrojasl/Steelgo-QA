@@ -145,7 +145,7 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
                             PinturaSpoolIDShotblastero = item.PinturaSpoolIDShotblastero == null ? 0 : item.PinturaSpoolIDShotblastero.GetValueOrDefault(),
                             PinturaSpoolIDShotPrimario = item.PinturaSpoolIDShotPrimario == null ? 0 : item.PinturaSpoolIDShotPrimario.GetValueOrDefault(),
                             MedioTransporteCargaID = item.MedioTransporteCargaID,
-                            MedioTransporteID = item.MedioTransporteID.GetValueOrDefault(),
+                            MedioTransporteID = item.MedioTransporteID,
                             Metros2 = item.Area.GetValueOrDefault(),
                             Color = item.ColorPintura,
                             ColorPinturaID = item.ColorPinturaID,
