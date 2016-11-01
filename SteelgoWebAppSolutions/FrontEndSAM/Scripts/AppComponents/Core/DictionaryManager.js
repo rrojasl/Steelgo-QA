@@ -8634,6 +8634,11 @@ _dictionary = {
         "es-MX": "No existe el spool",
         "en-US": "No spool"
     },
+    "AvisoNumeroUnicoYaAsignado": {
+        "es-MX": "El numero unico ya se encuentra asignado en la junta: ?1",
+        "en-US": "The only number is already assigned in the joint: ?1"
+
+    },
     "MensajeErrorSpoolHold":
     {
         "es-MX": "No se permite su captura, debido a que transcurrieron 2 dias despues de salir de retención",

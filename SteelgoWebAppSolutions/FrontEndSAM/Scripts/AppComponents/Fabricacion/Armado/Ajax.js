@@ -89,14 +89,17 @@ function ObtenerJSonGridArmado() {
                 var elementoNoEncontrado = false;
 
                 for (var x = array.length - 1; x >= 0; x--) {
+                    loadingStart();
                     if (array[x].JuntaID != $("#Junta").data("kendoComboBox").value()) {
                         array.splice(x, 1);
                     }
+                    loadingStop();
                 }
 
                 if (ExisteJunta(array[0])) {
                     // Proceso validar accion
                     for (var i = 0; i < ds._data.length; i++) {
+                        loadingStart();
                         if (array[0].SpoolID == ds._data[i].SpoolID && array[0].JuntaID == ds._data[i].JuntaID && ds._data[i].Accion == 3) { //SPOOL JUNTA ACCION
                             ds._data[i].TallerID = array[0].TallerID;
                             ds._data[i].Taller = array[0].Taller;
@@ -135,7 +138,7 @@ function ObtenerJSonGridArmado() {
 
                             elementoNoEncontrado = true;
                         }
-
+                        loadingStop();
                     }
                     //if (!elementoNoEncontrado)
                     //    displayNotify("",
@@ -595,6 +598,7 @@ function AjaxCambiarAccionAModificacion() {
                 var array = JSON.parse(data);
 
                 for (var i = 0; i < array.length; i++) {
+                    loadingStart();
                     if (array[i].FechaArmado != null) {
                         array[i].FechaArmado = kendo.toString(array[i].FechaArmado, _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()]);
                         array[i].FechaArmado = new Date(ObtenerDato(array[i].FechaArmado, 1), ObtenerDato(array[i].FechaArmado, 2), ObtenerDato(array[i].FechaArmado, 3));//año, mes, dia
