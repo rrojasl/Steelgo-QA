@@ -72,7 +72,7 @@ namespace BackEndSAM.Controllers.Pintura.PinturaGeneral
                     DataTable dt= new DataTable();
                     dt = Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(list);
 
-                    return PinturaGeneralBD.Instance.ObtenerMedioTransporte(dt);
+                    return PinturaGeneralBD.Instance.GuardarMedioTransporte(dt);
 
                 }
                 else

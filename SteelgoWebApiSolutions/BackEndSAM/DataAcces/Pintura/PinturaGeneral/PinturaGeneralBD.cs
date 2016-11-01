@@ -36,17 +36,17 @@ namespace BackEndSAM.DataAcces.Pintura.PinturaGeneral
                 using (SamContext ctx = new SamContext())
                 {
                     List<MedioTransporte> listaMedioTransporte = new List<MedioTransporte>();
-                    List<Sam3_Pintura_ObtieneMedioTransporte_Result> result = ctx.Sam3_Pintura_ObtieneMedioTransporte(lenguaje, proyectoID).ToList();
+                    List<Sam3_Pintura_Get_MedioTransporte_Result> result = ctx.Sam3_Pintura_Get_MedioTransporte(lenguaje, proyectoID).ToList();
 
                     listaMedioTransporte.Add(new MedioTransporte());
-                    foreach (Sam3_Pintura_ObtieneMedioTransporte_Result item in result)
+                    foreach (Sam3_Pintura_Get_MedioTransporte_Result item in result)
                     {
                         listaMedioTransporte.Add(new MedioTransporte {
                             MedioTransporteID = item.MedioTransporteID,
                             MedioTransporteCargaID = item.MedioTransporteCargaID.GetValueOrDefault(),
                             Nombre = item.Nombre,
                             ProyectoID = item.ProyectoID.GetValueOrDefault(),
-                            CarroCerrado = true//item.CarroCerrado.GetValueOrDefault()
+                            CarroCerrado = item.CarroCerrado.GetValueOrDefault()
                         });
                     }
 
@@ -65,7 +65,7 @@ namespace BackEndSAM.DataAcces.Pintura.PinturaGeneral
             }
         }
 
-        public object ObtenerMedioTransporte(DataTable dtMedioTransporte)
+        public object GuardarMedioTransporte(DataTable dtMedioTransporte)
         {
             try
             {
