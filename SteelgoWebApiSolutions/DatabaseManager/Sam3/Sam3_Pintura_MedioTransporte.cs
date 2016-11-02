@@ -16,9 +16,8 @@ namespace DatabaseManager.Sam3
     {
         public int MedioTransporteID { get; set; }
         public string Nombre { get; set; }
-        public Nullable<bool> Disponible { get; set; }
         public bool Activo { get; set; }
-        public System.DateTime FechaModificacion { get; set; }
+        public Nullable<System.DateTime> FechaModificacion { get; set; }
         public Nullable<int> UsuarioModificacion { get; set; }
     }
 }

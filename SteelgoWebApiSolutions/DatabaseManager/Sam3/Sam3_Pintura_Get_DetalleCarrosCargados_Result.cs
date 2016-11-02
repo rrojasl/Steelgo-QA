@@ -26,11 +26,11 @@ namespace DatabaseManager.Sam3
         public string Proyecto { get; set; }
         public int SistemaPinturaID { get; set; }
         public int ColorPinturaID { get; set; }
-        public int MedioTransporteSpoolID { get; set; }
-        public Nullable<int> MedioTransporteCargaID { get; set; }
-        public Nullable<bool> EstatusCarga { get; set; }
-        public Nullable<int> MedioTransporteID { get; set; }
-        public Nullable<bool> CarroCerrado { get; set; }
+        public int MedioTransporteCargaDetalleID { get; set; }
+        public int MedioTransporteCargaID { get; set; }
+        public bool EstatusCarga { get; set; }
+        public int MedioTransporteID { get; set; }
+        public bool CarroCerrado { get; set; }
         public string Nombre { get; set; }
     }
 }

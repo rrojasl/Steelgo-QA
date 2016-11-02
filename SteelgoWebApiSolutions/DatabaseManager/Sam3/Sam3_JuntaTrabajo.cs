@@ -16,7 +16,7 @@ namespace DatabaseManager.Sam3
     {
         public int JuntaTrabajoID { get; set; }
         public int OrdenTrabajoSpoolID { get; set; }
-        public int JuntaTrabajoAnteriorID { get; set; }
+        public Nullable<int> JuntaTrabajoAnteriorID { get; set; }
         public int TipoJuntaID { get; set; }
         public string EtiquetaJunta { get; set; }
         public int EtiquetaMaterial1 { get; set; }

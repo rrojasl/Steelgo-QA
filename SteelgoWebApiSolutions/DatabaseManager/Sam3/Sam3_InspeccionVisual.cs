@@ -15,7 +15,7 @@ namespace DatabaseManager.Sam3
     public partial class Sam3_InspeccionVisual
     {
         public int InspeccionVisualID { get; set; }
-        public int JuntaTrabajoID { get; set; }
+        public int DetalleArmadoID { get; set; }
         public int ResultadoID { get; set; }
         public int TallerID { get; set; }
         public Nullable<int> DefectoID { get; set; }

@@ -14,6 +14,13 @@ namespace DatabaseManager.Sam3
     
     public partial class Sam3_JuntaSoldadura
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Sam3_JuntaSoldadura()
+        {
+            this.Sam3_JuntaSoldaduraSoldador = new HashSet<Sam3_JuntaSoldaduraSoldador>();
+            this.Sam3_JuntaSoldaduraTrabajoAdicional = new HashSet<Sam3_JuntaSoldaduraTrabajoAdicional>();
+        }
+    
         public int JuntaSoldaduraID { get; set; }
         public int DetalleArmadoID { get; set; }
         public Nullable<int> ProcesoSoldaduraRaizID { get; set; }
@@ -29,5 +36,9 @@ namespace DatabaseManager.Sam3
         public virtual Sam3_DetalleArmado Sam3_DetalleArmado { get; set; }
         public virtual Sam3_ProcesoSoldadura Sam3_ProcesoSoldadura { get; set; }
         public virtual Sam3_ProcesoSoldadura Sam3_ProcesoSoldadura1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_JuntaSoldaduraSoldador> Sam3_JuntaSoldaduraSoldador { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_JuntaSoldaduraTrabajoAdicional> Sam3_JuntaSoldaduraTrabajoAdicional { get; set; }
     }
 }

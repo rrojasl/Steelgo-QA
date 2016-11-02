@@ -58,16 +58,17 @@ function AjaxCargarCarrosCargados() {
         var medioTranporteId = 0;
         $("#inputCarro").data("kendoComboBox").dataSource.data([]);
         $("#inputCarro").data("kendoComboBox").dataSource.data(data);
-        if (data.length < 3) {
+        if (data.length = 1) {
             for (var i = 0; i < data.length; i++) {
                 if (data[i].MedioTransporteID != 0) {
                     medioTranporteId = data[i].MedioTransporteID;
+                    $("#inputCarro").data("kendoComboBox").value(medioTranporteId);
+                    AjaxCargarSpool(medioTranporteId);
                 }
             }
         }
 
-        $("#inputCarro").data("kendoComboBox").value(medioTranporteId);
-        $("#inputCarro").data("kendoComboBox").trigger("change");
+        
         loadingStop();
     });
 }
@@ -77,8 +78,9 @@ function AjaxCargarPintor() {
     loadingStart();
 
     $CapturaAvance.CapturaAvance.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), tipo: 2, tipoObrero: "Pintor" }).done(function (data) {
-
-        $("#inputPintor").data("kendoMultiSelect").setDataSource(data);
+        if (Error(data)) {
+            $("#inputPintor").data("kendoMultiSelect").setDataSource(data);
+        }
         loadingStop();
     });
 }
@@ -88,8 +90,9 @@ function AjaxCargarShotBlastero() {
     loadingStart();
 
     $CapturaAvance.CapturaAvance.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), tipo: 2, tipoObrero: "ShotBlastero" }).done(function (data) {
-
-        $("#inputShotBlastero").data("kendoMultiSelect").setDataSource(data);
+        if (Error(data)) {
+            $("#inputShotBlastero").data("kendoMultiSelect").setDataSource(data);
+        }
         loadingStop();
     });
 }
@@ -97,8 +100,10 @@ function AjaxCargarShotBlastero() {
 function AjaxCargarOrdenTrabajo() {
     loadingStart();
     $CapturaSoldadura.Soldadura.read({ ordenTrabajo: $("#InputOrdenTrabajo").val(), tipo: '1', token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
-        $("#InputOrdenTrabajo").val(data.OrdenTrabajo);
-        $("#InputID").data("kendoComboBox").dataSource.data(data.idStatus);
+        if (Error(data)) {
+            $("#InputOrdenTrabajo").val(data.OrdenTrabajo);
+            $("#InputID").data("kendoComboBox").dataSource.data(data.idStatus);
+        }
         loadingStop();
     });
 }
@@ -107,31 +112,33 @@ function AjaxCargarSpool(medioTransporteCargaID) {
     loadingStart();
 
     $CapturaAvance.CapturaAvance.read({ token: Cookies.get("token"), medioTransporteCargaID: medioTransporteCargaID, lenguaje: $("#language").val() }).done(function (data) {
-        $("#grid").data('kendoGrid').dataSource.data([]);
-        var ds = $("#grid").data("kendoGrid").dataSource;
-        var array = data.listaCapturaAvance;
+        if (Error(data)) {
+            $("#grid").data('kendoGrid').dataSource.data([]);
+            var ds = $("#grid").data("kendoGrid").dataSource;
+            var array = data.listaCapturaAvance;
 
-        for (var i = 0; i < array.length; i++) {
+            for (var i = 0; i < array.length; i++) {
 
-            if (array[i].ListaShotblasteroGuargado.length > 0) {
-                array[i].plantillaShotblastero = _dictionary.CapturaAvancePintoresShotblastExistentes[$("#language").data("kendoDropDownList").value()] + array[i].ListaShotblasteroGuargado.length;
+                if (array[i].ListaShotblasteroGuargado.length > 0) {
+                    array[i].plantillaShotblastero = _dictionary.CapturaAvancePintoresShotblastExistentes[$("#language").data("kendoDropDownList").value()] + array[i].ListaShotblasteroGuargado.length;
+                }
+                else {
+                    array[i].plantillaShotblastero = _dictionary.CapturaAvancePintoresShotblastNoExistentes[$("#language").data("kendoDropDownList").value()];
+                }
+
+                if (array[i].ListaPintorGuargado.length > 0) {
+                    array[i].plantillaPintor = _dictionary.CapturaAvancePintoresPrimariosExistentes[$("#language").data("kendoDropDownList").value()] + array[i].ListaPintorGuargado.length;
+                }
+                else {
+
+                    array[i].plantillaPintor = _dictionary.CapturaAvancePintoresPrimariosNoExistentes[$("#language").data("kendoDropDownList").value()];
+                }
+
+                ds.add(array[i]);
             }
-            else {
-                array[i].plantillaShotblastero = _dictionary.CapturaAvancePintoresShotblastNoExistentes[$("#language").data("kendoDropDownList").value()];
-            }
-
-            if (array[i].ListaPintorGuargado.length > 0) {
-                array[i].plantillaPintor = _dictionary.CapturaAvancePintoresPrimariosExistentes[$("#language").data("kendoDropDownList").value()] + array[i].ListaPintorGuargado.length;
-            }
-            else {
-
-                array[i].plantillaPintor = _dictionary.CapturaAvancePintoresPrimariosNoExistentes[$("#language").data("kendoDropDownList").value()];
-            }
-
-            ds.add(array[i]);
         }
-
         ds.sync();
+    
         loadingStop();
     });
 }

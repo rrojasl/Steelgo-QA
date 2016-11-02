@@ -18,6 +18,9 @@ namespace DatabaseManager.Sam3
         public string Especificacion { get; set; }
         public string Codigo { get; set; }
         public int TipoPruebaId { get; set; }
-        public int Activo { get; set; }
+        public int CodigoAsmeID { get; set; }
+        public bool Activo { get; set; }
+        public Nullable<int> UsuarioModificacion { get; set; }
+        public Nullable<System.DateTime> FechaModificacion { get; set; }
     }
 }

@@ -10,17 +10,13 @@
 namespace DatabaseManager.Sam3
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Sam3_Pintura_MedioTransporteSpool
+    public partial class Sam3_Pintura_Get_MedioTransporte_Result
     {
-        public int MedioTransporteSpoolID { get; set; }
+        public int MedioTransporteID { get; set; }
+        public string Nombre { get; set; }
         public Nullable<int> MedioTransporteCargaID { get; set; }
-        public Nullable<int> SpoolID { get; set; }
-        public bool Activo { get; set; }
-        public System.DateTime FechaModificacion { get; set; }
-        public Nullable<int> UsuarioModificacion { get; set; }
-        public Nullable<bool> EstatusCarga { get; set; }
-        public Nullable<int> CuadranteMedioTransporteID { get; set; }
+        public Nullable<bool> CarroCerrado { get; set; }
+        public Nullable<int> ProyectoID { get; set; }
     }
 }

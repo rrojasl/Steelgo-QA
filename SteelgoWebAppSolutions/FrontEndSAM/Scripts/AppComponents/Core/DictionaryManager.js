@@ -8159,12 +8159,12 @@ _dictionary = {
         "en-US": "Quadrant"
     },
     "columnFechaShotblast": {
-        "es-MX": "Fecha ShotBlast",
-        "en-US": "ShotBlast Date"
+        "es-MX": "F. ShotBlast",
+        "en-US": "ShotBlast D."
     },
     "columnFechaPrimario": {
-        "es-MX": "Fecha Primario",
-        "en-US": "Primary Date"
+        "es-MX": "F. Primario",
+        "en-US": "Primary D."
     },
     "columnShotblastero": {
         "es-MX": "Shotblastero",

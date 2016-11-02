@@ -10,13 +10,15 @@
 namespace DatabaseManager.Sam3
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class Sam3_Armado_Get_MaterialesSpool2_Result
+    public partial class Sam3_TipoResultado
     {
-        public string Etiqueta { get; set; }
-        public int NumeroUnicoID { get; set; }
-        public string Clave { get; set; }
-        public int EtiquetaMaterial { get; set; }
-        public string JuntasEntocontradas { get; set; }
+        public int TipoResultadoID { get; set; }
+        public string Resultado { get; set; }
+        public string ResultadoIngles { get; set; }
+        public bool Activo { get; set; }
+        public Nullable<int> UsuarioModificacion { get; set; }
+        public System.DateTime FechaModificacion { get; set; }
     }
 }

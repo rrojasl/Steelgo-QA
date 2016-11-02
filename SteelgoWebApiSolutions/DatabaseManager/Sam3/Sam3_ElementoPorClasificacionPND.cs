@@ -19,6 +19,5 @@ namespace DatabaseManager.Sam3
         public Nullable<int> JuntaSpoolID { get; set; }
         public Nullable<int> SpoolID { get; set; }
         public Nullable<int> ClasificacionPNDID { get; set; }
-        public Nullable<bool> OkPND { get; set; }
     }
 }

@@ -11,9 +11,13 @@
     SuscribirEventoAgregar();
     SuscribirEventoPlanchar();
     suscribirEventoChangeRadio();
+    SuscribirEventoMostrar();
 }
 
 SuscribirEventos();
+
+
+
 
 
 function SuscribirEventoPlanchar() {
@@ -190,12 +194,26 @@ function suscribirEventoCarro() {
 
             if ($("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()) != undefined) {
                 var dataItem = this.dataItem(e.sender.selectedIndex);
+                //AjaxCargarSpool(dataItem.MedioTransporteID);
+            }
+            else {
+                $("#inputCarro").data("kendoComboBox").value("");
+            }
+        }
+    });
+
+
+    $('#inputCarro').closest('.k-widget').keydown(function (e) {
+        if (e.keyCode == 13) {
+            if ($("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()) != undefined) {
+                var dataItem = $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select());
                 AjaxCargarSpool(dataItem.MedioTransporteID);
             }
             else {
                 $("#inputCarro").data("kendoComboBox").value("");
             }
         }
+
     });
 
 }
@@ -236,7 +254,7 @@ function suscribirEventoPintor() {
         if (e.keyCode == 13) {
 
             if ($("#grid").data("kendoGrid").dataSource._data.length != 0) {
-                PlancharPintor($("#grid").data("kendoGrid").dataSource._data);
+                //PlancharPintor($("#grid").data("kendoGrid").dataSource._data);
             }
         }
 
@@ -258,7 +276,7 @@ function suscribirEventoShotBlastero() {
     $('#inputShotBlastero').closest('.k-widget').keydown(function (e) {
         if (e.keyCode == 13) {
             if ($("#grid").data("kendoGrid").dataSource._data.length != 0) {
-                PlancharShotBlastero($("#grid").data("kendoGrid").dataSource._data);
+                //PlancharShotBlastero($("#grid").data("kendoGrid").dataSource._data);
             }
         }
 
@@ -276,6 +294,19 @@ function SuscribirEventoAgregar() {
     });
 }
 
+function SuscribirEventoMostrar() {
+    $("#btnMostrar").click(function () {
+        if ($("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()) != undefined) {
+            var dataItem = $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select());
+            AjaxCargarSpool(dataItem.MedioTransporteID);
+        }
+        else {
+            
+        }
+    });
+}
+
+
 function SuscribirEventoSpoolID() {
     var dataItem;
     $("#InputID").kendoComboBox({
@@ -284,72 +315,65 @@ function SuscribirEventoSpoolID() {
         suggest: true,
         filter: "contains",
         index: 3,
+        delay: 10,
         change: function (e) {
             dataItem = this.dataItem(e.sender.selectedIndex);
+
             if (dataItem != undefined) {
-                if ($("#InputID").val().length == 1) {
-                    $("#InputID").data("kendoComboBox").value(("00" + $("#InputID").val()).slice(-3));
-                }
-                if ($("#InputID").val() != '' && $("#InputOrdenTrabajo").val() != '') {
-                    if ($("#grid").data("kendoGrid").dataSource._data.length != 0) {
 
-                    }
-
-                }
-            } else {
+            }
+            else {
                 $("#InputID").data("kendoComboBox").value("");
             }
-
+            
         }
     });
-
 
     $("#InputOrdenTrabajo").blur(function (e) {
 
-        if ($("#InputOrdenTrabajo").val().match("^[a-zA-Z][0-9]*$")) {
-            try {
-                loadingStart();
-                $CapturaSoldadura.Soldadura.read({ ordenTrabajo: $("#InputOrdenTrabajo").val(), tipo: '1', token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
-                    $("#InputOrdenTrabajo").val(data.OrdenTrabajo);
-                    $("#InputID").data("kendoComboBox").dataSource.data(data.idStatus);
-                    loadingStop();
-                });
-            } catch (e) {
-                //displayNotify("Mensajes_error", e.message, '0');
+        if ($("#InputOrdenTrabajo").val() != "") {
+            if ($("#InputOrdenTrabajo").val().match("^[a-zA-Z][0-9]*$")) {
+                try {
+                    AjaxObtenerSpoolID();
+                } catch (e) {
+                    displayNotify("", e.message, '2');
+                }
+            } else {
+                $("#InputOrdenTrabajo").val("");
+                displayNotify("PinturaCargaMensajeOrdenTrabajo", "", '1');
             }
-        } else {
-            $("#InputOrdenTrabajo").val("");
-            //displayNotify("CapturaSoldaduraMensajeOrdenTrabajo", "", '1');
         }
-    });
 
+    });
 
 
     $("#InputOrdenTrabajo").focus(function (e) {
         $("#InputOrdenTrabajo").val("");
         $("#InputID").data("kendoComboBox").value("");
-        $("#InputID").data("kendoComboBox").setDataSource()
+        $("#InputID").data("kendoComboBox").setDataSource();
     });
 
     $('#InputID').closest('.k-widget').keydown(function (e) {
+
         if (e.keyCode == 37) {
             $("#InputOrdenTrabajo").focus();
+
         }
-        else if (e.keyCode == 40)
+        else if (e.keyCode == 40) {
             $("#InputID").data("kendoComboBox").select();
+        }
         else if (e.keyCode == 13) {
-            if ($("#grid").data("kendoGrid").dataSource._data.length != 0) {
-                //AjaxAgregarSpool($("#InputID").data("kendoComboBox").value());
+            if ($('#InputID').data("kendoComboBox").value() != undefined) {
+                AjaxAgregarCarga();
+            }
+            else {
+                $("#InputID").data("kendoComboBox").value("");
+                displayNotify("PinturaCargaNoExisteSpoolID", '', '2');
             }
         }
-
     });
 
-    $("#InputID").blur(function () {
-        $("#InputID").data("kendoComboBox").trigger("change");
-    });
-};
-
+}
 function suscribirEventoChangeRadio() {
     $('input:radio[name=Muestra]:nth(0)').change(function () {
         FiltroMostrar(0);

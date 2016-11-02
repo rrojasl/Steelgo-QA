@@ -17,9 +17,10 @@ namespace DatabaseManager.Sam3
         public int SpoolAplicableID { get; set; }
         public Nullable<int> OrdenTrabajoID { get; set; }
         public int SpoolID { get; set; }
-        public int SistemaPinturaID { get; set; }
-        public Nullable<int> SistemaPinturaPaintLineID { get; set; }
+        public Nullable<int> SistemaPinturaID { get; set; }
         public Nullable<int> SistemaPinturaColorID { get; set; }
+        public Nullable<int> SistemaPinturaPaintLineID { get; set; }
+        public Nullable<int> SistemaPinturaPaintLineColorID { get; set; }
         public bool Activo { get; set; }
         public Nullable<int> UsuarioModificacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }

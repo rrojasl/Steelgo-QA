@@ -636,6 +636,10 @@
 .k-grid tbody tr td a.k-button.k-grid-Descarga,
 .k-grid tbody tr td a.k-button.k-grid-Discharging {
     background-image: url("/Content/images/SAMC_DischargingIcon.png");
+    padding-right: 10px;
+    height: 20px;
+    min-width: 20px !important;
+    margin: 0px;
 }
 
 .k-grid tbody tr td a.k-button.k-grid-Imprimir,

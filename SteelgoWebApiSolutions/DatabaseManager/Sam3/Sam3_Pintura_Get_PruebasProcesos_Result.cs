@@ -16,5 +16,7 @@ namespace DatabaseManager.Sam3
         public int ProcesoPinturaID { get; set; }
         public string Nombre { get; set; }
         public int PruebaProcesoPinturaID { get; set; }
+        public int UnidadMedidaID { get; set; }
+        public string UnidadMedida { get; set; }
     }
 }

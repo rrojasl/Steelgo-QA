@@ -11,12 +11,9 @@ namespace DatabaseManager.Sam3
 {
     using System;
     
-    public partial class Sam3_Pintura_ObtieneMedioTransporte_Result
+    public partial class Sam3_Inspeccion_VD_Get_JuntasXSpoolID_Result
     {
-        public int MedioTransporteID { get; set; }
-        public string Nombre { get; set; }
-        public Nullable<int> MedioTransporteCargaID { get; set; }
-        public Nullable<bool> CarroCerrado { get; set; }
-        public Nullable<int> ProyectoID { get; set; }
+        public int JuntaSpoolID { get; set; }
+        public string Etiqueta { get; set; }
     }
 }

@@ -23,7 +23,5 @@ namespace DatabaseManager.Sam3
         public int Activo { get; set; }
         public int UsuarioModificacion { get; set; }
         public System.DateTime FechaModificacion { get; set; }
-    
-        public virtual Sam3_DetalleArmado Sam3_DetalleArmado { get; set; }
     }
 }

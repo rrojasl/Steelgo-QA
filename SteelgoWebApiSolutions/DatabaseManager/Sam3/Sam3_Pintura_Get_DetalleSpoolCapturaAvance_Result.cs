@@ -18,7 +18,7 @@ namespace DatabaseManager.Sam3
         public Nullable<int> PasoPrimario { get; set; }
         public Nullable<int> PinturaSpoolIDShotblastero { get; set; }
         public Nullable<int> PinturaSpoolIDShotPrimario { get; set; }
-        public int MedioTransporteSpoolID { get; set; }
+        public int MedioTransporteCargaDetalleID { get; set; }
         public string SpoolJunta { get; set; }
         public Nullable<int> OrdenImportancia { get; set; }
         public Nullable<decimal> Peso { get; set; }
@@ -28,7 +28,7 @@ namespace DatabaseManager.Sam3
         public int SpoolID { get; set; }
         public Nullable<int> CuadranteID { get; set; }
         public int SistemaPinturaID { get; set; }
-        public Nullable<int> MedioTransporteID { get; set; }
+        public int MedioTransporteID { get; set; }
         public int MedioTransporteCargaID { get; set; }
         public string Cuadrante { get; set; }
         public int ColorPinturaID { get; set; }

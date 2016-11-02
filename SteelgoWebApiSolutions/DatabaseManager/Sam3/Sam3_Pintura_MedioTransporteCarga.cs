@@ -15,10 +15,10 @@ namespace DatabaseManager.Sam3
     public partial class Sam3_Pintura_MedioTransporteCarga
     {
         public int MedioTransporteCargaID { get; set; }
-        public Nullable<int> MedioTransporteID { get; set; }
-        public Nullable<bool> EstatusCarga { get; set; }
+        public int MedioTransporteID { get; set; }
+        public bool EstatusCarga { get; set; }
         public bool Activo { get; set; }
-        public System.DateTime FechaModificacion { get; set; }
+        public Nullable<System.DateTime> FechaModificacion { get; set; }
         public Nullable<int> UsuarioModificacion { get; set; }
     }
 }
