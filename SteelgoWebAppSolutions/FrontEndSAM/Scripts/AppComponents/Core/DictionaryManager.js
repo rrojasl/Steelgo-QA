@@ -7496,6 +7496,10 @@ _dictionary = {
         "es-MX": "Posición °",
         "en-US": "Position °"
     },
+    "lblZona": {
+        "es-MX": "Zona",
+        "en-US": "Zone"
+    },
     "lblSpoolContiene": {
         "es-MX": "Spool Contiene",
         "en-US": "Contain Spool"
