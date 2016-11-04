@@ -54,12 +54,23 @@
         </div>
     </div>
     <div class="row">
+        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+            <div id="tipoVista" class="btn-group " data-toggle="buttons" role="group">
+                <label>&nbsp;</label>
+                <div class="btn btn-primary" >
+                    <input type="radio" name="TipoBusqueda" style="width:auto;" value="ZonaCuadrante" /><span>Zona/Cuadrante</span>
+                </div>
+                <div class="btn btn-primary" >
+                    <input type="radio" name="TipoBusqueda" style="width:auto;" value="Spool" /><span>Spool</span>
+                </div>
+            </div>
+        </div>
         <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 altoControl" id="AreaDiv">
             <label id=""><span id="EmbarqueConsultaArea">Proyecto</span></label>
             <input id="Proyecto" />
         </div>
         <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 altoControl" id="AreaDiv">
-            <label id=""><span id="EmbarqueConsultaArea">Area</span></label>
+            <label id=""><span id="EmbarqueConsultaArea">Zona</span></label>
             <input id="Area" />
         </div>
         <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 altoControl" id="CuadranteDiv">
@@ -68,7 +79,7 @@
         </div>
         <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2">
             <label id="">&nbsp;</label>
-            <button type="button" id="btnAgregar" class="btn btn-blue"><span id="botonBuscar">Buscar</span></button>
+            <button type="button" id="btnAgregar" class="btn btn-blue"><span id="lblMostrar"></span></button>
         </div>
     </div>
     <div class="row addedSectionInLine">
