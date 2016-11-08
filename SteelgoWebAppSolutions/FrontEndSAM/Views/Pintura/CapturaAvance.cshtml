@@ -57,7 +57,7 @@
     </div>
 
     @*Controles Superior*@
-    <div class="row" id="FieldSetView">
+    <div class="row addedSectionInLineWithoutColor" id="FieldSetView">
         <div class="col-xs-12 col-sm-4 col-md-2 col-lg-2 altoControl" id="carroDiv">
             <label><span id="lblCarroEscritorio"></span></label>
             <input id="inputCarro" />
@@ -85,7 +85,7 @@
             <button type="button" id="btnMostrar" class="btn btn-blue"><span id="botonMostrar"></span></button>
         </div>
     </div>
-    <div class="row">
+    <div class="row addedSectionInLineWithoutColor">
         <div class="col-xs-6 col-sm-2 col-md-4 col-lg-2" id="InputIDDiv">
             <label id="lblSpoolID"></label>
             <input style="width:40%" id="InputOrdenTrabajo" class="general-input" />-<input id="InputID" placeholder="ID" style="width:40%;" />
@@ -100,11 +100,11 @@
     @*GRID*@
 
     <div class="row addedSectionInLine">
-        <div class="col-xs-12 col-sm-4 col-md-3 col-lg-2 altoControl">
+        <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3 altoControl">
             <label><span id="lblFechaShotblast"></span></label>
             <input id="FechaShotBlast" />
         </div>
-        <div class="col-xs-12 col-sm-4 col-md-2 col-lg-2 altoControl">
+        <div class="col-xs-12 col-sm-4 col-md-2 col-lg-3 altoControl">
             <label><span id="lblFechaPrimario"></span></label>
             <input id="Fechaprimario" />
         </div>
@@ -127,11 +127,11 @@
             <label id="">&nbsp;</label>
         </div>
 
-        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3 altoControl Bginput">
+        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3  Bginput">
             <label><span id="lblShotblastero"></span></label>
             <input id="inputShotBlastero" />
         </div>
-        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3 altoControl Bginput ">
+        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3  Bginput ">
             <label><span id="lblPintor"></span></label>
             <input id="inputPintor" />
         </div>
@@ -211,3 +211,9 @@
 <script type="text/javascript" src="~/Scripts/AppComponents/Pintura/CapturaAvance/Ajax.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/Pintura/CapturaAvance/Handlers.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/Pintura/CapturaAvance/Captura.js"></script>
+
+<script>
+        @section JavascriptDocumentReadyFunctions {
+    $authorizationModel["Captura Avance"] = $CapturaAvanceModel;
+    }
+</script>

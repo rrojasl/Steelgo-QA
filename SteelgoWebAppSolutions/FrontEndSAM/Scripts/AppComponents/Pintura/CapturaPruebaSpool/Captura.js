@@ -83,24 +83,16 @@ function CargarGrid() {
         },
         filterable: getGridFilterableMaftec(),
         columns: [
-            { field: "NombreSpool", title: _dictionary.columnNumeroControl[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "150px" },
-            { field: "SistemaPintura", title: _dictionary.columnSistemaPintura[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "150px" },
+            { field: "NombreSpool", title: _dictionary.columnNumeroControl[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "120px" },
+            { field: "SistemaPintura", title: _dictionary.columnSistemaPintura[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "120px" },
             { field: "Color", title: _dictionary.columnColor[$("#language").data("kendoDropDownList").value()], width: "150px", filterable: getGridFilterableCellMaftec() },
-            { field: "M2", title: _dictionary.columnM2[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), format: "{0:n2}", width: "95px", attributes: { style: "text-align:right;" } },
+            { field: "M2", title: _dictionary.columnM2[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), format: "{0:n2}", width: "65px", attributes: { style: "text-align:right;" } },
             { field: "Lote", title: "Lote", filterable: getGridFilterableCellMaftec(), width: "150px" },
             { field: "NombreCuadrante", title: _dictionary.columnCuadrante[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "150px" },
-            { field: "UnidadMedida", title: _dictionary.columnUnidadMedida[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "150px" },
-            { field: "ValorUnidadMedida", title: "Valor de la prueba", filterable: getGridFilterableCellMaftec(), width: "170px" },
+            { field: "UnidadMedida", title: _dictionary.columnUnidadMedida[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "110px" },
+            { field: "ValorUnidadMedida", title: "Valor de la prueba", filterable: getGridFilterableCellNumberMaftec(), width: "170px" },
             {
-                field: "Aprobado", title: "Aprobado", filterable: {
-                    multi: true,
-                    messages: {
-                        isTrue: _dictionary.lblVerdadero[$("#language").data("kendoDropDownList").value()],
-                        isFalse: _dictionary.lblFalso[$("#language").data("kendoDropDownList").value()],
-                        style: "max-width:100px;"
-                    },
-                    dataSource: [{ Aprobado: true }, { Aprobado: false }]
-                }, template: '<input type="checkbox" #= Aprobado ? "checked=checked" : "" # class="chkbx" disabled></input>  ', width: "130px", attributes: { style: "text-align:center;" }
+                field: "Aprobado", title: "Aprobado", filterable: getGridFilterableCellMaftec(), template: '<input type="checkbox" #= Aprobado ? "checked=checked" : "" # class="chkbx" disabled></input>  ', width: "130px", attributes: { style: "text-align:center;" }
             },
             { command: { text: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()] }, title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], width: "50px", attributes: { style: "text-align:center;" } }
         ],
