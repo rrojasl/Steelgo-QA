@@ -563,6 +563,41 @@ input.quickFilters {
     width: 33.37%;
 }
 
+.btn-tab.btn-dashPintura {
+    width: 9% !important;
+    border-top: #FFFFFF;
+}
+
+.btn-tab.btn-dashPinturaHeader {
+    width: 26.81% !important;
+    height: 40px;
+    /*border-bottom: #FFFFFF;*/
+}
+
+.btn-tab.btn-dashPintura2Header {
+    width: 17.91% !important;
+    height: 40px;
+    /*border-bottom: #FFFFFF;*/
+}
+
+.btn-tab.btn-dashPinturaOKPinturaHeader {
+    width: 10% !important;
+    height: 40px;
+    /*border-bottom: #FFFFFF;*/
+}
+
+.btn-tab.btn-dashPinturaOKPintura {
+    width: 10% !important;
+    border-top: #FFFFFF;
+}
+
+
+.dashboardNoPadding {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+
 .btn-tab.Accesorios,
 .btn-tab.Tubos,
 .btn-tab.General {
