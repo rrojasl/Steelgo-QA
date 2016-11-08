@@ -50,11 +50,12 @@ function CargarGrid() {
             input: false,
             numeric: true,
         },
+        filterable: getGridFilterableMaftec(),
         columns: [
-            { field: "Spool", title: "Spool", filterable: true },
-            { field: "Cuadrante", title: "Cuadrante", filterable: true },
-            { field: "M2", title: "M2", filterable: true },
-            { field: "TOneladas", title: "Toneladas", filterable: true },
+            { field: "Spool", title: "Spool", filterable: getGridFilterableCellMaftec() },
+            { field: "Cuadrante", title: "Cuadrante", filterable: getGridFilterableCellMaftec() },
+            { field: "M2", title: "M2", filterable: getGridFilterableCellMaftec() },
+            { field: "TOneladas", title: "Toneladas", filterable: getGridFilterableCellMaftec() },
              {
                  command: {
                      text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()],

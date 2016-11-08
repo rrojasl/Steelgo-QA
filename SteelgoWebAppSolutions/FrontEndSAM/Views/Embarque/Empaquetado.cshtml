@@ -12,7 +12,7 @@
         <a href="#"><span id="lblEmbarque"></span>Embarque</a>
     </li>
     <li class="active">
-        <a href=@Url.Action("Cargas", "Empaquetado")><span id="lblEmpaquetado">Empaquetado</span></a>
+        <a href=@Url.Action("Empaquetado","Embarque")><span id="lblEmpaquetado">Empaquetado</span></a>
     </li>
 }
 
@@ -37,7 +37,7 @@
                     <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar"></span></a>
                 </div>
                 <div id="CargasEmbarqueDivSuperior" class="button-section">
-                    <a id="CargasEmbarqueSuperior" href=@Url.Action("Embarque", "Embarque") class="btn btn-primary"><span id="botonEmbarque">Embarque carro</span></a>
+                    <a id="CargasEmbarqueSuperior" href=@Url.Action("Carga", "Embarque") class="btn btn-primary"><span id="botonEmbarque">Carga</span></a>
                 </div>
                 <div class="button-section actionButtonSection">
                     <div class="dropdown action-group">
