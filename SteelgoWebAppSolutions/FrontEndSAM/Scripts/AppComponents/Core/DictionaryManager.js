@@ -7516,6 +7516,22 @@ _dictionary = {
         "es-MX": "Seleccionar todos",
         "en-US": "Select all"
     },
+    "lblFechaInicial": {
+        "es-MX": "Fecha Inicial",
+        "en-US": "Initial Date"
+    },
+    "lblFechaFinal": {
+        "es-MX": "Fecha Final",
+        "en-US": "Final Date"
+    },
+    "lblPeriodo": {
+        "es-MX": "Periodo",
+        "en-US": "Period"
+    },
+    "lblCliente": {
+        "es-MX": "Cliente",
+        "en-US": "Client"
+    },
     //Etiquetas header alertas
     "SuccessTitle": {
         "es-MX": "Correcto",
@@ -10000,6 +10016,54 @@ _dictionary = {
     "lbDashboardOKPND": {
         "es-MX": "OK PND ",
         "en-US": "OK PND"
+    },
+    "lblPorCargarS": {
+        "es-MX": "Por Cargar",
+        "en-US": "To Charge"
+    },
+    "lblPorCapturarS": {
+        "es-MX": "Por Capturar",
+        "en-US": "To capture"
+    },
+    "lblPorProbarS": {
+        "es-MX": "Por Probar",
+        "en-US": "To Test"
+    },
+    "lblPorCargarP": {
+        "es-MX": "Por Cargar",
+        "en-US": "To Charge"
+    },
+    "lblPorCapturarP": {
+        "es-MX": "Por Capturar",
+        "en-US": "To capture"
+    },
+    "lblPorProbarP": {
+        "es-MX": "Por Probar",
+        "en-US": "To Test"
+    },
+    "lblPorCargarI": {
+        "es-MX": "Por Cargar",
+        "en-US": "To Charge"
+    },
+    "lblPorCapturarI": {
+        "es-MX": "Por Capturar",
+        "en-US": "To capture"
+    },
+    "lblPorProbarI": {
+        "es-MX": "Por Probar",
+        "en-US": "To Test"
+    },
+    "lblPorCargarA": {
+        "es-MX": "Por Cargar",
+        "en-US": "To Charge"
+    },
+    "lblPorCapturarA": {
+        "es-MX": "Por Capturar",
+        "en-US": "To capture"
+    },
+    "lblPorProbarA": {
+        "es-MX": "Por Probar",
+        "en-US": "To Test"
     },
 
     // Finaliza Dashboard Pitura 
