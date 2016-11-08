@@ -327,18 +327,18 @@ function SuscribirEventoChangeRadioTipoListado() {
 
     $('input:radio[name=RevisionEmbarqueTipoSeleccion]:nth(0)').change(function () {
         $("#divSpool").show();
-        $("#divPaquete").hide();
+        //$("#divPaquete").hide();
         $("#divCodigo").hide();
     });
     $('input:radio[name=RevisionEmbarqueTipoSeleccion]:nth(1)').change(function () {
         $("#divSpool").hide();
-        $("#divPaquete").show();
+        //$("#divPaquete").show();
         $("#divCodigo").hide();
 
     });
     $('input:radio[name=RevisionEmbarqueTipoSeleccion]:nth(2)').change(function () {
         $("#divSpool").hide();
-        $("#divPaquete").hide();
+        //$("#divPaquete").hide();
         $("#divCodigo").show();
 
     });

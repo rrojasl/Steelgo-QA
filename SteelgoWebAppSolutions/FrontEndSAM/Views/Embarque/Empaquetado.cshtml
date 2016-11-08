@@ -41,12 +41,12 @@
                 </div>
                 <div class="button-section actionButtonSection">
                     <div class="dropdown action-group">
-                        <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
+                        <a id="Acciones" data-target="#" href="#/" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
                             <span id="botonAcciones1"></span>
                             <span class="caretBlue"></span>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="Acciones">
-                            <li><a href="#" id="btnEmbarqueCerrarPlana" class="btnCerrarPlana"><span id="EmbarqueCargaBotonCerrarPlana">Cerrar plana</span></a></li>
+                            <li><a href="#" id="EmbarquePaqueteEliminarPaquete1" class="btnEliminarPaquete"><span id="">Eliminar paquete</span></a></li>
 
                         </ul>
                     </div>
@@ -56,22 +56,23 @@
         </div>
     </div>
     @*Controles Superior*@
-    <div class="row">
-        @*<div class="col-sm-2 col-md-2 col-lg-2 altoControl" id="divProveedor">
-                <label id="EmbarqueEmpaquetadoProveedor"></label>
-                <input id="inputProveedor" />
-            </div>
-            <div class="col-sm-2 col-md-2 col-lg-2 altoControl" id="divPlana">
-                <label id="EmbarqueEmpaquetadoPLaca"></label>
-                <input id="inputEmbarqueEmpaquetadoPLacaPlana" />
-            </div>
-            <div class="col-sm-2 col-md-2 col-lg-2 altoControl">
-                <label>Estatus</label>
-                <label id="lblEstatus"></label>
-            </div>*@
+    <div class="row addedSectionInLineWithoutColor">
+        
         <div class="col-xs-12 col-sm-4 col-md-2 col-lg-2 altoControl" id="divProyecto">
             <label id="EmbarqueCargaCodigo">Proyecto</label>
-            <input id="Proyecto"  />
+            <input id="Proyecto"/>
+        </div>
+        <div class="col-sm-3 col-md-3 col-lg-3" id="divPaquete" >
+            <label id="RevisionEmbarquePaquete">Paquete</label>
+            <input id="inputPaquete" />
+        </div>
+        <div class="col-sm-3 col-md-3 col-lg-1">
+            <label id="">&nbsp;</label>
+            <button type="button" id="btnMostrar" class="btn btn-blue"><span id="botonMostrar"></span></button>
+
+        </div>
+        <div class="col-sm-3 col-md-3 col-lg-1">
+            <label id="">&nbsp;</label>
         </div>
         <div class="col-xs-12 col-sm-4 col-md-2 col-lg-2 altoControl">
             <label id="EmbarqueEmpaquetadoTotalPiezas"></label>
@@ -82,22 +83,19 @@
             <label id="lblEmbarqueEmpaquetadoToneladasCargadas">Toneladas cargadas</label>
             <label id="LabelProyecto" style="display:none;"> </label>
         </div>
-
-        <div class="col-sm-12 col-md-12 col-lg-12 altoControl">
-            <hr />
-        </div>
         
     </div>
-    <div class="row">
+    </br>
+    <div class="row addedSectionInLineWithoutColor">
         <div class="col-sm-2 col-md-2 col-lg-2">
             <div class="btn-group " role="group">
                 <label id="EmbarqueCargaSelecciona"></label>
                 <label id="styleReporte">
                     <input type="radio" name="RevisionEmbarqueTipoSeleccion" style="width:auto;" value="Spool" checked="checked" /><span id="RevisionEmbarqueOpcionSpool">Spool</span>
                 </label>
-                <label id="styleListado">
+                @*<label id="styleListado">
                     <input type="radio" name="RevisionEmbarqueTipoSeleccion" style="width:auto;" value="Paquete" /><span id="RevisionEmbarqueOpcionPaquete">Paquete</span>
-                </label>
+                </label>*@
                 <label id="styleListado">
                     <input type="radio" name="RevisionEmbarqueTipoSeleccion" style="width:auto;" value="Codigo" /><span id="RevisionEmbarqueOpcionCodigo">Código</span>
                 </label>
@@ -108,17 +106,13 @@
             <label id="lblSpoolID"></label>
             <input style="width:40%" id="InputOrdenTrabajo" class="item-select general-input" />-<input id="InputID" placeholder="ID" style="width:40%;" />
         </div>
-        <div class="col-sm-3 col-md-3 col-lg-3" id="divPaquete" style="display:none;">
-            <label id="RevisionEmbarquePaquete">Paquete</label>
-            <input id="inputPaquete" />
-        </div>
         <div class="col-sm-3 col-md-3 col-lg-3" id="divCodigo" style="display:none;">
             <label id="EmbarqueCargaCodigo">Código</label>
             <input id="inputCodigo" class="item-select general-input" />
         </div>
         <div class="col-sm-3 col-md-3 col-lg-1">
             <label id="">&nbsp;</label>
-            <button type="button" id="btnAgregar" class="btn btn-blue"><span id="RevisionEmbarqueAgregar">Agregar</span></button>
+            <button type="button" id="btnAgregar" class="btn btn-blue"><span id="botonAgregar"></span></button>
 
         </div>
 
@@ -163,12 +157,12 @@
                 </div>
                 <div class="button-section actionButtonSection">
                     <div class="dropdown action-group">
-                        <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
+                        <a id="Acciones" data-target="#" href="#/" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
                             <span id="botonAcciones2"></span>
                             <span class="caretBlue"></span>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="Acciones">
-                            <li><a href="#" id="btnEmbarqueCerrarPlana" class="btnCerrarPlana"><span id="EmbarqueCargaBotonCerrarPlana">Cerrar plana</span></a></li>
+                            <li><a href="#" id="EmbarquePaqueteEliminarPaquete2" class="btnEliminarPaquete"><span id="">Eliminar paquete</span></a></li>
                         </ul>
                     </div>
                 </div>
