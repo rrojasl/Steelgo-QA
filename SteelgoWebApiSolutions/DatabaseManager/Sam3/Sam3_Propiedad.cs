@@ -14,6 +14,7 @@ namespace DatabaseManager.Sam3
     
     public partial class Sam3_Propiedad
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Sam3_Propiedad()
         {
             this.Sam3_Rel_Perfil_Propiedad_Pagina = new HashSet<Sam3_Rel_Perfil_Propiedad_Pagina>();
@@ -26,6 +27,7 @@ namespace DatabaseManager.Sam3
         public Nullable<int> UsuarioModificacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sam3_Rel_Perfil_Propiedad_Pagina> Sam3_Rel_Perfil_Propiedad_Pagina { get; set; }
     }
 }

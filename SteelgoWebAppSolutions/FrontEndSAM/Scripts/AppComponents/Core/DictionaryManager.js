@@ -10003,4 +10003,73 @@ _dictionary = {
     },
 
     // Finaliza Dashboard Pitura 
+
+    // Empieza  embarque
+    "columnSpoolIDEmbarque": {
+      "es-MX": "Spool ID ",
+      "en-US": "Spool ID"
+  },
+
+    "columnPasoEmbarque": {
+        "es-MX": "Paso ",
+        "en-US": "Step"
+    },
+
+    "columnCuadranteEmbarque": {
+              "es-MX":"Cuadrante",
+              "en-US": "Quadrant"
+          },
+
+    "columnDibujoEmbarque": {
+        "es-MX": "Dibujo ",
+        "en-US": "Draw"
+    },
+
+    "columnEtiquetadoEmbarque": {
+        "es-MX": "Etiquetado ",
+        "en-US": "Label"
+    },
+    "columnColorCintaEmbarque": {
+        "es-MX": "Color de la Cinta ",
+        "en-US": "Ribbon color"
+    },
+    "columnEncintadoEmbarque": {
+        "es-MX": "Encintado ",
+        "en-US": "Encintado"
+    },
+    "columnEncintadoEmbarque": {
+        "es-MX": "Encintado ",
+        "en-US": "Encintado"
+    },
+    "columnConcecutivoEmbarque": {
+        "es-MX": "Consecutivo ",
+        "en-US": "Consecutive"
+    },
+    "columnPaqueteEmbarque": {
+        "es-MX": "Paquete ",
+        "en-US": "Package"
+    },
+    "columnPesoEmbarque": {
+        "es-MX": "Peso ",
+        "en-US": "Weigth"
+    },
+    //finaliza embarque 
+    //Acciones botones de embarque
+    "BtnGuardarCerrarEmabarqueSup": {
+        "es-MX": "Guardar y Cerrar ",
+        "en-US": "Save and Close"
+    },
+    "BtnGuardarCerrarNuevoEmbarqueSup": {
+        "es-MX": "Guardar, Cerrar y Nuevo ",
+        "en-US": "Sava, Close and New"
+    },
+    "BtnGuardarCerrarEmabarqueInf": {
+        "es-MX": "Guardar y Cerrar ",
+        "en-US": "Save and Close"
+    },
+    "BtnGuardarCerrarNuevoEmbarqueInf": {
+        "es-MX": "Guardar, Cerrar y Nuevo ",
+        "en-US": "Sava, Close and New"
+    },
+    //fin acciones botones de embarque 
 };

@@ -14,12 +14,13 @@ namespace DatabaseManager.Sam3
     
     public partial class Sam3_TipoMaterial
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Sam3_TipoMaterial()
         {
-            this.Sam3_ItemCode = new HashSet<Sam3_ItemCode>();
             this.Sam3_FolioCuantificacion = new HashSet<Sam3_FolioCuantificacion>();
             this.Sam3_FolioPickingTicket = new HashSet<Sam3_FolioPickingTicket>();
             this.Sam3_Grupo = new HashSet<Sam3_Grupo>();
+            this.Sam3_ItemCode = new HashSet<Sam3_ItemCode>();
         }
     
         public int TipoMaterialID { get; set; }
@@ -29,9 +30,13 @@ namespace DatabaseManager.Sam3
         public Nullable<int> UsuarioModificacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
     
-        public virtual ICollection<Sam3_ItemCode> Sam3_ItemCode { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sam3_FolioCuantificacion> Sam3_FolioCuantificacion { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sam3_FolioPickingTicket> Sam3_FolioPickingTicket { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sam3_Grupo> Sam3_Grupo { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_ItemCode> Sam3_ItemCode { get; set; }
     }
 }

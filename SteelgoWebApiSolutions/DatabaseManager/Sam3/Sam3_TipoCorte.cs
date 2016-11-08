@@ -14,12 +14,13 @@ namespace DatabaseManager.Sam3
     
     public partial class Sam3_TipoCorte
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Sam3_TipoCorte()
         {
-            this.Sam3_NumeroUnico = new HashSet<Sam3_NumeroUnico>();
-            this.Sam3_NumeroUnico1 = new HashSet<Sam3_NumeroUnico>();
             this.Sam3_CorteSpool = new HashSet<Sam3_CorteSpool>();
             this.Sam3_CorteSpool1 = new HashSet<Sam3_CorteSpool>();
+            this.Sam3_NumeroUnico = new HashSet<Sam3_NumeroUnico>();
+            this.Sam3_NumeroUnico1 = new HashSet<Sam3_NumeroUnico>();
         }
     
         public int TipoCorteID { get; set; }
@@ -31,9 +32,13 @@ namespace DatabaseManager.Sam3
         public Nullable<int> UsuarioModificacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
     
-        public virtual ICollection<Sam3_NumeroUnico> Sam3_NumeroUnico { get; set; }
-        public virtual ICollection<Sam3_NumeroUnico> Sam3_NumeroUnico1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sam3_CorteSpool> Sam3_CorteSpool { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sam3_CorteSpool> Sam3_CorteSpool1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_NumeroUnico> Sam3_NumeroUnico { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_NumeroUnico> Sam3_NumeroUnico1 { get; set; }
     }
 }

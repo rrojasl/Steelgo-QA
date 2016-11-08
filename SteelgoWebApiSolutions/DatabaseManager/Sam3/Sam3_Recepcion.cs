@@ -14,6 +14,7 @@ namespace DatabaseManager.Sam3
     
     public partial class Sam3_Recepcion
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Sam3_Recepcion()
         {
             this.Sam3_NumeroUnico = new HashSet<Sam3_NumeroUnico>();
@@ -34,8 +35,8 @@ namespace DatabaseManager.Sam3
         public Nullable<System.DateTime> FechaModificacion { get; set; }
         public int FolioCuantificacionID { get; set; }
     
-        public virtual Sam3_FamiliaItemCode Sam3_FamiliaItemCode { get; set; }
-        public virtual ICollection<Sam3_NumeroUnico> Sam3_NumeroUnico { get; set; }
         public virtual Sam3_FolioCuantificacion Sam3_FolioCuantificacion { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_NumeroUnico> Sam3_NumeroUnico { get; set; }
     }
 }

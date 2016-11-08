@@ -29,9 +29,6 @@ namespace DatabaseManager.Sam3
         public Nullable<System.DateTime> FechaModificacion { get; set; }
     
         public virtual Sam3_Corte Sam3_Corte { get; set; }
-        public virtual Sam3_Maquina Sam3_Maquina { get; set; }
-        public virtual Sam3_MaterialSpool Sam3_MaterialSpool { get; set; }
         public virtual Sam3_NumeroUnicoMovimiento Sam3_NumeroUnicoMovimiento { get; set; }
-        public virtual Sam3_OrdenTrabajoSpool Sam3_OrdenTrabajoSpool { get; set; }
     }
 }

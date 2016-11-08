@@ -57,12 +57,19 @@ function CargarGrid() {
             }
         },
         dataSource: {
+            data: [
+                {
+                    Consecutivo:"10",
+                    SpoolID: "X001-001",
+                    Paquete: "Paquete 1",
+                    Peso:"50"
+                }
+            ],
             schema: {
                 model: {
                     fields: {
-                        OrdenTrabajoSpoolID: { type: "string", editable: false },
+                        Consecutivo:{type:"int",editable:false},
                         SpoolID: { type: "string", editable: false },
-                        NumeroControl: { type: "string", editable: false },
                         Paquete: { type: "string", editable: false },
                         Seleccionado: { type: "boolean", editable: false },
                         EmbarquePaqueteID: { type: "int", editable: false },
@@ -82,7 +89,7 @@ function CargarGrid() {
                     { field: "Accion", operator: "eq", value: undefined }
                 ]
             },
-            pageSize: 20,
+            pageSize: 10,
             serverPaging: false,
             serverFiltering: false,
             serverSorting: false
@@ -95,17 +102,19 @@ function CargarGrid() {
         scrollable: true,
         pageable: {
             refresh: false,
-            pageSizes: [10, 15, 20],
+            pageSizes: [10, 25,50, 20],
             info: false,
             input: false,
             numeric: true,
         },
-
+        filterable: getGridFilterableMaftec(),
         columns: [
-            { field: "Consecutivo", title: "Consecutivo",filterable: getGridFilterableCellNumberMaftec(), width: "150px" },
-            { field: "NumeroControl", title: "Spool", filterable: getGridFilterableCellMaftec(), width: "150px" },
-            { field: "Paquete", title: "Paquete",filterable: getGridFilterableCellMaftec(), width: "150px" },
-            { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: eliminarCaptura }, title: "ELM", width: "30px" }
+            { field: "Consecutivo", title: _dictionary.columnConcecutivoEmbarque[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "150px" },
+            { field: "SpoolID", title: _dictionary.columnSpoolIDEmbarque[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "150px" },
+            { field: "Paquete", title: _dictionary.columnPaqueteEmbarque[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "150px" },
+            { field: "Peso", title: _dictionary.columnPesoEmbarque[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "130px", attributes: { style: "text-align:right;" }, format: "{0: }" },
+            { command: { text: _dictionary.botonDescarga[$("#language").data("kendoDropDownList").value()] }, title: _dictionary.columnDescargar[$("#language").data("kendoDropDownList").value()], width: "70px", attributes: { style: "text-align:center;" } },
+           { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()] }, title: "ELM", width: "30px" }
         ]
     });
     CustomisaGrid($("#grid"));

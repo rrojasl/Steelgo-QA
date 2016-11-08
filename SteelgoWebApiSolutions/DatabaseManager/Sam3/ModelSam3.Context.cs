@@ -12,6 +12,8 @@ namespace DatabaseManager.Sam3
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class SamContext : DbContext
     {
@@ -26,168 +28,2849 @@ namespace DatabaseManager.Sam3
         }
     
         public virtual DbSet<Sam3_Acero> Sam3_Acero { get; set; }
+        public virtual DbSet<Sam3_Articulos> Sam3_Articulos { get; set; }
+        public virtual DbSet<Sam3_Bulto> Sam3_Bulto { get; set; }
+        public virtual DbSet<Sam3_CamposPredeterminados> Sam3_CamposPredeterminados { get; set; }
+        public virtual DbSet<Sam3_CapacidadTurnoEquipo> Sam3_CapacidadTurnoEquipo { get; set; }
+        public virtual DbSet<Sam3_CapacidadTurnoProveedor> Sam3_CapacidadTurnoProveedor { get; set; }
+        public virtual DbSet<Sam3_CatalogoCedulas> Sam3_CatalogoCedulas { get; set; }
+        public virtual DbSet<Sam3_Catalogos> Sam3_Catalogos { get; set; }
+        public virtual DbSet<Sam3_Cedula> Sam3_Cedula { get; set; }
+        public virtual DbSet<Sam3_CertificacionPosicion> Sam3_CertificacionPosicion { get; set; }
+        public virtual DbSet<Sam3_CertificacionTipoPrueba> Sam3_CertificacionTipoPrueba { get; set; }
         public virtual DbSet<Sam3_Chofer> Sam3_Chofer { get; set; }
+        public virtual DbSet<Sam3_ClasificacionIncidencia> Sam3_ClasificacionIncidencia { get; set; }
+        public virtual DbSet<Sam3_ClasificacionPND> Sam3_ClasificacionPND { get; set; }
         public virtual DbSet<Sam3_Cliente> Sam3_Cliente { get; set; }
+        public virtual DbSet<Sam3_Codigo> Sam3_Codigo { get; set; }
         public virtual DbSet<Sam3_Colada> Sam3_Colada { get; set; }
         public virtual DbSet<Sam3_Color> Sam3_Color { get; set; }
+        public virtual DbSet<Sam3_ColorPintura> Sam3_ColorPintura { get; set; }
+        public virtual DbSet<Sam3_Consumible> Sam3_Consumible { get; set; }
         public virtual DbSet<Sam3_Contacto> Sam3_Contacto { get; set; }
         public virtual DbSet<Sam3_Corte> Sam3_Corte { get; set; }
         public virtual DbSet<Sam3_CorteDetalle> Sam3_CorteDetalle { get; set; }
+        public virtual DbSet<Sam3_CorteSpool> Sam3_CorteSpool { get; set; }
+        public virtual DbSet<Sam3_Cuadrante> Sam3_Cuadrante { get; set; }
+        public virtual DbSet<Sam3_Defecto> Sam3_Defecto { get; set; }
+        public virtual DbSet<Sam3_Defecto_Juntas> Sam3_Defecto_Juntas { get; set; }
+        public virtual DbSet<Sam3_Defecto_Tipos> Sam3_Defecto_Tipos { get; set; }
+        public virtual DbSet<Sam3_DeficitMateriales> Sam3_DeficitMateriales { get; set; }
+        public virtual DbSet<Sam3_Despacho> Sam3_Despacho { get; set; }
+        public virtual DbSet<Sam3_DetalleArmado> Sam3_DetalleArmado { get; set; }
         public virtual DbSet<Sam3_Diametro> Sam3_Diametro { get; set; }
+        public virtual DbSet<Sam3_Dummy_CapturaReporte> Sam3_Dummy_CapturaReporte { get; set; }
         public virtual DbSet<Sam3_Entidad> Sam3_Entidad { get; set; }
+        public virtual DbSet<Sam3_Entrega> Sam3_Entrega { get; set; }
+        public virtual DbSet<Sam3_Equipo> Sam3_Equipo { get; set; }
+        public virtual DbSet<Sam3_EquivalenciaAcero> Sam3_EquivalenciaAcero { get; set; }
+        public virtual DbSet<Sam3_EquivalenciaCedula> Sam3_EquivalenciaCedula { get; set; }
+        public virtual DbSet<Sam3_EquivalenciaColada> Sam3_EquivalenciaColada { get; set; }
+        public virtual DbSet<Sam3_EquivalenciaCorte> Sam3_EquivalenciaCorte { get; set; }
+        public virtual DbSet<Sam3_EquivalenciaCorteSpool> Sam3_EquivalenciaCorteSpool { get; set; }
+        public virtual DbSet<Sam3_EquivalenciaDespacho> Sam3_EquivalenciaDespacho { get; set; }
+        public virtual DbSet<Sam3_EquivalenciaDiametro> Sam3_EquivalenciaDiametro { get; set; }
+        public virtual DbSet<Sam3_EquivalenciaEspesor> Sam3_EquivalenciaEspesor { get; set; }
+        public virtual DbSet<Sam3_EquivalenciaEstacion> Sam3_EquivalenciaEstacion { get; set; }
+        public virtual DbSet<Sam3_EquivalenciaEstatusOrden> Sam3_EquivalenciaEstatusOrden { get; set; }
+        public virtual DbSet<Sam3_EquivalenciaFabArea> Sam3_EquivalenciaFabArea { get; set; }
+        public virtual DbSet<Sam3_EquivalenciaFabricante> Sam3_EquivalenciaFabricante { get; set; }
+        public virtual DbSet<Sam3_EquivalenciaFamiliaAcero> Sam3_EquivalenciaFamiliaAcero { get; set; }
+        public virtual DbSet<Sam3_EquivalenciaFamiliaMaterial> Sam3_EquivalenciaFamiliaMaterial { get; set; }
+        public virtual DbSet<Sam3_EquivalenciaItemCode> Sam3_EquivalenciaItemCode { get; set; }
+        public virtual DbSet<Sam3_EquivalenciaJuntaSpool> Sam3_EquivalenciaJuntaSpool { get; set; }
+        public virtual DbSet<Sam3_EquivalenciaMaterialSpool> Sam3_EquivalenciaMaterialSpool { get; set; }
+        public virtual DbSet<Sam3_EquivalenciaNumeroUnico> Sam3_EquivalenciaNumeroUnico { get; set; }
+        public virtual DbSet<Sam3_EquivalenciaNumeroUnicoMovimiento> Sam3_EquivalenciaNumeroUnicoMovimiento { get; set; }
+        public virtual DbSet<Sam3_EquivalenciaODT> Sam3_EquivalenciaODT { get; set; }
+        public virtual DbSet<Sam3_EquivalenciaODTJ> Sam3_EquivalenciaODTJ { get; set; }
+        public virtual DbSet<Sam3_EquivalenciaODTM> Sam3_EquivalenciaODTM { get; set; }
+        public virtual DbSet<Sam3_EquivalenciaODTS> Sam3_EquivalenciaODTS { get; set; }
+        public virtual DbSet<Sam3_EquivalenciaPatio> Sam3_EquivalenciaPatio { get; set; }
+        public virtual DbSet<Sam3_EquivalenciaProveedor> Sam3_EquivalenciaProveedor { get; set; }
+        public virtual DbSet<Sam3_EquivalenciaProyecto> Sam3_EquivalenciaProyecto { get; set; }
+        public virtual DbSet<Sam3_EquivalenciaSpool> Sam3_EquivalenciaSpool { get; set; }
+        public virtual DbSet<Sam3_EquivalenciaTaller> Sam3_EquivalenciaTaller { get; set; }
+        public virtual DbSet<Sam3_EquivalenciaTipoCorte> Sam3_EquivalenciaTipoCorte { get; set; }
+        public virtual DbSet<Sam3_EquivalenciaTipoJunta> Sam3_EquivalenciaTipoJunta { get; set; }
+        public virtual DbSet<Sam3_Espesor> Sam3_Espesor { get; set; }
+        public virtual DbSet<Sam3_Estacion> Sam3_Estacion { get; set; }
+        public virtual DbSet<Sam3_Estatus> Sam3_Estatus { get; set; }
         public virtual DbSet<Sam3_EstatusOrden> Sam3_EstatusOrden { get; set; }
         public virtual DbSet<Sam3_ExtensionDocumento> Sam3_ExtensionDocumento { get; set; }
+        public virtual DbSet<Sam3_FabArea> Sam3_FabArea { get; set; }
         public virtual DbSet<Sam3_Fabricante> Sam3_Fabricante { get; set; }
         public virtual DbSet<Sam3_FamiliaAcero> Sam3_FamiliaAcero { get; set; }
         public virtual DbSet<Sam3_FamiliaItemCode> Sam3_FamiliaItemCode { get; set; }
         public virtual DbSet<Sam3_FamiliaMaterial> Sam3_FamiliaMaterial { get; set; }
+        public virtual DbSet<Sam3_FolioAvisoEntrada> Sam3_FolioAvisoEntrada { get; set; }
         public virtual DbSet<Sam3_FolioAvisoLlegada> Sam3_FolioAvisoLlegada { get; set; }
+        public virtual DbSet<Sam3_FolioCuantificacion> Sam3_FolioCuantificacion { get; set; }
+        public virtual DbSet<Sam3_FolioImpresionDocumental> Sam3_FolioImpresionDocumental { get; set; }
+        public virtual DbSet<Sam3_FolioPickingTicket> Sam3_FolioPickingTicket { get; set; }
+        public virtual DbSet<Sam3_Grupo> Sam3_Grupo { get; set; }
         public virtual DbSet<Sam3_Incidencia> Sam3_Incidencia { get; set; }
+        public virtual DbSet<Sam3_InspeccionDimensional> Sam3_InspeccionDimensional { get; set; }
         public virtual DbSet<Sam3_ItemCode> Sam3_ItemCode { get; set; }
+        public virtual DbSet<Sam3_ItemCodeSteelgo> Sam3_ItemCodeSteelgo { get; set; }
+        public virtual DbSet<Sam3_JuntaArmado> Sam3_JuntaArmado { get; set; }
+        public virtual DbSet<Sam3_JuntaSoldadura> Sam3_JuntaSoldadura { get; set; }
+        public virtual DbSet<Sam3_JuntaSoldaduraSoldador> Sam3_JuntaSoldaduraSoldador { get; set; }
+        public virtual DbSet<Sam3_JuntaSoldaduraTrabajoAdicional> Sam3_JuntaSoldaduraTrabajoAdicional { get; set; }
+        public virtual DbSet<Sam3_JuntaSpool> Sam3_JuntaSpool { get; set; }
+        public virtual DbSet<Sam3_LotePintura> Sam3_LotePintura { get; set; }
         public virtual DbSet<Sam3_Maquina> Sam3_Maquina { get; set; }
         public virtual DbSet<Sam3_MaterialSpool> Sam3_MaterialSpool { get; set; }
         public virtual DbSet<Sam3_MenuContextual> Sam3_MenuContextual { get; set; }
         public virtual DbSet<Sam3_MenuGeneral> Sam3_MenuGeneral { get; set; }
+        public virtual DbSet<Sam3_MTR> Sam3_MTR { get; set; }
         public virtual DbSet<Sam3_Notificacion> Sam3_Notificacion { get; set; }
         public virtual DbSet<Sam3_NumeroUnico> Sam3_NumeroUnico { get; set; }
         public virtual DbSet<Sam3_NumeroUnicoCorte> Sam3_NumeroUnicoCorte { get; set; }
         public virtual DbSet<Sam3_NumeroUnicoInventario> Sam3_NumeroUnicoInventario { get; set; }
         public virtual DbSet<Sam3_NumeroUnicoMovimiento> Sam3_NumeroUnicoMovimiento { get; set; }
         public virtual DbSet<Sam3_NumeroUnicoSegmento> Sam3_NumeroUnicoSegmento { get; set; }
+        public virtual DbSet<Sam3_Obrero> Sam3_Obrero { get; set; }
+        public virtual DbSet<Sam3_ObreroUbicacion> Sam3_ObreroUbicacion { get; set; }
+        public virtual DbSet<Sam3_OrdenAlmacenaje> Sam3_OrdenAlmacenaje { get; set; }
+        public virtual DbSet<Sam3_OrdenRecepcion> Sam3_OrdenRecepcion { get; set; }
         public virtual DbSet<Sam3_OrdenTrabajo> Sam3_OrdenTrabajo { get; set; }
+        public virtual DbSet<Sam3_OrdenTrabajoJunta> Sam3_OrdenTrabajoJunta { get; set; }
+        public virtual DbSet<Sam3_OrdenTrabajoMaterial> Sam3_OrdenTrabajoMaterial { get; set; }
         public virtual DbSet<Sam3_OrdenTrabajoSpool> Sam3_OrdenTrabajoSpool { get; set; }
+        public virtual DbSet<Sam3_OrdenTrabajoSpool_SinSpool> Sam3_OrdenTrabajoSpool_SinSpool { get; set; }
         public virtual DbSet<Sam3_Pagina> Sam3_Pagina { get; set; }
         public virtual DbSet<Sam3_Patio> Sam3_Patio { get; set; }
         public virtual DbSet<Sam3_Perfil> Sam3_Perfil { get; set; }
         public virtual DbSet<Sam3_PermisoAduana> Sam3_PermisoAduana { get; set; }
+        public virtual DbSet<Sam3_Pintura_ComponenteComposicion> Sam3_Pintura_ComponenteComposicion { get; set; }
+        public virtual DbSet<Sam3_Pintura_MedioTransporte> Sam3_Pintura_MedioTransporte { get; set; }
+        public virtual DbSet<Sam3_Pintura_MedioTransporteCarga> Sam3_Pintura_MedioTransporteCarga { get; set; }
+        public virtual DbSet<Sam3_Pintura_MedioTransporteCargaDetalle> Sam3_Pintura_MedioTransporteCargaDetalle { get; set; }
         public virtual DbSet<Sam3_PinturaNumeroUnico> Sam3_PinturaNumeroUnico { get; set; }
+        public virtual DbSet<Sam3_PinturaSpool> Sam3_PinturaSpool { get; set; }
+        public virtual DbSet<Sam3_PQR> Sam3_PQR { get; set; }
+        public virtual DbSet<Sam3_PQR_GrupoP> Sam3_PQR_GrupoP { get; set; }
+        public virtual DbSet<Sam3_PQR_NumeroP> Sam3_PQR_NumeroP { get; set; }
+        public virtual DbSet<Sam3_PreDespacho> Sam3_PreDespacho { get; set; }
         public virtual DbSet<Sam3_Preferencia> Sam3_Preferencia { get; set; }
+        public virtual DbSet<Sam3_ProcesoPintura> Sam3_ProcesoPintura { get; set; }
+        public virtual DbSet<Sam3_ProcesoSoldadura> Sam3_ProcesoSoldadura { get; set; }
         public virtual DbSet<Sam3_Propiedad> Sam3_Propiedad { get; set; }
         public virtual DbSet<Sam3_Proveedor> Sam3_Proveedor { get; set; }
+        public virtual DbSet<Sam3_ProveedorEquipo> Sam3_ProveedorEquipo { get; set; }
         public virtual DbSet<Sam3_Proyecto> Sam3_Proyecto { get; set; }
+        public virtual DbSet<Sam3_ProyectoConfiguracion> Sam3_ProyectoConfiguracion { get; set; }
+        public virtual DbSet<Sam3_ProyectoConsecutivo> Sam3_ProyectoConsecutivo { get; set; }
+        public virtual DbSet<Sam3_Pruebas> Sam3_Pruebas { get; set; }
         public virtual DbSet<Sam3_Recepcion> Sam3_Recepcion { get; set; }
+        public virtual DbSet<Sam3_Rel_Bulto_ItemCode> Sam3_Rel_Bulto_ItemCode { get; set; }
+        public virtual DbSet<Sam3_Rel_Catalogos_Documento> Sam3_Rel_Catalogos_Documento { get; set; }
         public virtual DbSet<Sam3_Rel_Documento_Entidad> Sam3_Rel_Documento_Entidad { get; set; }
-        public virtual DbSet<Sam3_Rel_FolioAvisoLlegada_Proyecto> Sam3_Rel_FolioAvisoLlegada_Proyecto { get; set; }
-        public virtual DbSet<Sam3_Rel_Incidencia_Entidad> Sam3_Rel_Incidencia_Entidad { get; set; }
-        public virtual DbSet<Sam3_Rel_Perfil_MenuContextual> Sam3_Rel_Perfil_MenuContextual { get; set; }
-        public virtual DbSet<Sam3_Rel_Perfil_MenuGeneral> Sam3_Rel_Perfil_MenuGeneral { get; set; }
-        public virtual DbSet<Sam3_Rel_Perfil_Propiedad_Pagina> Sam3_Rel_Perfil_Propiedad_Pagina { get; set; }
-        public virtual DbSet<Sam3_Rel_Usuario_Preferencia> Sam3_Rel_Usuario_Preferencia { get; set; }
-        public virtual DbSet<Sam3_Rel_Usuario_Proyecto> Sam3_Rel_Usuario_Proyecto { get; set; }
-        public virtual DbSet<Sam3_Repositorio> Sam3_Repositorio { get; set; }
-        public virtual DbSet<Sam3_RequisicionNumeroUnico> Sam3_RequisicionNumeroUnico { get; set; }
-        public virtual DbSet<Sam3_RequisicionNumeroUnicoDetalle> Sam3_RequisicionNumeroUnicoDetalle { get; set; }
-        public virtual DbSet<Sam3_Sesion> Sam3_Sesion { get; set; }
-        public virtual DbSet<Sam3_Spool> Sam3_Spool { get; set; }
-        public virtual DbSet<Sam3_Taller> Sam3_Taller { get; set; }
-        public virtual DbSet<Sam3_TipoCorte> Sam3_TipoCorte { get; set; }
-        public virtual DbSet<Sam3_TipoDocumento> Sam3_TipoDocumento { get; set; }
-        public virtual DbSet<Sam3_TipoMaterial> Sam3_TipoMaterial { get; set; }
-        public virtual DbSet<Sam3_TipoMovimiento> Sam3_TipoMovimiento { get; set; }
-        public virtual DbSet<Sam3_TipoNotificacion> Sam3_TipoNotificacion { get; set; }
-        public virtual DbSet<Sam3_Transportista> Sam3_Transportista { get; set; }
-        public virtual DbSet<Sam3_UbicacionFisica> Sam3_UbicacionFisica { get; set; }
-        public virtual DbSet<Sam3_Usuario> Sam3_Usuario { get; set; }
-        public virtual DbSet<Sam3_Rel_Perfil_Entidad_Pagina> Sam3_Rel_Perfil_Entidad_Pagina { get; set; }
-        public virtual DbSet<Sam3_Rel_TiposDocumentos_ExtencionesDocumentos> Sam3_Rel_TiposDocumentos_ExtencionesDocumentos { get; set; }
-        public virtual DbSet<Sam3_Rel_PermisoAduana_Documento> Sam3_Rel_PermisoAduana_Documento { get; set; }
+        public virtual DbSet<Sam3_Rel_Estatus_Dashboard> Sam3_Rel_Estatus_Dashboard { get; set; }
+        public virtual DbSet<Sam3_Rel_FolioAvisoEntrada_Documento> Sam3_Rel_FolioAvisoEntrada_Documento { get; set; }
+        public virtual DbSet<Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion> Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion { get; set; }
         public virtual DbSet<Sam3_Rel_FolioAvisoLlegada_Documento> Sam3_Rel_FolioAvisoLlegada_Documento { get; set; }
         public virtual DbSet<Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo> Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo { get; set; }
+        public virtual DbSet<Sam3_Rel_FolioAvisoLlegada_Proyecto> Sam3_Rel_FolioAvisoLlegada_Proyecto { get; set; }
         public virtual DbSet<Sam3_Rel_FolioAvisoLlegada_Vehiculo> Sam3_Rel_FolioAvisoLlegada_Vehiculo { get; set; }
-        public virtual DbSet<Sam3_Rel_Vehiculo_Chofer> Sam3_Rel_Vehiculo_Chofer { get; set; }
-        public virtual DbSet<Sam3_Rel_Vehiculo_Transportista> Sam3_Rel_Vehiculo_Transportista { get; set; }
-        public virtual DbSet<Sam3_TipoArchivo> Sam3_TipoArchivo { get; set; }
-        public virtual DbSet<Sam3_TipoAviso> Sam3_TipoAviso { get; set; }
-        public virtual DbSet<Sam3_TipoVehiculo> Sam3_TipoVehiculo { get; set; }
-        public virtual DbSet<Sam3_Vehiculo> Sam3_Vehiculo { get; set; }
-        public virtual DbSet<Sam3_FolioAvisoEntrada> Sam3_FolioAvisoEntrada { get; set; }
-        public virtual DbSet<Sam3_ProyectoConsecutivo> Sam3_ProyectoConsecutivo { get; set; }
-        public virtual DbSet<Sam3_Rel_FolioAvisoEntrada_Documento> Sam3_Rel_FolioAvisoEntrada_Documento { get; set; }
-        public virtual DbSet<Sam3_UsuariosNotificaciones> Sam3_UsuariosNotificaciones { get; set; }
-        public virtual DbSet<Sam3_Bulto> Sam3_Bulto { get; set; }
-        public virtual DbSet<Sam3_FolioCuantificacion> Sam3_FolioCuantificacion { get; set; }
-        public virtual DbSet<Sam3_Rel_Bulto_ItemCode> Sam3_Rel_Bulto_ItemCode { get; set; }
         public virtual DbSet<Sam3_Rel_FolioCuantificacion_ItemCode> Sam3_Rel_FolioCuantificacion_ItemCode { get; set; }
-        public virtual DbSet<Sam3_TipoUso> Sam3_TipoUso { get; set; }
-        public virtual DbSet<Sam3_ItemCodeSteelgo> Sam3_ItemCodeSteelgo { get; set; }
-        public virtual DbSet<Sam3_Rel_ItemCode_ItemCodeSteelgo> Sam3_Rel_ItemCode_ItemCodeSteelgo { get; set; }
-        public virtual DbSet<Sam3_OrdenRecepcion> Sam3_OrdenRecepcion { get; set; }
-        public virtual DbSet<Sam3_Rel_OrdenRecepcion_ItemCode> Sam3_Rel_OrdenRecepcion_ItemCode { get; set; }
-        public virtual DbSet<Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion> Sam3_Rel_FolioAvisoEntrada_OrdenRecepcion { get; set; }
-        public virtual DbSet<Sam3_ProyectoConfiguracion> Sam3_ProyectoConfiguracion { get; set; }
-        public virtual DbSet<Sam3_OrdenAlmacenaje> Sam3_OrdenAlmacenaje { get; set; }
-        public virtual DbSet<Sam3_Rel_OrdenAlmacenaje_NumeroUnico> Sam3_Rel_OrdenAlmacenaje_NumeroUnico { get; set; }
-        public virtual DbSet<Sam3_Rel_Incidencia_NumeroUnico> Sam3_Rel_Incidencia_NumeroUnico { get; set; }
-        public virtual DbSet<Sam3_EquivalenciaAcero> Sam3_EquivalenciaAcero { get; set; }
-        public virtual DbSet<Sam3_EquivalenciaColada> Sam3_EquivalenciaColada { get; set; }
-        public virtual DbSet<Sam3_EquivalenciaDespacho> Sam3_EquivalenciaDespacho { get; set; }
-        public virtual DbSet<Sam3_EquivalenciaFabricante> Sam3_EquivalenciaFabricante { get; set; }
-        public virtual DbSet<Sam3_EquivalenciaFamiliaAcero> Sam3_EquivalenciaFamiliaAcero { get; set; }
-        public virtual DbSet<Sam3_EquivalenciaFamiliaMaterial> Sam3_EquivalenciaFamiliaMaterial { get; set; }
-        public virtual DbSet<Sam3_EquivalenciaItemCode> Sam3_EquivalenciaItemCode { get; set; }
-        public virtual DbSet<Sam3_EquivalenciaNumeroUnico> Sam3_EquivalenciaNumeroUnico { get; set; }
-        public virtual DbSet<Sam3_EquivalenciaPatio> Sam3_EquivalenciaPatio { get; set; }
-        public virtual DbSet<Sam3_EquivalenciaProveedor> Sam3_EquivalenciaProveedor { get; set; }
-        public virtual DbSet<Sam3_EquivalenciaProyecto> Sam3_EquivalenciaProyecto { get; set; }
-        public virtual DbSet<Sam3_ColaCreacionNumerosUnicos> Sam3_ColaCreacionNumerosUnicos { get; set; }
-        public virtual DbSet<Sam3_Despacho> Sam3_Despacho { get; set; }
-        public virtual DbSet<Sam3_EquivalenciaCorte> Sam3_EquivalenciaCorte { get; set; }
-        public virtual DbSet<Sam3_EquivalenciaNumeroUnicoMovimiento> Sam3_EquivalenciaNumeroUnicoMovimiento { get; set; }
-        public virtual DbSet<Sam3_Grupo> Sam3_Grupo { get; set; }
-        public virtual DbSet<Sam3_ClasificacionIncidencia> Sam3_ClasificacionIncidencia { get; set; }
         public virtual DbSet<Sam3_Rel_Incidencia_ComplementoRecepcion> Sam3_Rel_Incidencia_ComplementoRecepcion { get; set; }
         public virtual DbSet<Sam3_Rel_Incidencia_Corte> Sam3_Rel_Incidencia_Corte { get; set; }
         public virtual DbSet<Sam3_Rel_Incidencia_Despacho> Sam3_Rel_Incidencia_Despacho { get; set; }
+        public virtual DbSet<Sam3_Rel_Incidencia_Documento> Sam3_Rel_Incidencia_Documento { get; set; }
+        public virtual DbSet<Sam3_Rel_Incidencia_Entidad> Sam3_Rel_Incidencia_Entidad { get; set; }
         public virtual DbSet<Sam3_Rel_Incidencia_FolioAvisoEntrada> Sam3_Rel_Incidencia_FolioAvisoEntrada { get; set; }
         public virtual DbSet<Sam3_Rel_Incidencia_FolioAvisoLlegada> Sam3_Rel_Incidencia_FolioAvisoLlegada { get; set; }
         public virtual DbSet<Sam3_Rel_Incidencia_FolioCuantificacion> Sam3_Rel_Incidencia_FolioCuantificacion { get; set; }
         public virtual DbSet<Sam3_Rel_Incidencia_ItemCode> Sam3_Rel_Incidencia_ItemCode { get; set; }
+        public virtual DbSet<Sam3_Rel_Incidencia_NumeroUnico> Sam3_Rel_Incidencia_NumeroUnico { get; set; }
         public virtual DbSet<Sam3_Rel_Incidencia_OrdenAlmacenaje> Sam3_Rel_Incidencia_OrdenAlmacenaje { get; set; }
         public virtual DbSet<Sam3_Rel_Incidencia_OrdenRecepcion> Sam3_Rel_Incidencia_OrdenRecepcion { get; set; }
         public virtual DbSet<Sam3_Rel_Incidencia_PaseSalida> Sam3_Rel_Incidencia_PaseSalida { get; set; }
-        public virtual DbSet<Sam3_TipoIncidencia> Sam3_TipoIncidencia { get; set; }
-        public virtual DbSet<Sam3_Rel_Incidencia_Documento> Sam3_Rel_Incidencia_Documento { get; set; }
-        public virtual DbSet<Sam3_Catalogos> Sam3_Catalogos { get; set; }
-        public virtual DbSet<Sam3_Rel_Catalogos_Documento> Sam3_Rel_Catalogos_Documento { get; set; }
-        public virtual DbSet<Sam3_TipoArchivo_Catalogo> Sam3_TipoArchivo_Catalogo { get; set; }
-        public virtual DbSet<Sam3_DeficitMateriales> Sam3_DeficitMateriales { get; set; }
-        public virtual DbSet<Sam3_Entrega> Sam3_Entrega { get; set; }
-        public virtual DbSet<Sam3_FolioImpresionDocumental> Sam3_FolioImpresionDocumental { get; set; }
-        public virtual DbSet<Sam3_FolioPickingTicket> Sam3_FolioPickingTicket { get; set; }
-        public virtual DbSet<Sam3_PreDespacho> Sam3_PreDespacho { get; set; }
-        public virtual DbSet<Sam3_EquivalenciaDiametro> Sam3_EquivalenciaDiametro { get; set; }
-        public virtual DbSet<Sam3_Rel_ItemCode_Diametro> Sam3_Rel_ItemCode_Diametro { get; set; }
-        public virtual DbSet<Sam3_Rel_ItemCodeSteelgo_Diametro> Sam3_Rel_ItemCodeSteelgo_Diametro { get; set; }
-        public virtual DbSet<Sam3_Rel_Proyecto_Entidad_Configuracion> Sam3_Rel_Proyecto_Entidad_Configuracion { get; set; }
-        public virtual DbSet<Sam3_Rel_NumeroUnico_RelFC_RelB> Sam3_Rel_NumeroUnico_RelFC_RelB { get; set; }
         public virtual DbSet<Sam3_Rel_Itemcode_Colada> Sam3_Rel_Itemcode_Colada { get; set; }
-        public virtual DbSet<Sam3_CorteSpool> Sam3_CorteSpool { get; set; }
-        public virtual DbSet<Sam3_EquivalenciaCorteSpool> Sam3_EquivalenciaCorteSpool { get; set; }
-        public virtual DbSet<Sam3_EquivalenciaEstacion> Sam3_EquivalenciaEstacion { get; set; }
-        public virtual DbSet<Sam3_EquivalenciaEstatusOrden> Sam3_EquivalenciaEstatusOrden { get; set; }
-        public virtual DbSet<Sam3_EquivalenciaFabArea> Sam3_EquivalenciaFabArea { get; set; }
-        public virtual DbSet<Sam3_EquivalenciaJuntaSpool> Sam3_EquivalenciaJuntaSpool { get; set; }
-        public virtual DbSet<Sam3_EquivalenciaMaterialSpool> Sam3_EquivalenciaMaterialSpool { get; set; }
-        public virtual DbSet<Sam3_EquivalenciaODT> Sam3_EquivalenciaODT { get; set; }
-        public virtual DbSet<Sam3_EquivalenciaODTJ> Sam3_EquivalenciaODTJ { get; set; }
-        public virtual DbSet<Sam3_EquivalenciaODTM> Sam3_EquivalenciaODTM { get; set; }
-        public virtual DbSet<Sam3_EquivalenciaODTS> Sam3_EquivalenciaODTS { get; set; }
-        public virtual DbSet<Sam3_EquivalenciaSpool> Sam3_EquivalenciaSpool { get; set; }
-        public virtual DbSet<Sam3_EquivalenciaTaller> Sam3_EquivalenciaTaller { get; set; }
-        public virtual DbSet<Sam3_EquivalenciaTipoCorte> Sam3_EquivalenciaTipoCorte { get; set; }
-        public virtual DbSet<Sam3_EquivalenciaTipoJunta> Sam3_EquivalenciaTipoJunta { get; set; }
-        public virtual DbSet<Sam3_Estacion> Sam3_Estacion { get; set; }
-        public virtual DbSet<Sam3_FabArea> Sam3_FabArea { get; set; }
-        public virtual DbSet<Sam3_JuntaSpool> Sam3_JuntaSpool { get; set; }
-        public virtual DbSet<Sam3_OrdenTrabajoJunta> Sam3_OrdenTrabajoJunta { get; set; }
-        public virtual DbSet<Sam3_OrdenTrabajoMaterial> Sam3_OrdenTrabajoMaterial { get; set; }
-        public virtual DbSet<Sam3_TipoJunta> Sam3_TipoJunta { get; set; }
+        public virtual DbSet<Sam3_Rel_ItemCode_Diametro> Sam3_Rel_ItemCode_Diametro { get; set; }
+        public virtual DbSet<Sam3_Rel_ItemCode_ItemCodeSteelgo> Sam3_Rel_ItemCode_ItemCodeSteelgo { get; set; }
+        public virtual DbSet<Sam3_Rel_ItemCodeSteelgo_Diametro> Sam3_Rel_ItemCodeSteelgo_Diametro { get; set; }
+        public virtual DbSet<Sam3_Rel_NumeroUnico_RelFC_RelB> Sam3_Rel_NumeroUnico_RelFC_RelB { get; set; }
+        public virtual DbSet<Sam3_Rel_OrdenAlmacenaje_NumeroUnico> Sam3_Rel_OrdenAlmacenaje_NumeroUnico { get; set; }
+        public virtual DbSet<Sam3_Rel_OrdenRecepcion_ItemCode> Sam3_Rel_OrdenRecepcion_ItemCode { get; set; }
+        public virtual DbSet<Sam3_Rel_Patio_Proveedor> Sam3_Rel_Patio_Proveedor { get; set; }
+        public virtual DbSet<Sam3_Rel_Patio_Proyecto> Sam3_Rel_Patio_Proyecto { get; set; }
+        public virtual DbSet<Sam3_Rel_Perfil_MenuContextual> Sam3_Rel_Perfil_MenuContextual { get; set; }
+        public virtual DbSet<Sam3_Rel_Perfil_MenuGeneral> Sam3_Rel_Perfil_MenuGeneral { get; set; }
+        public virtual DbSet<Sam3_Rel_Perfil_Propiedad_Pagina> Sam3_Rel_Perfil_Propiedad_Pagina { get; set; }
+        public virtual DbSet<Sam3_Rel_PermisoAduana_Documento> Sam3_Rel_PermisoAduana_Documento { get; set; }
         public virtual DbSet<Sam3_Rel_Proyecto_Correo> Sam3_Rel_Proyecto_Correo { get; set; }
-        public virtual DbSet<Sam3_EquivalenciaEspesor> Sam3_EquivalenciaEspesor { get; set; }
-        public virtual DbSet<Sam3_Espesor> Sam3_Espesor { get; set; }
-        public virtual DbSet<Sam3_Cedula> Sam3_Cedula { get; set; }
-        public virtual DbSet<Sam3_EquivalenciaCedula> Sam3_EquivalenciaCedula { get; set; }
-        public virtual DbSet<Sam3_CatalogoCedulas> Sam3_CatalogoCedulas { get; set; }
-        public virtual DbSet<Sam3_MTR> Sam3_MTR { get; set; }
+        public virtual DbSet<Sam3_Rel_Proyecto_Entidad_Configuracion> Sam3_Rel_Proyecto_Entidad_Configuracion { get; set; }
+        public virtual DbSet<Sam3_Rel_TiposDocumentos_ExtencionesDocumentos> Sam3_Rel_TiposDocumentos_ExtencionesDocumentos { get; set; }
+        public virtual DbSet<Sam3_Rel_Usuario_Preferencia> Sam3_Rel_Usuario_Preferencia { get; set; }
+        public virtual DbSet<Sam3_Rel_Usuario_Proveedor> Sam3_Rel_Usuario_Proveedor { get; set; }
+        public virtual DbSet<Sam3_Rel_Usuario_Proyecto> Sam3_Rel_Usuario_Proyecto { get; set; }
+        public virtual DbSet<Sam3_Rel_Vehiculo_Chofer> Sam3_Rel_Vehiculo_Chofer { get; set; }
+        public virtual DbSet<Sam3_Rel_Vehiculo_Transportista> Sam3_Rel_Vehiculo_Transportista { get; set; }
+        public virtual DbSet<Sam3_ReporteRequisicion> Sam3_ReporteRequisicion { get; set; }
+        public virtual DbSet<Sam3_ReporteRequisicionElemento> Sam3_ReporteRequisicionElemento { get; set; }
+        public virtual DbSet<Sam3_Repositorio> Sam3_Repositorio { get; set; }
+        public virtual DbSet<Sam3_RequisicionNumeroUnico> Sam3_RequisicionNumeroUnico { get; set; }
+        public virtual DbSet<Sam3_RequisicionNumeroUnicoDetalle> Sam3_RequisicionNumeroUnicoDetalle { get; set; }
+        public virtual DbSet<Sam3_Sesion> Sam3_Sesion { get; set; }
+        public virtual DbSet<Sam3_SoldadorCertificacion> Sam3_SoldadorCertificacion { get; set; }
+        public virtual DbSet<Sam3_SP_SpoolAplicable> Sam3_SP_SpoolAplicable { get; set; }
+        public virtual DbSet<Sam3_Spool> Sam3_Spool { get; set; }
+        public virtual DbSet<Sam3_ST_Captura_EntregaPlacasGraficas> Sam3_ST_Captura_EntregaPlacasGraficas { get; set; }
+        public virtual DbSet<Sam3_ST_ConfiguracionTipoPrueba> Sam3_ST_ConfiguracionTipoPrueba { get; set; }
+        public virtual DbSet<Sam3_ST_CRRT_CatalogoDefectos> Sam3_ST_CRRT_CatalogoDefectos { get; set; }
+        public virtual DbSet<Sam3_ST_CRRT_CatalogoResultado> Sam3_ST_CRRT_CatalogoResultado { get; set; }
+        public virtual DbSet<Sam3_ST_EPG_CatalogoDocumentoDefecto> Sam3_ST_EPG_CatalogoDocumentoDefecto { get; set; }
+        public virtual DbSet<Sam3_ST_EPG_CatalogoDocumentoEstatus> Sam3_ST_EPG_CatalogoDocumentoEstatus { get; set; }
+        public virtual DbSet<Sam3_ST_EPG_CatalogoDocumentoRecibido> Sam3_ST_EPG_CatalogoDocumentoRecibido { get; set; }
+        public virtual DbSet<Sam3_ST_Requisicion> Sam3_ST_Requisicion { get; set; }
+        public virtual DbSet<Sam3_ST_RequisicionAsignacion> Sam3_ST_RequisicionAsignacion { get; set; }
+        public virtual DbSet<Sam3_ST_TipoPrueba> Sam3_ST_TipoPrueba { get; set; }
+        public virtual DbSet<Sam3_Taller> Sam3_Taller { get; set; }
+        public virtual DbSet<Sam3_TipoArchivo> Sam3_TipoArchivo { get; set; }
+        public virtual DbSet<Sam3_TipoArchivo_Catalogo> Sam3_TipoArchivo_Catalogo { get; set; }
+        public virtual DbSet<Sam3_TipoAviso> Sam3_TipoAviso { get; set; }
+        public virtual DbSet<Sam3_TipoCorte> Sam3_TipoCorte { get; set; }
+        public virtual DbSet<Sam3_TipoDocumento> Sam3_TipoDocumento { get; set; }
+        public virtual DbSet<Sam3_TipoEstatus> Sam3_TipoEstatus { get; set; }
+        public virtual DbSet<Sam3_TipoIncidencia> Sam3_TipoIncidencia { get; set; }
+        public virtual DbSet<Sam3_TipoJunta> Sam3_TipoJunta { get; set; }
+        public virtual DbSet<Sam3_TipoMaterial> Sam3_TipoMaterial { get; set; }
+        public virtual DbSet<Sam3_TipoMovimiento> Sam3_TipoMovimiento { get; set; }
+        public virtual DbSet<Sam3_TipoNotificacion> Sam3_TipoNotificacion { get; set; }
+        public virtual DbSet<Sam3_TipoObrero> Sam3_TipoObrero { get; set; }
+        public virtual DbSet<Sam3_TipoProcesoSoldadura> Sam3_TipoProcesoSoldadura { get; set; }
+        public virtual DbSet<Sam3_TipoPruebaProveedor> Sam3_TipoPruebaProveedor { get; set; }
+        public virtual DbSet<Sam3_TipoResultado> Sam3_TipoResultado { get; set; }
+        public virtual DbSet<Sam3_TipoSoldadura> Sam3_TipoSoldadura { get; set; }
+        public virtual DbSet<Sam3_TipoUso> Sam3_TipoUso { get; set; }
+        public virtual DbSet<Sam3_TipoVehiculo> Sam3_TipoVehiculo { get; set; }
+        public virtual DbSet<Sam3_TrabajoAdicional> Sam3_TrabajoAdicional { get; set; }
+        public virtual DbSet<Sam3_Transportista> Sam3_Transportista { get; set; }
+        public virtual DbSet<Sam3_TurnoLaboral> Sam3_TurnoLaboral { get; set; }
+        public virtual DbSet<Sam3_UbicacionFisica> Sam3_UbicacionFisica { get; set; }
+        public virtual DbSet<Sam3_Usuario> Sam3_Usuario { get; set; }
+        public virtual DbSet<Sam3_UsuariosNotificaciones> Sam3_UsuariosNotificaciones { get; set; }
+        public virtual DbSet<Sam3_Vehiculo> Sam3_Vehiculo { get; set; }
+        public virtual DbSet<Sam3_WPS> Sam3_WPS { get; set; }
+        public virtual DbSet<Sam3_Zona> Sam3_Zona { get; set; }
+        public virtual DbSet<tempInsert> tempInsert { get; set; }
+        public virtual DbSet<TT_TSA_TEMP_Borrar> TT_TSA_TEMP_Borrar { get; set; }
+        public virtual DbSet<repaldoBorrados> repaldoBorrados { get; set; }
+        public virtual DbSet<Sam3_CodigoAsme> Sam3_CodigoAsme { get; set; }
+        public virtual DbSet<Sam3_ColaCreacionNumerosUnicos> Sam3_ColaCreacionNumerosUnicos { get; set; }
+        public virtual DbSet<Sam3_ElementoPorClasificacionPND> Sam3_ElementoPorClasificacionPND { get; set; }
+        public virtual DbSet<Sam3_ElementoPorClasificacionPND_Borrar> Sam3_ElementoPorClasificacionPND_Borrar { get; set; }
+        public virtual DbSet<Sam3_InspeccionVisual> Sam3_InspeccionVisual { get; set; }
+        public virtual DbSet<Sam3_JuntaArmadoTrabajoAdicional> Sam3_JuntaArmadoTrabajoAdicional { get; set; }
+        public virtual DbSet<Sam3_JuntaTrabajo> Sam3_JuntaTrabajo { get; set; }
+        public virtual DbSet<Sam3_ObrerosUbicacion> Sam3_ObrerosUbicacion { get; set; }
+        public virtual DbSet<Sam3_Pasword_Proveedor> Sam3_Pasword_Proveedor { get; set; }
+        public virtual DbSet<Sam3_PinturaSpool_Obrero> Sam3_PinturaSpool_Obrero { get; set; }
+        public virtual DbSet<Sam3_ProveedorPassword> Sam3_ProveedorPassword { get; set; }
+        public virtual DbSet<Sam3_PruebaProcesoPintura> Sam3_PruebaProcesoPintura { get; set; }
+        public virtual DbSet<Sam3_Rel_Clasificacion_TipoPrueba> Sam3_Rel_Clasificacion_TipoPrueba { get; set; }
+        public virtual DbSet<Sam3_Rel_Patio_Zona> Sam3_Rel_Patio_Zona { get; set; }
+        public virtual DbSet<Sam3_Rel_Perfil_Entidad_Pagina> Sam3_Rel_Perfil_Entidad_Pagina { get; set; }
+        public virtual DbSet<Sam3_Soldadura_ColadasXSoldadorXJunta> Sam3_Soldadura_ColadasXSoldadorXJunta { get; set; }
+        public virtual DbSet<Sam3_SP_Color> Sam3_SP_Color { get; set; }
+        public virtual DbSet<Sam3_SP_ProyectoProceso> Sam3_SP_ProyectoProceso { get; set; }
+        public virtual DbSet<Sam3_SP_ProyectoProcesoPrueba> Sam3_SP_ProyectoProcesoPrueba { get; set; }
+        public virtual DbSet<Sam3_SP_SistemaPintura> Sam3_SP_SistemaPintura { get; set; }
+        public virtual DbSet<Sam3_SP_SistemaPinturaProyecto> Sam3_SP_SistemaPinturaProyecto { get; set; }
+        public virtual DbSet<Sam3_SP_TipoPrueba> Sam3_SP_TipoPrueba { get; set; }
+        public virtual DbSet<Sam3_SpoolHold> Sam3_SpoolHold { get; set; }
+        public virtual DbSet<Sam3_SpoolHoldhistorial> Sam3_SpoolHoldhistorial { get; set; }
+        public virtual DbSet<Sam3_ST_Captura_Reporte> Sam3_ST_Captura_Reporte { get; set; }
+        public virtual DbSet<Sam3_ST_Captura_Reporte_Placas> Sam3_ST_Captura_Reporte_Placas { get; set; }
+        public virtual DbSet<Sam3_ST_Captura_Reporte_Placas_Defectos> Sam3_ST_Captura_Reporte_Placas_Defectos { get; set; }
+        public virtual DbSet<Sam3_ST_CatalogoRazonNoConciliacion> Sam3_ST_CatalogoRazonNoConciliacion { get; set; }
+        public virtual DbSet<Sam3_ST_CatalogoResultadoConciliacion> Sam3_ST_CatalogoResultadoConciliacion { get; set; }
+        public virtual DbSet<Sam3_ST_DetalleRequisicion> Sam3_ST_DetalleRequisicion { get; set; }
+        public virtual DbSet<Sam3_ST_OKPND> Sam3_ST_OKPND { get; set; }
+        public virtual DbSet<Sam3_TiposTrabajoAdicional> Sam3_TiposTrabajoAdicional { get; set; }
+        public virtual DbSet<Sam3_UnidadMedida> Sam3_UnidadMedida { get; set; }
+        public virtual DbSet<TT_SP_SpoolAplicable> TT_SP_SpoolAplicable { get; set; }
+        public virtual DbSet<Sam3_V_InspeccionVisual> Sam3_V_InspeccionVisual { get; set; }
+        public virtual DbSet<VW_AvisoEntrada> VW_AvisoEntrada { get; set; }
+        public virtual DbSet<VW_FolioCuantificacion> VW_FolioCuantificacion { get; set; }
+        public virtual DbSet<VW_ItemCodes> VW_ItemCodes { get; set; }
+        public virtual DbSet<VW_NumerosUnicos> VW_NumerosUnicos { get; set; }
+    
+        [DbFunction("SamContext", "obtenerContador")]
+        public virtual IQueryable<obtenerContador_Result> obtenerContador(string tablaOrigen, string columnaOrigen)
+        {
+            var tablaOrigenParameter = tablaOrigen != null ?
+                new ObjectParameter("TablaOrigen", tablaOrigen) :
+                new ObjectParameter("TablaOrigen", typeof(string));
+    
+            var columnaOrigenParameter = columnaOrigen != null ?
+                new ObjectParameter("ColumnaOrigen", columnaOrigen) :
+                new ObjectParameter("ColumnaOrigen", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<obtenerContador_Result>("[SamContext].[obtenerContador](@TablaOrigen, @ColumnaOrigen)", tablaOrigenParameter, columnaOrigenParameter);
+        }
+    
+        [DbFunction("SamContext", "Sam3_SplitInts")]
+        public virtual IQueryable<Sam3_SplitInts_Result> Sam3_SplitInts(string list, string delimiter)
+        {
+            var listParameter = list != null ?
+                new ObjectParameter("List", list) :
+                new ObjectParameter("List", typeof(string));
+    
+            var delimiterParameter = delimiter != null ?
+                new ObjectParameter("Delimiter", delimiter) :
+                new ObjectParameter("Delimiter", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<Sam3_SplitInts_Result>("[SamContext].[Sam3_SplitInts](@List, @Delimiter)", listParameter, delimiterParameter);
+        }
+    
+        [DbFunction("SamContext", "SplitInts")]
+        public virtual IQueryable<SplitInts_Result> SplitInts(string list, string delimiter)
+        {
+            var listParameter = list != null ?
+                new ObjectParameter("List", list) :
+                new ObjectParameter("List", typeof(string));
+    
+            var delimiterParameter = delimiter != null ?
+                new ObjectParameter("Delimiter", delimiter) :
+                new ObjectParameter("Delimiter", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<SplitInts_Result>("[SamContext].[SplitInts](@List, @Delimiter)", listParameter, delimiterParameter);
+        }
+    
+        public virtual int PruebaLinkedServerTransaccion_Borrar(Nullable<int> spoolID, Nullable<int> cuadranteID)
+        {
+            var spoolIDParameter = spoolID.HasValue ?
+                new ObjectParameter("SpoolID", spoolID) :
+                new ObjectParameter("SpoolID", typeof(int));
+    
+            var cuadranteIDParameter = cuadranteID.HasValue ?
+                new ObjectParameter("CuadranteID", cuadranteID) :
+                new ObjectParameter("CuadranteID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("PruebaLinkedServerTransaccion_Borrar", spoolIDParameter, cuadranteIDParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_Armado_Get_DetalleJunta_Result> Sam3_Armado_Get_DetalleJunta(Nullable<int> juntaSpoolID, string lenguaje)
+        {
+            var juntaSpoolIDParameter = juntaSpoolID.HasValue ?
+                new ObjectParameter("JuntaSpoolID", juntaSpoolID) :
+                new ObjectParameter("JuntaSpoolID", typeof(int));
+    
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_Armado_Get_DetalleJunta_Result>("Sam3_Armado_Get_DetalleJunta", juntaSpoolIDParameter, lenguajeParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_Armado_Get_DetalleTrabajoAdicional_Result> Sam3_Armado_Get_DetalleTrabajoAdicional(Nullable<int> juntaSpoolID)
+        {
+            var juntaSpoolIDParameter = juntaSpoolID.HasValue ?
+                new ObjectParameter("JuntaSpoolID", juntaSpoolID) :
+                new ObjectParameter("JuntaSpoolID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_Armado_Get_DetalleTrabajoAdicional_Result>("Sam3_Armado_Get_DetalleTrabajoAdicional", juntaSpoolIDParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_Armado_Get_MaterialesSpool_Result> Sam3_Armado_Get_MaterialesSpool(Nullable<int> juntaSpoolID, Nullable<int> todos, Nullable<int> pagina)
+        {
+            var juntaSpoolIDParameter = juntaSpoolID.HasValue ?
+                new ObjectParameter("JuntaSpoolID", juntaSpoolID) :
+                new ObjectParameter("JuntaSpoolID", typeof(int));
+    
+            var todosParameter = todos.HasValue ?
+                new ObjectParameter("Todos", todos) :
+                new ObjectParameter("Todos", typeof(int));
+    
+            var paginaParameter = pagina.HasValue ?
+                new ObjectParameter("Pagina", pagina) :
+                new ObjectParameter("Pagina", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_Armado_Get_MaterialesSpool_Result>("Sam3_Armado_Get_MaterialesSpool", juntaSpoolIDParameter, todosParameter, paginaParameter);
+        }
+    
+        public virtual int Sam3_Armado_Get_MaterialesSpool2(Nullable<int> juntaSpoolID, Nullable<int> todos, Nullable<int> pagina)
+        {
+            var juntaSpoolIDParameter = juntaSpoolID.HasValue ?
+                new ObjectParameter("JuntaSpoolID", juntaSpoolID) :
+                new ObjectParameter("JuntaSpoolID", typeof(int));
+    
+            var todosParameter = todos.HasValue ?
+                new ObjectParameter("Todos", todos) :
+                new ObjectParameter("Todos", typeof(int));
+    
+            var paginaParameter = pagina.HasValue ?
+                new ObjectParameter("Pagina", pagina) :
+                new ObjectParameter("Pagina", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Sam3_Armado_Get_MaterialesSpool2", juntaSpoolIDParameter, todosParameter, paginaParameter);
+        }
+    
+        public virtual int Sam3_Armado_JuntaArmado(Nullable<int> usuario, string lenguaje)
+        {
+            var usuarioParameter = usuario.HasValue ?
+                new ObjectParameter("Usuario", usuario) :
+                new ObjectParameter("Usuario", typeof(int));
+    
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Sam3_Armado_JuntaArmado", usuarioParameter, lenguajeParameter);
+        }
+    
+        public virtual int Sam3_Armado_TrabajoAdicional(Nullable<int> usuario)
+        {
+            var usuarioParameter = usuario.HasValue ?
+                new ObjectParameter("Usuario", usuario) :
+                new ObjectParameter("Usuario", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Sam3_Armado_TrabajoAdicional", usuarioParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_Cat_Obrero_Result> Sam3_Cat_Obrero(Nullable<int> tIPO, Nullable<int> iD, Nullable<int> usuario, Nullable<int> tipoObreroID, string codigo, string numeroEmpleado)
+        {
+            var tIPOParameter = tIPO.HasValue ?
+                new ObjectParameter("TIPO", tIPO) :
+                new ObjectParameter("TIPO", typeof(int));
+    
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var usuarioParameter = usuario.HasValue ?
+                new ObjectParameter("Usuario", usuario) :
+                new ObjectParameter("Usuario", typeof(int));
+    
+            var tipoObreroIDParameter = tipoObreroID.HasValue ?
+                new ObjectParameter("TipoObreroID", tipoObreroID) :
+                new ObjectParameter("TipoObreroID", typeof(int));
+    
+            var codigoParameter = codigo != null ?
+                new ObjectParameter("Codigo", codigo) :
+                new ObjectParameter("Codigo", typeof(string));
+    
+            var numeroEmpleadoParameter = numeroEmpleado != null ?
+                new ObjectParameter("NumeroEmpleado", numeroEmpleado) :
+                new ObjectParameter("NumeroEmpleado", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_Cat_Obrero_Result>("Sam3_Cat_Obrero", tIPOParameter, iDParameter, usuarioParameter, tipoObreroIDParameter, codigoParameter, numeroEmpleadoParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_Cat_PQR_ListaCodigos_Result> Sam3_Cat_PQR_ListaCodigos(Nullable<int> uSUARIOID, string eSPECIFICACION, string cODIGO)
+        {
+            var uSUARIOIDParameter = uSUARIOID.HasValue ?
+                new ObjectParameter("USUARIOID", uSUARIOID) :
+                new ObjectParameter("USUARIOID", typeof(int));
+    
+            var eSPECIFICACIONParameter = eSPECIFICACION != null ?
+                new ObjectParameter("ESPECIFICACION", eSPECIFICACION) :
+                new ObjectParameter("ESPECIFICACION", typeof(string));
+    
+            var cODIGOParameter = cODIGO != null ?
+                new ObjectParameter("CODIGO", cODIGO) :
+                new ObjectParameter("CODIGO", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_Cat_PQR_ListaCodigos_Result>("Sam3_Cat_PQR_ListaCodigos", uSUARIOIDParameter, eSPECIFICACIONParameter, cODIGOParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_Cat_PQR_ListaMateriales_Result> Sam3_Cat_PQR_ListaMateriales()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_Cat_PQR_ListaMateriales_Result>("Sam3_Cat_PQR_ListaMateriales");
+        }
+    
+        public virtual ObjectResult<Sam3_Cat_PQR_ProcesoSoldadura_Result> Sam3_Cat_PQR_ProcesoSoldadura(Nullable<int> tIPO)
+        {
+            var tIPOParameter = tIPO.HasValue ?
+                new ObjectParameter("TIPO", tIPO) :
+                new ObjectParameter("TIPO", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_Cat_PQR_ProcesoSoldadura_Result>("Sam3_Cat_PQR_ProcesoSoldadura", tIPOParameter);
+        }
+    
+        public virtual int Sam3_ERPND_EliminaRequisicion(Nullable<int> requisicionID, Nullable<int> usuarioID)
+        {
+            var requisicionIDParameter = requisicionID.HasValue ?
+                new ObjectParameter("RequisicionID", requisicionID) :
+                new ObjectParameter("RequisicionID", typeof(int));
+    
+            var usuarioIDParameter = usuarioID.HasValue ?
+                new ObjectParameter("UsuarioID", usuarioID) :
+                new ObjectParameter("UsuarioID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Sam3_ERPND_EliminaRequisicion", requisicionIDParameter, usuarioIDParameter);
+        }
+    
+        public virtual int Sam3_Get_ContadorEstatusDashboard(string tabla, string columna, string parametro, Nullable<int> estatus)
+        {
+            var tablaParameter = tabla != null ?
+                new ObjectParameter("Tabla", tabla) :
+                new ObjectParameter("Tabla", typeof(string));
+    
+            var columnaParameter = columna != null ?
+                new ObjectParameter("Columna", columna) :
+                new ObjectParameter("Columna", typeof(string));
+    
+            var parametroParameter = parametro != null ?
+                new ObjectParameter("Parametro", parametro) :
+                new ObjectParameter("Parametro", typeof(string));
+    
+            var estatusParameter = estatus.HasValue ?
+                new ObjectParameter("Estatus", estatus) :
+                new ObjectParameter("Estatus", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Sam3_Get_ContadorEstatusDashboard", tablaParameter, columnaParameter, parametroParameter, estatusParameter);
+        }
+    
+        public virtual int Sam3_Get_EstatusPorModulo(Nullable<int> modulo, string lenguaje, Nullable<int> proyecto, Nullable<int> tipoPruebaID, Nullable<int> proveedorID, string fechaInicial, string fechaFin)
+        {
+            var moduloParameter = modulo.HasValue ?
+                new ObjectParameter("Modulo", modulo) :
+                new ObjectParameter("Modulo", typeof(int));
+    
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            var proyectoParameter = proyecto.HasValue ?
+                new ObjectParameter("Proyecto", proyecto) :
+                new ObjectParameter("Proyecto", typeof(int));
+    
+            var tipoPruebaIDParameter = tipoPruebaID.HasValue ?
+                new ObjectParameter("TipoPruebaID", tipoPruebaID) :
+                new ObjectParameter("TipoPruebaID", typeof(int));
+    
+            var proveedorIDParameter = proveedorID.HasValue ?
+                new ObjectParameter("ProveedorID", proveedorID) :
+                new ObjectParameter("ProveedorID", typeof(int));
+    
+            var fechaInicialParameter = fechaInicial != null ?
+                new ObjectParameter("FechaInicial", fechaInicial) :
+                new ObjectParameter("FechaInicial", typeof(string));
+    
+            var fechaFinParameter = fechaFin != null ?
+                new ObjectParameter("FechaFin", fechaFin) :
+                new ObjectParameter("FechaFin", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Sam3_Get_EstatusPorModulo", moduloParameter, lenguajeParameter, proyectoParameter, tipoPruebaIDParameter, proveedorIDParameter, fechaInicialParameter, fechaFinParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_Get_ListaProyectos_Result> Sam3_Get_ListaProyectos(Nullable<int> usuarioID)
+        {
+            var usuarioIDParameter = usuarioID.HasValue ?
+                new ObjectParameter("UsuarioID", usuarioID) :
+                new ObjectParameter("UsuarioID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_Get_ListaProyectos_Result>("Sam3_Get_ListaProyectos", usuarioIDParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_GET_RequisicionesDashboard_Result> Sam3_GET_RequisicionesDashboard(string lenguaje, Nullable<int> proyectoID, Nullable<int> tipoPruebaID, Nullable<int> proveedorID, string fechaInicial, string fechaFinal, Nullable<int> estatusRequisicion)
+        {
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            var proyectoIDParameter = proyectoID.HasValue ?
+                new ObjectParameter("ProyectoID", proyectoID) :
+                new ObjectParameter("ProyectoID", typeof(int));
+    
+            var tipoPruebaIDParameter = tipoPruebaID.HasValue ?
+                new ObjectParameter("TipoPruebaID", tipoPruebaID) :
+                new ObjectParameter("TipoPruebaID", typeof(int));
+    
+            var proveedorIDParameter = proveedorID.HasValue ?
+                new ObjectParameter("ProveedorID", proveedorID) :
+                new ObjectParameter("ProveedorID", typeof(int));
+    
+            var fechaInicialParameter = fechaInicial != null ?
+                new ObjectParameter("FechaInicial", fechaInicial) :
+                new ObjectParameter("FechaInicial", typeof(string));
+    
+            var fechaFinalParameter = fechaFinal != null ?
+                new ObjectParameter("FechaFinal", fechaFinal) :
+                new ObjectParameter("FechaFinal", typeof(string));
+    
+            var estatusRequisicionParameter = estatusRequisicion.HasValue ?
+                new ObjectParameter("EstatusRequisicion", estatusRequisicion) :
+                new ObjectParameter("EstatusRequisicion", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_GET_RequisicionesDashboard_Result>("Sam3_GET_RequisicionesDashboard", lenguajeParameter, proyectoIDParameter, tipoPruebaIDParameter, proveedorIDParameter, fechaInicialParameter, fechaFinalParameter, estatusRequisicionParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_GetErrorInfo_Result> Sam3_GetErrorInfo()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_GetErrorInfo_Result>("Sam3_GetErrorInfo");
+        }
+    
+        public virtual int Sam3_Inspeccion_Dimensional(Nullable<int> usuario, string lenguaje)
+        {
+            var usuarioParameter = usuario.HasValue ?
+                new ObjectParameter("Usuario", usuario) :
+                new ObjectParameter("Usuario", typeof(int));
+    
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Sam3_Inspeccion_Dimensional", usuarioParameter, lenguajeParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_Inspeccion_Get_DetalleDimensional_Result> Sam3_Inspeccion_Get_DetalleDimensional(Nullable<int> ordenTrabajoSpoolID, string lenguaje)
+        {
+            var ordenTrabajoSpoolIDParameter = ordenTrabajoSpoolID.HasValue ?
+                new ObjectParameter("OrdenTrabajoSpoolID", ordenTrabajoSpoolID) :
+                new ObjectParameter("OrdenTrabajoSpoolID", typeof(int));
+    
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_Inspeccion_Get_DetalleDimensional_Result>("Sam3_Inspeccion_Get_DetalleDimensional", ordenTrabajoSpoolIDParameter, lenguajeParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_Inspeccion_Get_DetalleJunta_Result> Sam3_Inspeccion_Get_DetalleJunta(Nullable<int> ordenTrabajoSpoolID, string lenguaje)
+        {
+            var ordenTrabajoSpoolIDParameter = ordenTrabajoSpoolID.HasValue ?
+                new ObjectParameter("OrdenTrabajoSpoolID", ordenTrabajoSpoolID) :
+                new ObjectParameter("OrdenTrabajoSpoolID", typeof(int));
+    
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_Inspeccion_Get_DetalleJunta_Result>("Sam3_Inspeccion_Get_DetalleJunta", ordenTrabajoSpoolIDParameter, lenguajeParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> Sam3_Inspeccion_Get_DetalleJuntaSeleccionada(Nullable<int> ordenTrabajoSpoolID, string lenguaje, Nullable<int> defectoID)
+        {
+            var ordenTrabajoSpoolIDParameter = ordenTrabajoSpoolID.HasValue ?
+                new ObjectParameter("OrdenTrabajoSpoolID", ordenTrabajoSpoolID) :
+                new ObjectParameter("OrdenTrabajoSpoolID", typeof(int));
+    
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            var defectoIDParameter = defectoID.HasValue ?
+                new ObjectParameter("DefectoID", defectoID) :
+                new ObjectParameter("DefectoID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("Sam3_Inspeccion_Get_DetalleJuntaSeleccionada", ordenTrabajoSpoolIDParameter, lenguajeParameter, defectoIDParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_Inspeccion_Get_Obrero_Result> Sam3_Inspeccion_Get_Obrero(Nullable<int> usuarioID)
+        {
+            var usuarioIDParameter = usuarioID.HasValue ?
+                new ObjectParameter("UsuarioID", usuarioID) :
+                new ObjectParameter("UsuarioID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_Inspeccion_Get_Obrero_Result>("Sam3_Inspeccion_Get_Obrero", usuarioIDParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_Inspeccion_VD_Get_JuntasXSpoolID_Result> Sam3_Inspeccion_VD_Get_JuntasXSpoolID(Nullable<int> ordenTrabajoSpoolID, string lenguaje, Nullable<int> todos)
+        {
+            var ordenTrabajoSpoolIDParameter = ordenTrabajoSpoolID.HasValue ?
+                new ObjectParameter("OrdenTrabajoSpoolID", ordenTrabajoSpoolID) :
+                new ObjectParameter("OrdenTrabajoSpoolID", typeof(int));
+    
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            var todosParameter = todos.HasValue ?
+                new ObjectParameter("Todos", todos) :
+                new ObjectParameter("Todos", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_Inspeccion_VD_Get_JuntasXSpoolID_Result>("Sam3_Inspeccion_VD_Get_JuntasXSpoolID", ordenTrabajoSpoolIDParameter, lenguajeParameter, todosParameter);
+        }
+    
+        public virtual int Sam3_Inspeccion_VisualDimensional(Nullable<int> usuario, string lenguaje, Nullable<int> inspeccionDimensionalID, Nullable<int> ordenTrabajoSpoolID, string fechaInspeccion, Nullable<int> resultadoID, Nullable<int> obreroID, Nullable<int> defectoID, Nullable<int> accionDimensional)
+        {
+            var usuarioParameter = usuario.HasValue ?
+                new ObjectParameter("Usuario", usuario) :
+                new ObjectParameter("Usuario", typeof(int));
+    
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            var inspeccionDimensionalIDParameter = inspeccionDimensionalID.HasValue ?
+                new ObjectParameter("InspeccionDimensionalID", inspeccionDimensionalID) :
+                new ObjectParameter("InspeccionDimensionalID", typeof(int));
+    
+            var ordenTrabajoSpoolIDParameter = ordenTrabajoSpoolID.HasValue ?
+                new ObjectParameter("OrdenTrabajoSpoolID", ordenTrabajoSpoolID) :
+                new ObjectParameter("OrdenTrabajoSpoolID", typeof(int));
+    
+            var fechaInspeccionParameter = fechaInspeccion != null ?
+                new ObjectParameter("FechaInspeccion", fechaInspeccion) :
+                new ObjectParameter("FechaInspeccion", typeof(string));
+    
+            var resultadoIDParameter = resultadoID.HasValue ?
+                new ObjectParameter("ResultadoID", resultadoID) :
+                new ObjectParameter("ResultadoID", typeof(int));
+    
+            var obreroIDParameter = obreroID.HasValue ?
+                new ObjectParameter("ObreroID", obreroID) :
+                new ObjectParameter("ObreroID", typeof(int));
+    
+            var defectoIDParameter = defectoID.HasValue ?
+                new ObjectParameter("DefectoID", defectoID) :
+                new ObjectParameter("DefectoID", typeof(int));
+    
+            var accionDimensionalParameter = accionDimensional.HasValue ?
+                new ObjectParameter("AccionDimensional", accionDimensional) :
+                new ObjectParameter("AccionDimensional", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Sam3_Inspeccion_VisualDimensional", usuarioParameter, lenguajeParameter, inspeccionDimensionalIDParameter, ordenTrabajoSpoolIDParameter, fechaInspeccionParameter, resultadoIDParameter, obreroIDParameter, defectoIDParameter, accionDimensionalParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_ObtenerFormatoEtiquetas_Result> Sam3_ObtenerFormatoEtiquetas(Nullable<int> ordenRecepcionID)
+        {
+            var ordenRecepcionIDParameter = ordenRecepcionID.HasValue ?
+                new ObjectParameter("OrdenRecepcionID", ordenRecepcionID) :
+                new ObjectParameter("OrdenRecepcionID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_ObtenerFormatoEtiquetas_Result>("Sam3_ObtenerFormatoEtiquetas", ordenRecepcionIDParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_ObtenerFormatoIncidencias_Result> Sam3_ObtenerFormatoIncidencias(Nullable<int> folioAvisoLlegadaID, string cadena)
+        {
+            var folioAvisoLlegadaIDParameter = folioAvisoLlegadaID.HasValue ?
+                new ObjectParameter("FolioAvisoLlegadaID", folioAvisoLlegadaID) :
+                new ObjectParameter("FolioAvisoLlegadaID", typeof(int));
+    
+            var cadenaParameter = cadena != null ?
+                new ObjectParameter("cadena", cadena) :
+                new ObjectParameter("cadena", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_ObtenerFormatoIncidencias_Result>("Sam3_ObtenerFormatoIncidencias", folioAvisoLlegadaIDParameter, cadenaParameter);
+        }
+    
+        public virtual int Sam3_ObtenerFormatoPaseSalida(Nullable<int> folioAvisoLlegadaID)
+        {
+            var folioAvisoLlegadaIDParameter = folioAvisoLlegadaID.HasValue ?
+                new ObjectParameter("FolioAvisoLlegadaID", folioAvisoLlegadaID) :
+                new ObjectParameter("FolioAvisoLlegadaID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Sam3_ObtenerFormatoPaseSalida", folioAvisoLlegadaIDParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_Pintura_Get_ComponenteSistemaPintura_Result> Sam3_Pintura_Get_ComponenteSistemaPintura(Nullable<int> sistemaPinturaID)
+        {
+            var sistemaPinturaIDParameter = sistemaPinturaID.HasValue ?
+                new ObjectParameter("SistemaPinturaID", sistemaPinturaID) :
+                new ObjectParameter("SistemaPinturaID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_Pintura_Get_ComponenteSistemaPintura_Result>("Sam3_Pintura_Get_ComponenteSistemaPintura", sistemaPinturaIDParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_Pintura_Get_DetalleCarrosCargados_Result> Sam3_Pintura_Get_DetalleCarrosCargados(Nullable<int> medioTransporteCargaID, Nullable<int> medioTransporteID, Nullable<int> proyectoID, Nullable<int> todos)
+        {
+            var medioTransporteCargaIDParameter = medioTransporteCargaID.HasValue ?
+                new ObjectParameter("MedioTransporteCargaID", medioTransporteCargaID) :
+                new ObjectParameter("MedioTransporteCargaID", typeof(int));
+    
+            var medioTransporteIDParameter = medioTransporteID.HasValue ?
+                new ObjectParameter("MedioTransporteID", medioTransporteID) :
+                new ObjectParameter("MedioTransporteID", typeof(int));
+    
+            var proyectoIDParameter = proyectoID.HasValue ?
+                new ObjectParameter("ProyectoID", proyectoID) :
+                new ObjectParameter("ProyectoID", typeof(int));
+    
+            var todosParameter = todos.HasValue ?
+                new ObjectParameter("Todos", todos) :
+                new ObjectParameter("Todos", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_Pintura_Get_DetalleCarrosCargados_Result>("Sam3_Pintura_Get_DetalleCarrosCargados", medioTransporteCargaIDParameter, medioTransporteIDParameter, proyectoIDParameter, todosParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_Pintura_Get_DetalleSpool_Result> Sam3_Pintura_Get_DetalleSpool(Nullable<int> medioTransporteID, Nullable<int> tipoConsulta, Nullable<int> ordenTrabajoSpoolID, string codigo, string lenguaje)
+        {
+            var medioTransporteIDParameter = medioTransporteID.HasValue ?
+                new ObjectParameter("MedioTransporteID", medioTransporteID) :
+                new ObjectParameter("MedioTransporteID", typeof(int));
+    
+            var tipoConsultaParameter = tipoConsulta.HasValue ?
+                new ObjectParameter("TipoConsulta", tipoConsulta) :
+                new ObjectParameter("TipoConsulta", typeof(int));
+    
+            var ordenTrabajoSpoolIDParameter = ordenTrabajoSpoolID.HasValue ?
+                new ObjectParameter("OrdenTrabajoSpoolID", ordenTrabajoSpoolID) :
+                new ObjectParameter("OrdenTrabajoSpoolID", typeof(int));
+    
+            var codigoParameter = codigo != null ?
+                new ObjectParameter("Codigo", codigo) :
+                new ObjectParameter("Codigo", typeof(string));
+    
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_Pintura_Get_DetalleSpool_Result>("Sam3_Pintura_Get_DetalleSpool", medioTransporteIDParameter, tipoConsultaParameter, ordenTrabajoSpoolIDParameter, codigoParameter, lenguajeParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_Pintura_Get_DetalleSpoolAgregar_Result> Sam3_Pintura_Get_DetalleSpoolAgregar(Nullable<int> ordenTrabajoSpoolID)
+        {
+            var ordenTrabajoSpoolIDParameter = ordenTrabajoSpoolID.HasValue ?
+                new ObjectParameter("OrdenTrabajoSpoolID", ordenTrabajoSpoolID) :
+                new ObjectParameter("OrdenTrabajoSpoolID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_Pintura_Get_DetalleSpoolAgregar_Result>("Sam3_Pintura_Get_DetalleSpoolAgregar", ordenTrabajoSpoolIDParameter);
+        }
+    
+        public virtual int Sam3_Pintura_Get_DetalleSpoolCapturaAvance(Nullable<int> medioTransporteCargaID, string lenguaje)
+        {
+            var medioTransporteCargaIDParameter = medioTransporteCargaID.HasValue ?
+                new ObjectParameter("MedioTransporteCargaID", medioTransporteCargaID) :
+                new ObjectParameter("MedioTransporteCargaID", typeof(int));
+    
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Sam3_Pintura_Get_DetalleSpoolCapturaAvance", medioTransporteCargaIDParameter, lenguajeParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_Pintura_Get_DetalleSpoolObreroPaso_Result> Sam3_Pintura_Get_DetalleSpoolObreroPaso(Nullable<int> pinturaSpool, Nullable<int> paso, string lenguaje)
+        {
+            var pinturaSpoolParameter = pinturaSpool.HasValue ?
+                new ObjectParameter("PinturaSpool", pinturaSpool) :
+                new ObjectParameter("PinturaSpool", typeof(int));
+    
+            var pasoParameter = paso.HasValue ?
+                new ObjectParameter("Paso", paso) :
+                new ObjectParameter("Paso", typeof(int));
+    
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_Pintura_Get_DetalleSpoolObreroPaso_Result>("Sam3_Pintura_Get_DetalleSpoolObreroPaso", pinturaSpoolParameter, pasoParameter, lenguajeParameter);
+        }
+    
+        public virtual int Sam3_Pintura_Get_DetalleSpoolPorCuadrante(Nullable<int> cuadranteId, Nullable<int> paso, string lenguaje)
+        {
+            var cuadranteIdParameter = cuadranteId.HasValue ?
+                new ObjectParameter("CuadranteId", cuadranteId) :
+                new ObjectParameter("CuadranteId", typeof(int));
+    
+            var pasoParameter = paso.HasValue ?
+                new ObjectParameter("Paso", paso) :
+                new ObjectParameter("Paso", typeof(int));
+    
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Sam3_Pintura_Get_DetalleSpoolPorCuadrante", cuadranteIdParameter, pasoParameter, lenguajeParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_Pintura_Get_DetalleSpoolPorCuadranteObre_Result> Sam3_Pintura_Get_DetalleSpoolPorCuadranteObre(Nullable<int> cuadranteId, Nullable<int> paso, string lenguaje)
+        {
+            var cuadranteIdParameter = cuadranteId.HasValue ?
+                new ObjectParameter("CuadranteId", cuadranteId) :
+                new ObjectParameter("CuadranteId", typeof(int));
+    
+            var pasoParameter = paso.HasValue ?
+                new ObjectParameter("Paso", paso) :
+                new ObjectParameter("Paso", typeof(int));
+    
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_Pintura_Get_DetalleSpoolPorCuadranteObre_Result>("Sam3_Pintura_Get_DetalleSpoolPorCuadranteObre", cuadranteIdParameter, pasoParameter, lenguajeParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_Pintura_Get_MedioTransporte_Result> Sam3_Pintura_Get_MedioTransporte(string lenguaje, Nullable<int> proyectoID)
+        {
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            var proyectoIDParameter = proyectoID.HasValue ?
+                new ObjectParameter("ProyectoID", proyectoID) :
+                new ObjectParameter("ProyectoID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_Pintura_Get_MedioTransporte_Result>("Sam3_Pintura_Get_MedioTransporte", lenguajeParameter, proyectoIDParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_Pintura_Get_MedioTransporteCargado_Result> Sam3_Pintura_Get_MedioTransporteCargado(string lenguaje)
+        {
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_Pintura_Get_MedioTransporteCargado_Result>("Sam3_Pintura_Get_MedioTransporteCargado", lenguajeParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_Pintura_Get_PruebasProcesos_Result> Sam3_Pintura_Get_PruebasProcesos(string lenguaje, Nullable<int> procesoPinturaID)
+        {
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            var procesoPinturaIDParameter = procesoPinturaID.HasValue ?
+                new ObjectParameter("ProcesoPinturaID", procesoPinturaID) :
+                new ObjectParameter("ProcesoPinturaID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_Pintura_Get_PruebasProcesos_Result>("Sam3_Pintura_Get_PruebasProcesos", lenguajeParameter, procesoPinturaIDParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_Pintura_Get_SpoolCarroBackLog_Result> Sam3_Pintura_Get_SpoolCarroBackLog(Nullable<int> medioTransporteCargaID, Nullable<int> medioTransporteID, Nullable<int> proyectoID, string lenguague)
+        {
+            var medioTransporteCargaIDParameter = medioTransporteCargaID.HasValue ?
+                new ObjectParameter("MedioTransporteCargaID", medioTransporteCargaID) :
+                new ObjectParameter("MedioTransporteCargaID", typeof(int));
+    
+            var medioTransporteIDParameter = medioTransporteID.HasValue ?
+                new ObjectParameter("MedioTransporteID", medioTransporteID) :
+                new ObjectParameter("MedioTransporteID", typeof(int));
+    
+            var proyectoIDParameter = proyectoID.HasValue ?
+                new ObjectParameter("ProyectoID", proyectoID) :
+                new ObjectParameter("ProyectoID", typeof(int));
+    
+            var lenguagueParameter = lenguague != null ?
+                new ObjectParameter("Lenguague", lenguague) :
+                new ObjectParameter("Lenguague", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_Pintura_Get_SpoolCarroBackLog_Result>("Sam3_Pintura_Get_SpoolCarroBackLog", medioTransporteCargaIDParameter, medioTransporteIDParameter, proyectoIDParameter, lenguagueParameter);
+        }
+    
+        public virtual int Sam3_Pintura_Guarda_CapturaAvance(Nullable<int> usuario, string lenguaje, Nullable<int> medioTransporteCargaID)
+        {
+            var usuarioParameter = usuario.HasValue ?
+                new ObjectParameter("Usuario", usuario) :
+                new ObjectParameter("Usuario", typeof(int));
+    
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            var medioTransporteCargaIDParameter = medioTransporteCargaID.HasValue ?
+                new ObjectParameter("MedioTransporteCargaID", medioTransporteCargaID) :
+                new ObjectParameter("MedioTransporteCargaID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Sam3_Pintura_Guarda_CapturaAvance", usuarioParameter, lenguajeParameter, medioTransporteCargaIDParameter);
+        }
+    
+        public virtual int Sam3_Pintura_Guarda_CapturaAvanceIntAcabado(Nullable<int> usuario, string lenguaje)
+        {
+            var usuarioParameter = usuario.HasValue ?
+                new ObjectParameter("Usuario", usuario) :
+                new ObjectParameter("Usuario", typeof(int));
+    
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Sam3_Pintura_Guarda_CapturaAvanceIntAcabado", usuarioParameter, lenguajeParameter);
+        }
+    
+        public virtual int Sam3_Pintura_Guarda_CapturaAvanceObrero(Nullable<int> usuario)
+        {
+            var usuarioParameter = usuario.HasValue ?
+                new ObjectParameter("Usuario", usuario) :
+                new ObjectParameter("Usuario", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Sam3_Pintura_Guarda_CapturaAvanceObrero", usuarioParameter);
+        }
+    
+        public virtual int Sam3_Pintura_Guardar_CargaMedioTransporte(Nullable<int> usuario, Nullable<int> medioTransporteID, Nullable<int> medioTransporteCargaID, Nullable<int> cerrar)
+        {
+            var usuarioParameter = usuario.HasValue ?
+                new ObjectParameter("Usuario", usuario) :
+                new ObjectParameter("Usuario", typeof(int));
+    
+            var medioTransporteIDParameter = medioTransporteID.HasValue ?
+                new ObjectParameter("MedioTransporteID", medioTransporteID) :
+                new ObjectParameter("MedioTransporteID", typeof(int));
+    
+            var medioTransporteCargaIDParameter = medioTransporteCargaID.HasValue ?
+                new ObjectParameter("MedioTransporteCargaID", medioTransporteCargaID) :
+                new ObjectParameter("MedioTransporteCargaID", typeof(int));
+    
+            var cerrarParameter = cerrar.HasValue ?
+                new ObjectParameter("Cerrar", cerrar) :
+                new ObjectParameter("Cerrar", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Sam3_Pintura_Guardar_CargaMedioTransporte", usuarioParameter, medioTransporteIDParameter, medioTransporteCargaIDParameter, cerrarParameter);
+        }
+    
+        public virtual int Sam3_Pintura_Guardar_DesCargaMedioTransporte(Nullable<int> usuario, Nullable<int> medioTransporteCargaID)
+        {
+            var usuarioParameter = usuario.HasValue ?
+                new ObjectParameter("Usuario", usuario) :
+                new ObjectParameter("Usuario", typeof(int));
+    
+            var medioTransporteCargaIDParameter = medioTransporteCargaID.HasValue ?
+                new ObjectParameter("MedioTransporteCargaID", medioTransporteCargaID) :
+                new ObjectParameter("MedioTransporteCargaID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Sam3_Pintura_Guardar_DesCargaMedioTransporte", usuarioParameter, medioTransporteCargaIDParameter);
+        }
+    
+        public virtual int Sam3_Pintura_Guardar_NuevoMedioTransporte()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Sam3_Pintura_Guardar_NuevoMedioTransporte");
+        }
+    
+        public virtual int Sam3_Pintura_Set_CierraCarro(Nullable<int> usuario, Nullable<int> medioTransporteID, Nullable<int> medioTransporteCargaID, Nullable<int> cerrar)
+        {
+            var usuarioParameter = usuario.HasValue ?
+                new ObjectParameter("Usuario", usuario) :
+                new ObjectParameter("Usuario", typeof(int));
+    
+            var medioTransporteIDParameter = medioTransporteID.HasValue ?
+                new ObjectParameter("MedioTransporteID", medioTransporteID) :
+                new ObjectParameter("MedioTransporteID", typeof(int));
+    
+            var medioTransporteCargaIDParameter = medioTransporteCargaID.HasValue ?
+                new ObjectParameter("MedioTransporteCargaID", medioTransporteCargaID) :
+                new ObjectParameter("MedioTransporteCargaID", typeof(int));
+    
+            var cerrarParameter = cerrar.HasValue ?
+                new ObjectParameter("Cerrar", cerrar) :
+                new ObjectParameter("Cerrar", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Sam3_Pintura_Set_CierraCarro", usuarioParameter, medioTransporteIDParameter, medioTransporteCargaIDParameter, cerrarParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_ReportesRT_Get_ListaProyectos_Result> Sam3_ReportesRT_Get_ListaProyectos(Nullable<int> usuarioID)
+        {
+            var usuarioIDParameter = usuarioID.HasValue ?
+                new ObjectParameter("UsuarioID", usuarioID) :
+                new ObjectParameter("UsuarioID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_ReportesRT_Get_ListaProyectos_Result>("Sam3_ReportesRT_Get_ListaProyectos", usuarioIDParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_ReportesRT_Get_Resultados_Result> Sam3_ReportesRT_Get_Resultados(Nullable<int> ordenTrabajoID, Nullable<int> spoolID, Nullable<int> juntaSpoolID, string lenguaje)
+        {
+            var ordenTrabajoIDParameter = ordenTrabajoID.HasValue ?
+                new ObjectParameter("OrdenTrabajoID", ordenTrabajoID) :
+                new ObjectParameter("OrdenTrabajoID", typeof(int));
+    
+            var spoolIDParameter = spoolID.HasValue ?
+                new ObjectParameter("SpoolID", spoolID) :
+                new ObjectParameter("SpoolID", typeof(int));
+    
+            var juntaSpoolIDParameter = juntaSpoolID.HasValue ?
+                new ObjectParameter("JuntaSpoolID", juntaSpoolID) :
+                new ObjectParameter("JuntaSpoolID", typeof(int));
+    
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("lenguaje", lenguaje) :
+                new ObjectParameter("lenguaje", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_ReportesRT_Get_Resultados_Result>("Sam3_ReportesRT_Get_Resultados", ordenTrabajoIDParameter, spoolIDParameter, juntaSpoolIDParameter, lenguajeParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_ReportesRT_Get_Resultados_Detalle_Result> Sam3_ReportesRT_Get_Resultados_Detalle(Nullable<int> ordenTrabajoID, Nullable<int> spoolID, Nullable<int> juntaSpoolID, string lenguaje)
+        {
+            var ordenTrabajoIDParameter = ordenTrabajoID.HasValue ?
+                new ObjectParameter("OrdenTrabajoID", ordenTrabajoID) :
+                new ObjectParameter("OrdenTrabajoID", typeof(int));
+    
+            var spoolIDParameter = spoolID.HasValue ?
+                new ObjectParameter("SpoolID", spoolID) :
+                new ObjectParameter("SpoolID", typeof(int));
+    
+            var juntaSpoolIDParameter = juntaSpoolID.HasValue ?
+                new ObjectParameter("JuntaSpoolID", juntaSpoolID) :
+                new ObjectParameter("JuntaSpoolID", typeof(int));
+    
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_ReportesRT_Get_Resultados_Detalle_Result>("Sam3_ReportesRT_Get_Resultados_Detalle", ordenTrabajoIDParameter, spoolIDParameter, juntaSpoolIDParameter, lenguajeParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_ReportesRT_ST_CRRT_Get_CatalogoDefectos_Result> Sam3_ReportesRT_ST_CRRT_Get_CatalogoDefectos(Nullable<int> catalogo, string lenguaje)
+        {
+            var catalogoParameter = catalogo.HasValue ?
+                new ObjectParameter("catalogo", catalogo) :
+                new ObjectParameter("catalogo", typeof(int));
+    
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("lenguaje", lenguaje) :
+                new ObjectParameter("lenguaje", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_ReportesRT_ST_CRRT_Get_CatalogoDefectos_Result>("Sam3_ReportesRT_ST_CRRT_Get_CatalogoDefectos", catalogoParameter, lenguajeParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_ReportesRT_ST_CRRT_Get_Resultado_Result> Sam3_ReportesRT_ST_CRRT_Get_Resultado(string lenguaje)
+        {
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("lenguaje", lenguaje) :
+                new ObjectParameter("lenguaje", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_ReportesRT_ST_CRRT_Get_Resultado_Result>("Sam3_ReportesRT_ST_CRRT_Get_Resultado", lenguajeParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_ReportesRT_ST_Get_Proveedores_Result> Sam3_ReportesRT_ST_Get_Proveedores(Nullable<int> proyectoID, Nullable<int> proveedorID, Nullable<int> patioID)
+        {
+            var proyectoIDParameter = proyectoID.HasValue ?
+                new ObjectParameter("ProyectoID", proyectoID) :
+                new ObjectParameter("ProyectoID", typeof(int));
+    
+            var proveedorIDParameter = proveedorID.HasValue ?
+                new ObjectParameter("ProveedorID", proveedorID) :
+                new ObjectParameter("ProveedorID", typeof(int));
+    
+            var patioIDParameter = patioID.HasValue ?
+                new ObjectParameter("PatioID", patioID) :
+                new ObjectParameter("PatioID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_ReportesRT_ST_Get_Proveedores_Result>("Sam3_ReportesRT_ST_Get_Proveedores", proyectoIDParameter, proveedorIDParameter, patioIDParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_ReportesRT_ST_Get_Requisiciones_Result> Sam3_ReportesRT_ST_Get_Requisiciones(Nullable<int> proyectoID, Nullable<int> proveedorID)
+        {
+            var proyectoIDParameter = proyectoID.HasValue ?
+                new ObjectParameter("ProyectoID", proyectoID) :
+                new ObjectParameter("ProyectoID", typeof(int));
+    
+            var proveedorIDParameter = proveedorID.HasValue ?
+                new ObjectParameter("ProveedorID", proveedorID) :
+                new ObjectParameter("ProveedorID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_ReportesRT_ST_Get_Requisiciones_Result>("Sam3_ReportesRT_ST_Get_Requisiciones", proyectoIDParameter, proveedorIDParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_ReportesRT_ST_Get_Requisiciones_Detalle_Result> Sam3_ReportesRT_ST_Get_Requisiciones_Detalle(Nullable<int> proyectoID, Nullable<int> tipoPruebaID, Nullable<int> proveedorID, Nullable<int> requisicionID, Nullable<int> equipoID, Nullable<int> turnoID, string lenguaje)
+        {
+            var proyectoIDParameter = proyectoID.HasValue ?
+                new ObjectParameter("ProyectoID", proyectoID) :
+                new ObjectParameter("ProyectoID", typeof(int));
+    
+            var tipoPruebaIDParameter = tipoPruebaID.HasValue ?
+                new ObjectParameter("TipoPruebaID", tipoPruebaID) :
+                new ObjectParameter("TipoPruebaID", typeof(int));
+    
+            var proveedorIDParameter = proveedorID.HasValue ?
+                new ObjectParameter("ProveedorID", proveedorID) :
+                new ObjectParameter("ProveedorID", typeof(int));
+    
+            var requisicionIDParameter = requisicionID.HasValue ?
+                new ObjectParameter("RequisicionID", requisicionID) :
+                new ObjectParameter("RequisicionID", typeof(int));
+    
+            var equipoIDParameter = equipoID.HasValue ?
+                new ObjectParameter("EquipoID", equipoID) :
+                new ObjectParameter("EquipoID", typeof(int));
+    
+            var turnoIDParameter = turnoID.HasValue ?
+                new ObjectParameter("TurnoID", turnoID) :
+                new ObjectParameter("TurnoID", typeof(int));
+    
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("lenguaje", lenguaje) :
+                new ObjectParameter("lenguaje", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_ReportesRT_ST_Get_Requisiciones_Detalle_Result>("Sam3_ReportesRT_ST_Get_Requisiciones_Detalle", proyectoIDParameter, tipoPruebaIDParameter, proveedorIDParameter, requisicionIDParameter, equipoIDParameter, turnoIDParameter, lenguajeParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_ReportesRT_ST_Get_Tipos_Pruebas_Result> Sam3_ReportesRT_ST_Get_Tipos_Pruebas(Nullable<int> proyectoID)
+        {
+            var proyectoIDParameter = proyectoID.HasValue ?
+                new ObjectParameter("ProyectoID", proyectoID) :
+                new ObjectParameter("ProyectoID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_ReportesRT_ST_Get_Tipos_Pruebas_Result>("Sam3_ReportesRT_ST_Get_Tipos_Pruebas", proyectoIDParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_RPT_EncabezadoReporteIncidencias_Result> Sam3_RPT_EncabezadoReporteIncidencias(Nullable<int> incidenciaID)
+        {
+            var incidenciaIDParameter = incidenciaID.HasValue ?
+                new ObjectParameter("incidenciaID", incidenciaID) :
+                new ObjectParameter("incidenciaID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_RPT_EncabezadoReporteIncidencias_Result>("Sam3_RPT_EncabezadoReporteIncidencias", incidenciaIDParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_RPT_EtiquetasDeMaterial_Result> Sam3_RPT_EtiquetasDeMaterial(Nullable<int> ordenRecepcionID)
+        {
+            var ordenRecepcionIDParameter = ordenRecepcionID.HasValue ?
+                new ObjectParameter("ordenRecepcionID", ordenRecepcionID) :
+                new ObjectParameter("ordenRecepcionID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_RPT_EtiquetasDeMaterial_Result>("Sam3_RPT_EtiquetasDeMaterial", ordenRecepcionIDParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_RPT_ListaImagenesIncidencia_Result> Sam3_RPT_ListaImagenesIncidencia(Nullable<int> incidenciaID)
+        {
+            var incidenciaIDParameter = incidenciaID.HasValue ?
+                new ObjectParameter("incidenciaID", incidenciaID) :
+                new ObjectParameter("incidenciaID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_RPT_ListaImagenesIncidencia_Result>("Sam3_RPT_ListaImagenesIncidencia", incidenciaIDParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_RPT_OrdenAlmacenaje_Result> Sam3_RPT_OrdenAlmacenaje(Nullable<int> ordenAlmacenajeID, Nullable<int> usuarioID)
+        {
+            var ordenAlmacenajeIDParameter = ordenAlmacenajeID.HasValue ?
+                new ObjectParameter("ordenAlmacenajeID", ordenAlmacenajeID) :
+                new ObjectParameter("ordenAlmacenajeID", typeof(int));
+    
+            var usuarioIDParameter = usuarioID.HasValue ?
+                new ObjectParameter("usuarioID", usuarioID) :
+                new ObjectParameter("usuarioID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_RPT_OrdenAlmacenaje_Result>("Sam3_RPT_OrdenAlmacenaje", ordenAlmacenajeIDParameter, usuarioIDParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_RPT_OrdenRecepcion_Result> Sam3_RPT_OrdenRecepcion(Nullable<int> ordenRecepcionID, Nullable<int> usuarioID)
+        {
+            var ordenRecepcionIDParameter = ordenRecepcionID.HasValue ?
+                new ObjectParameter("ordenRecepcionID", ordenRecepcionID) :
+                new ObjectParameter("ordenRecepcionID", typeof(int));
+    
+            var usuarioIDParameter = usuarioID.HasValue ?
+                new ObjectParameter("usuarioID", usuarioID) :
+                new ObjectParameter("usuarioID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_RPT_OrdenRecepcion_Result>("Sam3_RPT_OrdenRecepcion", ordenRecepcionIDParameter, usuarioIDParameter);
+        }
+    
+        public virtual int Sam3_RPT_PaseSalidaTransportista(Nullable<int> folioAvisoLlegadaID, Nullable<int> idUsuario)
+        {
+            var folioAvisoLlegadaIDParameter = folioAvisoLlegadaID.HasValue ?
+                new ObjectParameter("FolioAvisoLlegadaID", folioAvisoLlegadaID) :
+                new ObjectParameter("FolioAvisoLlegadaID", typeof(int));
+    
+            var idUsuarioParameter = idUsuario.HasValue ?
+                new ObjectParameter("idUsuario", idUsuario) :
+                new ObjectParameter("idUsuario", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Sam3_RPT_PaseSalidaTransportista", folioAvisoLlegadaIDParameter, idUsuarioParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> Sam3_Soldador_Certificacion_Get_ID(Nullable<int> obreroID, Nullable<int> pQRID, Nullable<int> procesoSoldaduraID, string lenguaje)
+        {
+            var obreroIDParameter = obreroID.HasValue ?
+                new ObjectParameter("ObreroID", obreroID) :
+                new ObjectParameter("ObreroID", typeof(int));
+    
+            var pQRIDParameter = pQRID.HasValue ?
+                new ObjectParameter("PQRID", pQRID) :
+                new ObjectParameter("PQRID", typeof(int));
+    
+            var procesoSoldaduraIDParameter = procesoSoldaduraID.HasValue ?
+                new ObjectParameter("procesoSoldaduraID", procesoSoldaduraID) :
+                new ObjectParameter("procesoSoldaduraID", typeof(int));
+    
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("Sam3_Soldador_Certificacion_Get_ID", obreroIDParameter, pQRIDParameter, procesoSoldaduraIDParameter, lenguajeParameter);
+        }
+    
+        public virtual int Sam3_Soldador_Certificacion_Set_Captura(Nullable<int> usuario, string lenguaje, Nullable<int> tipoCaptura)
+        {
+            var usuarioParameter = usuario.HasValue ?
+                new ObjectParameter("Usuario", usuario) :
+                new ObjectParameter("Usuario", typeof(int));
+    
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            var tipoCapturaParameter = tipoCaptura.HasValue ?
+                new ObjectParameter("TipoCaptura", tipoCaptura) :
+                new ObjectParameter("TipoCaptura", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Sam3_Soldador_Certificacion_Set_Captura", usuarioParameter, lenguajeParameter, tipoCapturaParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_Soldadura_CertificacionPosicion_Result> Sam3_Soldadura_CertificacionPosicion(Nullable<int> tIPO)
+        {
+            var tIPOParameter = tIPO.HasValue ?
+                new ObjectParameter("TIPO", tIPO) :
+                new ObjectParameter("TIPO", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_Soldadura_CertificacionPosicion_Result>("Sam3_Soldadura_CertificacionPosicion", tIPOParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_Soldadura_Get_CedulaTuboCalificado_Result> Sam3_Soldadura_Get_CedulaTuboCalificado()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_Soldadura_Get_CedulaTuboCalificado_Result>("Sam3_Soldadura_Get_CedulaTuboCalificado");
+        }
+    
+        public virtual ObjectResult<Sam3_Soldadura_Get_DetalleJunta_Result> Sam3_Soldadura_Get_DetalleJunta(Nullable<int> juntaSpoolID, string lenguaje)
+        {
+            var juntaSpoolIDParameter = juntaSpoolID.HasValue ?
+                new ObjectParameter("JuntaSpoolID", juntaSpoolID) :
+                new ObjectParameter("JuntaSpoolID", typeof(int));
+    
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_Soldadura_Get_DetalleJunta_Result>("Sam3_Soldadura_Get_DetalleJunta", juntaSpoolIDParameter, lenguajeParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_Soldadura_GET_DetalleSoldadorColadas_Result> Sam3_Soldadura_GET_DetalleSoldadorColadas(string idOrdenTrabajo, string ordenTrabajoSpoolID, string juntaID, Nullable<int> proyectoID)
+        {
+            var idOrdenTrabajoParameter = idOrdenTrabajo != null ?
+                new ObjectParameter("IdOrdenTrabajo", idOrdenTrabajo) :
+                new ObjectParameter("IdOrdenTrabajo", typeof(string));
+    
+            var ordenTrabajoSpoolIDParameter = ordenTrabajoSpoolID != null ?
+                new ObjectParameter("OrdenTrabajoSpoolID", ordenTrabajoSpoolID) :
+                new ObjectParameter("OrdenTrabajoSpoolID", typeof(string));
+    
+            var juntaIDParameter = juntaID != null ?
+                new ObjectParameter("JuntaID", juntaID) :
+                new ObjectParameter("JuntaID", typeof(string));
+    
+            var proyectoIDParameter = proyectoID.HasValue ?
+                new ObjectParameter("ProyectoID", proyectoID) :
+                new ObjectParameter("ProyectoID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_Soldadura_GET_DetalleSoldadorColadas_Result>("Sam3_Soldadura_GET_DetalleSoldadorColadas", idOrdenTrabajoParameter, ordenTrabajoSpoolIDParameter, juntaIDParameter, proyectoIDParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_Soldadura_Get_DetalleSoldadorProceso_Result> Sam3_Soldadura_Get_DetalleSoldadorProceso(Nullable<int> juntaSoldaduraID, string proceso)
+        {
+            var juntaSoldaduraIDParameter = juntaSoldaduraID.HasValue ?
+                new ObjectParameter("JuntaSoldaduraID", juntaSoldaduraID) :
+                new ObjectParameter("JuntaSoldaduraID", typeof(int));
+    
+            var procesoParameter = proceso != null ?
+                new ObjectParameter("Proceso", proceso) :
+                new ObjectParameter("Proceso", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_Soldadura_Get_DetalleSoldadorProceso_Result>("Sam3_Soldadura_Get_DetalleSoldadorProceso", juntaSoldaduraIDParameter, procesoParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_Soldadura_Get_DetalleTrabajoAdicional_Result> Sam3_Soldadura_Get_DetalleTrabajoAdicional(Nullable<int> juntaSpoolID)
+        {
+            var juntaSpoolIDParameter = juntaSpoolID.HasValue ?
+                new ObjectParameter("JuntaSpoolID", juntaSpoolID) :
+                new ObjectParameter("JuntaSpoolID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_Soldadura_Get_DetalleTrabajoAdicional_Result>("Sam3_Soldadura_Get_DetalleTrabajoAdicional", juntaSpoolIDParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_Soldadura_GET_PQR_WPS_Result> Sam3_Soldadura_GET_PQR_WPS(string lenguaje)
+        {
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_Soldadura_GET_PQR_WPS_Result>("Sam3_Soldadura_GET_PQR_WPS", lenguajeParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_Soldadura_Get_TipoProcesoSoldadura_Result> Sam3_Soldadura_Get_TipoProcesoSoldadura()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_Soldadura_Get_TipoProcesoSoldadura_Result>("Sam3_Soldadura_Get_TipoProcesoSoldadura");
+        }
+    
+        public virtual ObjectResult<Sam3_Soldadura_Get_TipoPrueba_Result> Sam3_Soldadura_Get_TipoPrueba()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_Soldadura_Get_TipoPrueba_Result>("Sam3_Soldadura_Get_TipoPrueba");
+        }
+    
+        public virtual int Sam3_Soldadura_New_PQR(Nullable<int> usuario, ObjectParameter pQRID)
+        {
+            var usuarioParameter = usuario.HasValue ?
+                new ObjectParameter("Usuario", usuario) :
+                new ObjectParameter("Usuario", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Sam3_Soldadura_New_PQR", usuarioParameter, pQRID);
+        }
+    
+        public virtual ObjectResult<Sam3_Soldadura_PQR_Result> Sam3_Soldadura_PQR(Nullable<int> tIPO, Nullable<int> pQRID, string nOMBRE, Nullable<bool> pREHEAT, Nullable<bool> pWHT, Nullable<decimal> eSPESORRAIZ, Nullable<decimal> eSPESORRELLENO, Nullable<int> pROCESOSOLDADURARELLENO, Nullable<int> pROCESOSOLDADURARAIZ, string nUMEROP, Nullable<int> gRUPOPMATERIALBASE1, Nullable<int> gRUPOPMATERIALBASE2, string aPORTE, string mEZCLA, string rESPALDO, string gRUPOF, Nullable<int> cODIGO, Nullable<int> iDUSUARIO)
+        {
+            var tIPOParameter = tIPO.HasValue ?
+                new ObjectParameter("TIPO", tIPO) :
+                new ObjectParameter("TIPO", typeof(int));
+    
+            var pQRIDParameter = pQRID.HasValue ?
+                new ObjectParameter("PQRID", pQRID) :
+                new ObjectParameter("PQRID", typeof(int));
+    
+            var nOMBREParameter = nOMBRE != null ?
+                new ObjectParameter("NOMBRE", nOMBRE) :
+                new ObjectParameter("NOMBRE", typeof(string));
+    
+            var pREHEATParameter = pREHEAT.HasValue ?
+                new ObjectParameter("PREHEAT", pREHEAT) :
+                new ObjectParameter("PREHEAT", typeof(bool));
+    
+            var pWHTParameter = pWHT.HasValue ?
+                new ObjectParameter("PWHT", pWHT) :
+                new ObjectParameter("PWHT", typeof(bool));
+    
+            var eSPESORRAIZParameter = eSPESORRAIZ.HasValue ?
+                new ObjectParameter("ESPESORRAIZ", eSPESORRAIZ) :
+                new ObjectParameter("ESPESORRAIZ", typeof(decimal));
+    
+            var eSPESORRELLENOParameter = eSPESORRELLENO.HasValue ?
+                new ObjectParameter("ESPESORRELLENO", eSPESORRELLENO) :
+                new ObjectParameter("ESPESORRELLENO", typeof(decimal));
+    
+            var pROCESOSOLDADURARELLENOParameter = pROCESOSOLDADURARELLENO.HasValue ?
+                new ObjectParameter("PROCESOSOLDADURARELLENO", pROCESOSOLDADURARELLENO) :
+                new ObjectParameter("PROCESOSOLDADURARELLENO", typeof(int));
+    
+            var pROCESOSOLDADURARAIZParameter = pROCESOSOLDADURARAIZ.HasValue ?
+                new ObjectParameter("PROCESOSOLDADURARAIZ", pROCESOSOLDADURARAIZ) :
+                new ObjectParameter("PROCESOSOLDADURARAIZ", typeof(int));
+    
+            var nUMEROPParameter = nUMEROP != null ?
+                new ObjectParameter("NUMEROP", nUMEROP) :
+                new ObjectParameter("NUMEROP", typeof(string));
+    
+            var gRUPOPMATERIALBASE1Parameter = gRUPOPMATERIALBASE1.HasValue ?
+                new ObjectParameter("GRUPOPMATERIALBASE1", gRUPOPMATERIALBASE1) :
+                new ObjectParameter("GRUPOPMATERIALBASE1", typeof(int));
+    
+            var gRUPOPMATERIALBASE2Parameter = gRUPOPMATERIALBASE2.HasValue ?
+                new ObjectParameter("GRUPOPMATERIALBASE2", gRUPOPMATERIALBASE2) :
+                new ObjectParameter("GRUPOPMATERIALBASE2", typeof(int));
+    
+            var aPORTEParameter = aPORTE != null ?
+                new ObjectParameter("APORTE", aPORTE) :
+                new ObjectParameter("APORTE", typeof(string));
+    
+            var mEZCLAParameter = mEZCLA != null ?
+                new ObjectParameter("MEZCLA", mEZCLA) :
+                new ObjectParameter("MEZCLA", typeof(string));
+    
+            var rESPALDOParameter = rESPALDO != null ?
+                new ObjectParameter("RESPALDO", rESPALDO) :
+                new ObjectParameter("RESPALDO", typeof(string));
+    
+            var gRUPOFParameter = gRUPOF != null ?
+                new ObjectParameter("GRUPOF", gRUPOF) :
+                new ObjectParameter("GRUPOF", typeof(string));
+    
+            var cODIGOParameter = cODIGO.HasValue ?
+                new ObjectParameter("CODIGO", cODIGO) :
+                new ObjectParameter("CODIGO", typeof(int));
+    
+            var iDUSUARIOParameter = iDUSUARIO.HasValue ?
+                new ObjectParameter("IDUSUARIO", iDUSUARIO) :
+                new ObjectParameter("IDUSUARIO", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_Soldadura_PQR_Result>("Sam3_Soldadura_PQR", tIPOParameter, pQRIDParameter, nOMBREParameter, pREHEATParameter, pWHTParameter, eSPESORRAIZParameter, eSPESORRELLENOParameter, pROCESOSOLDADURARELLENOParameter, pROCESOSOLDADURARAIZParameter, nUMEROPParameter, gRUPOPMATERIALBASE1Parameter, gRUPOPMATERIALBASE2Parameter, aPORTEParameter, mEZCLAParameter, rESPALDOParameter, gRUPOFParameter, cODIGOParameter, iDUSUARIOParameter);
+        }
+    
+        public virtual int Sam3_Soldadura_PQR_Existe(string nombre, ObjectParameter retorna)
+        {
+            var nombreParameter = nombre != null ?
+                new ObjectParameter("Nombre", nombre) :
+                new ObjectParameter("Nombre", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Sam3_Soldadura_PQR_Existe", nombreParameter, retorna);
+        }
+    
+        public virtual int Sam3_Soldadura_Set_WPS(Nullable<int> usuario)
+        {
+            var usuarioParameter = usuario.HasValue ?
+                new ObjectParameter("Usuario", usuario) :
+                new ObjectParameter("Usuario", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Sam3_Soldadura_Set_WPS", usuarioParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_Soldadura_SoldadorCertificacion_Result> Sam3_Soldadura_SoldadorCertificacion(string lenguaje)
+        {
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_Soldadura_SoldadorCertificacion_Result>("Sam3_Soldadura_SoldadorCertificacion", lenguajeParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_Soldadura_SoldadorCertificacion_GET_WPS_Result> Sam3_Soldadura_SoldadorCertificacion_GET_WPS(Nullable<int> tIPO)
+        {
+            var tIPOParameter = tIPO.HasValue ?
+                new ObjectParameter("TIPO", tIPO) :
+                new ObjectParameter("TIPO", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_Soldadura_SoldadorCertificacion_GET_WPS_Result>("Sam3_Soldadura_SoldadorCertificacion_GET_WPS", tIPOParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_Soldadura_TipoPruebas_Result> Sam3_Soldadura_TipoPruebas(Nullable<int> tIPO)
+        {
+            var tIPOParameter = tIPO.HasValue ?
+                new ObjectParameter("TIPO", tIPO) :
+                new ObjectParameter("TIPO", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_Soldadura_TipoPruebas_Result>("Sam3_Soldadura_TipoPruebas", tIPOParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_Soldadura_WPS_Result> Sam3_Soldadura_WPS(Nullable<int> tIPO, string wPSNOMBRE, Nullable<int> pQRRAIZID, Nullable<int> pQRRELLENOID, Nullable<int> gRUPOPRAIZID, Nullable<int> gRUPOPRELLENOID, Nullable<bool> pWHTRAIZ, Nullable<bool> pWHTRELLENOID, string eSPESORMAXIMORELLENO, string eSPESORMINIMORELLENO, string eSPESORMAXIMORAIZ, string eSPESORMINIMORAIZ, Nullable<int> uSUARIOMODIFICACION, Nullable<int> wPSID)
+        {
+            var tIPOParameter = tIPO.HasValue ?
+                new ObjectParameter("TIPO", tIPO) :
+                new ObjectParameter("TIPO", typeof(int));
+    
+            var wPSNOMBREParameter = wPSNOMBRE != null ?
+                new ObjectParameter("WPSNOMBRE", wPSNOMBRE) :
+                new ObjectParameter("WPSNOMBRE", typeof(string));
+    
+            var pQRRAIZIDParameter = pQRRAIZID.HasValue ?
+                new ObjectParameter("PQRRAIZID", pQRRAIZID) :
+                new ObjectParameter("PQRRAIZID", typeof(int));
+    
+            var pQRRELLENOIDParameter = pQRRELLENOID.HasValue ?
+                new ObjectParameter("PQRRELLENOID", pQRRELLENOID) :
+                new ObjectParameter("PQRRELLENOID", typeof(int));
+    
+            var gRUPOPRAIZIDParameter = gRUPOPRAIZID.HasValue ?
+                new ObjectParameter("GRUPOPRAIZID", gRUPOPRAIZID) :
+                new ObjectParameter("GRUPOPRAIZID", typeof(int));
+    
+            var gRUPOPRELLENOIDParameter = gRUPOPRELLENOID.HasValue ?
+                new ObjectParameter("GRUPOPRELLENOID", gRUPOPRELLENOID) :
+                new ObjectParameter("GRUPOPRELLENOID", typeof(int));
+    
+            var pWHTRAIZParameter = pWHTRAIZ.HasValue ?
+                new ObjectParameter("PWHTRAIZ", pWHTRAIZ) :
+                new ObjectParameter("PWHTRAIZ", typeof(bool));
+    
+            var pWHTRELLENOIDParameter = pWHTRELLENOID.HasValue ?
+                new ObjectParameter("PWHTRELLENOID", pWHTRELLENOID) :
+                new ObjectParameter("PWHTRELLENOID", typeof(bool));
+    
+            var eSPESORMAXIMORELLENOParameter = eSPESORMAXIMORELLENO != null ?
+                new ObjectParameter("ESPESORMAXIMORELLENO", eSPESORMAXIMORELLENO) :
+                new ObjectParameter("ESPESORMAXIMORELLENO", typeof(string));
+    
+            var eSPESORMINIMORELLENOParameter = eSPESORMINIMORELLENO != null ?
+                new ObjectParameter("ESPESORMINIMORELLENO", eSPESORMINIMORELLENO) :
+                new ObjectParameter("ESPESORMINIMORELLENO", typeof(string));
+    
+            var eSPESORMAXIMORAIZParameter = eSPESORMAXIMORAIZ != null ?
+                new ObjectParameter("ESPESORMAXIMORAIZ", eSPESORMAXIMORAIZ) :
+                new ObjectParameter("ESPESORMAXIMORAIZ", typeof(string));
+    
+            var eSPESORMINIMORAIZParameter = eSPESORMINIMORAIZ != null ?
+                new ObjectParameter("ESPESORMINIMORAIZ", eSPESORMINIMORAIZ) :
+                new ObjectParameter("ESPESORMINIMORAIZ", typeof(string));
+    
+            var uSUARIOMODIFICACIONParameter = uSUARIOMODIFICACION.HasValue ?
+                new ObjectParameter("USUARIOMODIFICACION", uSUARIOMODIFICACION) :
+                new ObjectParameter("USUARIOMODIFICACION", typeof(int));
+    
+            var wPSIDParameter = wPSID.HasValue ?
+                new ObjectParameter("WPSID", wPSID) :
+                new ObjectParameter("WPSID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_Soldadura_WPS_Result>("Sam3_Soldadura_WPS", tIPOParameter, wPSNOMBREParameter, pQRRAIZIDParameter, pQRRELLENOIDParameter, gRUPOPRAIZIDParameter, gRUPOPRELLENOIDParameter, pWHTRAIZParameter, pWHTRELLENOIDParameter, eSPESORMAXIMORELLENOParameter, eSPESORMINIMORELLENOParameter, eSPESORMAXIMORAIZParameter, eSPESORMINIMORAIZParameter, uSUARIOMODIFICACIONParameter, wPSIDParameter);
+        }
+    
+        public virtual int Sam3_Soldadura_WPS_Existe(Nullable<int> wPSID, string nombre, ObjectParameter retorna)
+        {
+            var wPSIDParameter = wPSID.HasValue ?
+                new ObjectParameter("WPSID", wPSID) :
+                new ObjectParameter("WPSID", typeof(int));
+    
+            var nombreParameter = nombre != null ?
+                new ObjectParameter("Nombre", nombre) :
+                new ObjectParameter("Nombre", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Sam3_Soldadura_WPS_Existe", wPSIDParameter, nombreParameter, retorna);
+        }
+    
+        public virtual int Sam3_SP_ComprobarNombreProyecto(string lenguaje)
+        {
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Sam3_SP_ComprobarNombreProyecto", lenguajeParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> Sam3_SP_EliminaSistemaPintura(Nullable<int> sistemaPinturaID, Nullable<int> usuarioID)
+        {
+            var sistemaPinturaIDParameter = sistemaPinturaID.HasValue ?
+                new ObjectParameter("SistemaPinturaID", sistemaPinturaID) :
+                new ObjectParameter("SistemaPinturaID", typeof(int));
+    
+            var usuarioIDParameter = usuarioID.HasValue ?
+                new ObjectParameter("UsuarioID", usuarioID) :
+                new ObjectParameter("UsuarioID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("Sam3_SP_EliminaSistemaPintura", sistemaPinturaIDParameter, usuarioIDParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_SP_GET_ColorSistemaPintura_Result> Sam3_SP_GET_ColorSistemaPintura(Nullable<int> sistemaPinturaID, string lenguaje)
+        {
+            var sistemaPinturaIDParameter = sistemaPinturaID.HasValue ?
+                new ObjectParameter("SistemaPinturaID", sistemaPinturaID) :
+                new ObjectParameter("SistemaPinturaID", typeof(int));
+    
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_SP_GET_ColorSistemaPintura_Result>("Sam3_SP_GET_ColorSistemaPintura", sistemaPinturaIDParameter, lenguajeParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_SP_Get_DetallePruebasProceso_Result> Sam3_SP_Get_DetallePruebasProceso(string lenguaje, Nullable<int> sistemaPinturaProyectoProcesoID)
+        {
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            var sistemaPinturaProyectoProcesoIDParameter = sistemaPinturaProyectoProcesoID.HasValue ?
+                new ObjectParameter("SistemaPinturaProyectoProcesoID", sistemaPinturaProyectoProcesoID) :
+                new ObjectParameter("SistemaPinturaProyectoProcesoID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_SP_Get_DetallePruebasProceso_Result>("Sam3_SP_Get_DetallePruebasProceso", lenguajeParameter, sistemaPinturaProyectoProcesoIDParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_SP_Get_DetalleSistemaPintura_Result> Sam3_SP_Get_DetalleSistemaPintura(string lenguaje, Nullable<int> sistemaPinturaID, Nullable<int> proyectoID)
+        {
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            var sistemaPinturaIDParameter = sistemaPinturaID.HasValue ?
+                new ObjectParameter("SistemaPinturaID", sistemaPinturaID) :
+                new ObjectParameter("SistemaPinturaID", typeof(int));
+    
+            var proyectoIDParameter = proyectoID.HasValue ?
+                new ObjectParameter("ProyectoID", proyectoID) :
+                new ObjectParameter("ProyectoID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_SP_Get_DetalleSistemaPintura_Result>("Sam3_SP_Get_DetalleSistemaPintura", lenguajeParameter, sistemaPinturaIDParameter, proyectoIDParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_SP_GET_Proyectos_Result> Sam3_SP_GET_Proyectos(Nullable<int> sistemaPinturaID)
+        {
+            var sistemaPinturaIDParameter = sistemaPinturaID.HasValue ?
+                new ObjectParameter("SistemaPinturaID", sistemaPinturaID) :
+                new ObjectParameter("SistemaPinturaID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_SP_GET_Proyectos_Result>("Sam3_SP_GET_Proyectos", sistemaPinturaIDParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_SP_GET_SistemaPintura_Result> Sam3_SP_GET_SistemaPintura(Nullable<int> sistemaPinturaID)
+        {
+            var sistemaPinturaIDParameter = sistemaPinturaID.HasValue ?
+                new ObjectParameter("SistemaPinturaID", sistemaPinturaID) :
+                new ObjectParameter("SistemaPinturaID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_SP_GET_SistemaPintura_Result>("Sam3_SP_GET_SistemaPintura", sistemaPinturaIDParameter);
+        }
+    
+        public virtual int Sam3_SP_Guardar(Nullable<int> usuarioID, string lenguaje)
+        {
+            var usuarioIDParameter = usuarioID.HasValue ?
+                new ObjectParameter("UsuarioID", usuarioID) :
+                new ObjectParameter("UsuarioID", typeof(int));
+    
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Sam3_SP_Guardar", usuarioIDParameter, lenguajeParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_SP_InsertarItemCodeSteelgo_Result> Sam3_SP_InsertarItemCodeSteelgo(string descripcionEspanol, string descripcionIngles, Nullable<decimal> peso, Nullable<int> familiaAceroID, Nullable<decimal> area, Nullable<int> catalogoCedulaID, string codigo, Nullable<int> grupoID, string descripcionLargaEspanol, string descripcionLargaIngles, Nullable<decimal> diametro1, Nullable<decimal> diametro2)
+        {
+            var descripcionEspanolParameter = descripcionEspanol != null ?
+                new ObjectParameter("DescripcionEspanol", descripcionEspanol) :
+                new ObjectParameter("DescripcionEspanol", typeof(string));
+    
+            var descripcionInglesParameter = descripcionIngles != null ?
+                new ObjectParameter("DescripcionIngles", descripcionIngles) :
+                new ObjectParameter("DescripcionIngles", typeof(string));
+    
+            var pesoParameter = peso.HasValue ?
+                new ObjectParameter("Peso", peso) :
+                new ObjectParameter("Peso", typeof(decimal));
+    
+            var familiaAceroIDParameter = familiaAceroID.HasValue ?
+                new ObjectParameter("FamiliaAceroID", familiaAceroID) :
+                new ObjectParameter("FamiliaAceroID", typeof(int));
+    
+            var areaParameter = area.HasValue ?
+                new ObjectParameter("Area", area) :
+                new ObjectParameter("Area", typeof(decimal));
+    
+            var catalogoCedulaIDParameter = catalogoCedulaID.HasValue ?
+                new ObjectParameter("CatalogoCedulaID", catalogoCedulaID) :
+                new ObjectParameter("CatalogoCedulaID", typeof(int));
+    
+            var codigoParameter = codigo != null ?
+                new ObjectParameter("Codigo", codigo) :
+                new ObjectParameter("Codigo", typeof(string));
+    
+            var grupoIDParameter = grupoID.HasValue ?
+                new ObjectParameter("GrupoID", grupoID) :
+                new ObjectParameter("GrupoID", typeof(int));
+    
+            var descripcionLargaEspanolParameter = descripcionLargaEspanol != null ?
+                new ObjectParameter("DescripcionLargaEspanol", descripcionLargaEspanol) :
+                new ObjectParameter("DescripcionLargaEspanol", typeof(string));
+    
+            var descripcionLargaInglesParameter = descripcionLargaIngles != null ?
+                new ObjectParameter("DescripcionLargaIngles", descripcionLargaIngles) :
+                new ObjectParameter("DescripcionLargaIngles", typeof(string));
+    
+            var diametro1Parameter = diametro1.HasValue ?
+                new ObjectParameter("Diametro1", diametro1) :
+                new ObjectParameter("Diametro1", typeof(decimal));
+    
+            var diametro2Parameter = diametro2.HasValue ?
+                new ObjectParameter("Diametro2", diametro2) :
+                new ObjectParameter("Diametro2", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_SP_InsertarItemCodeSteelgo_Result>("Sam3_SP_InsertarItemCodeSteelgo", descripcionEspanolParameter, descripcionInglesParameter, pesoParameter, familiaAceroIDParameter, areaParameter, catalogoCedulaIDParameter, codigoParameter, grupoIDParameter, descripcionLargaEspanolParameter, descripcionLargaInglesParameter, diametro1Parameter, diametro2Parameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> Sam3_SP_ObtenerFoliosParaListado(Nullable<int> folioAvisoEntrada, Nullable<int> folioAvisoLlegada, string proyectoIds, string patioIds, Nullable<System.DateTime> fechaInicial, Nullable<System.DateTime> fechaFinal)
+        {
+            var folioAvisoEntradaParameter = folioAvisoEntrada.HasValue ?
+                new ObjectParameter("FolioAvisoEntrada", folioAvisoEntrada) :
+                new ObjectParameter("FolioAvisoEntrada", typeof(int));
+    
+            var folioAvisoLlegadaParameter = folioAvisoLlegada.HasValue ?
+                new ObjectParameter("FolioAvisoLlegada", folioAvisoLlegada) :
+                new ObjectParameter("FolioAvisoLlegada", typeof(int));
+    
+            var proyectoIdsParameter = proyectoIds != null ?
+                new ObjectParameter("proyectoIds", proyectoIds) :
+                new ObjectParameter("proyectoIds", typeof(string));
+    
+            var patioIdsParameter = patioIds != null ?
+                new ObjectParameter("PatioIds", patioIds) :
+                new ObjectParameter("PatioIds", typeof(string));
+    
+            var fechaInicialParameter = fechaInicial.HasValue ?
+                new ObjectParameter("fechaInicial", fechaInicial) :
+                new ObjectParameter("fechaInicial", typeof(System.DateTime));
+    
+            var fechaFinalParameter = fechaFinal.HasValue ?
+                new ObjectParameter("fechaFinal", fechaFinal) :
+                new ObjectParameter("fechaFinal", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("Sam3_SP_ObtenerFoliosParaListado", folioAvisoEntradaParameter, folioAvisoLlegadaParameter, proyectoIdsParameter, patioIdsParameter, fechaInicialParameter, fechaFinalParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_SP_ObtieneListadoPruebasPorProceso_Result> Sam3_SP_ObtieneListadoPruebasPorProceso(Nullable<int> sistemaPinturaProyectoProcesoID, string lenguaje)
+        {
+            var sistemaPinturaProyectoProcesoIDParameter = sistemaPinturaProyectoProcesoID.HasValue ?
+                new ObjectParameter("SistemaPinturaProyectoProcesoID", sistemaPinturaProyectoProcesoID) :
+                new ObjectParameter("SistemaPinturaProyectoProcesoID", typeof(int));
+    
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_SP_ObtieneListadoPruebasPorProceso_Result>("Sam3_SP_ObtieneListadoPruebasPorProceso", sistemaPinturaProyectoProcesoIDParameter, lenguajeParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_SP_ObtieneListadoSistemaPintura_Result> Sam3_SP_ObtieneListadoSistemaPintura(Nullable<int> usuarioID)
+        {
+            var usuarioIDParameter = usuarioID.HasValue ?
+                new ObjectParameter("UsuarioID", usuarioID) :
+                new ObjectParameter("UsuarioID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_SP_ObtieneListadoSistemaPintura_Result>("Sam3_SP_ObtieneListadoSistemaPintura", usuarioIDParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_SPA_Get_ColorPintura_Result> Sam3_SPA_Get_ColorPintura(Nullable<int> sistemaPinturaID, string lenguaje)
+        {
+            var sistemaPinturaIDParameter = sistemaPinturaID.HasValue ?
+                new ObjectParameter("SistemaPinturaID", sistemaPinturaID) :
+                new ObjectParameter("SistemaPinturaID", typeof(int));
+    
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_SPA_Get_ColorPintura_Result>("Sam3_SPA_Get_ColorPintura", sistemaPinturaIDParameter, lenguajeParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_SPA_Get_SistemaPintura_Result> Sam3_SPA_Get_SistemaPintura(Nullable<int> proyectoID)
+        {
+            var proyectoIDParameter = proyectoID.HasValue ?
+                new ObjectParameter("ProyectoID", proyectoID) :
+                new ObjectParameter("ProyectoID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_SPA_Get_SistemaPintura_Result>("Sam3_SPA_Get_SistemaPintura", proyectoIDParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_SPA_GetDetalleSpool_Result> Sam3_SPA_GetDetalleSpool(Nullable<int> proyectoID, Nullable<int> tipoBusqueda, string cadena, string lenguaje)
+        {
+            var proyectoIDParameter = proyectoID.HasValue ?
+                new ObjectParameter("ProyectoID", proyectoID) :
+                new ObjectParameter("ProyectoID", typeof(int));
+    
+            var tipoBusquedaParameter = tipoBusqueda.HasValue ?
+                new ObjectParameter("TipoBusqueda", tipoBusqueda) :
+                new ObjectParameter("TipoBusqueda", typeof(int));
+    
+            var cadenaParameter = cadena != null ?
+                new ObjectParameter("Cadena", cadena) :
+                new ObjectParameter("Cadena", typeof(string));
+    
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_SPA_GetDetalleSpool_Result>("Sam3_SPA_GetDetalleSpool", proyectoIDParameter, tipoBusquedaParameter, cadenaParameter, lenguajeParameter);
+        }
+    
+        public virtual int Sam3_SPA_GuardaCaptura(Nullable<int> usuarioID)
+        {
+            var usuarioIDParameter = usuarioID.HasValue ?
+                new ObjectParameter("UsuarioID", usuarioID) :
+                new ObjectParameter("UsuarioID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Sam3_SPA_GuardaCaptura", usuarioIDParameter);
+        }
+    
+        public virtual int Sam3_SPA_GuardaCargaMasiva(Nullable<int> usuarioID, Nullable<int> tipoCarga, string lenguaje, Nullable<int> proyectoID)
+        {
+            var usuarioIDParameter = usuarioID.HasValue ?
+                new ObjectParameter("UsuarioID", usuarioID) :
+                new ObjectParameter("UsuarioID", typeof(int));
+    
+            var tipoCargaParameter = tipoCarga.HasValue ?
+                new ObjectParameter("TipoCarga", tipoCarga) :
+                new ObjectParameter("TipoCarga", typeof(int));
+    
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            var proyectoIDParameter = proyectoID.HasValue ?
+                new ObjectParameter("ProyectoID", proyectoID) :
+                new ObjectParameter("ProyectoID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Sam3_SPA_GuardaCargaMasiva", usuarioIDParameter, tipoCargaParameter, lenguajeParameter, proyectoIDParameter);
+        }
+    
+        public virtual int Sam3_SPA_GuardaCargaMasiva_Respaldo(Nullable<int> usuarioID, Nullable<int> tipoCarga, string lenguaje, Nullable<int> proyectoID)
+        {
+            var usuarioIDParameter = usuarioID.HasValue ?
+                new ObjectParameter("UsuarioID", usuarioID) :
+                new ObjectParameter("UsuarioID", typeof(int));
+    
+            var tipoCargaParameter = tipoCarga.HasValue ?
+                new ObjectParameter("TipoCarga", tipoCarga) :
+                new ObjectParameter("TipoCarga", typeof(int));
+    
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            var proyectoIDParameter = proyectoID.HasValue ?
+                new ObjectParameter("ProyectoID", proyectoID) :
+                new ObjectParameter("ProyectoID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Sam3_SPA_GuardaCargaMasiva_Respaldo", usuarioIDParameter, tipoCargaParameter, lenguajeParameter, proyectoIDParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> Sam3_SPA_NumeroElementosPorBusqueda(Nullable<int> proyectoID, Nullable<int> tipoBusqueda, string cadena)
+        {
+            var proyectoIDParameter = proyectoID.HasValue ?
+                new ObjectParameter("ProyectoID", proyectoID) :
+                new ObjectParameter("ProyectoID", typeof(int));
+    
+            var tipoBusquedaParameter = tipoBusqueda.HasValue ?
+                new ObjectParameter("TipoBusqueda", tipoBusqueda) :
+                new ObjectParameter("TipoBusqueda", typeof(int));
+    
+            var cadenaParameter = cadena != null ?
+                new ObjectParameter("Cadena", cadena) :
+                new ObjectParameter("Cadena", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("Sam3_SPA_NumeroElementosPorBusqueda", proyectoIDParameter, tipoBusquedaParameter, cadenaParameter);
+        }
+    
+        public virtual int Sam3_ST_ARPND_GuardaCaptura(Nullable<int> usuario, string lenguaje)
+        {
+            var usuarioParameter = usuario.HasValue ?
+                new ObjectParameter("Usuario", usuario) :
+                new ObjectParameter("Usuario", typeof(int));
+    
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Sam3_ST_ARPND_GuardaCaptura", usuarioParameter, lenguajeParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_ST_CRRT_Get_Equipo_Result> Sam3_ST_CRRT_Get_Equipo(string lenguaje)
+        {
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_ST_CRRT_Get_Equipo_Result>("Sam3_ST_CRRT_Get_Equipo", lenguajeParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_ST_CRRT_Get_ListaProyectos_Result> Sam3_ST_CRRT_Get_ListaProyectos(Nullable<int> usuarioID)
+        {
+            var usuarioIDParameter = usuarioID.HasValue ?
+                new ObjectParameter("UsuarioID", usuarioID) :
+                new ObjectParameter("UsuarioID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_ST_CRRT_Get_ListaProyectos_Result>("Sam3_ST_CRRT_Get_ListaProyectos", usuarioIDParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_ST_CRRT_Get_Proveedores_Result> Sam3_ST_CRRT_Get_Proveedores(Nullable<int> proyectoID)
+        {
+            var proyectoIDParameter = proyectoID.HasValue ?
+                new ObjectParameter("ProyectoID", proyectoID) :
+                new ObjectParameter("ProyectoID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_ST_CRRT_Get_Proveedores_Result>("Sam3_ST_CRRT_Get_Proveedores", proyectoIDParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_ST_CRRT_Get_Requisiciones_Result> Sam3_ST_CRRT_Get_Requisiciones(Nullable<int> proyectoID, Nullable<int> proveedorID)
+        {
+            var proyectoIDParameter = proyectoID.HasValue ?
+                new ObjectParameter("ProyectoID", proyectoID) :
+                new ObjectParameter("ProyectoID", typeof(int));
+    
+            var proveedorIDParameter = proveedorID.HasValue ?
+                new ObjectParameter("ProveedorID", proveedorID) :
+                new ObjectParameter("ProveedorID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_ST_CRRT_Get_Requisiciones_Result>("Sam3_ST_CRRT_Get_Requisiciones", proyectoIDParameter, proveedorIDParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_ST_CRRT_Get_TurnoLaboral_Result> Sam3_ST_CRRT_Get_TurnoLaboral(string lenguaje)
+        {
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_ST_CRRT_Get_TurnoLaboral_Result>("Sam3_ST_CRRT_Get_TurnoLaboral", lenguajeParameter);
+        }
+    
+        public virtual int Sam3_ST_CRRT_Guarda(Nullable<int> usuarioID, string lenguaje)
+        {
+            var usuarioIDParameter = usuarioID.HasValue ?
+                new ObjectParameter("UsuarioID", usuarioID) :
+                new ObjectParameter("UsuarioID", typeof(int));
+    
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("lenguaje", lenguaje) :
+                new ObjectParameter("lenguaje", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Sam3_ST_CRRT_Guarda", usuarioIDParameter, lenguajeParameter);
+        }
+    
+        public virtual int Sam3_ST_CRRT_Guarda_ReporteRT(Nullable<int> usuarioID, string lenguaje)
+        {
+            var usuarioIDParameter = usuarioID.HasValue ?
+                new ObjectParameter("UsuarioID", usuarioID) :
+                new ObjectParameter("UsuarioID", typeof(int));
+    
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("lenguaje", lenguaje) :
+                new ObjectParameter("lenguaje", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Sam3_ST_CRRT_Guarda_ReporteRT", usuarioIDParameter, lenguajeParameter);
+        }
+    
+        public virtual int Sam3_ST_CRVT_Actualiza(Nullable<int> usuarioID, string lenguaje)
+        {
+            var usuarioIDParameter = usuarioID.HasValue ?
+                new ObjectParameter("UsuarioID", usuarioID) :
+                new ObjectParameter("UsuarioID", typeof(int));
+    
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("lenguaje", lenguaje) :
+                new ObjectParameter("lenguaje", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Sam3_ST_CRVT_Actualiza", usuarioIDParameter, lenguajeParameter);
+        }
+    
+        public virtual int Sam3_ST_EPG_GuardaCaptura(Nullable<int> usuario, string lenguaje, Nullable<int> requisicionID, Nullable<int> tipoPruebaPorSpool)
+        {
+            var usuarioParameter = usuario.HasValue ?
+                new ObjectParameter("Usuario", usuario) :
+                new ObjectParameter("Usuario", typeof(int));
+    
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            var requisicionIDParameter = requisicionID.HasValue ?
+                new ObjectParameter("RequisicionID", requisicionID) :
+                new ObjectParameter("RequisicionID", typeof(int));
+    
+            var tipoPruebaPorSpoolParameter = tipoPruebaPorSpool.HasValue ?
+                new ObjectParameter("TipoPruebaPorSpool", tipoPruebaPorSpool) :
+                new ObjectParameter("TipoPruebaPorSpool", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Sam3_ST_EPG_GuardaCaptura", usuarioParameter, lenguajeParameter, requisicionIDParameter, tipoPruebaPorSpoolParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_ST_EPG_ObtieneCatalogoRecibido_Result> Sam3_ST_EPG_ObtieneCatalogoRecibido(string lenguaje)
+        {
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_ST_EPG_ObtieneCatalogoRecibido_Result>("Sam3_ST_EPG_ObtieneCatalogoRecibido", lenguajeParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_ST_EPG_ObtieneDefectosDocumentos_Result> Sam3_ST_EPG_ObtieneDefectosDocumentos(string lenguaje)
+        {
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_ST_EPG_ObtieneDefectosDocumentos_Result>("Sam3_ST_EPG_ObtieneDefectosDocumentos", lenguajeParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_ST_EPG_ObtieneEstatusDocumento_Result> Sam3_ST_EPG_ObtieneEstatusDocumento(string lenguaje)
+        {
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_ST_EPG_ObtieneEstatusDocumento_Result>("Sam3_ST_EPG_ObtieneEstatusDocumento", lenguajeParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_ST_EPG_ObtieneListaRequisiciones_Result> Sam3_ST_EPG_ObtieneListaRequisiciones(Nullable<int> proyectoID, Nullable<int> tipoPruebaID, Nullable<int> proveedorID)
+        {
+            var proyectoIDParameter = proyectoID.HasValue ?
+                new ObjectParameter("ProyectoID", proyectoID) :
+                new ObjectParameter("ProyectoID", typeof(int));
+    
+            var tipoPruebaIDParameter = tipoPruebaID.HasValue ?
+                new ObjectParameter("TipoPruebaID", tipoPruebaID) :
+                new ObjectParameter("TipoPruebaID", typeof(int));
+    
+            var proveedorIDParameter = proveedorID.HasValue ?
+                new ObjectParameter("ProveedorID", proveedorID) :
+                new ObjectParameter("ProveedorID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_ST_EPG_ObtieneListaRequisiciones_Result>("Sam3_ST_EPG_ObtieneListaRequisiciones", proyectoIDParameter, tipoPruebaIDParameter, proveedorIDParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_ST_EPG_ObtieneProveedores_Result> Sam3_ST_EPG_ObtieneProveedores(Nullable<int> proyectoID, Nullable<int> tipoPruebaID)
+        {
+            var proyectoIDParameter = proyectoID.HasValue ?
+                new ObjectParameter("ProyectoID", proyectoID) :
+                new ObjectParameter("ProyectoID", typeof(int));
+    
+            var tipoPruebaIDParameter = tipoPruebaID.HasValue ?
+                new ObjectParameter("TipoPruebaID", tipoPruebaID) :
+                new ObjectParameter("TipoPruebaID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_ST_EPG_ObtieneProveedores_Result>("Sam3_ST_EPG_ObtieneProveedores", proyectoIDParameter, tipoPruebaIDParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_ST_EPG_ObtieneProyectos_Result> Sam3_ST_EPG_ObtieneProyectos(Nullable<int> usuario)
+        {
+            var usuarioParameter = usuario.HasValue ?
+                new ObjectParameter("Usuario", usuario) :
+                new ObjectParameter("Usuario", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_ST_EPG_ObtieneProyectos_Result>("Sam3_ST_EPG_ObtieneProyectos", usuarioParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_ST_EPG_ObtieneRequisicionDetalle_Result> Sam3_ST_EPG_ObtieneRequisicionDetalle(Nullable<int> proyectoID, Nullable<int> tipoPruebaID, Nullable<int> proveedorID, Nullable<int> requisicionID, string lenguaje)
+        {
+            var proyectoIDParameter = proyectoID.HasValue ?
+                new ObjectParameter("ProyectoID", proyectoID) :
+                new ObjectParameter("ProyectoID", typeof(int));
+    
+            var tipoPruebaIDParameter = tipoPruebaID.HasValue ?
+                new ObjectParameter("TipoPruebaID", tipoPruebaID) :
+                new ObjectParameter("TipoPruebaID", typeof(int));
+    
+            var proveedorIDParameter = proveedorID.HasValue ?
+                new ObjectParameter("ProveedorID", proveedorID) :
+                new ObjectParameter("ProveedorID", typeof(int));
+    
+            var requisicionIDParameter = requisicionID.HasValue ?
+                new ObjectParameter("RequisicionID", requisicionID) :
+                new ObjectParameter("RequisicionID", typeof(int));
+    
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_ST_EPG_ObtieneRequisicionDetalle_Result>("Sam3_ST_EPG_ObtieneRequisicionDetalle", proyectoIDParameter, tipoPruebaIDParameter, proveedorIDParameter, requisicionIDParameter, lenguajeParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_ST_EPG_ObtieneRequisicionPorParametro_Result> Sam3_ST_EPG_ObtieneRequisicionPorParametro(Nullable<int> requisicionID, Nullable<int> usuarioID, string lenguaje)
+        {
+            var requisicionIDParameter = requisicionID.HasValue ?
+                new ObjectParameter("RequisicionID", requisicionID) :
+                new ObjectParameter("RequisicionID", typeof(int));
+    
+            var usuarioIDParameter = usuarioID.HasValue ?
+                new ObjectParameter("UsuarioID", usuarioID) :
+                new ObjectParameter("UsuarioID", typeof(int));
+    
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_ST_EPG_ObtieneRequisicionPorParametro_Result>("Sam3_ST_EPG_ObtieneRequisicionPorParametro", requisicionIDParameter, usuarioIDParameter, lenguajeParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_ST_EPG_ObtieneTipoPrueba_Result> Sam3_ST_EPG_ObtieneTipoPrueba(Nullable<int> proyectoID, string lenguaje)
+        {
+            var proyectoIDParameter = proyectoID.HasValue ?
+                new ObjectParameter("ProyectoID", proyectoID) :
+                new ObjectParameter("ProyectoID", typeof(int));
+    
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_ST_EPG_ObtieneTipoPrueba_Result>("Sam3_ST_EPG_ObtieneTipoPrueba", proyectoIDParameter, lenguajeParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_ST_Get_AR_RequisicionParametro_Result> Sam3_ST_Get_AR_RequisicionParametro(string lenguaje, Nullable<int> requisicionID)
+        {
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            var requisicionIDParameter = requisicionID.HasValue ?
+                new ObjectParameter("RequisicionID", requisicionID) :
+                new ObjectParameter("RequisicionID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_ST_Get_AR_RequisicionParametro_Result>("Sam3_ST_Get_AR_RequisicionParametro", lenguajeParameter, requisicionIDParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_ST_Get_AsignarRequisicion_Result> Sam3_ST_Get_AsignarRequisicion(string lenguaje, Nullable<int> tipoVista, Nullable<int> tipoPruebaID, Nullable<int> proyectoID, Nullable<int> requisicionID)
+        {
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            var tipoVistaParameter = tipoVista.HasValue ?
+                new ObjectParameter("TipoVista", tipoVista) :
+                new ObjectParameter("TipoVista", typeof(int));
+    
+            var tipoPruebaIDParameter = tipoPruebaID.HasValue ?
+                new ObjectParameter("TipoPruebaID", tipoPruebaID) :
+                new ObjectParameter("TipoPruebaID", typeof(int));
+    
+            var proyectoIDParameter = proyectoID.HasValue ?
+                new ObjectParameter("ProyectoID", proyectoID) :
+                new ObjectParameter("ProyectoID", typeof(int));
+    
+            var requisicionIDParameter = requisicionID.HasValue ?
+                new ObjectParameter("RequisicionID", requisicionID) :
+                new ObjectParameter("RequisicionID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_ST_Get_AsignarRequisicion_Result>("Sam3_ST_Get_AsignarRequisicion", lenguajeParameter, tipoVistaParameter, tipoPruebaIDParameter, proyectoIDParameter, requisicionIDParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_ST_Get_DetalleReporteImpresion_Result> Sam3_ST_Get_DetalleReporteImpresion(Nullable<int> reporteRequisicionID)
+        {
+            var reporteRequisicionIDParameter = reporteRequisicionID.HasValue ?
+                new ObjectParameter("ReporteRequisicionID", reporteRequisicionID) :
+                new ObjectParameter("ReporteRequisicionID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_ST_Get_DetalleReporteImpresion_Result>("Sam3_ST_Get_DetalleReporteImpresion", reporteRequisicionIDParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_ST_Get_ElementosPorPrueba_Result> Sam3_ST_Get_ElementosPorPrueba(string lenguaje, Nullable<int> proyectoID, Nullable<int> tipoPruebaID, Nullable<int> requisicionID, Nullable<int> muestra)
+        {
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            var proyectoIDParameter = proyectoID.HasValue ?
+                new ObjectParameter("ProyectoID", proyectoID) :
+                new ObjectParameter("ProyectoID", typeof(int));
+    
+            var tipoPruebaIDParameter = tipoPruebaID.HasValue ?
+                new ObjectParameter("TipoPruebaID", tipoPruebaID) :
+                new ObjectParameter("TipoPruebaID", typeof(int));
+    
+            var requisicionIDParameter = requisicionID.HasValue ?
+                new ObjectParameter("RequisicionID", requisicionID) :
+                new ObjectParameter("RequisicionID", typeof(int));
+    
+            var muestraParameter = muestra.HasValue ?
+                new ObjectParameter("Muestra", muestra) :
+                new ObjectParameter("Muestra", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_ST_Get_ElementosPorPrueba_Result>("Sam3_ST_Get_ElementosPorPrueba", lenguajeParameter, proyectoIDParameter, tipoPruebaIDParameter, requisicionIDParameter, muestraParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_ST_Get_ElementosPorPruebaRequisicion_Result> Sam3_ST_Get_ElementosPorPruebaRequisicion(string lenguaje, Nullable<int> proyectoID, Nullable<int> tipoPruebaID, Nullable<int> requisicionID)
+        {
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            var proyectoIDParameter = proyectoID.HasValue ?
+                new ObjectParameter("ProyectoID", proyectoID) :
+                new ObjectParameter("ProyectoID", typeof(int));
+    
+            var tipoPruebaIDParameter = tipoPruebaID.HasValue ?
+                new ObjectParameter("TipoPruebaID", tipoPruebaID) :
+                new ObjectParameter("TipoPruebaID", typeof(int));
+    
+            var requisicionIDParameter = requisicionID.HasValue ?
+                new ObjectParameter("RequisicionID", requisicionID) :
+                new ObjectParameter("RequisicionID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_ST_Get_ElementosPorPruebaRequisicion_Result>("Sam3_ST_Get_ElementosPorPruebaRequisicion", lenguajeParameter, proyectoIDParameter, tipoPruebaIDParameter, requisicionIDParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_ST_Get_ElementosTurnoAsignados_Result> Sam3_ST_Get_ElementosTurnoAsignados(string lenguaje, Nullable<int> proyectoID, Nullable<int> capacidadTurnoEquipoID, Nullable<int> capacidadTurnoProveedorID, Nullable<int> requisicionID)
+        {
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            var proyectoIDParameter = proyectoID.HasValue ?
+                new ObjectParameter("ProyectoID", proyectoID) :
+                new ObjectParameter("ProyectoID", typeof(int));
+    
+            var capacidadTurnoEquipoIDParameter = capacidadTurnoEquipoID.HasValue ?
+                new ObjectParameter("CapacidadTurnoEquipoID", capacidadTurnoEquipoID) :
+                new ObjectParameter("CapacidadTurnoEquipoID", typeof(int));
+    
+            var capacidadTurnoProveedorIDParameter = capacidadTurnoProveedorID.HasValue ?
+                new ObjectParameter("CapacidadTurnoProveedorID", capacidadTurnoProveedorID) :
+                new ObjectParameter("CapacidadTurnoProveedorID", typeof(int));
+    
+            var requisicionIDParameter = requisicionID.HasValue ?
+                new ObjectParameter("RequisicionID", requisicionID) :
+                new ObjectParameter("RequisicionID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_ST_Get_ElementosTurnoAsignados_Result>("Sam3_ST_Get_ElementosTurnoAsignados", lenguajeParameter, proyectoIDParameter, capacidadTurnoEquipoIDParameter, capacidadTurnoProveedorIDParameter, requisicionIDParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_ST_Get_Equipo_Result> Sam3_ST_Get_Equipo(Nullable<int> tipoPruebaID, Nullable<int> proveedorID, string lenguaje)
+        {
+            var tipoPruebaIDParameter = tipoPruebaID.HasValue ?
+                new ObjectParameter("TipoPruebaID", tipoPruebaID) :
+                new ObjectParameter("TipoPruebaID", typeof(int));
+    
+            var proveedorIDParameter = proveedorID.HasValue ?
+                new ObjectParameter("ProveedorID", proveedorID) :
+                new ObjectParameter("ProveedorID", typeof(int));
+    
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_ST_Get_Equipo_Result>("Sam3_ST_Get_Equipo", tipoPruebaIDParameter, proveedorIDParameter, lenguajeParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_ST_Get_ImpresionPruebasDetalle_Result> Sam3_ST_Get_ImpresionPruebasDetalle(Nullable<int> requisicionID)
+        {
+            var requisicionIDParameter = requisicionID.HasValue ?
+                new ObjectParameter("RequisicionID", requisicionID) :
+                new ObjectParameter("RequisicionID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_ST_Get_ImpresionPruebasDetalle_Result>("Sam3_ST_Get_ImpresionPruebasDetalle", requisicionIDParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_ST_Get_ListaRequisiciones_Result> Sam3_ST_Get_ListaRequisiciones(Nullable<int> usuarioID, Nullable<int> proyectoID, Nullable<int> tipoPruebaID, Nullable<int> estatusID)
+        {
+            var usuarioIDParameter = usuarioID.HasValue ?
+                new ObjectParameter("UsuarioID", usuarioID) :
+                new ObjectParameter("UsuarioID", typeof(int));
+    
+            var proyectoIDParameter = proyectoID.HasValue ?
+                new ObjectParameter("ProyectoID", proyectoID) :
+                new ObjectParameter("ProyectoID", typeof(int));
+    
+            var tipoPruebaIDParameter = tipoPruebaID.HasValue ?
+                new ObjectParameter("TipoPruebaID", tipoPruebaID) :
+                new ObjectParameter("TipoPruebaID", typeof(int));
+    
+            var estatusIDParameter = estatusID.HasValue ?
+                new ObjectParameter("EstatusID", estatusID) :
+                new ObjectParameter("EstatusID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_ST_Get_ListaRequisiciones_Result>("Sam3_ST_Get_ListaRequisiciones", usuarioIDParameter, proyectoIDParameter, tipoPruebaIDParameter, estatusIDParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_ST_Get_ListaRequisicionesImpresionPruebas_Result> Sam3_ST_Get_ListaRequisicionesImpresionPruebas(Nullable<int> proyectoID, Nullable<int> tipoPruebaID, Nullable<int> proveedorID)
+        {
+            var proyectoIDParameter = proyectoID.HasValue ?
+                new ObjectParameter("ProyectoID", proyectoID) :
+                new ObjectParameter("ProyectoID", typeof(int));
+    
+            var tipoPruebaIDParameter = tipoPruebaID.HasValue ?
+                new ObjectParameter("TipoPruebaID", tipoPruebaID) :
+                new ObjectParameter("TipoPruebaID", typeof(int));
+    
+            var proveedorIDParameter = proveedorID.HasValue ?
+                new ObjectParameter("ProveedorID", proveedorID) :
+                new ObjectParameter("ProveedorID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_ST_Get_ListaRequisicionesImpresionPruebas_Result>("Sam3_ST_Get_ListaRequisicionesImpresionPruebas", proyectoIDParameter, tipoPruebaIDParameter, proveedorIDParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_ST_Get_LOGINProveedores_Result> Sam3_ST_Get_LOGINProveedores(Nullable<int> proveedorID, Nullable<int> proyectoID, string nombreProveedor, string password)
+        {
+            var proveedorIDParameter = proveedorID.HasValue ?
+                new ObjectParameter("ProveedorID", proveedorID) :
+                new ObjectParameter("ProveedorID", typeof(int));
+    
+            var proyectoIDParameter = proyectoID.HasValue ?
+                new ObjectParameter("ProyectoID", proyectoID) :
+                new ObjectParameter("ProyectoID", typeof(int));
+    
+            var nombreProveedorParameter = nombreProveedor != null ?
+                new ObjectParameter("NombreProveedor", nombreProveedor) :
+                new ObjectParameter("NombreProveedor", typeof(string));
+    
+            var passwordParameter = password != null ?
+                new ObjectParameter("Password", password) :
+                new ObjectParameter("Password", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_ST_Get_LOGINProveedores_Result>("Sam3_ST_Get_LOGINProveedores", proveedorIDParameter, proyectoIDParameter, nombreProveedorParameter, passwordParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_ST_Get_Proveedores_Result> Sam3_ST_Get_Proveedores(Nullable<int> proyectoID, Nullable<int> tipoPruebaID, Nullable<int> patioID)
+        {
+            var proyectoIDParameter = proyectoID.HasValue ?
+                new ObjectParameter("ProyectoID", proyectoID) :
+                new ObjectParameter("ProyectoID", typeof(int));
+    
+            var tipoPruebaIDParameter = tipoPruebaID.HasValue ?
+                new ObjectParameter("TipoPruebaID", tipoPruebaID) :
+                new ObjectParameter("TipoPruebaID", typeof(int));
+    
+            var patioIDParameter = patioID.HasValue ?
+                new ObjectParameter("PatioID", patioID) :
+                new ObjectParameter("PatioID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_ST_Get_Proveedores_Result>("Sam3_ST_Get_Proveedores", proyectoIDParameter, tipoPruebaIDParameter, patioIDParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_ST_Get_RequisicionPorRequisicionUsuario_Result> Sam3_ST_Get_RequisicionPorRequisicionUsuario(Nullable<int> usuarioID, Nullable<int> requisicionID, string lenguaje)
+        {
+            var usuarioIDParameter = usuarioID.HasValue ?
+                new ObjectParameter("UsuarioID", usuarioID) :
+                new ObjectParameter("UsuarioID", typeof(int));
+    
+            var requisicionIDParameter = requisicionID.HasValue ?
+                new ObjectParameter("RequisicionID", requisicionID) :
+                new ObjectParameter("RequisicionID", typeof(int));
+    
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_ST_Get_RequisicionPorRequisicionUsuario_Result>("Sam3_ST_Get_RequisicionPorRequisicionUsuario", usuarioIDParameter, requisicionIDParameter, lenguajeParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_ST_Get_TiposDePrueba_Result> Sam3_ST_Get_TiposDePrueba(string lenguaje)
+        {
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_ST_Get_TiposDePrueba_Result>("Sam3_ST_Get_TiposDePrueba", lenguajeParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_ST_Get_TurnoLaboral_Result> Sam3_ST_Get_TurnoLaboral(Nullable<int> tipoPruebaID, Nullable<int> proveedorID, Nullable<int> equipoID, string lenguaje)
+        {
+            var tipoPruebaIDParameter = tipoPruebaID.HasValue ?
+                new ObjectParameter("TipoPruebaID", tipoPruebaID) :
+                new ObjectParameter("TipoPruebaID", typeof(int));
+    
+            var proveedorIDParameter = proveedorID.HasValue ?
+                new ObjectParameter("ProveedorID", proveedorID) :
+                new ObjectParameter("ProveedorID", typeof(int));
+    
+            var equipoIDParameter = equipoID.HasValue ?
+                new ObjectParameter("EquipoID", equipoID) :
+                new ObjectParameter("EquipoID", typeof(int));
+    
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_ST_Get_TurnoLaboral_Result>("Sam3_ST_Get_TurnoLaboral", tipoPruebaIDParameter, proveedorIDParameter, equipoIDParameter, lenguajeParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_ST_Get_TurnoLaboralAsignarRequisicion_Result> Sam3_ST_Get_TurnoLaboralAsignarRequisicion(string lenguaje, Nullable<int> tipoPruebaID)
+        {
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            var tipoPruebaIDParameter = tipoPruebaID.HasValue ?
+                new ObjectParameter("TipoPruebaID", tipoPruebaID) :
+                new ObjectParameter("TipoPruebaID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_ST_Get_TurnoLaboralAsignarRequisicion_Result>("Sam3_ST_Get_TurnoLaboralAsignarRequisicion", lenguajeParameter, tipoPruebaIDParameter);
+        }
+    
+        public virtual int Sam3_ST_GuardaOKPND(Nullable<int> usuarioID, string lenguaje)
+        {
+            var usuarioIDParameter = usuarioID.HasValue ?
+                new ObjectParameter("UsuarioID", usuarioID) :
+                new ObjectParameter("UsuarioID", typeof(int));
+    
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Sam3_ST_GuardaOKPND", usuarioIDParameter, lenguajeParameter);
+        }
+    
+        public virtual int Sam3_ST_GuardaOKPND_Masivo(Nullable<int> proyectoID, Nullable<int> usuarioID, string lenguaje)
+        {
+            var proyectoIDParameter = proyectoID.HasValue ?
+                new ObjectParameter("ProyectoID", proyectoID) :
+                new ObjectParameter("ProyectoID", typeof(int));
+    
+            var usuarioIDParameter = usuarioID.HasValue ?
+                new ObjectParameter("UsuarioID", usuarioID) :
+                new ObjectParameter("UsuarioID", typeof(int));
+    
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Sam3_ST_GuardaOKPND_Masivo", proyectoIDParameter, usuarioIDParameter, lenguajeParameter);
+        }
+    
+        public virtual int Sam3_ST_IP_GuardaCaptura(Nullable<int> usuario, string lenguaje, Nullable<int> requisicionID)
+        {
+            var usuarioParameter = usuario.HasValue ?
+                new ObjectParameter("Usuario", usuario) :
+                new ObjectParameter("Usuario", typeof(int));
+    
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            var requisicionIDParameter = requisicionID.HasValue ?
+                new ObjectParameter("RequisicionID", requisicionID) :
+                new ObjectParameter("RequisicionID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Sam3_ST_IP_GuardaCaptura", usuarioParameter, lenguajeParameter, requisicionIDParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_ST_OKPND_Get_DetalleElementos_Result> Sam3_ST_OKPND_Get_DetalleElementos(string lenguaje, Nullable<int> spoolID)
+        {
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            var spoolIDParameter = spoolID.HasValue ?
+                new ObjectParameter("SpoolID", spoolID) :
+                new ObjectParameter("SpoolID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_ST_OKPND_Get_DetalleElementos_Result>("Sam3_ST_OKPND_Get_DetalleElementos", lenguajeParameter, spoolIDParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_ST_OKPND_Get_Elementos_Result> Sam3_ST_OKPND_Get_Elementos(string lenguaje, Nullable<int> proyectoID, string numControl, Nullable<int> muestra)
+        {
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            var proyectoIDParameter = proyectoID.HasValue ?
+                new ObjectParameter("ProyectoID", proyectoID) :
+                new ObjectParameter("ProyectoID", typeof(int));
+    
+            var numControlParameter = numControl != null ?
+                new ObjectParameter("NumControl", numControl) :
+                new ObjectParameter("NumControl", typeof(string));
+    
+            var muestraParameter = muestra.HasValue ?
+                new ObjectParameter("Muestra", muestra) :
+                new ObjectParameter("Muestra", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_ST_OKPND_Get_Elementos_Result>("Sam3_ST_OKPND_Get_Elementos", lenguajeParameter, proyectoIDParameter, numControlParameter, muestraParameter);
+        }
+    
+        public virtual int Sam3_ST_RPND_GuardaCaptura(Nullable<int> requisicionID, string nombreRequisicion, Nullable<int> proyectoID, Nullable<int> tipoPruebaID, string fechaRequisicion, string codigoAsme, string observacion, Nullable<int> usuarioID, string lenguaje)
+        {
+            var requisicionIDParameter = requisicionID.HasValue ?
+                new ObjectParameter("RequisicionID", requisicionID) :
+                new ObjectParameter("RequisicionID", typeof(int));
+    
+            var nombreRequisicionParameter = nombreRequisicion != null ?
+                new ObjectParameter("NombreRequisicion", nombreRequisicion) :
+                new ObjectParameter("NombreRequisicion", typeof(string));
+    
+            var proyectoIDParameter = proyectoID.HasValue ?
+                new ObjectParameter("ProyectoID", proyectoID) :
+                new ObjectParameter("ProyectoID", typeof(int));
+    
+            var tipoPruebaIDParameter = tipoPruebaID.HasValue ?
+                new ObjectParameter("TipoPruebaID", tipoPruebaID) :
+                new ObjectParameter("TipoPruebaID", typeof(int));
+    
+            var fechaRequisicionParameter = fechaRequisicion != null ?
+                new ObjectParameter("FechaRequisicion", fechaRequisicion) :
+                new ObjectParameter("FechaRequisicion", typeof(string));
+    
+            var codigoAsmeParameter = codigoAsme != null ?
+                new ObjectParameter("CodigoAsme", codigoAsme) :
+                new ObjectParameter("CodigoAsme", typeof(string));
+    
+            var observacionParameter = observacion != null ?
+                new ObjectParameter("Observacion", observacion) :
+                new ObjectParameter("Observacion", typeof(string));
+    
+            var usuarioIDParameter = usuarioID.HasValue ?
+                new ObjectParameter("UsuarioID", usuarioID) :
+                new ObjectParameter("UsuarioID", typeof(int));
+    
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Sam3_ST_RPND_GuardaCaptura", requisicionIDParameter, nombreRequisicionParameter, proyectoIDParameter, tipoPruebaIDParameter, fechaRequisicionParameter, codigoAsmeParameter, observacionParameter, usuarioIDParameter, lenguajeParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_ST_VR_Get_ListadoElementos_Result> Sam3_ST_VR_Get_ListadoElementos(Nullable<int> proyectoID, Nullable<int> tipoPruebaID, Nullable<int> proveedorID, Nullable<int> requisicionID, string lenguaje)
+        {
+            var proyectoIDParameter = proyectoID.HasValue ?
+                new ObjectParameter("ProyectoID", proyectoID) :
+                new ObjectParameter("ProyectoID", typeof(int));
+    
+            var tipoPruebaIDParameter = tipoPruebaID.HasValue ?
+                new ObjectParameter("TipoPruebaID", tipoPruebaID) :
+                new ObjectParameter("TipoPruebaID", typeof(int));
+    
+            var proveedorIDParameter = proveedorID.HasValue ?
+                new ObjectParameter("ProveedorID", proveedorID) :
+                new ObjectParameter("ProveedorID", typeof(int));
+    
+            var requisicionIDParameter = requisicionID.HasValue ?
+                new ObjectParameter("RequisicionID", requisicionID) :
+                new ObjectParameter("RequisicionID", typeof(int));
+    
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_ST_VR_Get_ListadoElementos_Result>("Sam3_ST_VR_Get_ListadoElementos", proyectoIDParameter, tipoPruebaIDParameter, proveedorIDParameter, requisicionIDParameter, lenguajeParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_ST_VR_Get_ListadoRazonesNoConciliacion_Result> Sam3_ST_VR_Get_ListadoRazonesNoConciliacion(string lenguaje, Nullable<int> tipoPruebaID)
+        {
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            var tipoPruebaIDParameter = tipoPruebaID.HasValue ?
+                new ObjectParameter("TipoPruebaID", tipoPruebaID) :
+                new ObjectParameter("TipoPruebaID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_ST_VR_Get_ListadoRazonesNoConciliacion_Result>("Sam3_ST_VR_Get_ListadoRazonesNoConciliacion", lenguajeParameter, tipoPruebaIDParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_ST_VR_Get_ListadoResultadoConciliaciones_Result> Sam3_ST_VR_Get_ListadoResultadoConciliaciones(string lenguaje)
+        {
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_ST_VR_Get_ListadoResultadoConciliaciones_Result>("Sam3_ST_VR_Get_ListadoResultadoConciliaciones", lenguajeParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_ST_VR_Get_ListaProyectos_Result> Sam3_ST_VR_Get_ListaProyectos(Nullable<int> usuarioID)
+        {
+            var usuarioIDParameter = usuarioID.HasValue ?
+                new ObjectParameter("UsuarioID", usuarioID) :
+                new ObjectParameter("UsuarioID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_ST_VR_Get_ListaProyectos_Result>("Sam3_ST_VR_Get_ListaProyectos", usuarioIDParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_ST_VR_Get_ListaRequisiciones_Result> Sam3_ST_VR_Get_ListaRequisiciones(Nullable<int> usuarioID, Nullable<int> proyectoID, Nullable<int> tipoPruebaID, Nullable<int> proveedorID, Nullable<int> estatusID)
+        {
+            var usuarioIDParameter = usuarioID.HasValue ?
+                new ObjectParameter("UsuarioID", usuarioID) :
+                new ObjectParameter("UsuarioID", typeof(int));
+    
+            var proyectoIDParameter = proyectoID.HasValue ?
+                new ObjectParameter("ProyectoID", proyectoID) :
+                new ObjectParameter("ProyectoID", typeof(int));
+    
+            var tipoPruebaIDParameter = tipoPruebaID.HasValue ?
+                new ObjectParameter("TipoPruebaID", tipoPruebaID) :
+                new ObjectParameter("TipoPruebaID", typeof(int));
+    
+            var proveedorIDParameter = proveedorID.HasValue ?
+                new ObjectParameter("ProveedorID", proveedorID) :
+                new ObjectParameter("ProveedorID", typeof(int));
+    
+            var estatusIDParameter = estatusID.HasValue ?
+                new ObjectParameter("EstatusID", estatusID) :
+                new ObjectParameter("EstatusID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_ST_VR_Get_ListaRequisiciones_Result>("Sam3_ST_VR_Get_ListaRequisiciones", usuarioIDParameter, proyectoIDParameter, tipoPruebaIDParameter, proveedorIDParameter, estatusIDParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_ST_VR_Get_Proveedores_Result> Sam3_ST_VR_Get_Proveedores(Nullable<int> proyectoID, Nullable<int> tipoPruebaID)
+        {
+            var proyectoIDParameter = proyectoID.HasValue ?
+                new ObjectParameter("ProyectoID", proyectoID) :
+                new ObjectParameter("ProyectoID", typeof(int));
+    
+            var tipoPruebaIDParameter = tipoPruebaID.HasValue ?
+                new ObjectParameter("TipoPruebaID", tipoPruebaID) :
+                new ObjectParameter("TipoPruebaID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_ST_VR_Get_Proveedores_Result>("Sam3_ST_VR_Get_Proveedores", proyectoIDParameter, tipoPruebaIDParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_ST_VR_Get_Requisiciones_Detalle_Result> Sam3_ST_VR_Get_Requisiciones_Detalle(Nullable<int> proyectoID, Nullable<int> tipoPruebaID, Nullable<int> proveedorID, Nullable<int> requisicionID, Nullable<int> equipoID, Nullable<int> turnoID, string lenguaje)
+        {
+            var proyectoIDParameter = proyectoID.HasValue ?
+                new ObjectParameter("ProyectoID", proyectoID) :
+                new ObjectParameter("ProyectoID", typeof(int));
+    
+            var tipoPruebaIDParameter = tipoPruebaID.HasValue ?
+                new ObjectParameter("TipoPruebaID", tipoPruebaID) :
+                new ObjectParameter("TipoPruebaID", typeof(int));
+    
+            var proveedorIDParameter = proveedorID.HasValue ?
+                new ObjectParameter("ProveedorID", proveedorID) :
+                new ObjectParameter("ProveedorID", typeof(int));
+    
+            var requisicionIDParameter = requisicionID.HasValue ?
+                new ObjectParameter("RequisicionID", requisicionID) :
+                new ObjectParameter("RequisicionID", typeof(int));
+    
+            var equipoIDParameter = equipoID.HasValue ?
+                new ObjectParameter("EquipoID", equipoID) :
+                new ObjectParameter("EquipoID", typeof(int));
+    
+            var turnoIDParameter = turnoID.HasValue ?
+                new ObjectParameter("TurnoID", turnoID) :
+                new ObjectParameter("TurnoID", typeof(int));
+    
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("lenguaje", lenguaje) :
+                new ObjectParameter("lenguaje", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_ST_VR_Get_Requisiciones_Detalle_Result>("Sam3_ST_VR_Get_Requisiciones_Detalle", proyectoIDParameter, tipoPruebaIDParameter, proveedorIDParameter, requisicionIDParameter, equipoIDParameter, turnoIDParameter, lenguajeParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_ST_VR_Get_TiposDePrueba_Result> Sam3_ST_VR_Get_TiposDePrueba(string lenguaje)
+        {
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_ST_VR_Get_TiposDePrueba_Result>("Sam3_ST_VR_Get_TiposDePrueba", lenguajeParameter);
+        }
+    
+        public virtual int Sam3_ST_VR_Guarda_ReporteRT(Nullable<int> usuarioID, string lenguaje)
+        {
+            var usuarioIDParameter = usuarioID.HasValue ?
+                new ObjectParameter("UsuarioID", usuarioID) :
+                new ObjectParameter("UsuarioID", typeof(int));
+    
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("lenguaje", lenguaje) :
+                new ObjectParameter("lenguaje", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Sam3_ST_VR_Guarda_ReporteRT", usuarioIDParameter, lenguajeParameter);
+        }
+    
+        public virtual int Sam3_Steelgo_Get_CampoPredeterminado(Nullable<int> iD, string lenguaje, ObjectParameter retorna)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Sam3_Steelgo_Get_CampoPredeterminado", iDParameter, lenguajeParameter, retorna);
+        }
+    
+        public virtual ObjectResult<Sam3_Steelgo_Get_Color_Result> Sam3_Steelgo_Get_Color(string lenguaje)
+        {
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_Steelgo_Get_Color_Result>("Sam3_Steelgo_Get_Color", lenguajeParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_Steelgo_Get_Consumible_Result> Sam3_Steelgo_Get_Consumible(Nullable<int> patio)
+        {
+            var patioParameter = patio.HasValue ?
+                new ObjectParameter("Patio", patio) :
+                new ObjectParameter("Patio", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_Steelgo_Get_Consumible_Result>("Sam3_Steelgo_Get_Consumible", patioParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_Steelgo_Get_Cuadrante_Result> Sam3_Steelgo_Get_Cuadrante(Nullable<int> patioID)
+        {
+            var patioIDParameter = patioID.HasValue ?
+                new ObjectParameter("PatioID", patioID) :
+                new ObjectParameter("PatioID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_Steelgo_Get_Cuadrante_Result>("Sam3_Steelgo_Get_Cuadrante", patioIDParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_Steelgo_Get_Defectos_Result> Sam3_Steelgo_Get_Defectos(string lenguaje, string tipoPrueba)
+        {
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            var tipoPruebaParameter = tipoPrueba != null ?
+                new ObjectParameter("TipoPrueba", tipoPrueba) :
+                new ObjectParameter("TipoPrueba", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_Steelgo_Get_Defectos_Result>("Sam3_Steelgo_Get_Defectos", lenguajeParameter, tipoPruebaParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_Steelgo_Get_JuntaSpool_Result> Sam3_Steelgo_Get_JuntaSpool(Nullable<int> todos, Nullable<int> ordenTrabajoSpoolID, Nullable<int> proceso)
+        {
+            var todosParameter = todos.HasValue ?
+                new ObjectParameter("Todos", todos) :
+                new ObjectParameter("Todos", typeof(int));
+    
+            var ordenTrabajoSpoolIDParameter = ordenTrabajoSpoolID.HasValue ?
+                new ObjectParameter("OrdenTrabajoSpoolID", ordenTrabajoSpoolID) :
+                new ObjectParameter("OrdenTrabajoSpoolID", typeof(int));
+    
+            var procesoParameter = proceso.HasValue ?
+                new ObjectParameter("Proceso", proceso) :
+                new ObjectParameter("Proceso", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_Steelgo_Get_JuntaSpool_Result>("Sam3_Steelgo_Get_JuntaSpool", todosParameter, ordenTrabajoSpoolIDParameter, procesoParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_Steelgo_Get_Obrero_Result> Sam3_Steelgo_Get_Obrero(Nullable<int> tipo, string tipoObrero, Nullable<int> proyectoID, Nullable<int> usuarioID, Nullable<int> patioID)
+        {
+            var tipoParameter = tipo.HasValue ?
+                new ObjectParameter("Tipo", tipo) :
+                new ObjectParameter("Tipo", typeof(int));
+    
+            var tipoObreroParameter = tipoObrero != null ?
+                new ObjectParameter("TipoObrero", tipoObrero) :
+                new ObjectParameter("TipoObrero", typeof(string));
+    
+            var proyectoIDParameter = proyectoID.HasValue ?
+                new ObjectParameter("ProyectoID", proyectoID) :
+                new ObjectParameter("ProyectoID", typeof(int));
+    
+            var usuarioIDParameter = usuarioID.HasValue ?
+                new ObjectParameter("UsuarioID", usuarioID) :
+                new ObjectParameter("UsuarioID", typeof(int));
+    
+            var patioIDParameter = patioID.HasValue ?
+                new ObjectParameter("PatioID", patioID) :
+                new ObjectParameter("PatioID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_Steelgo_Get_Obrero_Result>("Sam3_Steelgo_Get_Obrero", tipoParameter, tipoObreroParameter, proyectoIDParameter, usuarioIDParameter, patioIDParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_Steelgo_Get_ProcesosPintura_Result> Sam3_Steelgo_Get_ProcesosPintura(string lenguaje)
+        {
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_Steelgo_Get_ProcesosPintura_Result>("Sam3_Steelgo_Get_ProcesosPintura", lenguajeParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_Steelgo_Get_SoldadorCertificado_Result> Sam3_Steelgo_Get_SoldadorCertificado(Nullable<decimal> espesor, Nullable<int> procesoSoldadura, Nullable<decimal> diametro, Nullable<int> proyectoID, Nullable<int> tipoProceso)
+        {
+            var espesorParameter = espesor.HasValue ?
+                new ObjectParameter("Espesor", espesor) :
+                new ObjectParameter("Espesor", typeof(decimal));
+    
+            var procesoSoldaduraParameter = procesoSoldadura.HasValue ?
+                new ObjectParameter("ProcesoSoldadura", procesoSoldadura) :
+                new ObjectParameter("ProcesoSoldadura", typeof(int));
+    
+            var diametroParameter = diametro.HasValue ?
+                new ObjectParameter("Diametro", diametro) :
+                new ObjectParameter("Diametro", typeof(decimal));
+    
+            var proyectoIDParameter = proyectoID.HasValue ?
+                new ObjectParameter("ProyectoID", proyectoID) :
+                new ObjectParameter("ProyectoID", typeof(int));
+    
+            var tipoProcesoParameter = tipoProceso.HasValue ?
+                new ObjectParameter("TipoProceso", tipoProceso) :
+                new ObjectParameter("TipoProceso", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_Steelgo_Get_SoldadorCertificado_Result>("Sam3_Steelgo_Get_SoldadorCertificado", espesorParameter, procesoSoldaduraParameter, diametroParameter, proyectoIDParameter, tipoProcesoParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_Steelgo_Get_SpoolID_Result> Sam3_Steelgo_Get_SpoolID(Nullable<int> tIPO, string oRDENTRABAJO, string lenguaje)
+        {
+            var tIPOParameter = tIPO.HasValue ?
+                new ObjectParameter("TIPO", tIPO) :
+                new ObjectParameter("TIPO", typeof(int));
+    
+            var oRDENTRABAJOParameter = oRDENTRABAJO != null ?
+                new ObjectParameter("ORDENTRABAJO", oRDENTRABAJO) :
+                new ObjectParameter("ORDENTRABAJO", typeof(string));
+    
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_Steelgo_Get_SpoolID_Result>("Sam3_Steelgo_Get_SpoolID", tIPOParameter, oRDENTRABAJOParameter, lenguajeParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_SteelGo_Get_Taller_Result> Sam3_SteelGo_Get_Taller(Nullable<int> proyectoID)
+        {
+            var proyectoIDParameter = proyectoID.HasValue ?
+                new ObjectParameter("ProyectoID", proyectoID) :
+                new ObjectParameter("ProyectoID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_SteelGo_Get_Taller_Result>("Sam3_SteelGo_Get_Taller", proyectoIDParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_Steelgo_Get_TipoResultado_Result> Sam3_Steelgo_Get_TipoResultado(string lenguaje)
+        {
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_Steelgo_Get_TipoResultado_Result>("Sam3_Steelgo_Get_TipoResultado", lenguajeParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_Steelgo_Get_TrabajoAdicional_Result> Sam3_Steelgo_Get_TrabajoAdicional(string tipoTrabajoAdicional)
+        {
+            var tipoTrabajoAdicionalParameter = tipoTrabajoAdicional != null ?
+                new ObjectParameter("TipoTrabajoAdicional", tipoTrabajoAdicional) :
+                new ObjectParameter("TipoTrabajoAdicional", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_Steelgo_Get_TrabajoAdicional_Result>("Sam3_Steelgo_Get_TrabajoAdicional", tipoTrabajoAdicionalParameter);
+        }
+    
+        public virtual ObjectResult<Sam3_Steelgo_Get_UnidadProcesoPintura_Result> Sam3_Steelgo_Get_UnidadProcesoPintura(string lenguaje)
+        {
+            var lenguajeParameter = lenguaje != null ?
+                new ObjectParameter("Lenguaje", lenguaje) :
+                new ObjectParameter("Lenguaje", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sam3_Steelgo_Get_UnidadProcesoPintura_Result>("Sam3_Steelgo_Get_UnidadProcesoPintura", lenguajeParameter);
+        }
     }
 }

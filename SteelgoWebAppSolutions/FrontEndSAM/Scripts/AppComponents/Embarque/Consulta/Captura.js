@@ -10,6 +10,8 @@
 function CargarGrid() {
     $("#grid").kendoGrid({
         autoBind: true,
+        autoSync: true,
+
         dataSource: {
             data: [],
             schema: {
@@ -32,9 +34,12 @@ function CargarGrid() {
             serverFiltering: false,
             serverSorting: false
         },
+        navigatable: true,
+        editable: true,
         autoHeight: true,
         sortable: true,
         scrollable: false,
+        selectable: true,
          //filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
         pageable: {
             refresh: false,
@@ -42,7 +47,7 @@ function CargarGrid() {
             info: false,
             input: false,
             numeric: true,
-            buttonCount: 2
+           // buttonCount: 2
         },
         filterable: getGridFilterableMaftec(),
         columns: [
@@ -53,9 +58,9 @@ function CargarGrid() {
             //{ command: { text: _dictionary.EmbarqueConsultaTraveler[$("#language").data("kendoDropDownList").value()]/*, click: eliminarCaptura*/ }, template: "<a>" + _dictionary.EmbarqueConsultaVer[$("#language").data("kendoDropDownList").value()] + "</a>", width: "150px" },
             { field: "Detalle", title: "Detalle",filterable: false, template: "<a>" + "link shop" + "</a>", width: "270px" }
         ],
-        dataBound: function (e) {
-            quickHeadFilter2($("#grid").data("kendoGrid"));
-        },
+        //dataBound: function (e) {
+        //    quickHeadFilter2($("#grid").data("kendoGrid"));
+        //},
     });
     CustomisaGrid($("#grid"));
 };

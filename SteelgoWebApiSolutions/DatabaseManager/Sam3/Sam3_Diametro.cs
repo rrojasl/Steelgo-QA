@@ -14,13 +14,14 @@ namespace DatabaseManager.Sam3
     
     public partial class Sam3_Diametro
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Sam3_Diametro()
         {
+            this.Sam3_CatalogoCedulas = new HashSet<Sam3_CatalogoCedulas>();
             this.Sam3_Rel_ItemCode_Diametro = new HashSet<Sam3_Rel_ItemCode_Diametro>();
             this.Sam3_Rel_ItemCode_Diametro1 = new HashSet<Sam3_Rel_ItemCode_Diametro>();
             this.Sam3_Rel_ItemCodeSteelgo_Diametro = new HashSet<Sam3_Rel_ItemCodeSteelgo_Diametro>();
             this.Sam3_Rel_ItemCodeSteelgo_Diametro1 = new HashSet<Sam3_Rel_ItemCodeSteelgo_Diametro>();
-            this.Sam3_CatalogoCedulas = new HashSet<Sam3_CatalogoCedulas>();
         }
     
         public int DiametroID { get; set; }
@@ -30,10 +31,15 @@ namespace DatabaseManager.Sam3
         public Nullable<int> UsuarioModificacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
     
-        public virtual ICollection<Sam3_Rel_ItemCode_Diametro> Sam3_Rel_ItemCode_Diametro { get; set; }
-        public virtual ICollection<Sam3_Rel_ItemCode_Diametro> Sam3_Rel_ItemCode_Diametro1 { get; set; }
-        public virtual ICollection<Sam3_Rel_ItemCodeSteelgo_Diametro> Sam3_Rel_ItemCodeSteelgo_Diametro { get; set; }
-        public virtual ICollection<Sam3_Rel_ItemCodeSteelgo_Diametro> Sam3_Rel_ItemCodeSteelgo_Diametro1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sam3_CatalogoCedulas> Sam3_CatalogoCedulas { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_Rel_ItemCode_Diametro> Sam3_Rel_ItemCode_Diametro { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_Rel_ItemCode_Diametro> Sam3_Rel_ItemCode_Diametro1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_Rel_ItemCodeSteelgo_Diametro> Sam3_Rel_ItemCodeSteelgo_Diametro { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_Rel_ItemCodeSteelgo_Diametro> Sam3_Rel_ItemCodeSteelgo_Diametro1 { get; set; }
     }
 }

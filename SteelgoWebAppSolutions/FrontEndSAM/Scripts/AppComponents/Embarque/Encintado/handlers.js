@@ -1,11 +1,12 @@
 ﻿function SuscribirEventos() {
     suscribirEventoProyecto();
-    suscribirEventoArea();
+    suscribirEventoZona();
     suscribirEventoCuadrante();
     suscribirEventoGuardar();
     suscribirEventoImprimirEtiqueta();
     suscribirEventoVer();
     suscribirEventoCambioImpreso();
+    suscribirEventoCuadrantePlanchado();
 }
 
 
@@ -98,19 +99,19 @@ function suscribirEventoCambioImpreso() {
 
 }
 
-function suscribirEventoArea() {
-    $("#Area").kendoComboBox({
+function suscribirEventoZona() {
+    $("#Zona").kendoComboBox({
         dataTextField: "Nombre",
-        dataValueField: "AreaID",
+        dataValueField: "ZonaID",
         suggest: true,
         filter: "contains",
         index: 3,
         change: function (e) {
-            if ($("#Area").data("kendoComboBox").dataItem($("#Area").data("kendoComboBox").select()) != undefined) {
+            if ($("#Zona").data("kendoComboBox").dataItem($("#Area").data("kendoComboBox").select()) != undefined) {
                 //AjaxCargarCuadrante($("#Area").data("kendoComboBox").value());
             }
             else {
-                $("#Area").data("kendoComboBox").value("");
+                $("#Zona").data("kendoComboBox").value("");
             }
 
         }
@@ -155,7 +156,16 @@ function suscribirEventoCuadrante() {
     });
 }
 
+function suscribirEventoCuadrantePlanchado() {
+    $("#InputCuadrante1").kendoComboBox({
+        dataTextField: "Nombre1",
+        dataValueField: "CuadranteID1",
+        suggest: true,
+        filter: "contains",
+        index: 3,
 
+    });
+}
 function suscribirEventoGuardar() {
 
     $('.accionGuardar').click(function (e) {
@@ -205,7 +215,7 @@ function opcionHabilitarView(valor, name) {
 
     if (valor) {
         $('#FieldSetView').find('*').attr('disabled', true);
-        $("#Area").data("kendoComboBox").enable(false);
+       // $("#Area").data("kendoComboBox").enable(false);
         $("#Cuadrante").data("kendoComboBox").enable(false);
         $("#btnAgregar").prop('disabled', true);
         $(".radioImpreso").prop('disabled', true);
@@ -216,7 +226,7 @@ function opcionHabilitarView(valor, name) {
     }
     else {
         $('#FieldSetView').find('*').attr('disabled', false);
-        $("#Area").data("kendoComboBox").enable(true);
+        //$("#Area").data("kendoComboBox").enable(true);
         $("#Cuadrante").data("kendoComboBox").enable(true);
         $("#btnAgregar").prop('disabled', false);
         $(".radioImpreso").prop('disabled', false);

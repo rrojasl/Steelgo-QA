@@ -14,6 +14,7 @@ namespace DatabaseManager.Sam3
     
     public partial class Sam3_Grupo
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Sam3_Grupo()
         {
             this.Sam3_ItemCodeSteelgo = new HashSet<Sam3_ItemCodeSteelgo>();
@@ -27,7 +28,8 @@ namespace DatabaseManager.Sam3
         public Nullable<int> TipoMaterialID { get; set; }
         public Nullable<bool> TieneD2 { get; set; }
     
-        public virtual ICollection<Sam3_ItemCodeSteelgo> Sam3_ItemCodeSteelgo { get; set; }
         public virtual Sam3_TipoMaterial Sam3_TipoMaterial { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_ItemCodeSteelgo> Sam3_ItemCodeSteelgo { get; set; }
     }
 }

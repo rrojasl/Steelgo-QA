@@ -14,22 +14,23 @@ namespace DatabaseManager.Sam3
     
     public partial class Sam3_NumeroUnico
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Sam3_NumeroUnico()
         {
+            this.Sam3_Despacho = new HashSet<Sam3_Despacho>();
+            this.Sam3_OrdenTrabajoMaterial = new HashSet<Sam3_OrdenTrabajoMaterial>();
+            this.Sam3_OrdenTrabajoMaterial1 = new HashSet<Sam3_OrdenTrabajoMaterial>();
+            this.Sam3_OrdenTrabajoMaterial2 = new HashSet<Sam3_OrdenTrabajoMaterial>();
+            this.Sam3_OrdenTrabajoMaterial3 = new HashSet<Sam3_OrdenTrabajoMaterial>();
+            this.Sam3_PreDespacho = new HashSet<Sam3_PreDespacho>();
+            this.Sam3_Rel_OrdenAlmacenaje_NumeroUnico = new HashSet<Sam3_Rel_OrdenAlmacenaje_NumeroUnico>();
+            this.Sam3_Rel_Incidencia_NumeroUnico = new HashSet<Sam3_Rel_Incidencia_NumeroUnico>();
+            this.Sam3_Rel_NumeroUnico_RelFC_RelB = new HashSet<Sam3_Rel_NumeroUnico_RelFC_RelB>();
             this.Sam3_NumeroUnicoCorte = new HashSet<Sam3_NumeroUnicoCorte>();
             this.Sam3_NumeroUnicoMovimiento = new HashSet<Sam3_NumeroUnicoMovimiento>();
             this.Sam3_NumeroUnicoSegmento = new HashSet<Sam3_NumeroUnicoSegmento>();
             this.Sam3_PinturaNumeroUnico = new HashSet<Sam3_PinturaNumeroUnico>();
             this.Sam3_RequisicionNumeroUnicoDetalle = new HashSet<Sam3_RequisicionNumeroUnicoDetalle>();
-            this.Sam3_Rel_OrdenAlmacenaje_NumeroUnico = new HashSet<Sam3_Rel_OrdenAlmacenaje_NumeroUnico>();
-            this.Sam3_Rel_Incidencia_NumeroUnico = new HashSet<Sam3_Rel_Incidencia_NumeroUnico>();
-            this.Sam3_Despacho = new HashSet<Sam3_Despacho>();
-            this.Sam3_PreDespacho = new HashSet<Sam3_PreDespacho>();
-            this.Sam3_Rel_NumeroUnico_RelFC_RelB = new HashSet<Sam3_Rel_NumeroUnico_RelFC_RelB>();
-            this.Sam3_OrdenTrabajoMaterial = new HashSet<Sam3_OrdenTrabajoMaterial>();
-            this.Sam3_OrdenTrabajoMaterial1 = new HashSet<Sam3_OrdenTrabajoMaterial>();
-            this.Sam3_OrdenTrabajoMaterial2 = new HashSet<Sam3_OrdenTrabajoMaterial>();
-            this.Sam3_OrdenTrabajoMaterial3 = new HashSet<Sam3_OrdenTrabajoMaterial>();
         }
     
         public int NumeroUnicoID { get; set; }
@@ -79,31 +80,43 @@ namespace DatabaseManager.Sam3
         public Nullable<int> MTRID { get; set; }
     
         public virtual Sam3_Colada Sam3_Colada { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_Despacho> Sam3_Despacho { get; set; }
         public virtual Sam3_Fabricante Sam3_Fabricante { get; set; }
         public virtual Sam3_ItemCode Sam3_ItemCode { get; set; }
+        public virtual Sam3_MTR Sam3_MTR { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_OrdenTrabajoMaterial> Sam3_OrdenTrabajoMaterial { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_OrdenTrabajoMaterial> Sam3_OrdenTrabajoMaterial1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_OrdenTrabajoMaterial> Sam3_OrdenTrabajoMaterial2 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_OrdenTrabajoMaterial> Sam3_OrdenTrabajoMaterial3 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_PreDespacho> Sam3_PreDespacho { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_Rel_OrdenAlmacenaje_NumeroUnico> Sam3_Rel_OrdenAlmacenaje_NumeroUnico { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_Rel_Incidencia_NumeroUnico> Sam3_Rel_Incidencia_NumeroUnico { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_Rel_NumeroUnico_RelFC_RelB> Sam3_Rel_NumeroUnico_RelFC_RelB { get; set; }
         public virtual Sam3_Proveedor Sam3_Proveedor { get; set; }
         public virtual Sam3_Proyecto Sam3_Proyecto { get; set; }
         public virtual Sam3_Recepcion Sam3_Recepcion { get; set; }
         public virtual Sam3_TipoCorte Sam3_TipoCorte { get; set; }
         public virtual Sam3_TipoCorte Sam3_TipoCorte1 { get; set; }
-        public virtual ICollection<Sam3_NumeroUnicoCorte> Sam3_NumeroUnicoCorte { get; set; }
-        public virtual ICollection<Sam3_NumeroUnicoMovimiento> Sam3_NumeroUnicoMovimiento { get; set; }
-        public virtual ICollection<Sam3_NumeroUnicoSegmento> Sam3_NumeroUnicoSegmento { get; set; }
-        public virtual ICollection<Sam3_PinturaNumeroUnico> Sam3_PinturaNumeroUnico { get; set; }
-        public virtual ICollection<Sam3_RequisicionNumeroUnicoDetalle> Sam3_RequisicionNumeroUnicoDetalle { get; set; }
-        public virtual Sam3_NumeroUnico Sam3_NumeroUnico1 { get; set; }
-        public virtual Sam3_NumeroUnico Sam3_NumeroUnico2 { get; set; }
-        public virtual ICollection<Sam3_Rel_OrdenAlmacenaje_NumeroUnico> Sam3_Rel_OrdenAlmacenaje_NumeroUnico { get; set; }
-        public virtual ICollection<Sam3_Rel_Incidencia_NumeroUnico> Sam3_Rel_Incidencia_NumeroUnico { get; set; }
-        public virtual Sam3_NumeroUnicoInventario Sam3_NumeroUnicoInventario { get; set; }
-        public virtual ICollection<Sam3_Despacho> Sam3_Despacho { get; set; }
-        public virtual ICollection<Sam3_PreDespacho> Sam3_PreDespacho { get; set; }
-        public virtual ICollection<Sam3_Rel_NumeroUnico_RelFC_RelB> Sam3_Rel_NumeroUnico_RelFC_RelB { get; set; }
-        public virtual ICollection<Sam3_OrdenTrabajoMaterial> Sam3_OrdenTrabajoMaterial { get; set; }
-        public virtual ICollection<Sam3_OrdenTrabajoMaterial> Sam3_OrdenTrabajoMaterial1 { get; set; }
-        public virtual ICollection<Sam3_OrdenTrabajoMaterial> Sam3_OrdenTrabajoMaterial2 { get; set; }
-        public virtual ICollection<Sam3_OrdenTrabajoMaterial> Sam3_OrdenTrabajoMaterial3 { get; set; }
         public virtual Sam3_TipoUso Sam3_TipoUso { get; set; }
-        public virtual Sam3_MTR Sam3_MTR { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_NumeroUnicoCorte> Sam3_NumeroUnicoCorte { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_NumeroUnicoMovimiento> Sam3_NumeroUnicoMovimiento { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_NumeroUnicoSegmento> Sam3_NumeroUnicoSegmento { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_PinturaNumeroUnico> Sam3_PinturaNumeroUnico { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_RequisicionNumeroUnicoDetalle> Sam3_RequisicionNumeroUnicoDetalle { get; set; }
+        public virtual Sam3_NumeroUnicoInventario Sam3_NumeroUnicoInventario { get; set; }
     }
 }

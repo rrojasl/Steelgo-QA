@@ -14,10 +14,14 @@ namespace DatabaseManager.Sam3
     
     public partial class Sam3_Proyecto
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Sam3_Proyecto()
         {
             this.Sam3_Colada = new HashSet<Sam3_Colada>();
             this.Sam3_Corte = new HashSet<Sam3_Corte>();
+            this.Sam3_Despacho = new HashSet<Sam3_Despacho>();
+            this.Sam3_FolioAvisoLlegada = new HashSet<Sam3_FolioAvisoLlegada>();
+            this.Sam3_FolioCuantificacion = new HashSet<Sam3_FolioCuantificacion>();
             this.Sam3_ItemCode = new HashSet<Sam3_ItemCode>();
             this.Sam3_NumeroUnico = new HashSet<Sam3_NumeroUnico>();
             this.Sam3_NumeroUnicoCorte = new HashSet<Sam3_NumeroUnicoCorte>();
@@ -26,16 +30,14 @@ namespace DatabaseManager.Sam3
             this.Sam3_NumeroUnicoSegmento = new HashSet<Sam3_NumeroUnicoSegmento>();
             this.Sam3_OrdenTrabajo = new HashSet<Sam3_OrdenTrabajo>();
             this.Sam3_PinturaNumeroUnico = new HashSet<Sam3_PinturaNumeroUnico>();
-            this.Sam3_Rel_Usuario_Proyecto = new HashSet<Sam3_Rel_Usuario_Proyecto>();
+            this.Sam3_PreDespacho = new HashSet<Sam3_PreDespacho>();
+            this.Sam3_Rel_Proyecto_Correo = new HashSet<Sam3_Rel_Proyecto_Correo>();
+            this.Sam3_Rel_Proyecto_Entidad_Configuracion = new HashSet<Sam3_Rel_Proyecto_Entidad_Configuracion>();
             this.Sam3_Rel_FolioAvisoLlegada_Proyecto = new HashSet<Sam3_Rel_FolioAvisoLlegada_Proyecto>();
+            this.Sam3_Rel_Usuario_Proyecto = new HashSet<Sam3_Rel_Usuario_Proyecto>();
+            this.Sam3_ST_Requisicion = new HashSet<Sam3_ST_Requisicion>();
             this.Sam3_RequisicionNumeroUnico = new HashSet<Sam3_RequisicionNumeroUnico>();
             this.Sam3_Spool = new HashSet<Sam3_Spool>();
-            this.Sam3_FolioCuantificacion = new HashSet<Sam3_FolioCuantificacion>();
-            this.Sam3_Despacho = new HashSet<Sam3_Despacho>();
-            this.Sam3_PreDespacho = new HashSet<Sam3_PreDespacho>();
-            this.Sam3_FolioAvisoLlegada = new HashSet<Sam3_FolioAvisoLlegada>();
-            this.Sam3_Rel_Proyecto_Correo = new HashSet<Sam3_Rel_Proyecto_Correo>();
-            this.Sam3_Rel_Proyecto_Entidad_Configuracion1 = new HashSet<Sam3_Rel_Proyecto_Entidad_Configuracion>();
         }
     
         public int ProyectoID { get; set; }
@@ -51,30 +53,51 @@ namespace DatabaseManager.Sam3
         public Nullable<System.DateTime> FechaModificacion { get; set; }
     
         public virtual Sam3_Cliente Sam3_Cliente { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sam3_Colada> Sam3_Colada { get; set; }
         public virtual Sam3_Color Sam3_Color { get; set; }
         public virtual Sam3_Contacto Sam3_Contacto { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sam3_Corte> Sam3_Corte { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_Despacho> Sam3_Despacho { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_FolioAvisoLlegada> Sam3_FolioAvisoLlegada { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_FolioCuantificacion> Sam3_FolioCuantificacion { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sam3_ItemCode> Sam3_ItemCode { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sam3_NumeroUnico> Sam3_NumeroUnico { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sam3_NumeroUnicoCorte> Sam3_NumeroUnicoCorte { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sam3_NumeroUnicoInventario> Sam3_NumeroUnicoInventario { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sam3_NumeroUnicoMovimiento> Sam3_NumeroUnicoMovimiento { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sam3_NumeroUnicoSegmento> Sam3_NumeroUnicoSegmento { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sam3_OrdenTrabajo> Sam3_OrdenTrabajo { get; set; }
         public virtual Sam3_Patio Sam3_Patio { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sam3_PinturaNumeroUnico> Sam3_PinturaNumeroUnico { get; set; }
-        public virtual ICollection<Sam3_Rel_Usuario_Proyecto> Sam3_Rel_Usuario_Proyecto { get; set; }
-        public virtual ICollection<Sam3_Rel_FolioAvisoLlegada_Proyecto> Sam3_Rel_FolioAvisoLlegada_Proyecto { get; set; }
-        public virtual ICollection<Sam3_RequisicionNumeroUnico> Sam3_RequisicionNumeroUnico { get; set; }
-        public virtual ICollection<Sam3_Spool> Sam3_Spool { get; set; }
-        public virtual Sam3_ProyectoConsecutivo Sam3_ProyectoConsecutivo { get; set; }
-        public virtual ICollection<Sam3_FolioCuantificacion> Sam3_FolioCuantificacion { get; set; }
-        public virtual ICollection<Sam3_Despacho> Sam3_Despacho { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sam3_PreDespacho> Sam3_PreDespacho { get; set; }
-        public virtual Sam3_Rel_Proyecto_Entidad_Configuracion Sam3_Rel_Proyecto_Entidad_Configuracion { get; set; }
-        public virtual ICollection<Sam3_FolioAvisoLlegada> Sam3_FolioAvisoLlegada { get; set; }
+        public virtual Sam3_ProyectoConsecutivo Sam3_ProyectoConsecutivo { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sam3_Rel_Proyecto_Correo> Sam3_Rel_Proyecto_Correo { get; set; }
-        public virtual ICollection<Sam3_Rel_Proyecto_Entidad_Configuracion> Sam3_Rel_Proyecto_Entidad_Configuracion1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_Rel_Proyecto_Entidad_Configuracion> Sam3_Rel_Proyecto_Entidad_Configuracion { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_Rel_FolioAvisoLlegada_Proyecto> Sam3_Rel_FolioAvisoLlegada_Proyecto { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_Rel_Usuario_Proyecto> Sam3_Rel_Usuario_Proyecto { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_ST_Requisicion> Sam3_ST_Requisicion { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_RequisicionNumeroUnico> Sam3_RequisicionNumeroUnico { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_Spool> Sam3_Spool { get; set; }
     }
 }

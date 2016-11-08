@@ -46,18 +46,28 @@ function CargarGrid() {
 
         },
         dataSource: {
-            data: [],
+            data: [
+                 {
+                     Accion: 1,
+                     SpoolID: "X001-001",
+                     Cuadrante: "ZZ0-001 PT",
+                     ColorCinta: "Verde",
+                     Encintando:false,
+                     Etiquetado: true
+                 }
+            ],
             schema: {
                 model: {
                     fields: {
-                        NumeroControl: { type: "string", editable: false },
+                        SpoolID: { type: "string", editable: false },
                         Cuadrante: { type: "string", editable: false },
-                        Traveler: { type: "int", editable: false },
-                        ColorCinta: { type: "string", editable: true }
+                        ColorCinta: { type: "string", editable: true },
+                        Encintado: { type: "boolean", editable: false },
+                        Etiquetado: { type: "boolean", editable: false }
                     }
                 }
             },
-            pageSize: 20,
+            pageSize: 10,
             serverPaging: false,
             serverFiltering: false,
             serverSorting: false
@@ -79,7 +89,7 @@ function CargarGrid() {
         scrollable: true,
         pageable: {
             refresh: false,
-            pageSizes: [10, 15, 20],
+            pageSizes: [10, 25,50, 20],
             info: false,
             input: false,
             numeric: true,
@@ -93,10 +103,36 @@ function CargarGrid() {
                 filterMultiCheck.createCheckBoxes();
             }
         },
+        filterable: getGridFilterableMaftec(),
         columns: [
-            { field: "NumeroControl", title: "Spool", filterable: true, template: "<a href= '\\#'>#= NumeroControl #</a>", width: "150px" },
-            { field: "Cuadrante", title: "Cuadrante", filterable: true, width: "150px" },
-            { field: "ColorCinta", title: "Color Cinta", filterable: true, width: "150px" }
+            { field: "SpoolID", title: _dictionary.columnSpoolIDEmbarque[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px" },
+            { field: "Cuadrante", title: _dictionary.columnCuadranteEmbarque[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px" },
+            { field: "ColorCinta", title: _dictionary.columnColorCintaEmbarque[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px" },
+
+            {
+                field: "Encintado", title: _dictionary.columnEncintadoEmbarque[$("#language").data("kendoDropDownList").value()], filterable: {
+                    multi: true,
+                    messages: {
+                        isTrue: _dictionary.lblVerdadero[$("#language").data("kendoDropDownList").value()],
+                        isFalse: _dictionary.lblFalso[$("#language").data("kendoDropDownList").value()],
+                        style: "max-width:100px;"
+                    },
+                    dataSource: [{ Etiquetado: true }, { Etiquetado: false }]
+                }, template: "<input name='fullyPaid' class='chk-agregar' type='checkbox' data-bind='checked: Encintado' #= Encintado ? checked='checked' : '' #/>", width: "50px", attributes: { style: "text-align:center;" }
+            },
+
+             {
+                 field: "Etiquetado", title: _dictionary.columnEtiquetadoEmbarque[$("#language").data("kendoDropDownList").value()], filterable: {
+                     multi: true,
+                     messages: {
+                         isTrue: _dictionary.lblVerdadero[$("#language").data("kendoDropDownList").value()],
+                         isFalse: _dictionary.lblFalso[$("#language").data("kendoDropDownList").value()],
+                         style: "max-width:100px;"
+                     },
+                     dataSource: [{ Etiquetado: true }, { Etiquetado: false }]
+                 }, template: "<input name='fullyPaid' class='chk-agregar' type='checkbox' data-bind='checked: Etiquetado' #= Etiquetado ? checked='checked' : '' #/>", width: "50px", attributes: { style: "text-align:center;" }
+             }
+
         ]
     });
     CustomisaGrid($("#grid"));
