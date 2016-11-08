@@ -39,6 +39,7 @@ function CargarGrid() {
 
     $("#grid").kendoGrid({
         autoBind: true,
+        autoSync: true,
         edit: function (e) {
             if ($('#Guardar').text() == "Editar" || $('#Guardar').text() == "Edit") {
                 this.closeCell();
@@ -72,37 +73,20 @@ function CargarGrid() {
             serverFiltering: false,
             serverSorting: false
         },
+        pageable: {
+            refresh: false,
+            pageSizes: [10, 25, 50, 20],
+            info: false,
+            input: false,
+            numeric: true,
+            // buttonCount: 2
+        },
         navigatable: true,
-        filterable: {
-            extra: false
-        },
-        beforeEdit: function (e) {
-            var columnIndex = this.cellIndex(e.container);
-            var fieldName = this.thead.find("th").eq(columnIndex).data("field");
-            if (!isEditable(fieldName, e.model)) {
-                e.preventDefault();
-            }
-        },
         editable: true,
         autoHeight: true,
         sortable: true,
         scrollable: true,
-        pageable: {
-            refresh: false,
-            pageSizes: [10, 25,50, 20],
-            info: false,
-            input: false,
-            numeric: true,
-        },
-        filterMenuInit: function (e) {
-            if (e.field === "UnitPrice" || e.field === "UnitsInStock") {
-                var filterMultiCheck = this.thead.find("[data-field=" + e.field + "]").data("kendoFilterMultiCheck")
-                filterMultiCheck.container.empty();
-                filterMultiCheck.checkSource.sort({ field: e.field, dir: "asc" });
-                filterMultiCheck.checkSource.data(filterMultiCheck.checkSource.view().toJSON());
-                filterMultiCheck.createCheckBoxes();
-            }
-        },
+        selectable: true,
         filterable: getGridFilterableMaftec(),
         columns: [
             { field: "SpoolID", title: _dictionary.columnSpoolIDEmbarque[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px" },

@@ -18,7 +18,7 @@ function suscribirEventoProyecto() {
         filter: "contains",
         index: 3,
         change: function (e) {
-            if ($("#Proyecto").data("kendoComboBox").dataItem($("#Area").data("kendoComboBox").select()) != undefined) {
+            if ($("#Proyecto").data("kendoComboBox").dataItem($("#Proyecto").data("kendoComboBox").select()) != undefined) {
                 //AjaxCargarCuadrante($("#Area").data("kendoComboBox").value());
             }
             else {

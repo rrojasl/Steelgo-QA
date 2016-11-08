@@ -7845,6 +7845,14 @@ _dictionary = {
         "es-MX": "Captura Pruebas por Lotes",
         "en-US": "Batch Capture Test "
     },
+    "menuConsultaSpool": {
+        "es-MX": "SPool",
+        "en-US": "SPool"
+    },
+    "menuConsultaEstatusSpool": {
+        "es-MX": "Estatus del SPool",
+        "en-US": "SPool Status"
+    },
     "menuEmbarque": {
         "es-MX": "Embarque",
         "en-US": "Shipment"
@@ -7853,12 +7861,13 @@ _dictionary = {
         "es-MX": "Consulta",
         "en-US": "Query"
     },
+
     "menuEmbarqueEtiquetar": {
-        "es-MX": "Etiquetar",
-        "en-US": "Label"
+        "es-MX": "Etiquetado",
+        "en-US": "Labeled"
     },
     "menuEmbarqueEncintar": {
-        "es-MX": "Encintar",
+        "es-MX": "Encintado",
         "en-US": "Taping"
     },
     "menuEmbarqueCarga": {
@@ -7870,8 +7879,8 @@ _dictionary = {
         "en-US": "Packaging"
     },
     "menuEmbarqueCarro": {
-        "es-MX": "Carro",
-        "en-US": "Car"
+        "es-MX": "Preparación Embarque",
+        "en-US": "Shipping Preparation"
     },
     "menuEmbarqueListadoEmbarque": {
         "es-MX": "Listado Embarque",

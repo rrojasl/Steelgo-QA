@@ -34,13 +34,6 @@ function CargarGrid() {
             serverFiltering: false,
             serverSorting: false
         },
-        navigatable: true,
-        editable: true,
-        autoHeight: true,
-        sortable: true,
-        scrollable: false,
-        selectable: true,
-         //filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
         pageable: {
             refresh: false,
             pageSizes: [10, 25, 50, 20],
@@ -49,6 +42,12 @@ function CargarGrid() {
             numeric: true,
            // buttonCount: 2
         },
+        navigatable: true,
+        editable: true,
+        autoHeight: true,
+        sortable: true,
+        scrollable: true,
+        selectable: true,
         filterable: getGridFilterableMaftec(),
         columns: [
             { field: "SpoolID", title: _dictionary.columnSpoolIDEmbarque[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "160px" },

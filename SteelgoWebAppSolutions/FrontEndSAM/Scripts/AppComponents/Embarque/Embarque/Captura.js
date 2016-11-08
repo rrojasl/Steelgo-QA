@@ -30,7 +30,7 @@ function CargarGrid() {
                     { field: "Accion", operator: "eq", value: undefined }
                 ]
             },
-            pageSize: 20,
+            pageSize: 10,
             serverPaging: false,
             serverFiltering: false,
             serverSorting: false
@@ -50,8 +50,12 @@ function CargarGrid() {
             input: false,
             numeric: true,
         },
+        filterable: getGridFilterableMaftec(),
         columns: [
-            { field: "Plana", title:"Plana", filterable: true },
+            { field: "Plana", title: "Plana", filterable: getGridFilterableCellMaftec() },
+            { field: "CantidadSPools", title: "Cantidad SPools", filterable: getGridFilterableCellMaftec() },
+            { field: "Toneladas", title: "Toneladas", filterable: getGridFilterableCellMaftec() },
+            { field: "M2", title: "M2", filterable: getGridFilterableCellMaftec() },
              {
                  command: {
                      text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()],

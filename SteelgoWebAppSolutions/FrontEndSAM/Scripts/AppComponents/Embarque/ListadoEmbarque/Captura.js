@@ -61,7 +61,8 @@ function CargarGrid() {
         },
         columns: [
             { field: "Folio", title: "Embarque",filterable: true, width: "140px" },
-            { field: "Plana", title: "Plana",filterable: true, width: "140px" },
+            { field: "Plana", title: "Plana", filterable: true, width: "140px" },
+            { field: "DestinoEmbarque", title: "Destino Emb.", filterable: true, width: "140px" },
             { field: "PapelesCliente", title: "Pap cliente",filterable: true, template: "<button  type='button' class='btn btn-blue imprimirPapelesCliente'> <span>" + "Imprimir" + "</span></button>", width: "140px" },
             { field: "paplelesAduana", title: "Pap aduana",filterable: true, template: "<button  type='button' class='btn btn-blue imprimirPapelesAduana' Style='display: #= RequierePermisoAduana == 0 ? 'none;' : 'block;' #' > <span>" +"Imprimir"+ "</span></button>", width: "140px" },
             { field: "FolioSolicitarPermisos", title: "Sol. permiso", filterable: true, template: "<button  type='button' class='btn btn-blue botonFolio' Style='display: #= FolioSolicitarPermisos!='' || RequierePermisoAduana == 0 ? 'none;' : 'block;' #'> <span>" + "Capturar" + "</span></button><span>#= FolioSolicitarPermisos #</span>", width: "140px" },

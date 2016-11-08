@@ -9,7 +9,7 @@
         <a href="#"><span id="lblEmbarque">Embaque</span></a>
     </li>
     <li class="active">
-        <a href="@Url.Action("Embarque", "Embarque")"><span id="lblEmbarque2">Embarque carro</span></a>
+        <a href="@Url.Action("Embarque", "Embarque")"><span id="lblEmbarque2">Preparacion Embarque</span></a>
     </li>
 }
 <div id="FormEmbarqueEmbarque" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -36,12 +36,12 @@
                 </div>
                 <div class="button-section actionButtonSection">
                     <div class="dropdown action-group">
-                        <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
+                        <a id="Acciones" data-target="#" href="#/" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
                             <span id="botonAcciones1"></span>
                             <span class="caretBlue"></span>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="Acciones">
-                            @*<li><a href="#" id="btnEmbarqueCerrarPlana" class="btnCerrarPlana"><span id="EmbarqueCargaBotonCerrarPlana">Imprimir papeleria cliente</span></a></li>*@
+                            <li><a href="#" id="btnEmbarqueELiminarEmbarque" class="btnCerrarPlana"><span id="">Eliminar Embarque</span></a></li>
 
                         </ul>
                     </div>
@@ -52,14 +52,9 @@
 
         </div>
     </div>
-    <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <label id=""><span id="EmbarqueProyector">Embarque: Emb-001</span></label>
-        </div>
-    </div>
-    </br>
+   
     @*Controles Superior*@
-    <div class="row">
+    <div class="row addedSectionInLineWithoutColor">
         <input type="hidden" value=@ViewBag.embarqueID id="embarqueID" />
         <div class="col-sm-2 col-md-2 col-lg-2" id="ProveedorDiv">
             <label id=""><span id="EmbarqueProyector">Proyecto</span></label>
@@ -77,6 +72,13 @@
             <label id=""><span id="EmbarqueChofer">Chofer</span></label>
             <input id="Chofer" />
         </div>
+        <div class="col-sm-2 col-md-2 col-lg-2" id="EmbarqueDiv">
+            <label id=""><span id="">Embarque</span></label>
+            <input id="Embarque" />
+        </div>
+    </div>
+   
+    <div class="row addedSectionInLineWithoutColor">
         <div class="col-sm-2 col-md-2 col-lg-2">
             <label id=""><span id="EmbarquePlana">Plana</span></label>
             <input id="Plana" />
@@ -122,7 +124,7 @@
                             <span class="caretBlue"></span>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="Acciones">
-                            @*<li><a href="#" id="btnEmbarqueCerrarPlana" class="btnCerrarPlana"><span id="EmbarqueCargaBotonCerrarPlana">Imprimir papeleria cliente</span></a></li>*@
+                            <li><a href="#" id="btnEmbarqueELiminarEmbarque" class="btnCerrarPlana"><span id="">Eliminar Embarque</span></a></li>
                         </ul>
                     </div>
                 </div>
