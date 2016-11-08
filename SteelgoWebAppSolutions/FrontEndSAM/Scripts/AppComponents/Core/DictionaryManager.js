@@ -7850,7 +7850,7 @@ _dictionary = {
         "en-US": "SPool"
     },
     "menuConsultaEstatusSpool": {
-        "es-MX": "Estatus del SPool",
+        "es-MX": "Estatus del Spool",
         "en-US": "SPool Status"
     },
     "menuEmbarque": {
