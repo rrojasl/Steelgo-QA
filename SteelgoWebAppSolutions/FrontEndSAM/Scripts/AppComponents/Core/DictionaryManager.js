@@ -4,6 +4,10 @@
 }
 
 _dictionary = {
+    "MensajeConfirmacionGuardadoGeneral": {
+        "es-MX": "Los registros marcados no serán guardados. ¿Desea continuar?",
+        "en-US": "Marked records will not be saved. Continue anyway?"
+    },
     "textoCancelar": {
         "es-MX": "Cancelar",
         "en-US": "Cancel"
@@ -8933,9 +8937,9 @@ _dictionary = {
         "en-US": "Welding"
     },
     "GridSoldadoresRaizDescripcion": {
-            "es-MX": "Soldadores Raiz",
-            "en-US": "Welders root"
-        },
+        "es-MX": "Soldadores Raiz",
+        "en-US": "Welders root"
+    },
     "CapturaSoldaduraJuntaCapturada": {
         "es-MX": "La junta ya fue capturada",
         "en-US": "The joint is captured"
@@ -9024,6 +9028,38 @@ _dictionary = {
         "es-MX": "Soldadura",
         "en-US": "Welding"
     },
+    "lblPQRCapturaBorradoCaptura": {
+        "es-MX": "¿Está seguro de cancelar el detalle de la captura de PQR?",
+        "en-US": "Are you sure you want to cancel the detail of the capture of PQR?"
+    },
+    "lblPQRElementoPQR": {
+        "es-MX": "El elemento PQR ",
+        "en-US": "The PQR element "
+    },
+    "lblPQRYaAsignado": {
+        "es-MX": " se encuentra asignado, favor de revisar el Catalogo WPS",
+        "en-US": " is assigned, please review the WPS Catalog"
+    },
+    "lblPQREspNARell": {
+        "es-MX": "El espesor de relleno debe ser mayor a cero si el proceso de relleno es diferente a N/A",
+        "en-US": "The filler thickness must be greater greater than zero if the filling process is different from N/A"
+    },
+    "lblPQREspNARaiz": {
+        "es-MX": "El espesor de raiz debe ser mayor a cero si el proceso de raiz es diferente a N/A",
+        "en-US": "The root thickness must be greater greater than zero if the root process is different from N/A"
+    },
+    "CapturaAvanceIntAcabadoMensajeErrorGuardado": {
+        "es-MX": "Error al guardar",
+        "en-US": "Error"
+    },
+    "CapturaAvanceIntAcabadoMensajePreguntaGuardado": {
+        "es-MX": "Los registros marcados no serán guardados. ¿Desea continuar?",
+        "en-US": "Marked records will not be saved. Continue anyway?"
+    },
+    "lblPQRAsignarGrupoP": {
+        "es-MX": "El PQR ya está asignado en WPS, el grupo P deben coincidir para ser modificado",
+        "en-US": "The PQR is already assigned in WPS, the P group must match to be modified"
+    },
     //Finaliza PQR
 
     //Pantalla WPS
@@ -9031,7 +9067,22 @@ _dictionary = {
         "es-MX": "WPS",
         "en-US": "WPS"
     },
+    "WPSMensajeEliminar": {
+        "es-MX": "¿Esta seguro de eliminar el WPS?",
+        "en-US": "Are you sure to delete the WPS?"
+    },
     //Finaliza WPS
+
+    //Pantalla WPS Nuevo
+    "WPSMensajeErrorPREHEAT": {
+        "es-MX": "Los PREHEAT no coinciden",
+        "en-US": "PREHEAT don't match "
+    },
+    "WPSMensajeErrorPQRNoAplicaRelleno": {
+        "es-MX": "El WPS no aplica para relleno",
+        "en-US": "WPS dont apply to fill"
+    },
+    //Finaliza WPS Nuevo
 
     //Pantalla Soldador Certificacion
     "SoldadorPQRExistente":
@@ -9130,6 +9181,42 @@ _dictionary = {
     "botonPQRInf": {
         "es-MX": "PQR",
         "en-US": "PQR"
+    },
+    "lblPQRNombreMandatorio": {
+        "es-MX": "El campo NOMBRE del PQR es mandatorio",
+        "en-US": "The field NAME of PQR is mandatory"
+    },
+    "lblPQREspRellMandatorio": {
+        "es-MX": "El campo E. RELLENO es mandatorio",
+        "en-US": "The field FILL THK is mandatory"
+    },
+    "lblPQREspRaizMandatorio": {
+        "es-MX": "El campo E. RAIZ es mandatorio",
+        "en-US": "The field ROOT THK is mandatory"
+    },
+    "lblPQRProcSoldMandatorio": {
+        "es-MX": "El campo PROC RELLENO del PQR es mandatorio",
+        "en-US": "The field FILL PROC is mandatory"
+    },
+    "lblPQRProcRaizMandatorio": {
+        "es-MX": "El campo PROC RAIZ del PQR es mandatorio",
+        "en-US": "The field ROOT PROC is mandatory"
+    },
+    "lblPQRGrpB1Mandatorio": {
+        "es-MX": "El campo GPO P BASE 1 es mandatorio",
+        "en-US": "The field P GRP BASE 1 is mandatory"
+    },
+    "lblPQRGrpB2Mandatorio": {
+        "es-MX": "El campo GPO P BASE 2 es mandatorio",
+        "en-US": "The field P GRP BASE 2 is mandatory"
+    },
+    "lblPQRCodigoMandatorio": {
+        "es-MX": "El campo CÓDIGO es mandatorio",
+        "en-US": "The field CODE is mandatory"
+    },
+    "lblPQRNoRepetidos": {
+        "es-MX": "El nombre del PQR no se puede repetir",
+        "en-US": "The PQR name can't be repeated"
     },
     //Finaliza Nuevo PQR
 
@@ -10079,9 +10166,9 @@ _dictionary = {
 
     // Empieza  embarque
     "columnSpoolIDEmbarque": {
-      "es-MX": "Spool ID ",
-      "en-US": "Spool ID"
-  },
+        "es-MX": "Spool ID ",
+        "en-US": "Spool ID"
+    },
 
     "columnPasoEmbarque": {
         "es-MX": "Paso ",
@@ -10089,9 +10176,9 @@ _dictionary = {
     },
 
     "columnCuadranteEmbarque": {
-              "es-MX":"Cuadrante",
-              "en-US": "Quadrant"
-          },
+        "es-MX":"Cuadrante",
+        "en-US": "Quadrant"
+    },
 
     "columnDibujoEmbarque": {
         "es-MX": "Dibujo ",
@@ -10144,5 +10231,5 @@ _dictionary = {
         "es-MX": "Guardar, Cerrar y Nuevo ",
         "en-US": "Sava, Close and New"
     },
-    //fin acciones botones de embarque 
+    //fin acciones botones de embarque
 };

@@ -121,7 +121,22 @@ function CargarGrid() {
              { width: "120px", field: "GrupoF", title: _dictionary.columnGrupoF[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec() },
              { width: "200px", field: "Especificacion", title: _dictionary.columnCodigo[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxEspecificacion },
              { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: cancelarCaptura }, width: "50px", title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()] }
-        ]
+        ],
+        dataBound: function (e) {
+        var grid = $("#grid").data("kendoGrid");
+        var gridData = grid.dataSource.view();
+
+        for (var i = 0; i < gridData.length; i++) {
+            var currentUid = gridData[i].uid;
+            if (gridData[i].RowOk == false) {
+                grid.table.find("tr[data-uid='" + currentUid + "']").css("background-color", "#ffcccc");
+            }
+            else if (gridData[i].RowOk) {
+                grid.table.find("tr[data-uid='" + currentUid + "']").css("background-color", "#ffffff");
+            }
+
+        }
+    }
     });
     CustomisaGrid($("#grid"));
 

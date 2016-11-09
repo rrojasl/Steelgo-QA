@@ -111,34 +111,16 @@ function CargarGrid() {
             schema: {
                 model: {
                     fields: {
-                        ProyectoID: { type: "string", editable: false },
-                        Proyecto: { type: "string", editable: false },
-                        OrdenTrabajoID: { type: "string", editable: false },
-                        OrdenTrabajo: { type: "string", editable: false },
-                        OrdenTrabajoSpoolID: { type: "string", editable: false },
-                        SpoolID: { type: "string", editable: false },
-                        JuntaID: { type: "string", editable: false },
                         Junta: { type: "string", editable: false },
-                        TipoJunta: { type: "string", editable: false },
-                        TipoJuntaID: { type: "string", editable: false },
+                        DetalleJunta: { type: "string", editable: false },
                         Diametro: { type: "number", editable: false },
-                        Resultado: { type: "string", editable: true },
-                        ResultadoID: { type: "string", editable: true },
-                        TallerID: { type: "string", editable: true },
                         Taller: { type: "string", editable: true },
-                        DefectosID: { type: "string", editable: true },
+                        Resultado: { type: "string", editable: true },
                         Defectos: { type: "string", editable: true },
-
-                        InspectorID: { type: "string", editable: true },
                         Inspector: { type: "string", editable: true },
                         FechaInspeccion: { type: "date", editable: true },
                         NumeroUnico1: { type: "string", editable: true },
                         NumeroUnico2: { type: "string", editable: true },
-                        NumeroUnicoIID: { type: "int", editable: false },
-                        NumeroUnico2ID: { type: "int", editable: false },
-                        Clave1: { type: "string", editable: true },
-                        Clave2: { type: "string", editable: true },
-                        DetalleJunta: { type: "string", editable: false }
                     }
                 }
             },
@@ -192,9 +174,19 @@ function CargarGrid() {
             }
         },
         dataBound: function (e) {
-            $(".k-grid input.k-textbox").prop('readonly', true);
-            $(".k-grid td .k-button").text('');
-            $(".k-grid td:first-child, .k-grid td:last-child").css('text-overflow', 'clip');
+            var grid = $("#grid").data("kendoGrid");
+            var gridData = grid.dataSource.view();
+
+            for (var i = 0; i < gridData.length; i++) {
+                var currentUid = gridData[i].uid;
+                if (gridData[i].RowOk == false) {
+                    grid.table.find("tr[data-uid='" + currentUid + "']").css("background-color", "#ffcccc");
+                }
+                else if (gridData[i].RowOk) {
+                    grid.table.find("tr[data-uid='" + currentUid + "']").css("background-color", "#ffffff");
+                }
+
+            }
         }
     });
     CustomisaGrid($("#grid"));

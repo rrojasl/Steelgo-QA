@@ -55,6 +55,8 @@ function AjaxGuardarListado() {
             Estatus: 1
         };
 
+        $("#grid").data("kendoGrid").dataSource._data[index].RowOk = true;
+
         if ((arregloCaptura[index].Nombre == "" || arregloCaptura[index].Nombre == undefined || arregloCaptura[index].Nombre == null) ||
             (arregloCaptura[index].EspesorRaiz == null || arregloCaptura[index].EspesorRelleno == null) ||
             (arregloCaptura[index].ProcesoSoldaduraRaizID == 0 || arregloCaptura[index].ProcesoSoldaduraRaizID == undefined || arregloCaptura[index].ProcesoSoldaduraRaizID == "" || arregloCaptura[index].ProcesoSoldaduraRaizID == null) ||
@@ -69,7 +71,7 @@ function AjaxGuardarListado() {
             (arregloCaptura[index].CodigoASMEID == 0 || arregloCaptura[index].CodigoASMEID == undefined || arregloCaptura[index].CodigoASMEID == "" || arregloCaptura[index].CodigoASMEID == null)) {
 
             ListaDetalles[index].Estatus = 0;
-            $('tr[data-uid="' + arregloCaptura[index].uid + '"] ').css("background-color", "#ffcccc");
+            $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
 
             if (arregloCaptura[index].ProcesoSoldaduraRaizID == 6 && arregloCaptura[index].ProcesoSoldaduraRellenoID == 6 && !desplegadoNA) {
                 desplegadoNA = true;
@@ -119,6 +121,8 @@ function AjaxGuardarListado() {
     }
     Captura[0].Detalles = ListaDetalles;
 
+    $("#grid").data("kendoGrid").dataSource.sync();
+
     if (!NombreRepetido(ListaDetalles)) {
         if (!ExistRowEmpty(ListaDetalles)) {
             if (Captura[0].Detalles.length > 0 && correcto) {
@@ -126,6 +130,7 @@ function AjaxGuardarListado() {
                 $PQR.PQR.create(Captura[0], { token: Cookies.get("token"), accion: 2 }).done(function (data) {
                     if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "OK") {
                         displayNotify("CapturaMensajeGuardadoExitoso", "", '0');
+                        opcionHabilitarView(true);
                         LlenaGridAjax();
                         loadingStop();
                     }

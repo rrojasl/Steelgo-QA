@@ -69,7 +69,8 @@ namespace BackEndSAM.DataAcces.ConfiguracionSoldadura
                                 RegistrosWPS = item.RegistrosWPS.GetValueOrDefault(),
                                 ListaProcesosSoldadura = (List<ListaProcesoSoldadura>)obtenerListadoProcesos(TipoAccion),
                                 ListaMaterialesBase = (List<ListaMaterialesBase>)obtenerListadoMaterialesBase(TipoAccion),
-                                ListaCodigos = (List<ListaCodigos>)obtenerListadoCodigos(usuarioID, especificacion, codigo)
+                                ListaCodigos = (List<ListaCodigos>)obtenerListadoCodigos(usuarioID, especificacion, codigo),
+                                RowOk = true
                             });
                     }
 

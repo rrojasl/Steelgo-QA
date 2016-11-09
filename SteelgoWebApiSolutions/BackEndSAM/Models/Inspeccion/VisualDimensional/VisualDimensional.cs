@@ -47,7 +47,7 @@ namespace BackEndSAM.Models.Inspeccion.VisualDimensional
         public List<NumeroUnico> ListaNumerosUnicos1 { get; set; }
         public List<NumeroUnico> ListaNumerosUnicos2 { get; set; }
         public List<Resultado> ListaResultados { get; set; }
-
+        public bool RowOk { get; set; }
         public string DetalleJunta { get; set; }
 
     }
