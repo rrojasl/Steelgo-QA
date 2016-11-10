@@ -37,7 +37,7 @@
                     <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar"></span></a>
                 </div>
                 <div id="CargasEmbarqueDivSuperior" class="button-section">
-                    <a id="CargasEmbarqueSuperior" href=@Url.Action("Carga", "Embarque") class="btn btn-primary"><span id="botonEmbarque">Carga</span></a>
+                    <a id="CargasEmbarqueSuperior" href=@Url.Action("Carga", "Embarque") class="btn btn-primary"><span id="botonEmbarque">Carga plana</span></a>
                 </div>
                 <div class="button-section actionButtonSection">
                     <div class="dropdown action-group">
@@ -89,7 +89,7 @@
     <div class="row addedSectionInLineWithoutColor">
         <div class="col-sm-2 col-md-2 col-lg-2">
             <div class="btn-group " role="group">
-                <label id="EmbarqueCargaSelecciona"></label>
+                <label id="">Tipo carga:</label>
                 <label id="styleReporte">
                     <input type="radio" name="RevisionEmbarqueTipoSeleccion" style="width:auto;" value="Spool" checked="checked" /><span id="RevisionEmbarqueOpcionSpool">Spool</span>
                 </label>
@@ -123,18 +123,7 @@
             </div>
         </div>
     </div>
-    @*GRID*@
-    <div class="row addedSectionInLine">
-        <div class="col-sm-8 col-md-8 col-lg-8">
-
-        </div>
-
-        <div id="ContenedorGrid" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <div id="grid" data-role="grid" class="k-grid k-widget">
-            </div>
-        </div>
-        <input id="hdAccionFiltrado" type="hidden" />
-    </div>
+    
     @*Menu Inferior*@
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -153,7 +142,7 @@
                     <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar1"></span></a>
                 </div>
                 <div id="EntregaresultadosDivINF" class="button-section">
-                    <a id="EntregaresultadosINF" class="btn btn-primary"><span id="">Embarque carro</span></a>
+                    <a id="EntregaresultadosINF"  href=@Url.Action("Carga", "Embarque") class="btn btn-primary"><span id="">Carga plana</span></a>
                 </div>
                 <div class="button-section actionButtonSection">
                     <div class="dropdown action-group">

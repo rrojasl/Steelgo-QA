@@ -7875,8 +7875,8 @@ _dictionary = {
         "en-US": "Taping"
     },
     "menuEmbarqueCarga": {
-        "es-MX": "Carga",
-        "en-US": "Charge"
+        "es-MX": "Carga plana",
+        "en-US": "Flat Charge"
     },
     "menuEmbarqueEmpaquetado": {
         "es-MX": "Empaquetado",

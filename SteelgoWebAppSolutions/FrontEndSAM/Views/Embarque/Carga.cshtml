@@ -10,7 +10,7 @@
         <a href="#"><span id="lblEmbarque">Embarque</span></a>
     </li>
     <li class="active">
-        <a href=@Url.Action("Cargas", "Embarque")><span id="lblCargas">Carga</span></a>
+        <a href=@Url.Action("Cargas", "Embarque")><span id="lblCargas">Carga plana</span></a>
     </li>
 }
 
@@ -241,7 +241,7 @@
                     <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar1"></span></a>
                 </div>
                 <div id="EntregaresultadosDivINF" class="button-section">
-                    <a id="EntregaresultadosINF" class="btn btn-primary"><span id="">Empaquetado</span></a>
+                    <a id="EntregaresultadosINF"  href=@Url.Action("EmbarqueCarro", "Embarque") class="btn btn-primary"><span id="">Preparación Embarque</span></a>
                 </div>
                 <div class="button-section actionButtonSection">
                     <div class="dropdown action-group">
