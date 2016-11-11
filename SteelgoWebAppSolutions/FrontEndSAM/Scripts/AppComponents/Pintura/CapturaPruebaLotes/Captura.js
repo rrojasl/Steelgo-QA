@@ -95,27 +95,24 @@ function CargarGridPopUp() {
             data: [
                 {
                     Accion: 1,
-                    Prueba: "Adherencia",
-                    UnidadMedida: "PLG",
+                    Fecha: "08/11/2016",
                     ValorUnidadMedida: 5,
-                    Aprobado: false
+                    Aprobado: "NO"
                 },
                 {
                     Accion: 1,
-                    Prueba: "Adherencia",
-                    UnidadMedida: "PLG",
+                    Fecha: "08/11/2016",
                     ValorUnidadMedida: 2,
-                    Aprobado: true
+                    Aprobado: "SI"
                 }
             ],
             schema: {
                 model: {
                     fields: {
                         Accion: { type: "number", editable: false },
-                        Prueba: { type: "string", editable: false },
-                        UnidadMedida: { type: "string", editable: false },
+                        Fecha: { type: "string", editable: false },
                         ValorUnidadMedida: { type: "number", editable: false },
-                        Aprobado: { type: "boolean", editable: false }
+                        Aprobado: { type: "string", editable: false }
                     }
                 }
             }, filter: {
@@ -136,12 +133,10 @@ function CargarGridPopUp() {
         sortable: true,
         scrollable: true,
         columns: [
-                { field: "Prueba", title: _dictionary.lblPrueba[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "20px" },
-                { field: "UnidadMedida", title: "U. Medida", filterable: getGridFilterableCellMaftec(), width: "20px" },
+                { field: "Fecha", title: _dictionary.columnFechaPrueba[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "20px" },
                 { field: "ValorUnidadMedida", title: "Valor U. Medida", filterable: getGridFilterableCellNumberMaftec(), width: "20px", attributes: { style: "text-align:right;" } },
                 { field: "Aprobado", title: "Aprobado", filterable: getGridFilterableCellNumberMaftec(), width: "20px" },
-                { command: { text: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()] }, title: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()], width: "10px", attributes: { style: "text-align:center;" } },
-                { command: { text: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()] }, title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], width: "10px", attributes: { style: "text-align:center;" } }
+                { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()] }, title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], width: "10px", attributes: { style: "text-align:center;" } }
         ],
         toolbar: [{ name: "create" }]
 
@@ -195,15 +190,14 @@ function LlenarGridPopUp() {
 }
 
 function VentanaModal() {
-    var modalTitle = "Detalle";
+    var modalTitle = "Prueba Adherencia(PLG)";
     var window = $("#windowGrid");
     var win = window.kendoWindow({
         modal: true,
         title: modalTitle,
         resizable: false,
         visible: true,
-        width: "50%",
-        minWidth: 30,
+        width: "70%",
         position: {
             top: "10px",
             left: "10px"
@@ -212,7 +206,7 @@ function VentanaModal() {
             "Close"
         ],
         close: function onClose(e) {
-            var gridDataSource = $("#gridPopUp").data("kendoGrid").dataSource;
+            //var gridDataSource = $("#gridPopUp").data("kendoGrid").dataSource;
           //  gridDataSource.filter([]);
         }
     }).data("kendoWindow");

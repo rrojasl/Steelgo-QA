@@ -41,11 +41,13 @@
                             </div>*@
                         <div class="button-section actionButtonSection">
                             <div class="dropdown action-group">
-                                <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
+                                <a id="Acciones" data-target="#" href="#/" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
                                     <span id="botonAcciones1"></span>
                                     <span class="caretBlue"></span>
                                 </a>
-                                <ul class="dropdown-menu" aria-labelledby="Acciones"></ul>
+                                <ul class="dropdown-menu" aria-labelledby="Acciones">
+                                    <li><a href="#/" id="btnGenerarReporte"><span id="botonGenerarReporte"></span></a></li>
+                                </ul>
                             </div>
                         </div>
                         <a id="Imprimir" href="#" class="btn btn-fadeBlue actionButtonSection"></a>
@@ -85,10 +87,39 @@
                 </div>
                 <div class="col-xs-12 col-sm-4 col-md-1 col-lg-2" id="CapturaArmadoHeaderSpoolIDDiv1">
                     <label id="">&nbsp;</label>
-                    <button id="btnBuscar" onclick="javascript:void(0);" type="button" class="btn btn-blue"><span>Mostrar</span></button>
+                    <button id="btnBuscar" onclick="javascript:void(0);" type="button" class="btn btn-blue"><span>Buscar</span></button>
                 </div>
             </div>
-            <br />
+        </div>
+        <div class="row addedSectionInLineWithoutColor">
+            <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 altoControl">
+                <label id="lblSpoolID1"></label>
+                <label id="labelSpool">X001-001</label>
+            </div>
+            <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 altoControl">
+                <label id="lblSistemaPintura"></label>
+                <label id="labelSistemaPintura">A1</label>
+            </div>
+            <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 altoControl">
+                <label id="lblColor"></label>
+                <label id="labelColor">Amarillo</label>
+            </div>
+            <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 altoControl">
+                <label id="lblAreaPatio"></label>
+                <label id="labelM2">23.90</label>
+            </div>
+            <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 altoControl">
+                <label id="lblLote"></label>
+                <label id="labelLote">Lote 1</label>
+            </div>
+            <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 altoControl">
+                <label id="lblCuadrante"></label>
+                <label id="labelCuadrante">C1</label>
+            </div>
+            <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 altoControl">
+                <label id="lblUnidadMedida"></label>
+                <label id="labelCuadrante">PLG</label>
+            </div>
         </div>
     </div>
     <div class="row addedSectionInLine ">
@@ -101,7 +132,7 @@
                         </div>*@
                     <div class="col-xs-12 col-sm-4 col-md-2 col-lg-2" id="">
                         <label id="">&nbsp;</label>
-                        <button id="btnAgregar" onclick="javascript:void(0);" type="button" class="btn btn-blue"><span>Agregar Spool</span></button>
+                        <button id="btnAgregar" onclick="javascript:void(0);" type="button" class="btn btn-blue"><span>Agregar Prueba</span></button>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <div id="ContenedorGrid" class="row">
@@ -129,8 +160,7 @@
                                     <span class="caretWhite"></span>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#" id="btnGuardar1"><span id="botonGuardar4"></span></a></li>
-                                    <li><a href="#" id="btnGuardarYNuevo1"><span id="botonGuardarYNuevo1"></span></a></li>
+                                    <li><a href="#/" id="btnGenerarReporte1"><span id="botonGenerarReporte1"></span></a></li>
                                 </ul>
                             </div>
                             <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar1"></span></a>
@@ -140,7 +170,7 @@
                             </div>*@
                         <div class="button-section actionButtonSection">
                             <div class="dropdown action-group">
-                                <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
+                                <a id="Acciones" data-target="#" href="#/" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
                                     <span id="botonAcciones2"></span>
                                     <span class="caretBlue"></span>
                                 </a>

@@ -6,8 +6,21 @@
     SuscribirEventoFechaLote();
     SuscribirEventoBuscar();
     SuscribirEventoGuardar();
-    //SuscribirEventoProyecto();
+    SuscribirEventoProyecto();
     suscribirEventoElementosAsignados();
+}
+
+function SuscribirEventoProyecto() {
+    $("#inputProyecto").kendoComboBox({
+        dataTextField: "Nombre",
+        dataValueField: "Proyecto",
+        suggest: true,
+        delay: 10,
+        filter: "contains",
+        index: 3
+
+    });
+
 }
 
 function SuscribirEventoSistemaPintura() {
@@ -21,19 +34,6 @@ function SuscribirEventoSistemaPintura() {
 
     });
 }
-
-//function SuscribirEventoProyecto() {
-//    $("#inputProyecto").kendoComboBox({
-//        dataTextField: "Nombre",
-//        dataValueField: "Proyecto",
-//        suggest: true,
-//        delay: 10,
-//        filter: "contains",
-//        index: 3
-
-//    });
-
-//}
 
 function SuscribirEventoProceso() {
 

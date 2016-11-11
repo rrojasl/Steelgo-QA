@@ -7536,6 +7536,10 @@ _dictionary = {
         "es-MX": "Cliente",
         "en-US": "Client"
     },
+    "lblUnidadMedida": {
+        "es-MX": "U. Medida",
+        "en-US": "Measure U"
+    },
     //Etiquetas header alertas
     "SuccessTitle": {
         "es-MX": "Correcto",
@@ -7721,6 +7725,14 @@ _dictionary = {
     "botonGuardarLiberarYNuevo1": {
         "es-MX": "Guardar, Liberar y Nuevo",
         "en-US": "Save, Release and New"
+    },
+    "botonGenerarReporte": {
+        "es-MX": "Generar Reporte",
+        "en-US": "Generate Report"
+    },
+    "botonGenerarReporte1": {
+        "es-MX": "Generar Reporte",
+        "en-US": "Generate Report"
     },
     // Finalizan etiquetas Header y Footer
 
@@ -8515,7 +8527,10 @@ _dictionary = {
         "es-MX": "U. max",
         "en-US": "Max U"
     },
-
+    "columnFechaPrueba": {
+        "es-MX": "Fecha Pba",
+        "en-US": "Test Date."
+    },
 
     // Finalizan Etiquetas Grid
     // Finalizan Etiquetas generales
