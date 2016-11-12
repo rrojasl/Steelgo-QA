@@ -50,6 +50,12 @@ namespace BackEndSAM.Models.ConfiguracionSoldadura.PQR
         public int RegistrosWPS { get; set; }
 
         public bool RowOk { get; set; }
+
+        public PQR()
+        {
+            PQRID = 0;
+            Nombre = "";
+        }
     }
 
     public class ListaProcesoSoldadura

@@ -40,6 +40,8 @@ namespace BackEndSAM.DataAcces.ConfiguracionSoldadura
                 {
                     List<Sam3_Soldadura_PQR_Result> listaPQRJson = ctx.Sam3_Soldadura_PQR(TipoAccion, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null).ToList();
 
+                    if (listaPQRJson.Count > 0)
+                        listaPQR.Add(new PQR());
                     foreach (Sam3_Soldadura_PQR_Result item in listaPQRJson)
                     {
                         listaPQR.Add(

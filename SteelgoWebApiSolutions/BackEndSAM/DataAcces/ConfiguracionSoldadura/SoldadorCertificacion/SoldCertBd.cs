@@ -110,7 +110,6 @@ namespace BackEndSAM.DataAcces.ConfiguracionSoldadura.SoldCertBd
                 listaObreros.Insert(0, new ObreroSteelGo());
                 return listaObreros;
             }
-
         }
         public object ObtenerNuevoSoldadorCertificacion(int usuarioID, int patioID)
         {

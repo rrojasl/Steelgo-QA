@@ -9097,6 +9097,14 @@ _dictionary = {
         "es-MX": "El WPS no aplica para relleno",
         "en-US": "WPS dont apply to fill"
     },
+    "WPSMensajeErrorGrupoP": {
+        "es-MX": "Los grupo P no coinciden",
+        "en-US": "P group don't match"
+    },
+    "WPSMensajeErrorPWHT": {
+        "es-MX": "Los PWHT no coinciden",
+        "en-US": "PWHT don't match"
+    },
     //Finaliza WPS Nuevo
 
     //Pantalla Soldador Certificacion
@@ -9174,6 +9182,14 @@ _dictionary = {
     "CapturaSoldadorCertificacionPreguntaBorradoCaptura": {
         "es-MX": "¿Está seguro de cancelar el detalle de la captura de Certificación?",
         "en-US": "Are you sure you want to cancel the detail of the capture of Certification?"
+    },
+    "SoldadorCertificacionPreguntaBorradoCaptura": {
+        "es-MX": "¿Está seguro de eliminar el detalle de la captura de Soldador Certificación?",
+        "en-US": "You are sure to delete the capture detail Welder Certification?"
+    },
+    "AdverteciaExcepcionGuardado": {
+        "es-MX": "No hay cambios por guardar",
+        "en-US": "There aren´t any change"
     },
     //Finaliza Soldador Certificacion
 

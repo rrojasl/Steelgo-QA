@@ -150,9 +150,9 @@ function AbrirVentanaModalVista() {
 };
 
 function changeLanguageCall() {
-    setTimeout(function () { SuscribirEventos(); }, 10)
-    setTimeout(function () { CargarGrid(); }, 1000)
-    setTimeout(function () { AjaxObtenerJSONGrid(); }, 2000)
+    CargarGrid();
+    SuscribirEventos();
+    setTimeout(function () { AjaxObtenerJSONGrid(); }, 100)
 };
 
 function tieneClase(item) {

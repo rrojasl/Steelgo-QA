@@ -39,7 +39,7 @@
 function RenderComboBoxSoldador(container, options) {
 
     var dataItem;
-    $('<input data-text-field="Codigo" id=' + options.model.uid + ' data-value-field="Codigo" data-bind="value:' + options.field + '"/>')
+    $('<input data-text-field="NombreCompleto" id=' + options.model.uid + ' data-value-field="ObreroID" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoComboBox({
             suggest: true,
@@ -47,16 +47,16 @@ function RenderComboBoxSoldador(container, options) {
             filter: "contains",
             autoBind: false,
             dataSource: options.model.listaObreros,
-            template: "<i class=\"fa fa-#=data.Codigo#\"></i> #=data.Codigo#",
+            template: "<i class=\"fa fa-#=data.NombreCompleto#\"></i> #=data.NombreCompleto#",
             change: function (e) {
                 e.preventDefault();
                 dataItem = this.dataItem(e.sender.selectedIndex);
                 if (dataItem != undefined && dataItem.Nombre != "") {
-                    options.model.CodigoObrero = dataItem.Codigo;
+                    options.model.CodigoObrero = dataItem.NombreCompleto;
                     options.model.ObreroID = dataItem.ObreroID;
                 }
                 else {
-                    options.model.CodigoObrero = dataItem.Codigo;
+                    options.model.CodigoObrero = dataItem.NombreCompleto;
                     options.model.ObreroID = dataItem.ObreroID;
                 }
             }

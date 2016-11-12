@@ -142,8 +142,8 @@ function HabilitarCapturaNuevoSoldadorCertificacioon(valor, name) {
 
         $('#botonGuardar').text(_dictionary.textoEditar[$("#language").data("kendoDropDownList").value()]);
         $('#botonGuardar2').text(_dictionary.textoEditar[$("#language").data("kendoDropDownList").value()]);
-        $('#CapturaGuardarPie').text(_dictionary.textoEditar[$("#language").data("kendoDropDownList").value()]);
-        $("#btnGuardarPiePagina").text(_dictionary.textoEditar[$("#language").data("kendoDropDownList").value()]);
+        $('#botonGuardar1').text(_dictionary.textoEditar[$("#language").data("kendoDropDownList").value()]);
+        $("#botonGuardar3").text(_dictionary.textoEditar[$("#language").data("kendoDropDownList").value()]);
 
     }
     else {
@@ -170,8 +170,8 @@ function HabilitarCapturaNuevoSoldadorCertificacioon(valor, name) {
 
         $('#botonGuardar').text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
         $('#botonGuardar2').text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
-        $('#CapturaGuardarPie').text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
-        $("#btnGuardarPiePagina").text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
+        $('#botonGuardar1').text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
+        $("#botonGuardar3").text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
     }
 }
 
