@@ -8,14 +8,14 @@ CargaInicial();
 function ConvertirCombos() {
 
     $("#EspesorRelleno").kendoNumericTextBox({
-        format: "#.0000",
-        decimals: 4,
+        format: "#",
+        decimals: 0,
         min: 0
     });
 
     $("#EspesorRaiz").kendoNumericTextBox({
-        format: "#.0000",
-        decimals: 4,
+        format: "#",
+        decimals: 0,
         min: 0
     });
 

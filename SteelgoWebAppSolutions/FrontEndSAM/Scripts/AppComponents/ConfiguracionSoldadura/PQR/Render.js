@@ -3,8 +3,8 @@
     $('<input data-text-field="EspesorRelleno" id=' + options.model.uid + ' data-value-field="EspesorRelleno" data-bind="value:' + options.field + '"/>')
     .appendTo(container)
     .kendoNumericTextBox({
-        format: "#.0000",
-        decimals: 4,
+        format: "#",
+        decimals: 0,
         min: 0
     });
 }
@@ -14,8 +14,8 @@ function RenderEspesorRaiz(container, options) {
     $('<input data-text-field="EspesorRaiz" id=' + options.model.uid + ' data-value-field="EspesorRaiz" data-bind="value:' + options.field + '"/>')
     .appendTo(container)
     .kendoNumericTextBox({
-        format: "#.0000",
-        decimals: 4,
+        format: "#",
+        decimals: 0,
         min: 0
     });
 }

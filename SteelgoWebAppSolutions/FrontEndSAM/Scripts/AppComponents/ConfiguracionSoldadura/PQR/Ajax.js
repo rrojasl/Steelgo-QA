@@ -3,7 +3,7 @@ function LlenaGridAjax() {
 
     var TipoDato = 1;
 
-    $PQR.PQR.read({ TipoDato: TipoDato, Proyecto: 28, PruebaID: 2, Especificacion: null, Codigo: null, token: Cookies.get("token") }).done(function (data) {
+    $PQR.PQR.read({ TipoDato: TipoDato, Proyecto: 28, PruebaID: 2, Especificacion: null, Codigo: null, token: Cookies.get("token"),pantallaEnvia:1 }).done(function (data) {
         if (Error(data)) {
             resultadoJson = data;
             if (resultadoJson.length > 0) {
@@ -57,7 +57,7 @@ function AjaxGuardarListado() {
 
         $("#grid").data("kendoGrid").dataSource._data[index].RowOk = true;
 
-        if ((arregloCaptura[index].Nombre == "" || arregloCaptura[index].Nombre == undefined || arregloCaptura[index].Nombre == null) ||
+        if (((arregloCaptura[index].Nombre == "" || arregloCaptura[index].Nombre == undefined || arregloCaptura[index].Nombre == null) ||
             (arregloCaptura[index].EspesorRaiz == null || arregloCaptura[index].EspesorRelleno == null) ||
             (arregloCaptura[index].ProcesoSoldaduraRaizID == 0 || arregloCaptura[index].ProcesoSoldaduraRaizID == undefined || arregloCaptura[index].ProcesoSoldaduraRaizID == "" || arregloCaptura[index].ProcesoSoldaduraRaizID == null) ||
             (arregloCaptura[index].ProcesoSoldaduraRellenoID == 0 || arregloCaptura[index].ProcesoSoldaduraRellenoID == undefined || arregloCaptura[index].ProcesoSoldaduraRellenoID == "" || arregloCaptura[index].ProcesoSoldaduraRellenoID == null) ||
@@ -68,7 +68,7 @@ function AjaxGuardarListado() {
             (arregloCaptura[index].ProcesoSoldaduraRaizID == 6 && arregloCaptura[index].EspesorRaiz > 0) ||
             (arregloCaptura[index].GrupoPMaterialBase1 == 0 || arregloCaptura[index].GrupoPMaterialBase1 == undefined || arregloCaptura[index].GrupoPMaterialBase1 == "" || arregloCaptura[index].GrupoPMaterialBase1 == null) ||
             (arregloCaptura[index].GrupoPMaterialBase2 == 0 || arregloCaptura[index].GrupoPMaterialBase2 == undefined || arregloCaptura[index].GrupoPMaterialBase2 == "" || arregloCaptura[index].GrupoPMaterialBase2 == null) ||
-            (arregloCaptura[index].CodigoASMEID == 0 || arregloCaptura[index].CodigoASMEID == undefined || arregloCaptura[index].CodigoASMEID == "" || arregloCaptura[index].CodigoASMEID == null)) {
+            (arregloCaptura[index].CodigoASMEID == 0 || arregloCaptura[index].CodigoASMEID == undefined || arregloCaptura[index].CodigoASMEID == "" || arregloCaptura[index].CodigoASMEID == null)) && arregloCaptura[index].Accion != 0) {
 
             ListaDetalles[index].Estatus = 0;
             $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;

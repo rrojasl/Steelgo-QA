@@ -9031,6 +9031,10 @@ _dictionary = {
     //Finaliza Soldadura
 
     //Pantalla PQR
+    "lblPQRDobleNA": {
+        "es-MX": "Los procesos de soldadura relleno y raiz no pueden coincidir en N/A",
+        "en-US": "Welding processes filling and root may not match in N/A"
+    },
     "PQRBreadcrumb": {
         "es-MX": "PQR",
         "en-US": "PQR"
@@ -9085,6 +9089,10 @@ _dictionary = {
     "WPSMensajeEliminar": {
         "es-MX": "¿Esta seguro de eliminar el WPS?",
         "en-US": "Are you sure to delete the WPS?"
+    },
+    "WPSMensajeErrorNombreRepetido": {
+        "es-MX": "El nombre del WPS no se puede repetir",
+        "en-US": "WPS Name can not be repeat"
     },
     //Finaliza WPS
 
