@@ -66,9 +66,10 @@ function CargarGrid() {
             { field: "PapelesCliente", title: "Pap cliente",filterable: true, template: "<button  type='button' class='btn btn-blue imprimirPapelesCliente'> <span>" + "Imprimir" + "</span></button>", width: "140px" },
             { field: "papelesAduana", title: "Pap aduana",filterable: true, template: "<button  type='button' class='btn btn-blue imprimirPapelesAduana' Style='display: #= RequierePermisoAduana == 0 ? 'none;' : 'block;' #' > <span>" +"Imprimir"+ "</span></button>", width: "140px" },
             { field: "FolioSolicitarPermisos", title: "Sol. permiso", filterable: true, template: "<button  type='button' class='btn btn-blue botonFolio' Style='display: #= FolioSolicitarPermisos!='' || RequierePermisoAduana == 0 ? 'none;' : 'block;' #'> <span>" + "Capturar" + "</span></button><span>#= FolioSolicitarPermisos #</span>", width: "140px" },
-            { field: "FolioAprobadoAduana", title: "Ap. cliente",filterable: true, template: "<button  type='button' class='btn btn-blue botonFolio' Style='display: #= FolioAprobadoAduana!='' || RequierePermisoAduana == 0 ? 'none;' : 'block;' #' > <span>" + "Capturar" + "</span></button><span>#= FolioAprobadoAduana #</span>", width: "150px" },
-            { field: "FolioAprobadoCliente", title: "Ap. aduana",filterable: true, template: "<button  type='button' class='btn btn-blue botonFolio' Style='display: #= FolioAprobadoCliente!=''  ? 'none;' : 'block;' #'> <span>" + "Capturar" + "</span></button><span>#= FolioAprobadoCliente #</span>", width: "140px" },
-            { field: "okEmbarque", title: "Ok embarque", filterable: true, width: "140px" },
+            { field: "FolioAprobadoAduana", title: "Ap. cliente",filterable: true, template: "<button  type='button' class='btn btn-blue botonFolio' Style='display: #= FolioAprobadoAduana!='' || RequierePermisoAduana == 0 ? 'none;' : 'block;' #' > <span>" + "Capturar" + "</span></button><span>#= FolioAprobadoAduana #</span>", width: "130px" },
+            { field: "FolioAprobadoCliente", title: "Ap. aduana", filterable: true, template: "<button  type='button' class='btn btn-blue botonFolio' Style='display: #= FolioAprobadoCliente!=''  ? 'none;' : 'block;' #'> <span>" + "Capturar" + "</span></button><span>#= FolioAprobadoCliente #</span>", width: "140px" },
+            { field: "okCalidad", title: "Ok calidad", filterable: true, width: "120px" },
+            { field: "okEmbarque", title: "Ok embarque", filterable: true, width: "130px" },
             { field: "Enviar", title: "Enviar", filterable: true, template: "<button  type='button' class='btn btn-blue botonEnviar' Style='display: #= FechaEnvio!=''  ? 'none;' : 'block;' #' > <span>" + "Enviar" + "</span></button>", width: "125px" },
         ]
     });

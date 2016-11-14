@@ -60,7 +60,7 @@ function CargarGrid() {
                         Comentario: { type: "string", editable: true },
                         Llego: { type: "boolean", editable: true },
                         NoLlego: { type: "boolean", editable: true },
-                        LlegoMas: { type: "boolean", editable: true }
+                        LlegoConComentarios: { type: "boolean", editable: true }
                     }
                 }
             },
@@ -70,9 +70,7 @@ function CargarGrid() {
             serverSorting: false
         },
         navigatable: true,
-        filterable: {
-            extra: false
-        },
+        
         editable: true,
         autoHeight: true,
         sortable: true,
@@ -84,13 +82,14 @@ function CargarGrid() {
             input: false,
             numeric: true,
         },
+        filterable: getGridFilterableMaftec(),
         columns: [
-            { field: "NumeroControl", title: "Spool",filterable: true, width: "140px" },
-            { field: "Paquete", title: "Paquete", filterable: true, width: "140px" },
-            { field: "Llego", title: "Llegó",filterable: true, template: '<input name="Llego"  type="checkbox" #= Llego ? "checked=checked" : "" # class="chkbx"  ></input>  ', width: "140px" },
-            { field: "NoLlego", title: "No llegó",filterable: true, template: '<input name="NoLlego" type="checkbox" #= NoLlego ? "checked=checked" : "" # class="chkbx"  ></input>  ', width: "140px" },
-            { field: "LlegoMas", title: "Llego más",filterable: true, template: '<input name="LlegoComentarios" type="checkbox" #= LlegoComentarios ? "checked=checked" : "" # class="chkbx"  ></input>  ', width: "140px" },
-            { field: "Comentario", title: "Comentario",filterable: true, template: kendo.template('<div  style="height=10px; border: #= LlegoComentarios && (String(Comentario) == ""|| Comentario == null )  ? " 1px solid red" : LlegoComentarios==false  && Comentario == null ? " 1px solid red" : " none" # ; z-index=9999;">#=Comentario==null ?"": Comentario #</div>'), width: "140px" },
+            { field: "NumeroControl", title: "Spool", filterable: getGridFilterableCellMaftec(), width: "140px" },
+            { field: "Paquete", title: "Paquete", filterable: getGridFilterableCellMaftec(), width: "140px" },
+            { field: "Llego", title: "Llegó", filterable: getGridFilterableCellMaftec(), template: '<input name="Llego"  type="checkbox" #= Llego ? "checked=checked" : "" # class="chkbx"  ></input>  ', width: "140px" },
+            { field: "LlegoConComentarios", title: "Llego con comentarios", filterable: getGridFilterableCellMaftec(), template: '<input name="LlegoComentarios" type="checkbox" #= LlegoComentarios ? "checked=checked" : "" # class="chkbx"  ></input>  ', width: "150px" },
+            { field: "NoLlego", title: "No llegó", filterable: getGridFilterableCellMaftec(), template: '<input name="NoLlego" type="checkbox" #= NoLlego ? "checked=checked" : "" # class="chkbx"  ></input>  ', width: "140px" },
+            { field: "Comentario", title: "Comentario", filterable: getGridFilterableCellMaftec(), template: kendo.template('<div  style="height=10px; border: #= LlegoComentarios && (String(Comentario) == ""|| Comentario == null )  ? " 1px solid red" : LlegoComentarios==false  && Comentario == null ? " 1px solid red" : " none" # ; z-index=9999;">#=Comentario==null ?"": Comentario #</div>'), width: "140px" },
         ]
     });
     CustomisaGrid($("#grid"));
