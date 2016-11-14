@@ -283,7 +283,8 @@ function NombreRepetido(listaDetalles) {
         for (var j = 0; j < listaDetalles.length; j++) {
             if (listaDetalles[i].Nombre.toLowerCase() == listaDetalles[j].Nombre.toLowerCase() && i != j) {
                 listaDetalles[j].Estatus = -1;
-                $('tr[data-uid="' + allData[j].uid + '"] ').css("background-color", "#ffcccc");
+                //$('tr[data-uid="' + allData[j].uid + '"] ').css("background-color", "#ffcccc");
+                $("#grid").data("kendoGrid").dataSource._data[j].RowOk = false;
             }
         }
     }

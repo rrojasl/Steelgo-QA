@@ -179,7 +179,7 @@ function ValidarInformacionNuevoSoldadorCertificacion(tipo) {
     Captura = [];
     Captura[0] = { Detalles: "" };
     ListaDetalles = [];
-
+    var nuevoSoldadorOk = true;
     var index = 0;
 
     ListaDetalles[index] = {
@@ -247,7 +247,6 @@ function ValidarInformacionNuevoSoldadorCertificacion(tipo) {
             displayNotify("CapturaSoldadorCertificacionTipoPruebaVacio", "", '1');
         else if ((parseFloat($("#inputPosicionPQR").data("kendoNumericTextBox").value()) == 0.0) || ($("#inputPosicionPQR").data("kendoNumericTextBox").value() == null))
             displayNotify("CapturaSoldadorCertificacionPosicionVacio", "", '1');
-
         else if (parseFloat($("#inputPasosSoldadura").data("kendoNumericTextBox").value()) <= 0)
             displayNotify("CapturaSoldadorCertificacionNoPasosMsg", "", '1');
         else if (parseFloat($("#inputEspesorMinimo").data("kendoNumericTextBox").value()) <= 0)
@@ -256,8 +255,11 @@ function ValidarInformacionNuevoSoldadorCertificacion(tipo) {
             displayNotify("CapturaSoldadorCertificacionDiametroMsg", "", '1');
         else if (parseFloat($("#inputPosicionPQR").data("kendoNumericTextBox").value()) <= 0)
             displayNotify("CapturaSoldadorCertificacionPosicionMsg", "", '1');
-        else
+        else {
             displayNotify("MensajeCamposIncorrector", "", '1');
+            
+        }
+        nuevoSoldadorOk = false;
         ListaDetalles[index].Estatus = 0;
     }
     else if ((parseFloat($("#inputEspesorMinimo").data("kendoNumericTextBox").value()) > parseFloat($("#inputEspesorMaximo").data("kendoNumericTextBox").value()))) {
@@ -269,7 +271,7 @@ function ValidarInformacionNuevoSoldadorCertificacion(tipo) {
     Captura[0].Detalles = ListaDetalles;
 
 
-    if (!ExistRowEmpty(ListaDetalles)) {
+    if (nuevoSoldadorOk) {
 
         // ListaDetalles[index].SoldadorCertificacionID =;
         ListaDetalles[index].Accion = 1;

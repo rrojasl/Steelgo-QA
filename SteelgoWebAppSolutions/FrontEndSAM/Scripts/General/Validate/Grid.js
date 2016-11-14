@@ -93,8 +93,11 @@ function RowEmpty($grid) {
 
 function ExistRowEmpty(rows) {
     for (var i = 0; i < rows.length; i++) {
-        if (rows[i].Estatus == 0)
+        if (rows[i].Estatus == 0) {
+            $("#grid").data("kendoGrid").dataSource._data[i].RowOk = false;
             return true;
+        }
     }
+    
     return false;
 }

@@ -17,7 +17,6 @@ function LlenaGridAjax() {
 };
 
 function AjaxGuardarListado() {
-    $("#grid").data("kendoGrid").dataSource.sync();
     var dataSource = $("#grid").data("kendoGrid").dataSource;
     var filters = dataSource.filter();
     var arregloCaptura = dataSource.data();
@@ -121,10 +120,11 @@ function AjaxGuardarListado() {
     }
     Captura[0].Detalles = ListaDetalles;
 
-    $("#grid").data("kendoGrid").dataSource.sync();
+    
 
-    if (!NombreRepetido(ListaDetalles)) {
-        if (!ExistRowEmpty(ListaDetalles)) {
+    //if () {
+        if (!ExistRowEmpty(ListaDetalles) && !NombreRepetido(ListaDetalles)) {
+            $("#grid").data("kendoGrid").dataSource.sync();
             if (Captura[0].Detalles.length > 0 && correcto) {
                 loadingStart();
                 $PQR.PQR.create(Captura[0], { token: Cookies.get("token"), accion: 2 }).done(function (data) {
@@ -145,6 +145,7 @@ function AjaxGuardarListado() {
         }
         else {
             loadingStop();
+            $("#grid").data("kendoGrid").dataSource.sync();
             windowTemplate = kendo.template($("#windowTemplate").html());
 
             ventanaConfirm = $("#ventanaConfirm").kendoWindow({
@@ -218,9 +219,10 @@ function AjaxGuardarListado() {
                 ventanaConfirm.close();
             });
         }
-    }
-    else {
-        displayNotify("lblPQRNoRepetidos", "", "2");
-        opcionHabilitarView(false);
-    }
+    //}
+    //else {
+    //    $("#grid").data("kendoGrid").dataSource.sync();
+    //    displayNotify("lblPQRNoRepetidos", "", "2");
+    //    opcionHabilitarView(false);
+    //}
 };

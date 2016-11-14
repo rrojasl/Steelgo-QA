@@ -9113,9 +9113,21 @@ _dictionary = {
         "es-MX": "Los PWHT no coinciden",
         "en-US": "PWHT don't match"
     },
+    "WPSMensajeErrorPQRRelleno": {
+        "es-MX": "El PQR de Relleno es obligatorio",
+        "en-US": "Fill PQR is mandatory "
+    },
+    "WPSMensajeErrorPQRRaiz": {
+        "es-MX": "El PQR de Raiz es obligatorio",
+        "en-US": "Root PQR is mandatory "
+    },
     //Finaliza WPS Nuevo
 
     //Pantalla Soldador Certificacion
+    "SoldadorNombreRepetido": {
+        "es-MX": "El nombre del Soldador no se puede repetir",
+        "en-US": "Welder Name can not be repeat"
+    },
     "SoldadorPQRExistente":
     {
         "es-MX": "El soldador ya existe con el WPS seleccionado ¿Deseas actualizarlo?",
@@ -9205,6 +9217,22 @@ _dictionary = {
     "lblNuevoSoldadorCertificacionBreadCrum": {
         "es-MX": "Nuevo Soldador Certificación",
         "en-US": "New Welder Certification"
+    },
+    "WPSMensajeErrorPQRNoAplicaRaiz": {
+        "es-MX": "El WPS no aplica para raiz",
+        "en-US": "WQR dont apply to root"
+    },
+    "WPSMensajeErrorPQRNoAplicaRelleno": {
+        "es-MX": "El WPS no aplica para relleno",
+        "en-US": "WPS dont apply to fill"
+    },
+    "WPSNoAceptaAmbos": {
+        "es-MX": "No acepta el proceso de raiz y relleno",
+        "en-US": "No Takes Root Process and refilling"
+    },
+    "WPSNoSeleccionado": {
+        "es-MX": "selecciona un WPS porfavor",
+        "en-US": "Please select a WPS"
     },
     //Finaliza Nuevo Soldador Certificacion
 

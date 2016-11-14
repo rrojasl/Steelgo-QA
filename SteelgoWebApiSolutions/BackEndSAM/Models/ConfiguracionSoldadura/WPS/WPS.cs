@@ -55,6 +55,7 @@ namespace BackEndSAM.Models.ConfiguracionSoldadura.WPS
         public List<DetallePQR> listadoRellenoPQR { get; set; }
         public List<DetallePQR> listadoRaizPQR { get; set; }
         public List<DetallePQR> listadoGrupoP { get; set; }
+        public bool RowOk { get; set; }
     }
 
 
