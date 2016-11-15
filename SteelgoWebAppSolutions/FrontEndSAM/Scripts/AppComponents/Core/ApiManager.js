@@ -173,6 +173,7 @@ var $ReporteRT = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 //Steelgo - Maftec
 var $Dashboard = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Cuadrante = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Zona = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 
 //Fabricación
 var $Armado = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
@@ -337,6 +338,7 @@ $ImpresionPruebas.add("ImpresionPruebas");
 //Maftec Consulting
 $Dashboard.add("Dashboard");
 $Cuadrante.add('Cuadrante');
+$Zona.add('Zona');
 
 //Fabricación
 $Armado.add("Armado");

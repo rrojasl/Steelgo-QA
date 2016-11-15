@@ -5,11 +5,17 @@ using System.Web;
 
 namespace BackEndSAM.Models.Sam3General.Cuadrante
 {
-    public class Cuadrante
+    public class CuadranteObject
     {
+        public CuadranteObject()
+        {
+            CuadranteID = 0;
+            Nombre = "";
+            ZonaID = 0; 
+        }
         public int CuadranteID { get; set; }
         public string Nombre { get; set; }
-        public int PatioID { get; set; }
+        public int ZonaID { get; set; }
         
     }
 }

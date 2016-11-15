@@ -1,4 +1,4 @@
-﻿using BackEndSAM.Models.Sam3General.Cuadrante;
+﻿using BackEndSAM.Models.Sam3General.Zona;
 using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
 using System;
@@ -8,12 +8,12 @@ using System.Web;
 
 namespace BackEndSAM.DataAcces.Sam3General.Zona
 {
-    public class CuadranteBD
+    public class ZonaBD
     {
         private static readonly object _mutex = new object();
-        private static CuadranteBD _instance;
+        private static ZonaBD _instance;
 
-        public static CuadranteBD Instance
+        public static ZonaBD Instance
         {
             get
             {
@@ -21,29 +21,27 @@ namespace BackEndSAM.DataAcces.Sam3General.Zona
                 {
                     if (_instance == null)
                     {
-                        _instance = new CuadranteBD();
+                        _instance = new ZonaBD();
                     }
                 }
                 return _instance;
             }
         }
 
-        public object ObtenerCuadrante(int ZonaID)
+        public object ObtenerZona(int PatioID)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Steelgo_Get_Cuadrante_Result> result = ctx.Sam3_Steelgo_Get_Cuadrante(ZonaID).ToList();
-                    List<CuadranteObject> list = new List<CuadranteObject>();
-                    list.Add(new CuadranteObject());
-
-                    foreach (Sam3_Steelgo_Get_Cuadrante_Result item in result)
+                    List<Sam3_Steelgo_Get_ZonaByPatio_Result> result = ctx.Sam3_Steelgo_Get_ZonaByPatio(PatioID).ToList();
+                    List<ZonaObject> list = new List<ZonaObject>();
+                    list.Add(new ZonaObject());
+                    foreach (Sam3_Steelgo_Get_ZonaByPatio_Result item in result)
                     {
-                        list.Add(new CuadranteObject {
-                            CuadranteID = item.CuadranteID,
-                            Nombre = item.Nombre,
-                            ZonaID = item.ZonaID.GetValueOrDefault()
+                        list.Add(new ZonaObject {
+                            ZonaID = item.ZonaID,
+                            Nombre = item.Nombre
                         });
                     }
                     return list;
@@ -57,7 +55,6 @@ namespace BackEndSAM.DataAcces.Sam3General.Zona
                 result.ReturnCode = 500;
                 result.ReturnStatus = false;
                 result.IsAuthenicated = true;
-
                 return result;
             }
         }

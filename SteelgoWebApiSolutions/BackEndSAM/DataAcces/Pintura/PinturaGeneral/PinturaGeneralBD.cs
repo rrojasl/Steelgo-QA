@@ -73,7 +73,7 @@ namespace BackEndSAM.DataAcces.Pintura.PinturaGeneral
                 {
                     ObjetosSQL _SQL = new ObjetosSQL();
 
-                    int resultSp = _SQL.EjecutaInsertUpdate(Stords.GUARDACAPTURANUEVOMEDIOTRANSPORTE, dtMedioTransporte, "@Tabla");
+                    int resultSp = _SQL.EjecutaInsertUpdate(Stords.GUARDACAPTURANUEVOMEDIOTRANSPORTE, dtMedioTransporte, "@TablaMedioTransporte");
                     TransactionalInformation result = new TransactionalInformation();
                     
                     if (resultSp > 0)

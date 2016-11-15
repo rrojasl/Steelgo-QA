@@ -27,6 +27,7 @@ namespace BackEndSAM.Models.Pintura.PinturaGeneral
     {
         public string Nombre { get; set; }
         public int UsuarioID { get; set; }
+        public int PatioID { get; set; }
     }
 
     public class Color
@@ -41,6 +42,5 @@ namespace BackEndSAM.Models.Pintura.PinturaGeneral
         public int ColorID { get; set; }
         public string Nombre { get; set; }
         public string CodigoHexadecimal { get; set; }
-    }
-
+    }    
 }

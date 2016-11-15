@@ -1,4 +1,5 @@
-﻿using BackEndSAM.Models.Sam3General.Cuadrante;
+﻿using BackEndSAM.Models.Pintura.PinturaGeneral;
+using BackEndSAM.Models.Sam3General.Cuadrante;
 using System.Collections.Generic;
 
 namespace BackEndSAM.Models.Pintura.CapturaAvance
@@ -33,7 +34,7 @@ namespace BackEndSAM.Models.Pintura.CapturaAvance
         public List<PintorSpool> ListaShotblasteroInicial { get; set; }
         public List<PintorSpool> ListaPintores { get; set; }
         public List<PintorSpool> ListaShotblasteros { get; set; }
-        public List<Cuadrante> ListaCuandrantes { get; set; }
+        public List<CuadranteObject> ListaCuandrantes { get; set; }
     }
 
     public class CamposPredeterminados

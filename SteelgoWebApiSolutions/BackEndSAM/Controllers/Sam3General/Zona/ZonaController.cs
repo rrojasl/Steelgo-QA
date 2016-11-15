@@ -10,13 +10,13 @@ using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Script.Serialization;
 
-namespace BackEndSAM.Controllers.Sam3General.Cuadrante
+namespace BackEndSAM.Controllers.Sam3General.Zona
 {
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
-    public class CuadranteController: ApiController
+    [EnableCors(origins:"*",headers:"*", methods:"*")]
+    public class ZonaController : ApiController
     {
         [HttpGet]
-        public object ObtieneCuadrante(string token, int ZonaID)
+        public object ObtieneZona(string token, int PatioID)
         {
             //Create a generic return object
 
@@ -27,7 +27,7 @@ namespace BackEndSAM.Controllers.Sam3General.Cuadrante
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return CuadranteBD.Instance.ObtenerCuadrante(ZonaID);
+                return ZonaBD.Instance.ObtenerZona(PatioID);
             }
             else
             {

@@ -52,47 +52,45 @@ namespace BackEndSAM.Models.Pintura.CargaCarro
         public int CuadranteID { set; get; }
     }
 
-    public class DetalleMedioTransporteCarga
+    public class DetalleCargaCarro
     {
         public int Accion { get; set; }
+        public int MedioTransporteCargaDetalleID { get; set; }
+        public bool EstatusCarga { get; set; }
+        public int OrdenTrabajoID { get; set; }
+        public int SpoolID { get; set; }
         public string NumeroControl { get; set; }
-        public int OrdenImportancia { get; set; }
-        public decimal Peso { get; set; }
-        public decimal Area { get; set; }
+        public int SistemaPinturaID { get; set; }
         public string SistemaPintura { get; set; }
         public string ColorPintura { get; set; }
-        public int SpoolID { get; set; }
-        public int SistemaPinturaID { get; set; }
-        public int MedioTransporteID { get; set; }
-        public int MedioTransporteCargaID { get; set; }
         public int CuadranteID { get; set; }
-        public string CuadranteSpool { get; set; }
-        public string CuadranteMT { get; set; }
-        public int ProyectoID { get; set; }
-        public bool CarroCerrado { get; set; }
-        //public List<Cuadrante> ListaCuandrantes { get; set; }
-    }
-
-    public class CargaCarroBackLog
-    {
-        public int Accion { get; set; }
-        public string NumeroControl { get; set; }
-        public int OrdenImportancia { get; set; }
+        public int CuadranteAnteriorID { get; set; }
+        public string Cuadrante { get; set; }
         public decimal Peso { get; set; }
         public decimal Area { get; set; }
-        public string SistemaPintura { get; set; }
-        public string Color { get; set; }
+        public int EstatusCaptura { get; set; }
+    }
+
+    public class DetalleCargaCarroBackLog
+    {
+        public int Accion { get; set; }
+        public int MedioTransporteCargaDetalleID { get; set; }
+        public int OrdenTrabajoID { get; set; }
         public int SpoolID { get; set; }
-        public int CuadranteID { get; set; }
-        public string CuadranteSpool { get; set; }
-        public string CuadranteMT { get; set; }
-        public int ProyectoID { get; set; }
-        public string MedioTransporte { get; set; }
+        public int Prioridad { get; set; }
+        public string NumeroControl { get; set; }
         public int SistemaPinturaID { get; set; }
-        public bool Seleccionado { get; set; }
-        public bool Status { get; set; }
+        public string SistemaPintura { get; set; }
+        public string ColorPintura { get; set; }
+        public int CuadranteID { get; set; }
+        public int CuadranteAnteriorID { get; set; }
+        public string Cuadrante { get; set; }
+        public decimal Area { get; set; }
+        public decimal Peso { get; set; }
+        public string MedioTransporte { get; set; }
         public bool CarroCerrado { get; set; }
-        public int MedioTransporteCargaID { get; set; }
+        public bool Seleccionado { get; set; }
+        public int EstatusCaptura { get; set; }
     }
     public class CerrarMedioTransporte
     {

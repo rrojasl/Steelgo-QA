@@ -7,9 +7,9 @@ using System.Collections.Generic;
 using System.Data.Entity.Core.Objects;
 using BackEndSAM.Models.Pintura.CapturaAvance;
 using System.Data;
-using BackEndSAM.Models.Sam3General.Cuadrante;
 using DatabaseManager.Constantes;
-using BackEndSAM.DataAcces.Sam3General.Cuadrante;
+using BackEndSAM.DataAcces.Sam3General.Zona;
+using BackEndSAM.Models.Sam3General.Cuadrante;
 
 namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
 {
@@ -109,15 +109,14 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
                     List<Sam3_Pintura_Get_DetalleSpoolCapturaAvance_Result> spoolsCargados = new List<Sam3_Pintura_Get_DetalleSpoolCapturaAvance_Result>();
                     List<Sam3_Steelgo_Get_Cuadrante_Result> GetlistaCuandrantes = (List<Sam3_Steelgo_Get_Cuadrante_Result>)CuadranteBD.Instance.ObtenerCuadrante(6);
 
-                    List<Cuadrante> ListaCuandrantes = new List<Cuadrante>();
+                    List<CuadranteObject> ListaCuandrantes = new List<CuadranteObject>();
                     foreach (Sam3_Steelgo_Get_Cuadrante_Result item in GetlistaCuandrantes)
                     {
                         ListaCuandrantes.Add(
-                             new Cuadrante
+                             new CuadranteObject
                              {
                                  CuadranteID = item.CuadranteID,
-                                 Nombre = item.Nombre,
-                                 PatioID = item.PatioID
+                                 Nombre = item.Nombre
                              });
                     }
 
