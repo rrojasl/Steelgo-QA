@@ -367,10 +367,7 @@ function RenderGridDetalle(container, options) {
 function RenderComboBoxTrabajoAdicional(container, options) {
     //container  contiene las propiedades de la celda
     //options contiene el modelo del datasource ejemplo options.model.Junta 
-
-
-
-    $('<input required data-text-field="NombreCorto" id=' + options.model.uid + ' data-value-field="NombreCorto" data-bind="value:' + options.field + '"/>')
+    $('<input data-text-field="NombreCorto" id=' + options.model.uid + ' data-value-field="TrabajoAdicionalID" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoComboBox({
             suggest: true,
@@ -379,18 +376,12 @@ function RenderComboBoxTrabajoAdicional(container, options) {
             autoBind: true,
             dataSource: ItemSeleccionado.listadoTrabajosAdicionalesXJunta,
             template: '<span class="#: data.SignoInformativo #">#: data.NombreCorto #</span>',
-            select: function (e) {
-                //dataItem = this.dataItem(e.item.index());
-                //options.model.TrabajoAdicionalID = dataItem.TrabajoAdicionalID;
-                //options.model.TrabajoAdicional = dataItem.NombreCorto;
-            },
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
-
+               
                 if (dataItem != undefined) {
                     options.model.TrabajoAdicionalID = dataItem.TrabajoAdicionalID;
                     options.model.TrabajoAdicional = dataItem.NombreCorto;
-                    //$("#grid").data("kendoGrid").dataSource.sync();
                 }
                 else {
                     options.model.TrabajoAdicionalID = 0;
@@ -398,7 +389,6 @@ function RenderComboBoxTrabajoAdicional(container, options) {
                 }
             }
         });
-
     $(".k-combobox").parent().on('mouseleave', function (send) {
         var e = $.Event("keydown", { keyCode: 27 });
         var item = $(this).find(".k-combobox")[0];
@@ -409,14 +399,4 @@ function RenderComboBoxTrabajoAdicional(container, options) {
         }
     });
 
-
 }
-
-//function renderEnlaceEditar(container, options) {
-//    $('<a  id=' + options.model.uid + ' "><span >' + _dictionary.ValidacionResultadosEnlaceEditar[$("#language").data("kendoDropDownList").value()] + '</span></a>')
-//        .appendTo(container)
-//        .click(function () {
-//            LlenarGridPopUp(options.model)
-//        });
-
-//}

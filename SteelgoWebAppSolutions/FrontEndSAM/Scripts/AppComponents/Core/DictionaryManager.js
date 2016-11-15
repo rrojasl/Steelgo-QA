@@ -8572,6 +8572,12 @@ _dictionary = {
     // Finalizan Etiquetas Generales PND
 
     //Pantalla Armado
+    "CapturaArmadoMsgExiste": {
+        "es-MX": "La junta ",
+        "en-US": "The joint "
+    },
+    
+  
     "armadoSoldaduraSup": {
         "es-MX": "Soldadura",
         "en-US": "Welding"
