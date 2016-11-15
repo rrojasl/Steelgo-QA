@@ -10,6 +10,8 @@
     SuscribirEventoColor();
     SuscribirEventoSistemaPintura();
     //SuscribirEventoPlanchar();
+    SuscribirEventoOrdenTrabajo();
+    SuscribirEventoSpoolID();
 };
 
 function SuscribirEventoPlanchar() {
@@ -83,10 +85,25 @@ function SuscribirEventoZona() {
             var dataItem = this.dataItem(e.sender.selectedIndex);
 
             if (dataItem != undefined) {
+                var hacerAjax = false;
+                //if (dataItem.ZonaID != 0)
+                    hacerAjax = true;
 
-            } else {
-                $("#inputSistemaPintura").data("kendoComboBox").value("");
+                if (hacerAjax) {
+                    //$("#grid").data('kendoGrid').dataSource.data([]);
+                    $("#inputCuadrante").data("kendoComboBox").value("");
+                    $("#inputSistemaPintura").data("kendoComboBox").value("");
+                    $("#inputColor").data("kendoComboBox").value("");
+
+                    AjaxCuadrante(dataItem.ZonaID);
+
+                    
+                    
+                }
             }
+            //else {
+            //    $("#inputSistemaPintura").data("kendoComboBox").value("");
+            //}
         }
     });
 }
@@ -98,13 +115,140 @@ function SuscribirEventoCuadrante() {
         suggest: true,
         index: 3,
         change: function (e) {
-            if ($("#inputCuadrante").data("kendoComboBox").dataItem($("#inputCuadrante").data("kendoComboBox").select()) != undefined) {
+            var dataItem = this.dataItem(e.sender.selectedIndex);
+
+            if (dataItem != undefined) {
+                var hacerAjax = false;
+                //if (dataItem.ZonaID != 0)
+                hacerAjax = true;
+
+                if (hacerAjax) {
+                    //$("#grid").data('kendoGrid').dataSource.data([]);
+                    $("#inputSistemaPintura").data("kendoComboBox").value("");
+                    $("#inputColor").data("kendoComboBox").value("");
+
+                    AjaxSistemaPintura($("#inputZona").data("kendoComboBox").value(), dataItem.CuadranteID);
+
+
+
+                }
             }
-            else {
-                $("#inputCuadrante").data("kendoComboBox").value("");
+            //if ($("#inputCuadrante").data("kendoComboBox").dataItem($("#inputCuadrante").data("kendoComboBox").select()) != undefined) {
+            //}
+            //else {
+            //    $("#inputCuadrante").data("kendoComboBox").value("");
+            //}
+        }
+    });
+}
+
+
+function SuscribirEventoSistemaPintura() {
+    $('#inputSistemaPintura').kendoComboBox({
+        dataTextField: "Nombre",
+        dataValueField: "SistemaPinturaID",
+        suggest: true,
+        index: 3,
+        change: function (e) {
+            var dataItem = this.dataItem(e.sender.selectedIndex);
+
+            if (dataItem != undefined) {
+                var hacerAjax = false;
+                //if (dataItem.ZonaID != 0)
+                hacerAjax = true;
+
+                if (hacerAjax) {
+                    //$("#grid").data('kendoGrid').dataSource.data([]);
+                    $("#inputColor").data("kendoComboBox").value("");
+
+                    AjaxColores($("#inputZona").data("kendoComboBox").value(), $("#inputCuadrante").data("kendoComboBox").value(), dataItem.SistemaPinturaID);
+
+
+
+                }
+            }
+            //if ($("#inputSistemaPintura").data("kendoComboBox").dataItem($("#inputSistemaPintura").data("kendoComboBox").select()) != undefined) {
+            //    ////ajaxComponenteComposicion();
+            //}
+            //else {
+            //    $("#inputSistemaPintura").data("kendoComboBox").value("");
+            //}
+
+        }
+
+    });
+}
+
+function SuscribirEventoOrdenTrabajo() {
+    //$("#OrdenTrabajoAdd").kendoNumericTextBox({
+    //    //max: new Date()
+    //});
+
+    var dataItem;
+    $("#InputID").kendoComboBox({
+        dataTextField: "IDValido",
+        dataValueField: "Valor",
+        suggest: true,
+        filter: "contains",
+        index: 3,
+        delay: 10,
+        select: function (e) {
+            dataItem = this.dataItem(e.item.index());
+            if (dataItem != undefined) {
+                if (dataItem.Status != "1") {
+                    e.preventDefault();
+                    $("#InputID").val("");
+                    var cadenaError = "";
+                    if (dataItem.HabilitadoHoldFecha == 0) {
+                        cadenaError = _dictionary.MensajeErrorSpoolHold[$("#language").data("kendoDropDownList").value()];
+                    }
+                    else
+                        cadenaError = dataItem.Status;
+
+
+                    displayNotify("", cadenaError, '1');
+                    return;
+                }
+                else {
+                    $("#InputID").val(dataItem.IDValido);
+                    Cookies.set("Proyecto", dataItem.ProyectoID + '°' + dataItem.Proyecto);
+                    $("#LabelProyecto").text(dataItem.Proyecto);
+                    AjaxObtenerListaTubero();
+                    AjaxObtenerListaTaller();
+                }
+            }
+        }
+        ,
+        change: function (e) {
+            dataItem = this.dataItem(e.sender.selectedIndex);
+            if (dataItem != undefined) {
+
+            }
+            else $("#InputID").data("kendoComboBox").value("");
+        }
+    });
+
+}
+
+function SuscribirEventoSpoolID() {
+    //$("#SpoolIDAdd").kendoNumericTextBox({
+    //    //max: new Date()
+    //});
+    $('#Junta').kendoComboBox({
+        dataTextField: "Etiqueta",
+        dataValueField: "JuntaSpoolID",
+        suggest: true,
+        delay: 10,
+        filter: "contains",
+        index: 3,
+        change: function (e) {
+            dataItem = this.dataItem(e.sender.selectedIndex);
+            if (dataItem == undefined) {
+                $("#Junta").data("kendoComboBox").value("");
             }
         }
     });
+
 }
 
 
@@ -175,35 +319,6 @@ function SuscribirEventoComponenteComposicion() {
             }
             else {
                 $("#inputPinturaComponenteComposicion").data("kendoComboBox").value("");
-            }
-
-        }
-    });
-}
-
-function SuscribirEventoSistemaPintura() {
-    $('#inputSistemaPintura').kendoComboBox({
-        dataTextField: "Nombre",
-        dataValueField: "SistemaPinturaID",
-        suggest: true,
-        index: 3,
-        change: function () {
-            if ($("#inputSistemaPintura").data("kendoComboBox").dataItem($("#inputSistemaPintura").data("kendoComboBox").select()) != undefined) {
-                ////ajaxComponenteComposicion();
-            }
-            else {
-                $("#inputSistemaPintura").data("kendoComboBox").value("");
-            }
-
-        }
-
-    }).closest('.k-widget').keydown(function (e) {
-        if (e.keyCode == 13) {
-            if ($("#inputSistemaPintura").data("kendoComboBox").dataItem($("#inputSistemaPintura").data("kendoComboBox").select()) != undefined) {
-                //PlanchaSistemaPintura();
-            }
-            else {
-                $("#inputSistemaPintura").data("kendoComboBox").value("");
             }
 
         }
