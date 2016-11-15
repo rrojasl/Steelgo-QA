@@ -27,7 +27,7 @@ function AjaxObtenerListaDefectos() {
     });
 }
 function AjaxCargaCamposPredetrminados() {
-    $InspeccionDimensional.InspeccionDimensional.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), id: CampoFechaPredeterminada }).done(function (data) {
+    $InspeccionDimensional.InspeccionDimensional.read({ token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
         if (Error(data)) {
             var NewDate = kendo.toString(data.Fecha, _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()]);
             endRangeDate.val(NewDate);

@@ -11,7 +11,7 @@
                 model: {
                     fields: {
                         CodigoObrero: { type: "string", editable: true },
-                        NombreWPS: { type: "string", editable: true },
+                        NombreWPS: { type: "string", editable: false },
                         ProcesoSoldadura: { type: "string", editable: true },
                         FechaInicioCertificado: { type: "date", editable: true },
                         FechaFinCertificado: { type: "date", editable: true },
@@ -54,7 +54,7 @@
         filterable: getGridFilterableMaftec(),
         columns: [
             { field: "CodigoObrero", title: _dictionary.columnSoldador[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "145px", editor: RenderComboBoxSoldador },
-            { field: "NombreWPS", title: _dictionary.columnNombreWPS[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px", editor: RenderComboBoxWPS },
+            { field: "NombreWPS", title: _dictionary.columnNombreWPS[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px" },
             { field: "ProcesoSoldadura", title: _dictionary.columnProcesoSoldadura[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "150px", editor: RenderComboBoxProcesoSoldadura },
             { field: "FechaInicioCertificado", title: _dictionary.columnDesde[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "120px", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()], editor: RenderFechaInicio },
             { field: "FechaFinCertificado", title: _dictionary.columnHasta[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "120px", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()], editor: RenderFechaFin },
@@ -66,7 +66,22 @@
             { field: "TipoDePrueba", title: _dictionary.columnTipoPrueba[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "145px", editor: RenderComboBoxTipoPrueba },
             { field: "Posicion", title: _dictionary.columnPosicion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "110px", editor: renderPosicion, format: "{0} °", attributes: { style: "text-align:right;" } },
             { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: EliminaSoldadorCertificacion }, title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], width: "50px" }
-        ]
+        ],
+        dataBound: function () {
+            var grid = $("#grid").data("kendoGrid");
+            var gridData = grid.dataSource.view();
+
+            for (var i = 0; i < gridData.length; i++) {
+                var currentUid = gridData[i].uid;
+                if (gridData[i].RowOk == false) {
+                    grid.table.find("tr[data-uid='" + currentUid + "']").css("background-color", "#ffcccc");
+                }
+                else if (gridData[i].RowOk) {
+                    grid.table.find("tr[data-uid='" + currentUid + "']").css("background-color", "#ffffff");
+                }
+
+            }
+        }
     });
     CustomisaGrid($("#grid"));
 };
@@ -150,9 +165,9 @@ function AbrirVentanaModalVista() {
 };
 
 function changeLanguageCall() {
-    setTimeout(function () { SuscribirEventos(); }, 10)
-    setTimeout(function () { CargarGrid(); }, 1000)
-    setTimeout(function () { AjaxObtenerJSONGrid(); }, 2000)
+    CargarGrid();
+    SuscribirEventos();
+    setTimeout(function () { AjaxObtenerJSONGrid(); }, 100)
 };
 
 function tieneClase(item) {
@@ -198,6 +213,7 @@ function ValidarInformacionEnviada() {
     ListaDetalles = [];
     var arregloCaptura = $("#grid").data("kendoGrid").dataSource._data;
     for (index = 0; index < arregloCaptura.length; index++) {
+        $("#grid").data("kendoGrid").dataSource._data[index].RowOk = true;
         ListaDetalles[index] = {
             SoldadorCertificacionID: "",
             Accion: "",
@@ -233,23 +249,28 @@ function ValidarInformacionEnviada() {
 
             if (arregloCaptura[index].PasosSoldadura == "" || arregloCaptura[index].PasosSoldadura <= 0) { //Pasos soladura
                 desplegadoPasos = true;
+                
                 displayNotify("CapturaSoldadorCertificacionNoPasosMsg", "", '1');
             }
             else if (arregloCaptura[index].EspesorMinimo == "" || arregloCaptura[index].EspesorMinimo <= 0) { //Pasos soladura
                 desplegadoEspesor = true;
                 displayNotify("", "El Espesor C para el WPS " + arregloCaptura[index].NombreWPS + " tiene que ser mayor a cero", '1');
+                
             }
             else if (arregloCaptura[index].DiametroCalificado == "" || arregloCaptura[index].DiametroCalificado <= 0) { //Pasos soladura
                 desplegadoDiametro = true;
                 displayNotify("", "El Diametro C para el WPS " + arregloCaptura[index].NombreWPS + " tiene que ser mayor a cero", '1');
+                
             }
             else if (arregloCaptura[index].Posicion == "" || arregloCaptura[index].Posicion <= 0) { //Pasos soladura
                 desplegadoPosicion = true;
                 displayNotify("CapturaSoldadorCertificacionPosicionMsg", "", '1');
+               
             }
 
             ListaDetalles[index].Estatus = 0;
-            $('tr[data-uid="' + arregloCaptura[index].uid + '"] ').css("background-color", "#ffcccc");
+            $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
+            //$('tr[data-uid="' + arregloCaptura[index].uid + '"] ').css("background-color", "#ffcccc");
         }
 
         //el registro esta bien.
@@ -272,8 +293,14 @@ function ValidarInformacionEnviada() {
     }
     Captura[0].Detalles = ListaDetalles;
 
+   
 
-    if (!ExistRowEmpty(ListaDetalles)) {
+   
+    if (NombreRepetido(ListaDetalles)) {
+        displayNotify("SoldadorNombreRepetido", "", "2");
+        $("#grid").data("kendoGrid").dataSource.sync();
+    }
+    else if (!ExistRowEmpty(ListaDetalles)) {
         if (Captura[0].Detalles.length > 0) {
             AjaxGuardarInformacion(Captura[0]);
         }
@@ -281,7 +308,7 @@ function ValidarInformacionEnviada() {
     else {
         loadingStop();
         windowTemplate = kendo.template($("#windowTemplate").html());
-
+        $("#grid").data("kendoGrid").dataSource.sync();
         ventanaConfirm = $("#ventanaConfirm").kendoWindow({
             iframe: true,
             title: _dictionary.CapturaAvanceIntAcabadoMensajeErrorGuardado[$("#language").data("kendoDropDownList").value()],
@@ -377,4 +404,32 @@ function endChange(row) {
         start.max(endDate);
         end.min(endDate);
     }
+}
+
+function NombreRepetido(listaDetalles) {
+    var dataSource = $("#grid").data("kendoGrid").dataSource;
+    var allData = dataSource.data();
+
+    for (var i = 0; i < listaDetalles.length; i++) {
+        for (var j = 0; j < listaDetalles.length; j++) {
+            if (listaDetalles[i].ObreroID == listaDetalles[j].ObreroID && i != j) {
+                listaDetalles[j].Estatus = -4;
+                $("#grid").data("kendoGrid").dataSource._data[j].RowOk = false;
+            }
+        }
+    }
+
+    return ValidaNombreRepetido(listaDetalles);
+}
+
+
+
+function ValidaNombreRepetido(rows) {
+    for (var i = 0; i < rows.length; i++) {
+        if (rows[i].Estatus == -4) {
+            $("#grid").data("kendoGrid").dataSource._data[i].RowOk = false;
+            return true;
+        }
+    }
+    return false;
 }

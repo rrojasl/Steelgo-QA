@@ -14,6 +14,7 @@ namespace DatabaseManager.Sam3
     
     public partial class Sam3_FolioPickingTicket
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Sam3_FolioPickingTicket()
         {
             this.Sam3_Entrega = new HashSet<Sam3_Entrega>();
@@ -21,11 +22,12 @@ namespace DatabaseManager.Sam3
     
         public int FolioPickingTicketID { get; set; }
         public int TipoMaterialID { get; set; }
+        public int DespachoID { get; set; }
         public Nullable<int> usuarioModificacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
         public bool Activo { get; set; }
-        public int DespachoID { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sam3_Entrega> Sam3_Entrega { get; set; }
         public virtual Sam3_TipoMaterial Sam3_TipoMaterial { get; set; }
     }

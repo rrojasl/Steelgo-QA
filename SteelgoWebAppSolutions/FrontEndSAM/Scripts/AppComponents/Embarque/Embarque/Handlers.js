@@ -5,7 +5,7 @@
     suscribirEventoChofer();
     suscribirEventoPlana();
     suscribirEventoAgregar();
-    suscribirEventoDestino();
+    suscribirEventoEmbarque();
     suscribirEventoGuardar();
 }
 
@@ -98,19 +98,19 @@ function suscribirEventoProyecto() {
     });
 }
 
-function suscribirEventoDestino() {
-    $("#Destino").kendoComboBox({
+function suscribirEventoEmbarque() {
+    $("#Embarque").kendoComboBox({
         dataTextField: "Nombre",
-        dataValueField: "DestinoID",
+        dataValueField: "EmbarqueID",
         suggest: true,
         filter: "contains",
         index: 3,
         change: function (e) {
-            if ($("#Destino").data("kendoComboBox").dataItem($("#Destino").data("kendoComboBox").select()) != undefined) {
+            if ($("#Embarque").data("kendoComboBox").dataItem($("#Embarque").data("kendoComboBox").select()) != undefined) {
 
             }
             else {
-                $("#Destino").data("kendoComboBox").value("");
+                $("#Embarque").data("kendoComboBox").value("");
             }
         }
     });

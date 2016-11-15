@@ -82,6 +82,8 @@ namespace BackEndSAM.Models.Armado
         public List<TrabajosAdicionalesXJunta> listadoTrabajosAdicionalesXJunta { get; set; }
         public string DetalleJunta { get; set; }
 
+        public bool RowOk { get; set; }
+
     }
 
 

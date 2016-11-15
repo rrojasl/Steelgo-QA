@@ -7,10 +7,10 @@
         <a href="@Url.Action("landing", "Home")"><span id="lblInicio">Inicio</span></a>
     </li>
     <li>
-        <a href="#"><span id="lblEmbarque">Embarque</span></a>
+        <a href="#"><span id="lblEmbarque">Consulta</span></a>
     </li>
     <li class="active">
-        <a href="@Url.Action("Consulta", "Embarque")"><span id="">Consulta</span></a>
+        <a href="@Url.Action("Consulta", "Embarque")"><span id="">Estatus del Spool</span></a>
     </li>
 }
 
@@ -36,7 +36,7 @@
                             <a id="btnCancelar" class="btn btn-black btnCancelar"><span id="botonCancelar"></span></a>
                         </div>
                         <div id="CapturaAvanceIntAcabadoDivSuperior" class="button-section">
-                            <a id="CapturaAvanceIntAcabadoSuperior" href="@Url.Action("", "Pintura")" class="btn btn-primary"><span id="lbEtiquetarSup"></span></a>
+                            <a id="CapturaAvanceIntAcabadoSuperior" href="@Url.Action("Encintar", "Embarque")" class="btn btn-primary"><span id="lbEtiquetarSup">Etiquetado</span></a>
                         </div>
                         <div class="button-section actionButtonSection">
                             <div class="dropdown action-group">
@@ -53,13 +53,29 @@
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="row addedSectionInLineWithoutColor">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">   
+            <div id="tipoVista" class="btn-group " data-toggle="buttons" role="group">
+                <label>TIpo de búsqueda</label>
+                <div class="btn btn-primary" >
+                    <input type="radio" name="TipoBusqueda" style="width:auto;" value="ZonaCuadrante" /><span>Zona/Cuadrante</span>
+                </div>
+                <div class="btn btn-primary" >
+                    <input type="radio" name="TipoBusqueda" style="width:auto;" value="Spool" /><span>Spool</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-12 col-lg-12 " id="">
+            <label id=""><span id="">&nbsp;</span></label>
+        
+        </div>
+
         <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 altoControl" id="AreaDiv">
             <label id=""><span id="EmbarqueConsultaArea">Proyecto</span></label>
             <input id="Proyecto" />
         </div>
         <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 altoControl" id="AreaDiv">
-            <label id=""><span id="EmbarqueConsultaArea">Area</span></label>
+            <label id=""><span id="EmbarqueConsultaArea">Zona</span></label>
             <input id="Area" />
         </div>
         <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 altoControl" id="CuadranteDiv">
@@ -68,7 +84,7 @@
         </div>
         <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2">
             <label id="">&nbsp;</label>
-            <button type="button" id="btnAgregar" class="btn btn-blue"><span id="botonBuscar">Buscar</span></button>
+            <button type="button" id="btnAgregar" class="btn btn-blue"><span id="lblMostrar"></span></button>
         </div>
     </div>
     <div class="row addedSectionInLine">
@@ -97,7 +113,7 @@
                     <a id="btnCancelar" class="btn btn-black btnCancelar"><span id="botonCancelar1"></span></a>
                 </div>
                 <div id="CapturaAvanceIntAcabadoDivInferior" class="button-section">
-                    <a id="CapturaAvanceIntAcabadoInferior" href="@Url.Action("", "Pintura")" class="btn btn-primary"><span id="lbEtiquetarInf"></span></a>
+                    <a id="CapturaAvanceIntAcabadoInferior" href="@Url.Action("", "Pintura")" class="btn btn-primary"><span id="lbEtiquetarInf">Etiquetar</span></a>
                 </div>
                 <div class="button-section actionButtonSection">
                     <div class="dropdown action-group">

@@ -14,6 +14,7 @@ namespace DatabaseManager.Sam3
     
     public partial class Sam3_MTR
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Sam3_MTR()
         {
             this.Sam3_NumeroUnico = new HashSet<Sam3_NumeroUnico>();
@@ -31,7 +32,8 @@ namespace DatabaseManager.Sam3
     
         public virtual Sam3_Colada Sam3_Colada { get; set; }
         public virtual Sam3_ItemCode Sam3_ItemCode { get; set; }
-        public virtual ICollection<Sam3_NumeroUnico> Sam3_NumeroUnico { get; set; }
         public virtual Sam3_Rel_ItemCode_Diametro Sam3_Rel_ItemCode_Diametro { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_NumeroUnico> Sam3_NumeroUnico { get; set; }
     }
 }

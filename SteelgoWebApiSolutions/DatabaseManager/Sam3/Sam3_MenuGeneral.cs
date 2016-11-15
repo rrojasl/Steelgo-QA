@@ -14,6 +14,7 @@ namespace DatabaseManager.Sam3
     
     public partial class Sam3_MenuGeneral
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Sam3_MenuGeneral()
         {
             this.Sam3_Rel_Perfil_MenuGeneral = new HashSet<Sam3_Rel_Perfil_MenuGeneral>();
@@ -31,6 +32,7 @@ namespace DatabaseManager.Sam3
         public string Descripcion { get; set; }
         public Nullable<int> Acomodo { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sam3_Rel_Perfil_MenuGeneral> Sam3_Rel_Perfil_MenuGeneral { get; set; }
     }
 }

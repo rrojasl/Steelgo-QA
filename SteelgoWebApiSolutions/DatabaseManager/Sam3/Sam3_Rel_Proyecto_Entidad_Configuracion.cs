@@ -14,12 +14,13 @@ namespace DatabaseManager.Sam3
     
     public partial class Sam3_Rel_Proyecto_Entidad_Configuracion
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Sam3_Rel_Proyecto_Entidad_Configuracion()
         {
             this.Sam3_FolioCuantificacion = new HashSet<Sam3_FolioCuantificacion>();
+            this.Sam3_Incidencia = new HashSet<Sam3_Incidencia>();
             this.Sam3_OrdenAlmacenaje = new HashSet<Sam3_OrdenAlmacenaje>();
             this.Sam3_OrdenRecepcion = new HashSet<Sam3_OrdenRecepcion>();
-            this.Sam3_Incidencia = new HashSet<Sam3_Incidencia>();
         }
     
         public int Rel_Proyecto_Entidad_Configuracion_ID { get; set; }
@@ -53,11 +54,15 @@ namespace DatabaseManager.Sam3
         public Nullable<System.DateTime> FechaModificacion { get; set; }
         public Nullable<int> UsuarioModificacion { get; set; }
     
-        public virtual ICollection<Sam3_FolioCuantificacion> Sam3_FolioCuantificacion { get; set; }
-        public virtual ICollection<Sam3_OrdenAlmacenaje> Sam3_OrdenAlmacenaje { get; set; }
-        public virtual ICollection<Sam3_OrdenRecepcion> Sam3_OrdenRecepcion { get; set; }
-        public virtual ICollection<Sam3_Incidencia> Sam3_Incidencia { get; set; }
         public virtual Sam3_Entidad Sam3_Entidad { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_FolioCuantificacion> Sam3_FolioCuantificacion { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_Incidencia> Sam3_Incidencia { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_OrdenAlmacenaje> Sam3_OrdenAlmacenaje { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_OrdenRecepcion> Sam3_OrdenRecepcion { get; set; }
         public virtual Sam3_Proyecto Sam3_Proyecto { get; set; }
     }
 }

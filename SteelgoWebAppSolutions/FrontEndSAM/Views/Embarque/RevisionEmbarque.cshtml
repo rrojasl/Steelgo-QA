@@ -10,7 +10,7 @@
         <a href="#"><span id="lblEmbarque"></span>Embarque</a>
     </li>
     <li class="active">
-        <a href="@Url.Action("RevisionEmbarque", "Embarque")"><span id="EmbarqueBotonRevisionEmbarque">Revisión embarque</span></a>
+        <a href="@Url.Action("RevisionEmbarque", "Embarque")"><span id="EmbarqueBotonRevisionEmbarque">Revisión</span></a>
     </li>
 }
 <div id="FormVisualDimensional" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -62,8 +62,11 @@
 
             <div class="col-sm-2 col-md-2 col-lg-2">
                 <label id="">&nbsp;</label>
-                <button type="button" id="btnBuscar" class="btn btn-blue"><span id="spanRevisionEmbarqueBuscar">Buscar</span></button>
-
+                <button type="button" id="btnBuscar" class="btn btn-blue"><span id="spanRevisionEmbarqueBuscar">Mostrar</span></button>
+            </div>
+            <div class="col-sm-2 col-md-2 col-lg-2">
+                <label id="">Destino</label>
+                <label id="labelDestino"></label>
             </div>
         </div>
         <div class="row clearfix">
@@ -74,7 +77,7 @@
                 <div class="row">
                     <div class="col-sm-2 col-md-2 col-lg-2">
                         <div class="btn-group " role="group">
-                            <label id="EmbarqueCargaSelecciona"></label>
+                            <label id="">Tipo carga</label>
                             <label id="styleReporte">
                                 <input type="radio" name="RevisionEmbarqueTipoSeleccion" style="width:auto;" value="Spool" checked="checked"/><span id="RevisionEmbarqueOpcionSpool">Spool</span>
                             </label>
@@ -102,8 +105,9 @@
                     <div class="col-sm-3 col-md-3 col-lg-1">
                         <label id="">&nbsp;</label>
                         <button type="button" id="btnAgregar" class="btn btn-blue"><span id="RevisionEmbarqueAgregar">Agregar</span></button>
-
                     </div>
+                    
+
 
                     <div class="form-group col-sm-12 col-md-12 col-lg-12">
                         <div id="ContenedorGrid" class="row">

@@ -15,16 +15,7 @@ var $NuevoPQRModel = {
             editable: "#NombreId",
             required: "#NombreId",
         },
-        PREHEAT: {
-            visible: "#PQRPreheatDiv",
-            editable: "#chkPreheat",
-            required: "#chkPreheat",
-        },
-        PWHT: {
-            visible: "#PQRPWHTDiv",
-            editable: "#chkPwht",
-            required: "#chkPwht",
-        },
+       
         EspesorRelleno: {
             visible: "#PQREspesoRellenorDiV",
             editable: "#EspesorRelleno",

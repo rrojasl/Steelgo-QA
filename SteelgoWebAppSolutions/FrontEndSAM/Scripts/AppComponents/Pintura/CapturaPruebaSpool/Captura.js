@@ -42,15 +42,9 @@ function CargarGrid() {
                 model: {
                     fields: {
                         Accion: { type: "number", editable: false },
-                        NombreSpool: { type: "string", editable: false },
-                        SistemaPintura: { type: "string", editable: false },
-                        Color: { type: "string", editable: false },
-                        M2: { type: "String", editable: false },
-                        Lote: { type: "String", editable: false },
-                        NombreCuadrante: { type: "string", editable: false },
-                        UnidadMedida: { type: "string", editable: false },
+                        FechaPrueba: { type: "number", editable: false }, 
                         ValorUnidadMedida: { type: "number", editable: true },
-                        Aprobado: { type: "boolean", editable: false }
+                        Aprobado: { type: "string", editable: false }
                     }
                 }
             },
@@ -83,25 +77,9 @@ function CargarGrid() {
         },
         filterable: getGridFilterableMaftec(),
         columns: [
-            { field: "NombreSpool", title: _dictionary.columnNumeroControl[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "150px" },
-            { field: "SistemaPintura", title: _dictionary.columnSistemaPintura[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "150px" },
-            { field: "Color", title: _dictionary.columnColor[$("#language").data("kendoDropDownList").value()], width: "150px", filterable: getGridFilterableCellMaftec() },
-            { field: "M2", title: _dictionary.columnM2[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), format: "{0:n2}", width: "95px", attributes: { style: "text-align:right;" } },
-            { field: "Lote", title: "Lote", filterable: getGridFilterableCellMaftec(), width: "150px" },
-            { field: "NombreCuadrante", title: _dictionary.columnCuadrante[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "150px" },
-            { field: "UnidadMedida", title: _dictionary.columnUnidadMedida[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "150px" },
-            { field: "ValorUnidadMedida", title: "Valor de la prueba", filterable: getGridFilterableCellMaftec(), width: "170px" },
-            {
-                field: "Aprobado", title: "Aprobado", filterable: {
-                    multi: true,
-                    messages: {
-                        isTrue: _dictionary.lblVerdadero[$("#language").data("kendoDropDownList").value()],
-                        isFalse: _dictionary.lblFalso[$("#language").data("kendoDropDownList").value()],
-                        style: "max-width:100px;"
-                    },
-                    dataSource: [{ Aprobado: true }, { Aprobado: false }]
-                }, template: '<input type="checkbox" #= Aprobado ? "checked=checked" : "" # class="chkbx" disabled></input>  ', width: "130px", attributes: { style: "text-align:center;" }
-            },
+            { field: "FechaPrueba", title: _dictionary.columnFechaPrueba[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "110px" },
+            { field: "ValorUnidadMedida", title: "Valor U. Medida", filterable: getGridFilterableCellNumberMaftec(), width: "170px" },
+            { field: "Aprobado", title: "Aprobado", filterable: getGridFilterableCellMaftec(), width: "130px", attributes: { style: "text-align:center;" }},
             { command: { text: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()] }, title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], width: "50px", attributes: { style: "text-align:center;" } }
         ],
         beforeEdit: function (e) {
@@ -126,27 +104,15 @@ function llenarGrid() {
     var ds = [
                   {
                       Accion: 1,
-                      NombreSpool: "X001-001",
-                      SistemaPintura: "A1",
-                      Color: "AMARILLO",
-                      M2: "200",
-                      Lote: "Lote 1",
-                      NombreCuadrante: "MCS",
-                      UnidadMedida: "PLG",
+                      FechaPrueba : new Date(),
                       ValorUnidadMedida: 0,
-                      Aprobado: false
+                      Aprobado: "NO"
                   },
                   {
                       Accion: 1,
-                      NombreSpool: "X001-001",
-                      SistemaPintura: "A1",
-                      Color: "AMARILLO",
-                      M2: "200",
-                      Lote: "Lote 1",
-                      NombreCuadrante: "MCS",
-                      UnidadMedida: "PLG",
+                      FechaPrueba: new Date(),
                       ValorUnidadMedida: 3,
-                      Aprobado: true
+                      Aprobado: "NO"
                   }
     ]
     grid.data(ds);

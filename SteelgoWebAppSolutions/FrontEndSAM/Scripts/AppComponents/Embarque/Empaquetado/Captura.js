@@ -18,7 +18,7 @@ function CargarGrid() {
             schema: {
                 model: {
                     fields: {
-                        Plana: { type: "string", editable: false },
+                        Spool: { type: "string", editable: false },
                     }
                 }
             },
@@ -30,7 +30,7 @@ function CargarGrid() {
                     { field: "Accion", operator: "eq", value: undefined }
                 ]
             },
-            pageSize: 20,
+            pageSize: 10,
             serverPaging: false,
             serverFiltering: false,
             serverSorting: false
@@ -50,8 +50,12 @@ function CargarGrid() {
             input: false,
             numeric: true,
         },
+        filterable: getGridFilterableMaftec(),
         columns: [
-            { field: "Plana", title: "Spool", filterable: true },
+            { field: "Spool", title: "Spool", filterable: getGridFilterableCellMaftec() },
+            { field: "Cuadrante", title: "Cuadrante", filterable: getGridFilterableCellMaftec() },
+            { field: "M2", title: "M2", filterable: getGridFilterableCellMaftec() },
+            { field: "TOneladas", title: "Toneladas", filterable: getGridFilterableCellMaftec() },
              {
                  command: {
                      text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()],

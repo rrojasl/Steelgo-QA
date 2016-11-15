@@ -162,7 +162,7 @@ namespace BackEndSAM.Controllers.PinturaControllers.CapturaAvance
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
                 DataTable dtDetalleSpool = new DataTable();
-                DataTable dtDetalleObreros = new DataTable();
+                DataTable dtDetalleObreros = null;
 
 
                 foreach (DetalleSpool item in listaCapturasRequisicion.listaDetalleSpool)

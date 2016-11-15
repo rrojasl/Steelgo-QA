@@ -14,22 +14,23 @@ namespace DatabaseManager.Sam3
     
     public partial class Sam3_Incidencia
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Sam3_Incidencia()
         {
-            this.Sam3_Incidencia1 = new HashSet<Sam3_Incidencia>();
-            this.Sam3_Rel_Incidencia_NumeroUnico = new HashSet<Sam3_Rel_Incidencia_NumeroUnico>();
-            this.Sam3_Rel_Incidencia_FolioAvisoLlegada = new HashSet<Sam3_Rel_Incidencia_FolioAvisoLlegada>();
-            this.Sam3_Rel_Incidencia_FolioAvisoEntrada = new HashSet<Sam3_Rel_Incidencia_FolioAvisoEntrada>();
-            this.Sam3_Rel_Incidencia_PaseSalida = new HashSet<Sam3_Rel_Incidencia_PaseSalida>();
-            this.Sam3_Rel_Incidencia_FolioCuantificacion = new HashSet<Sam3_Rel_Incidencia_FolioCuantificacion>();
-            this.Sam3_Rel_Incidencia_OrdenRecepcion = new HashSet<Sam3_Rel_Incidencia_OrdenRecepcion>();
-            this.Sam3_Rel_Incidencia_ComplementoRecepcion = new HashSet<Sam3_Rel_Incidencia_ComplementoRecepcion>();
-            this.Sam3_Rel_Incidencia_ItemCode = new HashSet<Sam3_Rel_Incidencia_ItemCode>();
-            this.Sam3_Rel_Incidencia_OrdenAlmacenaje = new HashSet<Sam3_Rel_Incidencia_OrdenAlmacenaje>();
-            this.Sam3_Rel_Incidencia_Despacho = new HashSet<Sam3_Rel_Incidencia_Despacho>();
-            this.Sam3_Rel_Incidencia_Corte = new HashSet<Sam3_Rel_Incidencia_Corte>();
-            this.Sam3_Rel_Incidencia_Documento = new HashSet<Sam3_Rel_Incidencia_Documento>();
             this.Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo = new HashSet<Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo>();
+            this.Sam3_Rel_Incidencia_ComplementoRecepcion = new HashSet<Sam3_Rel_Incidencia_ComplementoRecepcion>();
+            this.Sam3_Rel_Incidencia_Corte = new HashSet<Sam3_Rel_Incidencia_Corte>();
+            this.Sam3_Rel_Incidencia_Despacho = new HashSet<Sam3_Rel_Incidencia_Despacho>();
+            this.Sam3_Rel_Incidencia_Documento = new HashSet<Sam3_Rel_Incidencia_Documento>();
+            this.Sam3_Rel_Incidencia_FolioAvisoEntrada = new HashSet<Sam3_Rel_Incidencia_FolioAvisoEntrada>();
+            this.Sam3_Rel_Incidencia_FolioAvisoLlegada = new HashSet<Sam3_Rel_Incidencia_FolioAvisoLlegada>();
+            this.Sam3_Rel_Incidencia_FolioCuantificacion = new HashSet<Sam3_Rel_Incidencia_FolioCuantificacion>();
+            this.Sam3_Rel_Incidencia_ItemCode = new HashSet<Sam3_Rel_Incidencia_ItemCode>();
+            this.Sam3_Rel_Incidencia_NumeroUnico = new HashSet<Sam3_Rel_Incidencia_NumeroUnico>();
+            this.Sam3_Rel_Incidencia_OrdenAlmacenaje = new HashSet<Sam3_Rel_Incidencia_OrdenAlmacenaje>();
+            this.Sam3_Rel_Incidencia_OrdenRecepcion = new HashSet<Sam3_Rel_Incidencia_OrdenRecepcion>();
+            this.Sam3_Rel_Incidencia_PaseSalida = new HashSet<Sam3_Rel_Incidencia_PaseSalida>();
+            this.Sam3_Incidencia1 = new HashSet<Sam3_Incidencia>();
         }
     
         public int IncidenciaID { get; set; }
@@ -61,27 +62,41 @@ namespace DatabaseManager.Sam3
         public Nullable<int> Consecutivo { get; set; }
         public Nullable<int> Rel_Proyecto_Entidad_Configuracion_ID { get; set; }
     
-        public virtual ICollection<Sam3_Incidencia> Sam3_Incidencia1 { get; set; }
-        public virtual Sam3_Incidencia Sam3_Incidencia2 { get; set; }
-        public virtual Sam3_Usuario Sam3_Usuario { get; set; }
-        public virtual Sam3_Usuario Sam3_Usuario1 { get; set; }
-        public virtual Sam3_Rel_Incidencia_Entidad Sam3_Rel_Incidencia_Entidad { get; set; }
-        public virtual ICollection<Sam3_Rel_Incidencia_NumeroUnico> Sam3_Rel_Incidencia_NumeroUnico { get; set; }
         public virtual Sam3_ClasificacionIncidencia Sam3_ClasificacionIncidencia { get; set; }
         public virtual Sam3_TipoIncidencia Sam3_TipoIncidencia { get; set; }
-        public virtual Sam3_Usuario Sam3_Usuario2 { get; set; }
-        public virtual ICollection<Sam3_Rel_Incidencia_FolioAvisoLlegada> Sam3_Rel_Incidencia_FolioAvisoLlegada { get; set; }
-        public virtual ICollection<Sam3_Rel_Incidencia_FolioAvisoEntrada> Sam3_Rel_Incidencia_FolioAvisoEntrada { get; set; }
-        public virtual ICollection<Sam3_Rel_Incidencia_PaseSalida> Sam3_Rel_Incidencia_PaseSalida { get; set; }
-        public virtual ICollection<Sam3_Rel_Incidencia_FolioCuantificacion> Sam3_Rel_Incidencia_FolioCuantificacion { get; set; }
-        public virtual ICollection<Sam3_Rel_Incidencia_OrdenRecepcion> Sam3_Rel_Incidencia_OrdenRecepcion { get; set; }
-        public virtual ICollection<Sam3_Rel_Incidencia_ComplementoRecepcion> Sam3_Rel_Incidencia_ComplementoRecepcion { get; set; }
-        public virtual ICollection<Sam3_Rel_Incidencia_ItemCode> Sam3_Rel_Incidencia_ItemCode { get; set; }
-        public virtual ICollection<Sam3_Rel_Incidencia_OrdenAlmacenaje> Sam3_Rel_Incidencia_OrdenAlmacenaje { get; set; }
-        public virtual ICollection<Sam3_Rel_Incidencia_Despacho> Sam3_Rel_Incidencia_Despacho { get; set; }
-        public virtual ICollection<Sam3_Rel_Incidencia_Corte> Sam3_Rel_Incidencia_Corte { get; set; }
-        public virtual ICollection<Sam3_Rel_Incidencia_Documento> Sam3_Rel_Incidencia_Documento { get; set; }
-        public virtual Sam3_Rel_Proyecto_Entidad_Configuracion Sam3_Rel_Proyecto_Entidad_Configuracion { get; set; }
+        public virtual Sam3_Usuario Sam3_Usuario { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo> Sam3_Rel_FolioAvisoLlegada_PaseSalida_Archivo { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_Rel_Incidencia_ComplementoRecepcion> Sam3_Rel_Incidencia_ComplementoRecepcion { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_Rel_Incidencia_Corte> Sam3_Rel_Incidencia_Corte { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_Rel_Incidencia_Despacho> Sam3_Rel_Incidencia_Despacho { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_Rel_Incidencia_Documento> Sam3_Rel_Incidencia_Documento { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_Rel_Incidencia_FolioAvisoEntrada> Sam3_Rel_Incidencia_FolioAvisoEntrada { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_Rel_Incidencia_FolioAvisoLlegada> Sam3_Rel_Incidencia_FolioAvisoLlegada { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_Rel_Incidencia_FolioCuantificacion> Sam3_Rel_Incidencia_FolioCuantificacion { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_Rel_Incidencia_ItemCode> Sam3_Rel_Incidencia_ItemCode { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_Rel_Incidencia_NumeroUnico> Sam3_Rel_Incidencia_NumeroUnico { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_Rel_Incidencia_OrdenAlmacenaje> Sam3_Rel_Incidencia_OrdenAlmacenaje { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_Rel_Incidencia_OrdenRecepcion> Sam3_Rel_Incidencia_OrdenRecepcion { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_Rel_Incidencia_PaseSalida> Sam3_Rel_Incidencia_PaseSalida { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_Incidencia> Sam3_Incidencia1 { get; set; }
+        public virtual Sam3_Incidencia Sam3_Incidencia2 { get; set; }
+        public virtual Sam3_Usuario Sam3_Usuario1 { get; set; }
+        public virtual Sam3_Usuario Sam3_Usuario2 { get; set; }
+        public virtual Sam3_Rel_Incidencia_Entidad Sam3_Rel_Incidencia_Entidad { get; set; }
+        public virtual Sam3_Rel_Proyecto_Entidad_Configuracion Sam3_Rel_Proyecto_Entidad_Configuracion { get; set; }
     }
 }

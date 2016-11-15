@@ -5,12 +5,7 @@ var win;
 function changeLanguageCall() {
     document.title = _dictionary.WPSBreadcrumb[$("#language").data("kendoDropDownList").value()];
     CargarGrid();
-
     ObtenerJSONParaGrid();
-
-
-
-
 };
 
 function CargarGrid() {
@@ -37,6 +32,19 @@ function CargarGrid() {
                     "<th width='auto'  colspan='2' class='k-header' style='text-align: center;'><span id=''>" + _dictionary.columnPreheat[$("#language").data("kendoDropDownList").value()] + "</span></th>" +
                     "<th width='auto'  colspan='2' class='k-header' style='text-align: center;'><span id=''>" + _dictionary.columnEspesormm[$("#language").data("kendoDropDownList").value()] + "</span></th>" +
                     "</tr>");
+            }
+            var grid = $("#grid").data("kendoGrid");
+            var gridData = grid.dataSource.view();
+
+            for (var i = 0; i < gridData.length; i++) {
+                var currentUid = gridData[i].uid;
+                if (gridData[i].RowOk == false) {
+                    grid.table.find("tr[data-uid='" + currentUid + "']").css("background-color", "#ffcccc");
+                }
+                else if (gridData[i].RowOk) {
+                    grid.table.find("tr[data-uid='" + currentUid + "']").css("background-color", "#ffffff");
+                }
+
             }
         },
         dataSource: {
@@ -235,7 +243,8 @@ function NombreRepetido(listaDetalles) {
         for (var j = 0; j < listaDetalles.length; j++) {
             if (listaDetalles[i].WPSNombre.toLowerCase() == listaDetalles[j].WPSNombre.toLowerCase() && i != j) {
                 listaDetalles[j].Estatus = -4;
-                $('tr[data-uid="' + allData[j].uid + '"] ').css("background-color", "#ffcccc");
+                //$('tr[data-uid="' + allData[j].uid + '"] ').css("background-color", "#ffcccc");
+                $("#grid").data("kendoGrid").dataSource._data[j].RowOk = false;
             }
         }
     }
@@ -247,8 +256,10 @@ function NombreRepetido(listaDetalles) {
 
 function ValidaNombreRepetido(rows) {
     for (var i = 0; i < rows.length; i++) {
-        if (rows[i].Estatus == -4)
+        if (rows[i].Estatus == -4) {
+            $("#grid").data("kendoGrid").dataSource._data[i].RowOk = false;
             return true;
+        }
     }
     return false;
 }
@@ -311,7 +322,8 @@ function EsCorrectoGruposMaterialBase(rows) {
 
     for (var i = 0; i < rows.length; i++) {
         if (rows[i].Estatus == -1)
-            $('tr[data-uid="' + allData[i].uid + '"] ').css("background-color", "#ffcccc");
+            // $('tr[data-uid="' + allData[i].uid + '"] ').css("background-color", "#ffcccc");
+            $("#grid").data("kendoGrid").dataSource._data[i].RowOk = false;
     }
 
     for (var i = 0; i < rows.length; i++) {
@@ -328,7 +340,8 @@ function EsCorrectoPWHTRELLENO(rows) {
 
     for (var i = 0; i < rows.length; i++) {
         if (rows[i].Estatus == -2)
-            $('tr[data-uid="' + allData[i].uid + '"] ').css("background-color", "#ffcccc");
+            //$('tr[data-uid="' + allData[i].uid + '"] ').css("background-color", "#ffcccc");
+            $("#grid").data("kendoGrid").dataSource._data[i].RowOk = false;
     }
 
     for (var i = 0; i < rows.length; i++) {
@@ -344,7 +357,8 @@ function EsCorrectoPreHitRelleno(rows) {
 
     for (var i = 0; i < rows.length; i++) {
         if (rows[i].Estatus == -3)
-            $('tr[data-uid="' + allData[i].uid + '"] ').css("background-color", "#ffcccc");
+            //$('tr[data-uid="' + allData[i].uid + '"] ').css("background-color", "#ffcccc");
+            $("#grid").data("kendoGrid").dataSource._data[i].RowOk = false;
     }
 
     for (var i = 0; i < rows.length; i++) {

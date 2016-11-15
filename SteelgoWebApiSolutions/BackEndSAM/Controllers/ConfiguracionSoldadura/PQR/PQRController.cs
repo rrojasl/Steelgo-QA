@@ -17,7 +17,7 @@ namespace BackEndSAM.Controllers.ConfiguracionSoldadura.PQR
     public class PQRController : ApiController
     {
         //Obtiene el DataSource Para PQR
-        public object Get(int TipoDato, int Proyecto, int PruebaID, string Especificacion, string Codigo, string token)
+        public object Get(int TipoDato, int Proyecto, int PruebaID, string Especificacion, string Codigo, string token,int pantallaEnvia)
         {
             try
             {
@@ -29,7 +29,7 @@ namespace BackEndSAM.Controllers.ConfiguracionSoldadura.PQR
                     JavaScriptSerializer serializer = new JavaScriptSerializer();
                     Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                    return PQRBd.Instance.ObtenerListadoPQRActivos(TipoDato, usuario.UsuarioID, Especificacion, Codigo);
+                    return PQRBd.Instance.ObtenerListadoPQRActivos(TipoDato, usuario.UsuarioID, Especificacion, Codigo, pantallaEnvia);
                 }
                 else
                 {
@@ -209,7 +209,7 @@ namespace BackEndSAM.Controllers.ConfiguracionSoldadura.PQR
         }
 
         //Obtiene el listado de PQR Activos, (PQRID , NOMBREPQR)
-        public object Get(string token, int TipoAccion)
+        public object Get(string token, int TipoAccion,int pantallaEnvia)
         {
             try
             {
@@ -222,7 +222,7 @@ namespace BackEndSAM.Controllers.ConfiguracionSoldadura.PQR
                     JavaScriptSerializer serializer = new JavaScriptSerializer();
                     Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                    return PQRBd.Instance.ObtenerListadoPQRActivos(TipoAccion, usuario.UsuarioID, null, null);
+                    return PQRBd.Instance.ObtenerListadoPQRActivos(TipoAccion, usuario.UsuarioID, null, null, pantallaEnvia);
                 }
                 else
                 {

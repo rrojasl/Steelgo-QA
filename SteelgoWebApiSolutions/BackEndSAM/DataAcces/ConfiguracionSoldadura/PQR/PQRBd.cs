@@ -30,7 +30,7 @@ namespace BackEndSAM.DataAcces.ConfiguracionSoldadura
             }
         }
 
-        public object ObtenerListadoPQRActivos(int TipoAccion, int usuarioID, string especificacion, string codigo)
+        public object ObtenerListadoPQRActivos(int TipoAccion, int usuarioID, string especificacion, string codigo,int pantallaEnvia)
         {
             try
             {
@@ -40,6 +40,8 @@ namespace BackEndSAM.DataAcces.ConfiguracionSoldadura
                 {
                     List<Sam3_Soldadura_PQR_Result> listaPQRJson = ctx.Sam3_Soldadura_PQR(TipoAccion, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null).ToList();
 
+                    if (listaPQRJson.Count > 0 && pantallaEnvia==2)
+                        listaPQR.Add(new PQR());
                     foreach (Sam3_Soldadura_PQR_Result item in listaPQRJson)
                     {
                         listaPQR.Add(
@@ -69,7 +71,8 @@ namespace BackEndSAM.DataAcces.ConfiguracionSoldadura
                                 RegistrosWPS = item.RegistrosWPS.GetValueOrDefault(),
                                 ListaProcesosSoldadura = (List<ListaProcesoSoldadura>)obtenerListadoProcesos(TipoAccion),
                                 ListaMaterialesBase = (List<ListaMaterialesBase>)obtenerListadoMaterialesBase(TipoAccion),
-                                ListaCodigos = (List<ListaCodigos>)obtenerListadoCodigos(usuarioID, especificacion, codigo)
+                                ListaCodigos = (List<ListaCodigos>)obtenerListadoCodigos(usuarioID, especificacion, codigo),
+                                RowOk = true
                             });
                     }
 

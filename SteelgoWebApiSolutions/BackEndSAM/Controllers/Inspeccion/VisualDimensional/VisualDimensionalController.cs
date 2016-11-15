@@ -91,7 +91,8 @@ namespace BackEndSAM.Controllers.Inspeccion.VisualDimensional
                         DetalleJunta = "Junta: " + item.TipoJunta + " - " + "Ced: " + item.Cedula + " - " + "Loc: " + item.Localizacion + " - " + "Acero: " + item.FamiliaAcero + "",
 
                         EtiquetaMaterial1 = item.EtiquetaMaterial1,
-                        EtiquetaMaterial2 = item.EtiquetaMaterial2
+                        EtiquetaMaterial2 = item.EtiquetaMaterial2,
+                        RowOk = true
                     };
 
                     listaDetalleDatos.Add(detalleDatos);

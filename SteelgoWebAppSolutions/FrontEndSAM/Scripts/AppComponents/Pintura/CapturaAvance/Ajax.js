@@ -68,7 +68,7 @@ function AjaxCargarCarrosCargados() {
             }
         }
 
-        
+
         loadingStop();
     });
 }
@@ -136,9 +136,9 @@ function AjaxCargarSpool(medioTransporteCargaID) {
 
                 ds.add(array[i]);
             }
+
+            ds.sync();
         }
-        ds.sync();
-    
         loadingStop();
     });
 }
@@ -466,7 +466,7 @@ function AjaxGuardarCarro(arregloCaptura, guardarYNuevo) {
         listaDetalleSpool[contIndice].SistemaPinturaID = arregloCaptura[index].SistemaPinturaID;
         listaDetalleSpool[contIndice].ColorPinturaID = arregloCaptura[index].ColorPinturaID;
         listaDetalleSpool[contIndice].LotePinturaID = 0;
-        listaDetalleSpool[contIndice].PinturaComponenteComposicionID = $("#inputComponente").data("kendoComboBox").value();
+        listaDetalleSpool[contIndice].PinturaComponenteComposicionID = 0;
 
         if (arregloCaptura[index].FechaPrimario != null) {
             listaDetalleSpool[contIndice].Fecha = kendo.toString(arregloCaptura[index].FechaPrimario,

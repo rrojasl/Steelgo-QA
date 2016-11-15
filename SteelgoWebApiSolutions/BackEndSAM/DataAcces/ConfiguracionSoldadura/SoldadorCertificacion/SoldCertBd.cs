@@ -86,7 +86,8 @@ namespace BackEndSAM.DataAcces.ConfiguracionSoldadura.SoldCertBd
                                                         ListaTipoPrueba = listaTipoPrueba,
                                                         Posicion = Convert.ToInt32(SC.Posicion),
                                                         listadoPQR = (List<DetallePQR>)PQRBd.ObtenerListadoPQRActivos(),
-                                                        listaObreros = (List<ObreroSteelGo>)ObtenerListaSoldadores(usuario.UsuarioID)
+                                                        listaObreros = (List<ObreroSteelGo>)ObtenerListaSoldadores(usuario.UsuarioID),
+                                                        RowOk=true
                                                     }).AsParallel().ToList().OrderBy(x => x.NombreWPS).ToList<SoldadorCertificacion>();
                 return data;
 
@@ -110,7 +111,6 @@ namespace BackEndSAM.DataAcces.ConfiguracionSoldadura.SoldCertBd
                 listaObreros.Insert(0, new ObreroSteelGo());
                 return listaObreros;
             }
-
         }
         public object ObtenerNuevoSoldadorCertificacion(int usuarioID, int patioID)
         {

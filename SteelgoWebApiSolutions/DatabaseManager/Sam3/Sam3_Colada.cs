@@ -14,11 +14,12 @@ namespace DatabaseManager.Sam3
     
     public partial class Sam3_Colada
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Sam3_Colada()
         {
-            this.Sam3_NumeroUnico = new HashSet<Sam3_NumeroUnico>();
-            this.Sam3_Rel_Itemcode_Colada = new HashSet<Sam3_Rel_Itemcode_Colada>();
             this.Sam3_MTR = new HashSet<Sam3_MTR>();
+            this.Sam3_Rel_Itemcode_Colada = new HashSet<Sam3_Rel_Itemcode_Colada>();
+            this.Sam3_NumeroUnico = new HashSet<Sam3_NumeroUnico>();
         }
     
         public int ColadaID { get; set; }
@@ -33,10 +34,13 @@ namespace DatabaseManager.Sam3
         public Nullable<System.DateTime> FechaModificacion { get; set; }
     
         public virtual Sam3_Acero Sam3_Acero { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_MTR> Sam3_MTR { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_Rel_Itemcode_Colada> Sam3_Rel_Itemcode_Colada { get; set; }
         public virtual Sam3_Fabricante Sam3_Fabricante { get; set; }
         public virtual Sam3_Proyecto Sam3_Proyecto { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sam3_NumeroUnico> Sam3_NumeroUnico { get; set; }
-        public virtual ICollection<Sam3_Rel_Itemcode_Colada> Sam3_Rel_Itemcode_Colada { get; set; }
-        public virtual ICollection<Sam3_MTR> Sam3_MTR { get; set; }
     }
 }

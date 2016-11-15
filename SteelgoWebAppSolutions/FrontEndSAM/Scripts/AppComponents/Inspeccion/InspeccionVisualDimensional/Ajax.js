@@ -33,7 +33,6 @@ function ajaxObtenerListaTaller() {
 function ajaxJunta(spoolID) {
     $InspeccionVisualDimensional.VisualDimensional.read({ ordenTrabajo: $("#InputOrdenTrabajo").val(), id: spoolID, sinCaptura: 1, token: Cookies.get("token"), todos: 1 }).done(function (data) {
         if (Error(data)) {
-            limpiarJuntaMultiselect();
             $("#ListaJuntas").data("kendoMultiSelect").dataSource.data(data);
         }
     });
@@ -294,7 +293,8 @@ function ajaxGuardado(jSonCaptura, tipoGuardar) {
 
     // Comienza captura Visual
     for (index = 0; index < jSonCaptura.length; index++) {
-        $('tr[data-uid="' + jSonCaptura[index].uid + '"] ').css("background-color", "#ffffff");
+        //$('tr[data-uid="' + jSonCaptura[index].uid + '"] ').css("background-color", "#ffffff");
+        $("#grid").data("kendoGrid").dataSource._data[index].RowOk = true;
 
         ListaDetalleGuardarInspeccionVisual[index] = { Accion: "", OrdenTrabajoSpoolID: "", TipoJuntaID: "", EtiquetaJunta: "", EtiquetaMaterial1: "", EtiquetaMaterial2: "", DefectosID: "", InspectorID: "", FechaInspeccion: "", JuntaTrabajoID: "", ResultadoID: "", TallerID: "", NumeroUnico1ID: "", NumeroUnico2ID: "", InspeccionVisualID: "" };
         ListaDetalleGuardarInspeccionVisual[index].Accion = jSonCaptura[index].Accion;
@@ -325,7 +325,8 @@ function ajaxGuardado(jSonCaptura, tipoGuardar) {
             if (ListaDetalleGuardarInspeccionVisual[index].Accion == 2) ListaDetalleGuardarInspeccionVisual[index].Accion = 4;
 
             ListaDetalleGuardarInspeccionVisual[index].Estatus = 0;
-            $('tr[data-uid="' + jSonCaptura[index].uid + '"] ').css("background-color", "#ffcccc");
+            //$('tr[data-uid="' + jSonCaptura[index].uid + '"] ').css("background-color", "#ffcccc");
+            $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
             existRowEmpty = true;
             //ListaDetalleGuardarInspeccionVisual.pop();
         }
@@ -339,7 +340,8 @@ function ajaxGuardado(jSonCaptura, tipoGuardar) {
             ListaDetalleGuardarInspeccionVisual[index].NumeroUnico2ID == "" || ListaDetalleGuardarInspeccionVisual[index].NumeroUnico2ID == "0" || ListaDetalleGuardarInspeccionVisual[index].NumeroUnico2ID == null)) {
 
                 ListaDetalleGuardarInspeccionVisual[index].Estatus = 0;
-                $('tr[data-uid="' + jSonCaptura[index].uid + '"] ').css("background-color", "#ffcccc");
+                //$('tr[data-uid="' + jSonCaptura[index].uid + '"] ').css("background-color", "#ffcccc");
+                $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
                 existRowEmpty = true;
             }
         }
@@ -376,7 +378,8 @@ function ajaxGuardado(jSonCaptura, tipoGuardar) {
     if (capturaSinDimensional && !capturaSinVisual) Captura[0].Detalles[0].ListaDetalleGuardarInspeccionVisual = ListaDetalleGuardarFiltroStatus;
 
     Captura[0].Detalles[0].ListaJuntas = inspeccionDimensional[0].ListaJuntas;
-
+    $("#grid").data("kendoGrid").dataSource.sync();
+    if (existRowEmpty) {
     //windowTemplate = kendo.template($("#windowTemplate").html());
     ventanaConfirm = $("#ventanaConfirm").kendoWindow({
         iframe: true,
@@ -391,18 +394,18 @@ function ajaxGuardado(jSonCaptura, tipoGuardar) {
         }
     }).data("kendoWindow");
 
-    ventanaConfirm.content(_dictionary.CapturaGuardarInformacionConNumerosUnicos[$("#language").data("kendoDropDownList").value()] +
-             "</br><center><button class='btn btn-blue' id='noButton'>Ok</button></center>");
+    
+    ventanaConfirm.content(_dictionary.MensajeConfirmacionGuardadoGeneral[$("#language").data("kendoDropDownList").value()] +
+            "</br><center><button class='btn btn-blue' id='yesButton'>Si</button><button class='btn btn-blue' id='noButton'> No</button></center>");
 
-    if (existRowEmpty) {
+
+    
         ventanaConfirm.open().center();
 
-        //$("#yesButton").click(function () {
-        //    loadingStart();
-        //    ejecutaGuardado(Captura, capturaSinDimensional, capturaSinVisual, tipoGuardar);
-
-        //    ventanaConfirm.close();
-        //});
+        $("#yesButton").click(function () {
+            ejecutaGuardado(Captura, capturaSinDimensional, capturaSinVisual, tipoGuardar);
+            ventanaConfirm.close();
+        });
 
         $("#noButton").click(function () {
             ventanaConfirm.close();
@@ -418,7 +421,6 @@ function ajaxGuardado(jSonCaptura, tipoGuardar) {
 function ejecutaGuardado(Captura, guardadoSinInspeccionDimensional, guardadoSinInspeccionVisual, tipoGuardar) {
     if (guardadoSinInspeccionDimensional && guardadoSinInspeccionVisual) {
         displayNotify("DimensionalVisualMensajeNoHayDatosPorGuardar", "", '1');
-        loadingStop();
     }
     else $InspeccionVisualDimensional.VisualDimensional.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
         if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {

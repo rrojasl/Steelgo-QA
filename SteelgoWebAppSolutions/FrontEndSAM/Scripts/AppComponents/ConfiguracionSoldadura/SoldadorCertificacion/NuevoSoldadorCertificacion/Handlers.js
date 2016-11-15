@@ -190,17 +190,22 @@ function SuscribirEventoProcesoSoldadura() {
                 $("#inputProcesoSol").data("kendoComboBox").text("");
             }
             else {
-                if (parseInt(dataItem.TipoProcesoSoldaduraID) == 2 && $("#inputNombreWPS").data("kendoComboBox").dataItem($("#inputNombreWPS").data("kendoComboBox").select()).EspesorRaiz == 0) {
+                //if ($("#inputNombreWPS").data("kendoComboBox").select() != -1 && $("#inputNombreWPS").data("kendoComboBox").select() != 0) {
+                    //if (parseInt(dataItem.TipoProcesoSoldaduraID) == 2 && $("#inputNombreWPS").data("kendoComboBox").dataItem($("#inputNombreWPS").data("kendoComboBox").select()).EspesorRaiz == 0) {
+                    //    this.select(0);
+                    //    displayNotify("WPSMensajeErrorPQRNoAplicaRaiz", "", '2');
+                    //}
+                    //if (parseInt(dataItem.TipoProcesoSoldaduraID) == 3 && $("#inputNombreWPS").data("kendoComboBox").dataItem($("#inputNombreWPS").data("kendoComboBox").select()).EspesorRelleno == 0) {
+                    //    this.select(0);
+                    //    displayNotify("WPSMensajeErrorPQRNoAplicaRelleno", "", '2');
+                    //}
+                    //if (parseInt(dataItem.TipoProcesoSoldaduraID) == 4 && ($("#inputNombreWPS").data("kendoComboBox").dataItem($("#inputNombreWPS").data("kendoComboBox").select()).EspesorRaiz == 0 || $("#inputNombreWPS").data("kendoComboBox").dataItem($("#inputNombreWPS").data("kendoComboBox").select()).EspesorRelleno == 0)) {
+                    //    this.select(0);
+                    //    displayNotify("WPSNoAceptaAmbos", "", '2');
+                    //}
+                if ($("#inputNombreWPS").data("kendoComboBox").select() == -1 && $("#inputNombreWPS").data("kendoComboBox").select() == 0) {
                     this.select(0);
-                    displayNotify("WPSMensajeErrorPQRNoAplicaRaiz", "", '2');
-                }
-                if (parseInt(dataItem.TipoProcesoSoldaduraID) == 3 && $("#inputNombreWPS").data("kendoComboBox").dataItem($("#inputNombreWPS").data("kendoComboBox").select()).EspesorRelleno == 0) {
-                    this.select(0);
-                    displayNotify("WPSMensajeErrorPQRNoAplicaRelleno", "", '2');
-                }
-                if (parseInt(dataItem.TipoProcesoSoldaduraID) == 4 && ($("#inputNombreWPS").data("kendoComboBox").dataItem($("#inputNombreWPS").data("kendoComboBox").select()).EspesorRaiz == 0 || $("#inputNombreWPS").data("kendoComboBox").dataItem($("#inputNombreWPS").data("kendoComboBox").select()).EspesorRelleno == 0)) {
-                    this.select(0);
-                    displayNotify("WPSNoAceptaAmbos", "", '2');
+                    displayNotify("WPSNoSeleccionado", "", '2');
                 }
 
             }

@@ -14,10 +14,12 @@ namespace DatabaseManager.Sam3
     
     public partial class Sam3_OrdenTrabajo
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Sam3_OrdenTrabajo()
         {
             this.Sam3_NumeroUnicoCorte = new HashSet<Sam3_NumeroUnicoCorte>();
             this.Sam3_OrdenTrabajoSpool = new HashSet<Sam3_OrdenTrabajoSpool>();
+            this.Sam3_OrdenTrabajoSpool_SinSpool = new HashSet<Sam3_OrdenTrabajoSpool_SinSpool>();
         }
     
         public int OrdenTrabajoID { get; set; }
@@ -33,9 +35,13 @@ namespace DatabaseManager.Sam3
         public Nullable<System.DateTime> FechaModificacion { get; set; }
     
         public virtual Sam3_EstatusOrden Sam3_EstatusOrden { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sam3_NumeroUnicoCorte> Sam3_NumeroUnicoCorte { get; set; }
         public virtual Sam3_Proyecto Sam3_Proyecto { get; set; }
         public virtual Sam3_Taller Sam3_Taller { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sam3_OrdenTrabajoSpool> Sam3_OrdenTrabajoSpool { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_OrdenTrabajoSpool_SinSpool> Sam3_OrdenTrabajoSpool_SinSpool { get; set; }
     }
 }

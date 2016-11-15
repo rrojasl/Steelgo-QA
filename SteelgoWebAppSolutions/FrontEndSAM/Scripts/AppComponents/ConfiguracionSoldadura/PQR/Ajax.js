@@ -3,7 +3,7 @@ function LlenaGridAjax() {
 
     var TipoDato = 1;
 
-    $PQR.PQR.read({ TipoDato: TipoDato, Proyecto: 28, PruebaID: 2, Especificacion: null, Codigo: null, token: Cookies.get("token") }).done(function (data) {
+    $PQR.PQR.read({ TipoDato: TipoDato, Proyecto: 28, PruebaID: 2, Especificacion: null, Codigo: null, token: Cookies.get("token"),pantallaEnvia:1 }).done(function (data) {
         if (Error(data)) {
             resultadoJson = data;
             if (resultadoJson.length > 0) {
@@ -17,7 +17,6 @@ function LlenaGridAjax() {
 };
 
 function AjaxGuardarListado() {
-    $("#grid").data("kendoGrid").dataSource.sync();
     var dataSource = $("#grid").data("kendoGrid").dataSource;
     var filters = dataSource.filter();
     var arregloCaptura = dataSource.data();
@@ -55,7 +54,9 @@ function AjaxGuardarListado() {
             Estatus: 1
         };
 
-        if ((arregloCaptura[index].Nombre == "" || arregloCaptura[index].Nombre == undefined || arregloCaptura[index].Nombre == null) ||
+        $("#grid").data("kendoGrid").dataSource._data[index].RowOk = true;
+
+        if (((arregloCaptura[index].Nombre == "" || arregloCaptura[index].Nombre == undefined || arregloCaptura[index].Nombre == null) ||
             (arregloCaptura[index].EspesorRaiz == null || arregloCaptura[index].EspesorRelleno == null) ||
             (arregloCaptura[index].ProcesoSoldaduraRaizID == 0 || arregloCaptura[index].ProcesoSoldaduraRaizID == undefined || arregloCaptura[index].ProcesoSoldaduraRaizID == "" || arregloCaptura[index].ProcesoSoldaduraRaizID == null) ||
             (arregloCaptura[index].ProcesoSoldaduraRellenoID == 0 || arregloCaptura[index].ProcesoSoldaduraRellenoID == undefined || arregloCaptura[index].ProcesoSoldaduraRellenoID == "" || arregloCaptura[index].ProcesoSoldaduraRellenoID == null) ||
@@ -66,10 +67,10 @@ function AjaxGuardarListado() {
             (arregloCaptura[index].ProcesoSoldaduraRaizID == 6 && arregloCaptura[index].EspesorRaiz > 0) ||
             (arregloCaptura[index].GrupoPMaterialBase1 == 0 || arregloCaptura[index].GrupoPMaterialBase1 == undefined || arregloCaptura[index].GrupoPMaterialBase1 == "" || arregloCaptura[index].GrupoPMaterialBase1 == null) ||
             (arregloCaptura[index].GrupoPMaterialBase2 == 0 || arregloCaptura[index].GrupoPMaterialBase2 == undefined || arregloCaptura[index].GrupoPMaterialBase2 == "" || arregloCaptura[index].GrupoPMaterialBase2 == null) ||
-            (arregloCaptura[index].CodigoASMEID == 0 || arregloCaptura[index].CodigoASMEID == undefined || arregloCaptura[index].CodigoASMEID == "" || arregloCaptura[index].CodigoASMEID == null)) {
+            (arregloCaptura[index].CodigoASMEID == 0 || arregloCaptura[index].CodigoASMEID == undefined || arregloCaptura[index].CodigoASMEID == "" || arregloCaptura[index].CodigoASMEID == null)) && arregloCaptura[index].Accion != 0) {
 
             ListaDetalles[index].Estatus = 0;
-            $('tr[data-uid="' + arregloCaptura[index].uid + '"] ').css("background-color", "#ffcccc");
+            $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
 
             if (arregloCaptura[index].ProcesoSoldaduraRaizID == 6 && arregloCaptura[index].ProcesoSoldaduraRellenoID == 6 && !desplegadoNA) {
                 desplegadoNA = true;
@@ -119,13 +120,17 @@ function AjaxGuardarListado() {
     }
     Captura[0].Detalles = ListaDetalles;
 
-    if (!NombreRepetido(ListaDetalles)) {
-        if (!ExistRowEmpty(ListaDetalles)) {
+    
+
+    //if () {
+        if (!ExistRowEmpty(ListaDetalles) && !NombreRepetido(ListaDetalles)) {
+            $("#grid").data("kendoGrid").dataSource.sync();
             if (Captura[0].Detalles.length > 0 && correcto) {
                 loadingStart();
                 $PQR.PQR.create(Captura[0], { token: Cookies.get("token"), accion: 2 }).done(function (data) {
                     if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "OK") {
                         displayNotify("CapturaMensajeGuardadoExitoso", "", '0');
+                        opcionHabilitarView(true);
                         LlenaGridAjax();
                         loadingStop();
                     }
@@ -140,6 +145,7 @@ function AjaxGuardarListado() {
         }
         else {
             loadingStop();
+            $("#grid").data("kendoGrid").dataSource.sync();
             windowTemplate = kendo.template($("#windowTemplate").html());
 
             ventanaConfirm = $("#ventanaConfirm").kendoWindow({
@@ -213,9 +219,10 @@ function AjaxGuardarListado() {
                 ventanaConfirm.close();
             });
         }
-    }
-    else {
-        displayNotify("lblPQRNoRepetidos", "", "2");
-        opcionHabilitarView(false);
-    }
+    //}
+    //else {
+    //    $("#grid").data("kendoGrid").dataSource.sync();
+    //    displayNotify("lblPQRNoRepetidos", "", "2");
+    //    opcionHabilitarView(false);
+    //}
 };

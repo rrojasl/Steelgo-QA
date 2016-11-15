@@ -14,13 +14,13 @@ namespace DatabaseManager.Sam3
     
     public partial class Sam3_Rel_Usuario_Preferencia
     {
+        public int Rel_Usuario_PreferenciaID { get; set; }
         public int UsuarioID { get; set; }
         public int PreferenciaID { get; set; }
         public string ValorPreferencia { get; set; }
         public bool Activo { get; set; }
         public Nullable<int> UsuarioModificacion { get; set; }
         public Nullable<System.DateTime> FechaModificacion { get; set; }
-        public int Rel_Usuario_PreferenciaID { get; set; }
     
         public virtual Sam3_Preferencia Sam3_Preferencia { get; set; }
         public virtual Sam3_Usuario Sam3_Usuario { get; set; }

@@ -36,6 +36,8 @@ namespace BackEndSAM.Models.ConfiguracionSoldadura.SoldadorCertificacion
         public List<DetallePQR> listadoPQR { get; set; }
         public List<ObreroSteelGo> listaObreros { get; set; }
 
+        public bool RowOk { get; set; }
+
     }
 
     public class CedulaTuboCalificado

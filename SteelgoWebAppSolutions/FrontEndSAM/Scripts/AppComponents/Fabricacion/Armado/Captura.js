@@ -4,6 +4,7 @@ var anteriorlongitudTrabajosAdicionales;
 var actuallongitudTrabajosAdicionales;
 var ItemSeleccionado;
 var ventanaConfirm;
+var editado = false;
 
 IniciarCapturaArmado();
 function IniciarCapturaArmado() {
@@ -210,7 +211,6 @@ function CargarGrid() {
             numeric: true
         },
         filterable: getGridFilterableMaftec(),
-
         columns: [
             { field: "SpoolID", title: _dictionary.columnNumeroControl[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "100px" },
             { field: "Junta", title: _dictionary.columnJunta[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "70px" },
@@ -225,7 +225,21 @@ function CargarGrid() {
             { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: eliminarCaptura }, title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], width: "50px" },
             { command: { text: _dictionary.botonLimpiar[$("#language").data("kendoDropDownList").value()], click: limpiarRenglon }, title: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()], width: "50px" }
         ],
+        dataBound: function () {
+            var grid = $("#grid").data("kendoGrid");
+            var gridData = grid.dataSource.view();
 
+            for (var i = 0; i < gridData.length; i++) {
+                var currentUid = gridData[i].uid;
+                if (gridData[i].RowOk == false) {
+                    grid.table.find("tr[data-uid='" + currentUid + "']").css("background-color", "#ffcccc");
+                }
+                else if (gridData[i].RowOk) {
+                    grid.table.find("tr[data-uid='" + currentUid + "']").css("background-color", "#ffffff");
+                }
+
+            }
+        }
     });
     CustomisaGrid($("#grid"));
 }
@@ -284,33 +298,14 @@ function CargarGridPopUp() {
 
 
         },
-
         selectable: true,
-        dataBinding: function (e) {
-
-        },
         filterable: getGridFilterableMaftec(),
-        edit: function (e) {
-
-        },
-        change: function (e) {
-
-            //ItemSeleccionadoAnidado = this.dataSource.view()[this.select().index()];
-
-            //var dataSource = this.dataSource;
-            //var filters = dataSource.filter();
-            //var allData = dataSource.data();
-            //var query = new kendo.data.Query(allData);
-            //var data = query.filter(filters).data;
-
-
-            //actuallongitudTrabajosAdicionales = data.length;
-
-            //if (actuallongitudTrabajosAdicionales == 0)
-            //    modeloRenglon.TemplateMensajeTrabajosAdicionales = _dictionary.CapturaArmadoTemplateNoHayTrabajosAdicionales[$("#language").data("kendoDropDownList").value()];
-            //else
-            //    modeloRenglon.TemplateMensajeTrabajosAdicionales = _dictionary.CapturaSoldaduraMensajeCambioLongitud[$("#language").data("kendoDropDownList").value()] + actuallongitudTrabajosAdicionales + _dictionary.CapturaSoldaduraMensajeCambioTrabajosAdicionales[$("#language").data("kendoDropDownList").value()];
-
+        change : function (e){
+            grid = e.sender;
+            var currentDataItem = grid.dataItem(this.select());
+            var currentIndexRow = $("#gridPopUp").data("kendoGrid").items().index(this.select());
+            // alert("evento change:" + currentIndexRow);
+            console.log("evento change:" + currentIndexRow);
         },
         columns: [
           { field: "TrabajoAdicional", title: _dictionary.columnAdicionales[$("#language").data("kendoDropDownList").value()], editor: RenderComboBoxTrabajoAdicional, filterable: getGridFilterableCellMaftecpopUp(), width: "150px" },
@@ -397,32 +392,27 @@ function CargarGridPopUp() {
                   }
               }, width: "50px", title: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()]
           }
-        ], saveChanges: function (e) {
-            if (!confirm("Are you sure you want to save all changes?")) {
-                e.preventDefault();
-            }
-        },
+        ],
         editable: true,
         navigatable: true,
-        toolbar: [{ name: "create", className: "addNewRowSAdittionalWork" }]
+        toolbar: [{ name: "create"}]
     });
 
-    $(".addNewRowSAdittionalWork").bind('click', function () {
-
-        //var dataSource = $("#gridPopUp").data("kendoGrid").dataSource;
-        //var filters = dataSource.filter();
-        //var allData = dataSource.data();
-        //var query = new kendo.data.Query(allData);
-        //var data = query.filter(filters).data;
-
-        //actuallongitudTrabajosAdicionales = data.length;
-        //actuallongitudTrabajosAdicionales++;
-        //if (actuallongitudTrabajosAdicionales == 0)
-        //    modeloRenglon.TemplateMensajeTrabajosAdicionales = _dictionary.CapturaArmadoTemplateNoHayTrabajosAdicionales[$("#language").data("kendoDropDownList").value()];
-        //else
-        //    modeloRenglon.TemplateMensajeTrabajosAdicionales = _dictionary.CapturaSoldaduraMensajeCambioLongitud[$("#language").data("kendoDropDownList").value()] + actuallongitudTrabajosAdicionales + _dictionary.CapturaSoldaduraMensajeCambioTrabajosAdicionales[$("#language").data("kendoDropDownList").value()];
-
-        //$("#grid").data("kendoGrid").dataSource.sync();
+    $("#gridPopUp table").on("keydown", function (e) {
+        if (e.keyCode == 13) {
+            e.preventDefault();
+            //var grid = $("#gridPopUp").data("kendoGrid");
+            //var length = grid.dataSource.view().length;
+            //var currentIndexRow = $("#gridPopUp").data("kendoGrid").items().index($("#gridPopUp").data("kendoGrid").select());
+            //if (currentIndexRow == length - 1) {
+                var dataSource = $("#gridPopUp").data("kendoGrid").dataSource;
+                var total = $("#gridPopUp").data("kendoGrid").dataSource.data().length;
+                $("#gridPopUp").data("kendoGrid").dataSource.insert(total, {});
+                $("#gridPopUp").data("kendoGrid").dataSource.page(dataSource.totalPages());
+                $("#gridPopUp").data("kendoGrid").editRow($("#gridPopUp").data("kendoGrid").tbody.children().last());
+                
+            //}
+        }
     });
 
     CustomisaGrid($("#gridPopUp"));
@@ -654,25 +644,25 @@ function eliminarCaptura(e) {
 
         //windowTemplate = kendo.template($("#windowTemplate").html());
 
-        ventanaConfirm = $("#ventanaConfirm").kendoWindow({
-            iframe: true,
-            title: _dictionary.TituloPopupCancelar[$("#language").data("kendoDropDownList").value()],
-            visible: false, //the window will not appear before its .open method is called
-            width: "auto",
-            height: "auto",
-            modal: true,
-            animation: {
-                close: false,
-                open: false
-            }
-        }).data("kendoWindow");
+        //ventanaConfirm = $("#ventanaConfirm").kendoWindow({
+        //    iframe: true,
+        //    title: _dictionary.TituloPopupCancelar[$("#language").data("kendoDropDownList").value()],
+        //    visible: false, //the window will not appear before its .open method is called
+        //    width: "auto",
+        //    height: "auto",
+        //    modal: true,
+        //    animation: {
+        //        close: false,
+        //        open: false
+        //    }
+        //}).data("kendoWindow");
 
-        ventanaConfirm.content(_dictionary.CapturaArmadoPreguntaBorradoCaptura[$("#language").data("kendoDropDownList").value()] +
-                     "</br><center><button class='confirm_yes btn btn-blue' id='yesButton'>Si</button><button class='confirm_yes btn btn-blue' id='noButton'> No</button></center>");
+        //ventanaConfirm.content(_dictionary.CapturaArmadoPreguntaBorradoCaptura[$("#language").data("kendoDropDownList").value()] +
+        //             "</br><center><button class='confirm_yes btn btn-blue' id='yesButton'>Si</button><button class='confirm_yes btn btn-blue' id='noButton'> No</button></center>");
 
-        ventanaConfirm.open().center();
+        //ventanaConfirm.open().center();
 
-        $("#yesButton").click(function (handler) {
+        //$("#yesButton").click(function (handler) {
             var dataSource = $("#grid").data("kendoGrid").dataSource;
             dataItem.Accion = 3;
 
@@ -682,11 +672,11 @@ function eliminarCaptura(e) {
             AjaxObtenerDatoOriginalBorrado(dataItem, dataSource);
 
             dataSource.sync();
-            ventanaConfirm.close();
-        });
-        $("#noButton").click(function (handler) {
-            ventanaConfirm.close();
-        });
+            //ventanaConfirm.close();
+        //});
+        //$("#noButton").click(function (handler) {
+        //    ventanaConfirm.close();
+        //});
     }
 
 }

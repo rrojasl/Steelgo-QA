@@ -11,7 +11,6 @@ function suscribirEventoGuardar() {
         var ds = $("#grid").data("kendoGrid").dataSource;
         if (ds._data.length > 0) {
             if ($('#Guardar').text() == "Guardar" || $('#Guardar').text() == "Save") {
-                opcionHabilitarView(true);
                 AjaxGuardarListado();
             }
             else if ($('#Guardar').text() == "Editar" || $('#Guardar').text() == "Edit") {
@@ -21,7 +20,7 @@ function suscribirEventoGuardar() {
     });
 }
 
-function opcionHabilitarView(valor, name) {
+function opcionHabilitarView(valor) {
 
     if (valor) {
         $('#FieldSetView').find('*').attr('disabled', true);

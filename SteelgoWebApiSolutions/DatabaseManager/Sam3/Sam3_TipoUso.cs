@@ -14,12 +14,13 @@ namespace DatabaseManager.Sam3
     
     public partial class Sam3_TipoUso
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Sam3_TipoUso()
         {
             this.Sam3_FolioCuantificacion = new HashSet<Sam3_FolioCuantificacion>();
             this.Sam3_ItemCode = new HashSet<Sam3_ItemCode>();
-            this.Sam3_ProyectoConfiguracion = new HashSet<Sam3_ProyectoConfiguracion>();
             this.Sam3_NumeroUnico = new HashSet<Sam3_NumeroUnico>();
+            this.Sam3_ProyectoConfiguracion = new HashSet<Sam3_ProyectoConfiguracion>();
         }
     
         public int TipoUsoID { get; set; }
@@ -28,9 +29,13 @@ namespace DatabaseManager.Sam3
         public Nullable<System.DateTime> FechaModificacion { get; set; }
         public Nullable<int> UsuarioModificacion { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sam3_FolioCuantificacion> Sam3_FolioCuantificacion { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sam3_ItemCode> Sam3_ItemCode { get; set; }
-        public virtual ICollection<Sam3_ProyectoConfiguracion> Sam3_ProyectoConfiguracion { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sam3_NumeroUnico> Sam3_NumeroUnico { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sam3_ProyectoConfiguracion> Sam3_ProyectoConfiguracion { get; set; }
     }
 }

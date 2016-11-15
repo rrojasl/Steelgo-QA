@@ -4,6 +4,10 @@
 }
 
 _dictionary = {
+    "MensajeConfirmacionGuardadoGeneral": {
+        "es-MX": "Los registros marcados no serán guardados. ¿Desea continuar?",
+        "en-US": "Marked records will not be saved. Continue anyway?"
+    },
     "textoCancelar": {
         "es-MX": "Cancelar",
         "en-US": "Cancel"
@@ -7516,6 +7520,26 @@ _dictionary = {
         "es-MX": "Seleccionar todos",
         "en-US": "Select all"
     },
+    "lblFechaInicial": {
+        "es-MX": "Fecha Inicial",
+        "en-US": "Initial Date"
+    },
+    "lblFechaFinal": {
+        "es-MX": "Fecha Final",
+        "en-US": "Final Date"
+    },
+    "lblPeriodo": {
+        "es-MX": "Periodo",
+        "en-US": "Period"
+    },
+    "lblCliente": {
+        "es-MX": "Cliente",
+        "en-US": "Client"
+    },
+    "lblUnidadMedida": {
+        "es-MX": "U. Medida",
+        "en-US": "Measure U"
+    },
     //Etiquetas header alertas
     "SuccessTitle": {
         "es-MX": "Correcto",
@@ -7702,6 +7726,14 @@ _dictionary = {
         "es-MX": "Guardar, Liberar y Nuevo",
         "en-US": "Save, Release and New"
     },
+    "botonGenerarReporte": {
+        "es-MX": "Generar Reporte",
+        "en-US": "Generate Report"
+    },
+    "botonGenerarReporte1": {
+        "es-MX": "Generar Reporte",
+        "en-US": "Generate Report"
+    },
     // Finalizan etiquetas Header y Footer
 
     //Inician mensajes Generales
@@ -7829,6 +7861,14 @@ _dictionary = {
         "es-MX": "Captura Pruebas por Lotes",
         "en-US": "Batch Capture Test "
     },
+    "menuConsultaSpool": {
+        "es-MX": "SPool",
+        "en-US": "SPool"
+    },
+    "menuConsultaEstatusSpool": {
+        "es-MX": "Estatus del Spool",
+        "en-US": "SPool Status"
+    },
     "menuEmbarque": {
         "es-MX": "Embarque",
         "en-US": "Shipment"
@@ -7837,25 +7877,26 @@ _dictionary = {
         "es-MX": "Consulta",
         "en-US": "Query"
     },
+
     "menuEmbarqueEtiquetar": {
-        "es-MX": "Etiquetar",
-        "en-US": "Label"
+        "es-MX": "Etiquetado",
+        "en-US": "Labeled"
     },
     "menuEmbarqueEncintar": {
-        "es-MX": "Encintar",
+        "es-MX": "Encintado",
         "en-US": "Taping"
     },
     "menuEmbarqueCarga": {
-        "es-MX": "Carga",
-        "en-US": "Charge"
+        "es-MX": "Carga plana",
+        "en-US": "Flat Charge"
     },
     "menuEmbarqueEmpaquetado": {
         "es-MX": "Empaquetado",
         "en-US": "Packaging"
     },
     "menuEmbarqueCarro": {
-        "es-MX": "Carro",
-        "en-US": "Car"
+        "es-MX": "Preparación Embarque",
+        "en-US": "Shipping Preparation"
     },
     "menuEmbarqueListadoEmbarque": {
         "es-MX": "Listado Embarque",
@@ -8486,7 +8527,10 @@ _dictionary = {
         "es-MX": "U. max",
         "en-US": "Max U"
     },
-
+    "columnFechaPrueba": {
+        "es-MX": "Fecha Pba",
+        "en-US": "Test Date."
+    },
 
     // Finalizan Etiquetas Grid
     // Finalizan Etiquetas generales
@@ -8528,6 +8572,12 @@ _dictionary = {
     // Finalizan Etiquetas Generales PND
 
     //Pantalla Armado
+    "CapturaArmadoMsgExiste": {
+        "es-MX": "La junta ",
+        "en-US": "The joint "
+    },
+    
+  
     "armadoSoldaduraSup": {
         "es-MX": "Soldadura",
         "en-US": "Welding"
@@ -8908,9 +8958,9 @@ _dictionary = {
         "en-US": "Welding"
     },
     "GridSoldadoresRaizDescripcion": {
-            "es-MX": "Soldadores Raiz",
-            "en-US": "Welders root"
-        },
+        "es-MX": "Soldadores Raiz",
+        "en-US": "Welders root"
+    },
     "CapturaSoldaduraJuntaCapturada": {
         "es-MX": "La junta ya fue capturada",
         "en-US": "The joint is captured"
@@ -8987,6 +9037,10 @@ _dictionary = {
     //Finaliza Soldadura
 
     //Pantalla PQR
+    "lblPQRDobleNA": {
+        "es-MX": "Los procesos de soldadura relleno y raiz no pueden coincidir en N/A",
+        "en-US": "Welding processes filling and root may not match in N/A"
+    },
     "PQRBreadcrumb": {
         "es-MX": "PQR",
         "en-US": "PQR"
@@ -8999,6 +9053,38 @@ _dictionary = {
         "es-MX": "Soldadura",
         "en-US": "Welding"
     },
+    "lblPQRCapturaBorradoCaptura": {
+        "es-MX": "¿Está seguro de cancelar el detalle de la captura de PQR?",
+        "en-US": "Are you sure you want to cancel the detail of the capture of PQR?"
+    },
+    "lblPQRElementoPQR": {
+        "es-MX": "El elemento PQR ",
+        "en-US": "The PQR element "
+    },
+    "lblPQRYaAsignado": {
+        "es-MX": " se encuentra asignado, favor de revisar el Catalogo WPS",
+        "en-US": " is assigned, please review the WPS Catalog"
+    },
+    "lblPQREspNARell": {
+        "es-MX": "El espesor de relleno debe ser mayor a cero si el proceso de relleno es diferente a N/A",
+        "en-US": "The filler thickness must be greater greater than zero if the filling process is different from N/A"
+    },
+    "lblPQREspNARaiz": {
+        "es-MX": "El espesor de raiz debe ser mayor a cero si el proceso de raiz es diferente a N/A",
+        "en-US": "The root thickness must be greater greater than zero if the root process is different from N/A"
+    },
+    "CapturaAvanceIntAcabadoMensajeErrorGuardado": {
+        "es-MX": "Error al guardar",
+        "en-US": "Error"
+    },
+    "CapturaAvanceIntAcabadoMensajePreguntaGuardado": {
+        "es-MX": "Los registros marcados no serán guardados. ¿Desea continuar?",
+        "en-US": "Marked records will not be saved. Continue anyway?"
+    },
+    "lblPQRAsignarGrupoP": {
+        "es-MX": "El PQR ya está asignado en WPS, el grupo P deben coincidir para ser modificado",
+        "en-US": "The PQR is already assigned in WPS, the P group must match to be modified"
+    },
     //Finaliza PQR
 
     //Pantalla WPS
@@ -9006,9 +9092,48 @@ _dictionary = {
         "es-MX": "WPS",
         "en-US": "WPS"
     },
+    "WPSMensajeEliminar": {
+        "es-MX": "¿Esta seguro de eliminar el WPS?",
+        "en-US": "Are you sure to delete the WPS?"
+    },
+    "WPSMensajeErrorNombreRepetido": {
+        "es-MX": "El nombre del WPS no se puede repetir",
+        "en-US": "WPS Name can not be repeat"
+    },
     //Finaliza WPS
 
+    //Pantalla WPS Nuevo
+    "WPSMensajeErrorPREHEAT": {
+        "es-MX": "Los PREHEAT no coinciden",
+        "en-US": "PREHEAT don't match "
+    },
+    "WPSMensajeErrorPQRNoAplicaRelleno": {
+        "es-MX": "El WPS no aplica para relleno",
+        "en-US": "WPS dont apply to fill"
+    },
+    "WPSMensajeErrorGrupoP": {
+        "es-MX": "Los grupo P no coinciden",
+        "en-US": "P group don't match"
+    },
+    "WPSMensajeErrorPWHT": {
+        "es-MX": "Los PWHT no coinciden",
+        "en-US": "PWHT don't match"
+    },
+    "WPSMensajeErrorPQRRelleno": {
+        "es-MX": "El PQR de Relleno es obligatorio",
+        "en-US": "Fill PQR is mandatory "
+    },
+    "WPSMensajeErrorPQRRaiz": {
+        "es-MX": "El PQR de Raiz es obligatorio",
+        "en-US": "Root PQR is mandatory "
+    },
+    //Finaliza WPS Nuevo
+
     //Pantalla Soldador Certificacion
+    "SoldadorNombreRepetido": {
+        "es-MX": "El nombre del Soldador no se puede repetir",
+        "en-US": "Welder Name can not be repeat"
+    },
     "SoldadorPQRExistente":
     {
         "es-MX": "El soldador ya existe con el WPS seleccionado ¿Deseas actualizarlo?",
@@ -9084,12 +9209,36 @@ _dictionary = {
         "es-MX": "¿Está seguro de cancelar el detalle de la captura de Certificación?",
         "en-US": "Are you sure you want to cancel the detail of the capture of Certification?"
     },
+    "SoldadorCertificacionPreguntaBorradoCaptura": {
+        "es-MX": "¿Está seguro de eliminar el detalle de la captura de Soldador Certificación?",
+        "en-US": "You are sure to delete the capture detail Welder Certification?"
+    },
+    "AdverteciaExcepcionGuardado": {
+        "es-MX": "No hay cambios por guardar",
+        "en-US": "There aren´t any change"
+    },
     //Finaliza Soldador Certificacion
 
     //Pantalla Nuevo Soldador Certificacion
     "lblNuevoSoldadorCertificacionBreadCrum": {
         "es-MX": "Nuevo Soldador Certificación",
         "en-US": "New Welder Certification"
+    },
+    "WPSMensajeErrorPQRNoAplicaRaiz": {
+        "es-MX": "El WPS no aplica para raiz",
+        "en-US": "WQR dont apply to root"
+    },
+    "WPSMensajeErrorPQRNoAplicaRelleno": {
+        "es-MX": "El WPS no aplica para relleno",
+        "en-US": "WPS dont apply to fill"
+    },
+    "WPSNoAceptaAmbos": {
+        "es-MX": "No acepta el proceso de raiz y relleno",
+        "en-US": "No Takes Root Process and refilling"
+    },
+    "WPSNoSeleccionado": {
+        "es-MX": "selecciona un WPS porfavor",
+        "en-US": "Please select a WPS"
     },
     //Finaliza Nuevo Soldador Certificacion
 
@@ -9105,6 +9254,42 @@ _dictionary = {
     "botonPQRInf": {
         "es-MX": "PQR",
         "en-US": "PQR"
+    },
+    "lblPQRNombreMandatorio": {
+        "es-MX": "El campo NOMBRE del PQR es mandatorio",
+        "en-US": "The field NAME of PQR is mandatory"
+    },
+    "lblPQREspRellMandatorio": {
+        "es-MX": "El campo E. RELLENO es mandatorio",
+        "en-US": "The field FILL THK is mandatory"
+    },
+    "lblPQREspRaizMandatorio": {
+        "es-MX": "El campo E. RAIZ es mandatorio",
+        "en-US": "The field ROOT THK is mandatory"
+    },
+    "lblPQRProcSoldMandatorio": {
+        "es-MX": "El campo PROC RELLENO del PQR es mandatorio",
+        "en-US": "The field FILL PROC is mandatory"
+    },
+    "lblPQRProcRaizMandatorio": {
+        "es-MX": "El campo PROC RAIZ del PQR es mandatorio",
+        "en-US": "The field ROOT PROC is mandatory"
+    },
+    "lblPQRGrpB1Mandatorio": {
+        "es-MX": "El campo GPO P BASE 1 es mandatorio",
+        "en-US": "The field P GRP BASE 1 is mandatory"
+    },
+    "lblPQRGrpB2Mandatorio": {
+        "es-MX": "El campo GPO P BASE 2 es mandatorio",
+        "en-US": "The field P GRP BASE 2 is mandatory"
+    },
+    "lblPQRCodigoMandatorio": {
+        "es-MX": "El campo CÓDIGO es mandatorio",
+        "en-US": "The field CODE is mandatory"
+    },
+    "lblPQRNoRepetidos": {
+        "es-MX": "El nombre del PQR no se puede repetir",
+        "en-US": "The PQR name can't be repeated"
     },
     //Finaliza Nuevo PQR
 
@@ -10001,6 +10186,123 @@ _dictionary = {
         "es-MX": "OK PND ",
         "en-US": "OK PND"
     },
+    "lblPorCargarS": {
+        "es-MX": "Por Cargar",
+        "en-US": "To Charge"
+    },
+    "lblPorCapturarS": {
+        "es-MX": "Por Capturar",
+        "en-US": "To capture"
+    },
+    "lblPorProbarS": {
+        "es-MX": "Por Probar",
+        "en-US": "To Test"
+    },
+    "lblPorCargarP": {
+        "es-MX": "Por Cargar",
+        "en-US": "To Charge"
+    },
+    "lblPorCapturarP": {
+        "es-MX": "Por Capturar",
+        "en-US": "To capture"
+    },
+    "lblPorProbarP": {
+        "es-MX": "Por Probar",
+        "en-US": "To Test"
+    },
+    "lblPorCargarI": {
+        "es-MX": "Por Cargar",
+        "en-US": "To Charge"
+    },
+    "lblPorCapturarI": {
+        "es-MX": "Por Capturar",
+        "en-US": "To capture"
+    },
+    "lblPorProbarI": {
+        "es-MX": "Por Probar",
+        "en-US": "To Test"
+    },
+    "lblPorCargarA": {
+        "es-MX": "Por Cargar",
+        "en-US": "To Charge"
+    },
+    "lblPorCapturarA": {
+        "es-MX": "Por Capturar",
+        "en-US": "To capture"
+    },
+    "lblPorProbarA": {
+        "es-MX": "Por Probar",
+        "en-US": "To Test"
+    },
 
     // Finaliza Dashboard Pitura 
+
+    // Empieza  embarque
+    "columnSpoolIDEmbarque": {
+        "es-MX": "Spool ID ",
+        "en-US": "Spool ID"
+    },
+
+    "columnPasoEmbarque": {
+        "es-MX": "Paso ",
+        "en-US": "Step"
+    },
+
+    "columnCuadranteEmbarque": {
+        "es-MX":"Cuadrante",
+        "en-US": "Quadrant"
+    },
+
+    "columnDibujoEmbarque": {
+        "es-MX": "Dibujo ",
+        "en-US": "Draw"
+    },
+
+    "columnEtiquetadoEmbarque": {
+        "es-MX": "Etiquetado ",
+        "en-US": "Label"
+    },
+    "columnColorCintaEmbarque": {
+        "es-MX": "Color de la Cinta ",
+        "en-US": "Ribbon color"
+    },
+    "columnEncintadoEmbarque": {
+        "es-MX": "Encintado ",
+        "en-US": "Encintado"
+    },
+    "columnEncintadoEmbarque": {
+        "es-MX": "Encintado ",
+        "en-US": "Encintado"
+    },
+    "columnConcecutivoEmbarque": {
+        "es-MX": "Consecutivo ",
+        "en-US": "Consecutive"
+    },
+    "columnPaqueteEmbarque": {
+        "es-MX": "Paquete ",
+        "en-US": "Package"
+    },
+    "columnPesoEmbarque": {
+        "es-MX": "Peso ",
+        "en-US": "Weigth"
+    },
+    //finaliza embarque 
+    //Acciones botones de embarque
+    "BtnGuardarCerrarEmabarqueSup": {
+        "es-MX": "Guardar y Cerrar ",
+        "en-US": "Save and Close"
+    },
+    "BtnGuardarCerrarNuevoEmbarqueSup": {
+        "es-MX": "Guardar, Cerrar y Nuevo ",
+        "en-US": "Sava, Close and New"
+    },
+    "BtnGuardarCerrarEmabarqueInf": {
+        "es-MX": "Guardar y Cerrar ",
+        "en-US": "Save and Close"
+    },
+    "BtnGuardarCerrarNuevoEmbarqueInf": {
+        "es-MX": "Guardar, Cerrar y Nuevo ",
+        "en-US": "Sava, Close and New"
+    },
+    //fin acciones botones de embarque
 };

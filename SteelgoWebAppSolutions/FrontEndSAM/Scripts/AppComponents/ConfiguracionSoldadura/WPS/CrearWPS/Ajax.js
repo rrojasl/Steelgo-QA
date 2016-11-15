@@ -1,6 +1,7 @@
 ﻿var NombreCorrecto = false;
+
 function obtenerPQRAjax() {
-    $PQR.PQR.read({ token: Cookies.get("token"), TipoAccion: 1 }).done(function (data) {
+    $PQR.PQR.read({ token: Cookies.get("token"), TipoAccion: 1, pantallaEnvia:2 }).done(function (data) {
         $("#PQRRaizNombre").data("kendoComboBox").dataSource.data(data);
         $("#PQRRellenoNombre").data("kendoComboBox").dataSource.data(data);
     });

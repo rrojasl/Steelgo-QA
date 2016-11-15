@@ -488,7 +488,7 @@ function PlanchaFecha() {
     var data = query.filter(filters).data;
 
     for (var i = 0; i < data.length; i++) {
-        var m = ObtenerDato(endRangeDate.val(), 2) - 1;
+        var m = ObtenerDato(endRangeDate.val(), 2);
         if ($('input:radio[name=LLena]:checked').val() === "Todos") {
             data[i].FechaInspeccion = new Date(ObtenerDato(endRangeDate.val(), 1), m, ObtenerDato(endRangeDate.val(), 3));//año, mes, dia;           
             if (data[i].Accion == 4)

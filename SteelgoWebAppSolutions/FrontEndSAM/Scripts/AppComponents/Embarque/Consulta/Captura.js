@@ -10,6 +10,8 @@
 function CargarGrid() {
     $("#grid").kendoGrid({
         autoBind: true,
+        autoSync: true,
+
         dataSource: {
             data: [],
             schema: {
@@ -18,39 +20,46 @@ function CargarGrid() {
                         SpoolID: { type: "string", editable: false },
                         Paso: { type: "string", editable: false },
                         Cuadrante: { type: "string", editable: false },
-                        Traveler: { type: "String", editable: false },
+                        Dibujo: { type: "String", editable: false },
                         Detalle: { type: "string", editable: false }
                     }
                 }
             },
-            pageSize: 20,
+            filter: {
+                logic: "or",
+                filters: []
+            },
+            pageSize: 10,
             serverPaging: false,
             serverFiltering: false,
             serverSorting: false
         },
-        autoHeight: true,
-        sortable: true,
-        scrollable: false,
-        filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
         pageable: {
             refresh: false,
-            pageSizes: [10, 15, 20],
+            pageSizes: [10, 25, 50, 20],
             info: false,
             input: false,
             numeric: true,
-            buttonCount: 2
+           // buttonCount: 2
         },
+        navigatable: true,
+        editable: true,
+        autoHeight: true,
+        sortable: true,
+        scrollable: true,
+        selectable: true,
+        filterable: getGridFilterableMaftec(),
         columns: [
-            { field: "SpoolID", title: "Spool", filterable: true, width: "150px" },
-            { field: "Paso", title: "Paso", filterable: true, width: "150px" },
-            { field: "Cuadrante",title: "Cuadrante", filterable: true, width: "150px" },
-            { field: "Traveler", title: "Traveler", filterable: false, template: "<a>" + "Ver" + "</a>", width: "150px" },
+            { field: "SpoolID", title: _dictionary.columnSpoolIDEmbarque[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "160px" },
+            { field: "Paso", title: _dictionary.columnPasoEmbarque[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "160px" },
+            { field: "Cuadrante", title: _dictionary.columnCuadranteEmbarque[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "170px" },
+            { field: "Dibujo", title: _dictionary.columnDibujoEmbarque[$("#language").data("kendoDropDownList").value()], filterable: false, template: "<a>" + "Ver" + "</a>", width: "270px" },
             //{ command: { text: _dictionary.EmbarqueConsultaTraveler[$("#language").data("kendoDropDownList").value()]/*, click: eliminarCaptura*/ }, template: "<a>" + _dictionary.EmbarqueConsultaVer[$("#language").data("kendoDropDownList").value()] + "</a>", width: "150px" },
-            { field: "Detalle", title: "Detalle",filterable: false, template: "<a>" + "link shop" + "</a>", width: "150px" }
+            { field: "Detalle", title: "Detalle",filterable: false, template: "<a>" + "link shop" + "</a>", width: "270px" }
         ],
-        dataBound: function (e) {
-            quickHeadFilter2($("#grid").data("kendoGrid"));
-        },
+        //dataBound: function (e) {
+        //    quickHeadFilter2($("#grid").data("kendoGrid"));
+        //},
     });
     CustomisaGrid($("#grid"));
 };
