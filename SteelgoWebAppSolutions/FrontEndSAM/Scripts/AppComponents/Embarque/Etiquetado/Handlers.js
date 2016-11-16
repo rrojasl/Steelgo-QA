@@ -11,22 +11,22 @@
 SuscribirEventos();
 
 function suscribirEventoProyecto() {
-    $("#Proyecto").kendoComboBox({
-        dataTextField: "Nombre",
-        dataValueField: "ProyectoID",
-        suggest: true,
-        filter: "contains",
-        index: 3,
-        change: function (e) {
-            if ($("#Proyecto").data("kendoComboBox").dataItem($("#Proyecto").data("kendoComboBox").select()) != undefined) {
-                //AjaxCargarCuadrante($("#Area").data("kendoComboBox").value());
-            }
-            else {
-                $("#Proyecto").data("kendoComboBox").value("");
-            }
+    //$("#Proyecto").kendoComboBox({
+    //    dataTextField: "Nombre",
+    //    dataValueField: "ProyectoID",
+    //    suggest: true,
+    //    filter: "contains",
+    //    index: 3,
+    //    change: function (e) {
+    //        if ($("#Proyecto").data("kendoComboBox").dataItem($("#Proyecto").data("kendoComboBox").select()) != undefined) {
+    //            //AjaxCargarCuadrante($("#Area").data("kendoComboBox").value());
+    //        }
+    //        else {
+    //            $("#Proyecto").data("kendoComboBox").value("");
+    //        }
 
-        }
-    });
+    //    }
+    //});
 }
 
 function suscribirEventoZona() {

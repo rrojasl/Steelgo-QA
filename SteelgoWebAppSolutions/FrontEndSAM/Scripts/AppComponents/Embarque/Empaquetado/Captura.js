@@ -58,7 +58,7 @@ function CargarGrid() {
             { field: "TOneladas", title: "Toneladas", filterable: getGridFilterableCellMaftec() },
              {
                  command: {
-                     text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()],
+                     text: _dictionary.botonDescarga[$("#language").data("kendoDropDownList").value()],
                      click: function (e) {
                          e.preventDefault();
                          if ($("#language").val() == "es-MX") {
@@ -118,8 +118,8 @@ function CargarGrid() {
                          }
                      }
                  },
-                 title: "ELM",
-                 width: "99px",
+                 title: _dictionary.columnDescargar[$("#language").data("kendoDropDownList").value()],
+                 width: "70px",
 
              }
 

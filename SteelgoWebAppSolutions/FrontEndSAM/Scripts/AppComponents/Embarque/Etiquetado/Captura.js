@@ -61,6 +61,7 @@ function CargarGrid() {
         filterable: getGridFilterableMaftec(),
         columns: [
             { field: "SpoolID", title: _dictionary.columnSpoolIDEmbarque[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "160px" },
+            { field: "Proyecto", title: _dictionary.columnProyecto[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px" },
             { field: "Cuadrante", title: _dictionary.columnCuadranteEmbarque[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "170px" },
 
             //{ command: { text: _dictionary.EmbarqueConsultaTraveler[$("#language").data("kendoDropDownList").value()]/*, click: eliminarCaptura*/ }, template: "<a>" + _dictionary.EmbarqueConsultaVer[$("#language").data("kendoDropDownList").value()] + "</a>", width: "150px" },
@@ -84,11 +85,11 @@ function CargarGrid() {
 };
 
 function llenarCombo() {
-    var datasource = [
-    { ProyectoID: 0, Nombre: ""},
-    { ProyectoID: 1, Nombre: "Etileno"}
-    ]
+    //var datasource = [
+    //{ ProyectoID: 0, Nombre: ""},
+    //{ ProyectoID: 1, Nombre: "Etileno"}
+    //]
 
-    $("#Proyecto").data("kendoComboBox").dataSource.data([]);
-    $("#Proyecto").data("kendoComboBox").dataSource.data(datasource);
+    //$("#Proyecto").data("kendoComboBox").dataSource.data([]);
+    //$("#Proyecto").data("kendoComboBox").dataSource.data(datasource);
 }
