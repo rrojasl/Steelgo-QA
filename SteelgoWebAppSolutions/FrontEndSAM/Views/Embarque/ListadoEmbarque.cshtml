@@ -43,20 +43,15 @@
     <div id="FieldSetView">
         <div class="row">
             <input type="hidden" value=@ViewBag.embarqueID id="embarqueID" />
-            <div class="col-sm-3 col-md-3 col-lg-3" id="ProveedorDiv">
-                <label id=""><span id="EmbarqueProyector">Proyecto</span></label>
-                <input id="Proyecto" />
-            </div>
         </div>
-        </br>
-        </br>
         <div class="row clearfix">
             <div id="containerDiv">
                 <div class="addedSection col-sm-12 col-md-12 col-lg-12">
                     <div class="row">
                         <div class="btn-group tabList col-xs-12 col-sm-12 col-md-12 col-lg-12" role="group" id="divStatusEmbarque" arial-label="tabList">
-                            <button id="btnSinPermiso" class="btn btn-tabList active"><span id="ListadoEmbarqueTodos"> Todos</span><span id="nTodos">&nbsp;0</span></button>
+                            <button id="btnPendientes" class="btn btn-tabList "><span id="ListadoEmbarqueEnviados"> Pendientes</span><span id="nPendientes">&nbsp;0</span></button>
                             <button id="btnSinAutorizacion" class="btn btn-tabList "><span id="ListadoEmbarqueEnviados"> Enviados</span><span id="nEnviados">&nbsp;0</span></button>
+                            
                         </div>
                     </div>
                     <div class="row">

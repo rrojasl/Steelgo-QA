@@ -34,8 +34,8 @@ function CargarGrid() {
                         FolioSolicitarPermisos: { editable: false },
                         FolioAprobadoAduana: { editable: false },
                         FolioAprobadoCliente: { editable: false },
-                        Enviar: { editable: false }
-                    }
+                        Enviar: { editable: false },
+                        FolioPermisos: { type: "date", editable: true }}
                 }
             },
             pageSize: 20,
@@ -44,10 +44,6 @@ function CargarGrid() {
             serverSorting: false
         },
         navigatable: true,
-        filterable: {
-            extra: false
-        },
-
         editable: true,
         autoHeight: true,
         sortable: true,
@@ -59,18 +55,20 @@ function CargarGrid() {
             input: false,
             numeric: true,
         },
+        filterable: getGridFilterableMaftec(),
         columns: [
-            { field: "Folio", title: "Embarque",filterable: true, width: "140px" },
-            { field: "Plana", title: "Plana", filterable: true, width: "140px" },
-            { field: "DestinoEmbarque", title: "Destino Emb.", filterable: true, width: "140px" },
-            { field: "PapelesCliente", title: "Pap cliente",filterable: true, template: "<button  type='button' class='btn btn-blue imprimirPapelesCliente'> <span>" + "Imprimir" + "</span></button>", width: "140px" },
-            { field: "papelesAduana", title: "Pap aduana",filterable: true, template: "<button  type='button' class='btn btn-blue imprimirPapelesAduana' Style='display: #= RequierePermisoAduana == 0 ? 'none;' : 'block;' #' > <span>" +"Imprimir"+ "</span></button>", width: "140px" },
-            { field: "FolioSolicitarPermisos", title: "Sol. permiso", filterable: true, template: "<button  type='button' class='btn btn-blue botonFolio' Style='display: #= FolioSolicitarPermisos!='' || RequierePermisoAduana == 0 ? 'none;' : 'block;' #'> <span>" + "Capturar" + "</span></button><span>#= FolioSolicitarPermisos #</span>", width: "140px" },
-            { field: "FolioAprobadoAduana", title: "Ap. cliente",filterable: true, template: "<button  type='button' class='btn btn-blue botonFolio' Style='display: #= FolioAprobadoAduana!='' || RequierePermisoAduana == 0 ? 'none;' : 'block;' #' > <span>" + "Capturar" + "</span></button><span>#= FolioAprobadoAduana #</span>", width: "130px" },
-            { field: "FolioAprobadoCliente", title: "Ap. aduana", filterable: true, template: "<button  type='button' class='btn btn-blue botonFolio' Style='display: #= FolioAprobadoCliente!=''  ? 'none;' : 'block;' #'> <span>" + "Capturar" + "</span></button><span>#= FolioAprobadoCliente #</span>", width: "140px" },
-            { field: "okCalidad", title: "Ok calidad", filterable: true, width: "120px" },
-            { field: "okEmbarque", title: "Ok embarque", filterable: true, width: "130px" },
-            { field: "Enviar", title: "Enviar", filterable: true, template: "<button  type='button' class='btn btn-blue botonEnviar' Style='display: #= FechaEnvio!=''  ? 'none;' : 'block;' #' > <span>" + "Enviar" + "</span></button>", width: "125px" },
+            { field: "Folio", title: "Embarque", filterable: getGridFilterableCellMaftec(), width: "140px" },
+            { field: "Proyecto", title: "Proyecto", filterable: getGridFilterableCellMaftec(), width: "140px" },
+            { field: "Plana", title: "Plana", filterable: getGridFilterableCellMaftec(), width: "140px" },
+            { field: "DestinoEmbarque", title: "Destino Emb.", filterable: getGridFilterableCellMaftec(), width: "140px" },
+            { field: "PapelesCliente", title: "Pap cliente",filterable: false, template: "<button  type='button' class='btn btn-blue imprimirPapelesCliente'> <span>" + "Imprimir" + "</span></button>", width: "140px" },
+            { field: "papelesAduana", title: "Pap aduana", filterable: false, template: "<button  type='button' class='btn btn-blue imprimirPapelesAduana' Style='display: #= RequierePermisoAduana == 0 ? 'none;' : 'block;' #' > <span>" + "Imprimir" + "</span></button>", width: "140px" },
+            { field: "FolioSolicitarPermisos", title: "Sol. permiso", filterable: getGridFilterableCellMaftec(), template: "<button  type='button' class='btn btn-blue botonFolio' Style='display: #= FolioSolicitarPermisos!='' || RequierePermisoAduana == 0 ? 'none;' : 'block;' #'> <span>" + "Capturar" + "</span></button><span>#= FolioSolicitarPermisos #</span>", width: "140px" },
+            { field: "FechaSolicitarPermisos", title: "Fecha permiso", filterable: { cell: { showOperators: false } }, width: "140px" },
+            { field: "FolioAprobadoAduana", title: "Ap. cliente",filterable: false, template: "<button  type='button' class='btn btn-blue botonFolio' Style='display: #= FolioAprobadoAduana!='' || RequierePermisoAduana == 0 ? 'none;' : 'block;' #' > <span>" + "Capturar" + "</span></button><span>#= FolioAprobadoAduana #</span>", width: "130px" },
+            { field: "FolioAprobadoCliente", title: "Ap. aduana", filterable: false, template: "<button  type='button' class='btn btn-blue botonFolio' Style='display: #= FolioAprobadoCliente!=''  ? 'none;' : 'block;' #'> <span>" + "Capturar" + "</span></button><span>#= FolioAprobadoCliente #</span>", width: "140px" },
+            { field: "okEmbarque", title: "Ok embarque", filterable: false, width: "130px" },
+            { field: "Enviar", title: "Enviar", filterable: false, template: "<button  type='button' class='btn btn-blue botonEnviar' Style='display: #= FechaEnvio!=''  ? 'none;' : 'block;' #' > <span>" + "Enviar" + "</span></button>", width: "125px" },
         ]
     });
     CustomisaGrid($("#grid"));

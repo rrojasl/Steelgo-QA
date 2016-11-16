@@ -59,7 +59,7 @@ function CargarGrid() {
         dataSource: {
             data: [
                 {
-                    Consecutivo:"10",
+                    Consecutivo:"1",
                     SpoolID: "X001-001",
                     Paquete: "Paquete 1",
                     Peso:"50"
@@ -114,7 +114,7 @@ function CargarGrid() {
             { field: "Paquete", title: _dictionary.columnPaqueteEmbarque[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "150px" },
             { field: "Peso", title: _dictionary.columnPesoEmbarque[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "130px", attributes: { style: "text-align:right;" }, format: "{0: }" },
             { command: { text: _dictionary.botonDescarga[$("#language").data("kendoDropDownList").value()] }, title: _dictionary.columnDescargar[$("#language").data("kendoDropDownList").value()], width: "70px", attributes: { style: "text-align:center;" } },
-           { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()] }, title: "ELM", width: "30px" }
+           
         ]
     });
     CustomisaGrid($("#grid"));
