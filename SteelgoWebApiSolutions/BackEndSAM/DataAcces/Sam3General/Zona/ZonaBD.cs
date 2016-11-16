@@ -28,7 +28,39 @@ namespace BackEndSAM.DataAcces.Sam3General.Zona
             }
         }
 
-        public object ObtenerZona(int PatioID)
+        public object ObtenerZonaPorUsuario(int UsuarioID)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Sam3_Steelgo_Get_ZonasUsuario_Result> result = ctx.Sam3_Steelgo_Get_ZonasUsuario(UsuarioID).ToList();
+                    List<ZonaObject> list = new List<ZonaObject>();
+                    list.Add(new ZonaObject());
+                    foreach (Sam3_Steelgo_Get_ZonasUsuario_Result item in result)
+                    {
+                        list.Add(new ZonaObject
+                        {
+                            ZonaID = item.ZonaID,
+                            Nombre = item.Nombre
+                        });
+                    }
+                    return list;
+
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+                return result;
+            }
+        }
+
+        public object ObtenerZonaPorPatio(int PatioID)
         {
             try
             {
@@ -39,7 +71,8 @@ namespace BackEndSAM.DataAcces.Sam3General.Zona
                     list.Add(new ZonaObject());
                     foreach (Sam3_Steelgo_Get_ZonaByPatio_Result item in result)
                     {
-                        list.Add(new ZonaObject {
+                        list.Add(new ZonaObject
+                        {
                             ZonaID = item.ZonaID,
                             Nombre = item.Nombre
                         });

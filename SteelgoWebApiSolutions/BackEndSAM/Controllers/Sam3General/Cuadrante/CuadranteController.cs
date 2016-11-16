@@ -1,4 +1,4 @@
-﻿using BackEndSAM.DataAcces.Sam3General.Zona;
+﻿using BackEndSAM.DataAcces.Sam3General.Cuadrante;
 using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
 using SecurityManager.TokenHandler;
@@ -18,8 +18,6 @@ namespace BackEndSAM.Controllers.Sam3General.Cuadrante
         [HttpGet]
         public object ObtieneCuadrante(string token, int ZonaID)
         {
-            //Create a generic return object
-
             string payload = "";
             string newToken = "";
             bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);

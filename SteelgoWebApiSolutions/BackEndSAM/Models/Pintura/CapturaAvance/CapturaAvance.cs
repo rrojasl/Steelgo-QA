@@ -34,7 +34,7 @@ namespace BackEndSAM.Models.Pintura.CapturaAvance
         public List<PintorSpool> ListaShotblasteroInicial { get; set; }
         public List<PintorSpool> ListaPintores { get; set; }
         public List<PintorSpool> ListaShotblasteros { get; set; }
-        public List<CuadranteObject> ListaCuandrantes { get; set; }
+        public List<UbicacionCuadrante> ListaCuandrantes { get; set; }
     }
 
     public class CamposPredeterminados

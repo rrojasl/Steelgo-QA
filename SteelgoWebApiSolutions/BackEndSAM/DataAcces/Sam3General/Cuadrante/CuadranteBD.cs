@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace BackEndSAM.DataAcces.Sam3General.Zona
+namespace BackEndSAM.DataAcces.Sam3General.Cuadrante
 {
     public class CuadranteBD
     {
@@ -35,12 +35,12 @@ namespace BackEndSAM.DataAcces.Sam3General.Zona
                 using (SamContext ctx = new SamContext())
                 {
                     List<Sam3_Steelgo_Get_Cuadrante_Result> result = ctx.Sam3_Steelgo_Get_Cuadrante(ZonaID).ToList();
-                    List<CuadranteObject> list = new List<CuadranteObject>();
-                    list.Add(new CuadranteObject());
+                    List<UbicacionCuadrante> list = new List<UbicacionCuadrante>();
+                    list.Add(new UbicacionCuadrante());
 
                     foreach (Sam3_Steelgo_Get_Cuadrante_Result item in result)
                     {
-                        list.Add(new CuadranteObject {
+                        list.Add(new UbicacionCuadrante {
                             CuadranteID = item.CuadranteID,
                             Nombre = item.Nombre,
                             ZonaID = item.ZonaID.GetValueOrDefault()

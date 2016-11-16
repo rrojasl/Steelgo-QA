@@ -53,5 +53,6 @@
         public static string GUARDAWPS = "Sam3_Soldadura_Set_WPS";
         public static string GUARDARSOLDADORCERTIFICACION = "Sam3_Soldador_Certificacion_Set_Captura";
         public static string GUARDARINSPECCIONDIMENSIONAL = "Sam3_Inspeccion_Dimensional";
+        public static string GUARDARCAPTURAETIQUETADO = "Sam3_Embarque_Guardar_Etiquetado";
     }
 }

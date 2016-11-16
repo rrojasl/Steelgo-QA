@@ -1,32 +1,41 @@
-﻿using BackEndSAM.DataAcces.Sam3General.Zona;
+﻿using BackEndSAM.DataAcces.Embarque.Etiquetado;
+using BackEndSAM.Models.Embarque.Etiquetado;
 using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
 using SecurityManager.TokenHandler;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Script.Serialization;
 
-namespace BackEndSAM.Controllers.Sam3General.Zona
+namespace BackEndSAM.Controllers.Embarque.Etiquetado
 {
-    [EnableCors(origins:"*",headers:"*", methods:"*")]
-    public class ZonaController : ApiController
+    [EnableCors(origins:"*", headers:"*", methods:"*")]
+    public class EtiquetadoController : ApiController
     {
         [HttpGet]
-        public object ObtieneZonaPorUsuario(string token)
+        public object ObtieneDetalleEtiquetado(string token, int TipoConsulta, int Todos, int ZonaID, int CuadranteID, string SpoolContiene)
         {
-
             string payload = "";
             string newToken = "";
+
             bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+
             if (tokenValido)
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return ZonaBD.Instance.ObtenerZonaPorUsuario(usuario.UsuarioID);
+                if (TipoConsulta == 1) {
+                    return EtiquetadoBD.Instance.ObtieneDetalleEtiquetadoPorZona(ZonaID, CuadranteID, Todos);
+                }else
+                {
+                    return EtiquetadoBD.Instance.ObtieneDetalleEtiquetadoPorSpool(SpoolContiene, Todos);
+                }
+                
             }
             else
             {
@@ -35,22 +44,24 @@ namespace BackEndSAM.Controllers.Sam3General.Zona
                 result.ReturnCode = 401;
                 result.ReturnStatus = false;
                 result.IsAuthenicated = false;
+
                 return result;
             }
-
         }
 
-        [HttpGet]
-        public object ObtieneZonaPorPatio(string token, int PatioID)
+        [HttpPost]
+        public object GuardaCapturaEtiquetado(CapturaEtiquetado captura, string token, string lenguaje)
         {
             string payload = "";
             string newToken = "";
-            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
-            if (tokenValido)
+
+            bool tokenValidado = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValidado)
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return ZonaBD.Instance.ObtenerZonaPorPatio(PatioID);
+                DataTable dtDetalle = Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(captura.listaDetalle);
+                return EtiquetadoBD.Instance.GuardaCapturaEtiquetado(dtDetalle, usuario.UsuarioID, lenguaje);
             }
             else
             {
@@ -59,9 +70,9 @@ namespace BackEndSAM.Controllers.Sam3General.Zona
                 result.ReturnCode = 401;
                 result.ReturnStatus = false;
                 result.IsAuthenicated = false;
+
                 return result;
             }
-
-        }        
+        }
     }
 }

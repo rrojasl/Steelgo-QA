@@ -5,9 +5,9 @@ using System.Web;
 
 namespace BackEndSAM.Models.Sam3General.Cuadrante
 {
-    public class CuadranteObject
+    public class UbicacionCuadrante
     {
-        public CuadranteObject()
+        public UbicacionCuadrante()
         {
             CuadranteID = 0;
             Nombre = "";
