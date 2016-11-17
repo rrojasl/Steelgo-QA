@@ -87,11 +87,11 @@ namespace BackEndSAM.DataAcces.Embarque.Etiquetado
                 using (SamContext ctx = new SamContext())
                 {
                     List<Sam3_Embarque_get_Etiquetado_NumeroControl_Result> result = ctx.Sam3_Embarque_get_Etiquetado_NumeroControl(SpoolContiene, Todos).ToList();
-                    List<DetalleEtiquetadoSpool> listaDetalle = new List<DetalleEtiquetadoSpool>();
+                    List<DetalleEtiquetado> listaDetalle = new List<DetalleEtiquetado>();
 
                     foreach (Sam3_Embarque_get_Etiquetado_NumeroControl_Result item in result)
                     {
-                        listaDetalle.Add(new DetalleEtiquetadoSpool
+                        listaDetalle.Add(new DetalleEtiquetado
                         {
                             Accion = item.EtiquetadoID != 0 ? 2 : 1,
                             SpoolID = item.SpoolID,
@@ -111,7 +111,7 @@ namespace BackEndSAM.DataAcces.Embarque.Etiquetado
                             RutaDibujo = item.RutaDibujo,
                             RutaIsometrico = item.RutaIsometrico,
                             RutaPlano = item.RutaPlano,
-                            ListaCuadrantes = (List<UbicacionCuadranteSpool>)CuadranteBD.Instance.ObtenerCuadranteSpool(item.Spool, UsuarioID)
+                            ListaCuadrantes = (List<UbicacionCuadrante>)CuadranteBD.Instance.ObtenerCuadranteSpool(item.Spool, UsuarioID)
                         });
                     }
 
