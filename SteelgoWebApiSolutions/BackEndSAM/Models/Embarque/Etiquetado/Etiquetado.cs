@@ -29,6 +29,29 @@ namespace BackEndSAM.Models.Embarque.Etiquetado
         public List<UbicacionCuadrante> ListaCuadrantes { get; set; }
     }
 
+    public class DetalleEtiquetadoSpool
+    {
+        public int Accion { get; set; }
+        public int SpoolID { get; set; }
+        public string Spool { get; set; }
+        public int ProyectoID { get; set; }
+        public string Proyecto { get; set; }
+        public int CuadranteID { get; set; }
+        public string Cuadrante { get; set; }
+        public int EtiquetadoID { get; set; }
+        public bool Etiquetado { get; set; }
+        public bool ModificadoPorUsuario { get; set; }
+        public bool OkPintura { get; set; }
+        public bool OkPnd { get; set; }
+        public int ZonaID { get; set; }
+        public string Zona { get; set; }
+        public string RutaEtiqueta { get; set; }
+        public string RutaDibujo { get; set; }
+        public string RutaIsometrico { get; set; }
+        public string RutaPlano { get; set; }
+        public List<UbicacionCuadranteSpool> ListaCuadrantes { get; set; }
+    }
+
     public class DetalleGuardadoEtiquetado
     {
         public int Accion { get; set; }
