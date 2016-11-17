@@ -68,12 +68,13 @@ namespace BackEndSAM.DataAcces.Sam3General.Cuadrante
                 using (SamContext ctx = new SamContext())
                 {
                     List<Sam3_Steelgo_Get_CuadranteNumeroControl_Result> result = ctx.Sam3_Steelgo_Get_CuadranteNumeroControl(Spool, UsuarioID).ToList();
-                    List<UbicacionCuadranteSpool> listaDetalle = new List<UbicacionCuadranteSpool>();
-                    listaDetalle.Add(new UbicacionCuadranteSpool());
+                    List<UbicacionCuadrante> listaDetalle = new List<UbicacionCuadrante>();
+                    listaDetalle.Add(new UbicacionCuadrante());
 
                     foreach (Sam3_Steelgo_Get_CuadranteNumeroControl_Result item in result)
                     {
-                        listaDetalle.Add(new UbicacionCuadranteSpool {
+                        listaDetalle.Add(new UbicacionCuadrante
+                        {
                             CuadranteID = item.CuadranteID,
                             Nombre = item.Nombre,
                             PatioID = item.PatioID,

@@ -11,22 +11,6 @@ namespace BackEndSAM.Models.Sam3General.Cuadrante
         {
             CuadranteID = 0;
             Nombre = "";
-            ZonaID = 0;
-            CuadranteAnterior = 0;
-        }
-        public int CuadranteID { get; set; }
-        public string Nombre { get; set; }
-        public int ZonaID { get; set; }
-        public int CuadranteAnterior { get; set; }
-
-    }
-
-    public class UbicacionCuadranteSpool
-    {
-        public UbicacionCuadranteSpool()
-        {
-            CuadranteID = 0;
-            Nombre = "";
             PatioID = 0;
             ProyectoID = 0;
             ZonaID = 0;
