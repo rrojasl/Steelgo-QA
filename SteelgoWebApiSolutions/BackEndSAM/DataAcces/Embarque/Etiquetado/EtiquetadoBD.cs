@@ -122,6 +122,41 @@ namespace BackEndSAM.DataAcces.Embarque.Etiquetado
             }
         }
 
+        public object ObtieneRutaSpool(int SpoolID, int TipoReporte)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Sam3_Steelgo_Get_PathEtiquetadoTraveler_Result> result = ctx.Sam3_Steelgo_Get_PathEtiquetadoTraveler(SpoolID, TipoReporte).ToList();
+                    List<DetalleRutaSpool> listaDetalle = new List<DetalleRutaSpool>();
+                    foreach (Sam3_Steelgo_Get_PathEtiquetadoTraveler_Result item in result)
+                    {
+                        listaDetalle.Add(new DetalleRutaSpool {
+                            SpoolID = item.SpoolID,
+                            Spool = item.Spool,
+                            ProyectoID = item.ProyectoID,
+                            Proyecto = item.Proyecto,
+                            Ruta = item.Ruta
+                        });
+                    }
+
+                    return listaDetalle;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+
+        }
+
         public object GuardaCapturaEtiquetado(DataTable dtEtiquetado, int UsuarioID, string Lenguaje)
         {
             try

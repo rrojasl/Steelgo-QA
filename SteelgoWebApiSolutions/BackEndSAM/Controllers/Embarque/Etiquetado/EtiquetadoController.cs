@@ -49,6 +49,33 @@ namespace BackEndSAM.Controllers.Embarque.Etiquetado
             }
         }
 
+        [HttpGet]
+        public object ObtieneRutaSpool(string token, int SpoolID, int TipoReporte)
+        {
+            string payload = "";
+            string newToken = "";
+
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                return EtiquetadoBD.Instance.ObtieneRutaSpool(SpoolID, TipoReporte);
+
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+
+                return result;
+            }
+        }
+
         [HttpPost]
         public object GuardaCapturaEtiquetado(CapturaEtiquetado captura, string token, string lenguaje)
         {

@@ -32,8 +32,18 @@ namespace BackEndSAM.Models.Embarque.Etiquetado
         public int Etiquetado { get; set; }
     }
 
+    public class DetalleRutaSpool
+    {
+        public int SpoolID { get; set; }
+        public string Spool { get; set; }
+        public int ProyectoID { get; set; }
+        public string Proyecto { get; set; }
+        public string Ruta { get; set; }
+    }
+
     public class CapturaEtiquetado
     {
         public List<DetalleGuardadoEtiquetado> listaDetalle { get; set; }
     }
+
 }
