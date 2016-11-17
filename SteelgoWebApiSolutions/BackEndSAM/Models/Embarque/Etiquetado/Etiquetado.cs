@@ -22,6 +22,10 @@ namespace BackEndSAM.Models.Embarque.Etiquetado
         public bool OkPnd { get; set; }
         public int ZonaID { get; set; }
         public string Zona { get; set; }
+        public string RutaEtiqueta { get; set; }
+        public string RutaDibujo { get; set; }
+        public string RutaIsometrico { get; set; }
+        public string RutaPlano { get; set; }
         public List<UbicacionCuadrante> ListaCuadrantes { get; set; }
     }
 
@@ -30,15 +34,6 @@ namespace BackEndSAM.Models.Embarque.Etiquetado
         public int Accion { get; set; }
         public int SpoolID { get; set; }
         public int Etiquetado { get; set; }
-    }
-
-    public class DetalleRutaSpool
-    {
-        public int SpoolID { get; set; }
-        public string Spool { get; set; }
-        public int ProyectoID { get; set; }
-        public string Proyecto { get; set; }
-        public string Ruta { get; set; }
     }
 
     public class CapturaEtiquetado

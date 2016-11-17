@@ -55,9 +55,13 @@ namespace BackEndSAM.DataAcces.Embarque.Etiquetado
                             Etiquetado = item.Etiquetado,
                             ModificadoPorUsuario = false,
                             OkPintura = item.OkPintura == 0 ? false : true,
-                            OkPnd = item.OkPND == 0 ? false : true,
+                            OkPnd = item.OkPND,
                             ZonaID = item.ZonaID,
                             Zona = item.Zona,
+                            RutaEtiqueta = item.RutaEtiqueta,
+                            RutaDibujo = item.RutaDibujo,
+                            RutaIsometrico = item.RutaIsometrico,
+                            RutaPlano = item.RutaPlano,
                             ListaCuadrantes = (List<UbicacionCuadrante>)CuadranteBD.Instance.ObtenerCuadrante(item.ZonaID)
                         });
                     }
@@ -76,7 +80,7 @@ namespace BackEndSAM.DataAcces.Embarque.Etiquetado
             }
         }
 
-        public object ObtieneDetalleEtiquetadoPorSpool(string SpoolContiene, int Todos)
+        public object ObtieneDetalleEtiquetadoPorSpool(string SpoolContiene, int Todos, int UsuarioID)
         {
             try
             {
@@ -100,10 +104,14 @@ namespace BackEndSAM.DataAcces.Embarque.Etiquetado
                             Etiquetado = item.Etiquetado,
                             ModificadoPorUsuario = false,
                             OkPintura = item.OkPintura == 0 ? false : true,
-                            OkPnd = item.OkPND == 0 ? false : true,
+                            OkPnd = item.OkPND,
                             ZonaID = item.ZonaID.GetValueOrDefault(),
                             Zona = item.Zona,
-                            ListaCuadrantes = (List<UbicacionCuadrante>)CuadranteBD.Instance.ObtenerCuadrante(item.ZonaID.GetValueOrDefault())
+                            RutaEtiqueta = item.RutaEtiqueta,
+                            RutaDibujo = item.RutaDibujo,
+                            RutaIsometrico = item.RutaIsometrico,
+                            RutaPlano = item.RutaPlano,
+                            ListaCuadrantes = (List<UbicacionCuadrante>)CuadranteBD.Instance.ObtenerCuadranteSpool(item.Spool, UsuarioID)
                         });
                     }
 
@@ -120,41 +128,6 @@ namespace BackEndSAM.DataAcces.Embarque.Etiquetado
 
                 return result;
             }
-        }
-
-        public object ObtieneRutaSpool(int SpoolID, int TipoReporte)
-        {
-            try
-            {
-                using (SamContext ctx = new SamContext())
-                {
-                    List<Sam3_Steelgo_Get_PathEtiquetadoTraveler_Result> result = ctx.Sam3_Steelgo_Get_PathEtiquetadoTraveler(SpoolID, TipoReporte).ToList();
-                    List<DetalleRutaSpool> listaDetalle = new List<DetalleRutaSpool>();
-                    foreach (Sam3_Steelgo_Get_PathEtiquetadoTraveler_Result item in result)
-                    {
-                        listaDetalle.Add(new DetalleRutaSpool {
-                            SpoolID = item.SpoolID,
-                            Spool = item.Spool,
-                            ProyectoID = item.ProyectoID,
-                            Proyecto = item.Proyecto,
-                            Ruta = item.Ruta
-                        });
-                    }
-
-                    return listaDetalle;
-                }
-            }
-            catch (Exception ex)
-            {
-                TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add(ex.Message);
-                result.ReturnCode = 500;
-                result.ReturnStatus = false;
-                result.IsAuthenicated = true;
-
-                return result;
-            }
-
         }
 
         public object GuardaCapturaEtiquetado(DataTable dtEtiquetado, int UsuarioID, string Lenguaje)

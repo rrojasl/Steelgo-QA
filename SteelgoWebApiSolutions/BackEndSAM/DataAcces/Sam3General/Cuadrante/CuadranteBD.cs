@@ -57,7 +57,41 @@ namespace BackEndSAM.DataAcces.Sam3General.Cuadrante
                 result.ReturnCode = 500;
                 result.ReturnStatus = false;
                 result.IsAuthenicated = true;
+                return result;
+            }
+        }
 
+        public object ObtenerCuadranteSpool(string Spool, int UsuarioID)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Sam3_Steelgo_Get_CuadranteNumeroControl_Result> result = ctx.Sam3_Steelgo_Get_CuadranteNumeroControl(Spool, UsuarioID).ToList();
+                    List<UbicacionCuadranteSpool> listaDetalle = new List<UbicacionCuadranteSpool>();
+                    listaDetalle.Add(new UbicacionCuadranteSpool());
+
+                    foreach (Sam3_Steelgo_Get_CuadranteNumeroControl_Result item in result)
+                    {
+                        listaDetalle.Add(new UbicacionCuadranteSpool {
+                            CuadranteID = item.CuadranteID,
+                            Nombre = item.Nombre,
+                            PatioID = item.PatioID,
+                            ProyectoID = item.ProyectoID,
+                            ZonaID = item.ZonaID
+                        });
+                    }
+
+                    return listaDetalle;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
                 return result;
             }
         }
