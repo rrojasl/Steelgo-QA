@@ -22,7 +22,6 @@ namespace BackEndSAM.Models.Embarque.Etiquetado
         public bool OkPnd { get; set; }
         public int ZonaID { get; set; }
         public string Zona { get; set; }
-        public int EstatusCaptura { get; set; }
         public List<UbicacionCuadrante> ListaCuadrantes { get; set; }
     }
 
