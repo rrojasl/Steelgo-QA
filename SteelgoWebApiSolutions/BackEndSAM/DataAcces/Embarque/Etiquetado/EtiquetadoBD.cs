@@ -58,6 +58,7 @@ namespace BackEndSAM.DataAcces.Embarque.Etiquetado
                             OkPnd = item.OkPND == 0 ? false : true,
                             ZonaID = item.ZonaID,
                             Zona = item.Zona,
+                            EstatusCaptura = 0,
                             ListaCuadrantes = (List<UbicacionCuadrante>)CuadranteBD.Instance.ObtenerCuadrante(item.ZonaID)
                         });
                     }
@@ -103,6 +104,7 @@ namespace BackEndSAM.DataAcces.Embarque.Etiquetado
                             OkPnd = item.OkPND == 0 ? false : true,
                             ZonaID = item.ZonaID.GetValueOrDefault(),
                             Zona = item.Zona,
+                            EstatusCaptura = 0,
                             ListaCuadrantes = (List<UbicacionCuadrante>)CuadranteBD.Instance.ObtenerCuadrante(item.ZonaID.GetValueOrDefault())
                         });
                     }
