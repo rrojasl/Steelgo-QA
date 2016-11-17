@@ -6,13 +6,13 @@
 }
 @section breadcrumb {
     <li>
-        <a href="@Url.Action("landing", "Home")"><span id="lblInicio">Inicio</span></a>
+        <a href="@Url.Action("landing", "Home")"><span id="lblInicio"></span></a>
     </li>
     <li>
-        <a href="#"><span id="lblEmbarque">Calidad</span></a>
+        <a href="#"><span id="lblCalidad"></span></a>
     </li>
     <li class="active">
-        <a href="@Url.Action("Etiquetar", "Embarque")"><span>Etiquetado</span></a>
+        <a href="@Url.Action("Etiquetar", "Embarque")"><span id="lblEtiquetado"></span></a>
     </li>
 }
 <div id="FormEmbarqueMarcado" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -34,7 +34,7 @@
                     <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar"></span></a>
                 </div>
                 <div id="EntregaresultadosDivSup" class="button-section">
-                    <a id="EntregaresultadosSup" class="btn btn-primary"><span id="">Encintado</span></a>
+                    <a id="EntregaresultadosSup" class="btn btn-primary"><span id="lblEncintado"></span></a>
                 </div>
                 <div class="button-section actionButtonSection">
                     <div class="dropdown action-group">
@@ -43,8 +43,8 @@
                             <span class="caretBlue"></span>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="Acciones">
-                            <li><a href="#" id="ImprimirEtiqueta"><span id="EmbarqueMarcadoImprimirEtiquetaSpool">Imprimir etiqueta</span></a></li>
-                            <li><a href="#" id="ImprimirTravel"><span id="EmbarqueMarcadoImprimirTravelMasivo">Imprimir travel masivo</span></a></li>
+                            <li><a href="#" id="ImprimirEtiqueta"><span id="lblImprimirEtiqueta"></span></a></li>
+                            <li><a href="#" id="ImprimirTravel"><span id="lblImprimirTravelerMasivo"></span></a></li>
                         </ul>
                     </div>
                 </div>
@@ -54,33 +54,28 @@
     </div>
     @*Controles Superior*@
     <div class="row addedSectionInLineWithoutColor" id="FieldSetView">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <div id="tipoVista" class="btn-group " data-toggle="buttons" role="group">
-                <label>Tipo de bÚsqueda</label>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2">
+            <div id="tipoVista" class="btn-group altoControl" data-toggle="buttons" role="group">
+                <label id="lblTipoBusqueda"></label>
                 <div class="btn btn-primary">
-                    <input type="radio" name="TipoBusqueda" style="width:auto;" value="ZonaCuadrante" /><span>Zona</span>
+                    <input type="radio" name="TipoBusqueda" style="width:auto;" value="Zona" /><span id="lblZona"></span>
                 </div>
                 <div class="btn btn-primary">
-                    <input type="radio" name="TipoBusqueda" style="width:auto;" value="Spool" /><span>Spool</span>
+                    <input type="radio" name="TipoBusqueda" style="width:auto;" value="Spool" /><span id="lblSpoolID"></span>
                 </div>
             </div>
-            </br>
-            </br>
-            </br>
-            
         </div>
-        
-        <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 altoControl" id="AreaDiv" style="display:block;">
-            <label id=""><span id="EmbarqueConsultaArea">Zona</span></label>
-            <input id="Zona" />
+        <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 altoControl" id="ZonaDiv" style="display:block;">
+            <label id=""><span id="lblZona1"></span></label>
+            <input id="inputZona" />
         </div>
         <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 altoControl" id="CuadranteDiv" style="display:block;">
-            <label id=""><span id="EmbarqueConsultaCuadrante">Cuadrante</span></label>
-            <input id="Cuadrante" />
+            <label id=""><span id="lblCuadrante"></span></label>
+            <input id="inputCuadrante" />
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 altoControl" id="" style="display:none;">
-            <label id=""><span id="EmbarqueConsultaArea">Spool ID Contiene</span></label>
-            <input id="SpoolIDCOntiene" class=" general-input" />
+        <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 altoControl" id="SpoolIDDiv" style="display:none;">
+            <label id=""><span id="lblSpoolIDContiene"></span></label>
+            <input id="SpoolIDCOntiene" class="general-input" />
         </div>
         <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 altoControl">
             <label id="lblMostrar"></label>
@@ -91,6 +86,7 @@
             <label id="">&nbsp;</label>
             <button type="button" id="btnMostrar" class="btn btn-blue"><span id="botonMostrar"></span></button>
         </div>
+
     </div>
     @*GRID*@
 
@@ -98,8 +94,8 @@
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="row" id="FieldSetView2">
                 <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 " id="divCuadrante">
-                    <label><span>Cuadrante</span></label>
-                    <input id="InputCuadrante" />
+                    <label id="lblCuadrante1"></label>
+                    <input id="inputCuadrantePlanchado" />
                 </div>
                 <div class="col-sm-2 col-md-2 col-lg-2" id="CapturaArmadoHeaderSpoolIDDiv">
                     <center><label id="lblSeleccionarTodos"></label></center>
@@ -108,7 +104,7 @@
 
                 <div class="btn-group col-xs-12 col-sm-6 col-md-2 col-lg-2" role="group" id="LlenaCapturaAvanceIntAcabadoDiv">
                     <label id="lblPlanchar"></label>
-                    <input type="radio" id="LlenaTodos" name="LLena" style="width:auto;" value="Todos" checked /><span id="lblTodos1"></span>
+                    <input type="radio" id="LlenaTodos" name="LLena" style="width:auto;" value="Todos" /><span id="lblTodos1"></span>
                     <input type="radio" id="LlenaVacios" name="LLena" style="width:auto;" value="Vacios" /><span id="lblVacios"></span>
 
                 </div>
@@ -148,7 +144,7 @@
                     <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar1"></span></a>
                 </div>
                 <div id="EntregaresultadosDivINF" class="button-section">
-                    <a id="EntregaresultadosINF" class="btn btn-primary"><span id="">Encintado</span></a>
+                    <a id="EntregaresultadosINF" class="btn btn-primary"><span id="lblEncintado1"></span></a>
                 </div>
                 <div class="button-section actionButtonSection">
                     <div class="dropdown action-group">
@@ -157,8 +153,8 @@
                             <span class="caretBlue"></span>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="Acciones">
-                            <li><a id="ImprimirEtiqueta2"><span id="EmbarqueMarcadoImprimirEtiquetaSpool2">Imprimir Etiqueta</span></a></li>
-                            <li><a id="ImprimirTravel2" href="#"><span id="EmbarqueMarcadoImprimirTravelMasivo2">Imprimir Traveler Masivo</span></a></li>
+                            <li><a id="ImprimirEtiqueta2"><span id="lblImprimirEtiqueta">a</span></a></li>
+                            <li><a id="ImprimirTravel2" href="#"><span id="lblImprimirTravelerMasivo1"></span></a></li>
                         </ul>
                     </div>
                 </div>
@@ -169,9 +165,9 @@
 </div>
 <script type="text/javascript" src="~/Scripts/AppComponents/Embarque/Etiquetado/Captura.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/Embarque/Etiquetado/Handlers.js"></script>
-<!-- <script type="text/javascript" src="~/Scripts/AppComponents/Embarque/Etiquetado/"></script>
-<script type="text/javascript" src="~/Scripts/AppComponents/Embarque/Etiquetado/"></script>
-<script type="text/javascript" src="~/Scripts/AppComponents/Embarque/Etiquetado/"></script>-->
+<script type="text/javascript" src="~/Scripts/AppComponents/Embarque/Etiquetado/Ajax.js"></script>
+<script type="text/javascript" src="~/Scripts/AppComponents/Embarque/Etiquetado/Render.js"></script>
+<script type="text/javascript" src="~/Scripts/AppComponents/Embarque/Etiquetado/Seguridad.js"></script>
 
 <script>
     @section JavascriptDocumentReadyFunctions {

@@ -7192,6 +7192,10 @@ _dictionary = {
         "es-MX": "Cuadrante",
         "en-US": "Quadrant"
     },
+    "lblCuadrante1": {
+        "es-MX": "Cuadrante",
+        "en-US": "Quadrant"
+    },
     "lblPaso": {
         "es-MX": "Paso",
         "en-US": "Footprint"
@@ -7504,6 +7508,10 @@ _dictionary = {
         "es-MX": "Zona",
         "en-US": "Zone"
     },
+    "lblZona1": {
+        "es-MX": "Zona",
+        "en-US": "Zone"
+    },
     "lblSpoolContiene": {
         "es-MX": "Spool Contiene",
         "en-US": "Contain Spool"
@@ -7540,6 +7548,43 @@ _dictionary = {
         "es-MX": "U. Medida",
         "en-US": "Measure U"
     },
+    "lblTipoBusqueda": {
+        "es-MX": "Tipo de Búsqueda",
+        "en-US": "Search Type"
+    },
+    "lblImprimirEtiqueta": {
+        "es-MX": "Imprimir Etiqueta",
+        "en-US": "Print Label"
+    },
+    "lblImprimirEtiqueta1": {
+        "es-MX": "Imprimir Etiqueta",
+        "en-US": "Print Label"
+    },
+    "lblImprimirTravelerMasivo": {
+        "es-MX": "Imprimir Traveler Masivo",
+        "en-US": "Print Mass Traveler "
+    },
+    "lblImprimirTravelerMasivo1": {
+        "es-MX": "Imprimir Traveler Masivo",
+        "en-US": "Print Mass Traveler "
+    },
+    "lblEncintado": {
+        "es-MX": "Encintado",
+        "en-US": "Taping"
+    },
+    "lblEncintado1": {
+        "es-MX": "Encintado",
+        "en-US": "Taping"
+    },
+    "lblEtiquetado": {
+        "es-MX": "Etiquetado",
+        "en-US": "Labeled"
+    },
+    "lblCalidad": {
+        "es-MX": "Calidad",
+        "en-US": "Quality"
+    },
+
     //Etiquetas header alertas
     "SuccessTitle": {
         "es-MX": "Correcto",
@@ -8362,6 +8407,10 @@ _dictionary = {
     "columnOkPND": {
         "es-MX": "OK PND",
         "en-US": "PND OK"
+    },
+    "columnOkPintura": {
+        "es-MX": "OK Pintura",
+        "en-US": "Paint OK"
     },
     "columnStatus": {
         "es-MX": "Estatus por Spool",

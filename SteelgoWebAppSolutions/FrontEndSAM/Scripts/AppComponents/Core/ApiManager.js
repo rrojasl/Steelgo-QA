@@ -203,6 +203,9 @@ var $CapturaAvance = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $SistemaPinturaAplicable = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $ListadoSistemaPintura = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 
+//Embarque
+var $Etiquetado = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+
 
 //#region Declaracion
 //#region Catalogos
@@ -364,6 +367,8 @@ $CapturaAvance.add('CapturaAvance');
 $SistemaPinturaAplicable.add("SistemaPinturaAplicable");
 $ListadoSistemaPintura.add("ListadoSistemaPintura");
 
+//Embarque
+$Etiquetado.add("Etiquetado");
 
 //Soldadura
 

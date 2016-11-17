@@ -1,6 +1,6 @@
 ﻿function changeLanguageCall() {
     CargarGrid();
-    llenarCombo();
+    AjaxCargarCamposPredeterminados();
     //$("#Area").data("kendoComboBox").value("");
    // $("#Cuadrante").data("kendoComboBox").value("");
     //AjaxCargarArea();
@@ -14,21 +14,15 @@ function CargarGrid() {
         autoSync: true,
 
         dataSource: {
-            data: [
-                {
-                    Accion: 1,
-                    SpoolID: "X001-001",
-                    Cuadrante: "ZZ0-001 PT",
-                    Etiquetado: true
-                }
-            ],
+            data:'',
             schema: {
                 model: {
                     fields: {
+                        Proyecto: { type: "string", editable: false },
                         Accion: { type: "number", editable: false },
-                        SpoolID: { type: "string", editable: false },
-                        Cuadrante: { type: "string", editable: false },
-                        Etiquetado: { type: "boolean", editable:false}
+                        Spool: { type: "string", editable: false },
+                        Cuadrante: { type: "string", editable: true },
+                        Etiquetado: { type: "boolean", editable: true }
                     }
                 }
             },
@@ -43,28 +37,24 @@ function CargarGrid() {
             serverFiltering: false,
             serverSorting: false
         },
-        navigatable: true,
-        editable: true,
+        nnavigatable: true,
         autoHeight: true,
         sortable: true,
-        scrollable: false,
+        scrollable: true,
+        editable: true,
         selectable: true,
-        //filterable: getKendoGridFilterable($("#language").data("kendoDropDownList").value()),
         pageable: {
             refresh: false,
-            pageSizes: [10, 25, 50, 20],
+            pageSizes: [10, 25, 50, 100],
             info: false,
             input: false,
             numeric: true,
-            // buttonCount: 2
         },
         filterable: getGridFilterableMaftec(),
         columns: [
-            { field: "SpoolID", title: _dictionary.columnSpoolIDEmbarque[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "160px" },
-            { field: "Proyecto", title: _dictionary.columnProyecto[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px" },
-            { field: "Cuadrante", title: _dictionary.columnCuadranteEmbarque[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "170px" },
-
-            //{ command: { text: _dictionary.EmbarqueConsultaTraveler[$("#language").data("kendoDropDownList").value()]/*, click: eliminarCaptura*/ }, template: "<a>" + _dictionary.EmbarqueConsultaVer[$("#language").data("kendoDropDownList").value()] + "</a>", width: "150px" },
+            { field: "Proyecto", title: _dictionary.columnProyecto[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "180px" },
+            { field: "Spool", title: _dictionary.columnSpoolIDEmbarque[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "160px" },
+            { field: "Cuadrante", title: _dictionary.columnCuadranteEmbarque[$("#language").data("kendoDropDownList").value()], editor: RenderComboBoxCuadrante, filterable: getGridFilterableCellMaftec(), width: "170px" },
             {
                 field: "Etiquetado", title: _dictionary.columnEtiquetadoEmbarque[$("#language").data("kendoDropDownList").value()], filterable: {
                     multi: true,
@@ -74,8 +64,8 @@ function CargarGrid() {
                         style: "max-width:100px;"
                     },
                     dataSource: [{ Etiquetado: true }, { Etiquetado: false }]
-                }, template: "<input name='fullyPaid' class='chk-agregar' type='checkbox' data-bind='checked: Etiquetado' #= Etiquetado ? checked='checked' : '' #/>", width: "50px", attributes: { style: "text-align:center;" }
-            }
+                }, template: "<input name='fullyPaid' class='chk-agregar' type='checkbox' data-bind='checked: Etiquetado' #= Etiquetado ? checked='checked' : '' #/>", width: "120px", attributes: { style: "text-align:center;" }
+            },
         ],
         //dataBound: function (e) {
         //    quickHeadFilter2($("#grid").data("kendoGrid"));
@@ -84,12 +74,34 @@ function CargarGrid() {
     CustomisaGrid($("#grid"));
 };
 
-function llenarCombo() {
-    //var datasource = [
-    //{ ProyectoID: 0, Nombre: ""},
-    //{ ProyectoID: 1, Nombre: "Etileno"}
-    //]
+function existenCambios(arregloCaptura) {
+    for (index = 0; index < arregloCaptura.length; index++) {
+        if (arregloCaptura[index].Agregar == true && arregloCaptura[index].RequisicionID == 0)
+            return true;
+    }
+    return false;
+}
 
-    //$("#Proyecto").data("kendoComboBox").dataSource.data([]);
-    //$("#Proyecto").data("kendoComboBox").dataSource.data(datasource);
+function PlanchaCuadrante() {
+    var dataSource = $("#grid").data("kendoGrid").dataSource;
+    var filters = dataSource.filter();
+    var allData = dataSource.data();
+    var query = new kendo.data.Query(allData);
+    var data = query.filter(filters).data;
+
+    if ($("#inputCuadrantePlanchado").data("kendoComboBox").text() != "") {
+        for (var i = 0; i < data.length; i++) {
+            if ($('input:radio[name=LLena]:checked').val() === "Todos") {
+                data[i].CuadranteID = $("#inputCuadrantePlanchado").val();
+                data[i].Cuadrante = $("#inputCuadrantePlanchado").data("kendoComboBox").text();
+            }
+            else {
+                if (data[i].Cuadrante === "" || data[i].Cuadrante === null || data[i].Cuadrante === undefined) {
+                    data[i].CuadranteID = $("#inputCuadrantePlanchado").val();
+                    data[i].Cuadrante = $("#inputCuadrantePlanchado").data("kendoComboBox").text();
+                }
+            }
+        }
+    }
+    $("#grid").data("kendoGrid").dataSource.sync();
 }
