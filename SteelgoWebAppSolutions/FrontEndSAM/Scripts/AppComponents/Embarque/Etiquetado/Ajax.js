@@ -1,4 +1,6 @@
-﻿var TipoMuestraPredeterminadoTipoBusquedaID = 3059;
+﻿var gridInformation = false;
+
+var TipoMuestraPredeterminadoTipoBusquedaID = 3059;
 var TipoMuestraPredeterminadoMuestraID = 3060;
 var TipoMuestraPredeterminadoPlanchadoID = 3061;
 
@@ -75,11 +77,12 @@ function AjaxGetDetalleEtiquetado(tipoConsulta, todos, zonaID, cuadranteID, spoo
             for (var i = 0; i < data.length; i++) {
                 ds.add(data[i]);
             }
+            gridInformation = true;
             ds.page(1);
         } else {
             ds.page(0);
         }
-
+        gridInformation = false;
         ds.sync();
         loadingStop();
     });

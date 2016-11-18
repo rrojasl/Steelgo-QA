@@ -22,6 +22,8 @@ function CargarGrid() {
                         Accion: { type: "number", editable: false },
                         Spool: { type: "string", editable: false },
                         Cuadrante: { type: "string", editable: true },
+                        OKPND: { type: "boolean", editable: true },
+                        OKPintura: { type: "boolean", editable: true },
                         Etiquetado: { type: "boolean", editable: true }
                     }
                 }
@@ -55,6 +57,28 @@ function CargarGrid() {
             { field: "Proyecto", title: _dictionary.columnProyecto[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "180px" },
             { field: "Spool", title: _dictionary.columnSpoolIDEmbarque[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "160px" },
             { field: "Cuadrante", title: _dictionary.columnCuadranteEmbarque[$("#language").data("kendoDropDownList").value()], editor: RenderComboBoxCuadrante, filterable: getGridFilterableCellMaftec(), width: "170px" },
+            {
+                field: "OKPND", title: _dictionary.columnOkPND[$("#language").data("kendoDropDownList").value()], filterable: {
+                    multi: true,
+                    messages: {
+                        isTrue: _dictionary.lblVerdadero[$("#language").data("kendoDropDownList").value()],
+                        isFalse: _dictionary.lblFalso[$("#language").data("kendoDropDownList").value()],
+                        style: "max-width:100px;"
+                    },
+                    dataSource: [{ Etiquetado: true }, { Etiquetado: false }]
+                }, template: "<input name='fullyPaid' class='chk-agregar' type='checkbox' data-bind='checked: Etiquetado' #= Etiquetado ? checked='checked' : '' #/>", width: "120px", attributes: { style: "text-align:center;" }
+            },
+            {
+                field: "OKPintura", title: _dictionary.columnOkPintura[$("#language").data("kendoDropDownList").value()], filterable: {
+                    multi: true,
+                    messages: {
+                        isTrue: _dictionary.lblVerdadero[$("#language").data("kendoDropDownList").value()],
+                        isFalse: _dictionary.lblFalso[$("#language").data("kendoDropDownList").value()],
+                        style: "max-width:100px;"
+                    },
+                    dataSource: [{ Etiquetado: true }, { Etiquetado: false }]
+                }, template: "<input name='fullyPaid' class='chk-agregar' type='checkbox' data-bind='checked: Etiquetado' #= Etiquetado ? checked='checked' : '' #/>", width: "120px", attributes: { style: "text-align:center;" }
+            },
             {
                 field: "Etiquetado", title: _dictionary.columnEtiquetadoEmbarque[$("#language").data("kendoDropDownList").value()], filterable: {
                     multi: true,
