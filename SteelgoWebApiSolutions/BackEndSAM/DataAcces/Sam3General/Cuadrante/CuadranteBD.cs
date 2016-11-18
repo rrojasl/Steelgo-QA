@@ -46,7 +46,7 @@ namespace BackEndSAM.DataAcces.Sam3General.Cuadrante
                             ZonaID = item.ZonaID.GetValueOrDefault()
                         });
                     }
-                    return listaDetalle.OrderBy(x => x.Nombre);
+                    return listaDetalle.OrderBy(x => x.Nombre).ToList<UbicacionCuadrante>();
 
                 }
             }
