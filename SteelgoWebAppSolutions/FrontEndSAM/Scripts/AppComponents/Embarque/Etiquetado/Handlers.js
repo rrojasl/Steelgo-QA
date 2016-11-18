@@ -263,6 +263,9 @@ function suscribirEventoMostrar() {
         var TipoBusqueda = $('input:radio[name=TipoBusqueda]:checked').val();
 
         AjaxGetDetalleEtiquetado(TipoBusqueda == 'Zona' ? 1 : 0, Muestra == 'Todos' ? 1 : 0, ZonaID == "" ? 0 : ZonaID, CuadranteID == "" ? 0 : CuadranteID, SpoolIDContiene);
+
+        if (TipoBusqueda == 'Spool')
+            AjaxGetCuadranteListadoPorSpool(SpoolIDContiene);
     });
 }
 

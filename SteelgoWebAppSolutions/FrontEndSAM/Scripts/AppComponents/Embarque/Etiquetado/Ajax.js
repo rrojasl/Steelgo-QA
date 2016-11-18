@@ -102,6 +102,17 @@ function AjaxGetDetalleEtiquetado(tipoConsulta, todos, zonaID, cuadranteID, spoo
     });
 }
 
+function AjaxGetCuadranteListadoPorSpool(spoolIDContiene) {
+    $Cuadrante.Cuadrante.read({ token: Cookies.get("token"), Spool: spoolIDContiene }).done(function (data) {
+        $("#inputCuadrantePlanchado").data("kendoComboBox").dataSource.data(data);
+
+        if ($("#inputCuadrantePlanchado").data("kendoComboBox").dataSource._data.length == 2) {
+            $("#inputCuadrantePlanchado").data("kendoComboBox").select(1);
+            $("#inputCuadrantePlanchado").data("kendoComboBox").trigger("change");
+        }
+    });
+}
+
 function AjaxImprimirEtiqueta(SpoolID) {
     $Etiquetado.Etiquetado.read({ token: Cookies.get("token"), SpoolID: SpoolID, TipoReporte: 1 }).done(function (data) {
         var ruta = data[0].Ruta;
