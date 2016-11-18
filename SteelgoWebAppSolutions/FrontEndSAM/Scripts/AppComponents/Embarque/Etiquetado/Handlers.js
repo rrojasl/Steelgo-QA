@@ -7,9 +7,11 @@
     SuscribirEventoPlanchar();
     suscribirEventoImprimirEtiqueta();
     suscribirEventoImprimirTravelerMasivo();
+    suscribirEventoGuardar();
 }
 
 SuscribirEventos();
+
 
 function suscribirEventoZona() {
     $("#inputZona").kendoComboBox({
@@ -108,8 +110,7 @@ function suscribirEventoGuardar() {
         var ds = $("#grid").data("kendoGrid").dataSource;
         if (ds._data.length > 0) {
             if ($('#Guardar').text() == "Guardar" || $('#Guardar').text() == "Save") {
-                opcionHabilitarView(true, "FieldSetView");
-                //AjaxGuardarCaptura(ds._data, "0");
+                AjaxGuardarCaptura(ds._data, 0);
             }
             else if ($('#Guardar').text() == "Editar" || $('#Guardar').text() == "Edit") {
                 opcionHabilitarView(false, "FieldSetView")
@@ -294,10 +295,10 @@ function opcionHabilitarView(valor, name) {
 
     if (valor) {
         $('#FieldSetView').find('*').attr('disabled', true);
-        $("#Area").data("kendoComboBox").enable(false);
-        $("#Cuadrante").data("kendoComboBox").enable(false);
-        $("#btnAgregar").prop('disabled', true);
-        $(".radioImpreso").prop('disabled', true);
+        //$("#Area").data("kendoComboBox").enable(false);
+        //$("#Cuadrante").data("kendoComboBox").enable(false);
+        //$("#btnAgregar").prop('disabled', true);
+        //$(".radioImpreso").prop('disabled', true);
 
         //$('#Guardar1').text(_dictionary.textoEditar[$("#language").data("kendoDropDownList").value()]);
         //$("#Guardar").text(_dictionary.textoEditar[$("#language").data("kendoDropDownList").value()]);
@@ -305,10 +306,10 @@ function opcionHabilitarView(valor, name) {
     }
     else {
         $('#FieldSetView').find('*').attr('disabled', false);
-        $("#Area").data("kendoComboBox").enable(true);
-        $("#Cuadrante").data("kendoComboBox").enable(true);
-        $("#btnAgregar").prop('disabled', false);
-        $(".radioImpreso").prop('disabled', false);
+        //$("#Area").data("kendoComboBox").enable(true);
+        //$("#Cuadrante").data("kendoComboBox").enable(true);
+        //$("#btnAgregar").prop('disabled', false);
+        //$(".radioImpreso").prop('disabled', false);
         //$('#Guardar1').text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
         //$("#Guardar").text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
 

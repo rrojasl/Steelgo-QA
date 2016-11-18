@@ -101,3 +101,49 @@ function AjaxImprimirTravelerMasivo(SpoolID) {
         alert(ruta);
     });
 }
+
+function AjaxGuardarCaptura(rows, tipoGuardar) {
+    loadingStart();
+
+    Captura = [];
+    Captura[0] = { listaDetalle: "" };
+    ListaDetalles = [];
+    var index = 0;
+    for (var i = 0; i < rows.length; i++) {
+        if (rows[i].ModificadoPorUsuario) {
+            ListaDetalles[index] = { Accion: "", SpoolID: "", Etiquetado: "", EtiquetadoID: "" };
+            ListaDetalles[index].Accion = rows[index].Accion;
+            ListaDetalles[index].SpoolID = rows[index].SpoolID;
+            ListaDetalles[index].Etiquetado = rows[index].Etiquetado;
+            ListaDetalles[index].EtiquetadoID = rows[index].EtiquetadoID;
+            index++;
+        }
+    };
+    Captura[0].listaDetalle = ListaDetalles;
+
+    if (Captura[0].listaDetalle.length > 0) {
+        $Etiquetado.Etiquetado.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
+            if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "OK") {
+                displayNotify("MensajeGuardadoExistoso", "", '0');
+                if (tipoGuardar == 1) {
+                    opcionHabilitarView(false, "FieldSetView");
+                    Limpiar();
+                    AjaxCargarCamposPredeterminados();
+                }
+                else {
+                    opcionHabilitarView(true, "FieldSetView");
+                    // AjaxCambiarAccionAModificacion();
+                }
+                loadingStop();
+            }
+            else {
+                displayNotify("MensajeGuardadoErroneo", "", '2');
+                loadingStop();
+            }
+        });
+    }
+    else {
+        displayNotify("", "No hay datos por guardar", '1');
+        loadingStop();
+    }
+};
