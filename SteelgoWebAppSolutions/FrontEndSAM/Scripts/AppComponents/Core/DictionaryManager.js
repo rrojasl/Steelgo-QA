@@ -7584,7 +7584,11 @@ _dictionary = {
         "es-MX": "Calidad",
         "en-US": "Quality"
     },
-
+    "lblTipoBusqueda": {
+        "es-MX": "Tipo de búsqueda",
+        "en-US": "Type of search"
+    },
+    //Finaliza Etiquetas
     //Etiquetas header alertas
     "SuccessTitle": {
         "es-MX": "Correcto",
@@ -10286,12 +10290,22 @@ _dictionary = {
 
     // Finaliza Dashboard Pitura 
 
-    // Empieza  embarque
+    // Empieza  Modulo Embarque
+    //Inicia Botones Siguiente Paso
+    "EmbarqueCargaPlanaSup": {
+        "es-MX": "Cargar Plana",
+        "en-US": "Load Flat"
+    },
+    "EmbarqueCargaPlanaInf": {
+        "es-MX": "Cargar Plana",
+        "en-US": "Load Flat"
+    },
+    //Finaliza Botones Siguiente Paso
+    //Columnas
     "columnSpoolIDEmbarque": {
         "es-MX": "Spool ID ",
         "en-US": "Spool ID"
     },
-
     "columnPasoEmbarque": {
         "es-MX": "Paso ",
         "en-US": "Step"
@@ -10335,7 +10349,7 @@ _dictionary = {
         "es-MX": "Peso ",
         "en-US": "Weigth"
     },
-    //finaliza embarque 
+    //FinalizaColumnas
     //Acciones botones de embarque
     "BtnGuardarCerrarEmabarqueSup": {
         "es-MX": "Guardar y Cerrar ",
@@ -10353,5 +10367,12 @@ _dictionary = {
         "es-MX": "Guardar, Cerrar y Nuevo ",
         "en-US": "Sava, Close and New"
     },
-    //fin acciones botones de embarque
+    //Fin acciones botones de embarque
+    //Inicia Pantalla Encintado
+    "EmbarqueEncintadoTitle": {
+        "es-MX": "Encintado",
+        "en-US": "Taping"
+    },
+    //Finaliza Pantalla Encintado
+    //Finaliza Modulo Embarque 
 };
