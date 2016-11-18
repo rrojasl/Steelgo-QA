@@ -98,7 +98,7 @@ function CargarGrid() {
                 if ($('#botonGuardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
                     if (e.target.checked) {
                         $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Etiquetado = true;
-                        $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Accion = $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Accion == 3 ? 2 : $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Accion;
+                        $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Accion = 1;
                     }
                     else {
                         $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Etiquetado = false;
