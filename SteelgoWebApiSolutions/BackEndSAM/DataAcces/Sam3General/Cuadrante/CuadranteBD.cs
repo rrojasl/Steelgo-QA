@@ -83,7 +83,7 @@ namespace BackEndSAM.DataAcces.Sam3General.Cuadrante
                         });
                     }
 
-                    return listaDetalle.OrderBy(x => x.Nombre);
+                    return listaDetalle.OrderBy(x => x.Nombre).ToList<UbicacionCuadrante>();
                 }
             }
             catch (Exception ex)
