@@ -7588,6 +7588,11 @@ _dictionary = {
         "es-MX": "Tipo de búsqueda",
         "en-US": "Type of search"
     },
+    "lblNinguno": {
+        "es-MX": "Ninguno",
+        "en-US": "Any"
+    },
+
     //Finaliza Etiquetas
     //Etiquetas header alertas
     "SuccessTitle": {
