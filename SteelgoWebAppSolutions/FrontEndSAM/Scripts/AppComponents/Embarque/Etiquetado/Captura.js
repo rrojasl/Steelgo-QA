@@ -2,7 +2,7 @@
     CargarGrid();
     AjaxCargarCamposPredeterminados();
     //$("#Area").data("kendoComboBox").value("");
-   // $("#Cuadrante").data("kendoComboBox").value("");
+    // $("#Cuadrante").data("kendoComboBox").value("");
     //AjaxCargarArea();
     //document.title = "Consulta";
 };
@@ -98,7 +98,7 @@ function CargarGrid() {
                 if ($('#botonGuardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
                     if (e.target.checked) {
                         $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Etiquetado = true;
-                        $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Accion = $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Accion == 3 ? 2 : $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Accion;
+                        $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Accion = 1;
                     }
                     else {
                         $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Etiquetado = false;
@@ -138,23 +138,36 @@ function PlanchaCuadrante() {
     var allData = dataSource.data();
     var query = new kendo.data.Query(allData);
     var data = query.filter(filters).data;
+    var SpoolsNoPlanchados = '';
 
     if ($("#inputCuadrantePlanchado").data("kendoComboBox").text() != "") {
         for (var i = 0; i < data.length; i++) {
             if ($('input:radio[name=LLena]:checked').val() == "Todos") {
-                data[i].CuadranteID = $("#inputCuadrantePlanchado").val();
-                data[i].Cuadrante = $("#inputCuadrantePlanchado").data("kendoComboBox").text();
-                if(!seleccionarNinguno)
-                    data[i].Etiquetado = seleccionartodos;
-            }
-            else {
-                if (data[i].Cuadrante === "" || data[i].Cuadrante === null || data[i].Cuadrante === undefined) {
+                var existe = false;
+                for (var x = 0; x < data[i].ListaCuadrantes.length; x++){
+                    if ($("#inputCuadrantePlanchado").data("kendoComboBox").dataSource._data[$("#inputCuadrantePlanchado").val()].CuadranteID == data[i].ListaCuadrantes[x].CuadranteID)
+                        existe= true;
+                }
+                if (existe) {
                     data[i].CuadranteID = $("#inputCuadrantePlanchado").val();
                     data[i].Cuadrante = $("#inputCuadrantePlanchado").data("kendoComboBox").text();
-                    if (!seleccionarNinguno) data[i].Etiquetado = seleccionartodos;
                 }
+                else {
+                    SpoolsNoPlanchados += data[i].Spool + " ";
+                }
+                if (!seleccionarNinguno)
+                    data[i].Etiquetado = seleccionartodos;
             }
         }
+        displayNotify("", "Los spools: " + SpoolsNoPlanchados + "No han sido planchados", 1);
+    }
+    else {
+        if (data[i].Cuadrante === "" || data[i].Cuadrante === null || data[i].Cuadrante === undefined) {
+            data[i].CuadranteID = $("#inputCuadrantePlanchado").val();
+            data[i].Cuadrante = $("#inputCuadrantePlanchado").data("kendoComboBox").text();
+            if (!seleccionarNinguno) data[i].Etiquetado = seleccionartodos;
+        }
+
     }
     $("#grid").data("kendoGrid").dataSource.sync();
 }

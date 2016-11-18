@@ -7828,6 +7828,18 @@ _dictionary = {
         "es-MX": "No se han encontrado elementos que coincidan con la busqueda",
         "en-US": "No items found matching the search"
     },
+    "MensajeAdvertenciaPlancharTodos":{
+        "es-MX": "¿Esta seguro de reemplazar todos los datos?",
+        "en-US": "Are you sure to replace all data"
+    },
+    "MensajeErrorTipoPlanchado": {
+        "es-MX": "Favor de seleccionar el tipo de planchado",
+        "en-US": "Please select a type ironed"
+    },
+    "MensajeAdvertenciaDatosCapturadosNoGuardados": {
+        "es-MX": "Los registros capturados no han sido guardados. ¿Desea continuar?",
+        "en-US": "Captured records will not be saved. Continue anyway?"
+    },
     // Finalizan Mensajes generales
 
     // Menú lateral
@@ -10377,6 +10389,10 @@ _dictionary = {
     "EmbarqueEncintadoTitle": {
         "es-MX": "Encintado",
         "en-US": "Taping"
+    },
+    "EncintadoMensajeSeleccionarZona": {
+        "es-MX": "Favor de seleccionar una Zona",
+        "en-US": "Please select a project"
     },
     //Finaliza Pantalla Encintado
     //Finaliza Modulo Embarque 

@@ -102,6 +102,17 @@ function AjaxGetDetalleEtiquetado(tipoConsulta, todos, zonaID, cuadranteID, spoo
     });
 }
 
+function AjaxGetCuadranteListadoPorSpool(spoolIDContiene) {
+    $Cuadrante.Cuadrante.read({ token: Cookies.get("token"), Spool: spoolIDContiene }).done(function (data) {
+        $("#inputCuadrantePlanchado").data("kendoComboBox").dataSource.data(data);
+
+        if ($("#inputCuadrantePlanchado").data("kendoComboBox").dataSource._data.length == 2) {
+            $("#inputCuadrantePlanchado").data("kendoComboBox").select(1);
+            $("#inputCuadrantePlanchado").data("kendoComboBox").trigger("change");
+        }
+    });
+}
+
 function AjaxImprimirEtiqueta(SpoolID) {
     $Etiquetado.Etiquetado.read({ token: Cookies.get("token"), SpoolID: SpoolID, TipoReporte: 1 }).done(function (data) {
         var ruta = data[0].Ruta;
@@ -115,52 +126,6 @@ function AjaxImprimirTravelerMasivo(SpoolID) {
         alert(ruta);
     });
 }
-
-function AjaxGuardarCaptura(rows, tipoGuardar) {
-    loadingStart();
-
-    Captura = [];
-    Captura[0] = { listaDetalle: "" };
-    ListaDetalles = [];
-    var index = 0;
-    for (var i = 0; i < rows.length; i++) {
-        if (rows[i].ModificadoPorUsuario) {
-            ListaDetalles[index] = { Accion: "", SpoolID: "", Etiquetado: "", EtiquetadoID: "" };
-            ListaDetalles[index].Accion = rows[index].Accion;
-            ListaDetalles[index].SpoolID = rows[index].SpoolID;
-            ListaDetalles[index].Etiquetado = rows[index].Etiquetado;
-            ListaDetalles[index].EtiquetadoID = rows[index].EtiquetadoID;
-            index++;
-        }
-    };
-    Captura[0].listaDetalle = ListaDetalles;
-
-    if (Captura[0].listaDetalle.length > 0) {
-        $Etiquetado.Etiquetado.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
-            if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "OK") {
-                displayNotify("MensajeGuardadoExistoso", "", '0');
-                if (tipoGuardar == 1) {
-                    opcionHabilitarView(false, "FieldSetView");
-                    Limpiar();
-                    AjaxCargarCamposPredeterminados();
-                }
-                else {
-                    opcionHabilitarView(true, "FieldSetView");
-                    // AjaxCambiarAccionAModificacion();
-                }
-                loadingStop();
-            }
-            else {
-                displayNotify("MensajeGuardadoErroneo", "", '2');
-                loadingStop();
-            }
-        });
-    }
-    else {
-        displayNotify("", "No hay datos por guardar", '1');
-        loadingStop();
-    }
-};
 
 function AjaxGuardarCaptura(rows, tipoGuardar) {
     loadingStart();

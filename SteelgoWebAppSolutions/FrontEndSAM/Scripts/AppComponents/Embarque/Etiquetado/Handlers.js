@@ -263,6 +263,9 @@ function suscribirEventoMostrar() {
         var TipoBusqueda = $('input:radio[name=TipoBusqueda]:checked').val();
 
         AjaxGetDetalleEtiquetado(TipoBusqueda == 'Zona' ? 1 : 0, Muestra == 'Todos' ? 1 : 0, ZonaID == "" ? 0 : ZonaID, CuadranteID == "" ? 0 : CuadranteID, SpoolIDContiene);
+
+        if (TipoBusqueda == 'Spool')
+            AjaxGetCuadranteListadoPorSpool(SpoolIDContiene);
     });
 }
 
@@ -291,6 +294,8 @@ function opcionHabilitarView(valor, name) {
         $("#inputCuadrantePlanchado").data("kendoComboBox").enable(false);
         $("#ButtonPlanchar").prop('disabled', true);
         $("#LlenaVacios").prop('disabled', true);
+        $('#botonGuardar3').text(_dictionary.textoEditar[$("#language").data("kendoDropDownList").value()]);
+        $("#btnGuardar1").text(_dictionary.textoEditar[$("#language").data("kendoDropDownList").value()]);
 
         $('#botonGuardar').text(_dictionary.textoEditar[$("#language").data("kendoDropDownList").value()]);
         $("#botonGuardar2").text(_dictionary.textoEditar[$("#language").data("kendoDropDownList").value()]);
@@ -304,6 +309,8 @@ function opcionHabilitarView(valor, name) {
         $("#LLena").prop('disabled', false);
         $("#SelectTodos").prop('disabled', false);
 
+        $('#botonGuardar').text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
+        $("#botonGuardar2").text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
         $('#botonGuardar3').text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
         $("#btnGuardar1").text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
     }
