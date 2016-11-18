@@ -1,11 +1,12 @@
 ﻿var gridInformation = false;
 
-var TipoMuestraPredeterminadoTipoBusquedaID = 3059;
-var TipoMuestraPredeterminadoMuestraID = 3060;
-var TipoMuestraPredeterminadoPlanchadoID = 3061;
+var TipoMuestraPredeterminadoTipoBusqueda = 3059;
+var TipoMuestraPredeterminadoMuestra = 3060;
+var TipoMuestraPredeterminadoPlanchado = 3061;
+var TipoMuestraPredeterminadoSelecTodos = 3062;
 
 function AjaxCargarCamposPredeterminados() {
-    $CamposPredeterminados.CamposPredeterminados.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), id: TipoMuestraPredeterminadoPlanchadoID }).done(function (data) {
+    $CamposPredeterminados.CamposPredeterminados.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), id: TipoMuestraPredeterminadoPlanchado }).done(function (data) {
         if (data == "Todos") {
             $('input:radio[name=LLena]:nth(0)').trigger("click");
         }
@@ -15,22 +16,35 @@ function AjaxCargarCamposPredeterminados() {
         loadingStop();
     });
 
-    $CamposPredeterminados.CamposPredeterminados.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), id: TipoMuestraPredeterminadoMuestraID }).done(function (data) {
-        if (data == "sin captura") {
-            $('input:radio[name=Muestra]:nth(0)').trigger("click");
+    $CamposPredeterminados.CamposPredeterminados.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), id: TipoMuestraPredeterminadoSelecTodos }).done(function (data) {
+        if (data == "Si") {
+            $('input:radio[name=SelectTodos]:nth(0)').trigger("click");
         }
-        else if (data == "Todos") {
-            $('input:radio[name=Muestra]:nth(1)').trigger("click");
+        else if (data == "No") {
+            $('input:radio[name=SelectTodos]:nth(1)').trigger("click");
+        }
+        else if (data == "Ninguno") {
+            $('input:radio[name=SelectTodos]:nth(2)').trigger("click");
         }
         loadingStop();
     });
 
-    $CamposPredeterminados.CamposPredeterminados.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), id: TipoMuestraPredeterminadoTipoBusquedaID }).done(function (data) {
+    $CamposPredeterminados.CamposPredeterminados.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), id: TipoMuestraPredeterminadoTipoBusqueda }).done(function (data) {
         if (data == "Zona") {
             $('input:radio[name=TipoBusqueda]:nth(0)').trigger("click");
         }
         else if (data == "Spool") {
             $('input:radio[name=TipoBusqueda]:nth(1)').trigger("click");
+        }
+        loadingStop();
+    });
+    
+    $CamposPredeterminados.CamposPredeterminados.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), id: TipoMuestraPredeterminadoMuestra }).done(function (data) {
+        if (data == "Todos") {
+            $('input:radio[name=Muestra]:nth(0)').trigger("click");
+        }
+        else if (data == "Vacios") {
+            $('input:radio[name=Muestra]:nth(1)').trigger("click");
         }
         loadingStop();
     });
@@ -132,6 +146,60 @@ function AjaxGuardarCaptura(rows, tipoGuardar) {
                 }
                 else {
                     opcionHabilitarView(true, "FieldSetView");
+                    // AjaxCambiarAccionAModificacion();
+                }
+                loadingStop();
+            }
+            else {
+                displayNotify("MensajeGuardadoErroneo", "", '2');
+                loadingStop();
+            }
+        });
+    }
+    else {
+        displayNotify("", "No hay datos por guardar", '1');
+        loadingStop();
+    }
+};
+
+function AjaxGuardarCaptura(rows, tipoGuardar) {
+    loadingStart();
+
+    Captura = [];
+    Captura[0] = { listaDetalle: "" };
+    ListaDetalles = [];
+    var index = 0;
+    for (var i = 0; i < rows.length; i++) {
+        if (rows[i].ModificadoPorUsuario && (rows[i].Accion == 1 || rows[i].Accion == 2 || rows[i].Accion == 3)) {
+            ListaDetalles[index] = { Accion: "", SpoolID: "", Etiquetado: "", EtiquetadoID: "" };
+            ListaDetalles[index].Accion = rows[i].Accion;
+            ListaDetalles[index].SpoolID = rows[i].SpoolID;
+            ListaDetalles[index].Etiquetado = rows[i].Etiquetado;
+            ListaDetalles[index].EtiquetadoID = rows[i].EtiquetadoID;
+            index++;
+        }
+    };
+    Captura[0].listaDetalle = ListaDetalles;
+
+    if (Captura[0].listaDetalle.length > 0) {
+        $Etiquetado.Etiquetado.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
+            if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "OK") {
+                displayNotify("MensajeGuardadoExistoso", "", '0');
+                if (tipoGuardar == 1) {
+                    opcionHabilitarView(false, "FieldSetView");
+                    Limpiar();
+                    AjaxCargarCamposPredeterminados();
+                }
+                else {
+                    $("#grid").data("kendoGrid").dataSource.data([]);
+                    opcionHabilitarView(true, "FieldSetView");
+                    var ZonaID = $("#inputZona").val();
+                    var CuadranteID = $("#inputCuadrante").val();
+                    var SpoolIDContiene = $("#SpoolIDCOntiene").val();
+                    var Muestra = $('input:radio[name=Muestra]:checked').val();
+                    var TipoBusqueda = $('input:radio[name=TipoBusqueda]:checked').val();
+
+                    AjaxGetDetalleEtiquetado(TipoBusqueda == 'Zona' ? 1 : 0, Muestra == 'Todos' ? 1 : 0, ZonaID == "" ? 0 : ZonaID, CuadranteID == "" ? 0 : CuadranteID, SpoolIDContiene);
                     // AjaxCambiarAccionAModificacion();
                 }
                 loadingStop();
