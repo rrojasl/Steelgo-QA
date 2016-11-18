@@ -35,18 +35,18 @@ namespace BackEndSAM.DataAcces.Sam3General.Cuadrante
                 using (SamContext ctx = new SamContext())
                 {
                     List<Sam3_Steelgo_Get_Cuadrante_Result> result = ctx.Sam3_Steelgo_Get_Cuadrante(ZonaID).ToList();
-                    List<UbicacionCuadrante> list = new List<UbicacionCuadrante>();
-                    list.Add(new UbicacionCuadrante());
+                    List<UbicacionCuadrante> listaDetalle = new List<UbicacionCuadrante>();
+                    listaDetalle.Add(new UbicacionCuadrante());
 
                     foreach (Sam3_Steelgo_Get_Cuadrante_Result item in result)
                     {
-                        list.Add(new UbicacionCuadrante {
+                        listaDetalle.Add(new UbicacionCuadrante {
                             CuadranteID = item.CuadranteID,
                             Nombre = item.Nombre,
                             ZonaID = item.ZonaID.GetValueOrDefault()
                         });
                     }
-                    return list;
+                    return listaDetalle.OrderBy(x => x.Nombre);
 
                 }
             }
@@ -83,7 +83,7 @@ namespace BackEndSAM.DataAcces.Sam3General.Cuadrante
                         });
                     }
 
-                    return listaDetalle;
+                    return listaDetalle.OrderBy(x => x.Nombre);
                 }
             }
             catch (Exception ex)

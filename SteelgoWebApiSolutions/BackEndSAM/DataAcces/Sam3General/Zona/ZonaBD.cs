@@ -35,17 +35,17 @@ namespace BackEndSAM.DataAcces.Sam3General.Zona
                 using (SamContext ctx = new SamContext())
                 {
                     List<Sam3_Steelgo_Get_ZonasUsuario_Result> result = ctx.Sam3_Steelgo_Get_ZonasUsuario(UsuarioID).ToList();
-                    List<ZonaObject> list = new List<ZonaObject>();
-                    list.Add(new ZonaObject());
+                    List<ZonaObject> listaDetalle = new List<ZonaObject>();
+                    listaDetalle.Add(new ZonaObject());
                     foreach (Sam3_Steelgo_Get_ZonasUsuario_Result item in result)
                     {
-                        list.Add(new ZonaObject
+                        listaDetalle.Add(new ZonaObject
                         {
                             ZonaID = item.ZonaID,
                             Nombre = item.Nombre
                         });
                     }
-                    return list;
+                    return listaDetalle.OrderBy(x => x.Nombre);
 
                 }
             }
@@ -67,17 +67,17 @@ namespace BackEndSAM.DataAcces.Sam3General.Zona
                 using (SamContext ctx = new SamContext())
                 {
                     List<Sam3_Steelgo_Get_ZonaByPatio_Result> result = ctx.Sam3_Steelgo_Get_ZonaByPatio(PatioID).ToList();
-                    List<ZonaObject> list = new List<ZonaObject>();
-                    list.Add(new ZonaObject());
+                    List<ZonaObject> listaDetalle = new List<ZonaObject>();
+                    listaDetalle.Add(new ZonaObject());
                     foreach (Sam3_Steelgo_Get_ZonaByPatio_Result item in result)
                     {
-                        list.Add(new ZonaObject
+                        listaDetalle.Add(new ZonaObject
                         {
                             ZonaID = item.ZonaID,
                             Nombre = item.Nombre
                         });
                     }
-                    return list;
+                    return listaDetalle.OrderBy(x => x.Nombre);
 
                 }
             }
