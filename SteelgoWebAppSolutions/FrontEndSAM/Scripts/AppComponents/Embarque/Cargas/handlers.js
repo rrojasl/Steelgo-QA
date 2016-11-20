@@ -1,5 +1,6 @@
 ﻿
 function SuscribirEventos() {
+    SuscribirEventoMostrar();
     SuscribirEventoProyecto();
     SuscribirEventoSpoolID();
     SuscribirEventoChangeRadioTipoListado();
@@ -160,6 +161,52 @@ function SuscribirEventoProyecto() {
         suggest: true,
         filter: "contains",
         index: 3,
+        change: function (e) {
+            
+            var dataItem = this.dataItem(e.sender.selectedIndex);
+            if (dataItem != undefined) {
+                var ds = $("#grid").data("kendoGrid").dataSource;
+                if (ds._data.length == 0) {
+                    $("#inputProyecto").data("kendoComboBox").dataSource._data[0].ProyectoAnterior = $("#inputProyecto").val();
+                    AjaxEmbarqueCargaProveedores(dataItem);
+                }
+                else {
+                    var ventanaConfirm = $("#ventanaConfirmCaptura").kendoWindow({
+                        iframe: true,
+                        title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
+                        visible: false,
+                        width: "auto",
+                        height: "auto",
+                        modal: true,
+                        close: function () {
+                            $('input:radio[name=LLena]:nth(0)').select();
+                        }
+                    }).data("kendoWindow");
+
+                    ventanaConfirm.content(_dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] +
+                        "</br><center><button class='btn btn-blue' id='yesButtonProy'>Si</button><button class='btn btn-blue' id='noButtonProy'>No</button></center>");
+
+                    ventanaConfirm.open().center();
+                    $("#yesButtonProy").click(function () {
+                        $("#inputProyecto").data("kendoComboBox").dataSource._data[0].ProyectoAnterior = $("#inputProyecto").val();
+                        AjaxEmbarqueCargaProveedores(dataItem);
+                        ventanaConfirm.close();
+                    });
+                    $("#noButtonProy").click(function () {
+                        $("#inputProyecto").data("kendoComboBox").value($("#inputProyecto").data("kendoComboBox").dataSource._data[0].ProyectoAnterior);
+                        ventanaConfirm.close();
+                        //$('input:radio[name=LLena]:nth(0)').select();
+                    });
+                }
+
+
+            }
+            else {
+                $("#inputProveedor").data("kendoComboBox").value("");
+            }
+
+
+        },
     });
 }
 
@@ -288,7 +335,7 @@ function SuscribirEventoProveedor() {
         suggest: true,
         filter: "contains",
         index: 3,
-        change: function () {
+        change: function (e) {
             var dataItem = this.dataItem(e.sender.selectedIndex);
             if (dataItem != undefined) {
                 var ds = $("#grid").data("kendoGrid").dataSource;
@@ -346,7 +393,7 @@ function SuscribirEventoProveedor() {
 
 function SuscribirEventoPlacasPlana() {
     $('#inputEmbarqueCargaPLacaPlana').kendoComboBox({
-        dataTextField: "Placas",
+        dataTextField: "Nombre",
         dataValueField: "PlanaID",
         suggest: true,
         filter: "contains",
@@ -360,7 +407,7 @@ function SuscribirEventoPlacasPlana() {
                         CargaPopupNuevaPlana();
                     }
                     else {
-                        AjaxObtenerGrid();
+                        //AjaxObtenerGrid();
                     }
                 }
                 else {
@@ -463,6 +510,19 @@ function SuscribirEventoAgregar() {
         }
     });
 }
+
+
+function SuscribirEventoMostrar() {
+    $('#btnMostrar').click(function (e) {
+        if ($("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").text() != '') {
+            
+        }
+        else {
+            displayNotify('', 'Elije una plana', 1);
+        }
+    });
+}
+
 
 function SuscribirEventoCrearPaquete() {
     $('#ButtonCrearPaquete').click(function (e) {

@@ -60,41 +60,27 @@ function AjaxCargarProyecto() {
         }
     });
 }
-function AjaxCargarProveedor() {
-    $Proyectos.Proyectos.read({ token: Cookies.get("token") }).done(function (data) {
-        $("#inputProveedor").data("kendoComboBox").dataSource.data([]);
-        var proveedorId = 0;
 
-        if (data.length > 0) {
-            $("#inputProveedor").data("kendoComboBox").dataSource.data(data);
-            if (data.length < 3) {
-                for (var i = 0; i < data.length; i++) {
-                    if (data[i].ProveedorID != 0) {
-                        proveedorId = data[i].proveedorId;
-                    }
-                }
-            }
-            $("#inputProveedor").data("kendoComboBox").value(proveedorId);
-            $("#inputProveedor").data("kendoComboBox").trigger("change");
-        }
-    });
-}
 
-function AjaxCargarPlana() {
-    $Proyectos.Proyectos.read({ token: Cookies.get("token") }).done(function (data) {
+function AjaxObtenerPlanas(dataItem) {
+    $EmbarqueGeneral.EmbarqueGeneral.read({ token: Cookies.get("token"), ProveedorID: dataItem.ProveedorID  }).done(function (data) {
         $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").dataSource.data([]);
-        var placaID = 0;
+        var PlanaID = 0;
 
         if (data.length > 0) {
-            $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").dataSource.data(data);
+            
             if (data.length < 3) {
                 for (var i = 0; i < data.length; i++) {
-                    if (data[i].ProyectoID != 0) {
-                        placaID = data[i].ProyectoID;
+                    if (data[i].PlanaID != 0) {
+                        PlanaID = data[i].PlanaID;
                     }
                 }
             }
-            $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").value(placaID);
+            data.splice(1, 0, {
+                PlanaID: -1, Nombre: _dictionary.EmbarqueCargaNuevaPlana[$("#language").data("kendoDropDownList").value()]
+            });
+            $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").dataSource.data(data);
+            $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").value(PlanaID);
             $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").trigger("change");
         }
     });
@@ -102,30 +88,34 @@ function AjaxCargarPlana() {
 
 
 
-function AjaxEmbarqueCargaProveedores() {
+function AjaxEmbarqueCargaProveedores(dataItem) {
     loadingStart();
 
-    $Embarque.Embarque.read({ token: Cookies.get("token"), embarquePlanaID: EmbarquePlanaID }).done(function (data) {
+    $Proveedores.Proveedores.read({ token: Cookies.get("token"), ProyectoID: dataItem.ProyectoID }).done(function (data) {
         if (data.length > 0) {
             $("#inputProveedor").data("kendoComboBox").value("");
             $("#inputProveedor").data("kendoComboBox").trigger("change");
             var ProveedorId = 0;
-            if (data.length == 2) {
-                for (var i = 0; i < data.length; i++) {
-                    if (data[i].ProveedorID != 0) {
-                        ProveedorId = data[i].ProveedorID;
-                        $("#inputProveedor").data("kendoComboBox").value(ProveedorId);
-                        $("#inputProveedor").data("kendoComboBox").trigger("change");
+            if (data.length > 0) {
+                $("#inputProveedor").data("kendoComboBox").dataSource.data(data);
+                if (data.length == 2) {
+                    for (var i = 0; i < data.length; i++) {
+                        if (data[i].ProveedorID != 0) {
+                            ProveedorId = data[i].ProveedorID;
+                            $("#inputProveedor").data("kendoComboBox").value(ProveedorId);
+                            $("#inputProveedor").data("kendoComboBox").trigger("change");
+                        }
                     }
                 }
+                data.splice(1, 0, {
+                    ProveedorID: -1, Nombre: _dictionary.EmbarqueCargaAgregarNuevoProveedor[$("#language").data("kendoDropDownList").value()]
+                });
+                $("#inputProveedor").data("kendoComboBox").dataSource.data(data);
             }
-            data.splice(1, 0, {
-                ProveedorID: -1, Nombre: _dictionary.EmbarqueCargaAgregarNuevoProveedor[$("#language").data("kendoDropDownList").value()]
-            });
-            $("#inputProveedor").data("kendoComboBox").dataSource.data(data);
-        } else {
-            $("#inputProveedor").data("kendoComboBox").value("");
-        };
+            else {
+                $("#inputProveedor").data("kendoComboBox").value("");
+            }
+        }
         loadingStop();
     });
 }
