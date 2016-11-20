@@ -12,9 +12,12 @@ function changeLanguageCall() {
     $("#lblEmbarqueCargaToneladasCargadas").text("");
     $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").value("");
     $("#inputProveedor").data("kendoComboBox").value("");
+
+    AjaxCargarProyecto();
+    document.title = _dictionary.EmbarqueHeaderCargaPlana[$("#language").data("kendoDropDownList").value()];
+
     document.title = "Cargas";
-    //$('#Guardar1').text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
-    //$("#Guardar").text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
+    
     opcionHabilitarView(false, "FieldSetView")
 };
 
@@ -58,12 +61,12 @@ function CargarGrid() {
         },
         dataSource: {
             data: [
-                {
-                    Consecutivo:"1",
-                    SpoolID: "X001-001",
-                    Paquete: "Paquete 1",
-                    Peso:"50"
-                }
+                //{
+                //    Consecutivo:"1",
+                //    SpoolID: "X001-001",
+                //    Paquete: "Paquete 1",
+                //    Peso:"50"
+                //}
             ],
             schema: {
                 model: {
@@ -256,3 +259,45 @@ function validarExistaSoloUnpaqueteSeleccionado() {
 
 
 
+function CargaPopupNuevaPlana(e) {
+    $("#InputNombrePlana").val("");
+
+    windowNewPlate = $("#divNuevoPlana").kendoWindow({
+        modal: true,
+        resizable: false,
+        visible: true,
+        width: "500px",
+        height: "auto",
+        position: {
+            top: "1%",
+            left: "1%"
+        },
+
+    }).data("kendoWindow");
+    $("#divNuevoPlana").data("kendoWindow").title(_dictionary.EmbarqueCargaNuevaPlana[$("#language").data("kendoDropDownList").value()]);
+    $("#divNuevoPlana").data("kendoWindow").center().open();
+
+    $("#InputNombrePlana").focus();
+}
+
+
+function CargaPopupNuevoProveedor(e) {
+    $("#InputNombreProveedor").val("");
+
+    windowNewProvider = $("#divNuevoProveedor").kendoWindow({
+        modal: true,
+        resizable: false,
+        visible: true,
+        width: "500px",
+        height: "auto",
+        position: {
+            top: "1%",
+            left: "1%"
+        },
+        
+    }).data("kendoWindow");
+    $("#divNuevoProveedor").data("kendoWindow").title(_dictionary.EmbarqueCargaNuevoProveedor[$("#language").data("kendoDropDownList").value()]);
+    $("#divNuevoProveedor").data("kendoWindow").center().open();
+
+    $("#InputNombreProveedor").focus();
+}

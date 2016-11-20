@@ -205,6 +205,7 @@ var $ListadoSistemaPintura = new $.RestClient($BackEndSAMUri + '/backendsam/api/
 
 //Embarque
 var $Etiquetado = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $CargaPlana = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 
 
 //#region Declaracion
@@ -233,6 +234,7 @@ function apiManagerToBeExecutedOnDocumentReady() {
 /*    Global Functions      */
 /****************************/
 
+$CargaPlana.add('CargaPlana');
 $BackEndSAM.add('DummyListadoAvisoLlegada');
 $BackEndSAM.add('perfil');
 $BackEndSAM.add("PQR");
