@@ -7592,7 +7592,14 @@ _dictionary = {
         "es-MX": "Ninguno",
         "en-US": "Any"
     },
-
+    "lblPaquete": {
+        "es-MX": "Paquete",
+        "en-US": "Package"
+    },
+    "lblTipoCarga": {
+        "es-MX": "Tipo carga",
+        "en-US": "Charge type"
+    },
     //Finaliza Etiquetas
     //Etiquetas header alertas
     "SuccessTitle": {
@@ -8601,7 +8608,10 @@ _dictionary = {
         "es-MX": "Fecha Pba",
         "en-US": "Test Date."
     },
-
+    "columnToneladas": {
+        "es-MX": "Toneladas",
+        "en-US": "Tons"
+    },
     // Finalizan Etiquetas Grid
     // Finalizan Etiquetas generales
 
@@ -10420,8 +10430,6 @@ _dictionary = {
         "es-MX": "La plana debe estar abierta para poder cerrarla",
         "en-US": "The flat must be open to close"
     },
-
-
     "EmbarqueCargaCerrarPlana": {
         "es-MX": "Cerrar Plana",
         "en-US": "Close flat"
@@ -10637,5 +10645,23 @@ _dictionary = {
         "en-US": "Create new provider"
     },
     //Finaliza pantalla carga plana
+    //Inicia pantalla empaquetado
+    "EmbarqueEmpaquetadoTotalPiezas": {
+        "es-MX": "Total Piezas:",
+        "en-US": "Total pieces:"
+    },
+    "EmbarqueEmpaquetadoToneladasCargadas": {
+        "es-MX": "Toneladas Cargadas:",
+        "en-US": "Tons Loaded:"
+    },
+    "EmarqueEmpaquetadoOpcionSpool": {
+        "es-MX": "Spool",
+        "en-US": "Spool"
+    },
+    "EmarqueEmpaquetadoOpcionCodigo": {
+        "es-MX": "Código",
+        "en-US": "Code"
+    },
+    //Finaliza pantalla empaquetado
     //Finaliza Modulo Embarque 
 };
