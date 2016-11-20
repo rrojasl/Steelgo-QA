@@ -1,4 +1,4 @@
-﻿using BackEndSAM.DataAcces.Sam3General.Proveedor;
+﻿using BackEndSAM.DataAcces.Sam3General.Proveedores;
 using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
 using SecurityManager.TokenHandler;
@@ -14,7 +14,7 @@ using System.Web.Script.Serialization;
 namespace BackEndSAM.Controllers.Sam3General.Proveedor
 {
     [EnableCors(origins:"*", headers:"*", methods:"*")]
-    public class ProveedorController: ApiController
+    public class ProveedoresController: ApiController
     {
         [HttpGet]
         public object ObtenerProveedores(string token, int ProyectoID)
@@ -28,7 +28,7 @@ namespace BackEndSAM.Controllers.Sam3General.Proveedor
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                return ProveedorBD.Instance.ObtenerProveedores(ProyectoID);
+                return ProveedoresBD.Instance.ObtenerProveedores(ProyectoID);
             }
             else
             {
@@ -55,7 +55,7 @@ namespace BackEndSAM.Controllers.Sam3General.Proveedor
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
                 DataTable dt = new DataTable();
-                return ProveedorBD.Instance.GuardarNuevoProveedor(dt, usuario.UsuarioID);
+                return ProveedoresBD.Instance.GuardarNuevoProveedor(dt, usuario.UsuarioID);
             }
             else
             {

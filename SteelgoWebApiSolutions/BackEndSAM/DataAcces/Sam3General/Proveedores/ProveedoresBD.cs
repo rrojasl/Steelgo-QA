@@ -1,4 +1,4 @@
-﻿using BackEndSAM.Models.Sam3General.Proveedor;
+﻿using BackEndSAM.Models.Sam3General.Proveedores;
 using DatabaseManager.Constantes;
 using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
@@ -8,14 +8,14 @@ using System.Data;
 using System.Linq;
 using System.Web;
 
-namespace BackEndSAM.DataAcces.Sam3General.Proveedor
+namespace BackEndSAM.DataAcces.Sam3General.Proveedores
 {
-    public class ProveedorBD
+    public class ProveedoresBD
     {
         private static readonly object _mutex = new object();
-        private static ProveedorBD _instance;
+        private static ProveedoresBD _instance;
 
-        public static ProveedorBD Instance
+        public static ProveedoresBD Instance
         {
             get
             {
@@ -23,7 +23,7 @@ namespace BackEndSAM.DataAcces.Sam3General.Proveedor
                 {
                     if (_instance == null)
                     {
-                        _instance = new ProveedorBD();
+                        _instance = new ProveedoresBD();
                     }
                 }
                 return _instance;
