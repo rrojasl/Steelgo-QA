@@ -30,14 +30,29 @@ namespace BackEndSAM.DataAcces.Embarque.CargaPlana
             }
         }
 
-        public object ObtenerDetalleCargaPlana()
+        public object ObtenerDetalleCargaPlana(int PlanaID, int Todos)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
+                    List<Sam3_Embarque_Get_DetalleCargaPlana_Result> result = ctx.Sam3_Embarque_Get_DetalleCargaPlana(PlanaID, Todos).ToList();
                     List<DetalleCargaPlana> listaDetalle = new List<DetalleCargaPlana>();
 
+                    foreach (Sam3_Embarque_Get_DetalleCargaPlana_Result item in result)
+                    {
+                        listaDetalle.Add(new DetalleCargaPlana {
+                            Accion = 2,
+                            DetalleCargaID = item.DetalleCargaID,
+                            SpoolID = item.SpoolID,
+                            Spool = item.NumeroControl,
+                            PaqueteID = item.PaqueteID,
+                            Paquete = item.NombrePaquete,
+                            Peso = item.Peso.GetValueOrDefault(),
+                            CuadranteAnteriorID = item.CuadranteAnteriorID.GetValueOrDefault(),
+                            ModificadoPorUsuario = false
+                        });
+                    }
                     return listaDetalle;
                 }
             }

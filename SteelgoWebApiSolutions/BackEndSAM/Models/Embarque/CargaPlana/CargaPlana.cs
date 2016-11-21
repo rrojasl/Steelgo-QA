@@ -7,9 +7,14 @@ namespace BackEndSAM.Models.Embarque.CargaPlana
 {
     public class DetalleCargaPlana
     {
+        public int Accion { get; set; }
+        public int DetalleCargaID { get; set; }
         public int SpoolID { get; set; }
         public string Spool { get; set; }
+        public int PaqueteID { get; set; }
         public string Paquete { get; set; }
+        public decimal Peso { get; set; }
+        public int CuadranteAnteriorID { get; set; }
         public bool ModificadoPorUsuario { get; set; }
     }
 }
