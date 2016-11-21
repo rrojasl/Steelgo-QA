@@ -45,7 +45,9 @@ namespace BackEndSAM.DataAcces.Embarque.EmbarqueGeneral
                     {
                         listaDetalle.Add(new DetallePlana {
                             PlanaID = item.PlanaID,
-                            Nombre = item.Nombre
+                            Nombre = item.Nombre, 
+                            StatusCarga = item.StatusCarga.GetValueOrDefault(),
+                            ProyectoID = item.ProyectoID.GetValueOrDefault()
                         });
                     }
 
