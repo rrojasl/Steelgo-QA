@@ -5,6 +5,7 @@ using SecurityManager.Api.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Web;
 
@@ -63,22 +64,35 @@ namespace BackEndSAM.DataAcces.Embarque.EmbarqueGeneral
             }
         }
 
-        public object GuardarNuevaPlana(DataTable dtDetalle, int UsuarioID)
+        public object GuardarNuevaPlana(string NombrePlana, int ProveedorID, int UsuarioID)
         {
             try
             {
-                ObjetosSQL _SQL = new ObjetosSQL();
-                string[,] parametros = { { "@Usuario", UsuarioID.ToString() } };
+                using (SamContext ctx = new SamContext())
+                {
+                    ObjectResult<int?> resultSp = ctx.Sam3_Embarque_CG_CreatePlana(NombrePlana, ProveedorID, UsuarioID);
+                    var valor = resultSp.Where(x => x.HasValue).Select(x => x.Value).ToList()[0];
 
-                _SQL.EjecutaInsertUpdate(Stords.GUARDARNUEVAPLANA, dtDetalle, "@TablaPlana", parametros);
+                    TransactionalInformation result = new TransactionalInformation();
 
-                TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add("OK");
-                result.ReturnCode = 200;
-                result.ReturnStatus = true;
-                result.IsAuthenicated = true;
+                    if (valor > 0)
+                    {
+                        result.ReturnMessage.Add("Ok");
+                        result.ReturnCode = 200;
+                        result.ReturnStatus = true;
+                        result.IsAuthenicated = true;
+                    }
+                    else
+                    {
+                        result.ReturnMessage.Add("La plana para ese proveedor ya existe");
+                        result.ReturnCode = 200;
+                        result.ReturnStatus = true;
+                        result.IsAuthenicated = true;
+                    }
 
-                return result;
+                    return result;
+                }
+                    
             }
             catch (Exception ex)
             {

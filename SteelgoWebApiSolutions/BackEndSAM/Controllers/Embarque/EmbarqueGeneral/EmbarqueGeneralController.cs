@@ -42,8 +42,8 @@ namespace BackEndSAM.Controllers.Embarque.EmbarqueGeneral
             }
         }
 
-        [HttpPost]
-        public object GuardarNuevaPlana(string token)
+        [HttpGet]
+        public object GuardarNuevaPlana(string token, string NombrePlana, int ProveedorID)
         {
             string payload = "";
             string newToken = "";
@@ -54,8 +54,8 @@ namespace BackEndSAM.Controllers.Embarque.EmbarqueGeneral
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                DataTable dt = new DataTable();
-                return EmbarqueGeneralBD.Instance.GuardarNuevaPlana(dt, usuario.UsuarioID);
+
+                return EmbarqueGeneralBD.Instance.GuardarNuevaPlana(NombrePlana, ProveedorID, usuario.UsuarioID);
             }
             else
             {
