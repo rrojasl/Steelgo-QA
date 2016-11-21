@@ -42,7 +42,7 @@ namespace BackEndSAM.Controllers.Sam3General.Proveedor
             }
         }
 
-        [HttpPost]
+        [HttpGet]
         public object GuardarNuevoProveedor(string token, string NombreProveedor, string Descripcion, string Direccion, string Telefono)
         {
             string payload = "";
