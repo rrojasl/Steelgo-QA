@@ -43,7 +43,7 @@ namespace BackEndSAM.Controllers.Sam3General.Proveedor
         }
 
         [HttpPost]
-        public object GuardarNuevoProveedor(string token)
+        public object GuardarNuevoProveedor(string token, string NombreProveedor, string Descripcion, string Direccion, string Telefono)
         {
             string payload = "";
             string newToken = "";
@@ -55,7 +55,7 @@ namespace BackEndSAM.Controllers.Sam3General.Proveedor
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
                 DataTable dt = new DataTable();
-                return ProveedoresBD.Instance.GuardarNuevoProveedor(dt, usuario.UsuarioID);
+                return ProveedoresBD.Instance.GuardarNuevoProveedor(NombreProveedor, usuario.UsuarioID, Descripcion, Direccion, Telefono);
             }
             else
             {

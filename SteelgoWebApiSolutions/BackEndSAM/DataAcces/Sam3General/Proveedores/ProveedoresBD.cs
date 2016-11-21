@@ -5,6 +5,7 @@ using SecurityManager.Api.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Web;
 
@@ -62,22 +63,35 @@ namespace BackEndSAM.DataAcces.Sam3General.Proveedores
             }
         }
 
-        public object GuardarNuevoProveedor(DataTable dtDetalle, int UsuarioID)
+        public object GuardarNuevoProveedor(string NombreProveedor, int UsuarioID, string Descripcion, string Direccion, string Telefono)
         {
             try
             {
-                ObjetosSQL _SQL = new ObjetosSQL();
-                string[,] parametros = { { "@Usuario", UsuarioID.ToString() } };
+                using(SamContext ctx = new SamContext())
+                {
 
-                _SQL.EjecutaInsertUpdate(Stords.GUARDARNUEVOPROVEEDOR, dtDetalle, "@TablaProveedor", parametros);
+                    ObjectResult<int?> resultSp = ctx.Sam3_Embarque_CG_CreateProveedor(NombreProveedor, UsuarioID, Descripcion, Direccion, Telefono);
+                    var valor = resultSp.Where(x => x.HasValue).Select(x => x.Value).ToList()[0];
 
-                TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add("OK");
-                result.ReturnCode = 200;
-                result.ReturnStatus = true;
-                result.IsAuthenicated = true;
+                    TransactionalInformation result = new TransactionalInformation();
 
-                return result;
+                    if (valor > 0)
+                    {
+                        result.ReturnMessage.Add("Ok");
+                        result.ReturnCode = 200;
+                        result.ReturnStatus = true;
+                        result.IsAuthenicated = true;
+                    }
+                    else
+                    {
+                        result.ReturnMessage.Add("La plana para ese proveedor ya existe");
+                        result.ReturnCode = 200;
+                        result.ReturnStatus = true;
+                        result.IsAuthenicated = true;
+                    }
+
+                    return result;
+                }
             }
             catch (Exception ex)
             {
