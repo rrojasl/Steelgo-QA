@@ -208,6 +208,7 @@ var $Etiquetado = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $CargaPlana = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $EmbarqueGeneral = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Proveedores = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $EncintadoFinal = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 
 
 //#region Declaracion
@@ -374,6 +375,7 @@ $ListadoSistemaPintura.add("ListadoSistemaPintura");
 
 //Embarque
 $Etiquetado.add("Etiquetado");
+$EncintadoFinal.add('EncintadoFinal');
 
 //Soldadura
 
