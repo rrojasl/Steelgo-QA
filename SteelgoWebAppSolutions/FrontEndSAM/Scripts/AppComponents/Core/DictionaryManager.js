@@ -10636,6 +10636,7 @@ _dictionary = {
         "es-MX": "Agregar nuevo proveedor",
         "en-US": "Add new provider"
     },
+
     "EmbarqueCargaNuevaPlana": {
         "es-MX": "Crear nueva plana",
         "en-US": "Create new plate"
@@ -10644,6 +10645,11 @@ _dictionary = {
         "es-MX": "Crear nuevo proveedor",
         "en-US": "Create new provider"
     },
+    "EmarqueCargaMensajeEligePlana": {
+        "es-MX": "Elige una plana",
+        "en-US": "Select a plate"
+    },
+
     //Finaliza pantalla carga plana
     //Inicia pantalla empaquetado
     "EmbarqueEmpaquetadoTotalPiezas": {
@@ -10662,6 +10668,9 @@ _dictionary = {
         "es-MX": "Código",
         "en-US": "Code"
     },
+    
+
+    
     //Finaliza pantalla empaquetado
     //Finaliza Modulo Embarque 
 };
