@@ -10666,6 +10666,11 @@ _dictionary = {
         "es-MX": "Elige una plana",
         "en-US": "Select a plate"
     },
+    "EmarqueCargaMensajePlanaCerrada": {
+        "es-MX": "La plana esta cerrada, debe abrirlar para poder modificarla",
+        "en-US": "The plate is cloed, should be open to modify"
+    },
+    
 
     //Finaliza pantalla carga plana
     //Inicia pantalla empaquetado

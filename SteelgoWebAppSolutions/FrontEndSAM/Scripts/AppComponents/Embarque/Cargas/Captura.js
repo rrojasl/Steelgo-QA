@@ -75,7 +75,6 @@ function CargarGrid() {
                         Consecutivo:{type:"int",editable:false},
                         Spool: { type: "string", editable: false },
                         Paquete: { type: "string", editable: false },
-                        Seleccionado: { type: "boolean", editable: false },
                         Peso: { type: "int", editable: false },
                     }
                 }
@@ -111,7 +110,7 @@ function CargarGrid() {
         columns: [
             { field: "Consecutivo", title: _dictionary.columnConcecutivoEmbarque[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "150px" },
             { field: "Spool", title: _dictionary.columnSpoolIDEmbarque[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "150px" },
-            { field: "Paquete", title: _dictionary.columnPaqueteEmbarque[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "150px" },
+            { field: "Paquete", title: _dictionary.columnPaqueteEmbarque[$("#language").data("kendoDropDownList").value()], template: "<div class='EnlaceDescargarPaquete' style='text-align:center;'><a href='\\#'  > <span>#=Paquete#</span></a></div>", filterable: getGridFilterableCellMaftec(), width: "150px" },
             { field: "Peso", title: _dictionary.columnPesoEmbarque[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "130px", attributes: { style: "text-align:right;" }, format: "{0: }" },
             { command: { text: _dictionary.botonDescarga[$("#language").data("kendoDropDownList").value()], click: DescargarSpool }, title: _dictionary.columnDescargar[$("#language").data("kendoDropDownList").value()], width: "70px", attributes: { style: "text-align:center;" } },
            
@@ -193,26 +192,28 @@ function CargarGrid() {
 
 function DescargarSpool(e) {
     e.preventDefault();
-    if ($("#language").val() == "es-MX") {
-        if ($('#Guardar').text() != "Editar" && $("#lblEstatus").text().toLowerCase() != "cerrada") {
-            CrearPopup();
-            dataItemSeleccionadoPopup = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
-            ventanaPopup.open().center();
-            AjaxCargarZona();
-            //var cmbPopupCuadrante = $("#inputPopupCuadrante").data("kendoComboBox");
-            //cmbPopupCuadrante.value(dataItemSeleccionadoPopup.CuadranteAnteriorID);
-            $("#inputPopupSpoolID").text(dataItemSeleccionadoPopup.SpoolID);
+    if (!$("#inputCerrar").is(":checked")) {
+        if ($("#language").val() == "es-MX") {
+            if ($('#Guardar').text() != "Editar" && $("#lblEstatus").text().toLowerCase() != "cerrada") {
+                CrearPopup();
+                dataItemSeleccionadoPopup = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+                ventanaPopup.open().center();
+                AjaxCargarZona();
+                //var cmbPopupCuadrante = $("#inputPopupCuadrante").data("kendoComboBox");
+                //cmbPopupCuadrante.value(dataItemSeleccionadoPopup.CuadranteAnteriorID);
+                $("#inputPopupSpoolID").text(dataItemSeleccionadoPopup.SpoolID);
+            }
         }
-    }
-    else {
-        if ($('#Guardar').text() != "Edit" && $("#lblEstatus").text().toLowerCase() != "closed") {
-            CrearPopup();
-            dataItemSeleccionadoPopup = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
-            ventanaPopup.open().center();
-            AjaxCargarZona();
-            //var cmbPopupCuadrante = $("#inputPopupCuadrante").data("kendoComboBox");
-            //cmbPopupCuadrante.value(dataItemSeleccionadoPopup.CuadranteAnteriorID);
-            $("#inputPopupSpoolID").text(dataItemSeleccionadoPopup.SpoolID);
+        else {
+            if ($('#Guardar').text() != "Edit" && $("#lblEstatus").text().toLowerCase() != "closed") {
+                CrearPopup();
+                dataItemSeleccionadoPopup = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+                ventanaPopup.open().center();
+                AjaxCargarZona();
+                //var cmbPopupCuadrante = $("#inputPopupCuadrante").data("kendoComboBox");
+                //cmbPopupCuadrante.value(dataItemSeleccionadoPopup.CuadranteAnteriorID);
+                $("#inputPopupSpoolID").text(dataItemSeleccionadoPopup.SpoolID);
+            }
         }
     }
 }
@@ -272,7 +273,7 @@ function validarExistaSoloUnpaqueteSeleccionado() {
 
 
 function CargaPopupNuevaPlana(e) {
-    $("#InputNombrePlana").val("");
+    $("#inputNombreNuevaPlana").val("");
 
     windowNewPlate = $("#divNuevoPlana").kendoWindow({
         modal: true,
@@ -289,13 +290,12 @@ function CargaPopupNuevaPlana(e) {
     }).data("kendoWindow");
     $("#divNuevoPlana").data("kendoWindow").title(_dictionary.EmbarqueCargaNuevaPlana[$("#language").data("kendoDropDownList").value()]);
     $("#divNuevoPlana").data("kendoWindow").center().open();
-
-    $("#InputNombrePlana").focus();
+    $("#inputNombreNuevaPlana").focus();
 }
 
 
 function CargaPopupNuevoProveedor(e) {
-    $("#InputNombreProveedor").val("");
+    $("#inputNombreNuevoProveedor").val("");
 
     windowNewProvider = $("#divNuevoProveedor").kendoWindow({
         modal: true,
@@ -312,6 +312,6 @@ function CargaPopupNuevoProveedor(e) {
     }).data("kendoWindow");
     $("#divNuevoProveedor").data("kendoWindow").title(_dictionary.EmbarqueCargaNuevoProveedor[$("#language").data("kendoDropDownList").value()]);
     $("#divNuevoProveedor").data("kendoWindow").center().open();
-
-    $("#InputNombreProveedor").focus();
+    
+    $("#inputNombreNuevoProveedor").focus();
 }

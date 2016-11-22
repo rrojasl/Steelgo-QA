@@ -73,8 +73,8 @@
         </div>
 
         <div class="col-xs-12 col-sm-4 col-md-1 col-lg-1 altoControl">
-            <label>Cerrar</label>
-            <input id="lblEstatus" type="checkbox">
+            <label id="lblCerrar"></label>
+            <input id="inputCerrar" type="checkbox">
         </div>
         <div class="col-xs-12 col-sm-4 col-md-1 col-lg-1 altoControl">
             <label id="EmbarqueCargaTotalPiezas">Total piezas</label>
@@ -96,7 +96,7 @@
             <div class="btn-group " role="group">
                 <label id="EmbarqueCargaSelecciona"></label>
                 <label id="styleReporte">
-                    <input type="radio" name="EmbarqueCargaTipoSeleccion" class="radioEmbarqueCargaTipoSeleccion" style="width:auto;" value="Spool" checked="checked" /><span id="EmbarqueCargaOpcionSpool">Spool</span>
+                    <input type="radio" name="EmbarqueCargaTipoSeleccion" class="radioEmbarqueCargaTipoSeleccion" style="width:auto;" value="Spool"  /><span id="EmbarqueCargaOpcionSpool">Spool</span>
                 </label>
                 <label id="styleListado">
                     <input type="radio" name="EmbarqueCargaTipoSeleccion" class="radioEmbarqueCargaTipoSeleccion" style="width:auto;" value="Paquete" /><span id="EmbarqueCargaOpcionPaquete"> Paquete</span>
@@ -138,13 +138,16 @@
     </div>
     @*NUEVO PROVEEDOR POPUP*@
     <div id="divNuevoProveedor" style="display: none; z-index:inherit;">
-        <div class="col-sm-11 col-md-11 col-lg-11">
+        <div class="col-sm-12 col-md-12 col-lg-12" style="width: 100%; padding-right:0px; ">
             <div class="row">
-                <div class="col-sm-3 col-md-3 col-lg-2" id="divNombreNuevoProveedor">
+                <div class="col-sm-10 col-md-10 col-lg-10" id="divNombreNuevoProveedor">
                     <label id="">Proveedor</label>
-                    <input id="inputNombreNuevoProveedor" class="general-input"/>
+                    </br>
+                    <input id="inputNombreNuevoProveedor" class="general-input form-control"/>
                 </div>
             </div>
+            </br>
+            </br>
             <div class="row">
                 <a class=" btn btn-primary col-sm-4 col-md-4 col-lg-4" href="#" id="GuardarNuevoProveedor">
                     <span id="">Guardar</span>
@@ -158,15 +161,18 @@
     </div>
     @*NUEVA PLANA POPUP*@
     <div id="divNuevoPlana" style="display: none; z-index:inherit;">
-        <div class="col-sm-11 col-md-11 col-lg-11">
+        <div class="col-sm-12 col-md-12 col-lg-12" style="width: 100%; padding-right:0px; ">
             <div class="row">
                 <div class="form-group">
-                    <div class="col-sm-3 col-md-3 col-lg-2" id="divNombreNuevaPlana">
+                    <div class="col-sm-10 col-md-10 col-lg-10" id="divNombreNuevaPlana">
                         <label id="">Plana</label>
-                        <input id="inputNombreNuevaPlana" class="general-input"/>
+                        </br>
+                        <input id="inputNombreNuevaPlana" class="general-input form-control"/>
                     </div>
                 </div>
             </div>
+            </br>
+            </br>
             <div class="row">
                 <a class=" btn btn-primary col-sm-4 col-md-4 col-lg-4" href="#" id="GuardarNuevaPlana">
                     <span id="">Guardar</span>
