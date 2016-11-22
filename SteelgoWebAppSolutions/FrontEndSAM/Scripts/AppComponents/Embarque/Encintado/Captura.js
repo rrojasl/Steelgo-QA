@@ -49,35 +49,35 @@ function CargarGrid() {
         },
         dataSource: {
             data: [
-                 {
-                     Accion: 1,
-                     Proyecto: "ETILENO XXI",
-                     Spool: "X001-001",
-                     Cuadrante: "ZZ0-001 PT",
-                     ColorCinta: "",
-                     OkPND: true,
-                     OkPintura: true,
-                     Encintado:false,
-                     Etiquetado: true,
-                     ModificadoPorUsuario: false,
-                     ListaCuadrantes: [{ CuadranteID: 0, Nombre: "" }, { CuadranteID: 1, Nombre: "A1" }, { CuadranteID: 2, Nombre: "A2" }, { CuadranteID: 3, Nombre: "ZZ0-001 PT" }],
-                     ListaColoresCinta: [{ ColorCintaID: 0, Nombre: "" }, { ColorCintaID: 1, Nombre: "Verde" }, { ColorCintaID: 2, Nombre: "Amarillo" }, { ColorCintaID: 3, Nombre: "Rojo" }]
-                 },
-                 {
+                 //{
+                 //    Accion: 1,
+                 //    Proyecto: "ETILENO XXI",
+                 //    Spool: "X001-001",
+                 //    Cuadrante: "ZZ0-001 PT",
+                 //    ColorCinta: "",
+                 //    OkPND: true,
+                 //    OkPintura: true,
+                 //    Encintado:false,
+                 //    Etiquetado: true,
+                 //    ModificadoPorUsuario: false,
+                 //    ListaCuadrantes: [{ CuadranteID: 0, Nombre: "" }, { CuadranteID: 1, Nombre: "A1" }, { CuadranteID: 2, Nombre: "A2" }, { CuadranteID: 3, Nombre: "ZZ0-001 PT" }],
+                 //    ListaColoresCinta: [{ ColorCintaID: 0, Nombre: "" }, { ColorCintaID: 1, Nombre: "Verde" }, { ColorCintaID: 2, Nombre: "Amarillo" }, { ColorCintaID: 3, Nombre: "Rojo" }]
+                 //},
+                 //{
 
-                     Accion: 2,
-                     Proyecto: "ETILENO XXI",
-                     Spool: "X001-001",
-                     Cuadrante: "A1",
-                     ColorCinta: "Rojo",
-                     OkPND: true,
-                     OkPintura: true,
-                     Encintado: true,
-                     Etiquetado: true,
-                     ModificadoPorUsuario: false,
-                     ListaCuadrantes: [{ CuadranteID: 0, Nombre: "" }, { CuadranteID: 1, Nombre: "A1" }, { CuadranteID: 2, Nombre: "A2" }, { CuadranteID: 3, Nombre: "ZZ0-001 PT" }],
-                     ListaColoresCinta: [{ ColorCintaID: 0, Nombre: "" }, { ColorCintaID: 1, Nombre: "Verde" }, { ColorCintaID: 2, Nombre: "Amarillo" }, { ColorCintaID: 3, Nombre: "Rojo" }]
-                 }
+                 //    Accion: 2,
+                 //    Proyecto: "ETILENO XXI",
+                 //    Spool: "X001-001",
+                 //    Cuadrante: "A1",
+                 //    ColorCinta: "Rojo",
+                 //    OkPND: true,
+                 //    OkPintura: true,
+                 //    Encintado: true,
+                 //    Etiquetado: true,
+                 //    ModificadoPorUsuario: false,
+                 //    ListaCuadrantes: [{ CuadranteID: 0, Nombre: "" }, { CuadranteID: 1, Nombre: "A1" }, { CuadranteID: 2, Nombre: "A2" }, { CuadranteID: 3, Nombre: "ZZ0-001 PT" }],
+                 //    ListaColoresCinta: [{ ColorCintaID: 0, Nombre: "" }, { ColorCintaID: 1, Nombre: "Verde" }, { ColorCintaID: 2, Nombre: "Amarillo" }, { ColorCintaID: 3, Nombre: "Rojo" }]
+                 //}
             ],
             schema: {
                 model: {
@@ -241,15 +241,15 @@ function PlancharCuadrante(tipoPlanchado) {
                 data[i].CuadranteID = $("#InputCuadrantePlanchado").val();
                 data[i].Cuadrante = $("#InputCuadrantePlanchado").data("kendoComboBox").text();
                 data[i].ModificadoPorUsuario = true;
-                if (!seleccionarNinguno)
-                    data[i].Etiquetado = seleccionartodos;
+                //if (!seleccionarNinguno)
+                //    data[i].Etiquetado = seleccionartodos;
             }
             else if (tipoPlanchado == "Vacios") {
                 if (data[i].Cuadrante === "" || data[i].Cuadrante === null || data[i].Cuadrante === undefined) {
                     data[i].CuadranteID = $("#InputCuadrantePlanchado").val();
                     data[i].Cuadrante = $("#InputCuadrantePlanchado").data("kendoComboBox").text();
                     data[i].ModificadoPorUsuario = true;
-                    if (!seleccionarNinguno) data[i].Etiquetado = seleccionartodos;
+                    //if (!seleccionarNinguno) data[i].Etiquetado = seleccionartodos;
                 }
             }
         }
