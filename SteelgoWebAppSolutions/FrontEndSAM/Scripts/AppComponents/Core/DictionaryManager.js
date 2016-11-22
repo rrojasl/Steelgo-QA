@@ -7600,6 +7600,14 @@ _dictionary = {
         "es-MX": "Tipo carga",
         "en-US": "Charge type"
     },
+    "lblEmbarque": {
+        "es-MX": "Embarque",
+        "en-US": "Shipment"
+    },
+    "lblEmpaquetado": {
+        "es-MX": "Empaquetado",
+        "en-US": "Packaging"
+    },
     //Finaliza Etiquetas
     //Etiquetas header alertas
     "SuccessTitle": {
@@ -7795,6 +7803,15 @@ _dictionary = {
         "es-MX": "Generar Reporte",
         "en-US": "Generate Report"
     },
+    "botonEliminarPaquete": {
+        "es-MX": "Eliminar paquete",
+        "en-US": "Delete package"
+    },
+    "botonEliminarPaquete1": {
+        "es-MX": "Eliminar paquete",
+        "en-US": "Delete package"
+    },
+    //Finaliza botones
     // Finalizan etiquetas Header y Footer
 
     //Inician mensajes Generales
