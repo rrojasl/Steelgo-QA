@@ -45,6 +45,7 @@ namespace BackEndSAM.DataAcces.Embarque.CargaPlana
                             Accion = 2,
                             DetalleCargaID = item.DetalleCargaID,
                             SpoolID = item.SpoolID,
+                            OrdenTrabajoID = item.OrdenTrabajoID,
                             Spool = item.NumeroControl,
                             PaqueteID = item.PaqueteID,
                             Paquete = item.NombrePaquete,
@@ -67,12 +68,53 @@ namespace BackEndSAM.DataAcces.Embarque.CargaPlana
             }
         }
 
-        public object GuardaCapturaCargaPlana(DataTable dtDetalle, int UsuarioID)
+        public object ObtieneDetalleSpoolAgregar(int CargaPlanaID, int TipoConsulta, int OrdenTrabajoSpoolID)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Sam3_Embarque_Get_DetalleSpool_Result> result = ctx.Sam3_Embarque_Get_DetalleSpool(CargaPlanaID, TipoConsulta, OrdenTrabajoSpoolID).ToList();
+                    List<DetalleCargaPlana> listaDetalle = new List<DetalleCargaPlana>();
+
+                    foreach (Sam3_Embarque_Get_DetalleSpool_Result item in result)
+                    {
+                        listaDetalle.Add(new DetalleCargaPlana
+                        {
+                            Accion = 1,
+                            DetalleCargaID = item.DetalleCargaID,
+                            SpoolID = item.SpoolID,
+                            OrdenTrabajoID = item.OrdenTrabajoID,
+                            Spool = item.NumeroControl,
+                            PaqueteID = item.PaqueteID,
+                            Paquete = item.NombrePaquete,
+                            Peso = item.Peso.GetValueOrDefault(),
+                            CuadranteAnteriorID = item.CuadranteAnteriorID.GetValueOrDefault(),
+                            ModificadoPorUsuario = false
+                        });
+                    }
+                    return listaDetalle;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object GuardaCapturaCargaPlana(DataTable dtDetalle, int UsuarioID, int CargaPlanaID, int PlanaID, int CerrarPlana)
         {
             try
             {
                 ObjetosSQL _SQL = new ObjetosSQL();
-                string[,] parametros = { { "@Usuario", UsuarioID.ToString() } };
+                string[,] parametros = { { "@Usuario", UsuarioID.ToString() }, { "@CargaPlanaID", CargaPlanaID.ToString() },
+                        { "@PlanaID", PlanaID.ToString() }, { "@CerrarPlana", CerrarPlana.ToString() } };
 
                 _SQL.EjecutaInsertUpdate(Stords.GUARDARCAPTURACARGAPLANA, dtDetalle, "@TablaCargaPlana", parametros);
 
@@ -103,7 +145,7 @@ namespace BackEndSAM.DataAcces.Embarque.CargaPlana
                 ObjetosSQL _SQL = new ObjetosSQL();
                 string[,] parametros = { { "@Usuario", UsuarioID.ToString() } };
 
-                _SQL.EjecutaInsertUpdate(Stords.CERRARCARGAPLANA, dtDetalle, "@TablaCargaPlana", parametros);
+                _SQL.EjecutaInsertUpdate("", dtDetalle, "@TablaCargaPlana", parametros);
 
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add("OK");
