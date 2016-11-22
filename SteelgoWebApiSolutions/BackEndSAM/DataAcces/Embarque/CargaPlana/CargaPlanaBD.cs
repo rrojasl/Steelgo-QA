@@ -124,5 +124,36 @@ namespace BackEndSAM.DataAcces.Embarque.CargaPlana
                 return result;
             }
         }
+
+        public object DescargaSpoolPlana(int DetalleCargaID, int SpoolID, int CuadranteID, int CuadranteAnterior, int UsuarioID)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+
+                    ctx.Sam3_Embarque_DescargaSpool(DetalleCargaID, SpoolID, CuadranteID, CuadranteAnterior, UsuarioID);
+
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add("OK");
+                    result.ReturnCode = 200;
+                    result.ReturnStatus = true;
+                    result.IsAuthenicated = true;
+
+                    return result;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
     }
 }
