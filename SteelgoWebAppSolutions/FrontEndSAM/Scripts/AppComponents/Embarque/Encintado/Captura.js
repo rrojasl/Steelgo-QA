@@ -88,7 +88,7 @@ function CargarGrid() {
                         Cuadrante: { type: "string", editable: true },
                         OkPND: { type: "boolean", editable: false },
                         OkPintura: { type: "boolean", editable: false },
-                        ColorCinta: { type: "string", editable: true },
+                        NombreColor: { type: "string", editable: true },
                         Encintado: { type: "boolean", editable: false },
                         Etiquetado: { type: "boolean", editable: false }
                     }
@@ -146,7 +146,7 @@ function CargarGrid() {
                     dataSource: [{ OkPintura: true }, { OkPintura: false }]
                 }, template: "<input name='fullyPaid' class='chk-Lectura' type='checkbox' data-bind='checked: OkPintura' #= OkPintura ? checked='checked' : '' # disabled/>", width: "80px", attributes: { style: "text-align:center;" }
             },
-            { field: "ColorCinta", title: _dictionary.columnColorCintaEmbarque[$("#language").data("kendoDropDownList").value()], editor: RenderComboBoxColorCinta, filterable: getGridFilterableCellMaftec(), width: "100px" },
+            { field: "NombreColor", title: _dictionary.columnColorCintaEmbarque[$("#language").data("kendoDropDownList").value()], editor: RenderComboBoxColorCinta, filterable: getGridFilterableCellMaftec(), width: "100px" },
 
              {
                  field: "Etiquetado", title: _dictionary.columnEtiquetadoEmbarque[$("#language").data("kendoDropDownList").value()], filterable: {
