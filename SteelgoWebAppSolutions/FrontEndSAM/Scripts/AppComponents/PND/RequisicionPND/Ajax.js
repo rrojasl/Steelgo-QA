@@ -91,6 +91,9 @@ function AjaxGetListaElementos(requisicionID, tipoPruebaID, proyectoID, muestra)
     });
 }
 
+
+
+
 function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
     Captura = [];
     Captura[0] = {
@@ -252,11 +255,11 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
 }
 
 function AjaxGetGuardado(RequisicionID) {
-    $ServiciosTecnicosGeneral.ServiciosTecnicosGeneral.read({ token: Cookies.get("token"), ProyectoID: 0, TipoPruebaID: 0, estatusID: 1 }).done(function (data) {
+    $ServiciosTecnicosGeneral.ServiciosTecnicosGeneral.read({ token: Cookies.get("token"), ProyectoID: $("#Proyecto").data("kendoComboBox").value(), TipoPruebaID: $("#tipoPrueba").data("kendoComboBox").value(), estatusID: 1 }).done(function (data) {
         $("#listaRequisiciones").data("kendoComboBox").dataSource.data(data);
 
         $("#listaRequisiciones").data("kendoComboBox").value(RequisicionID);
-        AjaxGetListaElementos(RequisicionID, 0, 0, $('input:radio[name=Muestra]:checked').val());
+        AjaxGetListaElementos(RequisicionID, $("#tipoPrueba").data("kendoComboBox").value(), $("#Proyecto").data("kendoComboBox").value(), $('input:radio[name=Muestra]:checked').val());
     });
 }
 
@@ -265,6 +268,7 @@ function AjaxObtenerSpool() {
     $RequisicionPND.RequisicionPND.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), IdOrdenTrabajo: $("#InputOrdenTrabajo").val(), OrdenTrabajoSpoolID: $("#InputID").val(), TipoPruebaID: $("#tipoPrueba").data("kendoComboBox").value() == "" ? 0 : $("#tipoPrueba").data("kendoComboBox").value(), ProyectoID: $("#Proyecto").data("kendoComboBox").value() == "" ? 0 : $("#Proyecto").data("kendoComboBox").value() }).done(function (data) {
         var ds = $("#grid").data("kendoGrid").dataSource;
         if (data.length > 0) {
+            $("#InputID").data("kendoComboBox").value("");
             for (var i = 0; i < data.length; i++) {
                 ds.add(data[i]);
             }
@@ -274,3 +278,33 @@ function AjaxObtenerSpool() {
         loadingStop();
     });
 };
+
+function AjaxObtenerJunta() {
+    loadingStart();
+    $RequisicionPND.RequisicionPND.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), IdOrdenTrabajo: $("#InputOrdenTrabajo").val(), OrdenTrabajoSpoolID: $("#InputID").val(), TipoPruebaID: $("#tipoPrueba").data("kendoComboBox").value() == "" ? 0 : $("#tipoPrueba").data("kendoComboBox").value(), ProyectoID: $("#Proyecto").data("kendoComboBox").value() == "" ? 0 : $("#Proyecto").data("kendoComboBox").value(),JuntaSpoolID:$("#Junta").val() }).done(function (data) {
+        var ds = $("#grid").data("kendoGrid").dataSource;
+        if (data.length > 0) {
+            $("#Junta").data("kendoComboBox").value("");
+            for (var i = 0; i < data.length; i++) {
+                ds.add(data[i]);
+            }
+            //ds.page(1);
+        }
+        ds.sync();
+        loadingStop();
+    });
+};
+
+
+
+function AjaxJunta(spoolID) {
+    loadingStart();
+
+    $RequisicionPND.RequisicionPND.read({ ordenTrabajo: $("#InputOrdenTrabajo").val(), id: spoolID, sinCaptura: $('input:radio[name=Muestra]:checked').val(), token: Cookies.get("token") }).done(function (data) {
+        if (Error(data)) {
+            $("#Junta").data("kendoComboBox").value("");
+            $("#Junta").data("kendoComboBox").dataSource.data(data);
+            loadingStop();
+        }
+    });
+}

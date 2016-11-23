@@ -211,5 +211,83 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.GenerarRequisicion
             }
 
         }
+
+        public object ObtenerJuntasXSpoolID(Sam3_Usuario usuario, string ordenTrabajo, string id, int sinCaptura)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Sam3_ST_Get_JuntaSpool_Result> lista = ctx.Sam3_ST_Get_JuntaSpool( int.Parse(id)).ToList();
+                    return lista.OrderBy(x => int.Parse(x.Etiqueta)).ToList<Sam3_ST_Get_JuntaSpool_Result>();
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+                return result;
+            }
+        }
+
+        public object ObtienedetalleJunta(int UsuarioID, string IdOrdenTrabajo, int OrdenTrabajoSpoolID, int TipoPruebaID, int ProyectoID,int JuntaSpoolID)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<ElementosPorClasificacion> listaElementos = new List<ElementosPorClasificacion>();
+                    List<Sam3_ST_Get_ElementoManualXJunta_Result> listaElementosCTX = ctx.Sam3_ST_Get_ElementoManualXJunta(TipoPruebaID, IdOrdenTrabajo, OrdenTrabajoSpoolID, ProyectoID, UsuarioID, JuntaSpoolID).ToList();
+
+                    foreach (Sam3_ST_Get_ElementoManualXJunta_Result item in listaElementosCTX)
+                    {
+                        listaElementos.Add(new ElementosPorClasificacion
+                        {
+                            NumeroControl = item.NumeroControl,
+                            EtiquetaJunta = item.EtiquetaJunta,
+                            TipoJunta = item.TipoJunta,
+                            NombreRequisicion = item.NombreRequisicion,
+                            Cuadrante = item.Cuadrante,
+                            Prioridad = item.Prioridad.GetValueOrDefault(),
+                            Clasificacion = item.Clasificacion,
+                            DiametroPlano = item.DiametroPlano.GetValueOrDefault(),
+                            Espesor = item.Espesor,
+                            Cedula = item.Cedula,
+
+                            ElementoPorClasificacionPNDID = item.ElementoPorClasificacionPNDID,
+                            Agregar = item.RequisicionID > 0 ? true : false,
+                            RequisicionID = item.RequisicionID,
+                            ProyectoID = item.ProyectoID,
+                            SpoolID = item.SpoolID,
+                            JuntaSpoolID = item.JuntaSpoolID.GetValueOrDefault(),
+                            OrdenTrabajoSpoolID = item.OrdenTrabajoSpoolID,
+                            TipoPruebaID = item.TipoPruebaID.GetValueOrDefault(),
+                            Especificacion = item.Especificacion,
+                            Disposicion = item.Disposicion == 0 ? false : true,
+                            ClasificacionPNDID = item.ClasificacionPNDID,
+                            OrdenTrabajoID = item.OrdenTrabajoID
+
+                        });
+                    }
+                    return listaElementos;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+
+        }
+
+
     }
 }

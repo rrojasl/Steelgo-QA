@@ -184,7 +184,7 @@ function AltaFecha() {
     $("#Fecha").data("kendoDatePicker").enable(false);
 }
 
-function ExisteJunta() {
+function ExisteSpool() {
     var jsonGrid = $("#grid").data("kendoGrid").dataSource._data;
 
     for (var i = 0; i < jsonGrid.length; i++) {
@@ -196,12 +196,32 @@ function ExisteJunta() {
     return false;
 }
 
-function AgregarJuntaNueva() {
-    if (!ExisteJunta()) {
-        AjaxObtenerSpool();
+function ExisteJunta() {
+    var jsonGrid = $("#grid").data("kendoGrid").dataSource._data;
+
+    for (var i = 0; i < jsonGrid.length; i++) {
+        if (jsonGrid[i].OrdenTrabajoSpoolID == $("#InputID").data("kendoComboBox").value() && jsonGrid[i].JuntaSpoolID == $("#Junta").data("kendoComboBox").value()) {
+            return true;
+        }
     }
-    else
-        displayNotify("GenerarRequisicionMensajeExisteSpool", "", '1');
+    return false;
+}
+
+function AgregarJuntaNueva() {
+    if ($("#tipoPrueba").data("kendoComboBox").dataItem($("#tipoPrueba").data("kendoComboBox").select()).TipoPruebaPorSpool == 1) {
+        if (!ExisteSpool()) {
+            AjaxObtenerSpool();
+        }
+        else
+            displayNotify("GenerarRequisicionMensajeExisteSpool", "", '1');
+    }
+    else {
+        if (!ExisteJunta()) {
+            AjaxObtenerJunta();
+        }
+        else
+            displayNotify("GenerarRequisicionMensajeExisteJunta", "", '1');
+    }
 }
 
 function ValidaFormatoFecha(FechaValidar, Idioma) {
