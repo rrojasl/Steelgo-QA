@@ -68,11 +68,11 @@ function SuscribirEventoGuardar() {
 
 
     $('#btnGuardarYNuevo').click(function (e) {
-        ajaxGuardar($("#grid").data("kendoGrid").dataSource._data);
+        ajaxGuardar($("#grid").data("kendoGrid").dataSource._data, 1);
         Limpiar();
     });
     $('#btnGuardarYNuevo1').click(function (e) {
-        ajaxGuardar($("#grid").data("kendoGrid").dataSource._data);
+        ajaxGuardar($("#grid").data("kendoGrid").dataSource._data, 1);
         Limpiar();
     });
 
@@ -84,7 +84,7 @@ function SuscribirEventoGuardar() {
                 if (ds._data.length > 0) {
                     if ($('#Guardar').text() == "Guardar" || $('#Guardar').text() == "Save") {
                         opcionHabilitarView(true, "FieldSetView");
-                        ajaxGuardar(ds._data);
+                        ajaxGuardar(ds._data, 0);
                     }
                     else if ($('#Guardar').text() == "Editar" || $('#Guardar').text() == "Edit") {
                         opcionHabilitarView(false, "FieldSetView");
@@ -107,14 +107,16 @@ function opcionHabilitarView(valor, name) {
     if (valor) {
         $('#FieldSetView').find('*').attr('disabled', true);
         $("#InputID").data("kendoComboBox").enable(false);
+        $("#inputProyecto").data("kendoComboBox").enable(false);    
         $("#inputProveedor").data("kendoComboBox").enable(false);
         $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").enable(false);
         $('#btnAgregar').prop("disabled", true);
+        $('#btnMostrar').prop("disabled", true);
+        $("#inputCerrar").prop("disabled", true);
         $('#inputPaquete').data("kendoComboBox").enable(false);
         $('#ButtonCrearPaquete').prop("disabled", true);
         $('#ButtonAgregarPAquete').prop("disabled", true);
-        //$('#Guardar1').text(_dictionary.textoEditar[$("#language").data("kendoDropDownList").value()]);
-        //$("#Guardar").text(_dictionary.textoEditar[$("#language").data("kendoDropDownList").value()]);
+        $('.accionGuardar').text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
         $('.radioEmbarqueCargaTipoSeleccion').prop("disabled", true);
         $('#InputOrdenTrabajo').prop("disabled", true);
         $('#inputCodigo').prop("disabled", true);
@@ -123,14 +125,16 @@ function opcionHabilitarView(valor, name) {
     else {
         $('#FieldSetView').find('*').attr('disabled', false);
         $("#InputID").data("kendoComboBox").enable(true);
+        $("#inputProyecto").data("kendoComboBox").enable(true);
         $("#inputProveedor").data("kendoComboBox").enable(true);
         $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").enable(true);
         $('#btnAgregar').prop("disabled", false);
+        $('#btnMostrar').prop("disabled", false);
+        $("#inputCerrar").prop("disabled", false);
         $('#inputPaquete').data("kendoComboBox").enable(true);
         $('#ButtonCrearPaquete').prop("disabled", false);
         $('#ButtonAgregarPAquete').prop("disabled", false);
-        //$('#Guardar1').text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
-        //$("#Guardar").text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
+        $('.accionGuardar').text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);
         $('.radioEmbarqueCargaTipoSeleccion').prop("disabled", false);
         $('#InputOrdenTrabajo').prop("disabled", false);
         $('#inputCodigo').prop("disabled", false);
@@ -339,7 +343,7 @@ function SuscribirEventoSpoolID() {
                     }
                 }
                 else {
-                    displayNotify('', 'La plana esta cerrada, debe abrirlar para poder modificarla', 1);
+                    displayNotify('EmarqueCargaMensajePlanaCerrada', '', 1);
                 }
             }
             else {
@@ -469,6 +473,12 @@ function SuscribirEventoPlacasPlana() {
                     }
                     else {
                         //AjaxObtenerGrid();
+                        if (dataItem.StatusCarga) {
+                            $('#inputCerrar').prop('checked', true);
+                        }
+                        else {
+                            $('#inputCerrar').prop('checked', false);
+                        }
                     }
                 }
                 else {
@@ -494,7 +504,12 @@ function SuscribirEventoPlacasPlana() {
                             CargaPopupNuevaPlana();
                         }
                         else {
-                            AjaxObtenerGrid();
+                            if (dataItem.StatusCarga) {
+                                $('#inputCerrar').prop('checked', true);
+                            }
+                            else {
+                                $('#inputCerrar').prop('checked', false);
+                            }
                         }
                         $("#grid").data("kendoGrid").dataSource.data([]);
                         ventanaConfirm.close();

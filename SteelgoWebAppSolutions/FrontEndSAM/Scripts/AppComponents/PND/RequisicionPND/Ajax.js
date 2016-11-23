@@ -169,7 +169,9 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
             position: {
                 top: "1%",
                 left: "1%"
-            }
+            },
+            animation: false
+
         }).data("kendoWindow");
 
         window.content('<div id="ventanaConfirm" z-index: inherit">' +
