@@ -205,6 +205,10 @@ var $ListadoSistemaPintura = new $.RestClient($BackEndSAMUri + '/backendsam/api/
 
 //Embarque
 var $Etiquetado = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $CargaPlana = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $EmbarqueGeneral = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Proveedores = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $EncintadoFinal = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 
 
 //#region Declaracion
@@ -232,7 +236,9 @@ function apiManagerToBeExecutedOnDocumentReady() {
 /****************************/
 /*    Global Functions      */
 /****************************/
-
+$Proveedores.add('Proveedores');
+$CargaPlana.add('CargaPlana');
+$EmbarqueGeneral.add('EmbarqueGeneral');
 $BackEndSAM.add('DummyListadoAvisoLlegada');
 $BackEndSAM.add('perfil');
 $BackEndSAM.add("PQR");
@@ -369,6 +375,7 @@ $ListadoSistemaPintura.add("ListadoSistemaPintura");
 
 //Embarque
 $Etiquetado.add("Etiquetado");
+$EncintadoFinal.add('EncintadoFinal');
 
 //Soldadura
 

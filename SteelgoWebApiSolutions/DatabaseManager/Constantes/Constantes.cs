@@ -54,5 +54,7 @@
         public static string GUARDARSOLDADORCERTIFICACION = "Sam3_Soldador_Certificacion_Set_Captura";
         public static string GUARDARINSPECCIONDIMENSIONAL = "Sam3_Inspeccion_Dimensional";
         public static string GUARDARCAPTURAETIQUETADO = "Sam3_Embarque_Guardar_Etiquetado";
+        public static string GUARDARCAPTURAENCINTADO = "Sam3_Embarque_Guardar_Encintado";
+        public static string GUARDARCAPTURACARGAPLANA = "Sam3_Embarque_Guarda_CargaPlana";
     }
 }

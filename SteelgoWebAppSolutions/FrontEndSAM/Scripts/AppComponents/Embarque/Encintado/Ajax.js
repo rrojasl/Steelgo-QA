@@ -1,7 +1,7 @@
 ﻿function AjaxCargarCamposPredeterminados() {
-    var TipoMuestraPredeterminadoTipoBusqueda = 3059;
-    var TipoMuestraPredeterminadoMuestra = 3060;
-    var TipoMuestraPredeterminadoPlanchado = 3061;
+    var TipoMuestraPredeterminadoTipoBusqueda = 3063;
+    var TipoMuestraPredeterminadoMuestra = 3064;
+    var TipoMuestraPredeterminadoPlanchado = 3065;
     var TipoMuestraPredeterminadoSelecTodos = 3062;
 
     $CamposPredeterminados.CamposPredeterminados.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), id: TipoMuestraPredeterminadoPlanchado }).done(function (data) {
@@ -129,10 +129,84 @@ function AjaxCargarCuadranteSpool(spool) {
     }
 }
 
-function AjaxCargarDetalleEtiquetado() {
-
+function AjaxCargarDetalleEncintado() {
+    if (tipoBusqueda == 1) {//Zona
+        $EncintadoFinal.EncintadoFinal.read({ token: Cookies.get("token"), ZonaID: zonaID, CuadranteID: cuadranteID, todos: 1, lenguaje: $("#language").val() }).done(function (data) {
+            if (Error(data)) {
+                $("#grid").data('kendoGrid').dataSource.data([]);
+                var ds = $("#grid").data("kendoGrid").dataSource;
+                for (var i = 0; i < data.length; i++) {
+                    ds.add(data[i]);
+                }
+            }
+            loadingStop();
+        });
+    }
+    else if (tipoBusqueda == 2) {//Spool
+        $EncintadoFinal.EncintadoFinal.read({ token: Cookies.get("token"), ZonaID: zonaID, NumeroControl: spool, todos: 1, lenguaje: $("#language").val(), demo: 1 }).done(function (data) {
+            if (Error(data)) {
+                $("#grid").data('kendoGrid').dataSource.data([]);
+                var ds = $("#grid").data("kendoGrid").dataSource;
+                for (var i = 0; i < data.length; i++) {
+                    ds.add(data[i]);
+                }
+            }
+            loadingStop();
+        });
+    }
 }
 
-function AjaxGuardarCaptura() {
+function AjaxGuardarCaptura(rows, tipoGuardar) {
+    loadingStart();
 
+    Captura = [];
+    Captura[0] = { Detalles: "" };
+    ListaDetalles = [];
+    var index = 0;
+    for (var i = 0; i < rows.length; i++) {
+        if ((rows[i].ColorID != 0) && (rows[i].Accion == 1 || rows[i].Accion == 2 || rows[i].Accion == 3)) {
+            ListaDetalles[index] = { Accion: "", EncintadoID: 0, SpoolID: 0, Encintado: false, ColorID: 0 };
+            ListaDetalles[index].Accion = rows[i].Accion;
+            ListaDetalles[index].EncintadoID = rows[i].EncintadoID;
+            ListaDetalles[index].SpoolID = rows[i].SpoolID;
+            ListaDetalles[index].Encintado = rows[i].Encintado;
+            ListaDetalles[index].ColorID = rows[i].ColorID;
+            index++;
+        }
+    };
+    Captura[0].Detalles = ListaDetalles;
+
+    if (Captura[0].Detalles.length > 0) {
+        $EncintadoFinal.EncintadoFinal.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
+            if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
+                displayNotify("MensajeGuardadoExistoso", "", '0');
+                //if (tipoGuardar == 1) {
+                    opcionHabilitarView(false, "FieldSetView");
+                    //Limpiar();
+                    AjaxCargarCamposPredeterminados();
+                //}
+                //else {
+                //    $("#grid").data("kendoGrid").dataSource.data([]);
+                //    opcionHabilitarView(true, "FieldSetView");
+                //    var ZonaID = $("#inputZona").val();
+                //    var CuadranteID = $("#inputCuadrante").val();
+                //    var SpoolIDContiene = $("#SpoolIDCOntiene").val();
+                //    var Muestra = $('input:radio[name=Muestra]:checked').val();
+                //    var TipoBusqueda = $('input:radio[name=TipoBusqueda]:checked').val();
+
+                //   //AjaxGetDetalleEtiquetado(TipoBusqueda == 'Zona' ? 1 : 0, Muestra == 'Todos' ? 1 : 0, ZonaID == "" ? 0 : ZonaID, CuadranteID == "" ? 0 : CuadranteID, SpoolIDContiene);
+                //    // AjaxCambiarAccionAModificacion();
+                //}
+                loadingStop();
+            }
+            else {
+                displayNotify("MensajeGuardadoErroneo", "", '2');
+                loadingStop();
+            }
+        });
+    }
+    else {
+        displayNotify("", "No hay datos por guardar", '1');
+        loadingStop();
+    }
 }

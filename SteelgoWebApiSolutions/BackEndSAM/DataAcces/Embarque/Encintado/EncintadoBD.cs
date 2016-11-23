@@ -129,19 +129,19 @@ namespace BackEndSAM.DataAcces.Embarque.Encintado
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Steelgo_Get_PathEtiquetadoTraveler_Result> result = ctx.Sam3_Steelgo_Get_PathEtiquetadoTraveler(SpoolID, TipoReporte).ToList();
+                  //  List<Sam3_Steelgo_Get_PathEtiquetadoTraveler_Result> result = ctx.Sam3_Steelgo_Get_PathEtiquetadoTraveler(SpoolID, TipoReporte).ToList();
                     List<DetalleRutaSpool> listaDetalle = new List<DetalleRutaSpool>();
-                    foreach (Sam3_Steelgo_Get_PathEtiquetadoTraveler_Result item in result)
-                    {
-                        listaDetalle.Add(new DetalleRutaSpool
-                        {
-                            SpoolID = item.SpoolID,
-                            Spool = item.Spool,
-                            ProyectoID = item.ProyectoID,
-                            Proyecto = item.Proyecto,
-                            Ruta = item.Ruta
-                        });
-                    }
+                    //foreach (Sam3_Steelgo_Get_PathEtiquetadoTraveler_Result item in result)
+                    //{
+                    //    listaDetalle.Add(new DetalleRutaSpool
+                    //    {
+                    //        SpoolID = item.SpoolID,
+                    //        Spool = item.Spool,
+                    //        ProyectoID = item.ProyectoID,
+                    //        Proyecto = item.Proyecto,
+                    //        Ruta = item.Ruta
+                    //    });
+                    //}
 
                     return listaDetalle;
                 }

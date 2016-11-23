@@ -7182,7 +7182,7 @@ _dictionary = {
     },
     "lblSeleccionaOpcion": {
         "es-MX": "Selecciona una opción",
-        "en-US": "Select a option"
+        "en-US": "Select an option"
     },
     "lblCodigo": {
         "es-MX": "Código",
@@ -7592,7 +7592,22 @@ _dictionary = {
         "es-MX": "Ninguno",
         "en-US": "Any"
     },
-
+    "lblPaquete": {
+        "es-MX": "Paquete",
+        "en-US": "Package"
+    },
+    "lblTipoCarga": {
+        "es-MX": "Tipo carga",
+        "en-US": "Charge type"
+    },
+    "lblEmbarque": {
+        "es-MX": "Embarque",
+        "en-US": "Shipment"
+    },
+    "lblEmpaquetado": {
+        "es-MX": "Empaquetado",
+        "en-US": "Packaging"
+    },
     //Finaliza Etiquetas
     //Etiquetas header alertas
     "SuccessTitle": {
@@ -7788,6 +7803,15 @@ _dictionary = {
         "es-MX": "Generar Reporte",
         "en-US": "Generate Report"
     },
+    "botonEliminarPaquete": {
+        "es-MX": "Eliminar paquete",
+        "en-US": "Delete package"
+    },
+    "botonEliminarPaquete1": {
+        "es-MX": "Eliminar paquete",
+        "en-US": "Delete package"
+    },
+    //Finaliza botones
     // Finalizan etiquetas Header y Footer
 
     //Inician mensajes Generales
@@ -8601,7 +8625,10 @@ _dictionary = {
         "es-MX": "Fecha Pba",
         "en-US": "Test Date."
     },
-
+    "columnToneladas": {
+        "es-MX": "Toneladas",
+        "en-US": "Tons"
+    },
     // Finalizan Etiquetas Grid
     // Finalizan Etiquetas generales
 
@@ -9610,7 +9637,7 @@ _dictionary = {
 
     "CapturaReporteProyecto": {
         "es-MX": "Proyecto",
-        "en-US": "Proyect"
+        "en-US": "Project"
     },
     "CapturaReporteProveedor": {
         "es-MX": "Proveedor",
@@ -10395,5 +10422,277 @@ _dictionary = {
         "en-US": "Please select a project"
     },
     //Finaliza Pantalla Encintado
+    //Inicia pantalla carga plana
+    "EmbarqueCargaPlana": {
+        "es-MX": "Cerrar Plana",
+        "en-US": "Close Plate"
+    },
+    "EmbarqueCargaBotonCerrarPlana": {
+        "es-MX": "Cerrar Plana",
+        "en-US": "Close Plate"
+    },
+    "EmbarqueCargaBotonCerrarPlana1": {
+        "es-MX": "Cerrar Plana",
+        "en-US": "Close Plate"
+    },
+    "EmbarqueCargaMensajeErrorPlana": {
+        "es-MX": "Seleccione una placa",
+        "en-US": "Select license plate"
+    },
+    "EmbarqueCargaMensajeErrorProveedor": {
+        "es-MX": "Seleccione un proveedor",
+        "en-US": "Select a provider"
+    },
+    "EmbarqueCargaMensajeErrorPlanaNoCerrada": {
+        "es-MX": "La plana debe estar abierta para poder cerrarla",
+        "en-US": "The flat must be open to close"
+    },
+    "EmbarqueCargaCerrarPlana": {
+        "es-MX": "Cerrar Plana",
+        "en-US": "Close flat"
+    },
+    "EmbarqueCargaCerrarEmbarque": {
+        "es-MX": "Cerrar Embarque",
+        "en-US": "Select an area"
+    },
+    "EmbarqueCargaAutorizarPermiso": {
+        "es-MX": "Autorizar Permiso",
+        "en-US": "authorize Permit"
+    },
+    "EmbarqueCargaImprimirEtiquetaSpool": {
+        "es-MX": "Imprimir Etiqueta Spool",
+        "en-US": "Print Label Spool"
+    },
+    "EmbarqueCargaImprimirTravelMasivo": {
+        "es-MX": "Imprimir Travel Masivo",
+        "en-US": "Print Travel Masico"
+    },
+    "EmbarqueCargaMarcadoMensajeArea": {
+        "es-MX": "Marcado Mensaje Área",
+        "en-US": "Message marked Area"
+    },
+    "EmbarqueCargaSpool": {
+        "es-MX": "Spool",
+        "en-US": "Spool"
+    },
+    "EmbarqueCargaPaquete": {
+        "es-MX": "Paquete",
+        "en-US": "Package"
+    }
+    ,
+    "EmbarqueCargaCodigo": {
+        "es-MX": "Codigo",
+        "en-US": "Code"
+    }
+    ,
+    "EmbarqueCargaAgregar": {
+        "es-MX": "Agregar",
+        "en-US": "Add"
+    }
+    ,
+    "EmbarqueCargaCrearPaquete": {
+        "es-MX": "Crear Paquete",
+        "en-US": "Create Package"
+    },
+    "EmbarqueCargaAgregarAPaquete": {
+        "es-MX": "Agregar a Paquete",
+        "en-US": "Add To Package"
+    }
+    ,
+    "EmbarqueCargaAgregarAPaquetePie": {
+        "es-MX": "Agregar a Paquete",
+        "en-US": "Add To Package"
+    }
+   ,
+    "EmbarqueCargaSelecciona": {
+        "es-MX": "Tipo carga",
+        "en-US": "Charge type"
+    }
+    ,
+    "EmbarqueCargaOpcionSpool": {
+        "es-MX": "Spool",
+        "en-US": "Spool"
+    }
+    ,
+    "EmbarqueCargaOpcionCodigo": {
+        "es-MX": "Codigo",
+        "en-US": "Code"
+    }
+    ,
+    "EmbarqueCargaOpcionPaquete": {
+        "es-MX": "Paquete",
+        "en-US": "Package"
+    }
+     ,
+    "EmbarqueCargaProveedor": {
+        "es-MX": "Proveedor",
+        "en-US": "Provider"
+    }
+     ,
+    "EmbarqueCargaPLaca": {
+        "es-MX": "Plana",
+        "en-US": "Flat"
+    }
+      ,
+    "EmbarqueCargaTotalPiezas": {
+        "es-MX": "Total Piezas:",
+        "en-US": "Total pieces:"
+    }
+      ,
+    "EmbarqueCargaToneladasCargadas": {
+        "es-MX": "Toneladas Cargadas:",
+        "en-US": "Tons Loaded:"
+    }
+    ,
+    "EmbarqueCargaInformacionExistente": {
+        "es-MX": "La informacion ya existe",
+        "en-US": "The information already exists"
+    },
+    "EmbarqueCargaSeTieneEmpaquetado": {
+        "es-MX": "No se puede crear el paquete por que ya esta empaquetado el spool.",
+        "en-US": "You can not create the package that is already packaged"
+    },
+    "EmbarqueCargaSeleccionaSpool": {
+        "es-MX": "No tienes agregado ningun spool",
+        "en-US": "You dont have added any spool"
+    },
+    "EmbarqueCargaErrorAgregar": {
+        "es-MX": "No se pueden agregar spools, la plana esta cerrada",
+        "en-US": "Can't add spools, the plain is closed"
+    },
+    "EmbarqueCargaErrorSeleccionarItem": {
+        "es-MX": "Seleccione al menos un item",
+        "en-US": "Select at least one item"
+    },
+    "EmbarqueCargaSeAgregaPaquete": {
+        "es-MX": "No se puede agregar al paquete existen varios paquetes diferentes o no se ha seleccionando algun spool",
+        "en-US": "You can not add to the package you selected more than one package or not selecting spool"
+    },
+    "EmbarqueCargaPopupCuadrante": {
+        "es-MX": "Selecciona un Cuadrante",
+        "en-US": "Select Quadrant"
+    },
+    "EmbarqueCargaTituloPopupCuadrante": {
+        "es-MX": "Selecciona un nuevo Cuadrante",
+        "en-US": "Select new Quadrant"
+    },
+    "EmbarqueCargaTituloPopupPaquete": {
+        "es-MX": "Selecciona un nuevo Paquete",
+        "en-US": "Select new Package"
+    },
+    "EmbarqueCargaActualizarPaquetePopup": {
+        "es-MX": "Actualizar",
+        "en-US": "Update"
+    },
+    "EmbarqueCargaCancelarPopup": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "EmbarqueCargaCuadranteActualizado": {
+        "es-MX": "El cuadrante fue actualizado con exito",
+        "en-US": "The quadrant was updated successfully"
+    },
+    "EmbarqueCargaErrorCuadranteActualizado": {
+        "es-MX": "Existio un error al actualizar el cuadrante",
+        "en-US": "There was an error updating the quadrant"
+    },
+    "EmbarqueCargaActualizarCuadrantePopup": {
+        "es-MX": "Actualizar",
+        "en-US": "Update"
+    },
+    "EmbarqueCargaCancelarPaquetePopup": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "EmbarqueCargaGuardar": {
+        "es-MX": "Embarque guardado exitosamente",
+        "en-US": "Boarding successfully saved"
+    },
+    "EmbarqueCargaErrorGuardar": {
+        "es-MX": "El embarque no se pudo guardar",
+        "en-US": "The shipment could not be saved"
+    },
+    "EmbarqueCargaCerrarPlana": {
+        "es-MX": "Se cerro la plana satisfactoriamente",
+        "en-US": "Successfully closed flat"
+    },
+    "EmbarqueCargaErrorCerrarPlana": {
+        "es-MX": "Existio un problema al cerrar la plana",
+        "en-US": "There was a problem closing the flat"
+    },
+    "EmbarqueCargaHeaderSpool": {
+        "es-MX": "Spool ID",
+        "en-US": "Spool ID"
+    },
+    "EmbarqueCargaHeaderConsecutivo": {
+        "es-MX": "Consecutivo",
+        "en-US": "Consecutive"
+    },
+    "EmbarqueCargaHeaderPaquete": {
+        "es-MX": "Paquete",
+        "en-US": "Package"
+    },
+    "EmbarqueCargaCrearPaquete": {
+        "es-MX": "Paquete creado satisfactoriamente",
+        "en-US": "The Package was created succesful"
+    }
+    ,
+    "EmbarqueCargaErrorCrearPaquete": {
+        "es-MX": "Paquete no fue creado",
+        "en-US": "The Package was not  created succesful"
+    },
+    "EmbarqueCargaCerrarPlana": {
+        "es-MX": "Cerrar Plana",
+        "en-US": "Close flat"
+    },
+    "EmbarqueHeaderCargaPlana": {
+        "es-MX": "Carga plana",
+        "en-US": "Plate charge"
+    },
+    "EmbarqueCargaAgregarNuevoProveedor": {
+        "es-MX": "Agregar nuevo proveedor",
+        "en-US": "Add new provider"
+    },
+
+    "EmbarqueCargaNuevaPlana": {
+        "es-MX": "Crear nueva plana",
+        "en-US": "Create new plate"
+    },
+    "EmbarqueCargaNuevoProveedor": {
+        "es-MX": "Crear nuevo proveedor",
+        "en-US": "Create new provider"
+    },
+    "EmarqueCargaMensajeEligePlana": {
+        "es-MX": "Elige una plana",
+        "en-US": "Select a plate"
+    },
+    "EmarqueCargaMensajePlanaCerrada": {
+        "es-MX": "La plana esta cerrada, debe abrirlar para poder modificarla",
+        "en-US": "The plate is cloed, should be open to modify"
+    },
+    
+
+    //Finaliza pantalla carga plana
+    //Inicia pantalla empaquetado
+    "EmbarqueEmpaquetadoTotalPiezas": {
+        "es-MX": "Total Piezas:",
+        "en-US": "Total pieces:"
+    },
+    "EmbarqueEmpaquetadoToneladasCargadas": {
+        "es-MX": "Toneladas Cargadas:",
+        "en-US": "Tons Loaded:"
+    },
+    "EmarqueEmpaquetadoOpcionSpool": {
+        "es-MX": "Spool",
+        "en-US": "Spool"
+    },
+    "EmarqueEmpaquetadoOpcionCodigo": {
+        "es-MX": "Código",
+        "en-US": "Code"
+    },
+    
+
+    
+    //Finaliza pantalla empaquetado
     //Finaliza Modulo Embarque 
 };

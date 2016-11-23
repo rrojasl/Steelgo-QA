@@ -46,12 +46,12 @@ function RenderComboBoxColorCinta(container, options) {
                 var dataItem = this.dataItem(e.item.index());
                 if (dataItem != undefined) {
                     if(options.model.Encintado){                        
-                        options.model.ColorCinta = dataItem.Nombre;
-                        options.model.ColorCintaID = dataItem.ColorCintaID;
-                        options.model.ModificadoPorUsuario = true;
+                        options.model.NombreColor = dataItem.Nombre;
+                        options.model.ColorID = dataItem.ColorID;
+                        //options.model.ModificadoPorUsuario = true;
                     } else {
-                        options.model.ColorCinta = "";
-                        options.model.ColorCintaID = 0;
+                        options.model.NombreColor = "";
+                        options.model.ColorID = 0;
                     }
 
                     $("#grid").data("kendoGrid").dataSource.sync();
@@ -62,12 +62,12 @@ function RenderComboBoxColorCinta(container, options) {
                 var dataItem = this.dataItem(e.item.index());
                 if (dataItem != undefined) {
                     if (options.model.Encintado) {
-                        options.model.ColorCinta = dataItem.Nombre;
-                        options.model.ColorCintaID = dataItem.ColorCintaID;
-                        options.model.ModificadoPorUsuario = true;
+                        options.model.NombreColor = dataItem.Nombre;
+                        options.model.ColorID = dataItem.ColorID;
+                        //options.model.ModificadoPorUsuario = true;
                     } else {
-                        options.model.ColorCinta = "";
-                        options.model.ColorCintaID = 0;
+                        options.model.NombreColor = "";
+                        options.model.ColorID = 0;
                     }
 
                     $("#grid").data("kendoGrid").dataSource.sync();
