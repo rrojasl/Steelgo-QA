@@ -46,7 +46,7 @@ function RenderComboBoxColorCinta(container, options) {
                 var dataItem = this.dataItem(e.item.index());
                 if (dataItem != undefined) {
                     if(options.model.Encintado){                        
-                        options.model.NombreColor = dataItem.NombreColor;
+                        options.model.NombreColor = dataItem.Nombre;
                         options.model.ColorID = dataItem.ColorID;
                         //options.model.ModificadoPorUsuario = true;
                     } else {
@@ -62,7 +62,7 @@ function RenderComboBoxColorCinta(container, options) {
                 var dataItem = this.dataItem(e.item.index());
                 if (dataItem != undefined) {
                     if (options.model.Encintado) {
-                        options.model.NombreColor = dataItem.NombreColor;
+                        options.model.NombreColor = dataItem.Nombre;
                         options.model.ColorID = dataItem.ColorID;
                         //options.model.ModificadoPorUsuario = true;
                     } else {

@@ -180,23 +180,23 @@ function AjaxGuardarCaptura(rows, tipoGuardar) {
         $EncintadoFinal.EncintadoFinal.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
             if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
                 displayNotify("MensajeGuardadoExistoso", "", '0');
-                if (tipoGuardar == 1) {
+                //if (tipoGuardar == 1) {
                     opcionHabilitarView(false, "FieldSetView");
-                    Limpiar();
+                    //Limpiar();
                     AjaxCargarCamposPredeterminados();
-                }
-                else {
-                    $("#grid").data("kendoGrid").dataSource.data([]);
-                    opcionHabilitarView(true, "FieldSetView");
-                    var ZonaID = $("#inputZona").val();
-                    var CuadranteID = $("#inputCuadrante").val();
-                    var SpoolIDContiene = $("#SpoolIDCOntiene").val();
-                    var Muestra = $('input:radio[name=Muestra]:checked').val();
-                    var TipoBusqueda = $('input:radio[name=TipoBusqueda]:checked').val();
+                //}
+                //else {
+                //    $("#grid").data("kendoGrid").dataSource.data([]);
+                //    opcionHabilitarView(true, "FieldSetView");
+                //    var ZonaID = $("#inputZona").val();
+                //    var CuadranteID = $("#inputCuadrante").val();
+                //    var SpoolIDContiene = $("#SpoolIDCOntiene").val();
+                //    var Muestra = $('input:radio[name=Muestra]:checked').val();
+                //    var TipoBusqueda = $('input:radio[name=TipoBusqueda]:checked').val();
 
-                   AjaxGetDetalleEtiquetado(TipoBusqueda == 'Zona' ? 1 : 0, Muestra == 'Todos' ? 1 : 0, ZonaID == "" ? 0 : ZonaID, CuadranteID == "" ? 0 : CuadranteID, SpoolIDContiene);
-                    // AjaxCambiarAccionAModificacion();
-                }
+                //   //AjaxGetDetalleEtiquetado(TipoBusqueda == 'Zona' ? 1 : 0, Muestra == 'Todos' ? 1 : 0, ZonaID == "" ? 0 : ZonaID, CuadranteID == "" ? 0 : CuadranteID, SpoolIDContiene);
+                //    // AjaxCambiarAccionAModificacion();
+                //}
                 loadingStop();
             }
             else {
