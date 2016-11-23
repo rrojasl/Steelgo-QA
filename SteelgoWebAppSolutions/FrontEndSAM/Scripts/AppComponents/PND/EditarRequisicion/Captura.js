@@ -19,6 +19,46 @@ function changeLanguageCall() {
     
 }
 
+function AgregarJuntaNueva() {
+    if ($("#inputTipoPrueba").data("kendoComboBox").dataItem($("#inputTipoPrueba").data("kendoComboBox").select()).TipoPruebaPorSpool == 1) {
+        if (!ExisteSpool()) {
+            AjaxObtenerSpool();
+        }
+        else
+            displayNotify("GenerarRequisicionMensajeExisteSpool", "", '1');
+    }
+    else {
+        if (!ExisteJunta()) {
+            AjaxObtenerJunta();
+        }
+        else
+            displayNotify("GenerarRequisicionMensajeExisteJunta", "", '1');
+    }
+}
+
+function ExisteJunta() {
+    var jsonGrid = $("#grid").data("kendoGrid").dataSource._data;
+
+    for (var i = 0; i < jsonGrid.length; i++) {
+        if (jsonGrid[i].OrdenTrabajoSpoolID == $("#InputID").data("kendoComboBox").value() && jsonGrid[i].JuntaSpoolID == $("#Junta").data("kendoComboBox").value()) {
+            return true;
+        }
+    }
+    return false;
+}
+
+function ExisteSpool() {
+    var jsonGrid = $("#grid").data("kendoGrid").dataSource._data;
+
+    for (var i = 0; i < jsonGrid.length; i++) {
+        if (jsonGrid[i].OrdenTrabajoSpoolID == $("#InputID").data("kendoComboBox").value()) {
+
+            return true;
+        }
+    }
+    return false;
+}
+
 function SiguienteProceso(paramReq) {
     var url = "";
     if (paramReq == null) {
@@ -195,6 +235,7 @@ function FiltroMostrar(mostrar) {
     }
 }
 
+
 function validaInformacionCapturada() {
     var ds = $("#grid").data("kendoGrid").dataSource;
     var filters = ds.filter();
@@ -217,4 +258,12 @@ function validaInformacionCapturada() {
     } else {
         return false;
     }
+}
+
+function tieneClase(item) {
+    for (var i = 0; i < item.classList.length; i++) {
+        if (item.classList[i] == "k-state-border-up" || item.classList[i] == "k-state-border-down")
+            return true;
+    }
+    return false;
 }

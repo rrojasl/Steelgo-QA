@@ -34,6 +34,8 @@ namespace BackEndSAM.Models.ServiciosTecnicos.EditarRequisicion
                 EstatusCaptura = 0;
             }
 
+            
+
             public int Accion { get; set; }
             public string NumeroControl { get; set; }
             public string EtiquetaJunta { get; set; }
@@ -55,6 +57,9 @@ namespace BackEndSAM.Models.ServiciosTecnicos.EditarRequisicion
             public int TipoPruebaID { get; set; }
             public string Especificacion { get; set; }
             public int EstatusCaptura { get; set; }
+            public bool? Disposicion { get; set; }
+            public int? OrdenTrabajoID { get; set; }
+            public int? ClasificacionPNDID { get; set; }
         }
 
         public class Captura
@@ -82,13 +87,24 @@ namespace BackEndSAM.Models.ServiciosTecnicos.EditarRequisicion
         {
             public DetalleCaptura()
             {
+                Accion = 0;
                 RequisicionID = 0;
                 ElementoPorClasificacionPNDID = 0;
+                Disposicion = false;
+                OrdenTrabajoID = 0;
+                ClasificacionPNDID = 0;
+                SpoolID = 0;
+                JuntaSpool = 0;
             }
 
             public int RequisicionID { get; set; }
             public int ElementoPorClasificacionPNDID { get; set; }
             public int Accion { get; set; }
+            public bool Disposicion { get; set; }
+            public int OrdenTrabajoID { get; set; }
+            public int ClasificacionPNDID { get; set; }
+            public int SpoolID { get; set; }
+            public int JuntaSpool { get; set; }
         }
 
         public class Proyecto

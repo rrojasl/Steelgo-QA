@@ -38,12 +38,12 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EditarRequisicion
                 {
                     List<ElementosPorClasificacion> listaElementos = new List<ElementosPorClasificacion>();
                     List<Sam3_ST_Get_ElementosPorPrueba_Result> listaElementosCTX = ctx.Sam3_ST_Get_ElementosPorPrueba(lenguaje, ProyectoID, TipoPruebaID, RequisicionID, Muestra).ToList();
-
+                                                                                        
                     foreach (Sam3_ST_Get_ElementosPorPrueba_Result item in listaElementosCTX)
                     {
                         listaElementos.Add(new ElementosPorClasificacion
                         {
-                            Accion = 2,
+                            Accion = item.RequisicionID == null?1:2,
                             NumeroControl = item.NumeroControl,
                             EtiquetaJunta = item.EtiquetaJunta,
                             TipoJunta = item.TipoJunta,
@@ -63,7 +63,10 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EditarRequisicion
                             OrdenTrabajoSpoolID = item.OrdenTrabajoSpoolID,
                             TipoPruebaID = item.TipoPruebaID.GetValueOrDefault(),
                             Especificacion = item.Especificacion,
-                            EstatusCaptura = 0
+                            EstatusCaptura = 0,
+                            Disposicion = item.Disposicion,
+                            ClasificacionPNDID = item.ClasificacionPNDID,
+                            OrdenTrabajoID = item.OrdenTrabajoID
                         });
                     }
 
@@ -145,6 +148,139 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EditarRequisicion
 
                 return result;
             }
+        }
+
+        public object ObtieneSpools(int UsuarioID, string IdOrdenTrabajo, int OrdenTrabajoSpoolID, int TipoPruebaID, int ProyectoID)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<ElementosPorClasificacion> listaElementos = new List<ElementosPorClasificacion>();
+                    List<Sam3_ST_Get_ElementoManual_Result> listaElementosCTX = ctx.Sam3_ST_Get_ElementoManual(TipoPruebaID, IdOrdenTrabajo, OrdenTrabajoSpoolID, ProyectoID, UsuarioID).ToList();
+
+                    foreach (Sam3_ST_Get_ElementoManual_Result item in listaElementosCTX)
+                    {
+                        listaElementos.Add(new ElementosPorClasificacion
+                        {
+                            Accion = 1,
+                            NumeroControl = item.NumeroControl,
+                            EtiquetaJunta = item.EtiquetaJunta,
+                            TipoJunta = item.TipoJunta,
+                            NombreRequisicion = item.NombreRequisicion,
+                            Cuadrante = item.Cuadrante,
+                            Prioridad = item.Prioridad.GetValueOrDefault(),
+                            Clasificacion = item.Clasificacion,
+                            Diametro = item.DiametroPlano.GetValueOrDefault(),
+                            Espesor = item.Espesor,
+                            Cedula = item.Cedula,
+                            ElementoPorClasificacionPNDID = item.ElementoPorClasificacionPNDID,
+                            Agregar = item.RequisicionID > 0 ? true : false,
+                            RequisicionID = item.RequisicionID,
+                            ProyectoID = item.ProyectoID,
+                            SpoolID = item.SpoolID,
+                            JuntaSpoolID = item.JuntaSpoolID.GetValueOrDefault(),
+                            OrdenTrabajoSpoolID = item.OrdenTrabajoSpoolID,
+                            TipoPruebaID = item.TipoPruebaID.GetValueOrDefault(),
+                            Especificacion = item.Especificacion,
+                            EstatusCaptura = 1,
+                            Disposicion = item.Disposicion == 0 ? false : true,
+                            ClasificacionPNDID = item.ClasificacionPNDID,
+                            OrdenTrabajoID = item.OrdenTrabajoID
+
+                        });
+                    }
+                    return listaElementos;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+
+        }
+
+        public object ObtenerJuntasXSpoolID(Sam3_Usuario usuario, string ordenTrabajo, string id, int sinCaptura)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Sam3_ST_Get_JuntaSpool_Result> lista = ctx.Sam3_ST_Get_JuntaSpool(int.Parse(id)).ToList();
+                    return lista.OrderBy(x => int.Parse(x.Etiqueta)).ToList<Sam3_ST_Get_JuntaSpool_Result>();
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+                return result;
+            }
+        }
+
+        public object ObtienedetalleJunta(int UsuarioID, string IdOrdenTrabajo, int OrdenTrabajoSpoolID, int TipoPruebaID, int ProyectoID, int JuntaSpoolID)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<ElementosPorClasificacion> listaElementos = new List<ElementosPorClasificacion>();
+                    List<Sam3_ST_Get_ElementoManualXJunta_Result> listaElementosCTX = ctx.Sam3_ST_Get_ElementoManualXJunta(TipoPruebaID, IdOrdenTrabajo, OrdenTrabajoSpoolID, ProyectoID, UsuarioID, JuntaSpoolID).ToList();
+
+                    foreach (Sam3_ST_Get_ElementoManualXJunta_Result item in listaElementosCTX)
+                    {
+                        listaElementos.Add(new ElementosPorClasificacion
+                        {
+                            Accion = 1,
+                            NumeroControl = item.NumeroControl,
+                            EtiquetaJunta = item.EtiquetaJunta,
+                            TipoJunta = item.TipoJunta,
+                            NombreRequisicion = item.NombreRequisicion,
+                            Cuadrante = item.Cuadrante,
+                            Prioridad = item.Prioridad.GetValueOrDefault(),
+                            Clasificacion = item.Clasificacion,
+                            Diametro = item.DiametroPlano.GetValueOrDefault(),
+                            Espesor = item.Espesor,
+                            Cedula = item.Cedula,
+                            ElementoPorClasificacionPNDID = item.ElementoPorClasificacionPNDID,
+                            Agregar = item.RequisicionID > 0 ? true : false,
+                            RequisicionID = item.RequisicionID,
+                            ProyectoID = item.ProyectoID,
+                            SpoolID = item.SpoolID,
+                            JuntaSpoolID = item.JuntaSpoolID.GetValueOrDefault(),
+                            OrdenTrabajoSpoolID = item.OrdenTrabajoSpoolID,
+                            TipoPruebaID = item.TipoPruebaID.GetValueOrDefault(),
+                            Especificacion = item.Especificacion,
+                            EstatusCaptura = 1,
+                            Disposicion = item.Disposicion == 0 ? false : true,
+                            ClasificacionPNDID = item.ClasificacionPNDID,
+                            OrdenTrabajoID = item.OrdenTrabajoID
+
+                        });
+                    }
+                    return listaElementos;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+
         }
 
         public object InsertarNuevaRequisicion(DataTable dtDetalleRequisicion, int RequisicionID, string NombreRequisicion, int ProyectoID, int TipoPruebaID, string FechaRequisicion, string CodigoAsme, string Observacion, Sam3_Usuario usuario, string lenguaje)
