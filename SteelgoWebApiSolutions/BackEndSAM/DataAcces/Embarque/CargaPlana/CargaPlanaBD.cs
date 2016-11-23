@@ -113,10 +113,10 @@ namespace BackEndSAM.DataAcces.Embarque.CargaPlana
             try
             {
                 ObjetosSQL _SQL = new ObjetosSQL();
-                string[,] parametros = { { "@Usuario", UsuarioID.ToString() }, { "@CargaPlanaID", CargaPlanaID.ToString() },
-                        { "@PlanaID", PlanaID.ToString() }, { "@CerrarPlana", CerrarPlana.ToString() } };
+                string[,] parametros = { { "@UsuarioID", UsuarioID.ToString() }, { "@PlanaID", PlanaID.ToString() }, { "@CargaPlanaID", CargaPlanaID.ToString() },
+                        { "@CerrarPlana", CerrarPlana.ToString() } };
 
-                //_SQL.EjecutaInsertUpdate(Stords.GUARDARCAPTURACARGAPLANA, dtDetalle, "@TablaCargaPlana", parametros);
+                _SQL.EjecutaInsertUpdate(Stords.GUARDARCAPTURACARGAPLANA, dtDetalle, "@DetalleCarga", parametros);
 
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add("OK");
