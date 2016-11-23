@@ -63,14 +63,14 @@ namespace BackEndSAM.DataAcces.Sam3General.Proveedores
             }
         }
 
-        public object GuardarNuevoProveedor(string NombreProveedor, int UsuarioID, string Descripcion, string Direccion, string Telefono)
+        public object GuardarNuevoProveedor(string NombreProveedor, int UsuarioID, int ProyectoID, string Descripcion, string Direccion, string Telefono)
         {
             try
             {
                 using(SamContext ctx = new SamContext())
                 {
 
-                    ObjectResult<int?> resultSp = ctx.Sam3_Embarque_CG_CreateProveedor(NombreProveedor, UsuarioID, Descripcion, Direccion, Telefono);
+                    ObjectResult<int?> resultSp = ctx.Sam3_Embarque_CG_CreateProveedor(NombreProveedor, UsuarioID, ProyectoID, Descripcion, Direccion, Telefono);
                     var valor = resultSp.Where(x => x.HasValue).Select(x => x.Value).ToList()[0];
 
                     TransactionalInformation result = new TransactionalInformation();

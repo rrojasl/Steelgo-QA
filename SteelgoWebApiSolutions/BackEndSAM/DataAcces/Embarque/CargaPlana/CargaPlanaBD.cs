@@ -89,7 +89,7 @@ namespace BackEndSAM.DataAcces.Embarque.CargaPlana
                             PaqueteID = item.PaqueteID,
                             Paquete = item.NombrePaquete,
                             Peso = item.Peso.GetValueOrDefault(),
-                            CuadranteAnteriorID = item.CuadranteAnteriorID.GetValueOrDefault(),
+                            CuadranteAnteriorID = item.CuadranteAnteriorID,
                             ModificadoPorUsuario = false
                         });
                     }
