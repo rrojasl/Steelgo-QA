@@ -139,34 +139,56 @@ function AjaxGuardaCaptura(arregloCaptura, guardaNuevo) {
 
             ListaDetalle: ""
         };
-
+        var cont = 0;
         for (var i = 0; i < arregloCaptura.length; i++) {
+            if ((arregloCaptura[i].Accion == 1 || arregloCaptura[i].Accion == 2) && arregloCaptura[i].Agregar == true) {
+                ListaCaptura[cont] = {
+                    RequisicionID: 0,
+                    ElementoPorClasificacionPNDID: 0,
+                    Accion: 0,
+                    Disposicion: 0,
+                    ClasificacionPNDID: 0,
+                    OrdenTrabajoID: 0,
+                    SpoolID: 0,
+                    JuntaSpool: 0
+                };
 
-            ListaCaptura[i] = {
-                RequisicionID: 0,
-                ElementoPorClasificacionPNDID: 0,
-                Accion: 0,
-                Disposicion: 0,
-                ClasificacionPNDID: 0,
-                OrdenTrabajoID: 0,
-                SpoolID: 0,
-                JuntaSpool: 0
-            };
-            ListaCaptura[i].RequisicionID = arregloCaptura[i].RequisicionID;
-            ListaCaptura[i].ElementoPorClasificacionPNDID = arregloCaptura[i].ElementoPorClasificacionPNDID;
-            ListaCaptura[i].Accion = arregloCaptura[i].Accion;
-            ListaCaptura[i].Disposicion = arregloCaptura[i].Disposicion;
-            ListaCaptura[i].OrdenTrabajoID = arregloCaptura[i].OrdenTrabajoID;
-            ListaCaptura[i].ClasificacionPNDID = arregloCaptura[i].ClasificacionPNDID;
-            ListaCaptura[i].SpoolID = arregloCaptura[i].SpoolID;
-            ListaCaptura[i].JuntaSpool = arregloCaptura[i].JuntaSpool;
+                ListaCaptura[cont].RequisicionID = arregloCaptura[i].RequisicionID;
+                ListaCaptura[cont].ElementoPorClasificacionPNDID = arregloCaptura[i].ElementoPorClasificacionPNDID;
+                ListaCaptura[cont].Accion = arregloCaptura[i].Accion;
+                ListaCaptura[cont].Disposicion = arregloCaptura[i].Disposicion;
+                ListaCaptura[cont].OrdenTrabajoID = arregloCaptura[i].OrdenTrabajoID;
+                ListaCaptura[cont].ClasificacionPNDID = arregloCaptura[i].ClasificacionPNDID;
+                ListaCaptura[cont].SpoolID = arregloCaptura[i].SpoolID;
+                ListaCaptura[cont].JuntaSpool = arregloCaptura[i].JuntaSpool;
+                cont++;
 
-            if (arregloCaptura[i].Accion == 2 && !arregloCaptura[i].Agregar) {
-                    ListaCaptura[i].Accion = 3;
-            }            
+            } else if (arregloCaptura[i].Accion == 2 && !arregloCaptura[i].Agregar) {
+                ListaCaptura[cont] = {
+                    RequisicionID: 0,
+                    ElementoPorClasificacionPNDID: 0,
+                    Accion: 0,
+                    Disposicion: 0,
+                    ClasificacionPNDID: 0,
+                    OrdenTrabajoID: 0,
+                    SpoolID: 0,
+                    JuntaSpool: 0
+                };
+
+                ListaCaptura[cont].RequisicionID = arregloCaptura[i].RequisicionID;
+                ListaCaptura[cont].ElementoPorClasificacionPNDID = arregloCaptura[i].ElementoPorClasificacionPNDID;
+                ListaCaptura[cont].Accion = 3;
+                ListaCaptura[cont].Disposicion = arregloCaptura[i].Disposicion;
+                ListaCaptura[cont].OrdenTrabajoID = arregloCaptura[i].OrdenTrabajoID;
+                ListaCaptura[cont].ClasificacionPNDID = arregloCaptura[i].ClasificacionPNDID;
+                ListaCaptura[cont].SpoolID = arregloCaptura[i].SpoolID;
+                ListaCaptura[cont].JuntaSpool = arregloCaptura[i].JuntaSpool;
+                cont++;
+            } 
+            
         }
 
-        if (ListaCaptura.length >= 0) {
+        if (ListaCaptura.length > 0) {
             var Requisicion = $("#inputRequisicion").data("kendoComboBox").dataItem($("#inputRequisicion").data("kendoComboBox").select());
             Captura[0].RequisicionID = Requisicion.RequisicionID;
             Captura[0].Requisicion = Requisicion.NombreRequisicion;
@@ -192,7 +214,9 @@ function AjaxGuardaCaptura(arregloCaptura, guardaNuevo) {
                     displayNotify("MensajeGuardadoErroneo", "", '2');
                 }
             });
-        }           
+        } else {
+            displayNotify("EditarRequisicionExcepcionGuardado", "", "2");
+        }    
            
     } else {
         displayNotify("EditarRequisicionExcepcionGuardado", "", "2");
