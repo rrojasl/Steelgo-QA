@@ -88,7 +88,10 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.GenerarRequisicion
                             JuntaSpoolID = item.JuntaSpoolID.GetValueOrDefault(),
                             OrdenTrabajoSpoolID = item.OrdenTrabajoSpoolID,
                             TipoPruebaID = item.TipoPruebaID.GetValueOrDefault(),
-                            Especificacion = item.Especificacion
+                            Especificacion = item.Especificacion,
+                            Disposicion = item.Disposicion,
+                            ClasificacionPNDID = item.ClasificacionPNDID,
+                            OrdenTrabajoID = item.OrdenTrabajoID
                         });
                     }
 
@@ -152,6 +155,61 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.GenerarRequisicion
 
                 return result;
             }
+        }
+
+        public object ObtieneSpools(int UsuarioID,string IdOrdenTrabajo,int OrdenTrabajoSpoolID,int TipoPruebaID,int ProyectoID)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<ElementosPorClasificacion> listaElementos = new List<ElementosPorClasificacion>();
+                    List<Sam3_ST_Get_ElementoManual_Result> listaElementosCTX = ctx.Sam3_ST_Get_ElementoManual(TipoPruebaID, IdOrdenTrabajo, OrdenTrabajoSpoolID, ProyectoID, UsuarioID).ToList();
+
+                    foreach (Sam3_ST_Get_ElementoManual_Result item in listaElementosCTX)
+                    {
+                        listaElementos.Add(new ElementosPorClasificacion
+                        {
+                            NumeroControl = item.NumeroControl,
+                            EtiquetaJunta = item.EtiquetaJunta,
+                            TipoJunta = item.TipoJunta,
+                            NombreRequisicion = item.NombreRequisicion,
+                            Cuadrante = item.Cuadrante,
+                            Prioridad = item.Prioridad.GetValueOrDefault(),
+                            Clasificacion = item.Clasificacion,
+                            DiametroPlano = item.DiametroPlano.GetValueOrDefault(),
+                            Espesor = item.Espesor,
+                            Cedula = item.Cedula,
+
+                            ElementoPorClasificacionPNDID = item.ElementoPorClasificacionPNDID,
+                            Agregar = item.RequisicionID > 0 ? true : false,
+                            RequisicionID = item.RequisicionID,
+                            ProyectoID = item.ProyectoID,
+                            SpoolID = item.SpoolID,
+                            JuntaSpoolID = item.JuntaSpoolID.GetValueOrDefault(),
+                            OrdenTrabajoSpoolID = item.OrdenTrabajoSpoolID,
+                            TipoPruebaID = item.TipoPruebaID.GetValueOrDefault(),
+                            Especificacion = item.Especificacion,
+                            Disposicion = item.Disposicion == 0 ? false : true,
+                            ClasificacionPNDID=item.ClasificacionPNDID,
+                            OrdenTrabajoID=item.OrdenTrabajoID
+
+                        });
+                    }
+                    return listaElementos;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+
         }
     }
 }

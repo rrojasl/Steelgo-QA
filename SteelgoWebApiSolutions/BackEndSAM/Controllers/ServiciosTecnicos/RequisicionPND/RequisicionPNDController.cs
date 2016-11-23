@@ -128,5 +128,32 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.RequisicionPND
                 return oType;
             }
         }
+
+        [HttpGet]
+        public object ObtieneSpools(string token, string IdOrdenTrabajo, int OrdenTrabajoSpoolID, int TipoPruebaID, int ProyectoID)
+        {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+
+                return RequisicionPNDDB.Instance.ObtieneSpools(usuario.UsuarioID, IdOrdenTrabajo, OrdenTrabajoSpoolID, TipoPruebaID, ProyectoID);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
+
+
+
     }
 }

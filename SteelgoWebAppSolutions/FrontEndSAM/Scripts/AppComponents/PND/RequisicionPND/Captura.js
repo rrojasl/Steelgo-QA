@@ -188,21 +188,20 @@ function ExisteJunta() {
     var jsonGrid = $("#grid").data("kendoGrid").dataSource._data;
 
     for (var i = 0; i < jsonGrid.length; i++) {
-        if (jsonGrid[i].JuntaTrabajoID == $("#Junta").data("kendoComboBox").value()) {
-            $("#grid").data("kendoGrid").dataSource.sync();
-            return false;
+        if ( jsonGrid[i].OrdenTrabajoSpoolID ==  $("#InputID").data("kendoComboBox").value()) {
+          
+            return true;
         }
     }
-    return true;
+    return false;
 }
 
 function AgregarJuntaNueva() {
-    if (ExisteJunta()) {
-        loadingStart();
-        AjaxObtenerJunta();
+    if (!ExisteJunta()) {
+        AjaxObtenerSpool();
     }
     else
-        displayNotify("GenerarRequisicionMensajeJuntaAgregada", "", '1');
+        displayNotify("GenerarRequisicionMensajeExisteSpool", "", '1');
 }
 
 function ValidaFormatoFecha(FechaValidar, Idioma) {

@@ -45,13 +45,13 @@ namespace BackEndSAM.Models.ServiciosTecnicos.EditarRequisicion
             public decimal Diametro { get; set; }
             public decimal Espesor { get; set; }
             public string Cedula { get; set; }
-            public int ElementoPorClasificacionPNDID { get; set; }
+            public int? ElementoPorClasificacionPNDID { get; set; }
             public bool Agregar { get; set; }
             public int RequisicionID { get; set; }
-            public int ProyectoID { get; set; }
+            public int? ProyectoID { get; set; }
             public int SpoolID { get; set; }
             public int JuntaSpoolID { get; set; }
-            public int OrdenTrabajoSpoolID { get; set; }
+            public int? OrdenTrabajoSpoolID { get; set; }
             public int TipoPruebaID { get; set; }
             public string Especificacion { get; set; }
             public int EstatusCaptura { get; set; }
