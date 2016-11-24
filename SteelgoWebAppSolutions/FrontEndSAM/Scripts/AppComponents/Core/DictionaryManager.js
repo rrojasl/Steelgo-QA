@@ -10587,8 +10587,8 @@ _dictionary = {
         "en-US": "Select Quadrant"
     },
     "EmbarqueCargaTituloPopupCuadrante": {
-        "es-MX": "Selecciona un nuevo Cuadrante",
-        "en-US": "Select new Quadrant"
+        "es-MX": "Descarga",
+        "en-US": "Discharge"
     },
     "EmbarqueCargaTituloPopupPaquete": {
         "es-MX": "Selecciona un nuevo Paquete",
@@ -10684,8 +10684,29 @@ _dictionary = {
         "es-MX": "La plana esta cerrada, debe abrirlar para poder modificarla",
         "en-US": "The plate is cloed, should be open to modify"
     },
-    
+    "EmbarqueCargaMsjDescargaSpool": {
+        "es-MX": "El spool será descargado de la plana. Seleccione zona y cuadrante de descarga",
+        "en-US": "Spool will discharge plane. Select zone and quadrant discharge"
 
+    },
+    "EmbarqueCargaMsjDescargaSpoolExito": {
+        "es-MX": "El spool ha sido descargado correctamente",
+        "en-US": "Spool has been successfully downloaded"
+
+    },
+    "EmbarqueCargaMsjDescargaSpoolError": {
+        "es-MX": "El spool no ha sido descargado",
+        "en-US": "Spool has not been downloaded"
+
+    },
+    "EmbarqueCargaMsjErrorZona": {
+        "es-MX": "Por Favor selecciona la zona",
+        "en-US": "Please select a zone"
+    },
+    "EmbarqueCargaMsjErrorCuadrante": {
+        "es-MX": "Por Favor selecciona el cuadrante",
+        "en-US": "Please select a quadrant"
+    },
     //Finaliza pantalla carga plana
     //Inicia pantalla empaquetado
     "EmbarqueEmpaquetadoTotalPiezas": {
@@ -10696,17 +10717,17 @@ _dictionary = {
         "es-MX": "Toneladas Cargadas:",
         "en-US": "Tons Loaded:"
     },
-    "EmarqueEmpaquetadoOpcionSpool": {
+    "EmbarqueEmpaquetadoOpcionSpool": {
         "es-MX": "Spool",
         "en-US": "Spool"
     },
-    "EmarqueEmpaquetadoOpcionCodigo": {
+    "EmbarqueEmpaquetadoOpcionCodigo": {
         "es-MX": "Código",
         "en-US": "Code"
     },
     
 
     
-    //Finaliza pantalla empaquetado
+    //Finaliza Pantalla empaquetado
     //Finaliza Modulo Embarque 
 };

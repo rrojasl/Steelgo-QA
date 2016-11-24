@@ -297,8 +297,27 @@ function AjaxCargarCuadrante(zonaID) {
 }
 
 
-function AjaxDescargarSpool() {
-
+function AjaxDescargarSpool(dataItem) {
+    loadingStart();
+    var dataSource = $("#grid").data("kendoGrid").dataSource;
+    var cuadranteID = $("#inputCuadrantePopup").data("kendoComboBox").value();
+    $CargaPlana.CargaPlana.read({
+        token: Cookies.get("token"), DetalleCargaID: dataItem.DetalleCargaID, SpoolID: dataItem.SpoolID,
+        CuadranteID: cuadranteID, CuadranteAnterior: dataItem.CuadranteID
+    }).done(function (data) {
+        if (Error(data)) {
+            if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "OK") {
+                dataSource.remove(dataItem);
+                dataSource.sync();
+                displayNotify("EmbarqueCargaMsjDescargaSpoolExito", "", "0");
+            } else {
+                displayNotify("EmbarqueCargaMsjDescargaSpoolError", "", "2");
+            }
+        } else {
+            displayNotify("EmbarqueCargaMsjDescargaSpoolError", "", "2");
+        }
+        loadingStop();
+    });
 }
 
 function GuardarNuevoProveedor() {
