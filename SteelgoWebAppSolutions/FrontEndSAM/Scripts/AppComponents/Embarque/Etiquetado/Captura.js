@@ -98,11 +98,11 @@ function CargarGrid() {
                 if ($('#botonGuardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
                     if (e.target.checked) {
                         $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Etiquetado = true;
-                        $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Accion = 1;
+                        //$("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Accion = 1;
                     }
                     else {
                         $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Etiquetado = false;
-                        $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Accion = $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Accion == 2 ? 3 : $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Accion;
+                        //$("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Accion = $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Accion == 2 ? 3 : $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Accion;
                     }
 
                     $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).ModificadoPorUsuario = true;
@@ -159,15 +159,18 @@ function PlanchaCuadrante() {
                     data[i].Etiquetado = seleccionartodos;
             }
         }
-        displayNotify("", "Los spools: " + SpoolsNoPlanchados + "No han sido planchados", 1);
+        //displayNotify("", "Los spools: " + SpoolsNoPlanchados + "No han sido planchados", 1);
     }
     else {
-        if (data[i].Cuadrante === "" || data[i].Cuadrante === null || data[i].Cuadrante === undefined) {
+        //if (data[i].Cuadrante === "" || data[i].Cuadrante === null || data[i].Cuadrante === undefined) {
+        //    data[i].CuadranteID = $("#inputCuadrantePlanchado").val();
+        //    data[i].Cuadrante = $("#inputCuadrantePlanchado").data("kendoComboBox").text();
+        //    if (!seleccionarNinguno) data[i].Etiquetado = seleccionartodos;
+        //}
+        for (var i = 0; i < data.length; i++) {
             data[i].CuadranteID = $("#inputCuadrantePlanchado").val();
             data[i].Cuadrante = $("#inputCuadrantePlanchado").data("kendoComboBox").text();
-            if (!seleccionarNinguno) data[i].Etiquetado = seleccionartodos;
         }
-
     }
     $("#grid").data("kendoGrid").dataSource.sync();
 }

@@ -83,6 +83,7 @@ function AjaxGetListaCuadrantes(zonaID) {
 
 function AjaxGetDetalleEtiquetado(tipoConsulta, todos, zonaID, cuadranteID, spoolIDContiene) {
     $Etiquetado.Etiquetado.read({ token: Cookies.get("token"), TipoConsulta: tipoConsulta, Todos: todos, ZonaID: zonaID, CuadranteID: cuadranteID, SpoolContiene: spoolIDContiene }).done(function (data) {
+        modificadoPorUsuario = false;
         $("#grid").data("kendoGrid").dataSource.data([]);
 
         var ds = $("#grid").data("kendoGrid").dataSource;
