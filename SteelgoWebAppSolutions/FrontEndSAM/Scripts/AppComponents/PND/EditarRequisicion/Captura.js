@@ -182,7 +182,17 @@ function cargarGrid() {
                         dataItem.Agregar = false;
                 }
                 else
-                    $("#grid").data("kendoGrid").closeCell();
+                {
+                    if (e.target.checked) {
+                        e.target.checked = false;
+                        $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Agregar = false;
+                    }
+                    else {
+                        e.target.checked = true;
+                        $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Agregar = true;
+                    }
+                }
+                $("#grid").data("kendoGrid").dataSource.sync();
             });
         }
     });
@@ -203,7 +213,17 @@ function cargarGrid() {
                     dataItem.EstatusCaptura = 1;
                 }
             }
+        } else {
+            if (e.target.checked) {
+                e.target.checked = false;
+                $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Agregar = false;
+            }
+            else {
+                e.target.checked = true;
+                $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Agregar = true;
+            }
         }
+        $("#grid").data("kendoGrid").dataSource.sync();
     });
 
     CustomisaGrid($("#grid"));

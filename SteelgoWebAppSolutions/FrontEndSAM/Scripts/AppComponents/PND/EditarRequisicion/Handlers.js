@@ -509,7 +509,6 @@ function opcionHabilitarView(valor, name) {
         $("#inputRequisicion").data("kendoComboBox").enable(false);
         $("input[name='Muestra']").attr('disabled', true);
 
-
         $("#InputID").data("kendoComboBox").enable(false);
         $("#Junta").data("kendoComboBox").enable(false);
 
