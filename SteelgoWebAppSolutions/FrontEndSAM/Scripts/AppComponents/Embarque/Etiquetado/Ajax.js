@@ -137,11 +137,12 @@ function AjaxGuardarCaptura(rows, tipoGuardar) {
     var index = 0;
     for (var i = 0; i < rows.length; i++) {
         if (rows[i].ModificadoPorUsuario && (rows[i].Accion == 1 || rows[i].Accion == 2 || rows[i].Accion == 3)) {
-            ListaDetalles[index] = { Accion: "", SpoolID: "", Etiquetado: "", EtiquetadoID: "" };
+            ListaDetalles[index] = { Accion: "", SpoolID: "", Etiquetado: "", EtiquetadoID: "", CuadranteID: "" };
             ListaDetalles[index].Accion = rows[i].Accion;
             ListaDetalles[index].SpoolID = rows[i].SpoolID;
             ListaDetalles[index].Etiquetado = rows[i].Etiquetado;
             ListaDetalles[index].EtiquetadoID = rows[i].EtiquetadoID;
+            ListaDetalles[index].CuadranteID = rows[i].CuadranteID;
             index++;
         }
     };
