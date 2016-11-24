@@ -15,11 +15,13 @@ namespace BackEndSAM.Models.Embarque.EmbarqueGeneral
         {
             PlanaID = 0;
             Nombre = "";
+            CargaPlanaID = 0;
             StatusCarga = false;
             ProyectoID = 0;
         }
         public int PlanaID { get; set; }
         public string Nombre { get; set; }
+        public int CargaPlanaID { get; set; }
         public bool StatusCarga { get; set; }
         public int ProyectoID { get; set; }
     }

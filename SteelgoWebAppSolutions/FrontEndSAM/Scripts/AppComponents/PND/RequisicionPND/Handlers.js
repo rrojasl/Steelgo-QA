@@ -10,6 +10,7 @@ function SuscribirEventos() {
     suscribirEventoCancelar();
     suscribirEventoTipoPrueba();
     suscribirEventoProyecto();
+    suscribirOrdenTrabajo();
     SuscribirEventoSpoolID();
     SuscribirEventosJunta();
     SuscribirEventoOcultarDivJunta();
@@ -567,6 +568,27 @@ function suscribirEventoRequisiciones() {
     });
 }
 
+function suscribirOrdenTrabajo() {
+    $("#InputOrdenTrabajo").blur(function (e) {
+        if ($("#InputOrdenTrabajo").val().match("^[a-zA-Z][0-9]*$")) {
+            try {
+                AjaxObtenerSpoolID();
+            } catch (e) {
+                displayNotify("Mensajes_error", e.message, '2');
+            }
+        } else {
+            displayNotify("CapturaSoldaduraMensajeOrdenTrabajo", "", '1');
+        }
+    });
+
+    $("#InputOrdenTrabajo").focus(function (e) {
+        $("#InputOrdenTrabajo").val("");
+        $("#InputID").data("kendoComboBox").select(0);
+        $("#Junta").data("kendoComboBox").setDataSource();
+        $("#InputID").data("kendoComboBox").setDataSource();
+    });
+
+};
 function SuscribirEventoSpoolID() {
     var dataItem;
     $("#InputID").kendoComboBox({
@@ -600,30 +622,13 @@ function SuscribirEventoSpoolID() {
                 if ($("#InputID").val() != '' && $("#InputOrdenTrabajo").val() != '') {
                     Cookies.set("Proyecto", dataItem.ProyectoID + '°' + dataItem.Proyecto);
                     $("#LabelProyecto").text(dataItem.Proyecto);
-                    //AjaxJunta($("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()).Valor);
+                    AjaxJunta($("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()).Valor);
                 }
             }
         }
     });
 
-    $("#InputOrdenTrabajo").blur(function (e) {
-        //if ($("#InputOrdenTrabajo").val().match("^[a-zA-Z][0-9]*$")) {
-        //    try {
-        //        AjaxObtenerSpoolID();
-        //    } catch (e) {
-        //        displayNotify("Mensajes_error", e.message, '2');
-        //    }
-        //} else {
-        //    displayNotify("CapturaSoldaduraMensajeOrdenTrabajo", "", '1');
-        //}
-    });
-
-    $("#InputOrdenTrabajo").focus(function (e) {
-        $("#InputOrdenTrabajo").val("");
-        $("#InputID").data("kendoComboBox").select(0);
-        $("#Junta").data("kendoComboBox").setDataSource();
-        $("#InputID").data("kendoComboBox").setDataSource();
-    });
+    
 
     $('#InputID').closest('.k-widget').keydown(function (e) {
         if (e.keyCode == 37) {
@@ -634,12 +639,12 @@ function SuscribirEventoSpoolID() {
         }
         else if (e.keyCode == 40 && $("#InputID").data("kendoComboBox").select() != -1) {
             $("#InputID").data("kendoComboBox").select();
-            //AjaxJunta($("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()).Valor);
+            AjaxJunta($("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()).Valor);
         }
         else if (e.keyCode == 13) {
             if ($("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select(0)) != undefined) {
                 if ($("#InputID").data("kendoComboBox").select() != -1) {
-                    //AjaxJunta($("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()).Valor);
+                    AjaxJunta($("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()).Valor);
                 }
             }
             else
@@ -648,14 +653,14 @@ function SuscribirEventoSpoolID() {
         else if (e.keyCode == 9) {
             if (tieneClase(e.currentTarget)) {
                 $("#InputID").data("kendoComboBox").select(0);
-                //AjaxJunta($("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()).Valor);
+                AjaxJunta($("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()).Valor);
             }
             dataItem = $("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select());
             if (dataItem != undefined) {
                 if ($("#InputID").val() != '' && $("#InputOrdenTrabajo").val() != '') {
                     Cookies.set("Proyecto", dataItem.ProyectoID + '°' + dataItem.Proyecto);
                     $("#LabelProyecto").text(dataItem.Proyecto);
-                    //AjaxJunta($("#InputID").val());
+                    AjaxJunta($("#InputID").val());
                 }
             }
         }

@@ -146,9 +146,20 @@ function CargarGrid() {
                     else
                         dataItem.Agregar = false;
                 }
-                else
+                else {
+                    if (e.target.checked) {
+                        e.target.checked = false;   
+                        $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Agregar = false;
+                    }
+                    else {
+                        e.target.checked = true;
+                        $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Agregar = true;
+                    }
+                        
+                }
+
                     $("#grid").data("kendoGrid").closeCell();
-                //$("#grid").data("kendoGrid").dataSource.sync();
+                $("#grid").data("kendoGrid").dataSource.sync();
             });
         }
     });
@@ -184,25 +195,44 @@ function AltaFecha() {
     $("#Fecha").data("kendoDatePicker").enable(false);
 }
 
+function ExisteSpool() {
+    var jsonGrid = $("#grid").data("kendoGrid").dataSource._data;
+
+    for (var i = 0; i < jsonGrid.length; i++) {
+        if ( jsonGrid[i].OrdenTrabajoSpoolID ==  $("#InputID").data("kendoComboBox").value()) {
+          
+            return true;
+        }
+    }
+    return false;
+}
+
 function ExisteJunta() {
     var jsonGrid = $("#grid").data("kendoGrid").dataSource._data;
 
     for (var i = 0; i < jsonGrid.length; i++) {
-        if (jsonGrid[i].JuntaTrabajoID == $("#Junta").data("kendoComboBox").value()) {
-            $("#grid").data("kendoGrid").dataSource.sync();
-            return false;
+        if (jsonGrid[i].OrdenTrabajoSpoolID == $("#InputID").data("kendoComboBox").value() && jsonGrid[i].JuntaSpoolID == $("#Junta").data("kendoComboBox").value()) {
+            return true;
         }
     }
-    return true;
+    return false;
 }
 
 function AgregarJuntaNueva() {
-    if (ExisteJunta()) {
-        loadingStart();
-        AjaxObtenerJunta();
+    if ($("#tipoPrueba").data("kendoComboBox").dataItem($("#tipoPrueba").data("kendoComboBox").select()).TipoPruebaPorSpool == 1) {
+        if (!ExisteSpool()) {
+            AjaxObtenerSpool();
+        }
+        else
+            displayNotify("GenerarRequisicionMensajeExisteSpool", "", '1');
     }
-    else
-        displayNotify("GenerarRequisicionMensajeJuntaAgregada", "", '1');
+    else {
+        if (!ExisteJunta()) {
+            AjaxObtenerJunta();
+        }
+        else
+            displayNotify("GenerarRequisicionMensajeExisteJunta", "", '1');
+    }
 }
 
 function ValidaFormatoFecha(FechaValidar, Idioma) {

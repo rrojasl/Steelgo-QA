@@ -470,25 +470,37 @@ function AjaxCargarElementosTurnoAsignados(requisicionID, capacidadTurnoEquipoID
                 if (dataItem.RequiereEquipo) {
                     if (data.length > 0) {
                         for (var i = 0; i < ds.length; i++) {
-                            if (ds[i].CapacidadTurnoEquipoID == data[0].CapacidadTurnoEquipoID) {
-                                if (ds[i].CapacidadTurnoEquipoOriginalID != data[0].CapacidadTurnoEquipoID) {
-                                    for (var k = 0; k < dataItem.ListaElementosRequisicion.length; k++) {
-                                        data.push(dataItem.ListaElementosRequisicion[k]);
+                            if (data.length > 0) {
+                                if (ds[i].CapacidadTurnoEquipoID == data[0].CapacidadTurnoEquipoID) {
+                                    if (ds[i].CapacidadTurnoEquipoOriginalID != data[0].CapacidadTurnoEquipoID) {
+                                        for (var k = 0; k < dataItem.ListaElementosRequisicion.length; k++) {
+                                            data.push(dataItem.ListaElementosRequisicion[k]);
+                                        }
                                     }
-                                }
 
-                            }
-                            else {
-                                if (ds[i].CapacidadTurnoEquipoOriginalID == data[0].CapacidadTurnoEquipoID) {
-                                    for (var j = data.length - 1; j >= 0; j--) {
-                                        for (var k = 0; k < ds[i].ListaElementosRequisicion.length; k++) {
-                                            if (ds[i].ListaElementosRequisicion[k].SpoolID == data[j].SpoolID && ds[i].ListaElementosRequisicion[k].EtiquetaJunta == data[j].EtiquetaJunta) {
-                                                data.splice(j, 1);
-                                                break;
+                                }
+                                else {
+                                    if (ds[i].CapacidadTurnoEquipoOriginalID == data[0].CapacidadTurnoEquipoID) {
+                                        for (var j = data.length - 1; j >= 0; j--) {
+                                            for (var k = 0; k < ds[i].ListaElementosRequisicion.length; k++) {
+                                                if (ds[i].ListaElementosRequisicion[k].SpoolID == data[j].SpoolID && ds[i].ListaElementosRequisicion[k].EtiquetaJunta == data[j].EtiquetaJunta) {
+                                                    data.splice(j, 1);
+                                                    break;
+                                                }
                                             }
                                         }
                                     }
                                 }
+                            }
+                            else {
+                                for (var i = 0; i < ds.length; i++) {
+                                    if (ds[i].CapacidadTurnoEquipoID == dataItem.CapacidadTurnoEquipoID) {
+                                        for (var k = 0; k < ds[i].ListaElementosRequisicion.length; k++) {
+                                            data.push(ds[i].ListaElementosRequisicion[k]);
+                                        }
+                                    }
+                                }
+                                break;
                             }
                         }
                     }

@@ -4,6 +4,20 @@
 }
 
 _dictionary = {
+    //Modulo Servicios Tecnicos
+    //Pantalla Generar Req.
+
+    "GenerarRequisicionMensajeExisteSpool": {
+        "es-MX": "El spool ya existe en la captura",
+        "en-US": "Spool exists in capture "
+    },
+    "GenerarRequisicionMensajeExisteJunta": {
+        "es-MX": "La junta ya existe en la captura",
+        "en-US": "Joint exists in capture "
+    },
+
+    
+    //Fin Pantalla Generar Req
     "MensajeConfirmacionGuardadoGeneral": {
         "es-MX": "Los registros marcados no serán guardados. ¿Desea continuar?",
         "en-US": "Marked records will not be saved. Continue anyway?"

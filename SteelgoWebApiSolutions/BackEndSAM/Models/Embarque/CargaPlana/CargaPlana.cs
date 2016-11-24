@@ -28,7 +28,7 @@ namespace BackEndSAM.Models.Embarque.CargaPlana
     {
         public int Accion { get; set; }
         public int DetalleCargaID { get; set; }
-        public int OrdenTrabajoID { get; set; }
         public int SpoolID { get; set; }
+        public int OrdenTrabajoID { get; set; }
     }
 }
