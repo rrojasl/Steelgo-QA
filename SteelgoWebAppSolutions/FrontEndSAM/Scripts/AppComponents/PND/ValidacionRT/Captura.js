@@ -5,6 +5,7 @@ function changeLanguageCall() {
     CargarGridPopUpDetallePorPlaca();
     CargarGridPopUpDetallePorPlacaPorDefectos();
     inicio();
+    document.title = _dictionary.ServiciosTecnicosAsignarValidacionBreadcrumb[$("#language").data("kendoDropDownList").value()];
 };
 
 function inicio() {
@@ -55,6 +56,30 @@ function validarReglasDeLlenado() {
 
 function CargarGrid() {
     
+    kendo.ui.Grid.fn.editCell = (function (editCell) {
+        return function (cell) {
+            cell = $(cell);
+
+            var that = this,
+                column = that.columns[that.cellIndex(cell)],
+                model = that._modelForContainer(cell),
+                event = {
+                    container: cell,
+                    model: model,
+                    preventDefault: function () {
+                        this.isDefaultPrevented = true;
+                    }
+                };
+
+            if (model && typeof this.options.beforeEdit === "function") {
+                this.options.beforeEdit.call(this, event);
+                if (event.isDefaultPrevented) return;
+            }
+
+            editCell.call(this, cell);
+        };
+    })(kendo.ui.Grid.fn.editCell);
+
     $("#grid").kendoGrid({
         dataSource: {
             data: [],
@@ -115,12 +140,40 @@ function CargarGrid() {
             { field: "RazonNoConciliacion", title: _dictionary.CapturaReporteGridColumnRusult2[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: comboBoxRazonNoConciliacion, width: "170px" },
             { field: "Comentarios", title: _dictionary.columnComentario[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "170px" },
         ],
+        beforeEdit: function (e) {
+            var columnIndex = this.cellIndex(e.container);
+            var fieldName = this.thead.find("th").eq(columnIndex).data("field");
+            if (!isEditable(fieldName, e.model)) {
+                e.preventDefault();
+            }
+        },
 
         editable: true,
         navigatable: true
     });
     CustomisaGrid($("#grid"));
 };
+
+function isEditable(fieldName, model) {
+   
+
+    if (fieldName === "NumeroPlacas") {
+        if (model.ResultadoConciliacionID < 1) {
+            return false;
+        }
+    }
+    else if (fieldName === "Tamano") {
+        if (model.ResultadoConciliacionID < 1) {
+            return false;
+        }
+    }
+    else if (fieldName === "Densidad") {
+        if (model.ResultadoConciliacionID < 1) {
+            return false;
+        }
+    }
+    return true; // default to editable
+}
 
 function CargarGridPopUpDetallePorPlaca() {
 

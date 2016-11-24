@@ -736,6 +736,7 @@ function opcionHabilitarView(valor, name) {
         $('#botonGuardar').text("Editar");
         $('#botonGuardar4').text("Editar");
         $('#botonGuardar3').text("Editar");
+
     }
     else {
         $('#FieldSetView').find('*').attr('disabled', false);

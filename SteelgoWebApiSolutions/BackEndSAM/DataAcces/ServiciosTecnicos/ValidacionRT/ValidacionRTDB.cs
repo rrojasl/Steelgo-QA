@@ -509,7 +509,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ValidacionRT
 
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_ReportesRT_Get_Resultados_Detalle_Result> result = ctx.Sam3_ReportesRT_Get_Resultados_Detalle(ordenTrabajoID, spoolID, juntaSpoolID, lenguaje).ToList();
+                    List<Sam3_ReportesRT_Get_Resultados_Detalle_Result> result = ctx.Sam3_ReportesRT_Get_Resultados_Detalle(resultadosDefectoID, ordenTrabajoID, spoolID, juntaSpoolID, lenguaje).ToList();
                     DetalleResultadosDefectos detalleDefecto = null;
 
                     int posicion = 0;
