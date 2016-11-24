@@ -18,11 +18,15 @@ namespace BackEndSAM.Models.Embarque.EmbarqueGeneral
             CargaPlanaID = 0;
             StatusCarga = false;
             ProyectoID = 0;
+            CuadrantePlanaSam2 = 0;
+            CuadrantePlanaSam3 = 0;
         }
         public int PlanaID { get; set; }
         public string Nombre { get; set; }
         public int CargaPlanaID { get; set; }
         public bool StatusCarga { get; set; }
         public int ProyectoID { get; set; }
+        public int CuadrantePlanaSam3 { get; set; }
+        public int CuadrantePlanaSam2 { get; set; }
     }
 }
