@@ -35,6 +35,9 @@ namespace BackEndSAM.Models.Embarque.Etiquetado
         public int EtiquetadoID { get; set; }
         public int SpoolID { get; set; }
         public bool Etiquetado { get; set; }
+        public int CuadranteID { get; set; }
+        
+
     }
 
     public class CapturaEtiquetado
