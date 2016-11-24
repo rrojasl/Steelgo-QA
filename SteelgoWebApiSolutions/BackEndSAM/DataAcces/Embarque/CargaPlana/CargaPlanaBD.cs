@@ -50,6 +50,7 @@ namespace BackEndSAM.DataAcces.Embarque.CargaPlana
                             PaqueteID = item.PaqueteID,
                             Paquete = item.NombrePaquete,
                             Peso = item.Peso.GetValueOrDefault(),
+                            CuadranteID = item.CuadranteID.GetValueOrDefault(),
                             CuadranteAnteriorID = item.CuadranteAnteriorID.GetValueOrDefault(),
                             ModificadoPorUsuario = false
                         });
@@ -82,14 +83,15 @@ namespace BackEndSAM.DataAcces.Embarque.CargaPlana
                         listaDetalle.Add(new DetalleCargaPlana
                         {
                             Accion = 1,
-                            DetalleCargaID = item.DetalleCargaID,
+                            DetalleCargaID = item.DetalleCargaID.GetValueOrDefault(),
                             SpoolID = item.SpoolID,
                             OrdenTrabajoID = item.OrdenTrabajoID,
                             Spool = item.NumeroControl,
                             PaqueteID = item.PaqueteID,
                             Paquete = item.NombrePaquete,
                             Peso = item.Peso.GetValueOrDefault(),
-                            CuadranteAnteriorID = item.CuadranteAnteriorID,
+                            CuadranteID = item.CuadranteID.GetValueOrDefault(),
+                            CuadranteAnteriorID = item.CuadranteAnteriorID.GetValueOrDefault(),
                             ModificadoPorUsuario = false
                         });
                     }
@@ -108,13 +110,13 @@ namespace BackEndSAM.DataAcces.Embarque.CargaPlana
             }
         }
 
-        public object GuardaCapturaCargaPlana(DataTable dtDetalle, int UsuarioID, int CargaPlanaID, int PlanaID, int CerrarPlana)
+        public object GuardaCapturaCargaPlana(DataTable dtDetalle, int UsuarioID, int CargaPlanaID, int PlanaID, int CerrarPlana, int CuadrantePlanaSam2ID, int CuadrantePlanaSam3ID)
         {
             try
             {
                 ObjetosSQL _SQL = new ObjetosSQL();
                 string[,] parametros = { { "@UsuarioID", UsuarioID.ToString() }, { "@PlanaID", PlanaID.ToString() }, { "@CargaPlanaID", CargaPlanaID.ToString() },
-                        { "@CerrarPlana", CerrarPlana.ToString() } };
+                        { "@CerrarPlana", CerrarPlana.ToString() }, { "@CuadrantePlanaSam2ID", CuadrantePlanaSam2ID.ToString() }, { "@CuadrantePlanaSam3ID", CuadrantePlanaSam3ID.ToString() } };
 
                 _SQL.Ejecuta(Stords.GUARDARCAPTURACARGAPLANA, dtDetalle, "@DetalleCarga", parametros);
 

@@ -82,16 +82,11 @@
         </div>
         <div class="col-xs-12 col-sm-4 col-md-2 col-lg-2 altoControl">
             <label id="EmbarqueCargaToneladasCargadas">Toneladas cargadas</label>
-            <label id="lblEmbarqueCargaToneladasCargadas"></label>
-            
+            <label id="lblEmbarqueCargaToneladasCargadas"></label>            
         </div>
-
-
-
         @*<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 altoControl">
                 <hr />
-            </div>*@
-
+        </div>*@
         <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
             <div class="btn-group " role="group">
                 <label id="EmbarqueCargaSelecciona"></label>
@@ -120,8 +115,7 @@
         </div>
         <div class="col-xs-12 col-sm-3 col-md-3 col-lg-1">
             <label id="">&nbsp;</label>
-            <button type="button" id="btnAgregar" class="btn btn-blue"><span id="EmbarqueCargaAgregar">Agregar</span></button>
-
+            <button type="button" id="btnAgregar" class="btn btn-blue"><span id="EmbarqueCargaAgregar"></span></button>
         </div>
     </div>
     @*GRID*@
@@ -183,45 +177,35 @@
                 </a>
             </div>
         </div>
-
     </div>
-
-
-
+    @*Descarga de Spool*@
     <div id="ventanaPopup" style="display: none; z-index:inherit;">
-        <div class="form-group row">
-            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>
-            <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
-                <input id="inputZonaPopup" placeholder="Zona" />
+        <div class="container-fluid">
+            <div class="form-group">
+                <span id="EmbarqueCargaMsjDescargaSpool"></span>
             </div>
-            <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
-                <input id="inputCuadrantePopup" placeholder="Cuadrante" />
+            <div class="form-group row">
+                <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>
+                <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                    <input id="inputZonaPopup" placeholder="Zona" />
+                </div>
+                <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                    <input id="inputCuadrantePopup" placeholder="Cuadrante" />
+                </div>
+                <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>
             </div>
-            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>
-        </div>
-        <div class="row">
-            <center>
-                <a class="btn btn-primary confirm_yes" href="#/" id="btnDescargar">
-                    <span id="PinturaCargaDescargar"></span>
-                </a>
-                <a class="btn btn-primary confirm_yes" href="#/" id="btnCerrarPopup">
-                    <span id="PinturaCargaCerrarPopup"></span>
-                </a>
-            </center>
+            <div class="row">
+                <center>
+                    <a class="btn btn-primary confirm_yes" href="#/" id="btnDescargar">
+                        <span id="PinturaCargaDescargar"></span>
+                    </a>
+                    <a class="btn btn-primary confirm_yes" href="#/" id="btnCerrarPopup">
+                        <span id="PinturaCargaCerrarPopup"></span>
+                    </a>
+                </center>
+            </div>
         </div>
     </div>
-
-    @*<div id="ventanaPaquetePopup" style="display: none; z-index:inherit;">
-            <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
-                <label id="EmbarqueCargaPopupPaquete"></label>
-                <input id="inputPopupPaquete" />
-            </div>
-            <br /><br /><br /><br />
-            <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
-                <button id="btnActualizarPaquetePopUp" type="button" class="btn btn-blue"><span id="EmbarqueCargaActualizarPaquetePopup"></span></button>
-                <button id="btnCancelarPaquetePopUp" type="button" class="btn btn-black"><span id="EmbarqueCargaCancelarPaquetePopup"></span></button>
-            </div>
-        </div>*@
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="formNav clearfix">

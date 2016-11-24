@@ -72,7 +72,7 @@ namespace BackEndSAM.Controllers.Embarque.CargaPlana
         }
 
         [HttpPost]
-        public object GuardaCapturaCargaPlana(Captura captura, string token, int CargaPlanaID, int PlanaID, int CerrarPlana)
+        public object GuardaCapturaCargaPlana(Captura captura, string token, int CargaPlanaID, int PlanaID, int CerrarPlana, int CuadrantePlanaSam2, int CuadrantePlanaSam3)
         {
             string payload = "";
             string newToken = "";
@@ -84,7 +84,7 @@ namespace BackEndSAM.Controllers.Embarque.CargaPlana
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
                 DataTable dtDetalle = Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(captura.listaDetalle);
 
-                return CargaPlanaBD.Instance.GuardaCapturaCargaPlana(dtDetalle, usuario.UsuarioID, CargaPlanaID, PlanaID, CerrarPlana);
+                return CargaPlanaBD.Instance.GuardaCapturaCargaPlana(dtDetalle, usuario.UsuarioID, CargaPlanaID, PlanaID, CerrarPlana, CuadrantePlanaSam2, CuadrantePlanaSam3);
             }
             else
             {
