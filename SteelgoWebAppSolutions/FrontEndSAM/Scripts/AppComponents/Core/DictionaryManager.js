@@ -7622,6 +7622,11 @@ _dictionary = {
         "es-MX": "Empaquetado",
         "en-US": "Packaging"
     },
+    "lblPlaca": {
+        "es-MX": "Placa",
+        "en-US": "Plate"
+    },
+
     //Finaliza Etiquetas
     //Etiquetas header alertas
     "SuccessTitle": {

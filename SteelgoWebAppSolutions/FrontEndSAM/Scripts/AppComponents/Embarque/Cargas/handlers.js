@@ -79,24 +79,26 @@ function SuscribirEventoGuardar() {
 
     $('.accionGuardar').click(function (e) {
         var ds = $("#grid").data("kendoGrid").dataSource;
-        if ($("#inputProveedor").data("kendoComboBox").dataItem($("#inputProveedor").data("kendoComboBox").select()) != undefined) {
-            if ($("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").dataItem($("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").select()) != undefined) {
-                if (ds._data.length > 0) {
-                    if ($('#Guardar').text() == "Guardar" || $('#Guardar').text() == "Save") {
-                        opcionHabilitarView(true, "FieldSetView");
+        if ($('#Guardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
+            if ($("#inputProveedor").data("kendoComboBox").dataItem($("#inputProveedor").data("kendoComboBox").select()) != undefined) {
+                if ($("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").dataItem($("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").select()) != undefined) {
+                    if (ds._data.length > 0) {
+
                         ajaxGuardar(ds._data, 0);
+
+
                     }
-                    else if ($('#Guardar').text() == "Editar" || $('#Guardar').text() == "Edit") {
-                        opcionHabilitarView(false, "FieldSetView");
-                    }
+                }
+                else {
+                    displayNotify("EmbarqueCargaMensajeErrorPlana", "", '2');
                 }
             }
             else {
-                displayNotify("EmbarqueCargaMensajeErrorPlana", "", '2');
+                displayNotify("EmbarqueCargaMensajeErrorProveedor", "", '2');
             }
         }
         else {
-            displayNotify("EmbarqueCargaMensajeErrorProveedor", "", '2');
+            opcionHabilitarView(false, "FieldSetView")
         }
     });
 
@@ -527,17 +529,17 @@ function SuscribirEventoPlacasPlana() {
 
         }
     });
-    $('#inputEmbarqueCargaPLacaPlana').closest('.k-widget').keydown(function (e) {
-        if (e.keyCode == 13) {
-            if ($("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").dataItem($("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").select()) != undefined) {
-                ajaxCargarSpoolXPlaca();
-            }
-            else {
-                $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").value("");
-            }
+    //$('#inputEmbarqueCargaPLacaPlana').closest('.k-widget').keydown(function (e) {
+    //    if (e.keyCode == 13) {
+    //        if ($("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").dataItem($("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").select()) != undefined) {
+    //            ajaxCargarSpoolXPlaca();
+    //        }
+    //        else {
+    //            $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").value("");
+    //        }
 
-        }
-    });
+    //    }
+    //});
 }
 
 function SuscribirEventoPaquete() {

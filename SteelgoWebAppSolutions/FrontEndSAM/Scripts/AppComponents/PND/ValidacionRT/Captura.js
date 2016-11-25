@@ -5,7 +5,7 @@ function changeLanguageCall() {
     CargarGridPopUpDetallePorPlaca();
     CargarGridPopUpDetallePorPlacaPorDefectos();
     inicio();
-    document.title = _dictionary.ServiciosTecnicosAsignarValidacionBreadcrumb[$("#language").data("kendoDropDownList").value()];
+    document.title = _dictionary.ServiciosTecnicosValidacionRTBreadcrumb[$("#language").data("kendoDropDownList").value()];
 };
 
 function inicio() {
