@@ -56,5 +56,6 @@
         public static string GUARDARCAPTURAETIQUETADO = "Sam3_Embarque_Guardar_Etiquetado";
         public static string GUARDARCAPTURAENCINTADO = "Sam3_Embarque_Guardar_Encintado";
         public static string GUARDARCAPTURACARGAPLANA = "Sam3_Embarque_Guarda_CargaPlana";
+        public static string GUARDARPAQUETE = "Sam3_Embarque_GuardarPaquete";
     }
 }
