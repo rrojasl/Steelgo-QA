@@ -119,7 +119,7 @@ function AjaxGenerarReporte(arregloJuntas) {
                                     '</div>' +
                                     '<div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">' +
                                         '<label id=""><span>' + "Fecha" + '</span></label>' +
-                                        '<input id="FechaReporte" class="form-control"/>' +
+                                        '<input id="FechaReporte" class="form-control" value="25/11/2015">  </input>' +
                                     '</div>' +
                                     '<div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">' +
                                         '<center><button class="btn btn-blue" id="YesButton"> Guardar</button>&nbsp;<button class="btn btn-blue" id="NoButton"> Cancelar</button></center>' +
@@ -129,6 +129,16 @@ function AjaxGenerarReporte(arregloJuntas) {
 
             ventanaConfirm.data("kendoWindow").title(modalTitle);
             ventanaConfirm.data("kendoWindow").center().open();
+
+            
+
+$("#FechaReporte").kendoDatePicker({
+    max: new Date(),
+    //format: _dictionary.FormatoFecha2[$("#language").data("kendoDropDownList").value()],
+    change: function (e) {
+        ValidarFecha(e.sender._value)
+    }
+});
 
              $("#YesButton").click(function (handler) {
                             Captura[0].NombreReporte = $("#NombreReporte").val();
