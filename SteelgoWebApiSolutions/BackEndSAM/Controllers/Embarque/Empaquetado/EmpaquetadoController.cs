@@ -39,31 +39,31 @@ namespace BackEndSAM.Controllers.Embarque.Empaquetado
             }
         }
 
-        //[HttpGet]
-        //public object ObtenerDetallePaquete(string token, int PaqueteID, int Todos)
-        //{
-        //    string payload = "";
-        //    string newToken = "";
+        [HttpGet]
+        public object ObtenerDetallePaquete(string token, int PaqueteID, int Todos)
+        {
+            string payload = "";
+            string newToken = "";
 
-        //    bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
-        //    if (tokenValido)
-        //    {
-        //        JavaScriptSerializer serializer = new JavaScriptSerializer();
-        //        Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-        //        return EmpaquetadoBD.Instance.ObtenerDetallePaquete(PaqueteID, Todos);
-        //    }
-        //    else
-        //    {
-        //        TransactionalInformation result = new TransactionalInformation();
-        //        result.ReturnMessage.Add(payload);
-        //        result.ReturnCode = 401;
-        //        result.ReturnStatus = false;
-        //        result.IsAuthenicated = false;
+                return EmpaquetadoBD.Instance.ObtenerDetalleCargaPaquete(PaqueteID, Todos);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
 
-        //        return result;
-        //    }
-        //}
+                return result;
+            }
+        }
 
         //[HttpGet]
         //public object ObtieneDetalleSpoolAgregar(string token, int EmpaquetadoID, int TipoConsulta, int OrdenTrabajoSpoolID)

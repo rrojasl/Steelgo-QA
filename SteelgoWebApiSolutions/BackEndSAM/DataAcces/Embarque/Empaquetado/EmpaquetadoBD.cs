@@ -105,12 +105,12 @@ namespace BackEndSAM.DataAcces.Embarque.Empaquetado
             }
         }
 
-        public object ObtieneDetalleSpoolAgregar(int CargaPlanaID, int TipoConsulta, int OrdenTrabajoSpoolID)
-        {
-            try
-            {
-                using (SamContext ctx = new SamContext())
-                {
+        //public object ObtieneDetalleSpoolAgregar(int CargaPlanaID, int TipoConsulta, int OrdenTrabajoSpoolID)
+        //{
+        //    try
+        //    {
+        //        using (SamContext ctx = new SamContext())
+        //        {
                     //List<Sam3_Embarque_Get_DetalleSpool_Result> result = ctx.Sam3_Embarque_Get_DetalleSpool(CargaPlanaID, TipoConsulta, OrdenTrabajoSpoolID).ToList();
                     //List<DetalleCargaPlana> listaDetalle = new List<DetalleCargaPlana>();
 
@@ -131,80 +131,80 @@ namespace BackEndSAM.DataAcces.Embarque.Empaquetado
                     //        ModificadoPorUsuario = false
                     //    });
                     //}
-                    return null;
-                }
-            }
-            catch (Exception ex)
-            {
-                TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add(ex.Message);
-                result.ReturnCode = 500;
-                result.ReturnStatus = false;
-                result.IsAuthenicated = true;
+        //            return null;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TransactionalInformation result = new TransactionalInformation();
+        //        result.ReturnMessage.Add(ex.Message);
+        //        result.ReturnCode = 500;
+        //        result.ReturnStatus = false;
+        //        result.IsAuthenicated = true;
 
-                return result;
-            }
-        }
+        //        return result;
+        //    }
+        //}
 
-        public object CerrarCargaPaquete(DataTable dtDetalle, int UsuarioID)
-        {
-            try
-            {
-                ObjetosSQL _SQL = new ObjetosSQL();
-                string[,] parametros = { { "@Usuario", UsuarioID.ToString() } };
+        //public object CerrarCargaPaquete(DataTable dtDetalle, int UsuarioID)
+        //{
+        //    try
+        //    {
+        //        ObjetosSQL _SQL = new ObjetosSQL();
+        //        string[,] parametros = { { "@Usuario", UsuarioID.ToString() } };
 
-                _SQL.EjecutaInsertUpdate("", dtDetalle, "@TablaCargaPlana", parametros);
+        //        _SQL.EjecutaInsertUpdate("", dtDetalle, "@TablaCargaPlana", parametros);
 
-                TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add("OK");
-                result.ReturnCode = 200;
-                result.ReturnStatus = true;
-                result.IsAuthenicated = true;
+        //        TransactionalInformation result = new TransactionalInformation();
+        //        result.ReturnMessage.Add("OK");
+        //        result.ReturnCode = 200;
+        //        result.ReturnStatus = true;
+        //        result.IsAuthenicated = true;
 
-                return result;
-            }
-            catch (Exception ex)
-            {
-                TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add(ex.Message);
-                result.ReturnCode = 500;
-                result.ReturnStatus = false;
-                result.IsAuthenicated = true;
+        //        return result;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TransactionalInformation result = new TransactionalInformation();
+        //        result.ReturnMessage.Add(ex.Message);
+        //        result.ReturnCode = 500;
+        //        result.ReturnStatus = false;
+        //        result.IsAuthenicated = true;
 
-                return result;
-            }
-        }
+        //        return result;
+        //    }
+        //}
 
-        public object DescargaSpoolPaquete(int DetalleCargaID, int SpoolID, int CuadranteID, int CuadranteAnterior, int UsuarioID)
-        {
-            try
-            {
-                using (SamContext ctx = new SamContext())
-                {
+        //public object DescargaSpoolPaquete(int DetalleCargaID, int SpoolID, int CuadranteID, int CuadranteAnterior, int UsuarioID)
+        //{
+        //    try
+        //    {
+        //        using (SamContext ctx = new SamContext())
+        //        {
 
-                    ctx.Sam3_Embarque_DescargaSpool(DetalleCargaID, SpoolID, CuadranteID, CuadranteAnterior, UsuarioID);
+        //            ctx.Sam3_Embarque_DescargaSpool(DetalleCargaID, SpoolID, CuadranteID, CuadranteAnterior, UsuarioID);
 
-                    TransactionalInformation result = new TransactionalInformation();
-                    result.ReturnMessage.Add("OK");
-                    result.ReturnCode = 200;
-                    result.ReturnStatus = true;
-                    result.IsAuthenicated = true;
+        //            TransactionalInformation result = new TransactionalInformation();
+        //            result.ReturnMessage.Add("OK");
+        //            result.ReturnCode = 200;
+        //            result.ReturnStatus = true;
+        //            result.IsAuthenicated = true;
 
-                    return result;
-                }
+        //            return result;
+        //        }
 
-            }
-            catch (Exception ex)
-            {
-                TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add(ex.Message);
-                result.ReturnCode = 500;
-                result.ReturnStatus = false;
-                result.IsAuthenicated = true;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TransactionalInformation result = new TransactionalInformation();
+        //        result.ReturnMessage.Add(ex.Message);
+        //        result.ReturnCode = 500;
+        //        result.ReturnStatus = false;
+        //        result.IsAuthenicated = true;
 
-                return result;
-            }
-        }
+        //        return result;
+        //    }
+        //}
 
         public object GuardaNuevoPaquete(int UsuarioID, string lenguaje, int PaqueteID, string NombrePaquete, int CuadranteID, int Cerrado, string FechaPaquete, int CuadrantePaquereSam2ID, int CuadrantePaquereSam3ID, DataTable dtDetalle)
         {
