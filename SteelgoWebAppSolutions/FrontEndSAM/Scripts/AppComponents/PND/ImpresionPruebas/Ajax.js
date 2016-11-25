@@ -161,9 +161,10 @@ function AjaxGenerarReporte(arregloJuntas) {
 
                     window.close();
                         });
-        $("#NoButton").click(function (handler) {
-            window.close();
-            });
+             $("#NoButton").click(function (handler) {
+                 window.close();
+                 loadingStop();
+             });
 
            
         }
@@ -173,6 +174,15 @@ function AjaxGenerarReporte(arregloJuntas) {
    
 }
 
+function SolicitarImpresion(nombreReporte) {
+    // window.open(url, "_blank");
+
+    //window.open('/Reportes/ObtenerReportes?path=/Steelgo/Reportes/' + nombreReporte);
+    window.open('../../../FormatoImpresionResultados.pdf');
+    //document.location.target = "_blank";
+    //document.location.href = '/Reportes/ObtenerReportes?path=/Steelgo/Reportes/' + nombreReporte;
+
+};
 function AjaxObtenerProyectos() {
     loadingStart();
 

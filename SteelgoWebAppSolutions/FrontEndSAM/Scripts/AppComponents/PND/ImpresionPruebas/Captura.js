@@ -159,7 +159,9 @@ function CargarGrid() {
             },
             dataSource: [{ Seleccionado: true }, { Seleccionado: false }]
                 }
-                , template: '<input type="checkbox" #= Seleccionado ? "checked=checked" : "" # class="chkbx"  ></input>  ', width: "90px", attributes: { style: "text-align:center;"} },
+                , template: '<input type="checkbox" #= Seleccionado ? "checked=checked" : "" # class="chkbx"  ></input>  ', width: "90px", attributes: { style: "text-align:center;" }
+            },
+            { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()] }, title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], width: "50px" },
         ]
     });
     CustomisaGrid($("#grid"));
