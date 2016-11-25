@@ -4,6 +4,10 @@
 }
 
 _dictionary = {
+    "MensajeReporte": {
+        "es-MX": "Reporte",
+        "en-US": "Report"
+    },
     //Modulo Servicios Tecnicos
     //Pantalla Generar Req.
 

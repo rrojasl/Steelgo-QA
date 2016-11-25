@@ -33,8 +33,8 @@ namespace BackEndSAM.Models.ServiciosTecnicos.impresionPruebas
         public string Spool { get; set; }
         public string Junta { get; set; }
         public string Clasificacion { get; set; }
-        public decimal Diametro { get; set; }
-        public decimal Espesor { get; set; }
+        public decimal? Diametro { get; set; }
+        public decimal? Espesor { get; set; }
         public string Cedula { get; set; }
         public string TipoJunta { get; set; }
         public string Reporte { get; set; }
@@ -47,7 +47,7 @@ namespace BackEndSAM.Models.ServiciosTecnicos.impresionPruebas
         public int RequisicionID { get; set; }
         public int ProyectoID { get; set; }
         public int SpoolID { get; set; }
-        public int JuntaSpoolID { get; set; }
+        public int? JuntaSpoolID { get; set; }
         public int OrdenTrabajoSpoolID { get; set; }
         public int TipoPruebaID { get; set; }
         public string Especificacion { get; set; }
@@ -58,6 +58,9 @@ namespace BackEndSAM.Models.ServiciosTecnicos.impresionPruebas
 
     public class Captura
     {
+        public string NombreReporte { get; set; }
+        public string FechaReporte { get; set; }
+
         public List<GuardarReporte> Detalles { get; set; }
     }
 

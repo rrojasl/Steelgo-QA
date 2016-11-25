@@ -120,14 +120,14 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ImpresionPruebasBD
             }
         }
 
-        public object InsertarCaptura(DataTable dtDetalleCaptura, Sam3_Usuario usuario, string lenguaje, int requisicionID)
+        public object InsertarCaptura(DataTable dtDetalleCaptura, Sam3_Usuario usuario, string lenguaje, int requisicionID,string nombreReporte,string fechaReporte)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
                     ObjetosSQL _SQL = new ObjetosSQL();
-                    string[,] parametro = { { "@Usuario", usuario.UsuarioID.ToString() }, { "@Lenguaje", lenguaje }, { "@RequisicionID", requisicionID.ToString()} };
+                    string[,] parametro = { { "@Usuario", usuario.UsuarioID.ToString() }, { "@Lenguaje", lenguaje }, { "@RequisicionID", requisicionID.ToString() }, { "@NombreFolio", nombreReporte }, { "@FechaReporte", fechaReporte } };
                     _SQL.Ejecuta(Stords.GUARDARCAPTURAIMPRESIONPRUEBAS, dtDetalleCaptura, "@ImpresionPruebas", parametro);
                     TransactionalInformation result = new TransactionalInformation();
                     result.ReturnMessage.Add("Ok");
@@ -147,6 +147,36 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ImpresionPruebasBD
                 return result;
             }
         }
+
+        public object ValidarNombre(string nombre)
+        {
+            try
+            {
+                List<string> listaDetalleImpresionPruebas = new List<string>();
+                using (SamContext ctx = new SamContext())
+                {
+
+                    List<string> result = ctx.Sam3_ST_IP_Get_ValidarNombreReporte(nombre).ToList();
+                    foreach (var item in result)
+                    {
+                        listaDetalleImpresionPruebas.Add(item);
+                    }
+                }
+                return listaDetalleImpresionPruebas;
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+                return result;
+            }
+        }
+
+
+        
 
     }
 }
