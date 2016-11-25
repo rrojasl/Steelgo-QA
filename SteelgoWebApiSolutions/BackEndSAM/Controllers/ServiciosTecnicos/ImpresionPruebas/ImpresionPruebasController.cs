@@ -19,7 +19,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.ImpresionPruebas
     public class ImpresionPruebasController : ApiController
     {
         [HttpGet]
-        public object GetImpresionPruebas(string token, string mostrar, int RequisicionID)
+        public object GetImpresionPruebas(string token, string mostrar, int RequisicionID,int ProveedorID)
         {
             //Create a generic return object
             string payload = "";
@@ -31,7 +31,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.ImpresionPruebas
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
                 int tipoVista = mostrar == "Todos" ? 1 : 2;
 
-                return ImpresionPruebasBD.Instance.ObtenerImpresionPruebas(mostrar, RequisicionID);
+                return ImpresionPruebasBD.Instance.ObtenerImpresionPruebas(mostrar, RequisicionID,ProveedorID);
             }
             else
             {

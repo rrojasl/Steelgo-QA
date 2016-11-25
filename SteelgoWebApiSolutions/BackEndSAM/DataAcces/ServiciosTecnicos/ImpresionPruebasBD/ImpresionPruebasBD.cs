@@ -30,7 +30,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ImpresionPruebasBD
             }
         }
 
-        public object ObtenerImpresionPruebas(string mostrar, int RequisicionID)
+        public object ObtenerImpresionPruebas(string mostrar, int RequisicionID, int ProveedorID)
         {
             try
             {
@@ -38,7 +38,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ImpresionPruebasBD
                 using (SamContext ctx = new SamContext())
                 {
 
-                    List<Sam3_ST_Get_ImpresionPruebasDetalle_Result> result = ctx.Sam3_ST_Get_ImpresionPruebasDetalle(RequisicionID).ToList();
+                    List<Sam3_ST_Get_ImpresionPruebasDetalle_Result> result = ctx.Sam3_ST_Get_ImpresionPruebasDetalle(RequisicionID,ProveedorID).ToList();
                     foreach (var item in result)
                     {
                         listaDetalleImpresionPruebas.Add(new ImpresionPruebasDetalle

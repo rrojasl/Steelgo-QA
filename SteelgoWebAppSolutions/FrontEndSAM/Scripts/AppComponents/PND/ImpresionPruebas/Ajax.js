@@ -3,7 +3,7 @@ var CampoMuestra = 3056;
 
 function AjaxCargarDatos() {
     
-    $ImpresionPruebas.ImpresionPruebas.read({ token: Cookies.get("token"), mostrar: $('input:radio[name=Muestra]:checked').val(), RequisicionID: $("#inputRequisicion").val() }).done(function (data) {
+    $ImpresionPruebas.ImpresionPruebas.read({ token: Cookies.get("token"), mostrar: $('input:radio[name=Muestra]:checked').val(), RequisicionID: $("#inputRequisicion").data("kendoComboBox").text() == "" ? 0 : $("#inputRequisicion").val(), ProveedorID: $("#inputProveedor").val() }).done(function (data) {
         $("#grid").data('kendoGrid').dataSource.data([]);
         var ds = $("#grid").data("kendoGrid").dataSource;
         var array = data;
