@@ -223,10 +223,14 @@ namespace BackEndSAM.DataAcces.Embarque.Empaquetado
                     { "@CuadrantePaqueteSam3ID", CuadrantePaquereSam3ID.ToString() }
                 };
 
-                _SQL.Ejecuta(Stords.GUARDARCAPTURACARGAPLANA, dtDetalle, "@DetalleCarga", parametros);
+                int identityResult = _SQL.EjecutaInsertUpdate(Stords.GUARDARPAQUETE, dtDetalle, "@TTEmpaquetado", parametros);
 
                 TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add("OK");
+                result.ReturnMessage.Add("Ok");
+
+                if (identityResult > 0)
+                    result.ReturnMessage.Add(identityResult.ToString());
+
                 result.ReturnCode = 200;
                 result.ReturnStatus = true;
                 result.IsAuthenicated = true;
