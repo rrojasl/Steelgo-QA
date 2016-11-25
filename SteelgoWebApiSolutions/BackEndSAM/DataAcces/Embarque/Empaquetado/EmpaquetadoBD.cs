@@ -226,10 +226,12 @@ namespace BackEndSAM.DataAcces.Embarque.Empaquetado
                 int identityResult = _SQL.EjecutaInsertUpdate(Stords.GUARDARPAQUETE, dtDetalle, "@TTEmpaquetado", parametros);
 
                 TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add("Ok");
+                
 
                 if (identityResult > 0)
-                    result.ReturnMessage.Add(identityResult.ToString());
+                    result.ReturnMessage.Add("Ok");
+                else
+                    result.ReturnMessage.Add("El paquete ya existe con ese nombre");
 
                 result.ReturnCode = 200;
                 result.ReturnStatus = true;
