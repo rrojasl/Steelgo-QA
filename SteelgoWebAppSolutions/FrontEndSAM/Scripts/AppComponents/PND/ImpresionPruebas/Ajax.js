@@ -114,11 +114,11 @@ function AjaxGenerarReporte(arregloJuntas) {
             window.content('<div  z-index: inherit">' +
                                 '<div class="col-sm-11 col-md-11 col-lg-11">' +
                                     '<div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">' +
-                                        '<label id=""><span>' + _dictionary.lblRequisicion1[$("#language").data("kendoDropDownList").value()] + '</span></label>' +
+                                        '<label id=""><span>' + "Reporte" + '</span></label>' +
                                         '<input id="NombreReporte" class="form-control" />' +
                                     '</div>' +
                                     '<div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">' +
-                                        '<label id=""><span>' + _dictionary.lblFechaRequisicion[$("#language").data("kendoDropDownList").value()] + '</span></label>' +
+                                        '<label id=""><span>' + "Fecha" + '</span></label>' +
                                         '<input id="FechaReporte" class="form-control"/>' +
                                     '</div>' +
                                     '<div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">' +
@@ -128,7 +128,7 @@ function AjaxGenerarReporte(arregloJuntas) {
                             '</div>');
 
             ventanaConfirm.data("kendoWindow").title(modalTitle);
-
+            ventanaConfirm.data("kendoWindow").center().open();
 
              $("#YesButton").click(function (handler) {
                             Captura[0].NombreReporte = $("#NombreReporte").val();
@@ -251,10 +251,10 @@ function AjaxRequisicion() {
                 $("#inputRequisicion").data("kendoComboBox").value("");
                 $("#inputRequisicion").data("kendoComboBox").dataSource.data(data);
 
-                if ($("#inputRequisicion").data("kendoComboBox").dataSource._data.length == 2) {
-                    $("#inputRequisicion").data("kendoComboBox").select(1);
+                //if ($("#inputRequisicion").data("kendoComboBox").dataSource._data.length == 2) {
+                    $("#inputRequisicion").data("kendoComboBox").select(0);
                     $("#inputRequisicion").data("kendoComboBox").trigger("change");
-                }
+                //}
             }
 
         });

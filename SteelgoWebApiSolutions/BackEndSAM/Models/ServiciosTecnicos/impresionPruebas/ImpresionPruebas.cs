@@ -25,6 +25,7 @@ namespace BackEndSAM.Models.ServiciosTecnicos.impresionPruebas
         public string CodigoAsme { get; set; }
         public string FechaRequisicion { get; set; }
         public string Observacion { get; set; }
+        public int Accion { get; set; }
     }
 
     public class ImpresionPruebasDetalle
@@ -53,6 +54,8 @@ namespace BackEndSAM.Models.ServiciosTecnicos.impresionPruebas
         public string Especificacion { get; set; }
         public int ReporteRequisicionID { get; set; }
         public string Url { get; set; }
+
+        public int Accion { get; set; }
 
     }
 

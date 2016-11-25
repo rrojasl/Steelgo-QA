@@ -65,7 +65,8 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ImpresionPruebasBD
                             SpoolID = item.SpoolID,
                             TipoPruebaID = item.TipoPruebaID.GetValueOrDefault(),
                             Url = item.Url,
-                            Version = item.Version == 0 ? "": item.Version.ToString()
+                            Version = item.Version == 0 ? "": item.Version.ToString(),
+                            Accion = item.ReporteRequisicionID == 0 ? 1 : 2
                         });
                     }
                 }
@@ -96,6 +97,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ImpresionPruebasBD
                     {
                         listaRequisiciones.Add(new Requisicion
                         {
+                            Accion = item.RequisicionID == 0 ? 1 : 2,
                             RequisicionID = item.RequisicionID,
                             ProyectoID = item.ProyectoID,
                             TipoPruebaID = item.TipoPruebaID.GetValueOrDefault(),
