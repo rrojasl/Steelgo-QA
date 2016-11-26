@@ -4,6 +4,10 @@
 }
 
 _dictionary = {
+    "MensajeReporte": {
+        "es-MX": "Reporte",
+        "en-US": "Report"
+    },
     //Modulo Servicios Tecnicos
     //Pantalla Generar Req.
 
@@ -7622,6 +7626,11 @@ _dictionary = {
         "es-MX": "Empaquetado",
         "en-US": "Packaging"
     },
+    "lblPlaca": {
+        "es-MX": "Placa",
+        "en-US": "Plate"
+    },
+
     //Finaliza Etiquetas
     //Etiquetas header alertas
     "SuccessTitle": {
@@ -7847,15 +7856,15 @@ _dictionary = {
         "en-US": "Could not save the information."
     },
     "MensajeSeleccionaProyecto": {
-        "es-MX": "Favor de seleccionar un proyecto",
+        "es-MX": "Por favor seleccione un proyecto",
         "en-US": "Please select a project"
     },
     "MensajeSeleccionaTipoPrueba": {
-        "es-MX": "Favor de seleccionar un tipo de prueba",
+        "es-MX": "Por favor seleccione un tipo de prueba",
         "en-US": "Please select a type of test"
     },
     "MensajeSeleccionaRequisicion": {
-        "es-MX": "Favor de seleccionar una requisicion",
+        "es-MX": "Por favor seleccione una requisicion",
         "en-US": "Please select a requisition"
     },
     "MensajeAdverteciaExcepcionGuardado": {
@@ -7871,7 +7880,7 @@ _dictionary = {
         "en-US": "Are you sure to replace all data"
     },
     "MensajeErrorTipoPlanchado": {
-        "es-MX": "Favor de seleccionar el tipo de planchado",
+        "es-MX": "Por favor seleccione el tipo de planchado",
         "en-US": "Please select a type ironed"
     },
     "MensajeAdvertenciaDatosCapturadosNoGuardados": {
@@ -10432,8 +10441,8 @@ _dictionary = {
         "en-US": "Taping"
     },
     "EncintadoMensajeSeleccionarZona": {
-        "es-MX": "Favor de seleccionar una Zona",
-        "en-US": "Please select a project"
+        "es-MX": "Por favor seleccione una Zona",
+        "en-US": "Please select a zone"
     },
     //Finaliza Pantalla Encintado
     //Inicia pantalla carga plana
@@ -10725,9 +10734,11 @@ _dictionary = {
         "es-MX": "Código",
         "en-US": "Code"
     },
-    
+    "EmbarqueEmpaquetadoNuevoPaquete": {
 
-    
+        "es-MX": "Nuevo Paquete",
+        "en-US": "New Package"
+    },    
     //Finaliza Pantalla empaquetado
     //Finaliza Modulo Embarque 
 };

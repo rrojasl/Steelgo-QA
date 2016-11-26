@@ -509,27 +509,27 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ValidacionRT
 
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_ReportesRT_Get_Resultados_Detalle_Result> result = ctx.Sam3_ReportesRT_Get_Resultados_Detalle(resultadosDefectoID, ordenTrabajoID, spoolID, juntaSpoolID, lenguaje).ToList();
+                    //List<Sam3_ReportesRT_Get_Resultados_Detalle_Result> result = ctx.Sam3_ReportesRT_Get_Resultados_Detalle(resultadosDefectoID, ordenTrabajoID, spoolID, juntaSpoolID, lenguaje).ToList();
                     DetalleResultadosDefectos detalleDefecto = null;
 
                     int posicion = 0;
-                    foreach (Sam3_ReportesRT_Get_Resultados_Detalle_Result item in result)
-                    {
-                        posicion++;
-                        detalleDefecto = new DetalleResultadosDefectos
-                        {
-                            OrdenTrabajoID = item.OrdenTrabajoID,
-                            SpoolID = item.SpoolID,
-                            JuntaSpoolID = item.JuntaSpoolID.GetValueOrDefault(),
-                            DefectoID = item.DefectoID,
-                            Defecto = item.Defecto,
-                            InicioMM = item.InicioMM,
-                            FinMM = item.FinMM,
-                            Accion = 2,
-                            Posicion = posicion,//item.Posicion.GetValueOrDefault(),
-                        };
-                        listaDetalleDefectos.Add(detalleDefecto);
-                    }
+                    //foreach (Sam3_ReportesRT_Get_Resultados_Detalle_Result item in result)
+                    //{
+                    //    posicion++;
+                    //    detalleDefecto = new DetalleResultadosDefectos
+                    //    {
+                    //        OrdenTrabajoID = item.OrdenTrabajoID,
+                    //        SpoolID = item.SpoolID,
+                    //        JuntaSpoolID = item.JuntaSpoolID.GetValueOrDefault(),
+                    //        DefectoID = item.DefectoID,
+                    //        Defecto = item.Defecto,
+                    //        InicioMM = item.InicioMM,
+                    //        FinMM = item.FinMM,
+                    //        Accion = 2,
+                    //        Posicion = posicion,//item.Posicion.GetValueOrDefault(),
+                    //    };
+                    //    listaDetalleDefectos.Add(detalleDefecto);
+                    //}
 
                     return listaDetalleDefectos;
                 }

@@ -111,38 +111,57 @@ function CargarGrid() {
                     }
                 }
             },
+            filter: {
+                logic: "or",
+                filters: [
+                  { field: "Accion", operator: "eq", value: 1 },
+                  { field: "Accion", operator: "eq", value: 2 },
+                  { field: "Accion", operator: "eq", value: 4 }
+                  
+                ]
+            },
             pageSize: 10,
             serverPaging: false,
             serverFiltering: false,
             serverSorting: false
         },
+        filterable: getGridFilterableMaftec(),
         navigatable: true,
-        filterable: {
-            extra: false
-        },
         editable: true,
         autoHeight: true,
         sortable: true,
         scrollable: true,
         pageable: {
             refresh: false,
-            pageSizes: [10, 15, 20],
+            pageSizes: [10, 15, 50,100],
             info: false,
             input: false,
             numeric: true,
         },
         columns: [
-            { field: "Requisicion", title: _dictionary.columnRequisicion[$("#language").data("kendoDropDownList").value()], filterable: true, width: "120px " },
-            { field: "Spool", title: _dictionary.columnNumeroControl[$("#language").data("kendoDropDownList").value()], filterable: true, width: "100px" },
-            { field: "Junta", title: _dictionary.columnJunta[$("#language").data("kendoDropDownList").value()], filterable: true, width: "90px" },
-            { field: "Clasificacion", title: _dictionary.columnClasificacion[$("#language").data("kendoDropDownList").value()], filterable: true, width: "90px" },
-            { field: "Diametro", title: _dictionary.columnDiametro[$("#language").data("kendoDropDownList").value()], filterable: true, width: "100px" },
-            { field: "Espesor", title: _dictionary.columnEspesor[$("#language").data("kendoDropDownList").value()], filterable: true, width: "100px" },
-            { field: "Cedula", title: _dictionary.columnCedula[$("#language").data("kendoDropDownList").value()], filterable: true, width: "100px" },
-            { field: "TipoJunta", title: _dictionary.columnFirmadoTipoJunta[$("#language").data("kendoDropDownList").value()], filterable: true, width: "100px" },
-            { field: "Reporte", title: _dictionary.columnReporte[$("#language").data("kendoDropDownList").value()], filterable: true, width: "130px" },
-            { field: "Version", title: _dictionary.columnVersion[$("#language").data("kendoDropDownList").value()], filterable: true, width: "100px" },
-            { field: "Seleccionado", title: _dictionary.columnSeleccionado[$("#language").data("kendoDropDownList").value()], filterable: false, template: '<input type="checkbox" #= Seleccionado ? "checked=checked" : "" # class="chkbx"  ></input>  ', width: "90px" },
+            { field: "Requisicion", title: _dictionary.columnRequisicion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "120px " },
+            { field: "Spool", title: _dictionary.columnNumeroControl[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "100px" },
+            { field: "Junta", title: _dictionary.columnJunta[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "90px" },
+            { field: "Clasificacion", title: _dictionary.columnClasificacion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "90px" },
+            { field: "Diametro", title: _dictionary.columnDiametro[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "100px", attributes: { style: "text-align:right;" } },
+            { field: "Espesor", title: _dictionary.columnEspesor[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "100px", attributes: { style: "text-align:right;" } },
+            { field: "Cedula", title: _dictionary.columnCedula[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "100px"},
+            { field: "TipoJunta", title: _dictionary.columnFirmadoTipoJunta[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "100px" },
+            { field: "Reporte", title: _dictionary.columnReporte[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px" },
+            { field: "Version", title: _dictionary.columnVersion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "100px", attributes: { style: "text-align:right;" } },
+            { field: "Seleccionado", title: _dictionary.columnSeleccionado[$("#language").data("kendoDropDownList").value()], 
+                filterable: {
+            multi: true,
+            messages: {
+                        isTrue: _dictionary.lblVerdadero[$("#language").data("kendoDropDownList").value()],
+                        isFalse: _dictionary.lblFalso[$("#language").data("kendoDropDownList").value()],
+                        style: "max-width:100px;"
+            },
+            dataSource: [{ Seleccionado: true }, { Seleccionado: false }]
+                }
+                , template: '<input type="checkbox" #= Seleccionado ? "checked=checked" : "" # class="chkbx"  ></input>  ', width: "90px", attributes: { style: "text-align:center;" }
+            },
+            { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()] }, title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], width: "50px" },
         ]
     });
     CustomisaGrid($("#grid"));

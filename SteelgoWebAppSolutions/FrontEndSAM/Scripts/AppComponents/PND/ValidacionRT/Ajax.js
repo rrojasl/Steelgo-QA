@@ -45,10 +45,10 @@ function AjaxProveedor(proyectoID, patioID) {
             $("#inputProveedor").data("kendoComboBox").value("");
             $("#inputProveedor").data("kendoComboBox").dataSource.data(data);
 
-            if (data.length == 2) {
+            //if (data.length == 2) {
                 $("#inputProveedor").data("kendoComboBox").select(1);
                 AjaxRequisicion($("#inputProyecto").data("kendoComboBox").value(), data[1].ProveedorID)
-            }
+            //}
             //else
             //    ajaxResultadosDetalle($("#inputProyecto").data("kendoComboBox").value(), $("#inputProveedor").data("kendoComboBox").value(), $("#inputRequisicion").data("kendoComboBox").value());
         }
@@ -64,7 +64,6 @@ function AjaxPruebas(ProyectoID) {
         var tipoPruebaID = 0;
         $("#inputPrueba").data("kendoComboBox").dataSource.data([]);
         $("#inputPrueba").data("kendoComboBox").dataSource.data(data);
-
     });
     //}
 };
@@ -82,14 +81,15 @@ function AjaxRequisicion(proyectoID, proveedorID) {
             $("#inputRequisicion").data("kendoComboBox").value("");
             $("#inputRequisicion").data("kendoComboBox").dataSource.data(data);
 
-            if (data.length == 2) {
+            //if (data.length == 2) {
                 $("#inputRequisicion").data("kendoComboBox").select(1);
 
                 $("#inputFuente").data("kendoComboBox").value(data[1].FuenteID);
                 $("#inputTurno").data("kendoComboBox").value(data[1].TurnoID);
                 $("#inputPrueba").data("kendoComboBox").value(data[1].TipoPruebaID);
-            }
+            //}
 
+                botonAgregar();
             //ajaxResultadosDetalle($("#inputProyecto").data("kendoComboBox").value(), $("#inputProveedor").data("kendoComboBox").value(), $("#inputRequisicion").data("kendoComboBox").value());
 
         }
