@@ -38,10 +38,10 @@ namespace BackEndSAM.DataAcces.Embarque.Encintado
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Embarque_get_Etiquetado_Zona_Result> result = ctx.Sam3_Embarque_get_Etiquetado_Zona(ZonaID, CuadranteID, Todos).ToList();
+                    List<Sam3_Embarque_Get_Encintado_Zona_Result> result = ctx.Sam3_Embarque_Get_Encintado_Zona(ZonaID, CuadranteID, Todos).ToList();
                     List<DetalleEncintado> listaDetalle = new List<DetalleEncintado>();
 
-                    foreach (Sam3_Embarque_get_Etiquetado_Zona_Result item in result)
+                    foreach (Sam3_Embarque_Get_Encintado_Zona_Result item in result)
                     {
                         listaDetalle.Add(new DetalleEncintado
                         {
