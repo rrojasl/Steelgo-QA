@@ -347,6 +347,7 @@ function SuscribirEventoPlanchar() {
                     if ($("#InputCuadrantePlanchado").data("kendoComboBox").dataItem($("#InputCuadrantePlanchado").data("kendoComboBox").select()) != undefined) {
                         PlancharCuadrante("Todos");
                     }
+                    PlanchaEncintado();
                     ventanaConfirm.close();
                 });
                 $("#noButton").click(function (handler) {
@@ -356,6 +357,7 @@ function SuscribirEventoPlanchar() {
             else if ($('input:radio[name=LLena]:checked').val() === "Vacios") {
                 if ($("#InputCuadrantePlanchado").data("kendoComboBox").dataItem($("#InputCuadrantePlanchado").data("kendoComboBox").select()) != undefined) {
                     PlancharCuadrante("Vacios");
+                    PlanchaEncintado();
                 }
             } else {
                 displayNotify("MensajeErrorTipoPlanchado", "", '2');
