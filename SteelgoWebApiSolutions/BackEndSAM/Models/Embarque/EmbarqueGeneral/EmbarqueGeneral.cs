@@ -29,4 +29,27 @@ namespace BackEndSAM.Models.Embarque.EmbarqueGeneral
         public int CuadrantePlanaSam3 { get; set; }
         public int CuadrantePlanaSam2 { get; set; }
     }
+
+
+    public  class Chofer
+    {
+        public Chofer()
+        {
+            ChoferID = 0;
+            Nombre = "";
+        }
+        public int ChoferID { get; set; }
+        public string Nombre { get; set; }
+    }
+
+    public class Tracto
+    {
+        public Tracto()
+        {
+            TractoID = 0;
+            Nombre = "";
+        }
+        public int TractoID { get; set; }
+        public string Nombre { get; set; }
+    }
 }
