@@ -179,6 +179,43 @@ function CargarGrid() {
                 e.preventDefault();
             }
         }
+        //, dataBound: function (e) {
+        //    $(".chkbx").bind("change", function (e) {
+        //        if ($('#botonGuardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
+        //            if (e.target.checked) {
+        //                $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Encintado = true;
+        //                //$("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Accion = 1;
+        //                if ($("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Accion == 3) {
+        //                    $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Accion = 2;
+        //                }
+
+        //                $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).ModificadoPorUsuario = true;
+        //            }
+        //            else {
+        //                $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).EtiquEncintadoetado = false;
+        //                $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Accion = $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Accion == 2 ? 3 : $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Accion;
+        //                if ($("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Accion == 1) {
+        //                    $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).ModificadoPorUsuario = false;
+        //                }
+        //                else
+        //                    $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).ModificadoPorUsuario = true;
+        //                //else if ($("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Accion == 2) {
+        //                //    $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Accion = 3;
+        //                //}
+        //            }
+
+
+        //        }
+        //        else {
+        //            if (e.target.checked)
+        //                $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Etiquetado = false;
+        //            else
+        //                $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Etiquetado = true;
+        //        }
+
+        //        $("#grid").data("kendoGrid").dataSource.sync();
+        //    });
+        //}
     });    
 
     $("#grid .k-grid-content").on("change", "input.chk-Encintado", function (e) {
@@ -224,6 +261,29 @@ function existenCambios() {
      
     }
     return false;
+}
+
+function PlanchaEncintado() {
+
+    var dataSource = $("#grid").data("kendoGrid").dataSource;
+    var filters = dataSource.filter();
+    var allData = dataSource.data();
+    var query = new kendo.data.Query(allData);
+    var data = query.filter(filters).data;
+    var SpoolsNoPlanchados = '';
+
+
+    for (var i = 0; i < data.length; i++) {
+        //Etiquetado check
+        if ($('input:radio[name=SelectTodos]:checked').val() == "Si") {
+            data[i].Encintado = true;
+        }
+        else if ($('input:radio[name=SelectTodos]:checked').val() == "No") {
+            data[i].Encintado = false;
+        }
+        data[i].ModificadoPorUsuario = true;
+    }
+    $("#grid").data("kendoGrid").dataSource.sync();
 }
 
 function PlancharCuadrante(tipoPlanchado) {
