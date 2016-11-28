@@ -394,6 +394,9 @@ function opcionHabilitarView(valor, name) {
 
     if (valor) {
         $('#FieldSetView').find('*').attr('disabled', true);
+        $("#InputProyecto").data("kendoComboBox").enable(false);
+        $("#InputPaquete").data("kendoComboBox").enable(false);
+        $("#InputID").data("kendoComboBox").enable(false);
         $('#FieldSetView2').find('*').attr('disabled', true);
         $("#btnAgregar").prop('disabled', true);
 
@@ -404,6 +407,9 @@ function opcionHabilitarView(valor, name) {
     }
     else {
         $('#FieldSetView').find('*').attr('disabled', false);
+        $("#InputProyecto").data("kendoComboBox").enable(true);
+        $("#InputPaquete").data("kendoComboBox").enable(true);
+        $("#InputID").data("kendoComboBox").enable(true);
         $('#FieldSetView2').find('*').attr('disabled', false);
 
         $("#Guardar").text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);
