@@ -238,7 +238,7 @@ function AjaxGuardarCaptura(ds, nuevo, Paquete, Proyecto) {
         };
         var Detalle = [];
         var cont = 0;
-        if (ds.length != null) {           
+        if (ds.length > 0 ) {           
             for (var i = 0; i < ds.length; i++) {
                 Detalle[i] = {
                     Accion: "", SpoolID: "", CuadranteActualSam2ID: "", CuadranteActualSam3ID: ""
@@ -268,8 +268,9 @@ function AjaxGuardarCaptura(ds, nuevo, Paquete, Proyecto) {
                             if (nuevo) {
                                 Limpiar();
                             } else {
-                                var paqueteID = parseInt(data.ReturnMessage[1])
+                                var paqueteID = parseInt(data.ReturnMessage[1]);                                
                                 opcionHabilitarView(true, "FieldSetView");
+                                $("#grid").data("kendoGrid").dataSource.data([]);
                                 AjaxCargarPaquetes(Proyecto.ProyectoID, paqueteID);
                                 AjaxCargarDetalleEmpaquetado(paqueteID, 1);
                             }
