@@ -119,7 +119,7 @@ function AjaxObtenerPlanas(ProveedorID, nuevaPlana) {
 function AjaxEmbarqueCargaProveedores(ProyectoID, nuevoProveedor) {
     loadingStart();
 
-    $Proveedores.Proveedores.read({ token: Cookies.get("token"), ProyectoID: ProyectoID }).done(function (data) {
+    $Proveedores.Proveedores.read({ token: Cookies.get("token"), ProyectoID: ProyectoID, TipoProveedor: 1 }).done(function (data) {
         if (Error(data)) {
             if (data.length > 0) {
                 $("#inputProveedor").data("kendoComboBox").value("");
@@ -187,18 +187,18 @@ function AjaxAgregarCarga() {
                             }
                         }
 
-                    }
 
-                    $('#lblEmbarqueCargaTotalPiezas').text($("#grid").data("kendoGrid").dataSource._data.length);
 
-                    for (var i = 0; i < array.length; i++) {
-                        peso = peso + array[i].Peso;
-                    }
-                    peso = peso / 1000;
-                    if (peso > 0) {
-                        $('#lblEmbarqueCargaToneladasCargadas').text(peso);
-                    }
+                        $('#lblEmbarqueCargaTotalPiezas').text($("#grid").data("kendoGrid").dataSource._data.length);
 
+                        for (var i = 0; i < array.length; i++) {
+                            peso = peso + array[i].Peso;
+                        }
+                        peso = peso / 1000;
+                        if (peso > 0) {
+                            $('#lblEmbarqueCargaToneladasCargadas').text(peso);
+                        }
+                    }
                 }
                 loadingStop();
             });
@@ -322,6 +322,7 @@ function AjaxDescargarSpool(dataItem) {
             if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "OK") {
                 dataSource.remove(dataItem);
                 dataSource.sync();
+                AjaxObtenerGrid();
                 displayNotify("EmbarqueCargaMsjDescargaSpoolExito", "", "0");
             } else {
                 displayNotify("EmbarqueCargaMsjDescargaSpoolError", "", "2");
@@ -334,7 +335,7 @@ function AjaxDescargarSpool(dataItem) {
 }
 
 function GuardarNuevoProveedor() {
-    $Proveedores.Proveedores.read({ token: Cookies.get("token"), NombreProveedor: $("#inputNombreNuevoProveedor").val(), ProyectoID: $("#inputProyecto").data("kendoComboBox").value(), Descripcion: "", Direccion: "", Telefono: "" }).done(function (data) {
+    $Proveedores.Proveedores.read({ token: Cookies.get("token"), NombreProveedor: $("#inputNombreNuevoProveedor").val(), ProyectoID: $("#inputProyecto").data("kendoComboBox").value(), Descripcion: "", Direccion: "", Telefono: "", TipoProveedor: 1 }).done(function (data) {
         if (Error(data)) {
             if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
                 AjaxEmbarqueCargaProveedores($("#inputProyecto").data("kendoComboBox").value(), $("#inputNombreNuevoProveedor").val());

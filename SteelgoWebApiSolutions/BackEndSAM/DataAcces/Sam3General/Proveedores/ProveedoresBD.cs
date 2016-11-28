@@ -31,13 +31,13 @@ namespace BackEndSAM.DataAcces.Sam3General.Proveedores
             }
         }
 
-        public object ObtenerProveedores(int ProyectoID)
+        public object ObtenerProveedores(int ProyectoID,int tipoProveedor)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Embarque_CG_Get_ListadoProveedores_Result> result = ctx.Sam3_Embarque_CG_Get_ListadoProveedores(ProyectoID).ToList();
+                    List<Sam3_Embarque_CG_Get_ListadoProveedores_Result> result = ctx.Sam3_Embarque_CG_Get_ListadoProveedores(ProyectoID,tipoProveedor).ToList();
                     List<DetalleProveedor> listaDetalle = new List<DetalleProveedor>();
                     listaDetalle.Add(new DetalleProveedor());
 
@@ -63,14 +63,14 @@ namespace BackEndSAM.DataAcces.Sam3General.Proveedores
             }
         }
 
-        public object GuardarNuevoProveedor(string NombreProveedor, int UsuarioID, int ProyectoID, string Descripcion, string Direccion, string Telefono)
+        public object GuardarNuevoProveedor(string NombreProveedor, int UsuarioID, int ProyectoID, string Descripcion, string Direccion, string Telefono, int tipoProveedor)
         {
             try
             {
                 using(SamContext ctx = new SamContext())
                 {
 
-                    ObjectResult<int?> resultSp = ctx.Sam3_Embarque_CG_CreateProveedor(NombreProveedor, UsuarioID, ProyectoID, Descripcion, Direccion, Telefono);
+                    ObjectResult<int?> resultSp = ctx.Sam3_Embarque_CG_CreateProveedor(NombreProveedor, UsuarioID, ProyectoID, Descripcion, Direccion, Telefono,tipoProveedor);
                     var valor = resultSp.Where(x => x.HasValue).Select(x => x.Value).ToList()[0];
 
                     TransactionalInformation result = new TransactionalInformation();

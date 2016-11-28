@@ -7702,6 +7702,10 @@ _dictionary = {
         "es-MX": "Cerrar",
         "en-US": "Close"
     },
+    "botonCerrar1": {
+        "es-MX": "Cerrar",
+        "en-US": "Close"
+    },
     "botonAcciones1": {
         "es-MX": "Acciones",
         "en-US": "Actions"
@@ -7743,6 +7747,10 @@ _dictionary = {
         "en-US": "Delete"
     },
     "botonDescarga": {
+        "es-MX": "Descarga",
+        "en-US": "Download"
+    },
+    "botonDescarga1": {
         "es-MX": "Descarga",
         "en-US": "Download"
     },
@@ -7886,6 +7894,10 @@ _dictionary = {
     "MensajeAdvertenciaDatosCapturadosNoGuardados": {
         "es-MX": "Los registros capturados no han sido guardados. ¿Desea continuar?",
         "en-US": "Captured records will not be saved. Continue anyway?"
+    },
+    "MensajeOrdenTrabajoNoValida": {
+        "es-MX": "La Orden de trabajo no es valida.",
+        "en-US": "The work order is not valid."
     },
     // Finalizan Mensajes generales
 
@@ -10735,10 +10747,39 @@ _dictionary = {
         "en-US": "Code"
     },
     "EmbarqueEmpaquetadoNuevoPaquete": {
-
         "es-MX": "Nuevo Paquete",
         "en-US": "New Package"
-    },    
+    },
+    "EmbarqueEmpaquetadoErrorProyectoDiferente": {
+        "es-MX": "El spool no pertenece al proyecto seleccionado",
+        "en-US": "Spool does not belong to selected project"
+    },
+    "EmbarqueEmpaquetadoErrorSpoolPaquete": {
+        "es-MX": "El spool ya se encuentra en el paquete ",
+        "en-US": "The spool is already in the package "
+    },
+    "EmbarqueEmpaquetadoErrorPaqueteExiste": {
+        "es-MX": "El paquete ya existe con el nombre ingresado",
+        "en-US": "The package already exists with the name entered"
+    },
+    "EmbarqueEmpaquetadoMsjDescargaSpoolExito": {
+        "es-MX": "El spool ha sido descargado correctamente",
+        "en-US": "Spool has been successfully downloaded"
+
+    },
+    "EmbarqueEmpaquetadoMsjDescargaSpoolError": {
+        "es-MX": "El spool no ha sido descargado",
+        "en-US": "Spool has not been downloaded"
+
+    },
+    "EmbarqueEmpaquetadoMsjErrorZona": {
+        "es-MX": "Por Favor selecciona la zona",
+        "en-US": "Please select a zone"
+    },
+    "EmbarqueEmpaquetadoMsjErrorCuadrante": {
+        "es-MX": "Por Favor selecciona el cuadrante",
+        "en-US": "Please select a quadrant"
+    },
     //Finaliza Pantalla empaquetado
     //Finaliza Modulo Embarque 
 };
