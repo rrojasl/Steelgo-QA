@@ -120,10 +120,18 @@ namespace BackEndSAM.DataAcces.Embarque.CargaPlana
                 string[,] parametros = { { "@UsuarioID", UsuarioID.ToString() }, { "@PlanaID", PlanaID.ToString() }, { "@CargaPlanaID", CargaPlanaID.ToString() },
                         { "@CerrarPlana", CerrarPlana.ToString() }, { "@CuadrantePlanaSam2ID", CuadrantePlanaSam2ID.ToString() }, { "@CuadrantePlanaSam3ID", CuadrantePlanaSam3ID.ToString() } };
 
-                _SQL.Ejecuta(Stords.GUARDARCAPTURACARGAPLANA, dtDetalle, "@DetalleCarga", parametros);
+                int identityResult = _SQL.EjecutaInsertUpdate(Stords.GUARDARCAPTURACARGAPLANA, dtDetalle, "@DetalleCarga", parametros);
 
                 TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add("OK");
+
+                if (identityResult > 0)
+                {
+                    result.ReturnMessage.Add("Ok");
+                    result.ReturnMessage.Add(identityResult.ToString());
+                }
+                else
+                    result.ReturnMessage.Add("Paquete Existe");
+                
                 result.ReturnCode = 200;
                 result.ReturnStatus = true;
                 result.IsAuthenicated = true;
