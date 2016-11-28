@@ -40,6 +40,34 @@ namespace BackEndSAM.Controllers.Embarque.Empaquetado
         }
 
         [HttpGet]
+        public object ObtenerCuadrantes(string token, string lenguaje, int ZonaID)
+        {
+            string payload = "";
+            string newToken = "";
+
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+
+                return EmpaquetadoBD.Instance.ObtenerCuadrantes(ZonaID);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+
+                return result;
+            }
+        }
+
+
+
+        [HttpGet]
         public object ObtenerDetallePaquete(string token, int PaqueteID, int Todos)
         {
             string payload = "";
@@ -65,87 +93,59 @@ namespace BackEndSAM.Controllers.Embarque.Empaquetado
             }
         }
 
-        //[HttpGet]
-        //public object ObtieneDetalleSpoolAgregar(string token, int EmpaquetadoID, int TipoConsulta, int OrdenTrabajoSpoolID)
-        //{
-        //    string payload = "";
-        //    string newToken = "";
+        [HttpGet]
+        public object ObtenerDetalleSpoolAgregar(string token, int TipoConsulta, int OrdenTrabajoSpoolID, string Codigo)
+        {
+            string payload = "";
+            string newToken = "";
 
-        //    bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
-        //    if (tokenValido)
-        //    {
-        //        JavaScriptSerializer serializer = new JavaScriptSerializer();
-        //        Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-        //        return EmpaquetadoBD.Instance.ObtieneDetalleSpoolAgregar(EmpaquetadoID, TipoConsulta, OrdenTrabajoSpoolID);
-        //    }
-        //    else
-        //    {
-        //        TransactionalInformation result = new TransactionalInformation();
-        //        result.ReturnMessage.Add(payload);
-        //        result.ReturnCode = 401;
-        //        result.ReturnStatus = false;
-        //        result.IsAuthenicated = false;
+                return EmpaquetadoBD.Instance.ObtieneDetalleSpoolAgregar(TipoConsulta, OrdenTrabajoSpoolID, Codigo);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
 
-        //        return result;
-        //    }
-        //}
+                return result;
+            }
+        }
 
-        //[HttpPost]
-        //public object GuardaCapturaCargaPlana(Captura captura, string token, int CargaPlanaID, int PlanaID, int CerrarPlana, int CuadrantePlanaSam2, int CuadrantePlanaSam3)
-        //{
-        //    string payload = "";
-        //    string newToken = "";
+        [HttpGet]
+        public object DescargaSpoolPaquete(string token, int EmpaquetadoID, int SpoolID, int CuadranteID, int CuadranteAnteriorSam2, int CuadranteAnteriorSam3)
+        {
+            string payload = "";
+            string newToken = "";
 
-        //    bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
-        //    if (tokenValido)
-        //    {
-        //        JavaScriptSerializer serializer = new JavaScriptSerializer();
-        //        Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-        //        DataTable dtDetalle = Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(captura.listaDetalle);
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-        //        return EmpaquetadoBD.Instance.GuardaCapturaCargaPlana(dtDetalle, usuario.UsuarioID, CargaPlanaID, PlanaID, CerrarPlana, CuadrantePlanaSam2, CuadrantePlanaSam3);
-        //    }
-        //    else
-        //    {
-        //        TransactionalInformation result = new TransactionalInformation();
-        //        result.ReturnMessage.Add(payload);
-        //        result.ReturnCode = 401;
-        //        result.ReturnStatus = false;
-        //        result.IsAuthenicated = false;
+                return EmpaquetadoBD.Instance.DescargaSpoolPaquete(EmpaquetadoID, SpoolID, CuadranteID, CuadranteAnteriorSam2, CuadranteAnteriorSam3, usuario.UsuarioID);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
 
-        //        return result;
-        //    }
-        //}
-
-        //[HttpGet]
-        //public object DescargaSpoolPaquete(string token, int EmpaquetadoID, int SpoolID, int CuadranteID, int CuadranteAnterior)
-        //{
-        //    string payload = "";
-        //    string newToken = "";
-
-        //    bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
-        //    if (tokenValido)
-        //    {
-        //        JavaScriptSerializer serializer = new JavaScriptSerializer();
-        //        Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-
-        //        return EmpaquetadoBD.Instance.DescargaSpoolPaquete(EmpaquetadoID, SpoolID, CuadranteID, CuadranteAnterior, usuario.UsuarioID);
-        //    }
-        //    else
-        //    {
-        //        TransactionalInformation result = new TransactionalInformation();
-        //        result.ReturnMessage.Add(payload);
-        //        result.ReturnCode = 401;
-        //        result.ReturnStatus = false;
-        //        result.IsAuthenicated = false;
-
-        //        return result;
-        //    }
-        //}
-
+                return result;
+            }
+        }
         [HttpPost]
-        public object GuardarNuevoPaquete(string token, string lenguaje, int PaqueteID, string NombrePaquete, int CuadranteID, int Cerrado, string FechaPaquete, int CuadrantePaqueteSam2ID, int CuadrantePaqueteSam3ID, Captura captura)
+        public object GuardarNuevoPaquete(Captura captura, string token, string lenguaje, int PaqueteID, string NombrePaquete, int CuadranteID, int Cerrado, string FechaPaquete, int CuadrantePaqueteSam2ID, int CuadrantePaqueteSam3ID)
         {
             string payload = "";
             string newToken = "";

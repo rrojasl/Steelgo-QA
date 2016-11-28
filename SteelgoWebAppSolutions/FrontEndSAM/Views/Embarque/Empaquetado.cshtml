@@ -9,10 +9,10 @@
         <a href="@Url.Action("landing", "Home")"><span id="lblInicio"></span></a>
     </li>
     <li>
-        <a href="#"><span id="lblEmbarque"></span>Embarque</a>
+        <a href="#"><span id="lblEmbarque"></span></a>
     </li>
     <li class="active">
-        <a href=@Url.Action("Empaquetado","Embarque")><span id="lblEmpaquetado">Empaquetado</span></a>
+        <a href=@Url.Action("Empaquetado","Embarque")><span id="lblEmpaquetado"></span></a>
     </li>
 }
 
@@ -23,7 +23,6 @@
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="formNav clearfix">
                 <div class="button-section editButtonSection">
-                    <input type="hidden" value=@ViewBag.EmbarquePlanaID id="inputHiddenEmbarquePlanaID" />
                     <div class="btn-group save-group">
                         <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow accionGuardar"><span id="botonGuardar"></span></button>
                         <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -36,8 +35,8 @@
                     </div>
                     <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar"></span></a>
                 </div>
-                <div id="CargasEmbarqueDivSuperior" class="button-section">
-                    <a id="CargasEmbarqueSuperior" href=@Url.Action("Carga", "Embarque") class="btn btn-primary"><span id="botonEmbarque">Carga plana</span></a>
+                <div id="CargaPlanaDivSup" class="button-section">
+                    <a id="CargaPlanaSup" class="btn btn-primary"><span id="EmbarqueCargaPlanaSup"></span></a>
                 </div>
                 <div class="button-section actionButtonSection">
                     <div class="dropdown action-group">
@@ -46,8 +45,7 @@
                             <span class="caretBlue"></span>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="Acciones">
-                            <li><a href="#" id="EmbarquePaqueteEliminarPaquete1" class="btnEliminarPaquete"><span id="">Eliminar paquete</span></a></li>
-
+                            <li><a href="#" id="btnEliminarPaquete" ><span id="botonEliminarPaquete"></span></a></li>
                         </ul>
                     </div>
                 </div>
@@ -56,67 +54,57 @@
         </div>
     </div>
     @*Controles Superior*@
-    <div class="row addedSectionInLineWithoutColor">
+    <div class="row addedSectionInLineWithoutColor" id="FieldSetView">
         
-        <div class="col-xs-12 col-sm-4 col-md-2 col-lg-2 altoControl" id="divProyecto">
-            <label id="EmbarqueCargaCodigo">Proyecto</label>
-            <input id="Proyecto"/>
+        <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 altoControl" id="divProyecto">
+            <label id="lblProyecto"></label>
+            <input id="InputProyecto"/>
+            <input type="text" id="InputProyectoAnterior"/>
         </div>
-        <div class="col-sm-3 col-md-3 col-lg-3" id="divPaquete" >
-            <label id="RevisionEmbarquePaquete">Paquete</label>
-            <input id="inputPaquete" />
+        <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2" id="divPaquete" >
+            <label id="lblPaquete"></label>
+            <input id="InputPaquete" />
         </div>
-        <div class="col-sm-3 col-md-3 col-lg-1">
+        <div class="col-xs-12 col-sm-6 col-md-1 col-lg-1">
             <label id="">&nbsp;</label>
             <button type="button" id="btnMostrar" class="btn btn-blue"><span id="botonMostrar"></span></button>
         </div>
-
-        <div class="col-xs-12 col-sm-4 col-md-2 col-lg-2 altoControl">
-            <label>Cerrar</label>
-            <input id="lblEstatus" type="checkbox">
+        <div class="col-xs-12 col-sm-6 col-md-1 col-lg-1 altoControl">
+            <label id="lblCerrar"></label>
+            <input id="InputCerrar" type="checkbox">
         </div>
-        <div class="col-xs-12 col-sm-4 col-md-2 col-lg-2 altoControl">
+        <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 altoControl">
             <label id="EmbarqueEmpaquetadoTotalPiezas"></label>
-            <label id="lblEmbarqueEmpaquetadoTotalPiezas">Total Piezas</label>
         </div>
         <div class="col-xs-12 col-sm-4 col-md-2 col-lg-2 altoControl">
             <label id="EmbarqueEmpaquetadoToneladasCargadas"></label>
-            <label id="lblEmbarqueEmpaquetadoToneladasCargadas">Toneladas cargadas</label>
-            <label id="LabelProyecto" style="display:none;"> </label>
-        </div>
-        
+        </div>        
     </div>
-    </br>
-    <div class="row addedSectionInLineWithoutColor">
-        <div class="col-sm-2 col-md-2 col-lg-2">
+    <div class="row addedSectionInLineWithoutColor" id="FieldSetView2">
+        <div class="col-xs-12 col-sm-6 col-md-1 col-lg-1">
             <div class="btn-group " role="group">
-                <label id="">Tipo carga:</label>
+                <label id="lblTipoCarga"></label>
                 <label id="styleReporte">
-                    <input type="radio" name="RevisionEmbarqueTipoSeleccion" style="width:auto;" value="Spool" checked="checked" /><span id="RevisionEmbarqueOpcionSpool">Spool</span>
+                    <input type="radio" name="TipoCarga" style="width:auto;" value="Spool" /><span id="EmbarqueEmpaquetadoOpcionSpool"></span>
                 </label>
-                @*<label id="styleListado">
-                    <input type="radio" name="RevisionEmbarqueTipoSeleccion" style="width:auto;" value="Paquete" /><span id="RevisionEmbarqueOpcionPaquete">Paquete</span>
-                </label>*@
                 <label id="styleListado">
-                    <input type="radio" name="RevisionEmbarqueTipoSeleccion" style="width:auto;" value="Codigo" /><span id="RevisionEmbarqueOpcionCodigo">Código</span>
+                    <input type="radio" name="TipoCarga" style="width:auto;" value="Codigo" /><span id="EmbarqueEmpaquetadoOpcionCodigo"></span>
                 </label>
             </div>
         </div>
-
-        <div class="col-sm-3 col-md-3 col-lg-3" id="divSpool">
+        <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2" id="divSpool">
             <label id="lblSpoolID"></label>
             <input style="width:40%" id="InputOrdenTrabajo" class="item-select general-input" />-<input id="InputID" placeholder="ID" style="width:40%;" />
         </div>
-        <div class="col-sm-3 col-md-3 col-lg-3" id="divCodigo" style="display:none;">
-            <label id="EmbarqueCargaCodigo">Código</label>
+        <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2" id="divCodigo" style="display:none;">
+            <label id="lblCodigo"></label>
             <input id="inputCodigo" class="item-select general-input" />
         </div>
-        <div class="col-sm-3 col-md-3 col-lg-1">
+        <div class="col-xs-12 col-sm-6 col-md-1 col-lg-1">
             <label id="">&nbsp;</label>
             <button type="button" id="btnAgregar" class="btn btn-blue"><span id="botonAgregar"></span></button>
 
         </div>
-
         <div class="form-group col-sm-12 col-md-12 col-lg-12">
             <div id="ContenedorGrid" class="row">
                 <div id="grid" data-role="grid" class="k-grid k-widget">
@@ -131,7 +119,7 @@
             <div class="formNav clearfix">
                 <div class="button-section editButtonSection">
                     <div class="btn-group save-group">
-                        <button id="GuardarPie" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="botonGuardar3"></span></button>
+                        <button id="Guardar1" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="botonGuardar3"></span></button>
                         <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="caretWhite"></span>
                         </button>
@@ -142,8 +130,8 @@
                     </div>
                     <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar1"></span></a>
                 </div>
-                <div id="EntregaresultadosDivINF" class="button-section">
-                    <a id="EntregaresultadosINF"  href=@Url.Action("Carga", "Embarque") class="btn btn-primary"><span id="">Carga plana</span></a>
+                <div id="CargaPlanaDivInf" class="button-section">
+                    <a id="CargaPlanaInf" class="btn btn-primary"><span id="EmbarqueCargaPlanaInf"></span></a>
                 </div>
                 <div class="button-section actionButtonSection">
                     <div class="dropdown action-group">
@@ -152,7 +140,7 @@
                             <span class="caretBlue"></span>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="Acciones">
-                            <li><a href="#" id="EmbarquePaqueteEliminarPaquete2" class="btnEliminarPaquete"><span id="">Eliminar paquete</span></a></li>
+                            <li><a href="#" id="btnEliminarPaquete1"><span id="botonEliminarPaquete1"></span></a></li>
                         </ul>
                     </div>
                 </div>
@@ -161,31 +149,67 @@
         </div>
     </div>
 </div>
-<div id="ventanaPopup" style="display: none; z-index:inherit;">
-    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
-        <input id="inputPopupCuadrante" />
-    </div>
-    <br /><br /><br /><br />
-    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
-        <button id="btnActualizarCuadrantePopUp" type="button" class="btn btn-blue"><span id="EmbarqueCargaActualizarCuadrantePopup"></span></button>
-        <button id="btnCancelarPopUp" type="button" class="btn btn-black"><span id="EmbarqueCargaCancelarPopup"></span></button>
-        <input type="hidden" id="inputPopupPaqueteID" />
-        <input type="hidden" id="inputPopupSpoolID" />
+<div id="windowSave" style="display:none;">
+    <div class="container-fluid">
+        <div class="row content-container">
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 form">
+                <label id="lblNombre"></label>
+                <input type="text" id="InputNombre" class="item-select general-input" />
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 form">
+                <label id="lblFecha"></label>
+                <input type="text" id="InputFechaPaquete" />
+            </div>
+        </div>
+        <div class="form-group row"></div>
+        <div class="row  content-container">
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 form">
+                <input id="InputZonaPaquete" placeholder="Zona" />
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 form">
+                <input id="InputCuadrantePaquete" placeholder="Cuadrante" />
+            </div>
+        </div>
+        <div class="form-group row"></div>
+        <div class="row content-container">
+            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 form">
+                <center>
+                    <button type="button" id="btnGuardarPopUp" class="btn btn-blue confirm_yes"><span id="botonGuardar1"></span></button>
+                    <button type="button" id="btnCerrarPopUpSave" class="btn btn-blue confirm_yes"><span id="botonCerrar"></span></button>
+                </center>                
+            </div>
+        </div>
+   </div>
+</div>
+<div id="windowDownload" style="display:none">
+    <div class="container-fluid" style="margin:0px">
+        <div class="form-group">
+            @*<center>*@
+            <span id="PinturaCargaMsjDescargaSpool"></span>
+            @*</center>*@
+        </div>
+        <div class="form-group row">
+            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>
+            <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                <input id="InputZonaDescarga" placeholder="Zona" />
+            </div>
+            <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                <input id="InputCuadranteDescarga" placeholder="Cuadrante" />
+            </div>
+            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>
+        </div>
+        <div class="row">
+            <center>
+                <a class="btn btn-primary confirm_yes" href="#/" id="btnDescargar">
+                    <span id="PinturaCargaDescargar"></span>
+                </a>
+                <a class="btn btn-primary confirm_yes" href="#/" id="btnCerrarPopup">
+                    <span id="PinturaCargaCerrarPopup"></span>
+                </a>
+            </center>
+        </div>
     </div>
 </div>
-
-<div id="ventanaPaquetePopup" style="display: none; z-index:inherit;">
-    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
-        <label id="EmbarqueCargaPopupPaquete"></label>
-        <input id="inputPopupPaquete" />
-    </div>
-    <br /><br /><br /><br />
-    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
-        <button id="btnActualizarPaquetePopUp" type="button" class="btn btn-blue"><span id="EmbarqueCargaActualizarPaquetePopup"></span></button>
-        <button id="btnCancelarPaquetePopUp" type="button" class="btn btn-black"><span id="EmbarqueCargaCancelarPaquetePopup"></span></button>
-    </div>
-</div>
-
 <script type="text/javascript" src="~/Scripts/AppComponents/Embarque/Empaquetado/Ajax.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/Embarque/Empaquetado/Handlers.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/Embarque/Empaquetado/Render.js"></script>

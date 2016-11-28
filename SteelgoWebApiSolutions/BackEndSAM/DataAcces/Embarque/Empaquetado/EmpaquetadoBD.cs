@@ -46,12 +46,48 @@ namespace BackEndSAM.DataAcces.Embarque.Empaquetado
                             PaqueteID = item.PaqueteID,
                             Nombre = item.Nombre, 
                             Cerrado = item.Cerrado,
+                            FechaCreacion = item.FechaCreacion.ToString(),
                             ProyectoID = ProyectoID, 
-                            CuadrantePaqueteSam2 = item.CuadrantePaqueteSam2.GetValueOrDefault(),
-                            CuadrantePaqueteSam3 = item.CuadrantePaqueteSam3.GetValueOrDefault()
+                            CuadrantePaqueteSam2ID = item.CuadrantePaqueteSam2ID.GetValueOrDefault(),
+                            CuadrantePaqueteSam3ID = item.CuadrantePaqueteSam3ID.GetValueOrDefault(),
+                            CuadranteUbicacion = item.CuadranteUbicacion.GetValueOrDefault(),
+                            ZonaID = item.ZonaID.GetValueOrDefault()
                         });
                     }
 
+                    return listaDetalle;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object ObtenerCuadrantes(int ZonaID)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Sam3_Embarque_Empaquetado_Get_Cuadrante_Result> result = ctx.Sam3_Embarque_Empaquetado_Get_Cuadrante(ZonaID).ToList();
+                    List<UbicacionPaquete> listaDetalle = new List<UbicacionPaquete>();
+                    listaDetalle.Add(new UbicacionPaquete());
+
+                    foreach (Sam3_Embarque_Empaquetado_Get_Cuadrante_Result item in result)
+                    {
+                        listaDetalle.Add(new UbicacionPaquete {
+                            CuadranteID = item.CuadranteID,
+                            Nombre = item.Nombre,
+                            ZonaID = item.ZonaID.GetValueOrDefault()
+                        });
+                    }
                     return listaDetalle;
                 }
             }
@@ -80,14 +116,19 @@ namespace BackEndSAM.DataAcces.Embarque.Empaquetado
                     {
                         listaDetalle.Add(new DetalleCargaPaquete
                         {
+                            Accion = 2,
                             EmpaquetadoID = item.EmpaquetadoID,
                             SpoolID = item.SpoolID,
                             NumeroControl = item.NumeroControl,
                             Area = item.Area.GetValueOrDefault(),
                             Peso = item.Peso.GetValueOrDefault(),
-                            CuadranteID = item.CuadranteID.GetValueOrDefault(),
-                            CuadranteAnteriorID = item.CuadranteAnteriorID.GetValueOrDefault(),
-                            ZonaAnteriorID = item.ZonaAnterior.GetValueOrDefault()
+                            CuadranteSam2ID = item.CuadranteSam2ID,
+                            CuadranteSam3ID = item.CuadranteSam3ID,
+                            Cuadrante = item.Cuadrante,
+                            CuadranteAnteriorSam2ID = item.CuadranteAnteriorSam2ID.GetValueOrDefault(),
+                            CuadranteAnteriorSam3ID = item.CuadranteAnteriorSam3ID.GetValueOrDefault(),
+                            ZonaAnteriorID = item.ZonaAnteriorID.GetValueOrDefault(),
+                            ModificadoPorUsuario = false
                         });
                     }
                     return null;
@@ -105,106 +146,81 @@ namespace BackEndSAM.DataAcces.Embarque.Empaquetado
             }
         }
 
-        //public object ObtieneDetalleSpoolAgregar(int CargaPlanaID, int TipoConsulta, int OrdenTrabajoSpoolID)
-        //{
-        //    try
-        //    {
-        //        using (SamContext ctx = new SamContext())
-        //        {
-                    //List<Sam3_Embarque_Get_DetalleSpool_Result> result = ctx.Sam3_Embarque_Get_DetalleSpool(CargaPlanaID, TipoConsulta, OrdenTrabajoSpoolID).ToList();
-                    //List<DetalleCargaPlana> listaDetalle = new List<DetalleCargaPlana>();
+        public object ObtieneDetalleSpoolAgregar(int TipoConsulta, int OrdenTrabajoSpoolID, string Codigo)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Sam3_Embarque_Empaquetado_Get_DetalleSpool_Result> result = ctx.Sam3_Embarque_Empaquetado_Get_DetalleSpool(TipoConsulta, OrdenTrabajoSpoolID, Codigo).ToList();
+                    List<DetalleSpoolAgregar> listaDetalle = new List<DetalleSpoolAgregar>();
+                    foreach (Sam3_Embarque_Empaquetado_Get_DetalleSpool_Result item in result)
+                    {
+                        listaDetalle.Add(new DetalleSpoolAgregar
+                        {
+                            Accion = 1,
+                            EmpaquetadoID = item.EmpaquetadoID.GetValueOrDefault(),
+                            SpoolID = item.SpoolID,
+                            NumeroControl = item.NumeroControl,
+                            Area = item.Area.GetValueOrDefault(),
+                            Peso = item.Peso.GetValueOrDefault(),
+                            ProyectoID = item.ProyectoID,
+                            CuadranteSam2ID = item.CuadranteSam2ID,
+                            CuadranteSam3ID = item.CuadranteSam3ID,
+                            Cuadrante = item.Cuadrante,
+                            CuadranteAnteriorSam2ID = item.CuadranteAnteriorSam2ID.GetValueOrDefault(),
+                            CuadranteAnteriorSam3ID = item.CuadranteAnteriorSam3ID.GetValueOrDefault(),
+                            Empaquetado = item.Empaquetado,
+                            Paquete = item.Paquete,
+                            ModificadoPorUsuario = true
+                        });
+                    }
 
-                    //foreach (Sam3_Embarque_Get_DetalleSpool_Result item in result)
-                    //{
-                    //    listaDetalle.Add(new DetalleCargaPlana
-                    //    {
-                    //        Accion = 1,
-                    //        DetalleCargaID = item.DetalleCargaID.GetValueOrDefault(),
-                    //        SpoolID = item.SpoolID,
-                    //        OrdenTrabajoID = item.OrdenTrabajoID,
-                    //        Spool = item.NumeroControl,
-                    //        PaqueteID = item.PaqueteID,
-                    //        Paquete = item.NombrePaquete,
-                    //        Peso = item.Peso.GetValueOrDefault(),
-                    //        CuadranteID = item.CuadranteID.GetValueOrDefault(),
-                    //        CuadranteAnteriorID = item.CuadranteAnteriorID.GetValueOrDefault(),
-                    //        ModificadoPorUsuario = false
-                    //    });
-                    //}
-        //            return null;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        TransactionalInformation result = new TransactionalInformation();
-        //        result.ReturnMessage.Add(ex.Message);
-        //        result.ReturnCode = 500;
-        //        result.ReturnStatus = false;
-        //        result.IsAuthenicated = true;
+                    return listaDetalle;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
 
-        //        return result;
-        //    }
-        //}
+                return result;
+            }
+        }
 
-        //public object CerrarCargaPaquete(DataTable dtDetalle, int UsuarioID)
-        //{
-        //    try
-        //    {
-        //        ObjetosSQL _SQL = new ObjetosSQL();
-        //        string[,] parametros = { { "@Usuario", UsuarioID.ToString() } };
+        public object DescargaSpoolPaquete(int EmpaquetadoID, int SpoolID, int CuadranteID, int CuadranteAnteriorSam2, int CuadranteAnteriorSam3, int UsuarioID)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
 
-        //        _SQL.EjecutaInsertUpdate("", dtDetalle, "@TablaCargaPlana", parametros);
+                    ctx.Sam3_Embarque_Empaquetado_DescargaSpool(EmpaquetadoID, SpoolID, CuadranteID, CuadranteAnteriorSam2, CuadranteAnteriorSam3, UsuarioID);
 
-        //        TransactionalInformation result = new TransactionalInformation();
-        //        result.ReturnMessage.Add("OK");
-        //        result.ReturnCode = 200;
-        //        result.ReturnStatus = true;
-        //        result.IsAuthenicated = true;
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add("Ok");
+                    result.ReturnCode = 200;
+                    result.ReturnStatus = true;
+                    result.IsAuthenicated = true;
 
-        //        return result;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        TransactionalInformation result = new TransactionalInformation();
-        //        result.ReturnMessage.Add(ex.Message);
-        //        result.ReturnCode = 500;
-        //        result.ReturnStatus = false;
-        //        result.IsAuthenicated = true;
+                    return result;
+                }
 
-        //        return result;
-        //    }
-        //}
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
 
-        //public object DescargaSpoolPaquete(int DetalleCargaID, int SpoolID, int CuadranteID, int CuadranteAnterior, int UsuarioID)
-        //{
-        //    try
-        //    {
-        //        using (SamContext ctx = new SamContext())
-        //        {
-
-        //            ctx.Sam3_Embarque_DescargaSpool(DetalleCargaID, SpoolID, CuadranteID, CuadranteAnterior, UsuarioID);
-
-        //            TransactionalInformation result = new TransactionalInformation();
-        //            result.ReturnMessage.Add("OK");
-        //            result.ReturnCode = 200;
-        //            result.ReturnStatus = true;
-        //            result.IsAuthenicated = true;
-
-        //            return result;
-        //        }
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        TransactionalInformation result = new TransactionalInformation();
-        //        result.ReturnMessage.Add(ex.Message);
-        //        result.ReturnCode = 500;
-        //        result.ReturnStatus = false;
-        //        result.IsAuthenicated = true;
-
-        //        return result;
-        //    }
-        //}
+                return result;
+            }
+        }
 
         public object GuardaNuevoPaquete(int UsuarioID, string lenguaje, int PaqueteID, string NombrePaquete, int CuadranteID, int Cerrado, string FechaPaquete, int CuadrantePaquereSam2ID, int CuadrantePaquereSam3ID, DataTable dtDetalle)
         {
@@ -229,9 +245,12 @@ namespace BackEndSAM.DataAcces.Embarque.Empaquetado
                 
 
                 if (identityResult > 0)
+                {
                     result.ReturnMessage.Add("Ok");
+                    result.ReturnMessage.Add(identityResult.ToString());
+                }
                 else
-                    result.ReturnMessage.Add("El paquete ya existe con ese nombre");
+                    result.ReturnMessage.Add("Paquete Existe");
 
                 result.ReturnCode = 200;
                 result.ReturnStatus = true;
