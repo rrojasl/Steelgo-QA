@@ -211,7 +211,8 @@ function AjaxGuardarCaptura(rows, tipoGuardar) {
         });
     }
     else {
-        displayNotify("", "No hay datos por guardar", '1');
+        //displayNotify("", "No hay datos por guardar", '1');
+        displayNotify("MensajeGuardadoExistoso", "", '0');
         $('#Guardar').text = _dictionary.botonEditar[$("#language").data("kendoDropDownList").value()];
         loadingStop();
     }
