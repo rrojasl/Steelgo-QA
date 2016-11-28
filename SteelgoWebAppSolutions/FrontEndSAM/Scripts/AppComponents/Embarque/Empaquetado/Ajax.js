@@ -217,6 +217,7 @@ function AjaxGuardarCaptura(ds, nuevo, Paquete, Proyecto) {
         width: "40%",
         height: "auto",
         modal: true,
+        draggable: false,
         resizable: false,
         animation: {
             close: false,
@@ -280,4 +281,29 @@ function AjaxGuardarCaptura(ds, nuevo, Paquete, Proyecto) {
     });
 
     windowSave.open().center();
+}
+
+function AjaxDescargarSpool(dataItem) {
+    loadingStart();
+    var dataSource = $("#grid").data("kendoGrid").dataSource;
+    var cuadranteID = $("#InputCuadranteDescarga").data("kendoComboBox").value();
+
+    $Empaquetado.Empaquetado.read({
+        token: Cookies.get("token"), EmpaquetadoID: dataItem.EmpaquetadoID, SpoolID: dataItem.SpoolID,
+        CuadranteID: cuadranteID, CuadranteAnteriorSam2: dataItem.CuadranteSam2ID,
+        CuadranteAnteriorSam3: dataItem.CuadranteSam3ID
+    }).done(function (data) {
+        if (Error(data)) {
+            if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
+                dataSource.remove(dataItem);
+                dataSource.sync();
+                displayNotify("EmbarqueEmpaquetadoMsjDescargaSpoolExito", "", "0");
+            } else {
+                displayNotify("EmbarqueEmpaquetadoMsjDescargaSpoolError", "", "2");
+            }
+        } else {
+            displayNotify("EmbarqueEmpaquetadoMsjDescargaSpoolError", "", "2");
+        }
+        loadingStop();
+    });
 }

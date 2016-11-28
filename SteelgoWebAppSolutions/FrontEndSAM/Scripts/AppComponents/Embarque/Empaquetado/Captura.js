@@ -87,38 +87,51 @@ function CargarGrid() {
 
 function descargaSpool(e) {
     e.preventDefault();
-    if (!$("#inputCerrar").is(":checked")) {
+    
         if ($('#Guardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
-            AjaxCargarZona();
             var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
 
-            ventanaPopup = $("#ventanaPopup").kendoWindow({
+            windowDownload = $("#windowDownload").kendoWindow({
                 title: _dictionary.EmbarqueCargaTituloPopupCuadrante[$("#language").data("kendoDropDownList").value()],
                 visible: false,
                 width: "40%",
                 height: "auto",
+                draggable: false,
+                resizable: false,
                 modal: true,
-                animation: false
+                animation: {
+                    close: false,
+                    open: false
+                },
+                close: function () {
+                    $("#InputZonaDescarga").data("kendoComboBox").value("");
+                    $("#InputZonaDescarga").data("kendoComboBox").dataSource.data([]);
+                    $("#InputCuadranteDescarga").data("kendoComboBox").value();
+                    $("#InputCuadranteDescarga").data("kendoComboBox").dataSource.data([]);
+                }
             }).data("kendoWindow");
 
             $("#btnDescargar").click(function (e) {
-                var zonaID = $("#inputZonaPopup").data("kendoComboBox").value();
-                var cuadranteID = $("#inputCuadrantePopup").data("kendoComboBox").value();
+                var zonaID = $("#InputZonaDescarga").data("kendoComboBox").value();
+                var cuadranteID = $("#InputCuadranteDescarga").data("kendoComboBox").value();
                 if (zonaID != "" && zonaID != "0") {
                     if (cuadranteID != "" && cuadranteID != "0") {
-                        ventanaPopup.close();
+                        windowDownload.close();
                         AjaxDescargarSpool(dataItem);
                     } else {
-                        displayNotify("EmbarqueCargaMsjErrorZona", "", "2");
+                        displayNotify("EmbarqueCargaMsjErrorCuadrante", "", "2");
                     }
                 } else {
-                    displayNotify("EmbarqueCargaMsjErrorCuadrante", "", "2");
+                    displayNotify("EmbarqueCargaMsjErrorZona", "", "2");
                 }
+            });
+
+            $("#btnCerrarPopup").click(function (e) {                
+                windowDownload.close();
             });
 
             ventanaPopup.open().center();
         }
-    }
 }
 
 function existenCambios() {

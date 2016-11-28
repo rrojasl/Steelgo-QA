@@ -7746,6 +7746,10 @@ _dictionary = {
         "es-MX": "Descarga",
         "en-US": "Download"
     },
+    "botonDescarga1": {
+        "es-MX": "Descarga",
+        "en-US": "Download"
+    },
     "botonEditar1": {
         "es-MX": "Editar",
         "en-US": "Update"
@@ -10752,7 +10756,17 @@ _dictionary = {
     },
     "EmbarqueEmpaquetadoErrorPaqueteExiste": {
         "es-MX": "El paquete ya existe con el nombre ingresado",
-        "en-US": "The spool is already in the package "
+        "en-US": "The package already exists with the name entered"
+    },
+    "EmbarqueEmpaquetadoMsjDescargaSpoolExito": {
+        "es-MX": "El spool ha sido descargado correctamente",
+        "en-US": "Spool has been successfully downloaded"
+
+    },
+    "EmbarqueEmpaquetadoMsjDescargaSpoolError": {
+        "es-MX": "El spool no ha sido descargado",
+        "en-US": "Spool has not been downloaded"
+
     },
     //Finaliza Pantalla empaquetado
     //Finaliza Modulo Embarque 
