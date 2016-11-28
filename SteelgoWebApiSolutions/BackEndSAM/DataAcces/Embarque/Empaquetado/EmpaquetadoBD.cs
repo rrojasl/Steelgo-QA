@@ -121,7 +121,7 @@ namespace BackEndSAM.DataAcces.Embarque.Empaquetado
                             SpoolID = item.SpoolID,
                             NumeroControl = item.NumeroControl,
                             Area = item.Area.GetValueOrDefault(),
-                            Peso = item.Peso.GetValueOrDefault(),
+                            Peso = item.Peso.GetValueOrDefault()/1000,
                             CuadranteSam2ID = item.CuadranteSam2ID,
                             CuadranteSam3ID = item.CuadranteSam3ID,
                             Cuadrante = item.Cuadrante,
@@ -131,7 +131,7 @@ namespace BackEndSAM.DataAcces.Embarque.Empaquetado
                             ModificadoPorUsuario = false
                         });
                     }
-                    return null;
+                    return listaDetalle;
                 }
             }
             catch (Exception ex)

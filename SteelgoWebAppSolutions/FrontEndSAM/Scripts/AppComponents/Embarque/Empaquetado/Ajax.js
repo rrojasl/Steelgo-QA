@@ -152,6 +152,8 @@ function AjaxCargarDetalleEmpaquetado(paqueteID, todos) {
             for (var i = 0; i < data.length; i++) {
                 ds.add(data[i]);
             }
+            ImprimirTotalToneladas(ds._data);
+            ImprimirTotalPiezas(ds._data);
         }
         loadingStop();
     });
@@ -179,6 +181,9 @@ function AjaxObtenerDetalleSpool(tipoConsulta, spoolID, codigo) {
                     displayNotify("SpoolIDExistente", "", '2');
                 }
             }
+
+            ImprimirTotalToneladas(ds._data);
+            ImprimirTotalPiezas(ds._data);
         }
         loadingStop();
     });
@@ -301,6 +306,8 @@ function AjaxDescargarSpool(dataItem) {
             } else {
                 displayNotify("EmbarqueEmpaquetadoMsjDescargaSpoolError", "", "2");
             }
+            ImprimirTotalToneladas(dataSource._data);
+            ImprimirTotalPiezas(dataSource._data);
         } else {
             displayNotify("EmbarqueEmpaquetadoMsjDescargaSpoolError", "", "2");
         }

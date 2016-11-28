@@ -337,9 +337,12 @@ function opcionHabilitarView(valor, name) {
 }
 
 function Limpiar() {
+
     $("#InputProyecto").data("kendoComboBox").value("");
     $("#InputPaquete").data("kendoComboBox").value("");
     $("#InputCerrar")[0].checked = false;
+    $("#EmbarqueEmpaquetadoTotalPiezas").text("");
+    $("#EmbarqueEmpaquetadoToneladasCargadas").text("");
     AjaxCargarProyectos();
 }
 

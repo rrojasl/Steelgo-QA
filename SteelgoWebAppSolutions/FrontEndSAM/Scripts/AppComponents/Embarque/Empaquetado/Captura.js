@@ -166,3 +166,24 @@ function ValidarFecha(valor) {
         $("#InputFechaPaquete").data("kendoDatePicker").value('');
     }
 }
+
+function ImprimirTotalToneladas(ds) {
+    if (ds != null) {
+        var totalToneladas = 0;
+        for (var i = 0; i < ds.length; i++) {
+
+            totalToneladas = totalToneladas + ds[i].Peso;
+        }
+        $("#EmbarqueEmpaquetadoTotalPiezas").text(totalToneladas!=0?totalToneladas:"");
+    } else {
+        $("#EmbarqueEmpaquetadoTotalPiezas").text("");
+    }
+}
+
+function ImprimirTotalPiezas(ds) {
+    if(ds!=null){        
+        $("#EmbarqueEmpaquetadoTotalPiezas").text(ds.length);
+    } else {
+        $("#EmbarqueEmpaquetadoTotalPiezas").text("");
+    }
+}
