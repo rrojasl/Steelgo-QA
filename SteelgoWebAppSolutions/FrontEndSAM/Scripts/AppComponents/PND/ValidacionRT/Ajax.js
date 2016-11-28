@@ -89,7 +89,7 @@ function AjaxRequisicion(proyectoID, proveedorID) {
                 $("#inputPrueba").data("kendoComboBox").value(data[1].TipoPruebaID);
             //}
 
-                botonAgregar();
+                $("#btnAgregar").trigger("click");
             //ajaxResultadosDetalle($("#inputProyecto").data("kendoComboBox").value(), $("#inputProveedor").data("kendoComboBox").value(), $("#inputRequisicion").data("kendoComboBox").value());
 
         }

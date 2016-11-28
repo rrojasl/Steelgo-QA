@@ -17,7 +17,7 @@ namespace BackEndSAM.Controllers.Sam3General.Proveedor
     public class ProveedoresController: ApiController
     {
         [HttpGet]
-        public object ObtenerProveedores(string token, int ProyectoID)
+        public object ObtenerProveedores(string token, int ProyectoID, int TipoProveedor)
         {
             string payload = "";
             string newToken = "";
@@ -28,7 +28,7 @@ namespace BackEndSAM.Controllers.Sam3General.Proveedor
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                return ProveedoresBD.Instance.ObtenerProveedores(ProyectoID);
+                return ProveedoresBD.Instance.ObtenerProveedores(ProyectoID, TipoProveedor);
             }
             else
             {
@@ -43,7 +43,7 @@ namespace BackEndSAM.Controllers.Sam3General.Proveedor
         }
 
         [HttpGet]
-        public object GuardarNuevoProveedorEmbarque(string token, string NombreProveedor, int ProyectoID, string Descripcion, string Direccion, string Telefono)
+        public object GuardarNuevoProveedorEmbarque(string token, string NombreProveedor, int ProyectoID, string Descripcion, string Direccion, string Telefono, int TipoProveedor)
         {
             string payload = "";
             string newToken = "";
@@ -55,7 +55,7 @@ namespace BackEndSAM.Controllers.Sam3General.Proveedor
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
                 DataTable dt = new DataTable();
-                return ProveedoresBD.Instance.GuardarNuevoProveedor(NombreProveedor, usuario.UsuarioID, ProyectoID, Descripcion, Direccion, Telefono);
+                return ProveedoresBD.Instance.GuardarNuevoProveedor(NombreProveedor, usuario.UsuarioID, ProyectoID, Descripcion, Direccion, Telefono, TipoProveedor);
             }
             else
             {

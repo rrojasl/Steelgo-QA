@@ -5,7 +5,7 @@ var DestinoGuardado = 0;
 
 function changeLanguageCall() {
     CargarGrid();
-    //AjaxCargarProveedor();
+    AjaxCargarProyecto();
     document.title = "Embarque carro";
 };
 
@@ -173,4 +173,71 @@ function existePlana(contenidoGrid, plana) {
         }
     }
     return existe;
+}
+
+
+function CargaPopupNuevoProveedor(e) {
+    $("#inputNombreNuevoProveedor").val("");
+
+    windowNewProvider = $("#divNuevoProveedor").kendoWindow({
+        modal: true,
+        resizable: false,
+        visible: true,
+        width: "500px",
+        height: "auto",
+        position: {
+            top: "1%",
+            left: "1%"
+        },
+        animation: false
+
+    }).data("kendoWindow");
+    $("#divNuevoProveedor").data("kendoWindow").title(_dictionary.EmbarqueCargaNuevoProveedor[$("#language").data("kendoDropDownList").value()]);
+    $("#divNuevoProveedor").data("kendoWindow").center().open();
+
+    $("#inputNombreNuevoProveedor").focus();
+}
+
+function CargaPopupNuevoTracto(e) {
+    $("#inputNombreNuevoTracto").val("");
+
+    windowNewTracto = $("#divNuevoTracto").kendoWindow({
+        modal: true,
+        resizable: false,
+        visible: true,
+        width: "500px",
+        height: "auto",
+        position: {
+            top: "1%",
+            left: "1%"
+        },
+        animation: false
+
+    }).data("kendoWindow");
+    $("#divNuevoTracto").data("kendoWindow").title("Nuevo Tracto");
+    $("#divNuevoTracto").data("kendoWindow").center().open();
+
+    $("#inputNombreNuevoTracto").focus();
+}
+
+function CargaPopupNuevoChofer(e) {
+    $("#inputNombreNuevoChofer").val("");
+
+    windowNewChofer = $("#divNuevoChofer").kendoWindow({
+        modal: true,
+        resizable: false,
+        visible: true,
+        width: "500px",
+        height: "auto",
+        position: {
+            top: "1%",
+            left: "1%"
+        },
+        animation: false
+
+    }).data("kendoWindow");
+    $("#divNuevoChofer").data("kendoWindow").title("Nuevo chofer");
+    $("#divNuevoChofer").data("kendoWindow").center().open();
+
+    $("#inputNombreNuevoChofer").focus();
 }
