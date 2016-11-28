@@ -29,13 +29,13 @@ namespace BackEndSAM.DataAcces.Embarque.Empaquetado
             }
         }
 
-        public object ObtenerPaquetes(int ProyectoID)
+        public object ObtenerPaquetes(int ProyectoID, string Lenguaje)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Embarque_Get_ListadoPaquetes_Result> result = ctx.Sam3_Embarque_Get_ListadoPaquetes(ProyectoID).ToList();
+                    List<Sam3_Embarque_Get_ListadoPaquetes_Result> result = ctx.Sam3_Embarque_Get_ListadoPaquetes(ProyectoID, Lenguaje).ToList();
                     List<DetallePaquete> listaDetalle = new List<DetallePaquete>();
                     listaDetalle.Add(new DetallePaquete());
 
@@ -46,7 +46,7 @@ namespace BackEndSAM.DataAcces.Embarque.Empaquetado
                             PaqueteID = item.PaqueteID,
                             Nombre = item.Nombre, 
                             Cerrado = item.Cerrado,
-                            FechaCreacion = item.FechaCreacion.ToString(),
+                            FechaCreacion = item.FechaCreacion,
                             ProyectoID = ProyectoID, 
                             CuadrantePaqueteSam2ID = item.CuadrantePaqueteSam2ID.GetValueOrDefault(),
                             CuadrantePaqueteSam3ID = item.CuadrantePaqueteSam3ID.GetValueOrDefault(),

@@ -9,6 +9,7 @@
     SuscribirEventoAgregar();
     SuscribirEventoFecha();
     SuscribirEventoGuardar();
+    SuscribirEventoEstatusPaquete();
 }
 
 function SuscribirEventoProyecto() {
@@ -45,7 +46,7 @@ function SuscribirEventoPaquete() {
             var dataItem = this.dataItem(e.sender.selectedIndex);
 
             if (dataItem != undefined) {
-
+                ChangeEstatusPaquete(dataItem.Cerrado);
             }
             else {
                 $("#InputPaquete").data("kendoComboBox").value("");
@@ -139,6 +140,7 @@ function SuscribirEventoMostrar() {
     $('#btnMostrar').click(function (e) {
         var Proyecto = $("#InputProyecto").data("kendoComboBox").dataItem($("#InputProyecto").data("kendoComboBox").select());
         var Paquete = $("#InputPaquete").data("kendoComboBox").dataItem($("#InputPaquete").data("kendoComboBox").select());
+        $("#grid").data("kendoGrid").dataSource.data([]);
 
         if (Proyecto != undefined && Proyecto.ProyectoID != 0) {
             $("#grid").data('kendoGrid').dataSource.data([]);
@@ -340,14 +342,41 @@ function Limpiar() {
 
     $("#InputProyecto").data("kendoComboBox").value("");
     $("#InputPaquete").data("kendoComboBox").value("");
+    $("#InputPaquete").data("kendoComboBox").dataSource.data([]);
     $("#InputCerrar")[0].checked = false;
-    $("#EmbarqueEmpaquetadoTotalPiezas").text("");
-    $("#EmbarqueEmpaquetadoToneladasCargadas").text("");
+    $("#TotalPiezas").text("");
+    $("#TotalToneladas").text("");
+
+    $("#InputOrdenTrabajo").val("");
+    $("#InputID").data("kendoComboBox").value("");
+    $("#InputID").data("kendoComboBox").dataSource.data([]);
+
+    $("#grid").data("kendoGrid").dataSource.data([]);
+
+    AjaxCargarCamposPredeterminados();
     AjaxCargarProyectos();
+    cuadranteSave = 0;
 }
 
 function LimpiarSelectProyecto() {
     $("#InputPaquete").data("kendoComboBox").dataSource.data([]);
     $("#InputPaquete").data("kendoComboBox").value("");
-    $("#grid").data("kendoGrid").dataSource.data([]);
+}
+
+function ChangeEstatusPaquete(cerrado) {
+    if (cerrado) {
+        $("#InputCerrar")[0].checked = true;
+    }else{
+        $("#InputCerrar")[0].checked = false;
+    }
+}
+
+function SuscribirEventoEstatusPaquete() {
+    $("#InputCerrar").click(function (e) {
+        var Paquete = $("#InputPaquete").data("kendoComboBox").dataItem($("#InputPaquete").data("kendoComboBox").select());
+
+        if(Paquete.Cerrado){
+            $(this)[0].checked = true;
+        }
+    });
 }

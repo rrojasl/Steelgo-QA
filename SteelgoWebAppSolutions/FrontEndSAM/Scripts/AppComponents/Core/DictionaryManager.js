@@ -7702,6 +7702,10 @@ _dictionary = {
         "es-MX": "Cerrar",
         "en-US": "Close"
     },
+    "botonCerrar1": {
+        "es-MX": "Cerrar",
+        "en-US": "Close"
+    },
     "botonAcciones1": {
         "es-MX": "Acciones",
         "en-US": "Actions"
@@ -10767,6 +10771,14 @@ _dictionary = {
         "es-MX": "El spool no ha sido descargado",
         "en-US": "Spool has not been downloaded"
 
+    },
+    "EmbarqueEmpaquetadoMsjErrorZona": {
+        "es-MX": "Por Favor selecciona la zona",
+        "en-US": "Please select a zone"
+    },
+    "EmbarqueEmpaquetadoMsjErrorCuadrante": {
+        "es-MX": "Por Favor selecciona el cuadrante",
+        "en-US": "Please select a quadrant"
     },
     //Finaliza Pantalla empaquetado
     //Finaliza Modulo Embarque 

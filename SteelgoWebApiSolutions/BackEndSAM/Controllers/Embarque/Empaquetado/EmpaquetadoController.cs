@@ -14,7 +14,7 @@ namespace BackEndSAM.Controllers.Embarque.Empaquetado
     public class EmpaquetadoController : ApiController
     {
         [HttpGet]
-        public object ObtenerPaquetes(string token, int ProyectoID)
+        public object ObtenerPaquetes(string token, int ProyectoID, string lenguaje)
         {
             string payload = "";
             string newToken = "";
@@ -25,7 +25,7 @@ namespace BackEndSAM.Controllers.Embarque.Empaquetado
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                return EmpaquetadoBD.Instance.ObtenerPaquetes(ProyectoID);
+                return EmpaquetadoBD.Instance.ObtenerPaquetes(ProyectoID, lenguaje);
             }
             else
             {
@@ -40,7 +40,7 @@ namespace BackEndSAM.Controllers.Embarque.Empaquetado
         }
 
         [HttpGet]
-        public object ObtenerCuadrantes(string token, string lenguaje, int ZonaID)
+        public object ObtenerCuadrantes(string token, int ZonaID)
         {
             string payload = "";
             string newToken = "";

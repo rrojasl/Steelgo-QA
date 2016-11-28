@@ -105,7 +105,6 @@ function descargaSpool(e) {
                 },
                 close: function () {
                     $("#InputZonaDescarga").data("kendoComboBox").value("");
-                    $("#InputZonaDescarga").data("kendoComboBox").dataSource.data([]);
                     $("#InputCuadranteDescarga").data("kendoComboBox").value();
                     $("#InputCuadranteDescarga").data("kendoComboBox").dataSource.data([]);
                 }
@@ -130,7 +129,7 @@ function descargaSpool(e) {
                 windowDownload.close();
             });
 
-            ventanaPopup.open().center();
+            windowDownload.open().center();
         }
 }
 
@@ -174,16 +173,16 @@ function ImprimirTotalToneladas(ds) {
 
             totalToneladas = totalToneladas + ds[i].Peso;
         }
-        $("#EmbarqueEmpaquetadoTotalPiezas").text(totalToneladas!=0?totalToneladas:"");
+        $("#TotalToneladas").text(totalToneladas != 0 ? totalToneladas : "");
     } else {
-        $("#EmbarqueEmpaquetadoTotalPiezas").text("");
+        $("#TotalToneladas").text("");
     }
 }
 
 function ImprimirTotalPiezas(ds) {
     if(ds!=null){        
-        $("#EmbarqueEmpaquetadoTotalPiezas").text(ds.length);
+        $("#TotalPiezas").text(ds.length!=0?ds.length:"");
     } else {
-        $("#EmbarqueEmpaquetadoTotalPiezas").text("");
+        $("#TotalPiezas").text("");
     }
 }
