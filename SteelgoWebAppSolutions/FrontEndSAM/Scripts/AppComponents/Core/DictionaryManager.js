@@ -10780,6 +10780,42 @@ _dictionary = {
         "es-MX": "Por Favor selecciona el cuadrante",
         "en-US": "Please select a quadrant"
     },
+    "EmbarqueEmpaquetadoMsjErrorSpoolID": {
+        "es-MX": "Por favor ingresa el Spool ID",
+        "en-US": "Please enter Spool ID"
+    },
+    "EmbarqueEmpaquetadoMsjErrorCodigo": {
+        "es-MX": "Por favor ingresa el Codigo",
+        "en-US": "Please enter code"
+    },
+    "EmbarqueEmpaquetadoMsjErrorNombrePaquete": {
+        "es-MX": "Por favor ingresa el nombre del paquete",
+        "en-US": "Please enter package name"
+    },
+    "EmbarqueEmpaquetadoMsjErrorFechaPaquete": {
+        "es-MX": "Por favor ingresa la fecha del paquete",
+        "en-US": "Please enter date of the package"
+    },
+    "EmbarqueEmpaquetadoMsjErrorPaquete": {
+        "es-MX": "Por favor seleccione un paquete ",
+        "en-US": "Please select a package"
+    },
+    "EmbarqueEmpaquetadoMsjExitoEliminarPaquete": {
+        "es-MX": "El paquete se eliminó correctamente",
+        "en-US": "Package successfully deleted"
+    },
+    "EmbarqueEmpaquetadoMsjErrorExistenSpoolsPaquete": {
+        "es-MX": "El paquete no se puede eliminar contiene spools cargados",
+        "en-US": "Package can not be deleted contains spools loaded"
+    },
+    "EmbarqueEmpaquetadoMsjErrorEliminarPaquete": {
+        "es-MX": "No se pudo eliminar el paquete",
+        "en-US": "Package could not be deleted"
+    },
+    "EmbarqueEmpaquetadoErrorSpoolPlana": {
+        "es-MX": "El spool ya se encuentra cargado en la plana ",
+        "en-US": "The spool is already loaded on the flat "
+    },
     //Finaliza Pantalla empaquetado
     //Finaliza Modulo Embarque 
 };
