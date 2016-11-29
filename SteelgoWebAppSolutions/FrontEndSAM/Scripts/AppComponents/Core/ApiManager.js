@@ -210,6 +210,7 @@ var $EmbarqueGeneral = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Proveedores = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $EncintadoFinal = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Empaquetado = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $PreparacionEmbarque = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 
 
 //#region Declaracion
@@ -378,7 +379,7 @@ $ListadoSistemaPintura.add("ListadoSistemaPintura");
 $Etiquetado.add("Etiquetado");
 $EncintadoFinal.add('EncintadoFinal');
 $Empaquetado.add('Empaquetado');
-
+$PreparacionEmbarque.add('PreparacionEmbarque');
 //Soldadura
 
 

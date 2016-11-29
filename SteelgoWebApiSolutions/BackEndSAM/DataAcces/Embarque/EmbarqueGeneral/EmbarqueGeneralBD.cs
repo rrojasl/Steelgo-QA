@@ -85,7 +85,11 @@ namespace BackEndSAM.DataAcces.Embarque.EmbarqueGeneral
                         {
                             PlanaID = item.PlanaID,
                             Nombre = item.Nombre,
-                           
+                           CargaPlanaID = item.CargaPlanaID,
+                           CuadrantePlanaSam2 = item.CuadrantePlanaSam2.GetValueOrDefault(),
+                           CuadrantePlanaSam3 = item.CuadrantePlanaSam3.GetValueOrDefault(),
+                           ProyectoID = item.ProyectoID.GetValueOrDefault(),
+                           StatusCarga = item.StatusCarga.GetValueOrDefault()
                         });
                     }
 
