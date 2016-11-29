@@ -12,6 +12,9 @@ function changeLanguageCall() {
     FechaPaquete.data("kendoDatePicker").setOptions({
         format: _dictionary.FormatoFecha2[$("#language").data("kendoDropDownList").value()]
     });
+
+    SuscribirEventoWindowsPopup();
+    SuscribirEventoPopupDescaga();
 };
 
 
@@ -91,43 +94,7 @@ function descargaSpool(e) {
         if ($('#Guardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
             var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
 
-            windowDownload = $("#windowDownload").kendoWindow({
-                title: _dictionary.EmbarqueCargaTituloPopupCuadrante[$("#language").data("kendoDropDownList").value()],
-                visible: false,
-                width: "40%",
-                height: "auto",
-                draggable: false,
-                resizable: false,
-                modal: true,
-                animation: {
-                    close: false,
-                    open: false
-                },
-                close: function () {
-                    $("#InputZonaDescarga").data("kendoComboBox").value("");
-                    $("#InputCuadranteDescarga").data("kendoComboBox").value();
-                    $("#InputCuadranteDescarga").data("kendoComboBox").dataSource.data([]);
-                }
-            }).data("kendoWindow");
-
-            $("#btnDescargar").click(function (e) {
-                var zonaID = $("#InputZonaDescarga").data("kendoComboBox").value();
-                var cuadranteID = $("#InputCuadranteDescarga").data("kendoComboBox").value();
-                if (zonaID != "" && zonaID != "0") {
-                    if (cuadranteID != "" && cuadranteID != "0") {
-                        windowDownload.close();
-                        AjaxDescargarSpool(dataItem);
-                    } else {
-                        displayNotify("EmbarqueCargaMsjErrorCuadrante", "", "2");
-                    }
-                } else {
-                    displayNotify("EmbarqueCargaMsjErrorZona", "", "2");
-                }
-            });
-
-            $("#btnCerrarPopup").click(function (e) {                
-                windowDownload.close();
-            });
+            $("#InputUidRow").val(dataItem.uid);
 
             windowDownload.open().center();
         }

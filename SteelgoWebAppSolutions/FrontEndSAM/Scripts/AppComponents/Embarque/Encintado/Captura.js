@@ -98,7 +98,8 @@ function CargarGrid() {
                 logic: "or",
                 filters: [
                   { field: "Accion", operator: "eq", value: 1 },
-                  { field: "Accion", operator: "eq", value: 2 }
+                  { field: "Accion", operator: "eq", value: 2 },
+                  { field: "Accion", operator: "eq", value: 3 }
                 ]
             },
             pageSize: 10,
@@ -179,8 +180,8 @@ function CargarGrid() {
                 e.preventDefault();
             }
         }
-        //, dataBound: function (e) {
-        //    $(".chkbx").bind("change", function (e) {
+        //dataBound: function (e) {
+        //    $(".chk-Encintado").bind("change", function (e) {
         //        if ($('#botonGuardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
         //            if (e.target.checked) {
         //                $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Encintado = true;
@@ -192,7 +193,7 @@ function CargarGrid() {
         //                $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).ModificadoPorUsuario = true;
         //            }
         //            else {
-        //                $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).EtiquEncintadoetado = false;
+        //                $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Encintado = false;
         //                $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Accion = $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Accion == 2 ? 3 : $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Accion;
         //                if ($("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Accion == 1) {
         //                    $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).ModificadoPorUsuario = false;
@@ -230,8 +231,8 @@ function CargarGrid() {
             }
             else {
                 dataItem.Encintado = false;
-                dataItem.ColorCintaID = 0;
-                dataItem.ColorCinta = "";
+                //dataItem.ColorCintaID = 0;
+                //dataItem.ColorCinta = "";
                 dataItem.ModificadoPorUsuario = true;
             }
 

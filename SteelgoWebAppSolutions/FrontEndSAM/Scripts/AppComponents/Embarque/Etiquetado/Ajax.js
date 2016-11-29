@@ -152,21 +152,27 @@ function AjaxGuardarCaptura(rows, tipoGuardar) {
         $Etiquetado.Etiquetado.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
             if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "OK") {
                 displayNotify("MensajeGuardadoExistoso", "", '0');
-                if (tipoGuardar == 1) {
-                    opcionHabilitarView(false, "FieldSetView");
-                    Limpiar();
-                    AjaxCargarCamposPredeterminados();
-                }
-                else {
-                    $("#grid").data("kendoGrid").dataSource.data([]);
+                if (tipoGuardar == 0) {
                     opcionHabilitarView(true, "FieldSetView");
+                    //Limpiar();
                     var ZonaID = $("#inputZona").val();
                     var CuadranteID = $("#inputCuadrante").val();
                     var SpoolIDContiene = $("#SpoolIDCOntiene").val();
                     var Muestra = $('input:radio[name=Muestra]:checked').val();
                     var TipoBusqueda = $('input:radio[name=TipoBusqueda]:checked').val();
-
                     AjaxGetDetalleEtiquetado(TipoBusqueda == 'Zona' ? 1 : 0, Muestra == 'Todos' ? 1 : 0, ZonaID == "" ? 0 : ZonaID, CuadranteID == "" ? 0 : CuadranteID, SpoolIDContiene);
+                    AjaxCargarCamposPredeterminados();
+                }
+                else {
+                    $("#grid").data("kendoGrid").dataSource.data([]);
+                    opcionHabilitarView(false, "FieldSetView");
+                    //var ZonaID = $("#inputZona").val();
+                    //var CuadranteID = $("#inputCuadrante").val();
+                    //var SpoolIDContiene = $("#SpoolIDCOntiene").val();
+                    //var Muestra = $('input:radio[name=Muestra]:checked').val();
+                    //var TipoBusqueda = $('input:radio[name=TipoBusqueda]:checked').val();
+
+                    //AjaxGetDetalleEtiquetado(TipoBusqueda == 'Zona' ? 1 : 0, Muestra == 'Todos' ? 1 : 0, ZonaID == "" ? 0 : ZonaID, CuadranteID == "" ? 0 : CuadranteID, SpoolIDContiene);
                     // AjaxCambiarAccionAModificacion();
                 }
                 loadingStop();
@@ -178,7 +184,9 @@ function AjaxGuardarCaptura(rows, tipoGuardar) {
         });
     }
     else {
-        displayNotify("", "No hay datos por guardar", '1');
+        //displayNotify("", "No hay datos por guardar", '1');
+        displayNotify("MensajeGuardadoExistoso", "", '0');
+        opcionHabilitarView(true, "FieldSetView");
         loadingStop();
     }
 };

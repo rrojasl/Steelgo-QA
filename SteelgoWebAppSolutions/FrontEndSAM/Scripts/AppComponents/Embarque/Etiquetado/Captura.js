@@ -156,13 +156,26 @@ function PlanchaEtiquedo() {
         //Etiquetado check
         if ($('input:radio[name=SelectTodos]:checked').val() == "Si") {
             data[i].Etiquetado = true;
+
+            if (data[i].Accion == 3)
+                data[i].Accion = 2;
+            data[i].ModificadoPorUsuario = true;
         }
         else if ($('input:radio[name=SelectTodos]:checked').val() == "No") {
             data[i].Etiquetado = false;
+
+            data[i].Accion = data[i].Accion == 2 ? 3 : data[i].Accion;
+            if (data[i].Accion == 1) {
+                data[i].ModificadoPorUsuario = false;
+            }
+            else
+                data[i].ModificadoPorUsuario = true;
         }
-        data[i].ModificadoPorUsuario = true;
+
+        
+        
     }
-    
+    $("#grid").data("kendoGrid").dataSource.sync();
 }
 
 function PlanchaCuadrante() {

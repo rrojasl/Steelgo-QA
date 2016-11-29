@@ -112,16 +112,44 @@ function suscribirEventoCuadrantePlanchado() {
 }
 
 function suscribirEventoGuardar() {
-    $('.accionGuardar').click(function (e) {
+    //$('.accionGuardar').click(function (e) {
+    //    var ds = $("#grid").data("kendoGrid").dataSource;
+    //    if (ds._data.length > 0) {
+    //        if (($('#Guardar').text() == "Guardar" || $('#Guardar').text() == "Save") || ($('#GuardarPie').text() == "Guardar" || $('#GuardarPie').text() == "Save")) {
+    //            AjaxGuardarCaptura(ds._data, 0);
+    //        }
+    //        else if (($('#Guardar').text() == "Editar" || $('#Guardar').text() == "Edit") || ($('#GuardarPie').text() == "Editar" || $('#GuardarPie').text() == "Edit")) {
+    //            opcionHabilitarView(false, "FieldSetView")
+    //        }
+    //    }
+    //    else if (($('#Guardar').text() == "Editar" || $('#Guardar').text() == "Edit") || ($('#GuardarPie').text() == "Editar" || $('#GuardarPie').text() == "Edit")) {
+    //        opcionHabilitarView(false, "FieldSetView")
+    //    }
+    //});
+
+    $("#Guardar, #Guardar1, #btnGuardar, #btnGuardar1").click(function (e) {
         var ds = $("#grid").data("kendoGrid").dataSource;
         if (ds._data.length > 0) {
             if (($('#Guardar').text() == "Guardar" || $('#Guardar').text() == "Save") || ($('#GuardarPie').text() == "Guardar" || $('#GuardarPie').text() == "Save")) {
                 AjaxGuardarCaptura(ds._data, 0);
             }
             else if (($('#Guardar').text() == "Editar" || $('#Guardar').text() == "Edit") || ($('#GuardarPie').text() == "Editar" || $('#GuardarPie').text() == "Edit")) {
-                opcionHabilitarView(false, "FieldSetView")
+                opcionHabilitarView(false, "FieldSetView");
             }
+        } else {
+            displayNotify("MensajeAdverteciaExcepcionGuardado", "", '2');
         }
+
+    });
+
+    $("#btnGuardarYNuevo, #btnGuardarYNuevo1").click(function (e) {
+        var ds = $("#grid").data("kendoGrid").dataSource;
+        if (ds._data.length > 0) {
+            AjaxGuardarCaptura(ds._data, 1);
+        } else {
+            displayNotify("MensajeAdverteciaExcepcionGuardado", "", '2');
+        }
+
     });
 }
 

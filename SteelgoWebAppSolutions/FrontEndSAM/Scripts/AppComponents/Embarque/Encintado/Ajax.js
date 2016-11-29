@@ -164,7 +164,7 @@ function AjaxGuardarCaptura(rows, tipoGuardar) {
     ListaDetalles = [];
     var index = 0;
     for (var i = 0; i < rows.length; i++) {
-        if ((rows[i].ColorID != 0) && (rows[i].Accion == 1 || rows[i].Accion == 2 || rows[i].Accion == 3)) {
+        if ((rows[i].ModificadoPorUsuario) && (rows[i].Accion == 1 || rows[i].Accion == 2 || rows[i].Accion == 3)) {
             ListaDetalles[index] = { Accion: "", EncintadoID: 0, SpoolID: 0, Encintado: false, ColorID: 0 };
             ListaDetalles[index].Accion = rows[i].Accion;
             ListaDetalles[index].EncintadoID = rows[i].EncintadoID;
@@ -183,6 +183,7 @@ function AjaxGuardarCaptura(rows, tipoGuardar) {
                 if (tipoGuardar == 1) {
                     opcionHabilitarView(false, "FieldSetView");
                     //LimpiarPantalla();
+                    AjaxCargarDetalleEncintado();
                     AjaxCargarCamposPredeterminados();
                 }
                 else {
@@ -198,7 +199,7 @@ function AjaxGuardarCaptura(rows, tipoGuardar) {
                     //    tipoBusqueda = 1;
                     //else
                     //    tipoBusqueda = 2;
-                    AjaxCargarDetalleEncintado();
+                    //AjaxCargarDetalleEncintado();
                    //AjaxGetDetalleEtiquetado(TipoBusqueda == 'Zona' ? 1 : 0, Muestra == 'Todos' ? 1 : 0, ZonaID == "" ? 0 : ZonaID, CuadranteID == "" ? 0 : CuadranteID, SpoolIDContiene);
                     // AjaxCambiarAccionAModificacion();
                 }
@@ -211,7 +212,8 @@ function AjaxGuardarCaptura(rows, tipoGuardar) {
         });
     }
     else {
-        displayNotify("", "No hay datos por guardar", '1');
+        //displayNotify("", "No hay datos por guardar", '1');
+        displayNotify("MensajeGuardadoExistoso", "", '0');
         $('#Guardar').text = _dictionary.botonEditar[$("#language").data("kendoDropDownList").value()];
         loadingStop();
     }

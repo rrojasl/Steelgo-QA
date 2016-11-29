@@ -167,7 +167,7 @@ namespace BackEndSAM.DataAcces.Embarque.Encintado
                             ColorID = ((item.ColorID == null) ? (0) : ((int)item.ColorID)),
                             NombreColor = item.NombreColor,
                             OkPintura = ((item.OkPintura == 1) ? (true) : (false)),
-                            OkPND = item.OkPND,
+                            OkPND = ((item.OkPND== 1) ? (true) : (false)),
                             ZonaID = item.ZonaID,
                             Zona = item.Zona,
                             ModificadoPorUsuario = true,

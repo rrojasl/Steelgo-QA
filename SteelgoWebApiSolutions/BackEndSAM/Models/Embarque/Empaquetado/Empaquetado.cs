@@ -78,6 +78,8 @@ namespace BackEndSAM.Models.Embarque.Empaquetado
         public int ZonaAnteriorID { get; set; }
         public int Empaquetado { get; set; }
         public string Paquete { get; set; }
+        public int CargaPlana { get; set; }
+        public string Plana { get; set; }
         public bool ModificadoPorUsuario { get; set; }
     }
 

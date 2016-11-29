@@ -144,6 +144,7 @@ namespace BackEndSAM.Controllers.Embarque.Empaquetado
                 return result;
             }
         }
+
         [HttpPost]
         public object GuardarNuevoPaquete(Captura captura, string token, string lenguaje, int PaqueteID, string NombrePaquete, int CuadranteID, int Cerrado, string FechaPaquete, int CuadrantePaqueteSam2ID, int CuadrantePaqueteSam3ID)
         {
@@ -159,6 +160,32 @@ namespace BackEndSAM.Controllers.Embarque.Empaquetado
                 DataTable dtDetalle = Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(captura.listaDetalle);
 
                 return EmpaquetadoBD.Instance.GuardaNuevoPaquete(usuario.UsuarioID, lenguaje, PaqueteID, NombrePaquete, CuadranteID, Cerrado, FechaPaquete, CuadrantePaqueteSam2ID, CuadrantePaqueteSam3ID, dtDetalle);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+
+                return result;
+            }
+        }
+
+        [HttpGet]
+        public object EliminarPaquete(string token, int PaqueteID, int CuadrantePaqueteSam2ID, int CuadrantePaqueteSam3ID)
+        {
+            string payload = "";
+            string newToken = "";
+
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+
+                return EmpaquetadoBD.Instance.EliminarPaquete(usuario.UsuarioID, PaqueteID, CuadrantePaqueteSam2ID, CuadrantePaqueteSam3ID);
             }
             else
             {
