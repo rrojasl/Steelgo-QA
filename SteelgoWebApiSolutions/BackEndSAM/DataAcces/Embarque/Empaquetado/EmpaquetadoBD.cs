@@ -5,6 +5,7 @@ using SecurityManager.Api.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 
 namespace BackEndSAM.DataAcces.Embarque.Empaquetado
@@ -172,6 +173,8 @@ namespace BackEndSAM.DataAcces.Embarque.Empaquetado
                             CuadranteAnteriorSam3ID = item.CuadranteAnteriorSam3ID.GetValueOrDefault(),
                             Empaquetado = item.Empaquetado,
                             Paquete = item.Paquete,
+                            CargaPlana = item.CargaPlana,
+                            Plana = item.Plana,
                             ModificadoPorUsuario = true
                         });
                     }
@@ -259,6 +262,44 @@ namespace BackEndSAM.DataAcces.Embarque.Empaquetado
                 return result;
             }
             catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object EliminarPaquete(int UsuarioID, int PaqueteID, int CuadrantePaqueteSam2ID, int CuadrantePaqueteSam3ID)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    ObjectResult<int?> resultSp = ctx.Sam3_Embarque_EliminarPaquete(UsuarioID, PaqueteID, CuadrantePaqueteSam2ID, CuadrantePaqueteSam3ID);
+                    var valor = resultSp.Where(x => x.HasValue).Select(x => x.Value).ToList()[0];
+
+                    TransactionalInformation result = new TransactionalInformation();
+                    if (valor > 0)
+                    {
+                        result.ReturnMessage.Add("Ok");
+                        result.ReturnCode = 200;
+                        result.ReturnStatus = true;
+                        result.IsAuthenicated = true;
+                    }else
+                    {
+                        result.ReturnMessage.Add("El Paquete contiene spools cargados");
+                        result.ReturnCode = 201;
+                        result.ReturnStatus = true;
+                        result.IsAuthenicated = true;
+                    }
+
+                    return result;
+                }
+            }catch(Exception ex)
             {
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
