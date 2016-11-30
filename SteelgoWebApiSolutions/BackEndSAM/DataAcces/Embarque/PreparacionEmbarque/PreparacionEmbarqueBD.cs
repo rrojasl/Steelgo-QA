@@ -1,8 +1,10 @@
 ﻿using BackEndSAM.Models.Embarque.PreparacionEmbarque;
+using DatabaseManager.Constantes;
 using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 
@@ -70,6 +72,7 @@ namespace BackEndSAM.DataAcces.Embarque.PreparacionEmbarque
                 return result;
             }
         }
+
         public object ObtenerDetalleEmbarque(int EmbarqueID)
         {
             try
@@ -109,6 +112,73 @@ namespace BackEndSAM.DataAcces.Embarque.PreparacionEmbarque
                 result.ReturnStatus = false;
                 result.IsAuthenicated = true;
 
+                return result;
+            }
+        }
+
+        public object ObtenerListadoEmbarques(int ProveedorID)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Sam3_Embarque_PE_Get_ListadoEmbarque_Result> result = ctx.Sam3_Embarque_PE_Get_ListadoEmbarque(ProveedorID).ToList();
+                    List<EmbarqueDetalle> listaDetalle = new List<EmbarqueDetalle>();
+                    listaDetalle.Add(new EmbarqueDetalle());
+
+                    foreach (Sam3_Embarque_PE_Get_ListadoEmbarque_Result item in result)
+                    {
+                        listaDetalle.Add(new EmbarqueDetalle
+                        {
+                            EmbarqueID = item.EmbarqueID,
+                            Nombre = item.Nombre,
+                            ChoferID = item.ChoferID,
+                            TractoID = item.TractoID,
+                            Enviado = item.Enviado
+                        });
+                    }
+
+                    return listaDetalle;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object InsertarCaptura(DataTable dtDetalleCaptura, Sam3_Usuario usuario, string lenguaje, int EmbarqueID, string NombreEmbarque, int TractoID, int ChoferID, string FechaCreacion)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    ObjetosSQL _SQL = new ObjetosSQL();
+                    string[,] parametro = { { "@EmbarqueID", EmbarqueID.ToString() }, { "@NombreEmbarque", NombreEmbarque },
+                        { "@TractoID", TractoID.ToString() }, { "@ChoferID", ChoferID.ToString() },
+                        { "@FechaCreacion", FechaCreacion } ,{ "@Usuario", usuario.UsuarioID.ToString() }, { "@Lenguaje", lenguaje } };
+                    _SQL.Ejecuta(Stords.GUARDARPREPARACIONEMBARQUE, dtDetalleCaptura, "@TTDetalleEmbarque", parametro);
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add("Ok");
+                    result.ReturnCode = 200;
+                    result.ReturnStatus = true;
+                    result.IsAuthenicated = true;
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
                 return result;
             }
         }
