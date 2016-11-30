@@ -2,11 +2,15 @@
 var bandera = false;
 var EmbarqueID = 0;
 var DestinoGuardado = 0;
+var FechaEmbarque;
 
 function changeLanguageCall() {
     CargarGrid();
     AjaxCargarProyecto();
     document.title = "Embarque carro";
+    FechaEmbarque.data("kendoDatePicker").setOptions({
+        format: _dictionary.FormatoFecha2[$("#language").data("kendoDropDownList").value()]
+    });
 };
 
 
