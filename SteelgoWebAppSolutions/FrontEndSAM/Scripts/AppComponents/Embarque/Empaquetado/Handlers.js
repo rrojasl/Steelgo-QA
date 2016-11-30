@@ -104,6 +104,9 @@ function SuscribirEventoPopupDescaga() {
     });
 
     $("#btnCerrarPopup").click(function (e) {
+        $("#InputZonaDescarga").data("kendoComboBox").value("");
+        $("#InputCuadranteDescarga").data("kendoComboBox").value("");
+        $("#InputCuadranteDescarga").data("kendoComboBox").dataSource.data([]);
         windowDownload.close();
     });
 }
@@ -138,8 +141,14 @@ function SuscribirEventoProyecto() {
                     width: "auto",
                     height: "auto",
                     modal: true,
+                    draggable: false,
+                    resizable: false,
+                    animation: {
+                        close: false,
+                        open: false
+                    },
                     close: function () {
-                        $('input:radio[name=LLena]:nth(0)').select();
+                        $("#InputProyecto").data("kendoComboBox").value(proyectoInicial);
                     }
                 }).data("kendoWindow");
 
@@ -197,8 +206,14 @@ function SuscribirEventoPaquete() {
                     width: "auto",
                     height: "auto",
                     modal: true,
+                    draggable: false,
+                    resizable: false,
+                    animation: {
+                        close: false,
+                        open: false
+                    },
                     close: function () {
-                        $('input:radio[name=LLena]:nth(0)').select();
+                        $("#InputPaquete").data("kendoComboBox").value(paqueteInicial);
                     }
                 }).data("kendoWindow");
 
@@ -585,6 +600,7 @@ function Limpiar() {
     $("#inputCodigo").val("");
     $("#grid").data("kendoGrid").dataSource.data([]);
 
+    opcionHabilitarView(false, "FieldSetView");
     AjaxCargarCamposPredeterminados();
     AjaxCargarProyectos();
     cuadranteSave = 0;

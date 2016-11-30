@@ -7074,6 +7074,10 @@ _dictionary = {
         "es-MX": "Proveedor",
         "en-US": "Provider"
     },
+    "lblProveedor1": {
+        "es-MX": "Proveedor",
+        "en-US": "Provider"
+    },
     "lblGuardar": {
         "es-MX": "Guardar",
         "en-US": "Save"
@@ -7622,6 +7626,10 @@ _dictionary = {
         "es-MX": "Embarque",
         "en-US": "Shipment"
     },
+    "lblEmbarque1": {
+        "es-MX": "Embarque",
+        "en-US": "Shipment"
+    },
     "lblEmpaquetado": {
         "es-MX": "Empaquetado",
         "en-US": "Packaging"
@@ -7630,7 +7638,30 @@ _dictionary = {
         "es-MX": "Placa",
         "en-US": "Plate"
     },
-
+    "lblPreparacionEmnarque": {
+        "es-MX": "Preparación Embarque",
+        "en-US": "Shipping Preparation"
+    },
+    "lblTracto": {
+        "es-MX": "Tracto",
+        "en-US": "Tract"
+    },
+    "lblTracto1": {
+        "es-MX": "Tracto",
+        "en-US": "Tract"
+    },
+    "lblChofer": {
+        "es-MX": "Chofer",
+        "en-US": "Driver"
+    },
+    "lblChofer1": {
+        "es-MX": "Chofer",
+        "en-US": "Driver"
+    },
+    "lblPlana": {
+        "es-MX": "Plana",
+        "en-US": "Flat"
+    },
     //Finaliza Etiquetas
     //Etiquetas header alertas
     "SuccessTitle": {
@@ -7678,6 +7709,14 @@ _dictionary = {
         "es-MX": "Guardar",
         "en-US": "Save"
     },
+    "botonGuardar5": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
+    "botonGuardar6": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
     "botonGuardarYNuevo": {
         "es-MX": "Guardar y Nuevo",
         "en-US": "Save and New"
@@ -7703,6 +7742,14 @@ _dictionary = {
         "en-US": "Close"
     },
     "botonCerrar1": {
+        "es-MX": "Cerrar",
+        "en-US": "Close"
+    },
+    "botonCerrar2": {
+        "es-MX": "Cerrar",
+        "en-US": "Close"
+    },
+    "botonCerrar3": {
         "es-MX": "Cerrar",
         "en-US": "Close"
     },
@@ -7841,6 +7888,14 @@ _dictionary = {
     "botonEliminarPaquete1": {
         "es-MX": "Eliminar paquete",
         "en-US": "Delete package"
+    },
+    "botonEliminarEmbarque": {
+        "es-MX": "Eliminar embarque",
+        "en-US": "Delete shipment"
+    },
+    "botonEliminarEmbarque1": {
+        "es-MX": "Eliminar embarque",
+        "en-US": "Delete shipment"
     },
     //Finaliza botones
     // Finalizan etiquetas Header y Footer
@@ -10379,6 +10434,14 @@ _dictionary = {
         "es-MX": "Cargar Plana",
         "en-US": "Load Flat"
     },
+    "EmbarqueListadoEmbarqueSup": {
+        "es-MX": "Listado Embarque",
+        "en-US": "Shipping list"
+    },
+    "EmbarqueListadoEmbarqueInf": {
+        "es-MX": "Listado Embarque",
+        "en-US": "Shipping list"
+    },
     //Finaliza Botones Siguiente Paso
     //Columnas
     "columnSpoolIDEmbarque": {
@@ -10817,5 +10880,12 @@ _dictionary = {
         "en-US": "The spool is already loaded on the flat "
     },
     //Finaliza Pantalla empaquetado
+    //Incia pantalla revision
+    "EmbarqueRevisionBreadcrumb": {
+        "es-MX": "Revisión",
+        "en-US": "Review"
+    }
+    //Finaliza pantalla revision
     //Finaliza Modulo Embarque 
+
 };
