@@ -44,6 +44,7 @@ namespace BackEndSAM.DataAcces.Embarque.PreparacionEmbarque
                         listaDetalle.Add(new DetalleAgregarPlana
                         {
                             Accion = item.EmbarqueDetalleID == 0 ? 1 : 2,
+                            NombreEmbarque = item.NombreEmbarque,
                             EmbarqueDetalleID = item.EmbarqueDetalleID,
                             PlanaID = item.PlanaID,
                             Nombre = item.Nombre,
@@ -85,6 +86,7 @@ namespace BackEndSAM.DataAcces.Embarque.PreparacionEmbarque
                         {
                             Accion = item.EmbarqueDetalleID == 0 ? 1 : 2,
                             EmbarqueID = item.EmbarqueID,
+                            NombreEmbarque = item.NombreEmbarque,
                             EmbarqueDetalleID = item.EmbarqueDetalleID,
                             PlanaID = item.PlanaID,
                             Nombre = item.Nombre,
