@@ -187,9 +187,9 @@ function AjaxEmbarqueCargaChofer(ProveedorID, nuevoChofer) {
     });
 }
 
-function AjaxObtenerEmbarque(ProveedorID) {
+function AjaxObtenerEmbarque(ProveedorID, nombreEmbarque) {
     loadingStart();
-    $PreparacionEmbarque.PreparacionEmbarque.read({ token: Cookies.get("token"), ProveedorID: ProveedorID, }).done(function (data) {
+    $PreparacionEmbarque.PreparacionEmbarque.read({ token: Cookies.get("token"), ProveedorID: ProveedorID, Lenguaje: $("#language").val() }).done(function (data) {
         if (Error(data)) {
             $("#Embarque").data("kendoComboBox").dataSource.data([]);
             var EmbarqueID = 0;
@@ -199,10 +199,17 @@ function AjaxObtenerEmbarque(ProveedorID) {
                 if (data.length < 3) {
                     for (var i = 0; i < data.length; i++) {
                         if (data[i].EmbarqueID != 0) {
-                            EmbarqueID = data[i].EmbarqueID;
+                            if(nombreEmbarque == ""){
+                                EmbarqueID = data[i].EmbarqueID;
+                            } else {
+                                if (data[i].Nombre == nombreEmbarque) {
+                                    EmbarqueID = data[i].EmbarqueID;
+                                }
+                            }
                         }
                     }
                 }
+
                 $("#Embarque").data("kendoComboBox").dataSource.data(data);
 
                 $("#Embarque").data("kendoComboBox").value(EmbarqueID);
@@ -311,6 +318,21 @@ function ExistePlana(row) {
 
 }
 
+function AjaxObtieneDetalle(embarqueID) {
+    loadingStart();
+    $PreparacionEmbarque.PreparacionEmbarque.read({ token: Cookies.get("token"), EmbarqueID: embarqueID, }).done(function (data) {
+        $("#grid").data("kendoGrid").dataSource.data([]);
+        if(data!=null){
+            var ds = $("#grid").data("kendoGrid").dataSource;
+
+            for (var i = 0; i < data.length; i++) {
+                ds.add(data[i]);
+            }
+        }
+        loadingStop();
+    });
+}
+
 function AbrirPopUpGuardar(Embarque, tipoGuardado) {
     var fechaPredeterminada;
     $("#InputTipoGuardado").val(tipoGuardado);
@@ -332,4 +354,53 @@ function AbrirPopUpGuardar(Embarque, tipoGuardado) {
 
     }
     divNuevoEmbarque.open().center();
+}
+
+function AjaxGuardarCaptura(ds, tipoGuardado, proveedorID) {
+    loadingStart();
+    Captura = [];
+    Captura[0] = {
+        Detalles : ""
+    }
+    var listaDetalle = [];
+    var embarqueID = $("#Embarque").data("kendoComboBox").value();
+    var nombreEmbarque = $("#inputNombreEmbarque").val();
+    var tractoID = $("#Tracto").data("kendoComboBox").value();
+    var choferID = $("#Chofer").data("kendoComboBox").value();
+    var fechaCreacion = $("#inputFechaEmbarque").val();
+
+
+    if (ds.length > 0) {
+        for (var i = 0; i < ds.length; i++) {
+            listaDetalle [i] = {Accion: "", EmbarqueDetalleID: "", EmbarqueID: "", CargaPlanaID: ""};
+            listaDetalle[i].Accion = ds[i].Accion;
+            listaDetalle[i].EmbarqueDetalleID = ds[i].EmbarqueDetalleID;
+            listaDetalle[i].EmbarqueID = ds[i].EmbarqueID;
+            listaDetalle[i].CargaPlanaID = ds[i].CargaPlanaID;
+        }
+
+    }
+
+    Captura[0].Detalles = listaDetalle;
+    $PreparacionEmbarque.PreparacionEmbarque.create(Captura[0], {
+        token: Cookies.get("token"), lenguaje: $("#language").val(), EmbarqueID: embarqueID,
+        NombreEmbarque: nombreEmbarque, TractoID: tractoID, ChoferID: choferID, FechaCreacion: fechaCreacion
+    }).done(function (data) {
+        if (Error(data)) {
+            if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
+                if (tipoGuardado != "1") {
+                    Limpiar();
+                } else {
+                    var paqueteID = parseInt(data.ReturnMessage[1]);
+                    opcionHabilitarView(true, "FieldSetView");
+                    $("#grid").data("kendoGrid").dataSource.data([]);
+
+                    AjaxObtenerEmbarque(proveedorID, nombreEmbarque);
+                }
+                displayNotify("MensajeGuardadoExistoso", "", '0');
+            } else {
+                displayNotify("MensajeGuardadoErroneo", "", '2');
+            }
+        }
+    });
 }

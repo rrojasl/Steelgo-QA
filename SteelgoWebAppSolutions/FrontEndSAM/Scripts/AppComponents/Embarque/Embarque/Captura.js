@@ -33,8 +33,7 @@ function CargarGrid() {
                 logic: "or",
                 filters: [
                   { field: "Accion", operator: "eq", value: 1 },
-                    { field: "Accion", operator: "eq", value: 0 },
-                    { field: "Accion", operator: "eq", value: undefined }
+                    { field: "Accion", operator: "eq", value: 2 }
                 ]
             },
             pageSize: 10,
@@ -134,43 +133,6 @@ function CargarGrid() {
     });
     CustomisaGrid($("#grid"));
 };
-
-
-function AgregaRenglon(planaID, plana) {
-    ArregloNuevoRenglon = [];
-    ArregloNuevoRenglon[0] = {
-        Accion: "",
-        EmbarqueID: "",
-        PlanaID: "",
-        TractoID: ""
-    };
-
-    ArregloNuevoRenglon[0].Accion = 1;
-    ArregloNuevoRenglon[0].EmbarqueID = 0;
-    ArregloNuevoRenglon[0].PlanaID = planaID;
-    ArregloNuevoRenglon[0].Plana = plana;
-
-    var ds = $("#grid").data("kendoGrid").dataSource;
-    var cont = 0;
-    for (var i = 0 ; i < ds._data.length; i++) {
-        if (ds._data[i].Accion != 2) {
-            cont++;
-        }
-    }
-
-    if (cont < 2) {
-        if (!existePlana(ds, ArregloNuevoRenglon[0].Plana)) {
-            ds.add(ArregloNuevoRenglon[0]);
-        }
-        else {
-            displayNotify("EmbarqueMensajePlanaExistente", "", "1");
-        }
-    }
-    else {
-        displayNotify("EmbarqueMensajeMaximoDosPlanas", "", "1");
-    }
-}
-
 
 function existePlana(contenidoGrid, plana) {
     var existe = false;
