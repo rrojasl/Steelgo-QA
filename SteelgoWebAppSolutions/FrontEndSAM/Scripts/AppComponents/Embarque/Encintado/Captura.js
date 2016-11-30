@@ -238,6 +238,14 @@ function CargarGrid() {
 
             $("#grid").data("kendoGrid").dataSource.sync();
         }
+        else {
+            if (e.target.checked)
+                $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Etiquetado = false;
+            else
+                $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Etiquetado = true;
+        }
+
+        $("#grid").data("kendoGrid").dataSource.sync();
     });
 
     CustomisaGrid($("#grid"));
@@ -277,10 +285,20 @@ function PlanchaEncintado() {
     for (var i = 0; i < data.length; i++) {
         //Etiquetado check
         if ($('input:radio[name=SelectTodos]:checked').val() == "Si") {
-            data[i].Encintado = true;
+            if ($('input:radio[name=LLena]:checked').val() == "Vacios") {
+                if(!data[i].Encintado)
+                    data[i].Encintado = true;
+            }
+            else
+                data[i].Encintado = true;
         }
         else if ($('input:radio[name=SelectTodos]:checked').val() == "No") {
-            data[i].Encintado = false;
+            if ($('input:radio[name=LLena]:checked').val() == "Vacios") {
+                if (!data[i].Encintado)
+                    data[i].Encintado = false;
+            }
+            else
+                data[i].Encintado = false;
         }
         data[i].ModificadoPorUsuario = true;
     }

@@ -39,7 +39,9 @@ namespace BackEndSAM.DataAcces.Embarque.Encintado
                 {
                     List<Sam3_Steelgo_Get_Cuadrante_Result> result = ctx.Sam3_Steelgo_Get_Cuadrante(ZonaID).ToList();
                     List<UbicacionCuadrante> listaCuadrante = new List<UbicacionCuadrante>();
-                    
+                    listaCuadrante.Add(new UbicacionCuadrante());
+
+
                     foreach (Sam3_Steelgo_Get_Cuadrante_Result item in result)
                     {
                         listaCuadrante.Add(new UbicacionCuadrante
@@ -54,6 +56,7 @@ namespace BackEndSAM.DataAcces.Embarque.Encintado
 
                     List<Sam3_Embarque_get_Encintado_Colores_Result> resultColor = ctx.Sam3_Embarque_get_Encintado_Colores(lenguaje).ToList();
                     List<ColorEncintado> listaColores = new List<ColorEncintado>();
+                    listaColores.Add(new ColorEncintado());
 
                     foreach (Sam3_Embarque_get_Encintado_Colores_Result item in resultColor)
                     {
@@ -167,7 +170,7 @@ namespace BackEndSAM.DataAcces.Embarque.Encintado
                             ColorID = ((item.ColorID == null) ? (0) : ((int)item.ColorID)),
                             NombreColor = item.NombreColor,
                             OkPintura = ((item.OkPintura == 1) ? (true) : (false)),
-                            OkPND = ((item.OkPND== 1) ? (true) : (false)),
+                            OkPND = item.OkPND,
                             ZonaID = item.ZonaID,
                             Zona = item.Zona,
                             ModificadoPorUsuario = true,

@@ -45,14 +45,14 @@ function RenderComboBoxColorCinta(container, options) {
                 e.preventDefault();
                 var dataItem = this.dataItem(e.item.index());
                 if (dataItem != undefined) {
-                    if(options.model.Encintado){                        
+                    //if(options.model.Encintado){                        
                         options.model.NombreColor = dataItem.Nombre;
                         options.model.ColorID = dataItem.ColorID;
-                        //options.model.ModificadoPorUsuario = true;
-                    } else {
-                        options.model.NombreColor = "";
-                        options.model.ColorID = 0;
-                    }
+                        
+                    //} else {
+                    //    options.model.NombreColor = "";
+                    //    options.model.ColorID = 0;
+                    //}
 
                     $("#grid").data("kendoGrid").dataSource.sync();
                 }
