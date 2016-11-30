@@ -96,6 +96,32 @@ namespace BackEndSAM.Controllers.Embarque
             }
         }
 
+        [HttpGet]
+        public object EliminarEmbarque(string token, int EmbarqueID, string Lenguaje)
+        {
+            string payload = "";
+            string newToken = "";
+
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+
+                return PreparacionEmbarqueBD.Instance.EliminarEmbarque(EmbarqueID, usuario, Lenguaje);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+
+                return result;
+            }
+        }
+
         [HttpPost]
         public object GuardarCaptura(Captura listaCaptura, string token, string lenguaje, int EmbarqueID, string NombreEmbarque, int TractoID, int ChoferID, string FechaCreacion)
         {
