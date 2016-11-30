@@ -41,6 +41,7 @@ namespace BackEndSAM.Models.Embarque.PreparacionEmbarque
         public bool Enviado { get; set; }
         public int TractoID { get; set; }
         public int ChoferID { get; set; }
+        public string FechaCreacion { get; set; }
     }
 
     public class Captura

@@ -116,13 +116,13 @@ namespace BackEndSAM.DataAcces.Embarque.PreparacionEmbarque
             }
         }
 
-        public object ObtenerListadoEmbarques(int ProveedorID)
+        public object ObtenerListadoEmbarques(int ProveedorID, string lenguaje)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Embarque_PE_Get_ListadoEmbarque_Result> result = ctx.Sam3_Embarque_PE_Get_ListadoEmbarque(ProveedorID).ToList();
+                    List<Sam3_Embarque_PE_Get_ListadoEmbarque_Result> result = ctx.Sam3_Embarque_PE_Get_ListadoEmbarque(ProveedorID, lenguaje).ToList();
                     List<EmbarqueDetalle> listaDetalle = new List<EmbarqueDetalle>();
                     listaDetalle.Add(new EmbarqueDetalle());
 
@@ -134,7 +134,8 @@ namespace BackEndSAM.DataAcces.Embarque.PreparacionEmbarque
                             Nombre = item.Nombre,
                             ChoferID = item.ChoferID,
                             TractoID = item.TractoID,
-                            Enviado = item.Enviado
+                            Enviado = item.Enviado,
+                             FechaCreacion = item.FechaCreacion
                         });
                     }
 
