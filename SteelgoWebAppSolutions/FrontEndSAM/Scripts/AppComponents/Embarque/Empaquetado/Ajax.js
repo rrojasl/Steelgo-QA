@@ -298,7 +298,7 @@ function AjaxDescargarSpool(dataItem) {
     loadingStart();
     var dataSource = $("#grid").data("kendoGrid").dataSource;
     var cuadranteID = $("#InputCuadranteDescarga").data("kendoComboBox").value();
-
+    windowDownload.close();
     $Empaquetado.Empaquetado.read({
         token: Cookies.get("token"), EmpaquetadoID: dataItem.EmpaquetadoID, SpoolID: dataItem.SpoolID,
         CuadranteID: cuadranteID, CuadranteAnteriorSam2: dataItem.CuadranteSam2ID,

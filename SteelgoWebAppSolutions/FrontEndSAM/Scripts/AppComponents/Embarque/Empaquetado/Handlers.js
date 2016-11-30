@@ -91,7 +91,6 @@ function SuscribirEventoPopupDescaga() {
         var cuadranteID = $("#InputCuadranteDescarga").data("kendoComboBox").value();
         if (zonaID != "" && zonaID != "0") {
             if (cuadranteID != "" && cuadranteID != "0") {
-                windowDownload.close();
                 var uid = $("#InputUidRow").val();
                 var dataItem = $('#grid').data("kendoGrid").dataSource.getByUid(uid);
                 AjaxDescargarSpool(dataItem);
@@ -274,7 +273,6 @@ function SuscribirEventoZona() {
         index: 3,
         change: function (e) {
             var dataItem = this.dataItem(e.sender.selectedIndex);
-            $("#InputCuadranteDescarga").data("kendoComboBox").dataSource.data([]);
             if (dataItem != undefined) {
                 if (dataItem.ZonaID != 0) {
                     AjaxCargarCuadranteDescarga(dataItem.ZonaID);
