@@ -104,6 +104,9 @@ function SuscribirEventoPopupDescaga() {
     });
 
     $("#btnCerrarPopup").click(function (e) {
+        $("#InputZonaDescarga").data("kendoComboBox").value("");
+        $("#InputCuadranteDescarga").data("kendoComboBox").value("");
+        $("#InputCuadranteDescarga").data("kendoComboBox").dataSource.data([]);
         windowDownload.close();
     });
 }
