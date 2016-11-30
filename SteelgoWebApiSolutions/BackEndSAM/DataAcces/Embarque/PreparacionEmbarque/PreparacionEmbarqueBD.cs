@@ -177,7 +177,7 @@ namespace BackEndSAM.DataAcces.Embarque.PreparacionEmbarque
                     }
                     else
                     {
-                        result.ReturnMessage.Add("La plana para ese proveedor ya existe");
+                        result.ReturnMessage.Add("existe");
                         result.ReturnCode = 200;
                         result.ReturnStatus = true;
                         result.IsAuthenicated = true;
