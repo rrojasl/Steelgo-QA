@@ -71,7 +71,7 @@ namespace BackEndSAM.Controllers.Embarque
         }
 
         [HttpGet]
-        public object ObtenerListadoEmbarques(string token, int ProveedorID, string Lenguaje)
+        public object ObtenerListadoEmbarques(string token, int ProveedorID, string Lenguaje, int Enviado)
         {
             string payload = "";
             string newToken = "";
@@ -82,7 +82,7 @@ namespace BackEndSAM.Controllers.Embarque
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                return PreparacionEmbarqueBD.Instance.ObtenerListadoEmbarques(ProveedorID, Lenguaje);
+                return PreparacionEmbarqueBD.Instance.ObtenerListadoEmbarques(ProveedorID, Lenguaje, Enviado);
             }
             else
             {
