@@ -103,7 +103,7 @@ namespace BackEndSAM.Controllers.Embarque.EmbarqueGeneral
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                return EmbarqueGeneralBD.Instance.ObtenerPlanas(ProveedorID);
+                return EmbarqueGeneralBD.Instance.ObtenerChofer(ProveedorID);
             }
             else
             {

@@ -18,7 +18,10 @@ function CargarGrid() {
             schema: {
                 model: {
                     fields: {
-                        Plana: { type: "string", editable: false },
+                        Nombre: { type: "string", editable: false },
+                        CantidadElementos: { type: "string", editable: false },
+                        Peso: { type: "string", editable: false },
+                        M2: { type: "string", editable: false },
                     }
                 }
             },
@@ -52,9 +55,9 @@ function CargarGrid() {
         },
         filterable: getGridFilterableMaftec(),
         columns: [
-            { field: "Plana", title: "Plana", filterable: getGridFilterableCellMaftec() },
-            { field: "CantidadSPools", title: "Cantidad SPools", filterable: getGridFilterableCellMaftec() },
-            { field: "Toneladas", title: "Toneladas", filterable: getGridFilterableCellMaftec() },
+            { field: "Nombre", title: "Plana", filterable: getGridFilterableCellMaftec() },
+            { field: "CantidadElementos", title: "Cantidad SPools", filterable: getGridFilterableCellMaftec() },
+            { field: "Peso", title: "Toneladas", filterable: getGridFilterableCellMaftec() },
             { field: "M2", title: "M2", filterable: getGridFilterableCellMaftec() },
              {
                  command: {
