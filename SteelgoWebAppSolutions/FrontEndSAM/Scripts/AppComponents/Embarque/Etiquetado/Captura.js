@@ -95,7 +95,7 @@ function CargarGrid() {
         ],
         dataBound: function (e) {
             $(".chkbx").bind("change", function (e) {
-                if ($('#botonGuardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
+                if ($('#Guardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
                     if (e.target.checked) {
                         $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Etiquetado = true;
                         //$("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Accion = 1;

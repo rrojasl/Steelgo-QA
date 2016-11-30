@@ -426,17 +426,17 @@ function opcionHabilitarView(valor, name) {
         $('#FieldSetView3').find('*').attr('disabled', false);
         $(".chk-Encintado").attr('disabled', false);
 
-        //$("#InputZona").data("kendoComboBox").enable(true);
-        //$("#InputCuadrante").data("kendoComboBox").enable(true);
-        ////$("#InputSpoolIDCOntiene").enable(true);
-        //$("#btnPlanchar").prop('disabled', true);
-        //$("#LlenaVacios").prop('disabled', true);
-        //$("#SelectTodos").prop('disabled', true);
+        $("#InputZona").data("kendoComboBox").enable(true);
+        $("#InputCuadrante").data("kendoComboBox").enable(true);
+        //$("#InputSpoolIDCOntiene").enable(true);
+        $("#btnPlanchar").prop('disabled', false);
+        $("#LlenaVacios").prop('disabled', false);
+        $("#SelectTodos").prop('disabled', false);
 
-        //$("#LlenaTodos").prop('disabled', true);
-        //$("#SelectTodosSi").prop('disabled', true);
-        //$("#SelectTodosNo").prop('disabled', true);
-        //$("#SelectTodosNinguno").prop('disabled', true);
+        $("#LlenaTodos").prop('disabled', false);
+        $("#SelectTodosSi").prop('disabled', false);
+        $("#SelectTodosNo").prop('disabled', false);
+        $("#SelectTodosNinguno").prop('disabled', false);
 
         
         $("#Guardar").text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
@@ -451,17 +451,17 @@ function opcionHabilitarView(valor, name) {
         $(".chk-Encintado").attr('disabled', true);
 
 
-        //$("#InputZona").data("kendoComboBox").enable(false);
-        //$("#InputCuadrante").data("kendoComboBox").enable(false);
-        ////$("#InputSpoolIDCOntiene").enable(false);
-        //$("#btnPlanchar").prop('disabled', false);
-        //$("#LlenaVacios").prop('disabled', false);
-        //$("#SelectTodos").prop('disabled', false);
+        $("#InputZona").data("kendoComboBox").enable(false);
+        $("#InputCuadrante").data("kendoComboBox").enable(false);
+        //$("#InputSpoolIDCOntiene").enable(false);
+        $("#btnPlanchar").prop('disabled', true);
+        $("#LlenaVacios").prop('disabled', true);
+        $("#SelectTodos").prop('disabled', true);
 
-        //$("#LlenaTodos").prop('disabled', false);
-        //$("#SelectTodosSi").prop('disabled', false);
-        //$("#SelectTodosNo").prop('disabled', false);
-        //$("#SelectTodosNinguno").prop('disabled', false);
+        $("#LlenaTodos").prop('disabled', true);
+        $("#SelectTodosSi").prop('disabled', true);
+        $("#SelectTodosNo").prop('disabled', true);
+        $("#SelectTodosNinguno").prop('disabled', true);
 
         $("#Guardar").text(_dictionary.textoEditar[$("#language").data("kendoDropDownList").value()]);
         $("#btnGuardar").text(_dictionary.textoEditar[$("#language").data("kendoDropDownList").value()]);

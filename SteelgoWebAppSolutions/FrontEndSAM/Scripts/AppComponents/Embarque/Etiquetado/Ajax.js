@@ -171,7 +171,9 @@ function AjaxGuardarCaptura(rows, tipoGuardar) {
                     //var SpoolIDContiene = $("#SpoolIDCOntiene").val();
                     //var Muestra = $('input:radio[name=Muestra]:checked').val();
                     //var TipoBusqueda = $('input:radio[name=TipoBusqueda]:checked').val();
-
+                    LimpiarBusquedaZona();
+                    LimpiarCuadrantes();
+                    LimpiarBusquedaSpool();
                     //AjaxGetDetalleEtiquetado(TipoBusqueda == 'Zona' ? 1 : 0, Muestra == 'Todos' ? 1 : 0, ZonaID == "" ? 0 : ZonaID, CuadranteID == "" ? 0 : CuadranteID, SpoolIDContiene);
                     // AjaxCambiarAccionAModificacion();
                 }
@@ -184,9 +186,14 @@ function AjaxGuardarCaptura(rows, tipoGuardar) {
         });
     }
     else {
-        //displayNotify("", "No hay datos por guardar", '1');
-        displayNotify("MensajeGuardadoExistoso", "", '0');
-        opcionHabilitarView(true, "FieldSetView");
+        displayNotify("", "Tu vista no presenta cambios de origen", '1');
+        //displayNotify("MensajeGuardadoExistoso", "", '0');
+        //if (($('#Guardar').text() == "Guardar" || $('#Guardar').text() == "Save") || ($('#btnGuardar').text() == "Guardar" || $('#btnGuardar').text() == "Save") || ($('#GuardarPie').text() == "Guardar" || $('#GuardarPie').text() == "Save") || ($('#btnGuardar1').text() == "Guardar" || $('#btnGuardar1').text() == "Save")) {
+        //    opcionHabilitarView(true, "FieldSetView");
+        //}
+        //if (($('#Guardar').text() == "Editar" || $('#Guardar').text() == "Edit") || ($('#btnGuardar').text() == "Editar" || $('#btnGuardar').text() == "Edit") || ($('#GuardarPie').text() == "Editar" || $('#GuardarPie').text() == "Edit") || ($('#btnGuardar1').text() == "Editar" || $('#btnGuardar1').text() == "Edit")) {
+        //    opcionHabilitarView(false, "FieldSetView");
+        //}
         loadingStop();
     }
 };

@@ -127,16 +127,16 @@ function suscribirEventoGuardar() {
     //    }
     //});
 
-    $("#Guardar, #Guardar1, #btnGuardar, #btnGuardar1").click(function (e) {
+    $("#Guardar, #btnGuardar, #GuardarPie, #btnGuardar1").click(function (e) {
         var ds = $("#grid").data("kendoGrid").dataSource;
         if (ds._data.length > 0) {
-            if (($('#Guardar').text() == "Guardar" || $('#Guardar').text() == "Save") || ($('#GuardarPie').text() == "Guardar" || $('#GuardarPie').text() == "Save")) {
+            if (($('#Guardar').text() == "Guardar" || $('#Guardar').text() == "Save") || ($('#btnGuardar').text() == "Guardar" || $('#btnGuardar').text() == "Save") || ($('#GuardarPie').text() == "Guardar" || $('#GuardarPie').text() == "Save") || ($('#btnGuardar1').text() == "Guardar" || $('#btnGuardar1').text() == "Save")) {
                 AjaxGuardarCaptura(ds._data, 0);
             }
-            else if (($('#Guardar').text() == "Editar" || $('#Guardar').text() == "Edit") || ($('#GuardarPie').text() == "Editar" || $('#GuardarPie').text() == "Edit")) {
+            if (($('#Guardar').text() == "Editar" || $('#Guardar').text() == "Edit") || ($('#btnGuardar').text() == "Editar" || $('#btnGuardar').text() == "Edit") || ($('#GuardarPie').text() == "Editar" || $('#GuardarPie').text() == "Edit") || ($('#btnGuardar1').text() == "Editar" || $('#btnGuardar1').text() == "Edit")) {
                 opcionHabilitarView(false, "FieldSetView");
             }
-        } else {
+        } else {//Editar Edit
             displayNotify("MensajeAdverteciaExcepcionGuardado", "", '2');
         }
 
@@ -361,6 +361,7 @@ function suscribirEventoImprimirTravelerMasivo() {
 function opcionHabilitarView(valor, name) {
     if (valor) {
         $('#FieldSetView').find('*').attr('disabled', true);
+        $(".chkbx").attr('disabled', true);
         $("#inputZona").data("kendoComboBox").enable(false);
         $("#inputCuadrante").data("kendoComboBox").enable(false);
         $("#inputCuadrantePlanchado").data("kendoComboBox").enable(false);
@@ -373,13 +374,14 @@ function opcionHabilitarView(valor, name) {
         $("#SelectTodosNo").prop('disabled', true);
         $("#SelectTodosNinguno").prop('disabled', true);
 
-        $('#botonGuardar3').text(_dictionary.textoEditar[$("#language").data("kendoDropDownList").value()]);
+        $('#Guardar').text(_dictionary.textoEditar[$("#language").data("kendoDropDownList").value()]);
+        $("#btnGuardar").text(_dictionary.textoEditar[$("#language").data("kendoDropDownList").value()]);
+        $('#GuardarPie').text(_dictionary.textoEditar[$("#language").data("kendoDropDownList").value()]);
         $("#btnGuardar1").text(_dictionary.textoEditar[$("#language").data("kendoDropDownList").value()]);
-        $('#botonGuardar').text(_dictionary.textoEditar[$("#language").data("kendoDropDownList").value()]);
-        $("#botonGuardar2").text(_dictionary.textoEditar[$("#language").data("kendoDropDownList").value()]);
     }
     else {
         $('#FieldSetView').find('*').attr('disabled', false);
+        $(".chkbx").attr('disabled', false);
         $("#inputZona").data("kendoComboBox").enable(true);
         $("#inputCuadrante").data("kendoComboBox").enable(true);
         $("#inputCuadrantePlanchado").data("kendoComboBox").enable(true);
@@ -392,9 +394,9 @@ function opcionHabilitarView(valor, name) {
         $("#SelectTodosNo").prop('disabled', false);
         $("#SelectTodosNinguno").prop('disabled', false);
 
-        $('#botonGuardar').text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
-        $("#botonGuardar2").text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
-        $('#botonGuardar3').text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
+        $('#Guardar').text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
+        $("#btnGuardar").text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
+        $('#GuardarPie').text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
         $("#btnGuardar1").text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
     }
 }

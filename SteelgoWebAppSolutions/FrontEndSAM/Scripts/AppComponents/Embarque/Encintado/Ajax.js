@@ -184,7 +184,7 @@ function AjaxGuardarCaptura(rows, tipoGuardar) {
                     opcionHabilitarView(false, "FieldSetView");
                     //LimpiarPantalla();
                     AjaxCargarDetalleEncintado();
-                    AjaxCargarCamposPredeterminados();
+                    //AjaxCargarCamposPredeterminados();
                 }
                 else {
                     $("#grid").data("kendoGrid").dataSource.data([]);
