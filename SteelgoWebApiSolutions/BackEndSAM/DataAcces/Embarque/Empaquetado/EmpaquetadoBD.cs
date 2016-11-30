@@ -71,22 +71,22 @@ namespace BackEndSAM.DataAcces.Embarque.Empaquetado
             }
         }
 
-        public object ObtenerCuadrantes(int ZonaID)
+        public object ObtenerZonas(int PatioID)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Embarque_Empaquetado_Get_Cuadrante_Result> result = ctx.Sam3_Embarque_Empaquetado_Get_Cuadrante(ZonaID).ToList();
-                    List<UbicacionPaquete> listaDetalle = new List<UbicacionPaquete>();
-                    listaDetalle.Add(new UbicacionPaquete());
+                    List<Sam3_Steelgo_Get_ZonaPlana_Result> result = ctx.Sam3_Steelgo_Get_ZonaPlana(PatioID).ToList();
+                    List<ZonaPaquete> listaDetalle = new List<ZonaPaquete>();
+                    listaDetalle.Add(new ZonaPaquete());
 
-                    foreach (Sam3_Embarque_Empaquetado_Get_Cuadrante_Result item in result)
+                    foreach (Sam3_Steelgo_Get_ZonaPlana_Result item in result)
                     {
-                        listaDetalle.Add(new UbicacionPaquete {
-                            CuadranteID = item.CuadranteID,
-                            Nombre = item.Nombre,
-                            ZonaID = item.ZonaID.GetValueOrDefault()
+                        listaDetalle.Add(new ZonaPaquete
+                        {
+                            ZonaID = item.ZonaID,
+                            Nombre = item.Nombre
                         });
                     }
                     return listaDetalle;

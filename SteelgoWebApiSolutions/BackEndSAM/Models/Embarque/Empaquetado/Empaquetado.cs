@@ -31,17 +31,15 @@ namespace BackEndSAM.Models.Embarque.Empaquetado
         public int ZonaID { get; set; }
     }
 
-    public class UbicacionPaquete
+    public class ZonaPaquete
     {
-        public UbicacionPaquete()
+        public ZonaPaquete()
         {
-            CuadranteID = 0;
-            Nombre = "";
             ZonaID = 0;
+            Nombre = "";
         }
-        public int CuadranteID { get; set; }
-        public string Nombre { get; set; }
         public int ZonaID { get; set; }
+        public string Nombre { get; set; }
     }
 
     public class DetalleCargaPaquete
