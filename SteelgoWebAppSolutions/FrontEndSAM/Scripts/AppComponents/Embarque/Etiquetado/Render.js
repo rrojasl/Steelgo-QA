@@ -2,7 +2,7 @@
 function RenderComboBoxCuadrante(container, options) {
     var dataItem;
     var valores;
-    if ($('#botonGuardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
+    if ($('#Guardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
         $('<input  data-text-field="Nombre" id=' + options.model.uid + ' data-value-field="Nombre" data-bind="value:' + options.field + '"/>')
             .appendTo(container)
             .kendoComboBox({

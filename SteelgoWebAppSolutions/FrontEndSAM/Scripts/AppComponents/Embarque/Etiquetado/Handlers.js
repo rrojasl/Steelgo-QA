@@ -212,7 +212,12 @@ function suscribirEventoGuardar() {
         if (ds._data.length > 0) {
             AjaxGuardarCaptura(ds._data, 1);
         } else {
-            displayNotify("MensajeAdverteciaExcepcionGuardado", "", '2');
+            $("#grid").data("kendoGrid").dataSource.data([]);
+            LimpiarBusquedaZona();
+            LimpiarCuadrantes();
+            LimpiarBusquedaSpool();
+            opcionHabilitarView(false, "FieldSetView");
+            displayNotify("", "No hay informacion por guardar", '2');
         }
 
     });
@@ -252,10 +257,9 @@ function SuscribirEventoPlanchar() {
                 });
             }
             else {
-                if ($("#inputCuadrantePlanchado").data("kendoComboBox").dataItem($("#inputCuadrantePlanchado").data("kendoComboBox").select()) != undefined) {
-                    PlanchaCuadrante();
+                     PlanchaCuadrante();
                     PlanchaEtiquedo();
-                }
+                
             }
         }
     });
@@ -273,7 +277,7 @@ function SuscribirEventoCambiarVista() {
             $("#inputCuadrantePlanchado").data("kendoComboBox").dataSource.data([]);
             $("#inputCuadrantePlanchado").data("kendoComboBox").value("");
 
-            $("#SpoolDiv").hide();
+            $("#SpoolIDDiv").hide();
             $("#ZonaDiv").show();
             $("#CuadranteDiv").show();
         } else {
@@ -297,14 +301,14 @@ function SuscribirEventoCambiarVista() {
 
             $("#yesButton").click(function (handler) {
                 $("#inputZona").data("kendoComboBox").value("");
-
+                cambioAlgoGrid = false;
                 $("#inputCuadrante").data("kendoComboBox").dataSource.data([]);
                 $("#inputCuadrante").data("kendoComboBox").value("");
 
                 $("#inputCuadrantePlanchado").data("kendoComboBox").dataSource.data([]);
                 $("#inputCuadrantePlanchado").data("kendoComboBox").value("");
 
-                $("#SpoolDiv").hide();
+                $("#SpoolIDDiv").hide();
                 $("#ZonaDiv").show();
                 $("#CuadranteDiv").show();
                 $("#grid").data("kendoGrid").dataSource.data([]);
@@ -321,14 +325,14 @@ function SuscribirEventoCambiarVista() {
 
         if (!existenCambios()) {
 
-            $("#inputSpoolIDCOntiene").val("");
+            $("#SpoolIDCOntiene").val("");
 
             $("#inputCuadrantePlanchado").data("kendoComboBox").dataSource.data([]);
             $("#inputCuadrantePlanchado").data("kendoComboBox").value("");
 
             $("#ZonaDiv").hide();
             $("#CuadranteDiv").hide();
-            $("#SpoolDiv").show();
+            $("#SpoolIDDiv").show();
         } else {
             ventanaConfirm = $("#ventanaConfirm").kendoWindow({
                 iframe: true,
@@ -349,14 +353,14 @@ function SuscribirEventoCambiarVista() {
             ventanaConfirm.open().center();
 
             $("#yesButton").click(function (handler) {
-                $("#inputSpoolIDCOntiene").val("");
-
+                $("#SpoolIDCOntiene").val("");
+                cambioAlgoGrid = false;
                 $("#inputCuadrantePlanchado").data("kendoComboBox").dataSource.data([]);
                 $("#inputCuadrantePlanchado").data("kendoComboBox").value("");
 
                 $("#ZonaDiv").hide();
                 $("#CuadranteDiv").hide();
-                $("#SpoolDiv").show();
+                $("#SpoolIDDiv").show();
                 $("#grid").data("kendoGrid").dataSource.data([]);
                 ventanaConfirm.close();
             });
@@ -376,7 +380,7 @@ function suscribirEventoMostrar() {
         var SpoolIDContiene = $("#SpoolIDCOntiene").val();
         var Muestra = $('input:radio[name=Muestra]:checked').val();
         var TipoBusqueda = $('input:radio[name=TipoBusqueda]:checked').val();
-
+        cambioAlgoGrid = false;
         if(!modificadoPorUsuario)
             AjaxGetDetalleEtiquetado(TipoBusqueda == 'Zona' ? 1 : 0, Muestra == 'Todos' ? 1 : 0, ZonaID == "" ? 0 : ZonaID, CuadranteID == "" ? 0 : CuadranteID, SpoolIDContiene);
         else {

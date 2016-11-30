@@ -65,7 +65,7 @@ namespace BackEndSAM.DataAcces.Embarque.Etiquetado
                             ListaCuadrantes = (List<UbicacionCuadrante>)CuadranteBD.Instance.ObtenerCuadrante(item.ZonaID)
                         });
                     }
-                    return listaDetalle.OrderBy(x => x.Proyecto).ThenBy(y => y.Etiquetado);
+                    return listaDetalle.OrderByDescending(y => y.Etiquetado);
                 }
             }
             catch (Exception ex)
@@ -115,7 +115,7 @@ namespace BackEndSAM.DataAcces.Embarque.Etiquetado
                         });
                     }
 
-                    return listaDetalle.OrderBy(x => x.Proyecto).ThenBy(y => y.Etiquetado);
+                    return listaDetalle.OrderByDescending(y => y.Etiquetado);
                 }
             }
             catch (Exception ex)

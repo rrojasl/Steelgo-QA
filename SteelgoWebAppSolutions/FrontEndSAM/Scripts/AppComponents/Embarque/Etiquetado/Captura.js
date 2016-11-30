@@ -1,4 +1,5 @@
-﻿function changeLanguageCall() {
+﻿var cambioAlgoGrid = false;
+function changeLanguageCall() {
     CargarGrid();
     AjaxCargarCamposPredeterminados();
     //$("#Area").data("kendoComboBox").value("");
@@ -43,39 +44,10 @@ function CargarGrid() {
                 this.closeCell();
             }
 
+            cambioAlgoGrid = true;
+
         },
         dataSource: {
-            data: [
-                 //{
-                 //    Accion: 1,
-                 //    Proyecto: "ETILENO XXI",
-                 //    Spool: "X001-001",
-                 //    Cuadrante: "ZZ0-001 PT",
-                 //    ColorCinta: "",
-                 //    OkPND: true,
-                 //    OkPintura: true,
-                 //    Encintado:false,
-                 //    Etiquetado: true,
-                 //    ModificadoPorUsuario: false,
-                 //    ListaCuadrantes: [{ CuadranteID: 0, Nombre: "" }, { CuadranteID: 1, Nombre: "A1" }, { CuadranteID: 2, Nombre: "A2" }, { CuadranteID: 3, Nombre: "ZZ0-001 PT" }],
-                 //    ListaColoresCinta: [{ ColorCintaID: 0, Nombre: "" }, { ColorCintaID: 1, Nombre: "Verde" }, { ColorCintaID: 2, Nombre: "Amarillo" }, { ColorCintaID: 3, Nombre: "Rojo" }]
-                 //},
-                 //{
-
-                 //    Accion: 2,
-                 //    Proyecto: "ETILENO XXI",
-                 //    Spool: "X001-001",
-                 //    Cuadrante: "A1",
-                 //    ColorCinta: "Rojo",
-                 //    OkPND: true,
-                 //    OkPintura: true,
-                 //    Encintado: true,
-                 //    Etiquetado: true,
-                 //    ModificadoPorUsuario: false,
-                 //    ListaCuadrantes: [{ CuadranteID: 0, Nombre: "" }, { CuadranteID: 1, Nombre: "A1" }, { CuadranteID: 2, Nombre: "A2" }, { CuadranteID: 3, Nombre: "ZZ0-001 PT" }],
-                 //    ListaColoresCinta: [{ ColorCintaID: 0, Nombre: "" }, { ColorCintaID: 1, Nombre: "Verde" }, { ColorCintaID: 2, Nombre: "Amarillo" }, { ColorCintaID: 3, Nombre: "Rojo" }]
-                 //}
-            ],
             schema: {
                 model: {
                     fields: {
@@ -165,11 +137,12 @@ function CargarGrid() {
     });
 
     $("#grid .k-grid-content").on("change", "input.chk-Encintado", function (e) {
-        if ($('#Guardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
 
+        if ($('#Guardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
+            cambioAlgoGrid = true;
             var grid = $("#grid").data("kendoGrid");
             var dataItem = grid.dataItem($(e.target).closest("tr"));
-
+            
             if ($(this)[0].checked) {
                 dataItem.Etiquetado = true;
                 dataItem.ModificadoPorUsuario = true;
@@ -205,12 +178,16 @@ function isEditable(fieldName, model) {
     return true;
 }
 
-function existenCambios(arregloCaptura) {
-    for (index = 0; index < arregloCaptura.length; index++) {
-        if (arregloCaptura[index].Agregar == true && arregloCaptura[index].RequisicionID == 0)
-            return true;
-    }
-    return false;
+function existenCambios() {
+    
+    //    for (index = 0; index < $("#grid").data("kendoGrid").dataSource._data.length; index++) {
+    //        if ($("#grid").data("kendoGrid").dataSource._data[index].Agregar == true && $("#grid").data("kendoGrid").dataSource._data[index].RequisicionID == 0)
+    //            return true;
+    //    }
+    
+    //return false;
+
+    return cambioAlgoGrid;
 }
 
 function PlanchaEtiquedo() {

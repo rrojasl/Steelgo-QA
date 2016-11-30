@@ -135,8 +135,18 @@ function AjaxGuardarCaptura(rows, tipoGuardar) {
     Captura[0] = { listaDetalle: "" };
     ListaDetalles = [];
     var index = 0;
+
     for (var i = 0; i < rows.length; i++) {
-        if (rows[i].ModificadoPorUsuario && (rows[i].Accion == 1 || rows[i].Accion == 2 || rows[i].Accion == 3)) {
+        if (tipoGuardar==0 && rows[i].ModificadoPorUsuario && (rows[i].Accion == 1 || rows[i].Accion == 2 || rows[i].Accion == 3)) {
+            ListaDetalles[index] = { Accion: "", SpoolID: "", Etiquetado: "", EtiquetadoID: "", CuadranteID: "" };
+            ListaDetalles[index].Accion = rows[i].Accion;
+            ListaDetalles[index].SpoolID = rows[i].SpoolID;
+            ListaDetalles[index].Etiquetado = rows[i].Etiquetado;
+            ListaDetalles[index].EtiquetadoID = rows[i].EtiquetadoID;
+            ListaDetalles[index].CuadranteID = rows[i].CuadranteID;
+            index++;
+        }
+        else if (tipoGuardar==1 && (rows[i].Accion == 1 || rows[i].Accion == 2 || rows[i].Accion == 3)) {
             ListaDetalles[index] = { Accion: "", SpoolID: "", Etiquetado: "", EtiquetadoID: "", CuadranteID: "" };
             ListaDetalles[index].Accion = rows[i].Accion;
             ListaDetalles[index].SpoolID = rows[i].SpoolID;
@@ -152,6 +162,7 @@ function AjaxGuardarCaptura(rows, tipoGuardar) {
         $Etiquetado.Etiquetado.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
             if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "OK") {
                 displayNotify("MensajeGuardadoExistoso", "", '0');
+                cambioAlgoGrid = false;
                 if (tipoGuardar == 0) {
                     opcionHabilitarView(true, "FieldSetView");
                     //Limpiar();
@@ -161,7 +172,7 @@ function AjaxGuardarCaptura(rows, tipoGuardar) {
                     var Muestra = $('input:radio[name=Muestra]:checked').val();
                     var TipoBusqueda = $('input:radio[name=TipoBusqueda]:checked').val();
                     AjaxGetDetalleEtiquetado(TipoBusqueda == 'Zona' ? 1 : 0, Muestra == 'Todos' ? 1 : 0, ZonaID == "" ? 0 : ZonaID, CuadranteID == "" ? 0 : CuadranteID, SpoolIDContiene);
-                    AjaxCargarCamposPredeterminados();
+                    
                 }
                 else {
                     $("#grid").data("kendoGrid").dataSource.data([]);
@@ -176,6 +187,7 @@ function AjaxGuardarCaptura(rows, tipoGuardar) {
                     LimpiarBusquedaSpool();
                     //AjaxGetDetalleEtiquetado(TipoBusqueda == 'Zona' ? 1 : 0, Muestra == 'Todos' ? 1 : 0, ZonaID == "" ? 0 : ZonaID, CuadranteID == "" ? 0 : CuadranteID, SpoolIDContiene);
                     // AjaxCambiarAccionAModificacion();
+                    AjaxCargarCamposPredeterminados();
                 }
                 loadingStop();
             }
@@ -186,7 +198,7 @@ function AjaxGuardarCaptura(rows, tipoGuardar) {
         });
     }
     else {
-        displayNotify("", "Tu vista no presenta cambios de origen", '1');
+        displayNotify("MensajeAdverteciaExcepcionGuardado", "", '1');
         //displayNotify("MensajeGuardadoExistoso", "", '0');
         //if (($('#Guardar').text() == "Guardar" || $('#Guardar').text() == "Save") || ($('#btnGuardar').text() == "Guardar" || $('#btnGuardar').text() == "Save") || ($('#GuardarPie').text() == "Guardar" || $('#GuardarPie').text() == "Save") || ($('#btnGuardar1').text() == "Guardar" || $('#btnGuardar1').text() == "Save")) {
         //    opcionHabilitarView(true, "FieldSetView");
