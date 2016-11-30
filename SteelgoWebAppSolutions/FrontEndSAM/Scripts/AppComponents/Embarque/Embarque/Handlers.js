@@ -38,6 +38,7 @@ function SuscribirEventoProyecto() {
             if (ds._data.length == 0) {
                 if (dataItem != undefined) {
                     proyectoInicial = dataItem.ProyectoID;
+                    LimpiarSelectProyecto();
                     if (dataItem.ProyectoID != 0) {
                         AjaxObtenerPlanas(dataItem.ProyectoID, null);
                         AjaxEmbarqueCargaProveedores(dataItem.ProyectoID, null);
@@ -67,6 +68,7 @@ function SuscribirEventoProyecto() {
                 $("#yesButtonProy").click(function () {
                     if (dataItem != undefined) {
                         proyectoInicial = dataItem.ProyectoID;
+                        LimpiarSelectProyecto();
                         if (dataItem.ProyectoID != 0) {
                             AjaxObtenerPlanas(dataItem.ProyectoID, null);
                             AjaxEmbarqueCargaProveedores(dataItem.ProyectoID, null);
@@ -108,8 +110,8 @@ function SuscribirEventoProveedor() {
                         if (dataItem.ProveedorID != 0) {
                             AjaxEmbarqueCargaTractos(dataItem.ProveedorID, null);
                             AjaxEmbarqueCargaChofer(dataItem.ProveedorID, null);
-                            //AjaxCargaEmbarque(ProveedorID, null);
-                        }                            
+                            AjaxObtenerEmbarque(dataItem.ProveedorID);
+                        }
                     }
                 }
                 else {
@@ -143,6 +145,8 @@ function SuscribirEventoProveedor() {
                         } else {
                             if (dataItem.ProveedorID != 0) {
                                 AjaxEmbarqueCargaTractos(dataItem.ProveedorID, null);
+                                AjaxEmbarqueCargaChofer(dataItem.ProveedorID, null);
+                                AjaxObtenerEmbarque(dataItem.ProveedorID);
                             }
                         }
                     }
@@ -228,7 +232,7 @@ function suscribirEventoGuardar() {
             FechaCreacion: "29/11/2016"
         }
         if ($("#Plana").data("kendoComboBox").text() != "" && $("#Plana").data("kendoComboBox").text() != undefined) {
-            
+
             AbrirPopUpGuardar(Embarque, 1);
         } else {
 
@@ -255,7 +259,7 @@ function suscribirEventoAgregar() {
                 AjaxAgregaRenglon(cargaPlanaID);
             }
             else {
-                displayNotify('','Seleccione una plana a agregar','1');
+                displayNotify('', 'Seleccione una plana a agregar', '1');
             }
         }
         else {
@@ -290,7 +294,7 @@ function SuscribirEventoChofer() {
         filter: "contains",
         index: 3,
         change: function (e) {
-            var dataItem = this.dataItem(e.sender.selectedIndex);            
+            var dataItem = this.dataItem(e.sender.selectedIndex);
             var ds = $("#grid").data("kendoGrid").dataSource;
 
             if (ds._data.length == 0) {
@@ -362,12 +366,20 @@ function SuscribirEventoPlana() {
 
     $('#Plana').closest('.k-widget').keydown(function (e) {
         if (e.keyCode == 13) {
-            if ($("#Plana").data("kendoComboBox").dataItem($("#Plana").data("kendoComboBox").select()) != undefined) {
-                AgregaRenglon($("#Plana").data("kendoComboBox").value(), $("#Plana").data("kendoComboBox").text());
+            var ds = $("#grid").data("kendoGrid").dataSource;
+            if (ds._data.length < 2) {
+                if ($("#Plana").data("kendoComboBox").text() != "" && $("#Plana").data("kendoComboBox").text() != undefined) {
+                    var cargaPlanaID = $("#Plana").data("kendoComboBox").dataItem($("#Plana").data("kendoComboBox").select()).CargaPlanaID;
+                    AjaxAgregaRenglon($("#Plana").data("kendoComboBox").value());
+                }
+                else {
+                    displayNotify('', 'Seleccione una plana a agregar', '1');
+                }
             }
             else {
-                $("#Plana").data("kendoComboBox").value("");
+                displayNotify('', 'El embarque unicamente puede tener como maximo 2 planas', '1');
             }
+
         }
     });
 
@@ -464,33 +476,62 @@ function SuscribirEventoFecha() {
 
 function SuscribirEventoPopUpGuardarEmbarque() {
 
-    divNuevoEmbarque = $("#divNuevoEmbarque").kendoWindow({
-        title: "Nuevo Embarque",
-        visible: false,
-        width: "40%",
-        height: "auto",
-        draggable: false,
-        resizable: false,
-        modal: true,
-        animation: {
-            close: false,
-            open: false
-        },
-        close: function () {
+    if ($("#Proyecto").data("kendoComboBox").text() != "") {
+        if ($("#Proveedor").data("kendoComboBox").text() != "") {
+            if ($("#Tracto").data("kendoComboBox").text() != "") {
+                if ($("#Chofer").data("kendoComboBox").text() != "") {
+
+                    var ds = $("#grid").data("kendoGrid").dataSource;
+                    if (ds._data.length > 0) {
+
+                        divNuevoEmbarque = $("#divNuevoEmbarque").kendoWindow({
+                            title: "Nuevo Embarque",
+                            visible: false,
+                            width: "40%",
+                            height: "auto",
+                            draggable: false,
+                            resizable: false,
+                            modal: true,
+                            animation: {
+                                close: false,
+                                open: false
+                            },
+                            close: function () {
+                            }
+                        }).data("kendoWindow");
+
+                        $("#GuardarNuevoEmbarque").click(function (e) {
+                        });
+
+                        $("#CancelarNuevoEmbarque").click(function (e) {
+
+                            divNuevoEmbarque.close();
+                        });
+                    }
+                    else {
+                        displayNotify('', 'El embarque debe tener al menos una plana cargada', '2');
+                    }
+                }
+                else {
+                    displayNotify('', 'El chofer es mandatorio', '2');
+                }
+            }
+            else {
+                displayNotify('', 'El tracto es mandatorio', '2');
+            }
         }
-    }).data("kendoWindow");
-
-    $("#GuardarNuevoEmbarque").click(function (e) {
-    });
-
-    $("#CancelarNuevoEmbarque").click(function (e) {
-        
-        divNuevoEmbarque.close();
-    });
+        else {
+            displayNotify('', 'El proveedor es mandatorio', '2');
+        }
+    }
+    else {
+        displayNotify('', 'El proyecto es mandatorio', '2');
+    }
 }
 
+
 function LimpiarSelectProveedor() {
-    
+
     $("#Tracto").data("kendoComboBox").dataSource.data([]);
     $("#Tracto").data("kendoComboBox").value("");
 
@@ -503,15 +544,20 @@ function LimpiarSelectProveedor() {
 
 function LimpiarSelectProyecto() {
 
-    $("#Proveedor").data("kendoComboBox").value("");
-    $("#Proveedor").data("kendoComboBox").dataSource.data([]);
-    $("#Tracto").data("kendoComboBox").value("");
-    $("#Tracto").data("kendoComboBox").dataSource.data([]);
-    $("#Chofer").data("kendoComboBox").value("");
-    $("#Chofer").data("kendoComboBox").dataSource.data([]);
-    $("#Embarque").data("kendoComboBox").value("");
-    $("#Embarque").data("kendoComboBox").dataSource.data([]);
 
-    $("#Plana").data("kendoComboBox").value("");
+    $("#Proveedor").data("kendoComboBox").dataSource.data([]);
+    $("#Proveedor").data("kendoComboBox").value("");
+
+    $("#Tracto").data("kendoComboBox").dataSource.data([]);
+    $("#Tracto").data("kendoComboBox").value("");
+
+    $("#Chofer").data("kendoComboBox").dataSource.data([]);
+    $("#Chofer").data("kendoComboBox").value("");
+
+    $("#Embarque").data("kendoComboBox").dataSource.data([]);
+    $("#Embarque").data("kendoComboBox").value("");
+
+
     $("#Plana").data("kendoComboBox").dataSource.data([]);
+    $("#Plana").data("kendoComboBox").value("");
 }

@@ -39,7 +39,7 @@ namespace BackEndSAM.DataAcces.Embarque.PreparacionEmbarque
                 {
                     List<Sam3_Embarque_PE_Get_DetalleAgregar_Result> result = ctx.Sam3_Embarque_PE_Get_DetalleAgregar(cargaPlanaID).ToList();
                     List<DetalleAgregarPlana> listaDetalle = new List<DetalleAgregarPlana>();
-                    listaDetalle.Add(new DetalleAgregarPlana());
+                    
 
                     foreach (Sam3_Embarque_PE_Get_DetalleAgregar_Result item in result)
                     {
@@ -81,7 +81,7 @@ namespace BackEndSAM.DataAcces.Embarque.PreparacionEmbarque
                 {
                     List<Sam3_Embarque_PE_Get_DetalleEmbarque_Result> result = ctx.Sam3_Embarque_PE_Get_DetalleEmbarque(EmbarqueID).ToList();
                     List<DetalleAgregarPlana> listaDetalle = new List<DetalleAgregarPlana>();
-                    listaDetalle.Add(new DetalleAgregarPlana());
+                    
 
                     foreach (Sam3_Embarque_PE_Get_DetalleEmbarque_Result item in result)
                     {

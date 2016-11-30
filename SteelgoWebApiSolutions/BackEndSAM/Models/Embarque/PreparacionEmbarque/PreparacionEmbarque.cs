@@ -26,6 +26,16 @@ namespace BackEndSAM.Models.Embarque.PreparacionEmbarque
 
     public class EmbarqueDetalle
     {
+        public EmbarqueDetalle()
+        {
+            EmbarqueID = 0;
+            Nombre = "";
+            Enviado = false;
+            TractoID = 0;
+            ChoferID = 0;
+
+        }
+
         public int EmbarqueID { get; set; }
         public string Nombre { get; set; }
         public bool Enviado { get; set; }

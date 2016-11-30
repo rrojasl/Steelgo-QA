@@ -60,7 +60,7 @@ function CargarGrid() {
         filterable: getGridFilterableMaftec(),
         columns: [
             { field: "Nombre", title: "Plana", filterable: getGridFilterableCellMaftec() },
-            { field: "CantidadElementos", title: "Cantidad SPools", filterable: getGridFilterableCellMaftec() },
+            { field: "CantidadElementos", title: "Cantidad Spools", filterable: getGridFilterableCellMaftec() },
             { field: "Peso", title: "Toneladas", filterable: getGridFilterableCellMaftec() },
             { field: "M2", title: "M2", filterable: getGridFilterableCellMaftec() },
              {
@@ -93,8 +93,8 @@ function CargarGrid() {
                                  ventanaConfirm.open().center();
 
                                  $("#yesButton").click(function (handler) {
-                                     if (dataItem.Accion == 0) {
-                                         dataItem.Accion = 2;
+                                     if (dataItem.Accion == 2) {
+                                         dataItem.Accion = 3;
                                      }
                                      else {
                                          dataSource.remove(dataItem);
@@ -113,8 +113,8 @@ function CargarGrid() {
 
                                  if (confirm(_dictionary.EmbarqueMensajeEliminarPlana[$("#language").data("kendoDropDownList").value()])) {
 
-                                     if (dataItem.Accion == 0) {
-                                         dataItem.Accion = 2;
+                                     if (dataItem.Accion == 2) {
+                                         dataItem.Accion = 3;
                                      }
                                      else {
                                          dataSource.remove(dataItem);

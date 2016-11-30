@@ -187,6 +187,32 @@ function AjaxEmbarqueCargaChofer(ProveedorID, nuevoChofer) {
     });
 }
 
+function AjaxObtenerEmbarque(ProveedorID) {
+    loadingStart();
+    $PreparacionEmbarque.PreparacionEmbarque.read({ token: Cookies.get("token"), ProveedorID: ProveedorID, }).done(function (data) {
+        if (Error(data)) {
+            $("#Embarque").data("kendoComboBox").dataSource.data([]);
+            var EmbarqueID = 0;
+
+            if (data.length > 0) {
+
+                if (data.length < 3) {
+                    for (var i = 0; i < data.length; i++) {
+                        if (data[i].EmbarqueID != 0) {
+                            EmbarqueID = data[i].EmbarqueID;
+                        }
+                    }
+                }
+                $("#Embarque").data("kendoComboBox").dataSource.data(data);
+
+                $("#Embarque").data("kendoComboBox").value(EmbarqueID);
+                $("#Embarque").data("kendoComboBox").trigger("change");
+            }
+        }
+        loadingStop();
+    });
+}
+
 
 
 function GuardarNuevoProveedor() {
