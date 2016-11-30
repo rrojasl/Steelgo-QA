@@ -46,6 +46,7 @@ namespace BackEndSAM.DataAcces.Embarque.PreparacionEmbarque
                         listaDetalle.Add(new DetalleAgregarPlana
                         {
                             Accion = item.EmbarqueDetalleID == 0 ? 1 : 2,
+                            EmbarqueID = item.EmbarqueID,
                             NombreEmbarque = item.NombreEmbarque,
                             EmbarqueDetalleID = item.EmbarqueDetalleID,
                             PlanaID = item.PlanaID,
@@ -54,7 +55,8 @@ namespace BackEndSAM.DataAcces.Embarque.PreparacionEmbarque
                             StatusCarga = item.StatusCarga.GetValueOrDefault(),
                             CantidadElementos = item.CantidadElementos.GetValueOrDefault(),
                             M2 = item.M2.GetValueOrDefault(),
-                            Peso = item.Peso.GetValueOrDefault()
+                            Peso = item.Peso.GetValueOrDefault(),
+                            ModificadoPorUsuario = false
                         });
                     }
 
@@ -97,7 +99,8 @@ namespace BackEndSAM.DataAcces.Embarque.PreparacionEmbarque
                             StatusCarga = item.StatusCarga.GetValueOrDefault(),
                             CantidadElementos = item.CantidadElementos.GetValueOrDefault(),
                             M2 = item.M2.GetValueOrDefault(),
-                            Peso = item.Peso.GetValueOrDefault()
+                            Peso = item.Peso.GetValueOrDefault(),
+                            ModificadoPorUsuario = false
                         });
                     }
 

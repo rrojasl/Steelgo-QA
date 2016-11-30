@@ -22,6 +22,7 @@ namespace BackEndSAM.Models.Embarque.PreparacionEmbarque
         public int CantidadElementos { get; set; }
         public decimal M2 { get; set; }
         public decimal Peso { get; set; }
+        public bool ModificadoPorUsuario { get; set; }
     }
 
     public class EmbarqueDetalle
