@@ -164,7 +164,7 @@ namespace BackEndSAM.DataAcces.Embarque.Empaquetado
                             SpoolID = item.SpoolID,
                             NumeroControl = item.NumeroControl,
                             Area = item.Area.GetValueOrDefault(),
-                            Peso = item.Peso.GetValueOrDefault(),
+                            Peso = item.Peso.GetValueOrDefault() / 1000,
                             ProyectoID = item.ProyectoID,
                             CuadranteSam2ID = item.CuadranteSam2ID,
                             CuadranteSam3ID = item.CuadranteSam3ID,
