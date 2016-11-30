@@ -56,7 +56,7 @@ namespace BackEndSAM.DataAcces.Embarque.PreparacionEmbarque
                             CantidadElementos = item.CantidadElementos.GetValueOrDefault(),
                             M2 = item.M2.GetValueOrDefault(),
                             Peso = item.Peso.GetValueOrDefault(),
-                            ModificadoPorUsuario = false
+                            ModificadoPorUsuario = true
                         });
                     }
 
