@@ -17,7 +17,7 @@ namespace BackEndSAM.Controllers.Embarque
     public class PreparacionEmbarqueController : ApiController
     {
         [HttpGet]
-        public object ObtenerPlanasCerradas(string token, int CargaPlanaID)
+        public object ObtenerDetalleAgregarPlana(string token, int CargaPlanaID)
         {
             string payload = "";
             string newToken = "";
@@ -29,6 +29,32 @@ namespace BackEndSAM.Controllers.Embarque
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
                 return PreparacionEmbarqueBD.Instance.ObtenerDetalleAgregarPlana(CargaPlanaID);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+
+                return result;
+            }
+        }
+
+        [HttpGet]
+        public object ObtenerDetalleEmbarque(string token, int EmbarqueID)
+        {
+            string payload = "";
+            string newToken = "";
+
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+
+                return PreparacionEmbarqueBD.Instance.ObtenerDetalleEmbarque(EmbarqueID);
             }
             else
             {
