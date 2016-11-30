@@ -16,7 +16,7 @@ namespace BackEndSAM.Models.Embarque.Encintado
         public int? CuadranteID { get; set; }
         public string Cuadrante { get; set; }
         public int EncintadoID { get; set; }
-        public bool Encintado { get; set; }
+        public bool? Encintado { get; set; }
         public int EtiquetadoID { get; set; }
         public bool Etiquetado { get; set; }
         public int ColorID { get; set; }

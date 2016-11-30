@@ -7,6 +7,7 @@ function changeLanguageCall() {
     CargarGrid();    
     AjaxCargarCamposPredeterminados();
     document.title = _dictionary.EmbarqueEncintadoTitle[$("#language").data("kendoDropDownList").value()];
+    ajaxObtenerColores();
 };
 
 
@@ -231,6 +232,8 @@ function CargarGrid() {
             }
             else {
                 dataItem.Encintado = false;
+                dataItem.NombreColor = "";
+                dataItem.ColorID = 0;
                 //dataItem.ColorCintaID = 0;
                 //dataItem.ColorCinta = "";
                 dataItem.ModificadoPorUsuario = true;
@@ -336,13 +339,71 @@ function PlancharCuadrante(tipoPlanchado) {
     $("#grid").data("kendoGrid").dataSource.sync();
 }
 
-function PlancharColorCinta(tipoPlanchado) {
-    if (tipoPlanchado == "Todos") {
+function PlancharCuadrante(tipoPlanchado) {
+    var seleccionartodos = $('#SelectTodosSi').is(':checked');
+    var seleccionarNinguno = $('#SelectTodosNinguno').is(':checked');
+    var dataSource = $("#grid").data("kendoGrid").dataSource;
+    var filters = dataSource.filter();
+    var allData = dataSource.data();
+    var query = new kendo.data.Query(allData);
+    var data = query.filter(filters).data;
 
-    } else if (tipoPlanchado == "Vacios") {
-
+    if ($("#InputCuadrantePlanchado").data("kendoComboBox").text() != "") {
+        for (var i = 0; i < data.length; i++) {
+            if (tipoPlanchado == "Todos") {
+                data[i].CuadranteID = $("#InputCuadrantePlanchado").val();
+                data[i].Cuadrante = $("#InputCuadrantePlanchado").data("kendoComboBox").text();
+                data[i].ModificadoPorUsuario = true;
+                //if (!seleccionarNinguno)
+                //    data[i].Etiquetado = seleccionartodos;
+            }
+            else if (tipoPlanchado == "Vacios") {
+                if (data[i].Cuadrante === "" || data[i].Cuadrante === null || data[i].Cuadrante === undefined) {
+                    data[i].CuadranteID = $("#InputCuadrantePlanchado").val();
+                    data[i].Cuadrante = $("#InputCuadrantePlanchado").data("kendoComboBox").text();
+                    data[i].ModificadoPorUsuario = true;
+                    //if (!seleccionarNinguno) data[i].Etiquetado = seleccionartodos;
+                }
+            }
+        }
     }
+    $("#grid").data("kendoGrid").dataSource.sync();
 }
+
+function PlancharColorCinta(tipoPlanchado) {
+    var seleccionartodos = $('#SelectTodosSi').is(':checked');
+    var seleccionarNinguno = $('#SelectTodosNinguno').is(':checked');
+    var dataSource = $("#grid").data("kendoGrid").dataSource;
+    var filters = dataSource.filter();
+    var allData = dataSource.data();
+    var query = new kendo.data.Query(allData);
+    var data = query.filter(filters).data;
+
+    if ($("#InputColorCintaPlanchado").data("kendoComboBox").text() != "") {
+        for (var i = 0; i < data.length; i++) {
+            if (tipoPlanchado == "Todos") {
+                data[i].ColorID = $("#InputColorCintaPlanchado").val();
+                data[i].NombreColor = $("#InputColorCintaPlanchado").data("kendoComboBox").text();
+                data[i].ModificadoPorUsuario = true;
+                data[i].Encintado = true;
+                //if (!seleccionarNinguno)
+                //    data[i].Etiquetado = seleccionartodos;
+            }
+            else if (tipoPlanchado == "Vacios") {
+                if (data[i].NombreColor === "" || data[i].NombreColor === null || data[i].NombreColor === undefined) {
+                    data[i].ColorID = $("#InputColorCintaPlanchado").val();
+                    data[i].NombreColor = $("#InputColorCintaPlanchado").data("kendoComboBox").text();
+                    data[i].ModificadoPorUsuario = true;
+                    data[i].Encintado = true;
+                    //if (!seleccionarNinguno) data[i].Etiquetado = seleccionartodos;
+                }
+            }
+        }
+    }
+    $("#grid").data("kendoGrid").dataSource.sync();
+}
+
+
 
 function FiltroMostrar(mostrar) {
     var ds = $("#grid").data("kendoGrid").dataSource;

@@ -131,7 +131,7 @@ function AjaxCargarCuadranteSpool(spool) {
 
 function AjaxCargarDetalleEncintado() {
     if (tipoBusqueda == 1) {//Zona
-        $EncintadoFinal.EncintadoFinal.read({ token: Cookies.get("token"), ZonaID: zonaID, CuadranteID: cuadranteID, todos: 1, lenguaje: $("#language").val() }).done(function (data) {
+        $EncintadoFinal.EncintadoFinal.read({ token: Cookies.get("token"), ZonaID: zonaID, CuadranteID: cuadranteID, todos: $('input:radio[name=Muestra]:checked').val() == "Todos"?1:0, lenguaje: $("#language").val() }).done(function (data) {
             if (Error(data)) {
                 $("#grid").data('kendoGrid').dataSource.data([]);
                 var ds = $("#grid").data("kendoGrid").dataSource;
@@ -143,7 +143,7 @@ function AjaxCargarDetalleEncintado() {
         });
     }
     else if (tipoBusqueda == 2) {//Spool
-        $EncintadoFinal.EncintadoFinal.read({ token: Cookies.get("token"), ZonaID: zonaID, NumeroControl: spool, todos: 1, lenguaje: $("#language").val(), demo: 1 }).done(function (data) {
+        $EncintadoFinal.EncintadoFinal.read({ token: Cookies.get("token"), ZonaID: zonaID, NumeroControl: spool, todos: $('input:radio[name=Muestra]:checked').val() == "Todos" ? 1 : 0, lenguaje: $("#language").val(), demo: 1 }).done(function (data) {
             if (Error(data)) {
                 $("#grid").data('kendoGrid').dataSource.data([]);
                 var ds = $("#grid").data("kendoGrid").dataSource;
@@ -217,4 +217,16 @@ function AjaxGuardarCaptura(rows, tipoGuardar) {
         $('#Guardar').text = _dictionary.botonEditar[$("#language").data("kendoDropDownList").value()];
         loadingStop();
     }
+}
+
+function ajaxObtenerColores()
+{
+    loadingStart();
+    $EncintadoFinal.EncintadoFinal.read({ token: Cookies.get("token"),lenguaje: $("#language").val() }).done(function (data) {
+        if (Error(data)) {
+            $("#InputColorCintaPlanchado").data("kendoComboBox").dataSource.data([]);
+            $("#InputColorCintaPlanchado").data("kendoComboBox").dataSource.data(data);
+        }
+        loadingStop();
+    });
 }

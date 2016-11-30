@@ -4,8 +4,9 @@ function SuscribirEventos() {
     SuscribirEventoZona();
     SuscribirEventoCuadrante();
     SuscribirEventoCuadrantePlanchado();
+    SuscribirEventoEncintadoPlanchado();
     SuscribirEventoCambiarVista();
-    SuscribirEventoChangeRadio();
+    //SuscribirEventoChangeRadio();
     SuscribirEventoMostrar();
     SuscribirEventoPlanchar();
     SuscribirEventoGuardar();
@@ -263,6 +264,18 @@ function SuscribirEventoCuadrantePlanchado() {
     });
 }
 
+function SuscribirEventoEncintadoPlanchado() {
+    $("#InputColorCintaPlanchado").kendoComboBox({
+        dataTextField: "Nombre",
+        dataValueField: "ColorID",
+        suggest: true,
+        filter: "contains",
+        index: 3,
+        change: function (e) {
+        }
+    });
+}
+
 function SuscribirEventoCambiarVista() {
     $('#styleZona').click(function () {
 
@@ -390,11 +403,14 @@ function SuscribirEventoMostrar() {
             tipoBusqueda = 1;
             zonaID = $("#InputZona").data("kendoComboBox").value();
             cuadranteID = $("#InputCuadrante").data("kendoComboBox").value();
-            if(zonaID != 0){               
-                AjaxCargarDetalleEncintado();
-                //alert('xD');
+            if (zonaID != 0) {
+                if (cuadranteID != 0) {
+                    AjaxCargarDetalleEncintado();
+                } else {
+                    displayNotify("", "Selecciona un cuadrante porfavor", '1');
+                }
             } else {
-                displayNotify("MensajeSeleccionarZona", "", '2');
+                displayNotify("", "Selecciona una zona porfavor", '1');
             }
         } else if ($("#styleSpool").hasClass("active")) {
             tipoBusqueda = 2;
@@ -403,7 +419,7 @@ function SuscribirEventoMostrar() {
             AjaxCargarCuadranteSpool(spool);
             AjaxCargarDetalleEncintado();
         } else {
-            displayNotify("EncintadoMensajeSeleccionarZona", "", '2');
+            displayNotify("", "Selecciona una zona porfavor", '1');
         }
     });
 }
@@ -437,6 +453,7 @@ function SuscribirEventoPlanchar() {
                         PlancharCuadrante("Todos");
                     }
                     PlanchaEncintado();
+                    PlancharColorCinta("Todos");
                     ventanaConfirm.close();
                 });
                 $("#noButton").click(function (handler) {
@@ -446,8 +463,10 @@ function SuscribirEventoPlanchar() {
             else if ($('input:radio[name=LLena]:checked').val() === "Vacios") {
                 if ($("#InputCuadrantePlanchado").data("kendoComboBox").dataItem($("#InputCuadrantePlanchado").data("kendoComboBox").select()) != undefined) {
                     PlancharCuadrante("Vacios");
-                    PlanchaEncintado();
                 }
+                    PlanchaEncintado();
+                    PlancharColorCinta("Vacios");
+                
             } else {
                 displayNotify("MensajeErrorTipoPlanchado", "", '2');
             }

@@ -99,7 +99,7 @@ namespace BackEndSAM.DataAcces.Embarque.Encintado
                         });
                     }
 
-                    return detalleCapturaList;
+                    return detalleCapturaList.OrderByDescending(y => y.Encintado);
                 }
             }
             catch (Exception ex)
@@ -125,7 +125,7 @@ namespace BackEndSAM.DataAcces.Embarque.Encintado
                 {
                     List<Sam3_Steelgo_Get_Cuadrante_Result> result = ctx.Sam3_Steelgo_Get_Cuadrante(ZonaID).ToList();
                     List<UbicacionCuadrante> listaCuadrante = new List<UbicacionCuadrante>();
-
+                    listaCuadrante.Add(new UbicacionCuadrante());
                     foreach (Sam3_Steelgo_Get_Cuadrante_Result item in result)
                     {
                         listaCuadrante.Add(new UbicacionCuadrante
@@ -139,7 +139,7 @@ namespace BackEndSAM.DataAcces.Embarque.Encintado
 
                     List<Sam3_Embarque_get_Encintado_Colores_Result> resultColor = ctx.Sam3_Embarque_get_Encintado_Colores(lenguaje).ToList();
                     List<ColorEncintado> listaColores = new List<ColorEncintado>();
-
+                    listaColores.Add(new ColorEncintado());
                     foreach (Sam3_Embarque_get_Encintado_Colores_Result item in resultColor)
                     {
                         listaColores.Add(new ColorEncintado
@@ -181,7 +181,7 @@ namespace BackEndSAM.DataAcces.Embarque.Encintado
                         });
                     }
 
-                    return detalleCapturaList;
+                    return detalleCapturaList.OrderByDescending(y => y.Encintado);
                 }
             }
             catch (Exception ex)
@@ -218,6 +218,44 @@ namespace BackEndSAM.DataAcces.Embarque.Encintado
             }
             catch (Exception ex)
             {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object ObtenerColoresEncintado(string lenguaje)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                   
+
+
+                    List<Sam3_Embarque_get_Encintado_Colores_Result> resultColor = ctx.Sam3_Embarque_get_Encintado_Colores(lenguaje).ToList();
+                    List<ColorEncintado> listaColores = new List<ColorEncintado>();
+                    listaColores.Add(new ColorEncintado());
+                    foreach (Sam3_Embarque_get_Encintado_Colores_Result item in resultColor)
+                    {
+                        listaColores.Add(new ColorEncintado
+                        {
+                            ColorID = item.ColorID,
+                            Nombre = item.Color
+                        });
+                    }
+                    return listaColores;
+                }
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;

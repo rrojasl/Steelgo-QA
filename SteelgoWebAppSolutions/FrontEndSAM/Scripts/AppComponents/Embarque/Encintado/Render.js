@@ -42,34 +42,22 @@ function RenderComboBoxColorCinta(container, options) {
             dataSource: options.model.ListaColoresCinta,
             template: "<i class=\"fa fa-#=data.Nombre.toLowerCase()#\"></i> #=data.Nombre#",
             select: function (e) {
-                e.preventDefault();
+               // e.preventDefault();
                 var dataItem = this.dataItem(e.item.index());
-                if (dataItem != undefined) {
-                    //if(options.model.Encintado){                        
-                        options.model.NombreColor = dataItem.Nombre;
-                        options.model.ColorID = dataItem.ColorID;
-                        
-                    //} else {
-                    //    options.model.NombreColor = "";
-                    //    options.model.ColorID = 0;
-                    //}
-
-                    $("#grid").data("kendoGrid").dataSource.sync();
-                }
             },
             change: function (e) {
-                e.preventDefault();
-                var dataItem = this.dataItem(e.item.index());
-                if (dataItem != undefined) {
-                    if (options.model.Encintado) {
-                        options.model.NombreColor = dataItem.Nombre;
-                        options.model.ColorID = dataItem.ColorID;
-                        //options.model.ModificadoPorUsuario = true;
-                    } else {
-                        options.model.NombreColor = "";
-                        options.model.ColorID = 0;
-                    }
+                //e.preventDefault();
+                dataItem = this.dataItem(e.sender.selectedIndex);
+                if (dataItem != undefined && dataItem.ColorID != 0) {
 
+                    options.model.NombreColor = dataItem.Nombre;
+                    options.model.ColorID = dataItem.ColorID;
+                    options.model.Encintado = true;
+                    //options.model.ModificadoPorUsuario = true;
+                    $("#grid").data("kendoGrid").dataSource.sync();
+                }
+                else {
+                    options.model.Encintado = false;
                     $("#grid").data("kendoGrid").dataSource.sync();
                 }
             }
