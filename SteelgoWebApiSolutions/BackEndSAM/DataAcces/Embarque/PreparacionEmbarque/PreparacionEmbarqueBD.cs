@@ -164,12 +164,26 @@ namespace BackEndSAM.DataAcces.Embarque.PreparacionEmbarque
                     string[,] parametro = { { "@EmbarqueID", EmbarqueID.ToString() }, { "@NombreEmbarque", NombreEmbarque },
                         { "@TractoID", TractoID.ToString() }, { "@ChoferID", ChoferID.ToString() },
                         { "@FechaCreacion", FechaCreacion } ,{ "@Usuario", usuario.UsuarioID.ToString() }, { "@Lenguaje", lenguaje } };
-                    _SQL.Ejecuta(Stords.GUARDARPREPARACIONEMBARQUE, dtDetalleCaptura, "@TTDetalleEmbarque", parametro);
+                    int valor = _SQL.EjecutaInsertUpdate(Stords.GUARDARPREPARACIONEMBARQUE, dtDetalleCaptura, "@TTDetalleEmbarque", parametro);
                     TransactionalInformation result = new TransactionalInformation();
-                    result.ReturnMessage.Add("Ok");
-                    result.ReturnCode = 200;
-                    result.ReturnStatus = true;
-                    result.IsAuthenicated = true;
+
+
+                    if (valor > 0)
+                    {
+                        result.ReturnMessage.Add("Ok");
+                        result.ReturnCode = 200;
+                        result.ReturnStatus = true;
+                        result.IsAuthenicated = true;
+                    }
+                    else
+                    {
+                        result.ReturnMessage.Add("La plana para ese proveedor ya existe");
+                        result.ReturnCode = 200;
+                        result.ReturnStatus = true;
+                        result.IsAuthenicated = true;
+                    }
+
+                    
                     return result;
                 }
             }
