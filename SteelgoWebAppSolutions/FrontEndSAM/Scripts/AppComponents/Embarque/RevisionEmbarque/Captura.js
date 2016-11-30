@@ -5,31 +5,13 @@ var EmbarquePlanaID = 0;
 function changeLanguageCall() {
     CargarGrid();
     opcionHabilitarView(false, "FieldSetView");
-    $("#inputEmbarqueBuscar").data("kendoComboBox").value("");
     document.title = "Revisión Embarque";
-    //$('#Guardar1').text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
-    //$("#Guardar").text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
 };
-
-if ($("#inputEmbarqueBuscar").val() != null && $("#inputEmbarqueBuscar").val() != undefined && $("#inputEmbarqueBuscar").val() != "") {
-    EmbarquePlanaID = $("#inputEmbarqueBuscar").val();
-    setTimeout(function () { ajaxBuscar(); }, 2100);
-}
-else {
-    EmbarquePlanaID = 0;
-}
-
 
 IniciarCapturaEmbarqueCarga();
 function IniciarCapturaEmbarqueCarga() {
-
     SuscribirEventos();
-
-    //setTimeout(function () { AjaxCargarPaquetes(); }, 1000);
-    //setTimeout(function () { AjaxCargarCamposPredeterminados(); }, 2000);
-    //setTimeout(function () { AjaxCargarEmbarques(); }, 3000);
 }
-
 
 function validarInformacion(row) {
     var ds = $("#grid").data("kendoGrid").dataSource;
@@ -41,8 +23,6 @@ function validarInformacion(row) {
             existe = true;
             break;
         }
-
-
     }
     return existe;
 }
@@ -50,6 +30,12 @@ function validarInformacion(row) {
 function CargarGrid() {
 
     $("#grid").kendoGrid({
+        edit: function (e) {
+            if ($('#Guardar').text() != _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
+
+                this.closeCell();
+            }
+        },
         autoBind: true,
         dataSource: {
             schema: {
@@ -57,27 +43,34 @@ function CargarGrid() {
                     fields: {
                         NumeroControl: { type: "string", editable: false },
                         Paquete: { type: "string", editable: false },
-                        Comentario: { type: "string", editable: true },
                         Llego: { type: "boolean", editable: true },
+                        LlegoConComentarios: { type: "boolean", editable: true },
                         NoLlego: { type: "boolean", editable: true },
-                        LlegoConComentarios: { type: "boolean", editable: true }
+                        Comentario: { type: "string", editable: true }
                     }
                 }
             },
-            pageSize: 20,
+            filter: {
+                logic: "or",
+                filters: [
+                  { field: "Accion", operator: "eq", value: 1 },
+                  { field: "Accion", operator: "eq", value: 2 }
+                ]
+            },
+            pageSize: 10,
             serverPaging: false,
             serverFiltering: false,
             serverSorting: false
         },
-        navigatable: true,
-        
-        editable: true,
+        navigatable: true,        
+        editable: false,
         autoHeight: true,
         sortable: true,
         scrollable: true,
+        selectable: true,
         pageable: {
             refresh: false,
-            pageSizes: [10, 15, 20],
+            pageSizes: [10, 25, 50, 100],
             info: false,
             input: false,
             numeric: true,
@@ -165,9 +158,6 @@ function CargarGrid() {
                 }
             }
         }
-
-
-        // grid.editable.validatable.validate();
     });
 
 
