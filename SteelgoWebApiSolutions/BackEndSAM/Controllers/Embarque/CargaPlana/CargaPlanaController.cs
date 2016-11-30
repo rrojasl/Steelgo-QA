@@ -71,6 +71,32 @@ namespace BackEndSAM.Controllers.Embarque.CargaPlana
             }
         }
 
+        [HttpGet]
+        public object ObtieneDetallePaqueteAgregar(string token, int PaqueteID, string lenguaje)
+        {
+            string payload = "";
+            string newToken = "";
+
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+
+                return CargaPlanaBD.Instance.ObtieneDetallePaqueteAgregar(PaqueteID, lenguaje);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+
+                return result;
+            }
+        }
+
         [HttpPost]
         public object GuardaCapturaCargaPlana(Captura captura, string token, int CargaPlanaID, int PlanaID, int CerrarPlana, int CuadrantePlanaSam2, int CuadrantePlanaSam3)
         {

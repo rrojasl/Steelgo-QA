@@ -47,7 +47,7 @@ namespace BackEndSAM.DataAcces.Embarque.CargaPlana
                             SpoolID = item.SpoolID,
                             OrdenTrabajoID = item.OrdenTrabajoID,
                             Spool = item.NumeroControl,
-                            PaqueteID = item.PaqueteID,
+                            PaqueteID = item.PaqueteID.GetValueOrDefault(),
                             Paquete = item.NombrePaquete,
                             Peso = item.Peso.GetValueOrDefault(),
                             CuadranteID = item.CuadranteID.GetValueOrDefault(),
@@ -87,14 +87,58 @@ namespace BackEndSAM.DataAcces.Embarque.CargaPlana
                             SpoolID = item.SpoolID,
                             OrdenTrabajoID = item.OrdenTrabajoID,
                             Spool = item.NumeroControl,
-                            PaqueteID = item.PaqueteID,
+                            Empaquetado = item.Empaquetado,
                             Paquete = item.NombrePaquete,
+                            PaqueteID = 0,
                             Peso = item.Peso.GetValueOrDefault(),
                             CuadranteID = item.CuadranteID.GetValueOrDefault(),
                             CuadranteAnteriorID = item.CuadranteAnteriorID.GetValueOrDefault(),
                             ModificadoPorUsuario = true,
                             Cargado = item.Cargado,
                             PlanaCargado = item.PlanaCargado
+                        });
+                    }
+                    return listaDetalle;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object ObtieneDetallePaqueteAgregar(int PaqueteID, string lenguaje)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Sam3_Embarque_Get_DetallePaquete_Result> result = ctx.Sam3_Embarque_Get_DetallePaquete(PaqueteID).ToList();
+                    List<DetallePaqueteAgregar> listaDetalle = new List<DetallePaqueteAgregar>();
+
+                    foreach (Sam3_Embarque_Get_DetallePaquete_Result item in result)
+                    {
+                        listaDetalle.Add(new DetallePaqueteAgregar
+                        {
+                            Accion = 1,
+                            SpoolID = item.SpoolID,
+                            Spool = item.NumeroControl,
+                            OrdenTrabajoID = item.OrdenTrabajoID,
+                            PaqueteID = item.PaqueteID,
+                            Paquete = item.NombrePaquete,
+                            Peso = item.Peso.GetValueOrDefault(),
+                            CuadranteID = item.CuadranteID.GetValueOrDefault(),
+                            CuadranteAnteriorID = item.CuadranteAnteriorID.GetValueOrDefault(),
+                            DetalleCargaID = item.DetalleCargaID,
+                            Cargado = item.Cargado,
+                            PlanaCargado = item.PlanaCargado,
+                            ModificadoPorUsuario = true
                         });
                     }
                     return listaDetalle;

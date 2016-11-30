@@ -72,10 +72,10 @@ function CargarGrid() {
             schema: {
                 model: {
                     fields: {
-                        Consecutivo:{type:"int",editable:false},
+                        Consecutivo:{type:"number",editable:false},
                         Spool: { type: "string", editable: false },
                         Paquete: { type: "string", editable: false },
-                        Peso: { type: "int", editable: false },
+                        Peso: { type: "number", editable: false },
                     }
                 }
             },
@@ -101,7 +101,7 @@ function CargarGrid() {
         scrollable: true,
         pageable: {
             refresh: false,
-            pageSizes: [10, 25,50, 20],
+            pageSizes: [10,25,50,100],
             info: false,
             input: false,
             numeric: true,
@@ -287,6 +287,9 @@ function CargaPopupNuevaPlana(e) {
             top: "1%",
             left: "1%"
         },
+        close: function (e) {
+            $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").value(0);
+        },
         animation: false
 
     }).data("kendoWindow");
@@ -308,6 +311,9 @@ function CargaPopupNuevoProveedor(e) {
         position: {
             top: "1%",
             left: "1%"
+        },
+        close: function (e) {
+            $("#inputProveedor").data("kendoComboBox").value(0);
         },
         animation: false
         
