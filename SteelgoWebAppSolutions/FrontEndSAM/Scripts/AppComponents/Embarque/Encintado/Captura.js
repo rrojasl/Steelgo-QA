@@ -240,9 +240,9 @@ function CargarGrid() {
         }
         else {
             if (e.target.checked)
-                $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Etiquetado = false;
+                $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Encintado = false;
             else
-                $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Etiquetado = true;
+                $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Encintado = true;
         }
 
         $("#grid").data("kendoGrid").dataSource.sync();
