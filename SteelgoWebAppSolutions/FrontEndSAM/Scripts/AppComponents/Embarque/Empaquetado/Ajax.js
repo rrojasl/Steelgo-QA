@@ -74,11 +74,9 @@ function AjaxCargarPaquetes(proyectoID, paqueteID) {
 function AjaxCargarZona(patioID) {
     loadingStart();    
     $Zona.Zona.read({ token: Cookies.get("token"), PatioID: patioID }).done(function (data) {
-        $("#InputZonaPaquete").data("kendoComboBox").dataSource.data([]);
         $("#InputZonaDescarga").data("kendoComboBox").dataSource.data([]);
         if (data.length > 0) {
             var zonaID = 0;
-            $("#InputZonaPaquete").data("kendoComboBox").dataSource.data(data);
             $("#InputZonaDescarga").data("kendoComboBox").dataSource.data(data);
 
             if (data.length < 3) {
@@ -88,15 +86,57 @@ function AjaxCargarZona(patioID) {
                     }
                 }
             }
-            $("#InputZonaPaquete").data("kendoComboBox").value(zonaID);
-            $("#InputZonaPaquete").data("kendoComboBox").trigger("change");
-
-
+            
             $("#InputZonaDescarga").data("kendoComboBox").value(zonaID);
             $("#InputZonaDescarga").data("kendoComboBox").trigger("change");
         }
 
         loadingStop();
+    });
+}
+
+function AjaxCargarZonaGuardado(patioID) {
+    loadingStart();
+    $Empaquetado.Empaquetado.read({ token: Cookies.get("token"), PatioID: patioID }).done(function (data) {
+        $("#InputZonaPaquete").data("kendoComboBox").dataSource.data([]);
+        if (data.length > 0) {
+            var zonaID = 0;
+            $("#InputZonaPaquete").data("kendoComboBox").dataSource.data(data);
+
+            if (data.length < 3) {
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].ZonaID != 0) {
+                        zonaID = data[i].ZonaID;
+                    }
+                }
+            }
+
+            $("#InputZonaPaquete").data("kendoComboBox").value(zonaID);
+            $("#InputZonaPaquete").data("kendoComboBox").trigger("change");
+        }
+
+        loadingStop();
+    });
+}
+
+function AjaxCargarCuadranteGuardado(zonaID) {
+    $Cuadrante.Cuadrante.read({ token: Cookies.get("token"), ZonaID: zonaID }).done(function (data) {
+        if (data.length > 0) {
+            var cuadranteID = 0;
+            $("#InputCuadrantePaquete").data("kendoComboBox").dataSource.data(data);
+
+            if (data.length < 3 && cuadranteSave == 0) {
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].CuadranteID != 0) {
+                        cuadranteID = data[i].CuadranteID;
+                    }
+                }
+            } else {
+                cuadranteID = cuadranteSave;
+            }
+            $("#InputCuadrantePaquete").data("kendoComboBox").value(cuadranteID);
+            $("#InputCuadrantePaquete").data("kendoComboBox").trigger("change");
+        }
     });
 }
 
@@ -119,31 +159,6 @@ function AjaxCargarCuadranteDescarga(zonaID) {
         }
     });
 }
-
-function AjaxCargarCuadranteGuardado(zonaID) {
-    loadingStart();
-    $Empaquetado.Empaquetado.read({ token: Cookies.get("token"), ZonaID: zonaID }).done(function (data) {
-        if (data.length > 0) {
-            var cuadranteID = 0;
-            $("#InputCuadrantePaquete").data("kendoComboBox").dataSource.data(data);
-
-            if (data.length < 3 && cuadranteSave == 0) {
-                for (var i = 0; i < data.length; i++) {
-                    if (data[i].CuadranteID != 0) {
-                        cuadranteID = data[i].CuadranteID;
-                    }
-                }
-            } else {
-                cuadranteID = cuadranteSave;
-            }
-            $("#InputCuadrantePaquete").data("kendoComboBox").value(cuadranteID);
-            $("#InputCuadrantePaquete").data("kendoComboBox").trigger("change");
-        }
-
-        loadingStop();
-    });
-}
-
 
 function AjaxCargarDetalleEmpaquetado(paqueteID, todos) {
     loadingStart();

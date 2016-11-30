@@ -99,7 +99,6 @@ function AjaxEmbarqueCargaProveedores(ProyectoID, nuevoProveedor) {
 
 function AjaxEmbarqueCargaTractos(ProveedorID, nuevoTracto) {
     loadingStart();
-
     $EmbarqueGeneral.EmbarqueGeneral.read({ token: Cookies.get("token"), ProveedorID: ProveedorID, Tractos: 1 }).done(function (data) {
         if (Error(data)) {
             if (data.length > 0) {
@@ -129,9 +128,7 @@ function AjaxEmbarqueCargaTractos(ProveedorID, nuevoTracto) {
                     });
                     $("#Tracto").data("kendoComboBox").dataSource.data(data);
                     $("#Tracto").data("kendoComboBox").value(TractoID);
-                    $("#Tracto").data("kendoComboBox").trigger("change");
-
-                    AjaxEmbarqueCargaChofer(ProveedorID, null);
+                    $("#Tracto").data("kendoComboBox").trigger("change");                    
                 }
                 else {
                     $("#Tracto").data("kendoComboBox").value("");
@@ -184,6 +181,32 @@ function AjaxEmbarqueCargaChofer(ProveedorID, nuevoChofer) {
                 else {
                     $("#Chofer").data("kendoComboBox").value("");
                 }
+            }
+        }
+        loadingStop();
+    });
+}
+
+function AjaxObtenerEmbarque(ProveedorID) {
+    loadingStart();
+    $PreparacionEmbarque.PreparacionEmbarque.read({ token: Cookies.get("token"), ProveedorID: ProveedorID, }).done(function (data) {
+        if (Error(data)) {
+            $("#Embarque").data("kendoComboBox").dataSource.data([]);
+            var EmbarqueID = 0;
+
+            if (data.length > 0) {
+
+                if (data.length < 3) {
+                    for (var i = 0; i < data.length; i++) {
+                        if (data[i].EmbarqueID != 0) {
+                            EmbarqueID = data[i].EmbarqueID;
+                        }
+                    }
+                }
+                $("#Embarque").data("kendoComboBox").dataSource.data(data);
+
+                $("#Embarque").data("kendoComboBox").value(EmbarqueID);
+                $("#Embarque").data("kendoComboBox").trigger("change");
             }
         }
         loadingStop();
@@ -254,16 +277,20 @@ function AjaxAgregaRenglon(cargaPlanaID) {
         var cadenaPlana = "";
         if (Error(data)) {
             if (data.length > 0) {
-                //$("#grid").data("kendoGrid").dataSource.data(data);
                 var ds = $("#grid").data("kendoGrid").dataSource;
 
                 var array = data;
                 for (var i = 0; i < array.length; i++) {
                     if (!ExistePlana(array[i])) {
+                        if (data[i].EmbarqueDetalleID == 0) {
                             ds.add(array[i]);
+                        } else {
+                            displayNotify("", "La plana ya se encuentra en el embarque " + data[i].NombreEmbarque, '2');
+                        }
+                    } else {
+                        displayNotify("", "La Plana ya existe en la captura" , '2');
                     }
                 }
-
             }
         }
         loadingStop();
@@ -282,4 +309,27 @@ function ExistePlana(row) {
     }
     return false;
 
+}
+
+function AbrirPopUpGuardar(Embarque, tipoGuardado) {
+    var fechaPredeterminada;
+    $("#InputTipoGuardado").val(tipoGuardado);
+    if (Embarque.EmbarqueID == 0) {
+        $("#inputNombreEmbarque").val("");
+        $("#inputNombreEmbarque").attr("disabled", false);
+
+        var idFechaPaquete = 3068;
+        $CamposPredeterminados.CamposPredeterminados.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), id: idFechaPaquete }).done(function (data) {
+            fechaPredeterminada = kendo.toString(data, _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()]);
+            $("#inputFechaEmbarque").val(fechaPredeterminada);
+        });
+    } else {
+        $("#inputNombreEmbarque").val(Embarque.Nombre);
+        $("#inputNombreEmbarque").attr("disabled", true);
+
+        fechaPredeterminada = kendo.toString(Embarque.FechaCreacion, _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()]);
+        $("#inputFechaEmbarque").val(fechaPredeterminada);
+
+    }
+    divNuevoEmbarque.open().center();
 }

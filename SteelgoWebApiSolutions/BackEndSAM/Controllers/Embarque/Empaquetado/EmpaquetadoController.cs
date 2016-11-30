@@ -40,7 +40,7 @@ namespace BackEndSAM.Controllers.Embarque.Empaquetado
         }
 
         [HttpGet]
-        public object ObtenerCuadrantes(string token, int ZonaID)
+        public object ObtenerZonas(string token, int PatioID)
         {
             string payload = "";
             string newToken = "";
@@ -51,7 +51,7 @@ namespace BackEndSAM.Controllers.Embarque.Empaquetado
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                return EmpaquetadoBD.Instance.ObtenerCuadrantes(ZonaID);
+                return EmpaquetadoBD.Instance.ObtenerZonas(PatioID);
             }
             else
             {
@@ -64,7 +64,6 @@ namespace BackEndSAM.Controllers.Embarque.Empaquetado
                 return result;
             }
         }
-
 
 
         [HttpGet]

@@ -24,4 +24,36 @@ namespace BackEndSAM.Models.Embarque.PreparacionEmbarque
         public decimal Peso { get; set; }
     }
 
+    public class EmbarqueDetalle
+    {
+        public EmbarqueDetalle()
+        {
+            EmbarqueID = 0;
+            Nombre = "";
+            Enviado = false;
+            TractoID = 0;
+            ChoferID = 0;
+
+        }
+
+        public int EmbarqueID { get; set; }
+        public string Nombre { get; set; }
+        public bool Enviado { get; set; }
+        public int TractoID { get; set; }
+        public int ChoferID { get; set; }
+    }
+
+    public class Captura
+    {
+        public List<GuardarPreparacionEmbarque> Detalles { get; set; }
+    }
+     
+    public class GuardarPreparacionEmbarque
+    {
+        public int Accion { get; set; }
+        public int EmbarqueDetalleID { get; set; }
+        public int EmbarqueID { get; set; }
+        public int CargaPlanaID { get; set; }
+    }
+
 }

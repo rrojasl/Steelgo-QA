@@ -127,6 +127,7 @@ function SuscribirEventoProyecto() {
                     if (dataItem.ProyectoID != 0) {
                         AjaxCargarPaquetes(dataItem.ProyectoID, 0);
                         AjaxCargarZona(dataItem.PatioID);
+                        AjaxCargarZonaGuardado(dataItem.PatioID);
                     }
                 } else {
                     $("#InputProyecto").data("kendoComboBox").value("");
@@ -260,7 +261,7 @@ function SuscribirEventoZona() {
                 }
             }
             else {
-                $("#InputPaquete").data("kendoComboBox").value("");
+                $("#InputZonaPaquete").data("kendoComboBox").value("");
             }
         }
     });

@@ -1,50 +1,251 @@
 ﻿var ChoferInicial = 0;
 var proveedorInicial = 0;
 var TractoInicial = 0;
+var ChoferInicial = 0;
+var EmbarqueIncial = 0;
+var divNuevoEmbarque;
 
 function SuscribirEventos() {
-    suscribirEventoProyecto();
-    suscribirEventoProveedor();
-    suscribirEventoTracto();
-    suscribirEventoChofer();
-    suscribirEventoPlana();
-    suscribirEventoAgregar();
+    SuscribirEventoProyecto();
+    SuscribirEventoProveedor();
+    SuscribirEventoTracto();
+    SuscribirEventoChofer();
     suscribirEventoEmbarque();
+    SuscribirEventoPlana();
+    suscribirEventoAgregar();
     suscribirEventoGuardar();
     SuscribirEventoCancelarPopup();
     SuscribirEventoGuardarProveedor();
     SuscribirEventoGuardarTracto();
     SuscribirEventoGuardarChofer();
+    SuscribirEventoFecha();
+    SuscribirEventoPopUpGuardarEmbarque();
 }
 
 SuscribirEventos();
 
+function SuscribirEventoProyecto() {
+    $("#Proyecto").kendoComboBox({
+        dataTextField: "Nombre",
+        dataValueField: "ProyectoID",
+        suggest: true,
+        filter: "contains",
+        index: 3,
+        change: function (e) {
+            var dataItem = this.dataItem(e.sender.selectedIndex);
+            var ds = $("#grid").data("kendoGrid").dataSource;
+
+            if (ds._data.length == 0) {
+                if (dataItem != undefined) {
+                    proyectoInicial = dataItem.ProyectoID;
+                    LimpiarSelectProyecto();
+                    if (dataItem.ProyectoID != 0) {
+                        AjaxObtenerPlanas(dataItem.ProyectoID, null);
+                        AjaxEmbarqueCargaProveedores(dataItem.ProyectoID, null);
+                    }
+                }
+                else {
+                    $("#Proyecto").data("kendoComboBox").value("");
+                }
+            }
+            else {
+                var ventanaConfirm = $("#ventanaConfirmCaptura").kendoWindow({
+                    iframe: true,
+                    title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
+                    visible: false,
+                    width: "auto",
+                    height: "auto",
+                    modal: true,
+                    close: function () {
+                        $("#Proyecto").data("kendoComboBox").value(proyectoInicial);
+                    }
+                }).data("kendoWindow");
+
+                ventanaConfirm.content(_dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] +
+                    "</br><center><button class='btn btn-blue' id='yesButtonProy'>Si</button><button class='btn btn-blue' id='noButtonProy'>No</button></center>");
+                ventanaConfirm.open().center();
+
+                $("#yesButtonProy").click(function () {
+                    if (dataItem != undefined) {
+                        proyectoInicial = dataItem.ProyectoID;
+                        LimpiarSelectProyecto();
+                        if (dataItem.ProyectoID != 0) {
+                            AjaxObtenerPlanas(dataItem.ProyectoID, null);
+                            AjaxEmbarqueCargaProveedores(dataItem.ProyectoID, null);
+                        }
+                    }
+                    else {
+                        $("#Proyecto").data("kendoComboBox").value("");
+                    }
+
+                    ventanaConfirm.close();
+                });
+                $("#noButtonProy").click(function () {
+                    $("#Proyecto").data("kendoComboBox").value(proyectoInicial);
+                    ventanaConfirm.close();
+                });
+            }
+        }
+    });
+}
+
+function SuscribirEventoProveedor() {
+    $("#Proveedor").kendoComboBox({
+        dataTextField: "Nombre",
+        dataValueField: "ProveedorID",
+        suggest: true,
+        filter: "contains",
+        index: 3,
+        change: function (e) {
+            var dataItem = this.dataItem(e.sender.selectedIndex);
+            var ds = $("#grid").data("kendoGrid").dataSource;
+            if (ds._data.length == 0) {
+                if (dataItem != undefined) {
+                    proveedorInicial = $("#Proveedor").data("kendoComboBox").value();
+                    LimpiarSelectProveedor();
+                    if (dataItem.ProveedorID == -1) {
+                        CargaPopupNuevoProveedor();
+
+                    } else {
+                        if (dataItem.ProveedorID != 0) {
+                            AjaxEmbarqueCargaTractos(dataItem.ProveedorID, null);
+                            AjaxEmbarqueCargaChofer(dataItem.ProveedorID, null);
+                            AjaxObtenerEmbarque(dataItem.ProveedorID);
+                        }
+                    }
+                }
+                else {
+                    $("#Proveedor").data("kendoComboBox").value("");
+                }
+            }
+            else {
+                var ventanaConfirm = $("#ventanaConfirmCaptura").kendoWindow({
+                    iframe: true,
+                    title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
+                    visible: false,
+                    width: "auto",
+                    height: "auto",
+                    modal: true,
+                    close: function () {
+                        $("#Proveedor").data("kendoComboBox").value(proveedorInicial);
+                    }
+                }).data("kendoWindow");
+
+                ventanaConfirm.content(_dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] +
+                    "</br><center><button class='btn btn-blue' id='yesButtonProy'>Si</button><button class='btn btn-blue' id='noButtonProy'>No</button></center>");
+
+                ventanaConfirm.open().center();
+                $("#yesButtonProy").click(function () {
+                    if (dataItem != undefined) {
+                        proveedorInicial = $("#Proveedor").data("kendoComboBox").value();
+                        LimpiarSelectProveedor();
+                        if (dataItem.ProveedorID == -1) {
+                            CargaPopupNuevoProveedor();
+
+                        } else {
+                            if (dataItem.ProveedorID != 0) {
+                                AjaxEmbarqueCargaTractos(dataItem.ProveedorID, null);
+                                AjaxEmbarqueCargaChofer(dataItem.ProveedorID, null);
+                                AjaxObtenerEmbarque(dataItem.ProveedorID);
+                            }
+                        }
+                    }
+                    else {
+                        $("#Proveedor").data("kendoComboBox").value("");
+                    }
+
+                    ventanaConfirm.close();
+                });
+                $("#noButtonProy").click(function () {
+                    $("#Proveedor").data("kendoComboBox").value(proveedorInicial);
+                    ventanaConfirm.close();
+                });
+            }
+
+        }
+    });
+}
+
+function SuscribirEventoTracto() {
+    $("#Tracto").kendoComboBox({
+        dataTextField: "Nombre",
+        dataValueField: "TractoID",
+        suggest: true,
+        filter: "contains",
+        index: 3,
+        change: function (e) {
+            var dataItem = this.dataItem(e.sender.selectedIndex);
+            var ds = $("#grid").data("kendoGrid").dataSource;
+
+            if (ds._data.length == 0) {
+                if (dataItem != undefined) {
+                    TractoInicial = dataItem.TractoID;
+                    if (dataItem.TractoID == -1) {
+                        CargaPopupNuevoTracto();
+                        $("#Tracto").data("kendoComboBox").value("");
+                    }
+                }
+                else {
+                    $("#Tracto").data("kendoComboBox").value("");
+                }
+            }
+            else {
+                var ventanaConfirm = $("#ventanaConfirmCaptura").kendoWindow({
+                    iframe: true,
+                    title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
+                    visible: false,
+                    width: "auto",
+                    height: "auto",
+                    modal: true,
+                    close: function () {
+                        $("#Tracto").data("kendoComboBox").value(TractoInicial);
+                    }
+                }).data("kendoWindow");
+
+                ventanaConfirm.content(_dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] +
+                    "</br><center><button class='btn btn-blue' id='yesButtonProy'>Si</button><button class='btn btn-blue' id='noButtonProy'>No</button></center>");
+
+                ventanaConfirm.open().center();
+                $("#yesButtonProy").click(function () {
+                    TractoInicial = dataItem.TractoID;
+                    if (dataItem.TractoID == -1) {
+                        CargaPopupNuevoTracto();
+                        $("#Tracto").data("kendoComboBox").value("");
+                    }
+                    ventanaConfirm.close();
+                });
+                $("#noButtonProy").click(function () {
+                    $("#Tracto").data("kendoComboBox").value(TractoInicial);
+                    ventanaConfirm.close();
+                });
+            }
+        }
+    });
+}
 
 function suscribirEventoGuardar() {
 
-    $('.accionGuardar').click(function (e) {
-        var ds = $("#grid").data("kendoGrid").dataSource;
-
-        if ($("#Tracto").data("kendoComboBox").dataItem($("#Tracto").data("kendoComboBox").select()) != undefined) {
-            if ($("#Chofer").data("kendoComboBox").dataItem($("#Chofer").data("kendoComboBox").select()) != undefined) {
-
-                if ($('#Guardar').text() == "Guardar" || $('#Guardar').text() == "Save") {
-                    opcionHabilitarView(true, "FieldSetView");
-                    AjaxGuardarPlanas(ds._data);
-                }
-                else if ($('#Guardar').text() == "Editar" || $('#Guardar').text() == "Edit") {
-                    opcionHabilitarView(false, "FieldSetView")
-                }
-
-            }
-            else {
-                displayNotify("", "Debe seleccionar un Chofer", "1");
-            }
+    $("#Guardar, #btnGuardar, #Guardar1, #btnGuardar1").click(function (e) {
+        var Embarque = {
+            EmbarqueID: 0,
+            Nombre: "EmbarquePrueba",
+            FechaCreacion: "29/11/2016"
         }
-        else {
+        if ($("#Plana").data("kendoComboBox").text() != "" && $("#Plana").data("kendoComboBox").text() != undefined) {
 
-            displayNotify("", "Debe seleccionar un tracto", "1");
+            AbrirPopUpGuardar(Embarque, 1);
+        } else {
+
         }
+    });
+
+    $("#btnGuardarYNuevo, #btnGuardarYNuevo1").click(function (e) {
+        var Embarque = {
+            EmbarqueID: 1,
+            Nombre: "EmbarquePrueba",
+            FechaCreacion: "29/11/2016"
+        }
+        AbrirPopUpGuardar(Embarque, 1);
     });
 }
 
@@ -53,171 +254,16 @@ function suscribirEventoAgregar() {
     $('#btnAgregar').click(function (e) {
         var ds = $("#grid").data("kendoGrid").dataSource;
         if (ds._data.length < 2) {
-            if ($("#Plana").data("kendoComboBox").text() != "") {
+            if ($("#Plana").data("kendoComboBox").text() != "" && $("#Plana").data("kendoComboBox").text() != undefined) {
                 var cargaPlanaID = $("#Plana").data("kendoComboBox").dataItem($("#Plana").data("kendoComboBox").select()).CargaPlanaID;
                 AjaxAgregaRenglon(cargaPlanaID);
             }
             else {
-                displayNotify('','Seleccione una plana a agregar','1');
+                displayNotify('', 'Seleccione una plana a agregar', '1');
             }
         }
         else {
             displayNotify('', 'El embarque unicamente puede tener como maximo 2 planas', '1');
-        }
-    });
-}
-
-
-function suscribirEventoProveedor() {
-    $("#Proveedor").kendoComboBox({
-        dataTextField: "Nombre",
-        dataValueField: "ProveedorID",
-        suggest: true,
-        filter: "contains",
-        index: 3,
-        change: function (e) {
-
-            var dataItem = this.dataItem(e.sender.selectedIndex);
-            if (dataItem != undefined) {
-                var ds = $("#grid").data("kendoGrid").dataSource;
-                if (ds._data.length == 0) {
-                    proveedorInicial = $("#Proveedor").data("kendoComboBox").value();
-                    if (dataItem.ProveedorID == -1) {
-                        CargaPopupNuevoProveedor();
-                        
-                        $("#Tracto").data("kendoComboBox").value("");
-                        $("#Tracto").data("kendoComboBox").dataSource.data([]);
-                        $("#Chofer").data("kendoComboBox").setDataSource();
-                        $("#Chofer").data("kendoComboBox").value("");
-                        $("#Chofer").data("kendoComboBox").dataSource.data([]);
-                    } else {
-                        AjaxEmbarqueCargaTractos(dataItem.ProveedorID, null);
-                        
-                        $("#Tracto").data("kendoComboBox").value("");
-                        $("#Tracto").data("kendoComboBox").dataSource.data([]);
-                        $("#Chofer").data("kendoComboBox").setDataSource();
-                        $("#Chofer").data("kendoComboBox").value("");
-                        $("#Chofer").data("kendoComboBox").dataSource.data([]);
-                    }
-
-                }
-                else {
-                    var ventanaConfirm = $("#ventanaConfirmCaptura").kendoWindow({
-                        iframe: true,
-                        title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
-                        visible: false,
-                        width: "auto",
-                        height: "auto",
-                        modal: true,
-                        close: function () {
-                            $('input:radio[name=LLena]:nth(0)').select();
-                        }
-                    }).data("kendoWindow");
-
-                    ventanaConfirm.content(_dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] +
-                        "</br><center><button class='btn btn-blue' id='yesButtonProy'>Si</button><button class='btn btn-blue' id='noButtonProy'>No</button></center>");
-
-                    ventanaConfirm.open().center();
-                    $("#yesButtonProy").click(function () {
-                        proveedorInicial = $("#Proveedor").data("kendoComboBox").value();
-                        AjaxEmbarqueCargaTractos(dataItem.ProveedorID, null);
-
-                        
-                        $("#Tracto").data("kendoComboBox").setDataSource();
-                        $("#Tracto").data("kendoComboBox").value("");
-                        $("#Tracto").data("kendoComboBox").dataSource.data([]);
-                        $("#Chofer").data("kendoComboBox").setDataSource();
-                        $("#Chofer").data("kendoComboBox").value("");
-                        $("#Chofer").data("kendoComboBox").dataSource.data([]);
-
-                        ventanaConfirm.close();
-                    });
-                    $("#noButtonProy").click(function () {
-                        $("#Proveedor").data("kendoComboBox").value(proveedorInicial);
-                        ventanaConfirm.close();
-                        //$('input:radio[name=LLena]:nth(0)').select();
-                    });
-                }
-
-
-            }
-            else {
-                $("#Proveedor").data("kendoComboBox").value("");
-            }
-
-        }
-    });
-}
-
-function suscribirEventoProyecto() {
-    $("#Proyecto").kendoComboBox({
-        dataTextField: "Nombre",
-        dataValueField: "ProyectoID",
-        suggest: true,
-        filter: "contains",
-        index: 3,
-        change: function (e) {
-
-            var dataItem = this.dataItem(e.sender.selectedIndex);
-            if (dataItem != undefined) {
-                var ds = $("#grid").data("kendoGrid").dataSource;
-                if (ds._data.length == 0) {
-                    proyectoInicial = $("#Proyecto").data("kendoComboBox").value();
-                    $("#Plana").data("kendoComboBox").setDataSource();
-                    $("#Plana").data("kendoComboBox").value("");
-                    $("#Plana").data("kendoComboBox").dataSource.data([]);
-
-                    $("#Proveedor").data("kendoComboBox").setDataSource();
-                    $("#Proveedor").data("kendoComboBox").value("");
-                    $("#Proveedor").data("kendoComboBox").dataSource.data([]);
-                    AjaxObtenerPlanas(dataItem.ProyectoID, null);
-                    AjaxEmbarqueCargaProveedores(dataItem.ProyectoID, null);
-                }
-                else {
-                    var ventanaConfirm = $("#ventanaConfirmCaptura").kendoWindow({
-                        iframe: true,
-                        title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
-                        visible: false,
-                        width: "auto",
-                        height: "auto",
-                        modal: true,
-                        close: function () {
-                            $('input:radio[name=LLena]:nth(0)').select();
-                        }
-                    }).data("kendoWindow");
-
-                    ventanaConfirm.content(_dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] +
-                        "</br><center><button class='btn btn-blue' id='yesButtonProy'>Si</button><button class='btn btn-blue' id='noButtonProy'>No</button></center>");
-
-                    ventanaConfirm.open().center();
-                    $("#yesButtonProy").click(function () {
-                        proyectoInicial = $("#Proyecto").data("kendoComboBox").value();
-                        AjaxEmbarqueCargaProveedores(dataItem.ProyectoID, null);
-                        AjaxObtenerPlanas(dataItem.ProyectoID, null);
-                        
-
-                        $("#Proveedor").data("kendoComboBox").setDataSource();
-                        $("#Proveedor").data("kendoComboBox").value("");
-                        $("#Proveedor").data("kendoComboBox").dataSource.data([]);
-                        $("#grid").data("kendoGrid").dataSource.data([]);
-
-                        ventanaConfirm.close();
-                    });
-                    $("#noButtonProy").click(function () {
-                        $("#Proyecto").data("kendoComboBox").value(proyectoInicial);
-                        ventanaConfirm.close();
-                        //$('input:radio[name=LLena]:nth(0)').select();
-                    });
-                }
-
-
-            }
-            else {
-                $("#Proyecto").data("kendoComboBox").value("");
-
-            }
-
-
         }
     });
 }
@@ -240,71 +286,7 @@ function suscribirEventoEmbarque() {
     });
 }
 
-function suscribirEventoTracto() {
-    $("#Tracto").kendoComboBox({
-        dataTextField: "Nombre",
-        dataValueField: "TractoID",
-        suggest: true,
-        filter: "contains",
-        index: 3,
-        change: function (e) {
-            var dataItem = this.dataItem(e.sender.selectedIndex);
-            var ds = $("#grid").data("kendoGrid").dataSource;
-            if (dataItem != undefined) {
-                if (ds._data.length == 0) { 
-                    TractoInicial = $("#Tracto").data("kendoComboBox").value();
-                    if (dataItem.TractoID == -1) {
-                        CargaPopupNuevoTracto();
-
-                        $("#Tracto").data("kendoComboBox").value("");
-
-                    } else {
-
-                    }
-
-                }
-                else {
-                    var ventanaConfirm = $("#ventanaConfirmCaptura").kendoWindow({
-                        iframe: true,
-                        title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
-                        visible: false,
-                        width: "auto",
-                        height: "auto",
-                        modal: true,
-                        close: function () {
-                            $('input:radio[name=LLena]:nth(0)').select();
-                        }
-                    }).data("kendoWindow");
-
-                    ventanaConfirm.content(_dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] +
-                        "</br><center><button class='btn btn-blue' id='yesButtonProy'>Si</button><button class='btn btn-blue' id='noButtonProy'>No</button></center>");
-
-                    ventanaConfirm.open().center();
-                    $("#yesButtonProy").click(function () {
-                        TractoInicial = $("#Tracto").data("kendoComboBox").value();
-                        $("#Tracto").data("kendoComboBox").setDataSource();
-                        $("#Tracto").data("kendoComboBox").value("");
-                        $("#Tracto").data("kendoComboBox").dataSource.data([]);
-
-                        ventanaConfirm.close();
-                    });
-                    $("#noButtonProy").click(function () {
-                        $("#Tracto").data("kendoComboBox").value(TractoInicial);
-                        ventanaConfirm.close();
-                        //$('input:radio[name=LLena]:nth(0)').select();
-                    });
-                }
-
-
-            }
-            else {
-                $("#Tracto").data("kendoComboBox").value("");
-            }
-        }
-    });
-}
-
-function suscribirEventoChofer() {
+function SuscribirEventoChofer() {
     $("#Chofer").kendoComboBox({
         dataTextField: "Nombre",
         dataValueField: "ChoferID",
@@ -313,24 +295,19 @@ function suscribirEventoChofer() {
         index: 3,
         change: function (e) {
             var dataItem = this.dataItem(e.sender.selectedIndex);
-            
             var ds = $("#grid").data("kendoGrid").dataSource;
+
             if (ds._data.length == 0) {
                 if (dataItem != undefined) {
-                    TractoInicial = $("#Tracto").data("kendoComboBox").value();
+                    ChoferInicial = dataItem.ChoferID;
                     if (dataItem.ChoferID == -1) {
                         CargaPopupNuevoChofer();
-
                         $("#Chofer").data("kendoComboBox").value("");
-
-                    } else {
-
                     }
                 }
                 else {
                     $("#Chofer").data("kendoComboBox").value("");
                 }
-
             }
             else {
                 var ventanaConfirm = $("#ventanaConfirmCaptura").kendoWindow({
@@ -341,7 +318,7 @@ function suscribirEventoChofer() {
                     height: "auto",
                     modal: true,
                     close: function () {
-                        $('input:radio[name=LLena]:nth(0)').select();
+                        $("#Chofer").data("kendoComboBox").value(ChoferInicial);
                     }
                 }).data("kendoWindow");
 
@@ -350,28 +327,28 @@ function suscribirEventoChofer() {
 
                 ventanaConfirm.open().center();
                 $("#yesButtonProy").click(function () {
-                    TractoInicial = $("#Tracto").data("kendoComboBox").value();
-                    $("#Chofer").data("kendoComboBox").setDataSource();
-                    $("#Chofer").data("kendoComboBox").value("");
-                    $("#Chofer").data("kendoComboBox").dataSource.data([]);
-
+                    if (dataItem != undefined) {
+                        ChoferInicial = dataItem.ChoferID;
+                        if (dataItem.ChoferID == -1) {
+                            CargaPopupNuevoChofer();
+                            $("#Chofer").data("kendoComboBox").value("");
+                        }
+                    }
+                    else {
+                        $("#Chofer").data("kendoComboBox").value("");
+                    }
                     ventanaConfirm.close();
                 });
                 $("#noButtonProy").click(function () {
                     $("#Chofer").data("kendoComboBox").value(ChoferInicial);
                     ventanaConfirm.close();
-                    //$('input:radio[name=LLena]:nth(0)').select();
                 });
             }
-
-
-
         }
-
     });
 }
 
-function suscribirEventoPlana() {
+function SuscribirEventoPlana() {
     $("#Plana").kendoComboBox({
         dataTextField: "Nombre",
         dataValueField: "PlanaID",
@@ -380,7 +357,6 @@ function suscribirEventoPlana() {
         index: 3,
         change: function (e) {
             if ($("#Plana").data("kendoComboBox").dataItem($("#Plana").data("kendoComboBox").select()) != undefined) {
-                //AjaxCargarDestino($('#Plana').data("kendoComboBox").dataSource._data[$('#Plana').data("kendoComboBox").selectedIndex].ProyectoID);
             }
             else {
                 $("#Plana").data("kendoComboBox").value("");
@@ -390,13 +366,20 @@ function suscribirEventoPlana() {
 
     $('#Plana').closest('.k-widget').keydown(function (e) {
         if (e.keyCode == 13) {
-            if ($("#Plana").data("kendoComboBox").dataItem($("#Plana").data("kendoComboBox").select()) != undefined) {
-                AgregaRenglon($("#Plana").data("kendoComboBox").value(), $("#Plana").data("kendoComboBox").text());
-                //AjaxCargarDestino($('#Plana').data("kendoComboBox").dataSource._data[$('#Plana').data("kendoComboBox").selectedIndex].ProyectoID);
+            var ds = $("#grid").data("kendoGrid").dataSource;
+            if (ds._data.length < 2) {
+                if ($("#Plana").data("kendoComboBox").text() != "" && $("#Plana").data("kendoComboBox").text() != undefined) {
+                    var cargaPlanaID = $("#Plana").data("kendoComboBox").dataItem($("#Plana").data("kendoComboBox").select()).CargaPlanaID;
+                    AjaxAgregaRenglon($("#Plana").data("kendoComboBox").value());
+                }
+                else {
+                    displayNotify('', 'Seleccione una plana a agregar', '1');
+                }
             }
             else {
-                $("#Plana").data("kendoComboBox").value("");
+                displayNotify('', 'El embarque unicamente puede tener como maximo 2 planas', '1');
             }
+
         }
     });
 
@@ -480,6 +463,101 @@ function SuscribirEventoCancelarPopup() {
         $("#Chofer").data("kendoComboBox").text("");
         windowNewChofer.close();
     });
+}
+
+function SuscribirEventoFecha() {
+    FechaEmbarque = $("#inputFechaEmbarque").kendoDatePicker({
+        max: new Date(),
+        change: function (e) {
+            ValidarFecha(e.sender._value)
+        }
+    });
+}
+
+function SuscribirEventoPopUpGuardarEmbarque() {
+
+    if ($("#Proyecto").data("kendoComboBox").text() != "") {
+        if ($("#Proveedor").data("kendoComboBox").text() != "") {
+            if ($("#Tracto").data("kendoComboBox").text() != "") {
+                if ($("#Chofer").data("kendoComboBox").text() != "") {
+
+                    var ds = $("#grid").data("kendoGrid").dataSource;
+                    if (ds._data.length > 0) {
+
+                        divNuevoEmbarque = $("#divNuevoEmbarque").kendoWindow({
+                            title: "Nuevo Embarque",
+                            visible: false,
+                            width: "40%",
+                            height: "auto",
+                            draggable: false,
+                            resizable: false,
+                            modal: true,
+                            animation: {
+                                close: false,
+                                open: false
+                            },
+                            close: function () {
+                            }
+                        }).data("kendoWindow");
+
+                        $("#GuardarNuevoEmbarque").click(function (e) {
+                        });
+
+                        $("#CancelarNuevoEmbarque").click(function (e) {
+
+                            divNuevoEmbarque.close();
+                        });
+                    }
+                    else {
+                        displayNotify('', 'El embarque debe tener al menos una plana cargada', '2');
+                    }
+                }
+                else {
+                    displayNotify('', 'El chofer es mandatorio', '2');
+                }
+            }
+            else {
+                displayNotify('', 'El tracto es mandatorio', '2');
+            }
+        }
+        else {
+            displayNotify('', 'El proveedor es mandatorio', '2');
+        }
+    }
+    else {
+        displayNotify('', 'El proyecto es mandatorio', '2');
+    }
+}
 
 
+function LimpiarSelectProveedor() {
+
+    $("#Tracto").data("kendoComboBox").dataSource.data([]);
+    $("#Tracto").data("kendoComboBox").value("");
+
+    $("#Chofer").data("kendoComboBox").dataSource.data([]);
+    $("#Chofer").data("kendoComboBox").value("");
+
+    $("#Embarque").data("kendoComboBox").dataSource.data([]);
+    $("#Embarque").data("kendoComboBox").value("");
+}
+
+function LimpiarSelectProyecto() {
+
+
+    $("#Proveedor").data("kendoComboBox").dataSource.data([]);
+    $("#Proveedor").data("kendoComboBox").value("");
+
+    $("#Tracto").data("kendoComboBox").dataSource.data([]);
+    $("#Tracto").data("kendoComboBox").value("");
+
+    $("#Chofer").data("kendoComboBox").dataSource.data([]);
+    $("#Chofer").data("kendoComboBox").value("");
+
+    $("#Embarque").data("kendoComboBox").dataSource.data([]);
+    $("#Embarque").data("kendoComboBox").value("");
+
+
+    $("#Plana").data("kendoComboBox").dataSource.data([]);
+    $("#Plana").data("kendoComboBox").value("");
 }
