@@ -1,18 +1,17 @@
-﻿
+﻿var EmbarquePlanaID = 0;
 
-var EmbarquePlanaID = 0;
+IniciarCapturaEmbarqueCarga();
+function IniciarCapturaEmbarqueCarga() {
+    SuscribirEventos();
+}
 
 function changeLanguageCall() {
     CargarGrid();
     opcionHabilitarView(false, "FieldSetView");
     document.title = "Revisión Embarque";
     AjaxCargarProyecto();
+    LlenarPantalla();
 };
-
-IniciarCapturaEmbarqueCarga();
-function IniciarCapturaEmbarqueCarga() {
-    SuscribirEventos();
-}
 
 function validarInformacion(row) {
     var ds = $("#grid").data("kendoGrid").dataSource;
@@ -163,3 +162,22 @@ function CargarGrid() {
 
 
 };
+
+function LlenarPantalla() {
+    var emb = [{ EmbarqueID: 0, Nombre: "" }, { EmbarqueID: 1, Nombre: "Emb-4" }];
+    var data = [{
+        Accion: 1,
+        NumeroControl: "X001-011",
+        Paquete: "PAQ-X01",
+        Llego: false,
+        LlegoComentarios: false,
+        NoLlego: false,
+        Comentario: ""
+    }];
+
+    $("#Embarque").data("kendoComboBox").dataSource.data(emb);
+    $("#Embarque").data("kendoComboBox").value(1);
+
+    $("#grid").data("kendoGrid").dataSource.data(data);
+    $("#grid").data("kendoGrid").dataSource.sync();
+}

@@ -66,7 +66,7 @@ function CargarGrid() {
             { field: "NumeroControl", title: _dictionary.columnSpool[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec() },
             { field: "Cuadrante", title: _dictionary.columnCuadrante[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec() },
             { field: "Area", title: _dictionary.columnM2[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec() },
-            { field: "Peso", title: _dictionary.columnToneladas[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec() },
+            { field: "Peso", title: _dictionary.columnPeso[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec() },
             { command: { text: _dictionary.botonDescarga[$("#language").data("kendoDropDownList").value()], click: descargaSpool }, title: _dictionary.columnDescargar[$("#language").data("kendoDropDownList").value()], width: "70px" }
         ],
         dataBound: function (e) {

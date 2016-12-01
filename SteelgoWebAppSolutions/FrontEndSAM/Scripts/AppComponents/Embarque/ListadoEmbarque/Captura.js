@@ -22,7 +22,23 @@ function CargarGrid() {
     $("#grid").kendoGrid({
         autoBind: true,
         dataSource: {
-            data: [],
+            data: [{
+                Accion:2,
+                Folio: "F0923",
+                Plana: "PLN12",
+                Proyecto: "ETILENO XXI",
+                DestinoEmbarque: "Monterrey",
+                PapelesCliente: "Imprimir",
+                papelesAduana: "Imprimir",
+                RequierePermisoAduana: 1,
+                FolioSolicitarPermisos:"F3456-35",
+                FechaSolicitarPermisos: "01/11/2016",
+                FolioAprobadoAduana: "56Y-3UOJ2-8KJ4",
+                FolioAprobadoCliente: "34F3-12",
+                okEmbarque:true,
+                Enviar: false,
+                FechaEnvio: ""
+            }],
             schema: {
                 model: {
                     fields: {
@@ -34,8 +50,9 @@ function CargarGrid() {
                         FolioSolicitarPermisos: { editable: false },
                         FolioAprobadoAduana: { editable: false },
                         FolioAprobadoCliente: { editable: false },
-                        Enviar: { editable: false },
-                        FolioPermisos: { type: "date", editable: true }}
+                        okEmbarque: { type: "boolean", editable: false },
+                        Enviar: { editable: false }
+                    }
                 }
             },
             pageSize: 20,
@@ -67,7 +84,17 @@ function CargarGrid() {
             { field: "FechaSolicitarPermisos", title: "Fecha permiso", filterable: { cell: { showOperators: false } }, width: "140px" },
             { field: "FolioAprobadoAduana", title: "Ap. cliente",filterable: false, template: "<button  type='button' class='btn btn-blue botonFolio' Style='display: #= FolioAprobadoAduana!='' || RequierePermisoAduana == 0 ? 'none;' : 'block;' #' > <span>" + "Capturar" + "</span></button><span>#= FolioAprobadoAduana #</span>", width: "130px" },
             { field: "FolioAprobadoCliente", title: "Ap. aduana", filterable: false, template: "<button  type='button' class='btn btn-blue botonFolio' Style='display: #= FolioAprobadoCliente!=''  ? 'none;' : 'block;' #'> <span>" + "Capturar" + "</span></button><span>#= FolioAprobadoCliente #</span>", width: "140px" },
-            { field: "okEmbarque", title: "Ok embarque", filterable: false, width: "130px" },
+            {
+                field: "okEmbarque", title: "Ok embarque", filterable: {
+                    multi: true,
+                    messages: {
+                        isTrue: _dictionary.lblVerdadero[$("#language").data("kendoDropDownList").value()],
+                        isFalse: _dictionary.lblFalso[$("#language").data("kendoDropDownList").value()],
+                        style: "max-width:100px;"
+                    },
+                    dataSource: [{ okEmbarque: true }, { okEmbarque: false }]
+                }, template: '<input type="checkbox" #= okEmbarque ? "checked=checked" : "" # class="chkbx"  disabled></input>', width: "130px", attributes: { style: "text-align:center;" }
+            },
             { field: "Enviar", title: "Enviar", filterable: false, template: "<button  type='button' class='btn btn-blue botonEnviar' Style='display: #= FechaEnvio!=''  ? 'none;' : 'block;' #' > <span>" + "Enviar" + "</span></button>", width: "125px" },
         ]
     });
