@@ -6,6 +6,7 @@ function changeLanguageCall() {
     CargarGrid();
     opcionHabilitarView(false, "FieldSetView");
     document.title = "Revisión Embarque";
+    AjaxCargarProyecto();
 };
 
 IniciarCapturaEmbarqueCarga();

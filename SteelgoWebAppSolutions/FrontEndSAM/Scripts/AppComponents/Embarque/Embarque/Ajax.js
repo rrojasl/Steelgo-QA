@@ -189,7 +189,7 @@ function AjaxEmbarqueCargaChofer(ProveedorID, nuevoChofer) {
 
 function AjaxObtenerEmbarque(ProveedorID, nombreEmbarque) {
     loadingStart();
-    $PreparacionEmbarque.PreparacionEmbarque.read({ token: Cookies.get("token"), ProveedorID: ProveedorID, Lenguaje: $("#language").val() }).done(function (data) {
+    $PreparacionEmbarque.PreparacionEmbarque.read({ token: Cookies.get("token"), ProveedorID: ProveedorID, Lenguaje: $("#language").val(), Enviado: 0 }).done(function (data) {
         if (Error(data)) {
             $("#Embarque").data("kendoComboBox").dataSource.data([]);
             var EmbarqueID = 0;
@@ -199,13 +199,13 @@ function AjaxObtenerEmbarque(ProveedorID, nombreEmbarque) {
                 if (data.length < 3) {
                     for (var i = 0; i < data.length; i++) {
                         if (data[i].EmbarqueID != 0) {
-                            if(nombreEmbarque == ""){
-                                EmbarqueID = data[i].EmbarqueID;
-                            } else {
-                                if (data[i].Nombre == nombreEmbarque) {
-                                    EmbarqueID = data[i].EmbarqueID;
-                                }
-                            }
+                             EmbarqueID = data[i].EmbarqueID;
+                        }
+                    }
+                } else {
+                    for (var i = 0; i < data.length; i++) {
+                        if (data[i].Nombre == nombreEmbarque) {
+                            EmbarqueID = data[i].EmbarqueID;
                         }
                     }
                 }
@@ -245,7 +245,7 @@ function GuardarNuevoTracto() {
     $EmbarqueGeneral.EmbarqueGeneral.read({ token: Cookies.get("token"), NombreTracto: $("#inputNombreNuevoTracto").val(), ProveedorID: $("#Proveedor").data("kendoComboBox").value(), TipoProveedor: 2 }).done(function (data) {
         if (Error(data)) {
             if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
-                AjaxEmbarqueCargaTractos($("#Tracto").data("kendoComboBox").value(), $("#inputNombreNuevoTracto").val());
+                AjaxEmbarqueCargaTractos($("#Proveedor").data("kendoComboBox").value(), $("#inputNombreNuevoTracto").val());
                 windowNewTracto.close();
                 displayNotify("MensajeGuardadoExistoso", "", "0");
             }
@@ -262,7 +262,7 @@ function GuardarNuevoChofer() {
     $EmbarqueGeneral.EmbarqueGeneral.read({ token: Cookies.get("token"), NombreChofer: $("#inputNombreNuevoChofer").val(), ProveedorID: $("#Proveedor").data("kendoComboBox").value() }).done(function (data) {
         if (Error(data)) {
             if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
-                AjaxEmbarqueCargaChofer($("#Chofer").data("kendoComboBox").value(), $("#inputNombreNuevoChofer").val());
+                AjaxEmbarqueCargaChofer($("#Proveedor").data("kendoComboBox").value(), $("#inputNombreNuevoChofer").val());
                 windowNewChofer.close();
                 displayNotify("MensajeGuardadoExistoso", "", "0");
             }
@@ -398,8 +398,26 @@ function AjaxGuardarCaptura(ds, tipoGuardado, proveedorID) {
                     AjaxObtenerEmbarque(proveedorID, nombreEmbarque);
                 }
                 displayNotify("MensajeGuardadoExistoso", "", '0');
-            } else {
+            } else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "existe") {
+
+                displayNotify("", "Ya existe un embarque con ese nombre", '2');
+            }
+            else {
                 displayNotify("MensajeGuardadoErroneo", "", '2');
+            }
+        }
+    });
+}
+
+function AjaxEliminarEmbarque(embarqueID) {
+    $PreparacionEmbarque.PreparacionEmbarque.read({ token: Cookies.get("token"), EmbarqueID: embarqueID, Lenguaje: $("#language").val() }).done(function (data) {
+        if (Error(data)) {
+            if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
+                Limpiar();
+                displayNotify("", "El embarque se eliminó correctamente", '0');
+            }
+            else {
+                displayNotify("", "El embarque no se pudo eliminar", '2');
             }
         }
     });

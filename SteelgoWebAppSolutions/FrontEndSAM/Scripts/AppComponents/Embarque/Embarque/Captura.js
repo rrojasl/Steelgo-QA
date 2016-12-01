@@ -51,7 +51,7 @@ function CargarGrid() {
         scrollable: true,
         pageable: {
             refresh: false,
-            pageSizes: [10, 15, 20],
+            pageSizes: [10, 25, 50, 100],
             info: false,
             input: false,
             numeric: true,
@@ -67,24 +67,25 @@ function CargarGrid() {
                      text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()],
                      click: function (e) {
                          e.preventDefault();
-                         if ($("#language").val() == "es-MX") {
-                             if ($('#Guardar').text().trim() != "Editar") {
-                                 var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-                                 var dataSource = this.dataSource;
-                                 windowTemplate = kendo.template($("#windowTemplate").html());
+                         if ($('#Guardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
+                            var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+                            var dataSource = this.dataSource;
+                            windowTemplate = kendo.template($("#windowTemplate").html());
 
-                                 ventanaConfirm = $("#ventanaConfirm").kendoWindow({
-                                     iframe: true,
-                                     title: _dictionary.CapturaAvanceTitulo[$("#language").data("kendoDropDownList").value()],
-                                     visible: false, //the window will not appear before its .open method is called
-                                     width: "auto",
-                                     height: "auto",
-                                     modal: true,
-                                     animation: {
-                                         close: false,
-                                         open: false
-                                     }
-                                 }).data("kendoWindow");
+                            ventanaConfirm = $("#ventanaConfirm").kendoWindow({
+                                iframe: true,
+                                title: _dictionary.CapturaAvanceTitulo[$("#language").data("kendoDropDownList").value()],
+                                visible: false,
+                                width: "auto",
+                                height: "auto",
+                                modal: true,
+                                draggable: false,
+                                resizable: false,
+                                animation: {
+                                    close: false,
+                                    open: false
+                                }
+                           }).data("kendoWindow");
 
                                  ventanaConfirm.content(_dictionary.CapturaMensajeArmadoPlancharTodos[$("#language").data("kendoDropDownList").value()] +
                                               "</br><center><button class='confirm_yes btn btn-blue' id='yesButton'>Si</button><button class='confirm_yes btn btn-blue' id='noButton'> No</button></center>");
@@ -94,6 +95,7 @@ function CargarGrid() {
                                  $("#yesButton").click(function (handler) {
                                      if (dataItem.Accion == 2) {
                                          dataItem.Accion = 3;
+                                         dataItem.ModificadoPorUsuario = true;
                                      }
                                      else {
                                          dataSource.remove(dataItem);
@@ -103,25 +105,7 @@ function CargarGrid() {
                                      ventanaConfirm.close();
                                  });
                                  dataSource.sync();
-                             }
-                         }
-                         else {
-                             if ($('#Guardar').text().trim() != "Edit") {
-                                 var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-                                 var dataSource = this.dataSource;
-
-                                 if (confirm(_dictionary.EmbarqueMensajeEliminarPlana[$("#language").data("kendoDropDownList").value()])) {
-
-                                     if (dataItem.Accion == 2) {
-                                         dataItem.Accion = 3;
-                                     }
-                                     else {
-                                         dataSource.remove(dataItem);
-                                     }
-                                 }
-                                 dataSource.sync();
-                             }
-                         }
+                       }
                      }
                  },
                  title: "ELM",
@@ -154,11 +138,16 @@ function CargaPopupNuevoProveedor(e) {
         visible: true,
         width: "500px",
         height: "auto",
+        draggable: false,
+        resizable: false,
+        animation: {
+            close: false,
+            open: false
+        },
         position: {
             top: "1%",
             left: "1%"
-        },
-        animation: false
+        }
 
     }).data("kendoWindow");
     $("#divNuevoProveedor").data("kendoWindow").title(_dictionary.EmbarqueCargaNuevoProveedor[$("#language").data("kendoDropDownList").value()]);
@@ -176,11 +165,16 @@ function CargaPopupNuevoTracto(e) {
         visible: true,
         width: "500px",
         height: "auto",
+        draggable: false,
+        resizable: false,
+        animation: {
+            close: false,
+            open: false
+        },
         position: {
             top: "1%",
             left: "1%"
-        },
-        animation: false
+        }
 
     }).data("kendoWindow");
     $("#divNuevoTracto").data("kendoWindow").title("Nuevo Tracto");
@@ -198,15 +192,39 @@ function CargaPopupNuevoChofer(e) {
         visible: true,
         width: "500px",
         height: "auto",
+        draggable: false,
+        resizable: false,
+        animation: {
+            close: false,
+            open: false
+        },
         position: {
             top: "1%",
             left: "1%"
-        },
-        animation: false
+        }
 
     }).data("kendoWindow");
     $("#divNuevoChofer").data("kendoWindow").title("Nuevo chofer");
     $("#divNuevoChofer").data("kendoWindow").center().open();
 
     $("#inputNombreNuevoChofer").focus();
+}
+
+function existenCambios() {
+    var ds = $("#grid").data("kendoGrid").dataSource._data;
+    if (ds.length > 0) {
+        for (var i = 0; i < ds.length; i++) {
+            if (ds[i].ModificadoPorUsuario)
+                return true;
+        }
+
+    }
+    return false;
+}
+
+function ValidarFecha(valor) {
+    var fecha = kendo.toString(valor, String(_dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()].replace('{', '').replace('}', '').replace("0:", "")));
+    if (fecha == null) {
+        $("#inputFechaEmbarque").data("kendoDatePicker").value("");
+    }
 }
