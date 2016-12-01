@@ -250,7 +250,7 @@ function LlenarPantalla() {
 
     var data = [{
         Accion:2,
-        Nombre: "PlanaEmbarque",
+        Nombre: "PL-345",
         CantidadElementos: 2,
         Peso: 2.73,
         M2: 135

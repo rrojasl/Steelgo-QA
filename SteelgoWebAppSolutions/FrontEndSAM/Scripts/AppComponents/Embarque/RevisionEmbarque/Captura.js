@@ -44,7 +44,7 @@ function CargarGrid() {
                         NumeroControl: { type: "string", editable: false },
                         Paquete: { type: "string", editable: false },
                         Llego: { type: "boolean", editable: true },
-                        LlegoConComentarios: { type: "boolean", editable: true },
+                        LlegoComentarios: { type: "boolean", editable: true },
                         NoLlego: { type: "boolean", editable: true },
                         Comentario: { type: "string", editable: true }
                     }
@@ -77,11 +77,41 @@ function CargarGrid() {
         },
         filterable: getGridFilterableMaftec(),
         columns: [
-            { field: "NumeroControl", title: "Spool", filterable: getGridFilterableCellMaftec(), width: "140px" },
-            { field: "Paquete", title: "Paquete", filterable: getGridFilterableCellMaftec(), width: "140px" },
-            { field: "Llego", title: "Llegó", filterable: getGridFilterableCellMaftec(), template: '<input name="Llego"  type="checkbox" #= Llego ? "checked=checked" : "" # class="chkbx"  ></input>  ', width: "140px" },
-            { field: "LlegoConComentarios", title: "Llego con comentarios", filterable: getGridFilterableCellMaftec(), template: '<input name="LlegoComentarios" type="checkbox" #= LlegoComentarios ? "checked=checked" : "" # class="chkbx"  ></input>  ', width: "150px" },
-            { field: "NoLlego", title: "No llegó", filterable: getGridFilterableCellMaftec(), template: '<input name="NoLlego" type="checkbox" #= NoLlego ? "checked=checked" : "" # class="chkbx"  ></input>  ', width: "140px" },
+            { field: "NumeroControl", title: "Spool", filterable: getGridFilterableCellMaftec(), width: "110px" },
+            { field: "Paquete", title: "Paquete", filterable: getGridFilterableCellMaftec(), width: "110px" },
+            {
+                field: "Llego", title: "Llegó", filterable: {
+                    multi: true,
+                    messages: {
+                        isTrue: _dictionary.lblVerdadero[$("#language").data("kendoDropDownList").value()],
+                        isFalse: _dictionary.lblFalso[$("#language").data("kendoDropDownList").value()],
+                        style: "max-width:90px;"
+                    },
+                    dataSource: [{ Llego: true }, { Llego: false }]
+                }, template: '<input type="checkbox" #= Llego ? "checked=checked" : "" # class="chkbx" ></input>', width: "130px", attributes: { style: "text-align:center;" }
+            },
+            {
+                field: "LlegoComentarios", title: "Llego con comentarios", filterable: {
+                    multi: true,
+                    messages: {
+                        isTrue: _dictionary.lblVerdadero[$("#language").data("kendoDropDownList").value()],
+                        isFalse: _dictionary.lblFalso[$("#language").data("kendoDropDownList").value()],
+                        style: "max-width:150px;"
+                    },
+                    dataSource: [{ LlegoComentarios: true }, { LlegoComentarios: false }]
+                }, template: '<input type="checkbox" #= LlegoComentarios ? "checked=checked" : "" # class="chkbx" ></input>', width: "130px", attributes: { style: "text-align:center;" }
+            },
+            {
+                field: "NoLlego", title: "No llegó", filterable: {
+                    multi: true,
+                    messages: {
+                        isTrue: _dictionary.lblVerdadero[$("#language").data("kendoDropDownList").value()],
+                        isFalse: _dictionary.lblFalso[$("#language").data("kendoDropDownList").value()],
+                        style: "max-width:100px;"
+                    },
+                    dataSource: [{ NoLlego: true }, { NoLlego: false }]
+                }, template: '<input type="checkbox" #= NoLlego ? "checked=checked" : "" # class="chkbx" ></input>', width: "130px", attributes: { style: "text-align:center;" }
+            },
             { field: "Comentario", title: "Comentario", filterable: getGridFilterableCellMaftec(), template: kendo.template('<div  style="height=10px; border: #= LlegoComentarios && (String(Comentario) == ""|| Comentario == null )  ? " 1px solid red" : LlegoComentarios==false  && Comentario == null ? " 1px solid red" : " none" # ; z-index=9999;">#=Comentario==null ?"": Comentario #</div>'), width: "140px" },
         ]
     });
@@ -168,6 +198,14 @@ function LlenarPantalla() {
     var data = [{
         Accion: 1,
         NumeroControl: "X001-011",
+        Paquete: "PAQ-X01",
+        Llego: false,
+        LlegoComentarios: false,
+        NoLlego: false,
+        Comentario: ""
+    }, {
+        Accion: 1,
+        NumeroControl: "X001-012",
         Paquete: "PAQ-X01",
         Llego: false,
         LlegoComentarios: false,

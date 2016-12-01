@@ -24,33 +24,34 @@ function CargarGrid() {
         dataSource: {
             data: [{
                 Accion:2,
-                Folio: "F0923",
+                Embarque: "Emb-3",
                 Plana: "PLN12",
                 Proyecto: "ETILENO XXI",
-                DestinoEmbarque: "Monterrey",
+                DestinoEmbarque: "Patio Veracruz",
                 PapelesCliente: "Imprimir",
-                papelesAduana: "Imprimir",
+                PapelesAduana: "Imprimir",
                 RequierePermisoAduana: 1,
                 FolioSolicitarPermisos:"F3456-35",
                 FechaSolicitarPermisos: "01/11/2016",
-                FolioAprobadoAduana: "56Y-3UOJ2-8KJ4",
-                FolioAprobadoCliente: "34F3-12",
-                okEmbarque:true,
+                AprobadoCliente: false,
+                AprobadoAduana: false,
+                OkEmbarque: false,
                 Enviar: false,
                 FechaEnvio: ""
             }],
             schema: {
                 model: {
                     fields: {
-                        Folio: { type: "string", editable: false },
+                        Embarque: { type: "string", editable: false },
                         Plana: { type: "string", editable: false },
                         NombreProyecto: { type: "string", editable: false },
                         PapelesCliente: { editable: false },
-                        papelesAduana: { editable: false },
-                        FolioSolicitarPermisos: { editable: false },
-                        FolioAprobadoAduana: { editable: false },
-                        FolioAprobadoCliente: { editable: false },
-                        okEmbarque: { type: "boolean", editable: false },
+                        PapelesAduana: { editable: false },
+                        FolioSolicitarPermisos: { type: "string", editable: false },
+                        FechaSolicitarPermisos: { type: "date", editable: false },
+                        AprobadoCliente: { type: "boolean", editable: false },
+                        AprobadoAduana: { type: "boolean", editable: false },
+                        OkEmbarque: { type: "boolean", editable: false },
                         Enviar: { editable: false }
                     }
                 }
@@ -74,28 +75,48 @@ function CargarGrid() {
         },
         filterable: getGridFilterableMaftec(),
         columns: [
-            { field: "Folio", title: "Embarque", filterable: getGridFilterableCellMaftec(), width: "140px" },
-            { field: "Proyecto", title: "Proyecto", filterable: getGridFilterableCellMaftec(), width: "140px" },
-            { field: "Plana", title: "Plana", filterable: getGridFilterableCellMaftec(), width: "140px" },
-            { field: "DestinoEmbarque", title: "Destino Emb.", filterable: getGridFilterableCellMaftec(), width: "140px" },
+            { field: "Embarque", title: "Embarque", filterable: getGridFilterableCellMaftec(), width: "130px" },
+            { field: "Proyecto", title: "Proyecto", filterable: getGridFilterableCellMaftec(), width: "130px" },
+            { field: "Plana", title: "Plana", filterable: getGridFilterableCellMaftec(), width: "130px" },
+            { field: "DestinoEmbarque", title: "Destino Emb", filterable: getGridFilterableCellMaftec(), width: "145px" },
             { field: "PapelesCliente", title: "Pap cliente",filterable: false, template: "<button  type='button' class='btn btn-blue imprimirPapelesCliente'> <span>" + "Imprimir" + "</span></button>", width: "140px" },
-            { field: "papelesAduana", title: "Pap aduana", filterable: false, template: "<button  type='button' class='btn btn-blue imprimirPapelesAduana' Style='display: #= RequierePermisoAduana == 0 ? 'none;' : 'block;' #' > <span>" + "Imprimir" + "</span></button>", width: "140px" },
+            { field: "PapelesAduana", title: "Pap aduana", filterable: false, template: "<button  type='button' class='btn btn-blue imprimirPapelesAduana' Style='display: #= RequierePermisoAduana == 0 ? 'none;' : 'block;' #' > <span>" + "Imprimir" + "</span></button>", width: "140px" },
             { field: "FolioSolicitarPermisos", title: "Sol. permiso", filterable: getGridFilterableCellMaftec(), template: "<button  type='button' class='btn btn-blue botonFolio' Style='display: #= FolioSolicitarPermisos!='' || RequierePermisoAduana == 0 ? 'none;' : 'block;' #'> <span>" + "Capturar" + "</span></button><span>#= FolioSolicitarPermisos #</span>", width: "140px" },
-            { field: "FechaSolicitarPermisos", title: "Fecha permiso", filterable: { cell: { showOperators: false } }, width: "140px" },
-            { field: "FolioAprobadoAduana", title: "Ap. cliente",filterable: false, template: "<button  type='button' class='btn btn-blue botonFolio' Style='display: #= FolioAprobadoAduana!='' || RequierePermisoAduana == 0 ? 'none;' : 'block;' #' > <span>" + "Capturar" + "</span></button><span>#= FolioAprobadoAduana #</span>", width: "130px" },
-            { field: "FolioAprobadoCliente", title: "Ap. aduana", filterable: false, template: "<button  type='button' class='btn btn-blue botonFolio' Style='display: #= FolioAprobadoCliente!=''  ? 'none;' : 'block;' #'> <span>" + "Capturar" + "</span></button><span>#= FolioAprobadoCliente #</span>", width: "140px" },
+            { field: "FechaSolicitarPermisos", title: "Fecha permiso", filterable: getKendoGridFilterableDateMaftec(), format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()], width: "150px" },
             {
-                field: "okEmbarque", title: "Ok embarque", filterable: {
+                field: "AprobadoCliente", title: "Ap. cliente", filterable: {
                     multi: true,
                     messages: {
                         isTrue: _dictionary.lblVerdadero[$("#language").data("kendoDropDownList").value()],
                         isFalse: _dictionary.lblFalso[$("#language").data("kendoDropDownList").value()],
                         style: "max-width:100px;"
                     },
-                    dataSource: [{ okEmbarque: true }, { okEmbarque: false }]
-                }, template: '<input type="checkbox" #= okEmbarque ? "checked=checked" : "" # class="chkbx"  disabled></input>', width: "130px", attributes: { style: "text-align:center;" }
+                    dataSource: [{ AprobadoCliente: true }, { AprobadoCliente: false }]
+                }, template: '<input type="checkbox" #= AprobadoCliente ? "checked=checked" : "" # class="chkbx" ></input>', width: "130px", attributes: { style: "text-align:center;" }
             },
-            { field: "Enviar", title: "Enviar", filterable: false, template: "<button  type='button' class='btn btn-blue botonEnviar' Style='display: #= FechaEnvio!=''  ? 'none;' : 'block;' #' > <span>" + "Enviar" + "</span></button>", width: "125px" },
+            {
+                field: "AprobadoAduana", title: "Ap. aduana", filterable: {
+                    multi: true,
+                    messages: {
+                        isTrue: _dictionary.lblVerdadero[$("#language").data("kendoDropDownList").value()],
+                        isFalse: _dictionary.lblFalso[$("#language").data("kendoDropDownList").value()],
+                        style: "max-width:100px;"
+                    },
+                    dataSource: [{ AprobadoAduana: true }, { AprobadoAduana: false }]
+                }, template: '<input type="checkbox" #= AprobadoAduana ? "checked=checked" : "" # class="chkbx" ></input>', width: "130px", attributes: { style: "text-align:center;" }
+            },
+            {
+                field: "OkEmbarque", title: "Ok Emb", filterable: {
+                    multi: true,
+                    messages: {
+                        isTrue: _dictionary.lblVerdadero[$("#language").data("kendoDropDownList").value()],
+                        isFalse: _dictionary.lblFalso[$("#language").data("kendoDropDownList").value()],
+                        style: "max-width:100px;"
+                    },
+                    dataSource: [{ OkEmbarque: true }, { OkEmbarque: false }]
+                }, template: '<input type="checkbox" #= OkEmbarque ? "checked=checked" : "" # class="chkbx" ></input>', width: "130px", attributes: { style: "text-align:center;" }
+            },
+            { field: "Enviar", title: "Enviar", filterable: false, template: "<button  type='button' class='btn btn-blue botonEnviar' Style='display: #= FechaEnvio!=''  ? 'none;' : 'block;' #' > <span>" + "Enviar" + "</span></button>", width: "115px" },
         ]
     });
     CustomisaGrid($("#grid"));
