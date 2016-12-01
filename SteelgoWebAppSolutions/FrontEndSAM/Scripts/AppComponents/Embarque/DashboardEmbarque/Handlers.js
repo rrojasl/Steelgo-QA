@@ -60,10 +60,12 @@ function AccionesListado(idButton) {
         case 2:
             loadingStart();
             setTimeout(function () {
+                $("#grid th[data-field=Plana]").html("Plana");
+                $("#grid").data("kendoGrid").hideColumn("NombrePlana");
                 $("#grid").css("display", "block");
                 $("#gridCarga").css("display", "none");
                 $("#grid").data("kendoGrid").dataSource.data([]);
-                $("#grid").data("kendoGrid").dataSource.add({ Plana: "PL-345", Elementos: "3", M2: "2.73", KG: "135", URL: "/Embarque/EmbarqueCarro?EmbarqueID=2" });
+                $("#grid").data("kendoGrid").dataSource.add({ Plana: "PL-345", Elementos: "2", M2: "2.73", KG: "135", URL: "/Embarque/EmbarqueCarro?EmbarqueID=2" });
 
                 loadingStop();
             }, 500);
@@ -74,11 +76,12 @@ function AccionesListado(idButton) {
         case 3:
             loadingStart();
             setTimeout(function () {
-
+                $("#grid th[data-field=Plana]").html("Embarque");
+                $("#grid").data("kendoGrid").showColumn("NombrePlana");
                 $("#grid").css("display", "block");
                 $("#gridCarga").css("display", "none");
                 $("#grid").data("kendoGrid").dataSource.data([]);
-                $("#grid").data("kendoGrid").dataSource.add({ Plana: "Emb-001", Elementos: "4", M2: "7.27", KG: "535", URL: "/Embarque/ListadoEmbarque?EmbarqueID=3" });
+                $("#grid").data("kendoGrid").dataSource.add({ Plana: "Emb-003", NombrePlana: "PLN12", Elementos: "4", M2: "7.27", KG: "535", URL: "/Embarque/ListadoEmbarque?EmbarqueID=3" });
                 loadingStop();
             }, 500);
 
@@ -86,11 +89,12 @@ function AccionesListado(idButton) {
         case 4:
             loadingStart();
             setTimeout(function () {
-
+                $("#grid th[data-field=Plana]").html("Embarque");
+                $("#grid").data("kendoGrid").showColumn("NombrePlana");
                 $("#grid").css("display", "block");
                 $("#gridCarga").css("display", "none");
                 $("#grid").data("kendoGrid").dataSource.data([]);
-                $("#grid").data("kendoGrid").dataSource.add({ Plana: "Emb-020", Elementos: "6", M2: "12.23", KG: "435", URL: "/Embarque/RevisionEmbarque?EmbarqueID=4" });
+                $("#grid").data("kendoGrid").dataSource.add({ Plana: "Emb-004", NombrePlana: "PLX-02", Elementos: "6", M2: "12.23", KG: "435", URL: "/Embarque/RevisionEmbarque?EmbarqueID=4" });
                 loadingStop();
             }, 500);
             break;
