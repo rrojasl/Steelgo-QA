@@ -18,6 +18,7 @@ function SuscribirEventos() {
     SuscribirEventoGuardarChofer();
     SuscribirEventoFecha();
     SuscribirEventoPopUpGuardarEmbarque();
+    SuscribirEventoEliminarEmbarque();
 }
 
 SuscribirEventos();
@@ -33,7 +34,7 @@ function SuscribirEventoProyecto() {
             var dataItem = this.dataItem(e.sender.selectedIndex);
             var ds = $("#grid").data("kendoGrid").dataSource;
 
-            if (ds._data.length == 0) {
+            if (!existenCambios()) {
                 if (dataItem != undefined) {
                     proyectoInicial = dataItem.ProyectoID;
                     LimpiarSelectProyecto();
@@ -96,8 +97,7 @@ function SuscribirEventoProveedor() {
         index: 3,
         change: function (e) {
             var dataItem = this.dataItem(e.sender.selectedIndex);
-            var ds = $("#grid").data("kendoGrid").dataSource;
-            if (ds._data.length == 0) {
+            if (!existenCambios()) {
                 if (dataItem != undefined) {
                     proveedorInicial = $("#Proveedor").data("kendoComboBox").value();
                     LimpiarSelectProveedor();
@@ -266,6 +266,8 @@ function suscribirEventoAgregar() {
             if ($("#Plana").data("kendoComboBox").text() != "" && $("#Plana").data("kendoComboBox").text() != undefined) {
                 var cargaPlanaID = $("#Plana").data("kendoComboBox").dataItem($("#Plana").data("kendoComboBox").select()).CargaPlanaID;
                 AjaxAgregaRenglon(cargaPlanaID);
+
+                $("#Plana").data("kendoComboBox").value("");
             }
             else {
                 displayNotify('', 'Seleccione una plana a agregar', '1');
@@ -286,9 +288,8 @@ function suscribirEventoEmbarque() {
         index: 3,
         change: function (e) {
             var dataItem = this.dataItem(e.sender.selectedIndex);
-            var ds = $("#grid").data("kendoGrid").dataSource;
 
-            if (ds._data.length == 0) {
+            if (!existenCambios()) {
                 if (dataItem != undefined) {
                     $("#grid").data("kendoGrid").dataSource.data([]);
                     EmbarqueIncial = dataItem.EmbarqueID;
@@ -351,54 +352,15 @@ function SuscribirEventoChofer() {
         index: 3,
         change: function (e) {
             var dataItem = this.dataItem(e.sender.selectedIndex);
-            var ds = $("#grid").data("kendoGrid").dataSource;
 
-            if (ds._data.length == 0) {
-                if (dataItem != undefined) {
-                    ChoferInicial = dataItem.ChoferID;
-                    if (dataItem.ChoferID == -1) {
-                        CargaPopupNuevoChofer();
-                        $("#Chofer").data("kendoComboBox").value("");
-                    }
-                }
-                else {
+            if (dataItem != undefined) {                
+                if (dataItem.ChoferID == -1) {
+                    CargaPopupNuevoChofer();
                     $("#Chofer").data("kendoComboBox").value("");
                 }
             }
             else {
-                var ventanaConfirm = $("#ventanaConfirmCaptura").kendoWindow({
-                    iframe: true,
-                    title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
-                    visible: false,
-                    width: "auto",
-                    height: "auto",
-                    modal: true,
-                    close: function () {
-                        $("#Chofer").data("kendoComboBox").value(ChoferInicial);
-                    }
-                }).data("kendoWindow");
-
-                ventanaConfirm.content(_dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] +
-                    "</br><center><button class='btn btn-blue' id='yesButtonProy'>Si</button><button class='btn btn-blue' id='noButtonProy'>No</button></center>");
-
-                ventanaConfirm.open().center();
-                $("#yesButtonProy").click(function () {
-                    if (dataItem != undefined) {
-                        ChoferInicial = dataItem.ChoferID;
-                        if (dataItem.ChoferID == -1) {
-                            CargaPopupNuevoChofer();
-                            $("#Chofer").data("kendoComboBox").value("");
-                        }
-                    }
-                    else {
-                        $("#Chofer").data("kendoComboBox").value("");
-                    }
-                    ventanaConfirm.close();
-                });
-                $("#noButtonProy").click(function () {
-                    $("#Chofer").data("kendoComboBox").value(ChoferInicial);
-                    ventanaConfirm.close();
-                });
+                $("#Chofer").data("kendoComboBox").value("");
             }
         }
     });
@@ -412,7 +374,8 @@ function SuscribirEventoPlana() {
         filter: "contains",
         index: 3,
         change: function (e) {
-            if ($("#Plana").data("kendoComboBox").dataItem($("#Plana").data("kendoComboBox").select()) != undefined) {
+            var dataItem = this.dataItem(e.sender.selectedIndex);
+            if (dataItem != undefined) {
             }
             else {
                 $("#Plana").data("kendoComboBox").value("");
@@ -427,6 +390,8 @@ function SuscribirEventoPlana() {
                 if ($("#Plana").data("kendoComboBox").text() != "" && $("#Plana").data("kendoComboBox").text() != undefined) {
                     var cargaPlanaID = $("#Plana").data("kendoComboBox").dataItem($("#Plana").data("kendoComboBox").select()).CargaPlanaID;
                     AjaxAgregaRenglon($("#Plana").data("kendoComboBox").value());
+
+                    $("#Plana").data("kendoComboBox").value("");
                 }
                 else {
                     displayNotify('', 'Seleccione una plana a agregar', '1');
@@ -569,6 +534,17 @@ function SuscribirEventoPopUpGuardarEmbarque() {
         divNuevoEmbarque.close();
     });
                     
+}
+
+function SuscribirEventoEliminarEmbarque() {
+    $("#btnELiminarEmbarque, #btnELiminarEmbarque1").click(function (e) {
+
+        if ($("#Embarque").data("kendoComboBox").value() != "" && $("#Embarque").data("kendoComboBox").value() != "0") {
+            AjaxEliminarEmbarque($("#Embarque").data("kendoComboBox").value());
+        } else {
+            displayNotify("", "Por favor seleccione un embarque", '2');
+        }
+    });
 }
 
 
