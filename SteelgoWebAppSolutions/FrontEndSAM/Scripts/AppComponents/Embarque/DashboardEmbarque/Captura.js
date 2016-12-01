@@ -30,7 +30,7 @@ function CargarGrid() {
             schema: {
                 model: {
                     fields: {
-                        
+                        NombrePlana: {type: "string", editable: false},
                         Plana: { type: "string", editable: false },
                         M2: { type: "string", editable: false },
                         KG: { type: "string", editable: false },
@@ -60,9 +60,10 @@ function CargarGrid() {
         filterable: getGridFilterableMaftec(),
         columns: [
             { field: "Plana", title: "Embarque", filterable: getGridFilterableCellMaftec(), template: " <div class='' style='text-align:center;'><a href='#=URL#'  > <span>#=Plana#</span></a></div> " },
-            { field: "Elementos", title: "Elementos", filterable: getGridFilterableCellNumberMaftec(), },
-            { field: "M2", title: "M2", filterable: getGridFilterableCellNumberMaftec(), },
-            { field: "KG", title: "KG", filterable: getGridFilterableCellNumberMaftec(), },
+            { field: "NombrePlana", title: "Plana", filterable: getGridFilterableCellMaftec(), },
+            { field: "Elementos", title: "Elementos", filterable: getGridFilterableCellNumberMaftec(), attributes: { style: "text-align:right;" } },
+            { field: "M2", title: "M2", filterable: getGridFilterableCellNumberMaftec(), attributes: { style: "text-align:right;" } },
+            { field: "KG", title: "KG", filterable: getGridFilterableCellNumberMaftec(), attributes: { style: "text-align:right;" } },
         ]
     });
     CustomisaGrid($("#grid"));
@@ -211,44 +212,7 @@ function CargarGridCarga() {
             }
 
         ],
-      
-        //dataBound: function (e) {
-        //    $(".chk-Encintado").bind("change", function (e) {
-        //        if ($('#botonGuardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
-        //            if (e.target.checked) {
-        //                $("#gridCarga").data("kendoGrid").dataItem($(e.target).closest("tr")).Encintado = true;
-        //                //$("#gridCarga").data("kendoGrid").dataItem($(e.target).closest("tr")).Accion = 1;
-        //                if ($("#gridCarga").data("kendoGrid").dataItem($(e.target).closest("tr")).Accion == 3) {
-        //                    $("#gridCarga").data("kendoGrid").dataItem($(e.target).closest("tr")).Accion = 2;
-        //                }
 
-        //                $("#gridCarga").data("kendoGrid").dataItem($(e.target).closest("tr")).ModificadoPorUsuario = true;
-        //            }
-        //            else {
-        //                $("#gridCarga").data("kendoGrid").dataItem($(e.target).closest("tr")).Encintado = false;
-        //                $("#gridCarga").data("kendoGrid").dataItem($(e.target).closest("tr")).Accion = $("#gridCarga").data("kendoGrid").dataItem($(e.target).closest("tr")).Accion == 2 ? 3 : $("#gridCarga").data("kendoGrid").dataItem($(e.target).closest("tr")).Accion;
-        //                if ($("#gridCarga").data("kendoGrid").dataItem($(e.target).closest("tr")).Accion == 1) {
-        //                    $("#gridCarga").data("kendoGrid").dataItem($(e.target).closest("tr")).ModificadoPorUsuario = false;
-        //                }
-        //                else
-        //                    $("#gridCarga").data("kendoGrid").dataItem($(e.target).closest("tr")).ModificadoPorUsuario = true;
-        //                //else if ($("#gridCarga").data("kendoGrid").dataItem($(e.target).closest("tr")).Accion == 2) {
-        //                //    $("#gridCarga").data("kendoGrid").dataItem($(e.target).closest("tr")).Accion = 3;
-        //                //}
-        //            }
-
-
-        //        }
-        //        else {
-        //            if (e.target.checked)
-        //                $("#gridCarga").data("kendoGrid").dataItem($(e.target).closest("tr")).Etiquetado = false;
-        //            else
-        //                $("#gridCarga").data("kendoGrid").dataItem($(e.target).closest("tr")).Etiquetado = true;
-        //        }
-
-        //        $("#gridCarga").data("kendoGrid").dataSource.sync();
-        //    });
-        //}
     });
 
     $("#gridCarga .k-grid-content").on("change", "input.chk-Encintado", function (e) {
