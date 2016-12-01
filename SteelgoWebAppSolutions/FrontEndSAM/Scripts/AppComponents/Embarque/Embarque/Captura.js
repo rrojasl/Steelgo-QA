@@ -11,6 +11,7 @@ function changeLanguageCall() {
     FechaEmbarque.data("kendoDatePicker").setOptions({
         format: _dictionary.FormatoFecha2[$("#language").data("kendoDropDownList").value()]
     });
+
     LlenarPantalla();
 };
 
@@ -237,16 +238,12 @@ function LlenarPantalla() {
     var emb = [{ EmbarqueID: 0, Nombre: "" }, { EmbarqueID: 1, Nombre: "Emb-2" }]
 
     $("#Proveedor").data("kendoComboBox").dataSource.data(proveedor);
-    $("#Proveedor").data("kendoComboBox").value(1);
 
     $("#Tracto").data("kendoComboBox").dataSource.data(tracto);
-    $("#Tracto").data("kendoComboBox").value(1);
 
     $("#Chofer").data("kendoComboBox").dataSource.data(chofer);
-    $("#Chofer").data("kendoComboBox").value(1);
 
     $("#Embarque").data("kendoComboBox").dataSource.data(emb);
-    $("#Embarque").data("kendoComboBox").value(1);
 
     var data = [{
         Accion:2,
