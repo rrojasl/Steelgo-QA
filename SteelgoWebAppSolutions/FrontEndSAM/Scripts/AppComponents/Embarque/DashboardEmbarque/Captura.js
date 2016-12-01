@@ -59,8 +59,8 @@ function CargarGrid() {
         },
         filterable: getGridFilterableMaftec(),
         columns: [
-            { field: "Plana", title: "Plana", filterable: getGridFilterableCellMaftec() },
-            { field: "M2", title: "M2", filterable: getGridFilterableCellMaftec(), template: " <div class='' style='text-align:center;'><a href='#=Url##=RequisicionID#'  > <span>#=Requisicion#</span></a></div> " },
+            { field: "Plana", title: "Plana", filterable: getGridFilterableCellMaftec(), template: " <div class='' style='text-align:center;'><a href='#=URL#'  > <span>#=Plana#</span></a></div> " },
+            { field: "M2", title: "M2", filterable: getGridFilterableCellMaftec(),  },
             { field: "KG", title: "KG", filterable: getGridFilterableCellMaftec(), },
         ]
     });
