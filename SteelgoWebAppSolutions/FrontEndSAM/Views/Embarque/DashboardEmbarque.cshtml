@@ -31,148 +31,186 @@
                         </a>
                     </div>
                     @*<div class="col-xs-12 col-sm-4 col-md-4 col-lg-2" id="FechaInicialDiv">
-                        <label id="lblFechaInicial"></label>
-                        <input id="inputFechaInicial" />
-                    </div>
-                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-2" id="FechaFinalDiv">
-                        <label id="lblFechaFinal"></label>
-                        <input id="inputFechaFinal" />
-                    </div>*@
+                            <label id="lblFechaInicial"></label>
+                            <input id="inputFechaInicial" />
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-2" id="FechaFinalDiv">
+                            <label id="lblFechaFinal"></label>
+                            <input id="inputFechaFinal" />
+                        </div>*@
                 </div>
             </div>
 
             @*GRID POPUP*@
-            <div id="windowGridPorCapturar" style="display: none; z-index:inherit;">
+            @*<div id="windowGridPorCapturar" style="display: none; z-index:inherit;">
 
-                <div class="row col-sm-12 col-md-12 col-lg-12" style="width: 100%; padding-right:20px;">
-                    <div class="form-group">
-                        <div id="ContenedorGridPorCapturarPopUp">
-                            <div id="gridPopUpPorCapturar" data-role="grid" class="k-grid k-widget">
+                    <div class="row col-sm-12 col-md-12 col-lg-12" style="width: 100%; padding-right:20px;">
+                        <div class="form-group">
+                            <div id="ContenedorGridPorCapturarPopUp">
+                                <div id="gridPopUpPorCapturar" data-role="grid" class="k-grid k-widget">
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row col-sm-12 col-md-12 col-lg-12">
-                    <div class="col-sm-5 col-md-5 col-lg-5"></div>
-                    <a class=" btn btn-primary col-sm-1 col-md-1 col-lg-1" href="#" id="CerrarDetalleJunta">
-                        <span id="botonCerrar"></span>
-                    </a>
-                </div>
-            </div>
+                    <div class="row col-sm-12 col-md-12 col-lg-12">
+                        <div class="col-sm-5 col-md-5 col-lg-5"></div>
+                        <a class=" btn btn-primary col-sm-1 col-md-1 col-lg-1" href="#" id="CerrarDetalleJunta">
+                            <span id="botonCerrar"></span>
+                        </a>
+                    </div>
+                </div>*@
             @*GRID POPUP*@
-            <div id="windowGridPorProbar" style="display: none; z-index:inherit;">
+            @*<div id="windowGridPorProbar" style="display: none; z-index:inherit;">
 
-                <div class="row col-sm-12 col-md-12 col-lg-12" style="width: 100%; padding-right:20px;">
-                    <div class="form-group">
-                        <div id="ContenedorGridPorProbarPopUp">
-                            <div id="gridPopUpPorProbar" data-role="grid" class="k-grid k-widget">
+                    <div class="row col-sm-12 col-md-12 col-lg-12" style="width: 100%; padding-right:20px;">
+                        <div class="form-group">
+                            <div id="ContenedorGridPorProbarPopUp">
+                                <div id="gridPopUpPorProbar" data-role="grid" class="k-grid k-widget">
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row col-sm-12 col-md-12 col-lg-12">
-                    <div class="col-sm-5 col-md-5 col-lg-5"></div>
-                    <a class=" btn btn-primary col-sm-1 col-md-1 col-lg-1" href="#" id="CerrarDetalleJunta">
-                        <span id="botonCerrar1">Cerrar</span>
-                    </a>
-                </div>
-            </div>
+                    <div class="row col-sm-12 col-md-12 col-lg-12">
+                        <div class="col-sm-5 col-md-5 col-lg-5"></div>
+                        <a class=" btn btn-primary col-sm-1 col-md-1 col-lg-1" href="#" id="CerrarDetalleJunta">
+                            <span id="botonCerrar1">Cerrar</span>
+                        </a>
+                    </div>
+                </div>*@
         </div>
-        <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12" id="pestanias">
             <div class="row">
-                <div class="btn-group col-xs-12 col-sm-12 col-md-12 col-lg-12 dashboardNoPadding" role="group" arial-label="tabs">
-                    <button id="" class="btn btn-tab">
+                <div class="btn-group col-xs-12 col-sm-12 col-md-12 col-lg-12 dashboardNoPadding" role="group" arial-label="tabs" id="tabEstatus">
+                    <button id="" class="btn btn-tab" onclick="ActivarRefrescarGrid(1);">
                         <label>Por Cargar</label>
                         <span id="PorCarcar">1</span>
                     </button>
-                    <button id="" class="btn btn-tab">
+                    <button id="" class="btn btn-tab" onclick="ActivarRefrescarGrid(2);">
                         <label id="">Por Embarcar</label>
                         <span id="PorEmbarcar">1</span>
                     </button>
-                    <button id="" class="btn btn-tab">
+                    <button id="" class="btn btn-tab" onclick="ActivarRefrescarGrid(3);">
                         <label id="">Por Enviar</label>
                         <span id="PorEnviar">1</span>
                     </button>
-                    <button id="" class="btn btn-tab">
+                    <button id="" class="btn btn-tab" onclick="ActivarRefrescarGrid(1);">
                         <label id="">Por Validar</label>
                         <span id="PorValidar">1</span>
                     </button>
                 </div>
             </div>
+
+            @*GRID*@
+            <div class="row addedSectionInLine" style="display:none;" id="contenidoDashboard">
+                <div class="btn-group form-group col-xs-12 col-sm-12 col-md-12 col-lg-12" id="divStatusRequisiciones" role="group" style="padding-bottom: 10px; position: absolute; z-index: 999;" arial-label="tabs">
+
+                    <button class="btn btn-tabList btn-listEmbarque" id="1" onclick="ActivarRefrescarGrid(1)">
+                        <span id="1">Por Cargar</span>
+                        <span class="porElemento" id="2">1 </span>
+                    </button>
+                    <button class="btn btn-tabList btn-listEmbarque" id="2" onclick="ActivarRefrescarGrid(2)">
+                        <span id="2">Por Embarcar</span>
+                        <span class="porElemento" id="2">1</span>
+                    </button>
+                    <button class="btn btn-tabList btn-listEmbarque" id="3" onclick="ActivarRefrescarGrid(3)">
+                        <span id="3">Por Enviar</span>
+                        <span class="porElemento" id="1">1 </span>
+                    </button>
+                    <button class="btn btn-tabList btn-listEmbarque" id="4" onclick="ActivarRefrescarGrid(4)">
+                        <span id="4">Por Validar </span>
+                        <span class="porElemento" id="1">1 </span>
+                        <span class="porRequisicion" id="1" style="display: none;">1</span>
+                    </button>
+                </div>
+            
+                <br>
+
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+                    <div id="ContenedorGrid">
+                        <div id="grid" data-role="grid" class="k-grid k-widget">
+                        </div>
+                        <input id="hdAccionFiltrado" type="hidden" />
+                    </div>
+
+                </div>
+            </div>
+
+
+
             <div class="row">
                 @*<div class="btn-group col-xs-12 col-sm-12 col-md-12 col-lg-12 dashboardNoPadding" role="group" arial-label="tabs">
-                    <button class="btn btn-tab btn-dashPintura" id="porCargarShotblast">
-                        <label>Por cargar</label>
-                        <span>0</span>
-                    </button>
-                    <button class="btn btn-tab btn-dashPintura" id="porCapturarShotblast">
-                        <label>Por Capturar</label>
-                        <span>1</span>
-                    </button>
-                    <button class="btn btn-tab btn-dashPintura" id="porProbarShotblast">
-                        <label>Por Probar</label>
-                        <span>4</span>
-                    </button>
+                        <button class="btn btn-tab btn-dashPintura" id="porCargarShotblast">
+                            <label>Por cargar</label>
+                            <span>0</span>
+                        </button>
+                        <button class="btn btn-tab btn-dashPintura" id="porCapturarShotblast">
+                            <label>Por Capturar</label>
+                            <span>1</span>
+                        </button>
+                        <button class="btn btn-tab btn-dashPintura" id="porProbarShotblast">
+                            <label>Por Probar</label>
+                            <span>4</span>
+                        </button>
 
-                    <button class="btn btn-tab btn-dashPintura">
-                        <label>Por Capturar</label>
-                        <span>1</span>
-                    </button>
-                    <button class="btn btn-tab btn-dashPintura">
-                        <label>Por Probar</label>
-                        <span>5</span>
-                    </button>
-                    <button class="btn btn-tab btn-dashPintura">
-                        <label>Por Descargar</label>
-                        <span>3</span>
-                    </button>
+                        <button class="btn btn-tab btn-dashPintura">
+                            <label>Por Capturar</label>
+                            <span>1</span>
+                        </button>
+                        <button class="btn btn-tab btn-dashPintura">
+                            <label>Por Probar</label>
+                            <span>5</span>
+                        </button>
+                        <button class="btn btn-tab btn-dashPintura">
+                            <label>Por Descargar</label>
+                            <span>3</span>
+                        </button>
 
-                    <button class="btn btn-tab btn-dashPintura">
-                        <label>Por Capturar</label>
-                        <span>1</span>
-                    </button>
-                    <button class="btn btn-tab btn-dashPintura">
-                        <label>Por Probar</label>
-                        <span>1</span>
-                    </button>
+                        <button class="btn btn-tab btn-dashPintura">
+                            <label>Por Capturar</label>
+                            <span>1</span>
+                        </button>
+                        <button class="btn btn-tab btn-dashPintura">
+                            <label>Por Probar</label>
+                            <span>1</span>
+                        </button>
 
-                    <button class="btn btn-tab btn-dashPintura">
-                        <label>Por Capturar</label>
-                        <span>2</span>
-                    </button>
-                    <button class="btn btn-tab btn-dashPintura">
-                        <label>Por Probar</label>
-                        <span>4</span>
-                    </button>
-                    <button class="btn btn-tab btn-dashPinturaOKPintura">
-                        <label></label>
-                        <span>7</span>
-                    </button>
-                </div>*@
+                        <button class="btn btn-tab btn-dashPintura">
+                            <label>Por Capturar</label>
+                            <span>2</span>
+                        </button>
+                        <button class="btn btn-tab btn-dashPintura">
+                            <label>Por Probar</label>
+                            <span>4</span>
+                        </button>
+                        <button class="btn btn-tab btn-dashPinturaOKPintura">
+                            <label></label>
+                            <span>7</span>
+                        </button>
+                    </div>*@
             </div>
             @*GRID POPUP*@
-            <div id="windowGrid" style="display: none; z-index:inherit;">
-                <div class="row col-sm-12 col-md-12 col-lg-12" style="width: 100%; padding-right:20px;">
-                    <div class="form-group">
-                        <div id="ContenedorGridPopUp">
-                            <div id="gridPopUp" data-role="grid" class="k-grid k-widget">
+            @*<div id="windowGrid" style="display: none; z-index:inherit;">
+                    <div class="row col-sm-12 col-md-12 col-lg-12" style="width: 100%; padding-right:20px;">
+                        <div class="form-group">
+                            <div id="ContenedorGridPopUp">
+                                <div id="gridPopUp" data-role="grid" class="k-grid k-widget">
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row col-sm-12 col-md-12 col-lg-12">
-                    <div class="col-sm-5 col-md-5 col-lg-5"></div>
-                    <a class=" btn btn-primary col-sm-1 col-md-1 col-lg-1" href="#" id="CerrarDetalleJunta">
-                        <span id="botonCerrar"></span>
-                    </a>
-                </div>
-            </div>
+                    <div class="row col-sm-12 col-md-12 col-lg-12">
+                        <div class="col-sm-5 col-md-5 col-lg-5"></div>
+                        <a class=" btn btn-primary col-sm-1 col-md-1 col-lg-1" href="#" id="CerrarDetalleJunta">
+                            <span id="botonCerrar"></span>
+                        </a>
+                    </div>
+                </div>*@
         </div>
     </div>
 </div>
 
-
-@*<script type="text/javascript" src="~/Scripts/AppComponents/Embarque/DashboardEmbarque/Ajax.js"></script>*@
+<script type="text/javascript" src="~/Scripts/AppComponents/Embarque/DashboardEmbarque/Ajax.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/Embarque/DashboardEmbarque/Handlers.js"></script>
-@*<script type="text/javascript" src="~/Scripts/AppComponents/Embarque/DashboardEmbarque/Captura.js"></script>
-<script type="text/javascript" src="~/Scripts/AppComponents/Embarque/DashboardEmbarque/Seguridad.js"></script>*@
+<script type="text/javascript" src="~/Scripts/AppComponents/Embarque/DashboardEmbarque/Captura.js"></script>
+@*<script type="text/javascript" src="~/Scripts/AppComponents/Embarque/DashboardEmbarque/Seguridad.js"></script>*@

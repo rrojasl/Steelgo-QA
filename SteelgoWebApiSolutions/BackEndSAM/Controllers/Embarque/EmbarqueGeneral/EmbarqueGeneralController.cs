@@ -41,6 +41,7 @@ namespace BackEndSAM.Controllers.Embarque.EmbarqueGeneral
                 return result;
             }
         }
+
         [HttpGet]
         public object ObtenerPlanasCerradas(string token, int ProyectoID, int PlanaCerrada)
         {

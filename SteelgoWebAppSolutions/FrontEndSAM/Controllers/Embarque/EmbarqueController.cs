@@ -49,5 +49,9 @@ namespace FrontEndSAM.Controllers.Embarque
             return View();
         }
 
+        public ActionResult DashBoardEmbarque()
+        {
+            return View();
+        }
     }
 }

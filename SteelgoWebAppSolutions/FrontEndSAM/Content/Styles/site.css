@@ -1223,6 +1223,10 @@ body.loading {
         width: 14%;
     }
 
+  .btn.btn-tabList.btn-listEmbarque {
+        width: 24.4%;
+    }
+
 
 @media (min-width: 994px)  and (max-width: 1199px) {
 
