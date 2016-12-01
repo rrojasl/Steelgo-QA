@@ -61,9 +61,9 @@ function CargarGrid() {
         filterable: getGridFilterableMaftec(),
         columns: [
             { field: "Nombre", title: "Plana", filterable: getGridFilterableCellMaftec() },
-            { field: "CantidadElementos", title: "Cantidad Spools", filterable: getGridFilterableCellMaftec() },
-            { field: "Peso", title: "Toneladas", filterable: getGridFilterableCellMaftec() },
-            { field: "M2", title: "M2", filterable: getGridFilterableCellMaftec() },
+            { field: "CantidadElementos", title: "Cantidad Spools", filterable: getGridFilterableCellNumberMaftec(), attributes: { style: "text-align:right;" }  },
+            { field: "Peso", title: "KG", filterable: getGridFilterableCellNumberMaftec(), attributes: { style: "text-align:right;" } },
+            { field: "M2", title: "M2", filterable: getGridFilterableCellNumberMaftec(), attributes: { style: "text-align:right;" } },
              {
                  command: {
                      text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()],
