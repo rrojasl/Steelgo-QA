@@ -133,11 +133,12 @@ function CargarGridEscritorio(){
             if($("#inputCarroEscritorio").data("kendoComboBox").value()!="" && $("#inputCarroEscritorio").data("kendoComboBox").value()!="0"){
                 var grid = $("#grid[name='grid-Escritorio']").data("kendoGrid");
                 var dataItem = grid.dataItem($(e.target).closest("tr"));
-                var SistemaPintura = grid.dataSource._data[0].SistemaPintura;
-                if (SistemaPintura == dataItem.SistemaPintura) {
+                var SistemaPintura = ValidarExisteSeleccionadoSistemaPintura(); ;
+                if (SistemaPintura==undefined || SistemaPintura == dataItem.SistemaPintura) {
                     if (!dataItem.Status) {
                         if ($(this)[0].checked) {
                             dataItem.Seleccionado = true;
+                            
                         } else {
                             dataItem.Seleccionado = false;
                         }
@@ -162,6 +163,15 @@ function CargarGridEscritorio(){
     CustomisaGrid($("#grid[name='grid-Escritorio']"));
 }
 
+function ValidarExisteSeleccionadoSistemaPintura() {
+    var grid = $("#grid[name='grid-Escritorio']").data("kendoGrid");
+
+    for (var i = 0; i < grid.dataSource._data.length; i++) {
+        if(grid.dataSource._data[i].Seleccionado)
+            return grid.dataSource._data[i].SistemaPintura
+    }
+    return undefined
+};
 function CargarGridPatio() {
     $("#grid[name='grid-Patio']").kendoGrid({
         edit: function (e) {

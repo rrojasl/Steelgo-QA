@@ -1,20 +1,19 @@
 ﻿function RendercomboBoxPintor(container, options) {
     var dataItem;
     var valores;
-    $('<input  data-text-field="Codigo" id=' + options.model.uid + ' data-value-field="ObreroID" data-bind="value:' + options.field + '"/>')
+    $('<input  data-text-field="Codigo1" id=' + options.model.uid + ' data-value-field="ObreroID1" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoMultiSelect({
             autoBind: false,
+            dataTextField: "Codigo",
+            dataValueField: "ObreroID",
             dataSource: options.model.ListaPintores,
-            template: "<i class=\"fa fa-#=data.Codigo.toLowerCase()#\"></i> #=data.Codigo#",
+            template: "<i class=\"fa fa-#=data.Codigo1.toLowerCase()#\"></i> #=data.Codigo1#",
             select: function (e) {
-                dataItem = e.item;
-                this
+               
             },
             change: function (e) {
-
                 options.model.plantillaPintor = _dictionary.CapturaAvancePintoresPrimariosExistentes[$("#language").data("kendoDropDownList").value()] + options.model.ListaPintorGuargado.length;
-
             },
             value: options.model.ListaPintorGuargado
         }

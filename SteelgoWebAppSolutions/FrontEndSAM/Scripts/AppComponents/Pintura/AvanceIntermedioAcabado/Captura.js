@@ -1,6 +1,6 @@
 ﻿//var ItemSeleccionado;
 //var anteriorlongitudPintores;
-
+var endRangeDate;
 IniciarCapturaAvanceIntAcabado();
 
 function IniciarCapturaAvanceIntAcabado() {
@@ -11,16 +11,62 @@ function IniciarCapturaAvanceIntAcabado() {
 }
 
 
+function PlanchaFecha() {
+    var dataSource = $("#grid").data("kendoGrid").dataSource;
+    var filters = dataSource.filter();
+    var allData = dataSource.data();
+    var query = new kendo.data.Query(allData);
+    var data = query.filter(filters).data;
+    endRangeDate=$("#inputFechaCapturaAvanceIntAcabado").kendoDatePicker();
+    if (endRangeDate != "") {
+        for (var i = 0; i < data.length; i++) {
+            if ($('input:radio[name=LLena]:checked').val() === "Todos") {
+                //data[i].FechaArmado = String(endRangeDate.val()).trim();
+                data[i].FechaPintura = new Date(ObtenerDato(endRangeDate.val(), 1), ObtenerDato(endRangeDate.val(), 2), ObtenerDato(endRangeDate.val(), 3));//año, mes, dia
+            }
+            else {
+                if (data[i].FechaPintura === "" || data[i].FechaPintura === null || data[i].FechaPintura === undefined) {
+                    //data[i].FechaArmado = String(endRangeDate.val()).trim();
+                    data[i].FechaPintura = new Date(ObtenerDato(endRangeDate.val(), 1), ObtenerDato(endRangeDate.val(), 2), ObtenerDato(endRangeDate.val(), 3));//año, mes, dia
+                }
+            }
+        }
+    }
+    $("#grid").data("kendoGrid").dataSource.sync();
+}
+
 //function asignarProyecto() {
 //    $("#InputOrdenTrabajo").val(Cookies.get('LetraProyecto') == undefined ? '' : Cookies.get('LetraProyecto'));
 //    $("#LabelProyecto").text('Proyecto :' + (Cookies.get('Proyecto') == undefined ? 'No hay ningun proyecto' : Cookies.get('Proyecto')));
 //}
 
+function ObtenerDato(fecha, tipoDatoObtener) {
+    var cultura = $("#language").val();
+
+    switch (tipoDatoObtener) {
+        case 1://anho
+            return fecha.split('/')[2]
+            break;
+        case 2://mes
+            if (cultura == 'es-MX')
+                return fecha.split('/')[1] - 1
+            else
+                return fecha.split('/')[0] - 1
+            break;
+        case 3://dia
+            if (cultura == 'es-MX')
+                return fecha.split('/')[0]
+            else
+                return fecha.split('/')[1]
+            break;
+    }
+}
+
 function changeLanguageCall() {
     //AjaxObtenerCuadrante();
     CargarGridCapturaAvanceIntAcabado();
-  llenarCombo();
-
+  
+    $('input:radio[name=Proceso]:nth(0)').trigger("click");
     //setTimeout(function () { AjaxCargarCamposPredeterminados(); }, 1500);
     //setTimeout(function () { AjaxObtenerLote(); }, 2000);
     //setTimeout(function () { AjaxObtenerColor(); }, 2500);
@@ -36,37 +82,25 @@ function CargarGridCapturaAvanceIntAcabado() {
     //loadingStart();
     $("#grid").kendoGrid({
         edit: function (e) {
-            if ($('#lblGuardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
-            }
-            else {
-                this.closeCell();
-            }
+            //if ($('#lblGuardar').text() != _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
+            //}
+            //else {
+            //    this.closeCell();
+            //}
         },
         autoBind: true,
         change: function () {
             ItemSeleccionado = this.dataSource.view()[this.select().index()];
         },
         dataSource: {
-            data: [
-                //{
-                //    Accion: 1,
-                //    Spool: "X001-013",
-                //    SistemaPintura: "",
-                //    Color: "",
-                //    M2: "",
-                //    Lote:""
-                //}
-            ],   
             schema: {
                 model: {
                     fields: {
                       Accion: { type: "number", editable: false },
                       Spool: { type: "string", editable: false },
                       M2: { type: "number", editable: false },
-                      Lote: { type: "string", editable: true },
-                       // FechaPintura: {type:"Date",editable:true},
-                       
-
+                      Lote: { type: "string", editable: false },
+                      FechaPintura: {type:"Date",editable:true}
                     }
                 }
             },
@@ -99,7 +133,7 @@ function CargarGridCapturaAvanceIntAcabado() {
             { field: "Spool", title: "Spool", filterable: getGridFilterableCellMaftec(), width: "140px" },
             { field: "M2", title: _dictionary.columnM2[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), format: "{0:n2}", width: "95px", attributes: { style: "text-align:right;" } },
             { field: "Lote", title: _dictionary.columnLote[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "100px", editor: RenderComboBoxLote },
-            { field: "FechaPintura", title: _dictionary.columnFechaPintura[$("#language").data("kendoDropDownList").value()], width: "90px", filterable: getKendoGridFilterableDateMaftec(), width: "130px", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()] },
+            { field: "FechaPintura", editor: RenderDatePicker, title: _dictionary.columnFechaPintura[$("#language").data("kendoDropDownList").value()], width: "90px", filterable: getKendoGridFilterableDateMaftec(), width: "130px", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()] },
             { field: "ListaDetallePintoresPorSpool", title: _dictionary.columnPintores[$("#language").data("kendoDropDownList").value()], width: "120px", filterable: false, editor: RenderMultiselectPintores, template: "#:TemplatePintoresPorSpool#" },
             { command: { text: _dictionary.botonLimpiar[$("#language").data("kendoDropDownList").value()], click: eliminarCaptura }, title: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()], width: "99px" }
         ]
@@ -265,25 +299,7 @@ function PlanchaPintor(detallePintoresSeleccionados, pintoresSeleccionados) {
         $("#grid").data("kendoGrid").dataSource.sync();
     }
 
-    function PlanchaFecha() {
-        var dataSource = $("#grid").data("kendoGrid").dataSource;
-        var filters = dataSource.filter();
-        var allData = dataSource.data();
-        var query = new kendo.data.Query(allData);
-        var data = query.filter(filters).data;
-
-        for (var i = 0; i < data.length; i++) {
-            if ($('input:radio[name=LLena]:checked').val() === "Todos") {
-                data[i].FechaPintura = String(endRangeDate.val()).trim();
-            }
-            else {
-                if (data[i].FechaPintura === "" || data[i].FechaPintura === null || data[i].FechaPintura === undefined) {
-                    data[i].FechaPintura = String(endRangeDate.val()).trim();
-                }
-           }
-        }
-        $("#grid").data("kendoGrid").dataSource.sync();
-    }
+    
 
     function AltaFecha() {
 

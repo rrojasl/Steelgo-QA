@@ -10,9 +10,16 @@
     SuscribirEventoMostrarDetalle();
     SuscribirEventoGuardar();
     SuscribirEventoCheckCerrarCarro();
-
+    SuscribirEventoAgregar();
 }
 
+function SuscribirEventoAgregar()
+{
+    $('#btnAgregar').click(function () {
+        AjaxAgregarSpool();
+    });
+    
+}
 function SuscribirEventoProyecto() {
     $("#inputProyecto").kendoComboBox({
         dataTextField: "Nombre",
@@ -113,18 +120,18 @@ function SuscribirEventoSpoolID() {
 
     $("#InputOrdenTrabajo").blur(function (e) {
 
-        if ($("#InputOrdenTrabajo").val() != "") {
-            if ($("#InputOrdenTrabajo").val().match("^[a-zA-Z][0-9]*$")) {
-                try {
-                } catch (e) {
-                    displayNotify("Mensajes_error", e.message, '2');
-                }
-            } else {
-                $("#InputOrdenTrabajo").val("");
-                displayNotify("PinturaCargaMensajeOrdenTrabajo", "", '1');
-            }
-        }
+        if ($("#InputOrdenTrabajo").val().match("^[a-zA-Z][0-9]*$")) {
+            try {
+                $("#InputID").data("kendoComboBox").enable(false);
+                AjaxObtenerSpoolID();
+            } catch (e) {
+                displayNotify("Mensajes_error", e.message, '2');
 
+            }
+        } else {
+            displayNotify("CapturaArmadoMensajeOrdenTrabajo", "", '1');
+            //$("#InputOrdenTrabajo").focus();
+        }
     });
 
 
@@ -217,6 +224,11 @@ function SuscribirEventoCambiarVista() {
         $("#contenedorSecundarioEscritorio").show();
         $("#contenedorPrincipalPatio").hide();
         $("#contenedorSecundarioPatio").hide();
+
+        if ($("#inputProyecto").data("kendoComboBox").dataSource._data.length == 2) {
+            $("#inputProyecto").data("kendoComboBox").select(1);
+            $("#inputProyecto").data("kendoComboBox").trigger("change");
+        }
     });
     $('#stylePatio').click(function () {
         $("#styleEscritorio").removeClass("active");
@@ -241,6 +253,11 @@ function SuscribirEventoCambiarVista() {
         $("#contenedorSecundarioEscritorio").hide();
         $("#contenedorPrincipalPatio").show();
         $("#contenedorSecundarioPatio").show();
+
+        if ($("#inputProyecto").data("kendoComboBox").dataSource._data.length == 2) {
+            $("#inputProyecto").data("kendoComboBox").select(1);
+            $("#inputProyecto").data("kendoComboBox").trigger("change");
+        }
     });
 
 
@@ -366,9 +383,7 @@ function CargaPopupNuevoMedioTransporte(e) {
     $("#InputNombre").focus();
 }
 
-function SuscribirEventoGuardar() {
 
-};
 
 function SuscribirEventoCheckCerrarCarro() {
     $('#chkCerrarEscritorio, #chkCerrarPatio').change(function () {
@@ -507,3 +522,30 @@ function Limpiar() {
     opcionHabilitarView(false, "")
     opcionHabilitarViewBacklog(false, "");
 }
+
+function SuscribirEventoGuardar() {
+    $('#btnGuardarYNuevo').click(function (e) {
+        if ($("#grid").data("kendoGrid").dataSource._data.length > 0) {
+            $('#btnCancelar').trigger("click");
+        }
+    });
+
+    $('#btnGuardar,#Guardar, #btnGuardar1, #Guardar1 ').click(function (e) {
+        if ($("#grid[name='grid-Escritorio']").data("kendoGrid").dataSource._data.length > 0) {
+            if ($('#btnGuardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
+                ajaxGuardar($("#grid[name='grid-Escritorio']").data("kendoGrid").dataSource._data);
+            }
+            else if ($('#btnGuardar').text() == "Editar") {
+                opcionHabilitarView(false, "FieldSetView")
+            }
+        }
+        else if ($("#grid[name='grid-Patio']").data("kendoGrid").dataSource._data.length > 0) {
+            if ($('#btnGuardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
+                ajaxGuardar($("#grid[name='grid-Patio']").data("kendoGrid").dataSource._data);
+            }
+            else if ($('#btnGuardar').text() == "Editar") {
+                opcionHabilitarView(false, "FieldSetView")
+            }
+        }
+    });
+};

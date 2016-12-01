@@ -2,7 +2,7 @@
 
 function IniciarCapturaLotesCapturaReporte() {
 
-   SuscribirEventos();
+    SuscribirEventos();
     //setTimeout(function () { AjaxCargarSistemaPintura(); }, 1000);
     //setTimeout(function () { AjaxCargarLotes(); }, 1100);
 }
@@ -11,26 +11,15 @@ function IniciarCapturaLotesCapturaReporte() {
 function changeLanguageCall() {
     CargarGrid();
     CargarGridPopUp();
-    llenarCombo();
+    AjaxCargarProyecto();
+    AjaxCargarProcesos();
+    $('input:radio[name=Muestra]:nth(1)').trigger("click");
 }
 
 function CargarGrid() {
     $("#grid").kendoGrid({
         autoBind: true,
         dataSource: {
-            data: [
-                   {
-                       Accion: 1,
-                       NombreSpool: "X001-001",
-                       SistemaPintura: "18.1",
-                       Color: "AMARILLO",
-                       M2: "200",
-                       PruebasReq: 5,
-                       PruebasEjec: 2,
-                       NombreCuadrante: "A1",
-                       CapturaPrueba: "Ver Prueba"
-                   }
-            ],
             schema: {
                 model: {
                     fields: {
@@ -68,7 +57,7 @@ function CargarGrid() {
         scrollable: true,
         pageable: {
             refresh: false,
-            pageSizes: [10, 25,50, 100],
+            pageSizes: [10, 25, 50, 100],
             info: false,
             input: false,
             numeric: true,
@@ -90,94 +79,52 @@ function CargarGrid() {
 
 function CargarGridPopUp() {
     $("#gridPopUp").kendoGrid({
-        autoBind: true,
         dataSource: {
-            data: [
-                {
-                    Accion: 1,
-                    Fecha: "08/11/2016",
-                    ValorUnidadMedida: 5,
-                    Aprobado: "NO"
-                },
-                {
-                    Accion: 1,
-                    Fecha: "08/11/2016",
-                    ValorUnidadMedida: 2,
-                    Aprobado: "SI"
-                }
-            ],
+            data: [],
             schema: {
                 model: {
                     fields: {
                         Accion: { type: "number", editable: false },
-                        Fecha: { type: "string", editable: false },
-                        ValorUnidadMedida: { type: "number", editable: false },
+                        Fecha: { type: "date", editable: true },
+                        ValorUnidadMedida: { type: "number", editable: true },
                         Aprobado: { type: "string", editable: false }
                     }
                 }
             }, filter: {
                 logic: "or",
                 filters: [
-                  { field: "Accion", operator: "eq", value: 1 }
+                  { field: "Accion", operator: "eq", value: 1 },
+                  { field: "Accion", operator: "eq", value: 2 },
+                  { field: "Accion", operator: "eq", value: 0 },
+                  { field: "Accion", operator: "eq", value: 4 },
+                  { field: "Accion", operator: "eq", value: undefined }
                 ]
-            },
-        },
-        navigatable: true,
-        filterable: {
-            extra: false
-        },
-        click: function (e) {
-        },
-        editable: true,
-        autoHeight: true,
-        sortable: true,
-        scrollable: true,
-        columns: [
-                { field: "Fecha", title: _dictionary.columnFechaPrueba[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "20px" },
-                { field: "ValorUnidadMedida", title: "Valor U. Medida", filterable: getGridFilterableCellNumberMaftec(), width: "20px", attributes: { style: "text-align:right;" } },
-                { field: "Aprobado", title: "Aprobado", filterable: getGridFilterableCellNumberMaftec(), width: "20px" },
-                { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()] }, title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], width: "10px", attributes: { style: "text-align:center;" } }
-        ],
-        toolbar: [{ name: "create" }]
+            }
 
+
+        },
+        selectable: true,
+        filterable: getGridFilterableMaftec(),
+        change: function (e) {
+            grid = e.sender;
+            var currentDataItem = grid.dataItem(this.select());
+            var currentIndexRow = $("#gridPopUp").data("kendoGrid").items().index(this.select());
+            // alert("evento change:" + currentIndexRow);
+            console.log("evento change:" + currentIndexRow);
+        },
+        columns: [
+                  { field: "Fecha", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()], editor: RenderDatePicker, title: _dictionary.columnFechaPrueba[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "20px" },
+                  { field: "ValorUnidadMedida", editor: RenderAprobado, title: "Valor U. Medida", filterable: getGridFilterableCellNumberMaftec(), width: "20px", attributes: { style: "text-align:right;" } },
+                  { field: "Aprobado", title: "Aprobado", filterable: getGridFilterableCellNumberMaftec(), width: "20px" }
+        ],
+        editable: true,
+        navigatable: true,
+        toolbar: [{ name: "create" }]
     });
     CustomisaGrid($("#gridPopUp"));
 };
 
-function llenarCombo() {
-               var p = [
-                        { Proyecto: 0, Nombre: "" },
-                        { Proyecto: 16, Nombre: "ETILENO XXI" },
-                ];
 
-                var sp = [
-                    { SistPintID: 0, Nombre: "" },
-                    { SistPintID: 1, Nombre: "A1" },
-                    { SistPintID: 2, Nombre: "A2" },
-                    { SistPintID: 3, Nombre: "18.1" },
-                ];
-                var l = [
-                         { LotePinturaID: 0, NumeroLote: "" },
-                         { LotePinturaID: 1, NumeroLote: "1/33" },
-                         { LotePinturaID: 2, NumeroLote: "12" },
-                         { LotePinturaID: 3, NumeroLote: "123/23" },
-                ];
-
-              
-
-                //$("#inputProyecto").data("kendoComboBox").dataSource.data([]);
-                //$("#inputProyecto").data("kendoComboBox").dataSource.data(p);
-                //$("#inputProyecto").data("kendoComboBox").value(16);
-                //$("#inputProyecto").data("kendoComboBox").trigger('changes');
-
-                $("#inputSistemaPintura").data("kendoComboBox").dataSource.data([]);
-                $("#inputSistemaPintura").data("kendoComboBox").dataSource.data(sp);
-
-                $("#inputLote").data("kendoComboBox").dataSource.data([]);
-                $("#inputLote").data("kendoComboBox").dataSource.data(l);
-
-
-}
 
 function LlenarGridPopUp() {
     //$("#gridPopUp").data('kendoGrid').dataSource.data([]);
@@ -207,7 +154,7 @@ function VentanaModal() {
         ],
         close: function onClose(e) {
             //var gridDataSource = $("#gridPopUp").data("kendoGrid").dataSource;
-          //  gridDataSource.filter([]);
+            //  gridDataSource.filter([]);
         }
     }).data("kendoWindow");
     window.data("kendoWindow").center().open();

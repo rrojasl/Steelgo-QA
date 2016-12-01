@@ -1,4 +1,6 @@
 ﻿IniciarCapturaPinturaDescarga();
+var modificado = false;
+
 function IniciarCapturaPinturaDescarga() {
     SuscribirEventos();
     //setTimeout(function () { AjaxCargarCuadrante(0); }, 2400);
@@ -8,37 +10,27 @@ function IniciarCapturaPinturaDescarga() {
 
 function changeLanguageCall() {
     CargarGrid();
- llenarCombo();
-
-
+    llenarCombo();
     //document.title = _dictionary.PinturaHeaderDescargaCarroPintura[$("#language").data("kendoDropDownList").value()];
 }
 
 
+
+//parametros para el grid 
 function CargarGrid() {
     $("#grid").kendoGrid({
         autoBind: true,
-        dataSource: {
-            data: [{
-                Accion:1,
-                NombreSpool: "X001-001",
-                SistemaPintura:"18.1",
-                Color: "Amarillo",
-                M2: 40,
-                NombreCuadrante: "ZZ0-01",
-                ListaCuandrantes: [{ CuadranteID: 0, Nombre: "" }, { CuadranteID: 1, Nombre: "1A" },
-                    { CuadranteID: 2, Nombre: "1B" }]
-            },
-            {
-                Accion: 1,
-                NombreSpool: "X001-016",
-                SistemaPintura: "18.1",
-                Color: "Cafe",
-                M2: 60,
-                NombreCuadrante: "E-01",
-                ListaCuandrantes: [{ CuadranteID: 0, Nombre: "" }, { CuadranteID: 1, Nombre: "1A" },
-                    { CuadranteID: 2, Nombre: "1B" }]
+        edit: function (e) {
+            if ($('#botonGuardar').text() != _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
+                this.closeCell();
+
             }
+            else {
+                modificado = true;
+            }
+        },
+        dataSource: {
+            data: [
             ],
             schema: {
                 model: {
@@ -47,7 +39,7 @@ function CargarGrid() {
                         NombreSpool: { type: "string", editable: false },
                         SistemaPintura: { type: "string", editable: false },
                         Color: { type: "string", editable: false },
-                        M2:{type:"String",editable:false},
+                        M2: { type: "String", editable: false },
                         NombreCuadrante: { type: "string", editable: true }
                     }
                 }
@@ -90,39 +82,160 @@ function CargarGrid() {
             //{ field: "CapturaPrueba", title: _dictionary.columnSeRealizoPrueba[$("#language").data("kendoDropDownList").value()], filterable: false, template: '<input type="checkbox" #= CapturaPrueba ? "checked=checked" : "" # class="chkbx"  ></input>  ' }
            //{ command: { text: _dictionary.botonDescarga[$("#language").data("kendoDropDownList").value()], click: eliminarCapturaPatio }, title: _dictionary.columnDescargar1[$("#language").data("kendoDropDownList").value()], width: "100px", attributes: { style: "text-align:center;" } }
 
-        ]
+        ],
+        dataBound: function () {
+            var grid = $("#grid").data("kendoGrid");
+            var gridData = grid.dataSource.view();
+
+            for (var i = 0; i < gridData.length; i++) {
+                var currentUid = gridData[i].uid;
+                if (gridData[i].RowOk == false) {
+                    grid.table.find("tr[data-uid='" + currentUid + "']").css("background-color", "#ffcccc");
+                }
+                else if (gridData[i].RowOk) {
+                    grid.table.find("tr[data-uid='" + currentUid + "']").css("background-color", "#ffffff");
+                }
+            }
+        }
 
 
     });
     CustomisaGrid($("#grid"));
 }
+//parametros para el grid 
 
 
+
+
+//SuscribirEventoCarro() muestra nuevos grids 
+function CambiarDetalleGridPorIDCarroSeleccionado(idCarro) {
+    switch (idCarro) {
+
+        case 0:
+
+            $("#grid").data('kendoGrid').dataSource.data([]);
+
+            break;
+
+        case 1:
+            var array = [{
+                RowOk:true,
+                Accion: 2,
+                NombreSpool: "X002-002",
+                SistemaPintura: "A4",
+                Color: "ALUMINIO",
+                M2: 4.12,
+                NombreCuadrante: "Comdistral"
+            }];
+
+            $("#grid").data('kendoGrid').dataSource.data(array);
+            break;
+        case 2:
+            var array2 = [
+        {
+            Accion: 2,
+            NombreSpool: "X002-004",
+            SistemaPintura: "A5",
+            Color: "AZUL",
+            M2: 0.63,
+            NombreCuadrante: "Comdistral"
+        }];
+
+            $("#grid").data('kendoGrid').dataSource.data(array2);
+
+            break;
+
+
+    }
+    $("#grid").data('kendoGrid').dataSource.sync();
+};
+//SuscribirEventoCarro() 
+
+
+
+
+
+
+
+//SuscribirEventoSistemaPintura()
+function cambiarOpcionesCuadranteComboBox(idZona) {
+    switch (idZona) {
+
+        case 0:
+
+            $("#inputCuadrante").data("kendoComboBox").dataSource.data([]);
+
+            break;
+
+        case 1:
+
+            AjaxCargarCuadrante(1);
+
+            break;
+
+        case 2:
+
+           
+
+            AjaxCargarCuadrante(2);
+
+           
+           
+            break;
+
+
+    }
+
+};
+//SuscribirEventoSistemaPintura()
+
+
+
+function SustituirListaCuadranteGrid(listaCuadrante) {
+    for (var i = 0; i < $("#grid").data('kendoGrid').dataSource._data.length; i++) {
+        $("#grid").data('kendoGrid').dataSource._data[i].ListaCuandrantes = listaCuadrante;
+    }
+    $("#grid").data('kendoGrid').dataSource.sync();
+};
+
+
+
+
+
+
+//carga los datos de SuscribirEventoCarro()
 function llenarCombo() {
-    
-    var c = [
+
+    var llenaCarro = [
              { MedioTransporteID: 0, NombreMedioTransporte: "" },
-             { MedioTransporteID: 1, NombreMedioTransporte: "Carro-1" },
-             { MedioTransporteID: 2, NombreMedioTransporte: "Carro-Prueba" },
+             { MedioTransporteID: 1, NombreMedioTransporte: "carro 670" },
+             { MedioTransporteID: 2, NombreMedioTransporte: "carro 680" }
     ];
 
-    var sp = [
-        { ZonaID: 0, Nombre: "" },
-        { ZonaID: 1, Nombre: "Zona 1" },
-        { ZonaID: 2, Nombre: "Zona 2" },
-        { ZonaID: 3, Nombre: "Zona 3" },
+    $("#inputCarro").data("kendoComboBox").dataSource.data([]); //limpia elementos 
+    $("#inputCarro").data("kendoComboBox").dataSource.data(llenaCarro); //llena carro opciones con arreglo 
+
+    $("#inputCarro").data("kendoComboBox").value(1); //Elemento del arreglo posicion 
+    //$("#inputCarro").data("kendoComboBox").trigger('change');  //Activa llena el Grid como cambio manual 
+    $("#btnBuscar").trigger('click');
+
+    var llenaZonas = [
+    { ZonaID: 0, Nombre: "" },
+    { ZonaID: 1, Nombre: "Zona 1" },
+    { ZonaID: 2, Nombre: "Zona 2" }
     ];
 
-    $("#inputCarro").data("kendoComboBox").dataSource.data([]);
-    $("#inputCarro").data("kendoComboBox").dataSource.data(c);
-    $("#inputCarro").data("kendoComboBox").value(1);
-    $("#inputCarro").data("kendoComboBox").trigger('changes');
-    
 
     $("#inputZona").data("kendoComboBox").dataSource.data([]);
-    $("#inputZona").data("kendoComboBox").dataSource.data(sp);
+    $("#inputZona").data("kendoComboBox").dataSource.data(llenaZonas);
 
 }
+//carga los datos de SuscribirEventoCarro()
+
+
+
+
+
 
 
 
@@ -161,23 +274,55 @@ function VentanaModalDescargarMedioTransporte(e) {
 
 };
 
+
+
 function PlanchaCuadrante() {
     if ($("#inputCuadrante").val() != "") {
+
+        console.log("validaPlancha");
+
         var dataSource = $("#grid").data("kendoGrid").dataSource;
         var filters = dataSource.filter();
         var allData = dataSource.data();
         var query = new kendo.data.Query(allData);
         var data = query.filter(filters).data;
 
-        for (var i = 0; i < data.length; i++) {
-            data[i].CuadranteID = $("#inputCuadrante").val();
-            data[i].Cuadrante = $("#inputCuadrante").data("kendoComboBox").text();
+
+
+        if ($("#inputCuadrante").data("kendoComboBox").dataItem($("#inputCuadrante").data("kendoComboBox").select()) != undefined && $("#inputCuadrante").data("kendoComboBox").dataItem($("#inputCuadrante").data("kendoComboBox").select()).CuadranteID != 0) {
+            for (var i = 0; i < data.length; i++) {
+                if ($('input:radio[name=LLena]:checked').val() === "Todos") {
+                    console.log("--");
+                    data[i].NombreCuadrante = $("#inputCuadrante").data("kendoComboBox").text();
+                }
+
+                else {
+                    if (data[i].NombreCuadrante == "") {
+                        data[i].NombreCuadrante = $("#inputCuadrante").data("kendoComboBox").text();
+                    }
+                }
+
+            }
         }
-        $("#grid").data("kendoGrid").dataSource.sync();
     }
+
+
+
+    $("#grid").data("kendoGrid").dataSource.sync();
+
 }
 
 
-function eliminarCapturaPatio(e)
-{
+
+
+
+
+
+
+
+function eliminarCapturaPatio(e) {
 }
+
+
+
+

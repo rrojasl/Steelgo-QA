@@ -1,14 +1,43 @@
 ﻿function SuscribirEventos() {
     SuscribirEventoCarro();
-    SuscribirEventoSistemaPintura();
+    SuscribirEventoZona();
     SuscribirEventoCuadrante();
     SuscribirEventoGuardar();
     suscribirEventoDescargar();
     SuscribirEventoPlanchar();
+    suscribirEventoChangeRadio();
+    suscribirEventoBoton();
 };
 
+function MostrarDatos() {
+    if ($('input:radio[name=LLena]:checked').val() != undefined) {
+        CambiarDetalleGridPorIDCarroSeleccionado($("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()).MedioTransporteID);
+        modificado = false;
+        if ($('input:radio[name=Muestra]:checked').val() === "Todos") {
+            FiltroMostrar(1);
+        }
+        else {
+            FiltroMostrar(0);
+        }
+    }
+    else {
+        displayNotify("", "selecciona sin captura o todos.", '1');
+    }
+};
+function suscribirEventoBoton() {
+    $("#btnBuscar").click(function (e) {
+        if ($("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()) != undefined && $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()).MedioTransporteID != 0) {
+            MostrarDatos();
+        }
+        else {
+            displayNotify("", "selecciona un carro porfavor", '1');
+        }
+
+    });
+};
 function SuscribirEventoPlanchar() {
     $("#ButtonPlanchar").click(function (e) {
+
         if ($('input:radio[name=LLena]:checked').val() === "Todos") {
             windowTemplate = kendo.template($("#windowTemplate").html());
 
@@ -17,6 +46,7 @@ function SuscribirEventoPlanchar() {
                 title: _dictionary.CapturaAvanceTitulo[$("#language").data("kendoDropDownList").value()],
                 visible: false, //the window will not appear before its .open method is called
                 width: "auto",
+                animation: false,
                 height: "auto",
                 modal: true
             }).data("kendoWindow");
@@ -41,11 +71,16 @@ function SuscribirEventoPlanchar() {
 }
 
 function plancharTodo() {
+    console.log("llama a funcion plancha C");
     if ($("#inputCuadrante").data("kendoComboBox").dataItem($("#inputCuadrante").data("kendoComboBox").select()) != undefined) {
         PlanchaCuadrante();
+
     }
 }
 
+var oldItem;
+
+//CambiarDetalleGridPorIDCarroSeleccionado()
 function SuscribirEventoCarro() {
     $('#inputCarro').kendoComboBox({
         dataTextField: "NombreMedioTransporte",
@@ -53,25 +88,61 @@ function SuscribirEventoCarro() {
         suggest: true,
         filter: "contains",
         index: 3,
+        select: function (e) {
+            oldItem = e.sender._old;  
+        },
         change: function (e) {
-            var dataItem = this.dataItem(e.sender.selectedIndex);
-            if (dataItem != undefined) {
-                dataItem = this.dataItem(e.sender.selectedIndex);
 
-                $("#grid").data('kendoGrid').dataSource.data([]);
-                //ajaxObtenerDetalleMedioTransporteID(dataItem.MedioTransporteID);
+            //var elementoSeleccionado = this.dataItem(e.sender.selectedIndex);  //Obtiene objeto  
+            //$("#grid").data('kendoGrid').dataSource.data([]);
+            //CambiarDetalleGridPorIDCarroSeleccionado(elementoSeleccionado.MedioTransporteID)
+            if (modificado) {
+                ventanaConfirm = $("#ventanaConfirm").kendoWindow({
+                    iframe: true,
+                    title: _dictionary.WarningTitle[$("#language").data("kendoDropDownList").value()],
+                    visible: false, //the window will not appear before its .open method is called
+                    width: "auto",
+                    height: "auto",
+                    modal: true,
+                    animation: {
+                        close: false,
+                        open: false
+                    }
+                }).data("kendoWindow");
+
+                ventanaConfirm.content(_dictionary.CapturaReportePruebasMensajeEliminarDatosCapturados[$("#language").data("kendoDropDownList").value()] +
+                            "</br><center><button class='btn btn-blue' id='yesButton'>Si</button><button class='btn btn-blue' id='noButton'> No</button></center>");
+
+                ventanaConfirm.open().center();
+
+                $("#yesButton").click(function () {
+                    // $("#btnBuscar").trigger("click");
+                    $("#grid").data("kendoGrid").dataSource.data([]);
+                    $("#grid").data("kendoGrid").dataSource.sync();
+                    ventanaConfirm.close();
+
+                });
+                $("#noButton").click(function () {
+                    $("#inputCarro").data("kendoComboBox").value(oldItem);
+                    ventanaConfirm.close();
+                });
             }
             else {
-                $("#inputCarro").data("kendoComboBox").value("");
-                //displayMessage("NoExisteCarro", '', '2');
-            }
 
+                MostrarDatos();
+
+                
+            }
         }
     });
 
 }
+//
+//CambiarDetalleGridPorIDCarroSeleccionado()
 
-function SuscribirEventoSistemaPintura() {
+
+//SuscribirEventoCuadrante()
+function SuscribirEventoZona() {
     $("#inputZona").kendoComboBox({
         dataTextField: "Nombre",
         dataValueField: "ZonaID",
@@ -79,25 +150,56 @@ function SuscribirEventoSistemaPintura() {
         delay: 10,
         filter: "contains",
         index: 3,
+        select: function (e) {
+            oldItem = e.sender._old;
+        },
         change: function (e) {
+
             var dataItem = this.dataItem(e.sender.selectedIndex);
 
-            if (dataItem != undefined) {
+            
 
-                var ListaCuandrantes = [{ CuadranteID: 0, Nombre: "" },
-                    { CuadranteID: 1, Nombre: "1A" },
-                    { CuadranteID: 2, Nombre: "1B" }];
+            if (modificado) {
+                ventanaConfirm = $("#ventanaConfirm").kendoWindow({
+                    iframe: true,
+                    title: _dictionary.WarningTitle[$("#language").data("kendoDropDownList").value()],
+                    visible: false, //the window will not appear before its .open method is called
+                    width: "auto",
+                    height: "auto",
+                    modal: true,
+                    animation: {
+                        close: false,
+                        open: false
+                    }
+                }).data("kendoWindow");
 
-                $("#inputCuadrante").data("kendoComboBox").dataSource.data([]);
-                $("#inputCuadrante").data("kendoComboBox").dataSource.data(ListaCuandrantes);
+                ventanaConfirm.content(_dictionary.CapturaReportePruebasMensajeEliminarDatosCapturados[$("#language").data("kendoDropDownList").value()] +
+                            "</br><center><button class='btn btn-blue' id='yesButton'>Si</button><button class='btn btn-blue' id='noButton'> No</button></center>");
 
-            } else {
-                $("#inputSistemaPintura").data("kendoComboBox").value("");
+                ventanaConfirm.open().center();
+
+                $("#yesButton").click(function () {
+                    // $("#btnBuscar").trigger("click");
+                    cambiarOpcionesCuadranteComboBox(dataItem.ZonaID);
+                    ventanaConfirm.close();
+
+                });
+                $("#noButton").click(function () {
+                    $("#inputZona").data("kendoComboBox").value(oldItem);
+                    ventanaConfirm.close();
+                });
             }
+            else {
+                cambiarOpcionesCuadranteComboBox(dataItem.ZonaID);
+            };
+           
         }
     });
 }
+//SuscribirEventoCuadrante()
 
+
+//cuadrante barra en el medio izquierda 
 function SuscribirEventoCuadrante() {
     $('#inputCuadrante').kendoComboBox({
         dataTextField: "Nombre",
@@ -105,11 +207,17 @@ function SuscribirEventoCuadrante() {
         suggest: true,
         filter: "contains",
         change: function () {
+
+            console.log("llama clic cuadrante"); //
+
             if ($("#inputCuadrante").data("kendoComboBox").dataItem($("#inputCuadrante").data("kendoComboBox").select()) != undefined) {
 
+                console.log("definir inputCuadrante");
             }
+
             else {
                 $("#inputCuadrante").data("kendoComboBox").value("");
+                console.log("valor lleno");
             }
         }
     });
@@ -120,6 +228,72 @@ function SuscribirEventoCuadrante() {
         }
     });
 }
+//cuadrante barra en el medio izquierda
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//suscribirEventoChangeRadio()
+
+function suscribirEventoChangeRadio() {
+    //$('input:radio[name=Muestra]:nth(0)').change(function () {
+
+    //    FiltroMostrar(0);
+
+
+    //});
+    //$('input:radio[name=Muestra]:nth(1)').change(function () {
+
+    //    FiltroMostrar(1);
+
+    //});
+}
+//suscribirEventoChangeRadio()
+
+
+//FiltroMostrar()
+function FiltroMostrar(mostrar) {
+    var ds = $("#grid").data("kendoGrid").dataSource;
+
+    if (mostrar == 0) {
+        var curr_filters = ds.filter().filters;
+        if (curr_filters[0].filters != undefined)
+            ds.filter(curr_filters[0].filters[0])
+
+        else
+            ds.filter(curr_filters[0])
+        ds.sync();
+    }
+    else {
+
+        var curr_filters = ds.filter().filters;
+        ds.filter(curr_filters[0])
+        ds.sync();
+        var filters = ds.filter();
+        filters.logic = "or"
+
+        filters.filters.push({ field: "Accion", operator: "eq", value: 2 });
+        filters.filters.push({ field: "Accion", operator: "eq", value: 4 });
+        ds.sync();
+    }
+}
+
+//FiltroMostrar()
 
 function suscribirEventoDescargar() {
     $('#CapturaAvanceDescargar').click(function (e) {
@@ -134,18 +308,16 @@ function SuscribirEventoGuardar() {
 
     $('#btnGuardarYNuevo').click(function (e) {
         if ($("#grid").data("kendoGrid").dataSource._data.length > 0) {
-            //ajaxGuardar($("#grid").data("kendoGrid").dataSource._data);
-            Limpiar();
+            $('#btnCancelar').trigger("click");
         }
     });
 
-    $('#btnGuardar, #btnGuardar1, #Guardar1, #Guardar').click(function (e) {
+    $('#btnGuardar,#Guardar, #btnGuardar1, #Guardar1 ').click(function (e) {
         if ($("#grid").data("kendoGrid").dataSource._data.length > 0) {
             if ($('#botonGuardar2').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
-
-                //ajaxGuardar($("#grid").data("kendoGrid").dataSource._data);
+                ajaxGuardar($("#grid").data("kendoGrid").dataSource._data);
             }
-            else if ($('#botonGuardar2').text() == _dictionary.PinturaCargaEditar[$("#language").data("kendoDropDownList").value()]) {
+            else if ($('#botonGuardar2').text() == _dictionary.textoEditar[$("#language").data("kendoDropDownList").value()]) {
                 opcionHabilitarView(false, "FieldSetView")
             }
         }
@@ -156,18 +328,27 @@ function opcionHabilitarView(valor, name) {
 
     if (valor) {
         $('#FieldSetView').find('*').attr('disabled', true);
-        $(".botonDeplegaMenu").attr("disabled", true);
+        $('#FieldSetViewMiddle').find('*').attr('disabled', true);
+
+
         $("#inputCarro").data("kendoComboBox").enable(false);
         $("#inputCuadrante").data("kendoComboBox").enable(false);
-        $('#botonGuardar4, #botonGuardar2').text(_dictionary.PinturaCargaEditar[$("#language").data("kendoDropDownList").value()]);
+
+        $('#botonGuardar').text(_dictionary.textoEditar[$("#language").data("kendoDropDownList").value()]);
+        $('#botonGuardar2').text(_dictionary.textoEditar[$("#language").data("kendoDropDownList").value()]);
+
+        $("#inputZona").data("kendoComboBox").enable(false);
+
 
     }
     else {
         $('#FieldSetView').find('*').attr('disabled', false);
-        $(".botonDeplegaMenu").attr("disabled", false);
+        $('#FieldSetViewMiddle').find('*').attr('disabled', false);
         $("#inputCarro").data("kendoComboBox").enable(true);
         $("#inputCuadrante").data("kendoComboBox").enable(true);
-        $('#botonGuardar4, #botonGuardar2').text(_dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]);
+        $('#botonGuardar').text(_dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]);
+        $('#botonGuardar2').text(_dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]);
+        $("#inputZona").data("kendoComboBox").enable(true);
 
     }
 }

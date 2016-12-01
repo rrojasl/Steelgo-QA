@@ -139,7 +139,7 @@ function AjaxGuardarCaptura(rows, tipoGuardar) {
     for (var i = 0; i < rows.length; i++) {
         if (tipoGuardar==0 && rows[i].ModificadoPorUsuario && (rows[i].Accion == 1 || rows[i].Accion == 2 || rows[i].Accion == 3)) {
             ListaDetalles[index] = { Accion: "", SpoolID: "", Etiquetado: "", EtiquetadoID: "", CuadranteID: "" };
-            ListaDetalles[index].Accion = rows[i].Accion;
+            ListaDetalles[index].Accion = rows[i].Etiquetado==false ?3: rows[i].Accion;
             ListaDetalles[index].SpoolID = rows[i].SpoolID;
             ListaDetalles[index].Etiquetado = rows[i].Etiquetado;
             ListaDetalles[index].EtiquetadoID = rows[i].EtiquetadoID;
@@ -148,7 +148,7 @@ function AjaxGuardarCaptura(rows, tipoGuardar) {
         }
         else if (tipoGuardar==1 && (rows[i].Accion == 1 || rows[i].Accion == 2 || rows[i].Accion == 3)) {
             ListaDetalles[index] = { Accion: "", SpoolID: "", Etiquetado: "", EtiquetadoID: "", CuadranteID: "" };
-            ListaDetalles[index].Accion = rows[i].Accion;
+            ListaDetalles[index].Accion = rows[i].Etiquetado == false ? 3 : rows[i].Accion;
             ListaDetalles[index].SpoolID = rows[i].SpoolID;
             ListaDetalles[index].Etiquetado = rows[i].Etiquetado;
             ListaDetalles[index].EtiquetadoID = rows[i].EtiquetadoID;

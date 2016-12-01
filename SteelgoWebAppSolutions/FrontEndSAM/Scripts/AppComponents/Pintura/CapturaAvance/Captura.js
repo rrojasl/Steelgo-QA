@@ -108,7 +108,8 @@ function CargarGrid() {
                         Peso: { type: "string", editable: false },
                         Color: { type: "string", editable: false },
                         FechaShotblast: { type: "date", editable: true },
-                        FechaPrimario: { type: "date", editable: true }
+                        FechaPrimario: { type: "date", editable: true },
+                        Lote:{ type: "string", editable: false }
                     }
                 }
             },
@@ -171,10 +172,7 @@ function VentanaModalDescargarMedioTransporte(e) {
                 top: "1%",
                 left: "1%"
             },
-            animation: {
-                close: false,
-                open: false
-            },
+                animation:false,
             actions: [
                 "Close"
             ],

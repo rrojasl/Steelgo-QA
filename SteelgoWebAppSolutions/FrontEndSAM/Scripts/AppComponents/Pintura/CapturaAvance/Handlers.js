@@ -243,8 +243,8 @@ function suscribirEventoPintor() {
 
     $("#inputPintor").kendoMultiSelect({
         dataSource: '',
-        dataTextField: "Codigo",
-        dataValueField: "ObreroID",
+        dataTextField: "Codigo1",
+        dataValueField: "ObreroID1",
         suggest: true,
         filter: "contains",
         change: function (e) {
@@ -287,6 +287,7 @@ function SuscribirEventoAgregar() {
     $("#btnAgregar").click(function () {
         if ($("#InputID").data("kendoComboBox").value() > 0) {
             //AjaxAgregarSpool($("#InputID").data("kendoComboBox").value());
+            ajaxAgregarSpool();
         }
         else {
             displayNotify("PinturaCargaSeleccionaSpool", "", '1');
