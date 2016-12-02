@@ -45,14 +45,15 @@ namespace BackEndSAM.DataAcces.Embarque.Empaquetado
                         listaDetalle.Add(new DetallePaquete
                         {
                             PaqueteID = item.PaqueteID,
-                            Nombre = item.Nombre, 
+                            Nombre = item.Nombre,
                             Cerrado = item.Cerrado,
                             FechaCreacion = item.FechaCreacion,
-                            ProyectoID = ProyectoID, 
+                            ProyectoID = ProyectoID,
                             CuadrantePaqueteSam2ID = item.CuadrantePaqueteSam2ID.GetValueOrDefault(),
                             CuadrantePaqueteSam3ID = item.CuadrantePaqueteSam3ID.GetValueOrDefault(),
                             CuadranteUbicacion = item.CuadranteUbicacion.GetValueOrDefault(),
-                            ZonaID = item.ZonaID.GetValueOrDefault()
+                            ZonaID = item.ZonaID.GetValueOrDefault(),
+                            Elementos = item.Elementos.GetValueOrDefault()
                         });
                     }
 
@@ -71,17 +72,17 @@ namespace BackEndSAM.DataAcces.Embarque.Empaquetado
             }
         }
 
-        public object ObtenerZonas(int PatioID)
+        public object ObtenerZonas(int PatioID, int PaqueteCerrado)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Steelgo_Get_ZonaPlana_Result> result = ctx.Sam3_Steelgo_Get_ZonaPlana(PatioID).ToList();
+                    List<Sam3_Embarque_Empaquetado_Get_Zona_Result> result = ctx.Sam3_Embarque_Empaquetado_Get_Zona(PatioID, PaqueteCerrado).ToList();
                     List<ZonaPaquete> listaDetalle = new List<ZonaPaquete>();
                     listaDetalle.Add(new ZonaPaquete());
 
-                    foreach (Sam3_Steelgo_Get_ZonaPlana_Result item in result)
+                    foreach (Sam3_Embarque_Empaquetado_Get_Zona_Result item in result)
                     {
                         listaDetalle.Add(new ZonaPaquete
                         {
@@ -122,7 +123,7 @@ namespace BackEndSAM.DataAcces.Embarque.Empaquetado
                             SpoolID = item.SpoolID,
                             NumeroControl = item.NumeroControl,
                             Area = item.Area.GetValueOrDefault(),
-                            Peso = item.Peso.GetValueOrDefault()/1000,
+                            Peso = item.Peso.GetValueOrDefault(),
                             CuadranteSam2ID = item.CuadranteSam2ID,
                             CuadranteSam3ID = item.CuadranteSam3ID,
                             Cuadrante = item.Cuadrante,
@@ -164,7 +165,7 @@ namespace BackEndSAM.DataAcces.Embarque.Empaquetado
                             SpoolID = item.SpoolID,
                             NumeroControl = item.NumeroControl,
                             Area = item.Area.GetValueOrDefault(),
-                            Peso = item.Peso.GetValueOrDefault() / 1000,
+                            Peso = item.Peso.GetValueOrDefault(),
                             ProyectoID = item.ProyectoID,
                             CuadranteSam2ID = item.CuadranteSam2ID,
                             CuadranteSam3ID = item.CuadranteSam3ID,

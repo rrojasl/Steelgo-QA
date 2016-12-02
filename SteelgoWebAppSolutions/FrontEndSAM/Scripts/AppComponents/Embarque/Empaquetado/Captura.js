@@ -44,7 +44,11 @@ function CargarGrid() {
             pageSize: 10,
             serverPaging: false,
             serverFiltering: false,
-            serverSorting: false
+            serverSorting: false,
+            aggregate: [
+                { field: "Area", aggregate: "sum" },
+                { field: "Peso", aggregate: "sum" }
+            ]
         },
         navigatable: true,
         filterable: {
@@ -65,8 +69,8 @@ function CargarGrid() {
         columns: [
             { field: "NumeroControl", title: _dictionary.columnSpool[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec() },
             { field: "Cuadrante", title: _dictionary.columnCuadrante[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec() },
-            { field: "Area", title: _dictionary.columnM2[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec() },
-            { field: "Peso", title: _dictionary.columnPeso[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec() },
+            { field: "Area", title: _dictionary.columnM2[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), aggregates: ["sum"], footerTemplate: "<div style='text-align:right;'>SUM: #= kendo.toString(sum, 'n') #</div>", attributes: { style: "text-align:right;" } },
+            { field: "Peso", title: _dictionary.columnPeso[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), aggregates: ["sum"], footerTemplate: "<div style='text-align:right;'>SUM: #= kendo.toString(sum, 'n') #</div>", attributes: { style: "text-align:right;" } },
             { command: { text: _dictionary.botonDescarga[$("#language").data("kendoDropDownList").value()], click: descargaSpool }, title: _dictionary.columnDescargar[$("#language").data("kendoDropDownList").value()], width: "70px" }
         ],
         dataBound: function (e) {
@@ -94,6 +98,9 @@ function descargaSpool(e) {
         if ($('#Guardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
             var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
 
+            $("#InputZonaDescarga").data("kendoComboBox").value(dataItem.ZonaAnteriorID);
+            $("#InputZonaDescarga").data("kendoComboBox").trigger("change");
+            CuadranteAnterior = dataItem.CuadranteAnteriorSam3ID;
             $("#InputUidRow").val(dataItem.uid);
 
             windowDownload.open().center();
@@ -140,15 +147,17 @@ function ImprimirTotalToneladas(ds) {
 
             totalToneladas = totalToneladas + ds[i].Peso;
         }
-        $("#TotalToneladas").text(totalToneladas != 0 ? totalToneladas : "");
+        $("#TotalToneladas").css('text-align', 'center');
+        $("#TotalToneladas").text(totalToneladas != 0 ? totalToneladas.toFixed(3) : "");
     } else {
         $("#TotalToneladas").text("");
     }
 }
 
 function ImprimirTotalPiezas(ds) {
-    if(ds!=null){        
-        $("#TotalPiezas").text(ds.length!=0?ds.length:"");
+    if (ds != null) {
+        $("#TotalPiezas").css('text-align', 'center');
+        $("#TotalPiezas").text(ds.length != 0 ? ds.length : "");
     } else {
         $("#TotalPiezas").text("");
     }
