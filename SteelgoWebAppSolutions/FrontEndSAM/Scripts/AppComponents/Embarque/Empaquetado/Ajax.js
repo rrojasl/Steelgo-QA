@@ -1,4 +1,6 @@
 ﻿var cuadranteSave = 0;
+var guardado = false;
+var CuadranteAnterior = 0;
 function AjaxCargarCamposPredeterminados() {
     var campoPredeterminado = 3067;
     $CamposPredeterminados.CamposPredeterminados.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), id: campoPredeterminado }).done(function (data) {
@@ -95,15 +97,14 @@ function AjaxCargarZona(patioID) {
     });
 }
 
-function AjaxCargarZonaGuardado(patioID) {
+function AjaxCargarZonaGuardado(patioID, zonaID, cerrado) {
     loadingStart();
-    $Empaquetado.Empaquetado.read({ token: Cookies.get("token"), PatioID: patioID }).done(function (data) {
+    $Empaquetado.Empaquetado.read({ token: Cookies.get("token"), PatioID: patioID, PaqueteCerrado: cerrado }).done(function (data) {
         $("#InputZonaPaquete").data("kendoComboBox").dataSource.data([]);
         if (data.length > 0) {
-            var zonaID = 0;
             $("#InputZonaPaquete").data("kendoComboBox").dataSource.data(data);
 
-            if (data.length < 3) {
+            if (data.length < 3 && zonaID == 0) {
                 for (var i = 0; i < data.length; i++) {
                     if (data[i].ZonaID != 0) {
                         zonaID = data[i].ZonaID;
@@ -146,12 +147,14 @@ function AjaxCargarCuadranteDescarga(zonaID) {
         if (data.length > 0) {
             $("#InputCuadranteDescarga").data("kendoComboBox").dataSource.data(data);
 
-            if (data.length < 3) {
+            if (data.length < 3 && CuadranteAnterior == 0) {
                 for (var i = 0; i < data.length; i++) {
                     if (data[i].CuadranteID != 0) {
                         CuadranteId = data[i].CuadranteID;
                     }
                 }
+            } else {
+                CuadranteId = CuadranteAnterior;
             }
 
             $("#InputCuadranteDescarga").data("kendoComboBox").value(CuadranteId);
@@ -172,6 +175,7 @@ function AjaxCargarDetalleEmpaquetado(paqueteID, todos) {
             ImprimirTotalToneladas(ds._data);
             ImprimirTotalPiezas(ds._data);
         }
+        guardado = false;
         loadingStop();
     });
 }
@@ -211,17 +215,16 @@ function AjaxObtenerDetalleSpool(tipoConsulta, spoolID, codigo) {
     });
 }
 
-function AbrirPopUpGuardar(Paquete, TipoGuardado) {
+function AbrirPopUpGuardar(Paquete, TipoGuardado, PatioID) {
     var fechaPredeterminada;
     cuadranteSave = Paquete.CuadranteUbicacion == null ? 0 : Paquete.CuadranteUbicacion;
+    var cerrado = $("#InputCerrar").is(":checked")?1:0;
+    AjaxCargarZonaGuardado(PatioID, Paquete.ZonaID, cerrado);
+
     $("#InputTipoGuardado").val(TipoGuardado);
     if (Paquete.PaqueteID == 0) {
         $("#InputNombre").val("");
         $("#InputNombre").attr("disabled", false);
-        $("#InputCuadrantePaquete").data("kendoComboBox").value("");
-        $("#InputZonaPaquete").data("kendoComboBox").value(0);
-        $("#InputZonaPaquete").data("kendoComboBox").trigger("change");
-
         var idFechaPaquete = 3068;
         $CamposPredeterminados.CamposPredeterminados.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), id: idFechaPaquete }).done(function (data) {
             fechaPredeterminada = kendo.toString(data, _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()]);
@@ -241,7 +244,7 @@ function AbrirPopUpGuardar(Paquete, TipoGuardado) {
 
 }
 
-function AjaxGuardarCaptura(ds, tipoGuardado, cerrarPaquete, Proyecto, Paquete) {
+function AjaxGuardarCaptura(ds, tipoGuardado, cerrarPaquete, Paquete, Proyecto) {
     windowSave.close();    
     var Captura = {
         listaDetalle: ""
@@ -279,9 +282,10 @@ function AjaxGuardarCaptura(ds, tipoGuardado, cerrarPaquete, Proyecto, Paquete) 
                 } else {
                     var paqueteID = parseInt(data.ReturnMessage[1]);
                     opcionHabilitarView(true, "FieldSetView");
+                    guardado = true; 
                     $("#grid").data("kendoGrid").dataSource.data([]);
                     AjaxCargarPaquetes(Proyecto.ProyectoID, paqueteID);
-                    setTimeout(function () { AjaxCargarDetalleEmpaquetado(paqueteID, 1); }, 500);
+                    setTimeout(function () { AjaxCargarDetalleEmpaquetado(paqueteID, 1); }, 800);
 
                 }
                 displayNotify("MensajeGuardadoExistoso", "", '0');

@@ -40,7 +40,7 @@ namespace BackEndSAM.Controllers.Embarque.Empaquetado
         }
 
         [HttpGet]
-        public object ObtenerZonas(string token, int PatioID)
+        public object ObtenerZonas(string token, int PatioID, int PaqueteCerrado)
         {
             string payload = "";
             string newToken = "";
@@ -51,7 +51,7 @@ namespace BackEndSAM.Controllers.Embarque.Empaquetado
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                return EmpaquetadoBD.Instance.ObtenerZonas(PatioID);
+                return EmpaquetadoBD.Instance.ObtenerZonas(PatioID, PaqueteCerrado);
             }
             else
             {

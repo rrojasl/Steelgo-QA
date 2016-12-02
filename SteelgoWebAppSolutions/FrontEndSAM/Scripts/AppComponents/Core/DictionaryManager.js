@@ -10879,6 +10879,10 @@ _dictionary = {
         "es-MX": "El spool ya se encuentra cargado en la plana ",
         "en-US": "The spool is already loaded on the flat "
     },
+    "EmbarqueEmpaquetadoErrorPaqueteVacio": {
+        "es-MX": "El paquete no se puede cerrar vacío",
+        "en-US": "The package can not be closed empty"
+    },
     //Finaliza Pantalla empaquetado
     //Incia pantalla revision
     "EmbarqueRevisionBreadcrumb": {

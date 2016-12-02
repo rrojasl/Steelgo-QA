@@ -18,6 +18,7 @@ namespace BackEndSAM.Models.Embarque.Empaquetado
             CuadrantePaqueteSam3ID = 0;
             CuadranteUbicacion = 0;
             ZonaID = 0;
+            Elementos = 0;
         }
 
         public int PaqueteID { get; set; }
@@ -29,6 +30,7 @@ namespace BackEndSAM.Models.Embarque.Empaquetado
         public int CuadrantePaqueteSam3ID { get; set; }
         public int CuadranteUbicacion { get; set; }
         public int ZonaID { get; set; }
+        public int Elementos { get; set; }
     }
 
     public class ZonaPaquete

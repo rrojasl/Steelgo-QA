@@ -60,58 +60,62 @@
             </div>
             <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3" id="divinputMedicionesHoraToma">
                 <label id="lblHoraToma"> </label>
-                <input id="inputMedicionesHoraToma" class="item-select general-input" required />
+                <input id="inputMedicionesHoraToma" style="width: 100%;" required />
             </div>
             <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3" id="divinputPatio">
                 <label id="lblPatio"> </label>
                 <input id="inputPatio" required />
             </div>
-            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3" id="divArea">
+            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3" id="divZona">
                 <label>Zona</label>
-                <input id="Zona" required />
+                <input id="inputZona" required />
             </div>
             <br /><br />
             @*mediciones con equipo de toma*@
             <br /><br />
-            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" id="divinputMedicionesTempAmbiente">
-                <label id="lblMedicionesTempAmbiente"> </label>
-                <input id="inputMedicionesTempAmbiente" class="item-select general-input" required />
-            </div>
-            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" id="divinputEquipoTomaTempAmbID">
-                <label id="lblEquipoTomaTemperatura"></label>
-                <input id="inputEquipoTomaTempAmbID" required />
+            <div class="row" id="FieldSetView">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" id="divinputMedicionesTempAmbiente">
+                        <label id="lblMedicionesTempAmbiente"> </label>
+                        <input id="inputMedicionesTempAmbiente" class="item-select" required />
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" id="divinputEquipoTomaTempAmbID">
+                        <label id="lblEquipoTomaTemperatura"></label>
+                        <input id="inputEquipoTomaTempAmb" required />
+                    </div>
+                </div>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" id="divinputMedicionesHumedad">
                 <label id="">&nbsp;</label>
                 <label id="lblMedicionesHumedad"> </label>
-                <input id="inputMedicionesHumedad" class="item-select general-input" required />
+                <input id="inputMedicionesHumedad" class="item-select" required />
             </div>
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" id="divinputEquipoTomaHumedadID">
                 <label id="">&nbsp;</label>
                 <label id="lblEquipoTomaHumedad"></label>
-                <input id="inputEquipoTomaHumedadID" required />
+                <input id="inputEquipoTomaHumedad" required />
             </div>
             <br /><br />
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" id="divinputMedicionesPuntoRocio">
                 <label id="">&nbsp;</label>
                 <label id="lblMedicionesPuntoRocio"> </label>
-                <input id="inputMedicionesPuntoRocio" class="item-select general-input" required />
+                <input id="inputMedicionesPuntoRocio" class="item-selec" required />
             </div>
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" id="divinputEquipoTomaPtoRocioID">
                 <label id="">&nbsp;</label>
                 <label id="lblEquipoTomaRocio"> </label>
-                <input id="inputEquipoTomaPtoRocioID" required />
+                <input id="inputEquipoTomaPtoRocio" required />
             </div>
 
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" id="divinputMedicionesCampoX">
                 <label id="">&nbsp;</label>
                 <label id="lblMedicionesCampoX"> </label>
-                <input id="inputMedicionesCampoX" class="item-select general-input" required />
+                <input id="inputMedicionesCampoX" class="item-select" required />
             </div>
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" id="divinputEquipoTomaCampoXID">
                 <label id="">&nbsp;</label>
                 <label id="lblEquipoTomaCampoX"> </label>
-                <input id="inputEquipoTomaCampoXID" required />
+                <input id="inputEquipoTomaCampoX" required />
             </div>
         </div>
     </div>
@@ -130,8 +134,8 @@
                             <span class="caretWhite"></span>
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a href="#" id="btnGuardar"><span id="botonGuardar4"></span></a></li>
-                            <li><a href="#" id="btnGuardarYNuevo"><span id="botonGuardarYNuevo1"></span></a></li>
+                            <li><a href="#" id="btnGuardarPie"><span id="botonGuardar4"></span></a></li>
+                            <li><a href="#" id="btnGuardarYNuevoPie"><span id="botonGuardarYNuevo1"></span></a></li>
                         </ul>
                     </div>
                     <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar1"></span></a>

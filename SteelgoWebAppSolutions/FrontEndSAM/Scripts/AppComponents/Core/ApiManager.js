@@ -174,6 +174,7 @@ var $ReporteRT = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Dashboard = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Cuadrante = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Zona = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Patios = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 
 //Fabricación
 var $Armado = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
@@ -195,6 +196,9 @@ var $EditarRequisicion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $ValidacionRT = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $OKPND = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 
+//Condiciones Climatologicas
+var $CondicionesClimatologicas = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+
 //Pintura
 var $PinturaGeneral = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $SistemaPintura = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
@@ -202,6 +206,7 @@ var $CargaCarro = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $CapturaAvance = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $SistemaPinturaAplicable = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $ListadoSistemaPintura = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $IntermedioAcabado = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 
 //Embarque
 var $Etiquetado = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
@@ -350,6 +355,7 @@ $ImpresionPruebas.add("ImpresionPruebas");
 $Dashboard.add("Dashboard");
 $Cuadrante.add('Cuadrante');
 $Zona.add('Zona');
+$Patios.add('Patios');
 
 //Fabricación
 $Armado.add("Armado");
@@ -367,6 +373,9 @@ $ValidacionRT.add("ValidacionRT");
 $ReporteRT.add("ReporteRT");
 $OKPND.add("OKPND");
 
+//CondicionesClimatologicas
+$CondicionesClimatologicas.add("CondicionesClimatologicas");
+
 //Pintura
 $PinturaGeneral.add("PinturaGeneral");
 $SistemaPintura.add("SistemaPintura");
@@ -374,6 +383,7 @@ $CargaCarro.add("CargaCarro");
 $CapturaAvance.add('CapturaAvance');
 $SistemaPinturaAplicable.add("SistemaPinturaAplicable");
 $ListadoSistemaPintura.add("ListadoSistemaPintura");
+$IntermedioAcabado.add("IntermedioAcabado");
 
 //Embarque
 $Etiquetado.add("Etiquetado");
