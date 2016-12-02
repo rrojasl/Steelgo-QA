@@ -34,6 +34,7 @@ function SuscribirEventoPlanchar() {
                     visible: false, //the window will not appear before its .open method is called
                     width: "auto",
                     height: "auto",
+                    animation:false,
                     modal: true
                 }).data("kendoWindow");
 

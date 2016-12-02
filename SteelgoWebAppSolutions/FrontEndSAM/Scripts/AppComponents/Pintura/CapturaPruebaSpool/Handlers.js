@@ -7,6 +7,7 @@
     SuscribirEventoSpoolIDAgregar();
     SuscribirEventoBuscar();
     SuscribirEventoGuardar();
+    SuscribirEventoAgregarPrueba();
 }
 
 //function SuscribirEventoSistemaPintura() {
@@ -42,7 +43,12 @@ function SuscribirEventoProceso() {
         suggest: true,
         filter: "contains",
         index: 3,
-        change: function (e) { }
+        change: function (e) {
+
+            $("#inputPrueba").data("kendoComboBox").value(1);
+            $("#inputPrueba").data("kendoComboBox").trigger("change");
+
+        }
     });
 }
 
@@ -60,13 +66,29 @@ function SuscribirEventoPrueba() {
 
 function SuscribirEventoSpoolID() {
     $('#InputID').kendoComboBox({
-        dataTextField: "Spool",
-        dataValueField: "SpoolID ",
+        dataTextField: "IDValido",
+        dataValueField: "Valor ",
         suggest: true,
         filter: "contains",
         index: 3,
         change: function (e) { }
     });
+
+    $("#InputOrdenTrabajo").blur(function (e) {
+        if ($("#InputOrdenTrabajo").val() != "") {
+            if ($("#InputOrdenTrabajo").val().match("^[a-zA-Z][0-9]*$")) {
+                try {
+                    AjaxObtenerSpoolID();
+                } catch (e) {
+                    displayNotify("", e.message, '2');
+                }
+            } else {
+                $("#InputOrdenTrabajo").val("");
+                displayNotify("PinturaCargaMensajeOrdenTrabajo", "", '1');
+            }
+        }
+    });
+
 }
 
 function SuscribirEventoSpoolIDAgregar() {
@@ -81,16 +103,30 @@ function SuscribirEventoSpoolIDAgregar() {
 }
 
 function SuscribirEventoBuscar() {
-
     $('#btnBuscar').click(function (e) {
-
+        $("#detalleSpool").css("display", "block");
         llenarGrid();
-
     });
-
-
-
 }
+
+function SuscribirEventoAgregarPrueba() {
+    $('#btnAgregar').click(function (e) {
+       
+            var ds = $("#grid").data("kendoGrid").dataSource;
+            var array = [
+                  {
+                      Accion: 1,
+                      FechaPrueba: new Date(),
+                      ValorUnidadMedida: 0,
+                      Aprobado: ""
+                  }
+            ];
+            ds.insert(0, array[0]);
+            ds.sync();
+
+        
+    });
+};
 
 
 
@@ -110,19 +146,18 @@ function SuscribirEventoGuardar() {
 
 
 
-    $('#btnGuardar').click(function (e) {
+    $('#Guardar').click(function (e) {
 
 
 
-        if ($('#botonGuardar').text() == "Guardar") {
+        if ($('#Guardar').text() == "Guardar") {
 
-            opcionHabilitarView(true, "FieldSetView");
-
-            //ajaxGuardar($("#grid").data("kendoGrid").dataSource._data);
+           
+            ajaxGuardar($("#grid").data("kendoGrid").dataSource._data);
 
         }
 
-        else if ($('#botonGuardar').text() == "Editar")
+        else if ($('#Guardar').text() == "Editar")
 
             opcionHabilitarView(false, "FieldSetView")
 
@@ -133,35 +168,18 @@ function SuscribirEventoGuardar() {
 
 
 function opcionHabilitarView(valor, name) {
-
-
-
     if (valor) {
-
         $('#FieldSetView').find('*').attr('disabled', true);
-
-        $("#inputSistemaPintura").data("kendoDropDownList").enable(false);
-
-        $("#inputLote").data("kendoDropDownList").enable(false);
-
-        $('#botonGuardar').text("Editar");
-
+        $('#Guardar').text("Editar");
+        $('#GuardarPie').text("Editar");
+        
         $("#DetalleAvisoLlegada0017").text("Editar");
-
     }
-
     else {
-
         $('#FieldSetView').find('*').attr('disabled', false);
-
-        $("#inputSistemaPintura").data("kendoDropDownList").enable(true);
-
-        $("#inputLote").data("kendoDropDownList").enable(true);
-
-        $('#botonGuardar').text("Guardar");
-
+        $('#Guardar').text("Guardar");
+        $('#GuardarPie').text("Editar");
         $("#DetalleAvisoLlegada0017").text("Guardar");
-
     }
 
 }

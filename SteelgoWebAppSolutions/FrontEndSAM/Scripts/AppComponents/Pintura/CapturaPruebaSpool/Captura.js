@@ -42,7 +42,7 @@ function CargarGrid() {
                 model: {
                     fields: {
                         Accion: { type: "number", editable: false },
-                        FechaPrueba: { type: "number", editable: false }, 
+                        FechaPrueba: { type: "date", editable: true }, 
                         ValorUnidadMedida: { type: "number", editable: true },
                         Aprobado: { type: "string", editable: false }
                     }
@@ -77,10 +77,10 @@ function CargarGrid() {
         },
         filterable: getGridFilterableMaftec(),
         columns: [
-            { field: "FechaPrueba", title: _dictionary.columnFechaPrueba[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "110px" },
-            { field: "ValorUnidadMedida", title: "Valor U. Medida", filterable: getGridFilterableCellNumberMaftec(), width: "170px" },
-            { field: "Aprobado", title: "Aprobado", filterable: getGridFilterableCellMaftec(), width: "130px", attributes: { style: "text-align:center;" }},
-            { command: { text: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()] }, title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], width: "50px", attributes: { style: "text-align:center;" } }
+            { field: "FechaPrueba", title: _dictionary.columnFechaPrueba[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "110px", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()] },
+            { field: "ValorUnidadMedida", editor: RenderAprobado, title: "Valor U. Medida", filterable: getGridFilterableCellNumberMaftec(), width: "170px", attributes: { style: "text-align:right;" } },
+            { field: "Aprobado" , title: "Aprobado", filterable: getGridFilterableCellMaftec(), width: "130px", attributes: { style: "text-align:center;" } },
+            { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: eliminarCaptura }, title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], width: "50px" },
         ],
         beforeEdit: function (e) {
             var columnIndex = this.cellIndex(e.container);
@@ -98,6 +98,19 @@ function isApproved(fieldName, model) {
     }
 }
 
+function eliminarCaptura(e) {
+    e.preventDefault();
+    if ($('#botonGuardar').text() == _dictionary.DetalleAvisoLlegada0017[$("#language").data("kendoDropDownList").value()]) {
+
+        var filterValue = $(e.currentTarget).val();
+        var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+        var dataSource = $("#grid").data("kendoGrid").dataSource;
+        dataSource.remove(dataItem);
+        dataSource.sync();
+    }
+
+}
+
 function llenarGrid() {
     var grid = $("#grid").data("kendoGrid").dataSource;
 
@@ -106,13 +119,7 @@ function llenarGrid() {
                       Accion: 1,
                       FechaPrueba : new Date(),
                       ValorUnidadMedida: 0,
-                      Aprobado: "NO"
-                  },
-                  {
-                      Accion: 1,
-                      FechaPrueba: new Date(),
-                      ValorUnidadMedida: 3,
-                      Aprobado: "NO"
+                      Aprobado: ""
                   }
     ]
     grid.data(ds);

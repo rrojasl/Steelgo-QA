@@ -63,19 +63,9 @@ function ObtenerDato(fecha, tipoDatoObtener) {
 }
 
 function changeLanguageCall() {
-    //AjaxObtenerCuadrante();
     CargarGridCapturaAvanceIntAcabado();
-  
+    llenarCombo();
     $('input:radio[name=Proceso]:nth(0)').trigger("click");
-    //setTimeout(function () { AjaxCargarCamposPredeterminados(); }, 1500);
-    //setTimeout(function () { AjaxObtenerLote(); }, 2000);
-    //setTimeout(function () { AjaxObtenerColor(); }, 2500);
-    //setTimeout(function () { AjaxObtenerPintores(); }, 3000);
-    //setTimeout(function () { AjaxSistemaPintura(); }, 3500);
-    //document.title = _dictionary.menuPinturaCapturaAvanceIntAcabadoTop[$("#language").data("kendoDropDownList").value()];
-  //  $("#lblGuardar").text(_dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]);
-  //  $('#lblGuardarFooter').text(_dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]);
-    //opcionHabilitarView(false, "FieldSetView")
 }
 
 function CargarGridCapturaAvanceIntAcabado() {
@@ -143,18 +133,7 @@ function CargarGridCapturaAvanceIntAcabado() {
 
 function llenarCombo() {
   
-    var c = [
-     { CuadranteID: 0, Nombre: "" },
-       { CuadranteID: 1, Nombre: "CH-4" },
-       { CuadranteID: 2, Nombre: "ZPC-E10" },
-       { CuadranteID: 3, Nombre: "ZCC-D4" },
-];
-    var sp = [
-        { SistemaPinturaID: 0, Nombre: "" },//Debe coincidir lo que tienes en tu dataTextField de tu combo por eso no te muestra nada 
-        { SistemaPinturaID: 1, Nombre: "A1" },
-        { SistemaPinturaID: 2, Nombre: "A2" },
-        { SistemaPinturaID: 3, Nombre: "18.1" },
-    ];
+    
 
     var z = [
         { ZonaID: 0, Nombre: "" },//Debe coincidir lo que tienes en tu dataTextField de tu combo por eso no te muestra nada 
@@ -162,12 +141,6 @@ function llenarCombo() {
         { ZonaID: 2, Nombre: "Zona 2" },
         { ZonaID: 3, Nombre: "Zona 3" },
     ];
-
-    $("#inputCuadrante").data("kendoComboBox").dataSource.data([]);
-    $("#inputCuadrante").data("kendoComboBox").dataSource.data(c);
-
-   $("#inputSistemaPintura").data("kendoComboBox").dataSource.data([]);
-   $("#inputSistemaPintura").data("kendoComboBox").dataSource.data(sp);
 
    $("#inputZona").data("kendoComboBox").dataSource.data([]);
    $("#inputZona").data("kendoComboBox").dataSource.data(z);

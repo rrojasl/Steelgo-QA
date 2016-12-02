@@ -25,3 +25,18 @@
     //        }
     //    });
 }
+
+function RenderAprobado(container, options) {
+    var dataItem;
+    $('<input   id=' + options.model.uid + '  data-bind="value:' + options.field + '"/>')
+        .appendTo(container)
+        .kendoNumericTextBox({
+            format: "0",
+            change: function () {
+                var value = this.value();
+                options.model.Aprobado = value >= 1 && value <= 5 ? "Aprobado" : "Rechazado";
+                $("#grid").data("kendoGrid").dataSource.sync();
+            }
+            //step: 0.01
+        });
+}

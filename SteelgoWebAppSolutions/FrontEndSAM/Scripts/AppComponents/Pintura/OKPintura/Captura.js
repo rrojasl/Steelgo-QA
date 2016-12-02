@@ -8,7 +8,8 @@ function changeLanguageCall() {
     CargarGrid();
     CargarGridPopUp();
     document.title = "OK Pintura";
-
+    AjaxCargarProyecto();
+    $('input:radio[name=Muestra]:nth(1)').trigger("click");
 }
 
 function CargarGrid() {
@@ -32,23 +33,6 @@ function CargarGrid() {
             }
         },
         dataSource: {
-            data: [{
-                Accion: 1,
-                OKPinturaDID: 1,
-                NumeroControl: 'X001-001',
-                Cuadrante: "A1",
-                Prioridad: 12,
-                SpoolID: 41719,
-                OrdenTrabajoSpoolID: 596,
-                OkPintura: false,
-                Detalle: "Ver Pruebas",
-                ShotBlastFecha: new Date(),
-                PrimarioFecha: new Date(),
-                IntermedioFecha: new Date(),
-                AcabadoFecha: new Date()
-
-            }
-            ],
             schema: {
                 model: {
                     fields: {
