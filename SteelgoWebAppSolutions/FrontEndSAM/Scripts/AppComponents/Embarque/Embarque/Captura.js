@@ -12,7 +12,6 @@ function changeLanguageCall() {
         format: _dictionary.FormatoFecha2[$("#language").data("kendoDropDownList").value()]
     });
 
-    LlenarPantalla();
 };
 
 
@@ -41,7 +40,11 @@ function CargarGrid() {
             pageSize: 10,
             serverPaging: false,
             serverFiltering: false,
-            serverSorting: false
+            serverSorting: false,
+            aggregate: [
+                { field: "M2", aggregate: "sum" },
+                { field: "Peso", aggregate: "sum" }
+            ]
         },
         navigatable: true,
         filterable: {
@@ -61,9 +64,9 @@ function CargarGrid() {
         filterable: getGridFilterableMaftec(),
         columns: [
             { field: "Nombre", title: "Plana", filterable: getGridFilterableCellMaftec() },
-            { field: "CantidadElementos", title: "Cantidad Spools", filterable: getGridFilterableCellNumberMaftec(), attributes: { style: "text-align:right;" }  },
-            { field: "Peso", title: "KG", filterable: getGridFilterableCellNumberMaftec(), attributes: { style: "text-align:right;" } },
-            { field: "M2", title: "M2", filterable: getGridFilterableCellNumberMaftec(), attributes: { style: "text-align:right;" } },
+            { field: "CantidadElementos", title: "Cantidad Spools", filterable: getGridFilterableCellNumberMaftec(), attributes: { style: "text-align:right;" } },
+            { field: "M2", title: "M2", filterable: getGridFilterableCellNumberMaftec(), aggregates: ["sum"], footerTemplate: "<div style='text-align:right;'>SUM: #= kendo.toString(sum, 'n') #</div>", attributes: { style: "text-align:right;" } },
+            { field: "Peso", title: "KG", filterable: getGridFilterableCellNumberMaftec(), aggregates: ["sum"], footerTemplate: "<div style='text-align:right;'>SUM: #= kendo.toString(sum, 'n') #</div>", attributes: { style: "text-align:right;" } },
              {
                  command: {
                      text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()],
@@ -112,7 +115,7 @@ function CargarGrid() {
                  },
                  title: "ELM",
                  width: "99px",
-
+                 attributes: { style: "text-align:center;" }
              }
 
         ]
@@ -229,30 +232,4 @@ function ValidarFecha(valor) {
     if (fecha == null) {
         $("#inputFechaEmbarque").data("kendoDatePicker").value("");
     }
-}
-
-function LlenarPantalla() {
-    var proveedor = [{ ProveedorID: 0, Nombre: "" }, { ProveedorID: 1, Nombre: "PROV-01" }];
-    var tracto = [{ TractoID: 0, Nombre: "" }, { TractoID: 1, Nombre: "Tracto89" }];
-    var chofer = [{ ChoferID: 0, Nombre: "" }, { ChoferID: 1, Nombre: "José Rios" }];
-    var emb = [{ EmbarqueID: 0, Nombre: "" }, { EmbarqueID: 1, Nombre: "Emb-2" }]
-
-    $("#Proveedor").data("kendoComboBox").dataSource.data(proveedor);
-
-    $("#Tracto").data("kendoComboBox").dataSource.data(tracto);
-
-    $("#Chofer").data("kendoComboBox").dataSource.data(chofer);
-
-    $("#Embarque").data("kendoComboBox").dataSource.data(emb);
-
-    var data = [{
-        Accion:2,
-        Nombre: "PL-345",
-        CantidadElementos: 2,
-        Peso: 2.73,
-        M2: 135
-    }];
-
-    $("#grid").data("kendoGrid").dataSource.data(data);
-    $("#grid").data("kendoGrid").dataSource.sync();
 }

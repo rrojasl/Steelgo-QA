@@ -16,7 +16,7 @@
                 }
 
                 $("#Proyecto").data("kendoComboBox").value(proyectoId);
-                //$("#Proyecto").data("kendoComboBox").trigger("change");
+                $("#Proyecto").data("kendoComboBox").trigger("change");
             }
         }
         loadingStop();
