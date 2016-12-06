@@ -10,7 +10,7 @@ function changeLanguageCall() {
     opcionHabilitarView(false, "FieldSetView");
     document.title = "Revisión Embarque";
     AjaxCargarProyecto();
-    LlenarPantalla();
+    //LlenarPantalla();
 };
 
 function validarInformacion(row) {
@@ -30,12 +30,7 @@ function validarInformacion(row) {
 function CargarGrid() {
 
     $("#grid").kendoGrid({
-        edit: function (e) {
-            if ($('#Guardar').text() != _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
-
-                this.closeCell();
-            }
-        },
+     
         autoBind: true,
         dataSource: {
             schema: {
@@ -44,7 +39,7 @@ function CargarGrid() {
                         NumeroControl: { type: "string", editable: false },
                         Paquete: { type: "string", editable: false },
                         Llego: { type: "boolean", editable: true },
-                        LlegoComentarios: { type: "boolean", editable: true },
+                        LlegoComentario: { type: "boolean", editable: true },
                         NoLlego: { type: "boolean", editable: true },
                         Comentario: { type: "string", editable: true }
                     }

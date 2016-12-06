@@ -23,12 +23,13 @@
     });
 }
 
-function AjaxCargarPaquetesCerrados(proyectoID) {
-    $EmbarqueGeneral.EmbarqueGeneral.read({ token: Cookies.get("token"), ProyectoID: proyectoID }).done(function (data) {
-        $("#inputPaquete").data("kendoComboBox").dataSource.data([]);
+function AjaxCargarEmbarquesEnviados(proyectoID) {
+    loadingStart();
+    $RevisionEmbarque.RevisionEmbarque.read({ token: Cookies.get("token"), ProyectoID: proyectoID }).done(function (data) {
+        $("#Embarque").data("kendoComboBox").dataSource.data([]);
             var PaqueteID = 0;
             if (data.length > 0) {
-                $("#inputPaquete").data("kendoComboBox").dataSource.data(data);
+                $("#Embarque").data("kendoComboBox").dataSource.data(data);
 
                 if (data.length < 3) {
                     for (var i = 0; i < data.length; i++) {
@@ -38,9 +39,31 @@ function AjaxCargarPaquetesCerrados(proyectoID) {
                     }
                 }
 
-                $("#inputPaquete").data("kendoComboBox").value(PaqueteID);
-                $("#inputPaquete").data("kendoComboBox").trigger("change");
+                $("#Embarque").data("kendoComboBox").value(PaqueteID);
+                $("#Embarque").data("kendoComboBox").trigger("change");
             }
+        loadingStop();
+    });
+}
+
+
+
+
+function AjaxObtieneDetalle(EmbarqueID) {
+    loadingStart();
+    $RevisionEmbarque.RevisionEmbarque.read({ token: Cookies.get("token"), EmbarqueID: EmbarqueID, }).done(function (data) {
+        if (Error(data)) {
+            if (data.length > 0) {
+                $("#grid").data("kendoGrid").dataSource.data([]);
+                
+                var ds = $("#grid").data("kendoGrid").dataSource;
+                var array = data;
+                for (var i = 0; i < array.length; i++) {
+                    ds.add(array[i]);
+                }
+                ds.sync();
+            }
+        }
         loadingStop();
     });
 }

@@ -285,7 +285,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                     }
                     else {
                         ListaDetalles[index].Estatus = 0;
-                        //$('tr[data-uid="' + arregloCaptura[index].uid + '"] ').css("background-color", "#ffcccc");
+                        $('tr[data-uid="' + arregloCaptura[index].uid + '"] ').css("background-color", "#ffcccc");
                         $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
                     }
 
@@ -297,7 +297,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                         (ListaDetalles[index].NumeroUnico2ID == "" || ListaDetalles[index].NumeroUnico2ID == null || ListaDetalles[index].NumeroUnico2ID == "0") &&
                        (ListaDetalles[index].TuberoID == "" || ListaDetalles[index].TuberoID == "0"))) {
                         ListaDetalles[index].Estatus = 0;
-                        //$('tr[data-uid="' + arregloCaptura[index].uid + '"] ').css("background-color", "#ffcccc");
+                        $('tr[data-uid="' + arregloCaptura[index].uid + '"] ').css("background-color", "#ffcccc");
                         $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
 
                     }

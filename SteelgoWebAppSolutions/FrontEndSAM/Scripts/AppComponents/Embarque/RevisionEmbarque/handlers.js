@@ -22,9 +22,9 @@ function SuscribirEventoProyecto() {
 
             if (dataItem != undefined) {
                 ProyectoInicial = dataItem.ProyectoID;
-                if (dataItem.ProyectoID != 0) {
-                    //AjaxCargarEmbarque();
-                }
+
+                AjaxCargarEmbarquesEnviados(dataItem.ProyectoID);
+
             }
             else {
                 $("#Proyecto").data("kendoComboBox").value("");
@@ -103,7 +103,7 @@ function opcionHabilitarView(valor, name) {
     if (valor) {
         $('#FieldSetView').find('*').attr('disabled', true);
         $("#InputID").data("kendoComboBox").enable(false);
-        
+
     }
     else {
         $('#FieldSetView').find('*').attr('disabled', false);
@@ -113,13 +113,19 @@ function opcionHabilitarView(valor, name) {
 
 function SuscribirEventoBuscar() {
     $('#btnBuscar').click(function (e) {
-        //ajaxBuscar();
+        if ($("#Embarque").data("kendoComboBox").text() != "") {
+            AjaxObtieneDetalle($("#Embarque").data("kendoComboBox").value());
+        }
+        else {
+            displayNotify('', 'Elije un embarque', '1');
+        }
+        
     });
 }
 
 function SuscribirEventoAgregar() {
     $('#btnAgregar').click(function (e) {
-        
+
     });
 }
 
