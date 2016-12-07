@@ -77,7 +77,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.GenerarRequisicion
                             Prioridad = item.Prioridad.GetValueOrDefault(),
                             Clasificacion = item.Clasificacion,
                             DiametroPlano = item.DiametroPlano.GetValueOrDefault(),
-                            Espesor = item.Espesor.GetValueOrDefault(),
+                            Espesor = item.Espesor.ToString(),
                             Cedula = item.Cedula,
 
                             ElementoPorClasificacionPNDID = item.ElementoPorClasificacionPNDID,
@@ -178,7 +178,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.GenerarRequisicion
                             Prioridad = item.Prioridad.GetValueOrDefault(),
                             Clasificacion = item.Clasificacion,
                             DiametroPlano = item.DiametroPlano.GetValueOrDefault(),
-                            Espesor = item.Espesor,
+                            Espesor = item.Espesor.ToString(),
                             Cedula = item.Cedula,
 
                             ElementoPorClasificacionPNDID = item.ElementoPorClasificacionPNDID,
@@ -254,7 +254,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.GenerarRequisicion
                             Prioridad = item.Prioridad.GetValueOrDefault(),
                             Clasificacion = item.Clasificacion,
                             DiametroPlano = item.DiametroPlano.GetValueOrDefault(),
-                            Espesor = item.Espesor,
+                            Espesor = item.Espesor.ToString(),
                             Cedula = item.Cedula,
 
                             ElementoPorClasificacionPNDID = item.ElementoPorClasificacionPNDID,

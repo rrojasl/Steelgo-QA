@@ -25,10 +25,10 @@ function changeLanguageCall() {
 
     SiguienteProceso("");
     CargarGrid();
-    $("#tipoPrueba").data("kendoComboBox").value("");
-    $("#Proyecto").data("kendoComboBox").value("");
-    $("#Proyecto").data("kendoComboBox").enable(true);
-    $("#tipoPrueba").data("kendoComboBox").enable(true);
+    $("#inputTipoPrueba").data("kendoComboBox").value("");
+    $("#inputTipoPrueba").data("kendoComboBox").value("");
+    $("#inputProyecto").data("kendoComboBox").enable(true);
+    $("#inputTipoPrueba").data("kendoComboBox").enable(true);
     $('#containerDiv').css('display', 'none');
     $('#grid').data('kendoGrid').dataSource.read();
     //ajaxRequisicion();
@@ -53,7 +53,7 @@ function SiguienteProceso(paramReq) {
 
 function cargaInicialRequisicionEditar() {
     if (requisicionID != 0) {
-        $("#Proyecto").data("kendoComboBox").value(ProyectoID);
+        $("#inputProyecto").data("kendoComboBox").value(ProyectoID);
         ajaxObtenerTipoPruebasRequisicionEdicion();
     }
 }
@@ -78,7 +78,7 @@ function CargarGrid() {
                         Cuadrante: { type: "string", editable: false },
                         Prioridad: { type: "number", editable: false },
                         Clasificacion: { type: "string", editable: false },
-                        Diametro: { type: "number", editable: false },
+                        DiametroPlano: { type: "number", editable: false },
                         Espesor: { type: "number", editable: false },
                         Cedula: { type: "string", editable: false },
 
@@ -219,7 +219,7 @@ function ExisteJunta() {
 }
 
 function AgregarJuntaNueva() {
-    if ($("#tipoPrueba").data("kendoComboBox").dataItem($("#tipoPrueba").data("kendoComboBox").select()).TipoPruebaPorSpool == 1) {
+    if ($("#inputTipoPrueba").data("kendoComboBox").dataItem($("#inputTipoPrueba").data("kendoComboBox").select()).TipoPruebaPorSpool == 1) {
         if (!ExisteSpool()) {
             AjaxObtenerSpool();
         }

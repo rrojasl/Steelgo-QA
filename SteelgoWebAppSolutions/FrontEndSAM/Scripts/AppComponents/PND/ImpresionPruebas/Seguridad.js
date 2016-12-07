@@ -1,7 +1,7 @@
 ﻿Cookies.set("home", true, { path: '/' });
-Cookies.set("navegacion", "10016", { path: '/' });
+Cookies.set("navegacion", "10043", { path: '/' });
 
-var $GenerarRequisicion = {
+var $ImpresionResultadosModel = {
     listContainer: {
         create: "",
         list: "",
@@ -14,10 +14,15 @@ var $GenerarRequisicion = {
             editable: "#inputProyecto",
             required: "#inputProyecto",
         },
-        inputPrueba: {
+        inputTipoPrueba: {
             visible: "#divPrueba",
             editable: "#inputPrueba",
             required: "#inputPrueba",
+        },
+        inputProveedor: {
+            visible: "#divProveedor",
+            editable: "#inputProveedor",
+            required: "#inputProveedor",
         }
     }
 };

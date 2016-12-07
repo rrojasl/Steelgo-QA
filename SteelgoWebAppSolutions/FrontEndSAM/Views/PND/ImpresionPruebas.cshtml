@@ -43,19 +43,19 @@
         <br />
         <div id="FieldSetView" class="row addedSectionInLineWithoutColor">
 
-            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 altoControl">
+            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 altoControl" id="divProyecto">
                 <label id="lblProyecto">  </label>
                 <input id="inputProyecto" class="" />
             </div>
-            <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 altoControl">
+            <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 altoControl" id="divPrueba">
                 <label id="lblPrueba"></label>
                 <input id="inputPrueba" class="" />
             </div>
-            <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 altoControl">
+            <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 altoControl" id="divProveedor">
                 <label id="lblProveedor"></label>
                 <input id="inputProveedor" class="" />
             </div>
-            <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 altoControl">
+            <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 altoControl" id="divRequisicion">
                 <label id="lblRequisicion"></label>
                 <input id="inputRequisicion" class="" />
             </div>
@@ -114,8 +114,6 @@
                         </div>
                     </div>
                     <a id="Imprimir" href="#" class="btn btn-fadeBlue actionButtonSection Imprimir"></a>
-                    
-
                 </div>
             </div>
         </div>
@@ -126,3 +124,10 @@
 <script type="text/javascript" src="~/Scripts/AppComponents/PND/ImpresionPruebas/Handlers.js"> </script>
 <script type="text/javascript" src="~/Scripts/AppComponents/PND/ImpresionPruebas/Render.js"> </script>
 <script type="text/javascript" src="~/Scripts/AppComponents/PND/ImpresionPruebas/Captura.js"> </script>
+<script type="text/javascript" src="~/Scripts/AppComponents/PND/ImpresionPruebas/Seguridad.js"> </script>
+
+<script>
+    @section JavascriptDocumentReadyFunctions {
+    $authorizationModel["Impresion Pruebas"] = $ImpresionResultadosModel;
+    }
+</script>

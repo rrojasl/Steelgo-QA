@@ -13,7 +13,7 @@ namespace BackEndSAM.Models.ServiciosTecnicos.RequisicionPND
             Prioridad = 0;
             Clasificacion = "";
             DiametroPlano = 0;
-            Espesor = 0;
+            Espesor = "0";
             Cedula = "";
 
             ElementoPorClasificacionPNDID = 0;
@@ -35,7 +35,7 @@ namespace BackEndSAM.Models.ServiciosTecnicos.RequisicionPND
         public int Prioridad { get; set; }
         public string Clasificacion { get; set; }
         public decimal DiametroPlano { get; set; }
-        public decimal? Espesor { get; set; }
+        public string Espesor { get; set; }
         public string Cedula { get; set; }
 
         public int? ElementoPorClasificacionPNDID { get; set; }

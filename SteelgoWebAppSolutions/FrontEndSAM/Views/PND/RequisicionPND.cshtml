@@ -24,13 +24,13 @@
                 <div class="button-section editButtonSection">
                     <input type="hidden" value=@ViewBag.id id="idField" />
                     <div class="btn-group save-group">
-                        <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="botonGuardar"></span></button>
+                        <button onclick="javascript:void(0);" type="button" class="btn btn-yellow accionGuardar"><span id="botonGuardar"></span></button>
                         <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="caretWhite"></span>
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a href="#" id="btnGuardar"><span id="botonGuardar2"></span></a></li>
-                            <li><a href="#" id="btnGuardarYNuevo"><span id="botonGuardarYNuevo"></span></a></li>
+                            <li><a href="#" id="btnGuardar"><span class="accionGuardar"></span></a></li>
+                            <li><a href="#" id="btnGuardarYNuevo"><span class="accionGuardarYNuevo"></span></a></li>
                         </ul>
                     </div>
                     <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar"></span></a>
@@ -54,13 +54,13 @@
     <div id="FieldSetView">
         @*Controles Superior*@
         <div class="row" id="AgregadoDiv">
-            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 altoControl" id="ProyectoDiv">
+            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 altoControl" id="divProyecto">
                 <label id=""><span id="lblProyecto"></span></label>
-                <input id="Proyecto" class="" />
+                <input id="inputProyecto" class="" />
             </div>
-            <div class="col-xs-12 col-sm-6 col-md-2 col-lg-3 altoControl" id="PruebaDiv">
+            <div class="col-xs-12 col-sm-6 col-md-2 col-lg-3 altoControl" id="divTipoPrueba">
                 <label id=""><span id="lblPrueba"></span></label>
-                <input id="tipoPrueba" class="" />
+                <input id="inputTipoPrueba" class="" />
             </div>
             <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 altoControl">
                 <label id=""><span id="lblRequisicion"></span></label>
@@ -141,8 +141,8 @@
 <script type="text/javascript" src="~/Scripts/AppComponents/PND/RequisicionPND/Captura.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/PND/RequisicionPND/Seguridad.js"></script>
 
-@*<script>
-        @section JavascriptDocumentReadyFunctions {
-        $authorizationModel["Requisicion PND"] = $RequisicionPND;
-        }
-    </script>*@
+<script>
+    @section JavascriptDocumentReadyFunctions {
+    $authorizationModel["Generar Requisicion"] = $GenerarRequisicion;
+    }
+</script>

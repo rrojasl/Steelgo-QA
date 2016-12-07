@@ -49,15 +49,15 @@
     </div>
     @*Controles Superior*@
     <div id="FieldSetView" class="row addedSectionInLineWithoutColor">
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 altoControl">
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 altoControl" id="divProyecto">
             <label id="lblProyecto"></label>
             <input id="inputProyecto" class="" />
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 altoControl">
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 altoControl" id="divPrueba">
             <label id="lblPrueba"></label>
             <input id="inputPrueba" class="" />
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 altoControl">
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-2 altoControl" id="divRequisicion">
             <label id="lblRequisicion"></label>
             <input id="inputRequisicion" class="" />
         </div>
@@ -169,3 +169,11 @@
 <script type="text/javascript" src="~/Scripts/AppComponents/PND/AsignarRequisicion/Ajax.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/PND/AsignarRequisicion/Handlers.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/PND/AsignarRequisicion/Captura.js"> </script>
+<script type="text/javascript" src="~/Scripts/AppComponents/PND/AsignarRequisicion/Seguridad.js"> </script>
+
+
+<script>
+    @section JavascriptDocumentReadyFunctions {
+    $authorizationModel["AsignarRequisicion"] = $AsignarRequisicionModel;
+    }
+</script>

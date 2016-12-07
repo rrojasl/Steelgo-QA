@@ -39,22 +39,22 @@ function AjaxObtenerSpoolID() {
 
 function AjaxGetListaProyectos() {
     $Proyectos.Proyectos.read({ token: Cookies.get("token") }).done(function (data) {
-        $("#Proyecto").data("kendoComboBox").dataSource.data(data);
+        $("#inputProyecto").data("kendoComboBox").dataSource.data(data);
 
-        if ($("#Proyecto").data("kendoComboBox").dataSource._data.length == 2) {
-            $("#Proyecto").data("kendoComboBox").select(1);
-            $("#Proyecto").data("kendoComboBox").trigger("change");
+        if ($("#inputProyecto").data("kendoComboBox").dataSource._data.length == 2) {
+            $("#inputProyecto").data("kendoComboBox").select(1);
+            $("#inputProyecto").data("kendoComboBox").trigger("change");
         }
     });
 }
 
 function AjaxGetListaTiposDePrueba() {
     $ServiciosTecnicosGeneral.ServiciosTecnicosGeneral.read({ token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
-        $("#tipoPrueba").data("kendoComboBox").dataSource.data(data);
+        $("#inputTipoPrueba").data("kendoComboBox").dataSource.data(data);
 
-        if ($("#tipoPrueba").data("kendoComboBox").dataSource._data.length == 2) {
-            $("#tipoPrueba").data("kendoComboBox").select(1);
-            $("#tipoPrueba").data("kendoComboBox").trigger("change");
+        if ($("#inputTipoPrueba").data("kendoComboBox").dataSource._data.length == 2) {
+            $("#inputTipoPrueba").data("kendoComboBox").select(1);
+            $("#inputTipoPrueba").data("kendoComboBox").trigger("change");
         }
     });
 }
@@ -141,8 +141,8 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
     if (ListaCaptura.length != 0) {
         Captura[0].RequisicionID = $("#listaRequisiciones").data("kendoComboBox").value() == "" ? 0 : $("#listaRequisiciones").data("kendoComboBox").value();
         Captura[0].Requisicion = "";
-        Captura[0].ProyectoID = $("#Proyecto").data("kendoComboBox").value();
-        Captura[0].TipoPruebaID = $("#tipoPrueba").data("kendoComboBox").value() == "" ? 0 : $("#tipoPrueba").data("kendoComboBox").value();
+        Captura[0].ProyectoID = $("#inputProyecto").data("kendoComboBox").value();
+        Captura[0].TipoPruebaID = $("#inputTipoPrueba").data("kendoComboBox").value() == "" ? 0 : $("#inputTipoPrueba").data("kendoComboBox").value();
         Captura[0].CodigoAsme = "";
         Captura[0].Observacion = "";
         Captura[0].Lenguaje = $("#language").val();
@@ -152,7 +152,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
 
         loadingStart();
 
-        var tipoPruebaID = $("#Proyecto").data("kendoComboBox").value();
+        var tipoPruebaID = $("#inputProyecto").data("kendoComboBox").value();
 
         loadingStop();
 
@@ -257,17 +257,17 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
 }
 
 function AjaxGetGuardado(RequisicionID) {
-    $ServiciosTecnicosGeneral.ServiciosTecnicosGeneral.read({ token: Cookies.get("token"), ProyectoID: $("#Proyecto").data("kendoComboBox").value(), TipoPruebaID: $("#tipoPrueba").data("kendoComboBox").value(), estatusID: 1 }).done(function (data) {
+    $ServiciosTecnicosGeneral.ServiciosTecnicosGeneral.read({ token: Cookies.get("token"), ProyectoID: $("#inputProyecto").data("kendoComboBox").value(), TipoPruebaID: $("#inputTipoPrueba").data("kendoComboBox").value(), estatusID: 1 }).done(function (data) {
         $("#listaRequisiciones").data("kendoComboBox").dataSource.data(data);
 
         $("#listaRequisiciones").data("kendoComboBox").value(RequisicionID);
-        AjaxGetListaElementos(RequisicionID, $("#tipoPrueba").data("kendoComboBox").value(), $("#Proyecto").data("kendoComboBox").value(), $('input:radio[name=Muestra]:checked').val());
+        AjaxGetListaElementos(RequisicionID, $("#inputTipoPrueba").data("kendoComboBox").value(), $("#inputProyecto").data("kendoComboBox").value(), $('input:radio[name=Muestra]:checked').val());
     });
 }
 
 function AjaxObtenerSpool() {
     loadingStart();
-    $RequisicionPND.RequisicionPND.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), IdOrdenTrabajo: $("#InputOrdenTrabajo").val(), OrdenTrabajoSpoolID: $("#InputID").val(), TipoPruebaID: $("#tipoPrueba").data("kendoComboBox").value() == "" ? 0 : $("#tipoPrueba").data("kendoComboBox").value(), ProyectoID: $("#Proyecto").data("kendoComboBox").value() == "" ? 0 : $("#Proyecto").data("kendoComboBox").value() }).done(function (data) {
+    $RequisicionPND.RequisicionPND.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), IdOrdenTrabajo: $("#InputOrdenTrabajo").val(), OrdenTrabajoSpoolID: $("#InputID").val(), TipoPruebaID: $("#inputTipoPrueba").data("kendoComboBox").value() == "" ? 0 : $("#inputTipoPrueba").data("kendoComboBox").value(), ProyectoID: $("#inputProyecto").data("kendoComboBox").value() == "" ? 0 : $("#inputProyecto").data("kendoComboBox").value() }).done(function (data) {
         var ds = $("#grid").data("kendoGrid").dataSource;
         if (data.length > 0) {
             $("#InputID").data("kendoComboBox").value("");
@@ -283,7 +283,7 @@ function AjaxObtenerSpool() {
 
 function AjaxObtenerJunta() {
     loadingStart();
-    $RequisicionPND.RequisicionPND.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), IdOrdenTrabajo: $("#InputOrdenTrabajo").val(), OrdenTrabajoSpoolID: $("#InputID").val(), TipoPruebaID: $("#tipoPrueba").data("kendoComboBox").value() == "" ? 0 : $("#tipoPrueba").data("kendoComboBox").value(), ProyectoID: $("#Proyecto").data("kendoComboBox").value() == "" ? 0 : $("#Proyecto").data("kendoComboBox").value(),JuntaSpoolID:$("#Junta").val() }).done(function (data) {
+    $RequisicionPND.RequisicionPND.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), IdOrdenTrabajo: $("#InputOrdenTrabajo").val(), OrdenTrabajoSpoolID: $("#InputID").val(), TipoPruebaID: $("#inputTipoPrueba").data("kendoComboBox").value() == "" ? 0 : $("#inputTipoPrueba").data("kendoComboBox").value(), ProyectoID: $("#inputProyecto").data("kendoComboBox").value() == "" ? 0 : $("#inputProyecto").data("kendoComboBox").value(),JuntaSpoolID:$("#Junta").val() }).done(function (data) {
         var ds = $("#grid").data("kendoGrid").dataSource;
         if (data.length > 0) {
             $("#Junta").data("kendoComboBox").value("");
