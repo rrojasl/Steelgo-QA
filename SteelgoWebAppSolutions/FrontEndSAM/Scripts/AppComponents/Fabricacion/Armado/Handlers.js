@@ -58,10 +58,7 @@ function SuscribirEventoPlanchar() {
                     width: "auto",
                     height: "auto",
                     modal: true,
-                    animation: {
-                        close: false,
-                        open: false
-                    }
+                    animation: false
                 }).data("kendoWindow");
 
                 ventanaConfirm.content(_dictionary.CapturaMensajeArmadoPlancharTodos[$("#language").data("kendoDropDownList").value()] +
@@ -173,32 +170,17 @@ function EventoGuardar() {
 }
 
 function suscribirEventoGuardar() {
-    $('#btnGuardar').click(function (e) {
+    $('.accionGuardar').click(function (e) {
         EventoGuardar();
     });
 
-    $("#Guardar").click(function () {
-        EventoGuardar();
-    });
-
-    $('#btnGuardarYNuevo').click(function (e) {
+    
+    $('.accionGuardarYNuevo').click(function (e) {
         var ds = $("#grid").data("kendoGrid").dataSource;
         AjaxGuardarCaptura(ds._data, 1)
 
     });
 
-    $("#GuardarPie").click(function (e) {
-        EventoGuardar();
-    });
-
-    $('#btnGuardarPie').click(function (e) {
-        EventoGuardar();
-    });
-
-    $('#btnGuardarYNuevoPie').click(function (e) {
-        var ds = $("#grid").data("kendoGrid").dataSource;
-        AjaxGuardarCaptura(ds._data, 1)
-    });
 }
 
 function Limpiar() {
@@ -881,6 +863,7 @@ function eventoCambioTipoListado() {
 function suscribirEventoChangeRadioTipoListado() {
 
     $('input:radio[name=TipoAgregado]:nth(0)').change(function () {
+        
         if (!editado) {
             $("#grid").data("kendoGrid").dataSource.data([]);
             eventoCambioTipoListado();
@@ -893,15 +876,8 @@ function suscribirEventoChangeRadioTipoListado() {
                 width: "auto",
                 height: "auto",
                 modal: true,
-                animation: {
-                    close: function () {
-                        $("#inputPrueba").data("kendoComboBox").value(pruebaOriginal);
-                    },
-                    open: false
-                },
-                actions: [
-                    "Close"
-                ]
+                animation: false,
+              
             }).data("kendoWindow");
 
             ventanaConfirm.content(_dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] +
@@ -916,8 +892,9 @@ function suscribirEventoChangeRadioTipoListado() {
             $("#noButtonProy").click(function () {
                 $("#styleListado").addClass("active");
                 $("#styleReporte").removeClass("active");
-
                 ventanaConfirm.close();
+                
+                
             });
         }
     });
@@ -934,15 +911,8 @@ function suscribirEventoChangeRadioTipoListado() {
                 width: "auto",
                 height: "auto",
                 modal: true,
-                animation: {
-                    close: function () {
-                        $("#inputPrueba").data("kendoComboBox").value(pruebaOriginal);
-                    },
-                    open: false
-                },
-                actions: [
-                    "Close"
-                ]
+                animation: false,
+                
             }).data("kendoWindow");
 
             ventanaConfirm.content(_dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] +
@@ -958,9 +928,10 @@ function suscribirEventoChangeRadioTipoListado() {
             $("#noButtonProy").click(function () {
                 $("#styleReporte").addClass("active");
                 $("#styleListado").removeClass("active");
-
-                
                 ventanaConfirm.close();
+                
+                
+               
             });
         }
     });

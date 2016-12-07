@@ -194,118 +194,117 @@ function ObtenerJSonGridArmado() {
 function AjaxEjecutarGuardado(rows, tipoGuardar) {
     loadingStart();
     $Armado.Armado.create(rows, { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
+        if (Error(data)) {
+            if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
+                displayNotify("MensajeGuardadoExistoso", "", '0');
 
-        if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
-            displayNotify("MensajeGuardadoExistoso", "", '0');
+                if (tipoGuardar == 1) {
+                    opcionHabilitarView(false, "FieldSetView");
+                    Limpiar();
+                    AjaxCargarCamposPredeterminados();
+                }
+                else {
+                    opcionHabilitarView(true, "FieldSetView");
+                    AjaxCambiarAccionAModificacion();
+                }
+                
 
-            if (tipoGuardar == 1) {
-                opcionHabilitarView(false, "FieldSetView");
-                Limpiar();
-                AjaxCargarCamposPredeterminados();
             }
             else {
-                opcionHabilitarView(true, "FieldSetView");
-                AjaxCambiarAccionAModificacion();
+                //mensaje = "No se guardo la informacion el error es: " + data.ReturnMessage[0] + "-2";
+                displayNotify("MensajeGuardadoErroneo", "", '2');
+                
+
             }
-            loadingStop();
-
         }
-        else {
-            //mensaje = "No se guardo la informacion el error es: " + data.ReturnMessage[0] + "-2";
-            displayNotify("MensajeGuardadoErroneo", "", '2');
-            loadingStop();
-
-        }
+        loadingStop();
     });
 }
 
 function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
     try {
         var seGuardoCorrectamente = false;
+
         loadingStart();
         Captura = [];
         Captura[0] = { Detalles: "" };
         ListaDetalles = [];
         for (index = 0; index < arregloCaptura.length; index++) {
-            
-                ListaDetalles[index] = { Accion: "", IdVal: "", JuntaID: "", TipoJuntaID: "", Junta: "", Localizacion1: "", Localizacion2: "", JuntaArmadoID: "", DetalleArmadoID: "", NumeroUnico1ID: "", NumeroUnico2ID: "", TallerID: "", TuberoID: "", FechaArmado: "", ListaDetalleTrabajoAdicional: "", Estatus: 1 };
-                ListaDetalles[index].Accion = arregloCaptura[index].Accion;
-                ListaDetalles[index].IdVal = arregloCaptura[index].IdVal;
-                ListaDetalles[index].JuntaID = arregloCaptura[index].JuntaID;
-                ListaDetalles[index].TipoJuntaID = arregloCaptura[index].TipoJuntaID;
-                ListaDetalles[index].Junta = arregloCaptura[index].Junta;
-                ListaDetalles[index].Localizacion1 = arregloCaptura[index].Localizacion.split('-')[0];
-                ListaDetalles[index].Localizacion2 = arregloCaptura[index].Localizacion.split('-')[1];
-                ListaDetalles[index].JuntaArmadoID = arregloCaptura[index].JuntaArmadoID;
-                ListaDetalles[index].DetalleArmadoID = arregloCaptura[index].DetalleArmadoID;
-                ListaDetalles[index].NumeroUnico1ID = arregloCaptura[index].NumeroUnico1ID;
-                ListaDetalles[index].NumeroUnico2ID = arregloCaptura[index].NumeroUnico2ID;
-                ListaDetalles[index].TallerID = arregloCaptura[index].TallerID;
-                ListaDetalles[index].TuberoID = arregloCaptura[index].TuberoID;
-                ListaDetalles[index].FechaArmado = arregloCaptura[index].FechaArmado == null ? "" : kendo.toString(arregloCaptura[index].FechaArmado, String(_dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()].replace('{', '').replace('}', '').replace("0:", ""))).trim();
 
-                ListaTrabajosAdicionalesEditados = [];
-                for (j = 0; j < arregloCaptura[index].ListaDetalleTrabajoAdicional.length; j++) {
-                    ListaTrabajosAdicionalesEditados[j] = { Accion: "", JuntaID: "", ArmadoTrabajoAdicionalID: "", JuntaArmadoID: "", TrabajoAdicionalID: "", ObreroID: "", Observacion: "" };
-                    ListaTrabajosAdicionalesEditados[j].Accion = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].Accion;
-                    ListaTrabajosAdicionalesEditados[j].JuntaID = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].JuntaID;
-                    ListaTrabajosAdicionalesEditados[j].ArmadoTrabajoAdicionalID = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].ArmadoTrabajoAdicionalID;
-                    ListaTrabajosAdicionalesEditados[j].JuntaArmadoID = arregloCaptura[index].JuntaArmadoID;
-                    ListaTrabajosAdicionalesEditados[j].TrabajoAdicionalID = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].TrabajoAdicionalID;
-                    ListaTrabajosAdicionalesEditados[j].ObreroID = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].ObreroID;
-                    ListaTrabajosAdicionalesEditados[j].Observacion = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].Observacion;
+            ListaDetalles[index] = { Accion: "", IdVal: "", JuntaID: "", TipoJuntaID: "", Junta: "", Localizacion1: "", Localizacion2: "", JuntaArmadoID: "", DetalleArmadoID: "", NumeroUnico1ID: "", NumeroUnico2ID: "", TallerID: "", TuberoID: "", FechaArmado: "", ListaDetalleTrabajoAdicional: "", Estatus: 1 };
+            ListaDetalles[index].Accion = arregloCaptura[index].Accion;
+            ListaDetalles[index].IdVal = arregloCaptura[index].IdVal;
+            ListaDetalles[index].JuntaID = arregloCaptura[index].JuntaID;
+            ListaDetalles[index].TipoJuntaID = arregloCaptura[index].TipoJuntaID;
+            ListaDetalles[index].Junta = arregloCaptura[index].Junta;
+            ListaDetalles[index].Localizacion1 = arregloCaptura[index].Localizacion.split('-')[0];
+            ListaDetalles[index].Localizacion2 = arregloCaptura[index].Localizacion.split('-')[1];
+            ListaDetalles[index].JuntaArmadoID = arregloCaptura[index].JuntaArmadoID;
+            ListaDetalles[index].DetalleArmadoID = arregloCaptura[index].DetalleArmadoID;
+            ListaDetalles[index].NumeroUnico1ID = arregloCaptura[index].NumeroUnico1ID;
+            ListaDetalles[index].NumeroUnico2ID = arregloCaptura[index].NumeroUnico2ID;
+            ListaDetalles[index].TallerID = arregloCaptura[index].TallerID;
+            ListaDetalles[index].TuberoID = arregloCaptura[index].TuberoID;
+            ListaDetalles[index].FechaArmado = arregloCaptura[index].FechaArmado == null ? "" : kendo.toString(arregloCaptura[index].FechaArmado, String(_dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()].replace('{', '').replace('}', '').replace("0:", ""))).trim();
+
+            ListaTrabajosAdicionalesEditados = [];
+            for (j = 0; j < arregloCaptura[index].ListaDetalleTrabajoAdicional.length; j++) {
+                ListaTrabajosAdicionalesEditados[j] = { Accion: "", JuntaID: "", ArmadoTrabajoAdicionalID: "", JuntaArmadoID: "", TrabajoAdicionalID: "", ObreroID: "", Observacion: "" };
+                ListaTrabajosAdicionalesEditados[j].Accion = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].Accion;
+                ListaTrabajosAdicionalesEditados[j].JuntaID = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].JuntaID;
+                ListaTrabajosAdicionalesEditados[j].ArmadoTrabajoAdicionalID = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].ArmadoTrabajoAdicionalID;
+                ListaTrabajosAdicionalesEditados[j].JuntaArmadoID = arregloCaptura[index].JuntaArmadoID;
+                ListaTrabajosAdicionalesEditados[j].TrabajoAdicionalID = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].TrabajoAdicionalID;
+                ListaTrabajosAdicionalesEditados[j].ObreroID = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].ObreroID;
+                ListaTrabajosAdicionalesEditados[j].Observacion = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].Observacion;
+            }
+
+            ListaDetalles[index].ListaDetalleTrabajoAdicional = arregloCaptura[index].ListaDetalleTrabajoAdicional.length == 0 ? undefined : ListaTrabajosAdicionalesEditados;
+
+            if (
+                (
+                   arregloCaptura[index].NumeroUnico1 == "" ||
+                   arregloCaptura[index].NumeroUnico2 == "" ||
+                   arregloCaptura[index].Taller == "" ||
+                   arregloCaptura[index].Tubero == "" ||
+                   (arregloCaptura[index].FechaArmado == "" || arregloCaptura[index].FechaArmado == null)
+                ) && (ListaDetalles[index].Accion != 3 && ListaDetalles[index].Accion != 4)
+               ) {
+                if (ListaDetalles[index].Accion == 2 && (arregloCaptura[index].NumeroUnico1 == "" &&
+                   arregloCaptura[index].NumeroUnico2 == "" &&
+                   arregloCaptura[index].Taller == "" &&
+                   arregloCaptura[index].Tubero == "" &&
+                   (arregloCaptura[index].FechaArmado == "" || arregloCaptura[index].FechaArmado == null))) {
+                    ListaDetalles[index].Accion = 4;
+                }
+                else {
+                    ListaDetalles[index].Estatus = 0;
+                    $('tr[data-uid="' + arregloCaptura[index].uid + '"] ').css("background-color", "#ffcccc");
+                    $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
                 }
 
-                ListaDetalles[index].ListaDetalleTrabajoAdicional = arregloCaptura[index].ListaDetalleTrabajoAdicional.length == 0 ? undefined : ListaTrabajosAdicionalesEditados;
-
-                if (
-                    (
-                       ListaDetalles[index].IdVal == "" ||
-                       ListaDetalles[index].JuntaID == "" ||
-                       ListaDetalles[index].TipoJuntaID == "" ||
-                       ListaDetalles[index].Junta == "" ||
-                       ListaDetalles[index].Localizacion1 == "" ||
-                       ListaDetalles[index].Localizacion2 == "" ||
-                       ListaDetalles[index].NumeroUnico1ID == "" || ListaDetalles[index].NumeroUnico1ID == null ||
-                       ListaDetalles[index].NumeroUnico2ID == "" || ListaDetalles[index].NumeroUnico2ID == null ||
-                       ListaDetalles[index].TallerID == "" ||
-                       ListaDetalles[index].TallerID == "0" ||
-                       ListaDetalles[index].TuberoID == "" ||
-                       ListaDetalles[index].TuberoID == "0" ||
-                       ListaDetalles[index].FechaArmado == ""
-                    ) && (ListaDetalles[index].Accion != 3 && ListaDetalles[index].Accion != 4)
-                   ) {
-                    if (ListaDetalles[index].Accion == 2 && ListaDetalles[index].FechaArmado == "" &&
-                        (ListaDetalles[index].TallerID == "" || ListaDetalles[index].TallerID == "0") &&
-                       (ListaDetalles[index].TuberoID == "" || ListaDetalles[index].TuberoID == "0") &&
-                        (ListaDetalles[index].NumeroUnico1ID == "" || ListaDetalles[index].NumeroUnico1ID == null || ListaDetalles[index].NumeroUnico1ID == "0") &&
-                        (ListaDetalles[index].NumeroUnico2ID == "" || ListaDetalles[index].NumeroUnico2ID == null || ListaDetalles[index].NumeroUnico2ID == "0")
-                        ) {
-                        ListaDetalles[index].Accion = 4;
-                    }
-                    else {
-                        ListaDetalles[index].Estatus = 0;
-                        $('tr[data-uid="' + arregloCaptura[index].uid + '"] ').css("background-color", "#ffcccc");
-                        $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
-                    }
+            }
+            else if (ListaDetalles[index].Accion == 4) {
+                if (!(arregloCaptura[index].NumeroUnico1 == "" ||
+                        arregloCaptura[index].NumeroUnico2 == "" ||
+                        arregloCaptura[index].Taller == "" ||
+                        arregloCaptura[index].Tubero == "" ||
+                        arregloCaptura[index].FechaArmado == "")) {
+                    ListaDetalles[index].Estatus = 0;
+                    $('tr[data-uid="' + arregloCaptura[index].uid + '"] ').css("background-color", "#ffcccc");
+                    $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
 
                 }
-                else if (ListaDetalles[index].Accion == 4) {
-                    if (!(ListaDetalles[index].FechaArmado == "" &&
-                        (ListaDetalles[index].TallerID == "" || ListaDetalles[index].TallerID == "0") &&
-                        (ListaDetalles[index].NumeroUnico1ID == "" || ListaDetalles[index].NumeroUnico1ID == null || ListaDetalles[index].NumeroUnico1ID == "0") &&
-                        (ListaDetalles[index].NumeroUnico2ID == "" || ListaDetalles[index].NumeroUnico2ID == null || ListaDetalles[index].NumeroUnico2ID == "0") &&
-                       (ListaDetalles[index].TuberoID == "" || ListaDetalles[index].TuberoID == "0"))) {
-                        ListaDetalles[index].Estatus = 0;
-                        $('tr[data-uid="' + arregloCaptura[index].uid + '"] ').css("background-color", "#ffcccc");
-                        $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
+            }
 
-                    }
-                }
+            if (ListaDetalles[index].Estatus == 1) {
+                $('tr[data-uid="' + arregloCaptura[index].uid + '"] ').css("background-color", "rgb(255, 255, 255);");
+                $("#grid").data("kendoGrid").dataSource._data[index].RowOk = true;
+            }
         }
         Captura[0].Detalles = ListaDetalles;
 
-       
+
 
         if (!ExistRowEmpty(ListaDetalles)) {
             if (Captura[0].Detalles.length > 0) {
@@ -325,10 +324,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                 width: "auto",
                 height: "auto",
                 modal: true,
-                animation: {
-                    close: false,
-                    open: false
-                }
+                animation: false
             }).data("kendoWindow");
 
             ventanaConfirm.content(_dictionary.MensajeConfirmacionGuardadoGeneral[$("#language").data("kendoDropDownList").value()] +
@@ -338,7 +334,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
 
             $("#yesButton").click(function () {
                 loadingStart();
-               
+
                 ArregloGuardado = [];
                 var indice = 0;
                 for (var i = 0; i < Captura[0].Detalles.length; i++) {
@@ -352,7 +348,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                 Captura[0].Detalles = ArregloGuardado;
 
                 if (Captura[0].Detalles.length > 0) {
-                    
+
                     AjaxEjecutarGuardado(Captura[0], tipoGuardar);
                 }
                 else {
@@ -618,6 +614,7 @@ function AjaxCambiarAccionAModificacion() {
 
                 for (var i = 0; i < array.length; i++) {
                     loadingStart();
+                    array[i].Diametro = parseFloat(array[i].Diametro);
                     if (array[i].FechaArmado != null) {
                         array[i].FechaArmado = kendo.toString(array[i].FechaArmado, _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()]);
                         array[i].FechaArmado = new Date(ObtenerDato(array[i].FechaArmado, 1), ObtenerDato(array[i].FechaArmado, 2), ObtenerDato(array[i].FechaArmado, 3));//año, mes, dia
@@ -627,8 +624,9 @@ function AjaxCambiarAccionAModificacion() {
             }
             loadingStop();
         });
-    }
 
+    }
+    $("#grid").data("kendoGrid").dataSource.sync();
 
 }
 
