@@ -78,5 +78,23 @@ function AjaxGuardarCaptura() {
     var CampoX = $('#inputMedicionesCampoX').val();
     var EquipoTomaCampoXID = $('#inputEquipoTomaCampoX').val();
 
+    if (FechaToma != "" && HoraToma != "" && PatioID > 0 && PatioID != undefined && ZonaID > 0 && ZonaID != undefined
+        && TempAmb != "" && EquipoTomaTemAmbID > 0 && EquipoTomaTemAmbID != undefined
+        && Humedad != "" && EquipoTomaHumedadID > 0 && EquipoTomaHumedadID != undefined
+        && PuntoRocio != "" && EquipoTomaPuntoRocioID > 0 && EquipoTomaPuntoRocioID != undefined
+        && CampoX != "" && EquipoTomaCampoXID > 0 && EquipoTomaCampoXID != undefined) {
 
+        ajaxGuardar();
+    }
+    else displayNotify("", "Todos los campos deben ser capturados", '1');
 }
+
+function ajaxGuardar() {
+    loadingStart();
+    displayNotify("", "se guardo correctamente la informacion", '0');
+    opcionHabilitarView(true, "FieldSetView");
+
+
+    setTimeout(function () { loadingStop() }, 500);
+
+};

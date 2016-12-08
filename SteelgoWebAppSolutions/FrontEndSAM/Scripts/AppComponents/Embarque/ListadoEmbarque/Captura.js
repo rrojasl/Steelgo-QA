@@ -44,7 +44,8 @@ function CargarGrid() {
                     fields: {
                         Embarque: { type: "string", editable: false },
                         Plana: { type: "string", editable: false },
-                        NombreProyecto: { type: "string", editable: false },
+                        Proyecto: { type: "string", editable: false },
+                        DestinoEmbarque: { type: "string", editable: false },
                         PapelesCliente: { editable: false },
                         PapelesAduana: { editable: false },
                         FolioSolicitarPermisos: { type: "string", editable: false },

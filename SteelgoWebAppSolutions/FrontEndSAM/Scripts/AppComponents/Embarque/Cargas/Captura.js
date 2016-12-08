@@ -14,7 +14,7 @@ function changeLanguageCall() {
     $("#inputProveedor").data("kendoComboBox").value("");
 
     AjaxCargarProyecto();
-    
+
     document.title = _dictionary.EmbarqueHeaderCargaPlana[$("#language").data("kendoDropDownList").value()];
 
     AjaxCargarCamposPredeterminados();
@@ -72,7 +72,7 @@ function CargarGrid() {
             schema: {
                 model: {
                     fields: {
-                        Consecutivo:{type:"number",editable:false},
+                        Consecutivo: { type: "number", editable: false },
                         Spool: { type: "string", editable: false },
                         Paquete: { type: "string", editable: false },
                         Peso: { type: "number", editable: false },
@@ -91,7 +91,10 @@ function CargarGrid() {
             pageSize: 10,
             serverPaging: false,
             serverFiltering: false,
-            serverSorting: false
+            serverSorting: false,
+            aggregate: [
+                { field: "Peso", aggregate: "sum" }
+            ]
         },
         navigatable: true,
         filterable: getGridFilterableMaftec(),
@@ -101,7 +104,7 @@ function CargarGrid() {
         scrollable: true,
         pageable: {
             refresh: false,
-            pageSizes: [10,25,50,100],
+            pageSizes: [10, 25, 50, 100],
             info: false,
             input: false,
             numeric: true,
@@ -111,9 +114,9 @@ function CargarGrid() {
             { field: "Consecutivo", title: _dictionary.columnConcecutivoEmbarque[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "150px" },
             { field: "Spool", title: _dictionary.columnSpoolIDEmbarque[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "150px" },
             { field: "Paquete", title: _dictionary.columnPaqueteEmbarque[$("#language").data("kendoDropDownList").value()], template: "<div class='EnlaceDescargarPaquete' style='text-align:center;'><a href='\\#'  > <span>#=Paquete#</span></a></div>", filterable: getGridFilterableCellMaftec(), width: "150px" },
-            { field: "Peso", title: _dictionary.columnPesoEmbarque[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "130px", attributes: { style: "text-align:right;" }, format: "{0: }" },
+            { field: "Peso", title: _dictionary.columnPeso[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "130px", aggregates: ["sum"], footerTemplate: "<div style='text-align:right;'>SUM: #= kendo.toString(sum, 'n') #</div>", attributes: { style: "text-align:right;" }, format: "{0: }" },
             { command: { text: _dictionary.botonDescarga[$("#language").data("kendoDropDownList").value()], click: DescargarSpool }, title: _dictionary.columnDescargar[$("#language").data("kendoDropDownList").value()], width: "70px", attributes: { style: "text-align:center;" } },
-           
+
         ],
         dataBound: function (e) {
             var ds = $("#grid").data("kendoGrid");
@@ -209,6 +212,7 @@ function DescargarSpool(e) {
             $("#btnDescargar").click(function (e) {
                 var zonaID = $("#inputZonaPopup").data("kendoComboBox").value();
                 var cuadranteID = $("#inputCuadrantePopup").data("kendoComboBox").value();
+
                 if (zonaID != "" && zonaID != "0") {
                     if (cuadranteID != "" && cuadranteID != "0") {
                         ventanaPopup.close();
@@ -221,9 +225,10 @@ function DescargarSpool(e) {
                 }
             });
 
-            ventanaPopup.open().center();            
+            ventanaPopup.open().center();
         }
     }
+    displayNotify("", "Para descargar un spool es necesario abrir la plana", "1");
 }
 
 function validarInformacion(row) {
@@ -316,10 +321,10 @@ function CargaPopupNuevoProveedor(e) {
             $("#inputProveedor").data("kendoComboBox").value(0);
         },
         animation: false
-        
+
     }).data("kendoWindow");
     $("#divNuevoProveedor").data("kendoWindow").title(_dictionary.EmbarqueCargaNuevoProveedor[$("#language").data("kendoDropDownList").value()]);
     $("#divNuevoProveedor").data("kendoWindow").center().open();
-    
+
     $("#inputNombreNuevoProveedor").focus();
 }

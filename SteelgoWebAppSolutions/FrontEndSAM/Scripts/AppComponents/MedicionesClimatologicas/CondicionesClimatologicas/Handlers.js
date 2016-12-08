@@ -69,12 +69,15 @@ function Limpiar() {
 }
 
 function opcionHabilitarView(valor, name) {
-
     if (valor) {
+        $('#FieldSetView').find('*').attr('disabled', true);
 
-
+        $('#Guardar, #btnGuardar, #GuardarPie, #btnGuardarPie').text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
     }
     else {
+        $('#FieldSetView').find('*').attr('disabled', false);
+
+        $('#Guardar, #btnGuardar, #GuardarPie, #btnGuardarPie').text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);
 
     }
 }
@@ -183,12 +186,29 @@ function SubscribeCalendarFechaToma() {
 function opcionHabilitarView(valor, name) {
 
     if (valor) {
-        $('#Guardar').text(_dictionary.textoEditar[$("#language").data("kendoDropDownList").value()]);
+        $('#Guardar, #').text(_dictionary.textoEditar[$("#language").data("kendoDropDownList").value()]);
         $("#GuardarPie").text(_dictionary.textoEditar[$("#language").data("kendoDropDownList").value()]);
+        
+        $('#FieldSetView').find('*').attr('disabled', true);
     }
     else {
         $('#botonGuardar2').text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
         $("#botonGuardar").text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
+
+        $('#FieldSetView').find('*').attr('disabled', false);
+
+        //$("#inputPatio").data("kendoComboBox").enable(true);
+        //$("#inputZona").data("kendoComboBox").enable(true);
+        //$("#inputMedicionesfechaToma").data("kendoComboBox").enable(true);
+        //$("#inputMedicionesHoraToma").data("kendoComboBox").enable(true);
+        //$("#inputMedicionesTempAmbiente").data("kendoComboBox").enable(true);
+        //$("#inputEquipoTomaTempAmb").data("kendoComboBox").enable(true);
+        //$("#inputMedicionesHumedad").data("kendoComboBox").enable(true);
+        //$("#inputEquipoTomaHumedad").data("kendoComboBox").enable(true);
+        //$("#inputMedicionesPuntoRocio").data("kendoComboBox").enable(true);
+        //$("#inputEquipoTomaPtoRocio").data("kendoComboBox").enable(true);
+        //$("#inputMedicionesCampoX").data("kendoComboBox").enable(true);
+        //$("#inputEquipoTomaCampoX").data("kendoComboBox").enable(true);
     }
 }
 
