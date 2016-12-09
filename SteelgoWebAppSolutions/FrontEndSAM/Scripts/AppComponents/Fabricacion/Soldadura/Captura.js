@@ -190,8 +190,6 @@ function limpiarRenglon(e) {
         itemToClean.procesoSoldaduraRaizID = 0;
         itemToClean.procesoSoldaduraRelleno = "";
         itemToClean.procesoSoldaduraRellenoID = 0;
-        itemToClean.NumeroColada = "";
-        itemToClean.ColadaID = 0;
         itemToClean.DetalleAdicional = [];
         itemToClean.SoldadoresRaiz = _dictionary.CapturaSoldaduraNoSoldadoresRaiz[$("#language").data("kendoDropDownList").value()];
         itemToClean.SoldadoresRelleno = _dictionary.CapturaSoldaduraNoSoldadoresRelleno[$("#language").data("kendoDropDownList").value()];
@@ -327,9 +325,28 @@ function GridPopupSoldadoresRaizCapturados(row) {
         selectable: true,
         filterable: getGridFilterableMaftec(),
         columns: [
-          { field: "Soldador", title: _dictionary.CapturaSoldaduraHeaderSoldadores[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftecpopUp(), width: "100px" },
-          { field: "Colada", title: _dictionary.ListadoCatalogos0046[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftecpopUp(), width: "100px" },
-          { field: "Observaciones", title: _dictionary.CapturaSoldaduraHeaderObservacion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftecpopUp(), width: "100px" }
+          { field: "Soldador", title: _dictionary.CapturaSoldaduraHeaderSoldadores[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftecpopUp(), editor: RenderComboBoxSoldador, width: "100px" },
+          { field: "Colada", title: _dictionary.ListadoCatalogos0046[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftecpopUp(),editor: RenderComboBoxColada, width: "100px" },
+          { field: "Observaciones", title: _dictionary.CapturaSoldaduraHeaderObservacion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftecpopUp(), width: "100px" },
+        {
+            command: {
+                name: "",
+                title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()],
+                text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()],
+                click: function (e) {
+                    e.preventDefault();
+                    var dataSource = this.dataSource;
+                    var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+
+                    if (dataItem.Accion == 1 || dataItem.JuntaArmadoID == undefined)
+                        dataSource.remove(dataItem);
+                    else
+                        dataItem.Accion = 3;
+                    dataSource.sync();
+
+                }
+            }, width: "50px", title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()]
+        },
         ],
         editable: true,
         navigatable: true,
@@ -344,8 +361,8 @@ function VentanaModalSoldadoresRaiz() {
 
     var modalTitle = "";
     modalTitle = _dictionary.CapturaSoldaduraSoldadoresRaiz[$("#language").data("kendoDropDownList").value()];
-    var window = $("#windowGridSoldadorRaiz");
-    var win = window.kendoWindow({
+    var windowRaiz = $("#windowGridSoldadorRaiz");
+    var win = windowRaiz.kendoWindow({
         modal: true,
         title: modalTitle,
         resizable: false,
@@ -357,7 +374,94 @@ function VentanaModalSoldadoresRaiz() {
             left: "1%"
         }
     }).data("kendoWindow");
-    window.data("kendoWindow").title(modalTitle);
-    window.data("kendoWindow").center().open();
+    windowRaiz.data("kendoWindow").title(modalTitle);
+    windowRaiz.data("kendoWindow").center().open();
+
+};
+
+
+
+
+function GridPopupSoldadoresRellenoCapturados(row) {
+
+
+    $("#inputSoldadoresRelleno").kendoGrid({
+        dataSource: {
+            data: row.ListaSoldadoresRaizCapturados,
+            schema: {
+                model: {
+                    fields: {
+                        Accion: { type: "int", editable: false },
+                        ObreroID: { type: "int", editable: false },
+                        Soldador: { type: "string", editable: true },
+                        ColadaID: { type: "int", editable: false },
+                        Colada: { type: "string", editable: true },
+                        Observaciones: { type: "string", editable: true }
+                    }
+                }
+            }, filter: {
+                logic: "or",
+                filters: [
+                  { field: "Accion", operator: "eq", value: 1 },
+                  { field: "Accion", operator: "eq", value: 2 },
+                    { field: "Accion", operator: "eq", value: 0 },
+                    { field: "Accion", operator: "eq", value: undefined }
+                ]
+            }
+        },
+        selectable: true,
+        filterable: getGridFilterableMaftec(),
+        columns: [
+          { field: "Soldador", title: _dictionary.CapturaSoldaduraHeaderSoldadores[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftecpopUp(),editor: RenderComboBoxSoldador, width: "100px" },
+          { field: "Colada", title: _dictionary.ListadoCatalogos0046[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftecpopUp(), editor: RenderComboBoxColada, width: "100px" },
+          { field: "Observaciones", title: _dictionary.CapturaSoldaduraHeaderObservacion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftecpopUp(), width: "100px" },
+        {
+            command: {
+                name: "",
+                title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()],
+                text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()],
+                click: function (e) {
+                    e.preventDefault();
+                    var dataSource = this.dataSource;
+                    var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+
+                    if (dataItem.Accion == 1 || dataItem.JuntaArmadoID == undefined)
+                        dataSource.remove(dataItem);
+                    else
+                        dataItem.Accion = 3;
+                    dataSource.sync();
+
+                }
+            }, width: "50px", title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()]
+        },
+        ],
+        editable: true,
+        navigatable: true,
+        toolbar: [{ name: "create" }]
+    });
+    CustomisaGrid($("#inputSoldadoresRelleno"));
+    VentanaModalSoldadoresRelleno();
+};
+
+
+function VentanaModalSoldadoresRelleno() {
+
+    var modalTitle = "";
+    modalTitle = _dictionary.CapturaSoldaduraSoldadoresRelleno[$("#language").data("kendoDropDownList").value()];
+    var windowRelleno = $("#windowMultiselectSoldadorRelleno");
+    var win = windowRelleno.kendoWindow({
+        modal: true,
+        title: modalTitle,
+        resizable: false,
+        visible: true,
+        width: "50%",
+        minWidth: 30,
+        position: {
+            top: "1%",
+            left: "1%"
+        }
+    }).data("kendoWindow");
+    windowRelleno.data("kendoWindow").title(modalTitle);
+    windowRelleno.data("kendoWindow").center().open();
 
 };

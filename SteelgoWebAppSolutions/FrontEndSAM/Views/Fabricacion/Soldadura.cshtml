@@ -101,7 +101,7 @@
             </div>*@
         <div class="col-xs-12 col-sm-8 col-md-2 col-lg-2 altoControl">
             <label id="lblPlanchar"></label>
-            
+
             <input type="radio" name="LLena" class="radio-responsive" style=" width:auto;" value="Vacios" /><span id="lblVacios"></span>
             <input type="radio" name="LLena" class="radio-responsive" style=" width:auto;" value="Todos" /><span id="lblTodos1"></span>
 
@@ -116,7 +116,7 @@
         </div>
         <input id="hdAccionFiltrado" type="hidden" />
     </div>
-   
+
     @*Menu Inferior*@
     <div class="row">
         <div class="col-sm-12 col-md-12 col-lg-12">
@@ -156,7 +156,13 @@
 
     <div id="windowGridSoldadorRaiz" style="display: none; z-index:inherit;">
         <div id="formaObrero" class="col-sm-12 col-md-12 col-lg-11">
+            
             <div class="row">
+                <div class=" col-sm-12 col-md-12 col-lg-12">
+                    
+                    <input type="radio" name="CertificadoRaiz" class="radio-responsive" style=" width:auto;" value="Certificado" /><span id="">Certificado</span>
+                    <input type="radio" name="CertificadoRaiz" class="radio-responsive" style=" width:auto;" value="NoCertificado" /><span id="">No certificado</span>
+                </div>
                 <div class="form-group  col-sm-12 col-md-12 col-lg-12" id="containerMultiSelect" style="min-height: 100px;">
                     <div id="contenedorMultiselect">
                         <div id="inputSoldadoresRaiz" />
@@ -164,34 +170,61 @@
 
                 </div>
             </div>
-            <div>
-                <a class="btn btn-primary col-sm-4 col-md-4 col-lg-4" href="#" id="GuardarSoldadoresRaiz">
-                    <span id="textoGuardar"></span>
-                </a>
+            <div class="row col-sm-12 col-md-12 col-lg-12" style="padding-right:0px;">
+                <div class="col-sm-2 col-md-2 col-lg-2">
 
-                <a class="btn btn-primary col-sm-4 col-md-4 col-lg-4" href="#" id="CancelarSoldadoresRaiz">
-                    <span id="textoCancelar"></span>
-                </a>
+                </div>
+                <div class="col-sm-3 col-d-3 col-lg-3">
+                    <label id="">&nbsp;</label>
+                    <a class="btn btn-primary " href="#" id="GuardarSoldadoresRaiz">
+                        <span id="textoGuardar"></span>
+                    </a>
+                </div>
+                <div class="col-sm-3 col-d-3 col-lg-3">
+                    <label id="">&nbsp;</label>
+                    <a class="btn btn-primary " href="#" id="CancelarSoldadoresRaiz">
+                        <span id="textoCancelar"></span>
+                    </a>
+                </div>
+
             </div>
+            
         </div>
 
     </div>
     <div id="windowMultiselectSoldadorRelleno" style="display: none; z-index:inherit;">
         <div id="formaObrero" class="col-sm-12 col-md-12 col-lg-11">
+            
             <div class="row">
+                <div class=" col-sm-12 col-md-12 col-lg-12">
+                    
+                    <input type="radio" name="CertificadoRelleno" class="radio-responsive" style=" width:auto;" value="Certificado" /><span id="">Certificado</span>
+                    <input type="radio" name="CertificadoRelleno" class="radio-responsive" style=" width:auto;" value="NoCertificado" /><span id="">No certificado</span>
+                </div>
                 <div class="form-group  col-sm-12 col-md-12 col-lg-12" id="containerMultiSelect" style="min-height: 100px;">
-                    <label id=""><span>Soldadores Relleno</span></label>
                     <div id="contenedorMultiselectRelleno">
                         <div id="inputSoldadoresRelleno" />
                     </div>
+                </div>
+                <div class="row col-sm-12 col-md-12 col-lg-12" style="padding-right:0px;">
+                <div class="col-sm-2 col-md-2 col-lg-2">
+                </div>
+                <div class="col-sm-3 col-d-3 col-lg-3">
+                    <label id="">&nbsp;</label>
+                    <a class="btn btn-primary " href="#" id="GuardarSoldadoresRelleno">
+                        <span id="textoGuardar1"></span>
+                    </a>
+                </div>
+                <div class="col-sm-3 col-d-3 col-lg-3">
+                    <a class="btn btn-primary " href="#" id="CancelarSoldadoresRelleno">
+                        <span id="textoCancelar1"></span>
+                    </a>
+                </div>
+            </div>
+            </div>
 
-                </div>
-            </div>
-            <div>
-                <div class="form-group  col-sm-5 col-md-5 col-lg-5">
-                    <a class=" btn btn-blue " href="#" id="GuardarSoldadoresRelleno"><span id="botonGuardar5"></span></a>
-                </div>
-            </div>
+            
+            
         </div>
     </div>
 </div>
