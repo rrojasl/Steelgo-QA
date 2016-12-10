@@ -13,7 +13,10 @@ namespace BackEndSAM.Models.Embarque.Etiquetado
         public string Spool { get; set; }
         public int ProyectoID { get; set; }
         public string Proyecto { get; set; }
+        public int CuadranteAnteriorSam2ID { get; set; }
+        public int CuadranteAnteriorSam3ID { get; set; }
         public int CuadranteID { get; set; }
+        public int CuadranteSam2ID {get;set;}
         public string Cuadrante { get; set; }
         public int EtiquetadoID { get; set; }
         public bool Etiquetado { get; set; }
@@ -36,8 +39,9 @@ namespace BackEndSAM.Models.Embarque.Etiquetado
         public int SpoolID { get; set; }
         public bool Etiquetado { get; set; }
         public int CuadranteID { get; set; }
-        
-
+        public int CuadranteSam2ID { get; set; }
+        public int CuadranteAnteriorID { get; set; }
+        public int CuadranteAnteriorSam2ID { get; set; }
     }
 
     public class CapturaEtiquetado

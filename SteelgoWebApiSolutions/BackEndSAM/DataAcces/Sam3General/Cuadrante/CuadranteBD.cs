@@ -42,6 +42,7 @@ namespace BackEndSAM.DataAcces.Sam3General.Cuadrante
                     {
                         listaDetalle.Add(new UbicacionCuadrante {
                             CuadranteID = item.CuadranteID,
+                            CuadranteSam2ID = item.CuadranteSam2ID,
                             Nombre = item.Nombre,
                             ZonaID = item.ZonaID.GetValueOrDefault()
                         });
@@ -76,6 +77,7 @@ namespace BackEndSAM.DataAcces.Sam3General.Cuadrante
                         listaDetalle.Add(new UbicacionCuadrante
                         {
                             CuadranteID = item.CuadranteID,
+                            CuadranteSam2ID = item.CuadranteSam2ID,
                             Nombre = item.Nombre,
                             PatioID = item.PatioID,
                             ProyectoID = item.ProyectoID,

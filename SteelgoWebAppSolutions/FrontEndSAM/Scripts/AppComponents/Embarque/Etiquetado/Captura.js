@@ -2,10 +2,6 @@
 function changeLanguageCall() {
     CargarGrid();
     AjaxCargarCamposPredeterminados();
-    //$("#Area").data("kendoComboBox").value("");
-    // $("#Cuadrante").data("kendoComboBox").value("");
-    //AjaxCargarArea();
-    //document.title = "Consulta";
 };
 
 
@@ -43,9 +39,6 @@ function CargarGrid() {
             if ($('#Guardar').text() == _dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]) {
                 this.closeCell();
             }
-
-            cambioAlgoGrid = true;
-
         },
         dataSource: {
             schema: {
@@ -57,7 +50,6 @@ function CargarGrid() {
                         Cuadrante: { type: "string", editable: true },
                         OkPnd: { type: "boolean", editable: false },
                         OkPintura: { type: "boolean", editable: false },
-                        NombreColor: { type: "string", editable: true },
                         Etiquetado: { type: "boolean", editable: true }
                     }
                 }
@@ -66,8 +58,7 @@ function CargarGrid() {
                 logic: "or",
                 filters: [
                   { field: "Accion", operator: "eq", value: 1 },
-                  { field: "Accion", operator: "eq", value: 2 },
-                  { field: "Accion", operator: "eq", value: 3 }
+                  { field: "Accion", operator: "eq", value: 2 }
                 ]
             },
             pageSize: 10,
@@ -124,34 +115,32 @@ function CargarGrid() {
                         style: "max-width:100px;"
                     },
                     dataSource: [{ Etiquetado: true }, { Etiquetado: false }]
-                }, template: "<input name='fullyPaid' class='chk-Encintado' type='checkbox' data-bind='checked: Etiquetado' #= Etiquetado ? checked='checked' : '' #/>", width: "80px", attributes: { style: "text-align:center;" }
+                }, template: "<input name='fullyPaid' class='chk-Etiquetado' type='checkbox' data-bind='checked: Etiquetado' #= Etiquetado ? checked='checked' : '' #/>", width: "80px", attributes: { style: "text-align:center;" }
             },
-        ],
-        beforeEdit: function (e) {
-            var columnIndex = this.cellIndex(e.container);
-            var fieldName = this.thead.find("th").eq(columnIndex).data("field");
-            if (!isEditable(fieldName, e.model)) {
-                e.preventDefault();
-            }
-        }
+        ]
     });
 
-    $("#grid .k-grid-content").on("change", "input.chk-Encintado", function (e) {
+    $("#grid .k-grid-content").on("change", "input.chk-Etiquetado", function (e) {
 
         if ($('#Guardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
-            cambioAlgoGrid = true;
             var grid = $("#grid").data("kendoGrid");
             var dataItem = grid.dataItem($(e.target).closest("tr"));
             
             if ($(this)[0].checked) {
                 dataItem.Etiquetado = true;
-                dataItem.ModificadoPorUsuario = true;
+
+                if(dataItem.Accion == 1 || (dataItem.Accion == 2 && dataItem.CuadranteID != dataItem.CuadranteAnteriorSam3ID))
+                    dataItem.ModificadoPorUsuario = true;
+                else
+                    dataItem.ModificadoPorUsuario = false;
             }
             else {
                 dataItem.Etiquetado = false;
-                //dataItem.ColorCintaID = 0;
-                //dataItem.ColorCinta = "";
-                dataItem.ModificadoPorUsuario = true;
+
+                if (dataItem.Accion == 2 || (dataItem.Accion == 1 && dataItem.CuadranteID != dataItem.CuadranteAnteriorSam3ID))
+                    dataItem.ModificadoPorUsuario = true;
+                else
+                    dataItem.ModificadoPorUsuario = false;
             }
 
             $("#grid").data("kendoGrid").dataSource.sync();
@@ -169,126 +158,124 @@ function CargarGrid() {
     CustomisaGrid($("#grid"));
 };
 
-function isEditable(fieldName, model) {
-    if (fieldName === "ColorCinta") {
-        if (!model.Encintado) {
-            return false;
+function existenCambios() {
+    var ds = $("#grid").data("kendoGrid").dataSource._data;
+    if (ds.length > 0) {
+
+        for (var i = 0; i < ds.length; i++) {
+            if (ds[i].ModificadoPorUsuario == true)
+                return true;
         }
     }
-    return true;
+
+    return false;
 }
 
-function existenCambios() {
-    
-    //    for (index = 0; index < $("#grid").data("kendoGrid").dataSource._data.length; index++) {
-    //        if ($("#grid").data("kendoGrid").dataSource._data[index].Agregar == true && $("#grid").data("kendoGrid").dataSource._data[index].RequisicionID == 0)
-    //            return true;
-    //    }
-    
-    //return false;
-
-    return cambioAlgoGrid;
-}
-
-function PlanchaEtiquedo() {
-
+function PlanchaEtiquedo(Etiquetado) {
     var dataSource = $("#grid").data("kendoGrid").dataSource;
     var filters = dataSource.filter();
     var allData = dataSource.data();
     var query = new kendo.data.Query(allData);
     var data = query.filter(filters).data;
-    var SpoolsNoPlanchados = '';
-
 
     for (var i = 0; i < data.length; i++) {
-        //Etiquetado check
-        if ($('input:radio[name=SelectTodos]:checked').val() == "Si") {
-            data[i].Etiquetado = true;
+        if ($('input:radio[name=LLena]:checked').val() == "Todos") {
+            if (Etiquetado == "Si") {
+                data[i].Etiquetado = true;
 
-            if (data[i].Accion == 3)
-                data[i].Accion = 2;
-            data[i].ModificadoPorUsuario = true;
-        }
-        else if ($('input:radio[name=SelectTodos]:checked').val() == "No") {
-            data[i].Etiquetado = false;
+                if (data[i].Accion == 1 || (data[i].Accion == 2 && data[i].CuadranteID != data[i].CuadranteAnteriorSam3ID))
+                    data[i].ModificadoPorUsuario = true;
+                else
+                    data[i].ModificadoPorUsuario = false;
+            } else if (Etiquetado == "No") {
 
-            data[i].Accion = data[i].Accion == 2 ? 3 : data[i].Accion;
-            if (data[i].Accion == 1) {
-                data[i].ModificadoPorUsuario = false;
+                data[i].Etiquetado = false;
+
+                if (data[i].Accion == 2 || (data[i].Accion == 1 && data[i].CuadranteID != data[i].CuadranteAnteriorSam3ID))
+                    data[i].ModificadoPorUsuario = true;
+                else 
+                    data[i].ModificadoPorUsuario = false;
             }
-            else
-                data[i].ModificadoPorUsuario = true;
+        } else if ($('input:radio[name=LLena]:checked').val() == "Vacios") {
+            if (!data[i].Etiquetado) {
+                if (Etiquetado == "Si") {
+                    data[i].Etiquetado = true;
+
+                    if (data[i].Accion == 1 || (data[i].Accion == 2 && data[i].CuadranteID != data[i].CuadranteAnteriorSam3ID))
+                        data[i].ModificadoPorUsuario = true;
+                     else 
+                        data[i].ModificadoPorUsuario = false;
+                }
+            }
         }
-
-
-
     }
+
     $("#grid").data("kendoGrid").dataSource.sync();
 }
 
-function PlanchaCuadrante() {
-
-    var seleccionartodos = $('#SelectTodosSi').is(':checked');
-    var seleccionarNinguno = $('#SelectTodosNinguno').is(':checked');
+function PlanchaCuadrante(Cuadrante) {
     var dataSource = $("#grid").data("kendoGrid").dataSource;
     var filters = dataSource.filter();
     var allData = dataSource.data();
     var query = new kendo.data.Query(allData);
     var data = query.filter(filters).data;
-    var SpoolsNoPlanchados = '';
 
-    if ($("#inputCuadrantePlanchado").data("kendoComboBox").text() != "") {
-        for (var i = 0; i < data.length; i++) {
-            if ($('input:radio[name=LLena]:checked').val() == "Todos") {
-                var existe = false;
-                for (var x = 0; x < data[i].ListaCuadrantes.length; x++) {
-                    if ($("#inputCuadrantePlanchado").data("kendoComboBox").dataSource._data[$("#inputCuadrantePlanchado").val()].CuadranteID == data[i].ListaCuadrantes[x].CuadranteID)
-                        existe = true;
-                }
-                if (existe) {
-                    data[i].CuadranteID = $("#inputCuadrantePlanchado").val();
-                    data[i].Cuadrante = $("#inputCuadrantePlanchado").data("kendoComboBox").text();
-                }
-                else {
-                    SpoolsNoPlanchados += data[i].Spool + " ";
-                }
-                if (!seleccionarNinguno)
-                    data[i].Etiquetado = seleccionartodos;
+    for (var i = 0; i < data.length; i++) {
+        if ($('input:radio[name=LLena]:checked').val() == "Todos") {
+            data[i].CuadranteID = Cuadrante.CuadranteID;
+            data[i].CuadranteSam2ID = Cuadrante.CuadranteSam2ID;
+            data[i].Cuadrante = Cuadrante.Nombre;
 
+            if (data[i].CuadranteAnteriorSam3ID === Cuadrante.CuadranteID) {
+                if ((data[i].Accion == 1 && !data[i].Etiquetado) || (data[i].Accion == 2 && data[i].Etiquetado))
+                    data[i].ModificadoPorUsuario = false;
+                else
+                    data[i].ModificadoPorUsuario = true;
+            } else {
                 data[i].ModificadoPorUsuario = true;
             }
-            else if ($('input:radio[name=LLena]:checked').val() == "Vacios") {
-                if (data[i].Cuadrante == "") {
-                    var existe = false;
-                    for (var x = 0; x < data[i].ListaCuadrantes.length; x++) {
-                        if ($("#inputCuadrantePlanchado").data("kendoComboBox").dataSource._data[$("#inputCuadrantePlanchado").val()].CuadranteID == data[i].ListaCuadrantes[x].CuadranteID)
-                            existe = true;
-                    }
-                    if (existe) {
-                        data[i].CuadranteID = $("#inputCuadrantePlanchado").val();
-                        data[i].Cuadrante = $("#inputCuadrantePlanchado").data("kendoComboBox").text();
-                    }
-                    else {
-                        SpoolsNoPlanchados += data[i].Spool + " ";
-                    }
+        }
+        else if ($('input:radio[name=LLena]:checked').val() == "Vacios") {
+            if (data[i].Cuadrante == "") {
+                data[i].CuadranteID = Cuadrante.CuadranteID;
+                data[i].CuadranteSam2ID = Cuadrante.CuadranteSam2ID;
+                data[i].Cuadrante = Cuadrante.Nombre;
+
+                if (data[i].CuadranteAnteriorSam3ID === Cuadrante.CuadranteID) {
+                    if ((data[i].Accion == 1 && !data[i].Etiquetado) || (data[i].Accion == 2 && data[i].Etiquetado))
+                        data[i].ModificadoPorUsuario = false;
+                    else
+                        data[i].ModificadoPorUsuario = true;
+                } else {
                     data[i].ModificadoPorUsuario = true;
                 }
             }
-
-
         }
-        //displayNotify("", "Los spools: " + SpoolsNoPlanchados + "No han sido planchados", 1);
     }
-    //else {
-    //    //if (data[i].Cuadrante === "" || data[i].Cuadrante === null || data[i].Cuadrante === undefined) {
-    //    //    data[i].CuadranteID = $("#inputCuadrantePlanchado").val();
-    //    //    data[i].Cuadrante = $("#inputCuadrantePlanchado").data("kendoComboBox").text();
-    //    //    if (!seleccionarNinguno) data[i].Etiquetado = seleccionartodos;
-    //    //}
-    //    for (var i = 0; i < data.length; i++) {
-    //        data[i].CuadranteID = $("#inputCuadrantePlanchado").val();
-    //        data[i].Cuadrante = $("#inputCuadrantePlanchado").data("kendoComboBox").text();
-    //    }
-    //}
+
     $("#grid").data("kendoGrid").dataSource.sync();
+}
+
+function FiltroMostrar(mostrar) {
+    var ds = $("#grid").data("kendoGrid").dataSource;
+
+    if (mostrar == 0) {
+        var curr_filters = ds.filter().filters;
+        if (curr_filters[0].filters != undefined)
+            ds.filter(curr_filters[0].filters[0])
+        else
+            ds.filter(curr_filters[0])
+        ds.sync();
+    }
+    else {
+
+        var curr_filters = ds.filter().filters;
+        ds.filter(curr_filters[0])
+        ds.sync();
+        var filters = ds.filter();
+        filters.logic = "or"
+
+        filters.filters.push({ field: "Accion", operator: "eq", value: 2 });
+        ds.sync();
+    }
 }
