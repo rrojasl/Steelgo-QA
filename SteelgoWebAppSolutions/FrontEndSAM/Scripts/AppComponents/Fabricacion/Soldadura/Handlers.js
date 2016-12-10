@@ -11,6 +11,7 @@
     suscribirEventoChangeRadioTipoListado();
     SuscribirEventoMuestraJunta();
     suscribirEventoGridPopupSoldadoresRaiz();
+    suscribirEventoGridPopupSoldadoresRelleno();
     SuscribirFechaSoldadura();
 };
 
@@ -130,6 +131,12 @@ function suscribirEventoCancelar() {
     $('#btnCancelar').click(function (e) {
         Limpiar();
         //AjaxCargarCamposPredeterminados();
+    });
+    $('#CancelarSoldadoresRaiz').click(function (e) {
+        windowRaiz.close();
+    });
+    $('#CancelarSoldadoresRelleno').click(function (e) {
+        windowRelleno.close();
     });
 }
 
@@ -399,11 +406,25 @@ function suscribirEventoGridPopupSoldadoresRaiz() {
         if ($('#botonGuardar').text() == _dictionary.DetalleAvisoLlegada0017[$("#language").data("kendoDropDownList").value()]) {
             var grid = $("#grid").data("kendoGrid");
             dataItem = grid.dataItem($(e.target).closest("tr"));
-            if (dataItem.ProcesoSoldaduraRaiz != "N/A" && dataItem.ProcesoSoldaduraRaiz != "")
+            if ( dataItem.ProcesoSoldaduraRaiz != "")
                 GridPopupSoldadoresRaizCapturados(dataItem);
         }
     });
 }
+
+function suscribirEventoGridPopupSoldadoresRelleno() {
+
+    $(document).on('click', '.botonSoldadoresRelleno', function (e) {
+        e.preventDefault();
+        if ($('#botonGuardar').text() == _dictionary.DetalleAvisoLlegada0017[$("#language").data("kendoDropDownList").value()]) {
+            var grid = $("#grid").data("kendoGrid");
+            dataItem = grid.dataItem($(e.target).closest("tr"));
+            if ( dataItem.ProcesoSoldaduraRelleno != "")
+                GridPopupSoldadoresRellenoCapturados(dataItem);
+        }
+    });
+}
+
 
 function SuscribirFechaSoldadura() {
 

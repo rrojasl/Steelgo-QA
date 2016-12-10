@@ -30,8 +30,16 @@ _dictionary = {
         "es-MX": "Cancelar",
         "en-US": "Cancel"
     },
+    "textoCancelar1": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
     //Login Page Labels
     "textoGuardar": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
+    "textoGuardar1": {
         "es-MX": "Guardar",
         "en-US": "Save"
     },
@@ -9164,6 +9172,18 @@ _dictionary = {
     "CapturaSoldaduraSoldadoresRaiz": {
         "es-MX": "Soldadores Raiz",
         "en-US": "Root Welders"
+    },
+    "CapturaSoldaduraSoldadoresRelleno": {
+        "es-MX": "Soldadores Raiz",
+        "en-US": "Fill Welders"
+    },
+    "lblSoldadorCerfiticado1": {
+        "es-MX": "Mostrar",
+        "en-US": "Show"
+    },
+    "lblSoldadorCerfiticado2": {
+        "es-MX": "Mostrar",
+        "en-US": "Show"
     },
     "tituloEliminar": {
         "es-MX": "ELM",
