@@ -38,8 +38,12 @@ namespace BackEndSAM.DataAcces.Embarque.Etiquetado
             {
                 using (SamContext ctx = new SamContext())
                 {
+                    //Obtiene el catalogo de Cuadrantes
+                    List<UbicacionCuadrante> listCuadrantes = (List<UbicacionCuadrante>)CuadranteBD.Instance.ObtenerCuadrante(ZonaID);
+
                     List<Sam3_Embarque_get_Etiquetado_Zona_Result> result = ctx.Sam3_Embarque_get_Etiquetado_Zona(ZonaID, CuadranteID, Todos).ToList();
                     List<DetalleEtiquetado> listaDetalle = new List<DetalleEtiquetado>();
+
 
                     foreach (Sam3_Embarque_get_Etiquetado_Zona_Result item in result)
                     {
@@ -65,7 +69,7 @@ namespace BackEndSAM.DataAcces.Embarque.Etiquetado
                             RutaDibujo = item.RutaDibujo,
                             RutaIsometrico = item.RutaIsometrico,
                             RutaPlano = item.RutaPlano,
-                            ListaCuadrantes = (List<UbicacionCuadrante>)CuadranteBD.Instance.ObtenerCuadrante(item.ZonaID)
+                            ListaCuadrantes = listCuadrantes
                         });
                     }
                     return listaDetalle.OrderByDescending(y => y.Etiquetado);
@@ -89,6 +93,9 @@ namespace BackEndSAM.DataAcces.Embarque.Etiquetado
             {
                 using (SamContext ctx = new SamContext())
                 {
+                    //Obtiene catalogo de cuadrantes
+                    List<UbicacionCuadrante> listCuadrantes = (List<UbicacionCuadrante>)CuadranteBD.Instance.ObtenerCuadranteSpool(SpoolContiene, UsuarioID);
+
                     List<Sam3_Embarque_get_Etiquetado_NumeroControl_Result> result = ctx.Sam3_Embarque_get_Etiquetado_NumeroControl(SpoolContiene, Todos).ToList();
                     List<DetalleEtiquetado> listaDetalle = new List<DetalleEtiquetado>();
 
@@ -117,7 +124,7 @@ namespace BackEndSAM.DataAcces.Embarque.Etiquetado
                             RutaDibujo = item.RutaDibujo,
                             RutaIsometrico = item.RutaIsometrico,
                             RutaPlano = item.RutaPlano,
-                            ListaCuadrantes = (List<UbicacionCuadrante>)CuadranteBD.Instance.ObtenerCuadranteSpool(item.Spool, UsuarioID)
+                            ListaCuadrantes = listCuadrantes
                         });
                     }
 
