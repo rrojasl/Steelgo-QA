@@ -57,7 +57,7 @@ namespace BackEndSAM.DataAcces.ConfiguracionSoldadura
 
             using (SamContext ctx = new SamContext())
             {
-                List<WPS> data = (from WPS in ctx.Sam3_Soldadura_WPS(TipoDato, null, null, null, null, null, null, null, null, null, null, null, null, null)
+                List<WPS> data = (from WPS in ctx.Sam3_Soldadura_WPS(TipoDato)
                                   select new WPS
                                   {
                                       Accion = 2,

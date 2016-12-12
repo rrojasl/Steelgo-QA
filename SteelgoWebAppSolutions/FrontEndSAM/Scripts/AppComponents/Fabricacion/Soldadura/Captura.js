@@ -430,7 +430,6 @@ function GridPopupSoldadoresRellenoCapturados(row) {
                     else
                         dataItem.Accion = 3;
                     dataSource.sync();
-
                 }
             }, width: "50px", title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()]
         },

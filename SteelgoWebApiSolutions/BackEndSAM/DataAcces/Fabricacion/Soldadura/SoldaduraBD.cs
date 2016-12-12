@@ -111,7 +111,7 @@ namespace BackEndSAM.DataAcces.Fabricacion.Soldadura
                
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Soldadura_GET_DetalleSoldadorColadas_Result> result = ctx.Sam3_Soldadura_GET_DetalleSoldadorColadas(idOrdenTrabajo, ordenTrabajoSpoolID, JuntaID, proyectoID).ToList();
+                    List<Sam3_Soldadura_GET_DetalleSoldadorColadas_Result> result = ctx.Sam3_Soldadura_GET_DetalleSoldadorColadas( Convert.ToInt32(JuntaID),0).ToList();
 
                     if(result.Count>0)
                         listaProcesosSoldadura.Add(new Soldadores());
@@ -121,11 +121,11 @@ namespace BackEndSAM.DataAcces.Fabricacion.Soldadura
                         listaProcesosSoldadura.Add(new Soldadores
                         {
                             Accion = 2,
-                            Colada = item.COLADA,
-                            ColadaID = item.COLADAID,
-                            ObreroID = item.OBREROID,
-                            Observaciones = item.COMENTARIO,
-                            Soldador = item.OBRERO
+                            Colada = item.Colada,
+                            ColadaID = item.ColadaID,
+                            ObreroID = item.ObreroID,
+                            Observaciones = item.Comentario,
+                            Soldador = item.Obrero
                         });
                     }
                     return listaProcesosSoldadura;
