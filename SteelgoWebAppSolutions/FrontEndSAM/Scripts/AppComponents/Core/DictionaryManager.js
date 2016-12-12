@@ -7962,6 +7962,18 @@ _dictionary = {
         "es-MX": "La Orden de trabajo no es valida.",
         "en-US": "The work order is not valid."
     },
+    "MensajeSeleccionaCuadrante": {
+        "es-MX": "Por favor seleccione un cuadrante",
+        "en-US": "Please select a quadrant"
+    },
+    "MensajeSeleccionaZona": {
+        "es-MX": "Por favor seleccione una zona",
+        "en-US": "Please select a zone"
+    },
+    "MensajeSeleccionaSpoolcontiene": {
+        "es-MX": "Favor de ingresar SpoolID Contiene",
+        "en-US": "Please enter a Contain SpoolID"
+    },
     // Finalizan Mensajes generales
 
     // Menú lateral

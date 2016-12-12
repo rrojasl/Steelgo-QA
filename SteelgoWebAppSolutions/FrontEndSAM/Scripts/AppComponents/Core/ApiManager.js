@@ -213,7 +213,7 @@ var $Etiquetado = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $CargaPlana = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $EmbarqueGeneral = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Proveedores = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
-var $EncintadoFinal = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Encintado = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Empaquetado = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $PreparacionEmbarque = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $RevisionEmbarque = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
@@ -388,15 +388,12 @@ $IntermedioAcabado.add("IntermedioAcabado");
 
 //Embarque
 $Etiquetado.add("Etiquetado");
-$EncintadoFinal.add('EncintadoFinal');
+$Encintado.add('Encintado');
 $Empaquetado.add('Empaquetado');
 $PreparacionEmbarque.add('PreparacionEmbarque');
 $RevisionEmbarque.add('RevisionEmbarque');
 
-//Soldadura
-
-
-$PQR.add("PQR");
+//Soldadura$PQR.add("PQR");
 $WPS.add("WPS");
 $SoldadorCertificacion.add("SoldadorCertificacion");
 
