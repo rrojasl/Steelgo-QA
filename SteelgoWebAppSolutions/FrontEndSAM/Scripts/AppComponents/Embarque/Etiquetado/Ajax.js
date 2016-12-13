@@ -188,7 +188,7 @@ function AjaxGuardarCaptura(rows, tipoGuardar) {
         loadingStop();
     }
     else {
-        displayNotify("MensajeAdverteciaExcepcionGuardado", "", '1');
+        displayNotify("MensajeAdverteciaExcepcionGuardado", "", '2');
         loadingStop();
     }
 };

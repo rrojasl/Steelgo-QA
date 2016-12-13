@@ -8783,8 +8783,6 @@ _dictionary = {
         "es-MX": "La junta ",
         "en-US": "The joint "
     },
-    
-  
     "armadoSoldaduraSup": {
         "es-MX": "Soldadura",
         "en-US": "Welding"
@@ -8944,6 +8942,10 @@ _dictionary = {
     "CapturaArmadoPreguntaBorradoCaptura": {
         "es-MX": "¿Está seguro de eliminar el detalle de la captura de armado?",
         "en-US": "Are you sure you want to delete the detail of the capture of armed ?"
+    },
+    "CapturaArmadoMensajeNoHayJuntas": {
+        "es-MX": "No hay juntas para el spool seleccionado",
+        "en-US": "There are not joints for the selected spools"
     },
     //Finaliza Armado
 
@@ -10500,7 +10502,7 @@ _dictionary = {
         "en-US": "Label"
     },
     "columnColorCintaEmbarque": {
-        "es-MX": "Color de la Cinta ",
+        "es-MX": "Color Cinta",
         "en-US": "Ribbon color"
     },
     "columnEncintadoEmbarque": {

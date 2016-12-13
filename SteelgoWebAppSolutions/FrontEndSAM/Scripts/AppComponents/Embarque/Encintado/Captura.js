@@ -7,7 +7,6 @@ function changeLanguageCall() {
     CargarGrid();    
     AjaxCargarCamposPredeterminados();
     document.title = _dictionary.EmbarqueEncintadoTitle[$("#language").data("kendoDropDownList").value()];
-    ajaxObtenerColores();
 };
 
 
@@ -49,37 +48,6 @@ function CargarGrid() {
 
         },
         dataSource: {
-            data: [
-                 //{
-                 //    Accion: 1,
-                 //    Proyecto: "ETILENO XXI",
-                 //    Spool: "X001-001",
-                 //    Cuadrante: "ZZ0-001 PT",
-                 //    ColorCinta: "",
-                 //    OkPND: true,
-                 //    OkPintura: true,
-                 //    Encintado:false,
-                 //    Etiquetado: true,
-                 //    ModificadoPorUsuario: false,
-                 //    ListaCuadrantes: [{ CuadranteID: 0, Nombre: "" }, { CuadranteID: 1, Nombre: "A1" }, { CuadranteID: 2, Nombre: "A2" }, { CuadranteID: 3, Nombre: "ZZ0-001 PT" }],
-                 //    ListaColoresCinta: [{ ColorCintaID: 0, Nombre: "" }, { ColorCintaID: 1, Nombre: "Verde" }, { ColorCintaID: 2, Nombre: "Amarillo" }, { ColorCintaID: 3, Nombre: "Rojo" }]
-                 //},
-                 //{
-
-                 //    Accion: 2,
-                 //    Proyecto: "ETILENO XXI",
-                 //    Spool: "X001-001",
-                 //    Cuadrante: "A1",
-                 //    ColorCinta: "Rojo",
-                 //    OkPND: true,
-                 //    OkPintura: true,
-                 //    Encintado: true,
-                 //    Etiquetado: true,
-                 //    ModificadoPorUsuario: false,
-                 //    ListaCuadrantes: [{ CuadranteID: 0, Nombre: "" }, { CuadranteID: 1, Nombre: "A1" }, { CuadranteID: 2, Nombre: "A2" }, { CuadranteID: 3, Nombre: "ZZ0-001 PT" }],
-                 //    ListaColoresCinta: [{ ColorCintaID: 0, Nombre: "" }, { ColorCintaID: 1, Nombre: "Verde" }, { ColorCintaID: 2, Nombre: "Amarillo" }, { ColorCintaID: 3, Nombre: "Rojo" }]
-                 //}
-            ],
             schema: {
                 model: {
                     fields: {
@@ -99,8 +67,7 @@ function CargarGrid() {
                 logic: "or",
                 filters: [
                   { field: "Accion", operator: "eq", value: 1 },
-                  { field: "Accion", operator: "eq", value: 2 },
-                  { field: "Accion", operator: "eq", value: 3 }
+                  { field: "Accion", operator: "eq", value: 2 }
                 ]
             },
             pageSize: 10,
@@ -181,43 +148,6 @@ function CargarGrid() {
                 e.preventDefault();
             }
         }
-        //dataBound: function (e) {
-        //    $(".chk-Encintado").bind("change", function (e) {
-        //        if ($('#botonGuardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
-        //            if (e.target.checked) {
-        //                $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Encintado = true;
-        //                //$("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Accion = 1;
-        //                if ($("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Accion == 3) {
-        //                    $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Accion = 2;
-        //                }
-
-        //                $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).ModificadoPorUsuario = true;
-        //            }
-        //            else {
-        //                $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Encintado = false;
-        //                $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Accion = $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Accion == 2 ? 3 : $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Accion;
-        //                if ($("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Accion == 1) {
-        //                    $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).ModificadoPorUsuario = false;
-        //                }
-        //                else
-        //                    $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).ModificadoPorUsuario = true;
-        //                //else if ($("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Accion == 2) {
-        //                //    $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Accion = 3;
-        //                //}
-        //            }
-
-
-        //        }
-        //        else {
-        //            if (e.target.checked)
-        //                $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Etiquetado = false;
-        //            else
-        //                $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Etiquetado = true;
-        //        }
-
-        //        $("#grid").data("kendoGrid").dataSource.sync();
-        //    });
-        //}
     });    
 
     $("#grid .k-grid-content").on("change", "input.chk-Encintado", function (e) {
@@ -227,19 +157,24 @@ function CargarGrid() {
             var dataItem = grid.dataItem($(e.target).closest("tr"));
 
             if ($(this)[0].checked) {
-                dataItem.Encintado = true;
-                dataItem.ModificadoPorUsuario = true;
+                dataItem.Encintado = true;                
+                if (dataItem.Accion == 1 || (dataItem.Accion == 2 && (dataItem.CuadranteID != dataItem.CuadranteAnteriorSam3ID 
+                    || dataItem.ColorID != dataItem.ColorAnteriorID)))
+                    dataItem.ModificadoPorUsuario = true;
+                else
+                    dataItem.ModificadoPorUsuario = false;
             }
             else {
                 dataItem.Encintado = false;
                 dataItem.NombreColor = "";
                 dataItem.ColorID = 0;
-                //dataItem.ColorCintaID = 0;
-                //dataItem.ColorCinta = "";
-                dataItem.ModificadoPorUsuario = true;
-            }
 
-            $("#grid").data("kendoGrid").dataSource.sync();
+                if (dataItem.Accion == 2 || (dataItem.Accion == 1 && (dataItem.CuadranteID != dataItem.CuadranteAnteriorSam3ID
+                    || dataItem.ColorID != dataItem.ColorAnteriorID)))
+                    dataItem.ModificadoPorUsuario = true;
+                else
+                    dataItem.ModificadoPorUsuario = false;
+            }
         }
         else {
             if (e.target.checked)
@@ -255,7 +190,7 @@ function CargarGrid() {
 };
 
 function isEditable(fieldName, model) {
-    if (fieldName === "ColorCinta") {
+    if (fieldName === "NombreColor") {
         if (!model.Encintado ) {
             return false;
         }
@@ -275,127 +210,94 @@ function existenCambios() {
     return false;
 }
 
-function PlanchaEncintado() {
+function PlancharCuadrante(Cuadrante) {    
+    var dataSource = $("#grid").data("kendoGrid").dataSource;
+    var filters = dataSource.filter();
+    var allData = dataSource.data();
+    var query = new kendo.data.Query(allData);
+    var data = query.filter(filters).data;
+
+    
+    for (var i = 0; i < data.length; i++) {
+        if ($('input:radio[name=LLena]:checked').val() === "Todos") {
+            data[i].CuadranteID = Cuadrante.CuadranteID;
+            data[i].CuadranteSam2ID = Cuadrante.CuadranteSam2ID;
+            data[i].Cuadrante = Cuadrante.Nombre;
+
+            if (data[i].CuadranteAnteriorSam3ID === Cuadrante.CuadranteID) {
+                if ((data[i].Accion == 1 && !data[i].Encintado && data[i].ColorID == data[i].ColorAnteriorID)
+                    || (data[i].Accion == 2 && data[i].Encintado && data[i].ColorID == data[i].ColorAnteriorID))
+                    data[i].ModificadoPorUsuario = false;
+                else
+                    data[i].ModificadoPorUsuario = true;
+            } else {
+                data[i].ModificadoPorUsuario = true;
+            }
+        }
+        else if ($('input:radio[name=LLena]:checked').val() === "Vacios") {
+            if (data[i].Cuadrante === "" || data[i].Cuadrante === null || data[i].Cuadrante === undefined) {
+                data[i].CuadranteID = Cuadrante.CuadranteID;
+                data[i].CuadranteSam2ID = Cuadrante.CuadranteSam2ID;
+                data[i].Cuadrante = Cuadrante.Nombre;
+
+                if (data[i].CuadranteAnteriorSam3ID === Cuadrante.CuadranteID) {
+                    if ((data[i].Accion == 1 && !data[i].Encintado && data[i].ColorID == data[i].ColorAnteriorID)
+                        || (data[i].Accion == 2 && data[i].Encintado && data[i].ColorID == data[i].ColorAnteriorID))
+                        data[i].ModificadoPorUsuario = false;
+                    else
+                        data[i].ModificadoPorUsuario = true;
+                } else {
+                    data[i].ModificadoPorUsuario = true;
+                }
+            }
+        }
+    }
+
+    $("#grid").data("kendoGrid").dataSource.sync();
+}
+
+function PlanchaEncintado(Encintado) {
 
     var dataSource = $("#grid").data("kendoGrid").dataSource;
     var filters = dataSource.filter();
     var allData = dataSource.data();
     var query = new kendo.data.Query(allData);
     var data = query.filter(filters).data;
-    var SpoolsNoPlanchados = '';
-
 
     for (var i = 0; i < data.length; i++) {
-        //Etiquetado check
-        if ($('input:radio[name=SelectTodos]:checked').val() == "Si") {
-            if ($('input:radio[name=LLena]:checked').val() == "Vacios") {
-                if(!data[i].Encintado)
-                    data[i].Encintado = true;
-            }
-            else
+        if ($('input:radio[name=LLena]:checked').val() === "Todos") {
+            if (Encintado == "Si") {
                 data[i].Encintado = true;
-        }
-        else if ($('input:radio[name=SelectTodos]:checked').val() == "No") {
-            if ($('input:radio[name=LLena]:checked').val() == "Vacios") {
-                if (!data[i].Encintado)
-                    data[i].Encintado = false;
-            }
-            else
+
+                if (data[i].Accion == 1 || (data[i].Accion == 2 && (data[i].CuadranteID != data[i].CuadranteAnteriorSam3ID
+                    || data[i].ColorID != data[i].ColorAnteriorID)))
+                    data[i].ModificadoPorUsuario = true;
+                else
+                    data[i].ModificadoPorUsuario = false;
+
+            } else if (Encintado == "No") {
                 data[i].Encintado = false;
-        }
-        data[i].ModificadoPorUsuario = true;
-    }
-    $("#grid").data("kendoGrid").dataSource.sync();
-}
+                data[i].NombreColor = "";
+                data[i].ColorID = 0;
 
-function PlancharCuadrante(tipoPlanchado) {
-    var seleccionartodos = $('#SelectTodosSi').is(':checked');
-    var seleccionarNinguno = $('#SelectTodosNinguno').is(':checked');
-    var dataSource = $("#grid").data("kendoGrid").dataSource;
-    var filters = dataSource.filter();
-    var allData = dataSource.data();
-    var query = new kendo.data.Query(allData);
-    var data = query.filter(filters).data;
-
-    if ($("#InputCuadrantePlanchado").data("kendoComboBox").text() != "") {
-        for (var i = 0; i < data.length; i++) {
-            if (tipoPlanchado == "Todos") {
-                data[i].CuadranteID = $("#InputCuadrantePlanchado").val();
-                data[i].Cuadrante = $("#InputCuadrantePlanchado").data("kendoComboBox").text();
-                data[i].ModificadoPorUsuario = true;
-                //if (!seleccionarNinguno)
-                //    data[i].Etiquetado = seleccionartodos;
-            }
-            else if (tipoPlanchado == "Vacios") {
-                if (data[i].Cuadrante === "" || data[i].Cuadrante === null || data[i].Cuadrante === undefined) {
-                    data[i].CuadranteID = $("#InputCuadrantePlanchado").val();
-                    data[i].Cuadrante = $("#InputCuadrantePlanchado").data("kendoComboBox").text();
+                if (data[i].Accion == 2 || (data[i].Accion == 1 && (data[i].CuadranteID != data[i].CuadranteAnteriorSam3ID
+                    || data[i].ColorID != data[i].ColorAnteriorID)))
                     data[i].ModificadoPorUsuario = true;
-                    //if (!seleccionarNinguno) data[i].Etiquetado = seleccionartodos;
-                }
-            }
-        }
-    }
-    $("#grid").data("kendoGrid").dataSource.sync();
-}
+                else
+                    data[i].ModificadoPorUsuario = false;
 
-function PlancharCuadrante(tipoPlanchado) {
-    var seleccionartodos = $('#SelectTodosSi').is(':checked');
-    var seleccionarNinguno = $('#SelectTodosNinguno').is(':checked');
-    var dataSource = $("#grid").data("kendoGrid").dataSource;
-    var filters = dataSource.filter();
-    var allData = dataSource.data();
-    var query = new kendo.data.Query(allData);
-    var data = query.filter(filters).data;
-
-    if ($("#InputCuadrantePlanchado").data("kendoComboBox").text() != "") {
-        for (var i = 0; i < data.length; i++) {
-            if (tipoPlanchado == "Todos") {
-                data[i].CuadranteID = $("#InputCuadrantePlanchado").val();
-                data[i].Cuadrante = $("#InputCuadrantePlanchado").data("kendoComboBox").text();
-                data[i].ModificadoPorUsuario = true;
-                //if (!seleccionarNinguno)
-                //    data[i].Etiquetado = seleccionartodos;
             }
-            else if (tipoPlanchado == "Vacios") {
-                if (data[i].Cuadrante === "" || data[i].Cuadrante === null || data[i].Cuadrante === undefined) {
-                    data[i].CuadranteID = $("#InputCuadrantePlanchado").val();
-                    data[i].Cuadrante = $("#InputCuadrantePlanchado").data("kendoComboBox").text();
-                    data[i].ModificadoPorUsuario = true;
-                    //if (!seleccionarNinguno) data[i].Etiquetado = seleccionartodos;
-                }
-            }
-        }
-    }
-    $("#grid").data("kendoGrid").dataSource.sync();
-}
 
-function PlancharColorCinta(tipoPlanchado) {
-    var seleccionartodos = $('#SelectTodosSi').is(':checked');
-    var seleccionarNinguno = $('#SelectTodosNinguno').is(':checked');
-    var dataSource = $("#grid").data("kendoGrid").dataSource;
-    var filters = dataSource.filter();
-    var allData = dataSource.data();
-    var query = new kendo.data.Query(allData);
-    var data = query.filter(filters).data;
-
-    if ($("#InputColorCintaPlanchado").data("kendoComboBox").text() != "") {
-        for (var i = 0; i < data.length; i++) {
-            if (tipoPlanchado == "Todos") {
-                data[i].ColorID = $("#InputColorCintaPlanchado").val();
-                data[i].NombreColor = $("#InputColorCintaPlanchado").data("kendoComboBox").text();
-                data[i].ModificadoPorUsuario = true;
-                data[i].Encintado = true;
-                //if (!seleccionarNinguno)
-                //    data[i].Etiquetado = seleccionartodos;
-            }
-            else if (tipoPlanchado == "Vacios") {
-                if (data[i].NombreColor === "" || data[i].NombreColor === null || data[i].NombreColor === undefined) {
-                    data[i].ColorID = $("#InputColorCintaPlanchado").val();
-                    data[i].NombreColor = $("#InputColorCintaPlanchado").data("kendoComboBox").text();
-                    data[i].ModificadoPorUsuario = true;
+        } else if ($('input:radio[name=LLena]:checked').val() === "Vacios") {
+            if (!data[i].Encintado) {
+                if (Encintado == "Si") {
                     data[i].Encintado = true;
-                    //if (!seleccionarNinguno) data[i].Etiquetado = seleccionartodos;
+
+                    if (data[i].Accion == 1 || (data[i].Accion == 2 && (data[i].CuadranteID != data[i].CuadranteAnteriorSam3ID
+                                || data[i].ColorID != data[i].ColorAnteriorID)))
+                        data[i].ModificadoPorUsuario = true;
+                    else
+                        data[i].ModificadoPorUsuario = false;
                 }
             }
         }
@@ -403,8 +305,52 @@ function PlancharColorCinta(tipoPlanchado) {
     $("#grid").data("kendoGrid").dataSource.sync();
 }
 
+function PlanchaColorCinta(ColorCinta) {
+    var dataSource = $("#grid").data("kendoGrid").dataSource;
+    var filters = dataSource.filter();
+    var allData = dataSource.data();
+    var query = new kendo.data.Query(allData);
+    var data = query.filter(filters).data;
+    
+    for (var i = 0; i < data.length; i++) {
+        if ($('input:radio[name=LLena]:checked').val() === "Todos") {
+            if (data[i].Encintado) {
+                data[i].NombreColor = ColorCinta.Nombre;
+                data[i].ColorID = ColorCinta.ColorID;
+            }
 
+            if (data[i].ColorAnteriorID === ColorCinta.ColorID) {
+                if ((data[i].Accion == 1 && !data[i].Encintado && data[i].CuadranteID == data[i].CuadranteAnteriorSam3ID)
+                    || (data[i].Accion == 2 && data[i].Encintado && data[i].CuadranteID == data[i].CuadranteAnteriorSam3ID))
+                    data[i].ModificadoPorUsuario = false;
+                else
+                    data[i].ModificadoPorUsuario = true;
+            } else {
+                data[i].ModificadoPorUsuario = true;
+            }
 
+        } else if ($('input:radio[name=LLena]:checked').val() === "Vacios") {
+            if (data[i].NombreColor == "" || data[i].NombreColor == null || data[i].NombreColor == undefined) {
+                if (data[i].Encintado) {
+                    data[i].NombreColor = ColorCinta.Nombre;
+                    data[i].ColorID = ColorCinta.ColorID;
+                }
+
+                if (data[i].ColorAnteriorID === ColorCinta.ColorID) {
+                    if ((data[i].Accion == 1 && !data[i].Encintado && data[i].CuadranteID == data[i].CuadranteAnteriorSam3ID)
+                        || (data[i].Accion == 2 && data[i].Encintado && data[i].CuadranteID == data[i].CuadranteAnteriorSam3ID))
+                        data[i].ModificadoPorUsuario = false;
+                    else
+                        data[i].ModificadoPorUsuario = true;
+                } else {
+                    data[i].ModificadoPorUsuario = true;
+                }
+            }
+        }
+    }
+
+    $("#grid").data("kendoGrid").dataSource.sync();
+}
 function FiltroMostrar(mostrar) {
     var ds = $("#grid").data("kendoGrid").dataSource;
 
@@ -415,8 +361,6 @@ function FiltroMostrar(mostrar) {
         else
             ds.filter(curr_filters[0])
         ds.sync();
-
-
     }
     else {
         var curr_filters = ds.filter().filters;
@@ -426,7 +370,7 @@ function FiltroMostrar(mostrar) {
         filters.logic = "or"
 
         filters.filters.push({ field: "Accion", operator: "eq", value: 2 });
-        filters.filters.push({ field: "Accion", operator: "eq", value: 4 });
+        //filters.filters.push({ field: "Accion", operator: "eq", value: 4 });
         ds.sync();
     }
 }

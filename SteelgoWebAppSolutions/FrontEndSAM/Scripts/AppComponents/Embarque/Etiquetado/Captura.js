@@ -236,7 +236,7 @@ function PlanchaCuadrante(Cuadrante) {
             }
         }
         else if ($('input:radio[name=LLena]:checked').val() == "Vacios") {
-            if (data[i].Cuadrante == "") {
+            if (data[i].Cuadrante == "" || data[i].Cuadrante === null || data[i].Cuadrante === undefined) {
                 data[i].CuadranteID = Cuadrante.CuadranteID;
                 data[i].CuadranteSam2ID = Cuadrante.CuadranteSam2ID;
                 data[i].Cuadrante = Cuadrante.Nombre;

@@ -13,8 +13,8 @@ namespace BackEndSAM.Models.Embarque.Encintado
         public string Spool { get; set; }
         public int ProyectoID { get; set; }
         public string Proyecto { get; set; }
-        public int CuadranteanteriorSam2ID { get; set; }
-        public int CuadranteanteriorSam3ID { get; set; }
+        public int CuadranteAnteriorSam2ID { get; set; }
+        public int CuadranteAnteriorSam3ID { get; set; }
         public int? CuadranteID { get; set; }
         public int? CuadranteSam2ID { get; set; }
         public string Cuadrante { get; set; }
@@ -41,6 +41,11 @@ namespace BackEndSAM.Models.Embarque.Encintado
         public int SpoolID { get; set; }
         public bool Encintado { get; set; }
         public int ColorID { get; set; }
+        public int ColorAnteriorID { get; set; }
+        public int CuadranteID { get; set; }
+        public int CuadranteSam2ID { get; set; }
+        public int CuadranteAnteriorID { get; set; }
+        public int CuadranteAnteriorSam2ID { get; set; }
     }
 
     public class DetalleRutaSpool

@@ -6,13 +6,13 @@
 }
 @section breadcrumb {
     <li>
-        <a href="@Url.Action("landing", "Home")"><span id="lblInicio">Inicio</span></a>
+        <a href="@Url.Action("landing", "Home")"><span id="lblInicio"></span></a>
     </li>
     <li>
-        <a href="#"><span id="lblEmbarque">Calidad</span></a>
+        <a href="#"><span id="lblEmbarque"></span></a>
     </li>
     <li class="active">
-        <a href="@Url.Action("Encintar", "Embarque")"><span id="lblEncintado">Encintado</span></a>
+        <a href="@Url.Action("Encintar", "Embarque")"><span id="lblEncintado"></span></a>
     </li>
 }
 <div id="FormEmbarqueMarcado" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -99,7 +99,7 @@
                     <input id="InputColorCintaPlanchado" />
                 </div>
                 <div class="col-sm-2 col-md-2 col-lg-2" id="TodosDiv">
-                    <label id="lblSeleccionarTodos"></label>
+                    <label id="lblEncintado1"></label>
                     <input type="radio" id="SelectTodosSi" name="SelectTodos" style="width:auto;" value="Si" /><span id="lblSi"></span><br />
                     <input type="radio" id="SelectTodosNo" name="SelectTodos" style="width:auto;" value="No" /><span id="lblNo"></span><br />
                     <input type="radio" id="SelectTodosNinguno" name="SelectTodos" style="width:auto;" value="Ninguno" /><span id="lblNinguno"></span>
@@ -169,6 +169,6 @@
 
 <script>
     @section JavascriptDocumentReadyFunctions {
-    //$authorizationModel["Marcado"] = $MarcadoModel;
+    $authorizationModel["Encintado"] = $EncintadoModel;
     }
 </script>
