@@ -134,8 +134,8 @@ namespace BackEndSAM.Controllers
                     List<Sam3_Armado_Get_DetalleTrabajoAdicional_Result> detallaArmadoAdicional = (List<Sam3_Armado_Get_DetalleTrabajoAdicional_Result>)ArmadoBD.Instance.DetallaArmadoAdicional(capturaDatosJson, usuario);
                     List<Sam3_Armado_Get_MaterialesSpool_Result> listaNumeroUnicos = (List<Sam3_Armado_Get_MaterialesSpool_Result>)ArmadoBD.Instance.listaNumeroUnicos(capturaDatosJson, usuario, 2);
                     List<DetalleTrabajoAdicional> listDetalleTrabajoAdicional = GenerarDetalleAdicionalJson(detallaArmadoAdicional, usuario);
-                    List<NumeroUnico> listNumeroUnico1 = GenerarListaNumerosUnicos(listaNumeroUnicos, 1);
-                    List<NumeroUnico> listNumeroUnico2 = GenerarListaNumerosUnicos(listaNumeroUnicos, 2);
+                    List<NumeroUnico> listNumeroUnico1 = GenerarListaNumerosUnicos(listaNumeroUnicos, 1, detalle[0] != null ? detalle[0].LongitudMaterial1:0);
+                    List<NumeroUnico> listNumeroUnico2 = GenerarListaNumerosUnicos(listaNumeroUnicos, 2, detalle[0] != null ? detalle[0].LongitudMaterial2:0);
                     List<Sam3_Steelgo_Get_TrabajoAdicional_Result> listaTrabajoAdicionalXJunta = (List<Sam3_Steelgo_Get_TrabajoAdicional_Result>)ArmadoBD.Instance.listaTrabajosAdicionalesXJunta(usuario);
                     List<TrabajosAdicionalesXJunta> listaDetalleAdicionalXJuntaConvertida = listaTrabajoAdicionalXJunta.ConvertAll(new Converter<Sam3_Steelgo_Get_TrabajoAdicional_Result, TrabajosAdicionalesXJunta>(DetalleTrabajoAdicionalXJuntaResultToDetalleTrabajoAdicionalXJunta));
                     IFormatProvider culture = new System.Globalization.CultureInfo("es-MX", true);
@@ -180,7 +180,9 @@ namespace BackEndSAM.Controllers
                             NumeroUnico1ID = item.NumeroUnico1ID == null ? (listNumeroUnico1.Count == 2 ? listNumeroUnico1[1].NumeroUnicoID.ToString() : "") : item.NumeroUnico1ID.ToString(),
                             NumeroUnico2ID = item.NumeroUnico1ID == null ? (listNumeroUnico2.Count == 2 ? listNumeroUnico2[1].NumeroUnicoID.ToString() : "") : item.NumeroUnico2ID.ToString(),
                             DetalleJunta = "Junta: " + item.TipoJunta + " - " + "Ced: " + item.Cedula + " - " + "Loc: " + item.Localizacion + " - " + "Acero: " + item.FamiliaAcero + "",
-                            RowOk=true
+                            RowOk=true,
+                            LongitudMaterial1=item.LongitudMaterial1,
+                            LongitudMaterial2=item.LongitudMaterial2
                         };
                         detalleDatos.listadoTrabajosAdicionalesXJunta.Insert(0,
                             new TrabajosAdicionalesXJunta
@@ -242,13 +244,13 @@ namespace BackEndSAM.Controllers
             return listaTalleres;
         }
 
-        public List<NumeroUnico> GenerarListaNumerosUnicos(List<Sam3_Armado_Get_MaterialesSpool_Result> listaNumerosUnicos, int numeroSeleccionado)
+        public List<NumeroUnico> GenerarListaNumerosUnicos(List<Sam3_Armado_Get_MaterialesSpool_Result> listaNumerosUnicos, int numeroSeleccionado,int? longitudMaterial)
         {
             List<NumeroUnico> numerosUnicos = new List<NumeroUnico>();
             numerosUnicos.Add(new NumeroUnico());
             foreach (Sam3_Armado_Get_MaterialesSpool_Result item in listaNumerosUnicos)
             {
-                if (int.Parse(item.Etiqueta.ToString()) == numeroSeleccionado)
+                if (int.Parse(item.Etiqueta.ToString()) == numeroSeleccionado && item.LongitudMaterial <= longitudMaterial)
                 {
                     NumeroUnico numeroUnico = new NumeroUnico
                     {
@@ -256,7 +258,12 @@ namespace BackEndSAM.Controllers
                         Clave = item.Clave,
                         EtiquetaMaterial = int.Parse(item.EtiquetaMaterial.ToString()),
                         Etiqueta = item.Etiqueta,
-                        JuntasEncontradas = item.JuntasEntocontradas
+                        JuntasEncontradas = item.JuntasEntocontradas,
+                        LongitudMaterial = item.LongitudMaterial,
+                        ItemCodeID=item.ItemCodeID,
+                        Nombre=item.Nombre,
+                        TipoMaterialID=item.TipoMaterialID
+
                     };
                     numerosUnicos.Add(numeroUnico);
                 }

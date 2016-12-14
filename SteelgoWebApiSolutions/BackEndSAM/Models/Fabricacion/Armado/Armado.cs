@@ -84,6 +84,10 @@ namespace BackEndSAM.Models.Armado
 
         public bool RowOk { get; set; }
 
+        public string JuntaAnteriorNumeroUnicoGuardado { get; set; }
+
+        public int? LongitudMaterial1 { get; set; }
+        public int? LongitudMaterial2 { get; set; }
     }
 
 
@@ -126,6 +130,14 @@ namespace BackEndSAM.Models.Armado
 
         public string JuntasEncontradas { get; set; }
 
+        public int? LongitudMaterial { get; set; }
+
+        public int? ItemCodeID { get; set; }
+
+        public int? TipoMaterialID { get; set; }
+
+        public string Nombre { get; set; }
+
         public NumeroUnico()
         {
             NumeroUnicoID = 0;
@@ -133,7 +145,10 @@ namespace BackEndSAM.Models.Armado
             EtiquetaMaterial = 0;
             Etiqueta = "";
             JuntasEncontradas = "";
-
+            LongitudMaterial = 0;
+            ItemCodeID = 0;
+            TipoMaterialID = 0;
+            Nombre="";
         }
     }
     public class DetalleTrabajoAdicional

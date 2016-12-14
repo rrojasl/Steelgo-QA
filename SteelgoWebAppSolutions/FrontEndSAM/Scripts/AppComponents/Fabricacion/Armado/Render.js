@@ -6,28 +6,22 @@
             suggest: true,
             delay: 10,
             filter: "contains",
-            autoBind: false,
+            autoBind: true,
             dataSource: options.model.ListaTaller,
             template: "<i class=\"fa fa-#=data.Nombre.toLowerCase()#\"></i> #=data.Nombre#",
-            select: function (e) {
-                dataItem = this.dataItem(e.item.index());
-                if (dataItem != undefined) {
-                    options.model.Taller = dataItem.Nombre;
-                    options.model.TallerID = dataItem.TallerID;
-                }
-
-            },
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
-                if (dataItem != undefined) {
+                if (dataItem != undefined && dataItem.TallerID !=0) {
                     options.model.Taller = dataItem.Nombre;
                     options.model.TallerID = dataItem.TallerID;
+                   // $("#grid").data("kendoGrid").dataSource.sync();
                 }
                 else {
                     // options.model.Taller = ObtenerDescCorrectaTaller(options.model.ListaTaller, options.model.TallerID);
-                    options.model.Taller = "";
-                    options.model.TallerID = "";
+                    options.model.Taller = undefined;
+                    options.model.TallerID = undefined;
                 }
+                
             }
         }
         );
@@ -149,17 +143,35 @@ function RenderComboBoxNumeroUnico1(container, options) {
             }
             ,
             change: function (e) {
+
                 dataItem = this.dataItem(e.sender.selectedIndex);
                 if (dataItem != undefined && dataItem.Etiqueta != "") {
-                    //options.model.NumeroUnico1 = String(dataItem.Clave);
-                    //options.model.NumeroUnico1ID = dataItem.NumeroUnicoID;
-                    AplicarAsignacionAutomaticaNumeroUnico(options.model, textAnterior, dataItem, 0);
+                    var combobox = dataItem;
+                    var jsonGridArmado = $("#grid").data("kendoGrid").dataSource._data;
+                    var rowitem = options.model;
+
+                    if (elNUSeEncuentraEnJuntasNoAgregadasGrid(combobox, jsonGridArmado, rowitem)) {
+                        for (var i = 0; i < jsonGridArmado.length; i++) {
+                            if (//combobox.JuntasEncontradas != '' &&
+                                ((jsonGridArmado[i].IdOrdenTrabajo + '-' + jsonGridArmado[i].IdVal) == (rowitem.IdOrdenTrabajo + '-' + rowitem.IdVal)) &&
+                                (jsonGridArmado[i].Junta == rowitem.Junta)) {
+                                jsonGridArmado[i].NumeroUnico1 = '';
+                                jsonGridArmado[i].NumeroUnico1ID = null;
+                            }
+                        }
+                        if (combobox.JuntasEncontradas != '')
+                            MensajesSteelGO("AvisoNumeroUnicoYaAsignado", combobox.JuntasEncontradas);
+                    } else {
+                        var jsonGridArmado = $("#grid").data("kendoGrid").dataSource._data;
+                        AplicarAsignacionAutomaticaNumeroUnico(options.model, textAnterior, dataItem, 0, jsonGridArmado, options.model.ListaNumerosUnicos1.length);
+                        
+                    }
                     $("#grid").data("kendoGrid").dataSource.sync();
                 }
                 else {
                     options.model.NumeroUnico1 = "";
-                    options.model.NumeroUnico1ID = null;
-                    $("#grid").data("kendoGrid").dataSource.sync();
+                    options.model.NumeroUnico1ID = "";
+                    //$("#grid").data("kendoGrid").dataSource.sync();
                 }
             }
         });
@@ -197,15 +209,32 @@ function RenderComboBoxNumeroUnico2(container, options) {
              change: function (e) {
                  dataItem = this.dataItem(e.sender.selectedIndex);
                  if (dataItem != undefined && dataItem.Etiqueta != "") {
-                     //options.model.NumeroUnico2 = String(dataItem.Clave);
-                     //options.model.NumeroUnico2ID = dataItem.NumeroUnicoID;
-                     AplicarAsignacionAutomaticaNumeroUnico(options.model, textAnterior, dataItem, 0);
+                     var combobox = dataItem;
+                     var jsonGridArmado = $("#grid").data("kendoGrid").dataSource._data;
+                     var rowitem = options.model;
+
+                     if (elNUSeEncuentraEnJuntasNoAgregadasGrid(combobox, jsonGridArmado, rowitem)) {
+                         for (var i = 0; i < jsonGridArmado.length; i++) {
+                             if (//combobox.JuntasEncontradas != '' &&
+                               ((jsonGridArmado[i].IdOrdenTrabajo + '-' + jsonGridArmado[i].IdVal) == (rowitem.IdOrdenTrabajo + '-' + rowitem.IdVal)) &&
+                               (jsonGridArmado[i].Junta == rowitem.Junta)) {
+                                 jsonGridArmado[i].NumeroUnico2 = '';
+                                 jsonGridArmado[i].NumeroUnico2ID = null;
+                             }
+                         }
+                         if (combobox.JuntasEncontradas != '')
+                             MensajesSteelGO("AvisoNumeroUnicoYaAsignado", combobox.JuntasEncontradas);
+                     } else {
+                         var jsonGridArmado = $("#grid").data("kendoGrid").dataSource._data;
+                         AplicarAsignacionAutomaticaNumeroUnico(options.model, textAnterior, dataItem, 0, jsonGridArmado, options.model.ListaNumerosUnicos2.length);
+                       
+                     }
                      $("#grid").data("kendoGrid").dataSource.sync();
                  }
                  else {
                      options.model.NumeroUnico2 = "";
-                     options.model.NumeroUnico2ID = null;
-                     $("#grid").data("kendoGrid").dataSource.sync();
+                     options.model.NumeroUnico2ID = "";
+                    // $("#grid").data("kendoGrid").dataSource.sync();
                  }
 
              },
@@ -378,7 +407,7 @@ function RenderComboBoxTrabajoAdicional(container, options) {
             template: '<span class="#: data.SignoInformativo #">#: data.NombreCorto #</span>',
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
-               
+
                 if (dataItem != undefined) {
                     options.model.TrabajoAdicionalID = dataItem.TrabajoAdicionalID;
                     options.model.TrabajoAdicional = dataItem.NombreCorto;
