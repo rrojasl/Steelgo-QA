@@ -457,7 +457,7 @@ function AddRow(idTable) {
 }
 
 function AplicarAsignacionAutomaticaNumeroUnico(rowitem, textoAnterior, comboboxItemSeleccionado, posicionSiguiente, jsonGridArmado,cantidadItems) {
-    if (seEncuentraEtiquetaMaterialOtrasJuntas(jsonGridArmado, comboboxItemSeleccionado.EtiquetaMaterial)) {
+    if (seEncuentraEtiquetaMaterialOtrasJuntas(jsonGridArmado, comboboxItemSeleccionado.EtiquetaMaterial, rowitem)) {
         for (var i = 0; i < jsonGridArmado.length; i++) {
             //se evalua en NU1
             if (jsonGridArmado[i].IdOrdenTrabajo + '-' + jsonGridArmado[i].IdVal == (rowitem.IdOrdenTrabajo + '-' + rowitem.IdVal)) {
@@ -523,11 +523,11 @@ function encontrarSiguienteItem(rowitem, comboboxItemSeleccionado) {
     return [, ];
 }
 
-function seEncuentraEtiquetaMaterialOtrasJuntas(jsonGridArmado, LocalizacionEtiquetaMaterial) {
+function seEncuentraEtiquetaMaterialOtrasJuntas(jsonGridArmado, LocalizacionEtiquetaMaterial,rowitem) {
     var cantidadEtiquetaMaterialLocalizacionRepetido = 0;
     for (var i = 0; i < jsonGridArmado.length; i++) {
         for (var j = 0; j < jsonGridArmado[i].Localizacion.split('-').length ; j++) {
-            if (jsonGridArmado[i].Localizacion.split('-')[j] == LocalizacionEtiquetaMaterial)
+            if (jsonGridArmado[i].IdOrdenTrabajo + '-' + jsonGridArmado[i].IdVal == (rowitem.IdOrdenTrabajo + '-' + rowitem.IdVal) && jsonGridArmado[i].Localizacion.split('-')[j] == LocalizacionEtiquetaMaterial)
                 cantidadEtiquetaMaterialLocalizacionRepetido++;
         }
     };
@@ -612,12 +612,12 @@ function elNUSeEncuentraEnJuntasNoAgregadasGrid(combobox, jsonGridArmado, rowite
 };
 
 function EliminarItemNUSeleccionado(jsonGridArmado, NumeroUnicoID, rowitem) {
-    for (var i = 0; i < jsonGridArmado.length; i++) {
+    for (var i = 0; i < jsonGridArmado.length; i++) {     
         if (jsonGridArmado[i].NumeroUnico1ID == NumeroUnicoID && (jsonGridArmado[i].IdOrdenTrabajo + '-' + jsonGridArmado[i].IdVal) == (rowitem.IdOrdenTrabajo + '-' + rowitem.IdVal) && (jsonGridArmado[i].IdOrdenTrabajo + '-' + jsonGridArmado[i].IdVal + jsonGridArmado[i].JuntaID) != (rowitem.IdOrdenTrabajo + '-' + rowitem.IdVal + rowitem.JuntaID)) {
             jsonGridArmado[i].NumeroUnico1 = '';
             jsonGridArmado[i].NumeroUnico1ID = null;
         }
-        else if (jsonGridArmado[i].NumeroUnico2ID == NumeroUnicoID && (jsonGridArmado[i].IdOrdenTrabajo + '-' + jsonGridArmado[i].IdVal) == (rowitem.IdOrdenTrabajo + '-' + rowitem.IdVal) && (jsonGridArmado[i].IdOrdenTrabajo + '-' + jsonGridArmado[i].IdVal + jsonGridArmado[i].JuntaID) != (rowitem.IdOrdenTrabajo + '-' + rowitem.IdVal + rowitem.JuntaID)) {
+        if (jsonGridArmado[i].NumeroUnico2ID == NumeroUnicoID && (jsonGridArmado[i].IdOrdenTrabajo + '-' + jsonGridArmado[i].IdVal) == (rowitem.IdOrdenTrabajo + '-' + rowitem.IdVal) && (jsonGridArmado[i].IdOrdenTrabajo + '-' + jsonGridArmado[i].IdVal + jsonGridArmado[i].JuntaID) != (rowitem.IdOrdenTrabajo + '-' + rowitem.IdVal + rowitem.JuntaID)) {
             jsonGridArmado[i].NumeroUnico2 = '';
             jsonGridArmado[i].NumeroUnico2ID = null;
         }
