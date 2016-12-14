@@ -128,37 +128,33 @@ function AjaxGuardarCaptura(rows, tipoGuardar) {
     var Captura = [];
     Captura[0] = { listaDetalle: "" };
     var ListaDetalles = [];
-    var index = 0;
 
     for (var i = 0; i < rows.length; i++) {
-        if (rows[i].ModificadoPorUsuario) {
-            ListaDetalles[index] = {
+            ListaDetalles[i] = {
                 Accion: "", SpoolID: "", Etiquetado: "", EtiquetadoID: "",
                 CuadranteID: "", CuadranteSam2ID: "", CuadranteAnteriorID: "",
                 CuadranteAnteriorSam2ID: ""               
             };
 
-            ListaDetalles[index].SpoolID = rows[i].SpoolID;
-            ListaDetalles[index].Etiquetado = rows[i].Etiquetado;
-            ListaDetalles[index].EtiquetadoID = rows[i].EtiquetadoID;
-            ListaDetalles[index].CuadranteID = rows[i].CuadranteID;
-            ListaDetalles[index].CuadranteSam2ID = rows[i].CuadranteSam2ID;
+            ListaDetalles[i].SpoolID = rows[i].SpoolID;
+            ListaDetalles[i].Etiquetado = rows[i].Etiquetado;
+            ListaDetalles[i].EtiquetadoID = rows[i].EtiquetadoID;
+            ListaDetalles[i].CuadranteID = rows[i].CuadranteID;
+            ListaDetalles[i].CuadranteSam2ID = rows[i].CuadranteSam2ID;
 
             if (rows[i].Accion == 2 && !rows[i].Etiquetado)
-                ListaDetalles[index].Accion = 3;
+                ListaDetalles[i].Accion = 3;
             else
-                ListaDetalles[index].Accion = rows[i].Accion;
+                ListaDetalles[i].Accion = rows[i].Accion;
 
             if (rows[i].CuadranteID == rows[i].CuadranteAnteriorSam3ID){
-                ListaDetalles[index].CuadranteAnteriorID = 0;
-                ListaDetalles[index].CuadranteAnteriorSam2ID = 0;
+                ListaDetalles[i].CuadranteAnteriorID = 0;
+                ListaDetalles[i].CuadranteAnteriorSam2ID = 0;
             }                
             else {
-                ListaDetalles[index].CuadranteAnteriorID = rows[i].CuadranteAnteriorSam3ID;
-                ListaDetalles[index].CuadranteAnteriorSam2ID = rows[i].CuadranteAnteriorSam2ID;
+                ListaDetalles[i].CuadranteAnteriorID = rows[i].CuadranteAnteriorSam3ID;
+                ListaDetalles[i].CuadranteAnteriorSam2ID = rows[i].CuadranteAnteriorSam2ID;
             }
-            index++;
-        }
     };
     Captura[0].listaDetalle = ListaDetalles;
 
@@ -185,7 +181,6 @@ function AjaxGuardarCaptura(rows, tipoGuardar) {
                 loadingStop();
             }
         });
-        loadingStop();
     }
     else {
         displayNotify("MensajeAdverteciaExcepcionGuardado", "", '2');

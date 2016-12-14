@@ -7610,6 +7610,10 @@ _dictionary = {
         "es-MX": "Etiquetado",
         "en-US": "Labeled"
     },
+    "lblEtiquetado1": {
+        "es-MX": "Etiquetado",
+        "en-US": "Labeled"
+    },
     "lblCalidad": {
         "es-MX": "Calidad",
         "en-US": "Quality"

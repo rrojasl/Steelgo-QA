@@ -157,9 +157,7 @@ function AjaxGuardarCaptura(rows, tipoGuardar) {
     Captura[0] = { listaDetalle: "" };
     var ListaDetalles = [];
     var index = 0;
-
     for (var i = 0; i < rows.length; i++) {
-        if (rows[i].ModificadoPorUsuario) {
             ListaDetalles[index] = { Accion: "", EncintadoID: 0, SpoolID: 0, Encintado: false, 
                 ColorID: 0, ColorAnteriorID: 0, CuadranteID: 0, CuadranteSam2ID: 0, CuadranteAnteriorID: 0,
                 CuadranteAnteriorSam2ID: 0, Estatus: 1 };
@@ -203,8 +201,8 @@ function AjaxGuardarCaptura(rows, tipoGuardar) {
                     }
                 }
             }
+
             index++;
-        }
     };
     Captura[0].listaDetalle = ListaDetalles;
 
@@ -327,7 +325,7 @@ function AjaxGuardarCaptura(rows, tipoGuardar) {
                             displayNotify("MensajeGuardadoErroneo", "", '2');
                             loadingStop();
                         }
-                    });                    
+                    });
                 } else {
                     ventanaConfirm.close();
                     loadingStop();

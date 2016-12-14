@@ -693,10 +693,8 @@ function LimpiarCuadrantes() {
     $("#inputCuadrantePlanchado").data("kendoComboBox").dataSource.data([]);
     $("#inputCuadrantePlanchado").val(0);
     $("#inputCuadrantePlanchado").data("kendoComboBox").value("");
-}
 
-function LimpiarBusquedaSpool() {
-    $("#SpoolIDCOntiene").val("");
+    $("#grid").data("kendoGrid").dataSource.data([]);
 }
 
 function LimpiarCargarZona() {
@@ -705,9 +703,11 @@ function LimpiarCargarZona() {
 
     $("#inputCuadrantePlanchado").data("kendoComboBox").dataSource.data([]);
     $("#inputCuadrantePlanchado").data("kendoComboBox").value("");
+    $("#grid").data("kendoGrid").dataSource.data([]);
 }
 
 function Limpiar() {
+    $("#grid").data("kendoGrid").dataSource.data([]);
     opcionHabilitarView(false, "FieldSetView");
     AjaxCargarCamposPredeterminados();
 }
