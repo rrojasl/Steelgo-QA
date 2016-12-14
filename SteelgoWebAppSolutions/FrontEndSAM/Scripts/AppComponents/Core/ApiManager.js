@@ -393,7 +393,8 @@ $Empaquetado.add('Empaquetado');
 $PreparacionEmbarque.add('PreparacionEmbarque');
 $RevisionEmbarque.add('RevisionEmbarque');
 
-//Soldadura$PQR.add("PQR");
+//Soldadura
+$PQR.add("PQR");
 $WPS.add("WPS");
 $SoldadorCertificacion.add("SoldadorCertificacion");
 

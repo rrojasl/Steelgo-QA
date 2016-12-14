@@ -9313,6 +9313,14 @@ _dictionary = {
     //Finaliza PQR
 
     //Pantalla WPS
+    "WPSLabelRaiz": {
+        "es-MX": "Raíz",
+        "en-US": "Root"
+    },
+    "WPSLabelRelleno": {
+        "es-MX": "Relleno",
+        "en-US": "Fill"
+    },
     "WPSBreadcrumb": {
         "es-MX": "WPS",
         "en-US": "WPS"
