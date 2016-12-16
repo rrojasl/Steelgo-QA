@@ -9317,6 +9317,18 @@ _dictionary = {
     //Finaliza PQR
 
     //Pantalla WPS
+    "WPSMensajeErrorPreHitRelleno": {
+        "es-MX": "Preheat no coincide",
+        "en-US": "Do not match PreHeat"
+    },
+    "WPSMensajeErrorPWHRelleno": {
+        "es-MX": "PWH No coincide",
+        "en-US": "Do not match PWH"
+    },
+    "WPSMensajeErrorGruposMaterialBase": {
+        "es-MX": "Grupo Material no coincide ",
+        "en-US": "Do not match Material Group"
+    },
     "WPSLabelRaiz": {
         "es-MX": "Raíz",
         "en-US": "Root"

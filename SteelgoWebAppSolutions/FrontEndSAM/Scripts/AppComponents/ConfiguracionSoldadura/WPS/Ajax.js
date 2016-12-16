@@ -135,7 +135,7 @@ function AjaxGuardarCaptura() {
     }
 
     if (ExistEmptyWPS(ListaDetalles)) {
-        displayNotify("WPSMensajeErrorGruposMaterialBase", "", "2");
+        //displayNotify("WPSMensajeErrorGruposMaterialBase", "", "2");
         opcionHabilitarView(false);
         CapturaCorrecta = false;
     }
