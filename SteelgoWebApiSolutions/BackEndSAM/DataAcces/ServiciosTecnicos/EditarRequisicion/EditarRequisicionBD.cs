@@ -52,7 +52,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EditarRequisicion
                             Prioridad = item.Prioridad.GetValueOrDefault(),
                             Clasificacion = item.Clasificacion,
                             Diametro = item.DiametroPlano.GetValueOrDefault(),
-                            Espesor = item.Espesor,
+                            Espesor = item.Espesor.GetValueOrDefault(),
                             Cedula = item.Cedula,
                             ElementoPorClasificacionPNDID = item.ElementoPorClasificacionPNDID,
                             Agregar = item.RequisicionID.GetValueOrDefault() > 0 ? true : false,
@@ -63,10 +63,10 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EditarRequisicion
                             OrdenTrabajoSpoolID = item.OrdenTrabajoSpoolID,
                             TipoPruebaID = item.TipoPruebaID.GetValueOrDefault(),
                             Especificacion = item.Especificacion,
-                            EstatusCaptura = 0,
-                            Disposicion = item.Disposicion,
-                            ClasificacionPNDID = item.ClasificacionPNDID,
-                            OrdenTrabajoID = item.OrdenTrabajoID
+                            EstatusCaptura = 0
+                            //Disposicion = item.Disposicion,
+                            //ClasificacionPNDID = item.ClasificacionPNDID,
+                            //OrdenTrabajoID = item.OrdenTrabajoID
                         });
                     }
 
@@ -172,7 +172,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EditarRequisicion
                             Prioridad = item.Prioridad.GetValueOrDefault(),
                             Clasificacion = item.Clasificacion,
                             Diametro = item.DiametroPlano.GetValueOrDefault(),
-                            Espesor = item.Espesor.ToString(),
+                            Espesor = item.Espesor,
                             Cedula = item.Cedula,
                             ElementoPorClasificacionPNDID = item.ElementoPorClasificacionPNDID,
                             Agregar = item.RequisicionID > 0 ? true : false,
@@ -184,7 +184,6 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EditarRequisicion
                             TipoPruebaID = item.TipoPruebaID.GetValueOrDefault(),
                             Especificacion = item.Especificacion,
                             EstatusCaptura = 1,
-                            Disposicion = item.Disposicion == 0 ? false : true,
                             ClasificacionPNDID = item.ClasificacionPNDID,
                             OrdenTrabajoID = item.OrdenTrabajoID
 
@@ -249,7 +248,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EditarRequisicion
                             Prioridad = item.Prioridad.GetValueOrDefault(),
                             Clasificacion = item.Clasificacion,
                             Diametro = item.DiametroPlano.GetValueOrDefault(),
-                            Espesor = item.Espesor.ToString(),
+                            Espesor = item.Espesor,
                             Cedula = item.Cedula,
                             ElementoPorClasificacionPNDID = item.ElementoPorClasificacionPNDID,
                             Agregar = item.RequisicionID > 0 ? true : false,
@@ -261,7 +260,6 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EditarRequisicion
                             TipoPruebaID = item.TipoPruebaID.GetValueOrDefault(),
                             Especificacion = item.Especificacion,
                             EstatusCaptura = 1,
-                            Disposicion = item.Disposicion == 0 ? false : true,
                             ClasificacionPNDID = item.ClasificacionPNDID,
                             OrdenTrabajoID = item.OrdenTrabajoID
 
