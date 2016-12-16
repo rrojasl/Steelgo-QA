@@ -63,8 +63,8 @@ function suscribirEventoRaizNombre()
                         kendo.bind($("#PWHRaiz"), data);
                     }
                     $("#grupoPRaiz").val(dataItem.GrupoPMaterialBase1Nombre + " - " + dataItem.GrupoPMaterialBase2Nombre);
-                    $("#RaizEspesorRaiz").text(parseFloat(dataItem.EspesorRaiz).toFixed(4));
-                    $("#RaizEspesorRelleno").text(parseFloat(dataItem.EspesorRelleno).toFixed(4));
+                    $("#RaizEspesorRaiz").text(parseFloat(dataItem.EspesorRaiz));
+                    $("#RaizEspesorRelleno").text(parseFloat(dataItem.EspesorRelleno));
 
                     var EspesoresRaiz = ObtenerEspesorCorrecto(parseFloat(dataItem.EspesorRaiz) + parseFloat(dataItem.EspesorRelleno), dataItem.PWHT, dataItem.ProcesoSoldadura, true);
                     var EspesoresRelleno;
@@ -156,8 +156,8 @@ function suscribirEventoRellenoNombre() {
                         kendo.bind($("#PWHRelleno"), data);
                     }
                     $("#grupoPRelleno").val(dataItem.GrupoPMaterialBase1Nombre + " - " + dataItem.GrupoPMaterialBase2Nombre);
-                    $("#RellenoEspesorRaiz").text(parseFloat(dataItem.EspesorRaiz).toFixed(4));
-                    $("#RellenoEspesorRelleno").text(parseFloat(dataItem.EspesorRelleno).toFixed(4));
+                    $("#RellenoEspesorRaiz").text(parseFloat(dataItem.EspesorRaiz));
+                    $("#RellenoEspesorRelleno").text(parseFloat(dataItem.EspesorRelleno));
 
                     var EspesoresRelleno = ObtenerEspesorCorrecto(parseFloat(dataItem.EspesorRaiz) + parseFloat(dataItem.EspesorRelleno), dataItem.PWHT, dataItem.ProcesoSoldadura, true);
                     var EspesoresRaiz;

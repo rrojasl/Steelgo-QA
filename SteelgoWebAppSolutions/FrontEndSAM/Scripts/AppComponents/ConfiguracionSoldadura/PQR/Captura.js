@@ -47,8 +47,8 @@ function CargarGrid() {
                         Nombre: { type: "string", editable: true },
                         PREHEAT: { type: "boolean", editable: false },
                         PWHT: { type: "boolean", editable: false },
-                        EspesorRelleno: { type: "int", editable: true },
-                        EspesorRaiz: { type: "int", editable: true },
+                        EspesorRelleno: { type: "number", editable: true },
+                        EspesorRaiz: { type: "number", editable: true },
                         CodigoRelleno: { type: "string", editable: true },
                         CodigoRaiz: { type: "string", editable: true },
                         NumeroP: { type: "string", editable: true },
@@ -136,7 +136,7 @@ function CargarGrid() {
              { width: "200px", field: "Especificacion", title: _dictionary.columnCodigo[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxEspecificacion },
              { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: cancelarCaptura }, width: "50px", title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()] }
         ]
-        
+
     });
     CustomisaGrid($("#grid"));
 
@@ -348,37 +348,9 @@ function cancelarCaptura(e) {
         var PQRIDRegistro = dataItem.PQRID;
 
         if (dataItem.RegistrosWPS == 0) {
-            windowTemplate = kendo.template($("#windowTemplate").html());
-
-            ventanaConfirm = $("#ventanaConfirm").kendoWindow({
-                iframe: true,
-                title: _dictionary.CapturaAvanceTitulo[$("#language").data("kendoDropDownList").value()],
-                visible: false, //the window will not appear before its .open method is called
-                width: "auto",
-                height: "auto",
-                modal: true,
-                animation: {
-                    close: false,
-                    open: false
-                }
-            }).data("kendoWindow");
-
-            ventanaConfirm.content(_dictionary.lblPQRCapturaBorradoCaptura[$("#language").data("kendoDropDownList").value()] +
-                         "</br><center><button class='confirm_yes btn btn-blue' id='yesButton'>Si</button><button class='confirm_yes btn btn-blue' id='noButton'> No</button></center>");
-
-            ventanaConfirm.open().center();
-
-            $("#yesButton").click(function () {
-
-                var dataSource = $("#grid").data("kendoGrid").dataSource;
-                dataItem.Accion = 3;
-                $("#grid").data("kendoGrid").dataSource.sync();
-
-                ventanaConfirm.close();
-            });
-            $("#noButton").click(function () {
-                ventanaConfirm.close();
-            });
+            var dataSource = $("#grid").data("kendoGrid").dataSource;
+            dataItem.Accion = 3;
+            $("#grid").data("kendoGrid").dataSource.sync();
         }
         else
             displayNotify("", _dictionary.lblPQRElementoPQR[$("#language").data("kendoDropDownList").value()] + dataItem.Nombre + _dictionary.lblPQRYaAsignado[$("#language").data("kendoDropDownList").value()], 1);
