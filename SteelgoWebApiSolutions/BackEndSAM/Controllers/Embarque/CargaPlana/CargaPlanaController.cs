@@ -125,7 +125,7 @@ namespace BackEndSAM.Controllers.Embarque.CargaPlana
         }
 
         [HttpGet]
-        public object DescargaSpoolPlanaa(string token, int DetalleCargaID, int SpoolID, int CuadranteID, int CuadranteAnterior)
+        public object DescargaSpoolPlanaa(string token, int DetalleCargaID, int PaqueteID, int SpoolID, int CuadranteID, int CuadranteSam2ID, int CuadranteAnterior)
         {
             string payload = "";
             string newToken = "";
@@ -136,7 +136,61 @@ namespace BackEndSAM.Controllers.Embarque.CargaPlana
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                return CargaPlanaBD.Instance.DescargaSpoolPlana(DetalleCargaID, SpoolID, CuadranteID, CuadranteAnterior, usuario.UsuarioID);
+                return CargaPlanaBD.Instance.DescargaSpoolPlana(DetalleCargaID, PaqueteID, SpoolID, CuadranteID, CuadranteSam2ID, CuadranteAnterior, usuario.UsuarioID);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+
+                return result;
+            }
+        }
+
+        [HttpGet]
+        public object ObtenerListaPaquetes(string token, int ProyectoID)
+        {
+            string payload = "";
+            string newToken = "";
+
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+
+                return CargaPlanaBD.Instance.ObtenerListaPaquetes(ProyectoID);
+            }
+            else
+
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+
+                return result;
+            }
+        }
+
+        [HttpGet]
+        public object DescargaPaquetePlana(string token, int PaqueteID,  int CuadranteID)
+        {
+            string payload = "";
+            string newToken = "";
+
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+
+                return CargaPlanaBD.Instance.DescargaPaquetePlana(PaqueteID, CuadranteID, usuario.UsuarioID);
             }
             else
             {

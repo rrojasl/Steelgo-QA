@@ -29,6 +29,39 @@ namespace BackEndSAM.DataAcces.Embarque.CargaPlana
                 return _instance;
             }
         }
+        public object ObtenerListaPaquetes(int ProyectoID)
+        {
+            try
+            {
+                using(SamContext ctx = new SamContext())
+                {
+                    List<Sam3_Embarque_CG_Get_ListadoPaquetes_Result> result = ctx.Sam3_Embarque_CG_Get_ListadoPaquetes(ProyectoID).ToList();
+                    List<DetallePaquete> listaPaquete = new List<DetallePaquete>();
+                    listaPaquete.Add(new DetallePaquete());
+
+                    foreach (Sam3_Embarque_CG_Get_ListadoPaquetes_Result item in result)
+                    {
+                        listaPaquete.Add(new DetallePaquete {
+                            PaqueteID = item.PaqueteID,
+                            Nombre = item.Nombre,
+                            CuadranteID = item.CuadranteID.GetValueOrDefault(),
+                        });
+                    }
+
+                    return listaPaquete;
+                }
+
+            }catch(Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
 
         public object ObtenerDetalleCargaPlana(int PlanaID, int Todos)
         {
@@ -50,8 +83,11 @@ namespace BackEndSAM.DataAcces.Embarque.CargaPlana
                             PaqueteID = item.PaqueteID.GetValueOrDefault(),
                             Paquete = item.NombrePaquete,
                             Peso = item.Peso.GetValueOrDefault(),
-                            CuadranteID = item.CuadranteID.GetValueOrDefault(),
+                            CuadranteID = item.CuadranteID,
+                            ZonaAnteriorID = item.ZonaAnterior.GetValueOrDefault(),
                             CuadranteAnteriorID = item.CuadranteAnteriorID.GetValueOrDefault(),
+                            CuadrantePaqueteAnteriorID = item.CuadrantePaqueteAnteriorID.GetValueOrDefault(),
+                            ZonaPaqueteAnteriorID = item.ZonaPaqueteAnteriorID.GetValueOrDefault(),
                             ModificadoPorUsuario = false
                         });
                     }
@@ -223,14 +259,45 @@ namespace BackEndSAM.DataAcces.Embarque.CargaPlana
             }
         }
 
-        public object DescargaSpoolPlana(int DetalleCargaID, int SpoolID, int CuadranteID, int CuadranteAnterior, int UsuarioID)
+        public object DescargaSpoolPlana(int DetalleCargaID, int PaqueteID, int SpoolID, int CuadranteID, int CuadranteSamID, int CuadranteAnterior, int UsuarioID)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
 
-                    ctx.Sam3_Embarque_DescargaSpool(DetalleCargaID, SpoolID, CuadranteID, CuadranteAnterior, UsuarioID);
+                    ctx.Sam3_Embarque_DescargaSpool(DetalleCargaID, PaqueteID, SpoolID, CuadranteID, CuadranteSamID, CuadranteAnterior, UsuarioID);
+
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add("OK");
+                    result.ReturnCode = 200;
+                    result.ReturnStatus = true;
+                    result.IsAuthenicated = true;
+
+                    return result;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object DescargaPaquetePlana(int PaqueteID, int CuadranteID, int UsuarioID)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+
+                    ctx.Sam3_Embarque_CG_DescargaPaquete(PaqueteID, CuadranteID, UsuarioID);
 
                     TransactionalInformation result = new TransactionalInformation();
                     result.ReturnMessage.Add("OK");

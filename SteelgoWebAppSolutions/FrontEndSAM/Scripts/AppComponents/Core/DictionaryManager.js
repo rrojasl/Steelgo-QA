@@ -7813,6 +7813,10 @@ _dictionary = {
         "es-MX": "Descarga",
         "en-US": "Download"
     },
+    "botonDescarga2": {
+        "es-MX": "Descarga",
+        "en-US": "Download"
+    },
     "botonEditar1": {
         "es-MX": "Editar",
         "en-US": "Update"
@@ -10720,6 +10724,10 @@ _dictionary = {
         "es-MX": "Descarga",
         "en-US": "Discharge"
     },
+    "EmbarqueCargaTituloPopupDescargaPaquete": {
+        "es-MX": "Descarga",
+        "en-US": "Discharge"
+    },
     "EmbarqueCargaTituloPopupPaquete": {
         "es-MX": "Selecciona un nuevo Paquete",
         "en-US": "Select new Package"
@@ -10791,7 +10799,7 @@ _dictionary = {
     },
     "EmbarqueHeaderCargaPlana": {
         "es-MX": "Carga plana",
-        "en-US": "Plate charge"
+        "en-US": "Flat charge"
     },
     "EmbarqueCargaAgregarNuevoProveedor": {
         "es-MX": "Agregar nuevo proveedor",
@@ -10807,8 +10815,8 @@ _dictionary = {
         "en-US": "Create new provider"
     },
     "EmarqueCargaMensajeEligePlana": {
-        "es-MX": "Elige una plana",
-        "en-US": "Select a plate"
+        "es-MX": "Por favor seleccione una plana",
+        "en-US": "Please select a flat"
     },
     "EmarqueCargaMensajePlanaCerrada": {
         "es-MX": "La plana esta cerrada, debe abrirlar para poder modificarla",
@@ -10816,7 +10824,12 @@ _dictionary = {
     },
     "EmbarqueCargaMsjDescargaSpool": {
         "es-MX": "El spool será descargado de la plana. Seleccione zona y cuadrante de descarga",
-        "en-US": "Spool will discharge plane. Select zone and quadrant discharge"
+        "en-US": "Spool will discharge flat. Select zone and quadrant discharge"
+
+    },
+    "EmbarqueCargaMsjDescargaPaquete": {
+        "es-MX": "El paquete será descargado de la plana. Seleccione zona y cuadrante de descarga",
+        "en-US": "The package will be unloaded from the flat. Select zone and download quadrant"
 
     },
     "EmbarqueCargaMsjDescargaSpoolExito": {
@@ -10829,13 +10842,36 @@ _dictionary = {
         "en-US": "Spool has not been downloaded"
 
     },
+    "EmbarqueCargaMsjDescargaPlanaCerrada": {
+        "es-MX": "Para descargar un spool es necesario abrir la plana",
+        "en-US": "To download a spool it is necessary to open the flat"
+
+    },
+    "EmbarqueCargaMsjDescargaPaqueteExito": {
+        "es-MX": "El paquete ha sido descargado correctamente",
+        "en-US": "Spool has been successfully downloaded"
+
+    },
+    "EmbarqueCargaMsjDescargaPaqueteError": {
+        "es-MX": "El paquete no ha sido descargado",
+        "en-US": "Spool has not been downloaded"
+
+    },
     "EmbarqueCargaMsjErrorZona": {
-        "es-MX": "Por Favor selecciona la zona",
+        "es-MX": "Por Favor seleccione la zona",
         "en-US": "Please select a zone"
     },
     "EmbarqueCargaMsjErrorCuadrante": {
-        "es-MX": "Por Favor selecciona el cuadrante",
+        "es-MX": "Por Favor seleccione el cuadrante",
         "en-US": "Please select a quadrant"
+    },
+    "EmbarqueCargaMsjErrorSpoolAgregar": {
+        "es-MX": "El Spool se encuentra cargado en la plana ",
+        "en-US": "The Spool is loaded on the flat "
+    },
+    "EmbarqueCargaMsjErrorSpoolAgregarExiste": {
+        "es-MX": "El Spool ya existe en la captura",
+        "en-US": "The Spool already exists on capture"
     },
     //Finaliza pantalla carga plana
     //Inicia pantalla empaquetado

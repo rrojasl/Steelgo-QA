@@ -17,6 +17,9 @@ namespace BackEndSAM.Models.Embarque.CargaPlana
         public decimal Peso { get; set; }
         public int CuadranteID { get; set; }
         public int CuadranteAnteriorID { get; set; }
+        public int ZonaAnteriorID { get; set; }
+        public int CuadrantePaqueteAnteriorID { get; set; }
+        public int ZonaPaqueteAnteriorID { get; set; }
         public bool ModificadoPorUsuario { get; set; }
     }
 
@@ -68,5 +71,19 @@ namespace BackEndSAM.Models.Embarque.CargaPlana
         public int OrdenTrabajoID { get; set; }
         public int CuadranteActualID { get; set; }
         public int PaqueteID { get; set; }
+    }
+
+    public class DetallePaquete
+    {
+        public DetallePaquete()
+        {
+            PaqueteID = 0;
+            Nombre = "";
+            CuadranteID = 0;
+        }
+
+        public int PaqueteID { get; set; }
+        public string Nombre { get; set; }
+        public int CuadranteID { get; set; }
     }
 }
