@@ -67,42 +67,56 @@ namespace BackEndSAM.DataAcces.Fabricacion.Soldadura
             }
         }
 
-        //public object ObtenerColadas()
-        //{
-        //    try
-        //    {
-        //        List<Colada> listaProcesosSoldadura = new List<Colada>();
+        public object ObtenerListadoWPS(int proyectoID, int procesoRaizID, int procesoRellenoID, decimal espesor)
+        {
+            try
+            {
+                List<WPS> listaWPS = new List<WPS>();
 
-        //        using (SamContext ctx = new SamContext())
-        //        {
-        //            //List<Sam3_Soldadura_GET_DetalleSoldadorColadas_Result> result = ctx.Sam3_Soldadura_GET_DetalleSoldadorColadas(idOrdenTrabajo, ordenTrabajoSpoolID, JuntaID, proyectoID).ToList();
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Sam3_Soldadura_Get_WPS_Proyecto_Result> result = ctx.Sam3_Soldadura_Get_WPS_Proyecto(proyectoID,procesoRaizID,procesoRellenoID,espesor).ToList();
 
-        //            //foreach (Sam3_Soldadura_GET_DetalleSoldadorColadas_Result item in result)
-        //            //{
-        //            //    //listaProcesosSoldadura.Add(new Soldadores
-        //            //    //{
-        //            //    //    Accion = 2,
-        //            //    //    Colada = item.COLADA,
-        //            //    //    ColadaID = item.COLADAID,
-        //            //    //    ObreroID = item.OBREROID,
-        //            //    //    Observaciones = item.COMENTARIO,
-        //            //    //    Soldador = item.OBRERO
-        //            //    //});
-        //            //}
-        //            //return listaProcesosSoldadura;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        TransactionalInformation result = new TransactionalInformation();
-        //        result.ReturnMessage.Add(ex.Message);
-        //        result.ReturnCode = 500;
-        //        result.ReturnStatus = false;
-        //        result.IsAuthenicated = true;
+                    foreach (Sam3_Soldadura_Get_WPS_Proyecto_Result item in result)
+                    {
+                        listaWPS.Add(new WPS
+                        {
+                            WPSID = item.WPSID,
+                            WPSNombre = item. WPSNombre,
+                            EspesorMaximo = item.EspesorMaximo.GetValueOrDefault(),
+                            EspesorMinimo = item.EspesorMinimo.GetValueOrDefault(),
+                            GrupoMaterialBase1RaizD = item.GrupoMaterialBase1RaizD,
+                            GrupoMaterialBase1RaizDID = item.GrupoMaterialBase1RaizDID.GetValueOrDefault(),
+                            GrupoMaterialBase1RaizU = item.GrupoMaterialBase1RaizU,
+                            GrupoMaterialBase1RaizUID = item.GrupoMaterialBase1RaizUID.GetValueOrDefault(),
+                            GrupoMaterialBase1RellenoD = item.GrupoMaterialBase1RellenoD,
+                            GrupoMaterialBase1RellenoDID = item.GrupoMaterialBase1RellenoDID.GetValueOrDefault(),
+                            GrupoMaterialBase1RellenoU = item.GrupoMaterialBase1RellenoU,
+                            GrupoMaterialBase1RellenoUID = item.GrupoMaterialBase1RellenoUID.GetValueOrDefault(),
+                            NombrePQRRaiz = item.NombrePQRRaiz,
+                            PQRRaizId = item.PQRRaizId.GetValueOrDefault(),
+                            NombrePQRRelleno = item.NombrePQRRelleno,
+                            PQRRellenoId = item.PQRRellenoId.GetValueOrDefault(),
+                            ProcesoSoldaduraRaiz = item.ProcesoSoldaduraRaiz,
+                            ProcesoSoldaduraRelleno = item.ProcesoSoldaduraRelleno,
+                            PREHEAT = item.PREHEAT,
+                            PWHT = item.PWHT
+                        });
+                    }
+                    return listaWPS;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
 
-        //        return result;
-        //    }
-        //}
+                return result;
+            }
+        }
         public object ObtenerSoldadoresRaizCapturados(string idOrdenTrabajo, string ordenTrabajoSpoolID, string JuntaID, int proyectoID)
         {
             try

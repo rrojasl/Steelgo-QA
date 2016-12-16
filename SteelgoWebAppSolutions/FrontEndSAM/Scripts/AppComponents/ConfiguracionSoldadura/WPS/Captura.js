@@ -3,7 +3,7 @@ var resultadoJson;
 var win;
 
 function changeLanguageCall() {
-    document.title = _dictionary.WPSBreadcrumb[$("#language").data("kendoDropDownList").value()];
+    document.title = _dictionary.NuevoWPSBreadcrumb[$("#language").data("kendoDropDownList").value()];
     CargarGrid();
     ObtenerJSONParaGrid();
 };
@@ -104,10 +104,10 @@ function CargarGrid() {
                     { field: "NombrePQRRelleno", title: _dictionary.columnRelleno[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "110px", editor: RenderComboBoxPQRRelleno },
                     { field: "GrupoPRaiz", title: _dictionary.columnRaiz[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "120px" },
                     { field: "GrupoPRelleno", title: _dictionary.columnRelleno[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "120px" },
-                    { field: "RaizEspesorRaiz", title: _dictionary.columnRaiz[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "75px", format: "{0:n4}", },
-                    { field: "RaizEspesorRelleno", title: _dictionary.columnRelleno[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "75px", format: "{0:n4}" },
-                    { field: "RellenoEspesorRaiz", title: _dictionary.columnRaiz[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "75px", format: "{0:n4}" },
-                    { field: "RellenoEspesorRelleno", title: _dictionary.columnRelleno[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "75px", format: "{0:n4}" },
+                    { field: "RaizEspesorRaiz", title: _dictionary.columnRaiz[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "80px" },
+                    { field: "RaizEspesorRelleno", title: _dictionary.columnRelleno[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "75px",  },
+                    { field: "RellenoEspesorRaiz", title: _dictionary.columnRaiz[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "80px",  },
+                    { field: "RellenoEspesorRelleno", title: _dictionary.columnRelleno[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "75px",  },
                     {
                         field: "PWHTRaiz", title: _dictionary.columnRaiz[$("#language").data("kendoDropDownList").value()], filterable: {
                             multi: true,
@@ -117,7 +117,7 @@ function CargarGrid() {
                                 style: "max-width:120px;"
                             },
                             dataSource: [{ Etiquetado: true }, { Etiquetado: false }]
-                        }, width: "73px", template: "<input readonly disabled type='checkbox' data-bind='checked: PWHTRaiz' #= PWHTRaiz ? checked='checked' : '' #/>"
+                        }, width: "73px", template: "<input  readonly disabled type='checkbox' data-bind='checked: PWHTRaiz' #= PWHTRaiz ? checked='checked' : '' #/>", attributes: { style: "text-align:center;" }
                     },
                     {
                         field: "PWHTRelleno", title: _dictionary.columnRelleno[$("#language").data("kendoDropDownList").value()], filterable: {
@@ -128,7 +128,7 @@ function CargarGrid() {
                                 style: "max-width:120px;"
                             },
                             dataSource: [{ Etiquetado: true }, { Etiquetado: false }]
-                        }, width: "73px", template: "<input readonly disabled type='checkbox' data-bind='checked: PWHTRelleno' #= PWHTRelleno ? checked='checked' : '' #/>"
+                        }, width: "80px", template: "<input readonly disabled type='checkbox' data-bind='checked: PWHTRelleno' #= PWHTRelleno ? checked='checked' : '' #/>", attributes: { style: "text-align:center;" }
                     },
                     {
                         field: "PREHEATRaiz", title: _dictionary.columnRaiz[$("#language").data("kendoDropDownList").value()], filterable: {
@@ -139,7 +139,7 @@ function CargarGrid() {
                                 style: "max-width:120px;"
                             },
                             dataSource: [{ Etiquetado: true }, { Etiquetado: false }]
-                        }, width: "73px", template: "<input readonly disabled type='checkbox' data-bind='checked: PREHEATRaiz' #= PREHEATRaiz ? checked='checked' : '' #/>"
+                        }, width: "73px", template: "<input readonly disabled type='checkbox' data-bind='checked: PREHEATRaiz' #= PREHEATRaiz ? checked='checked' : '' #/>", attributes: { style: "text-align:center;" }
                     },
                     {
                         field: "PREHEATRelleno", title: _dictionary.columnRelleno[$("#language").data("kendoDropDownList").value()], filterable: {
@@ -150,10 +150,10 @@ function CargarGrid() {
                                 style: "max-width:120px;"
                             },
                             dataSource: [{ Etiquetado: true }, { Etiquetado: false }]
-                        }, width: "73px", template: "<input readonly disabled type='checkbox' data-bind='checked: PREHEATRelleno' #= PREHEATRelleno ? checked='checked' : '' #/>"
+                        }, width: "80px", template: "<input readonly disabled type='checkbox' data-bind='checked: PREHEATRelleno' #= PREHEATRelleno ? checked='checked' : '' #/>", attributes: { style: "text-align:center;" }
                     },
-                    { field: "EspesorMinimo", title: _dictionary.columnMin[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "75px", format: "{0:n4}" },
-                    { field: "EspesorMaximo", title: _dictionary.columnMax[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "75px", format: "{0:n4}" },
+                    { field: "EspesorMinimo", title: _dictionary.columnMin[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "80px",  },
+                    { field: "EspesorMaximo", title: _dictionary.columnMax[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "80px",  },
                     { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: eliminarCaptura }, title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], width: "50px" },
                     //{ command: { text: _dictionary.botonDetalle[$("#language").data("kendoDropDownList").value()], click: EditaWPS }, title: _dictionary.tituloEditar[$("#language").data("kendoDropDownList").value()], width: "50px" }
         ],

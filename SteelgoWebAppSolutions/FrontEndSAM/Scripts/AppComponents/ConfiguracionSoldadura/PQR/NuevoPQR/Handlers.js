@@ -15,21 +15,15 @@ function suscribirEventoGuardar() {
     });
 
     $('#btnGuardarYNuevo').click(function (e) {
-        if ($('#Guardar').text() == "Guardar" || $('#Guardar').text() == "Save") {
-            AjaxExistePQR(1);
-        }
-        else if ($('#Guardar').text() == "Editar" || $('#Guardar').text() == "Edit") {
-            opcionHabilitarView(false);
-        }
+        opcionHabilitarView(false);
+        AjaxExistePQR(1);
+
     });
 
     $('#btnGuardarYNuevo1').click(function (e) {
-        if ($('#Guardar').text() == "Guardar" || $('#Guardar').text() == "Save") {
-            AjaxExistePQR(1);
-        }
-        else if ($('#Guardar').text() == "Editar" || $('#Guardar').text() == "Edit") {
-            opcionHabilitarView(false);
-        }
+        opcionHabilitarView(false);
+        AjaxExistePQR(1);
+
     });
 }
 
