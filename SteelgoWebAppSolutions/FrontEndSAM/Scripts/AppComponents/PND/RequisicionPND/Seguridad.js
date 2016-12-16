@@ -14,10 +14,10 @@ var $GenerarRequisicion = {
             editable: "#inputProyecto",
             required: "#inputProyecto",
         },
-        inputPrueba: {
-            visible: "#divPrueba",
-            editable: "#inputPrueba",
-            required: "#inputPrueba",
+        inputTipoPrueba: {
+            visible: "#divTipoPrueba",
+            editable: "#inputTipoPrueba",
+            required: "#inputTipoPrueba",
         }
     }
 };

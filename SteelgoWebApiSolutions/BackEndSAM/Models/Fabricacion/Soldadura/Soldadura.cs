@@ -77,6 +77,7 @@ namespace BackEndSAM.Models.Fabricacion.Soldadura
         public string WPSNombre { get; set; }
         public List<WPS> ListaWPS { get; set; }
         public decimal Diametro { get; set; }
+        public decimal Espesor { get; set; }
         public string FechaSoldadura { get; set; }
         public int ProcesoSoldaduraRaizID { get; set; }
         public string ProcesoSoldaduraRaiz { get; set; }
@@ -266,5 +267,36 @@ namespace BackEndSAM.Models.Fabricacion.Soldadura
         public int TrabajoAdicionalID { get; set; }
         public int ObreroID { get; set; }
         public string Observacion { get; set; }
+    }
+
+
+    public class WPS
+    {
+        public int WPSID { get; set; }
+        public string WPSNombre { get; set; }
+        public int PQRRaizId { get; set; }
+        public string NombrePQRRaiz { get; set; }
+        public int PQRRellenoId { get; set; }
+        public string NombrePQRRelleno { get; set; }
+        public bool PWHTId { get; set; }
+        public string PWHT { get; set; }
+        public bool PREHEATId { get; set; }
+        public string PREHEAT { get; set; }
+        public int GrupoMaterialBase1RaizUID { get; set; }
+        public string GrupoMaterialBase1RaizU { get; set; }
+        public int GrupoMaterialBase1RaizDID { get; set; }
+        public string GrupoMaterialBase1RaizD { get; set; }
+        public int GrupoMaterialBase1RellenoUID { get; set; }
+        public string GrupoMaterialBase1RellenoU { get; set; }
+        public int GrupoMaterialBase1RellenoDID { get; set; }
+        public string GrupoMaterialBase1RellenoD { get; set; }
+        public decimal RaizEspesorRaiz { get; set; }
+        public decimal RaizEspesorRelleno { get; set; }
+        public decimal RellenoEspesorRaiz { get; set; }
+        public decimal RellenoEspesorRelleno { get; set; }
+        public string ProcesoSoldaduraRaiz { get; set; }
+        public string ProcesoSoldaduraRelleno { get; set; }
+        public double EspesorMaximo { get; set; }
+        public double EspesorMinimo { get; set; }
     }
 }

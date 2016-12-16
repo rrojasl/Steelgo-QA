@@ -13,7 +13,7 @@ namespace BackEndSAM.Models.ServiciosTecnicos.RequisicionPND
             Prioridad = 0;
             Clasificacion = "";
             DiametroPlano = 0;
-            Espesor = "0";
+            Espesor = 0;
             Cedula = "";
 
             ElementoPorClasificacionPNDID = 0;
@@ -35,7 +35,7 @@ namespace BackEndSAM.Models.ServiciosTecnicos.RequisicionPND
         public int Prioridad { get; set; }
         public string Clasificacion { get; set; }
         public decimal DiametroPlano { get; set; }
-        public string Espesor { get; set; }
+        public decimal Espesor { get; set; }
         public string Cedula { get; set; }
 
         public int? ElementoPorClasificacionPNDID { get; set; }
@@ -47,7 +47,6 @@ namespace BackEndSAM.Models.ServiciosTecnicos.RequisicionPND
         public int TipoPruebaID { get; set; }
         public string Especificacion { get; set; }
         public bool? Agregar { get; set; }
-        public bool? Disposicion { get; set; }
         public int? OrdenTrabajoID { get; set; }
         public int? ClasificacionPNDID { get; set; }
     }
@@ -82,7 +81,6 @@ namespace BackEndSAM.Models.ServiciosTecnicos.RequisicionPND
             Accion = 0;
             RequisicionID = 0;
             ElementoPorClasificacionPNDID = 0;
-            Disposicion = false;
             OrdenTrabajoID = 0;
             ClasificacionPNDID=0;
             SpoolID = 0;
@@ -91,7 +89,6 @@ namespace BackEndSAM.Models.ServiciosTecnicos.RequisicionPND
         public int RequisicionID { get; set; }
         public int ElementoPorClasificacionPNDID { get; set; }
         public int Accion { get; set; }
-        public bool Disposicion { get; set; }
         public int OrdenTrabajoID { get; set; }
         public int ClasificacionPNDID { get; set; }
         public int SpoolID { get; set; }

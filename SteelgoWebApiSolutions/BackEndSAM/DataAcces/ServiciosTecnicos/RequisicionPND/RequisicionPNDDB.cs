@@ -67,7 +67,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.GenerarRequisicion
                     
                     foreach(Sam3_ST_Get_ElementosPorPrueba_Result item in listaElementosCTX)
                     {
-                        listaElementos.Add( new ElementosPorClasificacion
+                        listaElementos.Add(new ElementosPorClasificacion
                         {
                             NumeroControl = item.NumeroControl,
                             EtiquetaJunta = item.EtiquetaJunta,
@@ -77,7 +77,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.GenerarRequisicion
                             Prioridad = item.Prioridad.GetValueOrDefault(),
                             Clasificacion = item.Clasificacion,
                             DiametroPlano = item.DiametroPlano.GetValueOrDefault(),
-                            Espesor = item.Espesor.ToString(),
+                            Espesor = item.Espesor.GetValueOrDefault(),
                             Cedula = item.Cedula,
 
                             ElementoPorClasificacionPNDID = item.ElementoPorClasificacionPNDID,
@@ -89,9 +89,9 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.GenerarRequisicion
                             OrdenTrabajoSpoolID = item.OrdenTrabajoSpoolID,
                             TipoPruebaID = item.TipoPruebaID.GetValueOrDefault(),
                             Especificacion = item.Especificacion,
-                            Disposicion = item.Disposicion,
-                            ClasificacionPNDID = item.ClasificacionPNDID,
-                            OrdenTrabajoID = item.OrdenTrabajoID
+                            //Disposicion = item.Disposicion,
+                            //ClasificacionPNDID = item.ClasificacionPNDID,
+                            //OrdenTrabajoID = item.OrdenTrabajoID
                         });
                     }
 
@@ -178,7 +178,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.GenerarRequisicion
                             Prioridad = item.Prioridad.GetValueOrDefault(),
                             Clasificacion = item.Clasificacion,
                             DiametroPlano = item.DiametroPlano.GetValueOrDefault(),
-                            Espesor = item.Espesor.ToString(),
+                            Espesor = item.Espesor,
                             Cedula = item.Cedula,
 
                             ElementoPorClasificacionPNDID = item.ElementoPorClasificacionPNDID,
@@ -190,7 +190,6 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.GenerarRequisicion
                             OrdenTrabajoSpoolID = item.OrdenTrabajoSpoolID,
                             TipoPruebaID = item.TipoPruebaID.GetValueOrDefault(),
                             Especificacion = item.Especificacion,
-                            Disposicion = item.Disposicion == 0 ? false : true,
                             ClasificacionPNDID=item.ClasificacionPNDID,
                             OrdenTrabajoID=item.OrdenTrabajoID
 
@@ -254,7 +253,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.GenerarRequisicion
                             Prioridad = item.Prioridad.GetValueOrDefault(),
                             Clasificacion = item.Clasificacion,
                             DiametroPlano = item.DiametroPlano.GetValueOrDefault(),
-                            Espesor = item.Espesor.ToString(),
+                            Espesor = item.Espesor,
                             Cedula = item.Cedula,
 
                             ElementoPorClasificacionPNDID = item.ElementoPorClasificacionPNDID,
@@ -266,7 +265,6 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.GenerarRequisicion
                             OrdenTrabajoSpoolID = item.OrdenTrabajoSpoolID,
                             TipoPruebaID = item.TipoPruebaID.GetValueOrDefault(),
                             Especificacion = item.Especificacion,
-                            Disposicion = item.Disposicion == 0 ? false : true,
                             ClasificacionPNDID = item.ClasificacionPNDID,
                             OrdenTrabajoID = item.OrdenTrabajoID
 

@@ -133,10 +133,10 @@ function suscribirEventoCancelar() {
         //AjaxCargarCamposPredeterminados();
     });
     $('#CancelarSoldadoresRaiz').click(function (e) {
-        windowRaiz.close();
+        windowRaiz.data("kendoWindow").close();
     });
     $('#CancelarSoldadoresRelleno').click(function (e) {
-        windowRelleno.close();
+        windowRelleno.data("kendoWindow").close();
     });
 }
 
@@ -406,7 +406,7 @@ function suscribirEventoGridPopupSoldadoresRaiz() {
         if ($('#botonGuardar').text() == _dictionary.DetalleAvisoLlegada0017[$("#language").data("kendoDropDownList").value()]) {
             var grid = $("#grid").data("kendoGrid");
             dataItem = grid.dataItem($(e.target).closest("tr"));
-            if ( dataItem.ProcesoSoldaduraRaiz != "")
+            if (dataItem.ProcesoSoldaduraRaiz != "" && dataItem.WPSNombre != "")
                 GridPopupSoldadoresRaizCapturados(dataItem);
         }
     });
@@ -419,7 +419,7 @@ function suscribirEventoGridPopupSoldadoresRelleno() {
         if ($('#botonGuardar').text() == _dictionary.DetalleAvisoLlegada0017[$("#language").data("kendoDropDownList").value()]) {
             var grid = $("#grid").data("kendoGrid");
             dataItem = grid.dataItem($(e.target).closest("tr"));
-            if ( dataItem.ProcesoSoldaduraRelleno != "")
+            if (dataItem.ProcesoSoldaduraRelleno != "" && dataItem.WPSNombre != "")
                 GridPopupSoldadoresRellenoCapturados(dataItem);
         }
     });
