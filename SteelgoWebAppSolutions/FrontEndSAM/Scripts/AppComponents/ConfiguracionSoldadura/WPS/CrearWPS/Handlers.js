@@ -17,7 +17,9 @@ function suscribirEventoGuardar() {
     $('#btnGuardarYNuevo').click(function (e) {
         AjaxExisteWPS(1);
     });
-
+    $('#btnGuardarYNuevo1').click(function (e) {
+        AjaxExisteWPS(1);
+    });
 
 }
 

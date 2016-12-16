@@ -144,7 +144,7 @@ function RenderComboBoxMaterialesBase1(container, options) {
                 change: function (e) {
                     dataItem = this.dataItem(e.sender.selectedIndex);
                     if (dataItem != undefined) {
-                        if (options.model.RegistrosWPS == 0 || (options.model.RegistrosWPS == 1 && options.model.GrupoPMaterialBase2 == dataItem.GrupoPID)) {
+                        if (options.model.RegistrosWPS == 0 ) {
                             options.model.GrupoPMaterialBase1 = dataItem.GrupoPID;
                             options.model.GrupoPMaterialBase1Nombre = dataItem.GrupoP;
                         }
@@ -197,7 +197,7 @@ function RenderComboBoxMaterialesBase2(container, options) {
                 change: function (e) {
                     dataItem = this.dataItem(e.sender.selectedIndex);
                     if (dataItem != undefined) {
-                        if (options.model.RegistrosWPS == 0 || (options.model.RegistrosWPS == 1 && options.model.GrupoPMaterialBase1 == dataItem.GrupoPID)) {
+                        if (options.model.RegistrosWPS == 0) {
                             options.model.GrupoPMaterialBase2 = dataItem.GrupoPID;
                             options.model.GrupoPMaterialBase2Nombre = dataItem.GrupoP;
                         }

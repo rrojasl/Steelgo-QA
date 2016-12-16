@@ -1,9 +1,13 @@
 ﻿var NombreCorrecto = false;
 
 function obtenerPQRAjax() {
-    $PQR.PQR.read({ token: Cookies.get("token"), TipoAccion: 1, pantallaEnvia:2 }).done(function (data) {
-        $("#PQRRaizNombre").data("kendoComboBox").dataSource.data(data);
-        $("#PQRRellenoNombre").data("kendoComboBox").dataSource.data(data);
+    loadingStart();
+    $PQR.PQR.read({ token: Cookies.get("token"), TipoAccion: 1, pantallaEnvia: 2 }).done(function (data) {
+        if (Error(data)) {
+            $("#PQRRaizNombre").data("kendoComboBox").dataSource.data(data);
+            $("#PQRRellenoNombre").data("kendoComboBox").dataSource.data(data);
+        }
+        loadingStop();
     });
 }
 
@@ -12,14 +16,16 @@ function AjaxExisteWPS(varGuardar) {
         var WPSID = $("#WPSID").val() == "0" ? 0 : $("#WPSID").val();
         loadingStart();
         $WPS.WPS.read({ WPSID: WPSID, NombreWPSValida: $('#NomnreWPS').val(), token: Cookies.get("token") }).done(function (data) {
-            if (data.ReturnMessage[0] != "OK") {
-                //displayNotify("", "El Nombre del WPS ya existe", '2');
-                NombreCorrecto = false;
+            if (Error(data)) {
+                if (data.ReturnMessage[0] != "OK") {
+                    //displayNotify("", "El Nombre del WPS ya existe", '2');
+                    NombreCorrecto = false;
+                }
+                else {
+                    NombreCorrecto = true;
+                }
+                AjaxGuardar(varGuardar);
             }
-            else {
-                NombreCorrecto = true;
-            }
-            AjaxGuardar(varGuardar);
             loadingStop();
         });
     }
@@ -99,24 +105,27 @@ function AjaxGuardar(tipoGuardar) {
     if (Captura[0].Detalles.length > 0 && correcto) {
         loadingStart();
         $WPS.WPS.create(Captura[0], { token: Cookies.get("token") }).done(function (data) {
-            if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "OK") {
-                if (data.ReturnMessage[1] != undefined) {
-                    $("#WPSID").val(data.ReturnMessage[1]);
+            if (Error(data)) {
+                if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "OK") {
+                    if (data.ReturnMessage[1] != undefined) {
+                        $("#WPSID").val(data.ReturnMessage[1]);
+                    }
+                    displayNotify("CapturaMensajeGuardadoExitoso", "", '0');
+                    if (tipoGuardar == 1) {
+                        Limpiar();
+                    }
+                    else {
+                        opcionHabilitarView(true, "FieldSetView");
+                    }
+                    loadingStop();
                 }
-                displayNotify("CapturaMensajeGuardadoExitoso", "", '0');
-                if (tipoGuardar == 1) {
-                    Limpiar();
+                else  /*(data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") */ {
+                    //mensaje = "No se guardo la informacion el error es: " + data.ReturnMessage[0] + "-2";
+                    displayNotify("CapturaMensajeGuardadoErroneo", "", '2');
+                    
                 }
-                else {
-                    opcionHabilitarView(true, "FieldSetView");
-                }
-                loadingStop();
             }
-            else  /*(data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") */ {
-                //mensaje = "No se guardo la informacion el error es: " + data.ReturnMessage[0] + "-2";
-                displayNotify("CapturaMensajeGuardadoErroneo", "", '2');
-                loadingStop();
-            }
+            loadingStop();
         });
     }
 

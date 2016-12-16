@@ -119,25 +119,27 @@ function AjaxGuardar(tipoGuardar) {
     if (Captura[0].Detalles.length > 0 && correcto) {
         loadingStart();
         $PQR.PQR.create(Captura[0], { token: Cookies.get("token"), accion: ListaDetalles[0].Accion }).done(function (data) {
-            if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "OK") {
-                if (data.ReturnMessage[1] != undefined) {
-                    $("#PQRID").val(data.ReturnMessage[1]);
+            if (Error(data)) {
+                if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "OK") {
+                    if (data.ReturnMessage[1] != undefined) {
+                        $("#PQRID").val(data.ReturnMessage[1]);
+                    }
+                    displayNotify("CapturaMensajeGuardadoExitoso", "", '0');
+                    if (tipoGuardar == 1) {//guardar y nuevo
+                        Limpiar();
+                        opcionHabilitarView(false, "FieldSetView");
+                    }
+                    else {
+                        opcionHabilitarView(true, "FieldSetView");
+                    }
+                    loadingStop();
                 }
-                displayNotify("CapturaMensajeGuardadoExitoso", "", '0');
-                if (tipoGuardar == 1) {//guardar y nuevo
-                    Limpiar();
-                    opcionHabilitarView(false, "FieldSetView");
-                }
-                else {
-                    opcionHabilitarView(true, "FieldSetView");
-                }
-                loadingStop();
-            }
-            else  /*(data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") */ {
-                //mensaje = "No se guardo la informacion el error es: " + data.ReturnMessage[0] + "-2";
-                displayNotify("CapturaMensajeGuardadoErroneo", "", '2');
-                loadingStop();
+                else  /*(data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") */ {
+                    //mensaje = "No se guardo la informacion el error es: " + data.ReturnMessage[0] + "-2";
+                    displayNotify("CapturaMensajeGuardadoErroneo", "", '2');
+                    loadingStop();
 
+                }
             }
         });
     }
@@ -148,30 +150,34 @@ function AjaxExistePQR(tipo) {
        && ($("#PQRID").val() == "" || $("#PQRID").val() == undefined || $("#PQRID").val() == null || $("#PQRID").val() == 0)) {
         loadingStart();
         $PQR.PQR.read({ token: Cookies.get("token"), nombre: $('#NombreId').val() }).done(function (data) {
-            if (data.ReturnMessage[0] != "OK") {
-                displayNotify("", "El Nombre del PQR ya existe", '2');
-                //$('#NombreId').focus();
+            if (Error(data)) {
+                if (data.ReturnMessage[0] != "OK") {
+                    displayNotify("", "El Nombre del PQR ya existe", '2');
+                    //$('#NombreId').focus();
 
-            }
-            else if (tipo != 3) {
-                AjaxGuardar(tipo);
+                }
+                else if (tipo != 3) {
+                    AjaxGuardar(tipo);
+                }
             }
             loadingStop();
         });
     } else if ($("#PQRID").val() != "" || $("#PQRID").val() != undefined || $("#PQRID").val() != null || $("#PQRID").val() != 0) {
         loadingStart();
         $PQR.PQR.read({ token: Cookies.get("token"), nombre: $('#NombreId').val() }).done(function (data) {
-            if (data.ReturnMessage[0] != "OK") {
-                if (data.ReturnMessage[0] == $("#PQRID").val()) {
-                    if (tipo != 3) {
-                        AjaxGuardar(tipo);
+            if (Error(data)) {
+                if (data.ReturnMessage[0] != "OK") {
+                    if (data.ReturnMessage[0] == $("#PQRID").val()) {
+                        if (tipo != 3) {
+                            AjaxGuardar(tipo);
+                        }
+                    } else {
+                        displayNotify("", "El Nombre del PQR ya existe", '2');
                     }
-                } else {
-                    displayNotify("", "El Nombre del PQR ya existe", '2');
                 }
-            }
-            else if (tipo != 3) {
-                AjaxGuardar(tipo);
+                else if (tipo != 3) {
+                    AjaxGuardar(tipo);
+                }
             }
             loadingStop();
         });

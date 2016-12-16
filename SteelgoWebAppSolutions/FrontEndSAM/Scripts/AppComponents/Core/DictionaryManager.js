@@ -9317,6 +9317,18 @@ _dictionary = {
     //Finaliza PQR
 
     //Pantalla WPS
+    "WPSMensajeErrorPreHitRelleno": {
+        "es-MX": "Preheat no coincide",
+        "en-US": "Do not match PreHeat"
+    },
+    "WPSMensajeErrorPWHRelleno": {
+        "es-MX": "PWH No coincide",
+        "en-US": "Do not match PWH"
+    },
+    "WPSMensajeErrorGruposMaterialBase": {
+        "es-MX": "Grupo Material no coincide ",
+        "en-US": "Do not match Material Group"
+    },
     "WPSLabelRaiz": {
         "es-MX": "Raíz",
         "en-US": "Root"
@@ -10685,13 +10697,11 @@ _dictionary = {
     "EmbarqueCargaTotalPiezas": {
         "es-MX": "Total Piezas:",
         "en-US": "Total pieces:"
-    }
-      ,
+    },
     "EmbarqueCargaToneladasCargadas": {
         "es-MX": "Toneladas Cargadas:",
         "en-US": "Tons Loaded:"
-    }
-    ,
+    },
     "EmbarqueCargaInformacionExistente": {
         "es-MX": "La informacion ya existe",
         "en-US": "The information already exists"
@@ -10873,6 +10883,14 @@ _dictionary = {
         "es-MX": "El Spool ya existe en la captura",
         "en-US": "The Spool already exists on capture"
     },
+    "EmbarqueCargaMsjErrorPaqueteAgregarExiste": {
+        "es-MX": "El spool se encuentra cargado en el paquete ",
+        "en-US": "The spool is loaded in the package "
+    },
+    "EmbarqueCargaMsjErrorSpoolAgregarProyectoIncorrecto": {
+        "es-MX": "El spool no pertenece al proyecto seleccionado",
+        "en-US": "Spool does not belong to selected project"
+    },
     //Finaliza pantalla carga plana
     //Inicia pantalla empaquetado
     "EmbarqueEmpaquetadoTotalPiezas": {
@@ -10900,8 +10918,8 @@ _dictionary = {
         "en-US": "Spool does not belong to selected project"
     },
     "EmbarqueEmpaquetadoErrorSpoolPaquete": {
-        "es-MX": "El spool ya se encuentra en el paquete ",
-        "en-US": "The spool is already in the package "
+        "es-MX": "El spool se encuentra cargado en el paquete ",
+        "en-US": "The spool is loaded in the package "
     },
     "EmbarqueEmpaquetadoErrorPaqueteExiste": {
         "es-MX": "El paquete ya existe con el nombre ingresado",
