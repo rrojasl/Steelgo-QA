@@ -121,7 +121,8 @@ namespace BackEndSAM.Controllers.Inspeccion.Dimensional
                         ListaResultados = ObtenerListaResultado((List<Sam3_Steelgo_Get_TipoResultado_Result>)TipoResultadoBd.Instance.ObtenerListadoResultados(Lenguaje)),
                         ListaJuntas = listJuntaXSpool,
                         TemplateRender = Lenguaje == "es-MX" ? "No hay juntas seleccionadas" : "No joins are selected",
-                        TIPO = "NoEspecificarJunta"
+                        TIPO = "NoEspecificarJunta",
+                        RowOK=true
                     };
                     listaDetalleDatos.Add(detalleDatos);
                 }
@@ -158,7 +159,8 @@ namespace BackEndSAM.Controllers.Inspeccion.Dimensional
                             ListaJuntasSeleccionadas = juntasSeleccionadas,
                             ListaJuntasSeleccionadasInicial = juntasSeleccionadas,
                             TemplateRender = juntasSeleccionadas.Count > 0 ? idiomaMensaje.Split('|')[0].Replace("?1", juntasSeleccionadas.Count.ToString()) : idiomaMensaje.Split('|')[1],
-                            TIPO = item.Tipo
+                            TIPO = item.Tipo,
+                            RowOK=true
                         };
 
 
@@ -247,6 +249,7 @@ namespace BackEndSAM.Controllers.Inspeccion.Dimensional
         private List<InspeccionDimensional.Resultado> ObtenerListaResultado(List<Sam3_Steelgo_Get_TipoResultado_Result> listaResultado)
         {
             List<InspeccionDimensional.Resultado> listaResultados = new List<InspeccionDimensional.Resultado>();
+            listaResultados.Add(new InspeccionDimensional.Resultado());
             foreach (Sam3_Steelgo_Get_TipoResultado_Result item in listaResultado)
             {
                 InspeccionDimensional.Resultado resultado = new InspeccionDimensional.Resultado

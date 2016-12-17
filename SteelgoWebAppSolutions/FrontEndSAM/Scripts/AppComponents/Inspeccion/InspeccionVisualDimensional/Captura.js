@@ -18,7 +18,6 @@ function changeLanguageCall() {
     limpiar();
     $('#Guardar1').text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);
     $("#Guardar").text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);
-    //document.title = _dictionary.InpeccionVisualEnlaceInspeccion[$("#language").data("kendoDropDownList").value()];
     opcionHabilitarView(false, "FieldSetView");
 
     IniciarPreCargas();
@@ -45,8 +44,36 @@ function asignarProyecto() {
     $("#LabelProyecto").text('Proyecto :' + (Cookies.get('Proyecto') == undefined ? 'No hay ningun proyecto' : Cookies.get('Proyecto')));
 }
 
+function elNUSeEncuentraEnJuntasNoAgregadasGrid(combobox, jsonGridArmado, rowitem) {
+
+    var juntasEncontradasGuardadas = combobox.JuntasEncontradas == "" ? 0 : combobox.JuntasEncontradas.split(',');
+    var cantidadJuntasEncontradasGrid = 0;;
+
+    if (combobox.JuntasEncontradas == "")
+        return false;
+    else {
+        for (var i = 0; i < jsonGridArmado.length; i++) {
+            for (var j = 0; j < juntasEncontradasGuardadas.length; j++) {
+                if (jsonGridArmado[i].Accion != 3 && (jsonGridArmado[i].IdOrdenTrabajo + '-' + jsonGridArmado[i].IdVal + jsonGridArmado[i].Junta) == (rowitem.IdOrdenTrabajo + '-' + rowitem.IdVal + juntasEncontradasGuardadas[j].trim())) {
+                    cantidadJuntasEncontradasGrid++;
+                }
+            }
+        }
+    }
+
+    if (juntasEncontradasGuardadas.length == cantidadJuntasEncontradasGrid)
+        return false;
+    return true;
+};
+
 function ExisteJunta(Spool) {
-    var jsonGrid = $("#grid").data("kendoGrid").dataSource._data;
+
+    var dataSource = $("#grid").data("kendoGrid").dataSource;
+    var filters = dataSource.filter();
+    var allData = dataSource.data();
+    var query = new kendo.data.Query(allData);
+    var jsonGrid = query.filter(filters).data;
+
     for (var i = 0; i < jsonGrid.length; i++) {
         if (jsonGrid[i].JuntaID == Spool) {
             return false;
@@ -153,7 +180,7 @@ function CargarGrid() {
         columns: [
             { field: "Junta", title: _dictionary.columnJunta[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "55px" },
             { field: "DetalleJunta", title: _dictionary.columnDetalleJunta[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "55px" },
-            { field: "Diametro", title: _dictionary.columnDiametro[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "55px", attributes: { style: "text-align:right;" } },
+            { field: "Diametro", title: _dictionary.columnDiametro[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "55px", attributes: { style: "text-align:right;" } },
             { field: "Taller", title: _dictionary.columnTaller[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxTaller, width: "55px" },
             { field: "Resultado", title: _dictionary.columnResultado[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderOptionResultado, width: "55px" },
             { field: "Defectos", title: _dictionary.columnDefectos[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxDefectos, width: "55px" },
@@ -201,6 +228,19 @@ function isEditable(fieldName, model) {
     return true; // default to editable
 }
 
+function seEncuentraEtiquetaMaterialOtrasJuntas(jsonGridArmado, LocalizacionEtiquetaMaterial, rowitem) {
+    var cantidadEtiquetaMaterialLocalizacionRepetido = 0;
+    for (var i = 0; i < jsonGridArmado.length; i++) {
+        for (var j = 0; j < jsonGridArmado[i].Localizacion.split('-').length ; j++) {
+            if (jsonGridArmado[i].IdOrdenTrabajo + '-' + jsonGridArmado[i].IdVal == (rowitem.IdOrdenTrabajo + '-' + rowitem.IdVal) && jsonGridArmado[i].Localizacion.split('-')[j] == LocalizacionEtiquetaMaterial)
+                cantidadEtiquetaMaterialLocalizacionRepetido++;
+        }
+    };
+
+    if (cantidadEtiquetaMaterialLocalizacionRepetido > 1)
+        return true;
+    return false;
+};
 
 function ArregloListadoCaptura() {
 
@@ -224,83 +264,71 @@ function ArregloListadoCaptura() {
     JsonCaptura[0].Inspector = $("#inputInspector").data("kendoComboBox").text();
     return JsonCaptura[0];
 };
-function AplicarAsignacionAutomaticaNumeroUnico(rowitem, textoAnterior, combobox, posicionSiguiente) {
-
-    var jsonGridVisualDimensional = $("#grid").data("kendoGrid").dataSource._data;
-
-
-    //se asigna datos a nivel Etiqueta. NU1 NU2 1,1 -> 3,3 
-    for (var i = 0; i < jsonGridVisualDimensional.length; i++) {
-        if (jsonGridVisualDimensional[i].OrdenTrabajoID + '-' + jsonGridVisualDimensional[i].OrdenTrabajoSpool == (rowitem.OrdenTrabajoID + '-' + rowitem.OrdenTrabajoSpool)) {
-
-            for (var j = 0; j < jsonGridVisualDimensional[i].ListaNumerosUnicos1.length; j++) {
-                if (combobox.EtiquetaMaterial == jsonGridVisualDimensional[i].ListaNumerosUnicos1[j].EtiquetaMaterial) {
-                    jsonGridVisualDimensional[i].NumeroUnico1 = combobox.Clave;
-                    jsonGridVisualDimensional[i].NumeroUnico1ID = combobox.NumeroUnicoID;
+function AplicarAsignacionAutomaticaNumeroUnico(rowitem, textoAnterior, comboboxItemSeleccionado, posicionSiguiente, jsonGridArmado, cantidadItems) {
+    if (seEncuentraEtiquetaMaterialOtrasJuntas(jsonGridArmado, comboboxItemSeleccionado.EtiquetaMaterial, rowitem)) {
+        for (var i = 0; i < jsonGridArmado.length; i++) {
+            //se evalua en NU1
+            if (jsonGridArmado[i].IdOrdenTrabajo + '-' + jsonGridArmado[i].IdVal == (rowitem.IdOrdenTrabajo + '-' + rowitem.IdVal)) {
+                if (jsonGridArmado[i].Localizacion.split('-')[0] == comboboxItemSeleccionado.EtiquetaMaterial) {
+                    jsonGridArmado[i].NumeroUnico1 = comboboxItemSeleccionado.Clave;
+                    jsonGridArmado[i].NumeroUnico1ID = comboboxItemSeleccionado.NumeroUnicoID;
+                    jsonGridArmado[i].JuntaAnteriorNumeroUnicoGuardado = comboboxItemSeleccionado.JuntasEncontradas;
+                }
+                    //se evalua en NU2
+                else if (jsonGridArmado[i].Localizacion.split('-')[1] == comboboxItemSeleccionado.EtiquetaMaterial) {
+                    jsonGridArmado[i].NumeroUnico2 = comboboxItemSeleccionado.Clave;
+                    jsonGridArmado[i].NumeroUnico2ID = comboboxItemSeleccionado.NumeroUnicoID;
+                    jsonGridArmado[i].JuntaAnteriorNumeroUnicoGuardado = comboboxItemSeleccionado.JuntasEncontradas;
                 }
             }
-            for (var k = 0; k < jsonGridVisualDimensional[i].ListaNumerosUnicos2.length; k++) {
-                if (combobox.EtiquetaMaterial == jsonGridVisualDimensional[i].ListaNumerosUnicos2[k].EtiquetaMaterial) {
-                    jsonGridVisualDimensional[i].NumeroUnico2 = combobox.Clave;
-                    jsonGridVisualDimensional[i].NumeroUnico2ID = combobox.NumeroUnicoID;
-                }
-            }
-
         }
+
+        SiguienteElemento = encontrarSiguienteItem(rowitem, comboboxItemSeleccionado);
+        //fila del elemento encontrado,,numero unico autoseleccionado
+        if (posicionSiguiente == 0 && SiguienteElemento != undefined && (SiguienteElemento[0] != undefined || SiguienteElemento[1] != undefined))
+            AplicarAsignacionAutomaticaNumeroUnico(SiguienteElemento[0], textoAnterior, SiguienteElemento[1], 1, jsonGridArmado);
     }
+    else {
+        EliminarItemNUSeleccionado(jsonGridArmado, comboboxItemSeleccionado.NumeroUnicoID, rowitem);
+        for (var i = 0; i < jsonGridArmado.length; i++) {
+            //se evalua en NU1
+            if (jsonGridArmado[i].IdOrdenTrabajo + '-' + jsonGridArmado[i].IdVal == (rowitem.IdOrdenTrabajo + '-' + rowitem.IdVal)) {
+                if (jsonGridArmado[i].Localizacion.split('-')[0] == comboboxItemSeleccionado.EtiquetaMaterial) {
+                    jsonGridArmado[i].NumeroUnico1 = comboboxItemSeleccionado.Clave;
+                    jsonGridArmado[i].NumeroUnico1ID = comboboxItemSeleccionado.NumeroUnicoID; 
+                    jsonGridArmado[i].JuntaAnteriorNumeroUnicoGuardado = comboboxItemSeleccionado.JuntasEncontradas;
+                }
+                    //se evalua en NU2
+                else if (jsonGridArmado[i].Localizacion.split('-')[1] == comboboxItemSeleccionado.EtiquetaMaterial) {
+                    jsonGridArmado[i].NumeroUnico2 = comboboxItemSeleccionado.Clave;
+                    jsonGridArmado[i].NumeroUnico2ID = comboboxItemSeleccionado.NumeroUnicoID;
+                    jsonGridArmado[i].JuntaAnteriorNumeroUnicoGuardado = comboboxItemSeleccionado.JuntasEncontradas;
+                }
+            }
+        }
+        SiguienteElemento = encontrarSiguienteItem(rowitem, comboboxItemSeleccionado);
+        //fila del elemento encontrado,,numero unico autoseleccionado
+        if (posicionSiguiente == 0 && cantidadItems == 3 && SiguienteElemento != undefined)
+            AplicarAsignacionAutomaticaNumeroUnico(SiguienteElemento[0], textoAnterior, SiguienteElemento[1], 1, jsonGridArmado);
+    }
+}
 
-    //se asigna datos a nivel numero unico siempre y cuando la longitud del total de posibles numeros unicos es 1
-
+function encontrarSiguienteItem(rowitem, comboboxItemSeleccionado) {
     var itemSiguienteMismoMaterial;
     var arrayListaNumerosUnicos;
 
-    if (combobox.Etiqueta == "2")
+    if (comboboxItemSeleccionado.Etiqueta == "2")
     { arrayListaNumerosUnicos = rowitem.ListaNumerosUnicos2; }
-    else if (combobox.Etiqueta == "1")
+    else if (comboboxItemSeleccionado.Etiqueta == "1")
     { arrayListaNumerosUnicos = rowitem.ListaNumerosUnicos1; }
-    if (arrayListaNumerosUnicos != undefined) {
-        if (arrayListaNumerosUnicos.length <= 3) {//se pone -2 por el vacio y por el elemento que reviso
-            for (var l = 0; l < arrayListaNumerosUnicos.length; l++) {
-                if (combobox.Clave != arrayListaNumerosUnicos[l].Clave) {
-                    itemSiguienteMismoMaterial = arrayListaNumerosUnicos[l];
-                    rowitem = BuscarItemSiguienteEnGrid(itemSiguienteMismoMaterial);
 
-                    if (rowitem != undefined) {
-
-
-                        if (posicionSiguiente < arrayListaNumerosUnicos.length) {
-                            posicionSiguiente++;
-                            AplicarAsignacionAutomaticaNumeroUnico(rowitem[0], textoAnterior, rowitem[1], posicionSiguiente);
-                        }
-                    }
-                }
-            }
-        }
-        else {
-            if (ExisteNUGrid(combobox.NumeroUnicoID, jsonGridVisualDimensional, rowitem)) {
-                //proceso para borrar el dato seleccionado donde se encuentra y ponerlo en el actual.
-                EliminarItemNUSeleccionado(jsonGridVisualDimensional, combobox.NumeroUnicoID, rowitem)
-            }
-            else {
-                if (!ExisteSpoolJuntaEnGrid(combobox, jsonGridVisualDimensional, rowitem)) {
-                    for (var i = 0; i < jsonGridVisualDimensional.length; i++) {
-                        if (combobox.JuntasEncontradas != '' &&
-                            ((jsonGridVisualDimensional[i].IdOrdenTrabajo + '-' + jsonGridVisualDimensional[i].IdVal) == (rowitem.IdOrdenTrabajo + '-' + rowitem.IdVal)) &&
-                            (jsonGridVisualDimensional[i].NumeroUnico2ID == combobox.NumeroUnicoID)) {
-                            jsonGridVisualDimensional[i].NumeroUnico2 = '';
-                            jsonGridVisualDimensional[i].NumeroUnico2ID = null;
-                            MensajesSteelGO("AvisoNumeroUnicoYaAsignado", combobox.JuntasEncontradas);
-                        }
-                        else if (combobox.JuntasEncontradas != '' && ((jsonGridVisualDimensional[i].IdOrdenTrabajo + '-' + jsonGridVisualDimensional[i].IdVal) == (rowitem.IdOrdenTrabajo + '-' + rowitem.IdVal)) && (jsonGridVisualDimensional[i].NumeroUnico1ID == combobox.NumeroUnicoID)) {
-                            jsonGridVisualDimensional[i].NumeroUnico1 = '';
-                            jsonGridVisualDimensional[i].NumeroUnico1ID = null;
-                            MensajesSteelGO("AvisoNumeroUnicoYaAsignado", combobox.JuntasEncontradas);
-                        }
-                    }
-                }
-            }
+    for (var l = 0; l < arrayListaNumerosUnicos.length; l++) {
+        if (comboboxItemSeleccionado.Clave != arrayListaNumerosUnicos[l].Clave && arrayListaNumerosUnicos[l].ItemCodeID != 0) {
+            itemSiguienteMismoMaterial = arrayListaNumerosUnicos[l];
+            return BuscarItemSiguienteEnGrid(itemSiguienteMismoMaterial);
         }
     }
+    return [, ];
 }
 
 function ExisteNUGrid(NumeroUnicoID, jsonGridVisualDimensional, rowitem) {
@@ -356,15 +384,15 @@ function MensajesSteelGO(control, mensajeExepcionTecnico) {
     }
 };
 
-function EliminarItemNUSeleccionado(jsonGridVisualDimensional, NumeroUnicoID, rowitem) {
-    for (var i = 0; i < jsonGridVisualDimensional.length; i++) {
-        if (jsonGridVisualDimensional[i].NumeroUnico1ID == NumeroUnicoID && (jsonGridVisualDimensional[i].IdOrdenTrabajo + '-' + jsonGridVisualDimensional[i].IdVal) == (rowitem.IdOrdenTrabajo + '-' + rowitem.IdVal) && (jsonGridVisualDimensional[i].IdOrdenTrabajo + '-' + jsonGridVisualDimensional[i].IdVal + jsonGridVisualDimensional[i].JuntaID) != (rowitem.IdOrdenTrabajo + '-' + rowitem.IdVal + rowitem.JuntaID)) {
-            jsonGridVisualDimensional[i].NumeroUnico1 = '';
-            jsonGridVisualDimensional[i].NumeroUnico1ID = null;
+function EliminarItemNUSeleccionado(jsonGridArmado, NumeroUnicoID, rowitem) {
+    for (var i = 0; i < jsonGridArmado.length; i++) {
+        if (jsonGridArmado[i].NumeroUnico1ID == NumeroUnicoID && (jsonGridArmado[i].IdOrdenTrabajo + '-' + jsonGridArmado[i].IdVal) == (rowitem.IdOrdenTrabajo + '-' + rowitem.IdVal) && (jsonGridArmado[i].IdOrdenTrabajo + '-' + jsonGridArmado[i].IdVal + jsonGridArmado[i].JuntaID) != (rowitem.IdOrdenTrabajo + '-' + rowitem.IdVal + rowitem.JuntaID)) {
+            jsonGridArmado[i].NumeroUnico1 = '';
+            jsonGridArmado[i].NumeroUnico1ID = null;
         }
-        else if (jsonGridVisualDimensional[i].NumeroUnico2ID == NumeroUnicoID && (jsonGridVisualDimensional[i].IdOrdenTrabajo + '-' + jsonGridVisualDimensional[i].IdVal) == (rowitem.IdOrdenTrabajo + '-' + rowitem.IdVal) && (jsonGridVisualDimensional[i].IdOrdenTrabajo + '-' + jsonGridVisualDimensional[i].IdVal + jsonGridVisualDimensional[i].JuntaID) != (rowitem.IdOrdenTrabajo + '-' + rowitem.IdVal + rowitem.JuntaID)) {
-            jsonGridVisualDimensional[i].NumeroUnico2 = '';
-            jsonGridVisualDimensional[i].NumeroUnico2ID = null;
+        if (jsonGridArmado[i].NumeroUnico2ID == NumeroUnicoID && (jsonGridArmado[i].IdOrdenTrabajo + '-' + jsonGridArmado[i].IdVal) == (rowitem.IdOrdenTrabajo + '-' + rowitem.IdVal) && (jsonGridArmado[i].IdOrdenTrabajo + '-' + jsonGridArmado[i].IdVal + jsonGridArmado[i].JuntaID) != (rowitem.IdOrdenTrabajo + '-' + rowitem.IdVal + rowitem.JuntaID)) {
+            jsonGridArmado[i].NumeroUnico2 = '';
+            jsonGridArmado[i].NumeroUnico2ID = null;
         }
     }
 }
@@ -409,40 +437,13 @@ function cancelarCaptura(e) {
             var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
             var spoolIDRegistro = dataItem.SpoolID;
             var modalTitle = "";
-            modalTitle = _dictionary.CapturaAvanceTitulo[$("#language").data("kendoDropDownList").value()];
-            var window = $("#ventanaConfirm");
-            var ventanaConfirm = window.kendoWindow({
-                iframe: true,
-                title: modalTitle,
-                visible: false, //the window will not appear before its .open method is called
-                width: "auto",
-                height: "auto",
-                resizable: false,
-                modal: true,
-                animation: {
-                    close: false,
-                    open: false
-                }
-            }).data("kendoWindow");
 
-            ventanaConfirm.content('<center>' + _dictionary.mensajeEliminarInspeccionVisualDimensional[$("#language").data("kendoDropDownList").value()] + '</center>' +
-                                    '<center><button class="btn btn-blue" id="YesButton"> Si</button>&nbsp;<button class="btn btn-blue" id="NoButton"> No</button></center>');
-
-            ventanaConfirm.center().open();
-
-            $("#YesButton").click(function (handler) {
-                var dataSource = $("#grid").data("kendoGrid").dataSource;
-                if (dataItem.Accion == 2 || dataItem.Accion == 4)
-                    dataItem.Accion = 3;
-                if (dataItem.InspeccionVisualID == 0)
-                    dataSource.remove(dataItem);
-                $("#grid").data("kendoGrid").dataSource.sync();
-                ventanaConfirm.close();
-            });
-
-            $("#NoButton").click(function (handler) {
-                ventanaConfirm.close();
-            });
+            var dataSource = $("#grid").data("kendoGrid").dataSource;
+            if (dataItem.Accion == 2 || dataItem.Accion == 4)
+                dataItem.Accion = 3;
+            if (dataItem.InspeccionVisualID == 0)
+                dataSource.remove(dataItem);
+            $("#grid").data("kendoGrid").dataSource.sync();
         }
     }
     else {
@@ -451,38 +452,12 @@ function cancelarCaptura(e) {
             var spoolIDRegistro = dataItem.SpoolID;
             var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
             var spoolIDRegistro = dataItem.SpoolID;
-            windowTemplate = kendo.template($("#windowTemplate").html());
 
-            ventanaConfirm = $("#ventanaConfirm").kendoWindow({
-                iframe: true,
-                title: _dictionary.CapturaAvanceTitulo[$("#language").data("kendoDropDownList").value()],
-                visible: false, //the window will not appear before its .open method is called
-                width: "auto",
-                height: "auto",
-                resizable: false,
-                modal: true,
-                animation: {
-                    close: false,
-                    open: false
-                }
-            }).data("kendoWindow");
+            dataItem.Accion = 3;
+            if (dataItem.InspeccionVisualID == 0)
+                dataSource.remove(dataItem);
+            $("#grid").data("kendoGrid").dataSource.sync();
 
-            ventanaConfirm.content(_dictionary.CapturaMensajeArmadoPlancharTodos[$("#language").data("kendoDropDownList").value()] +
-                         "</br><center><button class='confirm_yes btn btn-blue' id='yesButton'>Si</button><button class='confirm_yes btn btn-blue' id='noButton'> No</button></center>");
-
-            ventanaConfirm.open().center();
-
-            $("#yesButton").click(function (handler) {
-                var dataSource = $("#grid").data("kendoGrid").dataSource;
-                dataItem.Accion = 3;
-                if (dataItem.InspeccionVisualID == 0)
-                    dataSource.remove(dataItem);
-                $("#grid").data("kendoGrid").dataSource.sync();
-                ventanaConfirm.close();
-            });
-            $("#noButton").click(function (handler) {
-                ventanaConfirm.close();
-            });
         }
     }
 

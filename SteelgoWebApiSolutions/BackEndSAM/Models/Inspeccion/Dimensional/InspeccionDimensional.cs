@@ -56,6 +56,8 @@ namespace BackEndSAM.Models.Inspeccion.Dimensional
             public string TemplateRender { get; set; }
             public int IDDEFECTOTIPO { get; set; }
             public string TIPO { get; set; }
+
+            public bool RowOK { get; set; }
         }
 
         public class DetalleGuardarJson
@@ -89,6 +91,12 @@ namespace BackEndSAM.Models.Inspeccion.Dimensional
         {
             public string _ResultadoID { get; set; }
             public string _Resultado { get; set; }
+
+            public Resultado()
+            {
+                _ResultadoID = "";
+                _Resultado = "";
+            }
         }
 
         public class Inspector

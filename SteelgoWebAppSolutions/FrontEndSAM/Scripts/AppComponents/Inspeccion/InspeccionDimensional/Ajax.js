@@ -160,7 +160,13 @@ function AjaxObtenerJSonGrid() {
 }
 
 function ExisteSpool(row) {
-    var jsonGridArmado = $("#grid").data("kendoGrid").dataSource._data;
+    //var jsonGridArmado = $("#grid").data("kendoGrid").dataSource._data;
+
+    var dataSource = $("#grid").data("kendoGrid").dataSource;
+    var filters = dataSource.filter();
+    var allData = dataSource.data();
+    var query = new kendo.data.Query(allData);
+    var jsonGridArmado = query.filter(filters).data;
 
     for (var i = 0; i < jsonGridArmado.length; i++) {
         if (jsonGridArmado[i].OrdenTrabajoSpool == row.OrdenTrabajoSpool) {
@@ -201,6 +207,7 @@ function AjaxGuardar(jSonCaptura, tipoGuardado) {
     Juntas = [];
     //if (InspectorCorrecto(jSonCaptura)) {
     for (index = 0; index < jSonCaptura.length; index++) {
+        $("#grid").data("kendoGrid").dataSource._data[index].RowOk = true;
         inspeccionDimensional[index] = { Accion: "", InspeccionDimensionalID: "", FechaInspeccion: "", ResultadoID: "", Resultado: "", InspectorID: "", Inspector: "", DefectosID: "", Defectos: "", OrdenTrabajoSpoolID: "", ListaJuntas: [], Estatus: 1 }
         inspeccionDimensional[index].Accion = jSonCaptura[index].Accion;
         inspeccionDimensional[index].InspeccionDimensionalID = jSonCaptura[index].InspeccionDimensionalID;
@@ -270,7 +277,7 @@ function AjaxGuardar(jSonCaptura, tipoGuardado) {
                 listaFinalJuntas = [];
         }
 
-        if (listaFinalJuntas != null) {
+        
             if (listaFinalJuntas.length > 0) {
                 inspeccionDimensional[index].ListaJuntas = [];
                 Juntas = [];
@@ -283,9 +290,23 @@ function AjaxGuardar(jSonCaptura, tipoGuardado) {
                 }
                 inspeccionDimensional[index].ListaJuntas = Juntas;
             }
-            else { inspeccionDimensional[index].ListaJuntas = undefined; }
-        }
-        else { inspeccionDimensional[index].ListaJuntas = undefined; }
+            else {
+                if (jSonCaptura[index].ListaJuntasSeleccionadasInicial.length > 0)
+                {
+                    Juntas = [];
+                    for (var r = 0; r < jSonCaptura[index].ListaJuntasSeleccionadasInicial.length; r++) {
+                        Juntas[r] = { Accion: "", OrdenTrabajoSpoolID: "", DefectoID: "", JuntaID: "" }
+                        Juntas[r].DefectoID = jSonCaptura[index].DefectosID == "" ? 0 : jSonCaptura[index].DefectosID;
+                        Juntas[r].JuntaID = jSonCaptura[index].ListaJuntasSeleccionadasInicial[r].JuntaID;
+                        Juntas[r].Accion = 3;//automaticamente es tres porque al inicio se tenia y al final se elimino todo.
+                        Juntas[r].OrdenTrabajoSpoolID = jSonCaptura[index].OrdenTrabajoSpoolID;
+                    }
+                    inspeccionDimensional[index].ListaJuntas = Juntas;
+                }
+                else
+                inspeccionDimensional[index].ListaJuntas = undefined;
+            }
+        
 
         if (inspeccionDimensional[index].Accion == 4) {
             if ((inspeccionDimensional[index].InspectorID == "" || inspeccionDimensional[index].InspectorID == "0" || inspeccionDimensional[index].InspectorID == 0) &&
@@ -296,7 +317,7 @@ function AjaxGuardar(jSonCaptura, tipoGuardado) {
                 ) { }
             else {
                 inspeccionDimensional[index].Estatus = 0;
-                $('tr[data-uid="' + jSonCaptura[index].uid + '"] ').css("background-color", "#ffcccc");
+                $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
             }
         }
         else {
@@ -315,7 +336,7 @@ function AjaxGuardar(jSonCaptura, tipoGuardado) {
                     (inspeccionDimensional[index].Accion == 2 || inspeccionDimensional[index].Accion == 1)
                     ) {
                     inspeccionDimensional[index].Estatus = 0;
-                    $('tr[data-uid="' + jSonCaptura[index].uid + '"] ').css("background-color", "#ffcccc");
+                    $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
                 }
                 else {
                     if (inspeccionDimensional[index].ResultadoID == "1") {
@@ -323,25 +344,25 @@ function AjaxGuardar(jSonCaptura, tipoGuardado) {
                             JuntasCorrectasGuardar(inspeccionDimensional[index].ListaJuntas))
                             ) {
                             inspeccionDimensional[index].Estatus = 0;
-                            $('tr[data-uid="' + jSonCaptura[index].uid + '"] ').css("background-color", "#ffcccc");
+                            $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
                         }
                     }
                     else if (inspeccionDimensional[index].ResultadoID == "2") {
                         if (inspeccionDimensional[index].DefectosID == "" || inspeccionDimensional[index].DefectosID == "0" || inspeccionDimensional[index].DefectosID == 0) {
                             inspeccionDimensional[index].Estatus = 0;
-                            $('tr[data-uid="' + jSonCaptura[index].uid + '"] ').css("background-color", "#ffcccc");
+                            $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
                         }
                         else {
                             if (jSonCaptura[index].TIPO == "NoEspecificarJunta") {
                                 if (!JuntasCorrectasGuardar(inspeccionDimensional[index].ListaJuntas)) {
                                     inspeccionDimensional[index].Estatus = 0;
-                                    $('tr[data-uid="' + jSonCaptura[index].uid + '"] ').css("background-color", "#ffcccc");
+                                    $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
                                 }
                             }
                             else {
                                 if (JuntasCorrectasGuardar(inspeccionDimensional[index].ListaJuntas)) {
                                     inspeccionDimensional[index].Estatus = 0;
-                                    $('tr[data-uid="' + jSonCaptura[index].uid + '"] ').css("background-color", "#ffcccc");
+                                    $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
                                 }
                             }
                         }
@@ -383,6 +404,7 @@ function AjaxGuardar(jSonCaptura, tipoGuardado) {
     }
     else {
         loadingStop();
+        $("#grid").data("kendoGrid").dataSource.sync();
         ventanaConfirm = $("#ventanaConfirm").kendoWindow({
             iframe: true,
             title: _dictionary.TituloPopUpError[$("#language").data("kendoDropDownList").value()],
@@ -396,7 +418,7 @@ function AjaxGuardar(jSonCaptura, tipoGuardado) {
             }
         }).data("kendoWindow");
 
-        ventanaConfirm.content(_dictionary.CapturaGuardarInformacionConNumerosUnicos[$("#language").data("kendoDropDownList").value()] +
+        ventanaConfirm.content(_dictionary.MensajeConfirmacionGuardadoGeneral[$("#language").data("kendoDropDownList").value()] +
             "</br><center><button class='btn btn-blue' id='yesButton'>Si</button><button class='btn btn-blue' id='noButton'> No</button></center>");
 
         ventanaConfirm.open().center();

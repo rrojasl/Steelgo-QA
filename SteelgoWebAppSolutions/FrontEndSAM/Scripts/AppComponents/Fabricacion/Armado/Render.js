@@ -140,8 +140,7 @@ function RenderComboBoxNumeroUnico1(container, options) {
                 //options.model.NumeroUnico1 = String(dataItem.Clave);
                 //options.model.NumeroUnico1ID = dataItem.NumeroUnicoID;
                 textAnterior = e.sender._prev;
-            }
-            ,
+            },
             change: function (e) {
 
                 dataItem = this.dataItem(e.sender.selectedIndex);

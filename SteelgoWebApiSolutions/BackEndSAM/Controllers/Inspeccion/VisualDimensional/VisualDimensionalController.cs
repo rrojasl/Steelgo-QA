@@ -92,7 +92,8 @@ namespace BackEndSAM.Controllers.Inspeccion.VisualDimensional
 
                         EtiquetaMaterial1 = item.EtiquetaMaterial1,
                         EtiquetaMaterial2 = item.EtiquetaMaterial2,
-                        RowOk = true
+                        RowOk = true,
+                        Localizacion= item.Localizacion
                     };
 
                     listaDetalleDatos.Add(detalleDatos);
@@ -131,7 +132,12 @@ namespace BackEndSAM.Controllers.Inspeccion.VisualDimensional
                         NumeroUnicoID = item.NumeroUnicoID,
                         Clave = item.Clave,
                         EtiquetaMaterial = int.Parse(item.EtiquetaMaterial.ToString()),
-                        Etiqueta = item.Etiqueta
+                        Etiqueta = item.Etiqueta,
+                        JuntasEncontradas=item.JuntasEntocontradas,
+                        ItemCodeID=item.ItemCodeID,
+                        LongitudMaterial=item.LongitudMaterial,
+                        Nombre=item.Nombre,
+                        TipoMaterialID=item.TipoMaterialID
 
                     };
                     numerosUnicos.Add(numeroUnico);

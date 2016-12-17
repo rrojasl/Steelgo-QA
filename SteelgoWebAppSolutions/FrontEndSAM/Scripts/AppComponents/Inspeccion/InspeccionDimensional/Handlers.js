@@ -159,7 +159,7 @@ function SuscribirEventoSpoolID() {
             $("#InputID").data("kendoComboBox").select();
         }
         else if (e.keyCode == 13) {
-            if ($("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select(0)) != undefined) {
+            if ($("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()) != undefined) {
                 if ($('input:radio[name=Muestra]:checked').val() != undefined) {
                     if ($("#InputID").val() != "" && $("#InputOrdenTrabajo").val()) {
                         //AjaxobtenerDetalleDimensional($("#InputID").val());

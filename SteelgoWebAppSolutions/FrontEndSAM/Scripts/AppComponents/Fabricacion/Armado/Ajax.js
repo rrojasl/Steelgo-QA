@@ -623,17 +623,15 @@ function AjaxCambiarAccionAModificacion() {
         isReporte = false;
         differentsJoits = listado;
     }
-
+    loadingStart();
     for (var x = 0; x < differentsJoits.length; x++) {
-
-        loadingStart();
         $Armado.Armado.read({ JsonCaptura: JSON.stringify(differentsJoits[x]), isReporte: isReporte, lenguaje: $("#language").val(), token: Cookies.get("token") }).done(function (data) {
             if (Error(data)) {
                 var ds = $("#grid").data("kendoGrid").dataSource;
                 var array = JSON.parse(data);
 
                 for (var i = 0; i < array.length; i++) {
-                    loadingStart();
+                    
                     if (array[i].FechaArmado != null) {
                         array[i].FechaArmado = kendo.toString(array[i].FechaArmado, _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()]);
                         array[i].FechaArmado = new Date(ObtenerDato(array[i].FechaArmado, 1), ObtenerDato(array[i].FechaArmado, 2), ObtenerDato(array[i].FechaArmado, 3));//año, mes, dia

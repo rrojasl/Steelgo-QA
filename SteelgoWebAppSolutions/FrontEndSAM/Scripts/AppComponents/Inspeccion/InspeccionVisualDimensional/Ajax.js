@@ -170,13 +170,13 @@ function ajaxObtenerJSonGrid() {
             var ds = $("#grid").data("kendoGrid").dataSource;
             var array = JSON.parse(data);
 
-            var jointsAdded = [];
+
+            var ExistenJuntasGrid = [];
+            var JuntasAgregadas = [];
 
             for (var i = 0; i < array.length; i++) {
-                if (jointsAdded.indexOf(array[i].Junta) < 0)
-                    jointsAdded.push(array[i].Junta);
-
                 if (ExisteJunta(array[i].JuntaID)) {
+                    JuntasAgregadas.push(array[i].Junta);
                     array[i].NumeroUnico1 = array[i].NumeroUnico1 == "" ? DatoDefaultNumeroUnico1() : array[i].NumeroUnico1;
                     array[i].NumeroUnico2 = array[i].NumeroUnico2 == "" ? DatoDefaultNumeroUnico2() : array[i].NumeroUnico2;
                     array[i].NumeroUnico1ID = array[i].NumeroUnico1ID == "" ? 0 : array[i].NumeroUnico1ID;
@@ -186,11 +186,20 @@ function ajaxObtenerJSonGrid() {
                     }
                     ds.add(array[i]);
                 }
+                else
+                    ExistenJuntasGrid.push(array[i].Junta)
+
             }
             if (array.length > 0 && !($('#Guardar').text() == "Editar" || $('#Guardar').text() == "Edit")) {
                 if (!desplegado) {
                     desplegado = true;
-                    displayNotify("", _dictionary.DimensionalVisualMensajeJuntasAgregadas[$("#language").data("kendoDropDownList").value()] + jointsAdded, '0');
+
+                    if (ExistenJuntasGrid.length > 0) {
+                        displayNotify("", _dictionary.DimensionalVisualMensajeJuntasRepetidas[$("#language").data("kendoDropDownList").value()].replace("?1", ExistenJuntasGrid), '2');
+                    }
+                    if (JuntasAgregadas.length>0) {
+                        displayNotify("", _dictionary.DimensionalVisualMensajeJuntasAgregadas[$("#language").data("kendoDropDownList").value()] + JuntasAgregadas, '0');
+                    }
                 }
             }
 
@@ -265,24 +274,24 @@ function ajaxGuardado(jSonCaptura, tipoGuardar) {
             }
 
             Juntas[r].OrdenTrabajoSpoolID = $("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()).Valor;
-        }
-
-        for (var indexAccion3 = 0; indexAccion3 < listadoJuntasInicialGlobal.length; indexAccion3++) {
-            var existeJuntaGlobal = false;
-            for (var indexMultiSelect = 0; indexMultiSelect < juntasListado.length; indexMultiSelect++)
-                if (listadoJuntasInicialGlobal[indexAccion3].JuntaID == juntasListado[indexMultiSelect].JuntaID) existeJuntaGlobal = true;
-            if (!existeJuntaGlobal)
-                Juntas.push({
-                    Accion: 3,
-                    OrdenTrabajoSpoolID: $("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()).Valor,
-                    DefectoID: Defecto > 0 ? $("#inputDefecto").data("kendoComboBox").dataItem($("#inputDefecto").data("kendoComboBox").select()).DefectoID : null,
-                    JuntaID: listadoJuntasInicialGlobal[indexAccion3].JuntaID
-                });
-        }
-        inspeccionDimensional[0].ListaJuntas = Juntas;
-        Captura[0].Detalles[0] = inspeccionDimensional;
+        } 
     }
-    else inspeccionDimensional[0].ListaJuntas = undefined;
+    
+    for (var indexAccion3 = 0; indexAccion3 < listadoJuntasInicialGlobal.length; indexAccion3++) {
+        var existeJuntaGlobal = false;
+        for (var indexMultiSelect = 0; indexMultiSelect < juntasListado.length; indexMultiSelect++)
+            if (listadoJuntasInicialGlobal[indexAccion3].JuntaID == juntasListado[indexMultiSelect].JuntaID) existeJuntaGlobal = true;
+        if (!existeJuntaGlobal)
+            Juntas.push({
+                Accion: 3,
+                OrdenTrabajoSpoolID: $("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()).Valor,
+                DefectoID: Defecto > 0 ? $("#inputDefecto").data("kendoComboBox").dataItem($("#inputDefecto").data("kendoComboBox").select()).DefectoID : null,
+                JuntaID: listadoJuntasInicialGlobal[indexAccion3].JuntaID
+            });
+    }
+
+    inspeccionDimensional[0].ListaJuntas = Juntas.length > 0 ? Juntas : undefined;
+    Captura[0].Detalles[0] = inspeccionDimensional;
 
     if (Defecto <= 0 && Inspector <= 0 && juntasListado.length == 0 && inspeccionDimensional[0].InspeccionDimensionalID != 0) {
         capturaSinDimensional = false;
@@ -378,28 +387,29 @@ function ajaxGuardado(jSonCaptura, tipoGuardar) {
     if (capturaSinDimensional && !capturaSinVisual) Captura[0].Detalles[0].ListaDetalleGuardarInspeccionVisual = ListaDetalleGuardarFiltroStatus;
 
     Captura[0].Detalles[0].ListaJuntas = inspeccionDimensional[0].ListaJuntas;
+
     $("#grid").data("kendoGrid").dataSource.sync();
     if (existRowEmpty) {
-    //windowTemplate = kendo.template($("#windowTemplate").html());
-    ventanaConfirm = $("#ventanaConfirm").kendoWindow({
-        iframe: true,
-        title: _dictionary.TituloPopUpError[$("#language").data("kendoDropDownList").value()],
-        visible: false, //the window will not appear before its .open method is called
-        width: "auto",
-        height: "auto",
-        modal: true,
-        animation: {
-            close: false,
-            open: false
-        }
-    }).data("kendoWindow");
-
-    
-    ventanaConfirm.content(_dictionary.MensajeConfirmacionGuardadoGeneral[$("#language").data("kendoDropDownList").value()] +
-            "</br><center><button class='btn btn-blue' id='yesButton'>Si</button><button class='btn btn-blue' id='noButton'> No</button></center>");
+        //windowTemplate = kendo.template($("#windowTemplate").html());
+        ventanaConfirm = $("#ventanaConfirm").kendoWindow({
+            iframe: true,
+            title: _dictionary.TituloPopUpError[$("#language").data("kendoDropDownList").value()],
+            visible: false, //the window will not appear before its .open method is called
+            width: "auto",
+            height: "auto",
+            modal: true,
+            animation: {
+                close: false,
+                open: false
+            }
+        }).data("kendoWindow");
 
 
-    
+        ventanaConfirm.content(_dictionary.MensajeConfirmacionGuardadoGeneral[$("#language").data("kendoDropDownList").value()] +
+                "</br><center><button class='btn btn-blue' id='yesButton'>Si</button><button class='btn btn-blue' id='noButton'> No</button></center>");
+
+
+
         ventanaConfirm.open().center();
 
         $("#yesButton").click(function () {
@@ -413,28 +423,31 @@ function ajaxGuardado(jSonCaptura, tipoGuardar) {
         });
     }
     else {
-        loadingStart();
+       
         ejecutaGuardado(Captura, capturaSinDimensional, capturaSinVisual, tipoGuardar);
     }
 }
 
 function ejecutaGuardado(Captura, guardadoSinInspeccionDimensional, guardadoSinInspeccionVisual, tipoGuardar) {
+    loadingStart();
     if (guardadoSinInspeccionDimensional && guardadoSinInspeccionVisual) {
         displayNotify("DimensionalVisualMensajeNoHayDatosPorGuardar", "", '1');
+        loadingStop();
     }
     else $InspeccionVisualDimensional.VisualDimensional.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
         if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
             $("#grid").data('kendoGrid').dataSource.data([]);
 
-            if (!guardadoSinInspeccionDimensional && !guardadoSinInspeccionVisual) {
-                displayNotify("MensajeGuardadoExistoso", "", '0');
-            }
-            else if (guardadoSinInspeccionDimensional) {
-                displayNotify("DimensionalVisualMensajeGuardadoVisual", "", '0');
-            }
-            else if (guardadoSinInspeccionVisual) {
-                displayNotify("DimensionalVisualMensajeGuardadoDimensional", "", '0');
-            }
+            //if (!guardadoSinInspeccionDimensional) {
+                
+            //    displayNotify("DimensionalVisualMensajeGuardadoVisual", "", '0');
+            //}
+
+            //if (!guardadoSinInspeccionVisual) {
+                
+            //    displayNotify("DimensionalVisualMensajeGuardadoDimensional", "", '0');
+            //}
+            
             if (tipoGuardar == 1) {
                 opcionHabilitarView(false, "FieldSetView");
                 limpiar();
@@ -446,6 +459,7 @@ function ejecutaGuardado(Captura, guardadoSinInspeccionDimensional, guardadoSinI
                 ajaxobtenerDetalleDimensional($("#InputID").val());
                 ajaxObtenerJSonGrid();
             }
+            displayNotify("CapturaMensajeGuardadoExitoso", "", '0');
         }
         else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
             displayNotify("MensajeGuardadoErroneo", "", '2');

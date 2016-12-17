@@ -50,6 +50,8 @@ namespace BackEndSAM.Models.Inspeccion.VisualDimensional
         public bool RowOk { get; set; }
         public string DetalleJunta { get; set; }
 
+        public string Localizacion { get; set; }
+
     }
     public class Inspector
     {
@@ -82,9 +84,20 @@ namespace BackEndSAM.Models.Inspeccion.VisualDimensional
     {
         public int NumeroUnicoID { get; set; }
         public string Clave { get; set; }
+
         public int EtiquetaMaterial { get; set; }
+
         public string Etiqueta { get; set; }
+
         public string JuntasEncontradas { get; set; }
+
+        public int? LongitudMaterial { get; set; }
+
+        public int? ItemCodeID { get; set; }
+
+        public int? TipoMaterialID { get; set; }
+
+        public string Nombre { get; set; }
 
         public NumeroUnico()
         {
@@ -93,6 +106,10 @@ namespace BackEndSAM.Models.Inspeccion.VisualDimensional
             EtiquetaMaterial = 0;
             Etiqueta = "";
             JuntasEncontradas = "";
+            LongitudMaterial = 0;
+            ItemCodeID = 0;
+            TipoMaterialID = 0;
+            Nombre = "";
         }
     }
     public class Taller

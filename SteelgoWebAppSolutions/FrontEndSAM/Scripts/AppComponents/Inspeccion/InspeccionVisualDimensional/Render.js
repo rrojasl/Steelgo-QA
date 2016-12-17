@@ -1,7 +1,7 @@
 ﻿function RenderComboBoxTaller(container, options) {
 
     var dataItem;
-    $('<input required data-text-field="Nombre" data-value-field="TallerID" data-bind="value:' + options.field + '"/>')
+    $('<input  data-text-field="Nombre" data-value-field="TallerID" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoComboBox({
             autoBind: false,
@@ -153,16 +153,31 @@ function RenderComboBoxNumeroUnico1(container, options) {
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
                 if (dataItem != undefined && dataItem.Etiqueta != "") {
-                    //options.model.NumeroUnico1 = String(dataItem.Clave)
+                    var combobox = dataItem;
+                    var jsonGridArmado = $("#grid").data("kendoGrid").dataSource._data;
+                    var rowitem = options.model;
 
-                    AplicarAsignacionAutomaticaNumeroUnico(options.model, textAnterior, dataItem, 0);
+                    if (elNUSeEncuentraEnJuntasNoAgregadasGrid(combobox, jsonGridArmado, rowitem)) {
+                        for (var i = 0; i < jsonGridArmado.length; i++) {
+                            if (//combobox.JuntasEncontradas != '' &&
+                                ((jsonGridArmado[i].IdOrdenTrabajo + '-' + jsonGridArmado[i].IdVal) == (rowitem.IdOrdenTrabajo + '-' + rowitem.IdVal)) &&
+                                (jsonGridArmado[i].Junta == rowitem.Junta)) {
+                                jsonGridArmado[i].NumeroUnico1 = '';
+                                jsonGridArmado[i].NumeroUnico1ID = null;
+                            }
+                        }
+                        if (combobox.JuntasEncontradas != '')
+                            MensajesSteelGO("AvisoNumeroUnicoYaAsignado", combobox.JuntasEncontradas);
+                    } else {
+                        var jsonGridArmado = $("#grid").data("kendoGrid").dataSource._data;
+                        AplicarAsignacionAutomaticaNumeroUnico(options.model, textAnterior, dataItem, 0, jsonGridArmado, options.model.ListaNumerosUnicos1.length);
+                    }
                     $("#grid").data("kendoGrid").dataSource.sync();
                 }
                 else {
-                    //options.model.NumeroUnico1 = ObtenerDescCorrectaNumeroUnico(options.model.ListaNumerosUnicos1, options.model.NumeroUnico1ID);
                     options.model.NumeroUnico1 = "";
-                    options.model.NumeroUnico1ID = null;
-                    $("#grid").data("kendoGrid").dataSource.sync();
+                    options.model.NumeroUnico1ID = "";
+                    //$("#grid").data("kendoGrid").dataSource.sync();
                 }
             }
         });
@@ -198,15 +213,31 @@ function RenderComboBoxNumeroUnico2(container, options) {
              change: function (e) {
                  dataItem = this.dataItem(e.sender.selectedIndex);
                  if (dataItem != undefined && dataItem.Etiqueta != "") {
-                     //options.model.NumeroUnico2 = String(dataItem.Clave)
-                     AplicarAsignacionAutomaticaNumeroUnico(options.model, textAnterior, dataItem, 0);
+                     var combobox = dataItem;
+                     var jsonGridArmado = $("#grid").data("kendoGrid").dataSource._data;
+                     var rowitem = options.model;
+
+                     if (elNUSeEncuentraEnJuntasNoAgregadasGrid(combobox, jsonGridArmado, rowitem)) {
+                         for (var i = 0; i < jsonGridArmado.length; i++) {
+                             if (//combobox.JuntasEncontradas != '' &&
+                               ((jsonGridArmado[i].IdOrdenTrabajo + '-' + jsonGridArmado[i].IdVal) == (rowitem.IdOrdenTrabajo + '-' + rowitem.IdVal)) &&
+                               (jsonGridArmado[i].Junta == rowitem.Junta)) {
+                                 jsonGridArmado[i].NumeroUnico2 = '';
+                                 jsonGridArmado[i].NumeroUnico2ID = null;
+                             }
+                         }
+                         if (combobox.JuntasEncontradas != '')
+                             MensajesSteelGO("AvisoNumeroUnicoYaAsignado", combobox.JuntasEncontradas);
+                     } else {
+                         var jsonGridArmado = $("#grid").data("kendoGrid").dataSource._data;
+                         AplicarAsignacionAutomaticaNumeroUnico(options.model, textAnterior, dataItem, 0, jsonGridArmado, options.model.ListaNumerosUnicos2.length);
+                     }
                      $("#grid").data("kendoGrid").dataSource.sync();
                  }
                  else {
-                     //options.model.NumeroUnico1 = ObtenerDescCorrectaNumeroUnico(options.model.ListaNumerosUnicos2, options.model.NumeroUnico2ID);
                      options.model.NumeroUnico2 = "";
-                     options.model.NumeroUnico2ID = null;
-                     $("#grid").data("kendoGrid").dataSource.sync();
+                     options.model.NumeroUnico2ID = "";
+                     // $("#grid").data("kendoGrid").dataSource.sync();
                  }
              }
          });
@@ -222,7 +253,7 @@ function RenderComboBoxNumeroUnico2(container, options) {
 function RenderOptionResultado(container, options) {
     var dataItem;
     console.log(options);
-    $('<input required data-text-field="_Resultado" data-value-field="DefectoID" data-bind="value:' + options.field + '"/>')
+    $('<input  data-text-field="_Resultado" data-value-field="DefectoID" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoComboBox({
             autoBind: false,
