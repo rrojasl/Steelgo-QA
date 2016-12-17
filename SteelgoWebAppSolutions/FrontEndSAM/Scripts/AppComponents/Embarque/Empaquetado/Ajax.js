@@ -1,6 +1,7 @@
 ﻿var cuadranteSave = 0;
 var guardado = false;
 var CuadranteAnterior = 0;
+var cuadranteAnteriorDescarga = 0;
 function AjaxCargarCamposPredeterminados() {
     var campoPredeterminado = 3067;
     $CamposPredeterminados.CamposPredeterminados.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), id: campoPredeterminado }).done(function (data) {
@@ -77,9 +78,12 @@ function AjaxCargarZona(patioID) {
     loadingStart();    
     $Zona.Zona.read({ token: Cookies.get("token"), PatioID: patioID }).done(function (data) {
         $("#InputZonaDescarga").data("kendoComboBox").dataSource.data([]);
+        $("#inputZonaPaqueteDescarga").data("kendoComboBox").dataSource.data([]);
+
         if (data.length > 0) {
             var zonaID = 0;
             $("#InputZonaDescarga").data("kendoComboBox").dataSource.data(data);
+            $("#inputZonaPaqueteDescarga").data("kendoComboBox").dataSource.data(data);
 
             if (data.length < 3) {
                 for (var i = 0; i < data.length; i++) {
@@ -91,6 +95,8 @@ function AjaxCargarZona(patioID) {
             
             $("#InputZonaDescarga").data("kendoComboBox").value(zonaID);
             $("#InputZonaDescarga").data("kendoComboBox").trigger("change");
+            $("#inputZonaPaqueteDescarga").data("kendoComboBox").value(zonaID);
+            $("#inputZonaPaqueteDescarga").data("kendoComboBox").trigger("change");
         }
 
         loadingStop();
@@ -124,6 +130,7 @@ function AjaxCargarCuadranteGuardado(zonaID) {
     $Cuadrante.Cuadrante.read({ token: Cookies.get("token"), ZonaID: zonaID }).done(function (data) {
         if (data.length > 0) {
             var cuadranteID = 0;
+            $("#InputCuadrantePaquete").data("kendoComboBox").dataSource.data(data);
             $("#InputCuadrantePaquete").data("kendoComboBox").dataSource.data(data);
 
             if (data.length < 3 && cuadranteSave == 0) {
@@ -298,21 +305,31 @@ function AjaxGuardarCaptura(ds, tipoGuardado, cerrarPaquete, Paquete, Proyecto) 
     });
 }
 
-function AjaxDescargarSpool(dataItem) {
+function AjaxDescargarSpool(dataItem, Paquete) {
     loadingStart();
     var dataSource = $("#grid").data("kendoGrid").dataSource;
     var cuadranteID = $("#InputCuadranteDescarga").data("kendoComboBox").value();
+    var elementos = 0;
     windowDownload.close();
     $Empaquetado.Empaquetado.read({
         token: Cookies.get("token"), EmpaquetadoID: dataItem.EmpaquetadoID, SpoolID: dataItem.SpoolID,
-        CuadranteID: cuadranteID, CuadranteAnteriorSam2: dataItem.CuadranteSam2ID,
-        CuadranteAnteriorSam3: dataItem.CuadranteSam3ID
+        CuadranteID: cuadranteID, CuadranteAnteriorID: dataItem.CuadranteSam3ID,
+        PaqueteID: Paquete.PaqueteID
     }).done(function (data) {
         if (Error(data)) {
             if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
                 dataSource.remove(dataItem);
                 dataSource.sync();
-                displayNotify("EmbarqueEmpaquetadoMsjDescargaSpoolExito", "", "0");
+                elementos = parseInt(data.ReturnMessage[1]);
+                if (elementos == 0) {
+                    cuadranteAnteriorDescarga = Paquete.CuadranteUbicacionAnt
+
+                    $("#inputZonaPaqueteDescarga").data("kendoComboBox").value(Paquete.ZonaUbicacionAnt);
+                    $("#inputZonaPaqueteDescarga").data("kendoComboBox").trigger("change");
+                    windowPackageEmpty.open().center();
+                } else {
+                    displayNotify("EmbarqueEmpaquetadoMsjDescargaSpoolExito", "", "0");
+                }
             } else {
                 displayNotify("EmbarqueEmpaquetadoMsjDescargaSpoolError", "", "2");
             }
@@ -324,8 +341,8 @@ function AjaxDescargarSpool(dataItem) {
         $("#InputZonaDescarga").data("kendoComboBox").value("");
         $("#InputCuadranteDescarga").data("kendoComboBox").value("");
         $("#InputCuadranteDescarga").data("kendoComboBox").dataSource.data([]);
-        loadingStop();
     });
+    loadingStop();
 }
 
 function AjaxEliminarPaquete(Paquete) {
@@ -346,6 +363,44 @@ function AjaxEliminarPaquete(Paquete) {
             displayNotify("EmbarqueEmpaquetadoMsjErrorEliminarPaquete", "", "2");
         }      
 
+        loadingStop();
+    });
+}
+
+function AjaxCargarCuadrantePaquete(zonaID) {
+    $Cuadrante.Cuadrante.read({ token: Cookies.get("token"), ZonaID: zonaID }).done(function (data) {
+        if (data.length > 0) {
+            var cuadranteID = 0;
+            $("#inputCuadrantePaqueteDescarga").data("kendoComboBox").dataSource.data(data);
+            $("#inputCuadrantePaqueteDescarga").data("kendoComboBox").dataSource.data(data);
+
+            if (data.length < 3 && cuadranteAnteriorDescarga == 0) {
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].CuadranteID != 0) {
+                        cuadranteID = data[i].CuadranteID;
+                    }
+                }
+            } else {
+                cuadranteID = cuadranteAnteriorDescarga;
+            }
+            $("#inputCuadrantePaqueteDescarga").data("kendoComboBox").value(cuadranteID);
+            $("#inputCuadrantePaqueteDescarga").data("kendoComboBox").trigger("change");
+        }
+    });
+}
+
+function AjaxDescargarPaquete(Paquete) {
+    loadingStart();
+    var cuadranteID = $("#inputCuadrantePaqueteDescarga").data("kendoComboBox").value();
+
+    $CargaPlana.CargaPlana.read({
+        token: Cookies.get("token"), PaqueteID: Paquete.PaqueteID, CuadranteID: cuadranteID
+    }).done(function (data) {
+        if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "OK") {
+            displayNotify("EmbarqueCargaMsjDescargaPaqueteExito", "", "0");
+        } else {
+            displayNotify("EmbarqueCargaMsjDescargaPaqueteError", "", "2");
+        }
         loadingStop();
     });
 }

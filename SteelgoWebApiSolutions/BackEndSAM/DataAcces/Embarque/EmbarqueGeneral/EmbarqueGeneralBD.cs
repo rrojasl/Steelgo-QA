@@ -31,13 +31,13 @@ namespace BackEndSAM.DataAcces.Embarque.EmbarqueGeneral
             }
         }
 
-        public object ObtenerPlanas(int ProveedorID)
+        public object ObtenerPlanas(int ProyectoID, int ProveedorID)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Embarque_CG_Get_ListadoPlanas_Result> result = ctx.Sam3_Embarque_CG_Get_ListadoPlanas(ProveedorID).ToList();
+                    List<Sam3_Embarque_CG_Get_ListadoPlanas_Result> result = ctx.Sam3_Embarque_CG_Get_ListadoPlanas(ProyectoID, ProveedorID).ToList();
                     List<DetallePlana> listaDetalle = new List<DetallePlana>();
                     listaDetalle.Add(new DetallePlana());
 
@@ -175,6 +175,26 @@ namespace BackEndSAM.DataAcces.Embarque.EmbarqueGeneral
                 return result;
             }
         }
+
+        //public object ObtenerPaquetesCerrados()
+        //{
+        //    try
+        //    {
+        //        using (SamContext ctx = new SamContext())
+        //        {
+        //            List<Sam3_Embarque_Get_ListadoPaquetesCerrados_Result> result = 
+        //        }
+        //    }catch(Exception ex)
+        //    {
+        //        TransactionalInformation result = new TransactionalInformation();
+        //        result.ReturnMessage.Add(ex.Message);
+        //        result.ReturnCode = 500;
+        //        result.ReturnStatus = false;
+        //        result.IsAuthenicated = true;
+
+        //        return result;
+        //    }
+        //}
 
         public object GuardarNuevaPlana(string NombrePlana, int ProveedorID, int UsuarioID)
         {

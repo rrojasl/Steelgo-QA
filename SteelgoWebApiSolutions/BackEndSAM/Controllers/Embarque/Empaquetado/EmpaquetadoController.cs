@@ -119,18 +119,18 @@ namespace BackEndSAM.Controllers.Embarque.Empaquetado
         }
 
         [HttpGet]
-        public object DescargaSpoolPaquete(string token, int EmpaquetadoID, int SpoolID, int CuadranteID, int CuadranteAnteriorSam2, int CuadranteAnteriorSam3)
+        public object DescargaSpoolPaquete(string token, int EmpaquetadoID, int SpoolID, int CuadranteID, int CuadranteAnteriorID, int PaqueteID)
         {
             string payload = "";
             string newToken = "";
-
+            
             bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
             if (tokenValido)
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                return EmpaquetadoBD.Instance.DescargaSpoolPaquete(EmpaquetadoID, SpoolID, CuadranteID, CuadranteAnteriorSam2, CuadranteAnteriorSam3, usuario.UsuarioID);
+                return EmpaquetadoBD.Instance.DescargaSpoolPaquete(EmpaquetadoID, SpoolID, CuadranteID, CuadranteAnteriorID, PaqueteID, usuario.UsuarioID);
             }
             else
             {

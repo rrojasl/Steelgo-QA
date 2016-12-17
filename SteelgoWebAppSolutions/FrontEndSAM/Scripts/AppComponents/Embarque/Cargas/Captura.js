@@ -14,11 +14,13 @@ function changeLanguageCall() {
     $("#inputProveedor").data("kendoComboBox").value("");
 
     AjaxCargarProyecto();
+    AjaxCargarZona();
+    AjaxCargarCamposPredeterminados();
 
     document.title = _dictionary.EmbarqueHeaderCargaPlana[$("#language").data("kendoDropDownList").value()];
 
-    AjaxCargarCamposPredeterminados();
-    opcionHabilitarView(false, "FieldSetView")
+    SuscribirEventoPopUpDescargaPaquete();
+    SuscribirEventoPopUpDescargaSpool();
 };
 
 if ($("#inputHiddenEmbarquePlanaID").val() != null && $("#inputHiddenEmbarquePlanaID").val() != undefined && $("#inputHiddenEmbarquePlanaID").val() != "0") {
@@ -33,10 +35,6 @@ IniciarCapturaEmbarqueCarga();
 
 function IniciarCapturaEmbarqueCarga() {
     SuscribirEventos();
-    //setTimeout(function () { AjaxEmbarqueCargaProveedores(); }, 1000);
-    //setTimeout(function () { AjaxCargarCamposPredeterminados(); }, 2000);
-    //setTimeout(function () { CrearPopup(); }, 2200);
-    //setTimeout(function () { AjaxCargarCuadrante(0); }, 2400);
 }
 
 
@@ -61,14 +59,6 @@ function CargarGrid() {
             }
         },
         dataSource: {
-            data: [
-                //{
-                //    Consecutivo:"1",
-                //    SpoolID: "X001-001",
-                //    Paquete: "Paquete 1",
-                //    Peso:"50"
-                //}
-            ],
             schema: {
                 model: {
                     fields: {
@@ -111,10 +101,10 @@ function CargarGrid() {
         },
         filterable: getGridFilterableMaftec(),
         columns: [
-            { field: "Consecutivo", title: _dictionary.columnConcecutivoEmbarque[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "150px" },
+            { field: "Consecutivo", title: _dictionary.columnConcecutivoEmbarque[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "150px", attributes: { style: "text-align:right;" } },
             { field: "Spool", title: _dictionary.columnSpoolIDEmbarque[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "150px" },
-            { field: "Paquete", title: _dictionary.columnPaqueteEmbarque[$("#language").data("kendoDropDownList").value()], template: "<div class='EnlaceDescargarPaquete' style='text-align:center;'><a href='\\#'  > <span>#=Paquete#</span></a></div>", filterable: getGridFilterableCellMaftec(), width: "150px" },
-            { field: "Peso", title: _dictionary.columnPeso[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "130px", aggregates: ["sum"], footerTemplate: "<div style='text-align:right;'>SUM: #= kendo.toString(sum, 'n') #</div>", attributes: { style: "text-align:right;" }, format: "{0: }" },
+            { field: "Paquete", title: _dictionary.columnPaqueteEmbarque[$("#language").data("kendoDropDownList").value()], template: "<div class='descargarPaquete' style='text-align:center;'><a href='\\#'> <span>#=Paquete#</span></a></div>", filterable: getGridFilterableCellMaftec(), width: "150px" },
+            { field: "Peso", title: _dictionary.columnPeso[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "130px", aggregates: ["sum"], footerTemplate: "<div style='text-align:right;'>SUM: #=sum#</div>", attributes: { style: "text-align:right;" }},
             { command: { text: _dictionary.botonDescarga[$("#language").data("kendoDropDownList").value()], click: DescargarSpool }, title: _dictionary.columnDescargar[$("#language").data("kendoDropDownList").value()], width: "70px", attributes: { style: "text-align:center;" } },
 
         ],
@@ -197,38 +187,18 @@ function DescargarSpool(e) {
     e.preventDefault();
     if (!$("#inputCerrar").is(":checked")) {
         if ($('#Guardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
-            AjaxCargarZona();
             var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+            $("#rowGridDescargaSpool").val(dataItem.uid);
 
-            ventanaPopup = $("#ventanaPopup").kendoWindow({
-                title: _dictionary.EmbarqueCargaTituloPopupCuadrante[$("#language").data("kendoDropDownList").value()],
-                visible: false,
-                width: "40%",
-                height: "auto",
-                modal: true,
-                animation: false
-            }).data("kendoWindow");
-
-            $("#btnDescargar").click(function (e) {
-                var zonaID = $("#inputZonaPopup").data("kendoComboBox").value();
-                var cuadranteID = $("#inputCuadrantePopup").data("kendoComboBox").value();
-
-                if (zonaID != "" && zonaID != "0") {
-                    if (cuadranteID != "" && cuadranteID != "0") {
-                        ventanaPopup.close();
-                        AjaxDescargarSpool(dataItem);
-                    } else {
-                        displayNotify("EmbarqueCargaMsjErrorZona", "", "2");
-                    }
-                } else {
-                    displayNotify("EmbarqueCargaMsjErrorCuadrante", "", "2");
-                }
-            });
+            $("#inputZonaPopup").data("kendoComboBox").value(dataItem.ZonaAnteriorID);
+            $("#inputZonaPopup").data("kendoComboBox").trigger("change");
+            CuadranteSpoolAnterior = dataItem.CuadranteAnteriorID;
 
             ventanaPopup.open().center();
         }
+    } else {
+        displayNotify("EmbarqueCargaMsjDescargaPlanaCerrada", "", "1");
     }
-    displayNotify("", "Para descargar un spool es necesario abrir la plana", "1");
 }
 
 function validarInformacion(row) {
@@ -292,11 +262,15 @@ function CargaPopupNuevaPlana(e) {
             top: "1%",
             left: "1%"
         },
+        draggable: false,
+        resizable: false,
+        animation: {
+            close: false,
+            open: false
+        },
         close: function (e) {
             $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").value(0);
-        },
-        animation: false
-
+        }
     }).data("kendoWindow");
     $("#divNuevoPlana").data("kendoWindow").title(_dictionary.EmbarqueCargaNuevaPlana[$("#language").data("kendoDropDownList").value()]);
     $("#divNuevoPlana").data("kendoWindow").center().open();
@@ -317,14 +291,41 @@ function CargaPopupNuevoProveedor(e) {
             top: "1%",
             left: "1%"
         },
+        draggable: false,
+        resizable: false,
+        animation: {
+            close: false,
+            open: false
+        },
         close: function (e) {
             $("#inputProveedor").data("kendoComboBox").value(0);
-        },
-        animation: false
-
+        }
     }).data("kendoWindow");
     $("#divNuevoProveedor").data("kendoWindow").title(_dictionary.EmbarqueCargaNuevoProveedor[$("#language").data("kendoDropDownList").value()]);
     $("#divNuevoProveedor").data("kendoWindow").center().open();
 
     $("#inputNombreNuevoProveedor").focus();
+}
+
+function ImprimirTotalToneladas(ds) {
+    if (ds.length > 0) {
+        var totalToneladas = 0;
+        for (var i = 0; i < ds.length; i++) {
+
+            totalToneladas = totalToneladas + ds[i].Peso;
+        }
+        $("#lblEmbarqueCargaToneladasCargadas").css('text-align', 'center');
+        $("#lblEmbarqueCargaToneladasCargadas").text(totalToneladas != 0 ? totalToneladas.toFixed(3) : "");
+    } else {
+        $("#lblEmbarqueCargaToneladasCargadas").text("");
+    }
+}
+
+function ImprimirTotalPiezas(ds) {
+    if (ds.length > 0) {
+        $("#lblEmbarqueCargaTotalPiezas").css('text-align', 'center');
+        $("#lblEmbarqueCargaTotalPiezas").text(ds.length != 0 ? ds.length : "");
+    } else {
+        $("#lblEmbarqueCargaTotalPiezas").text("");
+    }
 }

@@ -7913,6 +7913,10 @@ _dictionary = {
         "es-MX": "Eliminar embarque",
         "en-US": "Delete shipment"
     },
+    "botonEliminarPaquete": {
+        "es-MX": "Eliminar Paquete",
+        "en-US": "Delete package"
+    },
     //Finaliza botones
     // Finalizan etiquetas Header y Footer
 
@@ -10886,14 +10890,25 @@ _dictionary = {
     "EmbarqueCargaMsjErrorSpoolAgregarExiste": {
         "es-MX": "El Spool ya existe en la captura",
         "en-US": "The Spool already exists on capture"
-    },
-    "EmbarqueCargaMsjErrorPaqueteAgregarExiste": {
+    }, "EmbarqueCargaMsjErrorSpoolAgregarExistePaquete": {
         "es-MX": "El spool se encuentra cargado en el paquete ",
         "en-US": "The spool is loaded in the package "
     },
     "EmbarqueCargaMsjErrorSpoolAgregarProyectoIncorrecto": {
         "es-MX": "El spool no pertenece al proyecto seleccionado",
         "en-US": "Spool does not belong to selected project"
+    },
+    "EmbarqueCargaMsjErrorCrearPlanaSeleccionaProveedor": {
+        "es-MX": "Es necesario seleccionar un proveedor para crear una plana",
+        "en-US": "You need to select a provider to create a flat"
+    },
+    "EmbarqueCargaMsjErrorNombreProveedor": {
+        "es-MX": "Ingrese el nombre del proveedor",
+        "en-US": "Enter the name of the provider"
+    },
+    "EmbarqueCargaMsjErrorPaqueteAgregarExiste": {
+        "es-MX": "El paquete ya existe en la captura",
+        "en-US": "Package already exists in capture"
     },
     //Finaliza pantalla carga plana
     //Inicia pantalla empaquetado

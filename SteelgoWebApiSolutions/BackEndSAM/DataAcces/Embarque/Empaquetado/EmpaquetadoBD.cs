@@ -53,7 +53,9 @@ namespace BackEndSAM.DataAcces.Embarque.Empaquetado
                             CuadrantePaqueteSam3ID = item.CuadrantePaqueteSam3ID.GetValueOrDefault(),
                             CuadranteUbicacion = item.CuadranteUbicacion.GetValueOrDefault(),
                             ZonaID = item.ZonaID.GetValueOrDefault(),
-                            Elementos = item.Elementos.GetValueOrDefault()
+                            Elementos = item.Elementos.GetValueOrDefault(),
+                            CuadranteUbicacionAnt = item.CuadranteUbicacionAnt.GetValueOrDefault(),
+                            ZonaUbicacionAnt = item.ZonaUbicacionAnt.GetValueOrDefault()
                         });
                     }
 
@@ -195,17 +197,19 @@ namespace BackEndSAM.DataAcces.Embarque.Empaquetado
             }
         }
 
-        public object DescargaSpoolPaquete(int EmpaquetadoID, int SpoolID, int CuadranteID, int CuadranteAnteriorSam2, int CuadranteAnteriorSam3, int UsuarioID)
+        public object DescargaSpoolPaquete(int EmpaquetadoID, int SpoolID, int CuadranteID, int CuadranteAnteriorID, int PaqueteID, int UsuarioID)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
 
-                    ctx.Sam3_Embarque_Empaquetado_DescargaSpool(EmpaquetadoID, SpoolID, CuadranteID, CuadranteAnteriorSam2, CuadranteAnteriorSam3, UsuarioID);
+                    ObjectResult<int?> resultSp = ctx.Sam3_Embarque_Empaquetado_DescargaSpool(EmpaquetadoID, SpoolID, CuadranteID, CuadranteAnteriorID, PaqueteID, UsuarioID);
+                    var valor = resultSp.Where(x => x.HasValue).Select(x => x.Value).ToList()[0];
 
                     TransactionalInformation result = new TransactionalInformation();
                     result.ReturnMessage.Add("Ok");
+                    result.ReturnMessage.Add(valor.ToString());
                     result.ReturnCode = 200;
                     result.ReturnStatus = true;
                     result.IsAuthenicated = true;

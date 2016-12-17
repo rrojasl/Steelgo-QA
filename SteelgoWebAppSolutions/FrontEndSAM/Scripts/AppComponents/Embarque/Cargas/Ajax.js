@@ -1,8 +1,10 @@
-﻿function AjaxCargarCamposPredeterminados() {
+﻿var CuadrantePaqueteAnterior = 0;
+var CuadranteSpoolAnterior = 0;
+function AjaxCargarCamposPredeterminados() {
     loadingStart();
     var TipoMuestraPredeterminadoID = 3066;
     $CamposPredeterminados.CamposPredeterminados.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), id: TipoMuestraPredeterminadoID }).done(function (data) {
-        if (Error(data)) {
+        
             if (data == "Spool") {
                 $('input:radio[name=EmbarqueCargaTipoSeleccion]:nth(0)').attr('checked', true);
                 $('input:radio[name=EmbarqueCargaTipoSeleccion]:nth(1)').attr('checked', false);
@@ -19,12 +21,8 @@
                 $('input:radio[name=EmbarqueCargaTipoSeleccion]:nth(1)').attr('checked', false);
                 $('input:radio[name=EmbarqueCargaTipoSeleccion]:nth(2)').attr('checked', true);
             }
-        }
         loadingStop();
     });
-
-    //AjaxCargaMostrarPredeterminado();
-
 };
 
 function AjaxObtenerSpoolID() {
@@ -78,14 +76,15 @@ function AjaxCargarProyecto() {
 function AjaxCargarPaquetes() {
     //loadingStart();
     var proyectoID = $("#inputProyecto").data("kendoComboBox").value();
-    $Empaquetado.Empaquetado.read({ token: Cookies.get("token"), ProyectoID: proyectoID, lenguaje: $("#language").val() }).done(function (data) {
-        if (Error(data)) {
-            $("#inputPaquete").data("kendoComboBox").dataSource.data([]);
-            var proyectoId = 0;
+    $CargaPlana.CargaPlana.read({ token: Cookies.get("token"), ProyectoID: proyectoID }).done(function (data) {
+    $("#inputPaquete").data("kendoComboBox").dataSource.data([]);
+        var paqueteId = 0;
 
-            if (data.length > 0) {
-                $("#inputPaquete").data("kendoComboBox").dataSource.data(data);
-            }
+        if (data.length > 0) {
+            $("#inputPaquete").data("kendoComboBox").dataSource.data(data);
+
+            $("#inputPaquete").data("kendoComboBox").value(paqueteId);
+            $("#inputPaquete").data("kendoComboBox").trigger("change");
         }
         loadingStop();
     });
@@ -94,29 +93,29 @@ function AjaxCargarPaquetes() {
 
 function AjaxObtenerPlanas(ProveedorID, nuevaPlana) {
     loadingStart();
-    $EmbarqueGeneral.EmbarqueGeneral.read({ token: Cookies.get("token"), ProveedorID: ProveedorID }).done(function (data) {
-        if (Error(data)) {
-            $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").dataSource.data([]);
-            var PlanaID = 0;
+    var proyectoID = $("#inputProyecto").data("kendoComboBox").value();
+    $EmbarqueGeneral.EmbarqueGeneral.read({ token: Cookies.get("token"), ProyectoID: proyectoID, ProveedorID: ProveedorID }).done(function (data) {
+       $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").dataSource.data([]);
+       var PlanaID = 0;
 
-            if (data.length > 0) {
+       if (data.length > 0) {
 
-                if (data.length < 3) {
+            if (data.length < 3) {
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].PlanaID != 0) {
+                        PlanaID = data[i].PlanaID;
+                    }
+                }
+            }
+            else {
+                if (nuevaPlana != null) {
                     for (var i = 0; i < data.length; i++) {
-                        if (data[i].PlanaID != 0) {
+                        if (data[i].Nombre == nuevaPlana) {
                             PlanaID = data[i].PlanaID;
                         }
                     }
                 }
-                else {
-                    if (nuevaPlana != null) {
-                        for (var i = 0; i < data.length; i++) {
-                            if (data[i].Nombre == nuevaPlana) {
-                                PlanaID = data[i].PlanaID;
-                            }
-                        }
-                    }
-                }
+            }
 
                 data.splice(1, 0, {
                     PlanaID: -1, Nombre: _dictionary.EmbarqueCargaNuevaPlana[$("#language").data("kendoDropDownList").value()]
@@ -124,9 +123,8 @@ function AjaxObtenerPlanas(ProveedorID, nuevaPlana) {
                 $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").dataSource.data(data);
                 $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").value(PlanaID);
                 $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").trigger("change");
-            }
-        }
-        loadingStop();
+       }
+       loadingStop();
     });
 }
 
@@ -136,41 +134,39 @@ function AjaxEmbarqueCargaProveedores(ProyectoID, nuevoProveedor) {
     loadingStart();
 
     $Proveedores.Proveedores.read({ token: Cookies.get("token"), ProyectoID: ProyectoID, TipoProveedor: 1 }).done(function (data) {
-        if (Error(data)) {
+        if (data.length > 0) {
+            $("#inputProveedor").data("kendoComboBox").value("");
+            $("#inputProveedor").data("kendoComboBox").trigger("change");
+            var ProveedorId = 0;
             if (data.length > 0) {
-                $("#inputProveedor").data("kendoComboBox").value("");
-                $("#inputProveedor").data("kendoComboBox").trigger("change");
-                var ProveedorId = 0;
-                if (data.length > 0) {
-                    $("#inputProveedor").data("kendoComboBox").dataSource.data(data);
-                    if (data.length == 2) {
-                        for (var i = 0; i < data.length; i++) {
-                            if (data[i].ProveedorID != 0) {
-                                ProveedorId = data[i].ProveedorID;
+                $("#inputProveedor").data("kendoComboBox").dataSource.data(data);
+                if (data.length == 2) {
+                    for (var i = 0; i < data.length; i++) {
+                        if (data[i].ProveedorID != 0) {
+                            ProveedorId = data[i].ProveedorID;
 
-                            }
                         }
                     }
-                    else {
-                        if (nuevoProveedor != null) {
-                            for (var i = 0; i < data.length; i++) {
-                                if (data[i].Nombre == nuevoProveedor) {
-                                    ProveedorId = data[i].ProveedorID;
-                                }
-                            }
-                        }
-                    }
-
-                    data.splice(1, 0, {
-                        ProveedorID: -1, Nombre: _dictionary.EmbarqueCargaAgregarNuevoProveedor[$("#language").data("kendoDropDownList").value()]
-                    });
-                    $("#inputProveedor").data("kendoComboBox").dataSource.data(data);
-                    $("#inputProveedor").data("kendoComboBox").value(ProveedorId);
-                    $("#inputProveedor").data("kendoComboBox").trigger("change");
                 }
                 else {
-                    $("#inputProveedor").data("kendoComboBox").value("");
+                    if (nuevoProveedor != null) {
+                        for (var i = 0; i < data.length; i++) {
+                            if (data[i].Nombre == nuevoProveedor) {
+                                ProveedorId = data[i].ProveedorID;
+                            }
+                        }
+                    }
                 }
+
+                data.splice(1, 0, {
+                    ProveedorID: -1, Nombre: _dictionary.EmbarqueCargaAgregarNuevoProveedor[$("#language").data("kendoDropDownList").value()]
+                });
+                $("#inputProveedor").data("kendoComboBox").dataSource.data(data);
+                $("#inputProveedor").data("kendoComboBox").value(ProveedorId);
+                $("#inputProveedor").data("kendoComboBox").trigger("change");
+            }
+            else {
+                $("#inputProveedor").data("kendoComboBox").value("");
             }
         }
         loadingStop();
@@ -178,49 +174,45 @@ function AjaxEmbarqueCargaProveedores(ProyectoID, nuevoProveedor) {
 }
 
 function AjaxAgregarCarga() {
-
+    var SpoolID = $("#InputID").data("kendoComboBox").value() != "" ? $("#InputID").data("kendoComboBox").value() : 0;
+    var Proyecto = $("#inputProyecto").data("kendoComboBox").dataItem($("#inputProyecto").data("kendoComboBox").select());
     if (!$("#inputCerrar").is(":checked")) {
-        var peso = 0; // ($('#lblEmbarqueCargaToneladasCargadas').text() == "" ? 0 : parseFloat($('#lblEmbarqueCargaToneladasCargadas').text()));
         loadingStart();
         if ($("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").text() != '' && $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").value() != undefined) {
-            $CargaPlana.CargaPlana.read({ token: Cookies.get("token"), CargaPlanaID: 0, TipoConsulta: ObtenerTipoConsulta(), OrdenTrabajoSpoolID: $("#InputID").data("kendoComboBox").value() }).done(function (data) {
-                var cadenaPlana = "";
-                if (Error(data)) {
-                    if (data.length > 0) {
-                        //$("#grid").data("kendoGrid").dataSource.data(data);
-                        var ds = $("#grid").data("kendoGrid").dataSource;
-
-                        var array = data;
-                        for (var i = 0; i < array.length; i++) {
+            $CargaPlana.CargaPlana.read({ token: Cookies.get("token"), CargaPlanaID: 0, TipoConsulta: ObtenerTipoConsulta(), OrdenTrabajoSpoolID: SpoolID, NumeroControl: $("#inputCodigo").val() }).done(function (data) {
+                var ds = $("#grid").data("kendoGrid").dataSource;
+                var array = data;
+                if (data.length > 0) {
+                    for (var i = 0; i < array.length; i++) {
+                        if(Proyecto.ProyectoID == array[i].ProyectoID){
                             if (!ExisteSpool(array[i])) {
                                 if (array[i].Cargado != 1 || array[i].PlanaCargado.trim() == $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").text().trim()) {
                                     if (array[i].Empaquetado == 0) {
                                         array[i].Consecutivo = $("#grid").data("kendoGrid").dataSource._data.length + 1;
                                         ds.add(array[i]);
                                         ds = $("#grid").data("kendoGrid").dataSource;
-
-                                        for (var j = 0; j < ds._data.length; j++) {
-                                            peso = peso + ds._data[j].Peso;
-                                        }
-                                        peso = peso / 1000;
-                                        if (peso > 0) {
-                                            $('#lblEmbarqueCargaToneladasCargadas').text(peso);
-                                        }
                                     }
                                     else {
-                                        displayNotify('', 'El Spool se encuentra cargado en el paquete "' + array[i].Paquete+'"', 1);
+                                        displayNotify('', _dictionary.EmbarqueCargaMsjErrorSpoolAgregarExistePaquete[$("#language").data("kendoDropDownList").value()]
+                                            + array[i].Paquete, '1');
                                     }
                                 }
                                 else {
-                                    cadenaPlana = array[i].PlanaCargado;
-                                    displayNotify('', 'El Spool se encuentra cargado en la plana "' + array[i].cadenaPlana+'"', 1);
+                                    displayNotify('', _dictionary.EmbarqueCargaMsjErrorSpoolAgregar[$("#language").data("kendoDropDownList").value()]
+                                         + array[i].PlanaCargado, '1');
                                 }
+                            } else {
+                                displayNotify('EmbarqueCargaMsjErrorSpoolAgregarExiste', '', '1');
                             }
+                        } else {
+                            displayNotify('EmbarqueCargaMsjErrorSpoolAgregarProyectoIncorrecto', '', '1');
                         }
-
-                        $('#lblEmbarqueCargaTotalPiezas').text($("#grid").data("kendoGrid").dataSource._data.length);
                     }
                 }
+
+                ImprimirTotalToneladas(ds._data);
+                ImprimirTotalPiezas(ds._data);
+                ds.sync();
                 loadingStop();
             });
         }
@@ -228,21 +220,18 @@ function AjaxAgregarCarga() {
 
     }
     else {
-        displayNotify('EmarqueCargaMensajePlanaCerrada', '', 1);
+        displayNotify('EmarqueCargaMensajePlanaCerrada', '', '1');
     }
 }
 
 function AjaxAgregarPaquete() {
-
     if (!$("#inputCerrar").is(":checked")) {
-        var peso = 0; // ($('#lblEmbarqueCargaToneladasCargadas').text() == "" ? 0 : parseFloat($('#lblEmbarqueCargaToneladasCargadas').text()));
-        loadingStart();
+        var peso = 0;
         if ($("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").text() != '' && $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").value() != undefined) {
+
+            loadingStart();
             $CargaPlana.CargaPlana.read({ token: Cookies.get("token"), PaqueteID: $("#inputPaquete").val(), lenguaje: $("#language").val() }).done(function (data) {
-                var cadenaPlana = "";
-                if (Error(data)) {
                     if (data.length > 0) {
-                        //$("#grid").data("kendoGrid").dataSource.data(data);
                         var ds = $("#grid").data("kendoGrid").dataSource;
 
                         var array = data;
@@ -262,23 +251,22 @@ function AjaxAgregarPaquete() {
                                     }
                                 }
                                 else {
-                                    cadenaPlana = array[i].PlanaCargado;
-                                    displayNotify('', 'El Spool se encuentra cargado en la plana "' + array[i].cadenaPlana + '"', 1);
+                                    displayNotify('', _dictionary.EmbarqueCargaMsjErrorSpoolAgregar[$("#language").data("kendoDropDownList").value()]
+                                        + array[i].PlanaCargado, '1');
                                 }
                             }
                         }
 
                         $('#lblEmbarqueCargaTotalPiezas').text($("#grid").data("kendoGrid").dataSource._data.length);
                     }
-                }
                 loadingStop();
             });
+        } else {
+            displayNotify('EmarqueCargaMensajeEligePlana', '', '2');
         }
-
-
     }
     else {
-        displayNotify('EmarqueCargaMensajePlanaCerrada', '', 1);
+        displayNotify('EmarqueCargaMensajePlanaCerrada', '', '2');
     }
 }
 
@@ -286,32 +274,24 @@ function AjaxObtenerGrid() {
     if ($("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").text() != '' && $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").value() != undefined) {
         loadingStart();
         $CargaPlana.CargaPlana.read({ token: Cookies.get("token"), PlanaID: $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").value(), Todos: 1 }).done(function (data) {
-            if (Error(data)) {
-                if (data.length > 0) {
-                    $("#grid").data("kendoGrid").dataSource.data([]);
-                    //$("#grid").data("kendoGrid").dataSource.data(data);
-                    var ds = $("#grid").data("kendoGrid").dataSource;
-                    var array = data;
-                    for (var i = 0; i < array.length; i++) {
-                        array[i].Consecutivo = $("#grid").data("kendoGrid").dataSource._data.length + 1;
-                        ds.add(array[i]);
-                    }
-                }
-                $('#lblEmbarqueCargaTotalPiezas').text($("#grid").data("kendoGrid").dataSource._data.length);
+            $("#grid").data("kendoGrid").dataSource.data([]);
+            var ds = $("#grid").data("kendoGrid").dataSource;
+            var array = data;
 
-                if (data.length > 0) {
-                    var peso = 0;
-                    for (var i = 0; i < array.length; i++) {
-
-                        peso = peso + array[i].Peso;
-                    }
-                    peso = peso / 1000;
-                    $('#lblEmbarqueCargaToneladasCargadas').text(peso);
-
+            if (data.length > 0) {
+                for (var i = 0; i < array.length; i++) {
+                    array[i].Consecutivo = $("#grid").data("kendoGrid").dataSource._data.length + 1;
+                    ds.add(array[i]);
                 }
             }
+
+            ImprimirTotalToneladas(ds._data);
+            ImprimirTotalPiezas(ds._data);
+            ds.sync();
             loadingStop();
         });
+    } else {
+        displayNotify('EmarqueCargaMensajeEligePlana', '', '1');
     }
 }
 
@@ -333,73 +313,101 @@ function ExisteSpool(row) {
 function AjaxCargarZona() {
     loadingStart();
     $Zona.Zona.read({ token: Cookies.get("token") }).done(function (data) {
-        if (Error(data)) {
-            var ZonaId = 0;
-            if (data.length > 0) {
-                $("#inputZonaPopup").data("kendoComboBox").dataSource.data(data);
+        var ZonaId = 0;
+        if (data.length > 0) {
+            $("#inputZonaPopup").data("kendoComboBox").dataSource.data(data);
 
-                if (data.length < 3) {
-                    for (var i = 0; i < data.length; i++) {
-                        if (data[i].ZonaID != 0) {
-                            ZonaId = data[i].ZonaID;
-                        }
+            if (data.length < 3) {
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].ZonaID != 0) {
+                        ZonaId = data[i].ZonaID;
                     }
                 }
-                $("#inputZonaPopup").data("kendoComboBox").value(ZonaId);
-                $("#inputZonaPopup").data("kendoComboBox").trigger("change");
             }
+            $("#inputZonaPopup").data("kendoComboBox").value(ZonaId);
+            $("#inputZonaPopup").data("kendoComboBox").trigger("change");
+        }
+        loadingStop();
+    });
+}
+
+function AjaxCargarZonaPaquete(proyectoID) {
+    loadingStart();
+    $Zona.Zona.read({ token: Cookies.get("token"), ProyectoID: proyectoID }).done(function (data) {
+        var ZonaId = 0;
+        if (data.length > 0) {
+            $("#inputZonaPaquete").data("kendoComboBox").dataSource.data(data);
+
+            if (data.length < 3) {
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].ZonaID != 0) {
+                        ZonaId = data[i].ZonaID;
+                    }
+                }
+            }
+            $("#inputZonaPaquete").data("kendoComboBox").value(ZonaId);
+            $("#inputZonaPaquete").data("kendoComboBox").trigger("change");
         }
         loadingStop();
     });
 }
 
 
-function AjaxCargarCuadrante(zonaID) {
+function AjaxCargarCuadrante(zonaID, DescargaSpool) {
+    $("#divDescargaPaquete").addClass("loading");
     $Cuadrante.Cuadrante.read({ token: Cookies.get("token"), ZonaID: zonaID }).done(function (data) {
-        loadingStart();
-        if (Error(data)) {
-            var CuadranteId = 0;
-
-            if (data.length > 0) {
+        var CuadranteId = 0;
+        if (data.length > 0) {
+            if (DescargaSpool == 1) {
                 $("#inputCuadrantePopup").data("kendoComboBox").dataSource.data(data);
-
-                if (data.length < 3) {
+                if (data.length < 3 && CuadranteSpoolAnterior == 0) {
                     for (var i = 0; i < data.length; i++) {
                         if (data[i].CuadranteID != 0) {
                             CuadranteId = data[i].CuadranteID;
                         }
                     }
-                }
+                } else 
+                    CuadranteId = CuadranteSpoolAnterior;
+
 
                 $("#inputCuadrantePopup").data("kendoComboBox").value(CuadranteId);
                 $("#inputCuadrantePopup").data("kendoComboBox").trigger("change");
+            } else {
+                $("#inputCuadrantePaquete").data("kendoComboBox").dataSource.data(data);
+                if (data.length < 3 && CuadrantePaqueteAnterior == 0) {
+                    for (var i = 0; i < data.length; i++) {
+                        if (data[i].CuadranteID != 0) {
+                            CuadranteId = data[i].CuadranteID;
+                        }
+                    }
+                } else
+                    CuadranteId = CuadrantePaqueteAnterior;
+
+                $("#inputCuadrantePaquete").data("kendoComboBox").value(CuadranteId);
+                $("#inputCuadrantePaquete").data("kendoComboBox").trigger("change");
             }
         }
-        loadingStop();
+        
+        $("#divDescargaPaquete").removeClass("loading");
     });
 }
 
 
-function AjaxDescargarSpool(dataItem) {
+function AjaxDescargarSpool(dataItem, Cuadrante) {
     loadingStart();
     var dataSource = $("#grid").data("kendoGrid").dataSource;
-    var cuadranteID = $("#inputCuadrantePopup").data("kendoComboBox").value();
     $CargaPlana.CargaPlana.read({
         token: Cookies.get("token"), DetalleCargaID: dataItem.DetalleCargaID, SpoolID: dataItem.SpoolID,
-        CuadranteID: cuadranteID, CuadranteAnterior: dataItem.CuadranteID
+        CuadranteID: Cuadrante.CuadranteID, CuadranteSam2ID: Cuadrante.CuadranteSam2ID, CuadranteAnterior: dataItem.CuadranteID
     }).done(function (data) {
-        if (Error(data)) {
-            if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "OK") {
-                dataSource.remove(dataItem);
-                dataSource.sync();
-                AjaxObtenerGrid();
-                displayNotify("EmbarqueCargaMsjDescargaSpoolExito", "", "0");
-            } else {
-                displayNotify("EmbarqueCargaMsjDescargaSpoolError", "", "2");
-            }
+        if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "OK") {
+            dataSource.remove(dataItem);
+            dataSource.sync();
+            displayNotify("EmbarqueCargaMsjDescargaSpoolExito", "", "0");
         } else {
             displayNotify("EmbarqueCargaMsjDescargaSpoolError", "", "2");
         }
+
         loadingStop();
     });
 }
@@ -473,38 +481,25 @@ function ajaxGuardar(arregloCaptura, tipoGuardar) {
             loadingStart();
             $CargaPlana.CargaPlana.create(Captura[0], { token: Cookies.get("token"), CargaPlanaID: cargaPlanaID, PlanaID: $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").value(), CerrarPlana: cerrar, CuadrantePlanaSam2: CuadrantePlanaSam2, CuadrantePlanaSam3: CuadrantePlanaSam3 }).done(function (data) {
                 editado = true;
-                if (Error(data)) {
-                    if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
-                        if (tipoGuardar == 1) {
-                            $("#grid").data("kendoGrid").dataSource.data([]);
-                            setTimeout(function () { AjaxCargarCamposPredeterminados(); AjaxCargarProyecto(); }, 500);
-                            opcionHabilitarView(false, "FieldSetView");
-                        }
-                        else {
-                            $("#grid").data("kendoGrid").dataSource.data([]);
-
-                            var proveedorID = $("#inputProveedor").data("kendoComboBox").value();
-                            var planaID = $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").value();
-
-                            $("#inputProveedor").data("kendoComboBox").value(proveedorID);
-                            $("#inputProveedor").data("kendoComboBox").trigger("change");
-
-                            setTimeout(function () { 
-                                $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").value(planaID);
-                                $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").trigger("change");
-                            }, 500);
-
-                            setTimeout(function () { AjaxObtenerGrid(); }, 500);
-                            opcionHabilitarView(true, "FieldSetView");
-
-                        }
-                        displayNotify("MensajeGuardadoExistoso", "", "0");
-                        editado = false;
+                if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
+                    if (tipoGuardar == 1) {
+                        $("#grid").data("kendoGrid").dataSource.data([]);
+                        opcionHabilitarView(false, "FieldSetView");
+                        AjaxCargarCamposPredeterminados(); AjaxCargarProyecto(); 
                     }
-                    else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
-                        mensaje = "No se guardo la informacion el error es: " + data.ReturnMessage[0] + "-2"
-                        displayNotify("MensajeGuardadoErroneo", "", '2');
+                    else {
+                        $("#grid").data("kendoGrid").dataSource.data([]);
+
+                        AjaxObtenerGrid();
+                        opcionHabilitarView(true, "FieldSetView");
+
                     }
+                    displayNotify("MensajeGuardadoExistoso", "", "0");
+                    editado = false;
+                }
+                else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
+                    mensaje = "No se guardo la informacion el error es: " + data.ReturnMessage[0] + "-2"
+                    displayNotify("MensajeGuardadoErroneo", "", '2');
                 }
             });
             loadingStop();
@@ -522,3 +517,25 @@ function ajaxGuardar(arregloCaptura, tipoGuardar) {
 
 };
 
+function AjaxDescargarPaquete(dataItem) {
+    loadingStart();
+    var ds = $("#grid").data("kendoGrid").dataSource;
+    var cuadranteID = $("#inputCuadrantePaquete").data("kendoComboBox").value();
+
+    $CargaPlana.CargaPlana.read({
+        token: Cookies.get("token"), PaqueteID: dataItem.PaqueteID, CuadranteID: cuadranteID
+    }).done(function (data) {
+        if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "OK") {
+            for (var x = 0; x < ds._data.length; x++) {
+                if (ds._data[x].PaqueteID == dataItem.PaqueteID) {
+                    ds.remove(ds._data[x]);
+                }
+            }
+            ds.sync();
+            displayNotify("EmbarqueCargaMsjDescargaPaqueteExito", "", "0");
+        } else {
+            displayNotify("EmbarqueCargaMsjDescargaPaqueteError", "", "2");
+        }        
+        loadingStop();
+    });
+}

@@ -34,6 +34,7 @@ namespace BackEndSAM.Models.Embarque.CargaPlana
         public string Paquete { get; set; }
         public int PaqueteID { get; set; }
         public decimal Peso { get; set; }
+        public int ProyectoID { get; set; }
         public int CuadranteID { get; set; }
         public int CuadranteAnteriorID { get; set; }
         public bool ModificadoPorUsuario { get; set; }

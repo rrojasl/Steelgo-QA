@@ -15,6 +15,7 @@ function changeLanguageCall() {
 
     SuscribirEventoWindowsPopup();
     SuscribirEventoPopupDescaga();
+    SuscribirEventoPopUpPaqueteVacio();
 };
 
 

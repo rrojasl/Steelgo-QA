@@ -105,13 +105,13 @@ namespace BackEndSAM.DataAcces.Embarque.CargaPlana
             }
         }
 
-        public object ObtieneDetalleSpoolAgregar(int CargaPlanaID, int TipoConsulta, int OrdenTrabajoSpoolID)
+        public object ObtieneDetalleSpoolAgregar(int CargaPlanaID, int TipoConsulta, int OrdenTrabajoSpoolID, string NumeroControl)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Embarque_Get_DetalleSpool_Result> result = ctx.Sam3_Embarque_Get_DetalleSpool(CargaPlanaID, TipoConsulta, OrdenTrabajoSpoolID).ToList();
+                    List<Sam3_Embarque_Get_DetalleSpool_Result> result = ctx.Sam3_Embarque_Get_DetalleSpool(CargaPlanaID, TipoConsulta, OrdenTrabajoSpoolID, NumeroControl).ToList();
                     List<DetalleSpoolAgregar> listaDetalle = new List<DetalleSpoolAgregar>();
 
                     foreach (Sam3_Embarque_Get_DetalleSpool_Result item in result)
@@ -127,6 +127,7 @@ namespace BackEndSAM.DataAcces.Embarque.CargaPlana
                             Paquete = item.NombrePaquete,
                             PaqueteID = 0,
                             Peso = item.Peso.GetValueOrDefault(),
+                            ProyectoID = item.ProyectoID,
                             CuadranteID = item.CuadranteID.GetValueOrDefault(),
                             CuadranteAnteriorID = item.CuadranteAnteriorID.GetValueOrDefault(),
                             ModificadoPorUsuario = true,
