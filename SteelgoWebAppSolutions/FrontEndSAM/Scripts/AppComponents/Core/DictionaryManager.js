@@ -9116,16 +9116,20 @@ _dictionary = {
         "es-MX": "Selecciona un defecto si el resultado dimensional es Rechazado",
         "en-US": "Select a dimensional defect if the result is Rejected"
     },
+    "DimensionalVisualMensajeJuntasRepetidas": {
+        "es-MX": "Las juntas ?1 ya existen en la captura ",
+        "en-US": "The Join  ?1 already exists in the capture"
+    },
     "DimensionalVisualMensajeJuntasAgregadas": {
-        "es-MX": "Las siguientes juntas se han añadido al grid: ",
-        "en-US": "The following joints have been added to grid: "
+        "es-MX": "Las siguientes juntas se agregaron a la captura: ",
+        "en-US": "The following joints have been added to the capture: "
     },
     "DimensionalVisualMensajeGuardadoDimensional": {
-        "es-MX": "Datos del apartado Inspección Dimensional guardados correctamente.",
+        "es-MX": "Datos del apartado Inspección Visual Dimensional guardados correctamente.",
         "en-US": "Dimensional Inspection data saved correctly."
     },
     "DimensionalVisualMensajeGuardadoVisual": {
-        "es-MX": "Datos del apartado Inspección Visual guardados correctamente.",
+        "es-MX": "Datos del apartado Inspección Dimensional guardados correctamente.",
         "en-US": "Visual Inspection data saved correctly."
     },
     "DimensionalVisualMensajeRequiereJuntas": {
