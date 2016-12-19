@@ -96,7 +96,7 @@ namespace BackEndSAM.DataAcces.Embarque.Etiquetado
                     //Obtiene catalogo de cuadrantes
                     List<UbicacionCuadrante> listCuadrantes = (List<UbicacionCuadrante>)CuadranteBD.Instance.ObtenerCuadranteSpool(SpoolContiene, UsuarioID);
 
-                    List<Sam3_Embarque_get_Etiquetado_NumeroControl_Result> result = ctx.Sam3_Embarque_get_Etiquetado_NumeroControl(SpoolContiene, Todos).ToList();
+                    List<Sam3_Embarque_get_Etiquetado_NumeroControl_Result> result = ctx.Sam3_Embarque_get_Etiquetado_NumeroControl(SpoolContiene, Todos, UsuarioID).ToList();
                     List<DetalleEtiquetado> listaDetalle = new List<DetalleEtiquetado>();
 
                     foreach (Sam3_Embarque_get_Etiquetado_NumeroControl_Result item in result)

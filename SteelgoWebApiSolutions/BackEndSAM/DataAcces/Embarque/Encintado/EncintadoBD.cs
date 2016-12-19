@@ -108,6 +108,7 @@ namespace BackEndSAM.DataAcces.Embarque.Encintado
                             ZonaID = item.ZonaID,
                             Zona = item.Zona,
                             ModificadoPorUsuario = false,
+                            RowOk = true,
                             ListaCuadrantes = listaCuadrante,
                             ListaColoresCinta = listaColores
                         });
@@ -143,13 +144,14 @@ namespace BackEndSAM.DataAcces.Embarque.Encintado
                     //Obtiene catalogo de colores                    
                     List<ColorEncintado> listaColores = (List<ColorEncintado>)EncintadoBD.Instance.ObtenerColoresEncintado(Lenguaje);
 
-                    List<Sam3_Embarque_get_Encintado_NumeroControl_Result> result = ctx.Sam3_Embarque_get_Encintado_NumeroControl(SpoolContiene, Todos).ToList();
+                    List<Sam3_Embarque_get_Encintado_NumeroControl_Result> result = ctx.Sam3_Embarque_get_Encintado_NumeroControl(SpoolContiene, Todos, UsuarioID).ToList();
                     List<DetalleEncintado> listaDetalle = new List<DetalleEncintado>();
 
                     foreach (Sam3_Embarque_get_Encintado_NumeroControl_Result item in result)
                     {
                         listaDetalle.Add(new DetalleEncintado
                         {
+                            Accion = item.Accion,
                             SpoolID = item.SpoolID,
                             Spool = item.Spool,
                             ProyectoID = item.ProyectoID,
@@ -171,9 +173,9 @@ namespace BackEndSAM.DataAcces.Embarque.Encintado
                             ZonaID = item.ZonaID,
                             Zona = item.Zona,
                             ModificadoPorUsuario = false,
+                            RowOk = true,
                             ListaCuadrantes = listaCuadrante,
-                            ListaColoresCinta = listaColores,
-                            Accion = item.Accion
+                            ListaColoresCinta = listaColores
 
                         });
                     }

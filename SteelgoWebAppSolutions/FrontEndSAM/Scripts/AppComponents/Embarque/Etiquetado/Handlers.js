@@ -495,6 +495,7 @@ function SuscribirEventoCambiarVista() {
                     open: false
                 },
                 close: function (e) {
+                    $("input[name='TipoBusqueda']").val(VistaActual);
                     if (VistaActual == "Spool") {
                         $("#styleSpool").addClass("active");
                         $("#styleZona").removeClass("active");
@@ -526,9 +527,10 @@ function SuscribirEventoCambiarVista() {
                 ventanaConfirm.close();
             });
             $("#noButton").click(function (handler) {
+                $("input[name='TipoBusqueda']").val(VistaActual);
                 if (VistaActual == "Spool") {
                     $("#styleSpool").addClass("active");
-                    $("#styleZona").removeClass("active");
+                    $("#styleZona").removeClass("active");                    
                 } else if (VistaActual == "Zona") {
                     $("#styleSpool").removeClass("active");
                     $("#styleZona").addClass("active");
@@ -565,6 +567,7 @@ function SuscribirEventoCambiarVista() {
                     open: false
                 },
                 close: function (e) {
+                    $("input[name='TipoBusqueda']").val(VistaActual);
                     if (VistaActual == "Spool") {
                         $("#styleSpool").addClass("active");
                         $("#styleZona").removeClass("active");
@@ -593,6 +596,7 @@ function SuscribirEventoCambiarVista() {
                 ventanaConfirm.close();
             });
             $("#noButton").click(function (handler) {
+                $("input[name='TipoBusqueda']").val(VistaActual);
                 if (VistaActual == "Spool") {
                     $("#styleSpool").addClass("active");
                     $("#styleZona").removeClass("active");

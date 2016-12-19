@@ -191,19 +191,23 @@ function AjaxGuardarCaptura(rows, tipoGuardar) {
 
                         if (rows[i].Encintado && rows[i].ColorID == 0) {
                             ListaDetalles[index].Estatus = 0;
-                            $('tr[data-uid="' + rows[i].uid + '"] ').css("background-color", "#ffcccc");
+                            $("#grid").data("kendoGrid").dataSource._data[i].RowOk = false;
+                            //$('tr[data-uid="' + rows[i].uid + '"] ').css("background-color", "#ffcccc");
                         }
                     }
                 }else if(rows[i].Accion === 1){
                     if (rows[i].Encintado && rows[i].ColorID == 0) {
                         ListaDetalles[index].Estatus = 0;
-                        $('tr[data-uid="' + rows[i].uid + '"] ').css("background-color", "#ffcccc");
+                        $("#grid").data("kendoGrid").dataSource._data[i].RowOk = false;
+                        //$('tr[data-uid="' + rows[i].uid + '"] ').css("background-color", "#ffcccc");
                     }
                 }
             }
 
             index++;
     };
+
+    $("#grid").data("kendoGrid").dataSource.sync();
     Captura[0].listaDetalle = ListaDetalles;
 
     if (Captura[0].listaDetalle.length > 0) {
@@ -326,6 +330,7 @@ function AjaxGuardarCaptura(rows, tipoGuardar) {
                             loadingStop();
                         }
                     });
+                    loadingStop();
                 } else {
                     ventanaConfirm.close();
                     loadingStop();

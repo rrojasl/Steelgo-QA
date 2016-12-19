@@ -30,6 +30,7 @@ namespace BackEndSAM.Models.Embarque.Encintado
         public int? ZonaID { get; set; }
         public string Zona { get; set; }
         public bool ModificadoPorUsuario { get; set; }
+        public bool RowOk { get; set; }
         public List<UbicacionCuadrante> ListaCuadrantes { get; set; }
         public List<ColorEncintado> ListaColoresCinta { get; set; }
     }
