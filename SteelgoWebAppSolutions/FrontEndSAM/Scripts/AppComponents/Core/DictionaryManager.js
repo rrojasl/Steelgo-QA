@@ -7913,9 +7913,13 @@ _dictionary = {
         "es-MX": "Eliminar embarque",
         "en-US": "Delete shipment"
     },
-    "botonEliminarPaquete": {
-        "es-MX": "Eliminar Paquete",
-        "en-US": "Delete package"
+    "botonEliminarPaquetePopup": {
+        "es-MX": "Eliminar",
+        "en-US": "Delete"
+    },
+    "botonDescargar": {
+        "es-MX": "Descargar",
+        "en-US": "Download"
     },
     //Finaliza botones
     // Finalizan etiquetas Header y Footer
@@ -10910,6 +10914,14 @@ _dictionary = {
         "es-MX": "El paquete ya existe en la captura",
         "en-US": "Package already exists in capture"
     },
+    "EmbarqueEmpaquetadoAdvertenciaPaqueteVacio": {
+        "es-MX": "Alerta!!!",
+        "en-US": "Alert!!!"
+    },
+    "EmbarqueEmpaquetadoMsjDescargaEliminaPaquete": {
+        "es-MX": "El último spool del paquete ha sido descargado. ¿Desea descargar el paquete de la plana o eliminarlo?",
+        "en-US": "Alert!!!"
+    },
     //Finaliza pantalla carga plana
     //Inicia pantalla empaquetado
     "EmbarqueEmpaquetadoTotalPiezas": {
@@ -10944,10 +10956,13 @@ _dictionary = {
         "es-MX": "El paquete ya existe con el nombre ingresado",
         "en-US": "The package already exists with the name entered"
     },
+    "EmbarqueEmpaquetadoMsjDescargaSpool": {
+        "es-MX": "El spool será descargado del paquete. Seleccione zona y cuadrante de descarga",
+        "en-US": "Spool will discharge package. Select zone and quadrant discharge"
+    },
     "EmbarqueEmpaquetadoMsjDescargaSpoolExito": {
         "es-MX": "El spool ha sido descargado correctamente",
         "en-US": "Spool has been successfully downloaded"
-
     },
     "EmbarqueEmpaquetadoMsjDescargaSpoolError": {
         "es-MX": "El spool no ha sido descargado",

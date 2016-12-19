@@ -221,7 +221,6 @@
         <div class="form-group">
             @*<center>*@
             <span id="EmbarqueEmpaquetadoMsjDescargaEliminaPaquete"></span>
-            <input type="hidden" id="InputUidRow" />
             @*</center>*@
         </div>
         <div class="form-group row" id="divDescargarPaquete">
@@ -237,10 +236,10 @@
         <div class="row">
             <center>
                 <a class="btn btn-primary confirm_yes" href="#/" id="btnDescargarPaquete">
-                    <span id="btnDescargaPaquete"></span>
+                    <span id="botonDescargar"></span>
                 </a>
-                <a class="btn btn-primary confirm_yes" href="#/" id="btnEliminarPaquete">
-                    <span id="botonEliminarPaquete"></span>
+                <a class="btn btn-primary confirm_yes" href="#/" id="btnEliminarPaqueteVacio">
+                    <span id="botonEliminarPaquetePopup"></span>
                 </a>
             </center>
         </div>
@@ -255,6 +254,6 @@
 
 <script>
     @section JavascriptDocumentReadyFunctions {
-    //$authorizationModel["Empaquetado"] = $EmpaquetadoCargaModel;
+    $authorizationModel["Empaquetado"] = $EmpaquetadoModel;
     }
 </script>

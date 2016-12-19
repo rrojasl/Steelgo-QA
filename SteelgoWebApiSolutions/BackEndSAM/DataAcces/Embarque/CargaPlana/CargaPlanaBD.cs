@@ -5,6 +5,7 @@ using SecurityManager.Api.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Web;
 
@@ -267,10 +268,12 @@ namespace BackEndSAM.DataAcces.Embarque.CargaPlana
                 using (SamContext ctx = new SamContext())
                 {
 
-                    ctx.Sam3_Embarque_DescargaSpool(DetalleCargaID, PaqueteID, SpoolID, CuadranteID, CuadranteSamID, CuadranteAnterior, UsuarioID);
+                    ObjectResult<int?> resultSp = ctx.Sam3_Embarque_DescargaSpool(DetalleCargaID, PaqueteID, SpoolID, CuadranteID, CuadranteSamID, CuadranteAnterior, UsuarioID);
+                    var valor = resultSp.Where(x => x.HasValue).Select(x => x.Value).ToList()[0];
 
                     TransactionalInformation result = new TransactionalInformation();
                     result.ReturnMessage.Add("OK");
+                    result.ReturnMessage.Add(valor.ToString());
                     result.ReturnCode = 200;
                     result.ReturnStatus = true;
                     result.IsAuthenicated = true;

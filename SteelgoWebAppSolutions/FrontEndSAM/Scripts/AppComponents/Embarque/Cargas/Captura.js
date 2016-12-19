@@ -21,6 +21,7 @@ function changeLanguageCall() {
 
     SuscribirEventoPopUpDescargaPaquete();
     SuscribirEventoPopUpDescargaSpool();
+    SuscribirEventoPopUpPaqueteVacio();
 };
 
 if ($("#inputHiddenEmbarquePlanaID").val() != null && $("#inputHiddenEmbarquePlanaID").val() != undefined && $("#inputHiddenEmbarquePlanaID").val() != "0") {
@@ -314,7 +315,7 @@ function ImprimirTotalToneladas(ds) {
 
             totalToneladas = totalToneladas + ds[i].Peso;
         }
-        $("#lblEmbarqueCargaToneladasCargadas").css('text-align', 'center');
+        $("#lblEmbarqueCargaToneladasCargadas").css('text-align', 'right');
         $("#lblEmbarqueCargaToneladasCargadas").text(totalToneladas != 0 ? totalToneladas.toFixed(3) : "");
     } else {
         $("#lblEmbarqueCargaToneladasCargadas").text("");

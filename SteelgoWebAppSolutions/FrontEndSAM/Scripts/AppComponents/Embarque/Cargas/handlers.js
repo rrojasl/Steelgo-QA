@@ -54,7 +54,7 @@ function SuscribirEventoPopUpDescargaPaquete() {
         var dataItem = $('#grid').data("kendoGrid").dataSource.getByUid(uid);
         if (zonaID != "" && zonaID != "0") {
             if (cuadranteID != "" && cuadranteID != "0") {
-                AjaxDescargarPaquete(dataItem);
+                AjaxDescargarPaquete(dataItem, 1);
 
             }else
                 displayNotify("EmbarqueCargaMsjErrorCuadrante", "", "1");
@@ -118,6 +118,50 @@ function SuscribirEventoDescargarPaquete() {
                 windowDownloadPaquete.center().open();
             }
         }
+    });
+}
+
+function SuscribirEventoPopUpPaqueteVacio() {
+    windowPackageEmpty = $("#windowPackageEmpty").kendoWindow({
+        iframe: true,
+        title: _dictionary.EmbarqueEmpaquetadoAdvertenciaPaqueteVacio[$("#language").data("kendoDropDownList").value()],
+        visible: false,
+        width: "40%",
+        height: "auto",
+        modal: true,
+        draggable: false,
+        resizable: false,
+        animation: {
+            close: false,
+            open: false
+        },
+        actions: [
+        ],
+    }).data("kendoWindow");
+    $("#windowPackageEmpty").parent().find(".k-window-action").css("visibility", "hidden");
+
+    $("#btnDescargarPaqueteVacio").click(function (e) {
+        var zonaID = $("#inputZonaPaqueteDescarga").data("kendoComboBox").value();
+        var cuadranteID = $("#inputCuadrantePaqueteDescarga").data("kendoComboBox").value();
+        var uid = $("#detallePaquete").val();
+        var dataItem = $('#grid').data("kendoGrid").dataSource.getByUid(uid);
+
+        if (zonaID != "" && zonaID != "0") {
+            if (cuadranteID != "" && cuadranteID != "0") {
+                windowPackageEmpty.close();
+                AjaxDescargarPaquete(uid, 0);
+            } else
+                displayNotify("EmbarqueCargaMsjErrorCuadrante", "", "1");
+
+        } else
+            displayNotify("EmbarqueCargaMsjErrorZona", "", "1");
+    });
+    $("#btnEliminarPaqueteVacio").click(function (e) {
+        windowPackageEmpty.close();
+
+        var uid = $("#detallePaquete").val();
+        var dataItem = $('#grid').data("kendoGrid").dataSource.getByUid(uid);
+        AjaxEliminarPaquete(dataItem);
     });
 }
 
@@ -265,6 +309,8 @@ function SuscribirEventoProyecto() {
 
                 $("#inputZonaPaquete").data("kendoComboBox").dataSource.data([]);
                 $("#inputZonaPaquete").data("kendoComboBox").value("");
+                $("#inputZonaPaqueteDescarga").data("kendoComboBox").dataSource.data([]);
+                $("#inputZonaPaqueteDescarga").data("kendoComboBox").value("");
                 if (dataItem != undefined) {
                     if (dataItem.ProyectoID != 0) {
                         AjaxEmbarqueCargaProveedores(dataItem.ProyectoID, null);
@@ -797,6 +843,27 @@ function SuscribirEventoZona() {
             }
         }
     });
+
+    $('#inputZonaPaqueteDescarga').kendoComboBox({
+        dataTextField: "Nombre",
+        dataValueField: "ZonaID",
+        suggest: true,
+        filter: "contains",
+        change: function (e) {
+            var dataItem = this.dataItem(e.sender.selectedIndex);
+            $("#inputCuadrantePaqueteDescarga").data("kendoComboBox").dataSource.data([]);
+            $("#inputCuadrantePaqueteDescarga").data("kendoComboBox").value("");
+
+            if (dataItem != undefined) {
+                if (dataItem.ZonaID != 0) {
+                    AjaxCargarCuadrante(dataItem.ZonaID, 2);
+                }
+            }
+            else {
+                $("#inputZonaPaqueteDescarga").data("kendoComboBox").value("");
+            }
+        }
+    });
 }
 
 function SuscribirEventoCuadrante() {
@@ -828,6 +895,22 @@ function SuscribirEventoCuadrante() {
             }
             else {
                 $("#inputCuadrantePaquete").data("kendoComboBox").value("");
+            }
+        }
+    });
+
+    $('#inputCuadrantePaqueteDescarga').kendoComboBox({
+        dataTextField: "Nombre",
+        dataValueField: "CuadranteID",
+        suggest: true,
+        filter: "contains",
+        change: function (e) {
+            var dataItem = this.dataItem(e.sender.selectedIndex);
+            if (dataItem != undefined) {
+
+            }
+            else {
+                $("#inputCuadrantePaqueteDescarga").data("kendoComboBox").value("");
             }
         }
     });

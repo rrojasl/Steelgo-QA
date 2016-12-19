@@ -321,12 +321,16 @@ function AjaxDescargarSpool(dataItem, Paquete) {
                 dataSource.remove(dataItem);
                 dataSource.sync();
                 elementos = parseInt(data.ReturnMessage[1]);
-                if (elementos == 0) {
-                    cuadranteAnteriorDescarga = Paquete.CuadranteUbicacionAnt
+                if (elementos == 0 && $("#InputCerrar").is(":checked")) {
+                    if (Paquete.CargaPlana == 1) {
 
-                    $("#inputZonaPaqueteDescarga").data("kendoComboBox").value(Paquete.ZonaUbicacionAnt);
-                    $("#inputZonaPaqueteDescarga").data("kendoComboBox").trigger("change");
-                    windowPackageEmpty.open().center();
+                        cuadranteAnteriorDescarga = Paquete.CuadranteUbicacionAnt
+
+                        $("#inputZonaPaqueteDescarga").data("kendoComboBox").value(Paquete.ZonaUbicacionAnt);
+                        $("#inputZonaPaqueteDescarga").data("kendoComboBox").trigger("change");
+                        windowPackageEmpty.open().center();
+                    } else
+                        AjaxAbrirPaquete(Paquete);
                 } else {
                     displayNotify("EmbarqueEmpaquetadoMsjDescargaSpoolExito", "", "0");
                 }
@@ -392,15 +396,29 @@ function AjaxCargarCuadrantePaquete(zonaID) {
 function AjaxDescargarPaquete(Paquete) {
     loadingStart();
     var cuadranteID = $("#inputCuadrantePaqueteDescarga").data("kendoComboBox").value();
-
+    var proyectoID = $("#InputProyecto").data("kendoComboBox").value();
     $CargaPlana.CargaPlana.read({
         token: Cookies.get("token"), PaqueteID: Paquete.PaqueteID, CuadranteID: cuadranteID
     }).done(function (data) {
         if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "OK") {
+            AjaxCargarPaquetes(proyectoID, Paquete.PaqueteID);
             displayNotify("EmbarqueCargaMsjDescargaPaqueteExito", "", "0");
         } else {
             displayNotify("EmbarqueCargaMsjDescargaPaqueteError", "", "2");
         }
         loadingStop();
     });
+}
+
+function AjaxAbrirPaquete(Paquete){
+    loadingStart();
+    var proyectoID = $("#InputProyecto").data("kendoComboBox").value();
+    $Empaquetado.Empaquetado.read({
+        token: Cookies.get("token"), PaqueteID: Paquete.PaqueteID
+    }).done(function (data) {
+        $("#InputCerrar")[0].checked = false;
+        AjaxCargarPaquetes(proyectoID, Paquete.PaqueteID);
+    });
+    
+    loadingStop();
 }

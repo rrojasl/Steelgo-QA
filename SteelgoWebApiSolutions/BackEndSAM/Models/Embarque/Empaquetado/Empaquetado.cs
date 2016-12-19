@@ -35,6 +35,7 @@ namespace BackEndSAM.Models.Embarque.Empaquetado
         public int CuadranteUbicacionAnt { get; set; }
         public int ZonaUbicacionAnt { get; set; }
         public int Elementos { get; set; }
+        public int CargaPlana { get; set; }
     }
 
     public class ZonaPaquete

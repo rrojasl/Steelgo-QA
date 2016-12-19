@@ -334,9 +334,11 @@ function AjaxCargarZona() {
 function AjaxCargarZonaPaquete(proyectoID) {
     loadingStart();
     $Zona.Zona.read({ token: Cookies.get("token"), ProyectoID: proyectoID }).done(function (data) {
+        
         var ZonaId = 0;
         if (data.length > 0) {
             $("#inputZonaPaquete").data("kendoComboBox").dataSource.data(data);
+            $("#inputZonaPaqueteDescarga").data("kendoComboBox").dataSource.data(data);
 
             if (data.length < 3) {
                 for (var i = 0; i < data.length; i++) {
@@ -347,6 +349,8 @@ function AjaxCargarZonaPaquete(proyectoID) {
             }
             $("#inputZonaPaquete").data("kendoComboBox").value(ZonaId);
             $("#inputZonaPaquete").data("kendoComboBox").trigger("change");
+            $("#inputZonaPaqueteDescarga").data("kendoComboBox").value(ZonaId);
+            $("#inputZonaPaqueteDescarga").data("kendoComboBox").trigger("change");
         }
         loadingStop();
     });
@@ -354,7 +358,7 @@ function AjaxCargarZonaPaquete(proyectoID) {
 
 
 function AjaxCargarCuadrante(zonaID, DescargaSpool) {
-    $("#divDescargaPaquete").addClass("loading");
+    loadingStart();
     $Cuadrante.Cuadrante.read({ token: Cookies.get("token"), ZonaID: zonaID }).done(function (data) {
         var CuadranteId = 0;
         if (data.length > 0) {
@@ -372,7 +376,7 @@ function AjaxCargarCuadrante(zonaID, DescargaSpool) {
 
                 $("#inputCuadrantePopup").data("kendoComboBox").value(CuadranteId);
                 $("#inputCuadrantePopup").data("kendoComboBox").trigger("change");
-            } else {
+            } else if(DescargaSpool == 0) {
                 $("#inputCuadrantePaquete").data("kendoComboBox").dataSource.data(data);
                 if (data.length < 3 && CuadrantePaqueteAnterior == 0) {
                     for (var i = 0; i < data.length; i++) {
@@ -385,31 +389,52 @@ function AjaxCargarCuadrante(zonaID, DescargaSpool) {
 
                 $("#inputCuadrantePaquete").data("kendoComboBox").value(CuadranteId);
                 $("#inputCuadrantePaquete").data("kendoComboBox").trigger("change");
+            }else {
+                $("#inputCuadrantePaqueteDescarga").data("kendoComboBox").dataSource.data(data);
+                if (data.length < 3 && CuadrantePaqueteAnterior == 0) {
+                    for (var i = 0; i < data.length; i++) {
+                        if (data[i].CuadranteID != 0) {
+                            CuadranteId = data[i].CuadranteID;
+                        }
+                    }
+                } else
+                    CuadranteId = CuadrantePaqueteAnterior;
+
+                $("#inputCuadrantePaqueteDescarga").data("kendoComboBox").value(CuadranteId);
+                $("#inputCuadrantePaqueteDescarga").data("kendoComboBox").trigger("change");
             }
         }
-        
-        $("#divDescargaPaquete").removeClass("loading");
     });
+    loadingStop();
 }
 
 
 function AjaxDescargarSpool(dataItem, Cuadrante) {
     loadingStart();
     var dataSource = $("#grid").data("kendoGrid").dataSource;
+    var elemento = 0;
     $CargaPlana.CargaPlana.read({
-        token: Cookies.get("token"), DetalleCargaID: dataItem.DetalleCargaID, SpoolID: dataItem.SpoolID,
+        token: Cookies.get("token"), DetalleCargaID: dataItem.DetalleCargaID, PaqueteID: dataItem.PaqueteID, SpoolID: dataItem.SpoolID,
         CuadranteID: Cuadrante.CuadranteID, CuadranteSam2ID: Cuadrante.CuadranteSam2ID, CuadranteAnterior: dataItem.CuadranteID
     }).done(function (data) {
         if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "OK") {
+            elemento = parseInt(data.ReturnMessage[1]);
             dataSource.remove(dataItem);
             dataSource.sync();
+            if (elemento == 0) {
+                $("#detallePaquete").val(dataItem.PaqueteID);
+                CuadrantePaqueteAnterior = dataItem.CuadrantePaqueteAnteriorID;
+                $("#inputZonaPaqueteDescarga").data("kendoComboBox").value(dataItem.ZonaPaqueteAnteriorID);
+                $("#inputZonaPaqueteDescarga").data("kendoComboBox").trigger("change");
+                windowPackageEmpty.open().center();
+            }
             displayNotify("EmbarqueCargaMsjDescargaSpoolExito", "", "0");
         } else {
             displayNotify("EmbarqueCargaMsjDescargaSpoolError", "", "2");
         }
 
-        loadingStop();
     });
+    loadingStop();
 }
 
 function GuardarNuevoProveedor() {
@@ -517,18 +542,20 @@ function ajaxGuardar(arregloCaptura, tipoGuardar) {
 
 };
 
-function AjaxDescargarPaquete(dataItem) {
+function AjaxDescargarPaquete(dataItem, eliminaFilas) {
     loadingStart();
     var ds = $("#grid").data("kendoGrid").dataSource;
     var cuadranteID = $("#inputCuadrantePaquete").data("kendoComboBox").value();
 
     $CargaPlana.CargaPlana.read({
-        token: Cookies.get("token"), PaqueteID: dataItem.PaqueteID, CuadranteID: cuadranteID
+        token: Cookies.get("token"), PaqueteID: dataItem, CuadranteID: cuadranteID
     }).done(function (data) {
         if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "OK") {
-            for (var x = 0; x < ds._data.length; x++) {
-                if (ds._data[x].PaqueteID == dataItem.PaqueteID) {
-                    ds.remove(ds._data[x]);
+            if (eliminaFilas == 1) {
+                for (var x = 0; x < ds._data.length; x++) {
+                    if (ds._data[x].PaqueteID != undefined && ds._data[x].PaqueteID == dataItem.PaqueteID) {
+                        ds.remove(ds._data[x]);
+                    }
                 }
             }
             ds.sync();
@@ -536,6 +563,25 @@ function AjaxDescargarPaquete(dataItem) {
         } else {
             displayNotify("EmbarqueCargaMsjDescargaPaqueteError", "", "2");
         }        
+        loadingStop();
+    });
+}
+
+function AjaxEliminarPaquete(dataItem) {
+    loadingStart();
+    $Empaquetado.Empaquetado.read({
+        token: Cookies.get("token"), PaqueteID: dataItem.PaqueteID, CuadrantePaqueteSam2ID: 0,
+        CuadrantePaqueteSam3ID: dataItem.CuadranteID
+    }).done(function (data) {
+        if (data.ReturnCode === 200) {
+            displayNotify("EmbarqueEmpaquetadoMsjExitoEliminarPaquete", "", "0");
+        } else if (data.ReturnCode === 201) {
+            displayNotify("EmbarqueEmpaquetadoMsjErrorExistenSpoolsPaquete", "", "2");
+
+        } else {
+            displayNotify("EmbarqueEmpaquetadoMsjErrorEliminarPaquete", "", "2");
+        }
+
         loadingStop();
     });
 }

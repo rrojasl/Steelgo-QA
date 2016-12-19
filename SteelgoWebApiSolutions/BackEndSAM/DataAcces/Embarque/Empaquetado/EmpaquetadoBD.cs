@@ -55,7 +55,8 @@ namespace BackEndSAM.DataAcces.Embarque.Empaquetado
                             ZonaID = item.ZonaID.GetValueOrDefault(),
                             Elementos = item.Elementos.GetValueOrDefault(),
                             CuadranteUbicacionAnt = item.CuadranteUbicacionAnt.GetValueOrDefault(),
-                            ZonaUbicacionAnt = item.ZonaUbicacionAnt.GetValueOrDefault()
+                            ZonaUbicacionAnt = item.ZonaUbicacionAnt.GetValueOrDefault(),
+                            CargaPlana = item.CargaPlana
                         });
                     }
 
@@ -305,6 +306,35 @@ namespace BackEndSAM.DataAcces.Embarque.Empaquetado
                     return result;
                 }
             }catch(Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object ActualizaEstatusPaquete(int UsuarioID, int PaqueteID)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    ctx.Sam3_Embarque_Empaquetado_AbrirPaquete(UsuarioID, PaqueteID);
+
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add("Ok");
+                    result.ReturnCode = 200;
+                    result.ReturnStatus = true;
+                    result.IsAuthenicated = true;
+
+                    return result;
+                }
+            }
+            catch (Exception ex)
             {
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
