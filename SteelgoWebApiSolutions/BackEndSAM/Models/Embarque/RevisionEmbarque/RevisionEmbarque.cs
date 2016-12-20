@@ -16,14 +16,14 @@ namespace BackEndSAM.Models.Embarque.RevisionEmbarque
             EmbarqueID = 0;
             Nombre = "";
             ProyectoID = 0;
-            Enviado = false;
+            Estatus = 0;
             Destino = "";
         }
 
         public int EmbarqueID { get; set; }
         public string Nombre { get; set; }
         public int ProyectoID { get; set; }
-        public bool Enviado { get; set; }
+        public int Estatus { get; set; }
         public string Destino { get; set; }
     }
 
@@ -34,7 +34,7 @@ namespace BackEndSAM.Models.Embarque.RevisionEmbarque
         public int ProyectoID { get; set; }
         public int EmbarqueID { get; set; }
         public string Embarque { get; set; }
-        public bool Enviado { get; set; }
+        public int Estatus { get; set; }
         public string Destino { get; set; }
         public int RevisionEmbarqueID { get; set; }
         public bool Llego { get; set; }

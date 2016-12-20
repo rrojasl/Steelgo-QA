@@ -45,7 +45,7 @@ namespace BackEndSAM.DataAcces.Embarque.RevisionEmbarque
                             EmbarqueID = item.EmbarqueID,
                             Nombre = item.Nombre,
                             Destino = item.Destino,
-                            Enviado = item.Enviado,
+                            Estatus = item.EmbarqueEstatusID,
                             ProyectoID = item.ProyectoID
                         });
                     }
@@ -87,7 +87,7 @@ namespace BackEndSAM.DataAcces.Embarque.RevisionEmbarque
                             LlegoComentario = item.LlegoComentario.GetValueOrDefault(),
                             Comentario = item.Comentario,
                             Destino = item.Destino,
-                            Enviado = item.Enviado,
+                            Estatus = item.EmbarqueEstatusID,
                             ProyectoID = item.ProyectoID
                         });
                     }
