@@ -31,15 +31,14 @@ namespace BackEndSAM.Models.Embarque.PreparacionEmbarque
         {
             EmbarqueID = 0;
             Nombre = "";
-            Enviado = false;
+            Estatus = 0;
             TractoID = 0;
             ChoferID = 0;
-
         }
 
         public int EmbarqueID { get; set; }
         public string Nombre { get; set; }
-        public bool Enviado { get; set; }
+        public int Estatus { get; set; }
         public int TractoID { get; set; }
         public int ChoferID { get; set; }
         public string FechaCreacion { get; set; }

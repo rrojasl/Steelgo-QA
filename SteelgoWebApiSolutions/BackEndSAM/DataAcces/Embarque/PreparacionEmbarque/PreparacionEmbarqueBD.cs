@@ -137,8 +137,8 @@ namespace BackEndSAM.DataAcces.Embarque.PreparacionEmbarque
                             Nombre = item.Nombre,
                             ChoferID = item.ChoferID,
                             TractoID = item.TractoID,
-                            Enviado = item.Enviado,
-                             FechaCreacion = item.FechaCreacion
+                            Estatus = item.Estatus,
+                            FechaCreacion = item.FechaCreacion
                         });
                     }
 
