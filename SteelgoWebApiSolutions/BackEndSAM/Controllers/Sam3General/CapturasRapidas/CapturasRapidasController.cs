@@ -40,6 +40,7 @@ namespace BackEndSAM.Controllers.Sam3General.CapturasRapidas
                 List<IDS> listaAtatus = new List<IDS>();
                 if (lista.Count > 0)
                 {
+                    listaAtatus.Add(new IDS());
                     foreach (var item in lista)
                     {
                         listaAtatus.Add(new IDS { Status = item.status, IDValido = item.ID, Proyecto = item.NombreProyecto, Valor = item.OrdenTrabajoSpoolID, ProyectoID = item.ProyectoID });

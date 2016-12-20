@@ -30,6 +30,18 @@ namespace BackEndSAM.Models.Armado
         public string Proyecto { get; set; }
         public int ProyectoID { get; set; }
         public int HabilitadoHoldFecha { get; set; }
+
+        public IDS()
+        {
+            Status = "";
+            IDValido = "";
+            Valor = 0;
+            Proyecto = "";
+            ProyectoID = 0;
+            HabilitadoHoldFecha = 0;
+        }
+
+
     }
 
     public class CamposPredeterminados
@@ -41,7 +53,16 @@ namespace BackEndSAM.Models.Armado
         public string TipoCaptura { get; set; }
     }
 
+    public class JuntaSpool {
+        public int JuntaSpoolID { get; set; }
+        public string Etiqueta { get; set; }
 
+        public JuntaSpool()
+        {
+            JuntaSpoolID = 0;
+            Etiqueta = "";
+        }
+    }
 
     public class DetalleDatosJson
     {

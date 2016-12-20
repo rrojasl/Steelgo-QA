@@ -24,6 +24,15 @@ namespace BackEndSAM.Models.Sam3General.CapurasRapidas
         public string Proyecto { get; set; }
 
         public int ProyectoID { get; set; }
+
+        public IDS()
+        {
+            Status = "";
+            IDValido = "";
+            Valor = 0;
+            Proyecto = "";
+            ProyectoID = 0;
+        }
     }
     public class IdOrdenTrabajo
     {

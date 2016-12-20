@@ -30,7 +30,8 @@ function suscribirEventoWindowsConfirmaCaptura()
         width: "auto",
         height: "auto",
         modal: true,
-        animation: false
+        animation: false,
+        actions: []
     }).data("kendoWindow");
 
     ventanaConfirm.content(_dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] +
