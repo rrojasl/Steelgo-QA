@@ -82,8 +82,8 @@ namespace BackEndSAM.DataAcces.Embarque.ListadoEmbarque
                     {
                         listaDetalle.Add(new ElementosPorStatus
                         {
-                            EmbarquesEnviados = item.StatusEnviado.GetValueOrDefault(),
-                            EmbarquesNoEnviados = item.StatusEnviado.GetValueOrDefault()
+                            Pendientes = item.Pendientes.GetValueOrDefault(),
+                            Transito = item.Transito.GetValueOrDefault()
                         });
                     }
                     return listaDetalle;

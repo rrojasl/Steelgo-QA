@@ -19,7 +19,7 @@ namespace BackEndSAM.Models.Embarque.ListadoEmbarque
 
     public class ElementosPorStatus
     {
-        public bool EmbarquesEnviados { get; set; }
-        public bool EmbarquesNoEnviados { get; set; }
+        public int Pendientes { get; set; }
+        public int Transito { get; set; }
     }
 }
