@@ -129,18 +129,18 @@ function CargarGrid() {
             if ($(this)[0].checked) {
                 dataItem.Etiquetado = true;
 
-                if(dataItem.Accion == 1 || (dataItem.Accion == 2 && dataItem.CuadranteID != dataItem.CuadranteAnteriorSam3ID))
+                if (dataItem.Accion == 1)//|| (dataItem.Accion == 2 && dataItem.CuadranteID != dataItem.CuadranteAnteriorSam3ID)
                     dataItem.ModificadoPorUsuario = true;
-                else
-                    dataItem.ModificadoPorUsuario = false;
+                //else
+                //    dataItem.ModificadoPorUsuario = false;
             }
             else {
                 dataItem.Etiquetado = false;
 
-                if (dataItem.Accion == 2 || (dataItem.Accion == 1 && dataItem.CuadranteID != dataItem.CuadranteAnteriorSam3ID))
+                if (dataItem.Accion == 2)//|| (dataItem.Accion == 1 && dataItem.CuadranteID != dataItem.CuadranteAnteriorSam3ID)
                     dataItem.ModificadoPorUsuario = true;
-                else
-                    dataItem.ModificadoPorUsuario = false;
+                //else
+                //    dataItem.ModificadoPorUsuario = false;
             }
 
             $("#grid").data("kendoGrid").dataSource.sync();
@@ -182,29 +182,31 @@ function PlanchaEtiquedo(Etiquetado) {
         if ($('input:radio[name=LLena]:checked').val() == "Todos") {
             if (Etiquetado == "Si") {
                 data[i].Etiquetado = true;
+                data[i].ModificadoPorUsuario = true;
 
-                if (data[i].Accion == 1 || (data[i].Accion == 2 && data[i].CuadranteID != data[i].CuadranteAnteriorSam3ID))
-                    data[i].ModificadoPorUsuario = true;
-                else
-                    data[i].ModificadoPorUsuario = false;
+                //if (data[i].Accion == 1|| (data[i].Accion == 2 && data[i].CuadranteID != data[i].CuadranteAnteriorSam3ID))
+                //    data[i].ModificadoPorUsuario = true;
+                //else
+                //    data[i].ModificadoPorUsuario = false;
             } else if (Etiquetado == "No") {
-
                 data[i].Etiquetado = false;
+                data[i].ModificadoPorUsuario = true;
 
-                if (data[i].Accion == 2 || (data[i].Accion == 1 && data[i].CuadranteID != data[i].CuadranteAnteriorSam3ID))
-                    data[i].ModificadoPorUsuario = true;
-                else 
-                    data[i].ModificadoPorUsuario = false;
+                //if (data[i].Accion == 2 || (data[i].Accion == 1 && data[i].CuadranteID != data[i].CuadranteAnteriorSam3ID))
+                //    data[i].ModificadoPorUsuario = true;
+                //else 
+                //    data[i].ModificadoPorUsuario = false;
             }
         } else if ($('input:radio[name=LLena]:checked').val() == "Vacios") {
             if (!data[i].Etiquetado) {
                 if (Etiquetado == "Si") {
                     data[i].Etiquetado = true;
+                    data[i].ModificadoPorUsuario = true;
 
-                    if (data[i].Accion == 1 || (data[i].Accion == 2 && data[i].CuadranteID != data[i].CuadranteAnteriorSam3ID))
-                        data[i].ModificadoPorUsuario = true;
-                     else 
-                        data[i].ModificadoPorUsuario = false;
+                    //if (data[i].Accion == 1 || (data[i].Accion == 2 && data[i].CuadranteID != data[i].CuadranteAnteriorSam3ID))
+                    //    data[i].ModificadoPorUsuario = true;
+                     //else 
+                     //   data[i].ModificadoPorUsuario = false;
                 }
             }
         }
@@ -225,30 +227,30 @@ function PlanchaCuadrante(Cuadrante) {
             data[i].CuadranteID = Cuadrante.CuadranteID;
             data[i].CuadranteSam2ID = Cuadrante.CuadranteSam2ID;
             data[i].Cuadrante = Cuadrante.Nombre;
+            data[i].ModificadoPorUsuario = true;
 
-            if (data[i].CuadranteAnteriorSam3ID === Cuadrante.CuadranteID) {
-                if ((data[i].Accion == 1 && !data[i].Etiquetado) || (data[i].Accion == 2 && data[i].Etiquetado))
-                    data[i].ModificadoPorUsuario = false;
-                else
-                    data[i].ModificadoPorUsuario = true;
-            } else {
-                data[i].ModificadoPorUsuario = true;
-            }
+            //if (data[i].CuadranteAnteriorSam3ID != Cuadrante.CuadranteID) {
+            //    if ((data[i].Accion == 1 && !data[i].Etiquetado) || (data[i].Accion == 2 && data[i].Etiquetado))
+            //        data[i].ModificadoPorUsuario = false;
+            //    else
+            //        data[i].ModificadoPorUsuario = true;
+            //}
+            //else            
         }
         else if ($('input:radio[name=LLena]:checked').val() == "Vacios") {
             if (data[i].Cuadrante == "" || data[i].Cuadrante === null || data[i].Cuadrante === undefined) {
                 data[i].CuadranteID = Cuadrante.CuadranteID;
                 data[i].CuadranteSam2ID = Cuadrante.CuadranteSam2ID;
                 data[i].Cuadrante = Cuadrante.Nombre;
+                data[i].ModificadoPorUsuario = true;
 
-                if (data[i].CuadranteAnteriorSam3ID === Cuadrante.CuadranteID) {
-                    if ((data[i].Accion == 1 && !data[i].Etiquetado) || (data[i].Accion == 2 && data[i].Etiquetado))
-                        data[i].ModificadoPorUsuario = false;
-                    else
-                        data[i].ModificadoPorUsuario = true;
-                } else {
-                    data[i].ModificadoPorUsuario = true;
-                }
+                //if (data[i].CuadranteAnteriorSam3ID === Cuadrante.CuadranteID) {
+                //    if ((data[i].Accion == 1 && !data[i].Etiquetado) || (data[i].Accion == 2 && data[i].Etiquetado))
+                //        data[i].ModificadoPorUsuario = false;
+                //    else
+                //        data[i].ModificadoPorUsuario = true;
+                //}
+                //else
             }
         }
     }
@@ -268,7 +270,6 @@ function FiltroMostrar(mostrar) {
         ds.sync();
     }
     else {
-
         var curr_filters = ds.filter().filters;
         ds.filter(curr_filters[0])
         ds.sync();

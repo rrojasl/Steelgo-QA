@@ -17,25 +17,25 @@
                         options.model.CuadranteID = dataItem.CuadranteID;
                         options.model.CuadranteSam2ID = dataItem.CuadranteSam2ID;
                         options.model.Cuadrante = dataItem.Nombre;
+                        options.model.ModificadoPorUsuario = true;
 
-                        if (options.model.CuadranteAnteriorSam3ID === dataItem.CuadranteID) {
-                            if ((options.model.Accion == 1 && !options.model.Etiquetado) || (options.model.Accion == 2 && options.model.Etiquetado))
-                                options.model.ModificadoPorUsuario = false;
-                            else
-                                options.model.ModificadoPorUsuario = true;
-                        } else {
-                            options.model.ModificadoPorUsuario = true;
-                        }
+                        //if (options.model.CuadranteAnteriorSam3ID === dataItem.CuadranteID) {
+                        //    if ((options.model.Accion == 1 && !options.model.Etiquetado) || (options.model.Accion == 2 && options.model.Etiquetado))
+                        //        options.model.ModificadoPorUsuario = false;
+                        //    else
+                        //        options.model.ModificadoPorUsuario = true;
+                        //}
+                        //else                        
                         $("#grid").data("kendoGrid").dataSource.sync();
                     } else {
                         options.model.CuadranteID = options.model.CuadranteAnteriorSam3ID;
                         options.model.CuadranteSam2ID = options.model.CuadranteAnteriorSam2ID;
                         options.model.Cuadrante = ObtieneCuadranteAnterior(options.model.ListaCuadrantes, options.model.CuadranteAnteriorSam3ID);
+                        options.model.ModificadoPorUsuario = true;
 
-                        if ((options.model.Accion == 1 && !options.model.Etiquetado) || (options.model.Accion == 2 && options.model.Etiquetado))
-                            options.model.ModificadoPorUsuario = false;
-                        else
-                            options.model.ModificadoPorUsuario = true;
+                        //if ((options.model.Accion == 1 && !options.model.Etiquetado) || (options.model.Accion == 2 && options.model.Etiquetado))
+                        //    options.model.ModificadoPorUsuario = false;
+                        //else                          
                     }
                 }
             });

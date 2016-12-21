@@ -30,7 +30,7 @@ namespace BackEndSAM.Controllers.Embarque.Etiquetado
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
                 if (TipoConsulta == 1) {
-                    return EtiquetadoBD.Instance.ObtieneDetalleEtiquetadoPorZona(ZonaID, CuadranteID, Todos);
+                    return EtiquetadoBD.Instance.ObtieneDetalleEtiquetadoPorZona(ZonaID, CuadranteID, Todos, usuario.UsuarioID);
                 }else
                 {
                     return EtiquetadoBD.Instance.ObtieneDetalleEtiquetadoPorSpool(SpoolContiene, Todos, usuario.UsuarioID);

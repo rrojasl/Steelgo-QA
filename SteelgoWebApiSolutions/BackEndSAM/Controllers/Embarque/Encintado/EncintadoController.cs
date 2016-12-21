@@ -31,7 +31,7 @@ namespace BackEndSAM.Controllers.Embarque.Encintado
 
                 if(TipoConsulta == 1)
                 {
-                    return EncintadoBD.Instance.ObtieneDetalleEncitadoPorZona(ZonaID, CuadranteID, Todos, lenguaje);
+                    return EncintadoBD.Instance.ObtieneDetalleEncitadoPorZona(ZonaID, CuadranteID, Todos, lenguaje, usuario.UsuarioID);
                 }
                 else
                 {

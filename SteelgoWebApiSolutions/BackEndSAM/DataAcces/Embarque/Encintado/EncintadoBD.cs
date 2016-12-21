@@ -67,7 +67,7 @@ namespace BackEndSAM.DataAcces.Embarque.Encintado
             }
         }
 
-        public object ObtieneDetalleEncitadoPorZona(int ZonaID, int CuadranteID, int todos, string lenguaje)
+        public object ObtieneDetalleEncitadoPorZona(int ZonaID, int CuadranteID, int todos, string Lenguaje, int UsuarioID)
         {
             try
             {
@@ -77,9 +77,9 @@ namespace BackEndSAM.DataAcces.Embarque.Encintado
                     List<UbicacionCuadrante> listaCuadrante = (List<UbicacionCuadrante>)CuadranteBD.Instance.ObtenerCuadrante(ZonaID);
 
                     //ObtieneCatalogo de Colores
-                    List<ColorEncintado> listaColores = (List<ColorEncintado>)EncintadoBD.Instance.ObtenerColoresEncintado(lenguaje);
+                    List<ColorEncintado> listaColores = (List<ColorEncintado>)EncintadoBD.Instance.ObtenerColoresEncintado(Lenguaje);
 
-                    List<Sam3_Embarque_Get_Encintado_Zona_Result> result = ctx.Sam3_Embarque_Get_Encintado_Zona(ZonaID, CuadranteID, todos).ToList();
+                    List<Sam3_Embarque_Get_Encintado_Zona_Result> result = ctx.Sam3_Embarque_Get_Encintado_Zona(ZonaID, CuadranteID, todos, UsuarioID).ToList();
                     List<DetalleEncintado> listaDetalle = new List<DetalleEncintado>();
 
                     foreach (Sam3_Embarque_Get_Encintado_Zona_Result item in result)

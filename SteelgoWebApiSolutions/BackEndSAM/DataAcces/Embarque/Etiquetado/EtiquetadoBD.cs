@@ -32,7 +32,7 @@ namespace BackEndSAM.DataAcces.Embarque.Etiquetado
             }
         }
 
-        public object ObtieneDetalleEtiquetadoPorZona(int ZonaID, int CuadranteID, int Todos)
+        public object ObtieneDetalleEtiquetadoPorZona(int ZonaID, int CuadranteID, int Todos, int UsuarioID)
         {
             try
             {
@@ -41,7 +41,7 @@ namespace BackEndSAM.DataAcces.Embarque.Etiquetado
                     //Obtiene el catalogo de Cuadrantes
                     List<UbicacionCuadrante> listCuadrantes = (List<UbicacionCuadrante>)CuadranteBD.Instance.ObtenerCuadrante(ZonaID);
 
-                    List<Sam3_Embarque_get_Etiquetado_Zona_Result> result = ctx.Sam3_Embarque_get_Etiquetado_Zona(ZonaID, CuadranteID, Todos).ToList();
+                    List<Sam3_Embarque_get_Etiquetado_Zona_Result> result = ctx.Sam3_Embarque_get_Etiquetado_Zona(ZonaID, CuadranteID, Todos, UsuarioID).ToList();
                     List<DetalleEtiquetado> listaDetalle = new List<DetalleEtiquetado>();
 
 

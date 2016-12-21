@@ -179,23 +179,26 @@ function CargarGrid() {
             var dataItem = grid.dataItem($(e.target).closest("tr"));
 
             if ($(this)[0].checked) {
-                dataItem.Encintado = true;                
-                if (dataItem.Accion == 1 || (dataItem.Accion == 2 && (dataItem.CuadranteID != dataItem.CuadranteAnteriorSam3ID 
-                    || dataItem.ColorID != dataItem.ColorAnteriorID)))
-                    dataItem.ModificadoPorUsuario = true;
-                else
-                    dataItem.ModificadoPorUsuario = false;
+                dataItem.Encintado = true;
+                dataItem.ModificadoPorUsuario = true;
+
+                //if (dataItem.Accion == 1|| (dataItem.Accion == 2 && (dataItem.CuadranteID != dataItem.CuadranteAnteriorSam3ID 
+                //    || dataItem.ColorID != dataItem.ColorAnteriorID)))
+                //    dataItem.ModificadoPorUsuario = true;
+                //else
+                    //dataItem.ModificadoPorUsuario = false;
             }
             else {
                 dataItem.Encintado = false;
                 dataItem.NombreColor = "";
                 dataItem.ColorID = 0;
-
-                if (dataItem.Accion == 2 || (dataItem.Accion == 1 && (dataItem.CuadranteID != dataItem.CuadranteAnteriorSam3ID
-                    || dataItem.ColorID != dataItem.ColorAnteriorID)))
-                    dataItem.ModificadoPorUsuario = true;
-                else
-                    dataItem.ModificadoPorUsuario = false;
+                dataItem.ModificadoPorUsuario = true;
+                
+                //if (dataItem.Accion == 2|| (dataItem.Accion == 1 && (dataItem.CuadranteID != dataItem.CuadranteAnteriorSam3ID
+                    //|| dataItem.ColorID != dataItem.ColorAnteriorID)))
+                    //dataItem.ModificadoPorUsuario = true;
+                //else
+                //    dataItem.ModificadoPorUsuario = false;
             }
         }
         else {
@@ -204,7 +207,6 @@ function CargarGrid() {
             else
                 $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Encintado = true;
         }
-
         $("#grid").data("kendoGrid").dataSource.sync();
     });
 
@@ -226,8 +228,7 @@ function existenCambios() {
         for (var i = 0; i < ds.length; i++) {
             if (ds[i].ModificadoPorUsuario)
                 return true;
-        }
-     
+        }     
     }
     return false;
 }
@@ -245,32 +246,30 @@ function PlancharCuadrante(Cuadrante) {
             data[i].CuadranteID = Cuadrante.CuadranteID;
             data[i].CuadranteSam2ID = Cuadrante.CuadranteSam2ID;
             data[i].Cuadrante = Cuadrante.Nombre;
+            data[i].ModificadoPorUsuario = true;
 
-            if (data[i].CuadranteAnteriorSam3ID === Cuadrante.CuadranteID) {
-                if ((data[i].Accion == 1 && !data[i].Encintado && data[i].ColorID == data[i].ColorAnteriorID)
-                    || (data[i].Accion == 2 && data[i].Encintado && data[i].ColorID == data[i].ColorAnteriorID))
-                    data[i].ModificadoPorUsuario = false;
-                else
-                    data[i].ModificadoPorUsuario = true;
-            } else {
-                data[i].ModificadoPorUsuario = true;
-            }
+            //if (data[i].CuadranteAnteriorSam3ID === Cuadrante.CuadranteID) {
+            //    if ((data[i].Accion == 1 && !data[i].Encintado && data[i].ColorID == data[i].ColorAnteriorID)
+            //        || (data[i].Accion == 2 && data[i].Encintado && data[i].ColorID == data[i].ColorAnteriorID))
+            //        data[i].ModificadoPorUsuario = false;
+            //    else
+            //        data[i].ModificadoPorUsuario = true;
+            //} else
         }
         else if ($('input:radio[name=LLena]:checked').val() === "Vacios") {
             if (data[i].Cuadrante === "" || data[i].Cuadrante === null || data[i].Cuadrante === undefined) {
                 data[i].CuadranteID = Cuadrante.CuadranteID;
                 data[i].CuadranteSam2ID = Cuadrante.CuadranteSam2ID;
                 data[i].Cuadrante = Cuadrante.Nombre;
+                data[i].ModificadoPorUsuario = true;
 
-                if (data[i].CuadranteAnteriorSam3ID === Cuadrante.CuadranteID) {
-                    if ((data[i].Accion == 1 && !data[i].Encintado && data[i].ColorID == data[i].ColorAnteriorID)
-                        || (data[i].Accion == 2 && data[i].Encintado && data[i].ColorID == data[i].ColorAnteriorID))
-                        data[i].ModificadoPorUsuario = false;
-                    else
-                        data[i].ModificadoPorUsuario = true;
-                } else {
-                    data[i].ModificadoPorUsuario = true;
-                }
+                //if (data[i].CuadranteAnteriorSam3ID === Cuadrante.CuadranteID) {
+                //    if ((data[i].Accion == 1 && !data[i].Encintado && data[i].ColorID == data[i].ColorAnteriorID)
+                //        || (data[i].Accion == 2 && data[i].Encintado && data[i].ColorID == data[i].ColorAnteriorID))
+                //        data[i].ModificadoPorUsuario = false;
+                //    else
+                //        data[i].ModificadoPorUsuario = true;
+                //} else    
             }
         }
     }
@@ -290,36 +289,37 @@ function PlanchaEncintado(Encintado) {
         if ($('input:radio[name=LLena]:checked').val() === "Todos") {
             if (Encintado == "Si") {
                 data[i].Encintado = true;
+                data[i].ModificadoPorUsuario = true;
 
-                if (data[i].Accion == 1 || (data[i].Accion == 2 && (data[i].CuadranteID != data[i].CuadranteAnteriorSam3ID
-                    || data[i].ColorID != data[i].ColorAnteriorID)))
-                    data[i].ModificadoPorUsuario = true;
-                else
-                    data[i].ModificadoPorUsuario = false;
+                //if (data[i].Accion == 1 || (data[i].Accion == 2 && (data[i].CuadranteID != data[i].CuadranteAnteriorSam3ID
+                //    || data[i].ColorID != data[i].ColorAnteriorID)))
+                //    data[i].ModificadoPorUsuario = true;
+                //else
+                //    data[i].ModificadoPorUsuario = false;
 
             } else if (Encintado == "No") {
                 data[i].Encintado = false;
                 data[i].NombreColor = "";
                 data[i].ColorID = 0;
+                data[i].ModificadoPorUsuario = true;
 
-                if (data[i].Accion == 2 || (data[i].Accion == 1 && (data[i].CuadranteID != data[i].CuadranteAnteriorSam3ID
-                    || data[i].ColorID != data[i].ColorAnteriorID)))
-                    data[i].ModificadoPorUsuario = true;
-                else
-                    data[i].ModificadoPorUsuario = false;
-
+                //if (data[i].Accion == 2 || (data[i].Accion == 1 && (data[i].CuadranteID != data[i].CuadranteAnteriorSam3ID
+                //    || data[i].ColorID != data[i].ColorAnteriorID)))
+                //    data[i].ModificadoPorUsuario = true;
+                //else
+                //    data[i].ModificadoPorUsuario = false;
             }
-
         } else if ($('input:radio[name=LLena]:checked').val() === "Vacios") {
             if (!data[i].Encintado) {
                 if (Encintado == "Si") {
                     data[i].Encintado = true;
+                    data[i].ModificadoPorUsuario = true;
 
-                    if (data[i].Accion == 1 || (data[i].Accion == 2 && (data[i].CuadranteID != data[i].CuadranteAnteriorSam3ID
-                                || data[i].ColorID != data[i].ColorAnteriorID)))
-                        data[i].ModificadoPorUsuario = true;
-                    else
-                        data[i].ModificadoPorUsuario = false;
+                    //if (data[i].Accion == 1 || (data[i].Accion == 2 && (data[i].CuadranteID != data[i].CuadranteAnteriorSam3ID
+                    //    || data[i].ColorID != data[i].ColorAnteriorID)))
+                    //    data[i].ModificadoPorUsuario = true;
+                    //else
+                    //    data[i].ModificadoPorUsuario = false;
                 }
             }
         }
@@ -339,34 +339,34 @@ function PlanchaColorCinta(ColorCinta) {
             if (data[i].Encintado) {
                 data[i].NombreColor = ColorCinta.Nombre;
                 data[i].ColorID = ColorCinta.ColorID;
-            }
-
-            if (data[i].ColorAnteriorID === ColorCinta.ColorID) {
-                if ((data[i].Accion == 1 && !data[i].Encintado && data[i].CuadranteID == data[i].CuadranteAnteriorSam3ID)
-                    || (data[i].Accion == 2 && data[i].Encintado && data[i].CuadranteID == data[i].CuadranteAnteriorSam3ID))
-                    data[i].ModificadoPorUsuario = false;
-                else
-                    data[i].ModificadoPorUsuario = true;
-            } else {
                 data[i].ModificadoPorUsuario = true;
             }
+            //if (data[i].ColorAnteriorID === ColorCinta.ColorID) {
+            //    if ((data[i].Accion == 1 && !data[i].Encintado && data[i].CuadranteID == data[i].CuadranteAnteriorSam3ID)
+            //        || (data[i].Accion == 2 && data[i].Encintado && data[i].CuadranteID == data[i].CuadranteAnteriorSam3ID))
+            //        data[i].ModificadoPorUsuario = false;
+            //    else
+            //        data[i].ModificadoPorUsuario = true;
+            //} else {
+            //    data[i].ModificadoPorUsuario = true;
+            //}
 
         } else if ($('input:radio[name=LLena]:checked').val() === "Vacios") {
             if (data[i].NombreColor == "" || data[i].NombreColor == null || data[i].NombreColor == undefined) {
                 if (data[i].Encintado) {
                     data[i].NombreColor = ColorCinta.Nombre;
                     data[i].ColorID = ColorCinta.ColorID;
-                }
-
-                if (data[i].ColorAnteriorID === ColorCinta.ColorID) {
-                    if ((data[i].Accion == 1 && !data[i].Encintado && data[i].CuadranteID == data[i].CuadranteAnteriorSam3ID)
-                        || (data[i].Accion == 2 && data[i].Encintado && data[i].CuadranteID == data[i].CuadranteAnteriorSam3ID))
-                        data[i].ModificadoPorUsuario = false;
-                    else
-                        data[i].ModificadoPorUsuario = true;
-                } else {
                     data[i].ModificadoPorUsuario = true;
                 }
+                //if (data[i].ColorAnteriorID === ColorCinta.ColorID) {
+                //    if ((data[i].Accion == 1 && !data[i].Encintado && data[i].CuadranteID == data[i].CuadranteAnteriorSam3ID)
+                //        || (data[i].Accion == 2 && data[i].Encintado && data[i].CuadranteID == data[i].CuadranteAnteriorSam3ID))
+                //        data[i].ModificadoPorUsuario = false;
+                //    else
+                //        data[i].ModificadoPorUsuario = true;
+                //} else {
+                //    data[i].ModificadoPorUsuario = true;
+                //}
             }
         }
     }
@@ -391,8 +391,6 @@ function FiltroMostrar(mostrar) {
         var filters = ds.filter();
         filters.logic = "or"
 
-        filters.filters.push({ field: "Accion", operator: "eq", value: 2 });
-        //filters.filters.push({ field: "Accion", operator: "eq", value: 4 });
-        ds.sync();
+        filters.filters.push({ field: "Accion", operator: "eq", value: 2 });        ds.sync();
     }
 }
