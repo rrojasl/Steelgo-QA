@@ -7674,6 +7674,10 @@ _dictionary = {
         "es-MX": "Plana",
         "en-US": "Flat"
     },
+    "lblListadoEmbarque": {
+        "es-MX": "Listado Embarque",
+        "en-US": "Shipping list"
+    },
     //Finaliza Etiquetas
     //Etiquetas header alertas
     "SuccessTitle": {
@@ -7989,6 +7993,10 @@ _dictionary = {
     "MensajeSeleccionaSpoolcontiene": {
         "es-MX": "Favor de ingresar SpoolID Contiene",
         "en-US": "Please enter a Contain SpoolID"
+    },
+    "MensajeConfirmaEliminarRegistroGrid": {
+        "es-MX": "¿Esta seguro de eliminar el registro?",
+        "en-US": "Are you sure to delete the record?"
     },
     // Finalizan Mensajes generales
 
@@ -11018,7 +11026,17 @@ _dictionary = {
         "en-US": "The package can not be closed empty"
     },
     //Finaliza Pantalla empaquetado
-    //Incia pantalla revision
+    //Inicia pantalla listado embarque
+    "EmbarqueListadoPentiente": {
+        "es-MX": "Pendientes",
+        "en-US": "Pending"
+    },
+    "EmbarqueListadoTransito": {
+        "es-MX": "Tránsito",
+        "en-US": "Transit"
+    },
+    //Finaliza pantalla listado embarque
+    //Inicia pantalla revision
     "EmbarqueRevisionBreadcrumb": {
         "es-MX": "Revisión",
         "en-US": "Review"
