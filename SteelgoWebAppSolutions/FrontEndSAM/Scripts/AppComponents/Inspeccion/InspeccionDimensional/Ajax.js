@@ -278,7 +278,7 @@ function AjaxGuardar(jSonCaptura, tipoGuardado) {
         }
 
         
-            if (listaFinalJuntas.length > 0) {
+        if (listaFinalJuntas !=null && listaFinalJuntas.length > 0) {
                 inspeccionDimensional[index].ListaJuntas = [];
                 Juntas = [];
                 for (var r = 0; r < listaFinalJuntas.length; r++) {
@@ -291,7 +291,7 @@ function AjaxGuardar(jSonCaptura, tipoGuardado) {
                 inspeccionDimensional[index].ListaJuntas = Juntas;
             }
             else {
-                if (jSonCaptura[index].ListaJuntasSeleccionadasInicial.length > 0)
+            if (jSonCaptura[index].ListaJuntasSeleccionadasInicial !=null && jSonCaptura[index].ListaJuntasSeleccionadasInicial.length > 0)
                 {
                     Juntas = [];
                     for (var r = 0; r < jSonCaptura[index].ListaJuntasSeleccionadasInicial.length; r++) {

@@ -34,6 +34,7 @@ namespace BackEndSAM.Controllers
                 List<IDS> listaAtatus = new List<IDS>();
                 if (lista.Count > 0)
                 {
+                    listaAtatus.Add(new IDS());
                     foreach (var item in lista)
                     {
                         listaAtatus.Add(new IDS { Status = item.status, IDValido = item.ID, Proyecto = item.NombreProyecto, Valor = item.OrdenTrabajoSpoolID, ProyectoID = item.ProyectoID, HabilitadoHoldFecha = item.HabilitadoHoldFecha });
@@ -115,15 +116,19 @@ namespace BackEndSAM.Controllers
                 DetalleDatosJson capturaDatosJson = serializer.Deserialize<DetalleDatosJson>(JsonCaptura);
                 capturaDatosJson.SinCaptura = capturaDatosJson.SinCaptura == "Todos" ? "1" : "0";
                 List<DetalleDatosJson> listaDetalleDatos = new List<DetalleDatosJson>();
-                List<Sam3_Steelgo_Get_JuntaSpool_Result> listaJuntasXSpool = null;
+                List<JuntaSpool> listaJuntasXSpool = null;
+                int inicio = 0;
                 if (isReporte)
-                    listaJuntasXSpool = (List<Sam3_Steelgo_Get_JuntaSpool_Result>)ArmadoBD.Instance.ObtenerJuntasXSpoolID(usuario, capturaDatosJson.OrdenTrabajo, capturaDatosJson.IdVal, int.Parse(capturaDatosJson.SinCaptura));
+                { 
+                    listaJuntasXSpool = (List<JuntaSpool>)ArmadoBD.Instance.ObtenerJuntasXSpoolID(usuario, capturaDatosJson.OrdenTrabajo, capturaDatosJson.IdVal, int.Parse(capturaDatosJson.SinCaptura));
+                    inicio = 1;
+                }
                 else
                 {
-                    listaJuntasXSpool = new List<Sam3_Steelgo_Get_JuntaSpool_Result>();
-                    listaJuntasXSpool.Add(new Sam3_Steelgo_Get_JuntaSpool_Result());
+                    listaJuntasXSpool = new List<JuntaSpool>();
+                    listaJuntasXSpool.Add(new JuntaSpool());
                 }
-                for (int i = 0; i < listaJuntasXSpool.Count; i++)
+                for (int i = inicio; i < listaJuntasXSpool.Count; i++)
                 {
                     if (isReporte)
                     {
