@@ -160,7 +160,7 @@ function SuscribirEventoSpoolID() {
             $("#InputID").data("kendoComboBox").select();
         }
         else if (e.keyCode == 13) {
-            if ($("#InputID").data("kendoComboBox").select()!=0 && $("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()) != undefined ) {
+            if ($("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()) != undefined && $("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()).IDValido != "") {
                 if ($('input:radio[name=Muestra]:checked').val() != undefined) {
                     if ($("#InputID").val() != "" && $("#InputOrdenTrabajo").val()) {
                         //AjaxobtenerDetalleDimensional($("#InputID").val());
@@ -280,7 +280,7 @@ function suscribirEventoAgregar() {
         e.preventDefault();
         if ($("#InputOrdenTrabajo").val() != "") {
             if (!eventoAgreagarGridEscrito) {
-                if ($("#InputID").data("kendoComboBox").select() != 0 && $("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()) != undefined) {
+                if ($("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()) != undefined && $("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()).IDValido != "") {
                     if ($('input:radio[name=Muestra]:checked').val() != undefined) {
                         //AjaxobtenerDetalleDimensional($("#InputID").val());
                         AjaxObtenerJSonGrid();
@@ -297,7 +297,7 @@ function suscribirEventoAgregar() {
                 }
             }
             else {
-                if ($("#InputID").data("kendoComboBox").select() != 0 && $("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select(0)) != undefined) {
+                if ($("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select(0)) != undefined && $("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()).IDValido != "") {
                     if ($('input:radio[name=Muestra]:checked').val() != undefined) {
                         //AjaxobtenerDetalleDimensional($("#InputID").val());
                         AjaxObtenerJSonGrid();

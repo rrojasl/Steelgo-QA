@@ -282,16 +282,16 @@ function cancelarCaptura(e) {
 
             //$("#yesButton").click(function () {
 
-                var dataSource = $("#grid").data("kendoGrid").dataSource;
+            var dataSource = $("#grid").data("kendoGrid").dataSource;
 
-                if (dataItem.Accion == 1) {
-                    dataSource.remove(dataItem);
-                }
-                else {
-                    dataItem.Accion = 3;
-                }
+            if (dataItem.Accion == 1) {
+                dataSource.remove(dataItem);
+            }
+            else {
+                dataItem.Accion = 3;
+            }
 
-                $("#grid").data("kendoGrid").dataSource.sync();
+            $("#grid").data("kendoGrid").dataSource.sync();
 
             //    ventanaConfirm.close();
             //});
@@ -323,15 +323,15 @@ function cancelarCaptura(e) {
             //ventanaConfirm.open().center();
 
             //$("#yesButton").click(function () {
-                var dataSource = $("#grid").data("kendoGrid").dataSource;
+            var dataSource = $("#grid").data("kendoGrid").dataSource;
 
-                if (dataItem.Accion == 1)
-                    dataSource.remove(dataItem);
-                else
-                    dataItem.Accion == 3;
+            if (dataItem.Accion == 1)
                 dataSource.remove(dataItem);
+            else
+                dataItem.Accion == 3;
+            dataSource.remove(dataItem);
 
-                $("#grid").data("kendoGrid").dataSource.sync();
+            $("#grid").data("kendoGrid").dataSource.sync();
 
             //    ventanaConfirm.close();
             //});
@@ -573,15 +573,22 @@ function ObtenerDato(fecha, tipoDatoObtener) {
 }
 
 function JuntasCorrectasGuardar(listaJuntas) {
-    if (listaJuntas == undefined) {
-        return true;
-    }
-    else {
-        //for (var i = 0; i < listaJuntas.length; i++) {
-        //    if (listaJuntas[i].Accion != 3)
-        //        return false;
-        //}
-        //return true;
+    if (listaJuntas != undefined) {
+        for (var i = 0; i < listaJuntas.length; i++) {
+            if (listaJuntas[i].Accion == 1 || listaJuntas[i].Accion == 2 || listaJuntas[i].Accion == 4)
+                return true;
+        }
         return false;
     }
+    else {
+        return false;
+    }
+}
+
+function JuntasEliminadasGuardar(listaJuntas) {
+    for (var i = 0; i < listaJuntas.length; i++) {
+        if (listaJuntas[i].Accion != 3)
+            return false;
+    }
+    return true;
 }
