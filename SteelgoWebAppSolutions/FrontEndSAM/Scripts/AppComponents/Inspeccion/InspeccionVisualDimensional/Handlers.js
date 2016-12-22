@@ -120,7 +120,7 @@ function SuscribirEventoSpoolID() {
         }
         else if (e.keyCode == 13) {
             if ($("#InputID").val() != "" && $("#InputOrdenTrabajo").val()) {
-                if ($("#InputID").data("kendoComboBox").select()!=0  && $("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()) != undefined) {
+                if ($("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()).IDValido!="" && $("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()) != undefined) {
                     e.preventDefault();
                     MostrarDetalleVisualDimensional();
                     if ($("#InputID").val() != "" && $("#InputOrdenTrabajo").val()) {
