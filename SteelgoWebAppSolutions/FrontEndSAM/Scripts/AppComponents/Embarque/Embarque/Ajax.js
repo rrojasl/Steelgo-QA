@@ -190,7 +190,7 @@ function AjaxEmbarqueCargaChofer(ProveedorID, nuevoChofer) {
 
 function AjaxObtenerEmbarque(ProveedorID, nombreEmbarque) {
     loadingStart();
-    $PreparacionEmbarque.PreparacionEmbarque.read({ token: Cookies.get("token"), ProveedorID: ProveedorID, Lenguaje: $("#language").val(), Enviado: 0 }).done(function (data) {
+    $PreparacionEmbarque.PreparacionEmbarque.read({ token: Cookies.get("token"), ProveedorID: ProveedorID, Lenguaje: $("#language").val(), Enviado: 1 }).done(function (data) {
         if (Error(data)) {
             $("#Embarque").data("kendoComboBox").dataSource.data([]);
             var EmbarqueID = 0;

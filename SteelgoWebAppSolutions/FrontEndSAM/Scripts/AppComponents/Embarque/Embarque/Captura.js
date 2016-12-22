@@ -75,7 +75,7 @@ function CargarGrid() {
                          if ($('#Guardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
                             var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
                             var dataSource = this.dataSource;
-                            windowTemplate = kendo.template($("#windowTemplate").html());
+                            //windowTemplate = kendo.template($("#windowTemplate").html());
 
                             ventanaConfirm = $("#ventanaConfirm").kendoWindow({
                                 iframe: true,
@@ -90,12 +90,14 @@ function CargarGrid() {
                                     close: false,
                                     open: false
                                 }
-                           }).data("kendoWindow");
+                            }).data("kendoWindow");
 
-                                 ventanaConfirm.content(_dictionary.CapturaMensajeArmadoPlancharTodos[$("#language").data("kendoDropDownList").value()] +
+                            $("#ventanaConfirm").parent().find(".k-window-action").css("visibility", "hidden");
+
+                            ventanaConfirm.content(_dictionary.MensajeConfirmaEliminarRegistroGrid[$("#language").data("kendoDropDownList").value()] +
                                               "</br><center><button class='confirm_yes btn btn-blue' id='yesButton'>Si</button><button class='confirm_yes btn btn-blue' id='noButton'> No</button></center>");
 
-                                 ventanaConfirm.open().center();
+                             ventanaConfirm.open().center();
 
                                  $("#yesButton").click(function (handler) {
                                      if (dataItem.Accion == 2) {
@@ -113,7 +115,7 @@ function CargarGrid() {
                        }
                      }
                  },
-                 title: "ELM",
+                 title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()],
                  width: "99px",
                  attributes: { style: "text-align:center;" }
              }

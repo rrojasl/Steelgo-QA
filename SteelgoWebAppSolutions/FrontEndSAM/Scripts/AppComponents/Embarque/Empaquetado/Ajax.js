@@ -56,7 +56,7 @@ function AjaxCargarPaquetes(proyectoID, paqueteID) {
     loadingStart();
     $Empaquetado.Empaquetado.read({ token: Cookies.get("token"), ProyectoID: proyectoID, lenguaje: $("#language").val() }).done(function (data) {
         $("#InputPaquete").data("kendoComboBox").dataSource.data([]);
-        if (data.length > 0) {
+       if (data.length > 0) {
             $("#InputPaquete").data("kendoComboBox").dataSource.data(data);
 
             if (data.length < 3 && paqueteID == 0) {
