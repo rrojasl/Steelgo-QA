@@ -312,11 +312,10 @@ function ImprimirTotalToneladas(ds) {
     if (ds.length > 0) {
         var totalToneladas = 0;
         for (var i = 0; i < ds.length; i++) {
-
             totalToneladas = totalToneladas + ds[i].Peso;
         }
         $("#lblEmbarqueCargaToneladasCargadas").css('text-align', 'right');
-        $("#lblEmbarqueCargaToneladasCargadas").text(totalToneladas != 0 ? totalToneladas.toFixed(3) : "");
+        $("#lblEmbarqueCargaToneladasCargadas").text(totalToneladas != 0 ? kendo.toString(totalToneladas, 'n3') : "");
     } else {
         $("#lblEmbarqueCargaToneladasCargadas").text("");
     }

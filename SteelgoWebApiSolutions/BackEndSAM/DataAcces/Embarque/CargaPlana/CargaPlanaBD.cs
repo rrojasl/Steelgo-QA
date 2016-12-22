@@ -194,13 +194,13 @@ namespace BackEndSAM.DataAcces.Embarque.CargaPlana
             }
         }
 
-        public object GuardaCapturaCargaPlana(DataTable dtDetalle, int UsuarioID, int CargaPlanaID, int PlanaID, int CerrarPlana, int CuadrantePlanaSam2ID, int CuadrantePlanaSam3ID)
+        public object GuardaCapturaCargaPlana(DataTable dtDetalle, int UsuarioID, int PlanaID, int CerrarPlana, int CuadrantePlanaSam2ID, int CuadrantePlanaSam3ID)
         {
             try
             {
                 ObjetosSQL _SQL = new ObjetosSQL();
-                string[,] parametros = { { "@UsuarioID", UsuarioID.ToString() }, { "@PlanaID", PlanaID.ToString() }, { "@CargaPlanaID", CargaPlanaID.ToString() },
-                        { "@CerrarPlana", CerrarPlana.ToString() }, { "@CuadrantePlanaSam2ID", CuadrantePlanaSam2ID.ToString() }, { "@CuadrantePlanaSam3ID", CuadrantePlanaSam3ID.ToString() } };
+                string[,] parametros = { { "@UsuarioID", UsuarioID.ToString() }, { "@PlanaID", PlanaID.ToString() }, 
+                    { "@CerrarPlana", CerrarPlana.ToString() }, { "@CuadrantePlanaSam2ID", CuadrantePlanaSam2ID.ToString() }, { "@CuadrantePlanaSam3ID", CuadrantePlanaSam3ID.ToString() } };
 
                 int identityResult = _SQL.EjecutaInsertUpdate(Stords.GUARDARCAPTURACARGAPLANA, dtDetalle, "@DetalleCarga", parametros);
 

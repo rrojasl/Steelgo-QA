@@ -623,6 +623,7 @@ function opcionHabilitarView(valor, name) {
         $("#ButtonPlanchar").prop('disabled', true);
         $("#LlenaVacios").prop('disabled', true);
         $("#SelectTodos").prop('disabled', true);
+        $("#SpoolIDCOntiene").css('opacity', '0.6');
 
         $("#LlenaTodos").prop('disabled', true);
         $("#SelectTodosSi").prop('disabled', true);
@@ -643,6 +644,7 @@ function opcionHabilitarView(valor, name) {
         $("#ButtonPlanchar").prop('disabled', false);
         $("#LlenaVacios").prop('disabled', false);
         $("#SelectTodos").prop('disabled', false);
+        $("#SpoolIDCOntiene").css('opacity', '1');
 
         $("#LlenaTodos").prop('disabled', false);
         $("#SelectTodosSi").prop('disabled', false);

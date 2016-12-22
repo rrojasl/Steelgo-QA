@@ -186,7 +186,7 @@ function AjaxAgregarCarga() {
                     for (var i = 0; i < array.length; i++) {
                         if(Proyecto.ProyectoID == array[i].ProyectoID){
                             if (!ExisteSpool(array[i])) {
-                                if (array[i].Cargado != 1 || array[i].PlanaCargado.trim() == $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").text().trim()) {
+                                if (array[i].Cargado != 1) {
                                     if (array[i].Empaquetado == 0) {
                                         array[i].Consecutivo = $("#grid").data("kendoGrid").dataSource._data.length + 1;
                                         ds.add(array[i]);
@@ -478,7 +478,6 @@ function ajaxGuardar(arregloCaptura, tipoGuardar) {
     try {
         $("#grid").data("kendoGrid").dataSource.sync();
         var cerrar = 0;
-        var cargaPlanaID = $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").dataItem($("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").select()).CargaPlanaID;
         var CuadrantePlanaSam2 = $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").dataItem($("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").select()).CuadrantePlanaSam2;
         var CuadrantePlanaSam3 = $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").dataItem($("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").select()).CuadrantePlanaSam3;
         cerrar = $("#inputCerrar").is(":checked") ? 1 : 0;
@@ -504,17 +503,24 @@ function ajaxGuardar(arregloCaptura, tipoGuardar) {
 
         if (Captura[0].listaDetalle.length > 0) {
             loadingStart();
-            $CargaPlana.CargaPlana.create(Captura[0], { token: Cookies.get("token"), CargaPlanaID: cargaPlanaID, PlanaID: $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").value(), CerrarPlana: cerrar, CuadrantePlanaSam2: CuadrantePlanaSam2, CuadrantePlanaSam3: CuadrantePlanaSam3 }).done(function (data) {
+            $CargaPlana.CargaPlana.create(Captura[0], { token: Cookies.get("token"), PlanaID: $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").value(), CerrarPlana: cerrar, CuadrantePlanaSam2: CuadrantePlanaSam2, CuadrantePlanaSam3: CuadrantePlanaSam3 }).done(function (data) {
                 editado = true;
                 if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
                     if (tipoGuardar == 1) {
+                        $('#lblEmbarqueCargaTotalPiezas').text("");
+                        $('#lblEmbarqueCargaToneladasCargadas').text("");
                         $("#grid").data("kendoGrid").dataSource.data([]);
+                        $("#InputOrdenTrabajo").val("");
+                        $("#inputCodigo").val("");
+                        $("#InputID").data("kendoComboBox").dataSource
+                        $("#inputPaquete").data("kendoComboBox").dataSource.data([]);
+                        $("#inputPaquete").data("kendoComboBox").value("");
                         opcionHabilitarView(false, "FieldSetView");
-                        AjaxCargarCamposPredeterminados(); AjaxCargarProyecto(); 
+                        AjaxCargarCamposPredeterminados(); AjaxCargarProyecto();
                     }
                     else {
                         $("#grid").data("kendoGrid").dataSource.data([]);
-
+                        
                         AjaxObtenerGrid();
                         opcionHabilitarView(true, "FieldSetView");
 

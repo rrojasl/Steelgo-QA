@@ -725,6 +725,7 @@ function opcionHabilitarView(valor, name) {
         $('#FieldSetView').find('*').attr('disabled', true);
         $("#InputProyecto").data("kendoComboBox").enable(false);
         $("#InputPaquete").data("kendoComboBox").enable(false);
+        $("#InputOrdenTrabajo").css('opacity', '0.6');
         $("#InputID").data("kendoComboBox").enable(false);
         $('#FieldSetView2').find('*').attr('disabled', true);
         $("#btnAgregar").prop('disabled', true);
@@ -738,6 +739,7 @@ function opcionHabilitarView(valor, name) {
         $('#FieldSetView').find('*').attr('disabled', false);
         $("#InputProyecto").data("kendoComboBox").enable(true);
         $("#InputPaquete").data("kendoComboBox").enable(true);
+        $("#InputOrdenTrabajo").css('opacity', '1');
         $("#InputID").data("kendoComboBox").enable(true);
         $('#FieldSetView2').find('*').attr('disabled', false);
 
@@ -778,8 +780,8 @@ function LimpiarSelectPaquete() {
 function Limpiar() {
 
     $("#InputProyecto").data("kendoComboBox").value("");
-    $("#InputPaquete").data("kendoComboBox").value("");
     $("#InputPaquete").data("kendoComboBox").dataSource.data([]);
+    $("#InputPaquete").data("kendoComboBox").value("");
     $("#InputCerrar")[0].checked = false;
     $("#TotalPiezas").text("");
     $("#TotalToneladas").text("");

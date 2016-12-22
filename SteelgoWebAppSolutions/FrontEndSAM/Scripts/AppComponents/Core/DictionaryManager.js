@@ -10877,14 +10877,19 @@ _dictionary = {
         "en-US": "To download a spool it is necessary to open the flat"
 
     },
+    "EmbarqueCargaMsjDescargaPaquetePlanaCerrada": {
+        "es-MX": "Para descargar un paquete es necesario abrir la plana",
+        "en-US": "To download a package it is necessary to open the flat"
+
+    },
     "EmbarqueCargaMsjDescargaPaqueteExito": {
         "es-MX": "El paquete ha sido descargado correctamente",
-        "en-US": "Spool has been successfully downloaded"
+        "en-US": "The package has been successfully downloaded"
 
     },
     "EmbarqueCargaMsjDescargaPaqueteError": {
         "es-MX": "El paquete no ha sido descargado",
-        "en-US": "Spool has not been downloaded"
+        "en-US": "The package has not been downloaded"
 
     },
     "EmbarqueCargaMsjErrorZona": {

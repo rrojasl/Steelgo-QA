@@ -108,6 +108,40 @@ namespace BackEndSAM.DataAcces.Embarque.Empaquetado
             }
         }
 
+        public object ObtenerCuadrantes(int ProyectoID, int ZonaID)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Sam3_Embarque_Empaquetado_Get_Cuadrante_Result> result = ctx.Sam3_Embarque_Empaquetado_Get_Cuadrante(ZonaID, ProyectoID).ToList();
+                    List<CuadrantePaquete> listaDetalle = new List<CuadrantePaquete>();
+                    listaDetalle.Add(new CuadrantePaquete());
+
+                    foreach (Sam3_Embarque_Empaquetado_Get_Cuadrante_Result item in result)
+                    {
+                        listaDetalle.Add(new CuadrantePaquete
+                        {
+                            CuadranteID = item.CuadranteID,
+                            Nombre = item.Nombre,
+                            ZonaID = item.ZonaID.GetValueOrDefault()
+                        });
+                    }
+                    return listaDetalle;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
         public object ObtenerDetalleCargaPaquete(int PaqueteID, int Todos)
         {
             try

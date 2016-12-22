@@ -127,7 +127,8 @@ function AjaxCargarZonaGuardado(patioID, zonaID, cerrado) {
 }
 
 function AjaxCargarCuadranteGuardado(zonaID) {
-    $Cuadrante.Cuadrante.read({ token: Cookies.get("token"), ZonaID: zonaID }).done(function (data) {
+    var proyectoID = $("#InputProyecto").data("kendoComboBox").value();
+    $Empaquetado.Empaquetado.read({ token: Cookies.get("token"), ProyectoID: proyectoID, ZonaID: zonaID }).done(function (data) {
         if (data.length > 0) {
             var cuadranteID = 0;
             $("#InputCuadrantePaquete").data("kendoComboBox").dataSource.data(data);

@@ -149,7 +149,7 @@ function ImprimirTotalToneladas(ds) {
             totalToneladas = totalToneladas + ds[i].Peso;
         }
         $("#TotalToneladas").css('text-align', 'center');
-        $("#TotalToneladas").text(totalToneladas != 0 ? totalToneladas.toFixed(3) : "");
+        $("#TotalToneladas").text(totalToneladas != 0 ? kendo.toString(totalToneladas, 'n3') : "");
     } else {
         $("#TotalToneladas").text("");
     }
