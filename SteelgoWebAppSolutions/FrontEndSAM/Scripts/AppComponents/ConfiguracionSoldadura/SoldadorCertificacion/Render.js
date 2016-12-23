@@ -263,7 +263,7 @@ function renderEmin(container, options) {
     $('<input data-text-field="EspesorMinimo" id=' + options.model.uid + ' data-value-field="EspesorMinimo" data-bind="value:' + options.field + '"/>')
     .appendTo(container)
     .kendoNumericTextBox({
-        format: "#.0000",
+        format: "#",
         decimals: 4,
         min: 0,
         change: function () {
@@ -284,8 +284,23 @@ function renderDiametro(container, options) {
     $('<input data-text-field="DiametroCalificado" id=' + options.model.uid + ' data-value-field="DiametroCalificado" data-bind="value:' + options.field + '"/>')
     .appendTo(container)
     .kendoNumericTextBox({
-        format: "#.0000",
+        format: "#",
         decimals: 4,
-        min: 0
+        min: 0,
+        change: function (e) {
+            var diametroC = parseFloat(options.model.DiametroCalificado);
+
+            if (diametroC < 25) {
+                options.model.DiametroMinimo = diametroC;
+            }
+            else if (diametroC >= 25 && diametroC <= 75) {
+                options.model.DiametroMinimo = 25;
+            }
+            else {
+                options.model.DiametroMinimo = 73;
+            }
+            $("#grid").data("kendoGrid").dataSource.sync();
+
+        }
     });
 }

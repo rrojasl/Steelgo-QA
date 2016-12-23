@@ -26,6 +26,7 @@ namespace BackEndSAM.Models.ConfiguracionSoldadura.SoldadorCertificacion
         public string CedulaTuboCalificado { get; set; }
         public List<CedulaTuboCalificado> ListaCedulaTuboCalificado { get; set; }
         public string DiametroCalificado { get; set; }
+        public string DiametroMinimo { get; set; }
         public string EspesorMinimo { get; set; }
         public string EspesorMaximo { get; set; }
         public int PorcentajeJuntasRequiere { get; set; }//no se requiere
@@ -91,6 +92,7 @@ namespace BackEndSAM.Models.ConfiguracionSoldadura.SoldadorCertificacion
         public string FechaFinCertificado { get; set; }
         public int CedulaTuboCalificadoID { get; set; }
         public decimal DiametroCalificado { get; set; }
+        public decimal DiametroMinimo { get; set; }
         public decimal EspesorMinimo { get; set; }
         public decimal EspesorMaximo { get; set; }
         public decimal PasosSoldadura { get; set; }

@@ -36,6 +36,7 @@ function limpiarCaptura() {
     $("#inputEspesorMinimo").data("kendoNumericTextBox").value('');
     $("#inputEspesorMaximo").data("kendoNumericTextBox").value('');
     $("#inputDiametroCalificado").data("kendoNumericTextBox").value('');
+    $("#inputDiametroMinimo").data("kendoNumericTextBox").value('');
 
     $("#inputTipoPrueba").data("kendoComboBox").value("");
 
@@ -194,6 +195,7 @@ function ValidarInformacionNuevoSoldadorCertificacion(tipo) {
         FechaFinCertificado: "",
         CedulaTuboCalificadoID: "",
         DiametroCalificado: "",
+        DiametroMinimo: "",
         EspesorMinimo: "",
         EspesorMaximo: "",
         PasosSoldadura: "",
@@ -284,6 +286,7 @@ function ValidarInformacionNuevoSoldadorCertificacion(tipo) {
         ListaDetalles[index].FechaFinCertificado = $("#inputFechaFinCertificado").val().trim();
         ListaDetalles[index].CedulaTuboCalificadoID = $("#inputCedulaTuboPQR").val();
         ListaDetalles[index].DiametroCalificado = $("#inputDiametroCalificado").val();
+        ListaDetalles[index].DiametroMinimo = $("#inputDiametroMinimo").val();
         ListaDetalles[index].EspesorMinimo = $("#inputEspesorMinimo").val();
         ListaDetalles[index].EspesorMaximo = $("#inputEspesorMaximo").val();
         ListaDetalles[index].PasosSoldadura = $("#inputPasosSoldadura").val();

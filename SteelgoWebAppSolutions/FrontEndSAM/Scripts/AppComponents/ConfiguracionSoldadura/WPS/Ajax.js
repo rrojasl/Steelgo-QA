@@ -80,6 +80,8 @@ function AjaxGuardarCaptura() {
             EspesorMaximoRelleno: "",
             EspesorMinimoRelleno: "",
             ProyectoID: "",
+            GrupoP1: "",
+            GrupoP2: "",
             Estatus: 1
         };
 
@@ -122,6 +124,11 @@ function AjaxGuardarCaptura() {
         ListaDetalles[index].EspesorMinimoRelleno = arregloCaptura[index].EspesorMinimoRelleno;
         ListaDetalles[index].EspesorMaximoRelleno = arregloCaptura[index].EspesorMaximoRelleno;
         ListaDetalles[index].ProyectoID = arregloCaptura[index].ProyectoID;
+        
+        var arregloGrupos = obtenerGruposPLiberar(arregloCaptura[index].GrupoMaterialBase1RaizU, arregloCaptura[index].GrupoMaterialBase1RaizD, arregloCaptura[index].GrupoMaterialBase1RellenoU, arregloCaptura[index].GrupoMaterialBase1RellenoD);
+
+        ListaDetalles[index].GrupoP1 = arregloGrupos[0];
+        ListaDetalles[index].GrupoP2 = arregloGrupos[1];
     }
 
     Captura[0].Detalles = ListaDetalles;

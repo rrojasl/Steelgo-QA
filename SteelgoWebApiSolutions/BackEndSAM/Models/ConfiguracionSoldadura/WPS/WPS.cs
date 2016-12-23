@@ -78,6 +78,8 @@ namespace BackEndSAM.Models.ConfiguracionSoldadura.WPS
         public double EspesorMinimoRaiz { get; set; }
         public double EspesorMaximoRelleno { get; set; }
         public double EspesorMinimoRelleno { get; set; }
+        public string GrupoP1 { get; set; }
+        public string GrupoP2 { get; set; }
     }
 
     public class DetalleWPS

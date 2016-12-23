@@ -143,3 +143,22 @@ function ObtenerEspesorCorrecto(EspesorTotalT, PWHT, ProcesoSoldadura, esRaiz) {
     }
     return espesores;
 }
+
+
+function obtenerGruposPLiberar(gp1, gp2, gp3, gp4) {
+    var array = [];
+    array[0] = gp1;
+    array[1] = gp2;
+    array[2] = gp3;
+    array[3] = gp4;
+
+
+    array.unique()
+    
+}
+
+Array.prototype.unique = function (a) {
+    return function () { return this.filter(a) }
+        }(function (a, b, c) {
+       return c.indexOf(a, b + 1) < 0
+});

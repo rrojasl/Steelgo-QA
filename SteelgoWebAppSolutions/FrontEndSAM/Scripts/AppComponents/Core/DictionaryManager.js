@@ -7483,8 +7483,8 @@ _dictionary = {
         "en-US": "F group"
     },
     "lblEspesorMinimo": {
-        "es-MX": "Espesor Mínimo(mm)",
-        "en-US": "Minimum Thickness(mm)"
+        "es-MX": "Espesor Aplicado(mm)",
+        "en-US": "Applied Thickness(mm)"
     },
     "lblEspesorMaximo": {
         "es-MX": "Espesor Máximo(mm)",

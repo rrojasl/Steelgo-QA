@@ -1,4 +1,8 @@
-﻿function CargaInicial() {
+﻿function changeLanguageCall() {
+    document.title = _dictionary.NuevoPQRBreadcrumb[$("#language").data("kendoDropDownList").value()];
+}
+
+function CargaInicial() {
     ConvertirCombos();
     setTimeout(function () { ObtenerListasPQR() }, 500);
 };

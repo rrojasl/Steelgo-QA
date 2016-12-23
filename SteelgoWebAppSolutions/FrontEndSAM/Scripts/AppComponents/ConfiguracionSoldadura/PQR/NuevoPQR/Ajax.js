@@ -132,15 +132,15 @@ function AjaxGuardar(tipoGuardar) {
                     else {
                         opcionHabilitarView(true, "FieldSetView");
                     }
-                    loadingStop();
                 }
                 else  /*(data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") */ {
                     //mensaje = "No se guardo la informacion el error es: " + data.ReturnMessage[0] + "-2";
                     displayNotify("CapturaMensajeGuardadoErroneo", "", '2');
-                    loadingStop();
+                    
 
                 }
             }
+            loadingStop();
         });
     }
 }
