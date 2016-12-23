@@ -8763,6 +8763,14 @@ _dictionary = {
         "es-MX": "Toneladas",
         "en-US": "Tons"
     },
+    "columnPlana": {
+        "es-MX": "Plana",
+        "en-US": "Flat"
+    },
+    "columnCantidadSpools": {
+        "es-MX": "Plana",
+        "en-US": "Flat"
+    },
     // Finalizan Etiquetas Grid
     // Finalizan Etiquetas generales
 
@@ -10991,19 +10999,19 @@ _dictionary = {
         "en-US": "Please select a quadrant"
     },
     "EmbarqueEmpaquetadoMsjErrorSpoolID": {
-        "es-MX": "Por favor ingresa el Spool ID",
+        "es-MX": "Por favor ingrese el Spool ID",
         "en-US": "Please enter Spool ID"
     },
     "EmbarqueEmpaquetadoMsjErrorCodigo": {
-        "es-MX": "Por favor ingresa el Codigo",
+        "es-MX": "Por favor ingrese el Codigo",
         "en-US": "Please enter code"
     },
     "EmbarqueEmpaquetadoMsjErrorNombrePaquete": {
-        "es-MX": "Por favor ingresa el nombre del paquete",
+        "es-MX": "Por favor ingrese el nombre del paquete",
         "en-US": "Please enter package name"
     },
     "EmbarqueEmpaquetadoMsjErrorFechaPaquete": {
-        "es-MX": "Por favor ingresa la fecha del paquete",
+        "es-MX": "Por favor ingrese la fecha del paquete",
         "en-US": "Please enter date of the package"
     },
     "EmbarqueEmpaquetadoMsjErrorPaquete": {
@@ -11031,6 +11039,32 @@ _dictionary = {
         "en-US": "The package can not be closed empty"
     },
     //Finaliza Pantalla empaquetado
+    //Inicia pantalla Preparacion Embarque
+    "EmarquePreparacionMensajeEligePlana": {
+        "es-MX": "Por favor seleccione una plana",
+        "en-US": "Please select a flat"
+    },
+    "EmarquePreparacionMensajeErrorCargaMaxima": {
+        "es-MX": "El embarque unicamente puede tener como maximo 2 planas",
+        "en-US": "The shipment can only have a maximum of 2 planes"
+    },
+    "EmarquePreparacionMensajeErrorNombreProveedor": {
+        "es-MX": "Por favor ingrese el nombre del proveedor",
+        "en-US": "Please enter the name of provider"
+    },
+    "EmarquePreparacionMensajeErrorNombreTracto": {
+        "es-MX": "Por favor ingrese el nombre del tracto",
+        "en-US": "Please enter the name of tract"
+    },
+    "EmarquePreparacionMensajeErrorNombreChofer": {
+        "es-MX": "Por favor ingrese el nombre del chofer",
+        "en-US": "Please enter the name of driver"
+    },
+    "EmarquePreparacionMensajeErrorEmbarqueVacio": {
+        "es-MX": "El embarque debe tener al menos una plana cargada",
+        "en-US": "The shipment must have at least one flat cargo"
+    },
+    //Finaliza pantalla Preparacion Embarque
     //Inicia pantalla listado embarque
     "EmbarqueListadoPentiente": {
         "es-MX": "Pendientes",

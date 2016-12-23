@@ -63,10 +63,10 @@ function CargarGrid() {
         },
         filterable: getGridFilterableMaftec(),
         columns: [
-            { field: "Nombre", title: "Plana", filterable: getGridFilterableCellMaftec() },
-            { field: "CantidadElementos", title: "Cantidad Spools", filterable: getGridFilterableCellNumberMaftec(), attributes: { style: "text-align:right;" } },
-            { field: "M2", title: "M2", filterable: getGridFilterableCellNumberMaftec(), aggregates: ["sum"], footerTemplate: "<div style='text-align:right;'>SUM: #= kendo.toString(sum, 'n') #</div>", attributes: { style: "text-align:right;" } },
-            { field: "Peso", title: "KG", filterable: getGridFilterableCellNumberMaftec(), aggregates: ["sum"], footerTemplate: "<div style='text-align:right;'>SUM: #= kendo.toString(sum, 'n') #</div>", attributes: { style: "text-align:right;" } },
+            { field: "Nombre", title: _dictionary.columnPlana[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec() },
+            { field: "CantidadElementos", title: _dictionary.columnCantidadSpools[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), attributes: { style: "text-align:right;" } },
+            { field: "M2", title: _dictionary.columnM2[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), aggregates: ["sum"], footerTemplate: "<div style='text-align:right;'>SUM: #= kendo.toString(sum, 'n') #</div>", attributes: { style: "text-align:right;" } },
+            { field: "Peso", title: _dictionary.columnPeso[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), aggregates: ["sum"], footerTemplate: "<div style='text-align:right;'>SUM: #= kendo.toString(sum, 'n') #</div>", attributes: { style: "text-align:right;" } },
              {
                  command: {
                      text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()],
@@ -89,7 +89,8 @@ function CargarGrid() {
                                 animation: {
                                     close: false,
                                     open: false
-                                }
+                                },
+                                actions:[]
                             }).data("kendoWindow");
 
                             $("#ventanaConfirm").parent().find(".k-window-action").css("visibility", "hidden");
@@ -154,8 +155,8 @@ function CargaPopupNuevoProveedor(e) {
         position: {
             top: "1%",
             left: "1%"
-        }
-
+        },
+        actions:[]
     }).data("kendoWindow");
     $("#divNuevoProveedor").data("kendoWindow").title(_dictionary.EmbarqueCargaNuevoProveedor[$("#language").data("kendoDropDownList").value()]);
     $("#divNuevoProveedor").data("kendoWindow").center().open();
@@ -181,8 +182,8 @@ function CargaPopupNuevoTracto(e) {
         position: {
             top: "1%",
             left: "1%"
-        }
-
+        },
+        actions: []
     }).data("kendoWindow");
     $("#divNuevoTracto").data("kendoWindow").title("Nuevo Tracto");
     $("#divNuevoTracto").data("kendoWindow").center().open();
@@ -208,8 +209,8 @@ function CargaPopupNuevoChofer(e) {
         position: {
             top: "1%",
             left: "1%"
-        }
-
+        },
+        actions: []
     }).data("kendoWindow");
     $("#divNuevoChofer").data("kendoWindow").title("Nuevo chofer");
     $("#divNuevoChofer").data("kendoWindow").center().open();

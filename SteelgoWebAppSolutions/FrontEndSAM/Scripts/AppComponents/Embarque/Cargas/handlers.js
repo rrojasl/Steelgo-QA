@@ -42,9 +42,7 @@ function SuscribirEventoPopUpDescargaPaquete() {
             close: false,
             open: false
         },
-        close: function (e) {
-            
-        }
+        actions:[]
     }).data("kendoWindow");
     
     $("#btnDescargarPaquete").click(function (e) {
@@ -80,6 +78,7 @@ function SuscribirEventoPopUpDescargaSpool() {
             close: false,
             open: false
         },
+        actions: []
     }).data("kendoWindow");
 
     $("#btnDescargar").click(function (e) {
@@ -140,8 +139,7 @@ function SuscribirEventoPopUpPaqueteVacio() {
             close: false,
             open: false
         },
-        actions: [
-        ],
+        actions: [],
     }).data("kendoWindow");
     $("#windowPackageEmpty").parent().find(".k-window-action").css("visibility", "hidden");
 
@@ -345,9 +343,7 @@ function SuscribirEventoProyecto() {
                         close: false,
                         open: false
                     },
-                    close: function () {
-                        $("#inputProyecto").data("kendoComboBox").value(proyectoInicial);
-                    }
+                    actions: []
                 }).data("kendoWindow");
 
                 ventanaConfirm.content(_dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] +
@@ -550,9 +546,7 @@ function SuscribirEventoProveedor() {
                         close: false,
                         open: false
                     },
-                    close: function () {
-                        $("#inputProveedor").data("kendoComboBox").value(proveedorInicial);
-                    }
+                    actions: []
                 }).data("kendoWindow");
 
                 ventanaConfirm.content(_dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] +
@@ -640,9 +634,7 @@ function SuscribirEventoPlacasPlana() {
                         close: false,
                         open: false
                     },
-                    close: function () {
-                        $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").value(planaInicial);
-                    }
+                    actions: []
                 }).data("kendoWindow");
 
                 ventanaConfirm.content(_dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] +

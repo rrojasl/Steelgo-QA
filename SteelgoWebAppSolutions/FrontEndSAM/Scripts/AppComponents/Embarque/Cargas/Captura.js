@@ -47,7 +47,10 @@ function CrearPopup() {
         width: "500px",
         height: "auto",
         modal: true,
-        animation: false
+        draggable: false,
+        resizable: false,
+        animation: false,
+        actions: []
     }).data("kendoWindow");
 }
 
@@ -255,7 +258,6 @@ function CargaPopupNuevaPlana(e) {
 
     windowNewPlate = $("#divNuevoPlana").kendoWindow({
         modal: true,
-        resizable: false,
         visible: true,
         width: "500px",
         height: "auto",
@@ -269,9 +271,7 @@ function CargaPopupNuevaPlana(e) {
             close: false,
             open: false
         },
-        close: function (e) {
-            $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").value(0);
-        }
+        actions: []
     }).data("kendoWindow");
     $("#divNuevoPlana").data("kendoWindow").title(_dictionary.EmbarqueCargaNuevaPlana[$("#language").data("kendoDropDownList").value()]);
     $("#divNuevoPlana").data("kendoWindow").center().open();
@@ -298,9 +298,7 @@ function CargaPopupNuevoProveedor(e) {
             close: false,
             open: false
         },
-        close: function (e) {
-            $("#inputProveedor").data("kendoComboBox").value(0);
-        }
+        actions: []
     }).data("kendoWindow");
     $("#divNuevoProveedor").data("kendoWindow").title(_dictionary.EmbarqueCargaNuevoProveedor[$("#language").data("kendoDropDownList").value()]);
     $("#divNuevoProveedor").data("kendoWindow").center().open();

@@ -34,7 +34,7 @@ function SuscribirEventoProyecto() {
             var dataItem = this.dataItem(e.sender.selectedIndex);
             var ds = $("#grid").data("kendoGrid").dataSource;
 
-            if (!existenCambios()) {
+            if (ds._data.length == 0) {
                 if (dataItem != undefined) {
                     proyectoInicial = dataItem.ProyectoID;
                     LimpiarSelectProyecto();
@@ -55,9 +55,13 @@ function SuscribirEventoProyecto() {
                     width: "auto",
                     height: "auto",
                     modal: true,
-                    close: function () {
-                        $("#Proyecto").data("kendoComboBox").value(proyectoInicial);
-                    }
+                    draggable: false,
+                    resizable: false,
+                    animation: {
+                        close: false,
+                        open: false
+                    },
+                    actions: []
                 }).data("kendoWindow");
 
                 ventanaConfirm.content(_dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] +
@@ -97,7 +101,9 @@ function SuscribirEventoProveedor() {
         index: 3,
         change: function (e) {
             var dataItem = this.dataItem(e.sender.selectedIndex);
-            if (!existenCambios()) {
+            var ds = $("#grid").data("kendoGrid").dataSource;
+
+            if (ds._data.length == 0) {
                 if (dataItem != undefined) {
                     proveedorInicial = $("#Proveedor").data("kendoComboBox").value();
                     LimpiarSelectProveedor();
@@ -124,9 +130,13 @@ function SuscribirEventoProveedor() {
                     width: "auto",
                     height: "auto",
                     modal: true,
-                    close: function () {
-                        $("#Proveedor").data("kendoComboBox").value(proveedorInicial);
-                    }
+                    draggable: false,
+                    resizable: false,
+                    animation: {
+                        close: false,
+                        open: false
+                    },
+                    actions: []
                 }).data("kendoWindow");
 
                 ventanaConfirm.content(_dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] +
@@ -202,7 +212,7 @@ function suscribirEventoGuardar() {
                                 AbrirPopUpGuardar(Embarque, 1);
                             }
                             else {
-                                displayNotify('', 'El embarque debe tener al menos una plana cargada', '2');
+                                displayNotify('EmarquePreparacionMensajeErrorEmbarqueVacio', '', '2');
                             }
                         }
                         else {
@@ -288,14 +298,21 @@ function suscribirEventoEmbarque() {
         index: 3,
         change: function (e) {
             var dataItem = this.dataItem(e.sender.selectedIndex);
+            var ds = $("#grid").data("kendoGrid").dataSource;
 
-            if (!existenCambios()) {
+            if (ds._data.length == 0) {
                 if (dataItem != undefined) {
                     $("#grid").data("kendoGrid").dataSource.data([]);
+                    $("#Tracto").data("kendoComboBox").value("");
+                    $("#Chofer").data("kendoComboBox").value("");
                     EmbarqueIncial = dataItem.EmbarqueID;
 
                     if (dataItem.EmbarqueID != 0) {
                         AjaxObtieneDetalle(dataItem.EmbarqueID);
+                        $("#Tracto").data("kendoComboBox").value(dataItem.TractoID);
+                        $("#Tracto").data("kendoComboBox").trigger("change");
+                        $("#Chofer").data("kendoComboBox").value(dataItem.ChoferID);
+                        $("#Chofer").data("kendoComboBox").trigger("change");
                     }
                 }
                 else {
@@ -310,9 +327,13 @@ function suscribirEventoEmbarque() {
                     width: "auto",
                     height: "auto",
                     modal: true,
-                    close: function () {
-                        $("#Embarque").data("kendoComboBox").value(EmbarqueIncial);
-                    }
+                    draggable: false,
+                    resizable: false,
+                    animation: {
+                        close: false,
+                        open: false
+                    },
+                    actions: []
                 }).data("kendoWindow");
 
                 ventanaConfirm.content(_dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] +
@@ -394,11 +415,11 @@ function SuscribirEventoPlana() {
                     $("#Plana").data("kendoComboBox").value("");
                 }
                 else {
-                    displayNotify('', 'Seleccione una plana a agregar', '1');
+                    displayNotify('EmarquePreparacionMensajeEligePlana', '', '1');
                 }
             }
             else {
-                displayNotify('', 'El embarque unicamente puede tener como maximo 2 planas', '1');
+                displayNotify('EmarquePreparacionMensajeErrorCargaMaxima', '', '1');
             }
 
         }
@@ -449,7 +470,7 @@ function SuscribirEventoGuardarProveedor() {
             GuardarNuevoProveedor();
         }
         else {
-            displayNotify('', 'Ingrese un nombre para el proveedor', 1);
+            displayNotify('EmarquePreparacionMensajeErrorNombreProveedor', '', '1');
         }
     });
 }
@@ -460,7 +481,7 @@ function SuscribirEventoGuardarTracto() {
             GuardarNuevoTracto();
         }
         else {
-            displayNotify('', 'Ingrese un nombre para el tracto', 1);
+            displayNotify('EmarquePreparacionMensajeErrorNombreTracto', '', '1');
         }
     });
 }
@@ -472,7 +493,7 @@ function SuscribirEventoGuardarChofer() {
             GuardarNuevoChofer();
         }
         else {
-            displayNotify('', 'Ingrese un nombre para el chofer', 1);
+            displayNotify('EmarquePreparacionMensajeErrorNombreChofer', '', '1');
         }
     });
 }
@@ -512,13 +533,13 @@ function SuscribirEventoPopUpGuardarEmbarque() {
         draggable: false,
         resizable: false,
         modal: true,
+        draggable: false,
+        resizable: false,
         animation: {
             close: false,
             open: false
         },
-        close: function () {
-
-        }
+        actions: []
    }).data("kendoWindow");
 
     $("#GuardarNuevoEmbarque").click(function (e) {
