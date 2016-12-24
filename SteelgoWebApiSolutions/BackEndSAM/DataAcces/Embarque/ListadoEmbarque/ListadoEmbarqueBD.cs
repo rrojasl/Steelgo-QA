@@ -75,10 +75,10 @@ namespace BackEndSAM.DataAcces.Embarque.ListadoEmbarque
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Embarque_Get_NumElementosListadoEmbarque_Result> result = ctx.Sam3_Embarque_Get_NumElementosListadoEmbarque(lenguaje, UsuarioID).ToList();
+                    List<Sam3_Embarque_Listado_Get_ElementosPorEstatus_Result> result = ctx.Sam3_Embarque_Listado_Get_ElementosPorEstatus(lenguaje, UsuarioID).ToList();
                     List<ElementosPorStatus> listaDetalle = new List<ElementosPorStatus>();
 
-                    foreach (Sam3_Embarque_Get_NumElementosListadoEmbarque_Result item in result)
+                    foreach (Sam3_Embarque_Listado_Get_ElementosPorEstatus_Result item in result)
                     {
                         listaDetalle.Add(new ElementosPorStatus
                         {
