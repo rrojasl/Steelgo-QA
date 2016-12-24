@@ -32,14 +32,6 @@ function AjaxObtenerPlanas(ProyectoID) {
             var PlanaID = 0;
 
             if (data.length > 0) {
-
-                if (data.length < 3) {
-                    for (var i = 0; i < data.length; i++) {
-                        if (data[i].PlanaID != 0) {
-                            PlanaID = data[i].PlanaID;
-                        }
-                    }
-                }
                 $("#Plana").data("kendoComboBox").dataSource.data(data);
 
                 $("#Plana").data("kendoComboBox").value(PlanaID);
@@ -80,7 +72,7 @@ function AjaxEmbarqueCargaProveedores(ProyectoID, nuevoProveedor) {
                     }
 
                     data.splice(1, 0, {
-                        ProveedorID: -1, Nombre: _dictionary.EmbarqueCargaAgregarNuevoProveedor[$("#language").data("kendoDropDownList").value()]
+                        ProveedorID: -1, Nombre: _dictionary.EmarquePreparacionAgregarProveedor[$("#language").data("kendoDropDownList").value()]
                     });
                     $("#Proveedor").data("kendoComboBox").dataSource.data(data);
 
@@ -101,40 +93,30 @@ function AjaxEmbarqueCargaProveedores(ProyectoID, nuevoProveedor) {
 function AjaxEmbarqueCargaTractos(ProveedorID, nuevoTracto) {
     loadingStart();
     $EmbarqueGeneral.EmbarqueGeneral.read({ token: Cookies.get("token"), ProveedorID: ProveedorID, Tractos: 1 }).done(function (data) {
-        if (Error(data)) {
-            if (data.length > 0) {
-                var TractoID = 0;
-                if (data.length > 0) {
+        $("#Tracto").data("kendoComboBox").dataSource.data([]);
+        if (data.length > 0) {
+            var TractoID = 0;
+            if (data.length > 3 && nuevoTracto == null) {
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].TractoID != 0) {
+                        TractoID = data[i].TractoID;
 
-                    if (data.length) {
-                        for (var i = 0; i < data.length; i++) {
-                            if (data[i].TractoID != 0) {
-                                TractoID = data[i].TractoID;
-
-                            }
-                        }
                     }
-                    else {
-                        if (nuevoTracto != null) {
-                            for (var i = 0; i < data.length; i++) {
-                                if (data[i].Nombre == nuevoTracto) {
-                                    TractoID = data[i].TractoID;
-                                }
-                            }
-                        }
-                    }
-
-                    data.splice(1, 0, {
-                        TractoID: -1, Nombre: "Agregar nuevo tracto"
-                    });
-                    $("#Tracto").data("kendoComboBox").dataSource.data(data);
-                    $("#Tracto").data("kendoComboBox").value(TractoID);
-                    $("#Tracto").data("kendoComboBox").trigger("change");                    
-                }
-                else {
-                    $("#Tracto").data("kendoComboBox").value("");
                 }
             }
+            else {
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].Nombre == nuevoTracto) {
+                        TractoID = data[i].TractoID;
+                    }
+                }
+            }
+
+            data.splice(1, 0, { TractoID: -1, Nombre: _dictionary.EmarquePreparacionAgregarTracto[$("#language").data("kendoDropDownList").value()] });
+            $("#Tracto").data("kendoComboBox").dataSource.data(data);
+            $("#Tracto").data("kendoComboBox").value(TractoID);
+            $("#Tracto").data("kendoComboBox").trigger("change");
+            
         }
         loadingStop();
     });
@@ -170,7 +152,7 @@ function AjaxEmbarqueCargaChofer(ProveedorID, nuevoChofer) {
                     }
 
                     data.splice(1, 0, {
-                        ChoferID: -1, Nombre: "Agregar nuevo chofer"
+                        ChoferID: -1, Nombre: _dictionary.EmarquePreparacionAgregarChofer[$("#language").data("kendoDropDownList").value()]
                     });
                     $("#Chofer").data("kendoComboBox").dataSource.data(data);
 

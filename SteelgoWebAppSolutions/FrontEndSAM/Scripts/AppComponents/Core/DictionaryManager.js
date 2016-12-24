@@ -7959,8 +7959,8 @@ _dictionary = {
         "en-US": "Please select a requisition"
     },
     "MensajeAdverteciaExcepcionGuardado": {
-        "es-MX": "No hay cambios por guardar",
-        "en-US": "There aren´t any change"
+        "es-MX": "No hay datos por guardar",
+        "en-US": "No data to save"
     },
     "MensajeNoResultados": {
         "es-MX": "No se han encontrado elementos que coincidan con la busqueda",
@@ -10624,12 +10624,16 @@ _dictionary = {
         "en-US": "Close Plate"
     },
     "EmbarqueCargaMensajeErrorPlana": {
-        "es-MX": "Seleccione una placa",
-        "en-US": "Select license plate"
+        "es-MX": "Por favor seleccione una plana",
+        "en-US": "Please select to flat"
     },
     "EmbarqueCargaMensajeErrorProveedor": {
-        "es-MX": "Seleccione un proveedor",
-        "en-US": "Select a provider"
+        "es-MX": "Por favor seleccione un proveedor",
+        "en-US": "Please select to provider"
+    },
+    "EmbarqueCargaMensajeErrorProyecto": {
+        "es-MX": "Por favor seleccione un proyecto",
+        "en-US": "Please select to project"
     },
     "EmbarqueCargaMensajeErrorPlanaNoCerrada": {
         "es-MX": "La plana debe estar abierta para poder cerrarla",
@@ -11040,6 +11044,10 @@ _dictionary = {
     },
     //Finaliza Pantalla empaquetado
     //Inicia pantalla Preparacion Embarque
+    "EmbarquePreparacionTituloPagina": {
+        "es-MX": "Preparación Embarque",
+        "en-US": "Shipping Preparation"
+    },
     "EmarquePreparacionMensajeEligePlana": {
         "es-MX": "Por favor seleccione una plana",
         "en-US": "Please select a flat"
@@ -11064,6 +11072,18 @@ _dictionary = {
         "es-MX": "El embarque debe tener al menos una plana cargada",
         "en-US": "The shipment must have at least one flat cargo"
     },
+    "EmarquePreparacionAgregarProveedor": {
+        "es-MX": "Agregar nuevo proveedor",
+        "en-US": "Add new provider"
+    },
+    "EmarquePreparacionAgregarTracto": {
+        "es-MX": "Agregar nuevo tracto",
+        "en-US": "Add new tract"
+    },
+    "EmarquePreparacionAgregarChofer": {
+        "es-MX": "Agregar nuevo chofer",
+        "en-US": "Add new driver"
+    },
     //Finaliza pantalla Preparacion Embarque
     //Inicia pantalla listado embarque
     "EmbarqueListadoPentiente": {
@@ -11071,7 +11091,7 @@ _dictionary = {
         "en-US": "Pending"
     },
     "EmbarqueListadoTransito": {
-        "es-MX": "Tránsito",
+        "es-MX": "En Tránsito",
         "en-US": "Transit"
     },
     //Finaliza pantalla listado embarque

@@ -193,14 +193,16 @@ function AjaxGuardarCaptura(rows, tipoGuardar) {
                             ListaDetalles[index].Estatus = 0;
                             $("#grid").data("kendoGrid").dataSource._data[i].RowOk = false;
                             //$('tr[data-uid="' + rows[i].uid + '"] ').css("background-color", "#ffcccc");
-                        }
+                        } else 
+                            $("#grid").data("kendoGrid").dataSource._data[i].RowOk = true;
                     }
                 }else if(rows[i].Accion === 1){
                     if (rows[i].Encintado && rows[i].ColorID == 0) {
                         ListaDetalles[index].Estatus = 0;
                         $("#grid").data("kendoGrid").dataSource._data[i].RowOk = false;
                         //$('tr[data-uid="' + rows[i].uid + '"] ').css("background-color", "#ffcccc");
-                    }
+                    } else
+                        $("#grid").data("kendoGrid").dataSource._data[i].RowOk = true;
                 }
             }
 
@@ -245,14 +247,16 @@ function AjaxGuardarCaptura(rows, tipoGuardar) {
                 iframe: true,
                 title: _dictionary.TituloPopupCancelar[$("#language").data("kendoDropDownList").value()],
                 visible: false,
-                width: "30%",
+                width: "40%",
                 height: "auto",
                 draggable: false,
+                resizable: false,
                 modal: true,
                 animation: {
                     close: false,
                     open: false
-                }
+                },
+                actions: []
             }).data("kendoWindow");
 
             ventanaConfirm.content('<center>'+_dictionary.MensajeConfirmacionGuardadoGeneral[$("#language").data("kendoDropDownList").value()] + '</center>'+

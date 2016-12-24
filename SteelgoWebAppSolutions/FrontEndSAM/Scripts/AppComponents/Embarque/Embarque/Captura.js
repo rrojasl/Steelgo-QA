@@ -7,7 +7,7 @@ var FechaEmbarque;
 function changeLanguageCall() {
     CargarGrid();
     AjaxCargarProyecto();
-    document.title = "Embarque carro";
+    document.title = _dictionary.EmbarquePreparacionTituloPagina[$("#language").data("kendoDropDownList").value()];
     FechaEmbarque.data("kendoDatePicker").setOptions({
         format: _dictionary.FormatoFecha2[$("#language").data("kendoDropDownList").value()]
     });
@@ -24,9 +24,9 @@ function CargarGrid() {
                 model: {
                     fields: {
                         Nombre: { type: "string", editable: false },
-                        CantidadElementos: { type: "string", editable: false },
-                        Peso: { type: "string", editable: false },
-                        M2: { type: "string", editable: false },
+                        CantidadElementos: { type: "number", editable: false },
+                        Peso: { type: "number", editable: false },
+                        M2: { type: "number", editable: false },
                     }
                 }
             },

@@ -73,9 +73,7 @@ function AjaxCargarProyecto() {
     });
 }
 
-function AjaxCargarPaquetes() {
-    //loadingStart();
-    var proyectoID = $("#inputProyecto").data("kendoComboBox").value();
+function AjaxCargarPaquetes(proyectoID) {
     $CargaPlana.CargaPlana.read({ token: Cookies.get("token"), ProyectoID: proyectoID }).done(function (data) {
     $("#inputPaquete").data("kendoComboBox").dataSource.data([]);
         var paqueteId = 0;
@@ -507,16 +505,10 @@ function ajaxGuardar(arregloCaptura, tipoGuardar) {
                 editado = true;
                 if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
                     if (tipoGuardar == 1) {
-                        $('#lblEmbarqueCargaTotalPiezas').text("");
-                        $('#lblEmbarqueCargaToneladasCargadas').text("");
+                        Limpiar();
                         $("#grid").data("kendoGrid").dataSource.data([]);
-                        $("#InputOrdenTrabajo").val("");
-                        $("#inputCodigo").val("");
-                        $("#InputID").data("kendoComboBox").dataSource
-                        $("#inputPaquete").data("kendoComboBox").dataSource.data([]);
-                        $("#inputPaquete").data("kendoComboBox").value("");
-                        opcionHabilitarView(false, "FieldSetView");
                         AjaxCargarCamposPredeterminados(); AjaxCargarProyecto();
+                        loadingStop();
                     }
                     else {
                         $("#grid").data("kendoGrid").dataSource.data([]);
@@ -531,9 +523,9 @@ function ajaxGuardar(arregloCaptura, tipoGuardar) {
                 else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
                     mensaje = "No se guardo la informacion el error es: " + data.ReturnMessage[0] + "-2"
                     displayNotify("MensajeGuardadoErroneo", "", '2');
+                    loadingStop();
                 }
             });
-            loadingStop();
         }
         else {
             loadingStop();

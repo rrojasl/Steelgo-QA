@@ -109,12 +109,11 @@ function SuscribirEventoProveedor() {
                     LimpiarSelectProveedor();
                     if (dataItem.ProveedorID == -1) {
                         CargaPopupNuevoProveedor();
-
                     } else {
                         if (dataItem.ProveedorID != 0) {
+                            AjaxObtenerEmbarque(dataItem.ProveedorID, "");
                             AjaxEmbarqueCargaTractos(dataItem.ProveedorID, null);
                             AjaxEmbarqueCargaChofer(dataItem.ProveedorID, null);
-                            AjaxObtenerEmbarque(dataItem.ProveedorID, "");
                         }
                     }
                 }
@@ -501,7 +500,7 @@ function SuscribirEventoGuardarChofer() {
 
 function SuscribirEventoCancelarPopup() {
     $('#CancelarNuevoProveedor').click(function (e) {
-        $("#Proveedor").data("kendoComboBox").text("");
+        $("#Proveedor").data("kendoComboBox").value("");
         windowNewProvider.close();
     });
     $('#CancelarNuevoTracto').click(function (e) {
