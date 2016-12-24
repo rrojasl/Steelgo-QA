@@ -20,6 +20,7 @@
                         EspesorMinimo: { type: "number", editable: true },
                         EspesorMaximo: { type: "number", editable: false },
                         DiametroCalificado: { type: "number", editable: true },
+                        DiametroMinimo: {type: "number", editable: false},
                         TipoDePrueba: { type: "string" },
                         Posicion: { type: "number" }
 
@@ -60,9 +61,10 @@
             { field: "FechaFinCertificado", title: _dictionary.columnHasta[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "120px", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()], editor: RenderFechaFin },
             { field: "PasosSoldadura", title: _dictionary.columnNumeroPasos[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "110px", editor: renderNoPasos, attributes: { style: "text-align:right;" } },
             { field: "CedulaTuboCalificado", title: _dictionary.columnCedulaTubo[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "150px", editor: RenderComboBoxCedulaTuboCalificado },
-            { field: "EspesorMinimo", title: _dictionary.columnEspesorMin[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px", format: "{0:n4}", editor: renderEmin, attributes: { style: "text-align:right;" } },
-            { field: "EspesorMaximo", title: _dictionary.columnEspesorMax[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px", attributes: { style: "text-align:right;" }, format: "{0:n4}" },
+            { field: "EspesorMinimo", title: _dictionary.columnEspesorMin[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px", editor: renderEmin, attributes: { style: "text-align:right;" } },
+            { field: "EspesorMaximo", title: _dictionary.columnEspesorMax[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px", attributes: { style: "text-align:right;" }},
             { field: "DiametroCalificado", title: _dictionary.columnDiametroCalificado[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px", attributes: { style: "text-align:right;" }, editor: renderDiametro },
+            { field: "DiametroMinimo", title: _dictionary.columnDiametroMinimo[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px", attributes: { style: "text-align:right;" }, },
             { field: "TipoDePrueba", title: _dictionary.columnTipoPrueba[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "145px", editor: RenderComboBoxTipoPrueba },
             { field: "Posicion", title: _dictionary.columnPosicion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "110px", editor: renderPosicion, format: "{0} °", attributes: { style: "text-align:right;" } },
             { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: EliminaSoldadorCertificacion }, title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], width: "50px" }
@@ -285,6 +287,7 @@ function ValidarInformacionEnviada() {
         ListaDetalles[index].FechaFinCertificado = arregloCaptura[index].FechaFinCertificado == null ? "" : kendo.toString(arregloCaptura[index].FechaFinCertificado, String(_dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()].replace('{', '').replace('}', '').replace("0:", ""))).trim();
         ListaDetalles[index].CedulaTuboCalificadoID = arregloCaptura[index].CedulaTuboCalificadoID;
         ListaDetalles[index].DiametroCalificado = arregloCaptura[index].DiametroCalificado;
+        ListaDetalles[index].DiametroMinimo = arregloCaptura[index].DiametroMinimo;
         ListaDetalles[index].EspesorMinimo = arregloCaptura[index].EspesorMinimo;
         ListaDetalles[index].EspesorMaximo = arregloCaptura[index].EspesorMaximo;
         ListaDetalles[index].PasosSoldadura = arregloCaptura[index].PasosSoldadura;

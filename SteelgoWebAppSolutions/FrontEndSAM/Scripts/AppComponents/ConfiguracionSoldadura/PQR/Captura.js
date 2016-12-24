@@ -1,5 +1,6 @@
 ﻿
 function changeLanguageCall() {
+
     suscribirEventoGuardar();
     CargarGrid();
     LlenaGridAjax();
@@ -118,7 +119,7 @@ function CargarGrid() {
                          style: "max-width:120px;"
                      },
                      dataSource: [{ Etiquetado: true }, { Etiquetado: false }]
-                 }, template: "<input name='fullyPaid' class='chk-PREHEAT' type='checkbox' data-bind='checked: PREHEAT' #= PREHEAT ? checked='checked' : '' #/>", width: "120px"
+                 }, template: "<input name='fullyPaid' class='chk-PREHEAT' type='checkbox' data-bind='checked: PREHEAT' #= PREHEAT ? checked='checked' : '' #/>", width: "120px", attributes: { style: "text-align:center;" }
              },
              {
                  width: "100px", field: "PWHT", title: _dictionary.columnPWHT[$("#language").data("kendoDropDownList").value()], filterable: {
@@ -129,7 +130,7 @@ function CargarGrid() {
                          style: "max-width:100px;"
                      },
                      dataSource: [{ Etiquetado: true }, { Etiquetado: false }]
-                 }, template: "<input name='fullyPaid' class='chk-PWHT' type='checkbox' data-bind='checked: PWHT' #= PWHT ? checked='checked' : '' #/>", width: "111px"
+                 }, template: "<input name='fullyPaid' class='chk-PWHT' type='checkbox' data-bind='checked: PWHT' #= PWHT ? checked='checked' : '' #/>", width: "111px", attributes: { style: "text-align:center;" }
              },
              { width: "120px", field: "EspesorRelleno", title: _dictionary.columnRelleno[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), format: "{0}", editor: RenderEspesorRelleno, attributes: { style: "text-align:right;" } },
              { width: "120px", field: "EspesorRaiz", title: _dictionary.columnRaiz[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), format: "{0}", editor: RenderEspesorRaiz, attributes: { style: "text-align:right;" } },

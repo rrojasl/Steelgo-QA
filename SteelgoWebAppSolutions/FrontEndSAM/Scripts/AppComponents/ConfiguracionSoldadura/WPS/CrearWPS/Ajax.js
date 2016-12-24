@@ -78,7 +78,7 @@ function AjaxGuardar(tipoGuardar) {
         correcto = false;
         displayNotify("WPSMensajeErrorPREHEAT", "", '1');
     }
-    else if (!NombreCorrecto) {
+    else if (!NombreCorrecto && $("#WPSID").val() == "0") {
         correcto = false;
         displayNotify("WPSMensajeErrorNombreRepetido", "", "2");
     }
@@ -110,14 +110,19 @@ function AjaxGuardar(tipoGuardar) {
                     if (data.ReturnMessage[1] != undefined) {
                         $("#WPSID").val(data.ReturnMessage[1]);
                     }
-                    displayNotify("CapturaMensajeGuardadoExitoso", "", '0');
+                    
                     if (tipoGuardar == 1) {
                         Limpiar();
+                        opcionHabilitarView(false, "FieldSetView");
+                        
+                        
                     }
                     else {
                         opcionHabilitarView(true, "FieldSetView");
+                        
                     }
-                    loadingStop();
+                    displayNotify("CapturaMensajeGuardadoExitoso", "", '0');
+                 
                 }
                 else  /*(data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") */ {
                     //mensaje = "No se guardo la informacion el error es: " + data.ReturnMessage[0] + "-2";

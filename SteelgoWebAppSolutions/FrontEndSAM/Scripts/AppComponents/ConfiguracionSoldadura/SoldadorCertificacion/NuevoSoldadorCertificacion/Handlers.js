@@ -6,6 +6,7 @@
     SuscribirEventoEspesorMinimo();
     SuscribirEventoEspesorMaximo();
     SuscribirEventoDiametroCertificado();
+    SuscribirEventoDiametroMinimo();
     SuscribirEventoTipoPrueba();
     SuscribirEventoCedula();
     SuscriborEventoPosicion();
@@ -93,12 +94,37 @@ function SuscribirEventoTipoPrueba() {
     });
 }
 
-function SuscribirEventoDiametroCertificado() {
-    $("#inputDiametroCalificado").kendoNumericTextBox({
-        format: "#.0000",
+function SuscribirEventoDiametroMinimo() {
+    $("#inputDiametroMinimo").kendoNumericTextBox({
+        format: "#",
         min: 0,
         value: "0",
         decimals: 5
+    });
+}
+
+function SuscribirEventoDiametroCertificado() {
+    $("#inputDiametroCalificado").kendoNumericTextBox({
+        format: "#",
+        min: 0,
+        value: "0",
+        decimals: 5
+    });
+
+    $("#inputDiametroCalificado").blur(function (e) {
+        var diametroC = parseFloat($("#inputDiametroCalificado").kendoNumericTextBox().val());
+        
+        if (diametroC < 25) {
+            $("#inputDiametroMinimo").data("kendoNumericTextBox").value(diametroC);
+        }
+        else if (diametroC >= 25 && diametroC <= 75) {
+            $("#inputDiametroMinimo").data("kendoNumericTextBox").value('25');
+        }
+        else {
+            $("#inputDiametroMinimo").data("kendoNumericTextBox").value('73');
+        }
+        $("#inputEspesorMinimo").kendoNumericTextBox({ format: "#" });
+        $("#inputPasosSoldadura").kendoNumericTextBox({ format: "#" });
     });
 }
 
@@ -121,7 +147,7 @@ function SuscribirEventoCedula() {
 
 function SuscribirEventoEspesorMaximo() {
     $("#inputEspesorMaximo").kendoNumericTextBox({
-        format: "#.0000",
+        format: "#",
         min: 0,
         value: "0",
         decimals: 5,
@@ -133,7 +159,7 @@ function SuscribirEventoEspesorMaximo() {
 
 function SuscribirEventoEspesorMinimo() {
     $("#inputEspesorMinimo").kendoNumericTextBox({
-        format: "#.0000",
+        format: "#",
         min: 0,
         value: "0",
         decimals: 5
@@ -148,7 +174,7 @@ function SuscribirEventoEspesorMinimo() {
         else {
             $("#inputEspesorMaximo").data("kendoNumericTextBox").value(parseFloat($("#inputEspesorMinimo").kendoNumericTextBox().val()) * 2);
         }
-        $("#inputEspesorMinimo").kendoNumericTextBox({ format: "#.0000" });
+        $("#inputEspesorMinimo").kendoNumericTextBox({ format: "#" });
         $("#inputPasosSoldadura").kendoNumericTextBox({ format: "#" });
     });
 }
@@ -167,7 +193,7 @@ function SuscribirEventoNumeroPasos() {
             else {
                 $("#inputEspesorMaximo").data("kendoNumericTextBox").value(parseFloat($("#inputEspesorMinimo").kendoNumericTextBox().val()) * 2);
             }
-            $("#inputEspesorMinimo").kendoNumericTextBox({ format: "#.0000" });
+            $("#inputEspesorMinimo").kendoNumericTextBox({ format: "#" });
             $("#inputPasosSoldadura").kendoNumericTextBox({ format: "#" });
         }
     });
