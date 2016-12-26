@@ -37,6 +37,7 @@ namespace BackEndSAM.Models.ServiciosTecnicos.RequisicionPND
         public decimal DiametroPlano { get; set; }
         public decimal Espesor { get; set; }
         public string Cedula { get; set; }
+        public string Codigo { get; set; }
 
         public int? ElementoPorClasificacionPNDID { get; set; }
         public int? RequisicionID { get; set; }

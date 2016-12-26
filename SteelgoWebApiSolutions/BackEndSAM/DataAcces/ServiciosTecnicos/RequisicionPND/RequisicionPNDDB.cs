@@ -79,6 +79,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.GenerarRequisicion
                             DiametroPlano = item.DiametroPlano.GetValueOrDefault(),
                             Espesor = item.Espesor.GetValueOrDefault(),
                             Cedula = item.Cedula,
+                            Codigo = item.Codigo,
 
                             ElementoPorClasificacionPNDID = item.ElementoPorClasificacionPNDID,
                             Agregar = item.RequisicionID.GetValueOrDefault() > 0 ? true : false,
