@@ -20,7 +20,7 @@
                         EspesorMinimo: { type: "number", editable: true },
                         EspesorMaximo: { type: "number", editable: false },
                         DiametroCalificado: { type: "number", editable: true },
-                        DiametroMinimo: {type: "number", editable: false},
+                        DiametroMinimo: { type: "number", editable: false },
                         TipoDePrueba: { type: "string" },
                         Posicion: { type: "number" }
 
@@ -62,7 +62,7 @@
             { field: "PasosSoldadura", title: _dictionary.columnNumeroPasos[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "110px", editor: renderNoPasos, attributes: { style: "text-align:right;" } },
             { field: "CedulaTuboCalificado", title: _dictionary.columnCedulaTubo[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "150px", editor: RenderComboBoxCedulaTuboCalificado },
             { field: "EspesorMinimo", title: _dictionary.columnEspesorMin[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px", editor: renderEmin, attributes: { style: "text-align:right;" } },
-            { field: "EspesorMaximo", title: _dictionary.columnEspesorMax[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px", attributes: { style: "text-align:right;" }},
+            { field: "EspesorMaximo", title: _dictionary.columnEspesorMax[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px", attributes: { style: "text-align:right;" } },
             { field: "DiametroCalificado", title: _dictionary.columnDiametroCalificado[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px", attributes: { style: "text-align:right;" }, editor: renderDiametro },
             { field: "DiametroMinimo", title: _dictionary.columnDiametroMinimo[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px", attributes: { style: "text-align:right;" }, },
             { field: "TipoDePrueba", title: _dictionary.columnTipoPrueba[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "145px", editor: RenderComboBoxTipoPrueba },
@@ -96,37 +96,10 @@ function EliminaSoldadorCertificacion(e) {
         var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
         var WPSIDRegistro = dataItem.WPSID;
 
-        //if (dataItem.RegistrosWPS == 0) {
+        var dataSource = $("#grid").data("kendoGrid").dataSource;
+        dataItem.Accion = 3;
+        $("#grid").data("kendoGrid").dataSource.sync();
 
-        ventanaConfirm = $("#ventanaConfirm").kendoWindow({
-            iframe: true,
-            title: _dictionary.CapturaAvanceTitulo[$("#language").data("kendoDropDownList").value()],
-            visible: false, //the window will not appear before its .open method is called
-            width: "auto",
-            height: "auto",
-            modal: true,
-            animation: {
-                close: false,
-                open: false
-            }
-        }).data("kendoWindow");
-
-        ventanaConfirm.content(_dictionary.SoldadorCertificacionPreguntaBorradoCaptura[$("#language").data("kendoDropDownList").value()] +
-                        "</br><center><button class='confirm_yes btn btn-blue' id='yesButton'>Si</button><button class='confirm_yes btn btn-blue' id='noButton'> No</button></center>");
-
-        ventanaConfirm.open().center();
-
-        $("#yesButton").click(function () {
-
-            var dataSource = $("#grid").data("kendoGrid").dataSource;
-            dataItem.Accion = 3;
-            $("#grid").data("kendoGrid").dataSource.sync();
-
-            ventanaConfirm.close();
-        });
-        $("#noButton").click(function () {
-            ventanaConfirm.close();
-        });
     }
 
 }
@@ -150,7 +123,12 @@ function VentanaModal() {
             position: {
                 top: "10%",
                 left: "20%"
-            }
+            },
+            animation: {
+                close: false,
+                open: false
+            },
+            actions: []
         }).data("kendoWindow");
 
     }
@@ -251,23 +229,23 @@ function ValidarInformacionEnviada() {
 
             if (arregloCaptura[index].PasosSoldadura == "" || arregloCaptura[index].PasosSoldadura <= 0) { //Pasos soladura
                 desplegadoPasos = true;
-                
+
                 displayNotify("CapturaSoldadorCertificacionNoPasosMsg", "", '1');
             }
             else if (arregloCaptura[index].EspesorMinimo == "" || arregloCaptura[index].EspesorMinimo <= 0) { //Pasos soladura
                 desplegadoEspesor = true;
                 displayNotify("", "El Espesor C para el WPS " + arregloCaptura[index].NombreWPS + " tiene que ser mayor a cero", '1');
-                
+
             }
             else if (arregloCaptura[index].DiametroCalificado == "" || arregloCaptura[index].DiametroCalificado <= 0) { //Pasos soladura
                 desplegadoDiametro = true;
                 displayNotify("", "El Diametro C para el WPS " + arregloCaptura[index].NombreWPS + " tiene que ser mayor a cero", '1');
-                
+
             }
             else if (arregloCaptura[index].Posicion == "" || arregloCaptura[index].Posicion <= 0) { //Pasos soladura
                 desplegadoPosicion = true;
                 displayNotify("CapturaSoldadorCertificacionPosicionMsg", "", '1');
-               
+
             }
 
             ListaDetalles[index].Estatus = 0;
@@ -296,9 +274,9 @@ function ValidarInformacionEnviada() {
     }
     Captura[0].Detalles = ListaDetalles;
 
-   
 
-   
+
+
     if (NombreRepetido(ListaDetalles)) {
         displayNotify("SoldadorNombreRepetido", "", "2");
         $("#grid").data("kendoGrid").dataSource.sync();
@@ -322,7 +300,8 @@ function ValidarInformacionEnviada() {
             animation: {
                 close: false,
                 open: false
-            }
+            },
+            actions: []
         }).data("kendoWindow");
 
         ventanaConfirm.content(_dictionary.CapturaAvanceIntAcabadoMensajePreguntaGuardado[$("#language").data("kendoDropDownList").value()] +

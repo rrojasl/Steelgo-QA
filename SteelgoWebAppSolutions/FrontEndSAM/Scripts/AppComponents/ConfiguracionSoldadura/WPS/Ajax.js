@@ -201,7 +201,8 @@ function AjaxGuardarCaptura() {
             animation: {
                 close: false,
                 open: false
-            }
+            },
+            actions: []
         }).data("kendoWindow");
 
         ventanaConfirm.content(_dictionary.CapturaAvanceIntAcabadoMensajePreguntaGuardado[$("#language").data("kendoDropDownList").value()] +

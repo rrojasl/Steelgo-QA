@@ -220,6 +220,8 @@ function Limpiar() {
     $('#GrupoFID').val("");
     $('#CodigoID').data("kendoComboBox").value("");
     $("#PQRID").val("0");
+    opcionHabilitarView(false, "FieldSetView");
+    loadingStop();
 };
 
 function tieneClase(item) {

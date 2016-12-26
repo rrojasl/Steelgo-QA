@@ -146,19 +146,21 @@ function ObtenerEspesorCorrecto(EspesorTotalT, PWHT, ProcesoSoldadura, esRaiz) {
 
 
 function obtenerGruposPLiberar(gp1, gp2, gp3, gp4) {
-    var array = [];
-    array[0] = gp1;
-    array[1] = gp2;
-    array[2] = gp3;
-    array[3] = gp4;
+    var arreglo = [];
+    arreglo[0] = gp1;
+    arreglo[1] = gp2;
+    arreglo[2] = gp3;
+    arreglo[3] = gp4;
 
 
-    array.unique()
-    
+    var arregloSinRepetir = arreglo.filter(onlyUnique);
+    if (arregloSinRepetir.length == 1) {
+        arregloSinRepetir[1] = arregloSinRepetir[0];
+    }
+
+    return arregloSinRepetir;
 }
 
-Array.prototype.unique = function (a) {
-    return function () { return this.filter(a) }
-        }(function (a, b, c) {
-       return c.indexOf(a, b + 1) < 0
-});
+function onlyUnique(value, index, self) {
+    return self.indexOf(value) === index;
+}

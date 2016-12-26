@@ -124,23 +124,26 @@ function AjaxGuardar(tipoGuardar) {
                     if (data.ReturnMessage[1] != undefined) {
                         $("#PQRID").val(data.ReturnMessage[1]);
                     }
-                    displayNotify("CapturaMensajeGuardadoExitoso", "", '0');
+                    
                     if (tipoGuardar == 1) {//guardar y nuevo
+                        loadingStart();
                         Limpiar();
-                        opcionHabilitarView(false, "FieldSetView");
                     }
                     else {
                         opcionHabilitarView(true, "FieldSetView");
+                        loadingStop();
                     }
+                    displayNotify("CapturaMensajeGuardadoExitoso", "", '0');
+                    
                 }
                 else  /*(data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") */ {
                     //mensaje = "No se guardo la informacion el error es: " + data.ReturnMessage[0] + "-2";
                     displayNotify("CapturaMensajeGuardadoErroneo", "", '2');
-                    
+                    loadingStop();
 
                 }
             }
-            loadingStop();
+            
         });
     }
 }
