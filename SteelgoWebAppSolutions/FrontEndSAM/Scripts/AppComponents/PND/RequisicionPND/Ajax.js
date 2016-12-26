@@ -102,7 +102,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
         ProyectoID: 0,
         TipoPruebaID: 0,
         FechaRequisicion: "",
-        CodigoAsme: "",
+        //CodigoAsme: "",
         Observacion: "",
         Lenguaje: "",
         ListaDetalle: ""
@@ -143,7 +143,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
         Captura[0].Requisicion = "";
         Captura[0].ProyectoID = $("#inputProyecto").data("kendoComboBox").value();
         Captura[0].TipoPruebaID = $("#inputTipoPrueba").data("kendoComboBox").value() == "" ? 0 : $("#inputTipoPrueba").data("kendoComboBox").value();
-        Captura[0].CodigoAsme = "";
+        //Captura[0].CodigoAsme = "";
         Captura[0].Observacion = "";
         Captura[0].Lenguaje = $("#language").val();
         Captura[0].FechaRequisicion = "";
@@ -184,10 +184,10 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                                     '<label id=""><span>' + _dictionary.lblFechaRequisicion[$("#language").data("kendoDropDownList").value()] + '</span></label>' +
                                     '<input id="FechaRequisicion" class="form-control"/>' +
                                 '</div>' +
-                                '<div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">' +
-                                    '<label id=""><span>' + _dictionary.lblCodigoAsme[$("#language").data("kendoDropDownList").value()] + '</span></label>' +
-                                    '<input id="CodigoAsme" class="form-control" readonly disabled />' +
-                                '</div>' +
+                                //'<div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">' +
+                                //    '<label id=""><span>' + _dictionary.lblCodigoAsme[$("#language").data("kendoDropDownList").value()] + '</span></label>' +
+                                //    '<input id="CodigoAsme" class="form-control" readonly disabled />' +
+                                //'</div>' +
                                 '<div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">' +
                                     '<label id=""><span>' + _dictionary.lblObservacion[$("#language").data("kendoDropDownList").value()] + '</span></label>' +
                                     '<input id="Observacion" class="form-control" />' +
@@ -204,13 +204,13 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
             $("#NombreRequisicion").val($("#listaRequisiciones").data("kendoComboBox").dataItem($("#listaRequisiciones").data("kendoComboBox").select()).NombreRequisicion);
             $("#FechaRequisicion").val($("#listaRequisiciones").data("kendoComboBox").dataItem($("#listaRequisiciones").data("kendoComboBox").select()).FechaRequisicion);
             $("#Observacion").val($("#listaRequisiciones").data("kendoComboBox").dataItem($("#listaRequisiciones").data("kendoComboBox").select()).Observacion);
-            $("#CodigoAsme").val($("#listaRequisiciones").data("kendoComboBox").dataItem($("#listaRequisiciones").data("kendoComboBox").select()).CodigoAsme);
+            //$("#CodigoAsme").val($("#listaRequisiciones").data("kendoComboBox").dataItem($("#listaRequisiciones").data("kendoComboBox").select()).CodigoAsme);
         }
         else {
             var idFechaRequisicion = 2047;
             $CamposPredeterminados.CamposPredeterminados.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), id: idFechaRequisicion }).done(function (data) {
                 $("#FechaRequisicion").val(data);
-                $("#CodigoAsme").val("ASME VIII Div 1 App 8"); // Hardcode debido a que no hay codigos asme para el proyectoId 16
+                //$("#CodigoAsme").val("ASME VIII Div 1 App 8"); // Hardcode debido a que no hay codigos asme para el proyectoId 16
             });
         }
 
@@ -218,7 +218,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
 
         $("#YesButton").click(function (handler) {
             Captura[0].Requisicion = $("#NombreRequisicion").val();
-            Captura[0].CodigoAsme = $("#CodigoAsme").val();
+            //Captura[0].CodigoAsme = $("#CodigoAsme").val();
             Captura[0].Observacion = $("#Observacion").val();
             Captura[0].FechaRequisicion = $("#FechaRequisicion").val();
 

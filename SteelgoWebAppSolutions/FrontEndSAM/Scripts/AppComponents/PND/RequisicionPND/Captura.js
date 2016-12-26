@@ -81,6 +81,7 @@ function CargarGrid() {
                         DiametroPlano: { type: "number", editable: false },
                         Espesor: { type: "number", editable: false },
                         Cedula: { type: "string", editable: false },
+                        Codigo: { type: "string", editable: false },
 
                         ElementoPorClasificacionPNDID: { type: "int", editable: false },
                         RequisicionID: { type: "int", editable: false },
@@ -124,6 +125,7 @@ function CargarGrid() {
             { field: "DiametroPlano", title: _dictionary.columnDiametro[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "94px", attributes: { style: "text-align:right;" } },
             { field: "Espesor", title: _dictionary.columnEspesor[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "112px", attributes: { style: "text-align:right;" } },
             { field: "Cedula", title: _dictionary.columnCedula[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "105px" },
+            { field: "Codigo", title: _dictionary.columnCodigoAsme[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "145px" },
             {
                 field: "Agregar", title: _dictionary.columnAgregar[$("#language").data("kendoDropDownList").value()], filterable: {
                     multi: true,

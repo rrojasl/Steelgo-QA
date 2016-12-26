@@ -122,10 +122,15 @@ function suscribirEventoGuardar() {
     $('.accionGuardarYNuevo').click(function (e) {
         var ds = $("#grid").data("kendoGrid").dataSource;
         if ($('#botonGuardar').text() == "Guardar") {
-            if ($("#inputTipoPrueba").data("kendoComboBox").value() != 0)
-                AjaxGuardarCaptura(ds._data, 1);
+            if ($("#inputProyecto").data("kendoComboBox").value() != 0 && $("#inputProyecto").data("kendoComboBox").value() != "") {
+
+                if ($("#inputTipoPrueba").data("kendoComboBox").value() != 0)
+                    AjaxGuardarCaptura(ds._data, 1);
+                else
+                    displayNotify("MensajeSeleccionaTipoPrueba", "", '1');
+            }
             else
-                displayNotify("", "Favor de seleccionar un tipo de prueba", '1');
+                displayNotify("MensajeSeleccionaProyecto", "", '1');
         }
         else if ($('#botonGuardar').text() == "Editar") {
             if ($("#inputTipoPrueba").data("kendoComboBox").value() != 0)

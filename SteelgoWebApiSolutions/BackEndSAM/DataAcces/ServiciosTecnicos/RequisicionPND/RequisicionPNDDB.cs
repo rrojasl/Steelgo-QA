@@ -111,7 +111,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.GenerarRequisicion
             }
         }
 
-        public object InsertarNuevaRequisicion(DataTable dtDetalleRequisicion, int RequisicionID, string NombreRequisicion, int ProyectoID, int TipoPruebaID, string FechaRequisicion, string CodigoAsme, string Observacion, string lenguaje, Sam3_Usuario usuario)
+        public object InsertarNuevaRequisicion(DataTable dtDetalleRequisicion, int RequisicionID, string NombreRequisicion, int ProyectoID, int TipoPruebaID, string FechaRequisicion, /*string CodigoAsme,*/ string Observacion, string lenguaje, Sam3_Usuario usuario)
         {
             try
             {
@@ -126,7 +126,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.GenerarRequisicion
                         { "@ProyectoID", ProyectoID.ToString() },
                         { "@TipoPruebaID", TipoPruebaID.ToString() },
                         { "@FechaRequisicion",FechaRequisicion},
-                        { "@CodigoAsme", CodigoAsme }, 
+                        //{ "@CodigoAsme", CodigoAsme }, 
                         { "@Observacion", Observacion == null ? "" : Observacion },
                         { "@Lenguaje", lenguaje },
                         { "@UsuarioID", usuario.UsuarioID.ToString() }};
