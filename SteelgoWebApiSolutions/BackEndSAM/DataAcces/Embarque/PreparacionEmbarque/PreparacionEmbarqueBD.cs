@@ -119,13 +119,13 @@ namespace BackEndSAM.DataAcces.Embarque.PreparacionEmbarque
             }
         }
 
-        public object ObtenerListadoEmbarques(int ProveedorID, string lenguaje, int Enviado)
+        public object ObtenerListadoEmbarques(int ProveedorID, string Lenguaje, int ProyectoID)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Embarque_PE_Get_ListadoEmbarque_Result> result = ctx.Sam3_Embarque_PE_Get_ListadoEmbarque(ProveedorID, lenguaje, Enviado).ToList();
+                    List<Sam3_Embarque_PE_Get_ListadoEmbarque_Result> result = ctx.Sam3_Embarque_PE_Get_ListadoEmbarque(ProveedorID, Lenguaje, ProyectoID).ToList();
                     List<EmbarqueDetalle> listaDetalle = new List<EmbarqueDetalle>();
                     listaDetalle.Add(new EmbarqueDetalle());
 

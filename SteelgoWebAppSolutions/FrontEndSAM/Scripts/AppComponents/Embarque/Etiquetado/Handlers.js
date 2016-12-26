@@ -669,17 +669,6 @@ function LimpiarBusquedaZona() {
     $("#inputCuadrantePlanchado").data("kendoComboBox").value("");
 }
 
-function LimpiarCuadrantes() {
-    $("#inputCuadrante").data("kendoComboBox").dataSource.data([]);
-    $("#inputCuadrante").val(0);
-    $("#inputCuadrante").data("kendoComboBox").value("");
-    $("#inputCuadrantePlanchado").data("kendoComboBox").dataSource.data([]);
-    $("#inputCuadrantePlanchado").val(0);
-    $("#inputCuadrantePlanchado").data("kendoComboBox").value("");
-
-    $("#grid").data("kendoGrid").dataSource.data([]);
-}
-
 function LimpiarCargarZona() {
     $("#inputCuadrante").data("kendoComboBox").dataSource.data([]);
     $("#inputCuadrante").data("kendoComboBox").value("");
@@ -696,8 +685,7 @@ function LimpiarCargaSpoolContiene() {
 }
 
 function LimpiarCargaCuadrante() {
-    $("#inputCuadrantePlanchado").data("kendoComboBox").dataSource.data([]);
-    $("#inputCuadrantePlanchado").data("kendoComboBox").value("");
+    $("#inputCuadrante").data("kendoComboBox").value("");
     $("#grid").data("kendoGrid").dataSource.data([]);
 }
 

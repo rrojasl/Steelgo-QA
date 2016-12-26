@@ -721,7 +721,6 @@ function LimpiarCargaSpoolContiene() {
 }
 
 function LimpiarCargaCuadrante() {
-    $("#InputCuadrantePlanchado").data("kendoComboBox").dataSource.data([]);
     $("#InputCuadrantePlanchado").data("kendoComboBox").value("");
     $("#InputColorCintaPlanchado").data("kendoComboBox").value("");
     $('input:radio[name=SelectTodos]:nth(2)').trigger("click");

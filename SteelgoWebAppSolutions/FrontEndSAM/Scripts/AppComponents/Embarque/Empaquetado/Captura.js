@@ -28,6 +28,7 @@ function CargarGrid() {
                 model: {
                     fields: {
                         Accion: { type: "number", editable: false },
+                        Consecutivo: { type: "number", editable: false },
                         NumeroControl: { type: "string", editable: false },
                         Cuadrante: { type: "string", editable: false },
                         Area: { type: "number", editable: false },
@@ -68,6 +69,7 @@ function CargarGrid() {
         },
         filterable: getGridFilterableMaftec(),
         columns: [
+            { field: "Consecutivo", title: _dictionary.columnConsecutivoEmbarque[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec() },
             { field: "NumeroControl", title: _dictionary.columnSpool[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec() },
             { field: "Cuadrante", title: _dictionary.columnCuadrante[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec() },
             { field: "Area", title: _dictionary.columnM2[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), aggregates: ["sum"], footerTemplate: "<div style='text-align:right;'>SUM: #= kendo.toString(sum, 'n3') #</div>", attributes: { style: "text-align:right;" } },

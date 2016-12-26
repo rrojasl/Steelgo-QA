@@ -1,4 +1,7 @@
-﻿function AjaxCargarProyecto() {
+﻿var TractoEmbarque = 0;
+var ChoferEmbarque = 0;
+
+function AjaxCargarProyecto() {
     loadingStart();
     $Proyectos.Proyectos.read({ token: Cookies.get("token") }).done(function (data) {
         if (Error(data)) {
@@ -27,9 +30,8 @@
 function AjaxObtenerPlanas(ProyectoID) {
     loadingStart();
     $EmbarqueGeneral.EmbarqueGeneral.read({ token: Cookies.get("token"), ProyectoID: ProyectoID, PlanaCerrada: 1 }).done(function (data) {
-        if (Error(data)) {
-            $("#Plana").data("kendoComboBox").dataSource.data([]);
-            var PlanaID = 0;
+        $("#Plana").data("kendoComboBox").dataSource.data([]);
+        var PlanaID = 0;
 
             if (data.length > 0) {
                 $("#Plana").data("kendoComboBox").dataSource.data(data);
@@ -37,7 +39,6 @@ function AjaxObtenerPlanas(ProyectoID) {
                 $("#Plana").data("kendoComboBox").value(PlanaID);
                 $("#Plana").data("kendoComboBox").trigger("change");
             }
-        }
         loadingStop();
     });
 }
@@ -48,41 +49,35 @@ function AjaxEmbarqueCargaProveedores(ProyectoID, nuevoProveedor) {
     loadingStart();
 
     $Proveedores.Proveedores.read({ token: Cookies.get("token"), ProyectoID: ProyectoID, TipoProveedor: 2 }).done(function (data) {
-        if (Error(data)) {
-            if (data.length > 0) {
-                var ProveedorId = 0;
-                if (data.length > 0) {
-                    $("#Proveedor").data("kendoComboBox").dataSource.data(data);
-                    if (data.length == 2) {
-                        for (var i = 0; i < data.length; i++) {
-                            if (data[i].ProveedorID != 0) {
-                                ProveedorId = data[i].ProveedorID;
+        var ProveedorId = 0;
+        $("#Proveedor").data("kendoComboBox").dataSource.data([]);
 
-                            }
-                        }
+        if (data.length > 0) {
+            $("#Proveedor").data("kendoComboBox").dataSource.data(data);
+            if (data.length == 2 && nuevoProveedor == null) {
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].ProveedorID != 0) {
+                        ProveedorId = data[i].ProveedorID;
+
                     }
-                    else {
-                        if (nuevoProveedor != null) {
-                            for (var i = 0; i < data.length; i++) {
-                                if (data[i].Nombre == nuevoProveedor) {
-                                    ProveedorId = data[i].ProveedorID;
-                                }
-                            }
-                        }
-                    }
-
-                    data.splice(1, 0, {
-                        ProveedorID: -1, Nombre: _dictionary.EmarquePreparacionAgregarProveedor[$("#language").data("kendoDropDownList").value()]
-                    });
-                    $("#Proveedor").data("kendoComboBox").dataSource.data(data);
-
-                    $("#Proveedor").data("kendoComboBox").value(ProveedorId);
-                    $("#Proveedor").data("kendoComboBox").trigger("change");
-                }
-                else {
-                    $("#Proveedor").data("kendoComboBox").value("");
                 }
             }
+            else {
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].Nombre == nuevoProveedor) {
+                        ProveedorId = data[i].ProveedorID;
+                    }
+                }
+            }
+
+            data.splice(1, 0, {
+                ProveedorID: -1, Nombre: _dictionary.EmarquePreparacionAgregarProveedor[$("#language").data("kendoDropDownList").value()]
+            });
+            $("#Proveedor").data("kendoComboBox").dataSource.data(data);
+
+            $("#Proveedor").data("kendoComboBox").value(ProveedorId);
+            $("#Proveedor").data("kendoComboBox").trigger("change");
+
         }
         loadingStop();
     });
@@ -93,10 +88,11 @@ function AjaxEmbarqueCargaProveedores(ProyectoID, nuevoProveedor) {
 function AjaxEmbarqueCargaTractos(ProveedorID, nuevoTracto) {
     loadingStart();
     $EmbarqueGeneral.EmbarqueGeneral.read({ token: Cookies.get("token"), ProveedorID: ProveedorID, Tractos: 1 }).done(function (data) {
+        var TractoID = 0;
         $("#Tracto").data("kendoComboBox").dataSource.data([]);
+
         if (data.length > 0) {
-            var TractoID = 0;
-            if (data.length > 3 && nuevoTracto == null) {
+            if (data.length == 2 && nuevoTracto == null) {
                 for (var i = 0; i < data.length; i++) {
                     if (data[i].TractoID != 0) {
                         TractoID = data[i].TractoID;
@@ -106,7 +102,7 @@ function AjaxEmbarqueCargaTractos(ProveedorID, nuevoTracto) {
             }
             else {
                 for (var i = 0; i < data.length; i++) {
-                    if (data[i].Nombre == nuevoTracto) {
+                    if (data[i].Nombre == nuevoTracto || data[i].TractoID == TractoEmbarque) {
                         TractoID = data[i].TractoID;
                     }
                 }
@@ -127,44 +123,33 @@ function AjaxEmbarqueCargaChofer(ProveedorID, nuevoChofer) {
     loadingStart();
 
     $EmbarqueGeneral.EmbarqueGeneral.read({ token: Cookies.get("token"), ProveedorID: ProveedorID, Chofer: 2 }).done(function (data) {
-        if (Error(data)) {
-            if (data.length > 0) {
+        $("#Chofer").data("kendoComboBox").dataSource.data([]);
+        if (data.length > 0) {
+            var ChoferID = 0;
 
-                var ChoferID = 0;
-                if (data.length > 0) {
+            if (data.length == 2 && nuevoChofer == null) {
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].ChoferID != 0) {
+                        ChoferID = data[i].ChoferID;
 
-                    if (data.length < 3) {
-                        for (var i = 0; i < data.length; i++) {
-                            if (data[i].ChoferID != 0) {
-                                ChoferID = data[i].ChoferID;
-
-                            }
-                        }
                     }
-                    else {
-                        if (nuevoChofer != null) {
-                            for (var i = 0; i < data.length; i++) {
-                                if (data[i].Nombre == nuevoChofer) {
-                                    ChoferID = data[i].ChoferID;
-                                }
-                            }
-                        }
-                    }
-
-                    data.splice(1, 0, {
-                        ChoferID: -1, Nombre: _dictionary.EmarquePreparacionAgregarChofer[$("#language").data("kendoDropDownList").value()]
-                    });
-                    $("#Chofer").data("kendoComboBox").dataSource.data(data);
-
-                    $("#Chofer").data("kendoComboBox").value(ChoferID);
-                    $("#Chofer").data("kendoComboBox").trigger("change");
-
-
-                }
-                else {
-                    $("#Chofer").data("kendoComboBox").value("");
                 }
             }
+            else {
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].Nombre == nuevoChofer || data[i].ChoferID == ChoferEmbarque) {
+                        ChoferID = data[i].ChoferID;
+                    }
+                }
+            }
+
+            data.splice(1, 0, {
+                ChoferID: -1, Nombre: _dictionary.EmarquePreparacionAgregarChofer[$("#language").data("kendoDropDownList").value()]
+            });
+            $("#Chofer").data("kendoComboBox").dataSource.data(data);
+
+            $("#Chofer").data("kendoComboBox").value(ChoferID);
+            $("#Chofer").data("kendoComboBox").trigger("change");
         }
         loadingStop();
     });
@@ -172,32 +157,29 @@ function AjaxEmbarqueCargaChofer(ProveedorID, nuevoChofer) {
 
 function AjaxObtenerEmbarque(ProveedorID, nombreEmbarque) {
     loadingStart();
-    $PreparacionEmbarque.PreparacionEmbarque.read({ token: Cookies.get("token"), ProveedorID: ProveedorID, Lenguaje: $("#language").val(), Enviado: 1 }).done(function (data) {
-        if (Error(data)) {
-            $("#Embarque").data("kendoComboBox").dataSource.data([]);
-            var EmbarqueID = 0;
+    var proyectoID = $("#Proyecto").data("kendoComboBox").value();
+    $PreparacionEmbarque.PreparacionEmbarque.read({ token: Cookies.get("token"), ProveedorID: ProveedorID, Lenguaje: $("#language").val(), ProyectoID: proyectoID }).done(function (data) {
+        $("#Embarque").data("kendoComboBox").dataSource.data([]);
+        var EmbarqueID = 0;
 
-            if (data.length > 0) {
-
-                if (data.length < 3) {
-                    for (var i = 0; i < data.length; i++) {
-                        if (data[i].EmbarqueID != 0) {
-                             EmbarqueID = data[i].EmbarqueID;
-                        }
-                    }
-                } else {
-                    for (var i = 0; i < data.length; i++) {
-                        if (data[i].Nombre == nombreEmbarque) {
-                            EmbarqueID = data[i].EmbarqueID;
-                        }
+        if (data.length > 0) {
+            if (data.length < 3 && nombreEmbarque == null) {
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].EmbarqueID != 0) {
+                        EmbarqueID = data[i].EmbarqueID;
                     }
                 }
-
-                $("#Embarque").data("kendoComboBox").dataSource.data(data);
-
-                $("#Embarque").data("kendoComboBox").value(EmbarqueID);
-                $("#Embarque").data("kendoComboBox").trigger("change");
+            } else {
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].Nombre == nombreEmbarque) {
+                        EmbarqueID = data[i].EmbarqueID;
+                    }
+                }
             }
+
+            $("#Embarque").data("kendoComboBox").dataSource.data(data);
+            $("#Embarque").data("kendoComboBox").value(EmbarqueID);
+            $("#Embarque").data("kendoComboBox").trigger("change");
         }
         loadingStop();
     });

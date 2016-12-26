@@ -6,13 +6,13 @@ var reporteID;
 
 
 function changeLanguageCall() {
+
     AltaFecha();
     endRangeDate.data("kendoDatePicker").setOptions({
         format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()]
     });
     CargarGrid();
-    //AjaxCargarListadoEmbarque('Enviados', $("#language").val());
-    //AjaxCargarPath();
+    AjaxCargarCamposPredeterminados();
     document.title = "Listado Embarque";
 };
 

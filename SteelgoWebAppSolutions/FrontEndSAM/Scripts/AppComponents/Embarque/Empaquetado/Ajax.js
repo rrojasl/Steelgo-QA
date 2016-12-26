@@ -178,6 +178,7 @@ function AjaxCargarDetalleEmpaquetado(paqueteID, todos) {
         if (data!= null) {
             var ds = $("#grid").data("kendoGrid").dataSource;
             for (var i = 0; i < data.length; i++) {
+                data[i].Consecutivo = $("#grid").data("kendoGrid").dataSource._data.length + 1;
                 ds.add(data[i]);
             }
             ImprimirTotalToneladas(ds._data);
@@ -199,6 +200,7 @@ function AjaxObtenerDetalleSpool(tipoConsulta, spoolID, codigo) {
                     if (data[i].ProyectoID === ProyectoID) {
                         if (data[i].CargaPlana === 0) {
                             if (data[i].Empaquetado === 0) {
+                                data[i].Consecutivo = $("#grid").data("kendoGrid").dataSource._data.length + 1;
                                 ds.add(data[i]);
                             } else {
                                 displayNotify("", _dictionary.EmbarqueEmpaquetadoErrorSpoolPaquete[$("#language").data("kendoDropDownList").value()] +

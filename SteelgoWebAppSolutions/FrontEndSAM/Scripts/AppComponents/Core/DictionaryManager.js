@@ -10569,7 +10569,7 @@ _dictionary = {
         "es-MX": "Encintado ",
         "en-US": "Encintado"
     },
-    "columnConcecutivoEmbarque": {
+    "columnConsecutivoEmbarque": {
         "es-MX": "Consecutivo ",
         "en-US": "Consecutive"
     },

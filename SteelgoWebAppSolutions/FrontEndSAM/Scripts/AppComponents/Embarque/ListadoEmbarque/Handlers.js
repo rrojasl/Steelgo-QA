@@ -1,45 +1,22 @@
 ﻿function SuscribirEventos() {
-    suscribirEventoCambioTab();
+    SuscribirEventoTab();
     suscribirEventoModal();
     suscribirEventoGuardarFolio();
     suscribirEventoEnviarEmbarque();
     agregarEventoImprimir();
-    suscribirEventoProyecto();
 }
 
 SuscribirEventos();
 
-
-function suscribirEventoProyecto() {
-    $("#Proyecto").kendoComboBox({
-        dataTextField: "Nombre",
-        dataValueField: "ProyectoID",
-        suggest: true,
-        filter: "contains",
-        index: 3,
-        change: function (e) {
-            if ($("#Proyecto").data("kendoComboBox").dataItem($("#Area").data("kendoComboBox").select()) != undefined) {
-                //AjaxCargarCuadrante($("#Area").data("kendoComboBox").value());
-            }
-            else {
-                $("#Proyecto").data("kendoComboBox").value("");
-            }
-
-        }
-    });
-}
-
-
-
-function suscribirEventoCambioTab() {
-    $("#btnSinPermiso").click(function (e) {
+function SuscribirEventoTab() {
+    $("#btnPendientes").click(function (e) {
         $(".btn-tabList").removeClass("active");
-        $("#btnSinPermiso").addClass("active");
+        $("#btnPendientes").addClass("active");
         //AjaxCargarListadoEmbarque('todos', $("#language").val());
     });
-    $("#btnSinAutorizacion").click(function (e) {
+    $("#btnTransito").click(function (e) {
         $(".btn-tabList").removeClass("active");
-        $("#btnSinAutorizacion").addClass("active");
+        $("#btnTransito").addClass("active");
         //AjaxCargarListadoEmbarque('Enviados', $("#language").val());
     });
 }
@@ -98,11 +75,11 @@ function suscribirEventoModal() {
 
 function agregarEventoImprimir() {
     $(document).on('click', '.imprimirPapelesCliente', function (e) {
-        AjaxImprimir();
+        //AjaxImprimir();
     });
 
     $(document).on('click', '.imprimirPapelesAduana', function (e) {
-        AjaxImprimir();
+        //AjaxImprimir();
     });
 }
 

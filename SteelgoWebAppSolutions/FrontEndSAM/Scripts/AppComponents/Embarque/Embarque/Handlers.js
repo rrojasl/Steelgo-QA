@@ -111,9 +111,9 @@ function SuscribirEventoProveedor() {
                         CargaPopupNuevoProveedor();
                     } else {
                         if (dataItem.ProveedorID != 0) {
-                            AjaxObtenerEmbarque(dataItem.ProveedorID, "");
                             AjaxEmbarqueCargaTractos(dataItem.ProveedorID, null);
                             AjaxEmbarqueCargaChofer(dataItem.ProveedorID, null);
+                            AjaxObtenerEmbarque(dataItem.ProveedorID, null);
                         }
                     }
                 }
@@ -153,7 +153,7 @@ function SuscribirEventoProveedor() {
                             if (dataItem.ProveedorID != 0) {
                                 AjaxEmbarqueCargaTractos(dataItem.ProveedorID, null);
                                 AjaxEmbarqueCargaChofer(dataItem.ProveedorID, null);
-                                AjaxObtenerEmbarque(dataItem.ProveedorID, "");
+                                AjaxObtenerEmbarque(dataItem.ProveedorID, null);
                             }
                         }
                     }
@@ -182,12 +182,11 @@ function SuscribirEventoTracto() {
         index: 3,
         change: function (e) {
             var dataItem = this.dataItem(e.sender.selectedIndex);
-            var ds = $("#grid").data("kendoGrid").dataSource;
 
             if (dataItem != undefined) {
                 if (dataItem.TractoID == -1) {
                     CargaPopupNuevoTracto();
-                        $("#Tracto").data("kendoComboBox").value("");
+                   $("#Tracto").data("kendoComboBox").value("");
                 }
             }
             else {
@@ -302,20 +301,21 @@ function suscribirEventoEmbarque() {
             if (ds._data.length == 0) {
                 if (dataItem != undefined) {
                     $("#grid").data("kendoGrid").dataSource.data([]);
-                    $("#Tracto").data("kendoComboBox").value("");
-                    $("#Chofer").data("kendoComboBox").value("");
                     EmbarqueIncial = dataItem.EmbarqueID;
 
                     if (dataItem.EmbarqueID != 0) {
                         AjaxObtieneDetalle(dataItem.EmbarqueID);
+                        TractoEmbarque = dataItem.TractoID;
+                        ChoferEmbarque = dataItem.ChoferID;
+
                         $("#Tracto").data("kendoComboBox").value(dataItem.TractoID);
-                        $("#Tracto").data("kendoComboBox").trigger("change");
                         $("#Chofer").data("kendoComboBox").value(dataItem.ChoferID);
-                        $("#Chofer").data("kendoComboBox").trigger("change");
                     }
                 }
                 else {
                     $("#Embarque").data("kendoComboBox").value("");
+                    $("#Tracto").data("kendoComboBox").value("");
+                    $("#Chofer").data("kendoComboBox").value("");
                 }
             }
             else {
