@@ -26,7 +26,7 @@ namespace BackEndSAM.Controllers.Pintura.AdminComponentes
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return AdminComponentesBD.Instance.ObtenerMedioTransporteCargado(lenguaje);
+                return AdminComponentesBD.Instance.ObtenerDetalleGrid(lenguaje);
             }
             else
             {
