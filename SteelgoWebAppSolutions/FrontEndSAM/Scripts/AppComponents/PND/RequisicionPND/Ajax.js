@@ -210,7 +210,6 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
             var idFechaRequisicion = 2047;
             $CamposPredeterminados.CamposPredeterminados.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), id: idFechaRequisicion }).done(function (data) {
                 $("#FechaRequisicion").val(data);
-                //$("#CodigoAsme").val("ASME VIII Div 1 App 8"); // Hardcode debido a que no hay codigos asme para el proyectoId 16
             });
         }
 
@@ -230,12 +229,12 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                             opcionHabilitarView(false, "FieldSetView");
                         }
                         else {
-                            $('input[name="Muestra"][value="Todos"]').prop('checked', true);
+                            $('input[name="Muestra"][value="SinCaptura"]').prop('checked', true);
                             AjaxGetGuardado(data.ReturnMessage[1]);
                             opcionHabilitarView(true, "FieldSetView");
                         }
 
-                        displayNotify("", "Datos guardados correctamente.", "0");
+                        displayNotify("EntregaPlacasGraficasMensajeGuardadoExistoso", "", "0");
                     }
                 }
                 else {

@@ -125,8 +125,8 @@ function cargarGrid() {
             filter: {
                 logic: "or",
                 filters: [
-                  { field: "Accion", operator: "eq", value: 1 },
-                  { field: "Accion", operator: "eq", value: 2 }
+                  { field: "accion", operator: "eq", value: 1 },
+                  { field: "accion", operator: "eq", value: 2 }
                 ]
             },
             pageSize: 10,
@@ -283,6 +283,14 @@ function validaInformacionCapturada() {
 function tieneClase(item) {
     for (var i = 0; i < item.classList.length; i++) {
         if (item.classList[i] == "k-state-border-up" || item.classList[i] == "k-state-border-down")
+            return true;
+    }
+    return false;
+}
+
+function existenCambios(arregloCaptura) {
+    for (index = 0; index < arregloCaptura.length; index++) {
+        if (arregloCaptura[index].Agregar == true && arregloCaptura[index].RequisicionID == 0)
             return true;
     }
     return false;

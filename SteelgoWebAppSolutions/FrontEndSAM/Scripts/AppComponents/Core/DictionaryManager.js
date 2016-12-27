@@ -8771,6 +8771,10 @@ _dictionary = {
         "es-MX": "Plana",
         "en-US": "Flat"
     },
+    "columnEspec": {
+        "es-MX": "Espec",
+        "en-US": "Spec"
+    },
     // Finalizan Etiquetas Grid
     // Finalizan Etiquetas generales
 

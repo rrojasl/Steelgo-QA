@@ -90,7 +90,7 @@ function CargarGrid() {
                         JuntaSpoolID: { type: "int", editable: false },
                         OrdenTrabajoSpoolID: { type: "int", editable: false },
                         TipoPruebaID: { type: "int", editable: false },
-                        Especificacion: { type: "number", editable: false },
+                        Especificacion: { type: "string", editable: false },
                         Agregar: { type: "boolean", editable: false }
                     }
                 }
@@ -125,6 +125,7 @@ function CargarGrid() {
             { field: "DiametroPlano", title: _dictionary.columnDiametro[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "94px", attributes: { style: "text-align:right;" } },
             { field: "Espesor", title: _dictionary.columnEspesor[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "112px", attributes: { style: "text-align:right;" } },
             { field: "Cedula", title: _dictionary.columnCedula[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "105px" },
+            { field: "Especificacion", title: _dictionary.columnEspec[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "100px" },
             { field: "Codigo", title: _dictionary.columnCodigoAsme[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "145px" },
             {
                 field: "Agregar", title: _dictionary.columnAgregar[$("#language").data("kendoDropDownList").value()], filterable: {
