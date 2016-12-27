@@ -346,6 +346,7 @@ function SuscribirEventoZona() {
         change: function (e) {
             var dataItem = this.dataItem(e.sender.selectedIndex);
             $("#InputCuadrantePaquete").data("kendoComboBox").dataSource.data([]);
+            $("#InputCuadrantePaquete").data("kendoComboBox").value("");
 
             if (dataItem != undefined) {
                 if (dataItem.ZonaID != 0) {
