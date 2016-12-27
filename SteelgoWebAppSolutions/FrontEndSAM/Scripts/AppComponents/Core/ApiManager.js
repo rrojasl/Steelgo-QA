@@ -217,6 +217,7 @@ var $Encintado = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Empaquetado = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $PreparacionEmbarque = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $RevisionEmbarque = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $ListadoEmbarque = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 
 
 //#region Declaracion
@@ -392,6 +393,7 @@ $Encintado.add('Encintado');
 $Empaquetado.add('Empaquetado');
 $PreparacionEmbarque.add('PreparacionEmbarque');
 $RevisionEmbarque.add('RevisionEmbarque');
+$ListadoEmbarque.add('ListadoEmbarque');
 
 //Soldadura
 $PQR.add("PQR");
