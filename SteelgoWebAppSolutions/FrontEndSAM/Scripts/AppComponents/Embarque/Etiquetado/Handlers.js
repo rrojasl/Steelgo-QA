@@ -675,17 +675,20 @@ function LimpiarCargarZona() {
 
     $("#inputCuadrantePlanchado").data("kendoComboBox").dataSource.data([]);
     $("#inputCuadrantePlanchado").data("kendoComboBox").value("");
+    $('input:radio[name=SelectTodos]:nth(0)').trigger("click");
     $("#grid").data("kendoGrid").dataSource.data([]);
 }
 
 function LimpiarCargaSpoolContiene() {
     $("#inputCuadrantePlanchado").data("kendoComboBox").dataSource.data([]);
     $("#inputCuadrantePlanchado").data("kendoComboBox").value("");
+    $('input:radio[name=SelectTodos]:nth(0)').trigger("click");
     $("#grid").data("kendoGrid").dataSource.data([]);
 }
 
 function LimpiarCargaCuadrante() {
-    $("#inputCuadrante").data("kendoComboBox").value("");
+    $("#inputCuadrantePlanchado").data("kendoComboBox").value("");
+    $('input:radio[name=SelectTodos]:nth(0)').trigger("click");
     $("#grid").data("kendoGrid").dataSource.data([]);
 }
 

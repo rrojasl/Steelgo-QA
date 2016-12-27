@@ -187,8 +187,8 @@ function AjaxGuardarCaptura(rows, tipoGuardar) {
                 if (rows[i].Accion === 2) {
                     if (!rows[i].Encintado && rows[i].ColorID == 0) {
                         ListaDetalles[index].Accion = 3;
+                        $("#grid").data("kendoGrid").dataSource._data[i].RowOk = true;
                     } else {
-
                         if (rows[i].Encintado && rows[i].ColorID == 0) {
                             ListaDetalles[index].Estatus = 0;
                             $("#grid").data("kendoGrid").dataSource._data[i].RowOk = false;
@@ -247,7 +247,7 @@ function AjaxGuardarCaptura(rows, tipoGuardar) {
                 iframe: true,
                 title: _dictionary.TituloPopupCancelar[$("#language").data("kendoDropDownList").value()],
                 visible: false,
-                width: "40%",
+                width: "35%",
                 height: "auto",
                 draggable: false,
                 resizable: false,

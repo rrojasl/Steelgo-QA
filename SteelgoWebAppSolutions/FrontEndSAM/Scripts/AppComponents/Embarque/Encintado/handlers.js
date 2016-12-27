@@ -545,7 +545,7 @@ function SuscribirEventoPlanchar() {
                     iframe: true,
                     title: _dictionary.TituloPopupCancelar[$("#language").data("kendoDropDownList").value()],
                     visible: false,
-                    width: "auto",
+                    width: "35%",
                     height: "auto",
                     modal: true,
                     draggable: false,
@@ -557,7 +557,7 @@ function SuscribirEventoPlanchar() {
                     actions: []
                 }).data("kendoWindow");
 
-                ventanaConfirm.content(_dictionary.MensajeAdvertenciaPlancharTodos[$("#language").data("kendoDropDownList").value()] +
+                ventanaConfirm.content("<center>" + _dictionary.MensajeAdvertenciaPlancharTodos[$("#language").data("kendoDropDownList").value()] + "</center>" +
                              "</br><center><button class='confirm_yes btn btn-blue' id='yesButton'>Si</button><button class='confirm_yes btn btn-blue' id='noButton'> No</button></center>");
 
                 ventanaConfirm.open().center();
