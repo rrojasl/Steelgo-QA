@@ -57,5 +57,15 @@ namespace FrontEndSAM.Controllers.Pintura
         {
             return View();
         }
+
+        public ActionResult AdminComponentes()
+        {
+            return View();
+        }
+
+        public ActionResult AdminReductores()
+        {
+            return View();
+        }
     }
 }
