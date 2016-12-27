@@ -10010,6 +10010,14 @@ _dictionary = {
 
     // Inicia Módulo Pintura
     // Etiquetas Generales Pintura
+    "menuPinturaAdminControladores": {
+        "es-MX": "Administracion de componentes",
+        "en-US": "Administration of components"
+    },
+    "menuPinturaAdminReductores": {
+        "es-MX": "Administracion de Reductores",
+        "en-US": "Administration of reducers"
+    },
     "PinturaBreadcrumb": {
         "es-MX": "Pintura",
         "en-US": "Paint"
@@ -10075,7 +10083,36 @@ _dictionary = {
         "en-US": "Spool Capture Test"
     },
     //Finaliza Etiquetas Generales Pintura
-
+    //Inicia Captura Admin componentes
+    "CapturaAdminComponentesTituloPagina": {
+        "es-MX": "Administracion Componentes",
+        "en-US": "Administration of components"
+    },
+    "CapturaAdminComponentesBotonBorrar": {
+        "es-MX": "Borrar",
+        "en-US": "Delete"
+    },
+    "columnComponente": {
+        "es-MX": "Componente",
+        "en-US": "Delete"
+    },
+    "columnLote": {
+        "es-MX": "Lote",
+        "en-US": "Lot"
+    },
+    "columnCantidad": {
+        "es-MX": "Cantidad",
+        "en-US": "Quantity"
+    },
+    "columnUnidad": {
+        "es-MX": "Unidad",
+        "en-US": "Unity"
+    },
+    "columnHabilitado": {
+        "es-MX": "Habilitado",
+        "en-US": "Enabled"
+    },
+    //Finaliza Captura Admin componentes
     //Inicia Carga de Carro
     "PinturaCargaCarroEscritorio": {
         "es-MX": "Escritorio",
