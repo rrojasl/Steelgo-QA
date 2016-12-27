@@ -122,7 +122,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EditarRequisicion
                             ProyectoID = result.ProyectoID,
                             TipoPruebaID = result.TipoPruebaID.GetValueOrDefault(),
                             NombreRequisicion = result.NumeroRequisicion,
-                            CodigoAsme = result.CodigoAsme,
+                            //CodigoAsme = result.CodigoAsme,
                             FechaRequisicion = result.FechaRequisicion.ToString(),
                             Observacion = result.Observaciones
                         });

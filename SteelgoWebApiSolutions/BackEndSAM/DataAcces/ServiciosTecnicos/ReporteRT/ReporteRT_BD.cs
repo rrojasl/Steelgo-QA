@@ -151,7 +151,6 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ReporteRT
                             ClasificacionPND = item.ClasificacionPND,
                             TipoPrueba = item.TipoPrueba,
                             Observaciones = item.Observaciones,
-                            CodigoAsme = item.CodigoAsme,
                             NumeroPlacas = numPlacas,
                             Tamano = item.Tamano,
                             Densidad = item.Densidad,

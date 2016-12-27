@@ -117,7 +117,7 @@ function CargarGrid() {
                   { field: "Accion", operator: "eq", value: 1 },
                   { field: "Accion", operator: "eq", value: 2 },
                   { field: "Accion", operator: "eq", value: 4 }
-                  
+
                 ]
             },
             pageSize: 10,
@@ -133,7 +133,7 @@ function CargarGrid() {
         scrollable: true,
         pageable: {
             refresh: false,
-            pageSizes: [10, 15, 50,100],
+            pageSizes: [10, 25, 50, 100],
             info: false,
             input: false,
             numeric: true,
@@ -145,19 +145,20 @@ function CargarGrid() {
             { field: "Clasificacion", title: _dictionary.columnClasificacion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "90px" },
             { field: "Diametro", title: _dictionary.columnDiametro[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "100px", attributes: { style: "text-align:right;" } },
             { field: "Espesor", title: _dictionary.columnEspesor[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "100px", attributes: { style: "text-align:right;" } },
-            { field: "Cedula", title: _dictionary.columnCedula[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "100px"},
+            { field: "Cedula", title: _dictionary.columnCedula[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "100px" },
             { field: "TipoJunta", title: _dictionary.columnFirmadoTipoJunta[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "100px" },
             { field: "Reporte", title: _dictionary.columnReporte[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px" },
             { field: "Version", title: _dictionary.columnVersion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "100px", attributes: { style: "text-align:right;" } },
-            { field: "Seleccionado", title: _dictionary.columnSeleccionado[$("#language").data("kendoDropDownList").value()], 
+            {
+                field: "Seleccionado", title: _dictionary.columnSeleccionado[$("#language").data("kendoDropDownList").value()],
                 filterable: {
-            multi: true,
-            messages: {
+                    multi: true,
+                    messages: {
                         isTrue: _dictionary.lblVerdadero[$("#language").data("kendoDropDownList").value()],
                         isFalse: _dictionary.lblFalso[$("#language").data("kendoDropDownList").value()],
                         style: "max-width:100px;"
-            },
-            dataSource: [{ Seleccionado: true }, { Seleccionado: false }]
+                    },
+                    dataSource: [{ Seleccionado: true }, { Seleccionado: false }]
                 }
                 , template: '<input type="checkbox" #= Seleccionado ? "checked=checked" : "" # class="chkbx"  ></input>  ', width: "90px", attributes: { style: "text-align:center;" }
             },
@@ -176,7 +177,7 @@ function CargarGrid() {
             if (dataItem.Reporte != "")
                 if (ds[i].Reporte != "" && ds[i].Reporte != dataItem.Reporte && ds[i].Seleccionado)
                     correcto = false;
-               
+
         }
         if (correcto) {
             if ($(this)[0].checked) {

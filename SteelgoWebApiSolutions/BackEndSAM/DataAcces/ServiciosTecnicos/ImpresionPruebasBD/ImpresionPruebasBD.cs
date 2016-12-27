@@ -102,7 +102,6 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ImpresionPruebasBD
                             ProyectoID = item.ProyectoID,
                             TipoPruebaID = item.TipoPruebaID.GetValueOrDefault(),
                             NombreRequisicion = item.NombreRequisicion,
-                            CodigoAsme = item.CodigoAsme,
                             FechaRequisicion = item.FechaRequisicion.ToString(),
                             Observacion = item.Observaciones
                         });

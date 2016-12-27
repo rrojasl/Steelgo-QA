@@ -326,7 +326,6 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EntregaPlacasGraficas
                             TipoPrueba = item.TipoPrueba,
                             Observaciones = item.Observaciones,
                             CodigoAsmeID = 1,
-                            CodigoAsme = item.CodigoAsme,
                             DocumentoRecibidoID = item.DocumentoRecibidoID,
                             DocumentoRecibido = item.DocumentoRecibido,
                             DocumentoEstatusID = item.EntregaPlacasGraficasID == 0 ? 1 : item.DocumentoEstatusID,                                                 
