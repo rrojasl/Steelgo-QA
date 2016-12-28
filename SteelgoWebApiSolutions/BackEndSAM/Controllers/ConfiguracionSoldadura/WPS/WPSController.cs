@@ -109,7 +109,21 @@ namespace BackEndSAM.Controllers.ConfiguracionSoldadura.WPS
                     {
                         dtDetalleCaptura = ToDataTable(listaCaptura.Detalles);
                     }
-                    return WPSBd.Instance.AgregarWPS(dtDetalleCaptura, Usuario);
+
+                    DataTable gruposCorrectos = null;
+                    foreach (BackEndSAM.Models.ConfiguracionSoldadura.WPS.WPSGuardar item in listaCaptura.Detalles)
+                    {
+                        if (item.gruposCorrectos != null)
+                        {
+                            if (gruposCorrectos == null)
+                                gruposCorrectos = ArmadoController.ToDataTable(item.gruposCorrectos);
+                            else
+                                gruposCorrectos.Merge(ArmadoController.ToDataTable(item.gruposCorrectos));
+
+                        }
+                    }
+
+                    return WPSBd.Instance.AgregarWPS(dtDetalleCaptura,gruposCorrectos, Usuario);
                 }
                 else
                 {

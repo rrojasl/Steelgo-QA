@@ -9,7 +9,7 @@ function suscribirEventoGuardar() {
         var ds = $("#grid").data("kendoGrid").dataSource;
         if (ds._data.length > 0) {
             if ($('#Guardar').text() == "Guardar" || $('#Guardar').text() == "Save") {
-                opcionHabilitarView(true);
+                
                 AjaxGuardarCaptura();
             }
             else if ($('#Guardar').text() == "Editar" || $('#Guardar').text() == "Edit") {

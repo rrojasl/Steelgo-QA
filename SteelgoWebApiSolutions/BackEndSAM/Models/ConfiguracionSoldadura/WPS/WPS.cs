@@ -11,6 +11,7 @@ namespace BackEndSAM.Models.ConfiguracionSoldadura.WPS
         public int Accion { get; set; }
         public int WPSID { get; set; }
         public string WPSNombre { get; set; }
+        public string WPSNombreOriginal { get; set; }
 
         public int PQRRaizId { get; set; }
         public string NombrePQRRaiz { get; set; }
@@ -56,6 +57,7 @@ namespace BackEndSAM.Models.ConfiguracionSoldadura.WPS
         public List<DetallePQR> listadoRaizPQR { get; set; }
         public List<DetallePQR> listadoGrupoP { get; set; }
         public bool RowOk { get; set; }
+        public bool EditadoUsuario { get; set; }
     }
 
 
@@ -80,6 +82,15 @@ namespace BackEndSAM.Models.ConfiguracionSoldadura.WPS
         public double EspesorMinimoRelleno { get; set; }
         public string GrupoP1 { get; set; }
         public string GrupoP2 { get; set; }
+        public List<GruposP> gruposCorrectos { get; set; }
+    }
+
+
+    public class GruposP
+    {
+        public int Accion { get; set; }
+        public int WPSID { get; set; }
+        public string GrupoP { get; set; }
     }
 
     public class DetalleWPS

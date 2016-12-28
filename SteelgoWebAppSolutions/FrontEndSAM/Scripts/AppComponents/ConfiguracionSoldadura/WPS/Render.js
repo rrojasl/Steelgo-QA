@@ -51,6 +51,7 @@
                         options.model.EspesorMinimo = rootMax[0].EspesorMinimo < fillMax[0].EspesorMinimo ? rootMax[0].EspesorMinimo : fillMax[0].EspesorMinimo;
                         options.model.RaizEspesorRaiz = parseFloat(dataItem.EspesorRaiz);
                         options.model.RaizEspesorRelleno = parseFloat(dataItem.EspesorRelleno);
+                        
                         $("#grid").data("kendoGrid").dataSource.sync();
                     }
                     else {
@@ -184,7 +185,7 @@ function RenderComboBoxPQRRelleno(container, options) {
                     }
 
                 }
-
+                options.model.EditadoUsuario = true;
             }
 
         }

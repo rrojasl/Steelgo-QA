@@ -63,6 +63,7 @@ namespace BackEndSAM.DataAcces.ConfiguracionSoldadura
                                       Accion = 2,
                                       WPSID = WPS.WPSID,
                                       WPSNombre = WPS.WPSNombre,
+                                      WPSNombreOriginal = WPS.WPSNombre,
 
                                       PQRRaizId = Convert.ToInt32(WPS.PQRRaizId),
                                       NombrePQRRaiz = WPS.NombrePQRRaiz,
@@ -104,7 +105,8 @@ namespace BackEndSAM.DataAcces.ConfiguracionSoldadura
 
                                       listadoRaizPQR = (List<DetallePQR>)PQRBd.ObtenerListadoPQRActivos(),
                                       listadoRellenoPQR = (List<DetallePQR>)PQRBd.ObtenerListadoPQRActivos(),
-                                      RowOk= true
+                                      RowOk= true,
+                                      EditadoUsuario = false
                                   }).AsParallel().ToList();
                 return data.OrderBy(x => x.WPSNombre).ToList<WPS>();
             }
@@ -167,17 +169,17 @@ namespace BackEndSAM.DataAcces.ConfiguracionSoldadura
 
 
 
-        public object AgregarWPS(DataTable dtDetalleWPS, Sam3_Usuario usuario)
+        public object AgregarWPS(DataTable dtDetalleWPS,DataTable dtGruposP, Sam3_Usuario usuario)
         {
 
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-
+                    dtDetalleWPS.Columns.Remove("gruposCorrectos");
                     ObjetosSQL _SQL = new ObjetosSQL();
                     string[,] parametro = { { "@Usuario", usuario.UsuarioID.ToString() } };
-                    int ID = _SQL.EjecutaInsertUpdate(Stords.GUARDAWPS, dtDetalleWPS, "@Tabla", parametro);
+                    int ID = _SQL.EjecutaInsertUpdate(Stords.GUARDAWPS, dtDetalleWPS, "@Tabla",dtGruposP, "@TablaGrupoP", parametro);
 
 
                     TransactionalInformation result = new TransactionalInformation();

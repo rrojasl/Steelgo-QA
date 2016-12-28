@@ -54,6 +54,7 @@ function AjaxGuardar(tipoGuardar) {
         ProyectoID: "",
         GrupoP1: "",
         GrupoP2: "",
+        gruposCorrectos: ""
     };
 
     if ($('#NomnreWPS').val() == "" || $('#NomnreWPS').val() == undefined || $('#NomnreWPS').val() == null) {
@@ -103,6 +104,9 @@ function AjaxGuardar(tipoGuardar) {
     ListaDetalles[0].GrupoP1 = arregloGrupos[0];
     ListaDetalles[0].GrupoP2 = arregloGrupos[1];
 
+    ListaDetalles[index].GrupoP1 = arregloGrupos[0];
+    ListaDetalles[index].GrupoP2 = arregloGrupos[1];
+    ListaDetalles[index].gruposCorrectos = obtenerGruposP(arregloCaptura[index].WPSID, arregloGrupos[0], arregloGrupos[1]);
 
 
 
