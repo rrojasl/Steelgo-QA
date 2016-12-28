@@ -243,6 +243,33 @@ namespace DatabaseManager.Sam3
             }
         }
 
+        public int EjecutaInsertUpdate(string Stord, DataTable TablaSube, String NombreTabla, DataTable TablaSube2, String NombreTabla2, string[,] Parametros = null)
+        {
+            using (SqlCommand cmd = new SqlCommand(Stord, Conexion()))
+            {
+                int lastRow = 0;
+                if (Parametros != null)
+                    for (int i = Numeros.CERO; i < Parametros.Length / Numeros.DOS; i++)
+                        cmd.Parameters.AddWithValue(Parametros[i, Numeros.CERO].ToString(), Parametros[i, Numeros.UNO].ToString());
+                cmd.Parameters.Add(new SqlParameter(NombreTabla, TablaSube));
+                cmd.Parameters.Add(new SqlParameter(NombreTabla2, TablaSube2));
+                cmd.CommandType = CommandType.StoredProcedure;
+                try
+                {
+                    cmd.CommandTimeout = 0;
+                    cmd.Connection.Open();
+                    lastRow = int.Parse(cmd.ExecuteScalar().ToString());
+                    cmd.Connection.Close();
+                    return lastRow;
+                }
+                catch (Exception e)
+                {
+                    cmd.Connection.Close();
+                    throw new Exception(e.Message);
+                }
+            }
+        }
+
         public DataTable Tabla(string Stord, DataTable TablaSube, String NombreTabla, string[,] Parametros = null)
         {
             using (SqlCommand cmd = new SqlCommand(Stord, Conexion()))

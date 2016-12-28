@@ -8719,6 +8719,12 @@ _dictionary = {
         "es-MX": "Diametro C.",
         "en-US": "Diameter Q."
     },
+    "columnDiametroMinimo": {
+        "es-MX": "Diametro M.",
+        "en-US": "Diameter M."
+    },
+
+    
     "columnPosicion": {
         "es-MX": "Posición °",
         "en-US": "Position °"

@@ -164,3 +164,53 @@ function obtenerGruposPLiberar(gp1, gp2, gp3, gp4) {
 function onlyUnique(value, index, self) {
     return self.indexOf(value) === index;
 }
+
+
+function obtenerGruposP(wpsID, grupoP1, grupoP2, accion) {
+    var gruposCompletos = [];
+
+    if (grupoP1 == '15E' && grupoP2 == '15E') {
+        gruposCompletos[0] = { Accion: accion, WPSID: wpsID, GrupoP: '15E' };
+        gruposCompletos[1] = { Accion: accion, WPSID: wpsID, GrupoP: '5B' };
+    }
+    else if (grupoP1 == '15E' || grupoP2 == '15E') {
+        if (grupoP1 == '15E') {
+            gruposCompletos[0] = { Accion: accion, WPSID: wpsID, GrupoP: '15E' };
+            gruposCompletos[1] = { Accion: accion, WPSID: wpsID, GrupoP: '5B' };
+            gruposCompletos[2] = { Accion: accion, WPSID: wpsID, GrupoP: grupoP2 };
+        }
+        else if (grupoP2 == '15E') {
+            gruposCompletos[0] = { Accion: accion, WPSID: wpsID, GrupoP: '15E' };
+            gruposCompletos[1] = { Accion: accion, WPSID: wpsID, GrupoP: '5B' };
+            gruposCompletos[2] = { Accion: accion, WPSID: wpsID, GrupoP: grupoP1 };
+        }
+
+    }
+    else if (grupoP1 == '3' && grupoP2 == '3') {
+        gruposCompletos[0] = { Accion: accion, WPSID: wpsID, GrupoP: '1' };
+        gruposCompletos[1] = { Accion: accion, WPSID: wpsID, GrupoP: '3' };
+    }
+    else if (grupoP1 == '4' && grupoP2 == '4') {
+        gruposCompletos[0] = { Accion: accion, WPSID: wpsID, GrupoP: '1' };
+        gruposCompletos[1] = { Accion: accion, WPSID: wpsID, GrupoP: '3' };
+        gruposCompletos[2] = { Accion: accion, WPSID: wpsID, GrupoP: '4' };
+    }
+    else if ((grupoP1 == '5A' && (grupoP2 == '1' || grupoP2 == '3' || grupoP2 == '4')) || (grupoP2 == '5A' && (grupoP1 == '1' || grupoP1 == '3' || grupoP1 == '4'))) {
+        gruposCompletos[0] = { Accion: accion, WPSID: wpsID, GrupoP: '1' };
+        gruposCompletos[1] = { Accion: accion, WPSID: wpsID, GrupoP: '3' };
+        gruposCompletos[2] = { Accion: accion, WPSID: wpsID, GrupoP: '4' };
+
+    }
+
+    else if ((grupoP1 == '4' && (grupoP2 == '1' || grupoP2 == '3')) || (grupoP2 == '4' && (grupoP1 == '1' || grupoP1 == '3'))) {
+        gruposCompletos[0] = { Accion: accion, WPSID: wpsID, GrupoP: '1' };
+        gruposCompletos[1] = { Accion: accion, WPSID: wpsID, GrupoP: '3' };
+    }
+    else {
+        gruposCompletos[0] = { Accion: accion, WPSID: wpsID, GrupoP: grupoP1 };
+        gruposCompletos[1] = { Accion: accion, WPSID: wpsID, GrupoP: grupoP2 };
+    }
+
+    return gruposCompletos;
+
+}

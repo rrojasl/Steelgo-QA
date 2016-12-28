@@ -82,6 +82,8 @@ function AjaxGuardarCaptura() {
             ProyectoID: "",
             GrupoP1: "",
             GrupoP2: "",
+            gruposCorrectos: "",
+            ModificadoUsuario: "",
             Estatus: 1
         };
 
@@ -124,11 +126,18 @@ function AjaxGuardarCaptura() {
         ListaDetalles[index].EspesorMinimoRelleno = arregloCaptura[index].EspesorMinimoRelleno;
         ListaDetalles[index].EspesorMaximoRelleno = arregloCaptura[index].EspesorMaximoRelleno;
         ListaDetalles[index].ProyectoID = arregloCaptura[index].ProyectoID;
+
+        if (arregloCaptura[index].WPSNombre != arregloCaptura[index].WPSNombreOriginal)
+            arregloCaptura[index].EditadoUsuario = true;
         
+        ListaDetalles[index].ModificadoUsuario = arregloCaptura[index].EditadoUsuario;
         var arregloGrupos = obtenerGruposPLiberar(arregloCaptura[index].GrupoMaterialBase1RaizU, arregloCaptura[index].GrupoMaterialBase1RaizD, arregloCaptura[index].GrupoMaterialBase1RellenoU, arregloCaptura[index].GrupoMaterialBase1RellenoD);
 
         ListaDetalles[index].GrupoP1 = arregloGrupos[0];
         ListaDetalles[index].GrupoP2 = arregloGrupos[1];
+        ListaDetalles[index].gruposCorrectos = obtenerGruposP(arregloCaptura[index].WPSID, arregloGrupos[0], arregloGrupos[1]);
+
+        
     }
 
     Captura[0].Detalles = ListaDetalles;
@@ -170,12 +179,25 @@ function AjaxGuardarCaptura() {
     $("#grid").data("kendoGrid").dataSource.sync();
 
     if (CapturaCorrecta) {
+        ArregloGuardado = [];
+        var indice = 0;
+        for (var i = 0; i < Captura[0].Detalles.length; i++) {
+            if ( Captura[0].Detalles[i].ModificadoUsuario) {
+                ArregloGuardado[indice] = ListaDetalles[i];
+                indice++;
+            }
+        }
+
+        Captura[0].Detalles = [];
+        Captura[0].Detalles = ArregloGuardado;
+
         if (Captura[0].Detalles.length > 0) {
             loadingStart();
             $WPS.WPS.create(Captura[0], { token: Cookies.get("token") }).done(function (data) {
                 if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "OK") {
                     displayNotify("CapturaMensajeGuardadoExitoso", "", '0');
                     ObtenerJSONParaGrid();
+                    opcionHabilitarView(true);
                     loadingStop();
                 }
                 else  /*(data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") */ {
@@ -186,6 +208,8 @@ function AjaxGuardarCaptura() {
                 }
             });
         }
+        else
+            displayNotify("MensajeAdverteciaExcepcionGuardado", "", '1');
     }
     else {
         loadingStop();
@@ -218,7 +242,7 @@ function AjaxGuardarCaptura() {
             ArregloGuardado = [];
             var indice = 0;
             for (var i = 0; i < Captura[0].Detalles.length; i++) {
-                if (Captura[0].Detalles[i].Estatus == 1) {
+                if (Captura[0].Detalles[i].Estatus == 1 && Captura[0].Detalles[i].ModificadoUsuario) {
                     ArregloGuardado[indice] = ListaDetalles[i];
                     indice++;
                 }
@@ -234,6 +258,7 @@ function AjaxGuardarCaptura() {
                     if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "OK") {
                         displayNotify("CapturaMensajeGuardadoExitoso", "", '0');
                         ObtenerJSONParaGrid();
+                        opcionHabilitarView(true);
                         loadingStop();
                     }
                     else  /*(data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") */ {
