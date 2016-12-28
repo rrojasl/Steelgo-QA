@@ -544,6 +544,9 @@ function AjaxDescargarPaquete(dataItem, eliminaFilas) {
     loadingStart();
     var ds = $("#grid").data("kendoGrid").dataSource;
     var cuadranteID = $("#inputCuadrantePaquete").data("kendoComboBox").value();
+    if(cuadranteID=="" || cuadranteID==undefined){
+        cuadranteID = $("#inputCuadrantePaqueteDescarga").data("kendoComboBox").value();
+    }
 
     $CargaPlana.CargaPlana.read({
         token: Cookies.get("token"), PaqueteID: dataItem, CuadranteID: cuadranteID

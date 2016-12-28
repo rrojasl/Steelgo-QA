@@ -52,7 +52,8 @@ function SuscribirEventoPopUpDescargaPaquete() {
         var dataItem = $('#grid').data("kendoGrid").dataSource.getByUid(uid);
         if (zonaID != "" && zonaID != "0") {
             if (cuadranteID != "" && cuadranteID != "0") {
-                AjaxDescargarPaquete(dataItem, 1);
+                windowDownloadPaquete.close();
+                AjaxDescargarPaquete(dataItem.PaqueteID, 1);
 
             }else
                 displayNotify("EmbarqueCargaMsjErrorCuadrante", "", "1");
@@ -146,13 +147,12 @@ function SuscribirEventoPopUpPaqueteVacio() {
     $("#btnDescargarPaqueteVacio").click(function (e) {
         var zonaID = $("#inputZonaPaqueteDescarga").data("kendoComboBox").value();
         var cuadranteID = $("#inputCuadrantePaqueteDescarga").data("kendoComboBox").value();
-        var uid = $("#detallePaquete").val();
-        var dataItem = $('#grid').data("kendoGrid").dataSource.getByUid(uid);
+        var paqueteID = $("#detallePaquete").val();
 
         if (zonaID != "" && zonaID != "0") {
             if (cuadranteID != "" && cuadranteID != "0") {
                 windowPackageEmpty.close();
-                AjaxDescargarPaquete(uid, 0);
+                AjaxDescargarPaquete(paqueteID, 0);
             } else
                 displayNotify("EmbarqueCargaMsjErrorCuadrante", "", "1");
 

@@ -69,7 +69,7 @@ function CargarGrid() {
         },
         filterable: getGridFilterableMaftec(),
         columns: [
-            { field: "Consecutivo", title: _dictionary.columnConsecutivoEmbarque[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec() },
+            { field: "Consecutivo", title: _dictionary.columnConsecutivoEmbarque[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), attributes: { style: "text-align:right;" } },
             { field: "NumeroControl", title: _dictionary.columnSpool[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec() },
             { field: "Cuadrante", title: _dictionary.columnCuadrante[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec() },
             { field: "Area", title: _dictionary.columnM2[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), aggregates: ["sum"], footerTemplate: "<div style='text-align:right;'>SUM: #= kendo.toString(sum, 'n3') #</div>", attributes: { style: "text-align:right;" } },
@@ -150,7 +150,7 @@ function ImprimirTotalToneladas(ds) {
 
             totalToneladas = totalToneladas + ds[i].Peso;
         }
-        $("#TotalToneladas").css('text-align', 'center');
+        $("#TotalToneladas").css('text-align', 'right');
         $("#TotalToneladas").text(totalToneladas != 0 ? kendo.toString(totalToneladas, 'n3') : "");
     } else {
         $("#TotalToneladas").text("");

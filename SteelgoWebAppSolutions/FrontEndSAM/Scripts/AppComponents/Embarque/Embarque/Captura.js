@@ -75,44 +75,15 @@ function CargarGrid() {
                          if ($('#Guardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
                             var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
                             var dataSource = this.dataSource;
-                            //windowTemplate = kendo.template($("#windowTemplate").html());
+                            if (dataItem.Accion == 2) {
+                                dataItem.Accion = 3;
+                                dataItem.ModificadoPorUsuario = true;
+                            }
+                            else {
+                                dataSource.remove(dataItem);
+                            }
 
-                            ventanaConfirm = $("#ventanaConfirm").kendoWindow({
-                                iframe: true,
-                                title: _dictionary.CapturaAvanceTitulo[$("#language").data("kendoDropDownList").value()],
-                                visible: false,
-                                width: "auto",
-                                height: "auto",
-                                modal: true,
-                                draggable: false,
-                                resizable: false,
-                                animation: {
-                                    close: false,
-                                    open: false
-                                },
-                                actions:[]
-                            }).data("kendoWindow");
-
-                            $("#ventanaConfirm").parent().find(".k-window-action").css("visibility", "hidden");
-
-                            ventanaConfirm.content(_dictionary.MensajeConfirmaEliminarRegistroGrid[$("#language").data("kendoDropDownList").value()] +
-                                              "</br><center><button class='confirm_yes btn btn-blue' id='yesButton'>Si</button><button class='confirm_yes btn btn-blue' id='noButton'> No</button></center>");
-
-                             ventanaConfirm.open().center();
-
-                                 $("#yesButton").click(function (handler) {
-                                     if (dataItem.Accion == 2) {
-                                         dataItem.Accion = 3;
-                                         dataItem.ModificadoPorUsuario = true;
-                                     }
-                                     else {
-                                         dataSource.remove(dataItem);
-                                     }
-                                 });
-                                 $("#noButton").click(function (handler) {
-                                     ventanaConfirm.close();
-                                 });
-                                 dataSource.sync();
+                           dataSource.sync();
                        }
                      }
                  },

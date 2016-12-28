@@ -8,9 +8,20 @@
             $('#btnTransito').trigger("click");
         }
         loadingStop();
+        AjaxObtenerContadorPorEstatus();
     });
 }
 
 function AjaxObtenerContadorPorEstatus() {
-    $ListadoEmbarque.ListadoEmbarque.read({});
+    loadingStart();
+    $ListadoEmbarque.ListadoEmbarque.read({ token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
+        $("#nPendientes").text("");
+        $("#nTransito").text("");
+
+        if (data.length > 0) {
+            $("#nPendientes").text(" "+data[0].Pendientes);
+            $("#nTransito").text(" "+data[0].Transito);
+        }
+        loadingStop();
+    });
 }

@@ -204,17 +204,17 @@ function AjaxObtenerDetalleSpool(tipoConsulta, spoolID, codigo) {
                                 ds.add(data[i]);
                             } else {
                                 displayNotify("", _dictionary.EmbarqueEmpaquetadoErrorSpoolPaquete[$("#language").data("kendoDropDownList").value()] +
-                                    data[i].Paquete, '2');
+                                    data[i].Paquete, '1');
                             }
                         } else {
                             displayNotify("", _dictionary.EmbarqueEmpaquetadoErrorSpoolPlana[$("#language").data("kendoDropDownList").value()] +
-                                    data[i].Plana, '2');
+                                    data[i].Plana, '1');
                         }
                     } else {
-                        displayNotify("EmbarqueEmpaquetadoErrorProyectoDiferente", "", '2');
+                        displayNotify("EmbarqueEmpaquetadoErrorProyectoDiferente", "", '1');
                     }
                 } else {
-                    displayNotify("SpoolIDExistente", "", '2');
+                    displayNotify("SpoolIDExistente", "", '1');
                 }
             }
 

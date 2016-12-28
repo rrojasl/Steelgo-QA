@@ -367,6 +367,8 @@ function SuscribirEventoZona() {
         index: 3,
         change: function (e) {
             var dataItem = this.dataItem(e.sender.selectedIndex);
+            $("#InputCuadranteDescarga").data("kendoComboBox").dataSource.data([]);
+            $("#InputCuadranteDescarga").data("kendoComboBox").value("");
             if (dataItem != undefined) {
                 if (dataItem.ZonaID != 0) {
                     AjaxCargarCuadranteDescarga(dataItem.ZonaID);
@@ -387,6 +389,7 @@ function SuscribirEventoZona() {
         change: function (e) {
             var dataItem = this.dataItem(e.sender.selectedIndex);
             $("#inputCuadrantePaqueteDescarga").data("kendoComboBox").dataSource.data([]);
+            $("#inputCuadrantePaqueteDescarga").data("kendoComboBox").value("");
 
             if (dataItem != undefined) {
                 if (dataItem.ZonaID != 0) {

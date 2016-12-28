@@ -3,7 +3,7 @@
     suscribirEventoModal();
     suscribirEventoGuardarFolio();
     suscribirEventoEnviarEmbarque();
-    agregarEventoImprimir();
+    SuscribirEventoImprimir();
 }
 
 SuscribirEventos();
@@ -73,7 +73,7 @@ function suscribirEventoModal() {
 
 }
 
-function agregarEventoImprimir() {
+function SuscribirEventoImprimir() {
     $(document).on('click', '.imprimirPapelesCliente', function (e) {
         //AjaxImprimir();
     });
