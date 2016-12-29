@@ -8,7 +8,7 @@ function changeLanguageCall() {
     CargarGrid();
     AjaxCargarCamposPredeterminados();
     AjaxCargarProyectos();
-    document.title = "Empaquetado";
+    document.title = _dictionary.EmbarqueEmpaquetadoTituloPagina[$("#language").data("kendoDropDownList").value()];
     FechaPaquete.data("kendoDatePicker").setOptions({
         format: _dictionary.FormatoFecha2[$("#language").data("kendoDropDownList").value()]
     });
@@ -16,6 +16,7 @@ function changeLanguageCall() {
     SuscribirEventoWindowsPopup();
     SuscribirEventoPopupDescaga();
     SuscribirEventoPopUpPaqueteVacio();
+    opcionHabilitarView(false, "FieldSetView");
 };
 
 
@@ -150,6 +151,11 @@ function ImprimirTotalToneladas(ds) {
 
             totalToneladas = totalToneladas + ds[i].Peso;
         }
+        if ($("#language").val() === "es-MX")
+            $("#TotalToneladas").css('width', '55%');
+        else
+            $("#TotalToneladas").css('width', '34%');
+
         $("#TotalToneladas").css('text-align', 'right');
         $("#TotalToneladas").text(totalToneladas != 0 ? kendo.toString(totalToneladas, 'n3') : "");
     } else {

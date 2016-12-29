@@ -7678,6 +7678,34 @@ _dictionary = {
         "es-MX": "Listado Embarque",
         "en-US": "Shipping list"
     },
+    "lblColorCinta": {
+        "es-MX": "Color Cinta",
+        "en-US": "Ribbon color"
+    },
+    "lblZonaPaquete": {
+        "es-MX": "Zona",
+        "en-US": "Zone"
+    },
+    "lblCuadrantePaquete": {
+        "es-MX": "Cuadrante",
+        "en-US": "Quadrant"
+    },
+    "lblZonaDescargaSpool": {
+        "es-MX": "Zona",
+        "en-US": "Zone"
+    },
+    "lblCuadranteDescargaSpool": {
+        "es-MX": "Cuadrante",
+        "en-US": "Quadrant"
+    },
+    "lblZonaDescargaPaquete": {
+        "es-MX": "Zona",
+        "en-US": "Zone"
+    },
+    "lblCuadranteDescargaPaquete": {
+        "es-MX": "Cuadrante",
+        "en-US": "Quadrant"
+    },
     //Finaliza Etiquetas
     //Etiquetas header alertas
     "SuccessTitle": {
@@ -7811,15 +7839,15 @@ _dictionary = {
     },
     "botonDescarga": {
         "es-MX": "Descarga",
-        "en-US": "Download"
+        "en-US": "Discharging"
     },
     "botonDescarga1": {
         "es-MX": "Descarga",
-        "en-US": "Download"
+        "en-US": "Discharging"
     },
     "botonDescarga2": {
         "es-MX": "Descarga",
-        "en-US": "Download"
+        "en-US": "Discharging"
     },
     "botonEditar1": {
         "es-MX": "Editar",
@@ -7997,6 +8025,22 @@ _dictionary = {
     "MensajeConfirmaEliminarRegistroGrid": {
         "es-MX": "¿Esta seguro de eliminar el registro?",
         "en-US": "Are you sure to delete the record?"
+    },
+    "MensajeSeleccionaProveedor": {
+        "es-MX": "Por favor seleccione un proveedor",
+        "en-US": "Please select to provider"
+    },
+    "MensajeSeleccionaTracto": {
+        "es-MX": "Por favor seleccione un tracto",
+        "en-US": "Please select to tract"
+    },
+    "MensajeSeleccionaChofer": {
+        "es-MX": "Por favor seleccione un chofer",
+        "en-US": "Please select to driver"
+    },
+    "MensajeSeleccionaEmbarque": {
+        "es-MX": "Por favor seleccione un embarque",
+        "en-US": "Please select to shipment"
     },
     // Finalizan Mensajes generales
 
@@ -10565,11 +10609,19 @@ _dictionary = {
     //Inicia Botones Siguiente Paso
     "EmbarqueCargaPlanaSup": {
         "es-MX": "Cargar Plana",
-        "en-US": "Load Flat"
+        "en-US": "Flat Charge"
     },
     "EmbarqueCargaPlanaInf": {
         "es-MX": "Cargar Plana",
-        "en-US": "Load Flat"
+        "en-US": "Flat Charge"
+    },
+    "EmbarquePreparacionSup": {
+        "es-MX": "Preparación Embarque",
+        "en-US": "Shipping Preparation"
+    },
+    "EmbarquePreparacionInf": {
+        "es-MX": "Preparación Embarque",
+        "en-US": "Shipping Preparation"
     },
     "EmbarqueListadoEmbarqueSup": {
         "es-MX": "Listado Embarque",
@@ -10602,7 +10654,7 @@ _dictionary = {
 
     "columnEtiquetadoEmbarque": {
         "es-MX": "Etiquetado ",
-        "en-US": "Label"
+        "en-US": "Labeled"
     },
     "columnColorCintaEmbarque": {
         "es-MX": "Color Cinta",
@@ -10610,11 +10662,7 @@ _dictionary = {
     },
     "columnEncintadoEmbarque": {
         "es-MX": "Encintado ",
-        "en-US": "Encintado"
-    },
-    "columnEncintadoEmbarque": {
-        "es-MX": "Encintado ",
-        "en-US": "Encintado"
+        "en-US": "Taping"
     },
     "columnConsecutivoEmbarque": {
         "es-MX": "Consecutivo ",
@@ -10647,8 +10695,14 @@ _dictionary = {
         "en-US": "Sava, Close and New"
     },
     //Fin acciones botones de embarque
+    //Inicia Pantalla Etiquetado
+    "EmbarqueEtiquetadoTituloPagina": {
+        "es-MX": "Etiquetado",
+        "en-US": "Labeled"
+    },
+    //Finaliza Pantalla Etiquetado
     //Inicia Pantalla Encintado
-    "EmbarqueEncintadoTitle": {
+    "EmbarqueEncintadoTituloPagina": {
         "es-MX": "Encintado",
         "en-US": "Taping"
     },
@@ -10658,6 +10712,10 @@ _dictionary = {
     },
     //Finaliza Pantalla Encintado
     //Inicia pantalla carga plana
+    "EmbarqueCargaPlanaBreadcrumb": {
+        "es-MX": "Cargar Plana",
+        "en-US": "Flat Charge"
+    },
     "EmbarqueCargaPlana": {
         "es-MX": "Cerrar Plana",
         "en-US": "Close Plate"
@@ -10996,6 +11054,10 @@ _dictionary = {
     },
     //Finaliza pantalla carga plana
     //Inicia pantalla empaquetado
+    "EmbarqueEmpaquetadoTituloPagina": {
+        "es-MX": "Empaquetado",
+        "en-US": "Packaging"
+    },
     "EmbarqueEmpaquetadoTotalPiezas": {
         "es-MX": "Total Piezas:",
         "en-US": "Total pieces:"
@@ -11100,7 +11162,7 @@ _dictionary = {
         "en-US": "Please select a flat"
     },
     "EmarquePreparacionMensajeErrorCargaMaxima": {
-        "es-MX": "El embarque unicamente puede tener como maximo 2 planas",
+        "es-MX": "El embarque únicamente puede tener como máximo 2 planas",
         "en-US": "The shipment can only have a maximum of 2 planes"
     },
     "EmarquePreparacionMensajeErrorNombreProveedor": {
@@ -11130,6 +11192,54 @@ _dictionary = {
     "EmarquePreparacionAgregarChofer": {
         "es-MX": "Agregar nuevo chofer",
         "en-US": "Add new driver"
+    },
+    "EmarquePreparacionErrorSeleccionaPlana": {
+        "es-MX": "Por favor seleccione una plana a agregar",
+        "en-US": "Please select a flat to add"
+    },
+    "EmbarquePreparacionErrorExisteProveedor": {
+        "es-MX": "El proveedor ya existe con el nombre ingresado",
+        "en-US": "The provider already exists the name entered"
+    },
+    "EmbarquePreparacionErrorExisteTracto": {
+        "es-MX": "El tracto ya existe con el nombre ingresado",
+        "en-US": "The tract already exists the name entered"
+    },
+    "EmbarquePreparacionErrorExisteChofer": {
+        "es-MX": "El chofer ya existe con el nombre ingresado",
+        "en-US": "The driver already exists the name entered"
+    },
+    "EmbarquePreparacionErrorPlanaCargada": {
+        "es-MX": "La plana ya se encuentra cargada en el embarque ",
+        "en-US": "The flat is already loaded in the shipment "
+    },
+    "EmbarquePreparacionErrorExistePlana": {
+        "es-MX": "La plana ya existe en la captura",
+        "en-US": "The flat already exists in the capture"
+    },
+    "EmbarquePreparacionErrorExisteEmbarque": {
+        "es-MX": "El embarque ya existe con el nombre ingresado",
+        "en-US": "The shipment already exists the name entered"
+    },
+    "EmbarquePreparacionEmbarqueErrorEliminado": {
+        "es-MX": "El embarque se eliminó correctamente",
+        "en-US": "Shipment successfully deleted"
+    },
+    "EmbarquePreparacionEmbarqueEliminadoCorrectamente": {
+        "es-MX": "El embarque no se pudo eliminar",
+        "en-US": "Shipment could not be deleted"
+    },
+    "EmbarquePreparacionEmbarqueNuevo": {
+        "es-MX": "Nuevo Embarque",
+        "en-US": "New Shipment"
+    },
+    "EmbarquePreparacionTractoNuevo": {
+        "es-MX": "Nuevo Tracto",
+        "en-US": "New Tract"
+    },
+    "EmbarquePreparacionChoferNuevo": {
+        "es-MX": "Nuevo Chofer",
+        "en-US": "New Driver"
     },
     //Finaliza pantalla Preparacion Embarque
     //Inicia pantalla listado embarque

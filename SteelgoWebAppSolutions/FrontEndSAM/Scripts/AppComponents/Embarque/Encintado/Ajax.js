@@ -247,7 +247,7 @@ function AjaxGuardarCaptura(rows, tipoGuardar) {
                 iframe: true,
                 title: _dictionary.TituloPopupCancelar[$("#language").data("kendoDropDownList").value()],
                 visible: false,
-                width: "35%",
+                width: "auto",
                 height: "auto",
                 draggable: false,
                 resizable: false,
@@ -260,7 +260,9 @@ function AjaxGuardarCaptura(rows, tipoGuardar) {
             }).data("kendoWindow");
 
             ventanaConfirm.content('<center>'+_dictionary.MensajeConfirmacionGuardadoGeneral[$("#language").data("kendoDropDownList").value()] + '</center>'+
-                "</br><center><button class='btn btn-blue' id='yesButton'>Si</button><button class='btn btn-blue' id='noButton'>No</button></center>");
+                "</br><center><button class='btn btn-blue' id='yesButton'>" + _dictionary.lblSi[$("#language").data("kendoDropDownList").value()]
+                + "</button><button class='btn btn-blue' id='noButton'>" + _dictionary.lblNo[$("#language").data("kendoDropDownList").value()]
+                + "</button></center>");
 
             ventanaConfirm.open().center();
 

@@ -11,7 +11,8 @@ function changeLanguageCall() {
     FechaEmbarque.data("kendoDatePicker").setOptions({
         format: _dictionary.FormatoFecha2[$("#language").data("kendoDropDownList").value()]
     });
-
+    opcionHabilitarView(false, "FieldSetView");
+    SuscribirEventoPopUpGuardarEmbarque();
 };
 
 
@@ -156,7 +157,7 @@ function CargaPopupNuevoTracto(e) {
         },
         actions: []
     }).data("kendoWindow");
-    $("#divNuevoTracto").data("kendoWindow").title("Nuevo Tracto");
+    $("#divNuevoTracto").data("kendoWindow").title(_dictionary.EmbarquePreparacionTractoNuevo[$("#language").data("kendoDropDownList").value()]);
     $("#divNuevoTracto").data("kendoWindow").center().open();
 
     $("#inputNombreNuevoTracto").focus();
@@ -183,7 +184,7 @@ function CargaPopupNuevoChofer(e) {
         },
         actions: []
     }).data("kendoWindow");
-    $("#divNuevoChofer").data("kendoWindow").title("Nuevo chofer");
+    $("#divNuevoChofer").data("kendoWindow").title(_dictionary.EmbarquePreparacionChoferNuevo[$("#language").data("kendoDropDownList").value()]);
     $("#divNuevoChofer").data("kendoWindow").center().open();
 
     $("#inputNombreNuevoChofer").focus();

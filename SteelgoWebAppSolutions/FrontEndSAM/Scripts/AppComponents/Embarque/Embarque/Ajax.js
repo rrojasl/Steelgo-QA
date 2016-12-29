@@ -197,7 +197,7 @@ function GuardarNuevoProveedor() {
             }
             else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
 
-                displayNotify("", "Ya existe un proveedor con ese nombre ", '2');
+                displayNotify("EmbarquePreparacionErrorExisteProveedor", "", '2');
             }
 
         }
@@ -216,7 +216,7 @@ function GuardarNuevoTracto() {
             }
             else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
 
-                displayNotify("", "Ya existe un tracto con ese nombre ", '2');
+                displayNotify("EmbarquePreparacionErrorExisteTracto", "", '2');
             }
 
         }
@@ -233,7 +233,7 @@ function GuardarNuevoChofer() {
             }
             else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
 
-                displayNotify("", "Ya existe un chofer con ese nombre ", '2');
+                displayNotify("EmbarquePreparacionErrorExisteChofer", "", '2');
             }
 
         }
@@ -257,10 +257,11 @@ function AjaxAgregaRenglon(cargaPlanaID) {
                         if (data[i].EmbarqueDetalleID == 0) {
                             ds.add(array[i]);
                         } else {
-                            displayNotify("", "La plana ya se encuentra en el embarque " + data[i].NombreEmbarque, '2');
+                            displayNotify("", _dictionary.EmbarquePreparacionErrorPlanaCargada[$("#language").data("kendoDropDownList").value()]
+                                + data[i].NombreEmbarque, '1');
                         }
                     } else {
-                        displayNotify("", "La Plana ya existe en la captura" , '2');
+                        displayNotify("EmbarquePreparacionErrorExistePlana", "", '2');
                     }
                 }
             }
@@ -365,7 +366,7 @@ function AjaxGuardarCaptura(ds, tipoGuardado, proveedorID) {
                 displayNotify("MensajeGuardadoExistoso", "", '0');
             } else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "existe") {
 
-                displayNotify("", "Ya existe un embarque con ese nombre", '2');
+                displayNotify("EmbarquePreparacionErrorExisteEmbarque", "", '2');
             }
             else {
                 displayNotify("MensajeGuardadoErroneo", "", '2');
@@ -379,10 +380,10 @@ function AjaxEliminarEmbarque(embarqueID) {
         if (Error(data)) {
             if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
                 Limpiar();
-                displayNotify("", "El embarque se eliminó correctamente", '0');
+                displayNotify("EmbarquePreparacionEmbarqueEliminadoCorrectamente", "", '0');
             }
             else {
-                displayNotify("", "El embarque no se pudo eliminar", '2');
+                displayNotify("EmbarquePreparacionEmbarqueErrorEliminado", "", '2');
             }
         }
     });

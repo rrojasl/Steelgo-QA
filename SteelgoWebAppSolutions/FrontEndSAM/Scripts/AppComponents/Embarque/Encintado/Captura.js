@@ -6,7 +6,8 @@ function IniciarEtiquetado() {
 function changeLanguageCall() {
     CargarGrid();    
     AjaxCargarCamposPredeterminados();
-    document.title = _dictionary.EmbarqueEncintadoTitle[$("#language").data("kendoDropDownList").value()];
+    document.title = _dictionary.EmbarqueEncintadoTituloPagina[$("#language").data("kendoDropDownList").value()];
+    opcionHabilitarView(false, "FieldSetView");
 };
 
 

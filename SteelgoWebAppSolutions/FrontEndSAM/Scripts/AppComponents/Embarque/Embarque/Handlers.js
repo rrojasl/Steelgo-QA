@@ -17,7 +17,6 @@ function SuscribirEventos() {
     SuscribirEventoGuardarTracto();
     SuscribirEventoGuardarChofer();
     SuscribirEventoFecha();
-    SuscribirEventoPopUpGuardarEmbarque();
     SuscribirEventoEliminarEmbarque();
 }
 
@@ -64,8 +63,10 @@ function SuscribirEventoProyecto() {
                     actions: []
                 }).data("kendoWindow");
 
-                ventanaConfirm.content(_dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] +
-                    "</br><center><button class='btn btn-blue' id='yesButtonProy'>Si</button><button class='btn btn-blue' id='noButtonProy'>No</button></center>");
+                ventanaConfirm.content(_dictionary.MensajeAdvertenciaDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] +
+                    "</br><center><button class='btn btn-blue' id='yesButtonProy'>" + _dictionary.lblSi[$("#language").data("kendoDropDownList").value()]
+                    + "</button><button class='btn btn-blue' id='noButtonProy'>" + _dictionary.lblNo[$("#language").data("kendoDropDownList").value()]
+                    + "</button></center>");
                 ventanaConfirm.open().center();
 
                 $("#yesButtonProy").click(function () {
@@ -138,8 +139,10 @@ function SuscribirEventoProveedor() {
                     actions: []
                 }).data("kendoWindow");
 
-                ventanaConfirm.content(_dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] +
-                    "</br><center><button class='btn btn-blue' id='yesButtonProy'>Si</button><button class='btn btn-blue' id='noButtonProy'>No</button></center>");
+                ventanaConfirm.content(_dictionary.MensajeAdvertenciaDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] +
+                    "</br><center><button class='btn btn-blue' id='yesButtonProy'>" + _dictionary.lblSi[$("#language").data("kendoDropDownList").value()]
+                    + "</button><button class='btn btn-blue' id='noButtonProy'>" + _dictionary.lblNo[$("#language").data("kendoDropDownList").value()]
+                    + "</button></center>");
 
                 ventanaConfirm.open().center();
                 $("#yesButtonProy").click(function () {
@@ -214,19 +217,19 @@ function suscribirEventoGuardar() {
                             }
                         }
                         else {
-                            displayNotify('', 'El chofer es mandatorio', '2');
+                            displayNotify('MensajeSeleccionaChofer', '', '2');
                         }
                     }
                     else {
-                        displayNotify('', 'El tracto es mandatorio', '2');
+                        displayNotify('MensajeSeleccionaTracto', '', '2');
                     }
                 }
                 else {
-                    displayNotify('', 'El proveedor es mandatorio', '2');
+                    displayNotify('MensajeSeleccionaProveedor', '', '2');
                 }
             }
             else {
-                displayNotify('', 'El proyecto es mandatorio', '2');
+                displayNotify('MensajeSeleccionaProyecto', '', '2');
             }
         }
         else if ($('#Guardar').text() == _dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]) {
@@ -245,23 +248,23 @@ function suscribirEventoGuardar() {
                             AbrirPopUpGuardar(Embarque, 2);
                         }
                         else {
-                            displayNotify('', 'El embarque debe tener al menos una plana cargada', '2');
+                            displayNotify('EmarquePreparacionMensajeErrorEmbarqueVacio', '', '2');
                         }
                     }
                     else {
-                        displayNotify('', 'El chofer es mandatorio', '2');
+                        displayNotify('MensajeSeleccionaChofer', '', '2');
                     }
                 }
                 else {
-                    displayNotify('', 'El tracto es mandatorio', '2');
+                    displayNotify('MensajeSeleccionaTracto', '', '2');
                 }
             }
             else {
-                displayNotify('', 'El proveedor es mandatorio', '2');
+                displayNotify('MensajeSeleccionaProveedor', '', '2');
             }
         }
         else {
-            displayNotify('', 'El proyecto es mandatorio', '2');
+            displayNotify('MensajeSeleccionaProyecto', '', '2');
         }
     });
 }
@@ -278,11 +281,11 @@ function suscribirEventoAgregar() {
                 $("#Plana").data("kendoComboBox").value("");
             }
             else {
-                displayNotify('', 'Seleccione una plana a agregar', '1');
+                displayNotify('EmarquePreparacionErrorSeleccionaPlana', '', '1');
             }
         }
         else {
-            displayNotify('', 'El embarque unicamente puede tener como maximo 2 planas', '1');
+            displayNotify('EmarquePreparacionMensajeErrorCargaMaxima', '', '1');
         }
     });
 }
@@ -335,8 +338,10 @@ function suscribirEventoEmbarque() {
                     actions: []
                 }).data("kendoWindow");
 
-                ventanaConfirm.content(_dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] +
-                    "</br><center><button class='btn btn-blue' id='yesButtonProy'>Si</button><button class='btn btn-blue' id='noButtonProy'>No</button></center>");
+                ventanaConfirm.content(_dictionary.MensajeAdvertenciaDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] +
+                    "</br><center><button class='btn btn-blue' id='yesButtonProy'>" + _dictionary.lblSi[$("#language").data("kendoDropDownList").value()]
+                    + "</button><button class='btn btn-blue' id='noButtonProy'>" + _dictionary.lblNo[$("#language").data("kendoDropDownList").value()]
+                    + "</button></center>");
 
                 ventanaConfirm.open().center();
                 $("#yesButtonProy").click(function () {
@@ -525,7 +530,7 @@ function SuscribirEventoFecha() {
 function SuscribirEventoPopUpGuardarEmbarque() {
 
     divNuevoEmbarque = $("#divNuevoEmbarque").kendoWindow({
-        title: "Nuevo Embarque",
+        title: _dictionary.EmbarquePreparacionEmbarqueNuevo[$("#language").data("kendoDropDownList").value()],
         visible: false,
         width: "30%",
         height: "auto",
@@ -562,7 +567,7 @@ function SuscribirEventoEliminarEmbarque() {
         if ($("#Embarque").data("kendoComboBox").value() != "" && $("#Embarque").data("kendoComboBox").value() != "0") {
             AjaxEliminarEmbarque($("#Embarque").data("kendoComboBox").value());
         } else {
-            displayNotify("", "Por favor seleccione un embarque", '2');
+            displayNotify("MensajeSeleccionaEmbarque", "", '2');
         }
     });
 }

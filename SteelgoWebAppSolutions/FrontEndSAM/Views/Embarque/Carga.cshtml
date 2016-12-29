@@ -7,10 +7,10 @@
         <a href="@Url.Action("landing", "Home")"><span id="lblInicio"></span></a>
     </li>
     <li>
-        <a href="#"><span id="lblEmbarque">Embarque</span></a>
+        <a href="#"><span id="lblEmbarque"></span></a>
     </li>
     <li class="active">
-        <a href=@Url.Action("Carga", "Embarque")><span id="lblCargas">Carga plana</span></a>
+        <a href=@Url.Action("Carga", "Embarque")><span id="EmbarqueCargaPlanaBreadcrumb"></span></a>
     </li>
 }
 
@@ -34,8 +34,8 @@
                     </div>
                     <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar"></span></a>
                 </div>
-                <div id="CargasEmbarqueDivSuperior" class="button-section">
-                    <a id="CargasEmbarqueSuperior" href=@Url.Action("EmbarqueCarro", "Embarque") class="btn btn-primary"><span id="botonEmbarque">Preparación Embarque</span></a>
+                <div id="PreparacionEmbarqueDivSup" class="button-section">
+                    <a id="PreparacionEmbarqueSup" href=@Url.Action("EmbarqueCarro", "Embarque") class="btn btn-primary"><span id="EmbarquePreparacionSup"></span></a>
                 </div>
                 <div class="button-section actionButtonSection">
                     <div class="dropdown action-group">
@@ -82,7 +82,7 @@
         </div>
         <div class="col-xs-12 col-sm-4 col-md-2 col-lg-2 altoControl">
             <label id="EmbarqueCargaToneladasCargadas"></label>
-            <label id="lblEmbarqueCargaToneladasCargadas" style="width:87%"></label>
+            <label id="lblEmbarqueCargaToneladasCargadas"></label>
         </div>
         @*<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 altoControl">
                 <hr />
@@ -180,16 +180,20 @@
     <div id="ventanaPopup" style="display: none; z-index:inherit;">
         <div class="container-fluid">
             <div class="form-group">
-                <span id="EmbarqueCargaMsjDescargaSpool"></span>
+                <center>
+                    <span id="EmbarqueCargaMsjDescargaSpool"></span>
+                </center>
                 <input type="hidden" id="rowGridDescargaSpool" />
             </div>
             <div class="form-group row">
                 <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>
                 <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
-                    <input id="inputZonaPopup" placeholder="Zona" />
+                    <label id="lblZonaDescargaSpool"></label>
+                    <input id="inputZonaPopup"/>
                 </div>
                 <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
-                    <input id="inputCuadrantePopup" placeholder="Cuadrante" />
+                    <label id="lblCuadranteDescargaSpool"></label>
+                    <input id="inputCuadrantePopup"/>
                 </div>
                 <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>
             </div>
@@ -209,16 +213,20 @@
     <div id="divDescargaPaquete" style="display: none; z-index:inherit;">
         <div class="container-fluid">
             <div class="form-group">
-                <span id="EmbarqueCargaMsjDescargaPaquete"></span>
+                <center>
+                    <span id="EmbarqueCargaMsjDescargaPaquete"></span>
+                </center>
                 <input type="hidden" id="rowGridDescargaPaquete" />
             </div>
             <div class="form-group row">
                 <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>
                 <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
-                    <input id="inputZonaPaquete" placeholder="Zona" />
+                    <label id="lblZonaPaquete"></label>
+                    <input id="inputZonaPaquete"/>
                 </div>
                 <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
-                    <input id="inputCuadrantePaquete" placeholder="Cuadrante" />
+                    <label id="lblCuadrantePaquete"></label>
+                    <input id="inputCuadrantePaquete"/>
                 </div>
                 <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>
             </div>
@@ -246,10 +254,12 @@
             <div class="form-group row" id="divDescargarPaquete">
                 <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>
                 <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
-                    <input id="inputZonaPaqueteDescarga" placeholder="Zona" />
+                    <label id="lblZonaDescargaPaquete"></label>
+                    <input id="inputZonaPaqueteDescarga"/>
                 </div>
                 <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
-                    <input id="inputCuadrantePaqueteDescarga" placeholder="Cuadrante" />
+                    <label id="lblCuadranteDescargaPaquete"></label>
+                    <input id="inputCuadrantePaqueteDescarga"/>
                 </div>
                 <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"></div>
             </div>
@@ -281,8 +291,8 @@
                     </div>
                     <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar1"></span></a>
                 </div>
-                <div id="EntregaresultadosDivINF" class="button-section">
-                    <a id="EntregaresultadosINF" href=@Url.Action("EmbarqueCarro", "Embarque") class="btn btn-primary"><span id="">Preparación Embarque</span></a>
+                <div id="PreparacionEmbarqueDivInf" class="button-section">
+                    <a id="PreparacionEmbarqueInf" href=@Url.Action("EmbarqueCarro", "Embarque") class="btn btn-primary"><span id="EmbarquePreparacionInf"></span></a>
                 </div>
                 <div class="button-section actionButtonSection">
                     <div class="dropdown action-group">

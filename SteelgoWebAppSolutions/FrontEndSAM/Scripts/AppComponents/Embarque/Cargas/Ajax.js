@@ -554,7 +554,7 @@ function AjaxDescargarPaquete(dataItem, eliminaFilas) {
         if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "OK") {
             if (eliminaFilas == 1) {
                 for (var x = 0; x < ds._data.length; x++) {
-                    if (ds._data[x].PaqueteID != undefined && ds._data[x].PaqueteID == dataItem.PaqueteID) {
+                    if (ds._data[x].PaqueteID != undefined && ds._data[x].PaqueteID == dataItem) {
                         ds.remove(ds._data[x]);
                     }
                 }

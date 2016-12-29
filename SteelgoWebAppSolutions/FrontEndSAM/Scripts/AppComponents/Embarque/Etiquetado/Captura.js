@@ -2,6 +2,8 @@
 function changeLanguageCall() {
     CargarGrid();
     AjaxCargarCamposPredeterminados();
+    document.title = _dictionary.EmbarqueEtiquetadoTituloPagina[$("#language").data("kendoDropDownList").value()];
+    opcionHabilitarView(false, "FieldSetView");
 };
 
 

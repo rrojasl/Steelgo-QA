@@ -227,7 +227,7 @@ function AjaxObtenerDetalleSpool(tipoConsulta, spoolID, codigo) {
 
 function AbrirPopUpGuardar(Paquete, TipoGuardado, PatioID) {
     var fechaPredeterminada;
-    cuadranteSave = Paquete.CuadranteUbicacion == null ? 0 : Paquete.CuadranteUbicacion;
+    cuadranteSave = Paquete == undefined ? 0 : Paquete.CuadranteUbicacion;
     var cerrado = $("#InputCerrar").is(":checked")?1:0;
     AjaxCargarZonaGuardado(PatioID, Paquete.ZonaID, cerrado);
 
