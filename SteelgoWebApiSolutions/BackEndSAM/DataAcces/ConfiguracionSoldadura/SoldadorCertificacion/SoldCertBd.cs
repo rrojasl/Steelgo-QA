@@ -107,7 +107,7 @@ namespace BackEndSAM.DataAcces.ConfiguracionSoldadura.SoldCertBd
                                                  Codigo = item.Codigo,
                                                  ObreroID = item.ObreroID,
                                                  TipoObrero = item.TipoObrero,
-                                                 NombreCompleto = item.NombreCompleto
+                                                 NombreCompleto =  item.Codigo + " " + item.NombreCompleto 
                                              }).AsParallel().ToList().OrderBy(x => x.Codigo).ToList<ObreroSteelGo>();
                 listaObreros.Insert(0, new ObreroSteelGo());
                 return listaObreros;

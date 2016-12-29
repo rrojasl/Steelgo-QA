@@ -7488,7 +7488,7 @@ _dictionary = {
     },
     "lblEspesorMaximo": {
         "es-MX": "Espesor Máximo(mm)",
-        "en-US": "Maximum Thickness(mm)"
+        "en-US": "Max Thickness(mm)"
     },
     "lblWPS": {
         "es-MX": "WPS",
@@ -8156,7 +8156,7 @@ _dictionary = {
     },
     "menuConfiguracionSoldadura": {
         "es-MX": "Configuración de soldadura",
-        "en-US": "Welging Configuration"
+        "en-US": "Welding Configuration"
     },
     "menuPQR": {
         "es-MX": "PQR",
@@ -9342,7 +9342,7 @@ _dictionary = {
     },
     "CapturaAvanceIntAcabadoMensajeErrorGuardado": {
         "es-MX": "Error al guardar",
-        "en-US": "Error"
+        "en-US": "Error to save"
     },
     "CapturaAvanceIntAcabadoMensajePreguntaGuardado": {
         "es-MX": "Los registros marcados no serán guardados. ¿Desea continuar?",
@@ -9453,7 +9453,7 @@ _dictionary = {
         "en-US": "The welder field can not be empty"
     },
     "CapturaSoldadorCertificacionNombreVacio": {
-        "es-MX": "El campo Nombre del PQR no puede ser vacio",
+        "es-MX": "El campo Nombre del WPS no puede ser vacio",
         "en-US": "The PQR name field can not be empty"
     },
     "CapturaSoldadorCertificacionProcSolVacio": {
@@ -9469,8 +9469,8 @@ _dictionary = {
         "en-US": "The pipe charter field can not be empty"
     },
     "CapturaSoldadorCertificacionEspesorVacio": {
-        "es-MX": "El campo Espesor tiene que ser mayor a cero",
-        "en-US": "The Thickness field must be greater than zero"
+        "es-MX": "El campo Espesor aplicado tiene que ser mayor a cero",
+        "en-US": "The Thickness apply field must be greater than zero"
     },
     "CapturaSoldadorCertificacionDiametroVacio": {
         "es-MX": "El campo diametro c. debe ser mayor a cero",
@@ -9583,7 +9583,7 @@ _dictionary = {
     //Pantalla Nuevo PQR
     "NuevoWPSBreadcrumb": {
         "es-MX": "Nuevo WPS",
-        "en-US": "New PQR"
+        "en-US": "New WPS"
     },
     "WPSBreadcrumb": {
         "es-MX": "WPS",

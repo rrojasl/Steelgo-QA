@@ -99,16 +99,15 @@ function SuscribirEventoDiametroMinimo() {
         format: "#",
         min: 0,
         value: "0",
-        decimals: 5
+        decimals: 2
     });
+    $("#inputDiametroMinimo").data("kendoNumericTextBox").readonly();
 }
 
 function SuscribirEventoDiametroCertificado() {
     $("#inputDiametroCalificado").kendoNumericTextBox({
         format: "#",
         min: 0,
-        value: "0",
-        decimals: 5
     });
 
     $("#inputDiametroCalificado").blur(function (e) {
@@ -123,8 +122,7 @@ function SuscribirEventoDiametroCertificado() {
         else {
             $("#inputDiametroMinimo").data("kendoNumericTextBox").value('73');
         }
-        $("#inputEspesorMinimo").kendoNumericTextBox({ format: "#" });
-        $("#inputPasosSoldadura").kendoNumericTextBox({ format: "#" });
+        $("#inputDiametroCalificado").kendoNumericTextBox({ format: "#" });
     });
 }
 

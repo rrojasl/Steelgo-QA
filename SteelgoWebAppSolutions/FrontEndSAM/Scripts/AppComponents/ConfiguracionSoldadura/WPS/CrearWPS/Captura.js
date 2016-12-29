@@ -1,9 +1,11 @@
 ﻿function changeLanguageCall() {
     document.title = _dictionary.NuevoWPSBreadcrumb[$("#language").data("kendoDropDownList").value()];
-    suscribirEventos();
     obtenerPQRAjax();
+    Limpiar();
+    opcionHabilitarView(false, "FieldSetView");
 
 };
+suscribirEventos();
 
 function ContieneGruposMaterialBase(Base1Uno, Base2Uno, Base1Dos, Base2Dos) {
 
@@ -167,6 +169,11 @@ function onlyUnique(value, index, self) {
 
 
 function obtenerGruposP(wpsID, grupoP1, grupoP2, accion) {
+
+
+    if (accion == 1) {
+        wpsID = 0;
+    }
     var gruposCompletos = [];
 
     if (grupoP1 == '15E' && grupoP2 == '15E') {

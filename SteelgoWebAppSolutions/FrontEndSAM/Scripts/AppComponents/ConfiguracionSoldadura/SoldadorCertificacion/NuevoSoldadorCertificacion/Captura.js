@@ -1,8 +1,7 @@
-﻿function IniciarCapturaSC() {
-
+﻿
+function IniciarCapturaSC() {
     SuscribirEventos();
-
-
+    
 }
 IniciarCapturaSC();
 function AsignarEncabezados() {
@@ -15,6 +14,9 @@ function AsignarEncabezados() {
 
     AjaxNuevoSoldadorCertificacion();
 }
+
+
+
 
 function limpiarCaptura() {
 
@@ -105,7 +107,7 @@ function endChange() {
 function changeLanguageCall() {
     AsignarEncabezados();
     limpiarCaptura();
-    //document.title = _dictionary.CapturaArmadoArmadoSpool[$("#language").data("kendoDropDownList").value()];
+    document.title = _dictionary.lblNuevoSoldadorCertificacionBreadCrum[$("#language").data("kendoDropDownList").value()]
 }
 
 
@@ -139,6 +141,7 @@ function HabilitarCapturaNuevoSoldadorCertificacioon(valor, name) {
         $("#inputEspesorMaximo").data("kendoNumericTextBox").enable(false);
         $("#inputPosicionPQR").data("kendoNumericTextBox").enable(false);
         $("#inputDiametroCalificado").data("kendoNumericTextBox").enable(false);
+        $("#inputDiametroMinimo").data("kendoNumericTextBox").enable(false);
         $("#inputCedulaTuboPQR").data("kendoComboBox").enable(false);
 
         $('#botonGuardar').text(_dictionary.textoEditar[$("#language").data("kendoDropDownList").value()]);
@@ -164,7 +167,10 @@ function HabilitarCapturaNuevoSoldadorCertificacioon(valor, name) {
 
         $("#inputPosicionPQR").data("kendoNumericTextBox").enable(true);
         $("#inputDiametroCalificado").data("kendoNumericTextBox").enable(true);
-
+        $("#inputDiametroMinimo").data("kendoNumericTextBox").enable(true);
+        $("#inputDiametroMinimo").data("kendoNumericTextBox").readonly();
+        $("#inputEspesorMaximo").data("kendoNumericTextBox").enable(true);
+        $("#inputEspesorMaximo").data("kendoNumericTextBox").readonly();
 
         $("#inputFechaInicioCertificado").data("kendoDatePicker").enable(true);
         $("#inputFechaFinCertificado").data("kendoDatePicker").enable(true);
