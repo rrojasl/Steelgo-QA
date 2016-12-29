@@ -67,7 +67,7 @@ namespace BackEndSAM.DataAcces.Embarque.Encintado
             }
         }
 
-        public object ObtieneDetalleEncitadoPorZona(int ZonaID, int CuadranteID, int todos, string Lenguaje, int UsuarioID)
+        public object ObtieneDetalleEncitadoPorZona(int ZonaID, int CuadranteID, int Todos, string Lenguaje, int UsuarioID)
         {
             try
             {
@@ -79,7 +79,7 @@ namespace BackEndSAM.DataAcces.Embarque.Encintado
                     //ObtieneCatalogo de Colores
                     List<ColorEncintado> listaColores = (List<ColorEncintado>)EncintadoBD.Instance.ObtenerColoresEncintado(Lenguaje);
 
-                    List<Sam3_Embarque_Get_Encintado_Zona_Result> result = ctx.Sam3_Embarque_Get_Encintado_Zona(ZonaID, CuadranteID, todos, UsuarioID).ToList();
+                    List<Sam3_Embarque_Get_Encintado_Zona_Result> result = ctx.Sam3_Embarque_Get_Encintado_Zona(ZonaID, CuadranteID, Todos, UsuarioID, Lenguaje).ToList();
                     List<DetalleEncintado> listaDetalle = new List<DetalleEncintado>();
 
                     foreach (Sam3_Embarque_Get_Encintado_Zona_Result item in result)
@@ -144,7 +144,7 @@ namespace BackEndSAM.DataAcces.Embarque.Encintado
                     //Obtiene catalogo de colores                    
                     List<ColorEncintado> listaColores = (List<ColorEncintado>)EncintadoBD.Instance.ObtenerColoresEncintado(Lenguaje);
 
-                    List<Sam3_Embarque_get_Encintado_NumeroControl_Result> result = ctx.Sam3_Embarque_get_Encintado_NumeroControl(SpoolContiene, Todos, UsuarioID).ToList();
+                    List<Sam3_Embarque_get_Encintado_NumeroControl_Result> result = ctx.Sam3_Embarque_get_Encintado_NumeroControl(SpoolContiene, Todos, UsuarioID, Lenguaje).ToList();
                     List<DetalleEncintado> listaDetalle = new List<DetalleEncintado>();
 
                     foreach (Sam3_Embarque_get_Encintado_NumeroControl_Result item in result)
