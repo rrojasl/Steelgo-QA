@@ -207,6 +207,8 @@ var $CapturaAvance = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $SistemaPinturaAplicable = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $ListadoSistemaPintura = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $IntermedioAcabado = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $AdminComponentes = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $AdminReductores = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 
 //Embarque
 var $Etiquetado = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
@@ -386,6 +388,8 @@ $CapturaAvance.add('CapturaAvance');
 $SistemaPinturaAplicable.add("SistemaPinturaAplicable");
 $ListadoSistemaPintura.add("ListadoSistemaPintura");
 $IntermedioAcabado.add("IntermedioAcabado");
+$AdminComponentes.add("AdminComponentes");
+$AdminReductores.add("AdminReductores");
 
 //Embarque
 $Etiquetado.add("Etiquetado");

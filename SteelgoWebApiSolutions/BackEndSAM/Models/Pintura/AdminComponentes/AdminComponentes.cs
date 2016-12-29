@@ -7,13 +7,26 @@ namespace BackEndSAM.Models.Pintura.AdminComponentes
 {
     public class DetalleGrid
     {
-        public int ComponenteID { get; set; }
+        public int? ComponenteID { get; set; }
         public string Componente { get; set; }
         public string Lote { get; set; }
-        public int Cantidad { get; set; }
+        public int? Cantidad { get; set; }
         public string Unidad { get; set; }
         public bool RowOk { get; set; }
         public int Accion { get; set; }
+    }
+
+    public class Componentes
+    {
+        public int ComponenteID { get; set; }
+        public string Componente { get; set; }
+        public string Unidad { get; set; }
+        public Componentes()
+        {
+            ComponenteID = 0;
+            Componente = "";
+            Unidad = "";
+        }
     }
 
     public class GuardarGrid

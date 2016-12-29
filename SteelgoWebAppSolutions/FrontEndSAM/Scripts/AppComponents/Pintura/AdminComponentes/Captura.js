@@ -1,5 +1,11 @@
-﻿function changeLanguageCall() {
+﻿var ListaCatalogoComponentes = null;
+
+function changeLanguageCall() {
+
     CargarGrid();
+    AjaxDetalleGridComponentes();
+    AjaxObtenerCatalogoComponentes();
+    suscribirEventos();
     document.title = _dictionary.CapturaAdminComponentesTituloPagina[$("#language").data("kendoDropDownList").value()];
 };
 
@@ -18,7 +24,10 @@ function CargarGrid() {
                         Componente: { type: "string", editable: true },
                         Lote: { type: "string", editable: true },
                         Cantidad: { type: "number", editable: true, validation: { min: 0, required: false } },
-                        Unidad: { type: "string", editable: false}
+                        Unidad: { type: "string", editable: false },
+                        RowOk: { type: "boolean", editable: false },
+                        Accion: { type: "number", editable: false },
+                      
                     }
                 }
             },
@@ -51,12 +60,12 @@ function CargarGrid() {
             numeric: true,
         },
         columns: [
-            { field: "Componente", title: _dictionary.columnComponente[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "150px" },
+            { field: "Componente", title: _dictionary.columnComponente[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "150px", editor: renderComponente },
             { field: "Lote", title: _dictionary.columnLote[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "80px", attributes: { style: "text-align:left;" } },
             { field: "Cantidad", title: _dictionary.columnCantidad[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "80px", attributes: { style: "text-align:right;" }, editor: renderCantidad },
             { field: "Unidad", title: _dictionary.columnUnidad[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "50px", attributes: { style: "text-align:left;" } },
             { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: eliminarCaptura }, title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], width: "40px", attributes: { style: "text-align:center;" } },
-            { command: { text: _dictionary.botonLimpiar[$("#language").data("kendoDropDownList").value()], click: limpiarCaptura }, title: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()], width: "40px", attributes: { style: "text-align:center;" }}
+            { command: { text: _dictionary.botonLimpiar[$("#language").data("kendoDropDownList").value()], click: limpiarCaptura }, title: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()], width: "40px", attributes: { style: "text-align:center;" } }
         ],
         dataBound: function () {
             var grid = $("#grid").data("kendoGrid");
@@ -64,12 +73,13 @@ function CargarGrid() {
 
             for (var i = 0; i < gridData.length; i++) {
                 var currentUid = gridData[i].uid;
-                if (gridData[i].RowOk == false) {
-                    grid.table.find("tr[data-uid='" + currentUid + "']").css("background-color", "#ffcccc");
-                }
-                else if (gridData[i].RowOk) {
+                if (!gridData[i].RowOk) {
                     grid.table.find("tr[data-uid='" + currentUid + "']").css("background-color", "#ffffff");
                 }
+                else  {
+                    grid.table.find("tr[data-uid='" + currentUid + "']").css("background-color", "#ffcccc");
+                }
+               
 
             }
         },
@@ -94,3 +104,43 @@ function CargarGrid() {
     });
     CustomisaGrid($("#grid"));
 };
+
+function tieneClase(item) {
+
+    var tieneClass = $(item).hasClass("k-state-border-up") || $(item).hasClass("k-state-border-down");
+    return tieneClass;
+}
+
+function ValidarValoresRepetidos(data) {
+    var fila, encontroRepetido = false;
+    for (var i = 0; i < data.length; i++) {
+        fila = 0;
+        data[i].RowOk = false;
+  
+        
+        for (var j = 0; j < data.length; j++) {
+            if (data[i].ComponenteID == data[j].ComponenteID && data[i].Lote == data[j].Lote && data[i].Cantidad == data[j].Cantidad && data[i].Unidad == data[j].Unidad && (data[i].Accion == 1 || data[i].Accion == 2 || data[i].Accion == undefined))
+                fila++;
+        }
+        if (fila > 1) {
+            data[i].RowOk = true;
+   
+        }
+    }
+    $("#grid").data("kendoGrid").dataSource.sync();
+    return encontroRepetido;
+};
+
+function ValoresBlanco(data) {
+    var valorEncontradoVacio = false;
+    for (var i = 0; i < data.length; i++) {
+        data[i].RowOk = false;
+        data[i].ModificacionAutomatica = true;
+        if (data[i].ComponenteID == 0 || data[i].Lote == "" || data[i].Cantidad == 0 || data[i].Unidad == "" || (data[i].Accion == 0 || data[i].Accion == undefined)) {
+            data[i].RowOk = true;
+            valorEncontradoVacio = true;
+        }
+    }
+    $("#grid").data("kendoGrid").dataSource.sync();
+    return valorEncontradoVacio;
+}
