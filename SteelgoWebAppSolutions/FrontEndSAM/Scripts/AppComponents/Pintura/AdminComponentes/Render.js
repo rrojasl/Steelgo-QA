@@ -9,6 +9,7 @@
             });
 };
 
+
 function renderComponente(container, options) {
     var dataItem;
     $('<input  data-text-field="Componente" data-value-field="ComponenteID" data-bind="value:' + options.field + '"/>')

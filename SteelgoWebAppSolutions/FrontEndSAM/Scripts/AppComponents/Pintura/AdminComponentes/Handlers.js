@@ -6,13 +6,11 @@ function suscribirEventoGuardar() {
     $("#Guardar,#btnGuardar, #GuardarPie, #btnGuardarPie").click(function () {
         if ($('#Guardar').text() == "Guardar" || $('#Guardar').text() == "Save") {
             var ds = $("#grid").data("kendoGrid").dataSource;
-            if (ds._data.length>0)
-            {
+            if (ds._data.length > 0) {
                 if (!ValidarValoresRepetidos(ds._data) && !ValoresBlanco(ds._data))
-                    alert("exito");
-                    //ajaxGuardarCaptura(ds._data, 0);
-                else
-                {
+                    // alert("exito");
+                    AjaxGuardar(ds._data, 0);
+                else {
                     ventanaConfirm = $("#ventanaConfirm").kendoWindow({
                         iframe: true,
                         title: _dictionary.TituloPopUpError[$("#language").data("kendoDropDownList").value()],
@@ -45,8 +43,7 @@ function suscribirEventoGuardar() {
                         }
 
                         if (ArregloGuardado.length > 0) {
-                            alert("exito");
-                            //ajaxGuardarCaptura(ds._data, 0);
+                            AjaxGuardar(ds._data, 0);
                         }
                         else {
                             loadingStop();
@@ -62,8 +59,7 @@ function suscribirEventoGuardar() {
 
                 }
             }
-            else
-            {
+            else {
                 displayNotify("AdverteciaExcepcionGuardado", "", '2');
             }
         }
@@ -72,17 +68,7 @@ function suscribirEventoGuardar() {
         }
     });
 
-    $("#btnGuardarYNuevoPie,#btnGuardarYNuevo").click(function () {
-        if ($('#Guardar').text() == "Guardar" || $('#Guardar').text() == "Save") {
-            var ds = $("#grid").data("kendoGrid").dataSource;
-            if (!ValidarValoresRepetidos(ds._data))
-                alert("exito");
-               // ajaxGuardarCaptura(ds._data, 1);
-            else {
-                displayNotify("AdverteciaExcepcionGuardado", "", '2');
-            }
-        }
-    });
+   
 };
 
 

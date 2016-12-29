@@ -14,6 +14,7 @@ namespace BackEndSAM.Models.Pintura.AdminComponentes
         public string Unidad { get; set; }
         public bool RowOk { get; set; }
         public int Accion { get; set; }
+        public int AdminComponentesID { get; set; }
     }
 
     public class Componentes
@@ -35,5 +36,11 @@ namespace BackEndSAM.Models.Pintura.AdminComponentes
         public string Lote { get; set; }
         public int Cantidad { get; set; }
         public int Accion { get; set; }
+        public int AdminComponentesID { get; set; }
+    }
+
+    public class Captura
+    {
+        public List<GuardarGrid> Detalles { get; set; }
     }
 }

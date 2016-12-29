@@ -4,6 +4,7 @@ using SecurityManager.Api.Models;
 using SecurityManager.TokenHandler;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -18,7 +19,7 @@ namespace BackEndSAM.Controllers.Pintura.AdminComponentes
     {
         [HttpGet]
         public object ObtieneDetallGrid(string token, string lenguaje)
-        {
+        { 
             string payload = "";
             string newToken = "";
             bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
@@ -61,6 +62,32 @@ namespace BackEndSAM.Controllers.Pintura.AdminComponentes
                 result.IsAuthenicated = false;
                 return result;
             }
+        }
+
+        public object Post(BackEndSAM.Models.Pintura.AdminComponentes.Captura listaCaptura, string token, string lenguaje)
+        {
+            string payload = "";
+            string newToken = "";
+            DataTable dtDetalleCaptura = new DataTable();
+
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                dtDetalleCaptura = Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(listaCaptura.Detalles);
+                return AdminComponentesBD.Instance.Guardar(dtDetalleCaptura, usuario, lenguaje);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+
         }
     }
 }

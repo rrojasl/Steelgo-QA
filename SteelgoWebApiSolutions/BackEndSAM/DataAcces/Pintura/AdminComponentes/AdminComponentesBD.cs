@@ -1,8 +1,10 @@
 ﻿using BackEndSAM.Models.Pintura.AdminComponentes;
+using DatabaseManager.Constantes;
 using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 
@@ -48,7 +50,8 @@ namespace BackEndSAM.DataAcces.Pintura.AdminComponentes
                             Lote = item.Lote,
                             RowOk = false,
                             Unidad = item.Unidad,
-                            Accion=2
+                            Accion=2,
+                            AdminComponentesID=item.AdminComponentesID
                         };
                         detalleGrid.Add(detalle);
                     }
@@ -106,6 +109,36 @@ namespace BackEndSAM.DataAcces.Pintura.AdminComponentes
             }
         }
 
-        
+        public object Guardar(DataTable dtDetalle , Sam3_Usuario usuario, string lenguaje)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+
+                    ObjetosSQL _SQL = new ObjetosSQL();
+                    string[,] parametro = { { "@Usuario", usuario.UsuarioID.ToString() }, { "@Lenguaje", lenguaje }};
+                    _SQL.Ejecuta(Stords.GUARDARADMINISTRACIONCOMPONENTES, dtDetalle, "@TablaAdminComponentes", parametro);
+
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add("Ok");
+                    result.ReturnCode = 200;
+                    result.ReturnStatus = true;
+                    result.IsAuthenicated = true;
+
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
     }
 }
