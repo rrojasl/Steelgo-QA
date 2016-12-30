@@ -9,14 +9,18 @@ function changeLanguageCall() {
 function CargarGrid() {
     $("#grid").kendoGrid({
         edit: function (e) {
-            
+
             if ($('#Guardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()] && e.model.RegistrosWPS == 0) {
 
-            } else 
+            } else {
                 this.closeCell();
-                
-            
-                
+                if ($('#Guardar').text() != _dictionary.textoEditar[$("#language").data("kendoDropDownList").value()])
+                    displayNotify("", _dictionary.lblPQRElementoPQR[$("#language").data("kendoDropDownList").value()] + e.model.Nombre + _dictionary.lblPQRYaAsignado[$("#language").data("kendoDropDownList").value()], 1);
+            }
+
+
+
+
         },
         dataBound: function () {
             var myElem = document.getElementById('trParentHeader');
