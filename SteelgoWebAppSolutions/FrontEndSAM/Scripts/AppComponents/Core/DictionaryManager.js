@@ -8733,7 +8733,7 @@ _dictionary = {
     },
     "columnProcesoSoldadura": {
         "es-MX": "P. Soldadura",
-        "en-US": "Weldind P."
+        "en-US": "Welding P."
     },
     "columnDesde": {
         "es-MX": "Desde:",
@@ -9462,8 +9462,8 @@ _dictionary = {
 
     //Pantalla Soldador Certificacion
     "SoldadorNombreRepetido": {
-        "es-MX": "El nombre del Soldador no se puede repetir",
-        "en-US": "Welder Name can not be repeat"
+        "es-MX": "El nombre del soldador,wps y proceso de soldadura no se pueden repetir",
+        "en-US": "Welder name, wps and welding process can not be repeat"
     },
     "SoldadorPQRExistente":
     {
@@ -9510,7 +9510,7 @@ _dictionary = {
     },
     "CapturaSoldadorCertificacionCedulaVacio": {
         "es-MX": "El campo Cédula Tubo no puede ser vacio",
-        "en-US": "The pipe charter field can not be empty"
+        "en-US": "The cestificate tube field can not be empty"
     },
     "CapturaSoldadorCertificacionEspesorVacio": {
         "es-MX": "El campo Espesor aplicado tiene que ser mayor a cero",
@@ -9518,15 +9518,15 @@ _dictionary = {
     },
     "CapturaSoldadorCertificacionDiametroVacio": {
         "es-MX": "El campo diametro c. debe ser mayor a cero",
-        "en-US": "The Q. Diameter field must be greater than zero"
+        "en-US": "The  Diameter Q. field must be greater than zero"
     },
     "CapturaSoldadorCertificacionTipoPruebaVacio": {
         "es-MX": "El campo tipo de prueba no puede ser vacio",
-        "en-US": "The Type of test field can not be empty"
+        "en-US": "The test type field can not be empty"
     },
     "CapturaSoldadorCertificacionPosicionVacio": {
         "es-MX": "El campo posición tiene que ser mayor a cero",
-        "en-US": "The field position must be greater than zero"
+        "en-US": "The position  field must be greater than zero"
     },
     "CapturaSoldadorCertificacionEspesorLimiteMaximo": {
         "es-MX": "El espesor maximo es ilimitado",
@@ -9544,6 +9544,15 @@ _dictionary = {
         "es-MX": "¿Está seguro de eliminar el detalle de la captura de Soldador Certificación?",
         "en-US": "You are sure to delete the capture detail Welder Certification?"
     },
+    "SoldadorCertificacionMensajeEspesorMinimo": {
+        "es-MX": "El Espesor M. tiene que ser mayor a cero",
+        "en-US": " The M. thickness must be greater than zero"
+    },
+    "SoldadorCertificacionMensajeDiametroCalificado": {
+        "es-MX": "El diametro c. tiene que ser mayor a cero",
+        "en-US": " The c. diameter must be greater than zero"
+    },
+
     "AdverteciaExcepcionGuardado": {
         "es-MX": "No hay cambios por guardar",
         "en-US": "There aren´t any change"

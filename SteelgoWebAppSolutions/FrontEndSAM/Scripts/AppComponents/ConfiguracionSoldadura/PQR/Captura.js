@@ -1,7 +1,6 @@
 ﻿
 function changeLanguageCall() {
-
-    suscribirEventoGuardar();
+    document.title = _dictionary.PQRBreadcrumb[$("#language").data("kendoDropDownList").value()];
     CargarGrid();
     LlenaGridAjax();
 };
@@ -10,16 +9,13 @@ function changeLanguageCall() {
 function CargarGrid() {
     $("#grid").kendoGrid({
         edit: function (e) {
-            var grid = $("#grid").data("kendoGrid")
             
             if ($('#Guardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()] && e.model.RegistrosWPS == 0) {
-            } else {
+
+            } else 
                 this.closeCell();
-                if ($('#Guardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
-                    displayNotify("", _dictionary.lblPQRElementoPQR[$("#language").data("kendoDropDownList").value()] + e.model.Nombre + _dictionary.lblPQRYaAsignado[$("#language").data("kendoDropDownList").value()], 1);
-                }
                 
-            }
+            
                 
         },
         dataBound: function () {
@@ -86,7 +82,8 @@ function CargarGrid() {
                 logic: "or",
                 filters: [
                   { field: "Accion", operator: "eq", value: 1 },
-                  { field: "Accion", operator: "eq", value: 2 }
+                  { field: "Accion", operator: "eq", value: 2 },
+                  { field: "Accion", operator: "eq", value: 4 }
                 ]
             },
             pageSize: 10,
@@ -95,10 +92,10 @@ function CargarGrid() {
             serverSorting: false
         },
         navigatable: true,
+        editable: true,
         autoHeight: true,
         sortable: true,
         scrollable: true,
-        editable: true,
         selectable: true,
         pageable: {
             refresh: false,

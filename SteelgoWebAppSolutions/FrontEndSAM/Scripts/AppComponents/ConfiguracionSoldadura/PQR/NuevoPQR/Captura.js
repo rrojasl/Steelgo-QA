@@ -1,10 +1,12 @@
 ﻿function changeLanguageCall() {
     document.title = _dictionary.NuevoPQRBreadcrumb[$("#language").data("kendoDropDownList").value()];
+    Limpiar();
+    setTimeout(function () { ObtenerListasPQR() }, 500);
 }
 
 function CargaInicial() {
     ConvertirCombos();
-    setTimeout(function () { ObtenerListasPQR() }, 500);
+    
 };
 
 CargaInicial();

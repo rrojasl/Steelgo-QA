@@ -102,7 +102,7 @@ namespace BackEndSAM.Controllers.ConfiguracionSoldadura.SoldadorCertificacion
                 {
                     JavaScriptSerializer serializer = new JavaScriptSerializer();
                     Sam3_Usuario Usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                    return SoldCertBd.Instance.ObtenerNuevoSoldadorCertificacion(Usuario.UsuarioID, patioID);
+                    return SoldCertBd.Instance.ObtenerNuevoSoldadorCertificacion(Usuario.UsuarioID, patioID, Lenguaje);
                 }
                 else
                 {

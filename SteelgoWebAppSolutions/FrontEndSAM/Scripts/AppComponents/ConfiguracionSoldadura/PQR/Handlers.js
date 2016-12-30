@@ -1,4 +1,11 @@
-﻿function editarPQR(e) {
+﻿function suscribirEventos() {
+    suscribirEventoGuardar();
+}
+
+suscribirEventos();
+
+
+function editarPQR(e) {
     LLenaControles(e);
     VentanaModal();
 };

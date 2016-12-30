@@ -145,9 +145,11 @@ function AbrirVentanaModalVista() {
 };
 
 function changeLanguageCall() {
+    document.title = _dictionary.SoldadorCertificacionBreadcrumb[$("#language").data("kendoDropDownList").value()];
     CargarGrid();
     SuscribirEventos();
     setTimeout(function () { AjaxObtenerJSONGrid(); }, 100)
+    opcionHabilitarView(false, "FieldSetView");
 };
 
 function tieneClase(item) {
@@ -234,12 +236,12 @@ function ValidarInformacionEnviada() {
             }
             else if (arregloCaptura[index].EspesorMinimo == "" || arregloCaptura[index].EspesorMinimo <= 0) { //Pasos soladura
                 desplegadoEspesor = true;
-                displayNotify("", "El Espesor C para el WPS " + arregloCaptura[index].NombreWPS + " tiene que ser mayor a cero", '1');
+                displayNotify("SoldadorCertificacionMensajeEspesorMinimo", '1');
 
             }
             else if (arregloCaptura[index].DiametroCalificado == "" || arregloCaptura[index].DiametroCalificado <= 0) { //Pasos soladura
                 desplegadoDiametro = true;
-                displayNotify("", "El Diametro C para el WPS " + arregloCaptura[index].NombreWPS + " tiene que ser mayor a cero", '1');
+                displayNotify("SoldadorCertificacionMensajeDiametroCalificado", "", '1');
 
             }
             else if (arregloCaptura[index].Posicion == "" || arregloCaptura[index].Posicion <= 0) { //Pasos soladura
@@ -394,7 +396,7 @@ function NombreRepetido(listaDetalles) {
 
     for (var i = 0; i < listaDetalles.length; i++) {
         for (var j = 0; j < listaDetalles.length; j++) {
-            if (listaDetalles[i].ObreroID == listaDetalles[j].ObreroID && i != j) {
+            if (listaDetalles[i].ObreroID == listaDetalles[j].ObreroID && listaDetalles[i].WPSID == listaDetalles[j].WPSID && listaDetalles[i].ProcesoSoldaduraID == listaDetalles[j].ProcesoSoldaduraID && i != j) {
                 listaDetalles[j].Estatus = -4;
                 $("#grid").data("kendoGrid").dataSource._data[j].RowOk = false;
             }
