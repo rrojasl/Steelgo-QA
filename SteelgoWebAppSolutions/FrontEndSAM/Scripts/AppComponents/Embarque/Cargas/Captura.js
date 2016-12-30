@@ -319,6 +319,7 @@ function ImprimirTotalToneladas(ds) {
         else
             $("#lblEmbarqueCargaToneladasCargadas").css('width', '52%');
 
+        totalToneladas = totalToneladas / 1000;
         $("#lblEmbarqueCargaToneladasCargadas").css('text-align', 'right');
         $("#lblEmbarqueCargaToneladasCargadas").text(totalToneladas != 0 ? kendo.toString(totalToneladas, 'n3') : "");
     } else {

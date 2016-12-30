@@ -156,6 +156,8 @@ function ImprimirTotalToneladas(ds) {
         else
             $("#TotalToneladas").css('width', '34%');
 
+        totalToneladas = totalToneladas / 1000;
+
         $("#TotalToneladas").css('text-align', 'right');
         $("#TotalToneladas").text(totalToneladas != 0 ? kendo.toString(totalToneladas, 'n3') : "");
     } else {
