@@ -8818,12 +8818,24 @@ _dictionary = {
         "en-US": "Flat"
     },
     "columnCantidadSpools": {
-        "es-MX": "Plana",
-        "en-US": "Flat"
+        "es-MX": "Elementos",
+        "en-US": "Elements"
     },
     "columnEspec": {
         "es-MX": "Espec",
         "en-US": "Spec"
+    },
+    "columnEmbarque": {
+        "es-MX": "Embarque",
+        "en-US": "Shipment"
+    },
+    "columnPlanasEmb": {
+        "es-MX": "Planas",
+        "en-US": "Flat"
+    },
+    "columnDestinoEmb": {
+        "es-MX": "Destino",
+        "en-US": "Destiny"
     },
     // Finalizan Etiquetas Grid
     // Finalizan Etiquetas generales
