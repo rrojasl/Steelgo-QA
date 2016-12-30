@@ -5,9 +5,12 @@ function changeLanguageCall() {
     CargarGrid();
     AjaxDetalleGridComponentes();
     AjaxObtenerCatalogoComponentes();
-    suscribirEventos();
+   
     document.title = _dictionary.CapturaAdminComponentesTituloPagina[$("#language").data("kendoDropDownList").value()];
 };
+
+setTimeout(function () { suscribirEventos(); }, 100);
+
  
 function CargarGrid() {
     $("#grid").kendoGrid({
