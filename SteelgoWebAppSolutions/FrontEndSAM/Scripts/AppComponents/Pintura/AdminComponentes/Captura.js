@@ -117,14 +117,14 @@ function ValidarValoresRepetidos(data) {
         fila = 0;
         data[i].RowOk = false;
   
-        
         for (var j = 0; j < data.length; j++) {
-            if (data[i].ComponenteID == data[j].ComponenteID && data[i].Lote == data[j].Lote && data[i].Cantidad == data[j].Cantidad && data[i].Unidad == data[j].Unidad && (data[i].Accion == 1 || data[i].Accion == 2 || data[i].Accion == undefined))
+            if ((data[i].ComponenteID == data[j].ComponenteID && data[i].Lote == data[j].Lote && data[i].Cantidad == data[j].Cantidad && data[i].Unidad == data[j].Unidad) && (data[i].Accion == 1 || data[i].Accion == 2 || data[i].Accion == undefined))
                 fila++;
         }
+
         if (fila > 1) {
             data[i].RowOk = true;
-   
+            encontroRepetido = true;
         }
     }
     $("#grid").data("kendoGrid").dataSource.sync();
@@ -136,7 +136,7 @@ function ValoresBlanco(data) {
     for (var i = 0; i < data.length; i++) {
         data[i].RowOk = false;
         data[i].ModificacionAutomatica = true;
-        if (data[i].ComponenteID == 0 || data[i].Lote == "" || data[i].Cantidad == 0 || data[i].Unidad == "" || (data[i].Accion == 0 || data[i].Accion == undefined)) {
+        if ((data[i].ComponenteID == 0 || data[i].Lote == "" || data[i].Cantidad == 0 || data[i].Unidad == "") && (data[i].Accion != 3 )) {
             data[i].RowOk = true;
             valorEncontradoVacio = true;
         }

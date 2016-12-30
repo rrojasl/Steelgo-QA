@@ -36,14 +36,14 @@ function suscribirEventoGuardar() {
                         ArregloGuardado = [];
                         var indice = 0;
                         for (var i = 0; i < ds._data.length; i++) {
-                            if (ds._data[i].RowOk == true) {
+                            if (ds._data[i].RowOk == false) {
                                 ArregloGuardado[indice] = ds._data[i];
                                 indice++;
                             }
                         }
 
                         if (ArregloGuardado.length > 0) {
-                            AjaxGuardar(ds._data, 0);
+                            AjaxGuardar(ArregloGuardado, 0);
                         }
                         else {
                             loadingStop();
