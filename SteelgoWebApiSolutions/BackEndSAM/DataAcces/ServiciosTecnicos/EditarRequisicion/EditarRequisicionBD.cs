@@ -77,7 +77,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EditarRequisicion
             {
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
-                result.ReturnCode = 500;
+                 result.ReturnCode = 500;
                 result.ReturnStatus = false;
                 result.IsAuthenicated = true;
 
@@ -85,57 +85,47 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EditarRequisicion
             }
         }
 
-        public object ObtieneElementosRequisicion(int usuarioID, int requisicionID, string lenguaje)
+        public object ObtieneElementosRequisicion(int TipoPruebaID, int usuarioID, int RequisicionID, string lenguaje, int Muestra, int ProyectoID)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    ElementosRequisicion elemento = null;
-                    Sam3_ST_Get_RequisicionPorRequisicionUsuario_Result result = ctx.Sam3_ST_Get_RequisicionPorRequisicionUsuario(usuarioID, requisicionID, lenguaje).SingleOrDefault();
+                    List<ElementosPorClasificacion> listaElementos = new List<ElementosPorClasificacion>();
+                    List<Sam3_ST_Get_ElementosPorPrueba_Result> listaElementosCTX = ctx.Sam3_ST_Get_ElementosPorPrueba(lenguaje, ProyectoID, TipoPruebaID, RequisicionID, Muestra).ToList();
 
-                    if (result!=null && result.RequisicionID!=0)
+                    foreach (Sam3_ST_Get_ElementosPorPrueba_Result item in listaElementosCTX)
                     {
-                        elemento = new ElementosRequisicion();
-
-                        List<Proyecto> listaProyecto = new List<Proyecto>();
-                        listaProyecto.Add(new Proyecto());
-                        listaProyecto.Add(new Proyecto
+                        listaElementos.Add(new ElementosPorClasificacion
                         {
-                            ProyectoID = result.ProyectoID,
-                            Nombre = result.Proyecto
-                        });
+                            NumeroControl = item.NumeroControl,
+                            EtiquetaJunta = item.EtiquetaJunta,
+                            TipoJunta = item.TipoJunta,
+                            NombreRequisicion = item.NombreRequisicion,
+                            Cuadrante = item.Cuadrante,
+                            Prioridad = item.Prioridad.GetValueOrDefault(),
+                            Clasificacion = item.Clasificacion,
+                            Diametro = item.DiametroPlano.GetValueOrDefault(),
+                            Espesor = item.Espesor.GetValueOrDefault(),
+                            Cedula = item.Cedula,
+                            Codigo = item.Codigo,
 
-                        List<TipoPrueba> listaTipoPrueba = new List<TipoPrueba>();
-                        listaTipoPrueba.Add(new TipoPrueba());
-                        listaTipoPrueba.Add(new TipoPrueba
-                        {
-                            TipoPruebaID = result.TipoPruebaID.GetValueOrDefault(),
-                            Nombre = result.TipoPrueba
+                            ElementoPorClasificacionPNDID = item.ElementoPorClasificacionPNDID,
+                            Agregar = item.RequisicionID.GetValueOrDefault() > 0 ? true : false,
+                            RequisicionID = item.RequisicionID.GetValueOrDefault(),
+                            ProyectoID = item.ProyectoID,
+                            SpoolID = item.SpoolID.GetValueOrDefault(),
+                            JuntaSpoolID = item.JuntaSpoolID.GetValueOrDefault(),
+                            OrdenTrabajoSpoolID = item.OrdenTrabajoSpoolID,
+                            TipoPruebaID = item.TipoPruebaID.GetValueOrDefault(),
+                            Especificacion = item.Especificacion,
+                            //Disposicion = item.Disposicion,
+                            //ClasificacionPNDID = item.ClasificacionPNDID,
+                            //OrdenTrabajoID = item.OrdenTrabajoID
                         });
-
-                        List<Requisicion> listaRequisicion = new List<Requisicion>();
-                        listaRequisicion.Add(new Requisicion());
-                        listaRequisicion.Add(new Requisicion
-                        {
-                            RequisicionID = result.RequisicionID,
-                            ProyectoID = result.ProyectoID,
-                            TipoPruebaID = result.TipoPruebaID.GetValueOrDefault(),
-                            NombreRequisicion = result.NumeroRequisicion,
-                            //CodigoAsme = result.CodigoAsme,
-                            FechaRequisicion = result.FechaRequisicion.ToString(),
-                            Observacion = result.Observaciones
-                        });
-
-                        elemento.RequisicionID = result.RequisicionID;
-                        elemento.ProyectoID = result.ProyectoID;
-                        elemento.TipoPruebaID = result.TipoPruebaID.GetValueOrDefault();
-                        elemento.listaProyecto = listaProyecto;
-                        elemento.listaTipoPrueba = listaTipoPrueba;
-                        elemento.listaRequisicion = listaRequisicion;
                     }
 
-                    return elemento;
+                    return listaElementos;
                 }
             }
             catch (Exception ex)
