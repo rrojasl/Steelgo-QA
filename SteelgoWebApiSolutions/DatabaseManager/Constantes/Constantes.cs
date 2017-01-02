@@ -59,5 +59,7 @@
         public static string GUARDARPAQUETE = "Sam3_Embarque_GuardarPaquete";
         public static string GUARDARPREPARACIONEMBARQUE = "Sam3_Embarque_PE_GuardaCaptura";
         public static string GUARDARADMINISTRACIONCOMPONENTES = "Sam3_Pintura_AdminComponentes_GuardaCaptura";
+        public static string GUARDARADMINISTRACIONREDUCTORES = "Sam3_Pintura_AdminReductores_GuardaCaptura";
+        
     }
 }

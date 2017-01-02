@@ -102,6 +102,7 @@ function limpiarCaptura(e) {
     if ($('#botonGuardar').text() == _dictionary.DetalleAvisoLlegada0017[$("#language").data("kendoDropDownList").value()]) {
         var itemToClean = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
         itemToClean.Componente = "";
+        itemToClean.ComponenteID = 0;
         itemToClean.Lote = "";
         itemToClean.Cantidad = 0;
         itemToClean.Unidad = "";

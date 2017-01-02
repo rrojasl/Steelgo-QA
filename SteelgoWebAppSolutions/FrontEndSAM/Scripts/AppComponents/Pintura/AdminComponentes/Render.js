@@ -28,8 +28,6 @@ function renderComponente(container, options) {
                     options.model.ComponenteID = dataItem.ComponenteID;
                     options.model.Unidad = dataItem.Unidad;
                     options.model.Accion = options.model.Accion == 0 ? 1 : options.model.Accion;
-                   
-                    
                 }
                 else {
                     options.model.Componente = "";

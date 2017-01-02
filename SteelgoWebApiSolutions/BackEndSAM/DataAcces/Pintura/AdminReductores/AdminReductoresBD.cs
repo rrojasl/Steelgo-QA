@@ -1,7 +1,10 @@
-﻿using DatabaseManager.Sam3;
+﻿using BackEndSAM.Models.Pintura.AdminReductores;
+using DatabaseManager.Constantes;
+using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 
@@ -28,15 +31,101 @@ namespace BackEndSAM.DataAcces.Pintura.AdminReductores
             }
         }
 
-        public object ObtenerIDOrdenTrabajo(Sam3_Usuario usuario, string ordentrabajo, int tipo, string lenguaje)
+        public object ObtenerDetalleGrid(string lenguaje)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Steelgo_Get_SpoolID_Result> lista = ctx.Sam3_Steelgo_Get_SpoolID(tipo, ordentrabajo, lenguaje).ToList();
-                    return lista;
+                    List<Sam3_Pintura_AdminReductores_Get_Detalle_Result> lista = ctx.Sam3_Pintura_AdminReductores_Get_Detalle(lenguaje).ToList();
+                    List<DetalleGrid> detalleGrid = new List<DetalleGrid>();
+                    foreach (Sam3_Pintura_AdminReductores_Get_Detalle_Result item in lista)
+                    {
+                        DetalleGrid detalle = new DetalleGrid
+                        {
+                            Cantidad = item.Cantidad,
+                            Reductor = item.Reductor,
+                            ReductorID = item.ReductorID,
+                            Lote = item.Lote,
+                            RowOk = false,
+                            Unidad = item.Unidad,
+                            Accion = 2,
+                            AdminReductoresID = item.AdminReductoresID
+                        };
+                        detalleGrid.Add(detalle);
+                    }
 
+
+                    return detalleGrid;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object ObtenerCatalogoReductores(string lenguaje)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Sam3_Pintura_Get_Reductores_Result> listaReductores = ctx.Sam3_Pintura_Get_Reductores(lenguaje).ToList();
+
+                    List<Reductores> listaReductoresRender = new List<Reductores>();
+                    if (listaReductores.Count > 0)
+                        listaReductoresRender.Add(new Reductores());
+
+                    foreach (Sam3_Pintura_Get_Reductores_Result item in listaReductores)
+                    {
+                        Reductores reductores = new Reductores
+                        {
+                            Reductor = item.Reductor,
+                            ReductorID = item.ReductorID,
+                            Unidad = item.Unidad
+                        };
+                        listaReductoresRender.Add(reductores);
+                    }
+                    return listaReductoresRender;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object Guardar(DataTable dtDetalle, Sam3_Usuario usuario, string lenguaje)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+
+                    ObjetosSQL _SQL = new ObjetosSQL();
+                    string[,] parametro = { { "@Usuario", usuario.UsuarioID.ToString() }, { "@Lenguaje", lenguaje } };
+                    _SQL.Ejecuta(Stords.GUARDARADMINISTRACIONREDUCTORES, dtDetalle, "@TablaAdminReductores", parametro);
+
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add("Ok");
+                    result.ReturnCode = 200;
+                    result.ReturnStatus = true;
+                    result.IsAuthenicated = true;
+
+                    return result;
                 }
             }
             catch (Exception ex)
