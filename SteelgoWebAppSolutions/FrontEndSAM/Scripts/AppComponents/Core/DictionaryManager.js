@@ -10086,6 +10086,10 @@ _dictionary = {
         "en-US": "Administration of components"
     },
     "menuPinturaAdminReductores": {
+        "es-MX": "Administracion de reductores",
+        "en-US": "Administration of reducers"
+    },
+    "menuPinturaAdminReductores": {
         "es-MX": "Administracion de Reductores",
         "en-US": "Administration of reducers"
     },
@@ -10165,7 +10169,7 @@ _dictionary = {
     },
     "columnComponente": {
         "es-MX": "Componente",
-        "en-US": "Delete"
+        "en-US": "Component"
     },
     "columnLote": {
         "es-MX": "Lote",
@@ -10184,6 +10188,21 @@ _dictionary = {
         "en-US": "Enabled"
     },
     //Finaliza Captura Admin componentes
+    //Inicia Captura Admin reductores
+    "CapturaAdminReductoresTituloPagina": {
+        "es-MX": "Administracion Reductores",
+        "en-US": "Administration of reducers"
+    },
+    "CapturaAdminReductoresBotonBorrar": {
+        "es-MX": "Borrar",
+        "en-US": "Delete"
+    },
+    "columnReductor": {
+        "es-MX": "Reductor",
+        "en-US": "Reducer"
+    },
+   
+    //Finaliza Captura Admin reductores
     //Inicia Carga de Carro
     "PinturaCargaCarroEscritorio": {
         "es-MX": "Escritorio",

@@ -1,13 +1,13 @@
 ﻿function AjaxDetalleGridComponentes() {
     loadingStart();
-    
+
     $AdminComponentes.AdminComponentes.read({ token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (array) {
         if (Error(array)) {
             var ds = $("#grid").data("kendoGrid").dataSource;
-                for (var i = 0; i < array.length; i++) {
-                        ds.add(array[i]);
-                }
-                $("#grid").data("kendoGrid").dataSource.sync();
+            for (var i = 0; i < array.length; i++) {
+                ds.add(array[i]);
+            }
+            $("#grid").data("kendoGrid").dataSource.sync();
         }
         loadingStop();
     });
@@ -15,8 +15,8 @@
 
 function AjaxObtenerCatalogoComponentes() {
     loadingStart();
-    
-    $AdminComponentes.AdminComponentes.read({ token: Cookies.get("token"), lenguaje: $("#language").val(),bandera:1 }).done(function (array) {
+
+    $AdminComponentes.AdminComponentes.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), bandera: 1 }).done(function (array) {
         if (Error(array)) {
             ListaCatalogoComponentes = array;
         }
@@ -27,7 +27,7 @@ function AjaxObtenerCatalogoComponentes() {
 function AjaxGuardar(arregloCaptura, tipoGuardar) {
     loadingStart();
 
-   // var arregloCaptura= $("#grid").data("kendoGrid").dataSource._data;
+    // var arregloCaptura= $("#grid").data("kendoGrid").dataSource._data;
     Captura = [];
     Captura[0] = { Detalles: "" };
     ListaDetalles = [];
@@ -44,8 +44,10 @@ function AjaxGuardar(arregloCaptura, tipoGuardar) {
     $AdminComponentes.AdminComponentes.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
         if (Error(data)) {
             if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
+                $("#grid").data("kendoGrid").dataSource.data([]);
                 displayNotify("MensajeGuardadoExistoso", "", '0');
-                    opcionHabilitarView(true, "FieldSetView");
+                opcionHabilitarView(true, "FieldSetView");
+                AjaxDetalleGridComponentes();
                 loadingStop();
             }
             else {

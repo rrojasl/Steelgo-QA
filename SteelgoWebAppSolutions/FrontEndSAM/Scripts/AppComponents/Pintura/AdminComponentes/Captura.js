@@ -5,9 +5,12 @@ function changeLanguageCall() {
     CargarGrid();
     AjaxDetalleGridComponentes();
     AjaxObtenerCatalogoComponentes();
-    suscribirEventos();
+   
     document.title = _dictionary.CapturaAdminComponentesTituloPagina[$("#language").data("kendoDropDownList").value()];
 };
+
+setTimeout(function () { suscribirEventos(); }, 100);
+
  
 function CargarGrid() {
     $("#grid").kendoGrid({
@@ -117,33 +120,40 @@ function ValidarValoresRepetidos(data) {
         fila = 0;
         data[i].RowOk = false;
   
-        
         for (var j = 0; j < data.length; j++) {
-            if (data[i].ComponenteID == data[j].ComponenteID && data[i].Lote == data[j].Lote && data[i].Cantidad == data[j].Cantidad && data[i].Unidad == data[j].Unidad && (data[i].Accion == 1 || data[i].Accion == 2 || data[i].Accion == undefined))
+            if ((data[i].ComponenteID == data[j].ComponenteID && data[i].Lote == data[j].Lote && data[i].Cantidad == data[j].Cantidad && data[i].Unidad == data[j].Unidad) && (data[i].Accion == 1 || data[i].Accion == 2 || data[i].Accion == undefined))
                 fila++;
         }
+
         if (fila > 1) {
             data[i].RowOk = true;
-   
+            encontroRepetido = true;
         }
     }
     $("#grid").data("kendoGrid").dataSource.sync();
     return encontroRepetido;
 };
 
+
+
 function ValoresBlanco(data) {
     var valorEncontradoVacio = false;
     for (var i = 0; i < data.length; i++) {
         data[i].RowOk = false;
         data[i].ModificacionAutomatica = true;
-        if (data[i].ComponenteID == 0 || data[i].Lote == "" || data[i].Cantidad == 0 || data[i].Unidad == "" || (data[i].Accion == 0 || data[i].Accion == undefined)) {
+        if ((data[i].ComponenteID == 0 && data[i].Lote == "" && data[i].Cantidad == 0 && data[i].Unidad == "") && (data[i].Accion != 3)) {
+            data[i].Accion = 4;
+        }
+        else if (!(data[i].ComponenteID != 0 && data[i].Lote != "" && data[i].Cantidad != 0 && data[i].Unidad != "" && (data[i].Accion != 3))) {
             data[i].RowOk = true;
             valorEncontradoVacio = true;
+            data[i].Accion = data[i].Accion == 4 ? 2 : data[i].Accion;
         }
     }
     $("#grid").data("kendoGrid").dataSource.sync();
     return valorEncontradoVacio;
 }
+
 
 function opcionHabilitarView(valor, name) {
 
@@ -152,11 +162,13 @@ function opcionHabilitarView(valor, name) {
         $("#botonGuardar1").text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
         $('#botonGuardar3').text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
         $("#botonGuardar").text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
+        $(".k-grid-add").attr("disabled", true);
     }
     else {
         $("#botonGuardar2").text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);
         $("#botonGuardar1").text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);
         $('#botonGuardar3').text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);
         $("#botonGuardar").text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);
+        $(".k-grid-add").attr("disabled", false);
     }
 }

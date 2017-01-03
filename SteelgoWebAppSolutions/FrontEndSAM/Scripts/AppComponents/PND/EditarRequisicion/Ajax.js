@@ -110,8 +110,8 @@ function AjaxCargaListaRequisicion(tipoPruebaID, proyectoID) {
     });
 }
 
-function AjaxCargaDetalleRequisicion(requisicionID, tipoPruebaID, proyectoID) {
-    $EditarRequisicion.EditarRequisicion.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), RequisicionID: requisicionID, TipoPruebaID: tipoPruebaID, ProyectoID: proyectoID, Muestra: "todos" }).done(function (data) {
+function AjaxCargaDetalleRequisicion(_requisicionID, _tipoPruebaID, _proyectoID) {
+    $EditarRequisicion.EditarRequisicion.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), RequisicionID: _requisicionID, _TipoPruebaID: _tipoPruebaID, ProyectoID: _proyectoID, Muestra: 'todos' }).done(function (data) {
         $("#grid").data("kendoGrid").dataSource.data([]);
         var ds = $("#grid").data("kendoGrid").dataSource;
 
