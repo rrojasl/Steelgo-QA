@@ -9384,9 +9384,17 @@ _dictionary = {
         "es-MX": "El elemento PQR ",
         "en-US": "The PQR element "
     },
+    "lblWPSElementoWPS": {
+        "es-MX": "El elemento WPS ",
+        "en-US": "The WPS element "
+    },
     "lblPQRYaAsignado": {
         "es-MX": " se encuentra asignado, favor de revisar el Catalogo WPS",
         "en-US": " is assigned, please review the WPS Catalog"
+    },
+    "lblWPSYaAsignado": {
+        "es-MX": " se encuentra asignado, favor de revisar el Catalogo SoldadorCertificacion",
+        "en-US": " is assigned, please review the Certified Welder Catalog"
     },
     "lblPQREspNARell": {
         "es-MX": "El espesor de relleno debe ser mayor a cero si el proceso de relleno es diferente a N/A",
@@ -9510,11 +9518,11 @@ _dictionary = {
     },
     "CapturaSoldadorCertificacionNombreVacio": {
         "es-MX": "El campo Nombre del WPS no puede ser vacio",
-        "en-US": "The PQR name field can not be empty"
+        "en-US": "The WPS name field can not be empty"
     },
     "CapturaSoldadorCertificacionProcSolVacio": {
         "es-MX": "El campo Proceso soldadura no puede ser vacio",
-        "en-US": "The PQR name field can not be empty"
+        "en-US": "The welding process field can not be empty"
     },
     "CapturaSoldadorCertificacionPasosVacio": {
         "es-MX": "El campo # Pasos no puede ser vacio",
@@ -9522,7 +9530,7 @@ _dictionary = {
     },
     "CapturaSoldadorCertificacionCedulaVacio": {
         "es-MX": "El campo Cédula Tubo no puede ser vacio",
-        "en-US": "The cestificate tube field can not be empty"
+        "en-US": "The certificate tube field can not be empty"
     },
     "CapturaSoldadorCertificacionEspesorVacio": {
         "es-MX": "El campo Espesor aplicado tiene que ser mayor a cero",
