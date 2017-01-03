@@ -173,3 +173,16 @@ function ImprimirTotalPiezas(ds) {
         $("#TotalPiezas").text("");
     }
 }
+
+function ObtieneConsecutivo() {
+    var ds = $("#grid").data("kendoGrid").dataSource;
+    var cont = 1;
+    if (ds._data.length > 0) {
+        for (var i = 0; i < ds._data.length; i++) {
+            ds._data[i].Consecutivo = cont;
+            cont++;
+        }
+    }
+
+    ds.sync();
+}

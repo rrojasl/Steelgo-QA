@@ -702,11 +702,87 @@ function SuscribirEventoPlacasPlana() {
 
     $('#inputEmbarqueCargaPLacaPlana').closest('.k-widget').keydown(function (e) {
         if (e.keyCode == 13) {
-            if ($("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").text() != '' && $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").value() != undefined) {
-                AjaxObtenerGrid();
+            var ds = $("#grid").data("kendoGrid").dataSource;
+            var Plana = $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").dataItem($("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").select());
+
+            if (ds._data.length == 0) {
+                $("#grid").data("kendoGrid").dataSource.data([]);
+                LimpiarSelectPlana();
+                if (Plana != undefined) {
+                    planaInicial = Plana.PlanaID;
+                    if (Plana.PlanaID == -1) {
+                        if ($("#inputProveedor").data("kendoComboBox").value() != 0 && $("#inputProveedor").data("kendoComboBox").value() != undefined && $("#inputProveedor").data("kendoComboBox").value() != -1)
+                            CargaPopupNuevaPlana();
+                        else {
+                            $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").value(0);
+                            displayNotify('EmbarqueCargaMsjErrorCrearPlanaSeleccionaProveedor', '', '1');
+                        }
+                    }
+                    else {
+                        if (Plana.StatusCarga) {
+                            $('#inputCerrar').prop('checked', true);
+                        }
+                        else {
+                            $('#inputCerrar').prop('checked', false);
+                        }
+                        if (Plana.PlanaID != 0)
+                            AjaxObtenerGrid();
+                    }
+                }
             }
             else {
-                displayNotify('EmarqueCargaMensajeEligePlana', '', '1');
+                var ventanaConfirm = $("#ventanaConfirmCaptura").kendoWindow({
+                    iframe: true,
+                    title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
+                    visible: false,
+                    width: "auto",
+                    height: "auto",
+                    modal: true,
+                    draggable: false,
+                    resizable: false,
+                    animation: {
+                        close: false,
+                        open: false
+                    },
+                    actions: []
+                }).data("kendoWindow");
+
+                ventanaConfirm.content(_dictionary.MensajeAdvertenciaDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] +
+                    "</br><center><button class='btn btn-blue' id='yesButtonProy'>" + _dictionary.lblSi[$("#language").data("kendoDropDownList").value()]
+                    + "</button><button class='btn btn-blue' id='noButtonProy'>" + _dictionary.lblNo[$("#language").data("kendoDropDownList").value()]
+                    + "</button></center>");
+
+                ventanaConfirm.open().center();
+                $("#yesButtonProy").click(function () {
+                    ventanaConfirm.close();
+                    $("#grid").data("kendoGrid").dataSource.data([]);
+                    LimpiarSelectPlana();
+                    if (Plana != undefined) {
+                        planaInicial = Plana.PlanaID;
+                        if (Plana.PlanaID == -1) {
+                            if ($("#inputProveedor").data("kendoComboBox").value() != 0 && $("#inputProveedor").data("kendoComboBox").value() != undefined && $("#inputProveedor").data("kendoComboBox").value() != -1)
+                                CargaPopupNuevaPlana();
+                            else {
+                                $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").value(0);
+                                displayNotify('EmbarqueCargaMsjErrorCrearPlanaSeleccionaProveedor', '', '1');
+                            }
+                        }
+                        else {
+                            if (Plana.StatusCarga) {
+                                $('#inputCerrar').prop('checked', true);
+                            }
+                            else {
+                                $('#inputCerrar').prop('checked', false);
+                            }
+                            if (Plana.PlanaID != 0)
+                                AjaxObtenerGrid();
+                        }
+                    }
+                });
+                $("#noButtonProy").click(function () {
+                    $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").value(planaInicial);
+                    ventanaConfirm.close();
+                });
             }
         }
 

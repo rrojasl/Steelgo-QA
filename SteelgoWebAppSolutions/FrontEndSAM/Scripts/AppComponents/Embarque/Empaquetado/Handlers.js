@@ -597,8 +597,8 @@ function SuscribirEventoSpoolID() {
 
     $("#InputOrdenTrabajo").focus(function (e) {
         $("#InputOrdenTrabajo").val("");
-        $("#InputID").data("kendoComboBox").value("");
         $("#InputID").data("kendoComboBox").setDataSource();
+        $("#InputID").data("kendoComboBox").value("");
     });
 
     $('#InputID').closest('.k-widget').keydown(function (e) {
@@ -769,8 +769,8 @@ function LimpiarSelectProyecto() {
     $("#TotalToneladas").text("");
 
     $("#InputOrdenTrabajo").val("");
-    $("#InputID").data("kendoComboBox").value("");
     $("#InputID").data("kendoComboBox").dataSource.data([]);
+    $("#InputID").data("kendoComboBox").value("");
     $("#inputCodigo").val("");
 
     $("#grid").data("kendoGrid").dataSource.data([]);
@@ -781,8 +781,8 @@ function LimpiarSelectPaquete() {
     $("#TotalToneladas").text("");
 
     $("#InputOrdenTrabajo").val("");
-    $("#InputID").data("kendoComboBox").value("");
     $("#InputID").data("kendoComboBox").dataSource.data([]);
+    $("#InputID").data("kendoComboBox").value("");
     $("#inputCodigo").val("");
     if (!guardado) {        
         $("#grid").data("kendoGrid").dataSource.data([]);

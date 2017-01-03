@@ -200,8 +200,9 @@ function AjaxObtenerDetalleSpool(tipoConsulta, spoolID, codigo) {
                     if (data[i].ProyectoID === ProyectoID) {
                         if (data[i].CargaPlana === 0) {
                             if (data[i].Empaquetado === 0) {
-                                data[i].Consecutivo = $("#grid").data("kendoGrid").dataSource._data.length + 1;
-                                ds.add(data[i]);
+                                //data[i].Consecutivo = $("#grid").data("kendoGrid").dataSource._data.length + 1;
+                                ds.insert(0, data[i]);
+                                //ds.add(data[i]);
                             } else {
                                 displayNotify("", _dictionary.EmbarqueEmpaquetadoErrorSpoolPaquete[$("#language").data("kendoDropDownList").value()] +
                                     data[i].Paquete, '1');
@@ -218,6 +219,7 @@ function AjaxObtenerDetalleSpool(tipoConsulta, spoolID, codigo) {
                 }
             }
 
+            ObtieneConsecutivo();
             ImprimirTotalToneladas(ds._data);
             ImprimirTotalPiezas(ds._data);
         }
@@ -340,6 +342,8 @@ function AjaxDescargarSpool(dataItem, Paquete) {
             } else {
                 displayNotify("EmbarqueEmpaquetadoMsjDescargaSpoolError", "", "2");
             }
+
+            ObtieneConsecutivo();
             ImprimirTotalToneladas(dataSource._data);
             ImprimirTotalPiezas(dataSource._data);
         } else {
