@@ -352,39 +352,35 @@ function AjaxGuardarCaptura(ds, tipoGuardado, proveedorID) {
         token: Cookies.get("token"), lenguaje: $("#language").val(), EmbarqueID: embarqueID,
         NombreEmbarque: nombreEmbarque, TractoID: tractoID, ChoferID: choferID, FechaCreacion: fechaCreacion
     }).done(function (data) {
-        if (Error(data)) {
-            if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
-                if (tipoGuardado != "1") {
-                    Limpiar();
-                } else {
-                    var paqueteID = parseInt(data.ReturnMessage[1]);
-                    opcionHabilitarView(true, "FieldSetView");
-                    $("#grid").data("kendoGrid").dataSource.data([]);
+        if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
+            if (tipoGuardado != "1") {
+                Limpiar();
+            } else {
+                var paqueteID = parseInt(data.ReturnMessage[1]);
+                opcionHabilitarView(true, "FieldSetView");
+                $("#grid").data("kendoGrid").dataSource.data([]);
 
-                    AjaxObtenerEmbarque(proveedorID, nombreEmbarque);
-                }
-                displayNotify("MensajeGuardadoExistoso", "", '0');
-            } else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "existe") {
+                AjaxObtenerEmbarque(proveedorID, nombreEmbarque);
+            }
+            displayNotify("MensajeGuardadoExistoso", "", '0');
+        } else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "existe") {
 
-                displayNotify("EmbarquePreparacionErrorExisteEmbarque", "", '2');
-            }
-            else {
-                displayNotify("MensajeGuardadoErroneo", "", '2');
-            }
+            displayNotify("EmbarquePreparacionErrorExisteEmbarque", "", '2');
+        }
+        else {
+            displayNotify("MensajeGuardadoErroneo", "", '2');
         }
     });
 }
 
 function AjaxEliminarEmbarque(embarqueID) {
     $PreparacionEmbarque.PreparacionEmbarque.read({ token: Cookies.get("token"), EmbarqueID: embarqueID, Lenguaje: $("#language").val() }).done(function (data) {
-        if (Error(data)) {
-            if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
-                Limpiar();
-                displayNotify("EmbarquePreparacionEmbarqueEliminadoCorrectamente", "", '0');
-            }
-            else {
-                displayNotify("EmbarquePreparacionEmbarqueErrorEliminado", "", '2');
-            }
+        if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
+            Limpiar();
+            displayNotify("EmbarquePreparacionEmbarqueEliminadoCorrectamente", "", '0');
+        }
+        else {
+            displayNotify("EmbarquePreparacionEmbarqueErrorEliminado", "", '2');
         }
     });
 }

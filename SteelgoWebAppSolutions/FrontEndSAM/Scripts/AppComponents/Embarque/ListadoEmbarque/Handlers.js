@@ -12,12 +12,12 @@ function SuscribirEventoTab() {
     $("#btnPendientes").click(function (e) {
         $(".btn-tabList").removeClass("active");
         $("#btnPendientes").addClass("active");
-        //AjaxCargarListadoEmbarque('todos', $("#language").val());
+        AjaxObtenerDetalleListadoEmbarque(1);
     });
     $("#btnTransito").click(function (e) {
         $(".btn-tabList").removeClass("active");
         $("#btnTransito").addClass("active");
-        //AjaxCargarListadoEmbarque('Enviados', $("#language").val());
+        AjaxObtenerDetalleListadoEmbarque(2);
     });
 }
 

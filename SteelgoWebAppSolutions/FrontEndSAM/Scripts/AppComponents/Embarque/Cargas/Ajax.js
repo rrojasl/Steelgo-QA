@@ -431,35 +431,28 @@ function AjaxDescargarSpool(dataItem, Cuadrante) {
 
 function GuardarNuevoProveedor() {
     $Proveedores.Proveedores.read({ token: Cookies.get("token"), NombreProveedor: $("#inputNombreNuevoProveedor").val(), ProyectoID: $("#inputProyecto").data("kendoComboBox").value(), Descripcion: "", Direccion: "", Telefono: "", TipoProveedor: 1 }).done(function (data) {
-        if (Error(data)) {
-            if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
-                AjaxEmbarqueCargaProveedores($("#inputProyecto").data("kendoComboBox").value(), $("#inputNombreNuevoProveedor").val());
-                windowNewProvider.close();
-                displayNotify("MensajeGuardadoExistoso", "", "0");
-            }
-            else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
-
-                displayNotify("", "Ya existe un proveedor con ese nombre ", '2');
-            }
-
+        if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
+            AjaxEmbarqueCargaProveedores($("#inputProyecto").data("kendoComboBox").value(), $("#inputNombreNuevoProveedor").val());
+            windowNewProvider.close();
+            displayNotify("MensajeGuardadoExistoso", "", "0");
+        }
+        else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
+            displayNotify("EmbarquePreparacionErrorExisteProveedor", "", '2');
         }
     });
 }
 
 function GuardarNuevaPlana() {
     $EmbarqueGeneral.EmbarqueGeneral.read({ token: Cookies.get("token"), NombrePlana: $("#inputNombreNuevaPlana").val(), ProveedorID: $("#inputProveedor").data("kendoComboBox").value() }).done(function (data) {
-        if (Error(data)) {
-            if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
-                AjaxObtenerPlanas($("#inputProveedor").data("kendoComboBox").value(), $("#inputNombreNuevaPlana").val());
-                windowNewPlate.close();
-                displayNotify("MensajeGuardadoExistoso", "", "0");
-            }
-            else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
-
-                displayNotify("", "Ya existe una plana para ese proveedor con ese nombre", '2');
-            }
+        if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
+            AjaxObtenerPlanas($("#inputProveedor").data("kendoComboBox").value(), $("#inputNombreNuevaPlana").val());
+            windowNewPlate.close();
+            displayNotify("MensajeGuardadoExistoso", "", "0");
         }
+        else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
 
+            displayNotify("EmbarqueCargaErrorExistePlana", "", '2');
+        }
     });
 }
 

@@ -25,3 +25,10 @@ function AjaxObtenerContadorPorEstatus() {
         loadingStop();
     });
 }
+
+function AjaxObtenerDetalleListadoEmbarque(estatus) {
+    loadingStart();
+    $ListadoEmbarque.ListadoEmbarque.read({ token: Cookies.get("token"), Lenguaje: $("#language").val(), EstatusEmbarque: estatus }).done(function (data) {
+        
+    });
+}

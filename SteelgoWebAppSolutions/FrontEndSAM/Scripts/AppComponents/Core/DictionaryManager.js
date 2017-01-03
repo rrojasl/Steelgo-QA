@@ -11084,6 +11084,10 @@ _dictionary = {
         "es-MX": "El paquete ya existe en la captura",
         "en-US": "Package already exists in capture"
     },
+    "EmbarqueCargaErrorExistePlana": {
+        "es-MX": "La plana ya existe con el nombre ingresado",
+        "en-US": "The flat already exists with the name entered"
+    },
     "EmbarqueEmpaquetadoAdvertenciaPaqueteVacio": {
         "es-MX": "Alerta!!!",
         "en-US": "Alert!!!"

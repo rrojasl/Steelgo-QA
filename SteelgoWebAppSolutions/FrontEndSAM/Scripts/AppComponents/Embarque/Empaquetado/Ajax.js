@@ -287,25 +287,23 @@ function AjaxGuardarCaptura(ds, tipoGuardado, cerrarPaquete, Paquete, Proyecto) 
         Cerrado: cerrarPaquete, FechaPaquete: $("#InputFechaPaquete").val(), CuadrantePaqueteSam2ID: Paquete.CuadrantePaqueteSam2ID,
         CuadrantePaqueteSam3ID: Paquete.CuadrantePaqueteSam3ID
     }).done(function (data) {
-        if (Error(data)) {
-            if (data.ReturnMessage.length == 2 && data.ReturnMessage[0] == "Ok") {
-                if (tipoGuardado != "1") {
-                    Limpiar();
-                } else {
-                    var paqueteID = parseInt(data.ReturnMessage[1]);
-                    opcionHabilitarView(true, "FieldSetView");
-                    guardado = true; 
-                    $("#grid").data("kendoGrid").dataSource.data([]);
-                    AjaxCargarPaquetes(Proyecto.ProyectoID, paqueteID);
-                    setTimeout(function () { AjaxCargarDetalleEmpaquetado(paqueteID, 1); }, 800);
-
-                }
-                displayNotify("MensajeGuardadoExistoso", "", '0');
-            } else if (data.ReturnMessage.length == 1 && data.ReturnMessage[0] == "Paquete Existe") {
-                displayNotify("EmbarqueEmpaquetadoErrorPaqueteExiste", "", '2');
+        if (data.ReturnMessage.length == 2 && data.ReturnMessage[0] == "Ok") {
+            if (tipoGuardado != "1") {
+                Limpiar();
             } else {
-                displayNotify("MensajeGuardadoErroneo", "", '2');
+                var paqueteID = parseInt(data.ReturnMessage[1]);
+                opcionHabilitarView(true, "FieldSetView");
+                guardado = true;
+                $("#grid").data("kendoGrid").dataSource.data([]);
+                AjaxCargarPaquetes(Proyecto.ProyectoID, paqueteID);
+                setTimeout(function () { AjaxCargarDetalleEmpaquetado(paqueteID, 1); }, 800);
+
             }
+            displayNotify("MensajeGuardadoExistoso", "", '0');
+        } else if (data.ReturnMessage.length == 1 && data.ReturnMessage[0] == "Paquete Existe") {
+            displayNotify("EmbarqueEmpaquetadoErrorPaqueteExiste", "", '2');
+        } else {
+            displayNotify("MensajeGuardadoErroneo", "", '2');
         }
     });
 }
