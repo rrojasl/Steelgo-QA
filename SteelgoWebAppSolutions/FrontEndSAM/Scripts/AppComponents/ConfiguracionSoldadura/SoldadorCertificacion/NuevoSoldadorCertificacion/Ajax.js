@@ -55,7 +55,8 @@ function AjaxValidarExisteSoldadorCertificacion(detalle, tipo) {
                 animation: {
                     close: false,
                     open: false
-                }
+                },
+                actions: []
             }).data("kendoWindow");
 
             ventanaConfirm.content(_dictionary.SoldadorPQRExistente[$("#language").data("kendoDropDownList").value()] +
