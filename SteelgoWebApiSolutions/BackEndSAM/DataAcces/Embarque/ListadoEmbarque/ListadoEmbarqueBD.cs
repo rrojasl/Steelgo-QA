@@ -48,13 +48,14 @@ namespace BackEndSAM.DataAcces.Embarque.ListadoEmbarque
                             DestinoID = item.DestinoID,
                             Destino = item.Destino,
                             SolicitudPermiso = item.SolicitudPermiso,
-                            FechaPermiso = item.FechaPermiso.ToString(),
-                            ApCliente = false,
-                            ApAduana = false,
-                            OkEmbarque = item.OkEmbarque == 1?true:false,
+                            FechaSolicitudPermiso = item.FechaPermiso.ToString(),
+                            AprobadoCliente = false,
+                            AprobadoAduana = false,
+                            OkEmbarque = item.OkEmbarque,
                             RequierePapCliente = item.RequierePapCliente.GetValueOrDefault(),
                             RequiereAduana = item.RequiereAduana.GetValueOrDefault(),
-                            RequiereRevisionCliente = item.RequiereRevisionCliente.GetValueOrDefault()
+                            RequiereRevisionCliente = item.RequiereRevisionCliente.GetValueOrDefault(),
+                            Enviar = item.CapturaEnvioID != 0?true:false
                         });
                     }
                     return listaDetalle;

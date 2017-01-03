@@ -12,7 +12,7 @@ namespace BackEndSAM.Controllers.Embarque.ListadoEmbarque
     public class ListadoEmbarqueController : ApiController
     {
         [HttpGet]
-        public object ObtenerDetalleListadoEmbarque(string token, string lenguaje, int StatusEnvio)
+        public object ObtenerDetalleListadoEmbarque(string token, string Lenguaje, int EstatusEmbarque)
         {
             string payload = "";
             string newToken = "";
@@ -23,7 +23,7 @@ namespace BackEndSAM.Controllers.Embarque.ListadoEmbarque
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                return ListadoEmbarqueBD.Instance.ObtenerDetalleListado(lenguaje, StatusEnvio, usuario.UsuarioID);
+                return ListadoEmbarqueBD.Instance.ObtenerDetalleListado(Lenguaje, EstatusEmbarque, usuario.UsuarioID);
             }
             else
             {
