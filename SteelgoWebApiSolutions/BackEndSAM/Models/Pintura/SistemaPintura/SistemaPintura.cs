@@ -18,12 +18,26 @@ namespace BackEndSAM.Models.Pintura.SistemaPintura
         public int ProyectoID { get; set; }
         public int SistemaPinturaID { get; set; }
         public int SistemaPinturaProyectoID { get; set; }
-
+        public int? NumeroComponentes { get; set; }
+        public string Reductor { get; set; }
+        public int ReductorID { get; set; }
+        public List<AdminReductores.Reductores> ListadoReductores { get; set; }
+        public List<AdminComponentes.Componentes> ListadoComponentes { get; set; }
+        public List<ComponentesAgregados> ListaDetalleComponentesAgregados { get; set; }
+        public string TemplateDetalleComponentes { get; set; }
         public List<UnidadMedida> listadoUnidadesMedida { get; set; }
         public List<PruebasProcesos> listadoPruebasProceso { get; set; }
         public List<DetallePruebas> listadoPruebasDetalle { get; set; }
+        public bool RowOk { get; set; }
     }
 
+    public class ComponentesAgregados {
+        public int ComponenteAgregadoID { get; set; }
+        public int ComponenteID { get; set; }
+        public string Nombre { get; set; }
+        public int Accion { get; set; }
+        public List<AdminComponentes.Componentes> ListadoComponentes { get; set; }
+    }
     public class UnidadMedida
     {
         public UnidadMedida()
@@ -168,6 +182,9 @@ namespace BackEndSAM.Models.Pintura.SistemaPintura
         public double MetrosLote { get; set; }
         public int NumeroPruebas { get; set; }
         public int ProyectoID { get; set; }
+        public int NumeroComponentes { get; set; }
+        public int ReductorID { get; set; }
+        public List<SPProyectoProcesoComponentes> ListaDetalleComponentesAgregados { get; set; }
         public List<SPProyectoProcesoPrueba> ListadoPruebas { get; set; }
     }
 
@@ -179,6 +196,15 @@ namespace BackEndSAM.Models.Pintura.SistemaPintura
         public int UnidadMinima { get; set; }
         public int UnidadMaxima { get; set; }
         public int PruebaProcesoPinturaID { get; set; }
+        public int Accion { get; set; }
+    }
+
+    public class SPProyectoProcesoComponentes
+    {
+        public int ProyectoID { get; set; }
+        public int ProcesoPinturaID { get; set; }
+        public int ComponenteAgregadoID { get; set; }
+        public int ComponenteID { get; set; }
         public int Accion { get; set; }
     }
 

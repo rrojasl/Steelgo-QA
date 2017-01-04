@@ -20,7 +20,7 @@ _dictionary = {
         "en-US": "Joint exists in capture "
     },
 
-    
+
     //Fin Pantalla Generar Req
     "MensajeConfirmacionGuardadoGeneral": {
         "es-MX": "Los registros marcados no serán guardados. ¿Desea continuar?",
@@ -8768,7 +8768,7 @@ _dictionary = {
         "en-US": "Diameter M."
     },
 
-    
+
     "columnPosicion": {
         "es-MX": "Posición °",
         "en-US": "Position °"
@@ -10167,6 +10167,15 @@ _dictionary = {
     },
     //Finaliza Etiquetas Generales Pintura
     //Inicia Captura Admin componentes
+
+    "lblSistemaPinturaSiguientePasoHeader": {
+        "es-MX": "Sistema Pintura",
+        "en-US": "Paint System."
+    },
+    "lblSistemaPinturaSiguientePasoFooter": {
+        "es-MX": "Sistema Pintura",
+        "en-US": "Paint System."
+    },
     "CapturaAdminComponentesTituloPagina": {
         "es-MX": "Administracion Componentes",
         "en-US": "Administration of components"
@@ -10209,7 +10218,7 @@ _dictionary = {
         "es-MX": "Reductor",
         "en-US": "Reducer"
     },
-   
+
     //Finaliza Captura Admin reductores
     //Inicia Carga de Carro
     "PinturaCargaCarroEscritorio": {
@@ -10530,6 +10539,23 @@ _dictionary = {
     // Finaliza Listado Sistema Pintura
 
     //Comienza Sistema Pintura
+    "SistemaPinturaModificaNumeroComponentes": {
+        "es-MX": "¿Deseas cambiar el numero de componentes?",
+        "en-US": "¿Do You want to change the number of componentes?"
+    },
+
+    "columnNumeroComponentes": {
+        "es-MX": "# Componentes",
+        "en-US": "# Components"
+    },
+    "columnDetalleComponentes": {
+        "es-MX": "Componentes",
+        "en-US": "Components"
+    },
+    "columnReductor": {
+        "es-MX": "Reductor",
+        "en-US": "Reducer"
+    },
     "lblNoPintable": {
         "es-MX": "No pintable",
         "en-US": "No paint"
@@ -10578,7 +10604,26 @@ _dictionary = {
         "es-MX": "Se eliminaran los datos de los procesos y colores, ¿desea continuar?",
         "en-US": "data processes and colors are removed, would you continue?"
     },
-
+    "CapturaSistemaPinturaComponentesID": {
+        "es-MX": "ID",
+        "en-US": "ID"
+    },
+    "CapturaSistemaPinturaComponenteNombre": {
+        "es-MX": "Componente",
+        "en-US": "Component"
+    },
+    "botonGuardarComponenteAgregado": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
+    "botonCancelarComponenteAgregado": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "CapturaSistemaPinturaComponente": {
+        "es-MX": "El campo nombre, es mandatorio",
+        "en-US": "The name field is mandatory"
+    },
     // Finaliza Sistema Pintura
 
     //Comienza Dashboard Pintura 

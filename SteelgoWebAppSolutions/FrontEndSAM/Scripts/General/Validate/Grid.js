@@ -101,3 +101,12 @@ function ExistRowEmpty(rows) {
     
     return false;
 }
+
+function ExistRowErrors(rows) {
+    for (var i = 0; i < rows.length; i++) {
+        if (rows[i].RowOk == false) {
+            return true;
+        }
+    }
+    return false;
+}

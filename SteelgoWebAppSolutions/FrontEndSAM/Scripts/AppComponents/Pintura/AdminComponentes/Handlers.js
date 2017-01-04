@@ -1,10 +1,10 @@
 ﻿var ventanaConfirm;
 
+
 function suscribirEventos() {
     suscribirEventoGuardar();
     mostrarConfirmacionVentanaModal();
 };
-
 function mostrarConfirmacionVentanaModal() {
     ventanaConfirm = $("#ventanaConfirm").kendoWindow({
         iframe: true,
@@ -78,8 +78,6 @@ function suscribirEventoGuardar() {
 
 
 };
-
-
 function eliminarCaptura(e) {
     e.preventDefault();
     if ($('#botonGuardar').text() == _dictionary.DetalleAvisoLlegada0017[$("#language").data("kendoDropDownList").value()]) {
@@ -95,7 +93,6 @@ function eliminarCaptura(e) {
         dataSource.sync();
     }
 };
-
 function limpiarCaptura(e) {
     e.preventDefault();
 

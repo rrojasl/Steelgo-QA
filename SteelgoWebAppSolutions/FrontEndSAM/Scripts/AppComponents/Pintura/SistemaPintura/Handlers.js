@@ -7,11 +7,14 @@ function SuscribirEventos() {
     suscribirEventoGuardar();
     SuscribirEventoComboColor();
     suscribirEventoDetallePruebas();
+    suscribirEventoDetalleComponentes();
     SuscribirEventoCerrarPopUpPruebas();
     suscribirEventoProyecto();
     SuscribirEventoComboProyecto();
     suscribirEventoChangeAplicable();
     SuscribirEventoEliminarSistemaPintura();
+    SuscribirEventoGuardarDetalleComponentes();
+    SuscribirEventoCancelarDetalleComponentes();
 };
 
 function suscribirEventoChangeAplicable() {
@@ -25,7 +28,7 @@ function suscribirEventoChangeAplicable() {
                 isEmptyGrid = true;
             }
         }
-        if ($("#inputColor").data("kendoMultiSelect")._values.length == 0 ) {
+        if ($("#inputColor").data("kendoMultiSelect")._values.length == 0) {
             isEmptyColor = true;
         }
 
@@ -83,7 +86,7 @@ function suscribirEventoChangeAplicable() {
                         }
                     }).data("kendoWindow");
 
-                    ventanaConfirm.content(_dictionary.MensajeEliminarColoresSistemaNoPintable[$("#language").data("kendoDropDownList").value()] + 
+                    ventanaConfirm.content(_dictionary.MensajeEliminarColoresSistemaNoPintable[$("#language").data("kendoDropDownList").value()] +
                         "</br><center><button class='btn btn-blue' id='yesButton'>Si</button><button class='btn btn-blue' id='noButton'> No</button></center>");
 
                     ventanaConfirm.open().center();
@@ -107,7 +110,7 @@ function suscribirEventoChangeAplicable() {
                     $("#inputColor").data("kendoMultiSelect").value([]);
                     $("#inputColor").data("kendoMultiSelect").enable(false);
                 }
-                
+
             }
         }
         else {
@@ -179,6 +182,23 @@ function GuardarDetallePruebas() {
 }
 
 
+function suscribirEventoDetalleComponentes() {
+
+    $(document).on('click', '.EnlaceDetalleComponentes', function (e) {
+        e.preventDefault();
+        if (!($("#inputNoAplicable").is(':checked'))) {
+            if ($('#botonGuardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
+
+                var grid = $("#grid").data("kendoGrid"),
+                dataItem = grid.dataItem($(e.target).closest("tr"));
+                if (dataItem.Agregar && dataItem.NumeroComponentes > 0) {
+                    LlenarGridPopUpComponentesAgregados(dataItem);
+                }
+
+            }
+        }
+    });
+}
 
 function suscribirEventoDetallePruebas() {
 
@@ -250,6 +270,85 @@ function Limpiar() {
 }
 
 
+function SuscribirEventoGuardarDetalleComponentes() {
+    $('#GuardarDetalleComponenteAgregado').click(function (e) {
+        e.preventDefault();
+        var componentesCorrectos = true;
+        var ds = $("#gridPopUpComponentesAgregados").data("kendoGrid").dataSource;
+
+        for (var i = 0; i < ds._data.length; i++) {
+            ds._data[i].RowOk = true;
+            if (ds._data[i].Nombre == "" && !(ds._data[i].Accion == 3 || ds._data[i].Accion == 4))
+                ds._data[i].RowOk = false;
+        }
+
+        ////
+        if (!ExistRowErrors(ds._data)) {
+            if (ds._data.length > 0) {
+                if (SincronizarOrigen(ds._data));
+                $("#windowGridComponenteAgregado").data("kendoWindow").close();
+            }
+            else {
+                loadingStop();
+            }
+        }
+        else {
+            loadingStop();
+            $("#gridPopUpComponentesAgregados").data("kendoGrid").dataSource.sync();
+            ventanaConfirm = $("#ventanaConfirm").kendoWindow({
+                iframe: true,
+                title: _dictionary.TituloPopUpError[$("#language").data("kendoDropDownList").value()],
+                visible: false, //the window will not appear before its .open method is called
+                width: "auto",
+                height: "auto",
+                modal: true,
+                actions: [],
+                animation: {
+                    close: false,
+                    open: false
+                }
+            }).data("kendoWindow");
+
+            ventanaConfirm.content(_dictionary.MensajeConfirmacionGuardadoGeneral[$("#language").data("kendoDropDownList").value()] +
+                "</br><center><button class='btn btn-blue' id='yesButton'>Si</button><button class='btn btn-blue' id='noButton'> No</button></center>");
+
+            ventanaConfirm.open().center();
+
+            $("#yesButton").click(function () {
+                loadingStart();
+
+                ArregloGuardado = [];
+                var ds = $("#gridPopUpComponentesAgregados").data("kendoGrid").dataSource;
+
+                SincronizarOrigen(ds._data);
+                loadingStop();
+                ventanaConfirm.close();
+                $("#windowGridComponenteAgregado").data("kendoWindow").close();
+            });
+
+            $("#noButton").click(function () {
+                ventanaConfirm.close();
+            });
+
+        }
+        ////
+        //if (componentesCorrectos) {
+        //    modeloRenglon.ListaDetalleTrabajoAdicional = ds._data;
+        //    $("#windowGridComponenteAgregado").data("kendoWindow").close();
+        //    $("#grid").data("kendoGrid").dataSource.sync();
+        //}
+        //else {
+        //    displayNotify('CapturaSistemaPinturaComponente', '', '2');
+        //}
+    });
+}
+
+function SuscribirEventoCancelarDetalleComponentes() {
+    $("#CerrarDetalleComponenteAgregado").click(function (e) {
+        e.preventDefault();
+        $("#windowGridComponenteAgregado").data("kendoWindow").close();
+    });
+}
 
 function suscribirEventoGuardar() {
     $('#Guardar').click(function (e) {
@@ -261,7 +360,7 @@ function suscribirEventoGuardar() {
             } else {
                 AjaxGuardarCaptura(ds._data, 0);
             }
-            
+
         }
         else if ($('#botonGuardar').text() == "Editar")
             opcionHabilitarView(false, "FieldSetView")
@@ -289,7 +388,7 @@ function suscribirEventoGuardar() {
         } else {
             AjaxGuardarCaptura(ds._data, 1);
         }
-        
+
     });
 
 
