@@ -30,10 +30,11 @@ function CargarGrid() {
             schema: {
                 model: {
                     fields: {
-                        NombrePlana: {type: "string", editable: false},
+                        NombrePlana: { type: "string", editable: false },
                         Plana: { type: "string", editable: false },
                         M2: { type: "string", editable: false },
                         KG: { type: "string", editable: false },
+                        Elementos: { type: "number", editable: false }
                     }
                 }
             },
@@ -62,21 +63,16 @@ function CargarGrid() {
             { field: "Plana", title: "Embarque", filterable: getGridFilterableCellMaftec(), template: " <div class='' style='text-align:center;'><a href='#=URL#'  > <span>#=Plana#</span></a></div> " },
             { field: "NombrePlana", title: "Plana", filterable: getGridFilterableCellMaftec(), },
             { field: "Elementos", title: "Elementos", filterable: getGridFilterableCellNumberMaftec(), attributes: { style: "text-align:right;" } },
-            { field: "M2", title: "M2", filterable: getGridFilterableCellNumberMaftec(), attributes: { style: "text-align:right;" } },
-            { field: "KG", title: "KG", filterable: getGridFilterableCellNumberMaftec(), attributes: { style: "text-align:right;" } },
+            { field: "M2", title: "KG", filterable: getGridFilterableCellNumberMaftec(), attributes: { style: "text-align:right;" } },
+            { field: "KG", title: "M2", filterable: getGridFilterableCellNumberMaftec(), attributes: { style: "text-align:right;" } },
         ]
     });
     CustomisaGrid($("#grid"));
-
 };
 
 
 
 function CargarGridCarga() {
-
-    
-
-
     $("#gridCarga").kendoGrid({
         autoBind: true,
         autoSync: true,
@@ -96,7 +92,7 @@ function CargarGridCarga() {
                      NombreColor: "",
                      OkPND: true,
                      OkPintura: true,
-                     Encintado:false,
+                     Encintado: false,
                      Etiquetado: true,
                      ModificadoPorUsuario: false,
                      ListaCuadrantes: [{ CuadranteID: 0, Nombre: "" }, { CuadranteID: 1, Nombre: "A1" }, { CuadranteID: 2, Nombre: "A2" }, { CuadranteID: 3, Nombre: "ZZ0-001 PT" }],
