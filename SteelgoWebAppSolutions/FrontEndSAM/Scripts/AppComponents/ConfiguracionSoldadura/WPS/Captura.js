@@ -13,10 +13,14 @@ function CargarGrid() {
     $("#grid").kendoGrid({
         edit: function (e) {
 
-            if ($('#Guardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
 
-            } else
+            if ($('#Guardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()] && e.model.RegistrosWPS == 0) {
+
+            } else {
                 this.closeCell();
+                if ($('#Guardar').text() != _dictionary.textoEditar[$("#language").data("kendoDropDownList").value()])
+                    displayNotify("", _dictionary.lblWPSElementoWPS[$("#language").data("kendoDropDownList").value()] + e.model.WPSNombre + _dictionary.lblWPSYaAsignado[$("#language").data("kendoDropDownList").value()], 1);
+            }
 
         },
 
@@ -169,13 +173,14 @@ function eliminarCaptura(e) {
         var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
 
 
-            
+        if (dataItem.RegistrosWPS == 0) {
             var dataSource = $("#grid").data("kendoGrid").dataSource;
             dataItem.Accion = 3;
             dataItem.EditadoUsuario = true;
             dataSource.sync();
-       
-    }
+        }
+        else
+            displayNotify("", _dictionary.lblWPSElementoWPS[$("#language").data("kendoDropDownList").value()] + dataItem.WPSNombre + _dictionary.lblWPSYaAsignado[$("#language").data("kendoDropDownList").value()], 1);    }
     else {
     }
 
