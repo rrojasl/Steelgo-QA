@@ -169,6 +169,9 @@ namespace BackEndSAM.Models.Inspeccion.VisualDimensional
         public int DefectoID { get; set; }
 
         public string Defecto { get; set; }
+
+        public int IdDefectoTipo { get; set; }
+        public string Tipo { get; set; }
         public List<InspeccionDimensional.JuntaXSpool> ListaJuntas { get; set; }
         public List<InspeccionDimensional.JuntaXSpool> ListaJuntasSeleccionadas { get; set; }
         public List<InspeccionDimensional.JuntaXSpool> ListaJuntasInicial { get; set; }

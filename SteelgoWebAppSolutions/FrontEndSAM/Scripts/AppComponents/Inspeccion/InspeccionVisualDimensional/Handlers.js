@@ -1,4 +1,5 @@
 ﻿function SuscribirEventos() {
+    SuscribirEventoOrdenTrabajo();
     SuscribirEventoSpoolID();
     SuscribirEventoInspector();
     SuscribirEventoDefecto();
@@ -48,31 +49,9 @@ function SuscribirEventoListaJuntas() {
 
 
 }
-function SuscribirEventoSpoolID() {
 
-    $("#InputID").kendoComboBox({
-        dataTextField: "IDValido",
-        dataValueField: "Valor",
-        suggest: true,
-        delay: 10,
-        filter: "contains",
-        index: 3,
-       
-        change: function (e) {
-            dataItem = this.dataItem(e.sender.selectedIndex);
-            if (dataItem != undefined && dataItem.IDValido!="") {
-                if ($("#InputID").val().length == 1) {
-                    $("#InputID").data("kendoComboBox").value(("00" + $("#InputID").val()).slice(-3));
-                }
-                if ($("#InputID").val() != '' && $("#InputOrdenTrabajo").val() != '') {
-                    Cookies.set("Proyecto", dataItem.ProyectoID + '°' + dataItem.Proyecto);
-                    //ajaxJunta($("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()).Valor);
-                    MostrarDetalleVisualDimensional();
-                }
-            }
-        }
-    });
-
+function SuscribirEventoOrdenTrabajo()
+{
     $("#InputOrdenTrabajo").blur(function (e) {
         if ($("#InputOrdenTrabajo").val().match("^[a-zA-Z][0-9]*$")) {
             try {
@@ -94,6 +73,33 @@ function SuscribirEventoSpoolID() {
         $("#InputID").data("kendoComboBox").setDataSource();
         limpiarJuntaMultiselect();
     });
+}
+
+function SuscribirEventoSpoolID() {
+
+    $("#InputID").kendoComboBox({
+        dataTextField: "IDValido",
+        dataValueField: "Valor",
+        suggest: true,
+        delay: 10,
+        filter: "contains",
+        index: 3,
+       
+        change: function (e) {
+            dataItem = this.dataItem(e.sender.selectedIndex);
+            if (dataItem != undefined && dataItem.IDValido!="") {
+                if ($("#InputID").val().length == 1) {
+                    $("#InputID").data("kendoComboBox").value(("00" + $("#InputID").val()).slice(-3));
+                }
+                if ($("#InputID").val() != '' && $("#InputOrdenTrabajo").val() != '') {
+                    Cookies.set("Proyecto", dataItem.ProyectoID + '°' + dataItem.Proyecto);
+                    MostrarDetalleVisualDimensional();
+                }
+            }
+        }
+    });
+
+    
 
     $('#InputID').closest('.k-widget').keydown(function (e) {
         if (e.keyCode == 37) {
@@ -101,22 +107,6 @@ function SuscribirEventoSpoolID() {
         }
         else if (e.keyCode == 39) {
             $("#inputDefecto").data("kendoComboBox").focus();
-        }
-        else if (e.keyCode == 40) {
-            //if (tieneClase(e.currentTarget)) {
-            //    $("#InputID").data("kendoComboBox").select(0);
-            //    //ajaxJunta($("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()).Valor);
-            //    //MostrarDetalleVisualDimensional();
-            //}
-            //dataItem = $("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select());
-            //if (dataItem != undefined) {
-            //    if ($("#InputID").val() != '' && $("#InputOrdenTrabajo").val() != '') {
-            //        Cookies.set("Proyecto", dataItem.ProyectoID + '°' + dataItem.Proyecto);
-            //        $("#LabelProyecto").text(dataItem.Proyecto);
-            //        //ajaxJunta($("#InputID").val());
-            //        MostrarDetalleVisualDimensional();
-            //    }
-            //}
         }
         else if (e.keyCode == 13) {
             if ($("#InputID").val() != "" && $("#InputOrdenTrabajo").val()) {
@@ -407,6 +397,8 @@ function SuscribirEventoAgregarCapturaRapida() {
                 width: "auto",
                 height: "auto",
                 modal: true,
+                actions: [
+                ],
                 animation: {
                     open: false,
                     close: false

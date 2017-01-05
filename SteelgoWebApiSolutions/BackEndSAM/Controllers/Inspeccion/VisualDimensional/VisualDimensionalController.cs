@@ -93,7 +93,7 @@ namespace BackEndSAM.Controllers.Inspeccion.VisualDimensional
                         EtiquetaMaterial1 = item.EtiquetaMaterial1,
                         EtiquetaMaterial2 = item.EtiquetaMaterial2,
                         RowOk = true,
-                        Localizacion= item.Localizacion
+                        Localizacion = item.Localizacion
                     };
 
                     listaDetalleDatos.Add(detalleDatos);
@@ -133,11 +133,11 @@ namespace BackEndSAM.Controllers.Inspeccion.VisualDimensional
                         Clave = item.Clave,
                         EtiquetaMaterial = int.Parse(item.EtiquetaMaterial.ToString()),
                         Etiqueta = item.Etiqueta,
-                        JuntasEncontradas=item.JuntasEntocontradas,
-                        ItemCodeID=item.ItemCodeID,
-                        LongitudMaterial=item.LongitudMaterial,
-                        Nombre=item.Nombre,
-                        TipoMaterialID=item.TipoMaterialID
+                        JuntasEncontradas = item.JuntasEntocontradas,
+                        ItemCodeID = item.ItemCodeID,
+                        LongitudMaterial = item.LongitudMaterial,
+                        Nombre = item.Nombre,
+                        TipoMaterialID = item.TipoMaterialID
 
                     };
                     numerosUnicos.Add(numeroUnico);
@@ -271,6 +271,7 @@ namespace BackEndSAM.Controllers.Inspeccion.VisualDimensional
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
                 List<Sam3_Steelgo_Get_JuntaSpool_Result> juntas = (List<Sam3_Steelgo_Get_JuntaSpool_Result>)VisualDimensionalBD.Instance.ObtenerJuntasXSpoolID(usuario, ordenTrabajo, id, sinCaptura == "Todos" ? 1 : 0);
+
                 List<JuntaXSpoolIDModeloJunta> juntaCorrecta = new List<JuntaXSpoolIDModeloJunta>();
                 foreach (Sam3_Steelgo_Get_JuntaSpool_Result item in juntas)
                 {
@@ -325,25 +326,47 @@ namespace BackEndSAM.Controllers.Inspeccion.VisualDimensional
                     });
                 }
 
-                foreach (Sam3_Inspeccion_Get_DetalleDimensional_Result item in listaObtenerDetalleDimensional)
+                if (listaObtenerDetalleDimensional.Count > 0)
+                {
+                    foreach (Sam3_Inspeccion_Get_DetalleDimensional_Result item in listaObtenerDetalleDimensional)
+                    {
+                        DetalleDimensional detalleDimensional = new DetalleDimensional
+                        {
+                            Defecto = item.Defecto,
+                            DefectoID = item.DefectoID.GetValueOrDefault(),
+                            FechaInspeccion = item.FechaInspeccion,
+                            InspeccionDimensionalID = item.InspeccionDimensionalID,
+                            Inspector = item.Inspector,
+                            ObreroID = item.ObreroID,
+                            OrdenTrabajoSpoolID = item.OrdenTrabajoSpoolID.GetValueOrDefault(),
+                            Resultado = item.Resultado,
+                            ResultadoID = item.ResultadoID,
+                            ListaJuntas = listJuntaXSpool,
+                            ListaJuntasSeleccionadas = ObtenerJuntasSeleccionadas(id.ToString(), item.DefectoID.GetValueOrDefault(), token, lenguaje),
+                            ListaJuntasInicial = ObtenerJuntasSeleccionadas(id.ToString(), item.DefectoID.GetValueOrDefault(), token, lenguaje)
+                        };
+                        detalleDimensional.ListaJuntas = InspeccionDimensionalController.ObtenerJuntasSeleccionadas(detalleDimensional.ListaJuntas, detalleDimensional.ListaJuntasSeleccionadas);
+
+                        listaDetalleDimensional.Add(detalleDimensional);
+                    }
+                }
+                else
                 {
                     DetalleDimensional detalleDimensional = new DetalleDimensional
                     {
-                        Defecto = item.Defecto,
-                        DefectoID = item.DefectoID.GetValueOrDefault(),
-                        FechaInspeccion = item.FechaInspeccion,
-                        InspeccionDimensionalID = item.InspeccionDimensionalID,
-                        Inspector = item.Inspector,
-                        ObreroID = item.ObreroID,
-                        OrdenTrabajoSpoolID = item.OrdenTrabajoSpoolID.GetValueOrDefault(),
-                        Resultado = item.Resultado,
-                        ResultadoID = item.ResultadoID,
+                        Defecto = "",
+                        DefectoID = 0,
+                        FechaInspeccion = "",
+                        InspeccionDimensionalID = 0,
+                        Inspector = "",
+                        ObreroID = 0,
+                        OrdenTrabajoSpoolID = 0,
+                        Resultado = "",
+                        ResultadoID = 0,
                         ListaJuntas = listJuntaXSpool,
-                        ListaJuntasSeleccionadas = ObtenerJuntasSeleccionadas(id.ToString(), item.DefectoID.GetValueOrDefault(), token, lenguaje),
-                        ListaJuntasInicial = ObtenerJuntasSeleccionadas(id.ToString(), item.DefectoID.GetValueOrDefault(), token, lenguaje)
+                        ListaJuntasSeleccionadas = null,
+                        ListaJuntasInicial = null
                     };
-                    detalleDimensional.ListaJuntas = InspeccionDimensionalController.ObtenerJuntasSeleccionadas(detalleDimensional.ListaJuntas, detalleDimensional.ListaJuntasSeleccionadas);
-
                     listaDetalleDimensional.Add(detalleDimensional);
                 }
 

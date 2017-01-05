@@ -401,6 +401,8 @@ function AjaxGuardar(jSonCaptura, tipoGuardado) {
             width: "auto",
             height: "auto",
             modal: true,
+            actions: [
+            ],
             animation: {
                 close: false,
                 open: false
