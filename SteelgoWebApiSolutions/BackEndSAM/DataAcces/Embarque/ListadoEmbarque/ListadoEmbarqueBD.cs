@@ -1,4 +1,6 @@
-﻿using BackEndSAM.Models.Embarque.ListadoEmbarque;
+﻿using BackEndSAM.DataAcces.Sam3General.OpcionValidacion;
+using BackEndSAM.Models.Embarque.ListadoEmbarque;
+using BackEndSAM.Models.Sam3General.OpcionValidacion;
 using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
 using System;
@@ -28,12 +30,47 @@ namespace BackEndSAM.DataAcces.Embarque.ListadoEmbarque
             }
         }
 
+        public object ObtenerListaDestinos(int ProyectoID)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Sam3_Embarque_LE_Get_ListadoDestinos_Result> result = ctx.Sam3_Embarque_LE_Get_ListadoDestinos(ProyectoID).ToList();
+                    List<ListadoDestino> listaDetalle = new List<ListadoDestino>();
+                    listaDetalle.Add(new ListadoDestino());
+
+                    foreach (Sam3_Embarque_LE_Get_ListadoDestinos_Result item in result)
+                    {
+                        listaDetalle.Add(new ListadoDestino {
+                            DestinoID = item.DestinoID,
+                            Destino = item.Nombre
+                        });
+                    }
+
+                    return listaDetalle;
+                }
+
+            }catch(Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
         public object ObtenerDetalleListado(string Lenguaje, int EstatusEmbarque, int UsuarioID)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
+                    List<DetalleOpcionValidacion> listado = (List<DetalleOpcionValidacion>)OpcionValidacionBD.Instance.ObtenerListaOpcionValidacion(Lenguaje);
+
                     List<Sam3_Embarque_LE_Get_ListadoEmbarque_Result> result = ctx.Sam3_Embarque_LE_Get_ListadoEmbarque(Lenguaje , EstatusEmbarque, UsuarioID).ToList();
                     List<DetalleListadoEmbarque> listaDetalle = new List<DetalleListadoEmbarque>();
 
@@ -43,19 +80,28 @@ namespace BackEndSAM.DataAcces.Embarque.ListadoEmbarque
                         {
                             EmbarqueID = item.EmbarqueID,
                             Embarque = item.Embarque,
+                            EstatusEmbarqueID = item.EmbarqueEstatusID,
+                            ProyectoID = item.ProyectoID.GetValueOrDefault(),
                             Proyecto = item.Proyecto,
                             Planas = item.Planas,
                             DestinoID = item.DestinoID,
                             Destino = item.Destino,
-                            SolicitudPermiso = item.SolicitudPermiso,
+                            FolioSolicitudPermiso = item.SolicitudPermiso,
                             FechaSolicitudPermiso = item.FechaPermiso.ToString(),
-                            AprobadoCliente = false,
-                            AprobadoAduana = false,
-                            OkEmbarque = item.OkEmbarque,
                             RequierePapCliente = item.RequierePapCliente.GetValueOrDefault(),
-                            RequiereAduana = item.RequiereAduana.GetValueOrDefault(),
+                            RequierePermisoAduana = item.RequiereAduana.GetValueOrDefault(),
                             RequiereRevisionCliente = item.RequiereRevisionCliente.GetValueOrDefault(),
-                            Enviar = item.CapturaEnvioID != 0?true:false
+                            AprobadoCliente = item.AprobadoCliente.GetValueOrDefault(),
+                            AprobadoClienteDesc = item.AprobadoClienteDesc,
+                            AprobadoAduana = item.AprobadoAduana.GetValueOrDefault(),
+                            AprobadoAduanaDesc = item.AprobadoAduanaDesc,
+                            OkEmbarque = item.OkEmbarque,
+                            Enviar = item.CapturaEnvioID != 0 && item.CapturaEnvioID != null ? true : false,
+                            CapturaEnvioID = item.CapturaEnvioID.GetValueOrDefault(),
+                            ModificadoPorUsuario = false,
+                            RowOk = true,
+                            listaDestino = (List<ListadoDestino>)ListadoEmbarqueBD.Instance.ObtenerListaDestinos(item.ProyectoID.GetValueOrDefault()),
+                            listaEstatus = listado
                         });
                     }
                     return listaDetalle;
@@ -63,7 +109,7 @@ namespace BackEndSAM.DataAcces.Embarque.ListadoEmbarque
             }
             catch (Exception ex)
             {
-                SecurityManager.Api.Models.TransactionalInformation result = new TransactionalInformation();
+                TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;
                 result.ReturnStatus = false;
@@ -95,7 +141,7 @@ namespace BackEndSAM.DataAcces.Embarque.ListadoEmbarque
             }
             catch (Exception ex)
             {
-                SecurityManager.Api.Models.TransactionalInformation result = new TransactionalInformation();
+                TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;
                 result.ReturnStatus = false;

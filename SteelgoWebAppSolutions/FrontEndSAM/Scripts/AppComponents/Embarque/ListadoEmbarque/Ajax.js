@@ -29,6 +29,16 @@ function AjaxObtenerContadorPorEstatus() {
 function AjaxObtenerDetalleListadoEmbarque(estatus) {
     loadingStart();
     $ListadoEmbarque.ListadoEmbarque.read({ token: Cookies.get("token"), Lenguaje: $("#language").val(), EstatusEmbarque: estatus }).done(function (data) {
-        
+        $("#grid").data('kendoGrid').dataSource.data([]);
+        var ds = $("#grid").data("kendoGrid").dataSource;
+
+        if (data.length > 0) {
+            ds.data(data);
+            ds.page(1);
+        } else
+            ds.page(0);
+
+        ds.sync();
+        loadingStop();
     });
 }

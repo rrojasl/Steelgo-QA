@@ -26,21 +26,23 @@ function CargarGrid() {
                 model: {
                     fields: {
                         Embarque: { type: "string", editable: false },
-                        Plana: { type: "string", editable: false },
+                        Planas: { type: "string", editable: false },
                         Proyecto: { type: "string", editable: false },
-                        Destino: { type: "string", editable: false },
+                        Destino: { type: "string", editable: true },
                         PapelesCliente: { type: "boolean", editable: false },
                         PapelesAduana: { type: "boolean", editable: false },
-                        FolioSolicitarPermisos: { type: "string", editable: false },
-                        FechaSolicitarPermisos: { type: "date", editable: false },
-                        AprobadoCliente: { type: "boolean", editable: false },
-                        AprobadoAduana: { type: "boolean", editable: false },
+                        FolioSolicitudPermiso: { type: "string", editable: true },
+                        FechaSolicitudPermiso: { type: "date", editable: true },
+                        AprobadoClienteDesc: { type: "string", editable: true },
+                        AprobadoAduanaDesc: { type: "string", editable: true },
                         OkEmbarque: { type: "boolean", editable: false },
+                        RequierePermisoAduana: { type: "boolean", editable: false },
+                        RequierePapCliente: { type: "boolean", editable: false },
                         Enviar: { type: "boolean", editable: false }
                     }
                 }
             },
-            pageSize: 20,
+            pageSize: 10,
             serverPaging: false,
             serverFiltering: false,
             serverSorting: false
@@ -61,36 +63,16 @@ function CargarGrid() {
         columns: [
             { field: "Embarque", title: _dictionary.columnEmbarque[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px" },
             { field: "Proyecto", title: _dictionary.columnProyecto[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px" },
-            { field: "Plana", title: _dictionary.columnPlanasEmb[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px" },
-            { field: "DestinoEmbarque", title: _dictionary.columnPlanasEmb[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "145px" },
-            { field: "PapelesCliente", title: _dictionary.columnPlanasEmb[$("#language").data("kendoDropDownList").value()], filterable: false, template: "<button  type='button' class='btn btn-blue imprimirPapelesCliente'> <span>" + "Imprimir" + "</span></button>", width: "140px" },
-            { field: "PapelesAduana", title: _dictionary.columnPlanasEmb[$("#language").data("kendoDropDownList").value()], filterable: false, template: "<button  type='button' class='btn btn-blue imprimirPapelesAduana' Style='display: #= RequierePermisoAduana == 0 ? 'none;' : 'block;' #' > <span>" + "Imprimir" + "</span></button>", width: "140px" },
-            { field: "FolioSolicitarPermisos", title: _dictionary.columnPlanasEmb[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), template: "<button  type='button' class='btn btn-blue botonFolio' Style='display: #= FolioSolicitarPermisos!='' || RequierePermisoAduana == 0 ? 'none;' : 'block;' #'> <span>" + "Capturar" + "</span></button><span>#= FolioSolicitarPermisos #</span>", width: "140px" },
-            { field: "FechaSolicitarPermisos", title: _dictionary.columnPlanasEmb[$("#language").data("kendoDropDownList").value()], filterable: getKendoGridFilterableDateMaftec(), format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()], width: "150px" },
+            { field: "Planas", title: _dictionary.columnPlanasEmb[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px" },
+            { field: "Destino", title: _dictionary.columnDestinoEmb[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxDestino, width: "145px" },
+            { field: "PapelesCliente", title: _dictionary.columnPapCliente[$("#language").data("kendoDropDownList").value()], filterable: false, template: "<button  type='button' class='btn btn-blue imprimirPapelesCliente' Style='display: #= RequierePermisoAduana ==true ? 'block;' : 'none;' #'> <span>" + "Imprimir" + "</span></button>", width: "140px" },
+            { field: "PapelesAduana", title: _dictionary.columnPapAduana[$("#language").data("kendoDropDownList").value()], filterable: false, template: "<button  type='button' class='btn btn-blue imprimirPapelesAduana' Style='display: #= RequierePermisoAduana==true ?  'block;' : 'none;' #' > <span>" + "Imprimir" + "</span></button>", width: "140px" },
+            { field: "FolioSolicitudPermiso", title: _dictionary.columnSolicitudPermiso[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "140px" },
+            { field: "FechaSolicitudPermiso", title: _dictionary.columnFechaPermiso[$("#language").data("kendoDropDownList").value()], filterable: getKendoGridFilterableDateMaftec(), editor: RenderDatePicker, format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()], width: "150px" },
+            { field: "AprobadoClienteDesc", title: _dictionary.columnAprobadoCliente[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxAprobacionCliente, width: "130px" },
+            { field: "AprobadoAduanaDesc", title: _dictionary.columnAprobadoAduana[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxAprobacionAduana, width: "130px" },
             {
-                field: "AprobadoCliente", title: "Ap. cliente", filterable: {
-                    multi: true,
-                    messages: {
-                        isTrue: _dictionary.lblVerdadero[$("#language").data("kendoDropDownList").value()],
-                        isFalse: _dictionary.lblFalso[$("#language").data("kendoDropDownList").value()],
-                        style: "max-width:100px;"
-                    },
-                    dataSource: [{ AprobadoCliente: true }, { AprobadoCliente: false }]
-                }, template: '<input type="checkbox" #= AprobadoCliente ? "checked=checked" : "" # class="chkbx" ></input>', width: "130px", attributes: { style: "text-align:center;" }
-            },
-            {
-                field: "AprobadoAduana", title: "Ap. aduana", filterable: {
-                    multi: true,
-                    messages: {
-                        isTrue: _dictionary.lblVerdadero[$("#language").data("kendoDropDownList").value()],
-                        isFalse: _dictionary.lblFalso[$("#language").data("kendoDropDownList").value()],
-                        style: "max-width:100px;"
-                    },
-                    dataSource: [{ AprobadoAduana: true }, { AprobadoAduana: false }]
-                }, template: '<input type="checkbox" #= AprobadoAduana ? "checked=checked" : "" # class="chkbx" ></input>', width: "130px", attributes: { style: "text-align:center;" }
-            },
-            {
-                field: "OkEmbarque", title: "Ok Emb", filterable: {
+                field: "OkEmbarque", title: _dictionary.columnOkEmbarque[$("#language").data("kendoDropDownList").value()], filterable: {
                     multi: true,
                     messages: {
                         isTrue: _dictionary.lblVerdadero[$("#language").data("kendoDropDownList").value()],
@@ -100,7 +82,7 @@ function CargarGrid() {
                     dataSource: [{ OkEmbarque: true }, { OkEmbarque: false }]
                 }, template: '<input type="checkbox" #= OkEmbarque ? "checked=checked" : "" # class="chkbx" ></input>', width: "130px", attributes: { style: "text-align:center;" }
             },
-            { field: "Enviar", title: "Enviar", filterable: false, template: "<button  type='button' class='btn btn-blue botonEnviar' Style='display: #= Enviar == true ?'none;' : 'block;' #' ><span>Enviar</span></button>", width: "115px" },
+            { field: "Enviar", title: " ", filterable: false, template: "<button  type='button' class='btn btn-blue botonEnviar' Style='display: #= Enviar == true ?'block;' : 'none;' #' ><span>Enviar</span></button>", width: "115px" },
         ]
     });
     CustomisaGrid($("#grid"));
@@ -168,4 +150,14 @@ function AltaFecha() {
     endRangeDate = $("#Fecha").kendoDatePicker({
         value: new Date()
     });
+}
+
+function SetValueEnviar(obj) {
+    var retorno = false;
+    if (obj != undefined) {
+        if (obj.AprobadoCliente == 1 && obj.AprobadoAduana == 1 && obj.OkEmbarque)
+            retorno = true;
+    }
+
+    return retorno;
 }

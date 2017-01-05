@@ -8837,6 +8837,38 @@ _dictionary = {
         "es-MX": "Destino",
         "en-US": "Destiny"
     },
+    "columnPapCliente": {
+        "es-MX": "Pap. Cliente",
+        "en-US": "Client Document"
+    },
+    "columnPapAduana": {
+        "es-MX": "Pap. Aduana",
+        "en-US": "Customs Document"
+    },
+    "columnSolicitudPermiso": {
+        "es-MX": "Sol. Permiso",
+        "en-US": "Permit Request"
+    },
+    "columnFechaPermiso": {
+        "es-MX": "Fecha Permiso",
+        "en-US": "Permit Date"
+    },
+    "columnAprobadoCliente": {
+        "es-MX": "Ap. Cliente",
+        "en-US": "Ok Client"
+    },
+    "columnAprobadoAduana": {
+        "es-MX": "Ap. Aduana",
+        "en-US": "Ok Customs"
+    },
+    "columnOkEmbarque": {
+        "es-MX": "Ok Embarque",
+        "en-US": "Ok Shipment"
+    },
+    "columnEnviar": {
+        "es-MX": "Enviar",
+        "en-US": "Send"
+    },
     // Finalizan Etiquetas Grid
     // Finalizan Etiquetas generales
 
@@ -10624,6 +10656,7 @@ _dictionary = {
         "es-MX": "El campo nombre, es mandatorio",
         "en-US": "The name field is mandatory"
     },
+
     // Finaliza Sistema Pintura
 
     //Comienza Dashboard Pintura 
