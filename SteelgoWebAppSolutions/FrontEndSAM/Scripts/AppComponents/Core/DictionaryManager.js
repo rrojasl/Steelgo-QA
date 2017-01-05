@@ -10236,6 +10236,14 @@ _dictionary = {
         "es-MX": "Habilitado",
         "en-US": "Enabled"
     },
+    "menuAdminComponentes": {
+        "es-MX": "Administracion Componentes",
+        "en-US": "Components Administration"
+    },
+    "menuAdminReductores": {
+        "es-MX": "Administracion Reductores",
+        "en-US": "Reducer Administrator"
+    },
     //Finaliza Captura Admin componentes
     //Inicia Captura Admin reductores
     "CapturaAdminReductoresTituloPagina": {

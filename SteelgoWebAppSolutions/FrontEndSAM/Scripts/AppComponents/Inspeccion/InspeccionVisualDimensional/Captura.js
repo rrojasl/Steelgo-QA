@@ -147,7 +147,7 @@ function CargarGrid() {
                         Inspector: { type: "string", editable: true },
                         FechaInspeccion: { type: "date", editable: true },
                         NumeroUnico1: { type: "string", editable: true },
-                        NumeroUnico2: { type: "string", editable: true },
+                        NumeroUnico2: { type: "string", editable: true }
                     }
                 }
             },
