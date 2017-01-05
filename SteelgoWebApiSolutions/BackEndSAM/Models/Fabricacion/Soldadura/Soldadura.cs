@@ -241,7 +241,7 @@ namespace BackEndSAM.Models.Fabricacion.Soldadura
         public Nullable<int> ProcesoSoldaduraRellenoID { get; set; }
         public string FechaSoldadura { get; set; }
         public string FechaReporte { get; set; }
-
+        public int WPSID { get; set; }
         public List<DetalleGuardarTrabajoAdicional> ListaDetalleTrabajoAdicional { get; set; }
         public List<GuardarSoldaduraSoldado> ListaSoldaduraRaiz { get; set; }
         public List<GuardarSoldaduraSoldado> ListaSoldaduraRelleno { get; set; }
@@ -298,5 +298,6 @@ namespace BackEndSAM.Models.Fabricacion.Soldadura
         public string ProcesoSoldaduraRelleno { get; set; }
         public double EspesorMaximo { get; set; }
         public double EspesorMinimo { get; set; }
+        public string Certificado { get; set; } 
     }
 }

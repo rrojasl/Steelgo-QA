@@ -67,7 +67,7 @@ namespace BackEndSAM.DataAcces.Fabricacion.Soldadura
             }
         }
 
-        public object ObtenerListadoWPS(int proyectoID, int procesoRaizID, int procesoRellenoID, decimal espesor)
+        public object ObtenerListadoWPS(int proyectoID, int procesoRaizID, int procesoRellenoID, decimal espesor, string lenguaje)
         {
             try
             {
@@ -75,14 +75,14 @@ namespace BackEndSAM.DataAcces.Fabricacion.Soldadura
 
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Soldadura_Get_WPS_Proyecto_Result> result = ctx.Sam3_Soldadura_Get_WPS_Proyecto(proyectoID,procesoRaizID,procesoRellenoID,espesor).ToList();
+                    List<Sam3_Soldadura_Get_WPS_Proyecto_Result> result = ctx.Sam3_Soldadura_Get_WPS_Proyecto(proyectoID,procesoRaizID,procesoRellenoID,espesor, lenguaje).ToList();
 
                     foreach (Sam3_Soldadura_Get_WPS_Proyecto_Result item in result)
                     {
                         listaWPS.Add(new WPS
                         {
                             WPSID = item.WPSID,
-                            WPSNombre = item. WPSNombre,
+                            WPSNombre = item. WPSNombre + " " + item.Certificado,
                             EspesorMaximo = item.EspesorMaximo.GetValueOrDefault(),
                             EspesorMinimo = item.EspesorMinimo.GetValueOrDefault(),
                             GrupoMaterialBase1RaizD = item.GrupoMaterialBase1RaizD,
@@ -100,7 +100,8 @@ namespace BackEndSAM.DataAcces.Fabricacion.Soldadura
                             ProcesoSoldaduraRaiz = item.ProcesoSoldaduraRaiz,
                             ProcesoSoldaduraRelleno = item.ProcesoSoldaduraRelleno,
                             PREHEAT = item.PREHEAT,
-                            PWHT = item.PWHT
+                            PWHT = item.PWHT,
+                            Certificado = item.Certificado
                         });
                     }
                     return listaWPS;

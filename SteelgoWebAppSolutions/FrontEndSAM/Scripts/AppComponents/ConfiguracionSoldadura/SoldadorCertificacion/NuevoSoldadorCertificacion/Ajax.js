@@ -19,8 +19,11 @@ function AjaxGuardarInformacion(detalle, tipo) {
 
             displayNotify("CapturaMensajeGuardadoExitoso", "", '0');
 
-            if (tipo == 1)
+            if (tipo == 1){
+                HabilitarCapturaNuevoSoldadorCertificacioon(false, "FieldSetView");
                 limpiarCaptura();
+            }
+                
             else if (tipo == 0)
                 HabilitarCapturaNuevoSoldadorCertificacioon(true, "FieldSetView");
 

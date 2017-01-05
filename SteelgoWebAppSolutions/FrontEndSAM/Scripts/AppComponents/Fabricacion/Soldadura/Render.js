@@ -86,7 +86,8 @@ function RenderComboBoxProcesoSoldaduraRaiz(container, options) {
                     options.model.procesoSoldaduraRaiz = "";
                     options.model.procesoSoldaduraRaizID = 0;
                 }
-                
+                if (options.model.procesoSoldaduraRaiz != "" && options.model.procesoSoldaduraRelleno != "")
+                    AjaxObtenerListadoWPS(options.model);
             }
         }
         );
@@ -127,6 +128,8 @@ function RenderComboBoxProcesoSoldaduraRelleno(container, options) {
                     options.model.procesoSoldaduraRelleno = "";
                     options.model.procesoSoldaduraRellenoID = 0;
                 }
+                if (options.model.procesoSoldaduraRaiz != "" && options.model.procesoSoldaduraRelleno != "")
+                    AjaxObtenerListadoWPS(options.model);
                 
             }
 

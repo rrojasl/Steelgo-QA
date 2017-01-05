@@ -133,10 +133,10 @@ function suscribirEventoCancelar() {
         //AjaxCargarCamposPredeterminados();
     });
     $('#CancelarSoldadoresRaiz').click(function (e) {
-        windowRaiz.data("kendoWindow").close();
+        $("#windowGridSoldadorRaiz").data("kendoWindow").close();
     });
     $('#CancelarSoldadoresRelleno').click(function (e) {
-        windowRelleno.data("kendoWindow").close();
+        $("#windowMultiselectSoldadorRelleno").data("kendoWindow").close();
     });
 }
 

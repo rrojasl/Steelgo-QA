@@ -233,11 +233,22 @@ function AjaxCargarReporteJuntas() {
 function AjaxObtenerListadoWPS(dataItem) {
 
     loadingStart();
-    $Soldadura.Soldadura.read({ ProyectoID: Cookies.get("Proyecto").split('°')[0], ProcesoRaizID: dataItem.procesoSoldaduraRaizID, ProcesoRellenoID: dataItem.procesoSoldaduraRellenoID, Espesor: dataItem.Espesor, token: Cookies.get("token") }).done(function (data) {
+    $Soldadura.Soldadura.read({ ProyectoID: Cookies.get("Proyecto").split('°')[0], ProcesoRaizID: dataItem.procesoSoldaduraRaizID, ProcesoRellenoID: dataItem.procesoSoldaduraRellenoID, Espesor: dataItem.Espesor, lenguaje: $("#language").val(), token: Cookies.get("token") }).done(function (data) {
         if (Error(data)) {
             dataItem.ListaWPS = data;
         }
         loadingStop();
     });
+}
 
+
+function AjaxObtenerListadoSoldadores(dataItem) {
+
+    loadingStart();
+    $Soldadura.Soldadura.read({ ProyectoID: Cookies.get("Proyecto").split('°')[0], ProcesoRaizID: dataItem.procesoSoldaduraRaizID, ProcesoRellenoID: dataItem.procesoSoldaduraRellenoID, Espesor: dataItem.Espesor, lenguaje: $("#language").val(), token: Cookies.get("token") }).done(function (data) {
+        if (Error(data)) {
+            dataItem.ListaWPS = data;
+        }
+        loadingStop();
+    });
 }

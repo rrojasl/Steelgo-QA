@@ -241,7 +241,7 @@ namespace BackEndSAM.Controllers.Fabricacion.Soldadura
                             //WPS
                             WPSID = 0,
                             WPSNombre = "",
-                            ListaWPS = new List<WPS>(),
+                            ListaWPS = item.ProcesoSoldaduraRaizID == null  || item.ProcesoSoldaduraRellenoID == null ?  new List<WPS>(): (List<WPS>)SoldaduraBD.Instance.ObtenerListadoWPS(capturaDatosJson.IDProyecto,item.ProcesoSoldaduraRaizID.GetValueOrDefault(),item.ProcesoSoldaduraRellenoID.GetValueOrDefault(),item.Espesor.GetValueOrDefault(), lenguaje),
                             //Trabajos adicionales.
                             listaTrabajosAdicionalesSoldadura = (List<TrabajosAdicionalesSoldadura>)SoldaduraBD.Instance.ObtenerTrabajosAdicionales(item.JuntaSpoolID),
                             TemplateTrabajosAdicionales = item.TabajosAdicionales
@@ -596,7 +596,7 @@ namespace BackEndSAM.Controllers.Fabricacion.Soldadura
         }
 
         [HttpGet]
-        public object getListadoWPS(int ProyectoID,int ProcesoRaizID, int ProcesoRellenoID, int Espesor, string token)
+        public object getListadoWPS(int ProyectoID,int ProcesoRaizID, int ProcesoRellenoID, int Espesor, string lenguaje, string token)
         {
 
             string payload = "";
@@ -606,7 +606,7 @@ namespace BackEndSAM.Controllers.Fabricacion.Soldadura
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return SoldaduraBD.Instance.ObtenerListadoWPS(ProyectoID, ProcesoRaizID, ProcesoRellenoID, Espesor);
+                return SoldaduraBD.Instance.ObtenerListadoWPS(ProyectoID, ProcesoRaizID, ProcesoRellenoID, Espesor, lenguaje);
             }
             else
             {
@@ -620,7 +620,7 @@ namespace BackEndSAM.Controllers.Fabricacion.Soldadura
         }
 
         [HttpGet]
-        public object getListadoColada(int ProyectoID, int Espesor, string token)
+        public object getListadoColada(int ProyectoID, int Espesor,string lenguaje, string token)
         {
 
             string payload = "";
@@ -630,7 +630,7 @@ namespace BackEndSAM.Controllers.Fabricacion.Soldadura
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return SoldaduraBD.Instance.ObtenerListadoWPS(ProyectoID, 1, 1, Espesor);
+                return SoldaduraBD.Instance.ObtenerListadoWPS(ProyectoID, 1, 1, Espesor, lenguaje);
             }
             else
             {

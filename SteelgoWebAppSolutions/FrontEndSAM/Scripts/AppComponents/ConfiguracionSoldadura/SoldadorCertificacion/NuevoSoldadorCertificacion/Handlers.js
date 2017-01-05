@@ -272,8 +272,6 @@ function suscribirEventoGuardarNuevoSoldadorCertificacion() {
     });
 
     $('.accionGuardarYNuevo').click(function () {
-        if ($('#Guardar').text() == _dictionary.DetalleAvisoLlegada0017[$("#language").data("kendoDropDownList").value()]) {
             ValidarInformacionNuevoSoldadorCertificacion(1);
-        }
     });
 }
