@@ -325,7 +325,7 @@ function GridPopupSoldadoresRaizCapturados(row) {
         selectable: true,
         filterable: getGridFilterableMaftec(),
         columns: [
-          { field: "Soldador", title: _dictionary.CapturaSoldaduraHeaderSoldadores[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftecpopUp(), editor: RenderComboBoxSoldador, width: "100px" },
+          { field: "Soldador", title: _dictionary.CapturaSoldaduraHeaderSoldadores[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftecpopUp(), editor: RenderComboBoxSoldadorRaiz, width: "100px" },
           { field: "Colada", title: _dictionary.ListadoCatalogos0046[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftecpopUp(),editor: RenderComboBoxColada, width: "100px" },
           { field: "Observaciones", title: _dictionary.CapturaSoldaduraHeaderObservacion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftecpopUp(), width: "100px" },
         {
@@ -387,7 +387,7 @@ function GridPopupSoldadoresRellenoCapturados(row) {
 
     $("#inputSoldadoresRelleno").kendoGrid({
         dataSource: {
-            data: row.ListaSoldadoresRaizCapturados,
+            data: row.ListaSoldadoresRellenoCapturados,
             schema: {
                 model: {
                     fields: {
@@ -412,7 +412,7 @@ function GridPopupSoldadoresRellenoCapturados(row) {
         selectable: true,
         filterable: getGridFilterableMaftec(),
         columns: [
-          { field: "Soldador", title: _dictionary.CapturaSoldaduraHeaderSoldadores[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftecpopUp(),editor: RenderComboBoxSoldador, width: "100px" },
+          { field: "Soldador", title: _dictionary.CapturaSoldaduraHeaderSoldadores[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftecpopUp(), editor: RenderComboBoxSoldadorRelleno, width: "100px" },
           { field: "Colada", title: _dictionary.ListadoCatalogos0046[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftecpopUp(), editor: RenderComboBoxColada, width: "100px" },
           { field: "Observaciones", title: _dictionary.CapturaSoldaduraHeaderObservacion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftecpopUp(), width: "100px" },
         {

@@ -1,4 +1,7 @@
-﻿function SuscribirEventos() {
+﻿var listadoSoldadoresParaRaiz = [];
+var listadoSoldadoresParaRelleno = [];
+
+function SuscribirEventos() {
     suscribirEventoGuardar();
     suscribirEventoAgregar();
     suscribirEventoAplicar();
@@ -14,6 +17,7 @@
     suscribirEventoGridPopupSoldadoresRelleno();
     SuscribirFechaSoldadura();
 };
+
 
 
 function suscribirEventoGuardar() {
@@ -407,7 +411,7 @@ function suscribirEventoGridPopupSoldadoresRaiz() {
             var grid = $("#grid").data("kendoGrid");
             dataItem = grid.dataItem($(e.target).closest("tr"));
             if (dataItem.ProcesoSoldaduraRaiz != "" && dataItem.WPSNombre != "")
-                GridPopupSoldadoresRaizCapturados(dataItem);
+                AjaxObtenerListadoSoldadores(dataItem, 1);
         }
     });
 }
@@ -420,7 +424,8 @@ function suscribirEventoGridPopupSoldadoresRelleno() {
             var grid = $("#grid").data("kendoGrid");
             dataItem = grid.dataItem($(e.target).closest("tr"));
             if (dataItem.ProcesoSoldaduraRelleno != "" && dataItem.WPSNombre != "")
-                GridPopupSoldadoresRellenoCapturados(dataItem);
+                AjaxObtenerListadoSoldadores(dataItem, 0);
+                
         }
     });
 }

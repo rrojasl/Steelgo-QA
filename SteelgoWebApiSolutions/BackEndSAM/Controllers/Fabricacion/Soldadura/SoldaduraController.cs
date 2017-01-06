@@ -228,7 +228,7 @@ namespace BackEndSAM.Controllers.Fabricacion.Soldadura
                             ListadoProcesoSoldaduraRaiz = ListadoProcesoSoldadura,
                             //Soldadores Raiz
                             ListaSoldadoresRaizCapturados = (List<Soldadores>)SoldaduraBD.Instance.ObtenerSoldadoresRaizCapturados(capturaDatosJson.IdOrdenTrabajo, capturaDatosJson.idVal, capturaDatosJson.JuntaID, 1),//el ultimo parametro es el tipo de soldadora o raiz o relleno.
-                            ListadoSoldadoresRaiz = (List<ObreroSoldador>)SoldaduraBD.Instance.ObtenerListadoSoldadores(6),
+                            ListadoSoldadoresRaiz =  new List<ObreroSoldador>(),
                             TemplateSoldadoresRaiz = item.SoldadoresRaiz,
                             //Proceso Relleno
                             ProcesoSoldaduraRellenoID = item.ProcesoSoldaduraRellenoID == null ? 0 : int.Parse(item.ProcesoSoldaduraRellenoID.ToString()),
@@ -236,7 +236,7 @@ namespace BackEndSAM.Controllers.Fabricacion.Soldadura
                             ListadoProcesoSoldaduraRelleno = ListadoProcesoSoldadura,
                             //Soldadores Relleno
                             ListaSoldadoresRellenoCapturados = (List<Soldadores>)SoldaduraBD.Instance.ObtenerSoldadoresRaizCapturados(capturaDatosJson.IdOrdenTrabajo, capturaDatosJson.idVal, capturaDatosJson.JuntaID, 2),//el ultimo parametro es el tipo de soldadora o raiz o relleno.
-                            ListadoSoldadoresRelleno = (List<ObreroSoldador>)SoldaduraBD.Instance.ObtenerListadoSoldadores(7),
+                            ListadoSoldadoresRelleno = new List<ObreroSoldador>(),
                             TemplateSoldadoresRelleno = item.SoldadoresRelleno,
                             //WPS
                             WPSID = 0,
@@ -340,7 +340,7 @@ namespace BackEndSAM.Controllers.Fabricacion.Soldadura
                         //Relleno = GenerarRaizJson((List<Sam3_Soldadura_Get_DetalleSoldadorProceso_Result>)SoldaduraBD.Instance.DetallaRellenoAdicional(item.JuntaSoldaduraID.GetValueOrDefault(), usuario), item.JuntaSpoolID),
                         //RellenoDetalle = GenerarRaizJson((List<Sam3_Soldadura_Get_DetalleSoldadorProceso_Result>)SoldaduraBD.Instance.DetallaRellenoAdicional(item.JuntaSoldaduraID.GetValueOrDefault(), usuario), item.JuntaSpoolID),
                         listaTrabajosAdicionalesSoldadura = (List<TrabajosAdicionalesSoldadura>)SoldaduraBD.Instance.ObtenerTrabajosAdicionales(item.JuntaSpoolID),
-                        //ListadoRaiz = (List<SoldadorRaizCertificado>)SoldaduraBD.Instance.ObtenerListadoRaiz(item.ProcesoSoldaduraRaizID == null ? 0 : int.Parse(item.ProcesoSoldaduraRaizID.ToString()), item.TipoJunta, item.Diametro, decimal.Parse(item.Espesor.ToString()), item.Cedula, 1, capturaDatosJson.IDProyecto),
+                        
                         //ListadoRelleno = (List<SoldadorRaizCertificado>)SoldaduraBD.Instance.ObtenerListadoRelleno(item.ProcesoSoldaduraRaizID == null ? 0 : int.Parse(item.ProcesoSoldaduraRellenoID.ToString()), item.TipoJunta, item.Diametro, decimal.Parse(item.Espesor.ToString()), item.Cedula, 0, capturaDatosJson.IDProyecto),
                         //ListadoSoldadoresTrabajos = (List<ObreroSoldador>)SoldaduraBD.Instance.ObtenerListadoSoldaduresTrabajo(),
                         ListaTaller = ObtenerListaTaller((List<Taller>)SoldaduraBD.Instance.ObtenerTallerXPoryecto(usuario, capturaDatosJson.IDProyecto))//,
@@ -363,28 +363,28 @@ namespace BackEndSAM.Controllers.Fabricacion.Soldadura
             }
         }
 
-        [HttpGet]
-        public object obtenerListadoRenderSoldadores(string token, int procesoSoldaduraID, string tipoJunta, decimal diametro, decimal espesor, string cedula, int proceso, int idProyecto)
-        {
-            string payload = "";
-            string newToken = "";
-            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
-            if (tokenValido)
-            {
-                JavaScriptSerializer serializer = new JavaScriptSerializer();
-                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return SoldaduraBD.Instance.ObtenerListadoSoldadoresCertificados(procesoSoldaduraID, tipoJunta, diametro, espesor, cedula, proceso, idProyecto);
-            }
-            else
-            {
-                TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add(payload);
-                result.ReturnCode = 401;
-                result.ReturnStatus = false;
-                result.IsAuthenicated = false;
-                return result;
-            }
-        }
+        //[HttpGet]
+        //public object obtenerListadoRenderSoldadores(string token, int procesoSoldaduraID, string tipoJunta, decimal diametro, decimal espesor, string cedula, int proceso, int idProyecto)
+        //{
+        //    string payload = "";
+        //    string newToken = "";
+        //    bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+        //    if (tokenValido)
+        //    {
+        //        JavaScriptSerializer serializer = new JavaScriptSerializer();
+        //        Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+        //        return SoldaduraBD.Instance.ObtenerListadoSoldadoresCertificados(procesoSoldaduraID, tipoJunta, diametro, espesor, cedula, proceso, idProyecto);
+        //    }
+        //    else
+        //    {
+        //        TransactionalInformation result = new TransactionalInformation();
+        //        result.ReturnMessage.Add(payload);
+        //        result.ReturnCode = 401;
+        //        result.ReturnStatus = false;
+        //        result.IsAuthenicated = false;
+        //        return result;
+        //    }
+        //}
 
         private List<Taller> ObtenerListaTaller(List<Taller> listaTaller)
         {
@@ -618,6 +618,31 @@ namespace BackEndSAM.Controllers.Fabricacion.Soldadura
                 return result;
             }
         }
+
+        [HttpGet]
+        public object getListadoSoldadoresCertificados(int TipoProceso, int ProcesoSoldadura, decimal Espesor, decimal Diametro, string lenguaje, string token)
+        {
+
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                return SoldaduraBD.Instance.ObtenerListadoSoldadoresCertificados(TipoProceso, ProcesoSoldadura, Espesor, Diametro, lenguaje);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
+
 
         [HttpGet]
         public object getListadoColada(int ProyectoID, int Espesor,string lenguaje, string token)

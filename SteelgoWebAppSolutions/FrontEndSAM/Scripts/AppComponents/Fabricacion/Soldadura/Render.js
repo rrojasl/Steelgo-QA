@@ -86,8 +86,13 @@ function RenderComboBoxProcesoSoldaduraRaiz(container, options) {
                     options.model.procesoSoldaduraRaiz = "";
                     options.model.procesoSoldaduraRaizID = 0;
                 }
-                if (options.model.procesoSoldaduraRaiz != "" && options.model.procesoSoldaduraRelleno != "")
+                if (options.model.procesoSoldaduraRaiz != "" && options.model.procesoSoldaduraRelleno != "") {
+                    options.model.WPSID = 0;
+                    options.model.WPSNombre = "";
+                    $("#grid").data("kendoGrid").dataSource.sync();
                     AjaxObtenerListadoWPS(options.model);
+                }
+                    
             }
         }
         );
@@ -128,9 +133,12 @@ function RenderComboBoxProcesoSoldaduraRelleno(container, options) {
                     options.model.procesoSoldaduraRelleno = "";
                     options.model.procesoSoldaduraRellenoID = 0;
                 }
-                if (options.model.procesoSoldaduraRaiz != "" && options.model.procesoSoldaduraRelleno != "")
+                if (options.model.procesoSoldaduraRaiz != "" && options.model.procesoSoldaduraRelleno != "") {
+                    options.model.WPSID = 0;
+                    options.model.WPSNombre = "";
+                    $("#grid").data("kendoGrid").dataSource.sync();
                     AjaxObtenerListadoWPS(options.model);
-                
+                }
             }
 
         }
@@ -192,7 +200,7 @@ function RenderComboBoxColada(container, options) {
             delay: 10,
             filter: "contains",
             autoBind: false,
-            dataSource: options.model.ListaColada,
+            dataSource:[],
             template: "<i class=\"fa fa-#=data.Colada#\"></i> #=data.Colada#",
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
@@ -217,24 +225,24 @@ function RenderComboBoxColada(container, options) {
 
 
 
-function RenderComboBoxSoldador(container, options) {
+function RenderComboBoxSoldadorRaiz(container, options) {
     //container  contiene las propiedades de la celda
     //options contiene el modelo del datasource ejemplo options.model.Junta
     var dataItem;
 
-    $('<input  data-text-field="Codigo" data-value-field="ObreroID" data-bind="value:' + options.field + '"/>')
+    $('<input  data-text-field="Soldador" data-value-field="ObreroID" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoComboBox({
             suggest: true,
             delay: 10,
             filter: "contains",
             autoBind: false,
-            dataSource: options.model.ListaSoldador,
-            template: "<i class=\"fa fa-#=data.Codigo.toLowerCase()#\"></i> #=data.Codigo#",
+            dataSource: listadoSoldadoresParaRaiz,
+            template: "<i class=\"fa fa-#=data.Soldador#\"></i> #=data.Soldador#",
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
                 if (dataItem != undefined) {
-                    options.model.Soldador = dataItem.Codigo;
+                    options.model.Soldador = dataItem.Soldador;
                     options.model.SoldadorID = dataItem.ObreroID;
                 }
                 else {
@@ -242,6 +250,47 @@ function RenderComboBoxSoldador(container, options) {
                     options.model.SoldadorID = 0;
                 }
                 
+            }
+        }
+        );
+
+    $(".k-combobox").parent().on('mouseleave', function (send) {
+        var e = $.Event("keydown", { keyCode: 27 });
+        var item = $(this).find(".k-combobox")[0];
+        if (item != undefined) {
+            if (!tieneClase(item)) {
+                $(container).trigger(e);
+            }
+        }
+    });
+}
+
+
+function RenderComboBoxSoldadorRelleno(container, options) {
+    //container  contiene las propiedades de la celda
+    //options contiene el modelo del datasource ejemplo options.model.Junta
+    var dataItem;
+
+    $('<input  data-text-field="Soldador" data-value-field="ObreroID" data-bind="value:' + options.field + '"/>')
+        .appendTo(container)
+        .kendoComboBox({
+            suggest: true,
+            delay: 10,
+            filter: "contains",
+            autoBind: false,
+            dataSource: listadoSoldadoresParaRelleno,
+            template: "<i class=\"fa fa-#=data.Soldador#\"></i> #=data.Soldador#",
+            change: function (e) {
+                dataItem = this.dataItem(e.sender.selectedIndex);
+                if (dataItem != undefined) {
+                    options.model.Soldador = dataItem.Soldador;
+                    options.model.SoldadorID = dataItem.ObreroID;
+                }
+                else {
+                    options.model.Soldador = "";
+                    options.model.SoldadorID = 0;
+                }
+
             }
         }
         );

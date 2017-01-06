@@ -132,12 +132,13 @@ namespace BackEndSAM.Models.Fabricacion.Soldadura
     {
         public int ObreroID { get; set; }
         public string Soldador { get; set; }
+        public string Certificado { get; set; }
 
         public ObreroSoldador()
         {
             ObreroID = 0;
             Soldador = "";
-
+            Certificado = "";
         }
       
 
@@ -161,6 +162,7 @@ namespace BackEndSAM.Models.Fabricacion.Soldadura
         public int ColadaID { get; set; }
         public string Colada { get; set; }
         public string Observaciones { get; set; }
+        public List<ObreroSoldador> ListaSoldador {get; set;}
 
         public Soldadores()
         {
@@ -170,6 +172,7 @@ namespace BackEndSAM.Models.Fabricacion.Soldadura
             ColadaID = 0;
             Colada = "";
             Observaciones = "";
+            ListaSoldador = new List<ObreroSoldador>();
         }
 
     }

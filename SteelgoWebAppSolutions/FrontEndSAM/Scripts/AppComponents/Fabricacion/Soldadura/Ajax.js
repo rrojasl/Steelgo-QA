@@ -242,12 +242,24 @@ function AjaxObtenerListadoWPS(dataItem) {
 }
 
 
-function AjaxObtenerListadoSoldadores(dataItem) {
+function AjaxObtenerListadoSoldadores(dataItem, TipoProceso) {
 
+    if (TipoProceso == 0)
+        procesoSoldadura = dataItem.procesoSoldaduraRellenoID;
+    else
+        procesoSoldadura = dataItem.procesoSoldaduraRaizID;
     loadingStart();
-    $Soldadura.Soldadura.read({ ProyectoID: Cookies.get("Proyecto").split('°')[0], ProcesoRaizID: dataItem.procesoSoldaduraRaizID, ProcesoRellenoID: dataItem.procesoSoldaduraRellenoID, Espesor: dataItem.Espesor, lenguaje: $("#language").val(), token: Cookies.get("token") }).done(function (data) {
+    $Soldadura.Soldadura.read({TipoProceso: TipoProceso, ProcesoSoldadura: procesoSoldadura, Espesor: dataItem.Espesor, Diametro: dataItem.Diametro, lenguaje: $("#language").val(), token: Cookies.get("token") }).done(function (data) {
         if (Error(data)) {
-            dataItem.ListaWPS = data;
+            if (TipoProceso == 0) {
+                listadoSoldadoresParaRelleno = data;
+                GridPopupSoldadoresRellenoCapturados(dataItem);
+                
+            }
+            else {
+                listadoSoldadoresParaRaiz = data;
+                GridPopupSoldadoresRaizCapturados(dataItem);
+            }
         }
         loadingStop();
     });
