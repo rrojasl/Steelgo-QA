@@ -1027,7 +1027,7 @@ function SuscribirEventoGuardarPlana() {
             GuardarNuevaPlana();
         }
         else {
-            displayNotify('EmbarqueCargaMsjErrorNombreProveedor', '', '1');
+            displayNotify('EmbarqueCargaMsjErrorNombrePlana', '', '1');
         }
     });
 }
