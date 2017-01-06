@@ -109,24 +109,6 @@ function RenderDatePicker(container, options) {
     );
 }
 
-function RenderFolioSolicitudPermiso(container, options) {
-    var dataItem;
-    $('<input   data-bind="value:' + options.field + '"/>')
-        .appendTo(container)
-        .kendoDatePicker({
-            max: new Date(),
-            change: function (e) {
-                var value = this.value();
-
-                if (ValidarFecha(value))
-                    options.model.FechaSolicitudPermiso = value;
-                else
-                    options.model.FechaSolicitudPermiso = "";
-            }
-        }
-    );
-}
-
 function ValidarFecha(valor) {
     var fecha = kendo.toString(valor, String(_dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()].replace('{', '').replace('}', '').replace("0:", "")));
     if (fecha == null)

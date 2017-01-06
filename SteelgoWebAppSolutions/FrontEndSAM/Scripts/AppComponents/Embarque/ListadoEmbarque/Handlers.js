@@ -1,12 +1,11 @@
-﻿function SuscribirEventos() {
+﻿var windowSend;
+
+function SuscribirEventos() {
     SuscribirEventoTab();
-    suscribirEventoModal();
     suscribirEventoGuardarFolio();
     suscribirEventoEnviarEmbarque();
     SuscribirEventoImprimir();
 }
-
-SuscribirEventos();
 
 function SuscribirEventoTab() {
     $("#btnPendientes").click(function (e) {
@@ -22,55 +21,20 @@ function SuscribirEventoTab() {
 }
 
 
-function suscribirEventoModal() {
+function SuscribirEventoPopUPEnviarEmbarque() {
+    var modalTitle = "Enviar Embarque";
+    windowSend = $("#windowSend").kendoWindow({
+            modal: true,
+            title: modalTitle,
+            resizable: false,
+            visible: true,
+            width: "auto",
+            minWidth: 30,
+            actions: [ //"Pin", "Minimize", "Maximize", "Close"
+            ],
+    }).data("kendoWindow");
 
-    $(document).on('click', '.botonEnviar', function (e) {
-        var grid = $("#grid").data("kendoGrid"),
-        dataItem = grid.dataItem($(e.target).closest("tr"));
-        if (dataItem.Estatus != "Enviada" && dataItem.Estatus != "sent") {
-            if (dataItem.FolioAprobadoCliente != "") {
-                if (dataItem.FolioSolicitarPermisos != "" || dataItem.RequierePermisoAduana == 0) {
-                    if (dataItem.FolioAprobadoAduana != "" || dataItem.RequierePermisoAduana == 0) {
-                        if (dataItem.RequierePermisoAduana == 0) {
-                            dataItem.FolioSolicitarPermisos = "";
-                            dataItem.FolioAprobadoAduana = "";
-                        }
-                        VentanaModalFecha(dataItem);
-                    }
-                    else {
-                        displayNotify("ListadoEmbarqueMensajeFaltaFolioAduana", "", "1");
-                    }
-                }
-                else {
-                    displayNotify("ListadoEmbarqueMensajeFaltaSolicitudPermisos", "", "1");
-                }
-            }
-            else {
-                displayNotify("ListadoEmbarqueMensajeFaltaFolioCliente", "", "1");
-            }
-        }
-        else {
-            displayNotify("ListadoEmbarqueMensajePlanaEnviada", "", "1");
-        }
-
-    });
-
-    $(document).on('click', '.botonFolio', function (e) {
-        var grid = $("#grid").data("kendoGrid"),
-        dataItem = grid.dataItem($(e.target).closest("tr"));
-        var columnIndex = $(e.target).closest("tr")[0].cells.grid_active_cell.cellIndex;
-        if (columnIndex == 5) {
-            $("#Folio").val(dataItem.FolioSolicitarPermisos);
-        }
-        else if (columnIndex == 6) {
-            $("#Folio").val(dataItem.FolioAprobadoAduana);
-        }
-        else if (columnIndex == 7) {
-            $("#Folio").val(dataItem.FolioAprobadoCliente);
-        }
-        VentanaModalFolio(dataItem, columnIndex);
-    });
-
+   // windowSend.center().open();
 }
 
 function SuscribirEventoImprimir() {

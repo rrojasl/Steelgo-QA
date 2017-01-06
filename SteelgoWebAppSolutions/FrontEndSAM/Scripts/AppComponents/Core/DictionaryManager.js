@@ -7706,6 +7706,10 @@ _dictionary = {
         "es-MX": "Cuadrante",
         "en-US": "Quadrant"
     },
+    "lblImprimir": {
+        "es-MX": "Imprimir",
+        "en-US": "Print"
+    },
     //Finaliza Etiquetas
     //Etiquetas header alertas
     "SuccessTitle": {
@@ -7952,6 +7956,10 @@ _dictionary = {
     "botonDescargar": {
         "es-MX": "Descargar",
         "en-US": "Download"
+    },
+    "botonEnviar": {
+        "es-MX": "Enviar",
+        "en-US": "Send"
     },
     //Finaliza botones
     // Finalizan etiquetas Header y Footer
@@ -11174,6 +11182,10 @@ _dictionary = {
         "es-MX": "Ingrese el nombre del proveedor",
         "en-US": "Enter the name of the provider"
     },
+    "EmbarqueCargaMsjErrorNombrePlana": {
+        "es-MX": "Ingrese el nombre de la placa",
+        "en-US": "Enter the name of the plate"
+    },
     "EmbarqueCargaMsjErrorPaqueteAgregarExiste": {
         "es-MX": "El paquete ya existe en la captura",
         "en-US": "Package already exists in capture"
@@ -11381,6 +11393,10 @@ _dictionary = {
     },
     //Finaliza pantalla Preparacion Embarque
     //Inicia pantalla listado embarque
+    "EmbarqueListadoTituloPagina": {
+        "es-MX": "Listado Embarque",
+        "en-US": "Shipping list"
+    },
     "EmbarqueListadoPentiente": {
         "es-MX": "Pendientes",
         "en-US": "Pending"
@@ -11388,6 +11404,14 @@ _dictionary = {
     "EmbarqueListadoTransito": {
         "es-MX": "En Tránsito",
         "en-US": "Transit"
+    },
+    "EmbarqueListadoFechaEnvio": {
+        "es-MX": "Fecha Envío",
+        "en-US": "Send Date"
+    },
+    "EmbarqueListadoNumEmbarqueCliente": {
+        "es-MX": "Numero Embarque Cliente",
+        "en-US": "Client Shipment Number"
     },
     //Finaliza pantalla listado embarque
     //Inicia pantalla revision
