@@ -364,7 +364,7 @@ function AjaxGuardar(jSonCaptura, tipoGuardado) {
     }
     Captura[0].Detalles = inspeccionDimensional;
 
-    if (!ExistRowEmpty(inspeccionDimensional)) {
+    if (!ExistRowEmptyAble(inspeccionDimensional)) {
         if (Captura[0].Detalles.length > 0) {
             $InspeccionDimensional.InspeccionDimensional.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
                 if (Error(data)) {

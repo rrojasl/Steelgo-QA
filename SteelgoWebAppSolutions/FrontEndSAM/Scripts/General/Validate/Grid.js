@@ -110,3 +110,14 @@ function ExistRowErrors(rows) {
     }
     return false;
 }
+
+function ExistRowEmptyAble(rows) {
+    for (var i = 0; i < rows.length; i++) {
+        if (rows[i].Estatus == 0 && (rows[i].Accion != 3)) {
+            $("#grid").data("kendoGrid").dataSource._data[i].RowOk = false;
+            return true;
+        }
+    }
+
+    return false;
+}
