@@ -200,7 +200,7 @@ function RenderComboBoxColada(container, options) {
             delay: 10,
             filter: "contains",
             autoBind: false,
-            dataSource:[],
+            dataSource: listadoColada,
             template: "<i class=\"fa fa-#=data.Colada#\"></i> #=data.Colada#",
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);

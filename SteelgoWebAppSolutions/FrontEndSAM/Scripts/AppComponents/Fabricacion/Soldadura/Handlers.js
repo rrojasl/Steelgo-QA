@@ -1,5 +1,7 @@
 ﻿var listadoSoldadoresParaRaiz = [];
 var listadoSoldadoresParaRelleno = [];
+var listadoColada = [];
+
 
 function SuscribirEventos() {
     suscribirEventoGuardar();
@@ -411,7 +413,7 @@ function suscribirEventoGridPopupSoldadoresRaiz() {
             var grid = $("#grid").data("kendoGrid");
             dataItem = grid.dataItem($(e.target).closest("tr"));
             if (dataItem.ProcesoSoldaduraRaiz != "" && dataItem.WPSNombre != "")
-                AjaxObtenerListadoSoldadores(dataItem, 1);
+                AjaxObtenerListadoColadas(dataItem, 1);
         }
     });
 }
@@ -424,7 +426,7 @@ function suscribirEventoGridPopupSoldadoresRelleno() {
             var grid = $("#grid").data("kendoGrid");
             dataItem = grid.dataItem($(e.target).closest("tr"));
             if (dataItem.ProcesoSoldaduraRelleno != "" && dataItem.WPSNombre != "")
-                AjaxObtenerListadoSoldadores(dataItem, 0);
+                AjaxObtenerListadoColadas(dataItem, 0);
                 
         }
     });

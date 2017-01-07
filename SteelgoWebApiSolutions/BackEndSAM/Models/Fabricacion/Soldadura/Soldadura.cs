@@ -97,6 +97,7 @@ namespace BackEndSAM.Models.Fabricacion.Soldadura
         public List<ObreroSoldador> ListadoSoldadoresRaiz { get; set; }
         public List<ObreroSoldador> ListadoSoldadoresRelleno { get; set; }
         public List<Consumible> ListadoColadas { get; set; }
+        public int FamiliaMaterialID { get; set; }
     }
 
     public class Taller
@@ -142,6 +143,19 @@ namespace BackEndSAM.Models.Fabricacion.Soldadura
         }
       
 
+    }
+    public class Consumible
+    {
+        public int ConsumibleID { get; set; }
+        public string Colada { get; set; }
+        public string Certificado { get; set; }
+
+        public Consumible()
+        {
+            ConsumibleID = 0;
+            Colada = "";
+            Certificado = "";
+        }
     }
 
     public class Raiz
