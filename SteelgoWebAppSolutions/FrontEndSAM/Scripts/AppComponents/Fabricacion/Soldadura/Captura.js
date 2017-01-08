@@ -325,7 +325,7 @@ function GridPopupSoldadoresRaizCapturados(row) {
         selectable: true,
         filterable: getGridFilterableMaftec(),
         columns: [
-          { field: "Soldador", title: _dictionary.CapturaSoldaduraHeaderSoldadores[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftecpopUp(), editor: RenderComboBoxSoldador, width: "100px" },
+          { field: "Soldador", title: _dictionary.CapturaSoldaduraHeaderSoldadores[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftecpopUp(), editor: RenderComboBoxSoldadorRaiz, width: "100px" },
           { field: "Colada", title: _dictionary.ListadoCatalogos0046[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftecpopUp(),editor: RenderComboBoxColada, width: "100px" },
           { field: "Observaciones", title: _dictionary.CapturaSoldaduraHeaderObservacion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftecpopUp(), width: "100px" },
         {
@@ -387,7 +387,7 @@ function GridPopupSoldadoresRellenoCapturados(row) {
 
     $("#inputSoldadoresRelleno").kendoGrid({
         dataSource: {
-            data: row.ListaSoldadoresRaizCapturados,
+            data: row.ListaSoldadoresRellenoCapturados,
             schema: {
                 model: {
                     fields: {
@@ -412,7 +412,7 @@ function GridPopupSoldadoresRellenoCapturados(row) {
         selectable: true,
         filterable: getGridFilterableMaftec(),
         columns: [
-          { field: "Soldador", title: _dictionary.CapturaSoldaduraHeaderSoldadores[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftecpopUp(),editor: RenderComboBoxSoldador, width: "100px" },
+          { field: "Soldador", title: _dictionary.CapturaSoldaduraHeaderSoldadores[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftecpopUp(), editor: RenderComboBoxSoldadorRelleno, width: "100px" },
           { field: "Colada", title: _dictionary.ListadoCatalogos0046[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftecpopUp(), editor: RenderComboBoxColada, width: "100px" },
           { field: "Observaciones", title: _dictionary.CapturaSoldaduraHeaderObservacion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftecpopUp(), width: "100px" },
         {
@@ -464,3 +464,34 @@ function VentanaModalSoldadoresRelleno() {
     windowRelleno.data("kendoWindow").center().open();
 
 };
+
+
+function ArregloListadoCaptura() {
+    JsonCaptura = [];
+    JsonCaptura[0] = { IDProyecto: "", Proyecto: "", IdOrdenTrabajo: "", OrdenTrabajo: "", idVal: "", idText: "", SpoolID: "", JuntaID: "", Junta: "", FechaSoldadura: "", tallerID: "", Taller: "", sinCaptura: "", IDProyecto: "" };
+    JsonCaptura[0].IDProyecto = $("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()).ProyectoID;
+    JsonCaptura[0].Proyecto = $("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()).Proyecto;
+    JsonCaptura[0].IdOrdenTrabajo = $("#InputOrdenTrabajo").val();
+    JsonCaptura[0].OrdenTrabajo = $("#InputOrdenTrabajo").val();
+    JsonCaptura[0].idVal = $("#InputID").val();
+    JsonCaptura[0].idText = $("#InputID").data("kendoComboBox").text()
+    JsonCaptura[0].SpoolID = $("#InputOrdenTrabajo").val() + '-' + $("#InputID").val();
+    JsonCaptura[0].JuntaID = $("#Junta").val();
+    JsonCaptura[0].Junta = $("#Junta").data("kendoComboBox").text();
+    JsonCaptura[0].FechaSoldadura = $("#FechaSoldadura").val();
+    JsonCaptura[0].sinCaptura = $('input:radio[name=Muestra]:checked').val();
+
+    return JsonCaptura[0];
+};
+
+function ExisteJunta(Row) {
+    var jsonGridSoldadura = $("#grid").data("kendoGrid").dataSource._data;
+    if ($('input:radio[name=TipoAgregado]:checked').val() == "Listado") {
+        for (var i = 0; i < jsonGridSoldadura.length; i++) {
+            if (jsonGridSoldadura[i].IdOrdenTrabajo + '-' + jsonGridSoldadura[i].IdVal == (Row.IdOrdenTrabajo + '-' + Row.IdVal) && jsonGridSoldadura[i].JuntaID === Row.JuntaID) {
+                return true;
+            }
+        }
+    }
+    return false;
+}

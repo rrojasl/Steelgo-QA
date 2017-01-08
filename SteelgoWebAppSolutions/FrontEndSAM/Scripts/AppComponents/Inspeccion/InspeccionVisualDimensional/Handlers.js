@@ -87,6 +87,7 @@ function SuscribirEventoSpoolID() {
        
         change: function (e) {
             dataItem = this.dataItem(e.sender.selectedIndex);
+            aplicarColorBlancoCapturaDimensional();
             if (dataItem != undefined && dataItem.IDValido!="") {
                 if ($("#InputID").val().length == 1) {
                     $("#InputID").data("kendoComboBox").value(("00" + $("#InputID").val()).slice(-3));
@@ -342,7 +343,7 @@ function suscribirEventoAgregar() {
     $('#btnAgregar').click(function (e) {
         e.preventDefault();
         if ($("#InputID").val()!="0"  && $("#InputID").val() != "" && $("#InputOrdenTrabajo").val()) {
-            ajaxobtenerDetalleDimensional($("#InputID").val());
+            //ajaxobtenerDetalleDimensional($("#InputID").val());
             ajaxObtenerJSonGrid();
             deshabilitaSpool();
         }

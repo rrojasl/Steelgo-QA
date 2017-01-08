@@ -118,6 +118,75 @@ namespace BackEndSAM.DataAcces.Fabricacion.Soldadura
                 return result;
             }
         }
+
+        public object ObtenerListadoSoldadoresCertificados(int tipoProceso, int procesoSoldadura, decimal espesor, decimal diametro, string lenguaje)
+        {
+            try
+            {
+                List<ObreroSoldador> listaSoldadoresCertificados = new List<ObreroSoldador>();
+                listaSoldadoresCertificados.Add(new ObreroSoldador());
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Sam3_Steelgo_Get_SoldadorCertificado_Result> result = ctx.Sam3_Steelgo_Get_SoldadorCertificado(espesor,procesoSoldadura,diametro,tipoProceso).ToList();
+                    
+                    foreach (Sam3_Steelgo_Get_SoldadorCertificado_Result item in result)
+                    {
+                        listaSoldadoresCertificados.Add(new ObreroSoldador
+                        {
+                            ObreroID = item.ObreroID,
+                            Soldador = item.Soldador,
+                            Certificado = item.Certificado
+                        });
+                    }
+                    return listaSoldadoresCertificados;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object ObtenerListadoColadas(int procesoSoldadura, int esRaiz, int wPSID, int familiaMaterialID, string lenguaje)
+        {
+            try
+            {
+                List<Consumible> listaSoldadoresCertificados = new List<Consumible>();
+                listaSoldadoresCertificados.Add(new Consumible());
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Sam3_Soldadura_Get_Colada_Result> result = ctx.Sam3_Soldadura_Get_Colada(procesoSoldadura, esRaiz, wPSID, familiaMaterialID, lenguaje).ToList();
+
+                    foreach (Sam3_Soldadura_Get_Colada_Result item in result)
+                    {
+                        listaSoldadoresCertificados.Add(new Consumible
+                        {
+                            ConsumibleID = item.ConsumibleID,
+                            Colada = item.Colada + " "+ item.Certificado,
+                            Certificado = item.Certificado
+                        });
+                    }
+                    return listaSoldadoresCertificados;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
         public object ObtenerSoldadoresRaizCapturados(string idOrdenTrabajo, string ordenTrabajoSpoolID, string JuntaID, int proyectoID)
         {
             try
@@ -140,7 +209,8 @@ namespace BackEndSAM.DataAcces.Fabricacion.Soldadura
                             ColadaID = item.ColadaID,
                             ObreroID = item.ObreroID,
                             Observaciones = item.Comentario,
-                            Soldador = item.Obrero
+                            Soldador = item.Obrero,
+                            ListaSoldador = new List<ObreroSoldador>()
                         });
                     }
                     return listaProcesosSoldadura;
@@ -191,104 +261,104 @@ namespace BackEndSAM.DataAcces.Fabricacion.Soldadura
             }
         }
 
-        public object ObtenerListadoSoldadoresCertificados(int procesoSoldaduraID, string tipoJunta, decimal diametro, decimal espesor, string cedula, int proceso, int proyecto)
-        {
-            try
-            {
-                List<SoldadorRaizCertificado> listaTrabajosAdicionalesSoldadura = new List<SoldadorRaizCertificado>();
+        //public object ObtenerListadoSoldadoresCertificados(int procesoSoldaduraID, string tipoJunta, decimal diametro, decimal espesor, string cedula, int proceso, int proyecto)
+        //{
+        //    try
+        //    {
+        //        List<SoldadorRaizCertificado> listaTrabajosAdicionalesSoldadura = new List<SoldadorRaizCertificado>();
 
-                using (SamContext ctx = new SamContext())
-                {
-                    List<Sam3_Steelgo_Get_SoldadorCertificado_Result> result = ctx.Sam3_Steelgo_Get_SoldadorCertificado(espesor, procesoSoldaduraID, diametro, proyecto, proceso).ToList();
+        //        using (SamContext ctx = new SamContext())
+        //        {
+        //            List<Sam3_Steelgo_Get_SoldadorCertificado_Result> result = ctx.Sam3_Steelgo_Get_SoldadorCertificado(espesor, procesoSoldaduraID, diametro, proyecto, proceso).ToList();
 
-                    foreach (Sam3_Steelgo_Get_SoldadorCertificado_Result item in result)
-                    {
-                        listaTrabajosAdicionalesSoldadura.Add(new SoldadorRaizCertificado
-                        {
-                            ObreroID = item.ObreroID,
-                            Soldador = item.Mostrar
-                        });
-                    }
-                    return listaTrabajosAdicionalesSoldadura;
-                }
-            }
-            catch (Exception ex)
-            {
-                TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add(ex.Message);
-                result.ReturnCode = 500;
-                result.ReturnStatus = false;
-                result.IsAuthenicated = true;
+        //            foreach (Sam3_Steelgo_Get_SoldadorCertificado_Result item in result)
+        //            {
+        //                listaTrabajosAdicionalesSoldadura.Add(new SoldadorRaizCertificado
+        //                {
+        //                    ObreroID = item.ObreroID,
+        //                    Soldador = item.Mostrar
+        //                });
+        //            }
+        //            return listaTrabajosAdicionalesSoldadura;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TransactionalInformation result = new TransactionalInformation();
+        //        result.ReturnMessage.Add(ex.Message);
+        //        result.ReturnCode = 500;
+        //        result.ReturnStatus = false;
+        //        result.IsAuthenicated = true;
 
-                return result;
-            }
-        }
+        //        return result;
+        //    }
+        //}
 
-        public object ObtenerListadoRaiz(int procesoSoldaduraID, string tipoJunta, decimal diametro, decimal espesor, string cedula, int proceso, int proyecto)
-        {
-            try
-            {
-                List<SoldadorRaizCertificado> listaTrabajosAdicionalesSoldadura = new List<SoldadorRaizCertificado>();
+        //public object ObtenerListadoRaiz(int procesoSoldaduraID, string tipoJunta, decimal diametro, decimal espesor, string cedula, int proceso, int proyecto)
+        //{
+        //    try
+        //    {
+        //        List<SoldadorRaizCertificado> listaTrabajosAdicionalesSoldadura = new List<SoldadorRaizCertificado>();
 
-                using (SamContext ctx = new SamContext())
-                {
-                    List<Sam3_Steelgo_Get_SoldadorCertificado_Result> result = ctx.Sam3_Steelgo_Get_SoldadorCertificado(espesor, procesoSoldaduraID, diametro, proyecto, proceso).ToList();
+        //        using (SamContext ctx = new SamContext())
+        //        {
+        //            List<Sam3_Steelgo_Get_SoldadorCertificado_Result> result = ctx.Sam3_Steelgo_Get_SoldadorCertificado(espesor, procesoSoldaduraID, diametro, proyecto, proceso).ToList();
 
-                    foreach (Sam3_Steelgo_Get_SoldadorCertificado_Result item in result)
-                    {
-                        listaTrabajosAdicionalesSoldadura.Add(new SoldadorRaizCertificado
-                        {
-                            ObreroID = item.ObreroID,
-                            Soldador = item.Mostrar
-                        });
-                    }
-                    return listaTrabajosAdicionalesSoldadura;
-                }
-            }
-            catch (Exception ex)
-            {
-                TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add(ex.Message);
-                result.ReturnCode = 500;
-                result.ReturnStatus = false;
-                result.IsAuthenicated = true;
+        //            foreach (Sam3_Steelgo_Get_SoldadorCertificado_Result item in result)
+        //            {
+        //                listaTrabajosAdicionalesSoldadura.Add(new SoldadorRaizCertificado
+        //                {
+        //                    ObreroID = item.ObreroID,
+        //                    Soldador = item.Mostrar
+        //                });
+        //            }
+        //            return listaTrabajosAdicionalesSoldadura;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TransactionalInformation result = new TransactionalInformation();
+        //        result.ReturnMessage.Add(ex.Message);
+        //        result.ReturnCode = 500;
+        //        result.ReturnStatus = false;
+        //        result.IsAuthenicated = true;
 
-                return result;
-            }
-        }
+        //        return result;
+        //    }
+        //}
 
-        public object ObtenerListadoRelleno(int procesoSoldaduraID, string tipoJunta, decimal diametro, decimal espesor, string cedula, int proceso, int proyecto)
-        {
-            try
-            {
-                List<SoldadorRaizCertificado> listaTrabajosAdicionalesSoldadura = new List<SoldadorRaizCertificado>();
+        //public object ObtenerListadoRelleno(int procesoSoldaduraID, string tipoJunta, decimal diametro, decimal espesor, string cedula, int proceso, int proyecto)
+        //{
+        //    try
+        //    {
+        //        List<SoldadorRaizCertificado> listaTrabajosAdicionalesSoldadura = new List<SoldadorRaizCertificado>();
 
-                using (SamContext ctx = new SamContext())
-                {
-                    List<Sam3_Steelgo_Get_SoldadorCertificado_Result> result = ctx.Sam3_Steelgo_Get_SoldadorCertificado(espesor, procesoSoldaduraID, diametro, proyecto, proceso).ToList();
+        //        using (SamContext ctx = new SamContext())
+        //        {
+        //            List<Sam3_Steelgo_Get_SoldadorCertificado_Result> result = ctx.Sam3_Steelgo_Get_SoldadorCertificado(espesor, procesoSoldaduraID, diametro, proyecto, proceso).ToList();
 
-                    foreach (Sam3_Steelgo_Get_SoldadorCertificado_Result item in result)
-                    {
-                        listaTrabajosAdicionalesSoldadura.Add(new SoldadorRaizCertificado
-                        {
-                            ObreroID = item.ObreroID,
-                            Soldador = item.Mostrar
-                        });
-                    }
-                    return listaTrabajosAdicionalesSoldadura;
-                }
-            }
-            catch (Exception ex)
-            {
-                TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add(ex.Message);
-                result.ReturnCode = 500;
-                result.ReturnStatus = false;
-                result.IsAuthenicated = true;
+        //            foreach (Sam3_Steelgo_Get_SoldadorCertificado_Result item in result)
+        //            {
+        //                listaTrabajosAdicionalesSoldadura.Add(new SoldadorRaizCertificado
+        //                {
+        //                    ObreroID = item.ObreroID,
+        //                    Soldador = item.Mostrar
+        //                });
+        //            }
+        //            return listaTrabajosAdicionalesSoldadura;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TransactionalInformation result = new TransactionalInformation();
+        //        result.ReturnMessage.Add(ex.Message);
+        //        result.ReturnCode = 500;
+        //        result.ReturnStatus = false;
+        //        result.IsAuthenicated = true;
 
-                return result;
-            }
-        }
+        //        return result;
+        //    }
+        //}
 
 
 
