@@ -3,7 +3,7 @@
 function SuscribirEventos() {
     SuscribirEventoTab();
     suscribirEventoGuardarFolio();
-    suscribirEventoEnviarEmbarque();
+    SuscribirEventoEnviarEmbarque();
     SuscribirEventoImprimir();
 }
 
@@ -27,14 +27,25 @@ function SuscribirEventoPopUPEnviarEmbarque() {
             modal: true,
             title: modalTitle,
             resizable: false,
-            visible: true,
-            width: "auto",
-            minWidth: 30,
+            visible: false,
+            width: "500px",
             actions: [ //"Pin", "Minimize", "Maximize", "Close"
             ],
     }).data("kendoWindow");
 
-   // windowSend.center().open();
+    $("#btnEnviarEmbarque").click(function (e) {
+
+    });
+
+    $("#btnCerrarPopUp").click(function (e) {
+        windowSend.close();
+    })
+}
+
+function SuscribirEventoEnviarEmbarque() {
+    $(document).on('click', '.enviarEmbarque', function (e) {
+        windowSend.center().open();
+    });
 }
 
 function SuscribirEventoImprimir() {
@@ -46,8 +57,6 @@ function SuscribirEventoImprimir() {
         //AjaxImprimir();
     });
 }
-
-
 
 function suscribirEventoGuardarFolio() {
     $("#GuardarFolio").click(function () {
@@ -65,23 +74,6 @@ function suscribirEventoGuardarFolio() {
         $("#windowFolio").data("kendoWindow").close();
     });
 }
-
-
-function suscribirEventoEnviarEmbarque() {
-    $("#EnviarEmbarque").click(function () {
-        if (isDate($("#Fecha").val())) {
-            if ($("#Fecha").val() != "") {
-                ObjetoRenglon.FechaEnvio = $("#Fecha").val();
-                AjaxGuardarPlanas(ObjetoRenglon);
-            }
-            $("#windowFecha").data("kendoWindow").close();
-        }
-        else {
-            displayNotify("", "", "1");
-        }
-    });
-}
-
 
 function isDate(string) { //string estará en formato dd/mm/yyyy (dí­as < 32 y meses < 13)
     var expReg;
