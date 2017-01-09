@@ -118,26 +118,27 @@ namespace BackEndSAM.DataAcces.Fabricacion.Soldadura
                 return result;
             }
         }
+
         public object ObtenerListadoSoldadoresCertificados(int tipoProceso, int procesoSoldadura, decimal espesor, decimal diametro, string lenguaje)
         {
             try
             {
-                List<ObreroSoldador> listaWPS = new List<ObreroSoldador>();
-                listaWPS.Add(new ObreroSoldador());
+                List<ObreroSoldador> listaSoldadoresCertificados = new List<ObreroSoldador>();
+                listaSoldadoresCertificados.Add(new ObreroSoldador());
                 using (SamContext ctx = new SamContext())
                 {
                     List<Sam3_Steelgo_Get_SoldadorCertificado_Result> result = ctx.Sam3_Steelgo_Get_SoldadorCertificado(espesor,procesoSoldadura,diametro,tipoProceso).ToList();
                     
                     foreach (Sam3_Steelgo_Get_SoldadorCertificado_Result item in result)
                     {
-                        listaWPS.Add(new ObreroSoldador
+                        listaSoldadoresCertificados.Add(new ObreroSoldador
                         {
                             ObreroID = item.ObreroID,
                             Soldador = item.Soldador,
                             Certificado = item.Certificado
                         });
                     }
-                    return listaWPS;
+                    return listaSoldadoresCertificados;
                 }
             }
             catch (Exception ex)
@@ -152,6 +153,39 @@ namespace BackEndSAM.DataAcces.Fabricacion.Soldadura
             }
         }
 
+        public object ObtenerListadoColadas(int procesoSoldadura, int esRaiz, int wPSID, int familiaMaterialID, string lenguaje)
+        {
+            try
+            {
+                List<Consumible> listaSoldadoresCertificados = new List<Consumible>();
+                listaSoldadoresCertificados.Add(new Consumible());
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Sam3_Soldadura_Get_Colada_Result> result = ctx.Sam3_Soldadura_Get_Colada(procesoSoldadura, esRaiz, wPSID, familiaMaterialID, lenguaje).ToList();
+
+                    foreach (Sam3_Soldadura_Get_Colada_Result item in result)
+                    {
+                        listaSoldadoresCertificados.Add(new Consumible
+                        {
+                            ConsumibleID = item.ConsumibleID,
+                            Colada = item.Colada + " "+ item.Certificado,
+                            Certificado = item.Certificado
+                        });
+                    }
+                    return listaSoldadoresCertificados;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
 
         public object ObtenerSoldadoresRaizCapturados(string idOrdenTrabajo, string ordenTrabajoSpoolID, string JuntaID, int proyectoID)
         {

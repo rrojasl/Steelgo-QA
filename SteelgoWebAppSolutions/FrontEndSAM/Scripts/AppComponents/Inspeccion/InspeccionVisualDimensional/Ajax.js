@@ -152,12 +152,16 @@ function ajaxobtenerDetalleDimensional(spoolID) {
             }
         }
         else {
-            $("#ListaJuntas").data("kendoMultiSelect").dataSource.data([]);
+            $("#ListaJuntas").data("kendoMultiSelect").value("");
             $("#ListaJuntas").data("kendoMultiSelect").dataSource.data(data.ListaDetalleDimensional[0].ListaJuntas);
-            
-            $("#inputDefecto").data("kendoComboBox").dataSource.data([]);
-            $("#inputInspector").data("kendoComboBox").dataSource.data([]);
-
+            $("#inputDefecto").data("kendoComboBox").value("");
+            $("#inputInspector").data("kendoComboBox").value("");
+            $('input:radio[name=ResultadoDimensional]:nth(1)').attr('checked', false);
+            $('input:radio[name=ResultadoDimensional]:nth(0)').attr('checked', false);
+            $CamposPredeterminados.CamposPredeterminados.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), id: CampoFechaDimensionalPredeterminada }).done(function (data) {
+                var NewDate = kendo.toString(data, _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()]);
+                endRangeDate.val(NewDate);
+            });
         }
     });
 }
@@ -212,6 +216,7 @@ function ajaxObtenerJSonGrid() {
 }
 
 function ajaxGuardado(jSonCaptura, tipoGuardar) {
+    
     Captura = [];
     Captura[0] = { Detalles: "" };
     var existRowEmpty = false;
@@ -229,8 +234,8 @@ function ajaxGuardado(jSonCaptura, tipoGuardar) {
     inspeccionDimensional[0] = { Accion: "", Lenguaje: "", InspeccionDimensionalID: "", OrdenTrabajoSpoolID: "", FechaInspeccion: "", ResultadoID: "", ObreroID: "", DefectoID: "", ListaDetalleGuardarInspeccionVisual: "", ListaJuntas: "" }
     inspeccionDimensional[0].Lenguaje = $("#language").val();
     inspeccionDimensional[0].InspeccionDimensionalID = $("#InspeccionDimensionalID").val();
-    inspeccionDimensional[0].OrdenTrabajoSpoolID = $("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()).Valor;
-    inspeccionDimensional[0].FechaInspeccion = kendo.toString(new Date(), String(_dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()].replace('{', '').replace('}', '').replace("0:", ""))).trim();
+    inspeccionDimensional[0].OrdenTrabajoSpoolID =$("#InputID").data("kendoComboBox").select()==-1 ?0: $("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()).Valor;
+    inspeccionDimensional[0].FechaInspeccion = $("#FechaInspeccion").val().trim() == null ? "" : kendo.toString($("#FechaInspeccion").val().trim(), String(_dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()].replace('{', '').replace('}', '').replace("0:", ""))).trim()
 
     var ResultadoDimensional = $('input:radio[name=ResultadoDimensional]:checked').val();
     var Defecto = $("#inputDefecto").data("kendoComboBox").select();
@@ -330,7 +335,7 @@ function ajaxGuardado(jSonCaptura, tipoGuardar) {
             ListaDetalleGuardarInspeccionVisual[index].FechaInspeccion == " " || ListaDetalleGuardarInspeccionVisual[index].FechaInspeccion == "0" ||
             ListaDetalleGuardarInspeccionVisual[index].NumeroUnico1ID == "" || ListaDetalleGuardarInspeccionVisual[index].NumeroUnico1ID == "0" || ListaDetalleGuardarInspeccionVisual[index].NumeroUnico1ID == null ||
             ListaDetalleGuardarInspeccionVisual[index].NumeroUnico2ID == "" || ListaDetalleGuardarInspeccionVisual[index].NumeroUnico2ID == "0" || ListaDetalleGuardarInspeccionVisual[index].NumeroUnico2ID == null
-            ) && ListaDetalleGuardarInspeccionVisual[index].Accion != 4) {
+            ) && (ListaDetalleGuardarInspeccionVisual[index].Accion != 4 && ListaDetalleGuardarInspeccionVisual[index].Accion != 3)) {
 
             if (ListaDetalleGuardarInspeccionVisual[index].Accion == 2) ListaDetalleGuardarInspeccionVisual[index].Accion = 4;
 
@@ -369,7 +374,42 @@ function ajaxGuardado(jSonCaptura, tipoGuardar) {
     if (inspeccionDimensional.length > 0) inspeccionDimensional[0].ListaDetalleGuardarInspeccionVisual = ListaDetalleGuardarFiltroStatus;
     else capturaSinVisual = true;
 
-    if (ResultadoDimensional == "Rechazado" && (inspeccionDimensional[0].ListaJuntas == undefined || JuntasValidas(inspeccionDimensional[0].ListaJuntas) == 0)) {
+    if (ResultadoDimensional == undefined)
+    {
+        existRowEmpty = true;
+        $("#FechaInspeccion").css({ 'background-color': '#ffcccc' });
+        $("#inputDefecto").data("kendoComboBox").input.css("background-color", "#ffcccc");
+        $("#inputInspector").data("kendoComboBox").input.css("background-color", "#ffcccc");
+        $("#ListaJuntas").data("kendoMultiSelect").input.css("background-color", "#ffcccc");
+
+        $("#FechaInspeccionDiv span").css({ 'background-color': '#ffcccc' });
+        $("#inputDefectoDiv span").css({ 'background-color': '#ffcccc' });
+        $("#inputInspectorDiv span").css({ 'background-color': '#ffcccc' });
+        $("#listaJuntasDiv .k-multiselect").css({ 'background-color': '#ffcccc' });
+
+        $("#lblRechazado").css({ 'color': '#EC4F50' });
+        $("#lblAprobado").css({ 'color': '#EC4F50' });
+
+        
+    }
+    else if (ResultadoDimensional == "Aprobado" && ((Inspector == -1 || Inspector == 0)))
+    {
+        existRowEmpty = true;
+        $("#FechaInspeccion").css({ 'background-color': '#ffcccc' });
+        $("#inputDefectoDiv span").css({ 'background-color': '#ffffff' });
+        $("#inputDefecto").data("kendoComboBox").input.css("background-color", "#ffffff");
+        $("#inputInspector").data("kendoComboBox").input.css("background-color", "#ffcccc");
+        $("#ListaJuntas").data("kendoMultiSelect").input.css("background-color", "#ffffff");
+
+        $("#FechaInspeccionDiv span").css({ 'background-color': '#ffcccc' });
+        $("#inputInspectorDiv span").css({ 'background-color': '#ffcccc' });
+        $("#listaJuntasDiv .k-multiselect").css({ 'background-color': '#ffffff' });
+      
+        $("#lblRechazado").css({ 'color': '#000' });
+        $("#lblAprobado").css({ 'color': '#000' });
+        
+    }
+    else if (ResultadoDimensional == "Rechazado" && (inspeccionDimensional[0].ListaJuntas == undefined || JuntasValidas(inspeccionDimensional[0].ListaJuntas) == 0)) {
 
         existRowEmpty = true;
        
@@ -383,6 +423,8 @@ function ajaxGuardado(jSonCaptura, tipoGuardar) {
         $("#inputInspectorDiv span").css({ 'background-color': '#ffcccc' });
         $("#listaJuntasDiv .k-multiselect").css({ 'background-color': '#ffcccc' });
 
+        $("#lblRechazado").css({ 'color': '#000' });
+        $("#lblAprobado").css({ 'color': '#000' });
 
         inspeccionDimensional[0].ListaJuntas = [];
         inspeccionDimensional[0].ListaJuntas.push({ Accion: 0, OrdenTrabajoSpoolID: "", DefectoID: "", JuntaID: "" });
@@ -390,15 +432,8 @@ function ajaxGuardado(jSonCaptura, tipoGuardar) {
             if ($("#inputDefecto").data("kendoComboBox").dataItem(Defecto).TIPO != "NoEspecificarJunta") capturaSinDimensional = true;
     }
     else {
-        $("#FechaInspeccion").css({ 'background-color': '#ffffff' });
-        $("#inputDefecto").data("kendoComboBox").input.css("background-color", "#ffffff");
-        $("#inputInspector").data("kendoComboBox").input.css("background-color", "#ffffff");
-        $("#ListaJuntas").data("kendoMultiSelect").input.css("background-color", "#ffffff");
+        aplicarColorBlancoCapturaDimensional();
 
-        $("#FechaInspeccionDiv span").css({ 'background-color': '#ffffff' });
-        $("#inputDefectoDiv span").css({ 'background-color': '#ffffff' });
-        $("#inputInspectorDiv span").css({ 'background-color': '#ffffff' });
-        $("#listaJuntasDiv .k-multiselect").css({ 'background-color': '#ffffff' });
     }
 
     // Asignación de elementos vacios de prueba
@@ -438,7 +473,7 @@ function ajaxGuardado(jSonCaptura, tipoGuardar) {
 
 
         ventanaConfirm.content(_dictionary.MensajeConfirmacionGuardadoGeneral[$("#language").data("kendoDropDownList").value()] +
-                "</br><center><button class='btn btn-blue' id='yesButton'>Si</button><button class='btn btn-blue' id='noButton'> No</button></center>");
+                "</br><center><button class='btn btn-blue' id='yesButton'>" + _dictionary.EntregaPlacasGraficasbotonSi[$("#language").data("kendoDropDownList").value()] + "</button><button class='btn btn-blue' id='noButton'> " + _dictionary.EntregaPlacasGraficasbotonNo[$("#language").data("kendoDropDownList").value()] + "</button></center>");
 
         ventanaConfirm.open().center();
 
@@ -469,8 +504,24 @@ function JuntasValidas(data)
     return cantidadJuntasValidas;
 }
 
+function aplicarColorBlancoCapturaDimensional()
+{
+    $("#FechaInspeccion").css({ 'background-color': '#ffffff' });
+    $("#inputDefecto").data("kendoComboBox").input.css("background-color", "#ffffff");
+    $("#inputInspector").data("kendoComboBox").input.css("background-color", "#ffffff");
+    $("#ListaJuntas").data("kendoMultiSelect").input.css("background-color", "#ffffff");
+
+    $("#FechaInspeccionDiv span").css({ 'background-color': '#ffffff' });
+    $("#inputDefectoDiv span").css({ 'background-color': '#ffffff' });
+    $("#inputInspectorDiv span").css({ 'background-color': '#ffffff' });
+    $("#listaJuntasDiv .k-multiselect").css({ 'background-color': '#ffffff' });
+    $("#lblRechazado").css({ 'color': '#000' });
+    $("#lblAprobado").css({ 'color': '#000' });
+}
+
 function ejecutaGuardado(Captura, guardadoSinInspeccionDimensional, guardadoSinInspeccionVisual, tipoGuardar) {
     loadingStart();
+    aplicarColorBlancoCapturaDimensional();
     if (guardadoSinInspeccionDimensional && guardadoSinInspeccionVisual) {
         displayNotify("DimensionalVisualMensajeNoHayDatosPorGuardar", "", '1');
         loadingStop();

@@ -1,10 +1,12 @@
 ﻿using BackEndSAM.DataAcces.Sam3General.OpcionValidacion;
 using BackEndSAM.Models.Embarque.ListadoEmbarque;
 using BackEndSAM.Models.Sam3General.OpcionValidacion;
+using DatabaseManager.Constantes;
 using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 
@@ -137,6 +139,64 @@ namespace BackEndSAM.DataAcces.Embarque.ListadoEmbarque
                         });
                     }
                     return listaDetalle;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object GuardarCaptura(int UsuarioID, string Lenguaje, DataTable dtDetalle)
+        {
+            try
+            {
+                ObjetosSQL _SQL = new ObjetosSQL();
+                string[,] parametros = { { "@UsuarioID", UsuarioID.ToString() }, { "@Lenguaje", Lenguaje } };
+
+                _SQL.Ejecuta(Stords.GUARDARCAPTURALISTADOEMBARQUE, dtDetalle, "@TTEmbarqueListado", parametros);
+
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add("Ok");
+                result.ReturnCode = 200;
+                result.ReturnStatus = true;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object GuardarEnvioEmbarque(int UsuarioID, string Lenguaje, int EmbarqueID, string NumeroEmbarque, string NumeroEmbarqueCliente, string FechaEnvio)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    ctx.Sam3_Embarque_LE_GuardarEnvio(UsuarioID, Lenguaje, EmbarqueID, NumeroEmbarque, NumeroEmbarqueCliente, FechaEnvio);
+
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add("Ok");
+                    result.ReturnCode = 200;
+                    result.ReturnStatus = true;
+                    result.IsAuthenicated = true;
+
+                    return result;
                 }
             }
             catch (Exception ex)

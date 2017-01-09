@@ -222,7 +222,7 @@ function CargarGrid() {
 function isEditable(fieldName, model) {
     if (fieldName == "Defectos") {
         // condition for the field "ProductName"
-        return model.Resultado !== "Aprobado";
+        return (model.Resultado == "Aprobado" || model.Resultado == null || model.Resultado == "") ? false : true;
     }
 
     return true; // default to editable
