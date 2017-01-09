@@ -14,6 +14,22 @@ function IniciarCapturaArmado() {
     setTimeout(function () {SuscribirEventos() },100);
 
 }
+
+function changeLanguageCall() {
+    endRangeDate.data("kendoDatePicker").setOptions({
+        format: _dictionary.FormatoFecha2[$("#language").data("kendoDropDownList").value()]
+    });
+    AjaxCargarCamposPredeterminados();
+    CargarGrid();
+
+    CargarGridPopUp();
+    suscribirEventoWindowsConfirmaCaptura();
+    Limpiar();
+    AjaxObtenerListaTubero();
+    AjaxObtenerListaTaller();
+    opcionHabilitarView(false, "FieldSetView")
+    document.title = _dictionary.CapturaArmadoBreadcrumb[$("#language").data("kendoDropDownList").value()];
+}
 function asignarProyecto() {
     $("#InputOrdenTrabajo").val(Cookies.get('LetraProyecto') == undefined ? '' : Cookies.get('LetraProyecto'));
     $("#LabelProyecto").text('Proyecto :' + (Cookies.get('Proyecto') == undefined ? 'No hay ningun proyecto' : Cookies.get('Proyecto')));
@@ -698,21 +714,6 @@ function eliminarCaptura(e) {
        
     }
 
-}
-function changeLanguageCall() {
-    endRangeDate.data("kendoDatePicker").setOptions({
-        format: _dictionary.FormatoFecha2[$("#language").data("kendoDropDownList").value()]
-    });
-    AjaxCargarCamposPredeterminados();
-    CargarGrid();
-
-    CargarGridPopUp();
-
-    Limpiar();
-    AjaxObtenerListaTubero();
-    AjaxObtenerListaTaller();
-    opcionHabilitarView(false, "FieldSetView")
-    //document.title = _dictionary.CapturaArmadoArmadoSpool[$("#language").data("kendoDropDownList").value()];
 }
 function PlanchaTubero() {
     var dataSource = $("#grid").data("kendoGrid").dataSource;

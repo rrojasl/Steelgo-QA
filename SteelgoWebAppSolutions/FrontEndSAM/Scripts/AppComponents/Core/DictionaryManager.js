@@ -34,6 +34,9 @@ _dictionary = {
         "es-MX": "Cancelar",
         "en-US": "Cancel"
     },
+
+
+
     //Login Page Labels
     "textoGuardar": {
         "es-MX": "Guardar",
@@ -8786,8 +8789,8 @@ _dictionary = {
         "en-US": "Control No."
     },
     "columnSpool": {
-        "es-MX": "Spool",
-        "en-US": "Spool"
+        "es-MX": "Spool ID",
+        "en-US": "Spool ID"
     },
     "columnprocesoPintura": {
         "es-MX": "Proceso",
@@ -8917,6 +8920,22 @@ _dictionary = {
     // Finalizan Etiquetas Generales PND
 
     //Pantalla Armado
+
+    "CapturaArmadoTituloPopup": {
+        "es-MX": "Alerta!!!",
+        "en-US": "Warning!!!"
+    },
+
+    "CapturaArmadoBreadcrumb": {
+        "es-MX": "Armado",
+        "en-US": "Assembly"
+    },
+
+    "CapturaArmadoBreadcrumbProduccion": {
+        "es-MX": "Producción ",
+        "en-US": "Production "
+    },
+
     "CapturaArmadoMsgExiste": {
         "es-MX": "La junta ",
         "en-US": "The joint "
@@ -9067,7 +9086,7 @@ _dictionary = {
     },
     "DimensionalSpool": {
         "es-MX": "Se agrego el spool ",
-        "en-US": "He added the spool "
+        "en-US": "The spool was added "
     },
     "CapturaMensajeArmadoPlancharTodos": {
         "es-MX": "¿Esta seguro de reemplazar todos los datos?",
@@ -9715,7 +9734,7 @@ _dictionary = {
     //Pantalla Inspeccion Dimensional
     "InspeccionBreadCrum": {
         "es-MX": "Inspección",
-        "en-US": "Inspection"
+        "en-US": "Quality"
     },
     "InspeccionDimensionalBreadCrum": {
         "es-MX": "Inspección Dimensional",
@@ -11108,7 +11127,7 @@ _dictionary = {
         "en-US": "Please select a flat"
     },
     "EmarqueCargaMensajePlanaCerrada": {
-        "es-MX": "La plana esta cerrada, debe abrirlar para poder modificarla",
+        "es-MX": "La plana esta cerrada, debe abrirla para poder modificarla",
         "en-US": "The plate is cloed, should be open to modify"
     },
     "EmbarqueCargaMsjDescargaSpool": {

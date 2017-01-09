@@ -121,7 +121,7 @@ function AjaxCargaDetalleRequisicion(_requisicionID, _tipoPruebaID, _proyectoID)
             }
         }
         loadingStop();
-    });
+    }); 
 }
 
 function AjaxGuardaCaptura(arregloCaptura, guardaNuevo) {
