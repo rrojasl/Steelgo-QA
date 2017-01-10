@@ -66,34 +66,6 @@
             </div>
         </div>
         <input id="hdAccionFiltrado" type="hidden" />
-        <div id="windowFecha" style="display: none; z-index:inherit;">
-            <div class="form-group col-sm-12 col-md-12 col-lg-11">
-                <div class="row">
-                    <div class="form-group  col-sm-5 col-md-5 col-lg-5">
-                        <label><span id="ListadoEmbarqueFecha"></span></label>
-                        <input id="Fecha" />
-                    </div>
-                    <div class="form-group  col-sm-3 col-md-3 col-lg-3">
-                        <br />
-                        <a class=" btn btn-blue " id="EnviarEmbarque"><span id="botonEnviar"></span></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="windowFolio" style="display: none; z-index:inherit;">
-            <div id="formaObrero" class="col-sm-12 col-md-12 col-lg-11">
-                <div class="row">
-                    <div class="form-group  col-sm-5 col-md-5 col-lg-5">
-                        <label id=""><span>Folio</span></label>
-                        <input id="Folio" class="k-input" />
-                    </div>
-                    <div class="form-group  col-sm-3 col-md-3 col-lg-3">
-                        <a class=" btn btn-blue " href="#" id="GuardarFolio"><span id="botonGuardar4"></span></a>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 @*Menu Inferior*@
 <div class="row">
@@ -129,6 +101,32 @@
     </div>
 </div>
 
+</div>
+
+<div id="windowSend" style="display:none;">
+    <div class="container-fluid">
+        <div class="row content-container">
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 form">
+                <label id="EmbarqueListadoFechaEnvio"></label>
+                <input id="Fecha" />
+            </div>
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 form">
+                <label id="EmbarqueListadoNumEmbarqueCliente"></label>
+                <input id="NumEmbCliente" class="item-select general-input" style="width: 94%;min-height:37px;height:37px" />
+            </div>
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 form">
+                <label id="EmbarqueListadoNumEmbarqueSteelgo"></label>
+                <input id="NumEmbCliente" class="item-select general-input" style="width: 94%;min-height:37px;height:37px" />
+            </div>
+        </div>
+        <div class="form-group row"></div>
+        <div class="row content-container">
+            <center>
+                <a class="btn btn-primary" id="btnEnviarEmbarque" href="#/"><span id="botonEnviar"></span></a>
+                <a class="btn btn-primary" id="btnCerrarPopUp" href="#/"><span id="botonCerrar"></span></a>
+            </center>                
+        </div>
+    </div>
 </div>
 <script type="text/javascript" src="~/Scripts/AppComponents/Embarque/ListadoEmbarque/Ajax.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/Embarque/ListadoEmbarque/Handlers.js"></script>
