@@ -34,12 +34,20 @@ _dictionary = {
         "es-MX": "Cancelar",
         "en-US": "Cancel"
     },
+    "textoCancelar2": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
     //Login Page Labels
     "textoGuardar": {
         "es-MX": "Guardar",
         "en-US": "Save"
     },
     "textoGuardar1": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
+    "textoGuardar2": {
         "es-MX": "Guardar",
         "en-US": "Save"
     },

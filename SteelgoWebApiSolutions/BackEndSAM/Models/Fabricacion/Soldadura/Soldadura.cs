@@ -246,19 +246,14 @@ namespace BackEndSAM.Models.Fabricacion.Soldadura
         public string JuntaSpoolID { get; set; }
         public int TipoJuntaID { get; set; }
         public string EtiquetaJunta { get; set; }
-        public string EtiquetaMaterial1 { get; set; }
-        public string EtiquetaMaterial2 { get; set; }
         public int JuntaSoldaduraID { get; set; }
         public int JuntaTrabajoID { get; set; }
-        public string NumeroUnico1ID { get; set; }
-        public string NumeroUnico2ID { get; set; }
         public string TallerID { get; set; }
-        public int ColadaID { get; set; }
+        public int WPSID { get; set; }
         public Nullable<int> ProcesoSoldaduraRaizID { get; set; }
         public Nullable<int> ProcesoSoldaduraRellenoID { get; set; }
         public string FechaSoldadura { get; set; }
         public string FechaReporte { get; set; }
-        public int WPSID { get; set; }
         public List<DetalleGuardarTrabajoAdicional> ListaDetalleTrabajoAdicional { get; set; }
         public List<GuardarSoldaduraSoldado> ListaSoldaduraRaiz { get; set; }
         public List<GuardarSoldaduraSoldado> ListaSoldaduraRelleno { get; set; }
@@ -270,8 +265,10 @@ namespace BackEndSAM.Models.Fabricacion.Soldadura
         public int JuntaSpoolID { get; set; }
         public int JuntaSoldaduraSoldadoID { get; set; }
         public int JuntaSoldaduraID { get; set; }
+        public int EsRaiz { get; set; }
         public int ObreroID { get; set; }
-        public int TipoSoldaduraID { get; set; }
+        public string Comentario { get; set; }
+        public int ConsumibleID { get; set; }
     }
 
 

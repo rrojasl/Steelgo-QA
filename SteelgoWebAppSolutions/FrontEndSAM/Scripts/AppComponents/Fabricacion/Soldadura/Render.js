@@ -79,12 +79,12 @@ function RenderComboBoxProcesoSoldaduraRaiz(container, options) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
                 if (dataItem != undefined && dataItem.ProcesoSoldaduraID != 0) {
                     options.model.procesoSoldaduraRaiz = dataItem.Codigo
-                    options.model.procesoSoldaduraRaizID = dataItem.ProcesoSoldaduraID
+                    options.model.ProcesoSoldaduraRaizID = dataItem.ProcesoSoldaduraID
 
                 }
                 else {
                     options.model.procesoSoldaduraRaiz = "";
-                    options.model.procesoSoldaduraRaizID = 0;
+                    options.model.ProcesoSoldaduraRaizID = 0;
                 }
                 if (options.model.procesoSoldaduraRaiz != "" && options.model.procesoSoldaduraRelleno != "") {
                     options.model.WPSID = 0;
@@ -127,11 +127,11 @@ function RenderComboBoxProcesoSoldaduraRelleno(container, options) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
                 if (dataItem != undefined && dataItem.ProcesoSoldaduraID != 0) {
                     options.model.procesoSoldaduraRelleno = dataItem.Codigo;
-                    options.model.procesoSoldaduraRellenoID = dataItem.ProcesoSoldaduraID;
+                    options.model.ProcesoSoldaduraRellenoID = dataItem.ProcesoSoldaduraID;
                 }
                 else {
                     options.model.procesoSoldaduraRelleno = "";
-                    options.model.procesoSoldaduraRellenoID = 0;
+                    options.model.ProcesoSoldaduraRellenoID = 0;
                 }
                 if (options.model.procesoSoldaduraRaiz != "" && options.model.procesoSoldaduraRelleno != "") {
                     options.model.WPSID = 0;
@@ -206,7 +206,11 @@ function RenderComboBoxColada(container, options) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
                 if (dataItem != undefined) {
                     options.model.Colada = dataItem.Colada;
-                    options.model.ColadaID = dataItem.ColadaID;
+                    options.model.ColadaID = dataItem.ConsumibleID;
+                }
+                else {
+                    options.model.Colada = "";
+                    options.model.ColadaID = 0;
                 }
             }
         }
@@ -243,11 +247,11 @@ function RenderComboBoxSoldadorRaiz(container, options) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
                 if (dataItem != undefined) {
                     options.model.Soldador = dataItem.Soldador;
-                    options.model.SoldadorID = dataItem.ObreroID;
+                    options.model.ObreroID = dataItem.ObreroID;
                 }
                 else {
                     options.model.Soldador = "";
-                    options.model.SoldadorID = 0;
+                    options.model.ObreroID = 0;
                 }
                 
             }
@@ -284,11 +288,11 @@ function RenderComboBoxSoldadorRelleno(container, options) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
                 if (dataItem != undefined) {
                     options.model.Soldador = dataItem.Soldador;
-                    options.model.SoldadorID = dataItem.ObreroID;
+                    options.model.ObreroID = dataItem.ObreroID;
                 }
                 else {
                     options.model.Soldador = "";
-                    options.model.SoldadorID = 0;
+                    options.model.ObreroID = 0;
                 }
 
             }

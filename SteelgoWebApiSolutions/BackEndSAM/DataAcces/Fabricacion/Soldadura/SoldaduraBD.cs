@@ -187,7 +187,7 @@ namespace BackEndSAM.DataAcces.Fabricacion.Soldadura
             }
         }
 
-        public object ObtenerSoldadoresRaizCapturados(string idOrdenTrabajo, string ordenTrabajoSpoolID, string JuntaID, int proyectoID)
+        public object ObtenerSoldadoresRaizCapturados(string idOrdenTrabajo, string ordenTrabajoSpoolID, int JuntaSoldaduraID, int esRaiz)
         {
             try
             {
@@ -195,10 +195,9 @@ namespace BackEndSAM.DataAcces.Fabricacion.Soldadura
                
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Soldadura_GET_DetalleSoldadorColadas_Result> result = ctx.Sam3_Soldadura_GET_DetalleSoldadorColadas( Convert.ToInt32(JuntaID),0).ToList();
+                    List<Sam3_Soldadura_GET_DetalleSoldadorColadas_Result> result = ctx.Sam3_Soldadura_GET_DetalleSoldadorColadas( JuntaSoldaduraID,esRaiz).ToList();
 
-                    if(result.Count>0)
-                        listaProcesosSoldadura.Add(new Soldadores());
+                    
 
                     foreach (Sam3_Soldadura_GET_DetalleSoldadorColadas_Result item in result)
                     {

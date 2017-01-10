@@ -117,6 +117,38 @@
         <input id="hdAccionFiltrado" type="hidden" />
     </div>
 
+    @*GRID POPUP*@
+    <div id="windowGrid" style="display: none; z-index:inherit;">
+        <div class="col-sm-11 col-md-11 col-lg-11">
+            <div class="row">
+                <div class="form-group">
+                    <div id="ContenedorGridPopUp">
+                        <div id="gridPopUp" data-role="grid" class="k-grid k-widget">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row col-sm-12 col-md-12 col-lg-12" style="padding-right:0px;">
+                <div class="col-sm-2 col-md-2 col-lg-2">
+
+                </div>
+                <div class="col-sm-3 col-d-3 col-lg-3">
+                    <label id="">&nbsp;</label>
+                    <a class="btn btn-primary " href="#" id="GuardarSoldadoresRaiz">
+                        <span id="textoGuardar"></span>
+                    </a>
+                </div>
+                <div class="col-sm-3 col-d-3 col-lg-3">
+                    <label id="">&nbsp;</label>
+                    <a class="btn btn-primary " href="#" id="CancelarSoldadoresRaiz">
+                        <span id="textoCancelar"></span>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
     @*Menu Inferior*@
     <div class="row">
         <div class="col-sm-12 col-md-12 col-lg-12">
