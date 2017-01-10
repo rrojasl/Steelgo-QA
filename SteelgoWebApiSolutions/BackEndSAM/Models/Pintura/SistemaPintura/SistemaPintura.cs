@@ -1,4 +1,5 @@
-﻿using BackEndSAM.Models.Pintura.PinturaGeneral;
+﻿using BackEndSAM.Models.Pintura.AdminComponentes;
+using BackEndSAM.Models.Pintura.PinturaGeneral;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,21 +24,19 @@ namespace BackEndSAM.Models.Pintura.SistemaPintura
         public int ReductorID { get; set; }
         public List<AdminReductores.Reductores> ListadoReductores { get; set; }
         public List<AdminComponentes.Componentes> ListadoComponentes { get; set; }
-        public List<ComponentesAgregados> ListaDetalleComponentesAgregados { get; set; }
+        public List<ComponenteAgregado> ListaDetalleComponentesAgregados { get; set; }
         public string TemplateDetalleComponentes { get; set; }
         public List<UnidadMedida> listadoUnidadesMedida { get; set; }
         public List<PruebasProcesos> listadoPruebasProceso { get; set; }
         public List<DetallePruebas> listadoPruebasDetalle { get; set; }
         public bool RowOk { get; set; }
+
+        public bool AsignadoSpool { get; set; }
     }
 
-    public class ComponentesAgregados {
-        public int ComponenteAgregadoID { get; set; }
-        public int ComponenteID { get; set; }
-        public string Nombre { get; set; }
-        public int Accion { get; set; }
-        public List<AdminComponentes.Componentes> ListadoComponentes { get; set; }
-    }
+   
+
+   
     public class UnidadMedida
     {
         public UnidadMedida()
@@ -171,6 +170,7 @@ namespace BackEndSAM.Models.Pintura.SistemaPintura
 
     public class SPColor
     {
+        public int SistemaPinturaID { get; set; }
         public int ColorID { get; set; }
         public int Accion { get; set; }
     }

@@ -22,17 +22,34 @@ function suscribirEventoChangeAplicable() {
 
         var isEmptyGrid = false;
         var isEmptyColor = false;
+        var asignadoSpool = false;
         var ds = $("#grid").data("kendoGrid").dataSource;
+        if(ds._data.length>0)
+            asignadoSpool = ds._data[0].AsignadoSpool;
+
         for (var i = 0; i < ds._data.length; i++) {
             if (ds._data[i].Agregar) {
                 isEmptyGrid = true;
             }
         }
+
         if ($("#inputColor").data("kendoMultiSelect")._values.length == 0) {
             isEmptyColor = true;
         }
-
-        if (($("#inputNoAplicable").is(':checked'))) {
+        if (asignadoSpool)
+        {
+            if (($("#inputNoAplicable").is(':checked')))
+            {
+                $('#inputNoAplicable')[0].checked = false;
+            }
+            else
+            {
+                $('#inputNoAplicable')[0].checked = true;
+            }
+            displayNotify("MensajeSpoolAsignado", "", '1');
+            
+        }
+        else if (($("#inputNoAplicable").is(':checked'))) {
             if (isEmptyGrid) {
 
                 ventanaConfirm = $("#ventanaConfirm").kendoWindow({
@@ -129,6 +146,10 @@ function LimpiarGrid() {
         if (ds._data[i].Agregar) {
             ds._data[i].Agregar = false;
             ds._data[i].MetrosLote = 0;
+            ds._data[i].NumeroComponentes = 0;
+            ds._data[i].ListaDetalleComponentesAgregados = [];
+            ds._data[i].ReductorID = 0;
+            ds._data[i].Reductor = "";
             ds._data[i].NumeroPruebas = 0;
             ds._data[i].listadoPruebasDetalle = [];
 

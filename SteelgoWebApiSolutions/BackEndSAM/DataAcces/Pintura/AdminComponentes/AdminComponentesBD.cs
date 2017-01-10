@@ -1,4 +1,5 @@
 ﻿using BackEndSAM.Models.Pintura.AdminComponentes;
+using BackEndSAM.Models.Pintura.SistemaPintura;
 using DatabaseManager.Constantes;
 using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
@@ -32,7 +33,7 @@ namespace BackEndSAM.DataAcces.Pintura.AdminComponentes
             }
         }
 
-        public object ObtenerDetalleGrid( string lenguaje)
+        public object ObtenerDetalleGrid(string lenguaje)
         {
             try
             {
@@ -50,8 +51,8 @@ namespace BackEndSAM.DataAcces.Pintura.AdminComponentes
                             Lote = item.Lote,
                             RowOk = false,
                             Unidad = item.Unidad,
-                            Accion=2,
-                            AdminComponentesID=item.AdminComponentesID
+                            Accion = 2,
+                            AdminComponentesID = item.AdminComponentesID
                         };
                         detalleGrid.Add(detalle);
                     }
@@ -90,7 +91,7 @@ namespace BackEndSAM.DataAcces.Pintura.AdminComponentes
                         {
                             Componente = item.Componente,
                             ComponenteID = item.ComponenteID,
-                            Unidad=item.Unidad
+                            Unidad = item.Unidad
                         };
                         listaComponentesRender.Add(componentes);
                     }
@@ -109,7 +110,7 @@ namespace BackEndSAM.DataAcces.Pintura.AdminComponentes
             }
         }
 
-        public object Guardar(DataTable dtDetalle , Sam3_Usuario usuario, string lenguaje)
+        public object Guardar(DataTable dtDetalle, Sam3_Usuario usuario, string lenguaje)
         {
             try
             {
@@ -117,7 +118,7 @@ namespace BackEndSAM.DataAcces.Pintura.AdminComponentes
                 {
 
                     ObjetosSQL _SQL = new ObjetosSQL();
-                    string[,] parametro = { { "@Usuario", usuario.UsuarioID.ToString() }, { "@Lenguaje", lenguaje }};
+                    string[,] parametro = { { "@Usuario", usuario.UsuarioID.ToString() }, { "@Lenguaje", lenguaje } };
                     _SQL.Ejecuta(Stords.GUARDARADMINISTRACIONCOMPONENTES, dtDetalle, "@TablaAdminComponentes", parametro);
 
                     TransactionalInformation result = new TransactionalInformation();
@@ -140,5 +141,49 @@ namespace BackEndSAM.DataAcces.Pintura.AdminComponentes
                 return result;
             }
         }
+
+        public object ObtenerCatalogoComponentesAgregados(int SistemaPinturaProyectoProcesoID, string lenguaje, List<Componentes> listadoComponentes,bool asignadoSpool)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+
+                    List<Sam3_Pintura_Get_ComponentesAgregados_Result> listaComponentes = ctx.Sam3_Pintura_Get_ComponentesAgregados(lenguaje, SistemaPinturaProyectoProcesoID).ToList();
+
+                    List<ComponenteAgregado> listaComponentesAgregados = new List<ComponenteAgregado>();
+
+
+                    foreach (Sam3_Pintura_Get_ComponentesAgregados_Result item in listaComponentes)
+                    {
+                        ComponenteAgregado componentesAgregados = new ComponenteAgregado
+                        {
+                            Accion = asignadoSpool?2:1,
+                            ComponenteAgregadoID = item.ComponenteAgregadoID,
+                            ComponenteID = item.ComponenteID,
+                            Nombre = item.Nombre,
+                            ListadoComponentes = listadoComponentes
+                        };
+
+                        listaComponentesAgregados.Add(componentesAgregados);
+                    };
+                    
+                    return listaComponentesAgregados;
+                }
+
+
+            }
+            
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+        result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+}
     }
 }

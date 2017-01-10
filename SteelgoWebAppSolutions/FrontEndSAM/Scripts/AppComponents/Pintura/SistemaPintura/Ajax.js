@@ -112,6 +112,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
     try {
         $("#grid").data("kendoGrid").dataSource.sync();
         var SistemaPinturaID = 0, Nombre = "", ProyectoID = 0, NoPintable = 0;
+        var asignadoSpool = false;
         Captura = [];
         ListasCaptura = [];
         Captura[0] = { Detalles: "", ListadoColor: "", ListadoProyectos: "" };
@@ -123,6 +124,9 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
         ListaColor = [];
         ListaProyectos = [];
 
+        var ds = $("#grid").data("kendoGrid").dataSource;
+        if (ds._data.length > 0)
+            asignadoSpool = ds._data[0].AsignadoSpool;
 
         NoPintable = ($("#inputNoAplicable").is(':checked')) ? 1 : 0;
         var necesitaColor = false;
@@ -147,11 +151,11 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
         }
         else {
             for (var i = 0; i < $("#inputColor").data("kendoMultiSelect")._values.length; i++) {
-                ListaColor[i] = { Accion: "", ColorID: "" };
+                ListaColor[i] = { Accion: "", ColorID: "", SistemaPinturaID:"" };
                 ListaColor[i].ColorID = $("#inputColor").data("kendoMultiSelect")._values[i];
                 ListaColor[i].Accion = 1;
+                ListaColor[i].SistemaPinturaID = SistemaPinturaID;
             }
-
         }
 
         if ($("#inputSistemaPinturaID").val() != "") {
@@ -160,8 +164,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
 
                 ListaProyectos[0] = { ProyectoID: "", Accion: "" };
                 ListaProyectos[0].ProyectoID = ProyectoID;
-                ListaProyectos[0].Accion = 1;
-
+                ListaProyectos[0].Accion = asignadoSpool ? 2 : 1;
             }
             else {
                 displayNotify("SistemaPinturaMensajeErrorProyecto", "", 1);
@@ -177,14 +180,14 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                 for (var i = 0; i < $("#inputProyecto").data("kendoMultiSelect")._values.length; i++) {
                     ListaProyectos[i] = { ProyectoID: "", Accion: "" };
                     ListaProyectos[i].ProyectoID = $("#inputProyecto").data("kendoMultiSelect")._values[i];
-                    ListaProyectos[i].Accion = 1;
+                    ListaProyectos[i].Accion = asignadoSpool ? 2 : 1;
                 }
             }
         }
 
         ListaSPNuevo[0].Nombre = Nombre;
         ListaSPNuevo[0].NoPintable = NoPintable;
-        ListaSPNuevo[0].Accion = 1;
+        ListaSPNuevo[0].Accion = asignadoSpool ? 2 : 1;
 
         var i = 0;
         for (var k = 0; k < ListaProyectos.length; k++) {
@@ -200,15 +203,20 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                     ListaDetalles[i].NumeroComponentes = arregloCaptura[index].NumeroComponentes;
                     ListaDetalles[i].ReductorID = arregloCaptura[index].ReductorID;
 
-                    for (var g = 0; g < arregloCaptura[index].ListaDetalleComponentesAgregados.length; g++) {
-                        ListaDetalles[i].ListaDetalleComponentesAgregados[g] = { ProyectoID: "", ProcesoPinturaID: "", ComponenteAgregadoID: "", ComponenteID: "", Accion: "" };
-                        ListaDetalles[i].ListaDetalleComponentesAgregados[g].ProyectoID = ListaProyectos[k].ProyectoID;
-                        ListaDetalles[i].ListaDetalleComponentesAgregados[g].ProcesoPinturaID = arregloCaptura[index].ProcesoPinturaID;
-                        ListaDetalles[i].ListaDetalleComponentesAgregados[g].ComponenteAgregadoID = arregloCaptura[index].ListaDetalleComponentesAgregados[g].ComponenteAgregadoID;
-                        ListaDetalles[i].ListaDetalleComponentesAgregados[g].ComponenteID = arregloCaptura[index].ListaDetalleComponentesAgregados[g].ComponenteID;
-                        ListaDetalles[i].ListaDetalleComponentesAgregados[g].Accion = arregloCaptura[index].ListaDetalleComponentesAgregados[g].Accion;
+                    if (arregloCaptura[index].ListaDetalleComponentesAgregados != null) {
+                        for (var g = 0; g < arregloCaptura[index].ListaDetalleComponentesAgregados.length; g++) {
+                            ListaDetalles[i].ListaDetalleComponentesAgregados[g] = { ProyectoID: "", ProcesoPinturaID: "", ComponenteAgregadoID: "", ComponenteID: "", Accion: "" };
+                            ListaDetalles[i].ListaDetalleComponentesAgregados[g].ProyectoID = ListaProyectos[k].ProyectoID;
+                            ListaDetalles[i].ListaDetalleComponentesAgregados[g].ProcesoPinturaID = arregloCaptura[index].ProcesoPinturaID;
+                            ListaDetalles[i].ListaDetalleComponentesAgregados[g].ComponenteAgregadoID = arregloCaptura[index].ListaDetalleComponentesAgregados[g].ComponenteAgregadoID;
+                            ListaDetalles[i].ListaDetalleComponentesAgregados[g].ComponenteID = arregloCaptura[index].ListaDetalleComponentesAgregados[g].ComponenteID;
+                            ListaDetalles[i].ListaDetalleComponentesAgregados[g].Accion = arregloCaptura[index].ListaDetalleComponentesAgregados[g].Accion;
+                        }
+                    }else
+                    {
+                        ListaDetalles[i].Estatus = 0;
+                        ListaDetalles[i].RowOk = false;
                     }
-
                     for (var j = 0; j < arregloCaptura[index].listadoPruebasDetalle.length; j++) {
                         ListaDetalles[i].ListadoPruebas[j] = { Accion: "", UnidadMedidaID: "", UnidadMinima: "", UnidadMaxima: "", ProyectoID: "", ProcesoPinturaID: "", PruebaProcesoPinturaID: "" };
                         ListaDetalles[i].ListadoPruebas[j].Accion = arregloCaptura[index].listadoPruebasDetalle[j].Accion;
@@ -240,7 +248,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
         else
             if (!ExistRowEmpty(ListaDetalles)) {
                 loadingStart();
-                $SistemaPintura.SistemaPintura.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
+                $SistemaPintura.SistemaPintura.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val(), asignadoSPASpool :asignadoSpool   }).done(function (data) {
                     if (Error(data)) {
                         if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
                             if (tipoGuardar == 1) {
@@ -313,7 +321,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
 
                     if (ArregloGuardado.length > 0) {
                         loadingStart();
-                        $SistemaPintura.SistemaPintura.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
+                        $SistemaPintura.SistemaPintura.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val(), asignadoSPASpool: asignadoSpool }).done(function (data) {
                             if (Error(data)) {
                                 if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
                                     if (tipoGuardar == 1) {
@@ -365,7 +373,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
 function tieneComponentesSinCaptura(data) {
     var ComponenteIncompleto = false;
     for (var i = 0; i < data.length; i++) {
-        if (data[i].Nombre == "") {
+        if (data[i].Nombre == "" && data[i].Accion != 3) {
             ComponenteIncompleto = true;
             break;
         }

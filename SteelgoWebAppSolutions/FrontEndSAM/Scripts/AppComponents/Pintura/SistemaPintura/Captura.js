@@ -182,7 +182,17 @@ function CargarGrid() {
                 if ($('#Guardar').text() != "Editar") {
                     var grid = $("#grid").data("kendoGrid")
                     dataItem = grid.dataItem($(e.target).closest("tr"));
-                    if ($(this)[0].checked) {
+                    if (dataItem.AsignadoSpool)
+                    {
+                        if ($(this)[0].checked) {
+                            $(this)[0].checked = false;
+                        }
+                        else {
+                            $(this)[0].checked = true;
+                        }
+                        displayNotify("MensajeSpoolAsignado", "", '1');
+                    }
+                    else if ($(this)[0].checked) {
                         dataItem.Agregar = true;
 
                     }
@@ -212,6 +222,11 @@ function CargarGrid() {
                                 dataItem.Agregar = false;
                                 dataItem.MetrosLote = 0;
                                 dataItem.NumeroPruebas = 0;
+                                dataItem.NumeroComponentes = 0;
+                                dataItem.ListaDetalleComponentesAgregados = [];
+                                //dataItem.
+                                dataItem.Reductor = "";
+                                dataItem.ReductorID = "";
                                 dataItem.listadoPruebasDetalle = [];
                                 ventanaConfirm.close();
                                 $("#grid").data("kendoGrid").dataSource.sync();
@@ -243,7 +258,15 @@ function CargarGrid() {
                 if ($('#Guardar').text() != "Edit") {
                     var grid = $("#grid").data("kendoGrid")
                     dataItem = grid.dataItem($(e.target).closest("tr"));
-                    if ($(this)[0].checked) {
+                    if (dataItem.AsignadoSpool) {
+                        if ($(this)[0].checked) {
+                            $(this)[0].checked = false;
+                        }
+                        else {
+                            $(this)[0].checked = true;
+                        }
+                        displayNotify("MensajeSpoolAsignado", "", '1');
+                    } else if ($(this)[0].checked) {
                         dataItem.Agregar = true;
                     }
                     else {
@@ -269,6 +292,7 @@ function CargarGrid() {
             else {
                 $(this)[0].checked = true;
             }
+            displayNotify("MensajeSistemaPinturaNoPintable", "", '1');
         }
 
     });
@@ -387,13 +411,27 @@ function CargarGridPopUp() {
             { field: "UnidadMedida", title: _dictionary.columnUnidadMedida[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftecpopUp(), width: "130px" },
             { field: "UnidadMinima", title: _dictionary.columnUnidadMinima[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "80px", editor: RenderUnidadMinima, attributes: { style: "text-align:right;" }, format: "{0: }" },
             { field: "UnidadMaxima", title: _dictionary.columnUnidadMaxima[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "80px", editor: RenderUnidadMaxima, attributes: { style: "text-align:right;" }, format: "{0: }" },
-            { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: cancelarCaptura }, title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], width: "50px" },
-            { command: { text: _dictionary.botonLimpiar[$("#language").data("kendoDropDownList").value()], click: limpiarRenglon }, title: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()], width: "50px" }
+            { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: cancelarCaptura }, title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], width: "50px", attributes: { style: "text-align:center;" } },
+            { command: { text: _dictionary.botonLimpiar[$("#language").data("kendoDropDownList").value()], click: limpiarRenglon }, title: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()], width: "50px", attributes: { style: "text-align:center;" } }
         ],
         editable: true,
         navigatable: true,
         toolbar: [{ name: "create" }]
     });
+
+    $("#gridPopUp table").on("keydown", function (e) {
+        if (e.keyCode == 13) {
+            e.preventDefault();
+            var dataSource = $("#gridPopUp").data("kendoGrid").dataSource;
+            var total = $("#gridPopUp").data("kendoGrid").dataSource.data().length;
+            $("#gridPopUp").data("kendoGrid").dataSource.insert(total, {});
+            $("#gridPopUp").data("kendoGrid").dataSource.page(dataSource.totalPages());
+            $("#gridPopUp").data("kendoGrid").editRow($("#gridPopUp").data("kendoGrid").tbody.children().last());
+
+            //}
+        }
+    });
+
     CustomisaGrid($("#gridPopUp"));
 };
 

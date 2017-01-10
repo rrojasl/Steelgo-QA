@@ -70,7 +70,7 @@ namespace BackEndSAM.Controllers.Pintura.SistemaPintura
         }
 
         [HttpPost]
-        public object GuardarCaptura(DetalleGuardarCaptura Captura, string token, string lenguaje)
+        public object GuardarCaptura(DetalleGuardarCaptura Captura, string token, string lenguaje,bool asignadoSPASpool)
         {
             string payload = "";
             string newToken = "";
@@ -108,11 +108,12 @@ namespace BackEndSAM.Controllers.Pintura.SistemaPintura
 
                     }
                     dtDetalleProyectoProceso.Columns.Remove("ListadoPruebas");
+                    dtDetalleProyectoProceso.Columns.Remove("ListaDetalleComponentesAgregados");
                 }
 
 
 
-                return SistemaPinturaBD.Instance.CrearNuevoSistemaPintura(dtDetalleSPNuevo, dtDetalleSPColor, dtDetalleSPProyecto, dtDetalleProyectoProceso, dataTableComponentesAgregado, dataTablePruebasProceso, lenguaje, usuario.UsuarioID);
+                return SistemaPinturaBD.Instance.CrearNuevoSistemaPintura(dtDetalleSPNuevo, dtDetalleSPColor, dtDetalleSPProyecto, dtDetalleProyectoProceso, dataTableComponentesAgregado, dataTablePruebasProceso, lenguaje, usuario.UsuarioID, asignadoSPASpool);
 
                 //null;// AsignarRequisicionBD.Instance.InsertarCaptura(dtDetalle, usuario, lenguaje);
             }
