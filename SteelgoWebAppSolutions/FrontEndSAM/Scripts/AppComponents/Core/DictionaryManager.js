@@ -34,9 +34,6 @@ _dictionary = {
         "es-MX": "Cancelar",
         "en-US": "Cancel"
     },
-
-
-
     //Login Page Labels
     "textoGuardar": {
         "es-MX": "Guardar",
@@ -10606,6 +10603,11 @@ _dictionary = {
     // Finaliza Listado Sistema Pintura
 
     //Comienza Sistema Pintura
+
+    "MensajeSpoolAsignado": {
+        "es-MX": "No puedes editar el sistema de pintura el motivo es: ya se encuentra asignado a un spool",
+        "en-US": "You can not edit the painting system the reason is: it is already assigned to a spool"
+    },
     "SistemaPinturaModificaNumeroComponentes": {
         "es-MX": "¿Deseas cambiar el numero de componentes?",
         "en-US": "¿Do You want to change the number of componentes?"
@@ -10670,6 +10672,10 @@ _dictionary = {
     "MensajeEliminarColoresYProcesosSistemaNoPintable": {
         "es-MX": "Se eliminaran los datos de los procesos y colores, ¿desea continuar?",
         "en-US": "data processes and colors are removed, would you continue?"
+    },
+    "MensajeSistemaPinturaNoPintable": {
+        "es-MX": "El sistema de pintura es no pintable",
+        "en-US": "The paint system is non-paintable"
     },
     "CapturaSistemaPinturaComponentesID": {
         "es-MX": "ID",
