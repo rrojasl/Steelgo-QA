@@ -52,5 +52,14 @@ namespace BackEndSAM.Models.Embarque.ListadoEmbarque
         public int Pendientes { get; set; }
         public int Transito { get; set; }
     }
+
+    public class DetalleJsonGuardar
+    {
+        public int EmbarqueID { get; set; }
+    }
+    public class CapturaListadoEmbarque
+    {
+        public List<DetalleJsonGuardar> listaDetalle { get; set; }
+    }
     
 }
