@@ -36,9 +36,8 @@ namespace BackEndSAM.Models.Embarque.ListadoEmbarque
         public bool RequierePapCliente { get; set; }
         public bool RequierePermisoAduana { get; set; }
         public bool RequiereRevisionCliente { get; set; }
-        public int AprobadoClienteAnt { get; set; }
-        public int AprobadoCliente { get; set; }
-        public string AprobadoClienteDesc { get; set; }
+        public bool OkClienteAnt { get; set; }
+        public bool OkCliente { get; set; }
         public int AprobadoAduanaAnt { get; set; }
         public int AprobadoAduana { get; set; }
         public string AprobadoAduanaDesc { get; set; }
@@ -66,7 +65,7 @@ namespace BackEndSAM.Models.Embarque.ListadoEmbarque
         public string SolicitudPermiso { get; set; }
         public string FechaPermiso { get; set; }
         public int AprobadoAduana { get; set; }
-        public int AprobadoCliente { get; set; }
+        public bool OkCliente { get; set; }
         public bool OkEmbarque { get; set; }
         public int EstatusCaptura { get; set; }
         public int BitacoraAduana { get; set; }
