@@ -30,7 +30,8 @@ function suscribirEventoGridPopupTrabajosAdicionales() {
 
             var grid = $("#grid").data("kendoGrid");
             dataItem = grid.dataItem($(e.target).closest("tr"));
-            GridPopUpTrabajosAdicionales(dataItem);
+            if (dataItem.ListaSoldadoresRaizCapturados.length > 0 && dataItem.ListaSoldadoresRellenoCapturados.length > 0)
+                GridPopUpTrabajosAdicionales(dataItem); 
         }
     });
 }

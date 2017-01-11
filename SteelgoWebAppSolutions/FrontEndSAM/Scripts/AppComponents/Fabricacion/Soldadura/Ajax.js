@@ -245,9 +245,9 @@ function AjaxObtenerListadoWPS(dataItem) {
 function AjaxObtenerListadoSoldadores(dataItem, TipoProceso) {
 
     if (TipoProceso == 0)
-        procesoSoldadura = dataItem.procesoSoldaduraRellenoID;
+        procesoSoldadura = dataItem.ProcesoSoldaduraRellenoID;
     else
-        procesoSoldadura = dataItem.procesoSoldaduraRaizID;
+        procesoSoldadura = dataItem.ProcesoSoldaduraRaizID;
     loadingStart();
     $Soldadura.Soldadura.read({ TipoProceso: TipoProceso, ProcesoSoldadura: procesoSoldadura, Espesor: dataItem.Espesor, Diametro: dataItem.Diametro, lenguaje: $("#language").val(), token: Cookies.get("token") }).done(function (data) {
         if (Error(data)) {

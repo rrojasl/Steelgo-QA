@@ -1,4 +1,6 @@
-﻿function changeLanguageCall() {
+﻿var modeloRenglon;
+
+function changeLanguageCall() {
     asignarProyecto();
     SuscribirEventos();
     AjaxCargarCamposPredeterminados();
@@ -562,7 +564,7 @@ function CargarGridPopUp() {
         },
         columns: [
           { field: "TrabajoAdicional", title: _dictionary.CapturaSoldaduraHeaderTrabajosAdicionalesAnidado[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftecpopUp(), width: "80px", editor: RenderComboBoxTrabajos },
-          { field: "Soldador", title: _dictionary.CapturaSoldaduraHeaderSoldador[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftecpopUp(), width: "80px", },
+          { field: "Soldador", title: _dictionary.CapturaSoldaduraHeaderSoldador[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftecpopUp(), width: "80px", editor: RenderComboBoxObrerosAdicionales },
           { field: "Observacion", title: _dictionary.CapturaSoldaduraHeaderObservacion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftecpopUp(), width: "100px" },
 
          {
@@ -592,8 +594,6 @@ function CargarGridPopUp() {
                          modeloRenglon.TrabajosAdicionales = _dictionary.CapturaArmadoTemplateNoHayTrabajosAdicionales[$("#language").data("kendoDropDownList").value()];
                      else
                          modeloRenglon.TrabajosAdicionales = _dictionary.CapturaSoldaduraMensajeCambioLongitud[$("#language").data("kendoDropDownList").value()] + actuallongitudTrabajosAdicionales + _dictionary.CapturaSoldaduraMensajeCambioTrabajosAdicionales[$("#language").data("kendoDropDownList").value()];
-
-                     dataSource.sync();
 
                      dataSource.sync();
 
@@ -664,3 +664,57 @@ function VentanaModal() {
     window.data("kendoWindow").center().open();
 
 };
+
+
+function ObtenerListadoObreros(arregloObrerosRaiz, arregloObrerosRelleno) {
+    var arregloRaiz = new Array(arregloObrerosRaiz.length);
+    var arregloRelleno = new Array(arregloObrerosRelleno.length);
+
+    //for (var i = 0; i < arregloRaiz.length; i++) {
+    //    arregloRaiz[i] = new Array(2);
+    //}
+
+    for (var i = 0; i < arregloRaiz.length; i++) {
+        arregloRaiz[i] = arregloObrerosRaiz[i].ObreroID;
+        //arregloRaiz[i][2] = arregloObrerosRaiz[i].Soldador;
+    }
+
+    //for (var i = 0; i < arregloRelleno.length; i++) {
+    //    arregloRelleno[i] = new Array(2);
+    //}
+    for (var i = 0; i < arregloRelleno.length; i++) {
+        arregloRelleno[i] = arregloObrerosRelleno[i].ObreroID;
+        //arregloRelleno[i][2] = arregloObrerosRelleno[i].Soldador;
+    }
+
+
+
+    var arreglo = arregloRaiz.concat(arregloRelleno)
+    var arregloSinRepetir = arreglo.filter(onlyUnique);
+    var array =[];
+
+    for (var i = 0; i < arregloSinRepetir.length; i++) {
+        array[i] = { ObreroID: "", Soldador: "" };
+        for (var j = 0; j < arregloObrerosRaiz.length; j++) {
+            if (arregloSinRepetir[i] == arregloObrerosRaiz[j].ObreroID) {
+                array[i].ObreroID = arregloObrerosRaiz[j].ObreroID;
+                array[i].Soldador = arregloObrerosRaiz[j].Soldador;
+            }
+        }
+        if (array[i].Soldador == "") {
+            for (var j = 0; j < arregloObrerosRelleno.length; j++) {
+                if (arregloSinRepetir[i] == arregloObrerosRelleno[j].ObreroID) {
+                    array[i].ObreroID = arregloObrerosRelleno[j].ObreroID;
+                    array[i].Soldador = arregloObrerosRelleno[j].Soldador;
+                }
+            }
+        }
+
+    }
+
+    return array;
+}
+
+function onlyUnique(value, index, self) {
+    return self.indexOf(value) === index;
+}

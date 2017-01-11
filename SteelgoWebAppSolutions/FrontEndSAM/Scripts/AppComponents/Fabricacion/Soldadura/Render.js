@@ -322,31 +322,61 @@ function RenderComboBoxTrabajos(container, options) {
                 delay: 10,
                 filter: "contains",
                 autoBind: false,
-                dataSource: ItemSeleccionado.listaTrabajosAdicionalesSoldadura,
+                dataSource: modeloRenglon.listaTrabajosAdicionalesSoldadura,
                 template: '<span class="#: data.SignoInformativo #">#: data.TrabajoAdicional #</span> ',
-                select: function (e) {
-                    dataItem = this.dataItem(e.item.index());
-                    options.model.Accion = options.model.JuntaSoldaduraID == undefined ? 1 : options.model.Accion;
-                    options.model.TrabajoAdicional = dataItem.TrabajoAdicional;
-                    options.model.TrabajoAdicionalID = dataItem.TrabajoAdicionalID;
-                    //options.model.Observacion = options.model.Observacion;
-                    options.model.Soldador = options.model.Soldador;
-                    options.model.ObreroID = options.model.ObreroID;
-                },
                 change: function (e) {
                     dataItem = this.dataItem(e.sender.selectedIndex);
                     if (dataItem != undefined) {
-                        options.model.Accion = options.JuntaSoldaduraID == undefined ? 1 : options.model.Accion;
+                        options.model.Accion  == undefined ? 1 : options.model.Accion;
                         options.model.TrabajoAdicional = dataItem.TrabajoAdicional;
                         options.model.TrabajoAdicionalID = dataItem.TrabajoAdicionalID;
-                        //options.model.Observacion = options.model.Observacion;
-                        options.model.Soldador = options.model.Soldador;
-                        options.model.ObreroID = options.model.ObreroID;
+                        
                     }
                     else {
                         options.model.TrabajoAdicional = "";
                         options.model.TrabajoAdicionalID = 0;
                     }
+                }
+            }
+            );
+    $(".k-combobox").parent().on('mouseleave', function (send) {
+        var e = $.Event("keydown", { keyCode: 27 });
+        var item = $(this).find(".k-combobox")[0];
+        if (item != undefined) {
+            if (!tieneClase(item)) {
+                $(container).trigger(e);
+            }
+        }
+    });
+    loadingStop();
+}
+
+
+function RenderComboBoxObrerosAdicionales(container, options) {
+    loadingStart();
+    var dataItem;
+    var array = ObtenerListadoObreros(modeloRenglon.ListaSoldadoresRaizCapturados, modeloRenglon.ListaSoldadoresRellenoCapturados);
+    $('<input data-text-field="Soldador" data-value-field="Soldador" data-bind="value:' + options.field + '"/>')
+            .appendTo(container)
+            .kendoComboBox({
+                suggest: true,
+                delay: 10,
+                filter: "contains",
+                autoBind: false,
+                dataSource: array,
+                template: '<span>#: data.Soldador #</span> ',
+
+                change: function (e) {
+                    dataItem = this.dataItem(e.sender.selectedIndex);
+                    if (dataItem != undefined) {
+                        options.model.Soldador = dataItem.Soldador;
+                        options.model.ObreroID = dataItem.ObreroID;
+                    }
+                    else {
+                        options.model.Soldador = "";
+                        options.model.ObreroID = 0;
+                    }
+
                 }
             }
             );
