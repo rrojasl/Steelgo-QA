@@ -9320,6 +9320,17 @@ _dictionary = {
 
 
     //Pantalla Soldadura
+
+
+    "CapturaSoldaduraHeaderTrabajosAdicionalesAnidado": {
+        "es-MX": "Trabajo",
+        "en-US": "Work"
+    },
+    "CapturaSoldaduraHeaderSoldador": {
+        "es-MX": "Soldador",
+        "en-US": "Welder"
+    },
+
     "CapturaSoldaduraSoldaduraSpool": {
         "es-MX": "Soldadura",
         "en-US": "Welding"

@@ -206,6 +206,9 @@ function suscribirEventoCancelar() {
     $('#CancelarSoldadoresRelleno').click(function (e) {
         $("#windowMultiselectSoldadorRelleno").data("kendoWindow").close();
     });
+    $('#CancelarTrabajosAdicionales').click(function (e) {
+        $("#windowGrid").data("kendoWindow").close();
+    });
 }
 
 function SuscribirEventoTaller() {
