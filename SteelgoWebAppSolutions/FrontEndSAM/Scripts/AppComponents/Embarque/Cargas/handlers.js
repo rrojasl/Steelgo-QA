@@ -162,9 +162,9 @@ function SuscribirEventoPopUpPaqueteVacio() {
     $("#btnEliminarPaqueteVacio").click(function (e) {
         windowPackageEmpty.close();
 
-        var uid = $("#detallePaquete").val();
-        var dataItem = $('#grid').data("kendoGrid").dataSource.getByUid(uid);
-        AjaxEliminarPaquete(dataItem);
+        var PaqueteID = $("#detallePaquete").val();
+        var CuadrantePaqueteID = $("#CuadrantePaquete").val();
+        AjaxEliminarPaquete(PaqueteID, CuadrantePaqueteID);
     });
 }
 

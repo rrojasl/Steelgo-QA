@@ -10,15 +10,15 @@
                 e.preventDefault();
                 var dataItem = this.dataItem(e.sender.selectedIndex);
 
-                if (dataItem != undefined && dataItem.DesitinoID != 0) {
+                if (dataItem != undefined && dataItem.DestinoID != 0) {
                     options.model.Destino = dataItem.Destino;
-                    options.model.DesitinoID = dataItem.DestinoID;
+                    options.model.DestinoID = dataItem.DestinoID;
                     options.model.ModificadoPorUsuario = true;
                     $("#grid").data("kendoGrid").dataSource.sync();
                 }
                 else {
                     options.model.Destino = "";
-                    options.model.DesitinoID = 0;
+                    options.model.DestinoID = 0;
                     options.model.ModificadoPorUsuario = true;
                 }
             }
@@ -38,14 +38,14 @@ function RenderComboBoxAprobacionAduana(container, options) {
                 var dataItem = this.dataItem(e.sender.selectedIndex);
 
                 if (dataItem != undefined && dataItem.OpcionValidacionID != 0) {
-                    options.model.AprobadoAduanaDesc = dataItem.Descripcion;
-                    options.model.AprobadoAduana = dataItem.OpcionValidacionID;
-                    options.model.ModificadoPorUsuario = true;
+                        options.model.AprobadoAduanaDesc = dataItem.Descripcion;
+                        options.model.AprobadoAduana = dataItem.OpcionValidacionID;
+                        options.model.ModificadoPorUsuario = true;
 
-                    if (SetValueEnviar(options.model))
-                        options.model.Enviar = true;
-                    else
-                        options.model.Enviar = false;
+                        if (SetValueEnviar(options.model))
+                            options.model.Enviar = true;
+                        else
+                            options.model.Enviar = false;
 
                     $("#grid").data("kendoGrid").dataSource.sync();
                 }

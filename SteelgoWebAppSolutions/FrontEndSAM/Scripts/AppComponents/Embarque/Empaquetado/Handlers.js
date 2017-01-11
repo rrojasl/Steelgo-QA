@@ -119,6 +119,7 @@ function SuscribirEventoPopupDescaga() {
         },
         actions: []
     }).data("kendoWindow");
+
     $("#btnDescargar").click(function (e) {
         var zonaID = $("#InputZonaDescarga").data("kendoComboBox").value();
         var cuadranteID = $("#InputCuadranteDescarga").data("kendoComboBox").value();

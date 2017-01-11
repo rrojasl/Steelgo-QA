@@ -412,6 +412,7 @@ function AjaxDescargarSpool(dataItem, Cuadrante) {
             dataSource.sync();
             if (elemento == 0) {
                 $("#detallePaquete").val(dataItem.PaqueteID);
+                $("#CuadrantePaquete").val(dataItem.CuadranteID);
                 CuadrantePaqueteAnterior = dataItem.CuadrantePaqueteAnteriorID;
                 $("#inputZonaPaqueteDescarga").data("kendoComboBox").value(dataItem.ZonaPaqueteAnteriorID);
                 $("#inputZonaPaqueteDescarga").data("kendoComboBox").trigger("change");
@@ -559,11 +560,11 @@ function AjaxDescargarPaquete(dataItem, eliminaFilas) {
     });
 }
 
-function AjaxEliminarPaquete(dataItem) {
+function AjaxEliminarPaquete(paqueteID, cuadrantePaqueteID) {
     loadingStart();
     $Empaquetado.Empaquetado.read({
-        token: Cookies.get("token"), PaqueteID: dataItem.PaqueteID, CuadrantePaqueteSam2ID: 0,
-        CuadrantePaqueteSam3ID: dataItem.CuadranteID
+        token: Cookies.get("token"), PaqueteID: paqueteID, CuadrantePaqueteSam2ID: 0,
+        CuadrantePaqueteSam3ID: cuadrantePaqueteID
     }).done(function (data) {
         if (data.ReturnCode === 200) {
             displayNotify("EmbarqueEmpaquetadoMsjExitoEliminarPaquete", "", "0");

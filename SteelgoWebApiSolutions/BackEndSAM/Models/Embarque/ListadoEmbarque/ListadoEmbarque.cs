@@ -26,17 +26,23 @@ namespace BackEndSAM.Models.Embarque.ListadoEmbarque
         public int ProyectoID { get; set; }
         public string Proyecto { get; set; }
         public string Planas { get; set; }
+        public int DestinoAntID { get; set; }
         public int DestinoID { get; set; }
         public string Destino { get; set; }
+        public string SolicitudPermisoAnt { get; set; }
         public string FolioSolicitudPermiso { get; set; }
+        public string FechaSolicitudAnt { get; set; }
         public string FechaSolicitudPermiso { get; set; }
         public bool RequierePapCliente { get; set; }
         public bool RequierePermisoAduana { get; set; }
         public bool RequiereRevisionCliente { get; set; }
+        public int AprobadoClienteAnt { get; set; }
         public int AprobadoCliente { get; set; }
         public string AprobadoClienteDesc { get; set; }
+        public int AprobadoAduanaAnt { get; set; }
         public int AprobadoAduana { get; set; }
         public string AprobadoAduanaDesc { get; set; }
+        public bool OkEmbarqueAnt { get; set; }
         public bool OkEmbarque { get; set; }
         public bool Enviar { get; set; }
         public int CapturaEnvioID { get; set; }
@@ -56,6 +62,14 @@ namespace BackEndSAM.Models.Embarque.ListadoEmbarque
     public class DetalleJsonGuardar
     {
         public int EmbarqueID { get; set; }
+        public int DestinoID { get; set; }
+        public string SolicitudPermiso { get; set; }
+        public string FechaPermiso { get; set; }
+        public int AprobadoAduana { get; set; }
+        public int AprobadoCliente { get; set; }
+        public bool OkEmbarque { get; set; }
+        public int EstatusCaptura { get; set; }
+        public int BitacoraAduana { get; set; }
     }
     public class CapturaListadoEmbarque
     {

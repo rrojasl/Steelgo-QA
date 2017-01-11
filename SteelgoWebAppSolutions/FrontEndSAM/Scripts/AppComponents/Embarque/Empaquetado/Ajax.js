@@ -270,7 +270,6 @@ function AjaxGuardarCaptura(ds, tipoGuardado, cerrarPaquete, Paquete, Proyecto) 
             }
             Detalle[i].Accion = ds[i].Accion;
             Detalle[i].SpoolID = ds[i].SpoolID;
-            Detalle[i].SpoolID = ds[i].SpoolID;
             Detalle[i].CuadranteActualSam2ID = ds[i].CuadranteSam2ID;
             Detalle[i].CuadranteActualSam3ID = ds[i].CuadranteSam3ID;
         }

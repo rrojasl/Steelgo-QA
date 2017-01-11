@@ -80,29 +80,35 @@ namespace BackEndSAM.DataAcces.Embarque.ListadoEmbarque
                     {
                         listaDetalle.Add(new DetalleListadoEmbarque
                         {
+                            listaDestino = (List<ListadoDestino>)ListadoEmbarqueBD.Instance.ObtenerListaDestinos(item.ProyectoID.GetValueOrDefault()),
                             EmbarqueID = item.EmbarqueID,
                             Embarque = item.Embarque,
                             EstatusEmbarqueID = item.EmbarqueEstatusID,
                             ProyectoID = item.ProyectoID.GetValueOrDefault(),
                             Proyecto = item.Proyecto,
                             Planas = item.Planas,
+                            DestinoAntID = item.DestinoID,
                             DestinoID = item.DestinoID,
                             Destino = item.Destino,
+                            SolicitudPermisoAnt = item.SolicitudPermiso,
                             FolioSolicitudPermiso = item.SolicitudPermiso,
+                            FechaSolicitudAnt = item.FechaPermiso.ToString(),
                             FechaSolicitudPermiso = item.FechaPermiso.ToString(),
                             RequierePapCliente = item.RequierePapCliente.GetValueOrDefault(),
                             RequierePermisoAduana = item.RequiereAduana.GetValueOrDefault(),
                             RequiereRevisionCliente = item.RequiereRevisionCliente.GetValueOrDefault(),
+                            AprobadoClienteAnt = item.AprobadoCliente.GetValueOrDefault(),
                             AprobadoCliente = item.AprobadoCliente.GetValueOrDefault(),
                             AprobadoClienteDesc = item.AprobadoClienteDesc,
+                            AprobadoAduanaAnt = item.AprobadoAduana.GetValueOrDefault(),
                             AprobadoAduana = item.AprobadoAduana.GetValueOrDefault(),
                             AprobadoAduanaDesc = item.AprobadoAduanaDesc,
+                            OkEmbarqueAnt = item.OkEmbarque,
                             OkEmbarque = item.OkEmbarque,
                             Enviar = item.CapturaEnvioID != 0 && item.CapturaEnvioID != null ? true : false,
                             CapturaEnvioID = item.CapturaEnvioID.GetValueOrDefault(),
                             ModificadoPorUsuario = false,
                             RowOk = true,
-                            listaDestino = (List<ListadoDestino>)ListadoEmbarqueBD.Instance.ObtenerListaDestinos(item.ProyectoID.GetValueOrDefault()),
                             listaEstatus = listado
                         });
                     }
@@ -160,7 +166,7 @@ namespace BackEndSAM.DataAcces.Embarque.ListadoEmbarque
                 ObjetosSQL _SQL = new ObjetosSQL();
                 string[,] parametros = { { "@UsuarioID", UsuarioID.ToString() }, { "@Lenguaje", Lenguaje } };
 
-                _SQL.Ejecuta(Stords.GUARDARCAPTURALISTADOEMBARQUE, dtDetalle, "@TTEmbarqueListado", parametros);
+               _SQL.Ejecuta(Stords.GUARDARCAPTURALISTADOEMBARQUE, dtDetalle, "@TTEmbarqueListado", parametros);
 
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add("Ok");
