@@ -8187,8 +8187,8 @@ _dictionary = {
         "en-US": "Shipping list"
     },
     "menuEmbarqueRevision": {
-        "es-MX": "Revisión",
-        "en-US": "Review"
+        "es-MX": "Revisión Embarque",
+        "en-US": "Shipping Revision"
     },
     "menuEmbarqueDashboard": {
         "es-MX": "Dashboard Embarque",
@@ -8261,6 +8261,10 @@ _dictionary = {
     "menuCapturaPruebaSpool": {
         "es-MX": "Captura Pruebas por Spool",
         "en-US": "Spool Capture Test"
+    },
+    "menuListadoEmbarqueEnviados": {
+        "es-MX": "Listado embarque enviados",
+        "en-US": "Sent shipping list"
     },
     // Finalizan Etiquetas de Menú General
 
@@ -9031,7 +9035,6 @@ _dictionary = {
         "es-MX": "El campo adicionales, es mandatorio",
         "en-US": "The work field is mandatory"
     },
-   
     "CapturaArmadoNoExisteSpool": {
         "es-MX": "La junta no existe en el spool",
         "en-US": "The joint not exist in the spool"
@@ -11290,7 +11293,7 @@ _dictionary = {
     },
     "EmbarqueEmpaquetadoMsjDescargaEliminaPaquete": {
         "es-MX": "El último spool del paquete ha sido descargado. ¿Desea descargar el paquete de la plana o eliminarlo?",
-        "en-US": "Alert!!!"
+        "en-US": "The last spool of the package has been downloaded. Do you want to download the flat pack or remove it?"
     },
     //Finaliza pantalla carga plana
     //Inicia pantalla empaquetado
@@ -11540,6 +11543,16 @@ _dictionary = {
         "en-US": "Could not send shipment"
     },
     //Finaliza pantalla listado embarque
+    //Inicia pantalla listado embarque enviados
+    "EmbarqueListadoEnviadosBreadcrumb": {
+        "es-MX": "Listado embarque enviados",
+        "en-US": "Sent shipping list"
+    },
+    "EmbarqueListadoEnviadosTituloPagina": {
+        "es-MX": "Listado embarque enviados",
+        "en-US": "Sent shipping list"
+    },
+    //Finaliza pantalla listado embarque enviados
     //Inicia pantalla revision
     "EmbarqueRevisionBreadcrumb": {
         "es-MX": "Revisión Embarque",

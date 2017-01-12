@@ -252,6 +252,7 @@ function AbrirPopUpGuardar(Paquete, TipoGuardado, PatioID) {
         $("#InputFechaPaquete").val(fechaPredeterminada);
 
     }
+    windowSave.title(_dictionary.EmbarqueEmpaquetadoNuevoPaquete[$("#language").data("kendoDropDownList").value()]);
     windowSave.open().center();
 
 }
@@ -323,13 +324,14 @@ function AjaxDescargarSpool(dataItem, Paquete) {
                 dataSource.remove(dataItem);
                 dataSource.sync();
                 elementos = parseInt(data.ReturnMessage[1]);
-                if (elementos == 0 && $("#InputCerrar").is(":checked")) {
+                if (elementos == 0 && Paquete.Cerrado) {
                     if (Paquete.CargaPlana == 1) {
 
                         cuadranteAnteriorDescarga = Paquete.CuadranteUbicacionAnt
 
                         $("#inputZonaPaqueteDescarga").data("kendoComboBox").value(Paquete.ZonaUbicacionAnt);
                         $("#inputZonaPaqueteDescarga").data("kendoComboBox").trigger("change");
+                        windowPackageEmpty.title(_dictionary.EmbarqueEmpaquetadoAdvertenciaPaqueteVacio[$("#language").data("kendoDropDownList").value()]);
                         windowPackageEmpty.open().center();
                     } else
                         AjaxAbrirPaquete(Paquete);
@@ -421,7 +423,7 @@ function AjaxAbrirPaquete(Paquete){
         token: Cookies.get("token"), PaqueteID: Paquete.PaqueteID
     }).done(function (data) {
         $("#InputCerrar")[0].checked = false;
-        AjaxCargarPaquetes(proyectoID, Paquete.PaqueteID);
+        //AjaxCargarPaquetes(proyectoID, Paquete.PaqueteID);
     });
     
     loadingStop();

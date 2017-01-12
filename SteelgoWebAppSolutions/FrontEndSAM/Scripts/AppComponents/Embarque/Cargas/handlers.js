@@ -26,11 +26,14 @@ function SuscribirEventos() {
     SuscribirEventoGuardarPlana();
     SuscribirEventoGuardarProveedor();
     SuscribirEventoDescargarPaquete();
+    SuscribirEventoPopUpDescargaPaquete();
+    SuscribirEventoPopUpDescargaSpool();
+    SuscribirEventoPopUpPaqueteVacio();
 }
 function SuscribirEventoPopUpDescargaPaquete() {
     windowDownloadPaquete = $("#divDescargaPaquete").kendoWindow({
         iframe: true,
-        title: _dictionary.EmbarqueCargaTituloPopupDescargaPaquete[$("#language").data("kendoDropDownList").value()],
+        title: "",
         modal: true,
         resizable: false,
         visible: false,
@@ -68,7 +71,7 @@ function SuscribirEventoPopUpDescargaPaquete() {
 
 function SuscribirEventoPopUpDescargaSpool() {
     ventanaPopup = $("#ventanaPopup").kendoWindow({
-        title: _dictionary.EmbarqueCargaTituloPopupCuadrante[$("#language").data("kendoDropDownList").value()],
+        title: "",
         visible: false,
         width: "auto",
         height: "auto",
@@ -117,6 +120,7 @@ function SuscribirEventoDescargarPaquete() {
                         $("#inputZonaPaquete").data("kendoComboBox").trigger("change");
                         CuadrantePaqueteAnterior = dataItem.CuadrantePaqueteAnteriorID;
 
+                        windowDownloadPaquete.title(__dictionary.EmbarqueCargaTituloPopupDescargaPaquete[$("#language").data("kendoDropDownList").value()]);
                         windowDownloadPaquete.center().open();
                     }
                 } else 
@@ -129,7 +133,7 @@ function SuscribirEventoDescargarPaquete() {
 function SuscribirEventoPopUpPaqueteVacio() {
     windowPackageEmpty = $("#windowPackageEmpty").kendoWindow({
         iframe: true,
-        title: _dictionary.EmbarqueEmpaquetadoAdvertenciaPaqueteVacio[$("#language").data("kendoDropDownList").value()],
+        title: "",
         visible: false,
         width: "40%",
         height: "auto",

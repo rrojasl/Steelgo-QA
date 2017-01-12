@@ -44,6 +44,11 @@ namespace FrontEndSAM.Controllers.Embarque
             return View();
         }
 
+        public ActionResult ListadoEmbarqueEnviados()
+        {
+            return View();
+        }
+
         public ActionResult RevisionEmbarque()
         {
             return View();

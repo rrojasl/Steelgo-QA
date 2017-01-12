@@ -19,9 +19,6 @@ function changeLanguageCall() {
 
     document.title = _dictionary.EmbarqueHeaderCargaPlana[$("#language").data("kendoDropDownList").value()];
 
-    SuscribirEventoPopUpDescargaPaquete();
-    SuscribirEventoPopUpDescargaSpool();
-    SuscribirEventoPopUpPaqueteVacio();
     opcionHabilitarView(false, "FieldSetView");
 };
 
@@ -39,21 +36,6 @@ function IniciarCapturaEmbarqueCarga() {
     SuscribirEventos();
 }
 
-
-
-function CrearPopup() {
-    ventanaPopup = $("#ventanaPopup").kendoWindow({
-        title: _dictionary.EmbarqueCargaTituloPopupCuadrante[$("#language").data("kendoDropDownList").value()],
-        visible: false, //the window will not appear before its .open method is called
-        width: "500px",
-        height: "auto",
-        modal: true,
-        draggable: false,
-        resizable: false,
-        animation: false,
-        actions: []
-    }).data("kendoWindow");
-}
 
 function CargarGrid() {
     $("#grid").kendoGrid({
@@ -199,6 +181,7 @@ function DescargarSpool(e) {
             $("#inputZonaPopup").data("kendoComboBox").trigger("change");
             CuadranteSpoolAnterior = dataItem.CuadranteAnteriorID;
 
+            ventanaPopup.title(_dictionary.EmbarqueCargaTituloPopupCuadrante[$("#language").data("kendoDropDownList").value()]);
             ventanaPopup.open().center();
         }
     } else {
