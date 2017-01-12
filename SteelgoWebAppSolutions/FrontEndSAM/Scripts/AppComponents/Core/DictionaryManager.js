@@ -9845,9 +9845,10 @@ _dictionary = {
         "en-US": "Validation Results"
     },
     "EntregaPlacasGraficasTituloPopup": {
-        "es-MX": "Alerta!!!",
-        "en-US": "Warning!!!"
+        "es-MX": "Error!!!",
+        "en-US": "Errorto save!!!"
     },
+
     "EntregaPlacasGraficasPlancharTodos": {
         "es-MX": "¿Esta seguro de reemplazar todos los datos?",
         "en-US": "Are you sure to replace all data"
