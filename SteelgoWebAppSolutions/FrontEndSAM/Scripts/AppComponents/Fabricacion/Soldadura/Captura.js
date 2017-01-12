@@ -6,6 +6,8 @@ function changeLanguageCall() {
     AjaxCargarCamposPredeterminados();
     CargarGrid();
     CargarGridPopUp();
+    CargarGridPopupSoldadoresRaizCapturados();
+    CargarGridPopupSoldadoresRellenoCapturados();
     opcionHabilitarView(false, "FieldSetView");
     document.title = _dictionary.CapturaSoldaduraSoldaduraSpool[$("#language").data("kendoDropDownList").value()];
 };
@@ -79,16 +81,31 @@ function CargarGrid() {
             { field: "DetalleJunta", title: _dictionary.columnDetalleJunta[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "180px" },
             { field: "Diametro", title: _dictionary.columnDiametro[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "80px", attributes: { style: "text-align:right;" } },
             { field: "Taller", title: _dictionary.columnTaller[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxTaller, width: "130px" },
-            { field: "FechaSoldadura", title: _dictionary.columnFecha[$("#language").data("kendoDropDownList").value()], filterable: getKendoGridFilterableDateMaftec(), editor: RenderDatePicker, width: "160px", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()] },
-            { field: "ProcesoSoldaduraRaiz", title: _dictionary.columnProcesoRaiz[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "150px", editor: RenderComboBoxProcesoSoldaduraRaiz },
+            { field: "FechaSoldadura", title: _dictionary.columnFecha[$("#language").data("kendoDropDownList").value()], filterable: getKendoGridFilterableDateMaftec(), editor: RenderDatePicker, width: "110px", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()] },
+            { field: "ProcesoSoldaduraRaiz", title: _dictionary.columnProcesoRaiz[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "140px", editor: RenderComboBoxProcesoSoldaduraRaiz },
             { field: "TemplateSoldadoresRaiz", title: _dictionary.columnSoldadoresRaiz[$("#language").data("kendoDropDownList").value()], filterable: false, width: "150px", template: "<div class='botonSoldadoresRaiz'><a href='\\#'  > <span>#=TemplateSoldadoresRaiz#</span></a></div>" },
-            { field: "ProcesoSoldaduraRelleno", title: _dictionary.columnProcesoRelleno[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "150px", editor: RenderComboBoxProcesoSoldaduraRelleno },
+            { field: "ProcesoSoldaduraRelleno", title: _dictionary.columnProcesoRelleno[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "140px", editor: RenderComboBoxProcesoSoldaduraRelleno },
             { field: "TemplateSoldadoresRelleno", title: _dictionary.columnSoldadoresRelleno[$("#language").data("kendoDropDownList").value()], filterable: false, width: "150px", template: "<div class='botonSoldadoresRelleno'><a href='\\#' > <span>#=TemplateSoldadoresRelleno#</span></a></div>" },
             { field: "WPSNombre", title: _dictionary.columnWPS[$("#language").data("kendoDropDownList").value()], editor: RenderComboBoxWPS, filterable: getGridFilterableCellMaftec(), width: "130px" },
             { field: "DetalleAdicional", title: _dictionary.columnDetalleAdicional[$("#language").data("kendoDropDownList").value()], filterable: false, width: "150px", template: "<div class='botonAdicionales'><a href='\\#' > <span>#=TemplateTrabajosAdicionales#</span></a></div>" },
             { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: cancelarCaptura }, filterable: false, title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], width: "50px" },
-            { command: { text: _dictionary.botonLimpiar[$("#language").data("kendoDropDownList").value()], click: limpiarRenglon }, filterable: false, title: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()], width: "60px" }
-        ]
+            { command: { text: _dictionary.botonLimpiar[$("#language").data("kendoDropDownList").value()], click: limpiarRenglon }, filterable: false, title: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()], width: "50px" }
+        ],
+        dataBound: function () {
+            var grid = $("#grid").data("kendoGrid");
+            var gridData = grid.dataSource.view();
+
+            for (var i = 0; i < gridData.length; i++) {
+                var currentUid = gridData[i].uid;
+                if (gridData[i].RowOk == false) {
+                    grid.table.find("tr[data-uid='" + currentUid + "']").css("background-color", "#ffcccc");
+                }
+                else if (gridData[i].RowOk) {
+                    grid.table.find("tr[data-uid='" + currentUid + "']").css("background-color", "#ffffff");
+                }
+
+            }
+        }
     });
 
     CustomisaGrid($("#grid"));
@@ -188,17 +205,21 @@ function limpiarRenglon(e) {
         var itemToClean = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
         itemToClean.Raiz = [];
         itemToClean.Taller = "";
+        itemToClean.WPSNombre = "";
         itemToClean.Relleno = [];
         itemToClean.TallerID = 0;
+        itemToClean.WPSID = 0;
         itemToClean.FechaSoldadura = "";
-        itemToClean.procesoSoldaduraRaiz = "";
-        itemToClean.procesoSoldaduraRaizID = 0;
-        itemToClean.procesoSoldaduraRelleno = "";
-        itemToClean.procesoSoldaduraRellenoID = 0;
-        itemToClean.DetalleAdicional = [];
-        itemToClean.SoldadoresRaiz = _dictionary.CapturaSoldaduraNoSoldadoresRaiz[$("#language").data("kendoDropDownList").value()];
-        itemToClean.SoldadoresRelleno = _dictionary.CapturaSoldaduraNoSoldadoresRelleno[$("#language").data("kendoDropDownList").value()];
-        itemToClean.TrabajosAdicionales = _dictionary.CapturaArmadoTemplateNoHayTrabajosAdicionales[$("#language").data("kendoDropDownList").value()];
+        itemToClean.ProcesoSoldaduraRaiz = "";
+        itemToClean.ProcesoSoldaduraRaizID = 0;
+        itemToClean.ProcesoSoldaduraRelleno = "";
+        itemToClean.ProcesoSoldaduraRellenoID = 0;
+        itemToClean.ListaDetalleTrabajoAdicional = [];
+        itemToClean.ListaSoldadoresRellenoCapturados = [];
+        itemToClean.ListaSoldadoresRaizCapturados = [];
+        itemToClean.TemplateSoldadoresRaiz = _dictionary.CapturaArmadoTemplateNoHaySoldadoresRaiz[$("#language").data("kendoDropDownList").value()];
+        itemToClean.TemplateSoldadoresRelleno = _dictionary.CapturaArmadoTemplateNoHaySoldadoresRelleno[$("#language").data("kendoDropDownList").value()];
+        itemToClean.TemplateTrabajosAdicionales = _dictionary.CapturaArmadoTemplateNoHayTrabajosAdicionales[$("#language").data("kendoDropDownList").value()];
         var dataSource = $("#grid").data("kendoGrid").dataSource;
         dataSource.sync();
     }
@@ -300,12 +321,12 @@ function ExisteJuntaEnSpool(Row) {
 }
 
 
-function GridPopupSoldadoresRaizCapturados(row) {
+function CargarGridPopupSoldadoresRaizCapturados() {
 
 
     $("#inputSoldadoresRaiz").kendoGrid({
         dataSource: {
-            data: row.ListaSoldadoresRaizCapturados,
+            data: [],
             schema: {
                 model: {
                     fields: {
@@ -348,7 +369,7 @@ function GridPopupSoldadoresRaizCapturados(row) {
                         else
                             dataItem.Accion = 3;
                     }
-
+                    dataSource.sync();
 
                 }
             }, width: "50px", title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()]
@@ -359,7 +380,7 @@ function GridPopupSoldadoresRaizCapturados(row) {
         toolbar: [{ name: "create" }]
     });
     CustomisaGrid($("#inputSoldadoresRaiz"));
-    VentanaModalSoldadoresRaiz();
+    
 };
 
 
@@ -388,12 +409,12 @@ function VentanaModalSoldadoresRaiz() {
 
 
 
-function GridPopupSoldadoresRellenoCapturados(row) {
+function CargarGridPopupSoldadoresRellenoCapturados() {
 
 
     $("#inputSoldadoresRelleno").kendoGrid({
         dataSource: {
-            data: row.ListaSoldadoresRellenoCapturados,
+            data:[],
             schema: {
                 model: {
                     fields: {
@@ -445,7 +466,7 @@ function GridPopupSoldadoresRellenoCapturados(row) {
         toolbar: [{ name: "create" }]
     });
     CustomisaGrid($("#inputSoldadoresRelleno"));
-    VentanaModalSoldadoresRelleno();
+    
 };
 
 
@@ -471,6 +492,34 @@ function VentanaModalSoldadoresRelleno() {
 
 };
 
+function ArregloListadoJuntasCapturadas() {
+    var dataSource = $("#grid").data("kendoGrid").dataSource;
+    var data = dataSource._data
+
+    JsonCaptura = [];
+
+
+    for (var i = 0; i < data.length ; i++) {
+        JsonCaptura[i] = { IDProyecto: "", Proyecto: "", IdOrdenTrabajo: "", OrdenTrabajo: "", idVal: "", idText: "", SpoolID: "", JuntaID: "", Junta: "", FechaArmado: "", TuberoID: "", Tubero: "", TallerID: "", Taller: "", sinCaptura: "" };
+        JsonCaptura[i].IDProyecto = data[i].IDProyecto;
+        JsonCaptura[i].Proyecto = data[i].Proyecto;
+        JsonCaptura[i].IdOrdenTrabajo = data[i].IdOrdenTrabajo;
+        JsonCaptura[i].OrdenTrabajo = data[i].OrdenTrabajo;
+        JsonCaptura[i].idVal = data[i].idVal;
+        JsonCaptura[i].idText = data[i].idText;
+        JsonCaptura[i].SpoolID = data[i].SpoolID;
+        JsonCaptura[i].JuntaID = data[i].JuntaID;
+        JsonCaptura[i].Junta = data[i].Junta;
+        JsonCaptura[i].FechaSoldadura = kendo.toString(data[i].FechaSoldadura, _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()]);;
+        JsonCaptura[i].tallerID = data[i].TallerID
+        JsonCaptura[i].Taller = data[i].Taller;
+        JsonCaptura[i].ColadaID = data[i].ColadaID;
+        JsonCaptura[i].NumeroColada = data[i].NumeroColada;
+        JsonCaptura[i].sinCaptura = "Todos";
+
+    }
+    return JsonCaptura;
+}
 
 function ArregloListadoCaptura() {
     JsonCaptura = [];
@@ -530,20 +579,10 @@ function CargarGridPopUp() {
                     { field: "Accion", operator: "eq", value: undefined }
                 ]
             },
-            pageSize: 10,
-            serverPaging: false,
-            serverFiltering: false,
-            serverSorting: false
         },
         selectable: true,
         filterable: getGridFilterableMaftec(),
-        pageable: {
-            refresh: false,
-            pageSizes: [10, 25, 50, 100],
-            info: false,
-            input: false,
-            numeric: true
-        },
+        
         change: function (e) {
 
             //ItemSeleccionadoAnidado = this.dataSource.view()[this.select().index()];
@@ -621,7 +660,7 @@ function CargarGridPopUp() {
         ],
         editable: true,
         navigatable: true,
-        toolbar: [{ name: "create", }]
+        toolbar: [{ name: "create" }]
 
     });
 
@@ -633,12 +672,46 @@ function GridPopUpTrabajosAdicionales(data) {
 
     $("#gridPopUp").data('kendoGrid').dataSource.data([]);
     var ds = $("#gridPopUp").data("kendoGrid").dataSource;
-    var array = data.DetalleAdicional;
-
+    var array = [];
+    array = data.ListaDetalleTrabajoAdicional;
+    for (var i = 0; i < array.length; i++) {
+        ds.add(array[i]);
+    }
+    ds.sync();
     VentanaModal();
 }
 
+function GridPopupSoldadoresRaizCapturados(data) {
+    modeloRenglon = data;
+
+    $("#inputSoldadoresRaiz").data('kendoGrid').dataSource.data([]);
+    var ds = $("#inputSoldadoresRaiz").data("kendoGrid").dataSource;
+    var array = [];
+    array = data.ListaSoldadoresRaizCapturados;
+    for (var i = 0; i < array.length; i++) {
+        ds.add(array[i]);
+    }
+    ds.sync();
+    VentanaModalSoldadoresRaiz();
+}
+
+function GridPopupSoldadoresRellenoCapturados(data) {
+    modeloRenglon = data;
+
+    $("#inputSoldadoresRelleno").data('kendoGrid').dataSource.data([]);
+    var ds = $("#inputSoldadoresRelleno").data("kendoGrid").dataSource;
+    var array = [];
+    array = data.ListaSoldadoresRellenoCapturados;
+    for (var i = 0; i < array.length; i++) {
+        ds.add(array[i]);
+    }
+    ds.sync();
+    VentanaModalSoldadoresRelleno();
+}
+
 var actuallongitudTrabajosAdicionales = 0;
+var actuallongitudSoldadoresRaiz = 0;
+var actuallongitudSoldadoresRelleno = 0;
 
 function VentanaModal() {
 

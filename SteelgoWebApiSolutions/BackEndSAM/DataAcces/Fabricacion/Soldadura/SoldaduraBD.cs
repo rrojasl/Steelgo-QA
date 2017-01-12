@@ -231,7 +231,7 @@ namespace BackEndSAM.DataAcces.Fabricacion.Soldadura
             try
             {
                 List<ProcesoSoldadura> listaProcesosSoldadura = new List<ProcesoSoldadura>();
-
+                listaProcesosSoldadura.Add(new ProcesoSoldadura());
                 using (SamContext ctx = new SamContext())
                 {
                     List<Sam3_Cat_PQR_ProcesoSoldadura_Result> result = ctx.Sam3_Cat_PQR_ProcesoSoldadura(1).ToList();
@@ -511,7 +511,24 @@ namespace BackEndSAM.DataAcces.Fabricacion.Soldadura
                 using (SamContext ctx = new SamContext())
                 {
                     List<Sam3_Soldadura_Get_DetalleTrabajoAdicional_Result> listaDetallaTrabajoAdicionalJson = ctx.Sam3_Soldadura_Get_DetalleTrabajoAdicional(JuntaSoldaduraID).ToList();
-                    return listaDetallaTrabajoAdicionalJson;
+
+                    List<TrabajosAdicionalesSoldadura> result = new List<TrabajosAdicionalesSoldadura>();
+                    foreach (Sam3_Soldadura_Get_DetalleTrabajoAdicional_Result item in listaDetallaTrabajoAdicionalJson)
+                    {
+                        result.Add(new TrabajosAdicionalesSoldadura {
+                            Accion = 2,
+                            JuntaSoldaduraID = item.JuntaSoldaduraID,
+                            SoldaduraTrabajoAdicionalID = item.SoldaduraTrabajoAdicionalID,
+                            ObreroID = item.ObreroID,
+                            Soldador = item.Soldador,
+                            TrabajoAdicional = item.TrabajoAdicional,
+                            TrabajoAdicionalID = item.TrabajoAdicionalID,
+                            Observacion = item.Observacion
+                            
+                        });
+                    }
+
+                    return result;
                 }
             }
             catch (Exception ex)

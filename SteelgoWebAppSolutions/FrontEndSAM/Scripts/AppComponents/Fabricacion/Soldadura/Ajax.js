@@ -153,10 +153,10 @@ function AjaxCargarReporteJuntas() {
                                 ds._data[j].TemplateSoldadoresRelleno = array[i].TemplateSoldadoresRelleno;
                                 ds._data[j].TipoJuntaID = array[i].TipoJuntaID;
                                 ds._data[j].Accion = array[i].Accion;
-                                ds._data[j].procesoSoldaduraRaizID = array[i].procesoSoldaduraRaizID;
-                                ds._data[j].procesoSoldaduraRellenoID = array[i].procesoSoldaduraRellenoID;
-                                ds._data[j].procesoSoldaduraRaiz = array[i].procesoSoldaduraRaiz;
-                                ds._data[j].procesoSoldaduraRelleno = array[i].procesoSoldaduraRelleno;
+                                ds._data[j].ProcesoSoldaduraRaizID = array[i].ProcesoSoldaduraRaizID;
+                                ds._data[j].ProcesoSoldaduraRellenoID = array[i].ProcesoSoldaduraRellenoID;
+                                ds._data[j].ProcesoSoldaduraRaiz = array[i].ProcesoSoldaduraRaiz;
+                                ds._data[j].ProcesoSoldaduraRelleno = array[i].ProcesoSoldaduraRelleno;
                                 ds._data[j].Proyecto = array[i].Proyecto;
                                 ds._data[j].IDProyecto = array[i].IDProyecto;
                                 ds._data[j].IdOrdenTrabajo = array[i].IdOrdenTrabajo;
@@ -233,7 +233,7 @@ function AjaxCargarReporteJuntas() {
 function AjaxObtenerListadoWPS(dataItem) {
 
     loadingStart();
-    $Soldadura.Soldadura.read({ ProyectoID: Cookies.get("Proyecto").split('°')[0], ProcesoRaizID: dataItem.procesoSoldaduraRaizID, ProcesoRellenoID: dataItem.procesoSoldaduraRellenoID, Espesor: dataItem.Espesor, lenguaje: $("#language").val(), token: Cookies.get("token") }).done(function (data) {
+    $Soldadura.Soldadura.read({ ProyectoID: Cookies.get("Proyecto").split('°')[0], ProcesoRaizID: dataItem.ProcesoSoldaduraRaizID, ProcesoRellenoID: dataItem.ProcesoSoldaduraRellenoID, Espesor: dataItem.Espesor, lenguaje: $("#language").val(), token: Cookies.get("token") }).done(function (data) {
         if (Error(data)) {
             dataItem.ListaWPS = data;
         }
@@ -302,10 +302,10 @@ function ObtenerJSonGridSoldadura() {
                             ds._data[j].TemplateSoldadoresRelleno = array[0].TemplateSoldadoresRelleno;
                             ds._data[j].TipoJuntaID = array[0].TipoJuntaID;
                             ds._data[j].Accion = array[0].Accion;
-                            ds._data[j].procesoSoldaduraRaizID = array[0].procesoSoldaduraRaizID;
-                            ds._data[j].procesoSoldaduraRellenoID = array[0].procesoSoldaduraRellenoID;
-                            ds._data[j].procesoSoldaduraRaiz = array[0].procesoSoldaduraRaiz;
-                            ds._data[j].procesoSoldaduraRelleno = array[0].procesoSoldaduraRelleno;
+                            ds._data[j].ProcesoSoldaduraRaizID = array[0].ProcesoSoldaduraRaizID;
+                            ds._data[j].ProcesoSoldaduraRellenoID = array[0].ProcesoSoldaduraRellenoID;
+                            ds._data[j].ProcesoSoldaduraRaiz = array[0].ProcesoSoldaduraRaiz;
+                            ds._data[j].ProcesoSoldaduraRelleno = array[0].ProcesoSoldaduraRelleno;
                             ds._data[j].Proyecto = array[0].Proyecto;
                             ds._data[j].IDProyecto = array[0].IDProyecto;
                             ds._data[j].IdOrdenTrabajo = array[0].IdOrdenTrabajo;
@@ -440,8 +440,8 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
             ListaDetalles[index].JuntaSoldaduraID = arregloCaptura[index].JuntaSoldaduraID;
             ListaDetalles[index].TallerID = arregloCaptura[index].TallerID;
             ListaDetalles[index].WPSID = arregloCaptura[index].WPSID;
-            ListaDetalles[index].ProcesoSoldaduraRaizID = arregloCaptura[index].procesoSoldaduraRaizID;
-            ListaDetalles[index].ProcesoSoldaduraRellenoID = arregloCaptura[index].procesoSoldaduraRellenoID;
+            ListaDetalles[index].ProcesoSoldaduraRaizID = arregloCaptura[index].ProcesoSoldaduraRaizID;
+            ListaDetalles[index].ProcesoSoldaduraRellenoID = arregloCaptura[index].ProcesoSoldaduraRellenoID;
             ListaDetalles[index].FechaSoldadura =
                 kendo.toString(arregloCaptura[index].FechaSoldadura, labelFecha) == null ? "" :
                 kendo.toString(arregloCaptura[index].FechaSoldadura, labelFecha).trim();
@@ -458,26 +458,26 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
 
 
             ListaTrabajosAdicionalesEditados = [];
-            if (arregloCaptura[index].DetalleAdicional != undefined) {
-                for (j = 0; j < arregloCaptura[index].DetalleAdicional.length; j++) {
+            if (arregloCaptura[index].ListaDetalleTrabajoAdicional != undefined) {
+                for (j = 0; j < arregloCaptura[index].ListaDetalleTrabajoAdicional.length; j++) {
                     ListaTrabajosAdicionalesEditados[j] = {
                         JuntaSpoolID: "", TallerID: "", Accion: "", JuntaID: "", SoldaduraTrabajoAdicionalID: "",
                         JuntaSoldaduraID: "", TrabajoAdicionalID: "", ObreroID: "", Observacion: ""
                     }
 
-                    if (arregloCaptura[index].DetalleAdicional[j].TrabajoAdicionalID == 0 || arregloCaptura[index].DetalleAdicional[j].ObreroID == 0)
+                    if (arregloCaptura[index].ListaDetalleTrabajoAdicional[j].TrabajoAdicionalID == 0 || arregloCaptura[index].ListaDetalleTrabajoAdicional[j].ObreroID == 0)
                         ListaTrabajosAdicionalesEditados[j].Accion = 0;
                     else
-                        ListaTrabajosAdicionalesEditados[j].Accion = arregloCaptura[index].DetalleAdicional[j].Accion;
+                        ListaTrabajosAdicionalesEditados[j].Accion = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].Accion;
 
-                    ListaTrabajosAdicionalesEditados[j].JuntaID = arregloCaptura[index].DetalleAdicional[j].JuntaID;
-                    ListaTrabajosAdicionalesEditados[j].SoldaduraTrabajoAdicionalID = arregloCaptura[index].DetalleAdicional[j].SoldaduraTrabajoAdicionalID;
+                    ListaTrabajosAdicionalesEditados[j].JuntaID = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].JuntaID;
+                    ListaTrabajosAdicionalesEditados[j].SoldaduraTrabajoAdicionalID = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].SoldaduraTrabajoAdicionalID;
                     ListaTrabajosAdicionalesEditados[j].JuntaSoldaduraID = arregloCaptura[index].JuntaSoldaduraID;
-                    ListaTrabajosAdicionalesEditados[j].JuntaSpoolID = arregloCaptura[index].DetalleAdicional[j].JuntaSpoolID;
-                    ListaTrabajosAdicionalesEditados[j].TrabajoAdicionalID = arregloCaptura[index].DetalleAdicional[j].TrabajoAdicionalID;
-                    ListaTrabajosAdicionalesEditados[j].TallerID = arregloCaptura[index].DetalleAdicional[j].TallerID
-                    ListaTrabajosAdicionalesEditados[j].ObreroID = arregloCaptura[index].DetalleAdicional[j].ObreroID;
-                    ListaTrabajosAdicionalesEditados[j].Observacion = arregloCaptura[index].DetalleAdicional[j].Observacion;
+                    ListaTrabajosAdicionalesEditados[j].JuntaSpoolID = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].JuntaSpoolID;
+                    ListaTrabajosAdicionalesEditados[j].TrabajoAdicionalID = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].TrabajoAdicionalID;
+                    ListaTrabajosAdicionalesEditados[j].TallerID = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].TallerID
+                    ListaTrabajosAdicionalesEditados[j].ObreroID = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].ObreroID;
+                    ListaTrabajosAdicionalesEditados[j].Observacion = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].Observacion;
                 }
             }
 
@@ -548,8 +548,8 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                 ListaSoldadoresEditados[j].JuntaSoldaduraID = arregloCaptura[index].JuntaSoldaduraID;
                 ListaSoldadoresEditados[j].EsRaiz = 1;
                 ListaSoldadoresEditados[j].ObreroID = listaSoldadoresFinal[j].ObreroID;
-                ListaSoldadoresEditados[j].Comentario = listaSoldadoresFinal[index].Observaciones;
-                ListaSoldadoresEditados[j].ConsumibleID = listaSoldadoresFinal[index].ColadaID;
+                ListaSoldadoresEditados[j].Comentario = listaSoldadoresFinal[j].Observaciones == undefined ? "" : listaSoldadoresFinal[j].Observaciones;
+                ListaSoldadoresEditados[j].ConsumibleID = listaSoldadoresFinal[j].ColadaID;
 
             }
 
@@ -619,8 +619,8 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                 ListaRellenoEditados[j].JuntaSoldaduraID = arregloCaptura[index].JuntaSoldaduraID;
                 ListaRellenoEditados[j].EsRaiz = 0;
                 ListaRellenoEditados[j].ObreroID = listaRellenoSoldadoresFinal[j].ObreroID;
-                ListaRellenoEditados[j].Comentario = listaRellenoSoldadoresFinal[index].Observaciones;
-                ListaRellenoEditados[j].ConsumibleID = listaRellenoSoldadoresFinal[index].ColadaID;
+                ListaRellenoEditados[j].Comentario = listaRellenoSoldadoresFinal[j].Observaciones == undefined ? "" : listaRellenoSoldadoresFinal[j].Observaciones;
+                ListaRellenoEditados[j].ConsumibleID = listaRellenoSoldadoresFinal[j].ColadaID;
 
             }
 
@@ -646,20 +646,15 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                 }
                 else {
 
-                    if (ListaDetalles[index].ProcesoSoldaduraRaizID == "" || ListaDetalles[index].ProcesoSoldaduraRaizID == 0) {
-                        ListaDetalles[index].Estatus = 0;
-                        $('tr[data-uid="' + arregloCaptura[index].uid + '"] ').css("background-color", "#ffcccc");
-                    }
-                    if (ListaDetalles[index].ProcesoSoldaduraRellenoID == "" || ListaDetalles[index].ProcesoSoldaduraRellenoID == 0) {
-                        ListaDetalles[index].Estatus = 0;
-                        $('tr[data-uid="' + arregloCaptura[index].uid + '"] ').css("background-color", "#ffcccc");
-                    }
                     if (ListaDetalles[index].WPSID == "" || ListaDetalles[index].WPSID == 0 ||
-                      ListaDetalles[index].TallerID == "" || ListaDetalles[index].TallerID == "0" ||
+                        ListaDetalles[index].TallerID == "" || ListaDetalles[index].TallerID == "0" ||
+                        ListaDetalles[index].ProcesoSoldaduraRellenoID == "" || ListaDetalles[index].ProcesoSoldaduraRellenoID == 0 ||
+                        ListaDetalles[index].ProcesoSoldaduraRaizID == "" || ListaDetalles[index].ProcesoSoldaduraRaizID == 0  ||
                         ListaDetalles[index].FechaSoldadura == ""
                         ) {
                         ListaDetalles[index].Estatus = 0;
-                        $('tr[data-uid="' + arregloCaptura[index].uid + '"] ').css("background-color", "#ffcccc");
+                        $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
+                        //$('tr[data-uid="' + arregloCaptura[index].uid + '"] ').css("background-color", "#ffcccc");
                     }
 
                 }
@@ -764,7 +759,7 @@ function AjaxEjecutarGuardado(Captura, tipoGuardar) {
                 else {
                     opcionHabilitarView(true, "FieldSetView");
                     loadingStop();
-                    
+                    AjaxCambiarAccionAModificacion();
                 }
             }
             else {
@@ -773,4 +768,54 @@ function AjaxEjecutarGuardado(Captura, tipoGuardar) {
             }
         }
     });
+}
+
+
+function AjaxCambiarAccionAModificacion() {
+    var capturaListado = [];
+    capturaListado[0] = { Detalles: "" };
+    var listado = ArregloListadoJuntasCapturadas();
+    capturaListado[0].Detalles = listado;
+    var isReporte = true;
+
+    var listadogrid = $("#grid").data("kendoGrid").dataSource._data;
+
+    $("#grid").data("kendoGrid").dataSource.data([]);
+
+    var differentsJoits = [];
+    for (var y = 0; y < listado.length; y++) {
+        if (differentsJoits.length == 0) {
+            differentsJoits.push(listado[y]);
+        }
+        else if (differentsJoits[differentsJoits.length - 1].SpoolID != listado[y].SpoolID) {
+            differentsJoits.push(listado[y]);
+        }
+    }
+
+    if ($('input:radio[name=TipoAgregado]:checked').val() == "Listado") {
+        isReporte = false;
+        differentsJoits = listado;
+    }
+
+    for (var x = 0; x < differentsJoits.length; x++) {
+
+        loadingStart();
+        $Soldadura.Soldadura.read({ JsonCaptura: JSON.stringify(differentsJoits[x]), isReporte: isReporte, lenguaje: $("#language").val(), token: Cookies.get("token") }).done(function (data) {
+            if (Error(data)) {
+                var ds = $("#grid").data("kendoGrid").dataSource;
+                var array = JSON.parse(data);
+
+                for (var i = 0; i < array.length; i++) {
+                    if (array[i].FechaSoldadura != null) {
+                        array[i].FechaSoldadura = kendo.toString(array[i].FechaSoldadura, _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()]);
+                        array[i].FechaSoldadura = new Date(ObtenerDato(array[i].FechaSoldadura, 1), ObtenerDato(array[i].FechaSoldadura, 2), ObtenerDato(array[i].FechaSoldadura, 3));//año, mes, dia
+                    }
+
+
+                    ds.add(array[i]);
+                }
+            }
+            loadingStop();
+        });
+    }
 }
