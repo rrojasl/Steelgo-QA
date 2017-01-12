@@ -89,7 +89,8 @@ function SuscribirEventoPlanchar() {
                     width: "auto",
                     height: "auto",
                     modal: true,
-                    animation: false
+                    animation: false,
+                    actions: []
                 }).data("kendoWindow");
 
                 ventanaConfirm.content(_dictionary.CapturaMensajeArmadoPlancharTodos[$("#language").data("kendoDropDownList").value()] +

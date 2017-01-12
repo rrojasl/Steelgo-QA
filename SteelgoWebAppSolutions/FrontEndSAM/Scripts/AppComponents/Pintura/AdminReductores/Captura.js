@@ -5,6 +5,7 @@ function changeLanguageCall() {
     CargarGrid();
     AjaxDetalleGridReductores();
     AjaxObtenerCatalogoReductores();
+    mostrarConfirmacionVentanaModal();
 
     document.title = _dictionary.CapturaAdminReductoresTituloPagina[$("#language").data("kendoDropDownList").value()];
 };

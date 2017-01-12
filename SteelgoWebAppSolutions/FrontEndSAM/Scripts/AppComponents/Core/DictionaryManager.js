@@ -7731,8 +7731,9 @@ _dictionary = {
     },
     "ErrorTitle": {
         "es-MX": "Error",
-        "en-US": "Error"
+        "en-US": "Error to save"
     },
+
     //Finaliza etiquetas header alertas
     //Formatos 
 
@@ -8964,7 +8965,7 @@ _dictionary = {
     },
     "TituloPopUpError": {
         "es-MX": "Error al guardar",
-        "en-US": "Error"
+        "en-US": "Error to save"
     },
     "MensajeCamposErroneos": {
         "es-MX": "Los spools marcados en rojo no se pueden guardar favor de eliminarlos y/o limpiarlos.",
@@ -9096,7 +9097,7 @@ _dictionary = {
     },
     "CapturaMensajeArmadoPlancharTodos": {
         "es-MX": "¿Esta seguro de reemplazar todos los datos?",
-        "en-US": "Are you sure to replace all data"
+        "en-US": "Are you sure to replace all data?"
     },
     "CapturaArmadoTemplateNoHayTrabajosAdicionales": {
         "es-MX": "No hay trabajos adicionales",
@@ -9750,7 +9751,7 @@ _dictionary = {
 
     //Pantalla Inspeccion Dimensional
     "InspeccionBreadCrum": {
-        "es-MX": "Inspección",
+        "es-MX": "Calidad",
         "en-US": "Quality"
     },
     "InspeccionDimensionalBreadCrum": {

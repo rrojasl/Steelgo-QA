@@ -1,4 +1,4 @@
-﻿var editado = false;
+﻿    var editado = false;
 var ListaPruebas = [];
 var ListaUnidadMedida = [];
 var modeloRenglon;
@@ -12,7 +12,7 @@ function changeLanguageCall() {
     CargarGrid();
     CargarGridPopUp();
     CargarGridPopUpComponenteAgregado();
-    document.title = "Sistema Pintura";
+    document.title = _dictionary.lblSistemaPinturaSiguientePasoHeader[$("#language").data("kendoDropDownList").value()];
 
 };
 
@@ -145,8 +145,8 @@ function CargarGrid() {
             { field: "NumeroPruebas", title: _dictionary.columnPruebasLote[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "80px", editor: RenderNumeroPruebas, attributes: { style: "text-align:right;" }, format: "{0: }" },
 
             { field: "NumeroComponentes", title: _dictionary.columnNumeroComponentes[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "80px", editor: RenderNumeroComponentes, attributes: { style: "text-align:right;" }, format: "{0: }" },
-            { field: "TemplateDetalleComponentes", title: _dictionary.columnDetalleComponentes[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "80px", attributes: { style: "text-align:center;" }, template: "<div class='EnlaceDetalleComponentes' style='text-align:center;'><a href='\\#/'  > <span>#=TemplateDetalleComponentes#</span></a></div>" },
-            { field: "Reductor", title: _dictionary.columnReductor[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "80px", attributes: { style: "text-align:left;" }, editor: RenderReductores },
+            { field: "TemplateDetalleComponentes", title: _dictionary.columnDetalleComponentes[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "80px", attributes: { style: "text-align:center;" }, template: "<div class='EnlaceDetalleComponentes' style='text-align:center;'><a href='\\#/'  > <span>#=TemplateDetalleComponentes#</span></a></div>", filterable: false },
+            { field: "Reductor", title: _dictionary.columnReductor[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "80px", attributes: { style: "text-align:left;" }, editor: RenderReductores },
 
             { field: "Pruebas", title: _dictionary.columnPrueba[$("#language").data("kendoDropDownList").value()], template: "<div class='EnlaceDetallePruebas' style='text-align:center;'><a href='\\#/'  > <span>Detalle Pruebas</span></a></div>", filterable: false, width: "90px" },
 

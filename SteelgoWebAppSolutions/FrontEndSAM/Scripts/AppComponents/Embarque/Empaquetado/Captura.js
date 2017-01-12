@@ -13,8 +13,8 @@ function changeLanguageCall() {
         format: _dictionary.FormatoFecha2[$("#language").data("kendoDropDownList").value()]
     });
 
-    SuscribirEventoWindowsPopup();
     SuscribirEventoPopupDescaga();
+    SuscribirEventoWindowsPopup();
     SuscribirEventoPopUpPaqueteVacio();
     opcionHabilitarView(false, "FieldSetView");
 };
