@@ -7017,7 +7017,10 @@ _dictionary = {
     // Etiquetas Header y Footer
 
     // Etiquetas
-
+    "ErrorSpoolAgregarProyectoIncorrecto": {
+        "es-MX": "El spool no pertenece al proyecto seleccionado",
+        "en-US": "Spool does not belong to selected project"
+    },
     "lblInicio": {
         "es-MX": "Inicio",
         "en-US": "Home"
@@ -10590,7 +10593,7 @@ _dictionary = {
     },
     "SistemaPinturaAplicableNC": {
         "es-MX": "No. Control",
-        "en-US": "N"
+        "en-US": "No. Control"
     },
     "SistemaPinturaAplicableHeader": {
         "es-MX": "Sistema de Pintura Aplicable",
@@ -10624,6 +10627,7 @@ _dictionary = {
         "es-MX": "El sistema de pintura no puede ser eliminado porque tiene spools asignados",
         "en-US": "The paint system can't be deleted because it has assigned spool"
     },
+
     "SistemaPinturaAplicableExcepcionGuardado": {
         "es-MX": "No hay datos para guardar.",
         "en-US": "No data to save."
@@ -10634,6 +10638,10 @@ _dictionary = {
     },
     "SistemaPinturaAplicableMensajeGuardadoErroneo": {
         "es-MX": "No fue posible guardar la informacion.",
+        "en-US": "Could not save the information."
+    },
+    "SistemaPinturaAplicableMensajeElementoNoEcontrado": {
+        "es-MX": "La busqueda no produjo ningun resultado, ",
         "en-US": "Could not save the information."
     },
     "SPAlblSpool": {
