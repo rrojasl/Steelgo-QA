@@ -34,7 +34,7 @@ _dictionary = {
         "es-MX": "Cancelar",
         "en-US": "Cancel"
     },
-    
+
     "textoCancelar2": {
         "es-MX": "Cancelar",
         "en-US": "Cancel"
@@ -10544,6 +10544,22 @@ _dictionary = {
 
     // Finaliza Condiciones Climatologicas 
     //Comienza Listado Sistema Pintura
+
+
+
+    "columnNumeroComponentes": {
+        "es-MX": "# Componentes",
+        "en-US": "# Components"
+    },
+    "columnTemplateComponentes": {
+        "es-MX": "Detalle Componentes",
+        "en-US": "Componentes Details"
+    },
+    "columnTemplateReductores": {
+        "es-MX": "Reductores",
+        "en-US": "Reducers"
+    },
+
     "SistemaPinturaAplicableSpool": {
         "es-MX": "Spool",
         "en-US": "Spool"

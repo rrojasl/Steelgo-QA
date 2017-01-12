@@ -30,6 +30,23 @@ namespace BackEndSAM.Models.Pintura.ListadoSistemaPintura
         public int PruebaPorLoteAcabado { get; set; }
         public double MetrosPorLoteAcabado { get; set; }
         public string PruebaAcabado { get; set; }
+
+        public int? NumeroComponentesShootblast { get; set; }
+        public string TemplateComponentesShotBlast { get; set; }
+        public string TemplateReductoresShotblast { get; set; }
+
+        public int? NumeroComponentesPrimario { get; set; }
+        public string TemplateComponentesPrimario { get; set; }
+        public string TemplateReductoresPrimario { get; set; }
+
+        public int? NumeroComponentesIntermedio { get; set; }
+        public string TemplateComponentesIntermedio { get; set; }
+        public string TemplateReductoresIntermedio { get; set; }
+
+        public int? NumeroComponentesAcabado { get; set; }
+        public string TemplateComponentesAcabado { get; set; }
+        public string TemplateReductoresAcabado { get; set; }
+
     }
 
     public class DetallePruebas
