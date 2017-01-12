@@ -24,25 +24,25 @@
                             <span class="caretWhite"></span>
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a href="#" id="btnGuardar" class="accionGuardar"><span id="botonGuardar2"></span></a></li>
+                            <li><a href="#/" id="btnGuardar" class="accionGuardar"><span id="botonGuardar2"></span></a></li>
                             @*<li><a href="#" id="btnGuardarYNuevo" class="accionGuardarNuevo"><span id="botonGuardarYNuevo"></span></a></li>*@
                         </ul>
                     </div>
                     <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar"></span></a>
                 </div>
-                <div id="CargasEmbarqueDivSuperior" class="button-section">
-                    <a id="CargasEmbarqueSuperior" href=@Url.Action("RevisionEmbarque", "Embarque") class="btn btn-primary"><span id="botonEmbarque">Revisión Embarque</span></a>
+                <div id="RevisionEmbarqueDivSup" class="button-section">
+                    <a id="RevisionEmbarqueSup" href=@Url.Action("RevisionEmbarque", "Embarque") class="btn btn-primary"><span id="EmbarqueRevisionSup"></span></a>
                 </div>
                 <div class="button-section actionButtonSection">
                     <div class="dropdown action-group">
-                        <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
+                        <a id="Acciones" data-target="#" href="#/" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
                             <span id="botonAcciones1"></span>
                             <span class="caretBlue"></span>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="Acciones"></ul>
                     </div>
                 </div>
-                <a id="Imprimir" href="#" class="btn btn-fadeBlue actionButtonSection"></a>
+                <a id="Imprimir" href="#/" class="btn btn-fadeBlue actionButtonSection"></a>
             </div>
 
         </div>
@@ -78,25 +78,25 @@
                         <span class="caretWhite"></span>
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a href="#" id="btnGuardar1" class="accionGuardar"><span id="botonGuardar4"></span></a></li>
+                        <li><a href="#/" id="btnGuardar1" class="accionGuardar"><span id="botonGuardar4"></span></a></li>
                         @*<li><a href="#" id="btnGuardarYNuevo1" class="accionGuardarNuevo"><span id="botonGuardarYNuevo1"></span></a></li>*@
                     </ul>
                 </div>
                 <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar1"></span></a>
             </div>
-            <div id="EntregaresultadosDivINF" class="button-section">
-                <a id="EntregaresultadosINF" class="btn btn-primary"><span id="">Revisión embarque</span></a>
+            <div id="RevisionEmbarqueDivInf" class="button-section">
+                <a id="RevisionEmbarqueInf" href=@Url.Action("RevisionEmbarque", "Embarque") class="btn btn-primary"><span id="EmbarqueRevisionInf"></span></a>
             </div>
             <div class="button-section actionButtonSection">
                 <div class="dropdown action-group">
-                    <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
+                    <a id="Acciones" data-target="#" href="#/" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
                         <span id="botonAcciones2"></span>
                         <span class="caretBlue"></span>
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="Acciones"></ul>
                 </div>
             </div>
-            <a id="Imprimir" href="#" class="btn btn-fadeBlue actionButtonSection"></a>
+            <a id="Imprimir" href="#/" class="btn btn-fadeBlue actionButtonSection"></a>
         </div>
     </div>
 </div>
@@ -105,25 +105,26 @@
 
 <div id="windowSend" style="display:none;">
     <div class="container-fluid">
-        <div class="row content-container">
+        <div class="row content-container expanded">
+            <input type="hidden" id="uidRow" />
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 form">
+                <label id="EmbarqueListadoNumEmbarqueSteelgo"></label>
+                <input id="NumEmb" class="item-select general-input" style="width: 94%;min-height:39px;height:39px" />
+            </div>
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 form">
+                <label id="EmbarqueListadoNumEmbarqueCliente"></label>
+                <input id="NumEmbCliente" class="item-select general-input" style="width: 94%;min-height:39px;height:39px" />
+            </div>
             <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 form">
                 <label id="EmbarqueListadoFechaEnvio"></label>
                 <input id="Fecha" />
             </div>
-            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 form">
-                <label id="EmbarqueListadoNumEmbarqueCliente"></label>
-                <input id="NumEmbCliente" class="item-select general-input" style="width: 94%;min-height:37px;height:37px" />
-            </div>
-            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 form">
-                <label id="EmbarqueListadoNumEmbarqueSteelgo"></label>
-                <input id="NumEmbCliente" class="item-select general-input" style="width: 94%;min-height:37px;height:37px" />
-            </div>
         </div>
         <div class="form-group row"></div>
-        <div class="row content-container">
+        <div class="row content-container expanded">
             <center>
                 <a class="btn btn-primary" id="btnEnviarEmbarque" href="#/"><span id="botonEnviar"></span></a>
-                <a class="btn btn-primary" id="btnCerrarPopUp" href="#/"><span id|="botonCerrar"></span></a>
+                <a class="btn btn-primary" id="btnCerrarPopUp" href="#/"><span id="botonCerrar"></span></a>
             </center>                
         </div>
     </div>
@@ -136,6 +137,6 @@
 
 <script>
     @section JavascriptDocumentReadyFunctions {
-    //$authorizationModel["Listado Embarque"] = $ListadoEmbarqueModel;
+        $authorizationModel["Listado Embarque"] = $ListadoEmbarqueModel;
     }
 </script>

@@ -1,6 +1,6 @@
 ﻿function RenderComboBoxDestino(container, options) {
     var valores;
-    $('<input  data-text-field="Nombre" id=' + options.model.uid + ' data-value-field="Nombre" data-bind="value:' + options.field + '"/>')
+    $('<input  data-text-field="Destino" id=' + options.model.uid + ' data-value-field="Destino" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoComboBox({
             autoBind: false,
@@ -27,7 +27,7 @@
 
 function RenderComboBoxAprobacionAduana(container, options) {
     var valores;
-    $('<input  data-text-field="Nombre" id=' + options.model.uid + ' data-value-field="Nombre" data-bind="value:' + options.field + '"/>')
+    $('<input  data-text-field="Descripcion" id=' + options.model.uid + ' data-value-field="Descripcion" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoComboBox({
             autoBind: false,
@@ -42,49 +42,16 @@ function RenderComboBoxAprobacionAduana(container, options) {
                         options.model.AprobadoAduana = dataItem.OpcionValidacionID;
                         options.model.ModificadoPorUsuario = true;
 
-                        if (SetValueEnviar(options.model))
-                            options.model.Enviar = true;
-                        else
-                            options.model.Enviar = false;
+                   if (SetValueEnviar(options.model))
+                        options.model.Enviar = true;
+                   else
+                        options.model.Enviar = false;
 
                     $("#grid").data("kendoGrid").dataSource.sync();
                 }
                 else {
                     options.model.AprobadoAduanaDesc = "";
                     options.model.AprobadoAduana = 0;
-                    options.model.ModificadoPorUsuario = true;
-                }
-            }
-        });
-}
-
-function RenderComboBoxAprobacionCliente(container, options) {
-    var valores;
-    $('<input  data-text-field="Nombre" id=' + options.model.uid + ' data-value-field="Nombre" data-bind="value:' + options.field + '"/>')
-        .appendTo(container)
-        .kendoComboBox({
-            autoBind: false,
-            dataSource: options.model.listaEstatus,
-            template: "<i class=\"fa fa-#=data.Descripcion.toLowerCase()#\"></i> #=data.Descripcion#",
-            change: function (e) {
-                e.preventDefault();
-                var dataItem = this.dataItem(e.sender.selectedIndex);
-
-                if (dataItem != undefined && dataItem.OpcionValidacionID != 0) {
-                    options.model.AprobadoClienteDesc = dataItem.Descripcion;
-                    options.model.AprobadoCliente = dataItem.OpcionValidacionID;
-                    options.model.ModificadoPorUsuario = true;
-
-                    if (SetValueEnviar(options.model))
-                        options.model.Enviar = true;
-                    else
-                        options.model.Enviar = false;
-
-                    $("#grid").data("kendoGrid").dataSource.sync();
-                }
-                else {
-                    options.model.AprobadoClienteDesc = "";
-                    options.model.AprobadoCliente = 0;
                     options.model.ModificadoPorUsuario = true;
                 }
             }

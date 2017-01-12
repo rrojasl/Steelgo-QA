@@ -34,16 +34,51 @@ function SuscribirEventoPopUPEnviarEmbarque() {
     }).data("kendoWindow");
 
     $("#btnEnviarEmbarque").click(function (e) {
+        var NumEmb = $("#NumEmb").val();
+        var NumEmbCliente = $("#NumEmbCliente").val();
+        var FechaEnvio = $("#Fecha").val();
+        var uid = $("#uidRow").val();
+        var dataItem = $('#grid').data("kendoGrid").dataSource.getByUid(uid);
+        var FolioPermiso = dataItem.RequierePermisoAduana ? dataItem.FolioSolicitudPermiso != "" && dataItem.FolioSolicitudPermiso != null ? true : false : true;
+        var FechaPermiso = dataItem.RequierePermisoAduana ? dataItem.FechaSolicitudPermiso != "" && dataItem.FechaSolicitudPermiso != null ? true : false : true;
 
+        if (NumEmb != "") {
+            if (NumEmbCliente != "") {
+                if (FechaEnvio != "") {
+                    if (dataItem.DestinoID != 0) {
+                        if (FolioPermiso) {
+                            if (FechaPermiso) {
+                                windowSend.close();
+                                AjaxEnviarEmbarque(dataItem, NumEmb, NumEmbCliente, FechaEnvio);
+                            } else
+                                displayNotify("EmbarqueListadoMsjErrorEnviarFechaPermisoNoCapturado", "", "2");
+                        } else
+                            displayNotify("EmbarqueListadoMsjErrorEnviarSolicitudPermisoNoCapturado", "", "2");
+                    } else
+                        displayNotify("EmbarqueListadoMsjErrorEnviarDestinoNoCapturado", "", "2");
+                } else
+                    displayNotify("EmbarqueListadoMsjErrorFechaEnvio", "", "2");
+            } else
+                displayNotify("EmbarqueListadoMsjErrorNumEmbarqueCliente", "", "2");
+        } else {
+            displayNotify("EmbarqueListadoMsjErrorNumEmbarqueSteelgo", "", "2");
+        }
     });
 
     $("#btnCerrarPopUp").click(function (e) {
+        var fecha = kendo.toString(new Date(), String(_dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()].replace('{', '').replace('}', '').replace("0:", ""))).trim();        
+        $("#NumEmb").val("");
+        $("#NumEmbCliente").val("");
+        $("#Fecha").val(fecha);
         windowSend.close();
     })
 }
 
 function SuscribirEventoEnviarEmbarque() {
     $(document).on('click', '.enviarEmbarque', function (e) {
+        var grid = $("#grid").data("kendoGrid");
+        var dataItem = grid.dataItem($(e.target).closest("tr"));
+        $("#uidRow").val(dataItem.uid);
         windowSend.center().open();
     });
 }

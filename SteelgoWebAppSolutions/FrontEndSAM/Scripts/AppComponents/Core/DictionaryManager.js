@@ -34,7 +34,6 @@ _dictionary = {
         "es-MX": "Cancelar",
         "en-US": "Cancel"
     },
-
     "textoCancelar2": {
         "es-MX": "Cancelar",
         "en-US": "Cancel"
@@ -7733,7 +7732,6 @@ _dictionary = {
         "es-MX": "Error",
         "en-US": "Error to save"
     },
-
     //Finaliza etiquetas header alertas
     //Formatos 
 
@@ -8012,7 +8010,7 @@ _dictionary = {
         "es-MX": "No se han encontrado elementos que coincidan con la busqueda",
         "en-US": "No items found matching the search"
     },
-    "MensajeAdvertenciaPlancharTodos":{
+    "MensajeAdvertenciaPlancharTodos": {
         "es-MX": "¿Esta seguro de reemplazar todos los datos?",
         "en-US": "Are you sure to replace all data"
     },
@@ -8872,7 +8870,7 @@ _dictionary = {
         "en-US": "Permit Date"
     },
     "columnAprobadoCliente": {
-        "es-MX": "Ap. Cliente",
+        "es-MX": "Ok Cliente",
         "en-US": "Ok Client"
     },
     "columnAprobadoAduana": {
@@ -10546,8 +10544,6 @@ _dictionary = {
     // Finaliza Condiciones Climatologicas 
     //Comienza Listado Sistema Pintura
 
-
-
     "columnNumeroComponentes": {
         "es-MX": "# Componentes",
         "en-US": "# Components"
@@ -10560,7 +10556,6 @@ _dictionary = {
         "es-MX": "Reductores",
         "en-US": "Reducers"
     },
-
     "SistemaPinturaAplicableSpool": {
         "es-MX": "Spool",
         "en-US": "Spool"
@@ -10835,6 +10830,14 @@ _dictionary = {
         "es-MX": "Listado Embarque",
         "en-US": "Shipping list"
     },
+    "EmbarqueRevisionSup": {
+        "es-MX": "Revisión Embarque",
+        "en-US": "Shipping Revision"
+    },
+    "EmbarqueRevisionInf": {
+        "es-MX": "Revisión Embarque",
+        "en-US": "Shipping Revision"
+    },
     //Finaliza Botones Siguiente Paso
     //Columnas
     "columnSpoolIDEmbarque": {
@@ -10847,7 +10850,7 @@ _dictionary = {
     },
 
     "columnCuadranteEmbarque": {
-        "es-MX":"Cuadrante",
+        "es-MX": "Cuadrante",
         "en-US": "Quadrant"
     },
 
@@ -11472,14 +11475,50 @@ _dictionary = {
         "en-US": "Send Date"
     },
     "EmbarqueListadoNumEmbarqueCliente": {
-        "es-MX": "Numero Embarque Cliente",
-        "en-US": "Client Shipment Number"
+        "es-MX": "No. Emb Cliente",
+        "en-US": "Client Shipment Num"
+    },
+    "EmbarqueListadoNumEmbarqueSteelgo": {
+        "es-MX": "No. Emb",
+        "en-US": "Shipment Num"
+    },
+    "EmbarqueListadoMsjErrorNumEmbarqueSteelgo": {
+        "es-MX": "Por favor ingrese el Número de Embarque",
+        "en-US": "Please enter the Shipping Number"
+    },
+    "EmbarqueListadoMsjErrorNumEmbarqueCliente": {
+        "es-MX": "Por favor ingrese el Número de Embarque Cliente",
+        "en-US": "Please enter Client Shipping Number"
+    },
+    "EmbarqueListadoMsjErrorFechaEnvio": {
+        "es-MX": "Por favor ingrese la Fecha Envío",
+        "en-US": "Please enter the Shipping Date"
+    },
+    "EmbarqueListadoMsjErrorEnviarDestinoNoCapturado": {
+        "es-MX": "No se puede enviar el embarque falta capturar el destino",
+        "en-US": "Can not send the shipment missing capture destination"
+    },
+    "EmbarqueListadoMsjErrorEnviarSolicitudPermisoNoCapturado": {
+        "es-MX": "No se puede enviar el embarque falta capturar la solicitud permiso",
+        "en-US": "Can not send shipment missing capture request permission"
+    },
+    "EmbarqueListadoMsjErrorEnviarFechaPermisoNoCapturado": {
+        "es-MX": "No se puede enviar el embarque falta capturar la fecha permiso",
+        "en-US": "Can not send shipment missing capture date permission"
+    },
+    "EmbarqueListadoMsjExitoEnviar": {
+        "es-MX": "El embarque se envió correctamente",
+        "en-US": "Shipment successfully shipped"
+    },
+    "EmbarqueListadoMsjErrorEnviar": {
+        "es-MX": "No fue posible enviar el embarque",
+        "en-US": "Could not send shipment"
     },
     //Finaliza pantalla listado embarque
     //Inicia pantalla revision
     "EmbarqueRevisionBreadcrumb": {
-        "es-MX": "Revisión",
-        "en-US": "Review"
+        "es-MX": "Revisión Embarque",
+        "en-US": "Shipping Revision"
     }
     //Finaliza pantalla revision
     //Finaliza Modulo Embarque 

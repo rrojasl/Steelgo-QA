@@ -54,23 +54,23 @@ function AjaxGuardarCaptura(ds, tipoGuardado) {
     for (var i = 0; i < ds.length; i++) {
         ListaDetalle[i] = {
             EmbarqueID: 0, DestinoID: 0, SolicitudPermiso: "", FechaPermiso: "", AprobadoAduana: 0,
-            AprobadoCliente: 0, OkEmbarque: 0, EstatusCaptura: 0, BitacoraAduana: 0
+            OkCliente: 0, OkEmbarque: 0, EstatusCaptura: 0, BitacoraAduana: 0
         }
 
         ListaDetalle[i].EmbarqueID = ds[i].EmbarqueID;
         ListaDetalle[i].DestinoID = ds[i].DestinoID;
         ListaDetalle[i].SolicitudPermiso = ds[i].FolioSolicitudPermiso;
         ListaDetalle[i].FechaPermiso = ds[i].FechaSolicitudPermiso == null ? "" : kendo.toString(ds[i].FechaSolicitudPermiso, String(_dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()].replace('{', '').replace('}', '').replace("0:", ""))).trim();
-        ListaDetalle[i].AprobadoAduana = ds[i].AprobadoAduana;
-        ListaDetalle[i].AprobadoCliente = ds[i].AprobadoCliente;
+        ListaDetalle[i].AprobadoAduana = ds[i].RequierePermisoAduana?ds[i].AprobadoAduana:0;
+        ListaDetalle[i].OkCliente = ds[i].OkCliente;
         ListaDetalle[i].OkEmbarque = ds[i].OkEmbarque;
 
         if (ds[i].DestinoAntID != ds[i].DestinoID || ds[i].FolioSolicitudPermiso != ds[i].SolicitudPermisoAnt ||
-            ListaDetalle[i].FechaPermiso != ds[i].FechaSolicitudAnt || ds[i].AprobadoCliente != ds[i].AprobadoClienteAnt
+            ListaDetalle[i].FechaPermiso != ds[i].FechaSolicitudAnt || ds[i].OkCliente != ds[i].OkClienteAnt
             || ds[i].AprobadoAduana != ds[i].AprobadoAduanaAnt || ds[i].OkEmbarque != ds[i].OkEmbarqueAnt)
             ListaDetalle[i].EstatusCaptura = 1;
 
-        if (ds[i].AprobadoAduana != ds[i].AprobadoAduanaAnt)
+        if (ds[i].AprobadoAduana != ds[i].AprobadoAduanaAnt && ds[i].RequierePermisoAduana)
             ListaDetalle[i].BitacoraAduana = 1;
 
     }
@@ -90,25 +90,28 @@ function AjaxGuardarCaptura(ds, tipoGuardado) {
             }
             displayNotify("MensajeGuardadoExistoso", "", '0');
         } else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok")
-            displayNotify("EmbarqueEmpaquetadoErrorPaqueteExiste", "", '2');
+            displayNotify("MensajeGuardadoErroneo", "", '2');
         
         loadingStop();
     });
+
+    loadingStop();
 }
 
-function AjaxObtenerDetalleListadoEmbarque(estatus) {
+function AjaxEnviarEmbarque(dataItem, numEmb, numEmbCliente, fechaEnvio) {
     loadingStart();
-    $ListadoEmbarque.ListadoEmbarque.read({ token: Cookies.get("token"), Lenguaje: $("#language").val(), EstatusEmbarque: estatus }).done(function (data) {
-        $("#grid").data('kendoGrid').dataSource.data([]);
-        var ds = $("#grid").data("kendoGrid").dataSource;
-
-        if (data.length > 0) {
-            ds.data(data);
-            ds.page(1);
-        } else
-            ds.page(0);
-
-        ds.sync();
-        loadingStop();
+    $ListadoEmbarque.ListadoEmbarque.read({
+        token: Cookies.get("token"), Lenguaje: $("#language").val(), EmbarqueID: dataItem.EmbarqueID,
+        NumeroEmbarque: numEmb, NumeroEmbarqueCliente: numEmbCliente, FechaEnvio: fechaEnvio, 
+        ProyectoID: dataItem.ProyectoID
+    }).done(function (data) {
+        if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
+            $("#grid").data("kendoGrid").dataSource.data([]);
+            AjaxObtenerDetalleListadoEmbarque(1);
+            displayNotify("EmbarqueListadoMsjExitoEnviar", "", '0');
+        } else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok")
+            displayNotify("EmbarqueListadoMsjErrorEnviar", "", '2');
     });
+
+    loadingStop();
 }

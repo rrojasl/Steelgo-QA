@@ -72,8 +72,8 @@ function CargarGrid() {
                                 //}
                         },
                         FechaSolicitudPermiso: { type: "date", editable: true },
-                        AprobadoClienteDesc: { type: "string", editable: true },
                         AprobadoAduanaDesc: { type: "string", editable: true },
+                        OkCliente: { type: "boolean", editable: true },
                         OkEmbarque: { type: "boolean", editable: false },
                         RequierePermisoAduana: { type: "boolean", editable: false },
                         RequierePapCliente: { type: "boolean", editable: false },
@@ -102,20 +102,29 @@ function CargarGrid() {
         columns: [
             { field: "Embarque", title: _dictionary.columnEmbarque[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px" },
             { field: "Proyecto", title: _dictionary.columnProyecto[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px" },
-            { field: "Planas", title: _dictionary.columnPlanasEmb[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px" },
+            { field: "Planas", title: _dictionary.columnPlanasEmb[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "160px" },
             { field: "Destino", title: _dictionary.columnDestinoEmb[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxDestino, width: "145px" },
             {
-                field: "PapelesCliente", title: _dictionary.columnPapCliente[$("#language").data("kendoDropDownList").value()], filterable: false, template: "<center><button  type='button' class='btn btn-blue imprimirPapelesCliente' Style='display: #= RequierePermisoAduana ==true ? 'block;' : 'none;' #'> <span>" +
+                field: "PapelesCliente", title: _dictionary.columnPapCliente[$("#language").data("kendoDropDownList").value()], filterable: false, template: "<center><button  type='button' class='btn btn-blue imprimirPapelesCliente' #= RequierePapCliente == false ? 'disabled' : '' #> <span>" +
                   _dictionary.lblImprimir[$("#language").data("kendoDropDownList").value()] + "</span></button></center>", width: "140px"
             },
-            {
-                field: "PapelesAduana", title: _dictionary.columnPapAduana[$("#language").data("kendoDropDownList").value()], filterable: false, template: "<center><button  type='button' class='btn btn-blue imprimirPapelesAduana' Style='display: #= RequierePermisoAduana==true ?  'block;' : 'none;' #' > <span>" +
+            { field: "PapelesAduana", title: _dictionary.columnPapAduana[$("#language").data("kendoDropDownList").value()], filterable: false, template: "<center><button  type='button' class='btn btn-blue imprimirPapelesAduana' #= RequierePermisoAduana == false ?  'disabled': '' # > <span>" +
                   _dictionary.lblImprimir[$("#language").data("kendoDropDownList").value()] + "</span></button></center>", width: "140px"
             },
             { field: "FolioSolicitudPermiso", title: _dictionary.columnSolicitudPermiso[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "140px" },
             { field: "FechaSolicitudPermiso", title: _dictionary.columnFechaPermiso[$("#language").data("kendoDropDownList").value()], filterable: getKendoGridFilterableDateMaftec(), editor: RenderDatePicker, format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()], width: "150px" },
-            { field: "AprobadoClienteDesc", title: _dictionary.columnAprobadoCliente[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxAprobacionCliente, width: "130px" },
             { field: "AprobadoAduanaDesc", title: _dictionary.columnAprobadoAduana[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxAprobacionAduana, width: "130px" },
+            {
+                field: "OkCliente", title: _dictionary.columnAprobadoCliente[$("#language").data("kendoDropDownList").value()], filterable: {
+                    multi: true,
+                    messages: {
+                        isTrue: _dictionary.lblVerdadero[$("#language").data("kendoDropDownList").value()],
+                        isFalse: _dictionary.lblFalso[$("#language").data("kendoDropDownList").value()],
+                        style: "max-width:100px;"
+                    },
+                    dataSource: [{ OkCliente: true }, { OkCliente: false }]
+                }, template: '<input type="checkbox" class="chk-OkCliente" #= OkCliente ? "checked=checked" : "" # class="chkbx" ></input>', width: "130px", attributes: { style: "text-align:center;" }
+            },
             {
                 field: "OkEmbarque", title: _dictionary.columnOkEmbarque[$("#language").data("kendoDropDownList").value()], filterable: {
                     multi: true,
@@ -146,33 +155,80 @@ function CargarGrid() {
         if ($('#Guardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
             var grid = $("#grid").data("kendoGrid");
             var dataItem = grid.dataItem($(e.target).closest("tr"));
+            if (dataItem.EstatusEmbarqueID != 2) {
+                if ($(this)[0].checked) {
+                    dataItem.OkEmbarque = true;
 
-            if ($(this)[0].checked) {
-                dataItem.OkEmbarque = true;
+                    if (dataItem.Accion == 1)
+                        dataItem.ModificadoPorUsuario = true;
 
-                if (dataItem.Accion == 1)
-                    dataItem.ModificadoPorUsuario = true;
-                
+                }
+                else {
+                    dataItem.OkEmbarque = false;
+
+                    if (dataItem.Accion == 2)
+                        dataItem.ModificadoPorUsuario = true;
+                }
+
+                if (SetValueEnviar(dataItem))
+                    dataItem.Enviar = true;
+                else
+                    dataItem.Enviar = false;
+            } else {
+                if (e.target.checked)
+                    $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).OkEmbarque = false;
+                else
+                    $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).OkEmbarque = true;
             }
-            else {
-                dataItem.OkEmbarque = false;
-
-                if (dataItem.Accion == 2)
-                    dataItem.ModificadoPorUsuario = true;
-            }
-
-            if (SetValueEnviar(dataItem))
-                dataItem.Enviar = true;
-            else
-                dataItem.Enviar = false;
-
-            $("#grid").data("kendoGrid").dataSource.sync();
         }
         else {
             if (e.target.checked)
-                $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Etiquetado = false;
+                $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).OkEmbarque = false;
             else
-                $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Etiquetado = true;
+                $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).OkEmbarque = true;
+        }
+
+        $("#grid").data("kendoGrid").dataSource.sync();
+    });
+
+    $("#grid .k-grid-content").on("change", "input.chk-OkCliente", function (e) {
+
+        if ($('#Guardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {            
+            var grid = $("#grid").data("kendoGrid");
+            var dataItem = grid.dataItem($(e.target).closest("tr"));
+            if (dataItem.EstatusEmbarqueID != 2) {
+
+                if ($(this)[0].checked) {
+                    dataItem.OkCliente = true;
+
+                    if (dataItem.Accion == 1)
+                        dataItem.ModificadoPorUsuario = true;
+
+                }
+                else {
+                    dataItem.OkCliente = false;
+
+                    if (dataItem.Accion == 2)
+                        dataItem.ModificadoPorUsuario = true;
+                }
+
+                if (SetValueEnviar(dataItem))
+                    dataItem.Enviar = true;
+                else
+                    dataItem.Enviar = false;
+
+            } else {
+                if (e.target.checked)
+                    $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).OkCliente = false;
+                else
+                    $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).OkCliente = true;
+            }
+        }
+        else {
+            if (e.target.checked)
+                $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).OkCliente = false;
+            else
+                $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).OkCliente = true;
         }
 
         $("#grid").data("kendoGrid").dataSource.sync();
@@ -182,12 +238,22 @@ function CargarGrid() {
 
 function isEditable(fieldName, model) {
     if (fieldName === "FolioSolicitudPermiso") {
-        if (!model.RequierePermisoAduana) {
+        if (!model.RequierePermisoAduana || model.EstatusEmbarqueID != 1) {
             return false;
         }
     }
     if (fieldName === "FechaSolicitudPermiso") {
-        if (!model.RequierePermisoAduana) {
+        if (!model.RequierePermisoAduana || model.EstatusEmbarqueID != 1) {
+            return false;
+        }
+    }
+    if (fieldName === "AprobadoAduanaDesc") {
+        if (!model.RequierePermisoAduana || model.EstatusEmbarqueID != 1) {
+            return false;
+        }
+    }
+    if (fieldName === "Destino") {
+        if (model.EstatusEmbarqueID != 1) {
             return false;
         }
     }
@@ -203,7 +269,7 @@ function AltaFecha() {
 function SetValueEnviar(obj) {
     var retorno = false;
     if (obj != undefined) {
-        if (obj.AprobadoCliente == 1 && obj.AprobadoAduana == 1 && obj.OkEmbarque)
+        if (obj.OkCliente && obj.AprobadoAduana == 1 && obj.OkEmbarque)
             retorno = true;
     }
 

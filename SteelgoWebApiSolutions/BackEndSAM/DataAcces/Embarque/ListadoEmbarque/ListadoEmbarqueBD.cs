@@ -104,7 +104,7 @@ namespace BackEndSAM.DataAcces.Embarque.ListadoEmbarque
                             AprobadoAduanaDesc = item.RequiereAduana.GetValueOrDefault() ? item.AprobadoAduanaDesc : "NA",
                             OkEmbarqueAnt = item.OkEmbarque,
                             OkEmbarque = item.OkEmbarque,
-                            Enviar = item.CapturaEnvioID != 0 && item.CapturaEnvioID != null ? true : false,
+                            Enviar = item.AprobadoAduana == 1 && item.OkCliente && item.OkEmbarque && item.EmbarqueEstatusID != 2 ? true : false,
                             CapturaEnvioID = item.CapturaEnvioID.GetValueOrDefault(),
                             ModificadoPorUsuario = false,
                             RowOk = true,
@@ -187,13 +187,13 @@ namespace BackEndSAM.DataAcces.Embarque.ListadoEmbarque
             }
         }
 
-        public object GuardarEnvioEmbarque(int UsuarioID, string Lenguaje, int EmbarqueID, string NumeroEmbarque, string NumeroEmbarqueCliente, string FechaEnvio)
+        public object GuardarEnvioEmbarque(int UsuarioID, string Lenguaje, int EmbarqueID, string NumeroEmbarque, string NumeroEmbarqueCliente, string FechaEnvio, int ProyectoID)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    ctx.Sam3_Embarque_LE_GuardarEnvio(UsuarioID, Lenguaje, EmbarqueID, NumeroEmbarque, NumeroEmbarqueCliente, FechaEnvio);
+                    ctx.Sam3_Embarque_LE_GuardarEnvio(UsuarioID, Lenguaje, EmbarqueID, NumeroEmbarque, NumeroEmbarqueCliente, FechaEnvio, ProyectoID);
 
                     TransactionalInformation result = new TransactionalInformation();
                     result.ReturnMessage.Add("Ok");
