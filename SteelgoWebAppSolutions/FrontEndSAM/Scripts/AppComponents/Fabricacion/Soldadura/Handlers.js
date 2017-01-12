@@ -15,26 +15,17 @@ function SuscribirEventos() {
     suscribirEventoChangeRadio();
     suscribirEventoChangeRadioTipoListado();
     SuscribirEventoMuestraJunta();
+    SuscribirFechaSoldadura();
+
+    suscribirEventoGridPopupTrabajosAdicionales();
     suscribirEventoGridPopupSoldadoresRaiz();
     suscribirEventoGridPopupSoldadoresRelleno();
-    SuscribirFechaSoldadura();
-    suscribirEventoGridPopupTrabajosAdicionales();
+    
+    GuardarDetalleAdicional();
+    GuardarSoldadoresRaiz();
+    GuardarSoldadoresRelleno();
 };
 
-
-function suscribirEventoGridPopupTrabajosAdicionales() {
-    $(document).on('click', '.botonAdicionales', function (e) {
-        e.preventDefault();
-
-        if ($('#botonGuardar').text() == _dictionary.DetalleAvisoLlegada0017[$("#language").data("kendoDropDownList").value()]) {
-
-            var grid = $("#grid").data("kendoGrid");
-            dataItem = grid.dataItem($(e.target).closest("tr"));
-            if (dataItem.ListaSoldadoresRaizCapturados.length > 0 && dataItem.ListaSoldadoresRellenoCapturados.length > 0)
-                GridPopUpTrabajosAdicionales(dataItem); 
-        }
-    });
-}
 
 
 function suscribirEventoGuardar() {
@@ -520,3 +511,128 @@ function SuscribirFechaSoldadura() {
     });
 }
 
+
+function GuardarDetalleAdicional() {
+    $('#GuardarTrabajosAdicionales').click(function () {
+        var trabajosCorrectos = true;
+        var ds = $("#gridPopUp").data("kendoGrid").dataSource;
+
+        for (var i = 0; i < ds._data.length; i++) {
+            if (ds._data[i].Accion == undefined || ds._data[i].Accion == 0)
+                ds._data[i].Accion = 1;
+            if (ds._data[i].TrabajoAdicional == "" && ds._data[i].Soldador && !(ds._data[i].Accion == 3 || ds._data[i].Accion == 4))
+                trabajosCorrectos = false;
+        }
+        if (trabajosCorrectos) {
+            modeloRenglon.ListaDetalleTrabajoAdicional = ds._data;
+
+            var dataSource = $("#gridPopUp").data("kendoGrid").dataSource;
+            var filters = dataSource.filter();
+            var allData = dataSource.data();
+            var query = new kendo.data.Query(allData);
+            var data = query.filter(filters).data;
+
+            actuallongitudTrabajosAdicionales = data.length;
+            if (actuallongitudTrabajosAdicionales == 0)
+                modeloRenglon.TemplateTrabajosAdicionales = _dictionary.CapturaArmadoTemplateNoHayTrabajosAdicionales[$("#language").data("kendoDropDownList").value()];
+            else
+                modeloRenglon.TemplateTrabajosAdicionales = _dictionary.CapturaSoldaduraMensajeCambioLongitud[$("#language").data("kendoDropDownList").value()] + actuallongitudTrabajosAdicionales + _dictionary.CapturaSoldaduraMensajeCambioTrabajosAdicionales[$("#language").data("kendoDropDownList").value()];
+
+            $("#grid").data("kendoGrid").dataSource.sync();
+
+            $("#windowGrid").data("kendoWindow").close();
+            
+        }
+        else {
+            displayNotify('CapturaSoldaduraTrabajoMandatorio', '', '2');
+        }
+    });
+}
+
+function GuardarSoldadoresRaiz() {
+    $('#GuardarSoldadoresRaiz').click(function () {
+        var RaizCorrectos = true;
+        var ds = $("#inputSoldadoresRaiz").data("kendoGrid").dataSource;
+
+        for (var i = 0; i < ds._data.length; i++) {
+            if (ds._data[i].Accion == undefined || ds._data[i].Accion == 0)
+                ds._data[i].Accion = 1;
+            if (ds._data[i].Colada == "" && ds._data[i].Soldador && !(ds._data[i].Accion == 3 || ds._data[i].Accion == 4))
+                RaizCorrectos = false;
+        }
+        if (RaizCorrectos) {
+            modeloRenglon.ListaSoldadoresRaizCapturados = ds._data;
+
+            var dataSource = $("#inputSoldadoresRaiz").data("kendoGrid").dataSource;
+            var filters = dataSource.filter();
+            var allData = dataSource.data();
+            var query = new kendo.data.Query(allData);
+            var data = query.filter(filters).data;
+
+            actuallongitudSoldadoresRaiz = data.length;
+            if (actuallongitudSoldadoresRaiz == 0)
+                modeloRenglon.TemplateSoldadoresRaiz = _dictionary.CapturaArmadoTemplateNoHaySoldadoresRaiz[$("#language").data("kendoDropDownList").value()];
+            else
+                modeloRenglon.TemplateSoldadoresRaiz = _dictionary.CapturaSoldaduraMensajeCambioLongitud[$("#language").data("kendoDropDownList").value()] + actuallongitudSoldadoresRaiz + _dictionary.CapturaSoldaduraMensajeCambioSoldadoresRaiz[$("#language").data("kendoDropDownList").value()];
+
+            $("#grid").data("kendoGrid").dataSource.sync();
+
+            $("#windowGridSoldadorRaiz").data("kendoWindow").close();
+            
+        }
+        else {
+            displayNotify('CapturaSoldaduraGridSoldadores', '', '2');
+        }
+    });
+}
+
+function GuardarSoldadoresRelleno() {
+    $('#GuardarSoldadoresRelleno').click(function () {
+        var RaizCorrectos = true;
+        var ds = $("#inputSoldadoresRelleno").data("kendoGrid").dataSource;
+
+        for (var i = 0; i < ds._data.length; i++) {
+            if (ds._data[i].Accion == undefined || ds._data[i].Accion == 0)
+                ds._data[i].Accion = 1;
+            if (ds._data[i].Colada == "" && ds._data[i].Soldador && !(ds._data[i].Accion == 3 || ds._data[i].Accion == 4))
+                RaizCorrectos = false;
+        }
+        if (RaizCorrectos) {
+            modeloRenglon.ListaSoldadoresRellenoCapturados = ds._data;
+
+            var dataSource = $("#inputSoldadoresRelleno").data("kendoGrid").dataSource;
+            var filters = dataSource.filter();
+            var allData = dataSource.data();
+            var query = new kendo.data.Query(allData);
+            var data = query.filter(filters).data;
+
+            actuallongitudSoldadoresRelleno = data.length;
+            if (actuallongitudSoldadoresRelleno == 0)
+                modeloRenglon.TemplateSoldadoresRelleno = _dictionary.CapturaArmadoTemplateNoHaySoldadoresRelleno[$("#language").data("kendoDropDownList").value()];
+            else
+                modeloRenglon.TemplateSoldadoresRelleno = _dictionary.CapturaSoldaduraMensajeCambioLongitud[$("#language").data("kendoDropDownList").value()] + actuallongitudSoldadoresRelleno + _dictionary.CapturaSoldaduraMensajeCambioSoldadoresRelleno[$("#language").data("kendoDropDownList").value()];
+
+            $("#grid").data("kendoGrid").dataSource.sync();
+
+            $("#windowMultiselectSoldadorRelleno").data("kendoWindow").close();
+            $("#grid").data("kendoGrid").dataSource.sync();
+        }
+        else {
+            displayNotify('CapturaSoldaduraGridSoldadores', '', '2');
+        }
+    });
+}
+
+function suscribirEventoGridPopupTrabajosAdicionales() {
+    $(document).on('click', '.botonAdicionales', function (e) {
+        e.preventDefault();
+
+        if ($('#botonGuardar').text() == _dictionary.DetalleAvisoLlegada0017[$("#language").data("kendoDropDownList").value()]) {
+
+            var grid = $("#grid").data("kendoGrid");
+            dataItem = grid.dataItem($(e.target).closest("tr"));
+            if (dataItem.ListaSoldadoresRaizCapturados.length > 0 && dataItem.ListaSoldadoresRellenoCapturados.length > 0)
+                GridPopUpTrabajosAdicionales(dataItem);
+        }
+    });
+}

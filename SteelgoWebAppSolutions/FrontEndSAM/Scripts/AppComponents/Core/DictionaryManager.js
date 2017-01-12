@@ -8993,6 +8993,14 @@ _dictionary = {
         "es-MX": "No hay trabajos adicionales",
         "en-US": "No additional work"
     },
+    "CapturaArmadoTemplateNoHaySoldadoresRaiz": {
+        "es-MX": "No hay soldadores de raiz",
+        "en-US": "No root welders"
+    },
+    "CapturaArmadoTemplateNoHaySoldadoresRelleno": {
+        "es-MX": "No hay soldadores de reelleno",
+        "en-US": "No fill welders"
+    },
     "CapturaArmadoMsgExiste": {
         "es-MX": "La junta ",
         "en-US": "The joint "
@@ -9023,6 +9031,7 @@ _dictionary = {
         "es-MX": "El campo adicionales, es mandatorio",
         "en-US": "The work field is mandatory"
     },
+   
     "CapturaArmadoNoExisteSpool": {
         "es-MX": "La junta no existe en el spool",
         "en-US": "The joint not exist in the spool"
@@ -9329,6 +9338,14 @@ _dictionary = {
 
     //Pantalla Soldadura
 
+    "CapturaSoldaduraTrabajoMandatorio": {
+        "es-MX": "El campo adicionales y soldador es mandatorio",
+        "en-US": "The additional and welder fiels has mandatory"
+    },
+    "CapturaSoldaduraGridSoldadores": {
+        "es-MX": "Los campos de Soldador y Colada son mandatorios",
+        "en-US": "The welder and laver fields has mandatory"
+    },
 
     "CapturaSoldaduraHeaderTrabajosAdicionalesAnidado": {
         "es-MX": "Trabajo",
@@ -9387,6 +9404,14 @@ _dictionary = {
     "CapturaSoldaduraMensajeCambioTrabajosAdicionales": {
         "es-MX": " trabajos adicionales",
         "en-US": " additional work"
+    },
+    "CapturaSoldaduraMensajeCambioSoldadoresRaiz": {
+        "es-MX": " soldadores raiz",
+        "en-US": " root welders"
+    },
+    "CapturaSoldaduraMensajeCambioSoldadoresRelleno": {
+        "es-MX": " soldadores relleno",
+        "en-US": " fill welders"
     },
     "CapturaAvanceTitulo": {
         "es-MX": "Alerta!!!",

@@ -98,6 +98,7 @@ namespace BackEndSAM.Models.Fabricacion.Soldadura
         public List<ObreroSoldador> ListadoSoldadoresRelleno { get; set; }
         public List<Consumible> ListadoColadas { get; set; }
         public int FamiliaMaterialID { get; set; }
+        public List<TrabajosAdicionalesSoldadura> ListaDetalleTrabajoAdicional { get; set; }
     }
 
     public class Taller
@@ -314,4 +315,6 @@ namespace BackEndSAM.Models.Fabricacion.Soldadura
         public double EspesorMinimo { get; set; }
         public string Certificado { get; set; } 
     }
+
+   
 }

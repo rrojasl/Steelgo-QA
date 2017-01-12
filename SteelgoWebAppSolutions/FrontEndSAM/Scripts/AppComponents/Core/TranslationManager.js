@@ -191,4 +191,31 @@ function changeheaderInputs(language) {
             CargarGridPopUp();//tiene que ser el mismo nombre del metodo que manda a llamar el llenado del grid.
         };
     }
+
+
+    var entityGridPopupRaiz = $("#inputSoldadoresRaiz").data("kendoGrid");
+
+    if (entityGridPopupRaiz != undefined) {
+
+        $('#contenedorMultiselect').empty();
+        $('#contenedorMultiselect').append($('<div id="inputSoldadoresRaiz" data-role="grid" class="k-grid k-widget">'));
+
+        function changeLanguageCall() {
+            CargarGridPopupSoldadoresRaizCapturados();//tiene que ser el mismo nombre del metodo que manda a llamar el llenado del grid.
+        };
+    }
+
+    var entityGridPopupRelleno = $("#inputSoldadoresRelleno").data("kendoGrid");
+
+    if (entityGridPopupRelleno != undefined) {
+
+        $('#contenedorMultiselectRelleno').empty();
+        $('#contenedorMultiselectRelleno').append($('<div id="inputSoldadoresRelleno" data-role="grid" class="k-grid k-widget">'));
+
+        function changeLanguageCall() {
+            CargarGridPopupSoldadoresRellenoCapturados();//tiene que ser el mismo nombre del metodo que manda a llamar el llenado del grid.
+        };
+    }
+
+
 }
