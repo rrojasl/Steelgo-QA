@@ -14,6 +14,7 @@ function changeLanguageCall() {
     CargarGridPopUpComponenteAgregado();
     document.title = _dictionary.lblSistemaPinturaSiguientePasoHeader[$("#language").data("kendoDropDownList").value()];
 
+    Limpiar();
 };
 
 function getParameterByName(name, url) {
@@ -333,16 +334,15 @@ function isEditable(fieldName, model) {
 function cancelarCaptura(e) {
     e.preventDefault();
     var filterValue = $(e.currentTarget).val();
-    var dataItem = $("#gridPopUpComponentesAgregados").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
-
-    var dataSource = $("#gridPopUpComponentesAgregados").data("kendoGrid").dataSource;
+    var dataItem = $("#gridPopUp").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+    var dataSource = $("#gridPopUp").data("kendoGrid").dataSource;
     if (dataItem.Accion == 2) {
         dataItem.Accion = 3;
     }
     else {
         dataSource.remove(dataItem);
     }
-    $("#gridPopUpComponentesAgregados").data("kendoGrid").dataSource.sync();
+    $("#gridPopUp").data("kendoGrid").dataSource.sync();
     ventanaConfirm.close();
 }
 
@@ -484,8 +484,8 @@ function CargarGridPopUpComponenteAgregado() {
 
         columns: [
             { field: "ComponenteAgregadoID", title: _dictionary.CapturaSistemaPinturaComponentesID[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "130px" },
-            { field: "Nombre", title: _dictionary.CapturaSistemaPinturaComponenteNombre[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftecpopUp(), width: "130px", editor: renderComboboxNombreComponente }//,
-            //{ command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: cancelarCaptura }, title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], width: "50px" }
+            { field: "Nombre", title: _dictionary.CapturaSistemaPinturaComponenteNombre[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftecpopUp(), width: "130px", editor: renderComboboxNombreComponente }
+            
         ],
         editable: true,
         navigatable: true,

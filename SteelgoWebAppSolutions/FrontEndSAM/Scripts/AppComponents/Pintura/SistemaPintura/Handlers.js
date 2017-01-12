@@ -287,7 +287,14 @@ function SuscribirEventoComboProyecto() {
 
 function Limpiar() {
 
-    $("#grid").data('kendoGrid').dataSource.data([]);
+    $("#grid").data("kendoGrid").dataSource.data([]);
+    opcionHabilitarView(false, "FieldSetView");
+    $("#inputNombre").val("");
+    $("#inputSistemaPinturaID").val("");
+    $("#divComboProyecto").css("display", "none");
+    $("#divMultiselectProyecto").css("display", "block");
+    $("#inputNoAplicable").prop("checked", false);
+    $("#inputNombre").attr('disabled', false);
 }
 
 
