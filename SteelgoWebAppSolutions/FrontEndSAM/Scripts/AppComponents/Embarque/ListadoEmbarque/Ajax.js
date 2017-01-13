@@ -100,13 +100,30 @@ function AjaxGuardarCaptura(ds, tipoGuardado) {
 
 function AjaxEnviarEmbarque(dataItem, numEmb, numEmbCliente, fechaEnvio) {
     loadingStart();
-    $ListadoEmbarque.ListadoEmbarque.read({
-        token: Cookies.get("token"), Lenguaje: $("#language").val(), EmbarqueID: dataItem.EmbarqueID,
-        NumeroEmbarque: numEmb, NumeroEmbarqueCliente: numEmbCliente, FechaEnvio: fechaEnvio, 
-        ProyectoID: dataItem.ProyectoID
+
+    var DetalleJson = {
+        EmbarqueID: "", DestinoID: "", ProyectoID: "", SolicitudPermiso: "", FechaPermiso: "", AprobadoAduana: "", OkCliente: "",
+        OkEmbarque: "", BitacoraAduana:""
+    }
+    if (dataItem != undefined) {
+        DetalleJson.EmbarqueID = dataItem.EmbarqueID;
+        DetalleJson.DestinoID = dataItem.DestinoID;
+        DetalleJson.ProyectoID = dataItem.ProyectoID;
+        DetalleJson.SolicitudPermiso = dataItem.FolioSolicitudPermiso;
+        DetalleJson.FechaPermiso = kendo.toString(dataItem.FechaSolicitudPermiso, String(_dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()].replace('{', '').replace('}', '').replace("0:", ""))).trim();
+        DetalleJson.AprobadoAduana = dataItem.RequierePermisoAduana ? dataItem.AprobadoAduana : 0;
+        DetalleJson.OkCliente = dataItem.OkCliente;
+        DetalleJson.OkEmbarque = dataItem.OkEmbarque;
+        DetalleJson.BitacoraAduana = dataItem.AprobadoAduana != dataItem.AprobadoAduanaAnt && ds[i].RequierePermisoAduana ? 1 : 0;
+    }
+
+    $ListadoEmbarque.ListadoEmbarque.create( DetalleJson, {
+        token: Cookies.get("token"), Lenguaje: $("#language").val(), NumeroEmbarque: numEmb,
+        NumeroEmbarqueCliente: numEmbCliente, FechaEnvio: fechaEnvio, ProyectoID: dataItem.ProyectoID
     }).done(function (data) {
         if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
             $("#grid").data("kendoGrid").dataSource.data([]);
+            AjaxObtenerContadorPorEstatus();
             AjaxObtenerDetalleListadoEmbarque(1);
             displayNotify("EmbarqueListadoMsjExitoEnviar", "", '0');
         } else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok")
