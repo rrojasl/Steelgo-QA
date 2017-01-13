@@ -7017,7 +7017,10 @@ _dictionary = {
     // Etiquetas Header y Footer
 
     // Etiquetas
-
+    "ErrorSpoolAgregarProyectoIncorrecto": {
+        "es-MX": "El spool no pertenece al proyecto seleccionado",
+        "en-US": "Spool does not belong to selected project"
+    },
     "lblInicio": {
         "es-MX": "Inicio",
         "en-US": "Home"
@@ -8187,8 +8190,8 @@ _dictionary = {
         "en-US": "Shipping list"
     },
     "menuEmbarqueRevision": {
-        "es-MX": "Revisión",
-        "en-US": "Review"
+        "es-MX": "Revisión Embarque",
+        "en-US": "Shipping Revision"
     },
     "menuEmbarqueDashboard": {
         "es-MX": "Dashboard Embarque",
@@ -8261,6 +8264,10 @@ _dictionary = {
     "menuCapturaPruebaSpool": {
         "es-MX": "Captura Pruebas por Spool",
         "en-US": "Spool Capture Test"
+    },
+    "menuListadoEmbarqueEnviados": {
+        "es-MX": "Listado embarque enviados",
+        "en-US": "Sent shipping list"
     },
     // Finalizan Etiquetas de Menú General
 
@@ -8993,6 +9000,14 @@ _dictionary = {
         "es-MX": "No hay trabajos adicionales",
         "en-US": "No additional work"
     },
+    "CapturaArmadoTemplateNoHaySoldadoresRaiz": {
+        "es-MX": "No hay soldadores de raiz",
+        "en-US": "No root welders"
+    },
+    "CapturaArmadoTemplateNoHaySoldadoresRelleno": {
+        "es-MX": "No hay soldadores de reelleno",
+        "en-US": "No fill welders"
+    },
     "CapturaArmadoMsgExiste": {
         "es-MX": "La junta ",
         "en-US": "The joint "
@@ -9329,6 +9344,14 @@ _dictionary = {
 
     //Pantalla Soldadura
 
+    "CapturaSoldaduraTrabajoMandatorio": {
+        "es-MX": "El campo adicionales y soldador es mandatorio",
+        "en-US": "The additional and welder fiels has mandatory"
+    },
+    "CapturaSoldaduraGridSoldadores": {
+        "es-MX": "Los campos de Soldador y Colada son mandatorios",
+        "en-US": "The welder and laver fields has mandatory"
+    },
 
     "CapturaSoldaduraHeaderTrabajosAdicionalesAnidado": {
         "es-MX": "Trabajo",
@@ -9387,6 +9410,14 @@ _dictionary = {
     "CapturaSoldaduraMensajeCambioTrabajosAdicionales": {
         "es-MX": " trabajos adicionales",
         "en-US": " additional work"
+    },
+    "CapturaSoldaduraMensajeCambioSoldadoresRaiz": {
+        "es-MX": " soldadores raiz",
+        "en-US": " root welders"
+    },
+    "CapturaSoldaduraMensajeCambioSoldadoresRelleno": {
+        "es-MX": " soldadores relleno",
+        "en-US": " fill welders"
     },
     "CapturaAvanceTitulo": {
         "es-MX": "Alerta!!!",
@@ -9814,9 +9845,10 @@ _dictionary = {
         "en-US": "Validation Results"
     },
     "EntregaPlacasGraficasTituloPopup": {
-        "es-MX": "Alerta!!!",
-        "en-US": "Warning!!!"
+        "es-MX": "Error!!!",
+        "en-US": "Errorto save!!!"
     },
+
     "EntregaPlacasGraficasPlancharTodos": {
         "es-MX": "¿Esta seguro de reemplazar todos los datos?",
         "en-US": "Are you sure to replace all data"
@@ -10562,7 +10594,7 @@ _dictionary = {
     },
     "SistemaPinturaAplicableNC": {
         "es-MX": "No. Control",
-        "en-US": "N"
+        "en-US": "No. Control"
     },
     "SistemaPinturaAplicableHeader": {
         "es-MX": "Sistema de Pintura Aplicable",
@@ -10596,6 +10628,7 @@ _dictionary = {
         "es-MX": "El sistema de pintura no puede ser eliminado porque tiene spools asignados",
         "en-US": "The paint system can't be deleted because it has assigned spool"
     },
+
     "SistemaPinturaAplicableExcepcionGuardado": {
         "es-MX": "No hay datos para guardar.",
         "en-US": "No data to save."
@@ -10606,6 +10639,10 @@ _dictionary = {
     },
     "SistemaPinturaAplicableMensajeGuardadoErroneo": {
         "es-MX": "No fue posible guardar la informacion.",
+        "en-US": "Could not save the information."
+    },
+    "SistemaPinturaAplicableMensajeElementoNoEcontrado": {
+        "es-MX": "La busqueda no produjo ningun resultado, ",
         "en-US": "Could not save the information."
     },
     "SPAlblSpool": {
@@ -11265,7 +11302,7 @@ _dictionary = {
     },
     "EmbarqueEmpaquetadoMsjDescargaEliminaPaquete": {
         "es-MX": "El último spool del paquete ha sido descargado. ¿Desea descargar el paquete de la plana o eliminarlo?",
-        "en-US": "Alert!!!"
+        "en-US": "The last spool of the package has been downloaded. Do you want to download the flat pack or remove it?"
     },
     //Finaliza pantalla carga plana
     //Inicia pantalla empaquetado
@@ -11515,6 +11552,16 @@ _dictionary = {
         "en-US": "Could not send shipment"
     },
     //Finaliza pantalla listado embarque
+    //Inicia pantalla listado embarque enviados
+    "EmbarqueListadoEnviadosBreadcrumb": {
+        "es-MX": "Listado embarque enviados",
+        "en-US": "Sent shipping list"
+    },
+    "EmbarqueListadoEnviadosTituloPagina": {
+        "es-MX": "Listado embarque enviados",
+        "en-US": "Sent shipping list"
+    },
+    //Finaliza pantalla listado embarque enviados
     //Inicia pantalla revision
     "EmbarqueRevisionBreadcrumb": {
         "es-MX": "Revisión Embarque",

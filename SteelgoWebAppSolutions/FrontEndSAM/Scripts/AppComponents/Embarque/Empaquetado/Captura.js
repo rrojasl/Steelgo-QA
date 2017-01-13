@@ -13,9 +13,6 @@ function changeLanguageCall() {
         format: _dictionary.FormatoFecha2[$("#language").data("kendoDropDownList").value()]
     });
 
-    SuscribirEventoPopupDescaga();
-    SuscribirEventoWindowsPopup();
-    SuscribirEventoPopUpPaqueteVacio();
     opcionHabilitarView(false, "FieldSetView");
 };
 
@@ -107,6 +104,7 @@ function descargaSpool(e) {
             CuadranteAnterior = dataItem.CuadranteAnteriorSam3ID;
             $("#InputUidRow").val(dataItem.uid);
 
+            windowDownload.title(_dictionary.EmbarqueCargaTituloPopupCuadrante[$("#language").data("kendoDropDownList").value()]);
             windowDownload.open().center();
         }
 }

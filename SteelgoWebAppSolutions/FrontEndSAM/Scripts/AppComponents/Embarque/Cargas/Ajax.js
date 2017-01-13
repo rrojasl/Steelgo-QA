@@ -416,6 +416,8 @@ function AjaxDescargarSpool(dataItem, Cuadrante) {
                 CuadrantePaqueteAnterior = dataItem.CuadrantePaqueteAnteriorID;
                 $("#inputZonaPaqueteDescarga").data("kendoComboBox").value(dataItem.ZonaPaqueteAnteriorID);
                 $("#inputZonaPaqueteDescarga").data("kendoComboBox").trigger("change");
+
+                windowPackageEmpty.title(_dictionary.EmbarqueEmpaquetadoAdvertenciaPaqueteVacio[$("#language").data("kendoDropDownList").value()]);
                 windowPackageEmpty.open().center();
             }
             displayNotify("EmbarqueCargaMsjDescargaSpoolExito", "", "0");
@@ -544,9 +546,11 @@ function AjaxDescargarPaquete(dataItem, eliminaFilas) {
                 for (var x = 0; x < ds._data.length; x++) {
                     if (ds._data[x].PaqueteID != undefined && ds._data[x].PaqueteID == dataItem) {
                         ds.remove(ds._data[x]);
+                        x = -1;
                     }
                 }
             }
+
             ds.sync();
             displayNotify("EmbarqueCargaMsjDescargaPaqueteExito", "", "0");
         } else {

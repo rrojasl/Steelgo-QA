@@ -187,13 +187,13 @@ namespace BackEndSAM.DataAcces.Embarque.ListadoEmbarque
             }
         }
 
-        public object GuardarEnvioEmbarque(int UsuarioID, string Lenguaje, int EmbarqueID, string NumeroEmbarque, string NumeroEmbarqueCliente, string FechaEnvio, int ProyectoID)
+        public object GuardarEnvioEmbarque(DetalleJsonEnvio dtEnvio, int UsuarioID, string Lenguaje, string NumeroEmbarque, string NumeroEmbarqueCliente, string FechaEnvio)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    ctx.Sam3_Embarque_LE_GuardarEnvio(UsuarioID, Lenguaje, EmbarqueID, NumeroEmbarque, NumeroEmbarqueCliente, FechaEnvio, ProyectoID);
+                    ctx.Sam3_Embarque_LE_GuardarEnvio(UsuarioID, Lenguaje, dtEnvio.EmbarqueID, dtEnvio.DestinoID, dtEnvio.SolicitudPermiso, dtEnvio.FechaPermiso, dtEnvio.AprobadoAduana, dtEnvio.BitacoraAduana, NumeroEmbarque, NumeroEmbarqueCliente, FechaEnvio, dtEnvio.ProyectoID);
 
                     TransactionalInformation result = new TransactionalInformation();
                     result.ReturnMessage.Add("Ok");

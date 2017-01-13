@@ -132,7 +132,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
         var necesitaColor = false;
         var ds = $("#grid").data("kendoGrid").dataSource;
         for (var i = 0; i < ds._data.length; i++) {
-            if (ds._data[i].Agregar && (ds._data[i].Proceso == "Intermedio" || ds._data[i].Proceso == "Acabado")) {
+            if (ds._data[i].Agregar && ( ds._data[i].Proceso == "Acabado")) {
                 necesitaColor = true;
             }
         }
@@ -215,7 +215,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                     }else
                     {
                         ListaDetalles[i].Estatus = 0;
-                        ListaDetalles[i].RowOk = false;
+                        arregloCaptura[index].RowOk = false;
                     }
                     for (var j = 0; j < arregloCaptura[index].listadoPruebasDetalle.length; j++) {
                         ListaDetalles[i].ListadoPruebas[j] = { Accion: "", UnidadMedidaID: "", UnidadMinima: "", UnidadMaxima: "", ProyectoID: "", ProcesoPinturaID: "", PruebaProcesoPinturaID: "" };
@@ -229,7 +229,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                     }
                     if (arregloCaptura[index].Agregar && (arregloCaptura[index].MetrosLote == 0 || arregloCaptura[index].NumeroPruebas == 0 || arregloCaptura[index].NumeroComponentes == 0 || arregloCaptura[index].ReductorID == 0 || tieneComponentesSinCaptura(arregloCaptura[index].ListaDetalleComponentesAgregados))) {
                         ListaDetalles[i].Estatus = 0;
-                        ListaDetalles[i].RowOk = false;
+                        arregloCaptura[index].RowOk = false;
                     }
                     i++;
                 }
@@ -252,15 +252,9 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                     if (Error(data)) {
                         if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
                             if (tipoGuardar == 1) {
-                                $("#grid").data("kendoGrid").dataSource.data([]);
-                                opcionHabilitarView(false, "FieldSetView");
                                 AjaxObtenerColor();
-                                $("#inputNombre").val("");
-                                $("#inputSistemaPinturaID").val("");
-                                $("#divComboProyecto").css("display", "none");
-                                $("#divMultiselectProyecto").css("display", "block");
-                                $("#inputNoAplicable").prop("checked", false);
-                                $("#inputNombre").attr('disabled', false);
+
+                                Limpiar();
                             }
                             else {
                                 $("#grid").data("kendoGrid").dataSource.data([]);

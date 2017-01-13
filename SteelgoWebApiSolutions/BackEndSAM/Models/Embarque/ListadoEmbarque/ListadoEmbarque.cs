@@ -49,7 +49,7 @@ namespace BackEndSAM.Models.Embarque.ListadoEmbarque
         public bool RowOk { get; set; }
         public List<ListadoDestino> listaDestino { get; set; }
         public List<DetalleOpcionValidacion> listaEstatus { get; set; }
-        
+
     }
 
     public class ElementosPorStatus
@@ -74,5 +74,15 @@ namespace BackEndSAM.Models.Embarque.ListadoEmbarque
     {
         public List<DetalleJsonGuardar> listaDetalle { get; set; }
     }
-    
+
+    public class DetalleJsonEnvio
+    {
+        public int EmbarqueID { get; set; }
+        public int DestinoID { get; set; }
+        public int ProyectoID { get; set; }
+        public string SolicitudPermiso { get; set; }
+        public string FechaPermiso { get; set; }
+        public int AprobadoAduana { get; set; }
+        public int BitacoraAduana { get; set; }
+    }
 }

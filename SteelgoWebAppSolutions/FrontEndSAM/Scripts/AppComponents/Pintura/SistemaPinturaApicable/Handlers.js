@@ -47,7 +47,7 @@ function SuscribirEventoProyecto() {
                 }).data("kendoWindow");
 
                 ventanaConfirm.content('<center>' + _dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] + '</center>' +
-                    "</br><center><button class='btn btn-blue' id='yesButtonProy'>Si</button> <button class='btn btn-blue' id='noButtonProy'>No</button></center>");
+                    "</br><center><button class='btn btn-blue' id='yesButtonProy'>"+_dictionary.lblSi[$("#language").data("kendoDropDownList").value()]+"</button> <button class='btn btn-blue' id='noButtonProy'>"+_dictionary.lblNo[$("#language").data("kendoDropDownList").value()]+"</button></center>");
 
                 ventanaConfirm.open().center();
                 $("#yesButtonProy").click(function () {
@@ -135,7 +135,7 @@ function SuscribirEventoPlanchado() {
                 }).data("kendoWindow");
 
                 ventanaConfirm.content('<center>' + _dictionary.EntregaPlacasGraficasPlancharTodos[$("#language").data("kendoDropDownList").value()] + '</center>' +
-                             "</br><center><button class='confirm_yes btn btn-blue' id='yesButton'>Si</button>  <button class='confirm_yes btn btn-blue' id='noButton'> No</button></center>");
+                             "</br><center><button class='confirm_yes btn btn-blue' id='yesButton'>" + _dictionary.lblSi[$("#language").data("kendoDropDownList").value()] + "</button>  <button class='confirm_yes btn btn-blue' id='noButton'>" + _dictionary.lblNo[$("#language").data("kendoDropDownList").value()] + "</button></center>");
 
                 ventanaConfirm.open().center();
 
@@ -176,7 +176,7 @@ function SuscribirEventoTipoBusqueda() {
             }).data("kendoWindow");
 
             ventanaConfirm.content('<center>' + _dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] + '</center>' +
-                "</br><center><button class='btn btn-blue' id='yesButtonProy'>Si</button> <button class='btn btn-blue' id='noButtonProy'>No</button></center>");
+                "</br><center><button class='btn btn-blue' id='yesButtonProy'>" + _dictionary.lblSi[$("#language").data("kendoDropDownList").value()] + "</button> <button class='btn btn-blue' id='noButtonProy'>" + _dictionary.lblNo[$("#language").data("kendoDropDownList").value()] + "</button></center>");
 
             ventanaConfirm.open().center();
             $("#yesButtonProy").click(function () {
@@ -214,7 +214,7 @@ function SuscribirEventoTipoBusqueda() {
             }).data("kendoWindow");
 
             ventanaConfirm.content('<center>' + _dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] + '</center>' +
-                "</br><center><button class='btn btn-blue' id='yesButtonProy'>Si</button> <button class='btn btn-blue' id='noButtonProy'>No</button></center>");
+                "</br><center><button class='btn btn-blue' id='yesButtonProy'>" + _dictionary.lblSi[$("#language").data("kendoDropDownList").value()] + "</button> <button class='btn btn-blue' id='noButtonProy'>" + _dictionary.lblNo[$("#language").data("kendoDropDownList").value()] + "</button></center>");
 
             ventanaConfirm.open().center();
             $("#yesButtonProy").click(function () {
@@ -442,7 +442,7 @@ function SuscribirEventoBusqueda() {
                     }).data("kendoWindow");
 
                     ventanaConfirm.content('<center>' + _dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] + '</center>' +
-                        "</br><center><button class='btn btn-blue' id='yesButtonProy'>Si</button> <button class='btn btn-blue' id='noButtonProy'>No</button></center>");
+                        "</br><center><button class='btn btn-blue' id='yesButtonProy'>" + _dictionary.lblSi[$("#language").data("kendoDropDownList").value()] + "</button> <button class='btn btn-blue' id='noButtonProy'>" + _dictionary.lblNo[$("#language").data("kendoDropDownList").value()] + "</button></center>");
 
                     ventanaConfirm.open().center();
                     $("#yesButtonProy").click(function () {
@@ -489,7 +489,7 @@ function SuscribirEventoBusqueda() {
                     }).data("kendoWindow");
 
                     ventanaConfirm.content('<center>' + _dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] + '</center>' +
-                        "</br><center><button class='btn btn-blue' id='yesButtonNc'>Si</button> <button class='btn btn-blue' id='noButtonProy'>No</button></center>");
+                        "</br><center><button class='btn btn-blue' id='yesButtonNc'>" + _dictionary.lblSi[$("#language").data("kendoDropDownList").value()] + "</button> <button class='btn btn-blue' id='noButtonProy'>" + _dictionary.lblNo[$("#language").data("kendoDropDownList").value()] + "</button></center>");
 
                     ventanaConfirm.open().center();
 
@@ -546,7 +546,7 @@ function SuscribirEventoBusqueda() {
                 }).data("kendoWindow");
 
                 ventanaConfirm.content('<center>' + _dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] + '</center>' +
-                    "</br><center><button class='btn btn-blue' id='yesButtonProy'>Si</button> <button class='btn btn-blue' id='noButtonProy'>No</button></center>");
+                    "</br><center><button class='btn btn-blue' id='yesButtonProy'>" + _dictionary.lblSi[$("#language").data("kendoDropDownList").value()] + "</button> <button class='btn btn-blue' id='noButtonProy'>" + _dictionary.lblNo[$("#language").data("kendoDropDownList").value()] + "</button></center>");
 
                 ventanaConfirm.open().center();
                 $("#yesButtonProy").click(function () {
@@ -594,7 +594,7 @@ function SuscribirEventoBusqueda() {
                 }).data("kendoWindow");
 
                 ventanaConfirm.content('<center>' + _dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] + '</center>' +
-                    "</br><center><button class='btn btn-blue' id='yesButtonNc'>Si</button> <button class='btn btn-blue' id='noButtonProy'>No</button></center>");
+                    "</br><center><button class='btn btn-blue' id='yesButtonNc'>" + _dictionary.lblSi[$("#language").data("kendoDropDownList").value()] + "</button> <button class='btn btn-blue' id='noButtonProy'>" + _dictionary.lblNo[$("#language").data("kendoDropDownList").value()] + "</button></center>");
 
                 ventanaConfirm.open().center();
 

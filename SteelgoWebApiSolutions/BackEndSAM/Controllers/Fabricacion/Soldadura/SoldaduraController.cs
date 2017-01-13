@@ -270,6 +270,7 @@ namespace BackEndSAM.Controllers.Fabricacion.Soldadura
                             //Trabajos adicionales.
                             listaTrabajosAdicionalesSoldadura = (List<TrabajosAdicionalesSoldadura>)SoldaduraBD.Instance.ObtenerTrabajosAdicionales(item.JuntaSpoolID),
                             TemplateTrabajosAdicionales = item.TabajosAdicionales,
+                            ListaDetalleTrabajoAdicional = (List<TrabajosAdicionalesSoldadura>)SoldaduraBD.Instance.DetallaSoldaduraAdicional(item.JuntaSoldaduraID.GetValueOrDefault(), usuario),
                             FamiliaMaterialID = item.FamiliaMaterialID
                         };
 
@@ -375,6 +376,7 @@ namespace BackEndSAM.Controllers.Fabricacion.Soldadura
                         //Trabajos adicionales.
                         listaTrabajosAdicionalesSoldadura = (List<TrabajosAdicionalesSoldadura>)SoldaduraBD.Instance.ObtenerTrabajosAdicionales(item.JuntaSpoolID),
                         TemplateTrabajosAdicionales = item.TabajosAdicionales,
+                        ListaDetalleTrabajoAdicional = (List<TrabajosAdicionalesSoldadura>)SoldaduraBD.Instance.DetallaSoldaduraAdicional(item.JuntaSoldaduraID.GetValueOrDefault(),usuario),  
                         FamiliaMaterialID = item.FamiliaMaterialID
                     };
                     listaDetalleDatos.Add(detalleDatos);

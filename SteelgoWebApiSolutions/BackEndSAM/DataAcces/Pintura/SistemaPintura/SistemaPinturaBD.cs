@@ -63,7 +63,7 @@ namespace BackEndSAM.DataAcces.Pintura.SistemaPintura
                             Agregar = item.SistemaPinturaProyectoProcesoID == 0 ? false : true,
                             Proceso = item.NombreProceso,
                             ProcesoPinturaID = item.ProcesoPinturaID,
-                            MetrosLote = item.MetrosLote.GetValueOrDefault(),
+                            MetrosLote = item.MetrosLote,
                             NumeroPruebas = item.NumeroPruebas,
                             ProyectoID = item.ProyectoID,
                             SistemaPinturaID = item.SistemaPinturaID,
