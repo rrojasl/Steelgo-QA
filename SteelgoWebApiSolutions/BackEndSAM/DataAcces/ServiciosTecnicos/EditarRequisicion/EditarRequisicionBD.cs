@@ -55,7 +55,6 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EditarRequisicion
                             Espesor = item.Espesor.GetValueOrDefault(),
                             Cedula = item.Cedula,
                             ElementoPorClasificacionPNDID = item.ElementoPorClasificacionPNDID,
-                            Agregar = item.RequisicionID.GetValueOrDefault() > 0 ? true : false,
                             RequisicionID = item.RequisicionID.GetValueOrDefault(),
                             ProyectoID = item.ProyectoID,
                             SpoolID = item.SpoolID.GetValueOrDefault(),
@@ -63,6 +62,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EditarRequisicion
                             OrdenTrabajoSpoolID = item.OrdenTrabajoSpoolID,
                             TipoPruebaID = item.TipoPruebaID.GetValueOrDefault(),
                             Especificacion = item.Especificacion,
+                            Agregar = item.RequisicionID.GetValueOrDefault() > 0 ? true : false,
                             EstatusCaptura = 0
                             //Disposicion = item.Disposicion,
                             //ClasificacionPNDID = item.ClasificacionPNDID,
@@ -173,9 +173,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EditarRequisicion
                             OrdenTrabajoSpoolID = item.OrdenTrabajoSpoolID,
                             TipoPruebaID = item.TipoPruebaID.GetValueOrDefault(),
                             Especificacion = item.Especificacion,
-                            EstatusCaptura = 1,
-                            ClasificacionPNDID = item.ClasificacionPNDID,
-                            OrdenTrabajoID = item.OrdenTrabajoID
+                            EstatusCaptura = 1
 
                         });
                     }
@@ -249,9 +247,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EditarRequisicion
                             OrdenTrabajoSpoolID = item.OrdenTrabajoSpoolID,
                             TipoPruebaID = item.TipoPruebaID.GetValueOrDefault(),
                             Especificacion = item.Especificacion,
-                            EstatusCaptura = 1,
-                            ClasificacionPNDID = item.ClasificacionPNDID,
-                            OrdenTrabajoID = item.OrdenTrabajoID
+                            EstatusCaptura = 1
 
                         });
                     }
