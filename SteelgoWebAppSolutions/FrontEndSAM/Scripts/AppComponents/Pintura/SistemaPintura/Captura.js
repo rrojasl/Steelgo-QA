@@ -4,17 +4,20 @@ var ListaUnidadMedida = [];
 var modeloRenglon;
 
 function changeLanguageCall() {
+    
     var paramReq = getParameterByName('SistemaPinturaID');
     paramReq = paramReq == null ? "" : paramReq;
     $("#inputSistemaPinturaID").val(paramReq);
-    setTimeout(function () { AjaxObtenerColor(); }, 100);
+   
 
     CargarGrid();
     CargarGridPopUp();
     CargarGridPopUpComponenteAgregado();
     document.title = _dictionary.lblSistemaPinturaSiguientePasoHeader[$("#language").data("kendoDropDownList").value()];
-
-    Limpiar();
+    
+    setTimeout(function () { AjaxObtenerColor(); }, 100);
+    if (paramReq == null || paramReq == "")
+     Limpiar();
 };
 
 function getParameterByName(name, url) {
