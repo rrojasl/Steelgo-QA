@@ -110,14 +110,14 @@ namespace BackEndSAM.DataAcces.ArmadoBD
 
 
 
-        public object listaNumeroUnicos(DetalleDatosJson JsonCaptura, Sam3_Usuario usuario, int pagina)
+        public object listaNumeroUnicos(int juntaID, Sam3_Usuario usuario, int pagina,string sinCaptura)
         {
 
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Armado_Get_MaterialesSpool_Result> listaDetallaTrabajoAdicionalJson = ctx.Sam3_Armado_Get_MaterialesSpool(int.Parse(JsonCaptura.JuntaID), int.Parse(JsonCaptura.SinCaptura), pagina).ToList();
+                    List<Sam3_Armado_Get_MaterialesSpool_Result> listaDetallaTrabajoAdicionalJson = ctx.Sam3_Armado_Get_MaterialesSpool(juntaID, int.Parse(sinCaptura), pagina).ToList();
                     return listaDetallaTrabajoAdicionalJson;
                 }
             }
@@ -138,7 +138,7 @@ namespace BackEndSAM.DataAcces.ArmadoBD
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Armado_Get_DetalleTrabajoAdicional_Result> listaDetallaTrabajoAdicionalJson = ctx.Sam3_Armado_Get_DetalleTrabajoAdicional(int.Parse(JsonCaptura.JuntaID)).ToList();
+                    List<Sam3_Armado_Get_DetalleTrabajoAdicional_Result> listaDetallaTrabajoAdicionalJson = ctx.Sam3_Armado_Get_DetalleTrabajoAdicional(JsonCaptura.JuntaID).ToList();
                     return listaDetallaTrabajoAdicionalJson;
                 }
             }
@@ -159,7 +159,7 @@ namespace BackEndSAM.DataAcces.ArmadoBD
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Armado_Get_DetalleJunta_Result> listaDetalleDatosJson = ctx.Sam3_Armado_Get_DetalleJunta(int.Parse(JsonCaptura.JuntaID), lenguaje).ToList();
+                    List<Sam3_Armado_Get_Detalle_Result> listaDetalleDatosJson = ctx.Sam3_Armado_Get_Detalle(int.Parse( JsonCaptura.IdVal),lenguaje,JsonCaptura.JuntaID).ToList();
                     return listaDetalleDatosJson;
                 }
             }

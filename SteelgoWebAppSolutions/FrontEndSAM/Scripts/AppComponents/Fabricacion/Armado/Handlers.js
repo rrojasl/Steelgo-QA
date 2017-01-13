@@ -21,9 +21,8 @@ function SuscribirEventos() {
     suscribirEventoWindowsConfirmaCaptura();
 };
 
-function suscribirEventoWindowsConfirmaCaptura()
-{
-     ventanaConfirm = $("#ventanaConfirmCaptura").kendoWindow({
+function suscribirEventoWindowsConfirmaCaptura() {
+    ventanaConfirm = $("#ventanaConfirmCaptura").kendoWindow({
         iframe: true,
         title: _dictionary.CapturaArmadoTituloPopup[$("#language").data("kendoDropDownList").value()],
         visible: false,
@@ -35,9 +34,9 @@ function suscribirEventoWindowsConfirmaCaptura()
     }).data("kendoWindow");
 
     ventanaConfirm.content(_dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] +
-        "</br><center><button class='btn btn-blue' id='yesButtonProy'>" + _dictionary.lblSi[$("#language").data("kendoDropDownList").value()] + "</button><button class='btn btn-blue' id='noButtonProy'>"+_dictionary.lblNo[$("#language").data("kendoDropDownList").value()]+"</button></center>");
+        "</br><center><button class='btn btn-blue' id='yesButtonProy'>" + _dictionary.lblSi[$("#language").data("kendoDropDownList").value()] + "</button><button class='btn btn-blue' id='noButtonProy'>" + _dictionary.lblNo[$("#language").data("kendoDropDownList").value()] + "</button></center>");
 
-   
+
     $("#yesButtonProy").click(function (e) {
         $("#grid").data("kendoGrid").dataSource.data([]);
         eventoCambioTipoListado();
@@ -230,7 +229,7 @@ function Limpiar() {
 
     $("#inputTaller").data("kendoComboBox").value("");
 
-  
+
     $("#grid").data('kendoGrid').dataSource.data([]);
 
     $("#grid").data('kendoGrid').dataSource.sync();
@@ -465,32 +464,15 @@ function SuscribirEventoSpoolID() {
         delay: 10,
         change: function (e) {
             dataItem = this.dataItem(e.sender.selectedIndex);
-            if (dataItem != undefined && dataItem.IDValido!="") {
-                //if ($("#InputID").val().length == 1) {
-                //    $("#InputID").data("kendoComboBox").value(("00" + $("#InputID").val()).slice(-3));
-                //}
-               // if ($("#InputID").val() != '' && $("#InputOrdenTrabajo").val() != '') {
-                    Cookies.set("Proyecto", dataItem.ProyectoID + '°' + dataItem.Proyecto);
-                    $("#LabelProyecto").text(dataItem.Proyecto);
-                    AjaxJunta($("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()).Valor);
-                //}
-                //if (dataItem.Status != "1") {
-                //    e.preventDefault();
-                //    $("#InputID").val("");
-                //    var cadenaError = "";
-                //    if (dataItem.HabilitadoHoldFecha == 0) {
-                //        cadenaError = _dictionary.MensajeErrorSpoolHold[$("#language").data("kendoDropDownList").value()];
-                //    }
-                //    else
-                //        cadenaError = dataItem.Status;
-                //    displayNotify("", cadenaError, '1');
-                //}
-                //else {
-                //    $("#InputID").val(dataItem.IDValido);
-                //}
+            if (dataItem != undefined && dataItem.IDValido != "") {
 
-                AjaxObtenerListaTubero();
-                AjaxObtenerListaTaller();
+                Cookies.set("Proyecto", dataItem.ProyectoID + '°' + dataItem.Proyecto);
+                $("#LabelProyecto").text(dataItem.Proyecto);
+                if ($('input:radio[name=TipoAgregado]:checked').val() != "Reporte") {
+                    AjaxJunta($("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()).Valor);
+                }
+                //AjaxObtenerListaTubero();
+                //AjaxObtenerListaTaller();
             }
             else
                 $("#InputID").val("")
@@ -554,9 +536,9 @@ function SuscribirEventoSpoolID() {
                     AjaxObtenerListaTaller();
                 }
             }
-           
+
         }
-       
+
     });
 
     $('#InputID').blur(function (e) {
@@ -642,7 +624,7 @@ function suscribirEventoChangeRadioTipoListado() {
             }
             else {
                 ventanaConfirm.open().center();
-                }
+            }
         }
     });
 }

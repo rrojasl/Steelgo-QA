@@ -62,7 +62,7 @@ function ExisteJunta(Row) {
     var jsonGridArmado = $("#grid").data("kendoGrid").dataSource._data;
     if ($('input:radio[name=TipoAgregado]:checked').val() == "Listado") {
         for (var i = 0; i < jsonGridArmado.length; i++) {
-            if (Row.IdOrdenTrabajo + '-' + Row.IdVal == jsonGridArmado[i].IdOrdenTrabajo + '-' + jsonGridArmado[i].IdVal && Row.JuntaID === jsonGridArmado[i].JuntaID) {
+            if (Row.IdOrdenTrabajo + '-' + Row.IdVal == jsonGridArmado[i].IdOrdenTrabajo + '-' + jsonGridArmado[i].IdVal && Row.JuntaID == jsonGridArmado[i].JuntaID) {
                 return true;
             }
         }
@@ -75,7 +75,7 @@ function ExisteJuntaEnSpool(Row) {
     var jsonGridArmado = $("#grid").data("kendoGrid").dataSource._data;
 
     for (var i = 0; i < jsonGridArmado.length; i++) {
-        if (jsonGridArmado[i].IdOrdenTrabajo + '-' + jsonGridArmado[i].IdVal == (Row.IdOrdenTrabajo + '-' + Row.IdVal) && jsonGridArmado[i].JuntaID === Row.JuntaID) {
+        if (jsonGridArmado[i].IdOrdenTrabajo + '-' + jsonGridArmado[i].IdVal == (Row.IdOrdenTrabajo + '-' + Row.IdVal) && jsonGridArmado[i].JuntaID == Row.JuntaID) {
             return true;
         }
     }
@@ -419,8 +419,10 @@ function LlenarGridPopUp(data) {
     $("#gridPopUp").data('kendoGrid').dataSource.data([]);
     var ds = $("#gridPopUp").data("kendoGrid").dataSource;
     var array = data.ListaDetalleTrabajoAdicional;
-    for (var i = 0; i < array.length; i++) {
-        ds.add(array[i]);
+    if (array != null) {
+        for (var i = 0; i < array.length; i++) {
+            ds.add(array[i]);
+        }
     }
     ds.sync();
 

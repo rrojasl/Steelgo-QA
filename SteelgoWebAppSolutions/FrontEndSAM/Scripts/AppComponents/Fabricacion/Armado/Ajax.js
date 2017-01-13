@@ -252,18 +252,19 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
             ListaDetalles[index].JuntaAnteriorNumeroUnicoGuardado = arregloCaptura[index].JuntaAnteriorNumeroUnicoGuardado;
 
             ListaTrabajosAdicionalesEditados = [];
-            for (j = 0; j < arregloCaptura[index].ListaDetalleTrabajoAdicional.length; j++) {
-                ListaTrabajosAdicionalesEditados[j] = { Accion: "", JuntaID: "", ArmadoTrabajoAdicionalID: "", JuntaArmadoID: "", TrabajoAdicionalID: "", ObreroID: "", Observacion: "" };
-                ListaTrabajosAdicionalesEditados[j].Accion = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].Accion;
-                ListaTrabajosAdicionalesEditados[j].JuntaID = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].JuntaID;
-                ListaTrabajosAdicionalesEditados[j].ArmadoTrabajoAdicionalID = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].ArmadoTrabajoAdicionalID;
-                ListaTrabajosAdicionalesEditados[j].JuntaArmadoID = arregloCaptura[index].JuntaArmadoID;
-                ListaTrabajosAdicionalesEditados[j].TrabajoAdicionalID = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].TrabajoAdicionalID;
-                ListaTrabajosAdicionalesEditados[j].ObreroID = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].ObreroID;
-                ListaTrabajosAdicionalesEditados[j].Observacion = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].Observacion;
+            if (arregloCaptura[index].ListaDetalleTrabajoAdicional != null) {
+                for (j = 0; j < arregloCaptura[index].ListaDetalleTrabajoAdicional.length; j++) {
+                    ListaTrabajosAdicionalesEditados[j] = { Accion: "", JuntaID: "", ArmadoTrabajoAdicionalID: "", JuntaArmadoID: "", TrabajoAdicionalID: "", ObreroID: "", Observacion: "" };
+                    ListaTrabajosAdicionalesEditados[j].Accion = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].Accion;
+                    ListaTrabajosAdicionalesEditados[j].JuntaID = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].JuntaID;
+                    ListaTrabajosAdicionalesEditados[j].ArmadoTrabajoAdicionalID = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].ArmadoTrabajoAdicionalID;
+                    ListaTrabajosAdicionalesEditados[j].JuntaArmadoID = arregloCaptura[index].JuntaArmadoID;
+                    ListaTrabajosAdicionalesEditados[j].TrabajoAdicionalID = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].TrabajoAdicionalID;
+                    ListaTrabajosAdicionalesEditados[j].ObreroID = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].ObreroID;
+                    ListaTrabajosAdicionalesEditados[j].Observacion = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].Observacion;
+                }
             }
-
-            ListaDetalles[index].ListaDetalleTrabajoAdicional = arregloCaptura[index].ListaDetalleTrabajoAdicional.length == 0 ? undefined : ListaTrabajosAdicionalesEditados;
+            ListaDetalles[index].ListaDetalleTrabajoAdicional = (arregloCaptura[index].ListaDetalleTrabajoAdicional==null || arregloCaptura[index].ListaDetalleTrabajoAdicional.length == 0) ? undefined : ListaTrabajosAdicionalesEditados;
             if (!esCorrectaJunta(ListaDetalles[index].JuntaAnteriorNumeroUnicoGuardado)) {
                 // la junta del numero unico anterior no se ah asignado correctamente 
                 $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
@@ -475,7 +476,7 @@ function AjaxCargarCamposPredeterminadosOcultaJunta() {
 }
 
 function AjaxCargarReporteJuntas() {
-
+    loadingStart();
     var listadoReporte = ArregloListadoReporte();
     var elementoNoEncontrado = false;
 
@@ -488,7 +489,7 @@ function AjaxCargarReporteJuntas() {
 
     //se envia solo un objeto de los 4 porque ahora solo se hace una sola peticion y se trae todos los objetos ajax.
     if (listadoReporte.length > 0) {
-        loadingStart();
+        
         $Armado.Armado.read({ JsonCaptura: JSON.stringify(listadoReporte[0]), isReporte: true, lenguaje: $("#language").val(), token: Cookies.get("token") }).done(function (data) {
             if (Error(data)) {
                 editado = true;
@@ -501,8 +502,6 @@ function AjaxCargarReporteJuntas() {
 
                 for (var i = 0; i < array.length; i++) {
                     if (!ExisteJuntaEnSpool(array[i])) {
-                        ds.insert(0, array[i]);
-
                         if (array[i].FechaArmado != null) {
                             array[i].FechaArmado = new Date(ObtenerDato(array[i].FechaArmado, 1), ObtenerDato(array[i].FechaArmado, 2), ObtenerDato(array[i].FechaArmado, 3));//año, mes, dia
                         }
@@ -512,61 +511,17 @@ function AjaxCargarReporteJuntas() {
                             elementosModificados += ", " + array[i].Junta;
                         else
                             elementosModificados = array[i].Junta;
+                        ds.insert(0, array[i]);
                     }
                     else {
-                        for (var j = 0; j < ds._data.length; j++) {
-                            if (array[i].SpoolID == ds._data[j].SpoolID && array[i].JuntaID == ds._data[j].JuntaID && ds._data[j].Accion == 3) {
-
-                                ds._data[j].TallerID = array[i].TallerID;
-                                ds._data[j].Taller = array[i].Taller;
-                                ds._data[j].NumeroUnico1 = array[i].NumeroUnico1;
-                                ds._data[j].NumeroUnico1ID = array[i].NumeroUnico1ID;
-                                ds._data[j].NumeroUnico2 = array[i].NumeroUnico2;
-                                ds._data[j].NumeroUnico2ID = array[i].NumeroUnico2ID;
-                                ds._data[j].Tubero = array[i].Tubero;
-                                ds._data[j].TuberoID = array[i].TuberoID;
-                                ds._data[j].ListaDetalleTrabajoAdicional = array[i].ListaDetalleTrabajoAdicional;
-                                ds._data[j].TemplateMensajeTrabajosAdicionales = array[i].TemplateMensajeTrabajosAdicionales;
-
-                                ds._data[j].Accion = 2;
-
-                                if (array[i].FechaArmado != null) {
-                                    ds._data[j].FechaArmado = new Date(ObtenerDato(array[i].FechaArmado, 1), ObtenerDato(array[i].FechaArmado, 2), ObtenerDato(array[i].FechaArmado, 3));//año, mes, dia
-                                }
-
-                                if (elementosModificados != "")
-                                    elementosModificados += ", " + array[i].Junta;
-                                else
-                                    elementosModificados = array[i].Junta;
-
-                                //se aplica el algoritmo de los numeros unicos.
-                                if (array[i].ListaNumerosUnicos1.length > 2 && ExisteNUGrid(array[i].NumeroUnico1ID, ds._data, ds._data[j])) //valida NU1
-                                {
-                                    EliminarItemNUSeleccionado(ds._data, array[i].NumeroUnico1ID, ds._data[j]);
-                                }
-                                else if (array[i].ListaNumerosUnicos2.length > 2 && ExisteNUGrid(array[i].NumeroUnico2ID, ds._data, ds._data[j])) //valida NU2
-                                {
-                                    EliminarItemNUSeleccionado(ds._data, array[i].NumeroUnico2ID, ds._data[j]);
-                                }
-
-
-                                var elementgrid = ds._data.splice(j, 1);
-                                ds._data.unshift(elementgrid[0]);
-
-                                elementoNoEncontrado = true;
-                            }
-                            else if (array[i].SpoolID == ds._data[j].SpoolID && array[i].JuntaID == ds._data[j].JuntaID) {
-                                //Elementos no agregados
-                                if (elementosNoModificados != "")
-                                    elementosNoModificados += ", " + array[i].Junta;
-                                else
-                                    elementosNoModificados = array[i].Junta;
-                            }
-                        }
+                        if (elementosNoModificados != "")
+                            elementosNoModificados += ", " + array[i].Junta;
+                        else
+                            elementosNoModificados = array[i].Junta;
                     }
-                }
-                $("#grid").data("kendoGrid").dataSource.sync();
 
+                }
+              
 
                 $("#InputID").data("kendoComboBox").value("");
                 caracteresEscritosEnPagina = '';
@@ -585,13 +540,7 @@ function AjaxCargarReporteJuntas() {
 
         });
 
-    } else {
-        //if ($('input:radio[name=Muestra]:checked').val() == "Sin Capturar") {
-        //    displayNotify("CapturaArmadoNoExisteLista", "", "1");
-        //} else {
-        //    displayNotify("CapturaArmadoNoTieneJuntas", "", "2");
-        //}
-    }
+    } 
     $('#ButtonAgregar').prop("disabled", false);
 
 

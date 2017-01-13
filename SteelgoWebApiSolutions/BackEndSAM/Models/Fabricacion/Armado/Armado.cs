@@ -76,7 +76,7 @@ namespace BackEndSAM.Models.Armado
         public string IdVal { get; set; }
         public string IdText { get; set; }
         public string SpoolID { get; set; }
-        public string JuntaID { get; set; }
+        public int? JuntaID { get; set; }
         public string Junta { get; set; }
         public int TipoJuntaID { get; set; }
         public string FechaArmado { get; set; }
