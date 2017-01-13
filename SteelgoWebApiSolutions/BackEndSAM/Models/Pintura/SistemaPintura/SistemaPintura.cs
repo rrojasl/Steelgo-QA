@@ -13,7 +13,7 @@ namespace BackEndSAM.Models.Pintura.SistemaPintura
         public bool Agregar { get; set; }
         public int ProcesoPinturaID { get; set; }
         public string Proceso { get; set; }
-        public decimal MetrosLote { get; set; }
+        public double? MetrosLote { get; set; }
         public int NumeroPruebas { get; set; }
         public int SistemaPinturaProyectoProcesoID { get; set; }
         public int ProyectoID { get; set; }
