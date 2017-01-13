@@ -65,8 +65,8 @@ namespace BackEndSAM.Controllers.Embarque.ListadoEmbarque
             }
         }
 
-        [HttpGet]
-        public object GuardarEnvioEmbarque(string token, string lenguaje, int EmbarqueID, string NumeroEmbarque, string NumeroEmbarqueCliente, string FechaEnvio, int ProyectoID)
+        [HttpPost]
+        public object GuardarEnvioEmbarque(DetalleJsonEnvio DetalleJson, string token, string lenguaje, string NumeroEmbarque, string NumeroEmbarqueCliente, string FechaEnvio, int ProyectoID)
         {
             string payload = "";
             string newToken = "";
@@ -77,7 +77,7 @@ namespace BackEndSAM.Controllers.Embarque.ListadoEmbarque
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                return ListadoEmbarqueBD.Instance.GuardarEnvioEmbarque(usuario.UsuarioID, lenguaje, EmbarqueID, NumeroEmbarque, NumeroEmbarqueCliente, FechaEnvio, ProyectoID);
+                return ListadoEmbarqueBD.Instance.GuardarEnvioEmbarque(DetalleJson, usuario.UsuarioID, lenguaje, NumeroEmbarque, NumeroEmbarqueCliente, FechaEnvio);
             }
             else
             {

@@ -58,8 +58,6 @@ namespace BackEndSAM.Models.ServiciosTecnicos.EditarRequisicion
             public int TipoPruebaID { get; set; }
             public string Especificacion { get; set; }
             public int EstatusCaptura { get; set; }
-            public int? OrdenTrabajoID { get; set; }
-            public int? ClasificacionPNDID { get; set; }
             public string Codigo { get; set; }
         }
 
