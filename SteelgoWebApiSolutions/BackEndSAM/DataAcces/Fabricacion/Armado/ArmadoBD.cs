@@ -132,13 +132,13 @@ namespace BackEndSAM.DataAcces.ArmadoBD
                 return result;
             }
         }
-        public object DetallaArmadoAdicional(DetalleDatosJson JsonCaptura, Sam3_Usuario usuario)
+        public object DetallaArmadoAdicional(int JuntaID, Sam3_Usuario usuario)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Armado_Get_DetalleTrabajoAdicional_Result> listaDetallaTrabajoAdicionalJson = ctx.Sam3_Armado_Get_DetalleTrabajoAdicional(JsonCaptura.JuntaID).ToList();
+                    List<Sam3_Armado_Get_DetalleTrabajoAdicional_Result> listaDetallaTrabajoAdicionalJson = ctx.Sam3_Armado_Get_DetalleTrabajoAdicional(JuntaID).ToList();
                     return listaDetallaTrabajoAdicionalJson;
                 }
             }

@@ -104,7 +104,7 @@ function ArregloListadoCaptura() {
     JsonCaptura[0].IdVal = $("#InputID").val();
     JsonCaptura[0].IdText = $("#InputID").data("kendoComboBox").text();
     JsonCaptura[0].SpoolID = $("#InputOrdenTrabajo").val() + '-' + $("#InputID").val();
-    JsonCaptura[0].JuntaID = $("#Junta").val();
+    JsonCaptura[0].JuntaID = $("#Junta").val() == "" ? "0" : $("#Junta").val();
     JsonCaptura[0].Junta = $("#Junta").data("kendoComboBox").text();
     JsonCaptura[0].FechaArmado = $("#FechaArmado").val();
     JsonCaptura[0].TuberoID = $("#inputTubero").val();
@@ -417,14 +417,19 @@ function LlenarGridPopUp(data) {
 
     modeloRenglon = data;
     $("#gridPopUp").data('kendoGrid').dataSource.data([]);
-    var ds = $("#gridPopUp").data("kendoGrid").dataSource;
-    var array = data.ListaDetalleTrabajoAdicional;
-    if (array != null) {
-        for (var i = 0; i < array.length; i++) {
-            ds.add(array[i]);
+   
+    if (data.ListaDetalleTrabajoAdicional == undefined || data.ListaDetalleTrabajoAdicional == null)
+        AjaxListaDetalleTrabajosAdicionales(data.JuntaID);
+    else {
+        var ds = $("#gridPopUp").data("kendoGrid").dataSource;
+        var array = data.ListaDetalleTrabajoAdicional;
+        if (array != null) {
+            for (var i = 0; i < array.length; i++) {
+                ds.add(array[i]);
+            }
         }
+        ds.sync();
     }
-    ds.sync();
 
     VentanaModal();
 }
@@ -849,28 +854,15 @@ function ArregloListadoJuntasCapturadas() {
 
     var dataSource = $("#grid").data("kendoGrid").dataSource;
     var data = dataSource._data
-
-
     JsonCaptura = [];
-
-
     for (var i = 0; i < data.length ; i++) {
-        JsonCaptura[i] = { IDProyecto: "", Proyecto: "", IdOrdenTrabajo: "", OrdenTrabajo: "", idVal: "", idText: "", SpoolID: "", JuntaID: "", Junta: "", FechaArmado: "", TuberoID: "", Tubero: "", TallerID: "", Taller: "", sinCaptura: "" };
-        JsonCaptura[i].IDProyecto = data[i].IDProyecto;
-        JsonCaptura[i].Proyecto = data[i].Proyecto;
+        JsonCaptura[i] = { IdOrdenTrabajo: "", OrdenTrabajo: "", idVal: "", idText: "", SpoolID: "", JuntaID: "" };
         JsonCaptura[i].IdOrdenTrabajo = data[i].IdOrdenTrabajo;
         JsonCaptura[i].OrdenTrabajo = data[i].OrdenTrabajo;
         JsonCaptura[i].idVal = data[i].IdVal;
         JsonCaptura[i].idText = data[i].IdText;
         JsonCaptura[i].SpoolID = data[i].SpoolID;
         JsonCaptura[i].JuntaID = data[i].JuntaID;
-        JsonCaptura[i].Junta = data[i].Junta;
-        JsonCaptura[i].FechaArmado = kendo.toString(data[i].FechaArmado, _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()]);;
-        JsonCaptura[i].TuberoID = data[i].TuberoID;
-        JsonCaptura[i].Tubero = data[i].Tubero;
-        JsonCaptura[i].TallerID = data[i].TallerID;
-        JsonCaptura[i].Taller = data[i].Taller;
-        JsonCaptura[i].sinCaptura = "Todos";
     }
     return JsonCaptura;
 }

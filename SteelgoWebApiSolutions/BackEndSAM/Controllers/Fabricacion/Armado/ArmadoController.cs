@@ -18,6 +18,7 @@ namespace BackEndSAM.Controllers
     public class ArmadoController : ApiController
     {
 
+        //obtenemos la spools a partir de la orden de trabajo.
         public object Get(string ordenTrabajo, int tipo, string token, string lenguaje)
         {
             //Create a generic return object
@@ -68,6 +69,8 @@ namespace BackEndSAM.Controllers
             }
 
         }
+
+        //obtenemos los campos predeterminados
         [HttpGet]
         public object ObtieneCamposPredeterminados(string token, string lenguaje)
         {
@@ -104,6 +107,7 @@ namespace BackEndSAM.Controllers
             }
         }
 
+        //obtenemos el detalle del grid.
         public object Get(string JsonCaptura, bool isReporte, string token, string lenguaje)
         {
             string payload = "";
@@ -120,8 +124,6 @@ namespace BackEndSAM.Controllers
 
 
                 List<Sam3_Armado_Get_Detalle_Result> detalle = (List<Sam3_Armado_Get_Detalle_Result>)ArmadoBD.Instance.ObtenerDetalleArmado(capturaDatosJson, usuario, lenguaje);
-                //List<Sam3_Armado_Get_DetalleTrabajoAdicional_Result> detallaArmadoAdicional = (List<Sam3_Armado_Get_DetalleTrabajoAdicional_Result>)ArmadoBD.Instance.DetallaArmadoAdicional(capturaDatosJson, usuario);
-                //List<DetalleTrabajoAdicional> listDetalleTrabajoAdicional = GenerarDetalleAdicionalJson(detallaArmadoAdicional, usuario);
                 
                 List<Sam3_Steelgo_Get_TrabajoAdicional_Result> listaTrabajoAdicionalXJunta = (List<Sam3_Steelgo_Get_TrabajoAdicional_Result>)ArmadoBD.Instance.listaTrabajosAdicionalesXJunta(usuario);
                 List<TrabajosAdicionalesXJunta> listaDetalleAdicionalXJuntaConvertida = listaTrabajoAdicionalXJunta.ConvertAll(new Converter<Sam3_Steelgo_Get_TrabajoAdicional_Result, TrabajosAdicionalesXJunta>(DetalleTrabajoAdicionalXJuntaResultToDetalleTrabajoAdicionalXJunta));
@@ -292,6 +294,7 @@ namespace BackEndSAM.Controllers
             return listaDetalleAdicional;
         }
 
+        //obtenemos las juntas.
         public object Get(string ordenTrabajo, string id, string sinCaptura, string token)
         {
             string payload = "";
@@ -313,7 +316,7 @@ namespace BackEndSAM.Controllers
                 return result;
             }
         }
-
+        //obtenemos los tuberos
         public object Get(int idProyecto, int tipo, string token)
         {
 
@@ -336,7 +339,7 @@ namespace BackEndSAM.Controllers
                 return result;
             }
         }
-
+        //obtenemos los talleres
         public object Get(int idProyecto, string token)
         {
             string payload = "";
@@ -453,5 +456,27 @@ namespace BackEndSAM.Controllers
             }
         }
 
+        public object Get(string token,int juntaID)
+        {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                List<Sam3_Armado_Get_DetalleTrabajoAdicional_Result> detallaArmadoAdicional = (List<Sam3_Armado_Get_DetalleTrabajoAdicional_Result>)ArmadoBD.Instance.DetallaArmadoAdicional(juntaID, usuario);
+                return GenerarDetalleAdicionalJson(detallaArmadoAdicional, usuario);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
     }
 }
