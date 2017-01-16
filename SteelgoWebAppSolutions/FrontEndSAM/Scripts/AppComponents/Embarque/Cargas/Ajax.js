@@ -231,16 +231,15 @@ function AjaxAgregarPaquete() {
                     var ds = $("#grid").data("kendoGrid").dataSource;
 
                     var array = data;
-                    for (var i = 0; i < array.length; i++) {
-                        if (!ExisteSpool(array[i])) {
-                            if (array[i].Cargado != 1 || array[i].PlanaCargado.trim() == $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").text().trim()) {
+                    if (array[0].Cargado != 1 ) {
+                        for (var i = 0; i < array.length; i++) {
+                            if (!ExisteSpool(array[i])) {
                                 ds.insert(0, array[i]);
                             }
-                            else {
-                                displayNotify('', _dictionary.EmbarqueCargaMsjErrorSpoolAgregar[$("#language").data("kendoDropDownList").value()]
-                                    + array[i].PlanaCargado, '1');
-                            }
                         }
+                    } else {
+                        displayNotify('', _dictionary.EmbarqueCargaMsjErrorPaqueteCargado[$("#language").data("kendoDropDownList").value()]
+                            + array[0].PlanaCargado, '2');
                     }
                 }
                 
@@ -502,9 +501,10 @@ function ajaxGuardar(arregloCaptura, tipoGuardar) {
                     }
                     else {
                         $("#grid").data("kendoGrid").dataSource.data([]);
-                        
+                        AjaxCargarPaquetes($("#inputProyecto").data("kendoComboBox").value());
                         AjaxObtenerGrid();
                         opcionHabilitarView(true, "FieldSetView");
+
 
                     }
                     displayNotify("MensajeGuardadoExistoso", "", "0");
@@ -539,7 +539,7 @@ function AjaxDescargarPaquete(dataItem, eliminaFilas) {
     }
 
     $CargaPlana.CargaPlana.read({
-        token: Cookies.get("token"), PaqueteID: dataItem, CuadranteID: cuadranteID
+        token: Cookies.get("token"), PaqueteID: dataItem, CuadranteID: cuadranteID, AbrirPaquete: eliminaFilas
     }).done(function (data) {
         if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "OK") {
             if (eliminaFilas == 1) {
@@ -557,6 +557,7 @@ function AjaxDescargarPaquete(dataItem, eliminaFilas) {
             displayNotify("EmbarqueCargaMsjDescargaPaqueteError", "", "2");
         }
 
+        AjaxCargarPaquetes($("#inputProyecto").data("kendoComboBox").value());
         ObtieneConsecutivo();
         ImprimirTotalToneladas(ds._data);
         ImprimirTotalPiezas(ds._data);

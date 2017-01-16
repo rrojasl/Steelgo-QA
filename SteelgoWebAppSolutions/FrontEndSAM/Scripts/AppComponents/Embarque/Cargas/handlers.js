@@ -120,7 +120,7 @@ function SuscribirEventoDescargarPaquete() {
                         $("#inputZonaPaquete").data("kendoComboBox").trigger("change");
                         CuadrantePaqueteAnterior = dataItem.CuadrantePaqueteAnteriorID;
 
-                        windowDownloadPaquete.title(__dictionary.EmbarqueCargaTituloPopupDescargaPaquete[$("#language").data("kendoDropDownList").value()]);
+                        windowDownloadPaquete.title(_dictionary.EmbarqueCargaTituloPopupDescargaPaquete[$("#language").data("kendoDropDownList").value()]);
                         windowDownloadPaquete.center().open();
                     }
                 } else 

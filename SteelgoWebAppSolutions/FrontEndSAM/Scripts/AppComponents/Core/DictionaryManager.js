@@ -11304,6 +11304,10 @@ _dictionary = {
         "es-MX": "El último spool del paquete ha sido descargado. ¿Desea descargar el paquete de la plana o eliminarlo?",
         "en-US": "The last spool of the package has been downloaded. Do you want to download the flat pack or remove it?"
     },
+    "EmbarqueCargaMsjErrorPaqueteCargado": {
+        "es-MX": "El paquete ya se encuentra cargado en la plana ",
+        "en-US": "The package is already loaded on the flat "
+    },
     //Finaliza pantalla carga plana
     //Inicia pantalla empaquetado
     "EmbarqueEmpaquetadoTituloPagina": {
