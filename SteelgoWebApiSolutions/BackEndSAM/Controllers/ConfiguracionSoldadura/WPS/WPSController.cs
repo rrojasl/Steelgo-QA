@@ -116,9 +116,9 @@ namespace BackEndSAM.Controllers.ConfiguracionSoldadura.WPS
                         if (item.gruposCorrectos != null)
                         {
                             if (gruposCorrectos == null)
-                                gruposCorrectos = ArmadoController.ToDataTable(item.gruposCorrectos);
+                                gruposCorrectos = Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(item.gruposCorrectos);
                             else
-                                gruposCorrectos.Merge(ArmadoController.ToDataTable(item.gruposCorrectos));
+                                gruposCorrectos.Merge(Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(item.gruposCorrectos));
 
                         }
                     }

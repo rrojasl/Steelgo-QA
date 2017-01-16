@@ -298,14 +298,14 @@ namespace BackEndSAM.Controllers.Inspeccion.Dimensional
                     if (item.ListaJuntas != null)
                     {
                         if (JuntasSeleccionadas == null)
-                            JuntasSeleccionadas = ArmadoController.ToDataTable(item.ListaJuntas);
+                            JuntasSeleccionadas = Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(item.ListaJuntas);
                         else
-                            JuntasSeleccionadas.Merge(ArmadoController.ToDataTable(item.ListaJuntas));
+                            JuntasSeleccionadas.Merge(Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(item.ListaJuntas));
 
                     }
                 }
 
-                DataTable dtDetalleCaptura = ArmadoController.ToDataTable(listaCaptura.Detalles);
+                DataTable dtDetalleCaptura = Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(listaCaptura.Detalles);
                 dtDetalleCaptura.Columns.Remove("ListaJuntas");
 
                 return InspeccionDimensionalBD.Instance.InsertarCapturaInspeccion(dtDetalleCaptura, JuntasSeleccionadas, usuario, lenguaje);

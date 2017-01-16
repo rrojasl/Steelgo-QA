@@ -62,7 +62,7 @@ namespace BackEndSAM.Controllers.ConfiguracionSoldadura.SoldadorCertificacion
                 {
                     JavaScriptSerializer serializer = new JavaScriptSerializer();
                     Sam3_Usuario Usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                    DataTable dtDetalleCaptura = ArmadoController.ToDataTable(AddSC.Detalles);
+                    DataTable dtDetalleCaptura = Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(AddSC.Detalles);
                     return SoldCertBd.Instance.AgregarSoldadorCertificacion(dtDetalleCaptura, Usuario, Lenguaje, TipoCaptura);
                 }
                 else
