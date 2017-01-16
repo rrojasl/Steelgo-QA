@@ -243,10 +243,10 @@ namespace BackEndSAM.Controllers.Inspeccion.VisualDimensional
                 DataTable dtDetalleCaptura = null;
 
                 if (listaCapturaInspeccion.Detalles[0].ListaDetalleGuardarInspeccionVisual != null)
-                    dtDetalleCaptura = ArmadoController.ToDataTable(listaCapturaInspeccion.Detalles[0].ListaDetalleGuardarInspeccionVisual);
+                    dtDetalleCaptura = Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(listaCapturaInspeccion.Detalles[0].ListaDetalleGuardarInspeccionVisual);
 
                 if (listaCapturaInspeccion.Detalles[0].ListaJuntas != null)
-                    dtDetalleListas = ArmadoController.ToDataTable(listaCapturaInspeccion.Detalles[0].ListaJuntas);
+                    dtDetalleListas = Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(listaCapturaInspeccion.Detalles[0].ListaJuntas);
 
                 return VisualDimensionalBD.Instance.InsertarCapturaInspeccion(dtDetalleCaptura, dtDetalleListas, usuario.UsuarioID, lenguaje, listaCapturaInspeccion.Detalles[0].InspeccionDimensionalID, listaCapturaInspeccion.Detalles[0].OrdenTrabajoSpoolID, listaCapturaInspeccion.Detalles[0].FechaInspeccion, listaCapturaInspeccion.Detalles[0].ResultadoID, listaCapturaInspeccion.Detalles[0].ObreroID, listaCapturaInspeccion.Detalles[0].DefectoID, listaCapturaInspeccion.Detalles[0].Accion);
             }
