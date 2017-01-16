@@ -332,5 +332,39 @@ namespace BackEndSAM.DataAcces.ArmadoBD
                 return result;
             }
         }
+
+        public object ActualizaDatos(DataTable dtInformacionActualizar,string lenguaje)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    ObjetosSQL _SQL = new ObjetosSQL();
+                    string[,] parametro = { { "@Lenguaje", lenguaje } };
+
+                    DataTable dt= _SQL.EjecutaDataAdapter(Stords.ARMADOACTUALIZARINFORMACION, dtInformacionActualizar, "@ArmadoActualizado", parametro);
+
+                    //TransactionalInformation result = new TransactionalInformation();
+                    //result.ReturnMessage.Add("Ok");
+
+                    //result.ReturnCode = 200;
+                    //result.ReturnStatus = true;
+                    //result.IsAuthenicated = true;
+
+                    return dt;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+        
     }
 }
