@@ -33,6 +33,17 @@ function AjaxObtenerDetalleListadoEmbarque(estatus) {
         var ds = $("#grid").data("kendoGrid").dataSource;
 
         if (data.length > 0) {
+            if (estatus == 1) {
+                for (var x = 0; x < data.length; x++) {
+                    if (data[x].listaDestino.length == 2 && data[x].DestinoID == 0) {
+                        data[x].DestinoID = data[x].listaDestino[1].DestinoID;
+                        data[x].Destino = data[x].listaDestino[1].Destino;
+                    }
+
+                }
+            } else {
+                $("#grid").data("kendoGrid").hideColumn("Enviar");
+            }
             ds.data(data);
             ds.page(1);
         } else
@@ -114,7 +125,7 @@ function AjaxEnviarEmbarque(dataItem, numEmb, numEmbCliente, fechaEnvio) {
         DetalleJson.AprobadoAduana = dataItem.RequierePermisoAduana ? dataItem.AprobadoAduana : 0;
         DetalleJson.OkCliente = dataItem.OkCliente;
         DetalleJson.OkEmbarque = dataItem.OkEmbarque;
-        DetalleJson.BitacoraAduana = dataItem.AprobadoAduana != dataItem.AprobadoAduanaAnt && ds[i].RequierePermisoAduana ? 1 : 0;
+        DetalleJson.BitacoraAduana = dataItem.AprobadoAduana != dataItem.AprobadoAduanaAnt && dataItem.RequierePermisoAduana ? 1 : 0;
     }
 
     $ListadoEmbarque.ListadoEmbarque.create( DetalleJson, {
