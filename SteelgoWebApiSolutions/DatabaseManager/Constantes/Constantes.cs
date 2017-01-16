@@ -61,6 +61,8 @@
         public static string GUARDARADMINISTRACIONCOMPONENTES = "Sam3_Pintura_AdminComponentes_GuardaCaptura";
         public static string GUARDARADMINISTRACIONREDUCTORES = "Sam3_Pintura_AdminReductores_GuardaCaptura";
         public static string GUARDARCAPTURALISTADOEMBARQUE = "Sam3_Embarque_LE_GuardarCaptura";
+        public static string ARMADOACTUALIZARINFORMACION = "Sam3_Armado_Get_InformacionActualizada";
+        
 
     }
 }

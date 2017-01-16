@@ -241,7 +241,7 @@ function suscribirEventoAgregar() {
         if ($('input:radio[name=TipoAgregado]:checked').val() != undefined) {
             if ($('input:radio[name=Muestra]:checked').val() != undefined) {
                 if ($('input:radio[name=TipoAgregado]:checked').val() == "Reporte") {
-                    if ($("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()) != undefined) {
+                    if ($("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()).ProyectoID!=0) {
                         $('#ButtonAgregar').prop("disabled", true);
                       
                         AjaxObtenerJSonGridArmado();

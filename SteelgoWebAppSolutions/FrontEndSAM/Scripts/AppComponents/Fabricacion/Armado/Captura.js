@@ -856,12 +856,8 @@ function ArregloListadoJuntasCapturadas() {
     var data = dataSource._data
     JsonCaptura = [];
     for (var i = 0; i < data.length ; i++) {
-        JsonCaptura[i] = { IdOrdenTrabajo: "", OrdenTrabajo: "", idVal: "", idText: "", SpoolID: "", JuntaID: "" };
-        JsonCaptura[i].IdOrdenTrabajo = data[i].IdOrdenTrabajo;
-        JsonCaptura[i].OrdenTrabajo = data[i].OrdenTrabajo;
-        JsonCaptura[i].idVal = data[i].IdVal;
-        JsonCaptura[i].idText = data[i].IdText;
-        JsonCaptura[i].SpoolID = data[i].SpoolID;
+        JsonCaptura[i] = { OrdenTrabajoSpoolID: "", JuntaID: "" };
+        JsonCaptura[i].OrdenTrabajoSpoolID = data[i].IdVal;
         JsonCaptura[i].JuntaID = data[i].JuntaID;
     }
     return JsonCaptura;

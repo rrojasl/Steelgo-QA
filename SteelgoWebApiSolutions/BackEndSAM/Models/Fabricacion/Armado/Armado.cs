@@ -203,13 +203,9 @@ namespace BackEndSAM.Models.Armado
         public List<Elementos> Detalles { get; set; }
     }
 
-    public class Elementos {
-        public int IdOrdenTrabajo { get; set; }
-        public int OrdenTrabajo { get; set; }
-        public int idVal { get; set; }
-        public int idText { get; set; }
-        public int SpoolID { get; set; }
-        public int JuntaID { get; set; }
+    public class Elementos {   
+        public string OrdenTrabajoSpoolID { get; set; }
+        public string JuntaID { get; set; }
     }
 
     public class CapturaJuntas

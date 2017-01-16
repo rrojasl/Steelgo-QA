@@ -497,7 +497,7 @@ function AjaxCambiarAccionAModificacion() {
 
 
     loadingStart();
-    $Armado.Armado.read({ Detalle: capturaListado[0].Detalles, lenguaje: $("#language").val(), token: Cookies.get("token") }).done(function (data) {
+    $Armado.Armado.update(capturaListado[0], { token: Cookies.get("token"), lenguaje: $("#language").val(), SinCaptura: $('input:radio[name=Muestra]:checked').val() }).done(function (data) {
         if (Error(data)) {
             var ds = $("#grid").data("kendoGrid").dataSource;
             var array = JSON.parse(data);
@@ -515,6 +515,8 @@ function AjaxCambiarAccionAModificacion() {
 
         loadingStop();
     });
+
+  
 
 
 
