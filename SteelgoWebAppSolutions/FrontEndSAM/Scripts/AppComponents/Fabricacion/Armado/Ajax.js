@@ -497,7 +497,7 @@ function AjaxCambiarAccionAModificacion() {
 
 
     loadingStart();
-    $Armado.Armado.read({ Detalle: capturaListado[0], lenguaje: $("#language").val(), token: Cookies.get("token") }).done(function (data) {
+    $Armado.Armado.read({ Detalle: capturaListado[0].Detalles, lenguaje: $("#language").val(), token: Cookies.get("token") }).done(function (data) {
         if (Error(data)) {
             var ds = $("#grid").data("kendoGrid").dataSource;
             var array = JSON.parse(data);
