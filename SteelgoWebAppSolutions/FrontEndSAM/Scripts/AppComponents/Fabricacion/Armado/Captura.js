@@ -5,7 +5,7 @@ var actuallongitudTrabajosAdicionales;
 var ItemSeleccionado;
 var ventanaConfirm;
 var editado = false;
-var spooolAnterior;
+
 
 IniciarCapturaArmado();
 function IniciarCapturaArmado() {

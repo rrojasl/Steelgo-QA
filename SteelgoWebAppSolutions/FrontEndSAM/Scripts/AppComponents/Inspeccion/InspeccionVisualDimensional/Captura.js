@@ -4,7 +4,8 @@ var listadoJsonCaptura;
 var anteriorlongitudTrabajosAdicionales;
 var actuallongitudTrabajosAdicionales;
 var editado = false;
-
+var spooolAnterior;
+var ventanaConfirm;
 
 IniciarCapturaInspecion();
 
