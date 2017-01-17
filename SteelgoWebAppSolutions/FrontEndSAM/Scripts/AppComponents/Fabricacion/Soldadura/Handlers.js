@@ -593,7 +593,7 @@ function GuardarSoldadoresRaiz() {
                 $("#windowGridSoldadorRaiz").data("kendoWindow").close();
             }
             else {
-                displayNotify('CapturaSoldaduraGridSoldadores', '', '2');
+                displayNotify('CapturaSoldaduraGridSoldadoresRegistrosRepetidos', '', '2');
             }
         }
         else {
