@@ -7765,8 +7765,8 @@ _dictionary = {
         "en-US": "Save"
     },
     "botonGuardar4": {
-        "es-MX": "Guardar",
-        "en-US": "Save"
+        "es-MX": "Agregar",
+        "en-US": "add"
     },
     "botonGuardar5": {
         "es-MX": "Guardar",

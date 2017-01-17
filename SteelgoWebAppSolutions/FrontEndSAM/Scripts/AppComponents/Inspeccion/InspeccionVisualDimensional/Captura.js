@@ -3,6 +3,9 @@ var endRangeDateV;
 var listadoJsonCaptura;
 var anteriorlongitudTrabajosAdicionales;
 var actuallongitudTrabajosAdicionales;
+var editado = false;
+
+
 IniciarCapturaInspecion();
 
 //Cambia lenguaje
@@ -13,7 +16,7 @@ function changeLanguageCall() {
     endRangeDateV.data("kendoDatePicker").setOptions({
         format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()]
     });
-
+    suscribirEventoWindowsConfirmaCaptura();
     CargarGrid();
     limpiar();
     $('#Guardar1').text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);
