@@ -86,14 +86,14 @@ function CargarGrid() {
                 }, template: '<input type="checkbox" #= Llego ? "checked=checked" : "" # class="chkbx" ></input>', width: "130px", attributes: { style: "text-align:center;" }
             },
             {
-                field: "LlegoComentarios", title: "Llego con comentarios", filterable: {
+                field: "LlegoComentario", title: "Llego con comentarios", filterable: {
                     multi: true,
                     messages: {
                         isTrue: _dictionary.lblVerdadero[$("#language").data("kendoDropDownList").value()],
                         isFalse: _dictionary.lblFalso[$("#language").data("kendoDropDownList").value()],
                         style: "max-width:150px;"
                     },
-                    dataSource: [{ LlegoComentarios: true }, { LlegoComentarios: false }]
+                    dataSource: [{ LlegoComentario: true }, { LlegoComentario: false }]
                 }, template: '<input type="checkbox" #= LlegoComentarios ? "checked=checked" : "" # class="chkbx" ></input>', width: "130px", attributes: { style: "text-align:center;" }
             },
             {

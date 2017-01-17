@@ -650,7 +650,7 @@ function SuscribirEventoAgregar() {
             if ($('#InputProyecto').data("kendoComboBox").value() != "" && $('#InputProyecto').data("kendoComboBox").value() != "0") {
 
                 if ($("#inputCodigo").val() != "") {
-                    AjaxObtenerDetalleSpool(tipoConsulta, null, $("#inputCodigo").val());
+                    AjaxObtenerDetalleSpool(tipoConsulta, 0, $("#inputCodigo").val());
                 } else {
                     displayNotify("EmbarqueEmpaquetadoMsjErrorCodigo", "", '2');
                 }
