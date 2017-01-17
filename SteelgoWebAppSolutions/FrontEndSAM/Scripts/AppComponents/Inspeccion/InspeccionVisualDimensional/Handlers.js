@@ -35,20 +35,24 @@ function suscribirEventoWindowsConfirmaCaptura() {
 
     $("#yesButtonProy").click(function (e) {
         $("#grid").data("kendoGrid").dataSource.data([]);
-     
+        AplicarCambioSpoolID($("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()));
         ventanaConfirm.close();
         editado = false;
     });
     $("#noButtonProy").click(function (e) {
-       
+        
+        $("#InputID").data("kendoComboBox").value(spooolAnterior.Valor);
         ventanaConfirm.close();
     });
 }
 
 function SuscribirEventoFecha() {
     endRangeDate = $("#FechaInspeccion").kendoDatePicker({
-        max: new Date()
-
+        max: new Date(),
+        change:function(e)
+        {
+            editado = true;
+        }
     });
     endRangeDateV = $("#inputFechaVisual").kendoDatePicker({
         max: new Date()
@@ -72,7 +76,7 @@ function SuscribirEventoListaJuntas() {
         autoBind: false,
         ignoreCase: true,
         change: function (e) {
-
+            editado = true;
         }
     }).data("kendoMultiSelect");
 
@@ -104,6 +108,18 @@ function SuscribirEventoOrdenTrabajo()
     });
 }
 
+function AplicarCambioSpoolID(dataItem)
+{
+    if ($("#InputID").val().length == 1) {
+        $("#InputID").data("kendoComboBox").value(("00" + $("#InputID").val()).slice(-3));
+    }
+    if ($("#InputID").val() != '' && $("#InputOrdenTrabajo").val() != '') {
+        Cookies.set("Proyecto", dataItem.ProyectoID + '°' + dataItem.Proyecto);
+        MostrarDetalleVisualDimensional();
+    }
+    spooolAnterior = dataItem;
+}
+
 function SuscribirEventoSpoolID() {
 
     $("#InputID").kendoComboBox({
@@ -116,16 +132,18 @@ function SuscribirEventoSpoolID() {
         change: function (e) {
             dataItem = this.dataItem(e.sender.selectedIndex);
             aplicarColorBlancoCapturaDimensional();
-            spooolAnterior = dataItem;
+            
             if (dataItem != undefined && dataItem.IDValido != "") {
-                    if ($("#InputID").val().length == 1) {
-                        $("#InputID").data("kendoComboBox").value(("00" + $("#InputID").val()).slice(-3));
-                    }
-                    if ($("#InputID").val() != '' && $("#InputOrdenTrabajo").val() != '') {
-                        Cookies.set("Proyecto", dataItem.ProyectoID + '°' + dataItem.Proyecto);
-                        MostrarDetalleVisualDimensional();
-                    }
+                if ($("#grid").data("kendoGrid").dataSource._data.length > 0 || editado)
+                {
+                    ventanaConfirm.open().center();
+                }
+                else
+                {
+                    AplicarCambioSpoolID(dataItem);
+                }
             }
+           
         }
     });
 
@@ -249,6 +267,7 @@ function SuscribirEventoInspector() {
         change: function (e) {
             if ($("#inputInspector").data("kendoComboBox").dataItem($("#inputInspector").data("kendoComboBox").select()) == undefined)
                 $("#inputInspector").data("kendoComboBox").value("");
+            editado = true;
         }
     });
 
@@ -297,7 +316,7 @@ function SuscribirEventoDefecto() {
                 $("#ListaJuntas").data("kendoMultiSelect").enable(false);
 
             else $("#ListaJuntas").data("kendoMultiSelect").enable(true);
-
+            editado = true;
             $("#ListaJuntas").data("kendoMultiSelect").value("");
         }
     });
@@ -323,6 +342,7 @@ function SuscribirEventoDefectoVisual() {
         change: function (e) {
             if ($("#inputDefectosVisual").data("kendoComboBox").dataItem($("#inputDefectosVisual").data("kendoComboBox").select()) == undefined)
                 $("#inputDefectosVisual").data("kendoComboBox").value("");
+           
         }
     });
 
@@ -343,6 +363,7 @@ function SuscribirEventoResultadoDimensional() {
         if ($('#Guardar').text() == "Guardar" || $('#Guardar').text() == "Save") {
             $("#inputDefecto").data("kendoComboBox").enable(false);
             $("#ListaJuntas").data("kendoMultiSelect").enable(false);
+            editado = true;
         }
         $("#ListaJuntas").data("kendoMultiSelect").value("");
         $("#inputDefecto").data("kendoComboBox").value("");
@@ -352,6 +373,7 @@ function SuscribirEventoResultadoDimensional() {
         if ($('#Guardar').text() == "Guardar" || $('#Guardar').text() == "Save") {
             $("#inputDefecto").data("kendoComboBox").enable(true);
             $("#ListaJuntas").data("kendoMultiSelect").enable(true);
+            editado = true;
         }
 
         $("#inputDefecto").data("kendoComboBox").select(0);

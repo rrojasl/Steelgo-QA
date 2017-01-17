@@ -9855,7 +9855,7 @@ _dictionary = {
     },
     "EntregaPlacasGraficasTituloPopup": {
         "es-MX": "Error!!!",
-        "en-US": "Errorto save!!!"
+        "en-US": "Error to save!!!"
     },
 
     "EntregaPlacasGraficasPlancharTodos": {
