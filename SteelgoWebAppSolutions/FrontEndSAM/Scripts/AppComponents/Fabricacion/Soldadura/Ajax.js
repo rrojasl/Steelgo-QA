@@ -422,6 +422,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
         ListaDetalles = [];
 
         for (index = 0; index < arregloCaptura.length; index++) {
+            $("#grid").data("kendoGrid").dataSource._data[index].RowOk = true;
             ListaDetalles[index] = {
                 Accion: "", OrdenTrabajoSpoolID: "", JuntaSpoolID: "",
                 TipoJuntaID: "", EtiquetaJunta: "",
@@ -543,9 +544,9 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                 };
 
                 ListaSoldadoresEditados[j].Accion = listaSoldadoresFinal[j].Accion == undefined ? 1 : listaSoldadoresFinal[j].Accion;
-                ListaSoldadoresEditados[j].JuntaSpoolID = listaSoldadoresFinal[j].JuntaSpoolID;
-                ListaSoldadoresEditados[j].JuntaSoldaduraSoldadoID = listaSoldadoresFinal[j].JuntaSoldaduraSoldadoID;
-                ListaSoldadoresEditados[j].JuntaSoldaduraID = arregloCaptura[index].JuntaSoldaduraID;
+                ListaSoldadoresEditados[j].JuntaSpoolID = arregloCaptura[index].JuntaID;
+                ListaSoldadoresEditados[j].JuntaSoldaduraSoldadoID = listaSoldadoresFinal[j].JuntaSoldaduraSoldadoID == undefined ? 0 : listaSoldadoresFinal[j].JuntaSoldaduraSoldadoID;
+                ListaSoldadoresEditados[j].JuntaSoldaduraID = arregloCaptura[index].JuntaSoldaduraID == undefined ? 0 : arregloCaptura[index].JuntaSoldaduraID;
                 ListaSoldadoresEditados[j].EsRaiz = 1;
                 ListaSoldadoresEditados[j].ObreroID = listaSoldadoresFinal[j].ObreroID;
                 ListaSoldadoresEditados[j].Comentario = listaSoldadoresFinal[j].Observaciones == undefined ? "" : listaSoldadoresFinal[j].Observaciones;
@@ -558,7 +559,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
             //var listaRellenoSoldadoresDetalle = arregloCaptura[index].RellenoDetalle;
             //var listaRellenoSoldadoresNueva = arregloCaptura[index].Relleno;
             //var listaRellenoSoldadoresInicial = arregloCaptura[index].RellenoInicial;
-            var listaRellenoSoldadoresFinal = arregloCaptura[index].ListaSoldadoresRaizCapturados;
+            var listaRellenoSoldadoresFinal = arregloCaptura[index].ListaSoldadoresRellenoCapturados;
 
             //if (listaRellenoSoldadoresNueva.length == 0) {
             //    for (var j = 0 ; j < listaRellenoSoldadoresInicial.length ; j++) {
@@ -614,9 +615,9 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                 };
 
                 ListaRellenoEditados[j].Accion = listaRellenoSoldadoresFinal[j].Accion == undefined ? 1 : listaRellenoSoldadoresFinal[j].Accion;;
-                ListaRellenoEditados[j].JuntaSpoolID = listaRellenoSoldadoresFinal[j].JuntaSpoolID;
-                ListaRellenoEditados[j].JuntaSoldaduraSoldadoID = listaRellenoSoldadoresFinal[j].JuntaSoldaduraSoldadoID;
-                ListaRellenoEditados[j].JuntaSoldaduraID = arregloCaptura[index].JuntaSoldaduraID;
+                ListaRellenoEditados[j].JuntaSpoolID = arregloCaptura[index].JuntaID;
+                ListaRellenoEditados[j].JuntaSoldaduraSoldadoID = listaRellenoSoldadoresFinal[j].JuntaSoldaduraSoldadoID == undefined ? 0 : listaRellenoSoldadoresFinal[j].JuntaSoldaduraSoldadoID;
+                ListaRellenoEditados[j].JuntaSoldaduraID = arregloCaptura[index].JuntaSoldaduraID == undefined ? 0 : arregloCaptura[index].JuntaSoldaduraID;
                 ListaRellenoEditados[j].EsRaiz = 0;
                 ListaRellenoEditados[j].ObreroID = listaRellenoSoldadoresFinal[j].ObreroID;
                 ListaRellenoEditados[j].Comentario = listaRellenoSoldadoresFinal[j].Observaciones == undefined ? "" : listaRellenoSoldadoresFinal[j].Observaciones;
@@ -654,6 +655,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                         ) {
                         ListaDetalles[index].Estatus = 0;
                         $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
+                        $("#grid").data("kendoGrid").dataSource.sync();
                         //$('tr[data-uid="' + arregloCaptura[index].uid + '"] ').css("background-color", "#ffcccc");
                     }
 

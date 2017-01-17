@@ -99,6 +99,7 @@ namespace BackEndSAM.Models.Fabricacion.Soldadura
         public List<Consumible> ListadoColadas { get; set; }
         public int FamiliaMaterialID { get; set; }
         public List<TrabajosAdicionalesSoldadura> ListaDetalleTrabajoAdicional { get; set; }
+        public bool RowOk { get; set; }
     }
 
     public class Taller
@@ -177,6 +178,8 @@ namespace BackEndSAM.Models.Fabricacion.Soldadura
         public int ColadaID { get; set; }
         public string Colada { get; set; }
         public string Observaciones { get; set; }
+        public int JuntaSoldaduraID { get; set; }
+        public int JuntaSoldaduraSoldadoID { get; set; }
         public List<ObreroSoldador> ListaSoldador {get; set;}
 
         public Soldadores()

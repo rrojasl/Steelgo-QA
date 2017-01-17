@@ -9356,7 +9356,12 @@ _dictionary = {
         "es-MX": "Los campos de Soldador y Colada son mandatorios",
         "en-US": "The welder and laver fields has mandatory"
     },
+    "CapturaSoldaduraGridSoldadoresRegistrosRepetidos": {
+        "es-MX": "Los campos de Soldador y Colada, no pueden ser los mismos en mas de un registro",
+        "en-US": "The welder and laver fields cant be equals in more than one reccord"
+    },
 
+        
     "CapturaSoldaduraHeaderTrabajosAdicionalesAnidado": {
         "es-MX": "Trabajo",
         "en-US": "Work"

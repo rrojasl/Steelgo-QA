@@ -20,7 +20,7 @@ function SuscribirEventos() {
     suscribirEventoGridPopupTrabajosAdicionales();
     suscribirEventoGridPopupSoldadoresRaiz();
     suscribirEventoGridPopupSoldadoresRelleno();
-    
+
     GuardarDetalleAdicional();
     GuardarSoldadoresRaiz();
     GuardarSoldadoresRelleno();
@@ -40,7 +40,7 @@ function suscribirEventoGuardar() {
             }
         }
 
-        
+
     });
 
     $("#Guardar").click(function () {
@@ -372,7 +372,7 @@ function SuscribirEventoID() {
         }
 
         dataItem = $("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select());
-        if (!valorEncontrado && dataItem == undefined) {
+        if (!valorEncontrado && dataItem == undefined && spoollIDValue != "") {
             $("#Junta").data("kendoComboBox").dataSource.data([]);
             $("#Junta").data("kendoComboBox").select(0);
             displayNotify("NoExisteSpoolID", "", '1');
@@ -387,8 +387,9 @@ function SuscribirEventosOrdenTrabajo() {
         if ($("#InputOrdenTrabajo").val().match("^[a-zA-Z][0-9]*$")) {
             try {
                 var OrdenTrabajoOrigianl = $("#InputOrdenTrabajo").val();
-                if (Error) {
-                    $Soldadura.Soldadura.read({ ordenTrabajo: $("#InputOrdenTrabajo").val(), tipo: '1', token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
+
+                $Soldadura.Soldadura.read({ ordenTrabajo: $("#InputOrdenTrabajo").val(), tipo: '1', token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
+                    if (Error(data)) {
                         if (data.OrdenTrabajo != "") {
                             $("#InputOrdenTrabajo").val(data.OrdenTrabajo);
                         }
@@ -399,8 +400,9 @@ function SuscribirEventosOrdenTrabajo() {
 
                         $("#InputID").data("kendoComboBox").dataSource.data(data.idStatus);
                         Cookies.set("LetraProyecto", data.OrdenTrabajo.substring(0, 1), { path: '/' });
-                    });
-                }
+                    }
+                });
+
             } catch (e) {
                 displayNotify("Mensajes_error", e.message, '2');
 
@@ -484,7 +486,7 @@ function suscribirEventoGridPopupSoldadoresRelleno() {
             dataItem = grid.dataItem($(e.target).closest("tr"));
             if (dataItem.ProcesoSoldaduraRelleno != "" && dataItem.WPSNombre != "")
                 AjaxObtenerListadoColadas(dataItem, 0);
-                
+
         }
     });
 }
@@ -541,7 +543,7 @@ function GuardarDetalleAdicional() {
             $("#grid").data("kendoGrid").dataSource.sync();
 
             $("#windowGrid").data("kendoWindow").close();
-            
+
         }
         else {
             displayNotify('CapturaSoldaduraTrabajoMandatorio', '', '2');
@@ -552,6 +554,7 @@ function GuardarDetalleAdicional() {
 function GuardarSoldadoresRaiz() {
     $('#GuardarSoldadoresRaiz').click(function () {
         var RaizCorrectos = true;
+        var RegistrosNoRepetidos = true;
         var ds = $("#inputSoldadoresRaiz").data("kendoGrid").dataSource;
 
         for (var i = 0; i < ds._data.length; i++) {
@@ -561,24 +564,37 @@ function GuardarSoldadoresRaiz() {
                 RaizCorrectos = false;
         }
         if (RaizCorrectos) {
-            modeloRenglon.ListaSoldadoresRaizCapturados = ds._data;
+            for (var i = 0; i < ds._data.length; i++) {
+                for (var j = 0; j < ds._data.length; j++) {
+                    if (ds._data[i].Colada == ds._data[j].Colada && ds._data[i].Soldador == ds._data[j].Soldador)
+                        RegistrosNoRepetidos = false;
+                }
+            }
+        }
 
-            var dataSource = $("#inputSoldadoresRaiz").data("kendoGrid").dataSource;
-            var filters = dataSource.filter();
-            var allData = dataSource.data();
-            var query = new kendo.data.Query(allData);
-            var data = query.filter(filters).data;
+        if (RaizCorrectos) {
+            if (RegistrosNoRepetidos) {
+                modeloRenglon.ListaSoldadoresRaizCapturados = ds._data;
 
-            actuallongitudSoldadoresRaiz = data.length;
-            if (actuallongitudSoldadoresRaiz == 0)
-                modeloRenglon.TemplateSoldadoresRaiz = _dictionary.CapturaArmadoTemplateNoHaySoldadoresRaiz[$("#language").data("kendoDropDownList").value()];
-            else
-                modeloRenglon.TemplateSoldadoresRaiz = _dictionary.CapturaSoldaduraMensajeCambioLongitud[$("#language").data("kendoDropDownList").value()] + actuallongitudSoldadoresRaiz + _dictionary.CapturaSoldaduraMensajeCambioSoldadoresRaiz[$("#language").data("kendoDropDownList").value()];
+                var dataSource = $("#inputSoldadoresRaiz").data("kendoGrid").dataSource;
+                var filters = dataSource.filter();
+                var allData = dataSource.data();
+                var query = new kendo.data.Query(allData);
+                var data = query.filter(filters).data;
 
-            $("#grid").data("kendoGrid").dataSource.sync();
+                actuallongitudSoldadoresRaiz = data.length;
+                if (actuallongitudSoldadoresRaiz == 0)
+                    modeloRenglon.TemplateSoldadoresRaiz = _dictionary.CapturaArmadoTemplateNoHaySoldadoresRaiz[$("#language").data("kendoDropDownList").value()];
+                else
+                    modeloRenglon.TemplateSoldadoresRaiz = _dictionary.CapturaSoldaduraMensajeCambioLongitud[$("#language").data("kendoDropDownList").value()] + actuallongitudSoldadoresRaiz + _dictionary.CapturaSoldaduraMensajeCambioSoldadoresRaiz[$("#language").data("kendoDropDownList").value()];
 
-            $("#windowGridSoldadorRaiz").data("kendoWindow").close();
-            
+                $("#grid").data("kendoGrid").dataSource.sync();
+
+                $("#windowGridSoldadorRaiz").data("kendoWindow").close();
+            }
+            else {
+                displayNotify('CapturaSoldaduraGridSoldadores', '', '2');
+            }
         }
         else {
             displayNotify('CapturaSoldaduraGridSoldadores', '', '2');
