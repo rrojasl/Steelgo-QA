@@ -566,7 +566,7 @@ function GuardarSoldadoresRaiz() {
         if (RaizCorrectos) {
             for (var i = 0; i < ds._data.length; i++) {
                 for (var j = 0; j < ds._data.length; j++) {
-                    if (ds._data[i].Colada == ds._data[j].Colada && ds._data[i].Soldador == ds._data[j].Soldador)
+                    if (ds._data[i].Colada == ds._data[j].Colada && ds._data[i].Soldador == ds._data[j].Soldador && i != j)
                         RegistrosNoRepetidos = false;
                 }
             }
