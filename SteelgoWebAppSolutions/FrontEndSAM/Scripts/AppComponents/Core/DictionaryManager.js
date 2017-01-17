@@ -7721,6 +7721,10 @@ _dictionary = {
         "es-MX": "Imprimir",
         "en-US": "Print"
     },
+    "lblDestino": {
+        "es-MX": "Destino",
+        "en-US": "Destiny"
+    },
     //Finaliza Etiquetas
     //Etiquetas header alertas
     "SuccessTitle": {
@@ -11404,8 +11408,8 @@ _dictionary = {
         "en-US": "The spool is already loaded on the flat "
     },
     "EmbarqueEmpaquetadoErrorPaqueteVacio": {
-        "es-MX": "El paquete no se puede cerrar vacío",
-        "en-US": "The package can not be closed empty"
+        "es-MX": "No se puede cerrar un paquete vacío",
+        "en-US": "Unable to close an empty package"
     },
     //Finaliza Pantalla empaquetado
     //Inicia pantalla Preparacion Embarque
