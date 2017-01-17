@@ -104,7 +104,7 @@ namespace BackEndSAM.DataAcces.Fabricacion.Soldadura
                             Certificado = item.Certificado
                         });
                     }
-                    return listaWPS;
+                    return listaWPS.OrderBy(x => x.WPSNombre).ToList<WPS>();
                 }
             }
             catch (Exception ex)
@@ -138,7 +138,7 @@ namespace BackEndSAM.DataAcces.Fabricacion.Soldadura
                             Certificado = item.Certificado
                         });
                     }
-                    return listaSoldadoresCertificados;
+                    return listaSoldadoresCertificados.OrderBy(x => x.Soldador).ToList<ObreroSoldador>();
                 }
             }
             catch (Exception ex)
@@ -172,7 +172,7 @@ namespace BackEndSAM.DataAcces.Fabricacion.Soldadura
                             Certificado = item.Certificado
                         });
                     }
-                    return listaSoldadoresCertificados;
+                    return listaSoldadoresCertificados.OrderBy(x => x.Colada).ToList<Consumible>();
                 }
             }
             catch (Exception ex)
@@ -209,6 +209,8 @@ namespace BackEndSAM.DataAcces.Fabricacion.Soldadura
                             ObreroID = item.ObreroID,
                             Observaciones = item.Comentario,
                             Soldador = item.Obrero,
+                            JuntaSoldaduraID = item.JuntaSoldaduraID,
+                            JuntaSoldaduraSoldadoID = item.JuntaSoldaduraSoldadoID,
                             ListaSoldador = new List<ObreroSoldador>()
                         });
                     }
@@ -234,7 +236,7 @@ namespace BackEndSAM.DataAcces.Fabricacion.Soldadura
                 listaProcesosSoldadura.Add(new ProcesoSoldadura());
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Cat_PQR_ProcesoSoldadura_Result> result = ctx.Sam3_Cat_PQR_ProcesoSoldadura(1).ToList();
+                    List<Sam3_Cat_PQR_ProcesoSoldadura_Result> result = ctx.Sam3_Cat_PQR_ProcesoSoldadura(2).ToList();
 
                     foreach (Sam3_Cat_PQR_ProcesoSoldadura_Result item in result)
                     {

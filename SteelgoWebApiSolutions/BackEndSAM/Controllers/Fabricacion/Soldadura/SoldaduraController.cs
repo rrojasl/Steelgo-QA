@@ -271,7 +271,8 @@ namespace BackEndSAM.Controllers.Fabricacion.Soldadura
                             listaTrabajosAdicionalesSoldadura = (List<TrabajosAdicionalesSoldadura>)SoldaduraBD.Instance.ObtenerTrabajosAdicionales(item.JuntaSpoolID),
                             TemplateTrabajosAdicionales = item.TabajosAdicionales,
                             ListaDetalleTrabajoAdicional = (List<TrabajosAdicionalesSoldadura>)SoldaduraBD.Instance.DetallaSoldaduraAdicional(item.JuntaSoldaduraID.GetValueOrDefault(), usuario),
-                            FamiliaMaterialID = item.FamiliaMaterialID
+                            FamiliaMaterialID = item.FamiliaMaterialID,
+                            RowOk = true
                         };
 
                         listaDetalleDatos.Add(detalleDatos);
@@ -775,6 +776,16 @@ namespace BackEndSAM.Controllers.Fabricacion.Soldadura
                     {
                         dt = new DataTable("DTEnvio");
                         RellenoAdicionales.Merge(RaizAdicionales);
+                        dt.Merge(RellenoAdicionales);
+                    }
+                    else if (RellenoAdicionales == null && RaizAdicionales != null)
+                    {
+                        dt = new DataTable("DTEnvio");
+                        dt.Merge(RaizAdicionales);
+                    }
+                    else if (RellenoAdicionales != null && RaizAdicionales == null)
+                    {
+                        dt = new DataTable("DTEnvio");
                         dt.Merge(RellenoAdicionales);
                     }
                     else if (RellenoAdicionales == null && dt != null)

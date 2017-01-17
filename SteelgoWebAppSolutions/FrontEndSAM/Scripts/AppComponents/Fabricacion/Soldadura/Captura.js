@@ -80,8 +80,8 @@ function CargarGrid() {
             { field: "Junta", title: _dictionary.columnJunta[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "70px" },
             { field: "DetalleJunta", title: _dictionary.columnDetalleJunta[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "180px" },
             { field: "Diametro", title: _dictionary.columnDiametro[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "80px", attributes: { style: "text-align:right;" } },
-            { field: "Taller", title: _dictionary.columnTaller[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxTaller, width: "130px" },
             { field: "FechaSoldadura", title: _dictionary.columnFecha[$("#language").data("kendoDropDownList").value()], filterable: getKendoGridFilterableDateMaftec(), editor: RenderDatePicker, width: "110px", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()] },
+            { field: "Taller", title: _dictionary.columnTaller[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxTaller, width: "130px" },
             { field: "ProcesoSoldaduraRaiz", title: _dictionary.columnProcesoRaiz[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "140px", editor: RenderComboBoxProcesoSoldaduraRaiz },
             { field: "TemplateSoldadoresRaiz", title: _dictionary.columnSoldadoresRaiz[$("#language").data("kendoDropDownList").value()], filterable: false, width: "150px", template: "<div class='botonSoldadoresRaiz'><a href='\\#'  > <span>#=TemplateSoldadoresRaiz#</span></a></div>" },
             { field: "ProcesoSoldaduraRelleno", title: _dictionary.columnProcesoRelleno[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "140px", editor: RenderComboBoxProcesoSoldaduraRelleno },
@@ -116,6 +116,7 @@ function opcionHabilitarView(valor, name) {
 
     if (valor) {
         $('#FieldSetView').find('*').attr('disabled', true);
+        $('#planchadoZone').find('*').attr('disabled', true);
         $("#InputID").data("kendoComboBox").enable(false);
         $("#Junta").data("kendoComboBox").enable(false);
         $("#inputTaller").data("kendoComboBox").enable(false);
@@ -125,12 +126,14 @@ function opcionHabilitarView(valor, name) {
         $('#botonGuardar').text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
         $("#DetalleAvisoLlegada0017").text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
         $('#ButtonAplicar').attr("disabled", true);
-        $('#btnGuardarPiePagina').text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
-        $("#botonGuardar3").text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
+        $('#botonGuardar2').text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
+        $("#botonGuardar1").text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
+        $('#botonGuardar3').text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
 
     }
     else {
         $('#FieldSetView').find('*').attr('disabled', false);
+        $('#planchadoZone').find('*').attr('disabled', false);
         $("#InputID").data("kendoComboBox").enable(true);
         $("#inputTaller").data("kendoComboBox").enable(true);
         $("#FechaSoldadura").data("kendoDatePicker").enable(true);
@@ -139,7 +142,9 @@ function opcionHabilitarView(valor, name) {
         $("#DetalleAvisoLlegada0017").text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);
         $('#ButtonAplicar').attr("disabled", false);
         $('#btnGuardarPiePagina').text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);
-        $("#botonGuardar3").text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);
+        $('#botonGuardar2').text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);
+        $('#botonGuardar3').text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);
+        $("#botonGuardar1").text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);
     }
 }
 
@@ -791,3 +796,50 @@ function ObtenerListadoObreros(arregloObrerosRaiz, arregloObrerosRelleno) {
 function onlyUnique(value, index, self) {
     return self.indexOf(value) === index;
 }
+
+
+
+function PlanchaTaller() {
+    var dataSource = $("#grid").data("kendoGrid").dataSource;
+    var filters = dataSource.filter();
+    var allData = dataSource.data();
+    var query = new kendo.data.Query(allData);
+    var data = query.filter(filters).data;
+
+    for (var i = 0; i < data.length; i++) {
+        if ($("#inputTaller").data("kendoComboBox").text() != "") {
+            if ($('input:radio[name=LLena]:checked').val() === "Todos") {
+                data[i].TallerID = $("#inputTaller").val();
+                data[i].Taller = $("#inputTaller").data("kendoComboBox").text();
+            }
+            else {
+                if (data[i].Taller == "" || data[i].Taller == null || data[i].Taller == undefined) {
+                    data[i].TallerID = $("#inputTaller").val();
+                    data[i].Taller = $("#inputTaller").data("kendoComboBox").text();
+                }
+            }
+        }
+    }
+    $("#grid").data("kendoGrid").dataSource.sync();
+};
+function PlanchaFecha() {
+    var dataSource = $("#grid").data("kendoGrid").dataSource;
+    var filters = dataSource.filter();
+    var allData = dataSource.data();
+    var query = new kendo.data.Query(allData);
+    var data = query.filter(filters).data;
+
+    for (var i = 0; i < data.length; i++) {
+        if (String(endRangeDate.val()).trim() != "") {
+            if ($('input:radio[name=LLena]:checked').val() === "Todos") {
+                data[i].FechaSoldadura = String(endRangeDate.val()).trim();
+            }
+            else {
+                if (data[i].FechaSoldadura == "" || data[i].FechaSoldadura == null || data[i].FechaSoldadura == undefined) {
+                    data[i].FechaSoldadura = String(endRangeDate.val()).trim();
+                }
+            }
+        }
+    }
+    $("#grid").data("kendoGrid").dataSource.sync();
+};
