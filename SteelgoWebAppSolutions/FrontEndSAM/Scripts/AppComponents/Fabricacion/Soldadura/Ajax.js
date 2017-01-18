@@ -699,6 +699,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                 visible: false, //the window will not appear before its .open method is called
                 width: "auto",
                 height: "auto",
+                actions: [],
                 modal: true,
                 animation: {
                     close: false,

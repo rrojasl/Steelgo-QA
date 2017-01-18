@@ -40,16 +40,16 @@ _dictionary = {
     },
     //Login Page Labels
     "textoGuardar": {
-        "es-MX": "Guardar",
-        "en-US": "Save"
+        "es-MX": "Agregar",
+        "en-US": "Add"
     },
     "textoGuardar1": {
-        "es-MX": "Guardar",
-        "en-US": "Save"
+        "es-MX": "Agregar",
+        "en-US": "Add"
     },
     "textoGuardar2": {
-        "es-MX": "Guardar",
-        "en-US": "Save"
+        "es-MX": "Agregar",
+        "en-US": "Add"
     },
     "textoEditar": {
         "es-MX": "Editar",

@@ -154,7 +154,8 @@ function suscribirEventoAplicar() {
                 animation: {
                     close: false,
                     open: false
-                }
+                },
+                actions: []
             }).data("kendoWindow");
 
             ventanaConfirm.content(_dictionary.CapturaMensajeArmadoPlancharTodos[$("#language").data("kendoDropDownList").value()] +

@@ -106,6 +106,7 @@ namespace BackEndSAM.Controllers.Fabricacion.Soldadura
 
                 List<Sam3_Steelgo_Get_SpoolID_Result> lista = (List<Sam3_Steelgo_Get_SpoolID_Result>)SoldaduraBD.Instance.ObtenerIDOrdenTrabajo(usuario, ordenTrabajo, tipo, lenguaje);
                 List<IDS> listaAtatus = new List<IDS>();
+                listaAtatus.Add( new IDS());
                 if (lista.Count > 0)
                 {
                     foreach (var item in lista)
