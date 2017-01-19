@@ -8896,6 +8896,18 @@ _dictionary = {
         "es-MX": "Enviar",
         "en-US": "Send"
     },
+    "columnLlegoSpool": {
+        "es-MX": "Llegó",
+        "en-US": "Arrived"
+    },
+    "columnNoLlegoSpool": {
+        "es-MX": "No llegó",
+        "en-US": "Dot arrive"
+    },
+    "columnLlegoComentariosSpool": {
+        "es-MX": "Llegó con Comentario",
+        "en-US": "Arrived with comment"
+    },
     // Finalizan Etiquetas Grid
     // Finalizan Etiquetas generales
 
@@ -9397,7 +9409,7 @@ _dictionary = {
         "en-US": "Root Welders"
     },
     "CapturaSoldaduraSoldadoresRelleno": {
-        "es-MX": "Soldadores Raiz",
+        "es-MX": "Soldadores Relleno",
         "en-US": "Fill Welders"
     },
     "lblSoldadorCerfiticado1": {
@@ -10922,11 +10934,11 @@ _dictionary = {
         "en-US": "Consecutive"
     },
     "columnPaqueteEmbarque": {
-        "es-MX": "Paquete ",
+        "es-MX": "Paquete",
         "en-US": "Package"
     },
     "columnPesoEmbarque": {
-        "es-MX": "Peso ",
+        "es-MX": "Peso",
         "en-US": "Weigth"
     },
     //FinalizaColumnas
