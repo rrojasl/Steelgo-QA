@@ -23,23 +23,23 @@
     });
 }
 
-function AjaxCargarEmbarquesEnviados(proyectoID) {
+function AjaxCargarEmbarques(proyectoID) {
     loadingStart();
     $RevisionEmbarque.RevisionEmbarque.read({ token: Cookies.get("token"), ProyectoID: proyectoID }).done(function (data) {
         $("#Embarque").data("kendoComboBox").dataSource.data([]);
-            var PaqueteID = 0;
+            var EmbarqueID = 0;
             if (data.length > 0) {
                 $("#Embarque").data("kendoComboBox").dataSource.data(data);
 
                 if (data.length < 3) {
                     for (var i = 0; i < data.length; i++) {
-                        if (data[i].PaqueteID != 0) {
-                            PaqueteID = data[i].PaqueteID;
+                        if (data[i].EmbarqueID != 0) {
+                            EmbarqueID = data[i].EmbarqueID;
                         }
                     }
                 }
 
-                $("#Embarque").data("kendoComboBox").value(PaqueteID);
+                $("#Embarque").data("kendoComboBox").value(EmbarqueID);
                 $("#Embarque").data("kendoComboBox").trigger("change");
             }
         loadingStop();

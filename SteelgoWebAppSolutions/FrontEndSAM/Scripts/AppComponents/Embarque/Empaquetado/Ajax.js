@@ -219,10 +219,13 @@ function AjaxObtenerDetalleSpool(tipoConsulta, spoolID, codigo) {
                 }
             }
 
-            ObtieneConsecutivo();
-            ImprimirTotalToneladas(ds._data);
-            ImprimirTotalPiezas(ds._data);
         }
+
+        $("#InputID").data("kendoComboBox").value("");
+        $("#inputCodigo").val("");
+        ObtieneConsecutivo();
+        ImprimirTotalToneladas(ds._data);
+        ImprimirTotalPiezas(ds._data);
         loadingStop();
     });
 }

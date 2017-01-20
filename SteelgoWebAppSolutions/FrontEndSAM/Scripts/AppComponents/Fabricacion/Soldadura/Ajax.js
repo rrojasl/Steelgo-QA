@@ -635,7 +635,9 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                       ListaDetalles[index].TallerID == "" || ListaDetalles[index].TallerID == "0" ||
                       ListaDetalles[index].ProcesoSoldaduraRaizID == "" || ListaDetalles[index].ProcesoSoldaduraRaizID == 0 ||
                       ListaDetalles[index].ProcesoSoldaduraRellenoID == "" || ListaDetalles[index].ProcesoSoldaduraRellenoID == 0 ||
-                      ListaDetalles[index].FechaSoldadura == ""
+                      ListaDetalles[index].FechaSoldadura == "" || 
+                      ListaDetalles[index].ListaSoldaduraRelleno.length == 0 || 
+                      ListaDetalles[index].ListaSoldaduraRaiz.length == 0
                    ) && (ListaDetalles[index].Accion != 3 && ListaDetalles[index].Accion != 4)
                   ) {
                 if ((ListaDetalles[index].WPSID == "" || ListaDetalles[index].WPSID == 0) &&
@@ -651,7 +653,9 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                         ListaDetalles[index].TallerID == "" || ListaDetalles[index].TallerID == "0" ||
                         ListaDetalles[index].ProcesoSoldaduraRellenoID == "" || ListaDetalles[index].ProcesoSoldaduraRellenoID == 0 ||
                         ListaDetalles[index].ProcesoSoldaduraRaizID == "" || ListaDetalles[index].ProcesoSoldaduraRaizID == 0  ||
-                        ListaDetalles[index].FechaSoldadura == ""
+                        ListaDetalles[index].FechaSoldadura == "" || ListaDetalles[index].ListaSoldaduraRelleno.length == 0 ||
+                        ListaDetalles[index].ListaSoldaduraRaiz.length == 0 || 
+                        ListaDetalles[index].ListaSoldaduraRelleno.length == 0 
                         ) {
                         ListaDetalles[index].Estatus = 0;
                         $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
@@ -661,6 +665,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
 
                 }
             }
+                
             else {
 
             }
@@ -694,6 +699,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                 visible: false, //the window will not appear before its .open method is called
                 width: "auto",
                 height: "auto",
+                actions: [],
                 modal: true,
                 animation: {
                     close: false,

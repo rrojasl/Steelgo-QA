@@ -43,9 +43,9 @@ namespace BackEndSAM.DataAcces.Embarque.RevisionEmbarque
                         listaDetalle.Add(new EmbarqueEnviado
                         {
                             EmbarqueID = item.EmbarqueID,
-                            Nombre = item.Nombre,
+                            Nombre = item.Embarque,
                             Destino = item.Destino,
-                            Estatus = item.EmbarqueEstatusID,
+                            Estatus = item.Estatus,
                             ProyectoID = item.ProyectoID
                         });
                     }
@@ -78,14 +78,14 @@ namespace BackEndSAM.DataAcces.Embarque.RevisionEmbarque
                     {
                         listaDetalle.Add(new DetalleRevisionEmbarque
                         {
-                            RevisionEmbarqueID = item.RevisionEmbarqueID,
+                            //RevisionEmbarqueID = item.RevisionEmbarqueID,
                             EmbarqueID = item.EmbarqueID,
                             NumeroControl = item.NumeroControl,
                             Embarque =item.Embarque,
-                            Llego = item.Llego.GetValueOrDefault(),
-                            NoLlego = item.NoLlego.GetValueOrDefault(),
-                            LlegoComentario = item.LlegoComentario.GetValueOrDefault(),
-                            Comentario = item.Comentario,
+                            //Llego = item.Llego.GetValueOrDefault(),
+                            //NoLlego = item.NoLlego.GetValueOrDefault(),
+                            //LlegoComentario = item.LlegoComentario.GetValueOrDefault(),
+                            //Comentario = item.Comentario,
                             Destino = item.Destino,
                             Estatus = item.EmbarqueEstatusID,
                             ProyectoID = item.ProyectoID

@@ -206,6 +206,8 @@ function AjaxAgregarCarga() {
                     }
                 }
 
+                $("#InputID").data("kendoComboBox").value("");
+                $("#inputCodigo").val("");
                 ObtieneConsecutivo();
                 ImprimirTotalToneladas(ds._data);
                 ImprimirTotalPiezas(ds._data);
@@ -242,7 +244,8 @@ function AjaxAgregarPaquete() {
                             + array[0].PlanaCargado, '2');
                     }
                 }
-                
+
+                $("#inputPaquete").data("kendoComboBox").value("");
                 ObtieneConsecutivo();
                 ImprimirTotalToneladas(ds._data);
                 ImprimirTotalPiezas(ds._data);

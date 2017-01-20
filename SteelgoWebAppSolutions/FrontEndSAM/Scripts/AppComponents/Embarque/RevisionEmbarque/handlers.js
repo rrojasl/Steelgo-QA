@@ -23,7 +23,7 @@ function SuscribirEventoProyecto() {
             if (dataItem != undefined) {
                 ProyectoInicial = dataItem.ProyectoID;
 
-                AjaxCargarEmbarquesEnviados(dataItem.ProyectoID);
+                AjaxCargarEmbarques(dataItem.ProyectoID);
 
             }
             else {
@@ -44,10 +44,11 @@ function SuscribirEventoEmbarque() {
             var dataItem = this.dataItem(e.sender.selectedIndex);
 
             if (dataItem != undefined) {
-                //AjaxCargarDetalleRevision();
+                $("#EmbarqueDestino").text(dataItem.Destino);
             }
             else {
                 $("#Embarque").data("kendoComboBox").value("");
+                $("#EmbarqueDestino").text("");
             }
         }
     });

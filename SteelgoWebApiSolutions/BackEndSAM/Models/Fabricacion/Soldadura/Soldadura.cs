@@ -231,6 +231,15 @@ namespace BackEndSAM.Models.Fabricacion.Soldadura
 
     public class IDS
     {
+        public IDS()
+        {
+            Status = "";
+            IDValido = "";
+            Valor = 0;
+            Proyecto = "";
+            ProyectoID = 0;
+        }
+
         public string Status { get; set; }
         public string IDValido { get; set; }
         public int Valor { get; set; }

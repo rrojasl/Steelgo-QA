@@ -88,8 +88,8 @@ function CargarGrid() {
             { field: "TemplateSoldadoresRelleno", title: _dictionary.columnSoldadoresRelleno[$("#language").data("kendoDropDownList").value()], filterable: false, width: "150px", template: "<div class='botonSoldadoresRelleno'><a href='\\#' > <span>#=TemplateSoldadoresRelleno#</span></a></div>" },
             { field: "WPSNombre", title: _dictionary.columnWPS[$("#language").data("kendoDropDownList").value()], editor: RenderComboBoxWPS, filterable: getGridFilterableCellMaftec(), width: "130px" },
             { field: "DetalleAdicional", title: _dictionary.columnDetalleAdicional[$("#language").data("kendoDropDownList").value()], filterable: false, width: "150px", template: "<div class='botonAdicionales'><a href='\\#' > <span>#=TemplateTrabajosAdicionales#</span></a></div>" },
-            { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: cancelarCaptura }, filterable: false, title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], width: "50px" },
-            { command: { text: _dictionary.botonLimpiar[$("#language").data("kendoDropDownList").value()], click: limpiarRenglon }, filterable: false, title: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()], width: "50px" }
+            { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: cancelarCaptura }, filterable: false, title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], width: "50px", attributes: { style: "text-align:center;" } },
+            { command: { text: _dictionary.botonLimpiar[$("#language").data("kendoDropDownList").value()], click: limpiarRenglon }, filterable: false, title: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()], width: "50px", attributes: { style: "text-align:center;" } }
         ],
         dataBound: function () {
             var grid = $("#grid").data("kendoGrid");
@@ -166,39 +166,12 @@ function cancelarCaptura(e) {
         var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
         var spoolIDRegistro = dataItem.SpoolID;
 
-        windowTemplate = kendo.template($("#windowTemplate").html());
+        var dataSource = $("#grid").data("kendoGrid").dataSource;
+        dataItem.Accion = 3;
+        if (dataItem.JuntaSoldaduraID == 0)
+            dataSource.remove(dataItem);
+        $("#grid").data("kendoGrid").dataSource.sync();
 
-        ventanaConfirm = $("#ventanaConfirm").kendoWindow({
-            iframe: true,
-            title: _dictionary.CapturaAvanceTitulo[$("#language").data("kendoDropDownList").value()],
-            visible: false, //the window will not appear before its .open method is called
-            width: "auto",
-            height: "auto",
-            modal: true,
-            animation: {
-                close: false,
-                open: false
-            }
-        }).data("kendoWindow");
-
-        ventanaConfirm.content(_dictionary.CapturaArmadoPreguntaBorradoCaptura[$("#language").data("kendoDropDownList").value()] +
-                     "</br><center><button class='confirm_yes btn btn-blue' id='yesButton'>Si</button><button class='confirm_yes btn btn-blue' id='noButton'> No</button></center>");
-
-        ventanaConfirm.open().center();
-
-        $("#yesButton").click(function () {
-
-            var dataSource = $("#grid").data("kendoGrid").dataSource;
-            dataItem.Accion = 3;
-            if (dataItem.JuntaSoldaduraID == 0)
-                dataSource.remove(dataItem);
-            $("#grid").data("kendoGrid").dataSource.sync();
-
-            ventanaConfirm.close();
-        });
-        $("#noButton").click(function () {
-            ventanaConfirm.close();
-        });
     }
 
 };
@@ -385,7 +358,7 @@ function CargarGridPopupSoldadoresRaizCapturados() {
         toolbar: [{ name: "create" }]
     });
     CustomisaGrid($("#inputSoldadoresRaiz"));
-    
+
 };
 
 
@@ -404,7 +377,8 @@ function VentanaModalSoldadoresRaiz() {
         position: {
             top: "1%",
             left: "1%"
-        }
+        },
+        actions: []
     }).data("kendoWindow");
     windowRaiz.data("kendoWindow").title(modalTitle);
     windowRaiz.data("kendoWindow").center().open();
@@ -419,7 +393,7 @@ function CargarGridPopupSoldadoresRellenoCapturados() {
 
     $("#inputSoldadoresRelleno").kendoGrid({
         dataSource: {
-            data:[],
+            data: [],
             schema: {
                 model: {
                     fields: {
@@ -471,7 +445,7 @@ function CargarGridPopupSoldadoresRellenoCapturados() {
         toolbar: [{ name: "create" }]
     });
     CustomisaGrid($("#inputSoldadoresRelleno"));
-    
+
 };
 
 
@@ -490,7 +464,8 @@ function VentanaModalSoldadoresRelleno() {
         position: {
             top: "1%",
             left: "1%"
-        }
+        },
+        actions: []
     }).data("kendoWindow");
     windowRelleno.data("kendoWindow").title(modalTitle);
     windowRelleno.data("kendoWindow").center().open();
@@ -587,7 +562,7 @@ function CargarGridPopUp() {
         },
         selectable: true,
         filterable: getGridFilterableMaftec(),
-        
+
         change: function (e) {
 
             //ItemSeleccionadoAnidado = this.dataSource.view()[this.select().index()];
@@ -734,9 +709,7 @@ function VentanaModal() {
             top: "1%",
             left: "1%"
         },
-        actions: [
-            "Close"
-        ],
+        actions: [],
     }).data("kendoWindow");
     window.data("kendoWindow").title(modalTitle);
     window.data("kendoWindow").center().open();
@@ -769,7 +742,7 @@ function ObtenerListadoObreros(arregloObrerosRaiz, arregloObrerosRelleno) {
 
     var arreglo = arregloRaiz.concat(arregloRelleno)
     var arregloSinRepetir = arreglo.filter(onlyUnique);
-    var array =[];
+    var array = [];
 
     for (var i = 0; i < arregloSinRepetir.length; i++) {
         array[i] = { ObreroID: "", Soldador: "" };
