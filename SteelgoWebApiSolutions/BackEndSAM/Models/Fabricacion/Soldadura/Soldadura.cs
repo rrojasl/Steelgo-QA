@@ -60,6 +60,7 @@ namespace BackEndSAM.Models.Fabricacion.Soldadura
     public class DetalleDatosJsonSoldadura
     {
         public int Accion { get; set; }
+        public int JuntaSoldaduraID { get; set; }
         public int IDProyecto { get; set; }
         public string Proyecto { get; set; }
         public string IdOrdenTrabajo { get; set; }
@@ -299,6 +300,17 @@ namespace BackEndSAM.Models.Fabricacion.Soldadura
 
     public class WPS
     {
+        public WPS()
+        {
+            WPSID = 0;
+            WPSNombre = "";
+            Certificado = "";
+            PQRRaizId = 0;
+            NombrePQRRaiz = "";
+            PQRRellenoId = 0;
+            NombrePQRRelleno = "";
+        }
+
         public int WPSID { get; set; }
         public string WPSNombre { get; set; }
         public int PQRRaizId { get; set; }

@@ -72,7 +72,7 @@ namespace BackEndSAM.DataAcces.Fabricacion.Soldadura
             try
             {
                 List<WPS> listaWPS = new List<WPS>();
-
+                listaWPS.Add(new WPS());
                 using (SamContext ctx = new SamContext())
                 {
                     List<Sam3_Soldadura_Get_WPS_Proyecto_Result> result = ctx.Sam3_Soldadura_Get_WPS_Proyecto(proyectoID,procesoRaizID,procesoRellenoID,espesor, lenguaje).ToList();
@@ -246,7 +246,7 @@ namespace BackEndSAM.DataAcces.Fabricacion.Soldadura
                             Codigo = item.Codigo,
                         });
                     }
-                    listaProcesosSoldadura.Insert(0, new ProcesoSoldadura());
+                    
                     return listaProcesosSoldadura;
                 }
             }
@@ -544,52 +544,7 @@ namespace BackEndSAM.DataAcces.Fabricacion.Soldadura
                 return result;
             }
         }
-        public object DetallaRaizAdicional(int juntaSpoolID, Sam3_Usuario usuario)
-        {
-
-            try
-            {
-                using (SamContext ctx = new SamContext())
-                {
-                    List<Sam3_Soldadura_Get_DetalleSoldadorProceso_Result> listaDetallaTrabajoAdicionalJson = ctx.Sam3_Soldadura_Get_DetalleSoldadorProceso(juntaSpoolID, "Raíz").ToList();
-                    return listaDetallaTrabajoAdicionalJson;
-                }
-            }
-            catch (Exception ex)
-            {
-                TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add(ex.Message);
-                result.ReturnCode = 500;
-                result.ReturnStatus = false;
-                result.IsAuthenicated = true;
-
-                return result;
-            }
-        }
-
-        public object DetallaRellenoAdicional(int juntaSpoolID, Sam3_Usuario usuario)
-        {
-
-            try
-            {
-                using (SamContext ctx = new SamContext())
-                {
-                    List<Sam3_Soldadura_Get_DetalleSoldadorProceso_Result> listaDetallaTrabajoAdicionalJson = ctx.Sam3_Soldadura_Get_DetalleSoldadorProceso(juntaSpoolID, "Relleno").ToList();
-                    return listaDetallaTrabajoAdicionalJson;
-                }
-            }
-            catch (Exception ex)
-            {
-                TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add(ex.Message);
-                result.ReturnCode = 500;
-                result.ReturnStatus = false;
-                result.IsAuthenicated = true;
-
-                return result;
-            }
-        }
-
+      
 
         public object ObtenerDetalleSoldadura(string JuntaID, Sam3_Usuario usuario, string lenguaje)
         {

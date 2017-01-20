@@ -120,7 +120,7 @@ function opcionHabilitarView(valor, name) {
         $("#InputID").data("kendoComboBox").enable(false);
         $("#Junta").data("kendoComboBox").enable(false);
         $("#inputTaller").data("kendoComboBox").enable(false);
-
+        $('#InputOrdenTrabajo').css('opacity', '0.8');
 
         $("#FechaSoldadura").data("kendoDatePicker").enable(false);
         $('#botonGuardar').text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
@@ -132,6 +132,7 @@ function opcionHabilitarView(valor, name) {
 
     }
     else {
+        $('#InputOrdenTrabajo').css('opacity', '1');
         $('#FieldSetView').find('*').attr('disabled', false);
         $('#planchadoZone').find('*').attr('disabled', false);
         $("#InputID").data("kendoComboBox").enable(true);
@@ -350,7 +351,7 @@ function CargarGridPopupSoldadoresRaizCapturados() {
                     dataSource.sync();
 
                 }
-            }, width: "50px", title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()]
+            }, width: "50px", attributes: { style: "text-align:center;" }, title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()]
         },
         ],
         editable: true,
@@ -437,7 +438,7 @@ function CargarGridPopupSoldadoresRellenoCapturados() {
                     }
                     dataSource.sync();
                 }
-            }, width: "50px", title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()]
+            }, width: "50px", attributes: { style: "text-align:center;" }, title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()]
         },
         ],
         editable: true,
@@ -816,3 +817,43 @@ function PlanchaFecha() {
     }
     $("#grid").data("kendoGrid").dataSource.sync();
 };
+
+
+function desplegarNotificacion() {
+    var tipoCapturaSpool = $('input:radio[name=TipoAgregado]:checked').val() == "Listado" ? false : true;
+    var spoolIDDefinido = $("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()) == undefined ? false : true;
+    var tipoMostrarTodos = $('input:radio[name=Muestra]:checked').val() == "Todos" ? true : false;
+    var InputIDVacio = $("#InputID").val() == "" ? true : false;
+    var InputJuntaVacia = $("#Junta").val() == "" ? true : false;
+    var JuntaDefinida = $("#Junta").data("kendoComboBox").dataItem($("#Junta").data("kendoComboBox").select()) == undefined ? false : true;
+
+
+    if (InputIDVacio) {
+        displayNotify("CapturaSoldaduraSpoolNoCapturado", "", '1');
+    }
+    else if (InputJuntaVacia) {
+        displayNotify("JuntaSinSeleccionar", "", '1'); 
+    }
+    else if (!spoolIDDefinido) {
+        displayNotify("NoExisteSpoolID", "", '2'); 
+    }
+    else if (tipoCapturaSpool) {
+        displayNotify("NoExisteSpoolID", "", '2');
+    }
+    else if (!tipoCapturaSpool) {
+        if (JuntaDefinida) {
+            if (!tipoMostrarTodos) {
+                displayNotify("CapturaArmadoNoExisteLista", "", '1');
+            }
+        }
+        else if (!JuntaDefinida) {
+            if (tipoMostrarTodos) {
+                displayNotify("CapturaArmadoNoExisteSpool", "", '1');
+            }
+            else {
+                displayNotify("CapturaArmadoNoExisteLista", "", '1');
+            }
+        }
+    }
+
+}

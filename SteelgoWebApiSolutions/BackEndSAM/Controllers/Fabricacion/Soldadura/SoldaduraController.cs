@@ -230,6 +230,7 @@ namespace BackEndSAM.Controllers.Fabricacion.Soldadura
                         DetalleDatosJsonSoldadura detalleDatos = new DetalleDatosJsonSoldadura
                         {
                             Accion = item.JuntaSoldaduraID == null ? 1 : 2,
+                            JuntaSoldaduraID = item.JuntaSoldaduraID.GetValueOrDefault(),
                             IDProyecto = capturaDatosJson.IDProyecto,
                             Proyecto = capturaDatosJson.Proyecto,
                             IdOrdenTrabajo = capturaDatosJson.IdOrdenTrabajo,
@@ -460,81 +461,7 @@ namespace BackEndSAM.Controllers.Fabricacion.Soldadura
             return listaDetalleAdicional;
         }
 
-        public List<Raiz> GenerarRaizJson(List<Sam3_Soldadura_Get_DetalleSoldadorProceso_Result> listaTrabajoAdicional, int juntaSpoolId)
-        {
-
-            List<Raiz> listaDetalleAdicional = new List<Raiz>();
-            //if (listaTrabajoAdicional.Count == 0)
-            //{
-            //    Raiz detalleAdicional = new Raiz
-            //    {
-            //        Accion = 3,
-            //        JuntaSoldaduraID = 0,
-            //        JuntaSoldaduraSoldadoID = 0,
-            //        ObreroID = 0,
-            //        Soldador = "",
-            //        wps = ""
-            //    };
-            //    listaDetalleAdicional.Add(detalleAdicional);
-            //}
-            //else
-            //{
-
-            foreach (Sam3_Soldadura_Get_DetalleSoldadorProceso_Result item in listaTrabajoAdicional)
-            {
-                Raiz detalleAdicional = new Raiz
-                {
-                    Accion = item.JuntaSoldaduraID == 0 ? 1 : 2,
-                    JuntaSoldaduraID = item.JuntaSoldaduraID,
-                    JuntaSoldaduraSoldadoID = item.JuntaSoldaduraSoldadoID,
-                    ObreroID = item.ObreroID,
-                    Soldador = item.Soldador,
-                    wps = ""
-                };
-                listaDetalleAdicional.Add(detalleAdicional);
-            }
-            //}
-            return listaDetalleAdicional;
-        }
-
-
-        public List<Relleno> GenerarRellenoJson(List<Sam3_Soldadura_Get_DetalleSoldadorProceso_Result> listaTrabajoAdicional, int juntaSpoolId)
-        {
-
-            List<Relleno> listaDetalleAdicional = new List<Relleno>();
-            if (listaTrabajoAdicional.Count == 0)
-            {
-                Relleno detalleAdicional = new Relleno
-                {
-                    Accion = 3,
-                    JuntasoldaduraID = 0,
-                    JuntaSoldaduraSoldadoID = 0,
-                    ObreroID = 0,
-                    Soldador = "",
-                    wps = ""
-                };
-                listaDetalleAdicional.Add(detalleAdicional);
-            }
-            else
-            {
-
-
-                foreach (Sam3_Soldadura_Get_DetalleSoldadorProceso_Result item in listaTrabajoAdicional)
-                {
-                    Relleno detalleAdicional = new Relleno
-                    {
-                        Accion = item.JuntaSoldaduraID == 0 ? 1 : 2,
-                        JuntasoldaduraID = item.JuntaSoldaduraID,
-                        JuntaSoldaduraSoldadoID = item.JuntaSoldaduraSoldadoID,
-                        ObreroID = item.ObreroID,
-                        Soldador = item.Soldador,
-                        wps = ""
-                    };
-                    listaDetalleAdicional.Add(detalleAdicional);
-                }
-            }
-            return listaDetalleAdicional;
-        }
+      
 
 
 

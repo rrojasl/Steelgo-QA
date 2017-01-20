@@ -1,6 +1,7 @@
 ﻿var listadoSoldadoresParaRaiz = [];
 var listadoSoldadoresParaRelleno = [];
 var listadoColada = [];
+var editado = false;
 
 
 function SuscribirEventos() {
@@ -14,6 +15,7 @@ function SuscribirEventos() {
     SuscribirEventosOrdenTrabajo();
     suscribirEventoChangeRadio();
     suscribirEventoChangeRadioTipoListado();
+    suscribirEventoWindowsConfirmaCaptura();
     SuscribirEventoMuestraJunta();
     SuscribirFechaSoldadura();
 
@@ -59,12 +61,9 @@ function suscribirEventoGuardar() {
     $('#btnGuardarYNuevo').click(function (e) {
         var ds = $("#grid").data("kendoGrid").dataSource;
         if (ds._data.length > 0) {
-            if ($('#Guardar').text() == "Guardar" || $('#Guardar').text() == "Save") {
-                AjaxGuardarCaptura(ds._data, 1);
-            }
-            else if ($('#Guardar').text() == "Editar" || $('#Guardar').text() == "Edit") {
-                opcionHabilitarView(false)
-            }
+
+            AjaxGuardarCaptura(ds._data, 1);
+
         }
 
     });
@@ -100,12 +99,7 @@ function suscribirEventoGuardar() {
 
         var ds = $("#grid").data("kendoGrid").dataSource;
         if (ds._data.length > 0) {
-            if ($('#Guardar').text() == "Guardar" || $('#Guardar').text() == "Save") {
-                AjaxGuardarCaptura(ds._data, 1);
-            }
-            else if ($('#Guardar').text() == "Editar" || $('#Guardar').text() == "Edit") {
-                opcionHabilitarView(false)
-            }
+            AjaxGuardarCaptura(ds._data, 1);
         }
 
     });
@@ -439,19 +433,29 @@ function suscribirEventoChangeRadio() {
 
 function suscribirEventoChangeRadioTipoListado() {
 
-    $('input:radio[name=TipoAgregado]:nth(0)').change(function () {
-        Limpiar();
-        CambioTipoListado();
-        AjaxCargarCamposPredeterminadosCambiaTipoVista();
-        $("#grid").data("kendoGrid").dataSource.data([]);
+    $('input:radio[name=TipoAgregado]').change(function () {
 
-    });
-    $('input:radio[name=TipoAgregado]:nth(1)').change(function () {
-        Limpiar();
-        CambioTipoListado();
-        AjaxCargarCamposPredeterminadosCambiaTipoVista();
-        $("#grid").data("kendoGrid").dataSource.data([]);
-
+        if ($('input:radio[name=TipoAgregado]:checked').val() == "Reporte") {
+            console.log("noabrepop");
+            if (!editado) {
+                $("#grid").data("kendoGrid").dataSource.data([]);
+                CambioTipoListado();
+                AjaxCargarCamposPredeterminadosCambiaTipoVista();
+            }
+            else {
+                ventanaConfirm.open().center();
+            }
+        }
+        else if ($('input:radio[name=TipoAgregado]:checked').val() == "Listado") {
+            if (!editado) {
+                $("#grid").data("kendoGrid").dataSource.data([]);
+                CambioTipoListado();
+                AjaxCargarCamposPredeterminadosCambiaTipoVista();
+            }
+            else {
+                ventanaConfirm.open().center();
+            }
+        }
     });
 }
 
@@ -651,5 +655,36 @@ function suscribirEventoGridPopupTrabajosAdicionales() {
             if (dataItem.ListaSoldadoresRaizCapturados.length > 0 && dataItem.ListaSoldadoresRellenoCapturados.length > 0)
                 GridPopUpTrabajosAdicionales(dataItem);
         }
+    });
+}
+
+
+function suscribirEventoWindowsConfirmaCaptura() {
+    ventanaConfirm = $("#ventanaConfirmCaptura").kendoWindow({
+        iframe: true,
+        title: _dictionary.CapturaArmadoTituloPopup[$("#language").data("kendoDropDownList").value()],
+        visible: false,
+        width: "auto",
+        height: "auto",
+        modal: true,
+        animation: false,
+        actions: []
+    }).data("kendoWindow");
+
+    ventanaConfirm.content(_dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] +
+        "</br><center><button class='btn btn-blue' id='yesButtonProy'>" + _dictionary.lblSi[$("#language").data("kendoDropDownList").value()] + "</button><button class='btn btn-blue' id='noButtonProy'>" + _dictionary.lblNo[$("#language").data("kendoDropDownList").value()] + "</button></center>");
+
+
+    $("#yesButtonProy").click(function (e) {
+        $("#grid").data("kendoGrid").dataSource.data([]);
+        CambioTipoListado();
+        AjaxCargarCamposPredeterminadosCambiaTipoVista();
+        ventanaConfirm.close();
+        editado = false;
+    });
+    $("#noButtonProy").click(function (e) {
+        CambioTipoListado();
+        AjaxCargarCamposPredeterminadosCambiaTipoVista();
+        ventanaConfirm.close();
     });
 }
