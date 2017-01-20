@@ -10,7 +10,6 @@ function changeLanguageCall() {
     opcionHabilitarView(false, "FieldSetView");
     document.title = "Revisión Embarque";
     AjaxCargarProyecto();
-    //LlenarPantalla();
 };
 
 function validarInformacion(row) {
@@ -28,9 +27,31 @@ function validarInformacion(row) {
 }
 
 function CargarGrid() {
+    kendo.ui.Grid.fn.editCell = (function (editCell) {
+        return function (cell) {
+            cell = $(cell);
+
+            var that = this,
+                column = that.columns[that.cellIndex(cell)],
+                model = that._modelForContainer(cell),
+                event = {
+                    container: cell,
+                    model: model,
+                    preventDefault: function () {
+                        this.isDefaultPrevented = true;
+                    }
+                };
+
+            if (model && typeof this.options.beforeEdit === "function") {
+                this.options.beforeEdit.call(this, event);
+                if (event.isDefaultPrevented) return;
+            }
+
+            editCell.call(this, cell);
+        };
+    })(kendo.ui.Grid.fn.editCell);
 
     $("#grid").kendoGrid({
-     
         autoBind: true,
         dataSource: {
             schema: {
@@ -58,7 +79,7 @@ function CargarGrid() {
             serverSorting: false
         },
         navigatable: true,        
-        editable: false,
+        editable: true,
         autoHeight: true,
         sortable: true,
         scrollable: true,
@@ -72,10 +93,10 @@ function CargarGrid() {
         },
         filterable: getGridFilterableMaftec(),
         columns: [
-            { field: "NumeroControl", title: "Spool", filterable: getGridFilterableCellMaftec(), width: "110px" },
-            { field: "Paquete", title: "Paquete", filterable: getGridFilterableCellMaftec(), width: "110px" },
+            { field: "NumeroControl", title: _dictionary.columnSpool[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "110px" },
+            { field: "Paquete", title: _dictionary.columnPaqueteEmbarque[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "110px" },
             {
-                field: "Llego", title: "Llegó", filterable: {
+                field: "Llego", title: _dictionary.columnLlegoSpool[$("#language").data("kendoDropDownList").value()], filterable: {
                     multi: true,
                     messages: {
                         isTrue: _dictionary.lblVerdadero[$("#language").data("kendoDropDownList").value()],
@@ -83,10 +104,10 @@ function CargarGrid() {
                         style: "max-width:90px;"
                     },
                     dataSource: [{ Llego: true }, { Llego: false }]
-                }, template: '<input type="checkbox" #= Llego ? "checked=checked" : "" # class="chkbx" ></input>', width: "130px", attributes: { style: "text-align:center;" }
+                }, template: '<input type="checkbox" name="Llego" #= Llego ? "checked=checked" : "" # class="chkbx" ></input>', width: "130px", attributes: { style: "text-align:center;" }
             },
             {
-                field: "LlegoComentario", title: "Llego con comentarios", filterable: {
+                field: "LlegoComentario", title: _dictionary.columnLlegoComentariosSpool[$("#language").data("kendoDropDownList").value()], filterable: {
                     multi: true,
                     messages: {
                         isTrue: _dictionary.lblVerdadero[$("#language").data("kendoDropDownList").value()],
@@ -94,10 +115,10 @@ function CargarGrid() {
                         style: "max-width:150px;"
                     },
                     dataSource: [{ LlegoComentario: true }, { LlegoComentario: false }]
-                }, template: '<input type="checkbox" #= LlegoComentarios ? "checked=checked" : "" # class="chkbx" ></input>', width: "130px", attributes: { style: "text-align:center;" }
+                }, template: '<input type="checkbox" name="LlegoComentario" #= LlegoComentario ? "checked=checked" : "" # class="chkbx" ></input>', width: "130px", attributes: { style: "text-align:center;" }
             },
             {
-                field: "NoLlego", title: "No llegó", filterable: {
+                field: "NoLlego", title: _dictionary.columnNoLlegoSpool[$("#language").data("kendoDropDownList").value()], filterable: {
                     multi: true,
                     messages: {
                         isTrue: _dictionary.lblVerdadero[$("#language").data("kendoDropDownList").value()],
@@ -105,112 +126,54 @@ function CargarGrid() {
                         style: "max-width:100px;"
                     },
                     dataSource: [{ NoLlego: true }, { NoLlego: false }]
-                }, template: '<input type="checkbox" #= NoLlego ? "checked=checked" : "" # class="chkbx" ></input>', width: "130px", attributes: { style: "text-align:center;" }
+                }, template: '<input type="checkbox" name="NoLlego" #= NoLlego ? "checked=checked" : "" # class="chkbx" ></input>', width: "130px", attributes: { style: "text-align:center;" }
             },
-            { field: "Comentario", title: "Comentario", filterable: getGridFilterableCellMaftec(), template: kendo.template('<div  style="height=10px; border: #= LlegoComentarios && (String(Comentario) == ""|| Comentario == null )  ? " 1px solid red" : LlegoComentarios==false  && Comentario == null ? " 1px solid red" : " none" # ; z-index=9999;">#=Comentario==null ?"": Comentario #</div>'), width: "140px" },
-        ]
+            { field: "Comentario", title: _dictionary.columnComentario[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "170px" },
+        ],
+        beforeEdit: function (e) {
+            var columnIndex = this.cellIndex(e.container);
+            var fieldName = this.thead.find("th").eq(columnIndex).data("field");
+            //if (!isEditable(fieldName, e.model)) {
+            //    e.preventDefault();
+            //}
+        },
     });
     CustomisaGrid($("#grid"));
 
     $("#grid .k-grid-content").on("change", "input.chkbx", function (e) {
-        if ($("#language").val() == "es-MX") {
-            if ($('#Guardar').text() != "Editar") {
-                var grid = $("#grid").data("kendoGrid"),
-                    dataItem = grid.dataItem($(e.target).closest("tr"));
-                //dataItem.set(this.name, this.checked);
-
-                switch (this.name) {
-                    case 'Llego':
-                        dataItem.set("Llego", this.checked);
-                        dataItem.set("NoLlego", false);
-                        dataItem.set("LlegoComentarios", false);
-                        dataItem.Comentario = "";
-                        break;
-                    case 'NoLlego':
-                        dataItem.set("Llego", false);
-                        dataItem.set("NoLlego", this.checked);
-                        dataItem.set("LlegoComentarios", false);
-                        dataItem.Comentario = "";
-                        break;
-                    case 'LlegoComentarios':
-                        dataItem.set("Llego", false);
-                        dataItem.set("NoLlego", false);
-                        dataItem.set("LlegoComentarios", this.checked);
-                        break;
-                }
-                grid.dataSource.sync();
+        if ($('#Guardar').text() == _dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]) {
+            var grid = $("#grid").data("kendoGrid");
+            var dataItem = grid.dataItem($(e.target).closest("tr"));
+            switch (this.name) {
+                case 'Llego':
+                    dataItem.set("Llego", this.checked);
+                    dataItem.set("NoLlego", false);
+                    dataItem.set("LlegoComentario", false);
+                    dataItem.Comentario = "";
+                    break;
+                case 'NoLlego':
+                    dataItem.set("Llego", false);
+                    dataItem.set("NoLlego", this.checked);
+                    dataItem.set("LlegoComentario", false);
+                    dataItem.Comentario = "";
+                    break;
+                case 'LlegoComentario':
+                    dataItem.set("Llego", false);
+                    dataItem.set("NoLlego", false);
+                    dataItem.set("LlegoComentario", this.checked);
+                    break;
             }
-            else {
-                if ($(this)[0].checked) {
-                    $(this)[0].checked = false;
-                }
-                else {
-                    $(this)[0].checked = true;
-                }
-            }
+            grid.dataSource.sync();
         }
         else {
-            if ($('#Guardar').text() != "Edit") {
-                var grid = $("#grid").data("kendoGrid"),
-                    dataItem = grid.dataItem($(e.target).closest("tr"));
-                //dataItem.set(this.name, this.checked);
-
-                switch (this.name) {
-                    case 'Llego':
-                        dataItem.set("Llego", this.checked);
-                        dataItem.set("NoLlego", false);
-                        dataItem.set("LlegoComentarios", false);
-                        break;
-                    case 'NoLlego':
-                        dataItem.set("Llego", false);
-                        dataItem.set("NoLlego", this.checked);
-                        dataItem.set("LlegoComentarios", false);
-                        break;
-                    case 'LlegoComentarios':
-                        dataItem.set("Llego", false);
-                        dataItem.set("NoLlego", false);
-                        dataItem.set("LlegoComentarios", this.checked);
-                        break;
-                }
-                grid.dataSource.sync();
+            if ($(this)[0].checked) {
+                $(this)[0].checked = false;
             }
             else {
-                if ($(this)[0].checked) {
-                    $(this)[0].checked = false;
-                }
-                else {
-                    $(this)[0].checked = true;
-                }
+                $(this)[0].checked = true;
             }
         }
     });
 
 
 };
-
-function LlenarPantalla() {
-    var emb = [{ EmbarqueID: 0, Nombre: "" }, { EmbarqueID: 1, Nombre: "Emb-4" }];
-    var data = [{
-        Accion: 1,
-        NumeroControl: "X001-011",
-        Paquete: "PAQ-X01",
-        Llego: false,
-        LlegoComentarios: false,
-        NoLlego: false,
-        Comentario: ""
-    }, {
-        Accion: 1,
-        NumeroControl: "X001-012",
-        Paquete: "PAQ-X01",
-        Llego: false,
-        LlegoComentarios: false,
-        NoLlego: false,
-        Comentario: ""
-    }];
-
-    $("#Embarque").data("kendoComboBox").dataSource.data(emb);
-    $("#Embarque").data("kendoComboBox").value(1);
-
-    $("#grid").data("kendoGrid").dataSource.data(data);
-    $("#grid").data("kendoGrid").dataSource.sync();
-}
