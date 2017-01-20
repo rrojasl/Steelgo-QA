@@ -212,7 +212,8 @@ function CargarGrid() {
                                 animation: {
                                     close: false,
                                     open: false
-                                }
+                                },
+                                actions:[]
                             }).data("kendoWindow");
 
                             ventanaConfirm.content("Se eliminaran los datos del proceso, ¿desea continuar?" +
@@ -554,7 +555,7 @@ function VentanaModalComponentesAgregados() {
             left: "10px"
         },
         actions: [
-            "Close"
+    
         ],
         close: function onClose(e) {
             var gridDataSource = $("#gridPopUpComponentesAgregados").data("kendoGrid").dataSource;
@@ -583,7 +584,7 @@ function VentanaModal() {
             left: "10px"
         },
         actions: [
-            "Close"
+            
         ],
         close: function onClose(e) {
             var gridDataSource = $("#gridPopUp").data("kendoGrid").dataSource;

@@ -10779,6 +10779,12 @@ _dictionary = {
         "es-MX": "Guardar",
         "en-US": "Save"
     },
+
+    "botonAgregarComponente": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
+
     "botonCancelarComponenteAgregado": {
         "es-MX": "Cancelar",
         "en-US": "Cancel"
