@@ -214,21 +214,7 @@ namespace BackEndSAM.Controllers.Inspeccion.Dimensional
             return listJuntaXSpoolSeleccionado;
         }
 
-        public static List<InspeccionDimensional.JuntaXSpool> ObtenerJuntasIDVisualDimensional(List<Sam3_Inspeccion_VD_Get_JuntasXSpoolID_Result> listaJuntasPorOrdenTrabajoSeleccionada)
-        {
-            List<InspeccionDimensional.JuntaXSpool> listJuntaXSpoolSeleccionado = new List<InspeccionDimensional.JuntaXSpool>();
-            foreach (Sam3_Inspeccion_VD_Get_JuntasXSpoolID_Result item in listaJuntasPorOrdenTrabajoSeleccionada)
-            {
-                listJuntaXSpoolSeleccionado.Add(new InspeccionDimensional.JuntaXSpool
-                {
-                    Accion = 2,//dos porque existe ya en el defecto.
-                    Junta = "",
-                    JuntaID = item.JuntaSpoolID
-                });
-            }
-            return listJuntaXSpoolSeleccionado;
-        }
-
+       
         private List<InspeccionDimensional.Defectos> ObtenerListaDefectos(List<Sam3_Steelgo_Get_Defectos_Result> listaDefecto)
         {
             List<InspeccionDimensional.Defectos> listaDefectos = new List<InspeccionDimensional.Defectos>();

@@ -38,10 +38,10 @@ namespace BackEndSAM.Controllers.Inspeccion.VisualDimensional
 
                 List<CapturaVisualDimensional> listaDetalleDatos = new List<CapturaVisualDimensional>();
 
-                List<Sam3_Inspeccion_Get_DetalleJunta_Result> detalle = (List<Sam3_Inspeccion_Get_DetalleJunta_Result>)VisualDimensionalBD.Instance.ObtenerDetalleJunta(capturaDatosJson, usuario, Lenguaje, juntasSeleccionadas);
+                List<Sam3_InspeccionVisual_Get_Detalle_Result> detalle = (List<Sam3_InspeccionVisual_Get_Detalle_Result>)VisualDimensionalBD.Instance.ObtenerDetalleJunta(capturaDatosJson, usuario, Lenguaje, juntasSeleccionadas);
                 string fecha = (string)ArmadoBD.Instance.ObtenerValorFecha(usuario, Lenguaje, 16);
 
-                foreach (Sam3_Inspeccion_Get_DetalleJunta_Result item in detalle)
+                foreach (Sam3_InspeccionVisual_Get_Detalle_Result item in detalle)
                 {
                     List<Sam3_Armado_Get_MaterialesSpool_Result> listaNumeroUnicos = (List<Sam3_Armado_Get_MaterialesSpool_Result>)VisualDimensionalBD.Instance.listaNumeroUnicos(item.JuntaSpoolID, usuario, 1);
                     List<NumeroUnico> listNumeroUnico1 = GenerarListaNumerosUnicos(listaNumeroUnicos, 1);
@@ -49,10 +49,7 @@ namespace BackEndSAM.Controllers.Inspeccion.VisualDimensional
 
                     CapturaVisualDimensional detalleDatos = new CapturaVisualDimensional
                     {
-                        Accion = item.InspeccionVisualID == null ? 1 : 2,
-                        DetalleArmadoID = item.DetalleArmadoID.GetValueOrDefault(),
-                        JuntaArmadoID = item.JuntaArmadoID == null ? 0 : int.Parse(item.JuntaArmadoID.ToString()),
-                        InspeccionVisualID = item.InspeccionVisualID == null ? 0 : int.Parse(item.InspeccionVisualID.ToString()),
+                        Accion = item.JuntaSpoolID == 0 ? 1 : 2,
                         Proyecto = capturaDatosJson.Proyecto,
                         OrdenTrabajoID = capturaDatosJson.OrdenTrabajoID,
                         OrdenTrabajo = capturaDatosJson.OrdenTrabajo,

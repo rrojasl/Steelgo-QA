@@ -61,36 +61,7 @@ namespace BackEndSAM.DataAcces.Inspeccion.Dimensional
             }
         }
 
-        /// <summary>
-        /// Obtiene el detalle de la junta con respecto  la inspeccion
-        /// </summary>
-        /// <param name="JsonCaptura"></param>
-        /// <param name="usuario"></param>
-        /// <param name="Lenguaje"></param>
-        /// <returns></returns>
-        public object ObtenerDetalleJunta(InspeccionDimensional.DetalleDatosJson JsonCaptura, Sam3_Usuario usuario, string Lenguaje)
-        {
-
-            try
-            {
-                using (SamContext ctx = new SamContext())
-                {
-
-                    List<Sam3_Inspeccion_Get_DetalleJunta_Result> listaDetalleDatosJson = ctx.Sam3_Inspeccion_Get_DetalleJunta(int.Parse(JsonCaptura.OrdenTrabajoSpoolID), Lenguaje).ToList();
-                    return listaDetalleDatosJson;
-                }
-            }
-            catch (Exception ex)
-            {
-                TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add(ex.Message);
-                result.ReturnCode = 500;
-                result.ReturnStatus = false;
-                result.IsAuthenicated = true;
-
-                return result;
-            }
-        }
+       
 
         /// <summary>
         /// Obtiene el detalle de las juntas seleccionadas con respecto a  la inspeccion

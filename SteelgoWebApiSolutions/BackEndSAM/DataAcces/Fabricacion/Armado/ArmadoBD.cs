@@ -110,7 +110,7 @@ namespace BackEndSAM.DataAcces.ArmadoBD
 
 
 
-        public object listaNumeroUnicos(int juntaID, Sam3_Usuario usuario, int pagina,string sinCaptura)
+        public object listaNumeroUnicos(int juntaID, Sam3_Usuario usuario, int pagina, string sinCaptura)
         {
 
             try
@@ -159,7 +159,7 @@ namespace BackEndSAM.DataAcces.ArmadoBD
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Armado_Get_Detalle_Result> listaDetalleDatosJson = ctx.Sam3_Armado_Get_Detalle(int.Parse( JsonCaptura.IdVal),lenguaje,JsonCaptura.JuntaID).ToList();
+                    List<Sam3_Armado_Get_Detalle_Result> listaDetalleDatosJson = ctx.Sam3_Armado_Get_Detalle(int.Parse(JsonCaptura.IdVal), lenguaje, JsonCaptura.JuntaID).ToList();
                     return listaDetalleDatosJson;
                 }
             }
@@ -221,7 +221,8 @@ namespace BackEndSAM.DataAcces.ArmadoBD
                     List<Sam3_Steelgo_Get_Obrero_Result> lista = ctx.Sam3_Steelgo_Get_Obrero(tipo, "Tubero", idProyecto, null, null).ToList();
                     foreach (Sam3_Steelgo_Get_Obrero_Result item in lista)
                     {
-                        result.Add(new Sam3_Steelgo_Get_Obrero_Result {
+                        result.Add(new Sam3_Steelgo_Get_Obrero_Result
+                        {
                             TipoObrero = item.TipoObrero,
                             ObreroID = item.ObreroID,
                             NombreCompleto = item.NombreCompleto,
@@ -278,7 +279,7 @@ namespace BackEndSAM.DataAcces.ArmadoBD
         }
 
 
-        public object InsertarCapturaArmado(DataTable dtDetalleCaptura, DataTable dtTrabajosAdicionales, Sam3_Usuario usuario, string lenguaje)
+        public object InsertarCapturaArmado(DataTable dtDetalleCaptura, DataTable dtTrabajosAdicionales, DataTable dtNumeroUnicoAsignado, Sam3_Usuario usuario, string lenguaje)
         {
             try
             {
@@ -287,7 +288,7 @@ namespace BackEndSAM.DataAcces.ArmadoBD
                     ObjetosSQL _SQL = new ObjetosSQL();
                     string[,] parametro = { { "@Usuario", usuario.UsuarioID.ToString() }, { "@Lenguaje", lenguaje } };
 
-                    _SQL.Ejecuta(Stords.GUARDARCAPTURAARMADO, dtTrabajosAdicionales, "@TrabajosAdicionales", dtDetalleCaptura, "@Armado", parametro);
+                    _SQL.Ejecuta(Stords.GUARDARCAPTURAARMADO, dtTrabajosAdicionales, "@TrabajosAdicionales", dtDetalleCaptura, "@Armado", dtNumeroUnicoAsignado, "@NumeroUnicoAsignado", parametro);
 
                     TransactionalInformation result = new TransactionalInformation();
                     result.ReturnMessage.Add("Ok");
@@ -318,7 +319,22 @@ namespace BackEndSAM.DataAcces.ArmadoBD
                 using (SamContext ctx = new SamContext())
                 {
                     List<Sam3_Steelgo_Get_TrabajoAdicional_Result> lista = ctx.Sam3_Steelgo_Get_TrabajoAdicional("Armado").ToList();
-                    return lista;
+                    List<TrabajosAdicionalesXJunta> listaTrabajoAdicionalXJUnta = new List<TrabajosAdicionalesXJunta>();
+                    if (lista.Count > 0)
+                    {
+                        listaTrabajoAdicionalXJUnta.Add(new TrabajosAdicionalesXJunta());
+                        foreach (Sam3_Steelgo_Get_TrabajoAdicional_Result item in lista)
+                        {
+                            TrabajosAdicionalesXJunta trabajoAdicional = new TrabajosAdicionalesXJunta
+                            {
+                                NombreCorto = item.NombreCorto,
+                                SignoInformativo = item.SignoInformativo,
+                                TrabajoAdicionalID = item.TrabajoAdicionalID
+                            };
+                            listaTrabajoAdicionalXJUnta.Add(trabajoAdicional);
+                        }
+                    }
+                    return listaTrabajoAdicionalXJUnta;
                 }
             }
             catch (Exception ex)
@@ -333,7 +349,7 @@ namespace BackEndSAM.DataAcces.ArmadoBD
             }
         }
 
-        public object ActualizaDatos(DataTable dtInformacionActualizar,string lenguaje)
+        public object ActualizaDatos(DataTable dtInformacionActualizar, string lenguaje)
         {
             try
             {
@@ -342,7 +358,7 @@ namespace BackEndSAM.DataAcces.ArmadoBD
                     ObjetosSQL _SQL = new ObjetosSQL();
                     string[,] parametro = { { "@Lenguaje", lenguaje } };
 
-                    DataTable dt= _SQL.EjecutaDataAdapter(Stords.ARMADOACTUALIZARINFORMACION, dtInformacionActualizar, "@ArmadoActualizado", parametro);
+                    DataTable dt = _SQL.EjecutaDataAdapter(Stords.ARMADOACTUALIZARINFORMACION, dtInformacionActualizar, "@ArmadoActualizado", parametro);
 
                     //TransactionalInformation result = new TransactionalInformation();
                     //result.ReturnMessage.Add("Ok");
@@ -365,6 +381,6 @@ namespace BackEndSAM.DataAcces.ArmadoBD
                 return result;
             }
         }
-        
+
     }
 }

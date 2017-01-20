@@ -151,8 +151,6 @@ function AjaxEjecutarGuardado(rows, tipoGuardar) {
                 opcionHabilitarView(true, "FieldSetView");
                 AjaxCambiarAccionAModificacion();
             }
-
-
         }
         else {
             //mensaje = "No se guardo la informacion el error es: " + data.ReturnMessage[0] + "-2";
@@ -172,37 +170,36 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
         ListaDetalles = [];
         for (index = 0; index < arregloCaptura.length; index++) {
             $("#grid").data("kendoGrid").dataSource._data[index].RowOk = true;
-            ListaDetalles[index] = { Accion: "", IdVal: "", JuntaID: "", TipoJuntaID: "", Junta: "", Localizacion1: "", Localizacion2: "", JuntaArmadoID: "", DetalleArmadoID: "", NumeroUnico1ID: "", NumeroUnico2ID: "", TallerID: "", TuberoID: "", FechaArmado: "", ListaDetalleTrabajoAdicional: "", Estatus: 1, JuntaAnteriorNumeroUnicoGuardado: "" };
+            ListaDetalles[index] = { Accion: "", TipoJuntaID: "", JuntaID: "", TallerID: "", TuberoID: "", FechaArmado: "", ListaDetalleTrabajoAdicional: "", Estatus: 1, JuntaAnteriorNumeroUnicoGuardado: "", ListaNumeroUnicoAsignado: "" };
             ListaDetalles[index].Accion = arregloCaptura[index].Accion;
-            ListaDetalles[index].IdVal = arregloCaptura[index].IdVal;
-            ListaDetalles[index].JuntaID = arregloCaptura[index].JuntaID;
             ListaDetalles[index].TipoJuntaID = arregloCaptura[index].TipoJuntaID;
-            ListaDetalles[index].Junta = arregloCaptura[index].Junta;
-            ListaDetalles[index].Localizacion1 = arregloCaptura[index].Localizacion.split('-')[0];
-            ListaDetalles[index].Localizacion2 = arregloCaptura[index].Localizacion.split('-')[1];
-            ListaDetalles[index].JuntaArmadoID = arregloCaptura[index].JuntaArmadoID;
-            ListaDetalles[index].DetalleArmadoID = arregloCaptura[index].DetalleArmadoID;
-            ListaDetalles[index].NumeroUnico1ID = arregloCaptura[index].NumeroUnico1ID;
-            ListaDetalles[index].NumeroUnico2ID = arregloCaptura[index].NumeroUnico2ID;
+            ListaDetalles[index].JuntaID = arregloCaptura[index].JuntaID;
             ListaDetalles[index].TallerID = arregloCaptura[index].TallerID;
             ListaDetalles[index].TuberoID = arregloCaptura[index].TuberoID;
             ListaDetalles[index].FechaArmado = arregloCaptura[index].FechaArmado == null ? "" : kendo.toString(arregloCaptura[index].FechaArmado, String(_dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()].replace('{', '').replace('}', '').replace("0:", ""))).trim();
             ListaDetalles[index].JuntaAnteriorNumeroUnicoGuardado = arregloCaptura[index].JuntaAnteriorNumeroUnicoGuardado;
+            
+            ObjetoNumeroUnicoAsignado= []
+            ObjetoNumeroUnicoAsignado[0] = { Accion: "", JuntaID: "", NumeroUnico1ID: "", NumeroUnico2ID: "" }
+            ObjetoNumeroUnicoAsignado[0].Accion = arregloCaptura[index].Accion;
+            ObjetoNumeroUnicoAsignado[0].JuntaID = arregloCaptura[index].JuntaID;
+            ObjetoNumeroUnicoAsignado[0].NumeroUnico1ID = arregloCaptura[index].NumeroUnico1ID;
+            ObjetoNumeroUnicoAsignado[0].NumeroUnico2ID = arregloCaptura[index].NumeroUnico2ID;
+            ListaDetalles[index].ListaNumeroUnicoAsignado = ObjetoNumeroUnicoAsignado;
 
             ListaTrabajosAdicionalesEditados = [];
             if (arregloCaptura[index].ListaDetalleTrabajoAdicional != null) {
                 for (j = 0; j < arregloCaptura[index].ListaDetalleTrabajoAdicional.length; j++) {
-                    ListaTrabajosAdicionalesEditados[j] = { Accion: "", JuntaID: "", ArmadoTrabajoAdicionalID: "", JuntaArmadoID: "", TrabajoAdicionalID: "", ObreroID: "", Observacion: "" };
+                    ListaTrabajosAdicionalesEditados[j] = { Accion: "", JuntaID: "", TrabajoAdicionalID: "", ObreroID: "", Observacion: "" };
                     ListaTrabajosAdicionalesEditados[j].Accion = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].Accion;
                     ListaTrabajosAdicionalesEditados[j].JuntaID = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].JuntaID;
-                    ListaTrabajosAdicionalesEditados[j].ArmadoTrabajoAdicionalID = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].ArmadoTrabajoAdicionalID;
-                    ListaTrabajosAdicionalesEditados[j].JuntaArmadoID = arregloCaptura[index].JuntaArmadoID;
                     ListaTrabajosAdicionalesEditados[j].TrabajoAdicionalID = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].TrabajoAdicionalID;
                     ListaTrabajosAdicionalesEditados[j].ObreroID = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].ObreroID;
                     ListaTrabajosAdicionalesEditados[j].Observacion = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].Observacion;
                 }
             }
             ListaDetalles[index].ListaDetalleTrabajoAdicional = (arregloCaptura[index].ListaDetalleTrabajoAdicional == null || arregloCaptura[index].ListaDetalleTrabajoAdicional.length == 0) ? undefined : ListaTrabajosAdicionalesEditados;
+
             if (!esCorrectaJunta(ListaDetalles[index].JuntaAnteriorNumeroUnicoGuardado)) {
                 // la junta del numero unico anterior no se ah asignado correctamente 
                 $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
@@ -210,14 +207,10 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
             }
             else if (
                 (
-                   ListaDetalles[index].IdVal == "" ||
-                   ListaDetalles[index].JuntaID == "" ||
                    ListaDetalles[index].TipoJuntaID == "" ||
-                   ListaDetalles[index].Junta == "" ||
-                   ListaDetalles[index].Localizacion1 == "" ||
-                   ListaDetalles[index].Localizacion2 == "" ||
-                   ListaDetalles[index].NumeroUnico1ID == "" || ListaDetalles[index].NumeroUnico1ID == null ||
-                   ListaDetalles[index].NumeroUnico2ID == "" || ListaDetalles[index].NumeroUnico2ID == null ||
+                   ListaDetalles[index].JuntaID == "" || ListaDetalles[index].JuntaID == "0" ||
+                   ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID == "" || ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID == null ||
+                   ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID == "" || ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID == null ||
                    ListaDetalles[index].TallerID == "" ||
                    ListaDetalles[index].TallerID == "0" ||
                    ListaDetalles[index].TuberoID == "" ||
@@ -228,8 +221,8 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                 if (ListaDetalles[index].Accion == 2 && ListaDetalles[index].FechaArmado == "" &&
                     (ListaDetalles[index].TallerID == "" || ListaDetalles[index].TallerID == "0") &&
                    (ListaDetalles[index].TuberoID == "" || ListaDetalles[index].TuberoID == "0") &&
-                    (ListaDetalles[index].NumeroUnico1ID == "" || ListaDetalles[index].NumeroUnico1ID == null || ListaDetalles[index].NumeroUnico1ID == "0") &&
-                    (ListaDetalles[index].NumeroUnico2ID == "" || ListaDetalles[index].NumeroUnico2ID == null || ListaDetalles[index].NumeroUnico2ID == "0")) {
+                    (ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID == "" || ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID == null || ListaDetalles[index].NumeroUnicoAsignado[0].NumeroUnico1ID == "0") &&
+                    (ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID == "" || ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID == null || ListaDetalles[index].NumeroUnicoAsignado[0].NumeroUnico2ID == "0")) {
                     ListaDetalles[index].Accion = 4;
                 }
                 else {
@@ -242,15 +235,15 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
             else if (ListaDetalles[index].Accion == 4) {
                 if ((ListaDetalles[index].FechaArmado != "" &&
                     (ListaDetalles[index].TallerID != "" && ListaDetalles[index].TallerID != "0") &&
-                    (ListaDetalles[index].NumeroUnico1ID != "" && ListaDetalles[index].NumeroUnico1ID != null && ListaDetalles[index].NumeroUnico1ID != "0") &&
-                    (ListaDetalles[index].NumeroUnico2ID != "" && ListaDetalles[index].NumeroUnico2ID != null && ListaDetalles[index].NumeroUnico2ID != "0") &&
+                    (ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID != "" && ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID != null && ListaDetalles[index].NumeroUnicoAsignado[0].NumeroUnico1ID != "0") &&
+                    (ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID != "" && ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID != null && ListaDetalles[index].NumeroUnicoAsignado[0].NumeroUnico2ID != "0") &&
                    (ListaDetalles[index].TuberoID != "" && ListaDetalles[index].TuberoID != "0"))) {
                     ListaDetalles[index].Accion = 2;
                 }
                 else if (!(ListaDetalles[index].FechaArmado == "" &&
                     (ListaDetalles[index].TallerID == "" || ListaDetalles[index].TallerID == "0") &&
-                    (ListaDetalles[index].NumeroUnico1ID == "" || ListaDetalles[index].NumeroUnico1ID == null || ListaDetalles[index].NumeroUnico1ID == "0") &&
-                    (ListaDetalles[index].NumeroUnico2ID == "" || ListaDetalles[index].NumeroUnico2ID == null || ListaDetalles[index].NumeroUnico2ID == "0") &&
+                    (ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID == "" || ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID == null || ListaDetalles[index].NumeroUnicoAsignado[0].NumeroUnico1ID == "0") &&
+                    (ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID == "" || ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID == null || ListaDetalles[index].NumeroUnicoAsignado[0].NumeroUnico2ID == "0") &&
                    (ListaDetalles[index].TuberoID == "" || ListaDetalles[index].TuberoID == "0"))) {
                     ListaDetalles[index].Estatus = 0;
                     //$('tr[data-uid="' + arregloCaptura[index].uid + '"] ').css("background-color", "#ffcccc");
