@@ -334,7 +334,8 @@ function SuscribirEventoGuardarDetalleComponentes() {
                 animation: {
                     close: false,
                     open: false
-                }
+                },
+                actions: []
             }).data("kendoWindow");
 
             ventanaConfirm.content(_dictionary.MensajeConfirmacionGuardadoGeneral[$("#language").data("kendoDropDownList").value()] +
@@ -474,7 +475,8 @@ function SuscribirEventoEliminarSistemaPintura() {
             animation: {
                 close: false,
                 open: false
-            }
+            },
+            actions: []
         }).data("kendoWindow");
 
         ventanaConfirm.content(_dictionary.SistemaPinturaMensajeConfirmaEliminar[$("#language").data("kendoDropDownList").value()] +

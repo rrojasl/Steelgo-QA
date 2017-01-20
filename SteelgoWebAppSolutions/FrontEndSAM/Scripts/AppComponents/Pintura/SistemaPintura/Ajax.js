@@ -287,7 +287,8 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                     animation: {
                         close: false,
                         open: false
-                    }
+                    },
+                    actions:[]
                 }).data("kendoWindow");
 
                 ventanaConfirm.content(_dictionary.EntregaPlacasGraficasMensajePreguntaGuardado[$("#language").data("kendoDropDownList").value()] +
