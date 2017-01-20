@@ -11582,6 +11582,10 @@ _dictionary = {
         "es-MX": "No fue posible enviar el embarque",
         "en-US": "Could not send shipment"
     },
+    "EmbarqueListadoTitlePopUpEnviar": {
+        "es-MX": "Enviar Embarque",
+        "en-US": "Send Shipment"
+    },
     //Finaliza pantalla listado embarque
     //Inicia pantalla listado embarque enviados
     "EmbarqueListadoEnviadosBreadcrumb": {

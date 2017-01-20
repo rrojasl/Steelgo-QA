@@ -12,8 +12,6 @@ function changeLanguageCall() {
     CargarGrid();
     AjaxCargarCamposPredeterminados();
     document.title = _dictionary.EmbarqueListadoTituloPagina[$("#language").data("kendoDropDownList").value()];
-
-    SuscribirEventoPopUPEnviarEmbarque();
 };
 
 
@@ -142,7 +140,7 @@ function CargarGrid() {
                 }, template: '<input type="checkbox" class="chk-OkEmbarque" #= OkEmbarque ? "checked=checked" : "" # class="chkbx" ></input>', width: "150px", attributes: { style: "text-align:center;" }
             },
             {
-                field: "Enviar", title: " ", filterable: false, template: "<center><button  type='button' class='btn btn-blue enviarEmbarque' Style='display: #= Enviar == true ?'block;' : 'none;' #' ><span>" +
+                field: "Enviar", title: _dictionary.columnEnviar[$("#language").data("kendoDropDownList").value()], filterable: false, template: "<center><button  type='button' class='btn btn-blue enviarEmbarque' Style='display: #= Enviar == true ?'block;' : 'none;' #' ><span>" +
                    _dictionary.botonEnviar[$("#language").data("kendoDropDownList").value()] + "</span></button></center>", width: "115px"
             },
         ],
