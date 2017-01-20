@@ -1,7 +1,6 @@
 ﻿var iniciaFiltroSegundoNivel = true;
 var spoolIDSelectTemp = 0;
-var ventanaConfirm;
-
+var ventanaConfirmEdicion;
 function SuscribirEventos() {
     suscribirEventoOrdenTrabajo();
     SuscribirEventoSpoolID();
@@ -22,7 +21,7 @@ function SuscribirEventos() {
 };
 
 function suscribirEventoWindowsConfirmaCaptura() {
-    ventanaConfirm = $("#ventanaConfirmCaptura").kendoWindow({
+    ventanaConfirmEdicion = $("#ventanaConfirmCaptura").kendoWindow({
         iframe: true,
         title: _dictionary.CapturaArmadoTituloPopup[$("#language").data("kendoDropDownList").value()],
         visible: false,
@@ -33,19 +32,19 @@ function suscribirEventoWindowsConfirmaCaptura() {
         actions: []
     }).data("kendoWindow");
 
-    ventanaConfirm.content(_dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] +
+    ventanaConfirmEdicion.content(_dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] +
         "</br><center><button class='btn btn-blue' id='yesButtonProy'>" + _dictionary.lblSi[$("#language").data("kendoDropDownList").value()] + "</button><button class='btn btn-blue' id='noButtonProy'>" + _dictionary.lblNo[$("#language").data("kendoDropDownList").value()] + "</button></center>");
 
 
     $("#yesButtonProy").click(function (e) {
         $("#grid").data("kendoGrid").dataSource.data([]);
         eventoCambioTipoListado();
-        ventanaConfirm.close();
+        ventanaConfirmEdicion.close();
         editado = false;
     });
     $("#noButtonProy").click(function (e) {
         eventoRegresarTipoListado();
-        ventanaConfirm.close();
+        ventanaConfirmEdicion.close();
     });
 }
 function suscribirEventoAdicionales() {
@@ -599,7 +598,7 @@ function suscribirEventoChangeRadioTipoListado() {
                 eventoCambioTipoListado();
             }
             else {
-                ventanaConfirm.open().center();
+                ventanaConfirmEdicion.open().center();
             }
         }
         else if ($('input:radio[name=TipoAgregado]:checked').val() == "Listado") {
@@ -608,7 +607,7 @@ function suscribirEventoChangeRadioTipoListado() {
                 eventoCambioTipoListado();
             }
             else {
-                ventanaConfirm.open().center();
+                ventanaConfirmEdicion.open().center();
             }
         }
     });

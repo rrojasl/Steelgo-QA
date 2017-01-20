@@ -100,6 +100,8 @@ function AjaxObtenerJSonGridArmado() {
                     }
 
                 }
+                if (data.length > 0)
+                    ds.page(1);
 
                 if ($('input:radio[name=TipoAgregado]:checked').val() == "Reporte" && elementosNoModificados == "") {
                     $("#InputID").data("kendoComboBox").value("");
@@ -453,6 +455,8 @@ function AjaxCargarReporteJuntas() {
 
                 }
 
+                if (data.length > 0)
+                    ds.page(1);
 
                 $("#InputID").data("kendoComboBox").value("");
                 caracteresEscritosEnPagina = '';
@@ -495,6 +499,8 @@ function AjaxCambiarAccionAModificacion() {
             var ds = $("#grid").data("kendoGrid").dataSource;
             var array = JSON.parse(data);
 
+            
+
             for (var i = 0; i < array.length; i++) {
 
                 if (array[i].FechaArmado != null) {
@@ -503,6 +509,9 @@ function AjaxCambiarAccionAModificacion() {
                 }
                 ds.insert(array[i], 0);
             }
+            //$("#grid").data('kendoGrid').dataSource.data(array);
+            if (data.length > 0)
+                ds.page(1);
             $("#grid").data("kendoGrid").dataSource.sync();
         }
 
