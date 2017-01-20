@@ -453,7 +453,7 @@ namespace BackEndSAM.Controllers
                         TipoJunta = item["TipoJunta"].ToString(),
                         Diametro = item["Diametro"].ToString().Replace(',', '.'),
                         Cedula = item["Cedula"].ToString(),
-                        FechaArmado = item["FechaArmado"].ToString(),
+                        FechaArmado = item["FechaArmado"].ToString()=="" ? null : item["FechaArmado"].ToString() ,
                         TipoJuntaID = int.Parse(item["TipoJuntaID"].ToString()),
                         TuberoID = item["TuberoID"].ToString(),
                         Tubero = item["Tubero"].ToString(),
