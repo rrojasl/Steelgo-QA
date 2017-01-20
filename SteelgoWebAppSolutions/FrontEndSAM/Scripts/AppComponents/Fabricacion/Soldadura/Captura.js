@@ -360,6 +360,24 @@ function CargarGridPopupSoldadoresRaizCapturados() {
     });
     CustomisaGrid($("#inputSoldadoresRaiz"));
 
+
+    $("#inputSoldadoresRaiz table").on("keydown", function (e) {
+        if (e.keyCode == 13) {
+            e.preventDefault();
+            //var grid = $("#gridPopUp").data("kendoGrid");
+            //var length = grid.dataSource.view().length;
+            //var currentIndexRow = $("#gridPopUp").data("kendoGrid").items().index($("#gridPopUp").data("kendoGrid").select());
+            //if (currentIndexRow == length - 1) {
+            var dataSource = $("#inputSoldadoresRaiz").data("kendoGrid").dataSource;
+            var total = $("#inputSoldadoresRaiz").data("kendoGrid").dataSource.data().length;
+            $("#inputSoldadoresRaiz").data("kendoGrid").dataSource.insert(total, {});
+            $("#inputSoldadoresRaiz").data("kendoGrid").dataSource.page(dataSource.totalPages());
+            $("#inputSoldadoresRaiz").data("kendoGrid").editRow($("#inputSoldadoresRaiz").data("kendoGrid").tbody.children().last());
+
+            //}
+        }
+    });
+
 };
 
 
@@ -446,6 +464,25 @@ function CargarGridPopupSoldadoresRellenoCapturados() {
         toolbar: [{ name: "create" }]
     });
     CustomisaGrid($("#inputSoldadoresRelleno"));
+
+
+    $("#inputSoldadoresRelleno table").on("keydown", function (e) {
+        if (e.keyCode == 13) {
+            e.preventDefault();
+            //var grid = $("#gridPopUp").data("kendoGrid");
+            //var length = grid.dataSource.view().length;
+            //var currentIndexRow = $("#gridPopUp").data("kendoGrid").items().index($("#gridPopUp").data("kendoGrid").select());
+            //if (currentIndexRow == length - 1) {
+            var dataSource = $("#inputSoldadoresRelleno").data("kendoGrid").dataSource;
+            var total = $("#inputSoldadoresRelleno").data("kendoGrid").dataSource.data().length;
+            $("#inputSoldadoresRelleno").data("kendoGrid").dataSource.insert(total, {});
+            $("#inputSoldadoresRelleno").data("kendoGrid").dataSource.page(dataSource.totalPages());
+            $("#inputSoldadoresRelleno").data("kendoGrid").editRow($("#inputSoldadoresRelleno").data("kendoGrid").tbody.children().last());
+
+            //}
+        }
+    });
+
 
 };
 
@@ -646,6 +683,24 @@ function CargarGridPopUp() {
     });
 
     CustomisaGrid($("#gridPopUp"));
+
+    $("#gridPopUp table").on("keydown", function (e) {
+        if (e.keyCode == 13) {
+            e.preventDefault();
+            //var grid = $("#gridPopUp").data("kendoGrid");
+            //var length = grid.dataSource.view().length;
+            //var currentIndexRow = $("#gridPopUp").data("kendoGrid").items().index($("#gridPopUp").data("kendoGrid").select());
+            //if (currentIndexRow == length - 1) {
+            var dataSource = $("#gridPopUp").data("kendoGrid").dataSource;
+            var total = $("#gridPopUp").data("kendoGrid").dataSource.data().length;
+            $("#gridPopUp").data("kendoGrid").dataSource.insert(total, {});
+            $("#gridPopUp").data("kendoGrid").dataSource.page(dataSource.totalPages());
+            $("#gridPopUp").data("kendoGrid").editRow($("#gridPopUp").data("kendoGrid").tbody.children().last());
+
+            //}
+        }
+    });
+
 };
 
 function GridPopUpTrabajosAdicionales(data) {
