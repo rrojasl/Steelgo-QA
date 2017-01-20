@@ -5,6 +5,7 @@ function SuscribirEventos() {
     SuscribirEventoEnviarEmbarque();
     SuscribirEventoImprimir();
     SuscribirEventoGuardar();
+    SuscribirEventoPopUPEnviarEmbarque();
 }
 
 function SuscribirEventoTab() {
@@ -22,10 +23,10 @@ function SuscribirEventoTab() {
 
 
 function SuscribirEventoPopUPEnviarEmbarque() {
-    var modalTitle = "Enviar Embarque";
+    
     windowSend = $("#windowSend").kendoWindow({
             modal: true,
-            title: modalTitle,
+            title: "",
             resizable: false,
             visible: false,
             width: "500px",
@@ -79,6 +80,7 @@ function SuscribirEventoEnviarEmbarque() {
         var grid = $("#grid").data("kendoGrid");
         var dataItem = grid.dataItem($(e.target).closest("tr"));
         $("#uidRow").val(dataItem.uid);
+        windowSave.title(_dictionary.EmbarqueListadoTitlePopUpEnviar[$("#language").data("kendoDropDownList").value()]);
         windowSend.center().open();
     });
 }
@@ -147,6 +149,7 @@ function opcionHabilitarView(valor, name) {
         $("#btnGuardar").text(_dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]);
         $("#Guardar1").text(_dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]);
         $('#btnGuardar1').text(_dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]);
+        $("#grid").data("kendoGrid").dataSource.sync();
     }
         
 }

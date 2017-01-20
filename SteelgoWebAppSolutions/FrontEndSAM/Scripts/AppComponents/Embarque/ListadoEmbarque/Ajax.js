@@ -41,6 +41,7 @@ function AjaxObtenerDetalleListadoEmbarque(estatus) {
                     }
 
                 }
+                $("#grid").data("kendoGrid").showColumn("Enviar");
             } else {
                 $("#grid").data("kendoGrid").hideColumn("Enviar");
             }
@@ -121,7 +122,7 @@ function AjaxEnviarEmbarque(dataItem, numEmb, numEmbCliente, fechaEnvio) {
         DetalleJson.DestinoID = dataItem.DestinoID;
         DetalleJson.ProyectoID = dataItem.ProyectoID;
         DetalleJson.SolicitudPermiso = dataItem.FolioSolicitudPermiso;
-        DetalleJson.FechaPermiso = kendo.toString(dataItem.FechaSolicitudPermiso, String(_dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()].replace('{', '').replace('}', '').replace("0:", ""))).trim();
+        DetalleJson.FechaPermiso = dataItem.FechaSolicitudPermiso != null?kendo.toString(dataItem.FechaSolicitudPermiso, String(_dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()].replace('{', '').replace('}', '').replace("0:", ""))).trim() : "";
         DetalleJson.AprobadoAduana = dataItem.RequierePermisoAduana ? dataItem.AprobadoAduana : 0;
         DetalleJson.OkCliente = dataItem.OkCliente;
         DetalleJson.OkEmbarque = dataItem.OkEmbarque;
@@ -139,7 +140,8 @@ function AjaxEnviarEmbarque(dataItem, numEmb, numEmbCliente, fechaEnvio) {
             displayNotify("EmbarqueListadoMsjExitoEnviar", "", '0');
         } else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok")
             displayNotify("EmbarqueListadoMsjErrorEnviar", "", '2');
+
+        loadingStop();
     });
 
-    loadingStop();
 }
