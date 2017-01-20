@@ -146,7 +146,7 @@ namespace BackEndSAM.Controllers
                         IdText = capturaDatosJson.IdText,
                         SpoolID = capturaDatosJson.OrdenTrabajo + "-" + capturaDatosJson.IdText,
                         JuntaID = item.JuntaSpoolID,
-                        Junta = item.Junta,
+                        Junta = item.Etiqueta,
                         TipoJunta = item.TipoJunta,
                         Diametro = item.Diametro.ToString().Replace(',', '.'),
                         Cedula = item.Cedula,
@@ -178,7 +178,7 @@ namespace BackEndSAM.Controllers
                    
                     listaDetalleDatos.Add(detalleDatos);
                 }
-                return serializer.Serialize(listaDetalleDatos.OrderByDescending(x => int.Parse(x.Junta)));
+                return serializer.Serialize(listaDetalleDatos.OrderByDescending(x => x.Junta));
             }
             else
             {
@@ -449,7 +449,7 @@ namespace BackEndSAM.Controllers
                         IdVal = item["OrdenTrabajoSpoolID"].ToString(),
                         SpoolID = item["NumeroControl"].ToString(),
                         JuntaID =  int.Parse( item["JuntaSpoolID"].ToString()),
-                        Junta = item["Junta"].ToString(),
+                        Junta = item["Etiqueta"].ToString(),
                         TipoJunta = item["TipoJunta"].ToString(),
                         Diametro = item["Diametro"].ToString().Replace(',', '.'),
                         Cedula = item["Cedula"].ToString(),
@@ -479,7 +479,7 @@ namespace BackEndSAM.Controllers
                     };
                     listaDetalleDatos.Add(detalleDatos);
                 }
-                return serializer.Serialize(listaDetalleDatos.OrderByDescending(x => int.Parse(x.Junta)));
+                return serializer.Serialize(listaDetalleDatos.OrderByDescending(x => x.Junta));
             }
             else
             {
