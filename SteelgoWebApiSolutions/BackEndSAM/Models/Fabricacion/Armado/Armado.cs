@@ -67,8 +67,6 @@ namespace BackEndSAM.Models.Armado
     public class DetalleDatosJson
     {
         public int Accion { get; set; }
-        public int DetalleArmadoID { get; set; }
-        public int JuntaArmadoID { get; set; }
         public int IDProyecto { get; set; }
         public string Proyecto { get; set; }
         public string IdOrdenTrabajo { get; set; }
@@ -175,10 +173,7 @@ namespace BackEndSAM.Models.Armado
     public class DetalleTrabajoAdicional
     {
         [Key]
-        public int IdTrabajoAdicional { get; set; }
         public int Accion { get; set; }
-        public int ArmadoTrabajoAdicionalID { get; set; }
-        public int JuntaArmadoID { get; set; }
         public int TrabajoAdicionalID { get; set; }
         public string TrabajoAdicional { get; set; }
         public int ObreroID { get; set; }
@@ -191,6 +186,13 @@ namespace BackEndSAM.Models.Armado
         public int TrabajoAdicionalID { get; set; }
         public string NombreCorto { get; set; }
         public string SignoInformativo { get; set; } //para saber si 
+
+        public TrabajosAdicionalesXJunta()
+        {
+            TrabajoAdicionalID = 0;
+            NombreCorto = "";
+            SignoInformativo = "";
+        }
     }
 
     public class Captura
@@ -215,34 +217,25 @@ namespace BackEndSAM.Models.Armado
     public class DetalleGuardarJson
     {
         public int Accion { get; set; }
-        public string IdVal { get; set; }
-        public string JuntaID { get; set; }
         public int TipoJuntaID { get; set; }
-        public string Junta { get; set; }
-        public string Localizacion1 { get; set; }
-        public string Localizacion2 { get; set; }
-        public int JuntaArmadoID { get; set; }
-        public int DetalleArmadoID { get; set; }
-        public string NumeroUnico1ID { get; set; }
-        public string NumeroUnico2ID { get; set; }
+        public string JuntaID { get; set; }
         public string TallerID { get; set; }
         public string TuberoID { get; set; }
         public string FechaArmado { get; set; }
-        public string FechaReporte { get; set; }
-
         public List<DetalleGuardarTrabajoAdicional> ListaDetalleTrabajoAdicional { get; set; }
-
-
-
+        public List<NumerosUnicos> ListaNumeroUnicoAsignado { get; set; }
     }
-
+    public class NumerosUnicos
+    {
+        public int Accion { get; set; }
+        public int JuntaID { get; set; }
+        public int NumeroUnico1ID { get; set; }
+        public int NumeroUnico2ID { get; set; }
+    }
     public class DetalleGuardarTrabajoAdicional
     {
-
         public int Accion { get; set; }
         public string JuntaID { get; set; }
-        public int ArmadoTrabajoAdicionalID { get; set; }
-        public int JuntaArmadoID { get; set; }
         public int TrabajoAdicionalID { get; set; }
         public int ObreroID { get; set; }
         public string Observacion { get; set; }

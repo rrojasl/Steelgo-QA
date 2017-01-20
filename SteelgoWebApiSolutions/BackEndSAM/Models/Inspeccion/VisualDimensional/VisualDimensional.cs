@@ -11,9 +11,6 @@ namespace BackEndSAM.Models.Inspeccion.VisualDimensional
         public string EtiquetaMaterial1 { get; set; }
         public string EtiquetaMaterial2 { get; set; }
         public int Accion { get; set; }
-        public int DetalleArmadoID { get; set; }
-        public int JuntaArmadoID { get; set; }
-        public int InspeccionVisualID { get; set; }
         public int ProyectoID { get; set; }
         public string Proyecto { get; set; }
         public string OrdenTrabajoID { get; set; }
