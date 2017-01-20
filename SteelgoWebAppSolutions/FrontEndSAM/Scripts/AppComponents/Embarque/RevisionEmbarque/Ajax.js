@@ -46,8 +46,21 @@ function AjaxCargarEmbarques(proyectoID) {
     });
 }
 
-
-
+function AjaxObtenerSpoolID() {
+    try {
+        loadingStart();
+        $CapturasRapidas.CapturasRapidas.read({ ordenTrabajo: $("#InputOrdenTrabajo").val(), tipo: '1', token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
+            if (Error(data)) {
+                $("#InputOrdenTrabajo").val(data.OrdenTrabajo);
+                $("#InputID").data("kendoComboBox").dataSource.data(data.idStatus)
+                Cookies.set("LetraProyecto", data.OrdenTrabajo.substring(0, 1), { path: '/' });
+                loadingStop();
+            }
+        });
+    } catch (e) {
+        displayNotify("Mensajes_error", e.message, '2');
+    }
+}
 
 function AjaxObtieneDetalle(EmbarqueID) {
     loadingStart();

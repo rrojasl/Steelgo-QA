@@ -69,7 +69,10 @@ function AjaxCargarPaquetes(proyectoID, paqueteID) {
 
             $("#InputPaquete").data("kendoComboBox").value(paqueteID);
             $("#InputPaquete").data("kendoComboBox").trigger("change");
-        }
+       }
+
+       if (guardado)
+           AjaxCargarDetalleEmpaquetado(paqueteID, 1);
         loadingStop();
     });
 }
@@ -299,7 +302,6 @@ function AjaxGuardarCaptura(ds, tipoGuardado, cerrarPaquete, Paquete, Proyecto) 
                 guardado = true;
                 $("#grid").data("kendoGrid").dataSource.data([]);
                 AjaxCargarPaquetes(Proyecto.ProyectoID, paqueteID);
-                setTimeout(function () { AjaxCargarDetalleEmpaquetado(paqueteID, 1); }, 800);
 
             }
             displayNotify("MensajeGuardadoExistoso", "", '0');

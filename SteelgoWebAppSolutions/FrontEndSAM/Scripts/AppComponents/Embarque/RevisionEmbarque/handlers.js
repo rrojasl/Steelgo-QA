@@ -118,7 +118,7 @@ function SuscribirEventoBuscar() {
             AjaxObtieneDetalle($("#Embarque").data("kendoComboBox").value());
         }
         else {
-            displayNotify('', 'Elije un embarque', '1');
+            displayNotify('MensajeSeleccionaEmbarque', '', '1');
         }
         
     });
@@ -193,20 +193,20 @@ function SuscribirEventoSpoolID() {
 
         if ($("#InputOrdenTrabajo").val().match("^[a-zA-Z][0-9]*$")) {
             try {
-                //AjaxObtenerSpoolID();
+                AjaxObtenerSpoolID();
             } catch (e) {
-                //displayNotify("Mensajes_error", e.message, '0');
+                displayNotify("Mensajes_error", e.message, '2');
             }
         } else {
-            //displayNotify("CapturaArmadoMensajeOrdenTrabajo", "", '2');
-            //$("#InputOrdenTrabajo").focus();
+            displayNotify("MensajeOrdenTrabajoNoValida", "", '1');
+            $("#InputOrdenTrabajo").focus();
         }
     });
 
     $("#InputOrdenTrabajo").focus(function (e) {
         $("#InputOrdenTrabajo").val("");
+        $("#InputID").data("kendoComboBox").dataSource.data([]);
         $("#InputID").data("kendoComboBox").value("");
-        $("#InputID").data("kendoComboBox").setDataSource();
     });
 
     $('#InputID').closest('.k-widget').keydown(function (e) {
