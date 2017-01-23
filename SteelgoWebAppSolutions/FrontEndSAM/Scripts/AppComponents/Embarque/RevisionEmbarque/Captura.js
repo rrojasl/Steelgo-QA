@@ -8,23 +8,10 @@ function IniciarCapturaEmbarqueCarga() {
 function changeLanguageCall() {
     CargarGrid();
     opcionHabilitarView(false, "FieldSetView");
-    document.title = "Revisión Embarque";
+    document.title = _dictionary.EmbarqueRevisionTituloPagina[$("#language").data("kendoDropDownList").value()];
     AjaxCargarProyecto();
+    AjaxCargarCamposPredeterminados();
 };
-
-function validarInformacion(row) {
-    var ds = $("#grid").data("kendoGrid").dataSource;
-    var existe = false;
-
-    for (var i = 0; i < ds._data.length; i++) {
-
-        if (ds._data[i]["NumeroControl"] == row.NumeroControl) {
-            existe = true;
-            break;
-        }
-    }
-    return existe;
-}
 
 function CargarGrid() {
     kendo.ui.Grid.fn.editCell = (function (editCell) {
@@ -104,7 +91,7 @@ function CargarGrid() {
                         style: "max-width:90px;"
                     },
                     dataSource: [{ Llego: true }, { Llego: false }]
-                }, template: '<input type="checkbox" name="Llego" #= Llego ? "checked=checked" : "" # class="chkbx" ></input>', width: "130px", attributes: { style: "text-align:center;" }
+                }, template: '<input class="chkbx" type="checkbox" name="Llego" #= Llego ? "checked=checked" : ""# ></input>', width: "130px", attributes: { style: "text-align:center;" }
             },
             {
                 field: "LlegoComentario", title: _dictionary.columnLlegoComentariosSpool[$("#language").data("kendoDropDownList").value()], filterable: {
@@ -115,7 +102,7 @@ function CargarGrid() {
                         style: "max-width:150px;"
                     },
                     dataSource: [{ LlegoComentario: true }, { LlegoComentario: false }]
-                }, template: '<input type="checkbox" name="LlegoComentario" #= LlegoComentario ? "checked=checked" : "" # class="chkbx" ></input>', width: "130px", attributes: { style: "text-align:center;" }
+                }, template: '<input class="chkbx" type="checkbox" name="LlegoComentario" #= LlegoComentario ? "checked=checked" : "" # ></input>', width: "130px", attributes: { style: "text-align:center;" }
             },
             {
                 field: "NoLlego", title: _dictionary.columnNoLlegoSpool[$("#language").data("kendoDropDownList").value()], filterable: {
@@ -126,44 +113,53 @@ function CargarGrid() {
                         style: "max-width:100px;"
                     },
                     dataSource: [{ NoLlego: true }, { NoLlego: false }]
-                }, template: '<input type="checkbox" name="NoLlego" #= NoLlego ? "checked=checked" : "" # class="chkbx" ></input>', width: "130px", attributes: { style: "text-align:center;" }
+                }, template: '<input  class="chkbx" type="checkbox" name="NoLlego" #= NoLlego ? "checked=checked" : "" # ></input>', width: "130px", attributes: { style: "text-align:center;" }
             },
             { field: "Comentario", title: _dictionary.columnComentario[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "170px" },
         ],
         beforeEdit: function (e) {
             var columnIndex = this.cellIndex(e.container);
             var fieldName = this.thead.find("th").eq(columnIndex).data("field");
-            //if (!isEditable(fieldName, e.model)) {
-            //    e.preventDefault();
-            //}
+            if (!isEditable(fieldName, e.model)) {
+                e.preventDefault();
+            }
         },
     });
     CustomisaGrid($("#grid"));
 
-    $("#grid .k-grid-content").on("change", "input.chkbx", function (e) {
+    $("#grid").on("change", ":checkbox", function (e) {
         if ($('#Guardar').text() == _dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]) {
             var grid = $("#grid").data("kendoGrid");
             var dataItem = grid.dataItem($(e.target).closest("tr"));
-            switch (this.name) {
-                case 'Llego':
-                    dataItem.set("Llego", this.checked);
-                    dataItem.set("NoLlego", false);
-                    dataItem.set("LlegoComentario", false);
-                    dataItem.Comentario = "";
-                    break;
-                case 'NoLlego':
-                    dataItem.set("Llego", false);
-                    dataItem.set("NoLlego", this.checked);
-                    dataItem.set("LlegoComentario", false);
-                    dataItem.Comentario = "";
-                    break;
-                case 'LlegoComentario':
-                    dataItem.set("Llego", false);
-                    dataItem.set("NoLlego", false);
-                    dataItem.set("LlegoComentario", this.checked);
-                    break;
+            if (!$("#InputCerrar").is(":checked")) {
+                switch (this.name) {
+                    case 'Llego':
+                        dataItem.set("Llego", this.checked);
+                        dataItem.set("NoLlego", false);
+                        dataItem.set("LlegoComentario", false);
+                        dataItem.Comentario = "";
+                        dataItem.ModificadoPorUsuario = true;
+                        grid.dataSource.sync();
+                        break;
+                    case 'NoLlego':
+                        dataItem.set("Llego", false);
+                        dataItem.set("NoLlego", this.checked);
+                        dataItem.set("LlegoComentario", false);
+                        dataItem.Comentario = "";
+                        dataItem.ModificadoPorUsuario = true;
+                        grid.dataSource.sync();
+                        break;
+                    case 'LlegoComentario':
+                        dataItem.set("Llego", false);
+                        dataItem.set("NoLlego", false);
+                        dataItem.set("LlegoComentario", this.checked);
+                        dataItem.ModificadoPorUsuario = true;
+                        grid.dataSource.sync();
+                        break;
+                }
+            } else {
+                grid.dataSource.sync();
             }
-            grid.dataSource.sync();
         }
         else {
             if ($(this)[0].checked) {
@@ -174,6 +170,59 @@ function CargarGrid() {
             }
         }
     });
-
-
 };
+
+function isEditable(fieldName, model) {
+    if (fieldName == "Comentario") {
+        if(!model.LlegoComentario){
+            return false;
+        }
+    }
+
+    return true;
+}
+
+function ExisteSpool(row) {
+    var jsonGrid = $("#grid").data("kendoGrid").dataSource._data;
+
+    for (var i = 0; i < jsonGrid.length; i++) {
+        if (jsonGrid[i].SpoolID == row.SpoolID) {
+            return true
+        }
+    }
+    return false;
+}
+
+function FiltroMostrar(mostrar) {
+    var ds = $("#grid").data("kendoGrid").dataSource;
+
+    if (mostrar == 0) {
+        var curr_filters = ds.filter().filters;
+        if (curr_filters[0].filters != undefined)
+            ds.filter(curr_filters[0].filters[0])
+        else
+            ds.filter(curr_filters[0])
+        ds.sync();
+    }
+    else {
+        var curr_filters = ds.filter().filters;
+        ds.filter(curr_filters[0])
+        ds.sync();
+        var filters = ds.filter();
+        filters.logic = "or"
+
+        filters.filters.push({ field: "Accion", operator: "eq", value: 2 });
+        ds.sync();
+    }
+}
+
+function existenCambios(ds) {
+    if (ds.length > 0) {
+        for (var i = 0; i < ds.length; i++) {
+            if(ds[i].ModificadoPorUsuario){
+                return true;
+            }            
+        }        
+    }
+    return false;
+}

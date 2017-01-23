@@ -1,4 +1,17 @@
-﻿function AjaxCargarProyecto() {
+﻿function AjaxCargarCamposPredeterminados() {
+    var campoPredeterminado = 3071;
+    $CamposPredeterminados.CamposPredeterminados.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), id: campoPredeterminado }).done(function (data) {
+        if (data == "Todos") {
+            $('input:radio[name=Muestra]:nth(1)').trigger("click");
+        }
+        else if (data == "Sin captura") {
+            $('input:radio[name=Muestra]:nth(0)').trigger("click");
+        }
+        loadingStop();
+    });
+}
+
+function AjaxCargarProyecto() {
     loadingStart();
     $Proyectos.Proyectos.read({ token: Cookies.get("token") }).done(function (data) {
         if (Error(data)) {
@@ -77,6 +90,28 @@ function AjaxObtieneDetalle(EmbarqueID) {
                 ds.sync();
             }
         }
+        loadingStop();
+    });
+}
+
+function AjaxAgregarDetalleSpool(tipoConsulta, ordenTrabajoSpoolID, codigo) {
+    loadingStart();
+    $RevisionEmbarque.RevisionEmbarque.read({ token: Cookies.get("token"), TipoConsulta: tipoConsulta, OrdenTrabajoSpoolID: ordenTrabajoSpoolID, Codigo: codigo}).done(function (data) {
+        var ds = $("#grid").data("kendoGrid").dataSource;
+        var array = data;
+
+        if (data.length > 0) {
+            //for (var i = 0; i < array.length; i++) {
+            //    if (Proyecto.ProyectoID == array[i].ProyectoID) {
+            //        if (!ExisteSpool(array[i])) {
+            //            ds.insert(0, array[i]);
+            //        }
+            //    }
+            //}
+        }
+
+        $("#InputID").data("kendoComboBox").value("");
+        $("#inputCodigo").val("");
         loadingStop();
     });
 }

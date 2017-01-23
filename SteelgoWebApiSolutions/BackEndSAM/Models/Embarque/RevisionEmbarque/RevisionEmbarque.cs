@@ -18,6 +18,7 @@ namespace BackEndSAM.Models.Embarque.RevisionEmbarque
             ProyectoID = 0;
             Estatus = 0;
             Destino = "";
+            RevisionCerrada = false;
         }
 
         public int EmbarqueID { get; set; }
@@ -25,6 +26,7 @@ namespace BackEndSAM.Models.Embarque.RevisionEmbarque
         public int ProyectoID { get; set; }
         public int Estatus { get; set; }
         public string Destino { get; set; }
+        public bool RevisionCerrada { get; set; }
     }
 
     public class DetalleRevisionEmbarque

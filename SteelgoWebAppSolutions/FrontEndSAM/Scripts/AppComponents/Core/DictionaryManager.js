@@ -7769,8 +7769,8 @@ _dictionary = {
         "en-US": "Save"
     },
     "botonGuardar4": {
-        "es-MX": "Agregar",
-        "en-US": "add"
+        "es-MX": "Guardar",
+        "en-US": "Save"
     },
     "botonGuardar5": {
         "es-MX": "Guardar",
@@ -11601,7 +11601,15 @@ _dictionary = {
     "EmbarqueRevisionBreadcrumb": {
         "es-MX": "Revisión Embarque",
         "en-US": "Shipping Revision"
-    }
+    },
+    "EmbarqueRevisionTituloPagina": {
+        "es-MX": "Revisión Embarque",
+        "en-US": "Shipping Revision"
+    },
+    "EmbarqueRevisionMsjRevisionCerrada": {
+        "es-MX": "La revisión del embarque esta cerrada, debe abrirla para poder modificarla",
+        "en-US": "The shipment review is closed, you must open it to modify it"
+    },
     //Finaliza pantalla revision
     //Finaliza Modulo Embarque 
 

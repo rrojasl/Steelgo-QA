@@ -104,7 +104,7 @@ namespace BackEndSAM.DataAcces.Embarque.ListadoEmbarque
                             AprobadoAduanaDesc = item.RequiereAduana.GetValueOrDefault() ? item.AprobadoAduanaDesc : "NA",
                             OkEmbarqueAnt = item.OkEmbarque,
                             OkEmbarque = item.OkEmbarque,
-                            Enviar = item.RequiereRevisionCliente.GetValueOrDefault() ? item.AprobadoAduana == 1 && item.OkCliente && item.OkEmbarque && item.EmbarqueEstatusID != 2 ? true : false : 
+                            Enviar = item.RequiereAduana.GetValueOrDefault() ? item.AprobadoAduana == 1 && item.OkCliente && item.OkEmbarque && item.EmbarqueEstatusID != 2 ? true : false : 
                                 item.OkCliente && item.OkEmbarque && item.EmbarqueEstatusID != 2 ? true: false,
                             CapturaEnvioID = item.CapturaEnvioID.GetValueOrDefault(),
                             ModificadoPorUsuario = false,
