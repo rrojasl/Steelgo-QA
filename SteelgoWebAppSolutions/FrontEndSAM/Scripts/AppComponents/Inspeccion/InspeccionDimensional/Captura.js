@@ -81,8 +81,14 @@ function CargarGrid() {
         autoBind: true,
         autoSync: true,
         edit: function (e) {
+         
+
             if ($('#Guardar').text() == "Editar" || $('#Guardar').text() == "Edit") {
                 this.closeCell();
+            }
+            else {
+                var inputName = e.container.find('input');
+                inputName.select();
             }
 
         },
