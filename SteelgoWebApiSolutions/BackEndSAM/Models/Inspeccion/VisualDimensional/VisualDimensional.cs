@@ -1,4 +1,5 @@
-﻿using BackEndSAM.Models.Inspeccion.Dimensional;
+﻿using BackEndSAM.Models.Armado;
+using BackEndSAM.Models.Inspeccion.Dimensional;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,8 +9,7 @@ namespace BackEndSAM.Models.Inspeccion.VisualDimensional
 {
     public class CapturaVisualDimensional
     {
-        public string EtiquetaMaterial1 { get; set; }
-        public string EtiquetaMaterial2 { get; set; }
+        public int AccionNumeroUnico { get; set; }
         public int Accion { get; set; }
         public int ProyectoID { get; set; }
         public string Proyecto { get; set; }
@@ -200,28 +200,14 @@ namespace BackEndSAM.Models.Inspeccion.VisualDimensional
     public class DetalleGuardarInspeccionVisual
     {
         public int Accion { get; set; }
-
-        public int OrdenTrabajoSpoolID { get; set; }
-        public int TipoJuntaID { get; set; }
-
-        public string EtiquetaJunta { get; set; }
-        public int EtiquetaMaterial1 { get; set; }
-        public int EtiquetaMaterial2 { get; set; }
-
         public string DefectosID { get; set; }
-
         public string ObreroID { get; set; }
         public string FechaInspeccion { get; set; }
-
-        public int DetalleArmadoID { get; set; }
-
         public string ResultadoID { get; set; }
         public string TallerID { get; set; }
+        public int JuntaSpoolID { get; set; }
+        public List<BackEndSAM.Models.Armado.NumerosUnicos> ListaNumeroUnicoAsignado { get; set; }
 
-        public string NumeroUnico1ID { get; set; }
-        public string NumeroUnico2ID { get; set; }
-
-        public int InspeccionVisualID { get; set; }
     }
     public class InspeccionCamposPredeterminados
     {

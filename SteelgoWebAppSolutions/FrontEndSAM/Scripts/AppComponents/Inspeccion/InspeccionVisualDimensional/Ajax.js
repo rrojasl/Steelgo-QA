@@ -313,30 +313,31 @@ function ajaxGuardado(jSonCaptura, tipoGuardar) {
         //$('tr[data-uid="' + jSonCaptura[index].uid + '"] ').css("background-color", "#ffffff");
         $("#grid").data("kendoGrid").dataSource._data[index].RowOk = true;
 
-        ListaDetalleGuardarInspeccionVisual[index] = { Accion: "", OrdenTrabajoSpoolID: "", TipoJuntaID: "", EtiquetaJunta: "", EtiquetaMaterial1: "", EtiquetaMaterial2: "", DefectosID: "", InspectorID: "", FechaInspeccion: "", JuntaTrabajoID: "", ResultadoID: "", TallerID: "", NumeroUnico1ID: "", NumeroUnico2ID: "", InspeccionVisualID: "" };
+        ListaDetalleGuardarInspeccionVisual[index] = { Accion: "", DefectosID: "", ObreroID: "", FechaInspeccion: "", ResultadoID: "", TallerID: "", JuntaSpoolID: "", ListaNumeroUnicoAsignado: "" };
         ListaDetalleGuardarInspeccionVisual[index].Accion = jSonCaptura[index].Accion;
-        ListaDetalleGuardarInspeccionVisual[index].OrdenTrabajoSpoolID = jSonCaptura[index].OrdenTrabajoSpoolID == null ? 0 : jSonCaptura[index].OrdenTrabajoSpoolID;
-        ListaDetalleGuardarInspeccionVisual[index].TipoJuntaID = jSonCaptura[index].TipoJuntaID == null ? 0 : jSonCaptura[index].TipoJuntaID;
-        ListaDetalleGuardarInspeccionVisual[index].EtiquetaJunta = jSonCaptura[index].Junta;
-        ListaDetalleGuardarInspeccionVisual[index].EtiquetaMaterial1 = jSonCaptura[index].EtiquetaMaterial1;
-        ListaDetalleGuardarInspeccionVisual[index].EtiquetaMaterial2 = jSonCaptura[index].EtiquetaMaterial2;
         ListaDetalleGuardarInspeccionVisual[index].DefectosID = jSonCaptura[index].DefectosID == null ? 0 : jSonCaptura[index].DefectosID;
         ListaDetalleGuardarInspeccionVisual[index].ObreroID = (jSonCaptura[index].InspectorID == null || jSonCaptura[index].InspectorID == "") ? 0 : jSonCaptura[index].InspectorID;
         ListaDetalleGuardarInspeccionVisual[index].FechaInspeccion = jSonCaptura[index].FechaInspeccion == null ? " " : kendo.toString(jSonCaptura[index].FechaInspeccion, String(_dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()].replace('{', '').replace('}', '').replace("0:", ""))).trim();
-        ListaDetalleGuardarInspeccionVisual[index].JuntaTrabajoID = jSonCaptura[index].JuntaTrabajoID == null ? 0 : jSonCaptura[index].JuntaTrabajoID;
         ListaDetalleGuardarInspeccionVisual[index].ResultadoID = jSonCaptura[index].ResultadoID == null ? 0 : jSonCaptura[index].ResultadoID;
         ListaDetalleGuardarInspeccionVisual[index].TallerID = jSonCaptura[index].TallerID == null ? 0 : jSonCaptura[index].TallerID;
-        ListaDetalleGuardarInspeccionVisual[index].NumeroUnico1ID = jSonCaptura[index].NumeroUnico1ID;
-        ListaDetalleGuardarInspeccionVisual[index].NumeroUnico2ID = jSonCaptura[index].NumeroUnico2ID;
-        ListaDetalleGuardarInspeccionVisual[index].InspeccionVisualID = jSonCaptura[index].InspeccionVisualID;
+        ListaDetalleGuardarInspeccionVisual[index].JuntaSpoolID = jSonCaptura[index].JuntaID == null ? 0 : jSonCaptura[index].JuntaID;
+
+        ObjetoNumeroUnicoAsignado = []
+        ObjetoNumeroUnicoAsignado[0] = { Accion: "", JuntaID: "", NumeroUnico1ID: "", NumeroUnico2ID: "" }
+        ObjetoNumeroUnicoAsignado[0].Accion = jSonCaptura[index].Accion == 3 ? jSonCaptura[index].Accion : jSonCaptura[index].AccionNumeroUnico;
+        ObjetoNumeroUnicoAsignado[0].JuntaID = jSonCaptura[index].JuntaID;
+        ObjetoNumeroUnicoAsignado[0].NumeroUnico1ID = jSonCaptura[index].NumeroUnico1ID;
+        ObjetoNumeroUnicoAsignado[0].NumeroUnico2ID = jSonCaptura[index].NumeroUnico2ID;
+        ListaDetalleGuardarInspeccionVisual[index].ListaNumeroUnicoAsignado = ObjetoNumeroUnicoAsignado;
+
 
         if ((ListaDetalleGuardarInspeccionVisual[index].TallerID == "" || ListaDetalleGuardarInspeccionVisual[index].TallerID == "0" ||
             ListaDetalleGuardarInspeccionVisual[index].ResultadoID == "" || ListaDetalleGuardarInspeccionVisual[index].ResultadoID == "0" ||
             ((ListaDetalleGuardarInspeccionVisual[index].DefectosID == "" || ListaDetalleGuardarInspeccionVisual[index].DefectosID == "0" || ListaDetalleGuardarInspeccionVisual[index].DefectosID == null) && ListaDetalleGuardarInspeccionVisual[index].ResultadoID == 2) ||
             ListaDetalleGuardarInspeccionVisual[index].ObreroID == "" || ListaDetalleGuardarInspeccionVisual[index].ObreroID == "0" ||
             ListaDetalleGuardarInspeccionVisual[index].FechaInspeccion == " " || ListaDetalleGuardarInspeccionVisual[index].FechaInspeccion == "0" ||
-            ListaDetalleGuardarInspeccionVisual[index].NumeroUnico1ID == "" || ListaDetalleGuardarInspeccionVisual[index].NumeroUnico1ID == "0" || ListaDetalleGuardarInspeccionVisual[index].NumeroUnico1ID == null ||
-            ListaDetalleGuardarInspeccionVisual[index].NumeroUnico2ID == "" || ListaDetalleGuardarInspeccionVisual[index].NumeroUnico2ID == "0" || ListaDetalleGuardarInspeccionVisual[index].NumeroUnico2ID == null
+             ListaDetalleGuardarInspeccionVisual[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID == "" || ListaDetalleGuardarInspeccionVisual[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID == "0" || ListaDetalleGuardarInspeccionVisual[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID == null ||
+             ListaDetalleGuardarInspeccionVisual[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID == "" || ListaDetalleGuardarInspeccionVisual[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID == "0" || ListaDetalleGuardarInspeccionVisual[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID == null
             ) && (ListaDetalleGuardarInspeccionVisual[index].Accion != 4 && ListaDetalleGuardarInspeccionVisual[index].Accion != 3)) {
 
             if (ListaDetalleGuardarInspeccionVisual[index].Accion == 2) ListaDetalleGuardarInspeccionVisual[index].Accion = 4;
@@ -353,8 +354,8 @@ function ajaxGuardado(jSonCaptura, tipoGuardar) {
             ((ListaDetalleGuardarInspeccionVisual[index].DefectosID == "" || ListaDetalleGuardarInspeccionVisual[index].DefectosID == "0" || ListaDetalleGuardarInspeccionVisual[index].DefectosID == null) && ListaDetalleGuardarInspeccionVisual[index].ResultadoID == 2) ||
             ListaDetalleGuardarInspeccionVisual[index].ObreroID == "" || ListaDetalleGuardarInspeccionVisual[index].ObreroID == "0" ||
             ListaDetalleGuardarInspeccionVisual[index].FechaInspeccion == " " || ListaDetalleGuardarInspeccionVisual[index].FechaInspeccion == "0" ||
-            ListaDetalleGuardarInspeccionVisual[index].NumeroUnico1ID == "" || ListaDetalleGuardarInspeccionVisual[index].NumeroUnico1ID == "0" || ListaDetalleGuardarInspeccionVisual[index].NumeroUnico1ID == null ||
-            ListaDetalleGuardarInspeccionVisual[index].NumeroUnico2ID == "" || ListaDetalleGuardarInspeccionVisual[index].NumeroUnico2ID == "0" || ListaDetalleGuardarInspeccionVisual[index].NumeroUnico2ID == null)) {
+             ListaDetalleGuardarInspeccionVisual[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID == "" || ListaDetalleGuardarInspeccionVisual[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID == "0" || ListaDetalleGuardarInspeccionVisual[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID == null ||
+             ListaDetalleGuardarInspeccionVisual[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID == "" || ListaDetalleGuardarInspeccionVisual[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID == "0" || ListaDetalleGuardarInspeccionVisual[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID == null)) {
 
                 ListaDetalleGuardarInspeccionVisual[index].Estatus = 0;
                 //$('tr[data-uid="' + jSonCaptura[index].uid + '"] ').css("background-color", "#ffcccc");

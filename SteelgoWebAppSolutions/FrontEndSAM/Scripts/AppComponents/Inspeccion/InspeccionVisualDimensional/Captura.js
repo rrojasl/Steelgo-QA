@@ -445,7 +445,7 @@ function cancelarCaptura(e) {
             var dataSource = $("#grid").data("kendoGrid").dataSource;
             if (dataItem.Accion == 2 || dataItem.Accion == 4)
                 dataItem.Accion = 3;
-            if (dataItem.InspeccionVisualID == 0)
+            if (dataItem.Accion == 1)
                 dataSource.remove(dataItem);
             $("#grid").data("kendoGrid").dataSource.sync();
         }
@@ -458,7 +458,7 @@ function cancelarCaptura(e) {
             var spoolIDRegistro = dataItem.SpoolID;
 
             dataItem.Accion = 3;
-            if (dataItem.InspeccionVisualID == 0)
+            if (dataItem.Accion == 1)
                 dataSource.remove(dataItem);
             $("#grid").data("kendoGrid").dataSource.sync();
 

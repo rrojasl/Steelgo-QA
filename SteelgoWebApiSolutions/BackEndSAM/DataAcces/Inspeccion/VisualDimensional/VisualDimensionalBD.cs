@@ -247,7 +247,7 @@ namespace BackEndSAM.DataAcces.Inspeccion.VisualDimensionalBD
             }
         }
 
-        public object InsertarCapturaInspeccion(DataTable dtDetalleCaptura, DataTable dtJuntaLista, int usuario, string lenguaje, int inspeccionDimensionalID, int ordenTrabajoSpoolID, string fechaInspeccion, int resultadoID, int obreroID, int defectoID, int accion)
+        public object InsertarCapturaInspeccion(DataTable dtDetalleCaptura, DataTable dtJuntaLista,DataTable dtNumeroUnicos, int usuario, string lenguaje, int inspeccionDimensionalID, int ordenTrabajoSpoolID, string fechaInspeccion, int resultadoID, int obreroID, int defectoID, int accion)
         {
             try
             {
@@ -268,7 +268,7 @@ namespace BackEndSAM.DataAcces.Inspeccion.VisualDimensionalBD
                         { "@AccionDimensional", accion.ToString() }
 
                     };
-                    _SQL.Ejecuta(Stords.GUARDARCAPTURAINSPECCIONVISUALDIMENSIONAL, dtDetalleCaptura, "@Inspeccion", dtJuntaLista, "@juntas", parametro);
+                    _SQL.Ejecuta(Stords.GUARDARCAPTURAINSPECCIONVISUALDIMENSIONAL, dtDetalleCaptura, "@Inspeccion", dtJuntaLista, "@juntas", dtNumeroUnicos, "@NumeroUnicoAsignado", parametro);
 
 
                     TransactionalInformation result = new TransactionalInformation();

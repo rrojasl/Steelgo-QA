@@ -66,6 +66,7 @@ namespace BackEndSAM.Models.Armado
 
     public class DetalleDatosJson
     {
+        public int AccionNumeroUnico { get; set; }
         public int Accion { get; set; }
         public int IDProyecto { get; set; }
         public string Proyecto { get; set; }

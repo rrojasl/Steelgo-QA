@@ -137,6 +137,8 @@ namespace BackEndSAM.Controllers
                     //item.TipoJunta
                     DetalleDatosJson detalleDatos = new DetalleDatosJson
                     {
+                        
+                        AccionNumeroUnico = (item.Clave1 != null || item.Clave2 != null) ? 2 : 1,
                         Accion = item.JuntaSpoolIDArmado == null ? 1 : 2,
                         IDProyecto = capturaDatosJson.IDProyecto,
                         Proyecto = capturaDatosJson.Proyecto,

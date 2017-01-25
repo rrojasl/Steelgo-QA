@@ -49,7 +49,8 @@ namespace BackEndSAM.Controllers.Inspeccion.VisualDimensional
 
                     CapturaVisualDimensional detalleDatos = new CapturaVisualDimensional
                     {
-                        Accion = item.JuntaSpoolID == 0 ? 1 : 2,
+                        Accion = item.JuntaSpoolIDVisual == null ? 1 : 2,
+                        AccionNumeroUnico = (item.Clave1  != null || item.Clave2  != null) ? 2 : 1,
                         Proyecto = capturaDatosJson.Proyecto,
                         OrdenTrabajoID = capturaDatosJson.OrdenTrabajoID,
                         OrdenTrabajo = capturaDatosJson.OrdenTrabajo,
@@ -87,8 +88,8 @@ namespace BackEndSAM.Controllers.Inspeccion.VisualDimensional
 
                         DetalleJunta = "Junta: " + item.TipoJunta + " - " + "Ced: " + item.Cedula + " - " + "Loc: " + item.Localizacion + " - " + "Acero: " + item.FamiliaAcero + "",
 
-                        EtiquetaMaterial1 = item.EtiquetaMaterial1,
-                        EtiquetaMaterial2 = item.EtiquetaMaterial2,
+                        //EtiquetaMaterial1 = item.EtiquetaMaterial1,
+                        //EtiquetaMaterial2 = item.EtiquetaMaterial2,
                         RowOk = true,
                         Localizacion = item.Localizacion
                     };
@@ -238,6 +239,15 @@ namespace BackEndSAM.Controllers.Inspeccion.VisualDimensional
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
                 DataTable dtDetalleListas = null;
                 DataTable dtDetalleCaptura = null;
+                DataTable dtNumerosUnicosAsignados = null;
+
+                foreach (DetalleGuardarInspeccionVisual item in listaCapturaInspeccion.Detalles[0].ListaDetalleGuardarInspeccionVisual)
+                {
+                    if (dtNumerosUnicosAsignados == null)
+                        dtNumerosUnicosAsignados = Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(item.ListaNumeroUnicoAsignado);
+                    else
+                        dtNumerosUnicosAsignados.Merge(Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(item.ListaNumeroUnicoAsignado));
+                }
 
                 if (listaCapturaInspeccion.Detalles[0].ListaDetalleGuardarInspeccionVisual != null)
                     dtDetalleCaptura = Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(listaCapturaInspeccion.Detalles[0].ListaDetalleGuardarInspeccionVisual);
@@ -245,7 +255,9 @@ namespace BackEndSAM.Controllers.Inspeccion.VisualDimensional
                 if (listaCapturaInspeccion.Detalles[0].ListaJuntas != null)
                     dtDetalleListas = Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(listaCapturaInspeccion.Detalles[0].ListaJuntas);
 
-                return VisualDimensionalBD.Instance.InsertarCapturaInspeccion(dtDetalleCaptura, dtDetalleListas, usuario.UsuarioID, lenguaje, listaCapturaInspeccion.Detalles[0].InspeccionDimensionalID, listaCapturaInspeccion.Detalles[0].OrdenTrabajoSpoolID, listaCapturaInspeccion.Detalles[0].FechaInspeccion, listaCapturaInspeccion.Detalles[0].ResultadoID, listaCapturaInspeccion.Detalles[0].ObreroID, listaCapturaInspeccion.Detalles[0].DefectoID, listaCapturaInspeccion.Detalles[0].Accion);
+                dtDetalleCaptura.Columns.Remove("ListaNumeroUnicoAsignado");
+
+                return VisualDimensionalBD.Instance.InsertarCapturaInspeccion(dtDetalleCaptura, dtDetalleListas, dtNumerosUnicosAsignados, usuario.UsuarioID, lenguaje, listaCapturaInspeccion.Detalles[0].InspeccionDimensionalID, listaCapturaInspeccion.Detalles[0].OrdenTrabajoSpoolID, listaCapturaInspeccion.Detalles[0].FechaInspeccion, listaCapturaInspeccion.Detalles[0].ResultadoID, listaCapturaInspeccion.Detalles[0].ObreroID, listaCapturaInspeccion.Detalles[0].DefectoID, listaCapturaInspeccion.Detalles[0].Accion);
             }
             else
             {
