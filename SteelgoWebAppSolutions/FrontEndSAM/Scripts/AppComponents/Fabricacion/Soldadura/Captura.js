@@ -655,7 +655,7 @@ function CargarGridPopUp() {
                      dataSource.sync();
 
                  }
-             }, width: "40px", title: _dictionary.tituloEliminar[$("#language").data("kendoDropDownList").value()]
+             }, width: "50px", title: _dictionary.tituloEliminar[$("#language").data("kendoDropDownList").value()], attributes: { style: "text-align:center;" }
          },
          {
              command: {
@@ -673,7 +673,7 @@ function CargarGridPopUp() {
                      dataSource.sync();
 
                  }
-             }, width: "50px", title: _dictionary.tituloLimpiar[$("#language").data("kendoDropDownList").value()]
+             }, width: "50px", title: _dictionary.tituloLimpiar[$("#language").data("kendoDropDownList").value()], attributes: { style: "text-align:center;" }
          }
         ],
         editable: true,

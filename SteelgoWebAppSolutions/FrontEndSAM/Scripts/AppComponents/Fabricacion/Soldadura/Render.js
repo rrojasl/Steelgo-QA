@@ -80,7 +80,10 @@ function RenderComboBoxProcesoSoldaduraRaiz(container, options) {
                 if (dataItem != undefined && dataItem.ProcesoSoldaduraID != 0) {
                     options.model.procesoSoldaduraRaiz = dataItem.Codigo
                     options.model.ProcesoSoldaduraRaizID = dataItem.ProcesoSoldaduraID
-
+                    if (options.model.procesoSoldaduraRaiz == "N/A") {
+                        options.model.ListaSoldadoresRaizCapturados = [];
+                        options.model.TemplateSoldadoresRaiz = _dictionary.CapturaArmadoTemplateNoHaySoldadoresRaiz[$("#language").data("kendoDropDownList").value()];
+                    }
                 }
                 else {
                     options.model.procesoSoldaduraRaiz = "";
@@ -128,6 +131,11 @@ function RenderComboBoxProcesoSoldaduraRelleno(container, options) {
                 if (dataItem != undefined && dataItem.ProcesoSoldaduraID != 0) {
                     options.model.procesoSoldaduraRelleno = dataItem.Codigo;
                     options.model.ProcesoSoldaduraRellenoID = dataItem.ProcesoSoldaduraID;
+
+                    if (options.model.procesoSoldaduraRelleno == "N/A") {
+                        options.model.ListaSoldadoresRellenoCapturados = [];
+                        options.model.TemplateSoldadoresRelleno = _dictionary.CapturaArmadoTemplateNoHaySoldadoresRelleno[$("#language").data("kendoDropDownList").value()];
+                    }
                 }
                 else {
                     options.model.procesoSoldaduraRelleno = "";
