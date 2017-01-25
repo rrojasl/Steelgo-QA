@@ -1,5 +1,4 @@
 ﻿var EmbarquePlanaID = 0;
-
 IniciarCapturaEmbarqueCarga();
 function IniciarCapturaEmbarqueCarga() {
     SuscribirEventos();
@@ -7,7 +6,7 @@ function IniciarCapturaEmbarqueCarga() {
 
 function changeLanguageCall() {
     CargarGrid();
-    opcionHabilitarView(false, "FieldSetView");
+    //opcionHabilitarView(true, "FieldSetView");
     document.title = _dictionary.EmbarqueRevisionTituloPagina[$("#language").data("kendoDropDownList").value()];
     AjaxCargarProyecto();
     AjaxCargarCamposPredeterminados();
@@ -40,6 +39,11 @@ function CargarGrid() {
 
     $("#grid").kendoGrid({
         autoBind: true,
+        edit: function (e) {
+            if ($('#Guardar').text() == _dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]) {
+                this.closeCell();
+            }
+        },
         dataSource: {
             schema: {
                 model: {
@@ -116,6 +120,30 @@ function CargarGrid() {
                 }, template: '<input  class="chkbx" type="checkbox" name="NoLlego" #= NoLlego ? "checked=checked" : "" # ></input>', width: "130px", attributes: { style: "text-align:center;" }
             },
             { field: "Comentario", title: _dictionary.columnComentario[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "170px" },
+            {
+                command: {
+                    text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()],
+                    click: function (e) {
+                        e.preventDefault();
+                        if ($('#Guardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
+                            var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+                            var dataSource = this.dataSource;
+                            if (dataItem.Accion == 2) {
+                                dataItem.Accion = 3;
+                                dataItem.ModificadoPorUsuario = true;
+                            }
+                            else {
+                                dataSource.remove(dataItem);
+                            }
+
+                            dataSource.sync();
+                        }
+                    }
+                },
+                title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()],
+                width: "99px",
+                attributes: { style: "text-align:center;" }
+            }
         ],
         beforeEdit: function (e) {
             var columnIndex = this.cellIndex(e.container);
@@ -124,6 +152,32 @@ function CargarGrid() {
                 e.preventDefault();
             }
         },
+        dataBound: function (e) {
+            var ds = $("#grid").data("kendoGrid");
+            var gridData = ds.dataSource.view();
+
+            if (gridData.length > 0) {
+                for (var i = 0; i < gridData.length; i++) {
+                    var currentUid = gridData[i].uid;
+                    if (!gridData[i].CapturaManual) {
+                        var currenRow = ds.table.find("tr[data-uid='" + currentUid + "']");
+                        var deleteButton = $(currenRow).find(".k-button");
+                        deleteButton.hide();
+                    }
+
+                    if (gridData[i].RowOk == false) {
+                        ds.table.find("tr[data-uid='" + currentUid + "']").css("background-color", "#ffcccc");
+                    }
+                    else if (gridData[i].RowOk) {
+                        aux = i + 1;
+                        if (aux % 2 == 0)
+                            ds.table.find("tr[data-uid='" + currentUid + "']").css("background-color", "#F5F5F5");
+                        else
+                            ds.table.find("tr[data-uid='" + currentUid + "']").css("background-color", "#FFFFFF");
+                    }
+                }
+            }
+        }
     });
     CustomisaGrid($("#grid"));
 
@@ -140,14 +194,18 @@ function CargarGrid() {
                         dataItem.Comentario = "";
                         dataItem.ModificadoPorUsuario = true;
                         grid.dataSource.sync();
+
                         break;
                     case 'NoLlego':
-                        dataItem.set("Llego", false);
-                        dataItem.set("NoLlego", this.checked);
-                        dataItem.set("LlegoComentario", false);
-                        dataItem.Comentario = "";
-                        dataItem.ModificadoPorUsuario = true;
+                        if (!dataItem.CapturaManual) {
+                            dataItem.set("Llego", false);
+                            dataItem.set("NoLlego", this.checked);
+                            dataItem.set("LlegoComentario", false);
+                            dataItem.Comentario = "";
+                            dataItem.ModificadoPorUsuario = true;
+                        }
                         grid.dataSource.sync();
+
                         break;
                     case 'LlegoComentario':
                         dataItem.set("Llego", false);
@@ -155,6 +213,7 @@ function CargarGrid() {
                         dataItem.set("LlegoComentario", this.checked);
                         dataItem.ModificadoPorUsuario = true;
                         grid.dataSource.sync();
+
                         break;
                 }
             } else {
@@ -162,12 +221,28 @@ function CargarGrid() {
             }
         }
         else {
-            if ($(this)[0].checked) {
-                $(this)[0].checked = false;
+            switch (this.name) {
+                case 'Llego':
+                    if (e.target.checked)
+                        $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Llego = false;
+                    else
+                        $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Llego = true;
+
+                    break;
+                case 'NoLlego':
+                    if (e.target.checked)
+                        $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).NoLlego = false;
+                    else
+                        $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).NoLlego = true;
+                    break;
+                case 'LlegoComentario':
+                    if (e.target.checked)
+                        $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).LlegoComentario = false;
+                    else
+                        $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).LlegoComentario = true;
+                    break;
             }
-            else {
-                $(this)[0].checked = true;
-            }
+            $("#grid").data("kendoGrid").dataSource.sync();
         }
     });
 };
@@ -186,7 +261,18 @@ function ExisteSpool(row) {
     var jsonGrid = $("#grid").data("kendoGrid").dataSource._data;
 
     for (var i = 0; i < jsonGrid.length; i++) {
-        if (jsonGrid[i].SpoolID == row.SpoolID) {
+        if (jsonGrid[i].SpoolID == row[0].SpoolID) {
+            return true
+        }
+    }
+    return false;
+}
+
+function ExistePaquete(paquete) {
+    var jsonGrid = $("#grid").data("kendoGrid").dataSource._data;
+
+    for (var i = 0; i < jsonGrid.length; i++) {
+        if (jsonGrid[i].Paquete == paquete) {
             return true
         }
     }

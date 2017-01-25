@@ -7976,6 +7976,14 @@ _dictionary = {
         "es-MX": "Enviar",
         "en-US": "Send"
     },
+    "botonSi": {
+        "es-MX": "Si",
+        "en-US": "Yes"
+    },
+    "botonNo": {
+        "es-MX": "No",
+        "en-US": "No"
+    },
     //Finaliza botones
     // Finalizan etiquetas Header y Footer
 
@@ -11610,6 +11618,54 @@ _dictionary = {
         "es-MX": "La revisión del embarque esta cerrada, debe abrirla para poder modificarla",
         "en-US": "The shipment review is closed, you must open it to modify it"
     },
+    "EmbarqueRevisionMsjDescargaPaquete": {
+        "es-MX": "El paquete se encuentra cargado en el embarque ",
+        "en-US": "The package is loaded at the shipment "
+    },
+    "EmbarqueRevisionMsjDescargaSpoolEmbarque": {
+        "es-MX": "El spool se encuentra cargado en el embarque ",
+        "en-US": "The spool is loaded at the shipment "
+    },
+    "EmbarqueRevisionMsjDescargaSpoolPlana": {
+        "es-MX": "El spool se encuentra cargado en la plana ",
+        "en-US": "The spool is loaded on the flat "
+    },
+    "EmbarqueRevisionMsjDescargaSpoolPaquete": {
+        "es-MX": "El spool se encuentra cargado en el paquete ",
+        "en-US": "The spool is loaded on the package "
+    },
+    "EmbarqueRevisionMsjDescargaSpoolConfirmacion": {
+        "es-MX": ". ¿Desea descargarlo?",
+        "en-US": ". Do you want to download it?"
+    },
+    "EmbarqueRevisionMsjErrorProyectoIncorrecto": {
+        "es-MX": "El spool no pertenece al proyecto del embarque seleccionado",
+        "en-US": "The spool does not belong to the selected shipment project"
+    },
+    "EmbarqueRevisionMsjErrorSpoolEmbarcado": {
+        "es-MX": "El spool se encuentra embarcado",
+        "en-US": "Spool is on board"
+    },
+    "EmbarqueRevisionMsjErrorExistePaquete": {
+        "es-MX": "El paquete ya se encuentra en la captura",
+        "en-US": "The package is already in the capture"
+    },
+    "EmbarqueRevisionMsjExitoSpoolCargado": {
+        "es-MX": "El spool se ha agregado correctamente",
+        "en-US": "Spool successfully added"
+    },
+    "EmbarqueRevisionMsjErrorSpoolCargado": {
+        "es-MX": "El spool no se pudo agregar",
+        "en-US": "Spool could not be added"
+    },
+    "EmbarqueRevisionMsjExitoPaqueteCargado": {
+        "es-MX": "El paquete se ha agregado correctamente",
+        "en-US": "Package added successfully"
+    },
+    "EmbarqueRevisionMsjErrorPaqueteCargado": {
+        "es-MX": "El paquete no se pudo agregar",
+        "en-US": "Package could not be added"
+    }
     //Finaliza pantalla revision
     //Finaliza Modulo Embarque 
 
