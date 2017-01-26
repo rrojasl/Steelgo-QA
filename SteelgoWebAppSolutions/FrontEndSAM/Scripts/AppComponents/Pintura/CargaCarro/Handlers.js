@@ -35,7 +35,6 @@ function SuscribirEventoProyecto() {
             if (dataItem != undefined) {
                 if (dataItem.ProyectoID != 0) {
                     AjaxCargarMedioTransporte(dataItem.ProyectoID, null);
-                    AjaxCargarZona(dataItem.PatioID);
                 }
             } else {
                 $("#inputProyecto").data("kendoComboBox").value("");

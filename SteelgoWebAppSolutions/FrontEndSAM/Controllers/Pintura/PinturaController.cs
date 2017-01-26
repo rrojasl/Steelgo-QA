@@ -8,6 +8,10 @@ namespace FrontEndSAM.Controllers.Pintura
 {
     public class PinturaController : Controller
     {
+        public ActionResult AdminCargaCarro()
+        {
+            return View();
+        }
         public ActionResult CargaCarro()
         {
             return View();
