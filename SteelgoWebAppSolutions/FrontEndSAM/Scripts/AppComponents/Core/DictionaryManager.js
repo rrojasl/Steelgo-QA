@@ -11296,8 +11296,20 @@ _dictionary = {
     "EmbarqueRevisionBreadcrumb": {
         "es-MX": "Revisión",
         "en-US": "Review"
-    }
+    },
     //Finaliza pantalla revision
     //Finaliza Modulo Embarque 
+
+    // Inicia Módulo Ingenieria
+    // Etiquetas Ingenieria
+    "IngenieriaBreadcrumb": {
+        "es-MX": "Ingenieria",
+        "en-US": "Ingeniery"
+    },
+    "IngenieriaBuscaSpoolHeader": {
+        "es-MX": "Busca Spool",
+        "en-US": "Find Spool"
+    }
+    //Finaliza Modulo Ingenieria 
 
 };
