@@ -33,13 +33,13 @@
                         </button>
                         <ul class="dropdown-menu">
                             <li><a href="#" id="btnGuardar" class="accionGuardar"><span id="botonGuardar2"></span></a></li>
-                            <li><a href="#" id="btnGuardarYNuevo" class="accionGuardarYNuevo"><span id="botonGuardarYNuevo"></span></a></li>
+                            @*<li><a href="#" id="btnGuardarYNuevo" class="accionGuardarYNuevo"><span id="botonGuardarYNuevo"></span></a></li>*@
                         </ul>
                     </div>
                     <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar"></span></a>
                 </div>
                 <div id="ArmadoSoldaduraDivSuperior" class="button-section">
-                    <a id="ArmadoSoldaduraSuperior" href="@Url.Action("Soldadura","Fabricacion")" class="btn btn-primary"><span id="armadoSoldaduraSup"></span></a>
+                    <a id="ArmadoSoldaduraSuperior" href="@Url.Action("SistemaPintura","Pintura")" class="btn btn-primary"><span id="lblSistemaPinturaSiguientePasoHeader"></span></a>
                 </div>
                 <div class="button-section actionButtonSection">
                     <div class="dropdown action-group">
@@ -54,7 +54,6 @@
             </div>
         </div>
     </div>
-
     @*GRID*@
     <div class="row addedSectionInLine">
         <div id="ContenedorGrid" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -76,14 +75,14 @@
                         </button>
                         <ul class="dropdown-menu">
                             <li><a href="#" id="btnGuardarPie" class="accionGuardar"><span id="botonGuardar3"></span></a></li>
-                            <li><a href="#" id="btnGuardarYNuevoPie" class="accionGuardarYNuevo"><span id="botonGuardarYNuevo1"></span></a></li>
+                            @*<li><a href="#" id="btnGuardarYNuevoPie" class="accionGuardarYNuevo"><span id="botonGuardarYNuevo1"></span></a></li>*@
                         </ul>
                     </div>
                     <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar1"></span></a>
 
                 </div>
                 <div id="ArmadoSoldaduraDivInferior" class="button-section">
-                    <a id="ArmadoSoldaduraInferior" href="@Url.Action("Soldadura","Fabricacion")" class="btn btn-primary"><span id="armadoSoldaduraInf"></span></a>
+                    <a id="ArmadoSoldaduraInferior" href="@Url.Action("SistemaPintura","Pintura")" class="btn btn-primary"><span id="lblSistemaPinturaSiguientePasoFooter"></span></a>
                 </div>
                 <div class="button-section actionButtonSection">
                     <div class="dropdown action-group">
@@ -105,8 +104,8 @@
 <script type="text/javascript" src="~/Scripts/AppComponents/Pintura/AdminReductores/Captura.js"> </script>
 <script type="text/javascript" src="~/Scripts/AppComponents/Pintura/AdminReductores/Seguridad.js"></script>
 
-@*<script>
+<script>
         @section JavascriptDocumentReadyFunctions {
-        $authorizationModel["Armado"] = $ArmadoModel;
+    $authorizationModel["AdministracionReductores"] = $AdministracionReductoresModel;
         }
-</script>*@
+</script>

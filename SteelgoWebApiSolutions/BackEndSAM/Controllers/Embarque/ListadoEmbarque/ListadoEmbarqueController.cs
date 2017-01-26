@@ -1,7 +1,9 @@
 ﻿using BackEndSAM.DataAcces.Embarque.ListadoEmbarque;
+using BackEndSAM.Models.Embarque.ListadoEmbarque;
 using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
 using SecurityManager.TokenHandler;
+using System.Data;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Script.Serialization;
@@ -12,7 +14,7 @@ namespace BackEndSAM.Controllers.Embarque.ListadoEmbarque
     public class ListadoEmbarqueController : ApiController
     {
         [HttpGet]
-        public object ObtenerDetalleListadoEmbarque(string token, string lenguaje, int StatusEnvio)
+        public object ObtenerDetalleListadoEmbarque(string token, string Lenguaje, int EstatusEmbarque)
         {
             string payload = "";
             string newToken = "";
@@ -23,7 +25,7 @@ namespace BackEndSAM.Controllers.Embarque.ListadoEmbarque
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                return ListadoEmbarqueBD.Instance.ObtenerDetalleListado(lenguaje, StatusEnvio, usuario.UsuarioID);
+                return ListadoEmbarqueBD.Instance.ObtenerDetalleListado(Lenguaje, EstatusEmbarque, usuario.UsuarioID);
             }
             else
             {
@@ -50,6 +52,60 @@ namespace BackEndSAM.Controllers.Embarque.ListadoEmbarque
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
                 return ListadoEmbarqueBD.Instance.ObtenerElementosPorEstatus(lenguaje, usuario.UsuarioID);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+
+                return result;
+            }
+        }
+
+        [HttpPost]
+        public object GuardarEnvioEmbarque(DetalleJsonEnvio DetalleJson, string token, string lenguaje, string NumeroEmbarque, string NumeroEmbarqueCliente, string FechaEnvio, int ProyectoID)
+        {
+            string payload = "";
+            string newToken = "";
+
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+
+                return ListadoEmbarqueBD.Instance.GuardarEnvioEmbarque(DetalleJson, usuario.UsuarioID, lenguaje, NumeroEmbarque, NumeroEmbarqueCliente, FechaEnvio);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+
+                return result;
+            }
+        }
+
+        [HttpPost]
+        public object GuadarCaptura(CapturaListadoEmbarque Captura, string token, string lenguaje)
+        {
+            string payload = "";
+            string newToken = "";
+
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+
+                DataTable dtDetalle = Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(Captura.listaDetalle);
+
+                return ListadoEmbarqueBD.Instance.GuardarCaptura(usuario.UsuarioID, lenguaje, dtDetalle);
             }
             else
             {

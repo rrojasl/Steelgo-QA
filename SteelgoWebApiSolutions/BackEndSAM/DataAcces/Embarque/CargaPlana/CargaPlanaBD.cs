@@ -294,14 +294,14 @@ namespace BackEndSAM.DataAcces.Embarque.CargaPlana
             }
         }
 
-        public object DescargaPaquetePlana(int PaqueteID, int CuadranteID, int UsuarioID)
+        public object DescargaPaquetePlana(int PaqueteID, int CuadranteID, int UsuarioID, int AbrirPaquete)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
 
-                    ctx.Sam3_Embarque_CG_DescargaPaquete(PaqueteID, CuadranteID, UsuarioID);
+                    ctx.Sam3_Embarque_CG_DescargaPaquete(PaqueteID, CuadranteID, UsuarioID, AbrirPaquete);
 
                     TransactionalInformation result = new TransactionalInformation();
                     result.ReturnMessage.Add("OK");

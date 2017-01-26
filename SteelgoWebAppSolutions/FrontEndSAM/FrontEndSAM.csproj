@@ -20,6 +20,7 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -452,6 +453,7 @@
     <None Include="Properties\PublishProfiles\FrontEnd_Prod.pubxml" />
     <None Include="Properties\PublishProfiles\samFE.pubxml" />
     <None Include="Properties\PublishProfiles\samFrontEnd.pubxml" />
+    <Content Include="Scripts\AppComponents\Fabricacion\Armado\Web.config" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Icon.png" />
     <Content Include="Scripts\AppComponents\AvisoLlegada\Dashboard.js" />
@@ -464,6 +466,16 @@
     <Content Include="Scripts\AppComponents\Core\NotificationsManager.js" />
     <Content Include="Scripts\AppComponents\Core\TranslationManager.js" />
     <Content Include="Scripts\AppComponents\Core\UtilitiesManager.js" />
+    <Content Include="Scripts\AppComponents\Fabricacion\Armado\Ajax.js" />
+    <Content Include="Scripts\AppComponents\Fabricacion\Armado\Captura.js" />
+    <Content Include="Scripts\AppComponents\Fabricacion\Armado\Handlers.js" />
+    <Content Include="Scripts\AppComponents\Fabricacion\Armado\Render.js" />
+    <Content Include="Scripts\AppComponents\Fabricacion\Armado\Seguridad.js" />
+    <Content Include="Scripts\AppComponents\Fabricacion\Soldadura\Ajax.js" />
+    <Content Include="Scripts\AppComponents\Fabricacion\Soldadura\Captura.js" />
+    <Content Include="Scripts\AppComponents\Fabricacion\Soldadura\Handlers.js" />
+    <Content Include="Scripts\AppComponents\Fabricacion\Soldadura\Render.js" />
+    <Content Include="Scripts\AppComponents\Fabricacion\Soldadura\Seguridad.js" />
     <Content Include="Scripts\AppComponents\LlegadaMaterial\Dashboard.js" />
     <Content Include="Scripts\AppComponents\LlegadaMaterial\ListadoEspecifico.js" />
     <Content Include="Scripts\AppComponents\RecepcionMaterial\Dashboard.js" />

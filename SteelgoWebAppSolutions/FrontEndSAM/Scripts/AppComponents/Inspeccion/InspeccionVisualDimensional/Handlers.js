@@ -1,4 +1,5 @@
 ﻿function SuscribirEventos() {
+    SuscribirEventoOrdenTrabajo();
     SuscribirEventoSpoolID();
     SuscribirEventoInspector();
     SuscribirEventoDefecto();
@@ -15,10 +16,43 @@
     SuscribirEventoFecha();
 };
 
+
+function suscribirEventoWindowsConfirmaCaptura() {
+    ventanaConfirm = $("#ventanaConfirmCaptura").kendoWindow({
+        iframe: true,
+        title: _dictionary.CapturaArmadoTituloPopup[$("#language").data("kendoDropDownList").value()],
+        visible: false,
+        width: "auto",
+        height: "auto",
+        modal: true,
+        animation: false,
+        actions: []
+    }).data("kendoWindow");
+
+    ventanaConfirm.content(_dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] +
+        "</br><center><button class='btn btn-blue' id='yesButtonProy'>" + _dictionary.lblSi[$("#language").data("kendoDropDownList").value()] + "</button><button class='btn btn-blue' id='noButtonProy'>" + _dictionary.lblNo[$("#language").data("kendoDropDownList").value()] + "</button></center>");
+
+
+    $("#yesButtonProy").click(function (e) {
+        $("#grid").data("kendoGrid").dataSource.data([]);
+        AplicarCambioSpoolID($("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()));
+        ventanaConfirm.close();
+        editado = false;
+    });
+    $("#noButtonProy").click(function (e) {
+        
+        $("#InputID").data("kendoComboBox").value(spooolAnterior.Valor);
+        ventanaConfirm.close();
+    });
+}
+
 function SuscribirEventoFecha() {
     endRangeDate = $("#FechaInspeccion").kendoDatePicker({
-        max: new Date()
-
+        max: new Date(),
+        change:function(e)
+        {
+            editado = true;
+        }
     });
     endRangeDateV = $("#inputFechaVisual").kendoDatePicker({
         max: new Date()
@@ -42,37 +76,15 @@ function SuscribirEventoListaJuntas() {
         autoBind: false,
         ignoreCase: true,
         change: function (e) {
-
+            editado = true;
         }
     }).data("kendoMultiSelect");
 
 
 }
-function SuscribirEventoSpoolID() {
 
-    $("#InputID").kendoComboBox({
-        dataTextField: "IDValido",
-        dataValueField: "Valor",
-        suggest: true,
-        delay: 10,
-        filter: "contains",
-        index: 3,
-       
-        change: function (e) {
-            dataItem = this.dataItem(e.sender.selectedIndex);
-            if (dataItem != undefined && dataItem.IDValido!="") {
-                if ($("#InputID").val().length == 1) {
-                    $("#InputID").data("kendoComboBox").value(("00" + $("#InputID").val()).slice(-3));
-                }
-                if ($("#InputID").val() != '' && $("#InputOrdenTrabajo").val() != '') {
-                    Cookies.set("Proyecto", dataItem.ProyectoID + '°' + dataItem.Proyecto);
-                    //ajaxJunta($("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()).Valor);
-                    MostrarDetalleVisualDimensional();
-                }
-            }
-        }
-    });
-
+function SuscribirEventoOrdenTrabajo()
+{
     $("#InputOrdenTrabajo").blur(function (e) {
         if ($("#InputOrdenTrabajo").val().match("^[a-zA-Z][0-9]*$")) {
             try {
@@ -94,6 +106,49 @@ function SuscribirEventoSpoolID() {
         $("#InputID").data("kendoComboBox").setDataSource();
         limpiarJuntaMultiselect();
     });
+}
+
+function AplicarCambioSpoolID(dataItem)
+{
+    if ($("#InputID").val().length == 1) {
+        $("#InputID").data("kendoComboBox").value(("00" + $("#InputID").val()).slice(-3));
+    }
+    if ($("#InputID").val() != '' && $("#InputOrdenTrabajo").val() != '') {
+        Cookies.set("Proyecto", dataItem.ProyectoID + '°' + dataItem.Proyecto);
+        MostrarDetalleVisualDimensional();
+    }
+    spooolAnterior = dataItem;
+}
+
+function SuscribirEventoSpoolID() {
+
+    $("#InputID").kendoComboBox({
+        dataTextField: "IDValido",
+        dataValueField: "Valor",
+        suggest: true,
+        delay: 10,
+        filter: "contains",
+        index: 3,
+        change: function (e) {
+            dataItem = this.dataItem(e.sender.selectedIndex);
+            aplicarColorBlancoCapturaDimensional();
+            
+            if (dataItem != undefined && dataItem.IDValido != "") {
+                if ($("#grid").data("kendoGrid").dataSource._data.length > 0 || editado)
+                {
+                    ventanaConfirm.open().center();
+                }
+                else
+                {
+                    AplicarCambioSpoolID(dataItem);
+                }
+            }
+           
+        }
+    });
+
+
+    
 
     $('#InputID').closest('.k-widget').keydown(function (e) {
         if (e.keyCode == 37) {
@@ -101,22 +156,6 @@ function SuscribirEventoSpoolID() {
         }
         else if (e.keyCode == 39) {
             $("#inputDefecto").data("kendoComboBox").focus();
-        }
-        else if (e.keyCode == 40) {
-            //if (tieneClase(e.currentTarget)) {
-            //    $("#InputID").data("kendoComboBox").select(0);
-            //    //ajaxJunta($("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()).Valor);
-            //    //MostrarDetalleVisualDimensional();
-            //}
-            //dataItem = $("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select());
-            //if (dataItem != undefined) {
-            //    if ($("#InputID").val() != '' && $("#InputOrdenTrabajo").val() != '') {
-            //        Cookies.set("Proyecto", dataItem.ProyectoID + '°' + dataItem.Proyecto);
-            //        $("#LabelProyecto").text(dataItem.Proyecto);
-            //        //ajaxJunta($("#InputID").val());
-            //        MostrarDetalleVisualDimensional();
-            //    }
-            //}
         }
         else if (e.keyCode == 13) {
             if ($("#InputID").val() != "" && $("#InputOrdenTrabajo").val()) {
@@ -126,7 +165,7 @@ function SuscribirEventoSpoolID() {
                     if ($("#InputID").val() != "" && $("#InputOrdenTrabajo").val()) {
                         ajaxobtenerDetalleDimensional($("#InputID").val());
                         ajaxObtenerJSonGrid();
-                        deshabilitaSpool();
+                        //deshabilitaSpool();
                     }
                 }
                 else displayNotify("NoExisteSpoolID", '', '1');
@@ -193,7 +232,7 @@ function SuscribirEventosJunta() {
         else if (e.keyCode == 13) {
             ajaxobtenerDetalleDimensional($("#InputID").val());
             ajaxObtenerJSonGrid();
-            deshabilitaSpool();
+            //deshabilitaSpool();
         }
     });
 }
@@ -228,6 +267,7 @@ function SuscribirEventoInspector() {
         change: function (e) {
             if ($("#inputInspector").data("kendoComboBox").dataItem($("#inputInspector").data("kendoComboBox").select()) == undefined)
                 $("#inputInspector").data("kendoComboBox").value("");
+            editado = true;
         }
     });
 
@@ -276,7 +316,7 @@ function SuscribirEventoDefecto() {
                 $("#ListaJuntas").data("kendoMultiSelect").enable(false);
 
             else $("#ListaJuntas").data("kendoMultiSelect").enable(true);
-
+            editado = true;
             $("#ListaJuntas").data("kendoMultiSelect").value("");
         }
     });
@@ -302,6 +342,7 @@ function SuscribirEventoDefectoVisual() {
         change: function (e) {
             if ($("#inputDefectosVisual").data("kendoComboBox").dataItem($("#inputDefectosVisual").data("kendoComboBox").select()) == undefined)
                 $("#inputDefectosVisual").data("kendoComboBox").value("");
+           
         }
     });
 
@@ -322,6 +363,7 @@ function SuscribirEventoResultadoDimensional() {
         if ($('#Guardar').text() == "Guardar" || $('#Guardar').text() == "Save") {
             $("#inputDefecto").data("kendoComboBox").enable(false);
             $("#ListaJuntas").data("kendoMultiSelect").enable(false);
+            editado = true;
         }
         $("#ListaJuntas").data("kendoMultiSelect").value("");
         $("#inputDefecto").data("kendoComboBox").value("");
@@ -331,6 +373,7 @@ function SuscribirEventoResultadoDimensional() {
         if ($('#Guardar').text() == "Guardar" || $('#Guardar').text() == "Save") {
             $("#inputDefecto").data("kendoComboBox").enable(true);
             $("#ListaJuntas").data("kendoMultiSelect").enable(true);
+            editado = true;
         }
 
         $("#inputDefecto").data("kendoComboBox").select(0);
@@ -352,9 +395,9 @@ function suscribirEventoAgregar() {
     $('#btnAgregar').click(function (e) {
         e.preventDefault();
         if ($("#InputID").val()!="0"  && $("#InputID").val() != "" && $("#InputOrdenTrabajo").val()) {
-            ajaxobtenerDetalleDimensional($("#InputID").val());
+            //ajaxobtenerDetalleDimensional($("#InputID").val());
             ajaxObtenerJSonGrid();
-            deshabilitaSpool();
+            //deshabilitaSpool();
         }
     });
 }
@@ -380,7 +423,7 @@ function suscribirEventoGuardar() {
         }
         else if ($('#Guardar').text() == "Editar" || $('#Guardar').text() == "Edit") {
             opcionHabilitarView(false, "FieldSetView");
-            deshabilitaSpool();
+            //deshabilitaSpool();
         }
     });
 
@@ -407,6 +450,8 @@ function SuscribirEventoAgregarCapturaRapida() {
                 width: "auto",
                 height: "auto",
                 modal: true,
+                actions: [
+                ],
                 animation: {
                     open: false,
                     close: false
@@ -484,13 +529,13 @@ function LimpiarPlanchado() {
     $("#inputInspectorVisual").data("kendoComboBox").value("");
 }
 
-function deshabilitaSpool() {
-    $("#InputOrdenTrabajo").prop("disabled", true);
-    $("#InputOrdenTrabajo").prop("readonly", true);
+//function deshabilitaSpool() {
+//    $("#InputOrdenTrabajo").prop("disabled", true);
+//    $("#InputOrdenTrabajo").prop("readonly", true);
 
-    $("#InputID").data("kendoComboBox").enable(false);
-    $('#InputOrdenTrabajo').css('opacity', '0.6');
-}
+//    $("#InputID").data("kendoComboBox").enable(false);
+//    $('#InputOrdenTrabajo').css('opacity', '0.6');
+//}
 
 function habilitaSpool() {
     $("#InputOrdenTrabajo").prop("disabled", false);

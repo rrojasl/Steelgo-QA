@@ -30,7 +30,7 @@ namespace BackEndSAM.Controllers.Pintura.SistemaPintura
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                return SistemaPinturaBD.Instance.ObtenerSistemaPinturaNuevo(Lenguaje,SistemaPinturaID,ProyectoID);
+                return SistemaPinturaBD.Instance.ObtenerSistemaPinturaNuevo(Lenguaje, SistemaPinturaID, ProyectoID);
             }
             else
             {
@@ -70,7 +70,7 @@ namespace BackEndSAM.Controllers.Pintura.SistemaPintura
         }
 
         [HttpPost]
-        public object GuardarCaptura(DetalleGuardarCaptura Captura, string token, string lenguaje)
+        public object GuardarCaptura(DetalleGuardarCaptura Captura, string token, string lenguaje,bool asignadoSPASpool)
         {
             string payload = "";
             string newToken = "";
@@ -81,10 +81,13 @@ namespace BackEndSAM.Controllers.Pintura.SistemaPintura
             {
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
                 DataTable dataTablePruebasProceso = null;
+                DataTable dataTableComponentesAgregado = null;
                 DataTable dtDetalleSPNuevo = Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(Captura.Detalles[0].ListaSPNuevo);
-                DataTable dtDetalleSPColor = Captura.Detalles[0].ListaSPColor==null ? null: Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(Captura.Detalles[0].ListaSPColor);
+                DataTable dtDetalleSPColor = Captura.Detalles[0].ListaSPColor == null ? null : Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(Captura.Detalles[0].ListaSPColor);
                 DataTable dtDetalleSPProyecto = Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(Captura.Detalles[0].ListaSPProyecto);
                 DataTable dtDetalleProyectoProceso = Captura.Detalles[0].ListaSPProyectoProceso == null ? null : Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(Captura.Detalles[0].ListaSPProyectoProceso);
+
+
 
                 if (Captura.Detalles[0].ListaSPProyectoProceso != null)
                 {
@@ -97,13 +100,20 @@ namespace BackEndSAM.Controllers.Pintura.SistemaPintura
                             else
                                 dataTablePruebasProceso.Merge(Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(item.ListadoPruebas));
                         }
+
+                        if (dataTableComponentesAgregado == null)
+                            dataTableComponentesAgregado = Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(item.ListaDetalleComponentesAgregados);
+                        else
+                            dataTableComponentesAgregado.Merge(Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(item.ListaDetalleComponentesAgregados));
+
                     }
                     dtDetalleProyectoProceso.Columns.Remove("ListadoPruebas");
+                    dtDetalleProyectoProceso.Columns.Remove("ListaDetalleComponentesAgregados");
                 }
 
-              
 
-                return SistemaPinturaBD.Instance.CrearNuevoSistemaPintura(dtDetalleSPNuevo, dtDetalleSPColor, dtDetalleSPProyecto, dtDetalleProyectoProceso, dataTablePruebasProceso, lenguaje, usuario.UsuarioID);
+
+                return SistemaPinturaBD.Instance.CrearNuevoSistemaPintura(dtDetalleSPNuevo, dtDetalleSPColor, dtDetalleSPProyecto, dtDetalleProyectoProceso, dataTableComponentesAgregado, dataTablePruebasProceso, lenguaje, usuario.UsuarioID, asignadoSPASpool);
 
                 //null;// AsignarRequisicionBD.Instance.InsertarCaptura(dtDetalle, usuario, lenguaje);
             }

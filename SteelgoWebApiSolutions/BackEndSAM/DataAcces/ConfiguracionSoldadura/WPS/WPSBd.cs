@@ -106,7 +106,8 @@ namespace BackEndSAM.DataAcces.ConfiguracionSoldadura
                                       listadoRaizPQR = (List<DetallePQR>)PQRBd.ObtenerListadoPQRActivos(),
                                       listadoRellenoPQR = (List<DetallePQR>)PQRBd.ObtenerListadoPQRActivos(),
                                       RowOk= true,
-                                      EditadoUsuario = false
+                                      EditadoUsuario = false,
+                                      RegistrosWPS = WPS.RegistrosWPS.GetValueOrDefault()
                                   }).AsParallel().ToList();
                 return data.OrderBy(x => x.WPSNombre).ToList<WPS>();
             }

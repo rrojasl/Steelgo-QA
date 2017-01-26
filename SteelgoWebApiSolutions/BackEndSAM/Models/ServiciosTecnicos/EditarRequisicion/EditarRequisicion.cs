@@ -22,6 +22,7 @@ namespace BackEndSAM.Models.ServiciosTecnicos.EditarRequisicion
                 Diametro = 0;
                 Espesor = 0;
                 Cedula = "";
+                Codigo = "";
                 ElementoPorClasificacionPNDID = 0;
                 Agregar = false;
                 RequisicionID = 0;
@@ -57,8 +58,7 @@ namespace BackEndSAM.Models.ServiciosTecnicos.EditarRequisicion
             public int TipoPruebaID { get; set; }
             public string Especificacion { get; set; }
             public int EstatusCaptura { get; set; }
-            public int? OrdenTrabajoID { get; set; }
-            public int? ClasificacionPNDID { get; set; }
+            public string Codigo { get; set; }
         }
 
         public class Captura
@@ -154,10 +154,14 @@ namespace BackEndSAM.Models.ServiciosTecnicos.EditarRequisicion
         {
             public int RequisicionID { get; set; }
             public int ProyectoID { get; set; }
+            public string nombreProyecto { get; set; }
+            public string nombreTipoPrueba { get; set; }
             public int TipoPruebaID { get; set; }
-            public List<Proyecto> listaProyecto { get; set; }
-            public List<TipoPrueba> listaTipoPrueba { get; set; }
-            public List<Requisicion> listaRequisicion { get; set; }
+            public string NombreRequisicion { get; set; }
+            public string CodigoAsme { get; set; }
+            public string FechaRequisicion { get; set; }
+            public string Observacion { get; set; }
+            public string NumeroControl { get; set; }
         }
     }
 }

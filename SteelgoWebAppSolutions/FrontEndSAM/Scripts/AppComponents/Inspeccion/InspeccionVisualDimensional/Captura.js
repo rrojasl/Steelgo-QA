@@ -3,6 +3,10 @@ var endRangeDateV;
 var listadoJsonCaptura;
 var anteriorlongitudTrabajosAdicionales;
 var actuallongitudTrabajosAdicionales;
+var editado = false;
+var spooolAnterior;
+var ventanaConfirm;
+
 IniciarCapturaInspecion();
 
 //Cambia lenguaje
@@ -13,7 +17,7 @@ function changeLanguageCall() {
     endRangeDateV.data("kendoDatePicker").setOptions({
         format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()]
     });
-
+    suscribirEventoWindowsConfirmaCaptura();
     CargarGrid();
     limpiar();
     $('#Guardar1').text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);
@@ -128,6 +132,10 @@ function CargarGrid() {
             if ($('#Guardar').text() == "Editar" || $('#Guardar').text() == "Edit") {
                 this.closeCell();
             }
+            else {
+                var inputName = e.container.find('input');
+                inputName.select();
+            }
         },
         change: function () {
             var dataItem = this.dataSource.view()[this.select().index()];
@@ -147,7 +155,7 @@ function CargarGrid() {
                         Inspector: { type: "string", editable: true },
                         FechaInspeccion: { type: "date", editable: true },
                         NumeroUnico1: { type: "string", editable: true },
-                        NumeroUnico2: { type: "string", editable: true },
+                        NumeroUnico2: { type: "string", editable: true }
                     }
                 }
             },
@@ -179,17 +187,17 @@ function CargarGrid() {
         },
         columns: [
             { field: "Junta", title: _dictionary.columnJunta[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "55px" },
-            { field: "DetalleJunta", title: _dictionary.columnDetalleJunta[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "55px" },
-            { field: "Diametro", title: _dictionary.columnDiametro[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "55px", attributes: { style: "text-align:right;" } },
-            { field: "Taller", title: _dictionary.columnTaller[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxTaller, width: "55px" },
-            { field: "Resultado", title: _dictionary.columnResultado[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderOptionResultado, width: "55px" },
-            { field: "Defectos", title: _dictionary.columnDefectos[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxDefectos, width: "55px" },
-            { field: "Inspector", title: _dictionary.columnInspector[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxInspector, width: "55px" },
-            { field: "FechaInspeccion", title: _dictionary.columnFecha[$("#language").data("kendoDropDownList").value()], type: "date", filterable: getKendoGridFilterableDateMaftec(), format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()], width: "55px" },
-            { field: "NumeroUnico1", title: _dictionary.columnNumeroUnico1[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxNumeroUnico1, width: "55px" },
-            { field: "NumeroUnico2", title: _dictionary.columnNumeroUnico2[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxNumeroUnico2, width: "55px" },
-            { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: cancelarCaptura }, title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], width: "30px" },
-            { command: { text: _dictionary.botonLimpiar[$("#language").data("kendoDropDownList").value()], click: limpiarCaptura }, title: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()], width: "30px" }
+            { field: "DetalleJunta", title: _dictionary.columnDetalleJunta[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "80px" },
+            { field: "Diametro", title: _dictionary.columnDiametro[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "80px", attributes: { style: "text-align:right;" } },
+            { field: "Taller", title: _dictionary.columnTaller[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxTaller, width: "80px" },
+            { field: "Resultado", title: _dictionary.columnResultado[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderOptionResultado, width: "85px" },
+            { field: "Defectos", title: _dictionary.columnDefectos[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxDefectos, width: "80px" },
+            { field: "Inspector", title: _dictionary.columnInspector[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxInspector, width: "80px" },
+            { field: "FechaInspeccion", title: _dictionary.columnFecha[$("#language").data("kendoDropDownList").value()], type: "date", filterable: getKendoGridFilterableDateMaftec(), format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()], width: "80px" },
+            { field: "NumeroUnico1", title: _dictionary.columnNumeroUnico1[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxNumeroUnico1, width: "80px" },
+            { field: "NumeroUnico2", title: _dictionary.columnNumeroUnico2[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxNumeroUnico2, width: "80px" },
+            { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: cancelarCaptura }, title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], width: "35px" },
+            { command: { text: _dictionary.botonLimpiar[$("#language").data("kendoDropDownList").value()], click: limpiarCaptura }, title: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()], width: "35px" }
         ],
         filterable: getGridFilterableMaftec(),
         beforeEdit: function (e) {
@@ -222,7 +230,7 @@ function CargarGrid() {
 function isEditable(fieldName, model) {
     if (fieldName == "Defectos") {
         // condition for the field "ProductName"
-        return model.Resultado !== "Aprobado";
+        return (model.Resultado == "Aprobado" || model.Resultado == null || model.Resultado == "") ? false : true;
     }
 
     return true; // default to editable
@@ -441,7 +449,7 @@ function cancelarCaptura(e) {
             var dataSource = $("#grid").data("kendoGrid").dataSource;
             if (dataItem.Accion == 2 || dataItem.Accion == 4)
                 dataItem.Accion = 3;
-            if (dataItem.InspeccionVisualID == 0)
+            if (dataItem.Accion == 1)
                 dataSource.remove(dataItem);
             $("#grid").data("kendoGrid").dataSource.sync();
         }
@@ -454,7 +462,7 @@ function cancelarCaptura(e) {
             var spoolIDRegistro = dataItem.SpoolID;
 
             dataItem.Accion = 3;
-            if (dataItem.InspeccionVisualID == 0)
+            if (dataItem.Accion == 1)
                 dataSource.remove(dataItem);
             $("#grid").data("kendoGrid").dataSource.sync();
 

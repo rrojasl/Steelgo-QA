@@ -19,8 +19,11 @@ function AjaxGuardarInformacion(detalle, tipo) {
 
             displayNotify("CapturaMensajeGuardadoExitoso", "", '0');
 
-            if (tipo == 1)
+            if (tipo == 1){
+                HabilitarCapturaNuevoSoldadorCertificacioon(false, "FieldSetView");
                 limpiarCaptura();
+            }
+                
             else if (tipo == 0)
                 HabilitarCapturaNuevoSoldadorCertificacioon(true, "FieldSetView");
 
@@ -55,7 +58,8 @@ function AjaxValidarExisteSoldadorCertificacion(detalle, tipo) {
                 animation: {
                     close: false,
                     open: false
-                }
+                },
+                actions: []
             }).data("kendoWindow");
 
             ventanaConfirm.content(_dictionary.SoldadorPQRExistente[$("#language").data("kendoDropDownList").value()] +

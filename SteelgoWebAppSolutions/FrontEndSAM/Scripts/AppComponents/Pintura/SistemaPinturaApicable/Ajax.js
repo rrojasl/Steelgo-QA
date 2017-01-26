@@ -84,7 +84,7 @@ function AjaxCargarColorPintura(sistemaPinturaID) {
 
 function AjaxCargarNumeroElementosPorBusqueda(proyectoID, tipoBusqueda, cadena) {
     $SistemaPinturaAplicable.SistemaPinturaAplicable.read({ token: Cookies.get("token"), ProyectoID: proyectoID, TipoBusqueda: tipoBusqueda, Cadena: cadena}).done(function (data) {
-        if(data!=null){
+        if (data != null) {
             if(data>100){
                 var ventanaConfirmBusqueda = $("#ventanaConfirm").kendoWindow({
                     iframe: true,
@@ -93,6 +93,7 @@ function AjaxCargarNumeroElementosPorBusqueda(proyectoID, tipoBusqueda, cadena) 
                     width: "45%",
                     height: "auto",
                     draggable: false,
+                    actions: [],
                     modal: true,
                     animation: {
                         close: false,
@@ -131,7 +132,11 @@ function AjaxCargarDetalleSpool(proyectoID, tipoBusqueda, cadena) {
                 
                 ds.add(data[i]);
             }
-        }    
+        }
+        else
+        {
+            displayNotify("ErrorSpoolAgregarProyectoIncorrecto", "", '1');
+        }
     });
 }
 

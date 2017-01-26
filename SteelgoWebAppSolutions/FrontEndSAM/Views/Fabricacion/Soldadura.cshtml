@@ -1,7 +1,4 @@
-﻿@{
-    ViewBag.Title = "Soldadura";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+﻿
 
 @section breadcrumb {
     <li>
@@ -11,7 +8,7 @@
         <a href="#"><span id="lblFabricacion"></span></a>
     </li>
     <li>
-        <a href="@Url.Action("capturaSoldadura", "Soldadura")"><span id="lblSoldaduraBreadcrum"></span></a>
+        <a href="@Url.Action("Soldadura", "Fabricacion")"><span id="lblSoldaduraBreadcrum"></span></a>
     </li>
 }
 <div id="FormCapturaSoldadura" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -51,8 +48,8 @@
         </div>
     </div>
     @*Controles Superior*@
-    <div class="row" id="FieldSetView">
-        <div class="col-xs-12 col-sm-4 col-md-2 col-lg-2 altoControl">
+    <div class="row addedSectionInLineWithoutColor" id="FieldSetView">
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2 altoControl" >
             <div class="btn-group " data-toggle="buttons" role="group">
                 <label>&nbsp;</label>
                 <div class="btn btn-primary" id="styleReporte">
@@ -63,15 +60,15 @@
                 </div>
             </div>
         </div>
-        <div class="col-xs-6 col-sm-4 col-md-2 col-lg-2 altoControl" id="CapturaArmadoHeaderSpoolIDDiv">
+        <div class="col-xs-6 col-sm-6 col-md-3 col-lg-2 altoControl" id="CapturaArmadoHeaderSpoolIDDiv" >
             <label id="lblSpoolID"></label>
             <input style="width:40%" id="InputOrdenTrabajo" class="item-select general-input" />-<input id="InputID" placeholder="ID" style="width:40%;" />
         </div>
-        <div class="col-xs-4 col-sm-2 col-md-1 col-lg-2 altoControl" id="JuntaDiv">
+        <div class="col-xs-4 col-sm-6 col-md-3 col-lg-2 altoControl" id="JuntaDiv">
             <label id="lblJunta1"></label>
             <input id="Junta" class="" />
         </div>
-        <div class="col-xs-12 col-sm-8 col-md-3 col-lg-3 altoControl" id="MuestraDiv">
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2 altoControl" id="MuestraDiv">
             <label id="lblMostrar"></label>
             <input type="radio" name="Muestra" class="radio-responsive" style="width:auto;" value="Sin Capturar" /><span id="lblSinCaptura"></span>
             <input type="radio" name="Muestra" class="radio-responsive" style="width:auto;" value="Todos" /><span id="lblTodos"> </span>
@@ -82,7 +79,7 @@
         </div>
     </div>
     @*GRID*@
-    <div class="col-xs-12 row addedSectionInLine">
+    <div class=" row addedSectionInLine">
         <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2 altoControl">
             <label id="lblFechaSoldadura"></label>
             <input id="FechaSoldadura" />
@@ -99,11 +96,11 @@
                 <label id="CapturaSoldaduraHeaderPQR">PQR</label>
                 <input id="inputPQR" class="" />
             </div>*@
-        <div class="col-xs-12 col-sm-8 col-md-2 col-lg-2 altoControl">
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2 altoControl" id="planchadoZone">
             <label id="lblPlanchar"></label>
-
-            <input type="radio" name="LLena" class="radio-responsive" style=" width:auto;" value="Vacios" /><span id="lblVacios"></span>
             <input type="radio" name="LLena" class="radio-responsive" style=" width:auto;" value="Todos" /><span id="lblTodos1"></span>
+            <input type="radio" name="LLena" class="radio-responsive" style=" width:auto;" value="Vacios" /><span id="lblVacios"></span>
+            
 
         </div>
         <div class="col-xs-12 col-sm-4 col-md-1 col-lg-1">
@@ -115,6 +112,38 @@
             </div>
         </div>
         <input id="hdAccionFiltrado" type="hidden" />
+    </div>
+
+    @*GRID POPUP*@
+    <div id="windowGrid" style="display: none; z-index:inherit;">
+        <div class="col-sm-11 col-md-11 col-lg-11">
+            <div class="row">
+                <div class="form-group">
+                    <div id="ContenedorGridPopUp">
+                        <div id="gridPopUp" data-role="grid" class="k-grid k-widget">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row col-sm-12 col-md-12 col-lg-12" style="padding-right:0px;">
+                <div class="col-sm-2 col-md-2 col-lg-2">
+
+                </div>
+                <div class="col-sm-3 col-d-3 col-lg-3">
+                    <label id="">&nbsp;</label>
+                    <a class="btn btn-primary " href="#" id="GuardarTrabajosAdicionales">
+                        <span id="textoGuardar2"></span>
+                    </a>
+                </div>
+                <div class="col-sm-3 col-d-3 col-lg-3">
+                    <label id="">&nbsp;</label>
+                    <a class="btn btn-primary " href="#" id="CancelarTrabajosAdicionales">
+                        <span id="textoCancelar2"></span>
+                    </a>
+                </div>
+
+            </div>
+        </div>
     </div>
 
     @*Menu Inferior*@
@@ -129,7 +158,7 @@
                             <span class="caretWhite"></span>
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a href="#" id="btnGuardarPie"><span id="botonGuardar2"></span></a></li>
+                            <li><a href="#" id="btnGuardarPie"><span id="botonGuardar3"></span></a></li>
                             <li><a href="#" id="btnGuardarYNuevoPie"><span id="botonGuardarYNuevo1"></span></a></li>
                         </ul>
                     </div>
@@ -137,7 +166,7 @@
 
                 </div>
                 <div id="SoldaduraInspeccionDivPie" class="button-section">
-                    <a id="SoldaduraInspeccionPie" href="~/inspeccion/VisualDimensional" class="btn btn-primary"><span id="soldaduraInspeccionVisualInf"></span></a>
+                    <a id="SoldaduraInspeccionPie" href="@Url.Action("InspeccionVisualDimensional", "inspeccion")"  class="btn btn-primary"><span id="soldaduraInspeccionVisualInf"></span></a>
                 </div>
 
                 <div class="button-section actionButtonSection">
@@ -158,7 +187,7 @@
         <div id="formaObrero" class="col-sm-12 col-md-12 col-lg-11">
             
             <div class="row">
-                <div class=" col-sm-12 col-md-12 col-lg-12">
+                <div class=" col-sm-12 col-md-12 col-lg-12" style="display:none;">
                     
                     <input type="radio" name="CertificadoRaiz" class="radio-responsive" style=" width:auto;" value="Certificado" /><span id="">Certificado</span>
                     <input type="radio" name="CertificadoRaiz" class="radio-responsive" style=" width:auto;" value="NoCertificado" /><span id="">No certificado</span>
@@ -196,7 +225,7 @@
         <div id="formaObrero" class="col-sm-12 col-md-12 col-lg-11">
             
             <div class="row">
-                <div class=" col-sm-12 col-md-12 col-lg-12">
+                <div class=" col-sm-12 col-md-12 col-lg-12" style="display:none;">
                     
                     <input type="radio" name="CertificadoRelleno" class="radio-responsive" style=" width:auto;" value="Certificado" /><span id="">Certificado</span>
                     <input type="radio" name="CertificadoRelleno" class="radio-responsive" style=" width:auto;" value="NoCertificado" /><span id="">No certificado</span>

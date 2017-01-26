@@ -20,7 +20,7 @@ _dictionary = {
         "en-US": "Joint exists in capture "
     },
 
-    
+
     //Fin Pantalla Generar Req
     "MensajeConfirmacionGuardadoGeneral": {
         "es-MX": "Los registros marcados no serán guardados. ¿Desea continuar?",
@@ -34,14 +34,22 @@ _dictionary = {
         "es-MX": "Cancelar",
         "en-US": "Cancel"
     },
+    "textoCancelar2": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
     //Login Page Labels
     "textoGuardar": {
-        "es-MX": "Guardar",
-        "en-US": "Save"
+        "es-MX": "Agregar",
+        "en-US": "Add"
     },
     "textoGuardar1": {
-        "es-MX": "Guardar",
-        "en-US": "Save"
+        "es-MX": "Agregar",
+        "en-US": "Add"
+    },
+    "textoGuardar2": {
+        "es-MX": "Agregar",
+        "en-US": "Add"
     },
     "textoEditar": {
         "es-MX": "Editar",
@@ -7009,7 +7017,10 @@ _dictionary = {
     // Etiquetas Header y Footer
 
     // Etiquetas
-
+    "ErrorSpoolAgregarProyectoIncorrecto": {
+        "es-MX": "El spool no pertenece al proyecto seleccionado",
+        "en-US": "Spool does not belong to selected project"
+    },
     "lblInicio": {
         "es-MX": "Inicio",
         "en-US": "Home"
@@ -7706,6 +7717,14 @@ _dictionary = {
         "es-MX": "Cuadrante",
         "en-US": "Quadrant"
     },
+    "lblImprimir": {
+        "es-MX": "Imprimir",
+        "en-US": "Print"
+    },
+    "lblDestino": {
+        "es-MX": "Destino",
+        "en-US": "Destiny"
+    },
     //Finaliza Etiquetas
     //Etiquetas header alertas
     "SuccessTitle": {
@@ -7718,7 +7737,7 @@ _dictionary = {
     },
     "ErrorTitle": {
         "es-MX": "Error",
-        "en-US": "Error"
+        "en-US": "Error to save"
     },
     //Finaliza etiquetas header alertas
     //Formatos 
@@ -7953,6 +7972,18 @@ _dictionary = {
         "es-MX": "Descargar",
         "en-US": "Download"
     },
+    "botonEnviar": {
+        "es-MX": "Enviar",
+        "en-US": "Send"
+    },
+    "botonSi": {
+        "es-MX": "Si",
+        "en-US": "Yes"
+    },
+    "botonNo": {
+        "es-MX": "No",
+        "en-US": "No"
+    },
     //Finaliza botones
     // Finalizan etiquetas Header y Footer
 
@@ -7994,7 +8025,7 @@ _dictionary = {
         "es-MX": "No se han encontrado elementos que coincidan con la busqueda",
         "en-US": "No items found matching the search"
     },
-    "MensajeAdvertenciaPlancharTodos":{
+    "MensajeAdvertenciaPlancharTodos": {
         "es-MX": "¿Esta seguro de reemplazar todos los datos?",
         "en-US": "Are you sure to replace all data"
     },
@@ -8171,8 +8202,8 @@ _dictionary = {
         "en-US": "Shipping list"
     },
     "menuEmbarqueRevision": {
-        "es-MX": "Revisión",
-        "en-US": "Review"
+        "es-MX": "Revisión Embarque",
+        "en-US": "Shipping Revision"
     },
     "menuEmbarqueDashboard": {
         "es-MX": "Dashboard Embarque",
@@ -8245,6 +8276,10 @@ _dictionary = {
     "menuCapturaPruebaSpool": {
         "es-MX": "Captura Pruebas por Spool",
         "en-US": "Spool Capture Test"
+    },
+    "menuListadoEmbarqueEnviados": {
+        "es-MX": "Listado embarque enviados",
+        "en-US": "Sent shipping list"
     },
     // Finalizan Etiquetas de Menú General
 
@@ -8768,7 +8803,7 @@ _dictionary = {
         "en-US": "Diameter M."
     },
 
-    
+
     "columnPosicion": {
         "es-MX": "Posición °",
         "en-US": "Position °"
@@ -8778,8 +8813,8 @@ _dictionary = {
         "en-US": "Control No."
     },
     "columnSpool": {
-        "es-MX": "Spool",
-        "en-US": "Spool"
+        "es-MX": "Spool ID",
+        "en-US": "Spool ID"
     },
     "columnprocesoPintura": {
         "es-MX": "Proceso",
@@ -8837,6 +8872,50 @@ _dictionary = {
         "es-MX": "Destino",
         "en-US": "Destiny"
     },
+    "columnPapCliente": {
+        "es-MX": "Pap. Cliente",
+        "en-US": "Client Document"
+    },
+    "columnPapAduana": {
+        "es-MX": "Pap. Aduana",
+        "en-US": "Customs Document"
+    },
+    "columnSolicitudPermiso": {
+        "es-MX": "Sol. Permiso",
+        "en-US": "Permit Request"
+    },
+    "columnFechaPermiso": {
+        "es-MX": "Fecha Permiso",
+        "en-US": "Permit Date"
+    },
+    "columnAprobadoCliente": {
+        "es-MX": "Ok Cliente",
+        "en-US": "Ok Client"
+    },
+    "columnAprobadoAduana": {
+        "es-MX": "Ap. Aduana",
+        "en-US": "Ok Customs"
+    },
+    "columnOkEmbarque": {
+        "es-MX": "Ok Embarque",
+        "en-US": "Ok Shipment"
+    },
+    "columnEnviar": {
+        "es-MX": "Enviar",
+        "en-US": "Send"
+    },
+    "columnLlegoSpool": {
+        "es-MX": "Llegó",
+        "en-US": "Arrived"
+    },
+    "columnNoLlegoSpool": {
+        "es-MX": "No llegó",
+        "en-US": "Dot arrive"
+    },
+    "columnLlegoComentariosSpool": {
+        "es-MX": "Llegó con Comentario",
+        "en-US": "Arrived with comment"
+    },
     // Finalizan Etiquetas Grid
     // Finalizan Etiquetas generales
 
@@ -8877,6 +8956,22 @@ _dictionary = {
     // Finalizan Etiquetas Generales PND
 
     //Pantalla Armado
+
+    "CapturaArmadoTituloPopup": {
+        "es-MX": "Alerta!!!",
+        "en-US": "Warning!!!"
+    },
+
+    "CapturaArmadoBreadcrumb": {
+        "es-MX": "Armado",
+        "en-US": "Assembly"
+    },
+
+    "CapturaArmadoBreadcrumbProduccion": {
+        "es-MX": "Producción ",
+        "en-US": "Production "
+    },
+
     "CapturaArmadoMsgExiste": {
         "es-MX": "La junta ",
         "en-US": "The joint "
@@ -8899,7 +8994,7 @@ _dictionary = {
     },
     "TituloPopUpError": {
         "es-MX": "Error al guardar",
-        "en-US": "Error"
+        "en-US": "Error to save"
     },
     "MensajeCamposErroneos": {
         "es-MX": "Los spools marcados en rojo no se pueden guardar favor de eliminarlos y/o limpiarlos.",
@@ -8928,6 +9023,14 @@ _dictionary = {
     "CapturaArmadoTemplateNoHayTrabajosAdicionales": {
         "es-MX": "No hay trabajos adicionales",
         "en-US": "No additional work"
+    },
+    "CapturaArmadoTemplateNoHaySoldadoresRaiz": {
+        "es-MX": "No hay soldadores de raiz",
+        "en-US": "No root welders"
+    },
+    "CapturaArmadoTemplateNoHaySoldadoresRelleno": {
+        "es-MX": "No hay soldadores de reelleno",
+        "en-US": "No fill welders"
     },
     "CapturaArmadoMsgExiste": {
         "es-MX": "La junta ",
@@ -9027,11 +9130,11 @@ _dictionary = {
     },
     "DimensionalSpool": {
         "es-MX": "Se agrego el spool ",
-        "en-US": "He added the spool "
+        "en-US": "The spool was added "
     },
     "CapturaMensajeArmadoPlancharTodos": {
         "es-MX": "¿Esta seguro de reemplazar todos los datos?",
-        "en-US": "Are you sure to replace all data"
+        "en-US": "Are you sure to replace all data?"
     },
     "CapturaArmadoTemplateNoHayTrabajosAdicionales": {
         "es-MX": "No hay trabajos adicionales",
@@ -9264,6 +9367,30 @@ _dictionary = {
 
 
     //Pantalla Soldadura
+
+    "CapturaSoldaduraTrabajoMandatorio": {
+        "es-MX": "El campo trabajo y soldador es mandatorio",
+        "en-US": "The work and welder fiels has mandatory"
+    },
+    "CapturaSoldaduraGridSoldadores": {
+        "es-MX": "Los campos de Soldador y Colada son mandatorios",
+        "en-US": "The welder and laver fields has mandatory"
+    },
+    "CapturaSoldaduraGridSoldadoresRegistrosRepetidos": {
+        "es-MX": "Los campos de Soldador y Colada, no pueden ser los mismos en mas de un registro",
+        "en-US": "The welder and laver fields cant be equals in more than one reccord"
+    },
+
+        
+    "CapturaSoldaduraHeaderTrabajosAdicionalesAnidado": {
+        "es-MX": "Trabajo",
+        "en-US": "Work"
+    },
+    "CapturaSoldaduraHeaderSoldador": {
+        "es-MX": "Soldador",
+        "en-US": "Welder"
+    },
+
     "CapturaSoldaduraSoldaduraSpool": {
         "es-MX": "Soldadura",
         "en-US": "Welding"
@@ -9290,7 +9417,7 @@ _dictionary = {
         "en-US": "Root Welders"
     },
     "CapturaSoldaduraSoldadoresRelleno": {
-        "es-MX": "Soldadores Raiz",
+        "es-MX": "Soldadores Relleno",
         "en-US": "Fill Welders"
     },
     "lblSoldadorCerfiticado1": {
@@ -9312,6 +9439,14 @@ _dictionary = {
     "CapturaSoldaduraMensajeCambioTrabajosAdicionales": {
         "es-MX": " trabajos adicionales",
         "en-US": " additional work"
+    },
+    "CapturaSoldaduraMensajeCambioSoldadoresRaiz": {
+        "es-MX": " soldadores raiz",
+        "en-US": " root welders"
+    },
+    "CapturaSoldaduraMensajeCambioSoldadoresRelleno": {
+        "es-MX": " soldadores relleno",
+        "en-US": " fill welders"
     },
     "CapturaAvanceTitulo": {
         "es-MX": "Alerta!!!",
@@ -9384,9 +9519,17 @@ _dictionary = {
         "es-MX": "El elemento PQR ",
         "en-US": "The PQR element "
     },
+    "lblWPSElementoWPS": {
+        "es-MX": "El elemento WPS ",
+        "en-US": "The WPS element "
+    },
     "lblPQRYaAsignado": {
         "es-MX": " se encuentra asignado, favor de revisar el Catalogo WPS",
         "en-US": " is assigned, please review the WPS Catalog"
+    },
+    "lblWPSYaAsignado": {
+        "es-MX": " se encuentra asignado, favor de revisar el Catalogo SoldadorCertificacion",
+        "en-US": " is assigned, please review the Certified Welder Catalog"
     },
     "lblPQREspNARell": {
         "es-MX": "El espesor de relleno debe ser mayor a cero si el proceso de relleno es diferente a N/A",
@@ -9510,11 +9653,11 @@ _dictionary = {
     },
     "CapturaSoldadorCertificacionNombreVacio": {
         "es-MX": "El campo Nombre del WPS no puede ser vacio",
-        "en-US": "The PQR name field can not be empty"
+        "en-US": "The WPS name field can not be empty"
     },
     "CapturaSoldadorCertificacionProcSolVacio": {
         "es-MX": "El campo Proceso soldadura no puede ser vacio",
-        "en-US": "The PQR name field can not be empty"
+        "en-US": "The welding process field can not be empty"
     },
     "CapturaSoldadorCertificacionPasosVacio": {
         "es-MX": "El campo # Pasos no puede ser vacio",
@@ -9522,7 +9665,7 @@ _dictionary = {
     },
     "CapturaSoldadorCertificacionCedulaVacio": {
         "es-MX": "El campo Cédula Tubo no puede ser vacio",
-        "en-US": "The cestificate tube field can not be empty"
+        "en-US": "The certificate tube field can not be empty"
     },
     "CapturaSoldadorCertificacionEspesorVacio": {
         "es-MX": "El campo Espesor aplicado tiene que ser mayor a cero",
@@ -9666,8 +9809,8 @@ _dictionary = {
 
     //Pantalla Inspeccion Dimensional
     "InspeccionBreadCrum": {
-        "es-MX": "Inspección",
-        "en-US": "Inspection"
+        "es-MX": "Calidad",
+        "en-US": "Quality"
     },
     "InspeccionDimensionalBreadCrum": {
         "es-MX": "Inspección Dimensional",
@@ -9731,9 +9874,10 @@ _dictionary = {
         "en-US": "Validation Results"
     },
     "EntregaPlacasGraficasTituloPopup": {
-        "es-MX": "Alerta!!!",
-        "en-US": "Warning!!!"
+        "es-MX": "Error!!!",
+        "en-US": "Error to save!!!"
     },
+
     "EntregaPlacasGraficasPlancharTodos": {
         "es-MX": "¿Esta seguro de reemplazar todos los datos?",
         "en-US": "Are you sure to replace all data"
@@ -10159,6 +10303,15 @@ _dictionary = {
     },
     //Finaliza Etiquetas Generales Pintura
     //Inicia Captura Admin componentes
+
+    "lblSistemaPinturaSiguientePasoHeader": {
+        "es-MX": "Sistema Pintura",
+        "en-US": "Paint System."
+    },
+    "lblSistemaPinturaSiguientePasoFooter": {
+        "es-MX": "Sistema Pintura",
+        "en-US": "Paint System."
+    },
     "CapturaAdminComponentesTituloPagina": {
         "es-MX": "Administracion Componentes",
         "en-US": "Administration of components"
@@ -10187,6 +10340,14 @@ _dictionary = {
         "es-MX": "Habilitado",
         "en-US": "Enabled"
     },
+    "menuAdminComponentes": {
+        "es-MX": "Administracion Componentes",
+        "en-US": "Components Administration"
+    },
+    "menuAdminReductores": {
+        "es-MX": "Administracion Reductores",
+        "en-US": "Reducer Administrator"
+    },
     //Finaliza Captura Admin componentes
     //Inicia Captura Admin reductores
     "CapturaAdminReductoresTituloPagina": {
@@ -10201,7 +10362,7 @@ _dictionary = {
         "es-MX": "Reductor",
         "en-US": "Reducer"
     },
-   
+
     //Finaliza Captura Admin reductores
     //Inicia Carga de Carro
     "PinturaCargaCarroEscritorio": {
@@ -10443,13 +10604,26 @@ _dictionary = {
 
     // Finaliza Condiciones Climatologicas 
     //Comienza Listado Sistema Pintura
+
+    "columnNumeroComponentes": {
+        "es-MX": "# Componentes",
+        "en-US": "# Components"
+    },
+    "columnTemplateComponentes": {
+        "es-MX": "Detalle Componentes",
+        "en-US": "Componentes Details"
+    },
+    "columnTemplateReductores": {
+        "es-MX": "Reductores",
+        "en-US": "Reducers"
+    },
     "SistemaPinturaAplicableSpool": {
         "es-MX": "Spool",
         "en-US": "Spool"
     },
     "SistemaPinturaAplicableNC": {
         "es-MX": "No. Control",
-        "en-US": "N"
+        "en-US": "No. Control"
     },
     "SistemaPinturaAplicableHeader": {
         "es-MX": "Sistema de Pintura Aplicable",
@@ -10483,6 +10657,7 @@ _dictionary = {
         "es-MX": "El sistema de pintura no puede ser eliminado porque tiene spools asignados",
         "en-US": "The paint system can't be deleted because it has assigned spool"
     },
+
     "SistemaPinturaAplicableExcepcionGuardado": {
         "es-MX": "No hay datos para guardar.",
         "en-US": "No data to save."
@@ -10493,6 +10668,10 @@ _dictionary = {
     },
     "SistemaPinturaAplicableMensajeGuardadoErroneo": {
         "es-MX": "No fue posible guardar la informacion.",
+        "en-US": "Could not save the information."
+    },
+    "SistemaPinturaAplicableMensajeElementoNoEcontrado": {
+        "es-MX": "La busqueda no produjo ningun resultado, ",
         "en-US": "Could not save the information."
     },
     "SPAlblSpool": {
@@ -10522,6 +10701,28 @@ _dictionary = {
     // Finaliza Listado Sistema Pintura
 
     //Comienza Sistema Pintura
+
+    "MensajeSpoolAsignado": {
+        "es-MX": "No puedes editar el sistema de pintura el motivo es: ya se encuentra asignado a un spool",
+        "en-US": "You can not edit the painting system the reason is: it is already assigned to a spool"
+    },
+    "SistemaPinturaModificaNumeroComponentes": {
+        "es-MX": "¿Deseas cambiar el numero de componentes?",
+        "en-US": "¿Do You want to change the number of componentes?"
+    },
+
+    "columnNumeroComponentes": {
+        "es-MX": "# Componentes",
+        "en-US": "# Components"
+    },
+    "columnDetalleComponentes": {
+        "es-MX": "Componentes",
+        "en-US": "Components"
+    },
+    "columnReductor": {
+        "es-MX": "Reductor",
+        "en-US": "Reducer"
+    },
     "lblNoPintable": {
         "es-MX": "No pintable",
         "en-US": "No paint"
@@ -10569,6 +10770,36 @@ _dictionary = {
     "MensajeEliminarColoresYProcesosSistemaNoPintable": {
         "es-MX": "Se eliminaran los datos de los procesos y colores, ¿desea continuar?",
         "en-US": "data processes and colors are removed, would you continue?"
+    },
+    "MensajeSistemaPinturaNoPintable": {
+        "es-MX": "El sistema de pintura es no pintable",
+        "en-US": "The paint system is non-paintable"
+    },
+    "CapturaSistemaPinturaComponentesID": {
+        "es-MX": "ID",
+        "en-US": "ID"
+    },
+    "CapturaSistemaPinturaComponenteNombre": {
+        "es-MX": "Componente",
+        "en-US": "Component"
+    },
+    "botonGuardarComponenteAgregado": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
+
+    "botonAgregarComponente": {
+        "es-MX": "Guardar",
+        "en-US": "Save"
+    },
+
+    "botonCancelarComponenteAgregado": {
+        "es-MX": "Cancelar",
+        "en-US": "Cancel"
+    },
+    "CapturaSistemaPinturaComponente": {
+        "es-MX": "El campo nombre, es mandatorio",
+        "en-US": "The name field is mandatory"
     },
 
     // Finaliza Sistema Pintura
@@ -10671,6 +10902,14 @@ _dictionary = {
         "es-MX": "Listado Embarque",
         "en-US": "Shipping list"
     },
+    "EmbarqueRevisionSup": {
+        "es-MX": "Revisión Embarque",
+        "en-US": "Shipping Revision"
+    },
+    "EmbarqueRevisionInf": {
+        "es-MX": "Revisión Embarque",
+        "en-US": "Shipping Revision"
+    },
     //Finaliza Botones Siguiente Paso
     //Columnas
     "columnSpoolIDEmbarque": {
@@ -10683,7 +10922,7 @@ _dictionary = {
     },
 
     "columnCuadranteEmbarque": {
-        "es-MX":"Cuadrante",
+        "es-MX": "Cuadrante",
         "en-US": "Quadrant"
     },
 
@@ -10709,11 +10948,11 @@ _dictionary = {
         "en-US": "Consecutive"
     },
     "columnPaqueteEmbarque": {
-        "es-MX": "Paquete ",
+        "es-MX": "Paquete",
         "en-US": "Package"
     },
     "columnPesoEmbarque": {
-        "es-MX": "Peso ",
+        "es-MX": "Peso",
         "en-US": "Weigth"
     },
     //FinalizaColumnas
@@ -11006,7 +11245,7 @@ _dictionary = {
         "en-US": "Please select a flat"
     },
     "EmarqueCargaMensajePlanaCerrada": {
-        "es-MX": "La plana esta cerrada, debe abrirlar para poder modificarla",
+        "es-MX": "La plana esta cerrada, debe abrirla para poder modificarla",
         "en-US": "The plate is cloed, should be open to modify"
     },
     "EmbarqueCargaMsjDescargaSpool": {
@@ -11080,9 +11319,17 @@ _dictionary = {
         "es-MX": "Ingrese el nombre del proveedor",
         "en-US": "Enter the name of the provider"
     },
+    "EmbarqueCargaMsjErrorNombrePlana": {
+        "es-MX": "Ingrese el nombre de la placa",
+        "en-US": "Enter the name of the plate"
+    },
     "EmbarqueCargaMsjErrorPaqueteAgregarExiste": {
         "es-MX": "El paquete ya existe en la captura",
         "en-US": "Package already exists in capture"
+    },
+    "EmbarqueCargaErrorExistePlana": {
+        "es-MX": "La plana ya existe con el nombre ingresado",
+        "en-US": "The flat already exists with the name entered"
     },
     "EmbarqueEmpaquetadoAdvertenciaPaqueteVacio": {
         "es-MX": "Alerta!!!",
@@ -11090,7 +11337,11 @@ _dictionary = {
     },
     "EmbarqueEmpaquetadoMsjDescargaEliminaPaquete": {
         "es-MX": "El último spool del paquete ha sido descargado. ¿Desea descargar el paquete de la plana o eliminarlo?",
-        "en-US": "Alert!!!"
+        "en-US": "The last spool of the package has been downloaded. Do you want to download the flat pack or remove it?"
+    },
+    "EmbarqueCargaMsjErrorPaqueteCargado": {
+        "es-MX": "El paquete ya se encuentra cargado en la plana ",
+        "en-US": "The package is already loaded on the flat "
     },
     //Finaliza pantalla carga plana
     //Inicia pantalla empaquetado
@@ -11188,8 +11439,8 @@ _dictionary = {
         "en-US": "The spool is already loaded on the flat "
     },
     "EmbarqueEmpaquetadoErrorPaqueteVacio": {
-        "es-MX": "El paquete no se puede cerrar vacío",
-        "en-US": "The package can not be closed empty"
+        "es-MX": "No se puede cerrar un paquete vacío",
+        "en-US": "Unable to close an empty package"
     },
     //Finaliza Pantalla empaquetado
     //Inicia pantalla Preparacion Embarque
@@ -11283,6 +11534,10 @@ _dictionary = {
     },
     //Finaliza pantalla Preparacion Embarque
     //Inicia pantalla listado embarque
+    "EmbarqueListadoTituloPagina": {
+        "es-MX": "Listado Embarque",
+        "en-US": "Shipping list"
+    },
     "EmbarqueListadoPentiente": {
         "es-MX": "Pendientes",
         "en-US": "Pending"
@@ -11291,11 +11546,125 @@ _dictionary = {
         "es-MX": "En Tránsito",
         "en-US": "Transit"
     },
+    "EmbarqueListadoFechaEnvio": {
+        "es-MX": "Fecha Envío",
+        "en-US": "Send Date"
+    },
+    "EmbarqueListadoNumEmbarqueCliente": {
+        "es-MX": "No. Emb Cliente",
+        "en-US": "Client Shipment Num"
+    },
+    "EmbarqueListadoNumEmbarqueSteelgo": {
+        "es-MX": "No. Emb",
+        "en-US": "Shipment Num"
+    },
+    "EmbarqueListadoMsjErrorNumEmbarqueSteelgo": {
+        "es-MX": "Por favor ingrese el Número de Embarque",
+        "en-US": "Please enter the Shipping Number"
+    },
+    "EmbarqueListadoMsjErrorNumEmbarqueCliente": {
+        "es-MX": "Por favor ingrese el Número de Embarque Cliente",
+        "en-US": "Please enter Client Shipping Number"
+    },
+    "EmbarqueListadoMsjErrorFechaEnvio": {
+        "es-MX": "Por favor ingrese la Fecha Envío",
+        "en-US": "Please enter the Shipping Date"
+    },
+    "EmbarqueListadoMsjErrorEnviarDestinoNoCapturado": {
+        "es-MX": "No se puede enviar el embarque falta capturar el destino",
+        "en-US": "Can not send the shipment missing capture destination"
+    },
+    "EmbarqueListadoMsjErrorEnviarSolicitudPermisoNoCapturado": {
+        "es-MX": "No se puede enviar el embarque falta capturar la solicitud permiso",
+        "en-US": "Can not send shipment missing capture request permission"
+    },
+    "EmbarqueListadoMsjErrorEnviarFechaPermisoNoCapturado": {
+        "es-MX": "No se puede enviar el embarque falta capturar la fecha permiso",
+        "en-US": "Can not send shipment missing capture date permission"
+    },
+    "EmbarqueListadoMsjExitoEnviar": {
+        "es-MX": "El embarque se envió correctamente",
+        "en-US": "Shipment successfully shipped"
+    },
+    "EmbarqueListadoMsjErrorEnviar": {
+        "es-MX": "No fue posible enviar el embarque",
+        "en-US": "Could not send shipment"
+    },
+    "EmbarqueListadoTitlePopUpEnviar": {
+        "es-MX": "Enviar Embarque",
+        "en-US": "Send Shipment"
+    },
     //Finaliza pantalla listado embarque
+    //Inicia pantalla listado embarque enviados
+    "EmbarqueListadoEnviadosBreadcrumb": {
+        "es-MX": "Listado embarque enviados",
+        "en-US": "Sent shipping list"
+    },
+    "EmbarqueListadoEnviadosTituloPagina": {
+        "es-MX": "Listado embarque enviados",
+        "en-US": "Sent shipping list"
+    },
+    //Finaliza pantalla listado embarque enviados
     //Inicia pantalla revision
     "EmbarqueRevisionBreadcrumb": {
-        "es-MX": "Revisión",
-        "en-US": "Review"
+        "es-MX": "Revisión Embarque",
+        "en-US": "Shipping Revision"
+    },
+    "EmbarqueRevisionTituloPagina": {
+        "es-MX": "Revisión Embarque",
+        "en-US": "Shipping Revision"
+    },
+    "EmbarqueRevisionMsjRevisionCerrada": {
+        "es-MX": "La revisión del embarque esta cerrada, debe abrirla para poder modificarla",
+        "en-US": "The shipment review is closed, you must open it to modify it"
+    },
+    "EmbarqueRevisionMsjDescargaPaquete": {
+        "es-MX": "El paquete se encuentra cargado en el embarque ",
+        "en-US": "The package is loaded at the shipment "
+    },
+    "EmbarqueRevisionMsjDescargaSpoolEmbarque": {
+        "es-MX": "El spool se encuentra cargado en el embarque ",
+        "en-US": "The spool is loaded at the shipment "
+    },
+    "EmbarqueRevisionMsjDescargaSpoolPlana": {
+        "es-MX": "El spool se encuentra cargado en la plana ",
+        "en-US": "The spool is loaded on the flat "
+    },
+    "EmbarqueRevisionMsjDescargaSpoolPaquete": {
+        "es-MX": "El spool se encuentra cargado en el paquete ",
+        "en-US": "The spool is loaded on the package "
+    },
+    "EmbarqueRevisionMsjDescargaSpoolConfirmacion": {
+        "es-MX": ". ¿Desea descargarlo?",
+        "en-US": ". Do you want to download it?"
+    },
+    "EmbarqueRevisionMsjErrorProyectoIncorrecto": {
+        "es-MX": "El spool no pertenece al proyecto del embarque seleccionado",
+        "en-US": "The spool does not belong to the selected shipment project"
+    },
+    "EmbarqueRevisionMsjErrorSpoolEmbarcado": {
+        "es-MX": "El spool se encuentra embarcado",
+        "en-US": "Spool is on board"
+    },
+    "EmbarqueRevisionMsjErrorExistePaquete": {
+        "es-MX": "El paquete ya se encuentra en la captura",
+        "en-US": "The package is already in the capture"
+    },
+    "EmbarqueRevisionMsjExitoSpoolCargado": {
+        "es-MX": "El spool se ha agregado correctamente",
+        "en-US": "Spool successfully added"
+    },
+    "EmbarqueRevisionMsjErrorSpoolCargado": {
+        "es-MX": "El spool no se pudo agregar",
+        "en-US": "Spool could not be added"
+    },
+    "EmbarqueRevisionMsjExitoPaqueteCargado": {
+        "es-MX": "El paquete se ha agregado correctamente",
+        "en-US": "Package added successfully"
+    },
+    "EmbarqueRevisionMsjErrorPaqueteCargado": {
+        "es-MX": "El paquete no se pudo agregar",
+        "en-US": "Package could not be added"
     }
     //Finaliza pantalla revision
     //Finaliza Modulo Embarque 

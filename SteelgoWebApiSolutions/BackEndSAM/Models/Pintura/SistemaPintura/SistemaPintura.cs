@@ -1,4 +1,5 @@
-﻿using BackEndSAM.Models.Pintura.PinturaGeneral;
+﻿using BackEndSAM.Models.Pintura.AdminComponentes;
+using BackEndSAM.Models.Pintura.PinturaGeneral;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,18 +13,30 @@ namespace BackEndSAM.Models.Pintura.SistemaPintura
         public bool Agregar { get; set; }
         public int ProcesoPinturaID { get; set; }
         public string Proceso { get; set; }
-        public decimal MetrosLote { get; set; }
+        public double? MetrosLote { get; set; }
         public int NumeroPruebas { get; set; }
         public int SistemaPinturaProyectoProcesoID { get; set; }
         public int ProyectoID { get; set; }
         public int SistemaPinturaID { get; set; }
         public int SistemaPinturaProyectoID { get; set; }
-
+        public int? NumeroComponentes { get; set; }
+        public string Reductor { get; set; }
+        public int ReductorID { get; set; }
+        public List<AdminReductores.Reductores> ListadoReductores { get; set; }
+        public List<AdminComponentes.Componentes> ListadoComponentes { get; set; }
+        public List<ComponenteAgregado> ListaDetalleComponentesAgregados { get; set; }
+        public string TemplateDetalleComponentes { get; set; }
         public List<UnidadMedida> listadoUnidadesMedida { get; set; }
         public List<PruebasProcesos> listadoPruebasProceso { get; set; }
         public List<DetallePruebas> listadoPruebasDetalle { get; set; }
+        public bool RowOk { get; set; }
+
+        public bool AsignadoSpool { get; set; }
     }
 
+   
+
+   
     public class UnidadMedida
     {
         public UnidadMedida()
@@ -157,6 +170,7 @@ namespace BackEndSAM.Models.Pintura.SistemaPintura
 
     public class SPColor
     {
+        public int SistemaPinturaID { get; set; }
         public int ColorID { get; set; }
         public int Accion { get; set; }
     }
@@ -168,6 +182,9 @@ namespace BackEndSAM.Models.Pintura.SistemaPintura
         public double MetrosLote { get; set; }
         public int NumeroPruebas { get; set; }
         public int ProyectoID { get; set; }
+        public int NumeroComponentes { get; set; }
+        public int ReductorID { get; set; }
+        public List<SPProyectoProcesoComponentes> ListaDetalleComponentesAgregados { get; set; }
         public List<SPProyectoProcesoPrueba> ListadoPruebas { get; set; }
     }
 
@@ -179,6 +196,15 @@ namespace BackEndSAM.Models.Pintura.SistemaPintura
         public int UnidadMinima { get; set; }
         public int UnidadMaxima { get; set; }
         public int PruebaProcesoPinturaID { get; set; }
+        public int Accion { get; set; }
+    }
+
+    public class SPProyectoProcesoComponentes
+    {
+        public int ProyectoID { get; set; }
+        public int ProcesoPinturaID { get; set; }
+        public int ComponenteAgregadoID { get; set; }
+        public int ComponenteID { get; set; }
         public int Accion { get; set; }
     }
 

@@ -13,7 +13,7 @@
         <a href="@Url.Action("RevisionEmbarque", "Embarque")"><span id="EmbarqueRevisionBreadcrumb"></span></a>
     </li>
 }
-<div id="FormVisualDimensional" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
+<div id="FormRevisionEmbarque" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
     @*Menu superior*@
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -26,7 +26,7 @@
                         </button>
                         <ul class="dropdown-menu">
                             <li><a href="#/" id="btnGuardar" class="accionGuardar"><span id="botonGuardar2"></span></a></li>
-                            <li><a href="#/" id="btnGuardarYNuevo"><span id="botonGuardarYNuevo"></span></a></li>
+                            <li><a href="#/" id="btnGuardarYNuevo" class="accionGuardarNuevo"><span id="botonGuardarYNuevo"></span></a></li>
                         </ul>
                     </div>
                     <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar"></span></a>
@@ -54,13 +54,22 @@
                 <label id="lblEmbarque1"></label>
                 <input id="Embarque" />
             </div>
-            <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
+            <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 altoControl">
+                <label id="lblMostrar"></label>
+                <input type="radio" name="Muestra" class="radio-responsive" style="width:auto;" value="SinCaptura" /><span id="lblSinCaptura"></span>
+                <input type="radio" name="Muestra" class="radio-responsive" style="width:auto;" value="Todos" /><span id="lblTodos"> </span>
+            </div>
+            <div class="col-xs-12 col-sm-1 col-md-1 col-lg-1">
                 <label id="">&nbsp;</label>
-                <button type="button" id="btnBuscar" class="btn btn-blue"><span id="spanRevisionEmbarqueBuscar">Mostrar</span></button>
+                <button type="button" id="btnBuscar" class="btn btn-blue"><span id="botonMostrar"></span></button>
+            </div>
+            <div class="col-xs-12 col-sm-1 col-md-1 col-lg-1 altoControl" style="text-align:center;">
+                <label id="lblCerrar"></label>
+                <input id="InputCerrar" type="checkbox">
             </div>
             <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
-                <label id="">Destino</label>
-                <label id="labelDestino">Patio Veracruz</label>
+                <label id="lblDestino"></label>
+                <label id="EmbarqueDestino"></label>
             </div>
         </div>
         <br />
@@ -69,15 +78,15 @@
                 <div class="row">
                     <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
                         <div class="btn-group " role="group">
-                            <label id="">Tipo carga</label>
+                            <label id="lblTipoCarga"></label>
                             <label id="styleReporte">
-                                <input type="radio" name="RevisionEmbarqueTipoSeleccion" style="width:auto;" value="Spool" checked="checked"/><span id="RevisionEmbarqueOpcionSpool">Spool</span>
+                                <input type="radio" name="RevisionEmbarqueTipoSeleccion" style="width:auto;" value="Spool" /><span id="lblSpool"></span>
                             </label>
                             <label id="styleListado">
-                                <input type="radio" name="RevisionEmbarqueTipoSeleccion" style="width:auto;" value="Paquete" /><span id="RevisionEmbarqueOpcionPaquete">Paquete</span>
+                                <input type="radio" name="RevisionEmbarqueTipoSeleccion" style="width:auto;" value="Paquete" /><span id="lblPaquete"></span>
                             </label>
                             <label id="styleListado">
-                                <input type="radio" name="RevisionEmbarqueTipoSeleccion" style="width:auto;" value="Codigo" /><span id="RevisionEmbarqueOpcionCodigo">Código</span>
+                                <input type="radio" name="RevisionEmbarqueTipoSeleccion" style="width:auto;" value="Codigo" /><span id="lblCodigo"></span>
                             </label>
                         </div>
                     </div>
@@ -115,13 +124,13 @@
             <div class="formNav clearfix">
                 <div class="button-section editButtonSection">
                     <div class="btn-group save-group">
-                        <button id="GuardarPie" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="botonGuardar3"></span></button>
+                        <button id="Guardar1" onclick="javascript:void(0);" type="button" class="btn btn-yellow accionGuardar"><span id="botonGuardar3"></span></button>
                         <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="caretWhite"></span>
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a href="#/" id="btnGuardar1"><span id="botonGuardar4"></span></a></li>
-                            <li><a href="#/" id="btnGuardarYNuevo1"><span id="botonGuardarYNuevo1"></span></a></li>
+                            <li><a href="#/" id="btnGuardar1" class="accionGuardar"><span id="botonGuardar4"></span></a></li>
+                            <li><a href="#/" id="btnGuardarYNuevo1" class="accionGuardarNuevo"><span id="botonGuardarYNuevo1"></span></a></li>
                         </ul>
                     </div>
                     <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar1"></span></a>
@@ -140,7 +149,26 @@
         </div>
     </div>
 </div>
-
+<div id="windowDownloadSpool" style="display:none">
+    <div class="container-fluid" style="margin:0px">
+        <div class="form-group">
+            @*<center>*@
+            <span id="spanDescargaSpool"></span>
+            <input type="hidden" id="inputTipoDescarga"/>
+            @*</center>*@
+        </div>
+        <div class="row">
+            <center>
+                <a class="btn btn-primary confirm_yes" href="#/" id="btnDescargarSpool">
+                    <span id="botonSi"></span>
+                </a>
+                <a class="btn btn-primary confirm_yes" href="#/" id="btnCancelarDescarga">
+                    <span id="botonNo"></span>
+                </a>
+            </center>
+        </div>
+    </div>
+</div>
 <script type="text/javascript" src="~/Scripts/AppComponents/Embarque/RevisionEmbarque/Ajax.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/Embarque/RevisionEmbarque/Handlers.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/Embarque/RevisionEmbarque/Render.js"></script>
@@ -149,7 +177,7 @@
 
 <script>
     @section JavascriptDocumentReadyFunctions {
-    //$authorizationModel["Revision Embarque"] = $RevisionEmbarqueModel;
+        $authorizationModel["Revision Embarque"] = $RevisionEmbarqueModel;
     }
 </script>
 

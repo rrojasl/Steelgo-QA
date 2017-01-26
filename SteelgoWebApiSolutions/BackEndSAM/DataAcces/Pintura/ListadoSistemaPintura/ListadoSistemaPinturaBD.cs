@@ -107,7 +107,7 @@ namespace BackEndSAM.DataAcces.Pintura.ListadoSistemaPintura
                 using (SamContext ctx = new SamContext())
                 {
                     List<DetalleSistemaPintura> list = new List<DetalleSistemaPintura>();
-                    List<Sam3_SP_ObtieneListadoSistemaPintura_Result> result = ctx.Sam3_SP_ObtieneListadoSistemaPintura(UsuarioID).ToList();
+                    List<Sam3_SP_ObtieneListadoSistemaPintura_Result> result = ctx.Sam3_SP_ObtieneListadoSistemaPintura(UsuarioID,lenguaje).ToList();
 
                     foreach(Sam3_SP_ObtieneListadoSistemaPintura_Result item in result)
                     {
@@ -133,8 +133,23 @@ namespace BackEndSAM.DataAcces.Pintura.ListadoSistemaPintura
                             PruebaIntermedio = lenguaje.Equals("es-MX") ? "Detalle Pruebas" : "Detail Testing",
                             PruebaPorLoteAcabado = item.PruebaPorLoteAcabado.GetValueOrDefault(),
                             MetrosPorLoteAcabado = item.MetrosPorLoteAcabado.GetValueOrDefault(),
-                            PruebaAcabado = lenguaje.Equals("es-MX") ? "Detalle Pruebas" : "Detail Testing"
+                            PruebaAcabado = lenguaje.Equals("es-MX") ? "Detalle Pruebas" : "Detail Testing",
 
+                            NumeroComponentesShootblast = item.NumeroComponentesShotblast,
+                            TemplateComponentesShotBlast = item.TemplateComponentesShotblast,
+                            TemplateReductoresShotblast=item.TemplateReductoresShotblast,
+
+                            NumeroComponentesPrimario = item.NumeroComponentesPrimario,
+                            TemplateComponentesPrimario = item.TemplateComponentesPrimario,
+                            TemplateReductoresPrimario = item.TemplateReductoresPrimario,
+
+                            NumeroComponentesIntermedio = item.NumeroComponentesIntermedio,
+                            TemplateComponentesIntermedio = item.TemplateComponentesIntermedio,
+                            TemplateReductoresIntermedio = item.TemplateReductoresIntermedio,
+
+                            NumeroComponentesAcabado = item.NumeroComponentesAcabado,
+                            TemplateComponentesAcabado =item.TemplateComponentesAcabado,
+                            TemplateReductoresAcabado = item.TemplateReductoresAcabado,
                         });
                     }
                     return list;

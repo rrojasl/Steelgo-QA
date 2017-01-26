@@ -9,18 +9,13 @@
             suggest: true,
             filter: "contains",
             template: "<i class=\"fa fa-#=data.Nombre#\"></i> #=data.Nombre#",
-            select: function (e) {
-                dataItem = this.dataItem(e.item.index());
-                if (dataItem != undefined) {
-                    options.model.Taller = dataItem.Nombre
-                    options.model.TallerID = dataItem.TallerID
-                }
-            },
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
                 if (dataItem != undefined) {
                     options.model.Taller = dataItem.Nombre
-                    options.model.TallerID = dataItem.TallerID
+                    options.model.TallerID = dataItem.TallerID,
+                    options.model.Accion = options.model.Accion == 4 ? 2 : options.model.Accion;
+                    $("#grid").data("kendoGrid").dataSource.sync();
                 }
                 else {
                     options.model.Taller = ObtenerDescCorrectaTaller(options.model.ListaTaller, options.model.TallerID);
@@ -61,18 +56,13 @@ function RenderComboBoxInspector(container, options) {
             suggest: true,
             filter: "contains",
             template: "<i class=\"fa fa-#=data.NombreCompleto#\"></i> #=data.NombreCompleto#",
-            select: function (e) {
-                dataItem = this.dataItem(e.item.index());
-                if (dataItem != undefined) {
-                    options.model.Inspector = dataItem.NombreCompleto;
-                    options.model.InspectorID = dataItem.ObreroID;
-                }
-            },
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
                 if (dataItem != undefined) {
                     options.model.Inspector = dataItem.NombreCompleto;
                     options.model.InspectorID = dataItem.ObreroID;
+                    options.model.Accion = options.model.Accion == 4 ? 2 : options.model.Accion;
+                    $("#grid").data("kendoGrid").dataSource.sync();
                 }
                 else {
                     options.model.Inspector = ObtenerDescCorrectaInspector(options.model.ListaInspector, options.model.InspectorID);
@@ -100,23 +90,17 @@ function RenderComboBoxDefectos(container, options) {
             suggest: true,
             filter: "contains",
             template: "<i class=\"fa fa-#=data.Nombre#\"></i> #=data.Nombre#",
-            select: function (e) {
-                dataItem = this.dataItem(e.item.index());
-                if (dataItem != undefined) {
-                    options.model.Defectos = dataItem.Nombre;
-                    options.model.DefectosID = dataItem.DefectoID;
-                }
-            },
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
                 if (dataItem != undefined) {
                     options.model.Defectos = dataItem.Nombre;
                     options.model.DefectosID = dataItem.DefectoID;
+                    options.model.Accion = options.model.Accion == 4 ? 2 : options.model.Accion;
+                    $("#grid").data("kendoGrid").dataSource.sync();
                 }
                 else {
                     options.model.Defectos = ObtenerDescCorrectaDefectos(options.model.ListaDefectos, options.model.DefectoID);
                 }
-
             }
         }
         );
@@ -261,18 +245,6 @@ function RenderOptionResultado(container, options) {
             suggest: true,
             filter: "contains",
             template: "<i class=\"fa fa-#=data._Resultado#\"></i> #=data._Resultado#",
-            select: function (e) {
-                dataItem = this.dataItem(e.item.index());
-                if (dataItem != undefined) {
-                    options.model.Resultado = dataItem._Resultado;
-                    options.model.ResultadoID = dataItem._ResultadoID;
-                    if (options.model.ResultadoID == "1") {
-                        options.model.DefectosID = "";
-                        options.model.Defectos = "";
-                        $("#grid").data("kendoGrid").dataSource.sync();
-                    }
-                }
-            },
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
                 if (dataItem != undefined) {
@@ -281,8 +253,10 @@ function RenderOptionResultado(container, options) {
                     if (options.model.ResultadoID == "1") {
                         options.model.DefectosID = 0;
                         options.model.Defectos = "";
-                        $("#grid").data("kendoGrid").dataSource.sync();
+                        options.model.Accion = options.model.Accion == 4 ? 2 : options.model.Accion;
+                       
                     }
+                    $("#grid").data("kendoGrid").dataSource.sync();
                 }
                 else {
                     options.model.Resultado = ObtenerDescCorrectaResultado(options.model.ListaResultados, options.model.ResultadoID);

@@ -35,7 +35,6 @@ function SuscribirEventoProyecto() {
             if (dataItem != undefined) {
                 if (dataItem.ProyectoID != 0) {
                     AjaxCargarMedioTransporte(dataItem.ProyectoID, null);
-                    AjaxCargarZona(dataItem.PatioID);
                 }
             } else {
                 $("#inputProyecto").data("kendoComboBox").value("");
@@ -359,18 +358,19 @@ function CargaPopupNuevoMedioTransporte(e) {
     $("#InputNombre").val("");
 
     windowNewCarriage = $("#divNuevoMedioTransporte").kendoWindow({
-        modal: true,
-        resizable: false,
-        visible: true,
-        width: "500px",
+        iframe: true,
+        title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
+        visible: false,
+        width: "502px",
         height: "auto",
-        position: {
-            top: "1%",
-            left: "1%"
+        modal: true,
+        draggable: false,
+        resizable: false,
+        animation: {
+            close: false,
+            open: false
         },
-        actions: [
-            "Close"
-        ],
+        actions: [],
         close: function () {
             $("#inputCarroEscritorio").data("kendoComboBox").value("");
             $("#inputCarroPatio").data("kendoComboBox").value("");

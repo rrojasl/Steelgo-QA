@@ -1,63 +1,90 @@
-﻿var ObjetoRenglon, IndiceRenglon;
-var endRangeDate;
-var TemplateBtnEnviar = "<button  type='button' class='btn btn-blue botonEnviar'> <span>Enviar</span></button>";
-var reportePath;
-var reporteID;
+﻿IniciarListadoEmbarque();
 
+function IniciarListadoEmbarque() {
+    SuscribirEventos();
+}
 
 function changeLanguageCall() {
-
     AltaFecha();
     endRangeDate.data("kendoDatePicker").setOptions({
         format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()]
     });
     CargarGrid();
     AjaxCargarCamposPredeterminados();
-    document.title = "Listado Embarque";
+    document.title = _dictionary.EmbarqueListadoTituloPagina[$("#language").data("kendoDropDownList").value()];
 };
 
 
 function CargarGrid() {
+    kendo.ui.Grid.fn.editCell = (function (editCell) {
+        return function (cell) {
+            cell = $(cell);
+
+            var that = this,
+                column = that.columns[that.cellIndex(cell)],
+                model = that._modelForContainer(cell),
+                event = {
+                    container: cell,
+                    model: model,
+                    preventDefault: function () {
+                        this.isDefaultPrevented = true;
+                    }
+                };
+
+            if (model && typeof this.options.beforeEdit === "function") {
+                this.options.beforeEdit.call(this, event);
+                if (event.isDefaultPrevented) return;
+            }
+
+            editCell.call(this, cell);
+        };
+    })(kendo.ui.Grid.fn.editCell);
 
     $("#grid").kendoGrid({
         autoBind: true,
+        edit: function (e) {
+            if ($('#Guardar').text() == _dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]) {
+                this.closeCell();
+            }
+        },
         dataSource: {
-            data: [{
-                Accion:2,
-                Embarque: "Emb-3",
-                Plana: "PLN12",
-                Proyecto: "ETILENO XXI",
-                DestinoEmbarque: "Patio Veracruz",
-                PapelesCliente: "Imprimir",
-                PapelesAduana: "Imprimir",
-                RequierePermisoAduana: 1,
-                FolioSolicitarPermisos:"F3456-35",
-                FechaSolicitarPermisos: "01/11/2016",
-                AprobadoCliente: false,
-                AprobadoAduana: false,
-                OkEmbarque: false,
-                Enviar: false,
-                FechaEnvio: ""
-            }],
             schema: {
                 model: {
                     fields: {
                         Embarque: { type: "string", editable: false },
-                        Plana: { type: "string", editable: false },
+                        Planas: { type: "string", editable: false },
                         Proyecto: { type: "string", editable: false },
-                        DestinoEmbarque: { type: "string", editable: false },
-                        PapelesCliente: { editable: false },
-                        PapelesAduana: { editable: false },
-                        FolioSolicitarPermisos: { type: "string", editable: false },
-                        FechaSolicitarPermisos: { type: "date", editable: false },
-                        AprobadoCliente: { type: "boolean", editable: false },
-                        AprobadoAduana: { type: "boolean", editable: false },
+                        Destino: { type: "string", editable: true },
+                        PapelesCliente: { type: "boolean", editable: false },
+                        PapelesAduana: { type: "boolean", editable: false },
+                        FolioSolicitudPermiso: {
+                            type: "string", editable: true// validation:
+                                //{
+                                //    required : false,
+                                //    validateFolioSolicitudPermiso: function (e) {
+                                //        var re = /^[a-zA-Z][0-9]*$/;
+                                //        var grid = $("#grid").data("kendoGrid");
+                                //        var dataItem = grid.dataItem($(e.target).closest("tr"));
+
+                                //        if(!re.test(e.val())){
+                                //            $("#grid_active_cell").text("");
+                                //        }
+
+                                //        return true;
+                                //    }
+                                //}
+                        },
+                        FechaSolicitudPermiso: { type: "date", editable: true },
+                        AprobadoAduanaDesc: { type: "string", editable: true },
+                        OkCliente: { type: "boolean", editable: true },
                         OkEmbarque: { type: "boolean", editable: false },
-                        Enviar: { editable: false }
+                        RequierePermisoAduana: { type: "boolean", editable: false },
+                        RequierePapCliente: { type: "boolean", editable: false },
+                        Enviar: { type: "boolean", editable: false }
                     }
                 }
             },
-            pageSize: 20,
+            pageSize: 10,
             serverPaging: false,
             serverFiltering: false,
             serverSorting: false
@@ -76,38 +103,33 @@ function CargarGrid() {
         },
         filterable: getGridFilterableMaftec(),
         columns: [
-            { field: "Embarque", title: "Embarque", filterable: getGridFilterableCellMaftec(), width: "130px" },
-            { field: "Proyecto", title: "Proyecto", filterable: getGridFilterableCellMaftec(), width: "130px" },
-            { field: "Plana", title: "Plana", filterable: getGridFilterableCellMaftec(), width: "130px" },
-            { field: "DestinoEmbarque", title: "Destino Emb", filterable: getGridFilterableCellMaftec(), width: "145px" },
-            { field: "PapelesCliente", title: "Pap cliente",filterable: false, template: "<button  type='button' class='btn btn-blue imprimirPapelesCliente'> <span>" + "Imprimir" + "</span></button>", width: "140px" },
-            { field: "PapelesAduana", title: "Pap aduana", filterable: false, template: "<button  type='button' class='btn btn-blue imprimirPapelesAduana' Style='display: #= RequierePermisoAduana == 0 ? 'none;' : 'block;' #' > <span>" + "Imprimir" + "</span></button>", width: "140px" },
-            { field: "FolioSolicitarPermisos", title: "Sol. permiso", filterable: getGridFilterableCellMaftec(), template: "<button  type='button' class='btn btn-blue botonFolio' Style='display: #= FolioSolicitarPermisos!='' || RequierePermisoAduana == 0 ? 'none;' : 'block;' #'> <span>" + "Capturar" + "</span></button><span>#= FolioSolicitarPermisos #</span>", width: "140px" },
-            { field: "FechaSolicitarPermisos", title: "Fecha permiso", filterable: getKendoGridFilterableDateMaftec(), format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()], width: "150px" },
+            { field: "Embarque", title: _dictionary.columnEmbarque[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px" },
+            { field: "Proyecto", title: _dictionary.columnProyecto[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px" },
+            { field: "Planas", title: _dictionary.columnPlanasEmb[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "160px" },
+            { field: "Destino", title: _dictionary.columnDestinoEmb[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxDestino, width: "145px" },
             {
-                field: "AprobadoCliente", title: "Ap. cliente", filterable: {
+                field: "PapelesCliente", title: _dictionary.columnPapCliente[$("#language").data("kendoDropDownList").value()], filterable: false, template: "<center><button  type='button' class='btn btn-blue imprimirPapelesCliente' #= RequierePapCliente == false ? 'disabled' : '' #> <span>" +
+                  _dictionary.lblImprimir[$("#language").data("kendoDropDownList").value()] + "</span></button></center>", width: "140px"
+            },
+            { field: "PapelesAduana", title: _dictionary.columnPapAduana[$("#language").data("kendoDropDownList").value()], filterable: false, template: "<center><button  type='button' class='btn btn-blue imprimirPapelesAduana' #= RequierePermisoAduana == false ?  'disabled': '' # > <span>" +
+                  _dictionary.lblImprimir[$("#language").data("kendoDropDownList").value()] + "</span></button></center>", width: "140px"
+            },
+            { field: "FolioSolicitudPermiso", title: _dictionary.columnSolicitudPermiso[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "140px" },
+            { field: "FechaSolicitudPermiso", title: _dictionary.columnFechaPermiso[$("#language").data("kendoDropDownList").value()], filterable: getKendoGridFilterableDateMaftec(), editor: RenderDatePicker, format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()], width: "150px" },
+            { field: "AprobadoAduanaDesc", title: _dictionary.columnAprobadoAduana[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxAprobacionAduana, width: "130px" },
+            {
+                field: "OkCliente", title: _dictionary.columnAprobadoCliente[$("#language").data("kendoDropDownList").value()], filterable: {
                     multi: true,
                     messages: {
                         isTrue: _dictionary.lblVerdadero[$("#language").data("kendoDropDownList").value()],
                         isFalse: _dictionary.lblFalso[$("#language").data("kendoDropDownList").value()],
                         style: "max-width:100px;"
                     },
-                    dataSource: [{ AprobadoCliente: true }, { AprobadoCliente: false }]
-                }, template: '<input type="checkbox" #= AprobadoCliente ? "checked=checked" : "" # class="chkbx" ></input>', width: "130px", attributes: { style: "text-align:center;" }
+                    dataSource: [{ OkCliente: true }, { OkCliente: false }]
+                }, template: '<input type="checkbox" class="chk-OkCliente" #= OkCliente ? "checked=checked" : "" # class="chkbx" ></input>', width: "130px", attributes: { style: "text-align:center;" }
             },
             {
-                field: "AprobadoAduana", title: "Ap. aduana", filterable: {
-                    multi: true,
-                    messages: {
-                        isTrue: _dictionary.lblVerdadero[$("#language").data("kendoDropDownList").value()],
-                        isFalse: _dictionary.lblFalso[$("#language").data("kendoDropDownList").value()],
-                        style: "max-width:100px;"
-                    },
-                    dataSource: [{ AprobadoAduana: true }, { AprobadoAduana: false }]
-                }, template: '<input type="checkbox" #= AprobadoAduana ? "checked=checked" : "" # class="chkbx" ></input>', width: "130px", attributes: { style: "text-align:center;" }
-            },
-            {
-                field: "OkEmbarque", title: "Ok Emb", filterable: {
+                field: "OkEmbarque", title: _dictionary.columnOkEmbarque[$("#language").data("kendoDropDownList").value()], filterable: {
                     multi: true,
                     messages: {
                         isTrue: _dictionary.lblVerdadero[$("#language").data("kendoDropDownList").value()],
@@ -115,74 +137,144 @@ function CargarGrid() {
                         style: "max-width:100px;"
                     },
                     dataSource: [{ OkEmbarque: true }, { OkEmbarque: false }]
-                }, template: '<input type="checkbox" #= OkEmbarque ? "checked=checked" : "" # class="chkbx" ></input>', width: "130px", attributes: { style: "text-align:center;" }
+                }, template: '<input type="checkbox" class="chk-OkEmbarque" #= OkEmbarque ? "checked=checked" : "" # class="chkbx" ></input>', width: "150px", attributes: { style: "text-align:center;" }
             },
-            { field: "Enviar", title: "Enviar", filterable: false, template: "<button  type='button' class='btn btn-blue botonEnviar' Style='display: #= FechaEnvio!=''  ? 'none;' : 'block;' #' > <span>" + "Enviar" + "</span></button>", width: "115px" },
-        ]
+            {
+                field: "Enviar", title: _dictionary.columnEnviar[$("#language").data("kendoDropDownList").value()], filterable: false, template: "<center><button  type='button' class='btn btn-blue enviarEmbarque' Style='display: #= Enviar == true ?'block;' : 'none;' #' ><span>" +
+                   _dictionary.botonEnviar[$("#language").data("kendoDropDownList").value()] + "</span></button></center>", width: "115px"
+            },
+        ],
+        beforeEdit: function (e) {
+            var columnIndex = this.cellIndex(e.container);
+            var fieldName = this.thead.find("th").eq(columnIndex).data("field");
+            if (!isEditable(fieldName, e.model)) {
+                e.preventDefault();
+            }
+        },
+    });
+
+    $("#grid .k-grid-content").on("change", "input.chk-OkEmbarque", function (e) {
+
+        if ($('#Guardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
+            var grid = $("#grid").data("kendoGrid");
+            var dataItem = grid.dataItem($(e.target).closest("tr"));
+            if (dataItem.EstatusEmbarqueID != 2) {
+                if ($(this)[0].checked) {
+                    dataItem.OkEmbarque = true;
+
+                    if (dataItem.Accion == 1)
+                        dataItem.ModificadoPorUsuario = true;
+
+                }
+                else {
+                    dataItem.OkEmbarque = false;
+
+                    if (dataItem.Accion == 2)
+                        dataItem.ModificadoPorUsuario = true;
+                }
+
+                if (SetValueEnviar(dataItem))
+                    dataItem.Enviar = true;
+                else
+                    dataItem.Enviar = false;
+            } else {
+                if (e.target.checked)
+                    $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).OkEmbarque = false;
+                else
+                    $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).OkEmbarque = true;
+            }
+        }
+        else {
+            if (e.target.checked)
+                $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).OkEmbarque = false;
+            else
+                $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).OkEmbarque = true;
+        }
+
+        $("#grid").data("kendoGrid").dataSource.sync();
+    });
+
+    $("#grid .k-grid-content").on("change", "input.chk-OkCliente", function (e) {
+
+        if ($('#Guardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {            
+            var grid = $("#grid").data("kendoGrid");
+            var dataItem = grid.dataItem($(e.target).closest("tr"));
+            if (dataItem.EstatusEmbarqueID != 2) {
+
+                if ($(this)[0].checked) {
+                    dataItem.OkCliente = true;
+
+                    if (dataItem.Accion == 1)
+                        dataItem.ModificadoPorUsuario = true;
+
+                }
+                else {
+                    dataItem.OkCliente = false;
+
+                    if (dataItem.Accion == 2)
+                        dataItem.ModificadoPorUsuario = true;
+                }
+
+                if (SetValueEnviar(dataItem))
+                    dataItem.Enviar = true;
+                else
+                    dataItem.Enviar = false;
+
+            } else {
+                if (e.target.checked)
+                    $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).OkCliente = false;
+                else
+                    $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).OkCliente = true;
+            }
+        }
+        else {
+            if (e.target.checked)
+                $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).OkCliente = false;
+            else
+                $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).OkCliente = true;
+        }
+
+        $("#grid").data("kendoGrid").dataSource.sync();
     });
     CustomisaGrid($("#grid"));
 };
 
-function VentanaModalFecha(dataItem) {
-    ObjetoRenglon = dataItem
-    var modalTitle = "";
-    modalTitle = _dictionary.ValidacionResultadosRequisicion[$("#language").data("kendoDropDownList").value()];
-    var window = $("#windowFecha");
-    var win = window.kendoWindow({
-        modal: true,
-        title: modalTitle,
-        resizable: false,
-        visible: true,
-        width: "400px",
-        minWidth: 30,
-        position: {
-            top: "1%",
-            left: "1%"
-        },
-        actions: [
-            "Pin",
-            "Minimize",
-            "Maximize",
-            "Close"
-        ],
-    }).data("kendoWindow");
-    window.data("kendoWindow").title(modalTitle);
-    window.data("kendoWindow").center().open();
-
-};
-
-
-function VentanaModalFolio(dataItem, indexItem) {
-    ObjetoRenglon = dataItem;
-    IndiceRenglon = indexItem;
-    var modalTitle = "";
-    modalTitle = "";
-    var window = $("#windowFolio");
-    var win = window.kendoWindow({
-        modal: true,
-        title: modalTitle,
-        resizable: false,
-        visible: true,
-        width: "300px",
-        minWidth: 30,
-        position: {
-            top: "1%",
-            left: "1%"
-        },
-        actions: [
-            "Pin",
-            "Minimize",
-            "Maximize",
-            "Close"
-        ],
-    }).data("kendoWindow");
-    window.data("kendoWindow").title(modalTitle);
-    window.data("kendoWindow").center().open();
-
-};
+function isEditable(fieldName, model) {
+    if (fieldName === "FolioSolicitudPermiso") {
+        if (!model.RequierePermisoAduana || model.EstatusEmbarqueID != 1) {
+            return false;
+        }
+    }
+    if (fieldName === "FechaSolicitudPermiso") {
+        if (!model.RequierePermisoAduana || model.EstatusEmbarqueID != 1) {
+            return false;
+        }
+    }
+    if (fieldName === "AprobadoAduanaDesc") {
+        if (!model.RequierePermisoAduana || model.EstatusEmbarqueID != 1) {
+            return false;
+        }
+    }
+    if (fieldName === "Destino") {
+        if (model.EstatusEmbarqueID != 1) {
+            return false;
+        }
+    }
+    return true;
+}
 
 function AltaFecha() {
     endRangeDate = $("#Fecha").kendoDatePicker({
         value: new Date()
     });
+}
+
+function SetValueEnviar(obj) {
+    var retorno = false;
+    if (obj != undefined) {
+        if (obj.OkCliente && obj.AprobadoAduana == 1 && obj.OkEmbarque)
+            retorno = true;
+    }
+
+    return retorno;
 }

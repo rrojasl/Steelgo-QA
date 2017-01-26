@@ -17,29 +17,6 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.EditarRequisicion
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class EditarRequisicionController : ApiController
     {
-        public object Get(string token, string lenguaje, int RequisicionID)
-        {
-            string payload = "";
-            string newToken = "";
-            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
-            if (tokenValido)
-            {
-                JavaScriptSerializer serializer = new JavaScriptSerializer();
-                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-
-                return EditarRequisicionBD.Instance.ObtieneElementosRequisicion(usuario.UsuarioID, RequisicionID, lenguaje);
-            }
-            else
-            {
-                TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add(payload);
-                result.ReturnCode = 401;
-                result.ReturnStatus = false;
-                result.IsAuthenicated = false;
-                return result;
-            }
-        }
-
         [HttpGet]
         public object ObtieneElementosPorPrueba(string token, string lenguaje, int RequisicionID, int TipoPruebaID, int ProyectoID, string Muestra)
         {
@@ -64,6 +41,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.EditarRequisicion
                 return result;
             }
         }
+
         [HttpGet]
         public object ObtieneSpools(string token, string IdOrdenTrabajo, int OrdenTrabajoSpoolID, int TipoPruebaID, int ProyectoID)
         {

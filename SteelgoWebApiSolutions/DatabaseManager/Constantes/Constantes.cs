@@ -27,9 +27,9 @@
 
     public static class Stords
     {
-        public static string GUARDARCAPTURAARMADO = "Sam3_Armado_JuntaArmado";
+        public static string GUARDARCAPTURAARMADO = "Sam3_Armado_Set_Captura";
         public static string GUARDARCAPTURASOLDADURA = "Sam3_Soldadura_JuntaSoldadura";
-        public static string GUARDARCAPTURAINSPECCIONVISUALDIMENSIONAL = "Sam3_Inspeccion_VisualDimensional";
+        public static string GUARDARCAPTURAINSPECCIONVISUALDIMENSIONAL = "Sam3_InspeccionVisualDimensional_SetCaptura";
         public static string GUARDACAPTURAENTREGAPLACASGRAFICAS = "dbo.Sam3_ST_EPG_GuardaCaptura";
         public static string GUARDARNUEVAREQUISICION = "Sam3_ST_RPND_GuardaCaptura";
         public static string GUARDARCAPTURAREQUISICIONASIGNACION = "Sam3_ST_ARPND_GuardaCaptura";
@@ -60,6 +60,9 @@
         public static string GUARDARPREPARACIONEMBARQUE = "Sam3_Embarque_PE_GuardaCaptura";
         public static string GUARDARADMINISTRACIONCOMPONENTES = "Sam3_Pintura_AdminComponentes_GuardaCaptura";
         public static string GUARDARADMINISTRACIONREDUCTORES = "Sam3_Pintura_AdminReductores_GuardaCaptura";
-        
+        public static string GUARDARCAPTURALISTADOEMBARQUE = "Sam3_Embarque_LE_GuardarCaptura";
+        public static string ARMADOACTUALIZARINFORMACION = "Sam3_Armado_Get_ActualizarCaptura";
+        public static string GUARDARREVISIONEMBARQUE = "Sam3_Embarque_RE_GuardarCaptura";
+
     }
 }

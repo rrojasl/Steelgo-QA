@@ -60,6 +60,7 @@ namespace BackEndSAM.Models.Fabricacion.Soldadura
     public class DetalleDatosJsonSoldadura
     {
         public int Accion { get; set; }
+        public int JuntaSoldaduraID { get; set; }
         public int IDProyecto { get; set; }
         public string Proyecto { get; set; }
         public string IdOrdenTrabajo { get; set; }
@@ -97,6 +98,9 @@ namespace BackEndSAM.Models.Fabricacion.Soldadura
         public List<ObreroSoldador> ListadoSoldadoresRaiz { get; set; }
         public List<ObreroSoldador> ListadoSoldadoresRelleno { get; set; }
         public List<Consumible> ListadoColadas { get; set; }
+        public int FamiliaMaterialID { get; set; }
+        public List<TrabajosAdicionalesSoldadura> ListaDetalleTrabajoAdicional { get; set; }
+        public bool RowOk { get; set; }
     }
 
     public class Taller
@@ -132,15 +136,29 @@ namespace BackEndSAM.Models.Fabricacion.Soldadura
     {
         public int ObreroID { get; set; }
         public string Soldador { get; set; }
+        public string Certificado { get; set; }
 
         public ObreroSoldador()
         {
             ObreroID = 0;
             Soldador = "";
-
+            Certificado = "";
         }
       
 
+    }
+    public class Consumible
+    {
+        public int ConsumibleID { get; set; }
+        public string Colada { get; set; }
+        public string Certificado { get; set; }
+
+        public Consumible()
+        {
+            ConsumibleID = 0;
+            Colada = "";
+            Certificado = "";
+        }
     }
 
     public class Raiz
@@ -161,6 +179,9 @@ namespace BackEndSAM.Models.Fabricacion.Soldadura
         public int ColadaID { get; set; }
         public string Colada { get; set; }
         public string Observaciones { get; set; }
+        public int JuntaSoldaduraID { get; set; }
+        public int JuntaSoldaduraSoldadoID { get; set; }
+        public List<ObreroSoldador> ListaSoldador {get; set;}
 
         public Soldadores()
         {
@@ -170,6 +191,7 @@ namespace BackEndSAM.Models.Fabricacion.Soldadura
             ColadaID = 0;
             Colada = "";
             Observaciones = "";
+            ListaSoldador = new List<ObreroSoldador>();
         }
 
     }
@@ -210,6 +232,15 @@ namespace BackEndSAM.Models.Fabricacion.Soldadura
 
     public class IDS
     {
+        public IDS()
+        {
+            Status = "";
+            IDValido = "";
+            Valor = 0;
+            Proyecto = "";
+            ProyectoID = 0;
+        }
+
         public string Status { get; set; }
         public string IDValido { get; set; }
         public int Valor { get; set; }
@@ -229,19 +260,14 @@ namespace BackEndSAM.Models.Fabricacion.Soldadura
         public string JuntaSpoolID { get; set; }
         public int TipoJuntaID { get; set; }
         public string EtiquetaJunta { get; set; }
-        public string EtiquetaMaterial1 { get; set; }
-        public string EtiquetaMaterial2 { get; set; }
         public int JuntaSoldaduraID { get; set; }
         public int JuntaTrabajoID { get; set; }
-        public string NumeroUnico1ID { get; set; }
-        public string NumeroUnico2ID { get; set; }
         public string TallerID { get; set; }
-        public int ColadaID { get; set; }
+        public int WPSID { get; set; }
         public Nullable<int> ProcesoSoldaduraRaizID { get; set; }
         public Nullable<int> ProcesoSoldaduraRellenoID { get; set; }
         public string FechaSoldadura { get; set; }
         public string FechaReporte { get; set; }
-
         public List<DetalleGuardarTrabajoAdicional> ListaDetalleTrabajoAdicional { get; set; }
         public List<GuardarSoldaduraSoldado> ListaSoldaduraRaiz { get; set; }
         public List<GuardarSoldaduraSoldado> ListaSoldaduraRelleno { get; set; }
@@ -253,8 +279,10 @@ namespace BackEndSAM.Models.Fabricacion.Soldadura
         public int JuntaSpoolID { get; set; }
         public int JuntaSoldaduraSoldadoID { get; set; }
         public int JuntaSoldaduraID { get; set; }
+        public int EsRaiz { get; set; }
         public int ObreroID { get; set; }
-        public int TipoSoldaduraID { get; set; }
+        public string Comentario { get; set; }
+        public int ConsumibleID { get; set; }
     }
 
 
@@ -272,6 +300,17 @@ namespace BackEndSAM.Models.Fabricacion.Soldadura
 
     public class WPS
     {
+        public WPS()
+        {
+            WPSID = 0;
+            WPSNombre = "";
+            Certificado = "";
+            PQRRaizId = 0;
+            NombrePQRRaiz = "";
+            PQRRellenoId = 0;
+            NombrePQRRelleno = "";
+        }
+
         public int WPSID { get; set; }
         public string WPSNombre { get; set; }
         public int PQRRaizId { get; set; }
@@ -298,5 +337,8 @@ namespace BackEndSAM.Models.Fabricacion.Soldadura
         public string ProcesoSoldaduraRelleno { get; set; }
         public double EspesorMaximo { get; set; }
         public double EspesorMinimo { get; set; }
+        public string Certificado { get; set; } 
     }
+
+   
 }

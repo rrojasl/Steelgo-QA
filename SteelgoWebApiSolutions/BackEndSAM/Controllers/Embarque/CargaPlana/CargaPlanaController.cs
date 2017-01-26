@@ -179,7 +179,7 @@ namespace BackEndSAM.Controllers.Embarque.CargaPlana
         }
 
         [HttpGet]
-        public object DescargaPaquetePlana(string token, int PaqueteID,  int CuadranteID)
+        public object DescargaPaquetePlana(string token, int PaqueteID,  int CuadranteID, int AbrirPaquete)
         {
             string payload = "";
             string newToken = "";
@@ -190,7 +190,7 @@ namespace BackEndSAM.Controllers.Embarque.CargaPlana
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                return CargaPlanaBD.Instance.DescargaPaquetePlana(PaqueteID, CuadranteID, usuario.UsuarioID);
+                return CargaPlanaBD.Instance.DescargaPaquetePlana(PaqueteID, CuadranteID, usuario.UsuarioID, AbrirPaquete);
             }
             else
             {

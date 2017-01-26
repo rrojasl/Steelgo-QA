@@ -55,7 +55,7 @@ namespace BackEndSAM.DataAcces.Inspeccion.VisualDimensionalBD
                 using (SamContext ctx = new SamContext())
                 {
 
-                    List<Sam3_Inspeccion_Get_DetalleJunta_Result> listaDetalleDatosJson = ctx.Sam3_Inspeccion_Get_DetalleJunta(int.Parse(JsonCaptura.OrdenTrabajoSpoolID), Lenguaje).ToList();
+                    List<Sam3_InspeccionVisual_Get_Detalle_Result> listaDetalleDatosJson = ctx.Sam3_InspeccionVisual_Get_Detalle(int.Parse(JsonCaptura.OrdenTrabajoSpoolID), Lenguaje).ToList();
                     return listaDetalleDatosJson;
                 }
             }
@@ -102,36 +102,7 @@ namespace BackEndSAM.DataAcces.Inspeccion.VisualDimensionalBD
             }
         }
 
-        /// <summary>
-        /// Obtiene el detalle de la junta con respecto  la inspeccion
-        /// </summary>
-        /// <param name="JsonCaptura"></param>
-        /// <param name="usuario"></param>
-        /// <param name="Lenguaje"></param>
-        /// <returns></returns>
-        public object ObtenerDetalleJunta(string OrdenTrabajoSpoolID, Sam3_Usuario usuario, string Lenguaje)
-        {
-
-            try
-            {
-                using (SamContext ctx = new SamContext())
-                {
-
-                    List<Sam3_Inspeccion_Get_DetalleJunta_Result> listaDetalleDatosJson = ctx.Sam3_Inspeccion_Get_DetalleJunta(int.Parse(OrdenTrabajoSpoolID), Lenguaje).ToList();
-                    return listaDetalleDatosJson;
-                }
-            }
-            catch (Exception ex)
-            {
-                TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add(ex.Message);
-                result.ReturnCode = 500;
-                result.ReturnStatus = false;
-                result.IsAuthenicated = true;
-
-                return result;
-            }
-        }
+        
 
         /// <summary>
         /// Obtiene las juntas con respecto  la inspeccion visual dimensional
@@ -276,7 +247,7 @@ namespace BackEndSAM.DataAcces.Inspeccion.VisualDimensionalBD
             }
         }
 
-        public object InsertarCapturaInspeccion(DataTable dtDetalleCaptura, DataTable dtJuntaLista, int usuario, string lenguaje, int inspeccionDimensionalID, int ordenTrabajoSpoolID, string fechaInspeccion, int resultadoID, int obreroID, int defectoID, int accion)
+        public object InsertarCapturaInspeccion(DataTable dtDetalleCaptura, DataTable dtJuntaLista,DataTable dtNumeroUnicos, int usuario, string lenguaje, int inspeccionDimensionalID, int ordenTrabajoSpoolID, string fechaInspeccion, int resultadoID, int obreroID, int defectoID, int accion)
         {
             try
             {
@@ -297,7 +268,7 @@ namespace BackEndSAM.DataAcces.Inspeccion.VisualDimensionalBD
                         { "@AccionDimensional", accion.ToString() }
 
                     };
-                    _SQL.Ejecuta(Stords.GUARDARCAPTURAINSPECCIONVISUALDIMENSIONAL, dtDetalleCaptura, "@Inspeccion", dtJuntaLista, "@juntas", parametro);
+                    _SQL.Ejecuta(Stords.GUARDARCAPTURAINSPECCIONVISUALDIMENSIONAL, dtDetalleCaptura, "@Inspeccion", dtJuntaLista, "@juntas", dtNumeroUnicos, "@NumeroUnicoAsignado", parametro);
 
 
                     TransactionalInformation result = new TransactionalInformation();

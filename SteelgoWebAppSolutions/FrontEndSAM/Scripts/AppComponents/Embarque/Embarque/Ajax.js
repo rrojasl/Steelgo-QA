@@ -261,7 +261,7 @@ function AjaxAgregaRenglon(cargaPlanaID) {
                                 + data[i].NombreEmbarque, '1');
                         }
                     } else {
-                        displayNotify("EmbarquePreparacionErrorExistePlana", "", '2');
+                        displayNotify("EmbarquePreparacionErrorExistePlana", "", '1');
                     }
                 }
             }
@@ -335,6 +335,7 @@ function AjaxGuardarCaptura(ds, tipoGuardado, proveedorID) {
     var choferID = $("#Chofer").data("kendoComboBox").value();
     var fechaCreacion = $("#inputFechaEmbarque").val();
 
+    var cont = 0;
 
     if (ds.length > 0) {
         for (var i = 0; i < ds.length; i++) {
@@ -343,16 +344,20 @@ function AjaxGuardarCaptura(ds, tipoGuardado, proveedorID) {
             listaDetalle[i].EmbarqueDetalleID = ds[i].EmbarqueDetalleID;
             listaDetalle[i].EmbarqueID = ds[i].EmbarqueID;
             listaDetalle[i].CargaPlanaID = ds[i].CargaPlanaID;
+
+            if (ds[i].Accion == 2 || ds[i].Accion == 1) {
+                cont++;
+            }
         }
 
     }
 
     Captura[0].Detalles = listaDetalle;
-    $PreparacionEmbarque.PreparacionEmbarque.create(Captura[0], {
-        token: Cookies.get("token"), lenguaje: $("#language").val(), EmbarqueID: embarqueID,
-        NombreEmbarque: nombreEmbarque, TractoID: tractoID, ChoferID: choferID, FechaCreacion: fechaCreacion
-    }).done(function (data) {
-        if (Error(data)) {
+    if (cont > 0) {
+        $PreparacionEmbarque.PreparacionEmbarque.create(Captura[0], {
+            token: Cookies.get("token"), lenguaje: $("#language").val(), EmbarqueID: embarqueID,
+            NombreEmbarque: nombreEmbarque, TractoID: tractoID, ChoferID: choferID, FechaCreacion: fechaCreacion
+        }).done(function (data) {
             if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
                 if (tipoGuardado != "1") {
                     Limpiar();
@@ -362,6 +367,7 @@ function AjaxGuardarCaptura(ds, tipoGuardado, proveedorID) {
                     $("#grid").data("kendoGrid").dataSource.data([]);
 
                     AjaxObtenerEmbarque(proveedorID, nombreEmbarque);
+                    AjaxObtenerPlanas($("#Proyecto").data("kendoComboBox").value());
                 }
                 displayNotify("MensajeGuardadoExistoso", "", '0');
             } else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "existe") {
@@ -371,20 +377,23 @@ function AjaxGuardarCaptura(ds, tipoGuardado, proveedorID) {
             else {
                 displayNotify("MensajeGuardadoErroneo", "", '2');
             }
-        }
-    });
+        });
+    } else {
+        loadingStop();
+        displayNotify("EmarquePreparacionMensajeErrorEmbarqueVacio", "", '2');
+    }
+        
+    
 }
 
 function AjaxEliminarEmbarque(embarqueID) {
     $PreparacionEmbarque.PreparacionEmbarque.read({ token: Cookies.get("token"), EmbarqueID: embarqueID, Lenguaje: $("#language").val() }).done(function (data) {
-        if (Error(data)) {
-            if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
-                Limpiar();
-                displayNotify("EmbarquePreparacionEmbarqueEliminadoCorrectamente", "", '0');
-            }
-            else {
-                displayNotify("EmbarquePreparacionEmbarqueErrorEliminado", "", '2');
-            }
+        if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
+            Limpiar();
+            displayNotify("EmbarquePreparacionEmbarqueEliminadoCorrectamente", "", '0');
+        }
+        else {
+            displayNotify("EmbarquePreparacionEmbarqueErrorEliminado", "", '2');
         }
     });
 }

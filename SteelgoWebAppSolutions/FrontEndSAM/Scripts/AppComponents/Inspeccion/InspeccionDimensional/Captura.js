@@ -81,8 +81,14 @@ function CargarGrid() {
         autoBind: true,
         autoSync: true,
         edit: function (e) {
+         
+
             if ($('#Guardar').text() == "Editar" || $('#Guardar').text() == "Edit") {
                 this.closeCell();
+            }
+            else {
+                var inputName = e.container.find('input');
+                inputName.select();
             }
 
         },
@@ -289,6 +295,13 @@ function cancelarCaptura(e) {
             }
             else {
                 dataItem.Accion = 3;
+                for (var i = 0; i < dataItem.ListaJuntasSeleccionadas.length; i++) {
+                    dataItem.ListaJuntasSeleccionadas[i].Accion = dataItem.ListaJuntasSeleccionadas[i].Accion == 2 ? 3 : dataItem.ListaJuntasSeleccionadas[i].Accion;
+                }
+
+                for (var i = 0; i < dataItem.ListaJuntasSeleccionadasInicial.length; i++) {
+                    dataItem.ListaJuntasSeleccionadasInicial[i].Accion = dataItem.ListaJuntasSeleccionadasInicial[i].Accion == 2 ? 3 : dataItem.ListaJuntasSeleccionadasInicial[i].Accion;
+                }
             }
 
             $("#grid").data("kendoGrid").dataSource.sync();

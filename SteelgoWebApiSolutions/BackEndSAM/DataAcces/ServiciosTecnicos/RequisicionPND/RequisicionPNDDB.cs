@@ -91,8 +91,8 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.GenerarRequisicion
                             TipoPruebaID = item.TipoPruebaID.GetValueOrDefault(),
                             Especificacion = item.Especificacion,
                             //Disposicion = item.Disposicion,
-                            //ClasificacionPNDID = item.ClasificacionPNDID,
-                            //OrdenTrabajoID = item.OrdenTrabajoID
+                            ClasificacionPNDID = item.ClasificacionPNDID,
+                            OrdenTrabajoID = item.OrdenTrabajoID
                         });
                     }
 
@@ -126,7 +126,6 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.GenerarRequisicion
                         { "@ProyectoID", ProyectoID.ToString() },
                         { "@TipoPruebaID", TipoPruebaID.ToString() },
                         { "@FechaRequisicion",FechaRequisicion},
-                        //{ "@CodigoAsme", CodigoAsme }, 
                         { "@Observacion", Observacion == null ? "" : Observacion },
                         { "@Lenguaje", lenguaje },
                         { "@UsuarioID", usuario.UsuarioID.ToString() }};
@@ -218,8 +217,15 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.GenerarRequisicion
             {
                 using (SamContext ctx = new SamContext())
                 {
+                    Sam3_ST_Get_JuntaSpool_Result emptyItem = new Sam3_ST_Get_JuntaSpool_Result();
+                    emptyItem.JuntaSpoolID = 0;
+                    emptyItem.Etiqueta = "";
+
                     List<Sam3_ST_Get_JuntaSpool_Result> lista = ctx.Sam3_ST_Get_JuntaSpool( int.Parse(id)).ToList();
-                    return lista.OrderBy(x => int.Parse(x.Etiqueta)).ToList<Sam3_ST_Get_JuntaSpool_Result>();
+                    lista.OrderBy(x => int.Parse(x.Etiqueta)).ToList<Sam3_ST_Get_JuntaSpool_Result>();
+                    lista.Insert(0, emptyItem );
+
+                    return lista;
                 }
             }
             catch (Exception ex)
@@ -267,8 +273,8 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.GenerarRequisicion
                             TipoPruebaID = item.TipoPruebaID.GetValueOrDefault(),
                             Especificacion = item.Especificacion,
                             ClasificacionPNDID = item.ClasificacionPNDID,
-                            OrdenTrabajoID = item.OrdenTrabajoID
-
+                            OrdenTrabajoID = item.OrdenTrabajoID,
+                            ClasificacionManual = 1
                         });
                     }
                     return listaElementos;

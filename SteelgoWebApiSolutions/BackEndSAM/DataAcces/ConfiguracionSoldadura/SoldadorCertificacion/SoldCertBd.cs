@@ -51,7 +51,7 @@ namespace BackEndSAM.DataAcces.ConfiguracionSoldadura.SoldCertBd
                                                                           {
                                                                               TipoProcesoSoldaduraID = lTPS.TipoProcesoSoldaduraID.ToString(),
                                                                               TipoProcesoSoldaduraDesc = lTPS.TipoProcesoSoldaduraDesc
-                                                                          }).AsParallel().ToList().OrderBy(x => x.TipoProcesoSoldaduraDesc).ToList<TipoProcesosSoldadura>();
+                                                                          }).AsParallel().ToList().Where(y => y.TipoProcesoSoldaduraDesc != "Ambos" && y.TipoProcesoSoldaduraDesc != "Both").OrderBy(x => x.TipoProcesoSoldaduraDesc).ToList<TipoProcesosSoldadura>();
                 listaTipoProcesosSoldadura.Insert(0, new TipoProcesosSoldadura());
                 List<TipoPrueba> listaTipoPrueba = (from lTPS in ctx.Sam3_Soldadura_Get_TipoPrueba()
                                                     

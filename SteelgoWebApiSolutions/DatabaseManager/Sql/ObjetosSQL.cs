@@ -423,7 +423,7 @@ namespace DatabaseManager.Sam3
             }
         }
 
-        public int Ejecuta(string Stord, DataTable TablaSube1, String NombreTabla1, DataTable TablaSube2, String NombreTabla2, DataTable TablaSube3, String NombreTabla3, DataTable TablaSube4, String NombreTabla4, DataTable TablaSube5, String NombreTabla5, string[,] Parametros = null)
+        public int Ejecuta(string Stord, DataTable TablaSube1, String NombreTabla1, DataTable TablaSube2, String NombreTabla2, DataTable TablaSube3, String NombreTabla3, DataTable TablaSube4, String NombreTabla4, DataTable TablaSube6, String NombreTabla6, DataTable TablaSube5, String NombreTabla5, string[,] Parametros = null)
         {
 
             DataTable dt = new DataTable();
@@ -437,6 +437,7 @@ namespace DatabaseManager.Sam3
                 cmd.Parameters.Add(new SqlParameter(NombreTabla2, TablaSube2));
                 cmd.Parameters.Add(new SqlParameter(NombreTabla3, TablaSube3));
                 cmd.Parameters.Add(new SqlParameter(NombreTabla4, TablaSube4));
+                cmd.Parameters.Add(new SqlParameter(NombreTabla6, TablaSube6));
                 cmd.Parameters.Add(new SqlParameter(NombreTabla5, TablaSube5));
                 cmd.CommandType = CommandType.StoredProcedure;
                 try

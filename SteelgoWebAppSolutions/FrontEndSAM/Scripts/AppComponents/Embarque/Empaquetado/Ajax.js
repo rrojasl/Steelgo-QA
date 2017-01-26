@@ -69,7 +69,10 @@ function AjaxCargarPaquetes(proyectoID, paqueteID) {
 
             $("#InputPaquete").data("kendoComboBox").value(paqueteID);
             $("#InputPaquete").data("kendoComboBox").trigger("change");
-        }
+       }
+
+       if (guardado)
+           AjaxCargarDetalleEmpaquetado(paqueteID, 1);
         loadingStop();
     });
 }
@@ -200,8 +203,9 @@ function AjaxObtenerDetalleSpool(tipoConsulta, spoolID, codigo) {
                     if (data[i].ProyectoID === ProyectoID) {
                         if (data[i].CargaPlana === 0) {
                             if (data[i].Empaquetado === 0) {
-                                data[i].Consecutivo = $("#grid").data("kendoGrid").dataSource._data.length + 1;
-                                ds.add(data[i]);
+                                //data[i].Consecutivo = $("#grid").data("kendoGrid").dataSource._data.length + 1;
+                                ds.insert(0, data[i]);
+                                //ds.add(data[i]);
                             } else {
                                 displayNotify("", _dictionary.EmbarqueEmpaquetadoErrorSpoolPaquete[$("#language").data("kendoDropDownList").value()] +
                                     data[i].Paquete, '1');
@@ -218,9 +222,13 @@ function AjaxObtenerDetalleSpool(tipoConsulta, spoolID, codigo) {
                 }
             }
 
-            ImprimirTotalToneladas(ds._data);
-            ImprimirTotalPiezas(ds._data);
         }
+
+        $("#InputID").data("kendoComboBox").value("");
+        $("#inputCodigo").val("");
+        ObtieneConsecutivo();
+        ImprimirTotalToneladas(ds._data);
+        ImprimirTotalPiezas(ds._data);
         loadingStop();
     });
 }
@@ -250,6 +258,7 @@ function AbrirPopUpGuardar(Paquete, TipoGuardado, PatioID) {
         $("#InputFechaPaquete").val(fechaPredeterminada);
 
     }
+    windowSave.title(_dictionary.EmbarqueEmpaquetadoNuevoPaquete[$("#language").data("kendoDropDownList").value()]);
     windowSave.open().center();
 
 }
@@ -268,7 +277,6 @@ function AjaxGuardarCaptura(ds, tipoGuardado, cerrarPaquete, Paquete, Proyecto) 
             }
             Detalle[i].Accion = ds[i].Accion;
             Detalle[i].SpoolID = ds[i].SpoolID;
-            Detalle[i].SpoolID = ds[i].SpoolID;
             Detalle[i].CuadranteActualSam2ID = ds[i].CuadranteSam2ID;
             Detalle[i].CuadranteActualSam3ID = ds[i].CuadranteSam3ID;
         }
@@ -285,25 +293,22 @@ function AjaxGuardarCaptura(ds, tipoGuardado, cerrarPaquete, Paquete, Proyecto) 
         Cerrado: cerrarPaquete, FechaPaquete: $("#InputFechaPaquete").val(), CuadrantePaqueteSam2ID: Paquete.CuadrantePaqueteSam2ID,
         CuadrantePaqueteSam3ID: Paquete.CuadrantePaqueteSam3ID
     }).done(function (data) {
-        if (Error(data)) {
-            if (data.ReturnMessage.length == 2 && data.ReturnMessage[0] == "Ok") {
-                if (tipoGuardado != "1") {
-                    Limpiar();
-                } else {
-                    var paqueteID = parseInt(data.ReturnMessage[1]);
-                    opcionHabilitarView(true, "FieldSetView");
-                    guardado = true; 
-                    $("#grid").data("kendoGrid").dataSource.data([]);
-                    AjaxCargarPaquetes(Proyecto.ProyectoID, paqueteID);
-                    setTimeout(function () { AjaxCargarDetalleEmpaquetado(paqueteID, 1); }, 800);
-
-                }
-                displayNotify("MensajeGuardadoExistoso", "", '0');
-            } else if (data.ReturnMessage.length == 1 && data.ReturnMessage[0] == "Paquete Existe") {
-                displayNotify("EmbarqueEmpaquetadoErrorPaqueteExiste", "", '2');
+        if (data.ReturnMessage.length == 2 && data.ReturnMessage[0] == "Ok") {
+            if (tipoGuardado != "1") {
+                Limpiar();
             } else {
-                displayNotify("MensajeGuardadoErroneo", "", '2');
+                var paqueteID = parseInt(data.ReturnMessage[1]);
+                opcionHabilitarView(true, "FieldSetView");
+                guardado = true;
+                $("#grid").data("kendoGrid").dataSource.data([]);
+                AjaxCargarPaquetes(Proyecto.ProyectoID, paqueteID);
+
             }
+            displayNotify("MensajeGuardadoExistoso", "", '0');
+        } else if (data.ReturnMessage.length == 1 && data.ReturnMessage[0] == "Paquete Existe") {
+            displayNotify("EmbarqueEmpaquetadoErrorPaqueteExiste", "", '2');
+        } else {
+            displayNotify("MensajeGuardadoErroneo", "", '2');
         }
     });
 }
@@ -324,13 +329,14 @@ function AjaxDescargarSpool(dataItem, Paquete) {
                 dataSource.remove(dataItem);
                 dataSource.sync();
                 elementos = parseInt(data.ReturnMessage[1]);
-                if (elementos == 0 && $("#InputCerrar").is(":checked")) {
+                if (elementos == 0 && Paquete.Cerrado) {
                     if (Paquete.CargaPlana == 1) {
 
                         cuadranteAnteriorDescarga = Paquete.CuadranteUbicacionAnt
 
                         $("#inputZonaPaqueteDescarga").data("kendoComboBox").value(Paquete.ZonaUbicacionAnt);
                         $("#inputZonaPaqueteDescarga").data("kendoComboBox").trigger("change");
+                        windowPackageEmpty.title(_dictionary.EmbarqueEmpaquetadoAdvertenciaPaqueteVacio[$("#language").data("kendoDropDownList").value()]);
                         windowPackageEmpty.open().center();
                     } else
                         AjaxAbrirPaquete(Paquete);
@@ -340,6 +346,8 @@ function AjaxDescargarSpool(dataItem, Paquete) {
             } else {
                 displayNotify("EmbarqueEmpaquetadoMsjDescargaSpoolError", "", "2");
             }
+
+            ObtieneConsecutivo();
             ImprimirTotalToneladas(dataSource._data);
             ImprimirTotalPiezas(dataSource._data);
         } else {
@@ -420,7 +428,7 @@ function AjaxAbrirPaquete(Paquete){
         token: Cookies.get("token"), PaqueteID: Paquete.PaqueteID
     }).done(function (data) {
         $("#InputCerrar")[0].checked = false;
-        AjaxCargarPaquetes(proyectoID, Paquete.PaqueteID);
+        //AjaxCargarPaquetes(proyectoID, Paquete.PaqueteID);
     });
     
     loadingStop();

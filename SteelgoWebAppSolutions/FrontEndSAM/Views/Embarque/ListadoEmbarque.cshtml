@@ -6,10 +6,10 @@
         <a href="@Url.Action("landing", "Home")"><span id="lblInicio"></span></a>
     </li>
     <li>
-        <a href="#"><span id="lblEmbarque">Embarque</span></a>
+        <a href="#"><span id="lblEmbarque"></span></a>
     </li>
     <li class="active">
-        <a href="@Url.Action("ListadoEmbarque", "Embarque")"><span id="lblListadoEmbarque">Listado Embarque</span></a>
+        <a href="@Url.Action("ListadoEmbarque", "Embarque")"><span id="lblListadoEmbarque"></span></a>
     </li>
 }
 <div id="FormVisualDimensional" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -24,25 +24,25 @@
                             <span class="caretWhite"></span>
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a href="#" id="btnGuardar" class="accionGuardar"><span id="botonGuardar2"></span></a></li>
-                            <li><a href="#" id="btnGuardarYNuevo"><span id="botonGuardarYNuevo"></span></a></li>
+                            <li><a href="#/" id="btnGuardar" class="accionGuardar"><span id="botonGuardar2"></span></a></li>
+                            @*<li><a href="#" id="btnGuardarYNuevo" class="accionGuardarNuevo"><span id="botonGuardarYNuevo"></span></a></li>*@
                         </ul>
                     </div>
                     <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar"></span></a>
                 </div>
-                <div id="CargasEmbarqueDivSuperior" class="button-section">
-                    <a id="CargasEmbarqueSuperior" href=@Url.Action("RevisionEmbarque", "Embarque") class="btn btn-primary"><span id="botonEmbarque">Revisión Embarque</span></a>
+                <div id="RevisionEmbarqueDivSup" class="button-section">
+                    <a id="RevisionEmbarqueSup" href=@Url.Action("RevisionEmbarque", "Embarque") class="btn btn-primary"><span id="EmbarqueRevisionSup"></span></a>
                 </div>
                 <div class="button-section actionButtonSection">
                     <div class="dropdown action-group">
-                        <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
+                        <a id="Acciones" data-target="#" href="#/" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
                             <span id="botonAcciones1"></span>
                             <span class="caretBlue"></span>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="Acciones"></ul>
                     </div>
                 </div>
-                <a id="Imprimir" href="#" class="btn btn-fadeBlue actionButtonSection"></a>
+                <a id="Imprimir" href="#/" class="btn btn-fadeBlue actionButtonSection"></a>
             </div>
 
         </div>
@@ -66,34 +66,6 @@
             </div>
         </div>
         <input id="hdAccionFiltrado" type="hidden" />
-        <div id="windowFecha" style="display: none; z-index:inherit;">
-            <div class="form-group col-sm-12 col-md-12 col-lg-11">
-                <div class="row">
-                    <div class="form-group  col-sm-5 col-md-5 col-lg-5">
-                        <label><span id="ListadoEmbarqueFecha"></span></label>
-                        <input id="Fecha" />
-                    </div>
-                    <div class="form-group  col-sm-3 col-md-3 col-lg-3">
-                        <br />
-                        <a class=" btn btn-blue " id="EnviarEmbarque"><span id="botonEnviar"></span></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="windowFolio" style="display: none; z-index:inherit;">
-            <div id="formaObrero" class="col-sm-12 col-md-12 col-lg-11">
-                <div class="row">
-                    <div class="form-group  col-sm-5 col-md-5 col-lg-5">
-                        <label id=""><span>Folio</span></label>
-                        <input id="Folio" class="k-input" />
-                    </div>
-                    <div class="form-group  col-sm-3 col-md-3 col-lg-3">
-                        <a class=" btn btn-blue " href="#" id="GuardarFolio"><span id="botonGuardar4"></span></a>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 @*Menu Inferior*@
 <div class="row">
@@ -101,34 +73,61 @@
         <div class="formNav clearfix">
             <div class="button-section editButtonSection">
                 <div class="btn-group save-group">
-                    <button id="Guardar1" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="botonGuardar3"></span></button>
+                    <button id="Guardar1" onclick="javascript:void(0);" type="button" class="btn btn-yellow accionGuardar"><span id="botonGuardar3"></span></button>
                     <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="caretWhite"></span>
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a href="#" id="btnGuardar1"><span id="botonGuardar4"></span></a></li>
-                        <li><a href="#" id="btnGuardarYNuevo1"><span id="botonGuardarYNuevo1"></span></a></li>
+                        <li><a href="#/" id="btnGuardar1" class="accionGuardar"><span id="botonGuardar4"></span></a></li>
+                        @*<li><a href="#" id="btnGuardarYNuevo1" class="accionGuardarNuevo"><span id="botonGuardarYNuevo1"></span></a></li>*@
                     </ul>
                 </div>
                 <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar1"></span></a>
             </div>
-            <div id="EntregaresultadosDivINF" class="button-section">
-                <a id="EntregaresultadosINF" class="btn btn-primary"><span id="">Revisión embarque</span></a>
+            <div id="RevisionEmbarqueDivInf" class="button-section">
+                <a id="RevisionEmbarqueInf" href=@Url.Action("RevisionEmbarque", "Embarque") class="btn btn-primary"><span id="EmbarqueRevisionInf"></span></a>
             </div>
             <div class="button-section actionButtonSection">
                 <div class="dropdown action-group">
-                    <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
+                    <a id="Acciones" data-target="#" href="#/" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
                         <span id="botonAcciones2"></span>
                         <span class="caretBlue"></span>
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="Acciones"></ul>
                 </div>
             </div>
-            <a id="Imprimir" href="#" class="btn btn-fadeBlue actionButtonSection"></a>
+            <a id="Imprimir" href="#/" class="btn btn-fadeBlue actionButtonSection"></a>
         </div>
     </div>
 </div>
 
+</div>
+
+<div id="windowSend" style="display:none;">
+    <div class="container-fluid">
+        <div class="row content-container">
+            <input type="hidden" id="uidRow" />
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 form">
+                <label id="EmbarqueListadoNumEmbarqueSteelgo"></label>
+                <input id="NumEmb" class="item-select general-input" style="width: 94%;min-height:39px;height:39px" />
+            </div>
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 form">
+                <label id="EmbarqueListadoNumEmbarqueCliente"></label>
+                <input id="NumEmbCliente" class="item-select general-input" style="width: 94%;min-height:39px;height:39px" />
+            </div>
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 form">
+                <label id="EmbarqueListadoFechaEnvio"></label>
+                <input id="Fecha" />
+            </div>
+        </div>
+        <div class="form-group row"></div>
+        <div class="row content-container">
+            <center>
+                <a class="btn btn-primary" id="btnEnviarEmbarque" href="#/"><span id="botonEnviar"></span></a>
+                <a class="btn btn-primary" id="btnCerrarPopUp" href="#/"><span id="botonCerrar"></span></a>
+            </center>                
+        </div>
+    </div>
 </div>
 <script type="text/javascript" src="~/Scripts/AppComponents/Embarque/ListadoEmbarque/Ajax.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/Embarque/ListadoEmbarque/Handlers.js"></script>
@@ -138,6 +137,6 @@
 
 <script>
     @section JavascriptDocumentReadyFunctions {
-    //$authorizationModel["Listado Embarque"] = $ListadoEmbarqueModel;
+        $authorizationModel["Listado Embarque"] = $ListadoEmbarqueModel;
     }
 </script>

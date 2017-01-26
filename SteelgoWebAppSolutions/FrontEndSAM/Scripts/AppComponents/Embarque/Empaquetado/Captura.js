@@ -13,9 +13,6 @@ function changeLanguageCall() {
         format: _dictionary.FormatoFecha2[$("#language").data("kendoDropDownList").value()]
     });
 
-    SuscribirEventoWindowsPopup();
-    SuscribirEventoPopupDescaga();
-    SuscribirEventoPopUpPaqueteVacio();
     opcionHabilitarView(false, "FieldSetView");
 };
 
@@ -70,12 +67,12 @@ function CargarGrid() {
         },
         filterable: getGridFilterableMaftec(),
         columns: [
-            { field: "Consecutivo", title: _dictionary.columnConsecutivoEmbarque[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), attributes: { style: "text-align:right;" } },
+            { field: "Consecutivo", title: _dictionary.columnConsecutivoEmbarque[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), attributes: { style: "text-align:right;" } },
             { field: "NumeroControl", title: _dictionary.columnSpool[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec() },
             { field: "Cuadrante", title: _dictionary.columnCuadrante[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec() },
             { field: "Area", title: _dictionary.columnM2[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), aggregates: ["sum"], footerTemplate: "<div style='text-align:right;'>SUM: #= kendo.toString(sum, 'n3') #</div>", attributes: { style: "text-align:right;" } },
             { field: "Peso", title: _dictionary.columnPeso[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), aggregates: ["sum"], footerTemplate: "<div style='text-align:right;'>SUM: #= kendo.toString(sum, 'n3') #</div>", attributes: { style: "text-align:right;" } },
-            { command: { text: _dictionary.botonDescarga[$("#language").data("kendoDropDownList").value()], click: descargaSpool }, title: _dictionary.columnDescargar[$("#language").data("kendoDropDownList").value()], width: "70px" }
+            { command: { text: _dictionary.botonDescarga[$("#language").data("kendoDropDownList").value()], click: descargaSpool }, title: _dictionary.columnDescargar[$("#language").data("kendoDropDownList").value()], width: "70px", attributes: { style: "text-align:center;" } }
         ],
         dataBound: function (e) {
             var ds = $("#grid").data("kendoGrid");
@@ -107,6 +104,7 @@ function descargaSpool(e) {
             CuadranteAnterior = dataItem.CuadranteAnteriorSam3ID;
             $("#InputUidRow").val(dataItem.uid);
 
+            windowDownload.title(_dictionary.EmbarqueCargaTituloPopupCuadrante[$("#language").data("kendoDropDownList").value()]);
             windowDownload.open().center();
         }
 }
@@ -172,4 +170,17 @@ function ImprimirTotalPiezas(ds) {
     } else {
         $("#TotalPiezas").text("");
     }
+}
+
+function ObtieneConsecutivo() {
+    var ds = $("#grid").data("kendoGrid").dataSource;
+    var cont = 1;
+    if (ds._data.length > 0) {
+        for (var i = 0; i < ds._data.length; i++) {
+            ds._data[i].Consecutivo = cont;
+            cont++;
+        }
+    }
+
+    ds.sync();
 }

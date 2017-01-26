@@ -22,10 +22,11 @@ function CargarGrid() {
                 var myElem = document.getElementById('trParentHeader');
                 if (myElem == null) {
                     $("#grid").find("th.k-header").parent().before("<tr id='trParentHeader'> " +
-                        "<th scope='col' colspan='4' class='k-header'></th><th width='auto'  colspan='3' class='k-header' style='text-align: center;'><span id=''>" + _dictionary.lblShotblast[$("#language").data("kendoDropDownList").value()] + "</span></th>" +
-                        "<th width='auto'  colspan='3' class='k-header' style='text-align: center;'><span>" + _dictionary.lblPrimario[$("#language").data("kendoDropDownList").value()] + "</span></th>" +
-                        "<th width='auto'  colspan='3' class='k-header' style='text-align: center;'><span id=''>" + _dictionary.lblIntermedio[$("#language").data("kendoDropDownList").value()] + "</span></th>" +
-                        "<th width='auto'  colspan='3' class='k-header' style='text-align: center;'><span id=''>" + _dictionary.lblAcabado[$("#language").data("kendoDropDownList").value()] + "</span></th>" +
+                        "<th scope='col' colspan='4' class='k-header'>"+
+                        "</th><th width='auto'  colspan='6' class='k-header' style='text-align: center;'><span id=''>" + _dictionary.lblShotblast[$("#language").data("kendoDropDownList").value()] + "</span></th>" +
+                        "<th width='auto'  colspan='6' class='k-header' style='text-align: center;'><span>" + _dictionary.lblPrimario[$("#language").data("kendoDropDownList").value()] + "</span></th>" +
+                        "<th width='auto'  colspan='6' class='k-header' style='text-align: center;'><span id=''>" + _dictionary.lblIntermedio[$("#language").data("kendoDropDownList").value()] + "</span></th>" +
+                        "<th width='auto'  colspan='6' class='k-header' style='text-align: center;'><span id=''>" + _dictionary.lblAcabado[$("#language").data("kendoDropDownList").value()] + "</span></th>" +
                         "<th width='auto'  colspan='1' class='k-header' style='text-align: center;'><span id=''></span></th>" +
                         "</tr>");
                 }
@@ -42,18 +43,38 @@ function CargarGrid() {
                         ProyectoID: { type: "number", editable: false },
                         Proyecto: { type: "string", editable: false },
                         Color: { type: "string", editable: false },
+
                         PruebaPorLoteShotblast: { type: "number", editable: false },
                         MetrosPorLoteShotblast: { type: "number", editable: false },
                         PruebaShotblast: { type: "string", editable: false },
+
+                        NumeroComponentesShootblast: { type: "number", editable: false },
+                        TemplateComponentesShotBlast: { type: "string", editable: false },
+                        TemplateReductoresShotblast: { type: "string", editable: false },
+
                         PruebaPorLotePrimario: { type: "number", editable: false },
                         MetrosPorLotePrimario: { type: "number", editable: false },
                         PruebaPrimario: { type: "string", editable: false },
+
+                        NumeroComponentesPrimario: { type: "number", editable: false },
+                        TemplateComponentesPrimario: { type: "string", editable: false },
+                        TemplateReductoresPrimario: { type: "string", editable: false },
+
                         PruebaPorLoteIntermedio: { type: "number", editable: false },
                         MetrosPorLoteIntermedio: { type: "number", editable: false },
                         PruebaIntermedio: { type: "string", editable: false },
+
+                        NumeroComponentesIntermedio: { type: "number", editable: false },
+                        TemplateComponentesIntermedio: { type: "string", editable: false },
+                        TemplateReductoresIntermedio: { type: "string", editable: false },
+
                         PruebaPorLoteAcabado: { type: "number", editable: false },
                         MetrosPorLoteAcabado: { type: "number", editable: false },
                         PruebaAcabado: { type: "string", editable: false },
+                        
+                        NumeroComponentesAcabado: { type: "number", editable: false },
+                        TemplateComponentesAcabado: { type: "string", editable: false },
+                        TemplateReductoresAcabado: { type: "string", editable: false }
                     }
                 }
             },
@@ -83,22 +104,44 @@ function CargarGrid() {
         },
         filterable: getGridFilterableMaftec(),
         columns: [
-            { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: eliminarCaptura }, title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], width: "50px" },
+            {
+                command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: eliminarCaptura }, title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], width: "50px",
+                attributes: { style: "text-align:center;" },
+            },
             { field: "SistemaPintura", title: _dictionary.columnSistemaPintura[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "135px", template: "<div style='text-align:left;'><a href='/Pintura/SistemaPintura?SistemaPinturaID= #=SistemaPinturaID#'> <span>#=SistemaPintura#</span></a></div> " },
             { field: "Proyecto", title: _dictionary.columnProyecto[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "135px" },
             { field: "Color", title: _dictionary.columnColor[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "160px" },
             { field: "PruebaShotblast", title: _dictionary.columnPrueba[$("#language").data("kendoDropDownList").value()], filterable: false, width: "120px", template: "<div class='DetalleShotblast' style='text-align:left;'><a href='\\#'  > <span >#=PruebaShotblast#</span></a></div> "},
             { field: "PruebaPorLoteShotblast", title: _dictionary.columnPruebasPorLote[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "130px", attributes: { style: "text-align:right;" }, template: "<span >#=PruebaPorLoteShotblast!=0?PruebaPorLoteShotblast:'N/A' #</span></a></div>" },
             { field: "MetrosPorLoteShotblast", title: _dictionary.columnMetrosPorLote[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), format: "{0:n2}", width: "120px", attributes: { style: "text-align:right;" }, template: "<span >#=MetrosPorLoteShotblast!=0?MetrosPorLoteShotblast:'N/A' #</span></a></div>" },
+
+            { field: "NumeroComponentesShootblast", title: _dictionary.columnNumeroComponentes[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "150px" , attributes: { style: "text-align:right;" } },
+            { field: "TemplateComponentesShotBlast", title: _dictionary.columnTemplateComponentes[$("#language").data("kendoDropDownList").value()], filterable: false, width: "130px", attributes: { style: "text-align:center;" } },
+            { field: "TemplateReductoresShotblast", title: _dictionary.columnTemplateReductores[$("#language").data("kendoDropDownList").value()], filterable: false, width: "120px", attributes: { style: "text-align:center;" } },
+
             { field: "PruebaPrimario", title: _dictionary.columnPrueba1[$("#language").data("kendoDropDownList").value()], filterable: false, width: "120px", template: "<div class='DetallePrimario' style='text-align:left;'><a href='\\#'  > <span>#=PruebaPrimario#</span></a></div> " },
             { field: "PruebaPorLotePrimario", title: _dictionary.columnPruebasPorLote1[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "130px", attributes: { style: "text-align:right;" }, template: "<span >#=PruebaPorLotePrimario!=0?PruebaPorLotePrimario:'N/A' #</span></a></div>" },
             { field: "MetrosPorLotePrimario", title: _dictionary.columnMetrosPorLote1[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), format: "{0:n2}", width: "120px", attributes: { style: "text-align:right;" }, template: "<span >#=MetrosPorLotePrimario!=0?MetrosPorLotePrimario:'N/A' #</span></a></div>" },
-            { field: "PruebaIntermedio", title: _dictionary.columnPrueba2[$("#language").data("kendoDropDownList").value()], filterable: false, width: "120px", template: "<div class='DetalleItermedio' style='text-align:left;'><a href='\\#'  > <span>#=PruebaIntermedio#</span></a></div> "},
+
+            { field: "NumeroComponentesPrimario", title: _dictionary.columnNumeroComponentes[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "120px", attributes: { style: "text-align:right;" } },
+            { field: "TemplateComponentesPrimario", title: _dictionary.columnTemplateComponentes[$("#language").data("kendoDropDownList").value()], filterable: false, width: "130px", attributes: { style: "text-align:center;" } },
+            { field: "TemplateReductoresPrimario", title: _dictionary.columnTemplateReductores[$("#language").data("kendoDropDownList").value()], filterable: false, width: "120px", attributes: { style: "text-align:center;" } },
+
+            { field: "PruebaIntermedio", title: _dictionary.columnPrueba2[$("#language").data("kendoDropDownList").value()], filterable: false, width: "120px", template: "<div class='DetalleItermedio' style='text-align:left;'><a href='\\#'  > <span>#=PruebaIntermedio#</span></a></div> " },
             { field: "PruebaPorLoteIntermedio", title: _dictionary.columnPruebasPorLote2[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "130px", attributes: { style: "text-align:right;" }, template: "<span >#=PruebaPorLoteIntermedio!=0?PruebaPorLoteIntermedio:'N/A' #</span></a></div>" },
             { field: "MetrosPorLoteIntermedio", title: _dictionary.columnMetrosPorLote2[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), format: "{0:n2}", width: "120px", attributes: { style: "text-align:right;" }, template: "<span >#=MetrosPorLoteIntermedio!=0?MetrosPorLoteIntermedio:'N/A' #</span></a></div>" },
+
+            { field: "NumeroComponentesIntermedio", title: _dictionary.columnNumeroComponentes[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "120px", attributes: { style: "text-align:right;" } },
+            { field: "TemplateComponentesIntermedio", title: _dictionary.columnTemplateComponentes[$("#language").data("kendoDropDownList").value()], filterable: false, width: "130px", attributes: { style: "text-align:center;" } },
+            { field: "TemplateReductoresIntermedio", title: _dictionary.columnTemplateReductores[$("#language").data("kendoDropDownList").value()], filterable: false, width: "120px", attributes: { style: "text-align:center;" } },
+
             { field: "PruebaAcabado", title: _dictionary.columnPrueba3[$("#language").data("kendoDropDownList").value()], filterable: false, width: "120px", template: "<div class='DetalleAcabado' style='text-align:left;'><a href='\\#'  > <span>#=PruebaAcabado#</span></a></div> " },
             { field: "PruebaPorLoteAcabado", title: _dictionary.columnPruebasPorLote3[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "130px", attributes: { style: "text-align:right;" }, template: "<span >#=PruebaPorLoteAcabado!=0?PruebaPorLoteAcabado:'N/A' #</span></a></div>" },
             { field: "MetrosPorLoteAcabado", title: _dictionary.columnMetrosPorLote3[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), format: "{0:n2}", width: "120px", attributes: { style: "text-align:right;" }, template: "<span >#=MetrosPorLoteAcabado!=0?MetrosPorLoteAcabado:'N/A' #</span></a></div>" },
+
+            { field: "NumeroComponentesAcabado", title: _dictionary.columnNumeroComponentes[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "120px", attributes: { style: "text-align:right;" } },
+            { field: "TemplateComponentesAcabado", title: _dictionary.columnTemplateComponentes[$("#language").data("kendoDropDownList").value()], filterable: false, width: "130px", attributes: { style: "text-align:center;" } },
+            { field: "TemplateReductoresAcabado", title: _dictionary.columnTemplateReductores[$("#language").data("kendoDropDownList").value()], filterable: false, width: "120px", attributes: { style: "text-align:center;" } },
         ],
         editable: true,
         navigatable: true

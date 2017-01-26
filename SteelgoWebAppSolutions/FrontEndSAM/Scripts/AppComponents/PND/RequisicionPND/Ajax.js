@@ -60,7 +60,7 @@ function AjaxGetListaTiposDePrueba() {
 }
 
 function AjaxGetListaRequisiciones(proyectoID, tipoPruebaID) {
-    $ServiciosTecnicosGeneral.ServiciosTecnicosGeneral.read({ token: Cookies.get("token"), ProyectoID: proyectoID, TipoPruebaID: tipoPruebaID, estatusID: 1 }).done(function (data) {
+    $ServiciosTecnicosGeneral.ServiciosTecnicosGeneral.read({ token: Cookies.get("token"), ProyectoID: proyectoID, TipoPruebaID: tipoPruebaID, estatusID: 1, lenguaje: $("#language").val() }).done(function (data) {
         $("#listaRequisiciones").data("kendoComboBox").dataSource.data(data);
 
         if ($("#listaRequisiciones").data("kendoComboBox").dataSource._data.length == 2) {
@@ -117,21 +117,21 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                 RequisicionID: 0,
                 ElementoPorClasificacionPNDID: 0,
                 Accion: 0,
-                Disposicion: 0,
                 ClasificacionPNDID: 0,
                 OrdenTrabajoID: 0,
                 SpoolID : 0,
-                JuntaSpool : 0
+                JuntaSpoolID: 0,
+                ClasificacionManual: 0
             };
 
             ListaCaptura[cont].RequisicionID = $("#listaRequisiciones").data("kendoComboBox").value() == "" ? 0 : $("#listaRequisiciones").data("kendoComboBox").value();
             ListaCaptura[cont].ElementoPorClasificacionPNDID = arregloCaptura[index].ElementoPorClasificacionPNDID;
             ListaCaptura[cont].Accion = arregloCaptura[index].RequisicionID > 0 ? 2 : 1;
-            ListaCaptura[cont].Disposicion = arregloCaptura[index].Disposicion;
             ListaCaptura[cont].OrdenTrabajoID = arregloCaptura[index].OrdenTrabajoID;
             ListaCaptura[cont].ClasificacionPNDID = arregloCaptura[index].ClasificacionPNDID;
             ListaCaptura[cont].SpoolID = arregloCaptura[index].SpoolID;
-            ListaCaptura[cont].JuntaSpool = arregloCaptura[index].JuntaSpool;
+            ListaCaptura[cont].JuntaSpoolID = arregloCaptura[index].JuntaSpoolID;
+            ListaCaptura[cont].ClasificacionManual = arregloCaptura[index].ClasificacionManual;
 
             cont++;
         }

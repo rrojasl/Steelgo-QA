@@ -1,76 +1,90 @@
-﻿function SuscribirEventos() {
-    SuscribirEventoTab();
-    suscribirEventoModal();
-    suscribirEventoGuardarFolio();
-    suscribirEventoEnviarEmbarque();
-    SuscribirEventoImprimir();
-}
+﻿var windowSend;
 
-SuscribirEventos();
+function SuscribirEventos() {
+    SuscribirEventoTab();
+    SuscribirEventoEnviarEmbarque();
+    SuscribirEventoImprimir();
+    SuscribirEventoGuardar();
+    SuscribirEventoPopUPEnviarEmbarque();
+}
 
 function SuscribirEventoTab() {
     $("#btnPendientes").click(function (e) {
         $(".btn-tabList").removeClass("active");
         $("#btnPendientes").addClass("active");
-        //AjaxCargarListadoEmbarque('todos', $("#language").val());
+        AjaxObtenerDetalleListadoEmbarque(1);
     });
     $("#btnTransito").click(function (e) {
         $(".btn-tabList").removeClass("active");
         $("#btnTransito").addClass("active");
-        //AjaxCargarListadoEmbarque('Enviados', $("#language").val());
+        AjaxObtenerDetalleListadoEmbarque(2);
     });
 }
 
 
-function suscribirEventoModal() {
+function SuscribirEventoPopUPEnviarEmbarque() {
+    
+    windowSend = $("#windowSend").kendoWindow({
+            modal: true,
+            title: "",
+            resizable: false,
+            visible: false,
+            width: "500px",
+            actions: [ //"Pin", "Minimize", "Maximize", "Close"
+            ],
+    }).data("kendoWindow");
 
-    $(document).on('click', '.botonEnviar', function (e) {
-        var grid = $("#grid").data("kendoGrid"),
-        dataItem = grid.dataItem($(e.target).closest("tr"));
-        if (dataItem.Estatus != "Enviada" && dataItem.Estatus != "sent") {
-            if (dataItem.FolioAprobadoCliente != "") {
-                if (dataItem.FolioSolicitarPermisos != "" || dataItem.RequierePermisoAduana == 0) {
-                    if (dataItem.FolioAprobadoAduana != "" || dataItem.RequierePermisoAduana == 0) {
-                        if (dataItem.RequierePermisoAduana == 0) {
-                            dataItem.FolioSolicitarPermisos = "";
-                            dataItem.FolioAprobadoAduana = "";
-                        }
-                        VentanaModalFecha(dataItem);
-                    }
-                    else {
-                        displayNotify("ListadoEmbarqueMensajeFaltaFolioAduana", "", "1");
-                    }
-                }
-                else {
-                    displayNotify("ListadoEmbarqueMensajeFaltaSolicitudPermisos", "", "1");
-                }
-            }
-            else {
-                displayNotify("ListadoEmbarqueMensajeFaltaFolioCliente", "", "1");
-            }
-        }
-        else {
-            displayNotify("ListadoEmbarqueMensajePlanaEnviada", "", "1");
-        }
+    $("#btnEnviarEmbarque").click(function (e) {
+        var NumEmb = $("#NumEmb").val();
+        var NumEmbCliente = $("#NumEmbCliente").val();
+        var FechaEnvio = $("#Fecha").val();
+        var uid = $("#uidRow").val();
+        var dataItem = $('#grid').data("kendoGrid").dataSource.getByUid(uid);
+        var FolioPermiso = dataItem.RequierePermisoAduana ? dataItem.FolioSolicitudPermiso != "" && dataItem.FolioSolicitudPermiso != null ? true : false : true;
+        var FechaPermiso = dataItem.RequierePermisoAduana ? dataItem.FechaSolicitudPermiso != "" && dataItem.FechaSolicitudPermiso != null ? true : false : true;
 
+        if (NumEmb != "") {
+            if (NumEmbCliente != "") {
+                if (FechaEnvio != "") {
+                    if (dataItem.DestinoID != 0) {
+                        if (FolioPermiso) {
+                            if (FechaPermiso) {
+                                windowSend.close();
+                                AjaxEnviarEmbarque(dataItem, NumEmb, NumEmbCliente, FechaEnvio);
+                            } else
+                                displayNotify("EmbarqueListadoMsjErrorEnviarFechaPermisoNoCapturado", "", "2");
+                        } else
+                            displayNotify("EmbarqueListadoMsjErrorEnviarSolicitudPermisoNoCapturado", "", "2");
+                    } else
+                        displayNotify("EmbarqueListadoMsjErrorEnviarDestinoNoCapturado", "", "2");
+                } else
+                    displayNotify("EmbarqueListadoMsjErrorFechaEnvio", "", "2");
+            } else
+                displayNotify("EmbarqueListadoMsjErrorNumEmbarqueCliente", "", "2");
+        } else {
+            displayNotify("EmbarqueListadoMsjErrorNumEmbarqueSteelgo", "", "2");
+        }
     });
 
-    $(document).on('click', '.botonFolio', function (e) {
-        var grid = $("#grid").data("kendoGrid"),
-        dataItem = grid.dataItem($(e.target).closest("tr"));
-        var columnIndex = $(e.target).closest("tr")[0].cells.grid_active_cell.cellIndex;
-        if (columnIndex == 5) {
-            $("#Folio").val(dataItem.FolioSolicitarPermisos);
-        }
-        else if (columnIndex == 6) {
-            $("#Folio").val(dataItem.FolioAprobadoAduana);
-        }
-        else if (columnIndex == 7) {
-            $("#Folio").val(dataItem.FolioAprobadoCliente);
-        }
-        VentanaModalFolio(dataItem, columnIndex);
-    });
+    $("#btnCerrarPopUp").click(function (e) {
+        var fecha = kendo.toString(new Date(), String(_dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()].replace('{', '').replace('}', '').replace("0:", ""))).trim();        
+        $("#NumEmb").val("");
+        $("#NumEmbCliente").val("");
+        $("#Fecha").val(fecha);
+        windowSend.close();
+    })
+}
 
+function SuscribirEventoEnviarEmbarque() {
+    $(document).on('click', '.enviarEmbarque', function (e) {
+        if ($('#Guardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
+            var grid = $("#grid").data("kendoGrid");
+            var dataItem = grid.dataItem($(e.target).closest("tr"));
+            $("#uidRow").val(dataItem.uid);
+            windowSend.title(_dictionary.EmbarqueListadoTitlePopUpEnviar[$("#language").data("kendoDropDownList").value()]);
+            windowSend.center().open();
+        }
+    });
 }
 
 function SuscribirEventoImprimir() {
@@ -83,42 +97,6 @@ function SuscribirEventoImprimir() {
     });
 }
 
-
-
-function suscribirEventoGuardarFolio() {
-    $("#GuardarFolio").click(function () {
-        if ($("#Folio").val() != "") {
-            if (IndiceRenglon == 5) {
-                ObjetoRenglon.FolioSolicitarPermisos = $("#Folio").val();
-            }
-            else if (IndiceRenglon == 6) {
-                ObjetoRenglon.FolioAprobadoAduana = $("#Folio").val();
-            }
-            else if (IndiceRenglon == 7) {
-                ObjetoRenglon.FolioAprobadoCliente = $("#Folio").val();
-            }
-        }
-        $("#windowFolio").data("kendoWindow").close();
-    });
-}
-
-
-function suscribirEventoEnviarEmbarque() {
-    $("#EnviarEmbarque").click(function () {
-        if (isDate($("#Fecha").val())) {
-            if ($("#Fecha").val() != "") {
-                ObjetoRenglon.FechaEnvio = $("#Fecha").val();
-                AjaxGuardarPlanas(ObjetoRenglon);
-            }
-            $("#windowFecha").data("kendoWindow").close();
-        }
-        else {
-            displayNotify("", "", "1");
-        }
-    });
-}
-
-
 function isDate(string) { //string estará en formato dd/mm/yyyy (dí­as < 32 y meses < 13)
     var expReg;
     if ($("#language").val() == "es-MX") {
@@ -130,4 +108,41 @@ function isDate(string) { //string estará en formato dd/mm/yyyy (dí­as < 32 y
 
     var res = expReg.test(string);
     return res;
+}
+
+function SuscribirEventoGuardar() {
+    $(".accionGuardar").click(function () {
+        var ds = $("#grid").data("kendoGrid").dataSource;
+        if ($("#btnPendientes").hasClass("active")) {
+            if ($('#Guardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
+                if (ds._data.length > 0) {
+                    AjaxGuardarCaptura(ds._data, 1);
+                } else {
+                    displayNotify("MensajeAdverteciaExcepcionGuardado", "", '2');
+                }
+            } else if ($('#Guardar').text() == _dictionary.botonEditar[$("#language").data("kendoDropDownList").value()])
+                opcionHabilitarView(false, "");
+        }
+           
+    });
+}
+
+function opcionHabilitarView(valor, name) {
+    if (valor){
+        $('#FieldSetView').find('*').attr('disabled', true);
+
+        $("#Guardar").text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
+        $("#btnGuardar").text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
+        $("#Guardar1").text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
+        $('#btnGuardar1').text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
+    }
+    else {
+        $('#FieldSetView').find('*').attr('disabled', false);
+        $("#Guardar").text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);
+        $("#btnGuardar").text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);
+        $("#Guardar1").text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);
+        $('#btnGuardar1').text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);
+        $("#grid").data("kendoGrid").dataSource.sync();
+    }
+        
 }

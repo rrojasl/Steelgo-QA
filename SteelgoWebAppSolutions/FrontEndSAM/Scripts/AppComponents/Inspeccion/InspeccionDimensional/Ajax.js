@@ -364,7 +364,7 @@ function AjaxGuardar(jSonCaptura, tipoGuardado) {
     }
     Captura[0].Detalles = inspeccionDimensional;
 
-    if (!ExistRowEmpty(inspeccionDimensional)) {
+    if (!ExistRowEmptyAble(inspeccionDimensional)) {
         if (Captura[0].Detalles.length > 0) {
             $InspeccionDimensional.InspeccionDimensional.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
                 if (Error(data)) {
@@ -401,6 +401,8 @@ function AjaxGuardar(jSonCaptura, tipoGuardado) {
             width: "auto",
             height: "auto",
             modal: true,
+            actions: [
+            ],
             animation: {
                 close: false,
                 open: false
@@ -408,7 +410,7 @@ function AjaxGuardar(jSonCaptura, tipoGuardado) {
         }).data("kendoWindow");
 
         ventanaConfirm.content(_dictionary.MensajeConfirmacionGuardadoGeneral[$("#language").data("kendoDropDownList").value()] +
-            "</br><center><button class='btn btn-blue' id='yesButton'>Si</button><button class='btn btn-blue' id='noButton'> No</button></center>");
+            "</br><center><button class='btn btn-blue' id='yesButton'>" + _dictionary.lblSi[$("#language").data("kendoDropDownList").value()] + "</button><button class='btn btn-blue' id='noButton'>" + _dictionary.lblNo[$("#language").data("kendoDropDownList").value()] + "</button></center>");
 
         ventanaConfirm.open().center();
 

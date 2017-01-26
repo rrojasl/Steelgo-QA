@@ -90,7 +90,7 @@ function CargarGridEscritorio(){
         },
         filterable: getGridFilterableMaftec(),
         columns: [
-            { field: "Prioridad", title: _dictionary.columnPrioridad[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "88px", attributes: { style: "text-align:right;" } },
+            { field: "Prioridad", title: _dictionary.columnPrioridad[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "88px", attributes: { style: "text-align:right;" } },
             { field: "NumeroControl", title: _dictionary.columnNumeroControl[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "110px" },
             { field: "SistemaPintura", title: _dictionary.columnSistemaPintura[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "135px" },
             { field: "ColorPintura", title: _dictionary.columnColor[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "110px" },
@@ -266,6 +266,7 @@ function eliminarCapturaEscritorio(e) {
     if ($('#Guardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()] && !$("#chkCerrarEscritorio")[0].disabled) {
         var filterValue = $(e.currentTarget).val();
         var dataItem = $("#grid[name='grid-Escritorio']").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+        AjaxCargarZona($("#inputProyecto").data("kendoComboBox").dataItem($("#inputProyecto").data("kendoComboBox").select()).PatioID);
         if (dataItem.Accion != 1 && $("#inputCarroEscritorio").data("kendoComboBox").value() != "0" && $("#inputCarroEscritorio").data("kendoComboBox").value() != "") {
             windowDownload = $("#windowDownload").kendoWindow({
                 iframe: true,
@@ -413,8 +414,8 @@ function ImprimirAreaTonelada() {
 
         totalToneladasCargadas = totalToneladasCargadas / 1000;
 
-        $("#labelM2P").css('text-align', 'right');
-        $("#labelToneladasP").css('text-align', 'right');
+        $("#labelM2P").css('text-align', 'left');
+        $("#labelToneladasP").css('text-align', 'left');
 
         $("#labelM2P").text(totalAreaCargada != 0 ? totalAreaCargada.toFixed(2) : "");
         $("#labelToneladasP").text(totalToneladasCargadas != 0 ? totalToneladasCargadas.toFixed(2) : "");
@@ -446,8 +447,8 @@ function ImprimirAreaToneladaBackLog() {
         }
         totalToneladasCargadas = totalToneladasCargadas / 1000;
 
-        $("#labelM2E").css('text-align', 'right');
-        $("#labelToneladasE").css('text-align', 'right');
+        $("#labelM2E").css('text-align', 'left');
+        $("#labelToneladasE").css('text-align', 'left');
 
         $("#labelM2E").text(totalAreaCargada != 0 ? totalAreaCargada.toFixed(2) : "");
         $("#labelToneladasE").text(totalToneladasCargadas != 0 ? totalToneladasCargadas.toFixed(2) : "");
