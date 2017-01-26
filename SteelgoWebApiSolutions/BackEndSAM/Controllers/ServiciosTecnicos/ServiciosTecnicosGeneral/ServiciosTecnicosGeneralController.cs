@@ -47,7 +47,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.ServiciosTecnicosGeneral
             }
         }
 
-        public object Get(string token, int ProyectoID, int TipoPruebaID, int estatusID)
+        public object Get(string token, int ProyectoID, int TipoPruebaID, int estatusID, string lenguaje)
         {
             try
             {
@@ -59,7 +59,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.ServiciosTecnicosGeneral
                     JavaScriptSerializer serializer = new JavaScriptSerializer();
                     Sam3_Usuario Usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                    return ServiciosTecnicosGeneralBD.Instance.ObtenerListadoRequisiciones(Usuario, ProyectoID, TipoPruebaID, estatusID);
+                    return ServiciosTecnicosGeneralBD.Instance.ObtenerListadoRequisiciones(Usuario, ProyectoID, TipoPruebaID, estatusID, lenguaje);
                 }
                 else
                 {

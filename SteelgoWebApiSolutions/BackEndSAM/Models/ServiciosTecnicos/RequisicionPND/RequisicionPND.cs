@@ -4,7 +4,8 @@ namespace BackEndSAM.Models.ServiciosTecnicos.RequisicionPND
 {
     public class ElementosPorClasificacion
     {
-        public ElementosPorClasificacion() {
+        public ElementosPorClasificacion()
+        {
             NumeroControl = "";
             EtiquetaJunta = "";
             TipoJunta = "";
@@ -22,9 +23,11 @@ namespace BackEndSAM.Models.ServiciosTecnicos.RequisicionPND
             SpoolID = 0;
             JuntaSpoolID = 0;
             OrdenTrabajoSpoolID = 0;
+            OrdenTrabajoID = 0;
             TipoPruebaID = 0;
             Especificacion = "";
             Agregar = false;
+            ClasificacionManual = 0;
         }
 
         public string NumeroControl { get; set; }
@@ -50,6 +53,7 @@ namespace BackEndSAM.Models.ServiciosTecnicos.RequisicionPND
         public bool? Agregar { get; set; }
         public int? OrdenTrabajoID { get; set; }
         public int? ClasificacionPNDID { get; set; }
+        public int? ClasificacionManual { get; set; }
     }
 
     public class Captura
@@ -83,9 +87,10 @@ namespace BackEndSAM.Models.ServiciosTecnicos.RequisicionPND
             RequisicionID = 0;
             ElementoPorClasificacionPNDID = 0;
             OrdenTrabajoID = 0;
-            ClasificacionPNDID=0;
+            ClasificacionPNDID = 0;
             SpoolID = 0;
-            JuntaSpool = 0;
+            JuntaSpoolID = 0;
+            ClasificacionManual = 0;
         }
         public int RequisicionID { get; set; }
         public int ElementoPorClasificacionPNDID { get; set; }
@@ -93,7 +98,8 @@ namespace BackEndSAM.Models.ServiciosTecnicos.RequisicionPND
         public int OrdenTrabajoID { get; set; }
         public int ClasificacionPNDID { get; set; }
         public int SpoolID { get; set; }
-        public int JuntaSpool { get; set; }
+        public int JuntaSpoolID { get; set; }
+        public int ClasificacionManual { get; set; }
 
     }
 }

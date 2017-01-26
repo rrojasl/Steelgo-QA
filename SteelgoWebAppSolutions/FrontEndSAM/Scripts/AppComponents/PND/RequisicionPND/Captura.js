@@ -91,7 +91,9 @@ function CargarGrid() {
                         OrdenTrabajoSpoolID: { type: "int", editable: false },
                         TipoPruebaID: { type: "int", editable: false },
                         Especificacion: { type: "string", editable: false },
-                        Agregar: { type: "boolean", editable: false }
+                        Agregar: { type: "boolean", editable: false },
+                        ConfiguracionManual: { type: "int", editable: false },
+                        OrdenTrabajoID: { type: "int", editable: false }
                     }
                 }
             },
