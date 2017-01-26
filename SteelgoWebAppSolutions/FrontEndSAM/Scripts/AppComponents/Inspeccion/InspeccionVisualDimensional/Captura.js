@@ -132,6 +132,10 @@ function CargarGrid() {
             if ($('#Guardar').text() == "Editar" || $('#Guardar').text() == "Edit") {
                 this.closeCell();
             }
+            else {
+                var inputName = e.container.find('input');
+                inputName.select();
+            }
         },
         change: function () {
             var dataItem = this.dataSource.view()[this.select().index()];
