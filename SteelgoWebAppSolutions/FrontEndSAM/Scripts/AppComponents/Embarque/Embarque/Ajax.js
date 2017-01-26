@@ -261,7 +261,7 @@ function AjaxAgregaRenglon(cargaPlanaID) {
                                 + data[i].NombreEmbarque, '1');
                         }
                     } else {
-                        displayNotify("EmbarquePreparacionErrorExistePlana", "", '2');
+                        displayNotify("EmbarquePreparacionErrorExistePlana", "", '1');
                     }
                 }
             }
@@ -345,7 +345,7 @@ function AjaxGuardarCaptura(ds, tipoGuardado, proveedorID) {
             listaDetalle[i].EmbarqueID = ds[i].EmbarqueID;
             listaDetalle[i].CargaPlanaID = ds[i].CargaPlanaID;
 
-            if (ds[i].Accion == 2) {
+            if (ds[i].Accion == 2 || ds[i].Accion == 1) {
                 cont++;
             }
         }
