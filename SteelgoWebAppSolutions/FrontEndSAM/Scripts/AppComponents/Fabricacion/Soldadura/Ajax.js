@@ -636,8 +636,8 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                       ListaDetalles[index].ProcesoSoldaduraRaizID == "" || ListaDetalles[index].ProcesoSoldaduraRaizID == 0 ||
                       ListaDetalles[index].ProcesoSoldaduraRellenoID == "" || ListaDetalles[index].ProcesoSoldaduraRellenoID == 0 ||
                       ListaDetalles[index].FechaSoldadura == "" || 
-                      ListaDetalles[index].ListaSoldaduraRelleno.length == 0 || 
-                      ListaDetalles[index].ListaSoldaduraRaiz.length == 0
+                      (ListaDetalles[index].ListaSoldaduraRelleno.length == 0 && arregloCaptura[index].ProcesoSoldaduraRelleno != "N/A") || 
+                      (ListaDetalles[index].ListaSoldaduraRaiz.length == 0 && arregloCaptura[index].ProcesoSoldaduraRelleno != "N/A") 
                    ) && (ListaDetalles[index].Accion != 3 && ListaDetalles[index].Accion != 4)
                   ) {
                 if ((ListaDetalles[index].WPSID == "" || ListaDetalles[index].WPSID == 0) &&
@@ -653,9 +653,9 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                         ListaDetalles[index].TallerID == "" || ListaDetalles[index].TallerID == "0" ||
                         ListaDetalles[index].ProcesoSoldaduraRellenoID == "" || ListaDetalles[index].ProcesoSoldaduraRellenoID == 0 ||
                         ListaDetalles[index].ProcesoSoldaduraRaizID == "" || ListaDetalles[index].ProcesoSoldaduraRaizID == 0  ||
-                        ListaDetalles[index].FechaSoldadura == "" || ListaDetalles[index].ListaSoldaduraRelleno.length == 0 ||
-                        ListaDetalles[index].ListaSoldaduraRaiz.length == 0 || 
-                        ListaDetalles[index].ListaSoldaduraRelleno.length == 0 
+                        ListaDetalles[index].FechaSoldadura == "" || 
+                        (ListaDetalles[index].ListaSoldaduraRelleno.length == 0 && arregloCaptura[index].ProcesoSoldaduraRelleno != "N/A") ||
+                        (ListaDetalles[index].ListaSoldaduraRaiz.length == 0 && arregloCaptura[index].ProcesoSoldaduraRelleno != "N/A")
                         ) {
                         ListaDetalles[index].Estatus = 0;
                         $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;

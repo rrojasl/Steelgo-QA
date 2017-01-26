@@ -476,7 +476,7 @@ function suscribirEventoGridPopupSoldadoresRaiz() {
         if ($('#botonGuardar').text() == _dictionary.DetalleAvisoLlegada0017[$("#language").data("kendoDropDownList").value()]) {
             var grid = $("#grid").data("kendoGrid");
             dataItem = grid.dataItem($(e.target).closest("tr"));
-            if (dataItem.ProcesoSoldaduraRaiz != "" && dataItem.WPSNombre != "")
+            if (dataItem.ProcesoSoldaduraRaiz != "" && dataItem.WPSNombre != "" && dataItem.ProcesoSoldaduraRaiz != "N/A")
                 AjaxObtenerListadoColadas(dataItem, 1);
         }
     });
@@ -489,7 +489,7 @@ function suscribirEventoGridPopupSoldadoresRelleno() {
         if ($('#botonGuardar').text() == _dictionary.DetalleAvisoLlegada0017[$("#language").data("kendoDropDownList").value()]) {
             var grid = $("#grid").data("kendoGrid");
             dataItem = grid.dataItem($(e.target).closest("tr"));
-            if (dataItem.ProcesoSoldaduraRelleno != "" && dataItem.WPSNombre != "")
+            if (dataItem.ProcesoSoldaduraRelleno != "" && dataItem.WPSNombre != "" && dataItem.ProcesoSoldaduraRelleno != "N/A")
                 AjaxObtenerListadoColadas(dataItem, 0);
 
         }
