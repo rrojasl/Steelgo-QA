@@ -335,6 +335,7 @@ function AjaxGuardarCaptura(ds, tipoGuardado, proveedorID) {
     var choferID = $("#Chofer").data("kendoComboBox").value();
     var fechaCreacion = $("#inputFechaEmbarque").val();
 
+    var cont = 0;
 
     if (ds.length > 0) {
         for (var i = 0; i < ds.length; i++) {
@@ -343,34 +344,46 @@ function AjaxGuardarCaptura(ds, tipoGuardado, proveedorID) {
             listaDetalle[i].EmbarqueDetalleID = ds[i].EmbarqueDetalleID;
             listaDetalle[i].EmbarqueID = ds[i].EmbarqueID;
             listaDetalle[i].CargaPlanaID = ds[i].CargaPlanaID;
+
+            if (ds[i].Accion == 2) {
+                cont++;
+            }
         }
 
     }
 
     Captura[0].Detalles = listaDetalle;
-    $PreparacionEmbarque.PreparacionEmbarque.create(Captura[0], {
-        token: Cookies.get("token"), lenguaje: $("#language").val(), EmbarqueID: embarqueID,
-        NombreEmbarque: nombreEmbarque, TractoID: tractoID, ChoferID: choferID, FechaCreacion: fechaCreacion
-    }).done(function (data) {
-        if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
-            if (tipoGuardado != "1") {
-                Limpiar();
-            } else {
-                var paqueteID = parseInt(data.ReturnMessage[1]);
-                opcionHabilitarView(true, "FieldSetView");
-                $("#grid").data("kendoGrid").dataSource.data([]);
+    if (cont > 0) {
+        $PreparacionEmbarque.PreparacionEmbarque.create(Captura[0], {
+            token: Cookies.get("token"), lenguaje: $("#language").val(), EmbarqueID: embarqueID,
+            NombreEmbarque: nombreEmbarque, TractoID: tractoID, ChoferID: choferID, FechaCreacion: fechaCreacion
+        }).done(function (data) {
+            if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
+                if (tipoGuardado != "1") {
+                    Limpiar();
+                } else {
+                    var paqueteID = parseInt(data.ReturnMessage[1]);
+                    opcionHabilitarView(true, "FieldSetView");
+                    $("#grid").data("kendoGrid").dataSource.data([]);
 
-                AjaxObtenerEmbarque(proveedorID, nombreEmbarque);
+                    AjaxObtenerEmbarque(proveedorID, nombreEmbarque);
+                    AjaxObtenerPlanas($("#Proyecto").data("kendoComboBox").value());
+                }
+                displayNotify("MensajeGuardadoExistoso", "", '0');
+            } else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "existe") {
+
+                displayNotify("EmbarquePreparacionErrorExisteEmbarque", "", '2');
             }
-            displayNotify("MensajeGuardadoExistoso", "", '0');
-        } else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "existe") {
-
-            displayNotify("EmbarquePreparacionErrorExisteEmbarque", "", '2');
-        }
-        else {
-            displayNotify("MensajeGuardadoErroneo", "", '2');
-        }
-    });
+            else {
+                displayNotify("MensajeGuardadoErroneo", "", '2');
+            }
+        });
+    } else {
+        loadingStop();
+        displayNotify("EmarquePreparacionMensajeErrorEmbarqueVacio", "", '2');
+    }
+        
+    
 }
 
 function AjaxEliminarEmbarque(embarqueID) {

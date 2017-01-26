@@ -13,17 +13,17 @@ namespace BackEndSAM.Models.Embarque.Etiquetado
         public string Spool { get; set; }
         public int ProyectoID { get; set; }
         public string Proyecto { get; set; }
-        public int CuadranteAnteriorSam2ID { get; set; }
-        public int CuadranteAnteriorSam3ID { get; set; }
-        public int CuadranteID { get; set; }
-        public int CuadranteSam2ID {get;set;}
+        public int? CuadranteAnteriorSam2ID { get; set; }
+        public int? CuadranteAnteriorSam3ID { get; set; }
+        public int? CuadranteID { get; set; }
+        public int? CuadranteSam2ID {get;set;}
         public string Cuadrante { get; set; }
         public int EtiquetadoID { get; set; }
         public bool Etiquetado { get; set; }
         public bool ModificadoPorUsuario { get; set; }
         public bool OkPintura { get; set; }
         public bool OkPnd { get; set; }
-        public int ZonaID { get; set; }
+        public int? ZonaID { get; set; }
         public string Zona { get; set; }
         public string RutaEtiqueta { get; set; }
         public string RutaDibujo { get; set; }

@@ -73,7 +73,7 @@ function CargarGrid() {
                      text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()],
                      click: function (e) {
                          e.preventDefault();
-                         if ($('#Guardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
+                         if ($('#Guardar').text() == _dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]) {
                             var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
                             var dataSource = this.dataSource;
                             if (dataItem.Accion == 2) {

@@ -77,11 +77,13 @@ function SuscribirEventoPopUPEnviarEmbarque() {
 
 function SuscribirEventoEnviarEmbarque() {
     $(document).on('click', '.enviarEmbarque', function (e) {
-        var grid = $("#grid").data("kendoGrid");
-        var dataItem = grid.dataItem($(e.target).closest("tr"));
-        $("#uidRow").val(dataItem.uid);
-        windowSend.title(_dictionary.EmbarqueListadoTitlePopUpEnviar[$("#language").data("kendoDropDownList").value()]);
-        windowSend.center().open();
+        if ($('#Guardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
+            var grid = $("#grid").data("kendoGrid");
+            var dataItem = grid.dataItem($(e.target).closest("tr"));
+            $("#uidRow").val(dataItem.uid);
+            windowSend.title(_dictionary.EmbarqueListadoTitlePopUpEnviar[$("#language").data("kendoDropDownList").value()]);
+            windowSend.center().open();
+        }
     });
 }
 
@@ -111,25 +113,17 @@ function isDate(string) { //string estará en formato dd/mm/yyyy (dí­as < 32 y
 function SuscribirEventoGuardar() {
     $(".accionGuardar").click(function () {
         var ds = $("#grid").data("kendoGrid").dataSource;
-        if ($('#Guardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
-            if (ds._data.length > 0) {
-                AjaxGuardarCaptura(ds._data, 1);
-            } else {
-                displayNotify("MensajeAdverteciaExcepcionGuardado", "", '2');
-            }
-        } else if ($('#Guardar').text() == _dictionary.botonEditar[$("#language").data("kendoDropDownList").value()])
-            opcionHabilitarView(false, "");
-           
-    });
-
-    $(".accionGuardarNuevo").click(function () {
-        var ds = $("#grid").data("kendoGrid").dataSource;
-
-        if (ds._data.length > 0) {
-            AjaxGuardarCaptura(ds._data, 2);
-        } else {
-            displayNotify("MensajeAdverteciaExcepcionGuardado", "", '2');
+        if ($("#btnPendientes").hasClass("active")) {
+            if ($('#Guardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
+                if (ds._data.length > 0) {
+                    AjaxGuardarCaptura(ds._data, 1);
+                } else {
+                    displayNotify("MensajeAdverteciaExcepcionGuardado", "", '2');
+                }
+            } else if ($('#Guardar').text() == _dictionary.botonEditar[$("#language").data("kendoDropDownList").value()])
+                opcionHabilitarView(false, "");
         }
+           
     });
 }
 

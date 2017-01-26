@@ -498,9 +498,6 @@ function ajaxGuardar(arregloCaptura, tipoGuardar) {
                 if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
                     if (tipoGuardar == 1) {
                         Limpiar();
-                        $("#grid").data("kendoGrid").dataSource.data([]);
-                        AjaxCargarCamposPredeterminados(); AjaxCargarProyecto();
-                        loadingStop();
                     }
                     else {
                         $("#grid").data("kendoGrid").dataSource.data([]);

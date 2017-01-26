@@ -126,22 +126,25 @@ function CargarGrid() {
                     click: function (e) {
                         e.preventDefault();
                         if ($('#Guardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
-                            var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-                            var dataSource = this.dataSource;
-                            if (dataItem.Accion == 2) {
-                                dataItem.Accion = 3;
-                                dataItem.ModificadoPorUsuario = true;
-                            }
-                            else {
-                                dataSource.remove(dataItem);
-                            }
+                            if (!$("#InputCerrar").is(":checked")) {
+                                var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+                                var dataSource = this.dataSource;
+                                if (dataItem.Accion == 2) {
+                                    dataItem.Accion = 3;
+                                    dataItem.ModificadoPorUsuario = true;
+                                }
+                                else {
+                                    dataSource.remove(dataItem);
+                                }
 
-                            dataSource.sync();
+                                dataSource.sync();
+                            }else
+                                displayNotify('EmbarqueRevisionMsjRevisionCerrada', '', '1');
                         }
                     }
                 },
                 title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()],
-                width: "99px",
+                width: "50px",
                 attributes: { style: "text-align:center;" }
             }
         ],
@@ -217,6 +220,7 @@ function CargarGrid() {
                         break;
                 }
             } else {
+                //displayNotify('EmbarqueRevisionMsjRevisionCerrada', '', '1');
                 grid.dataSource.sync();
             }
         }
