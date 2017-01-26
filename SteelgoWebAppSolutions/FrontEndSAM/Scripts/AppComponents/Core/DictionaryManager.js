@@ -9369,8 +9369,8 @@ _dictionary = {
     //Pantalla Soldadura
 
     "CapturaSoldaduraTrabajoMandatorio": {
-        "es-MX": "El campo adicionales y soldador es mandatorio",
-        "en-US": "The additional and welder fiels has mandatory"
+        "es-MX": "El campo trabajo y soldador es mandatorio",
+        "en-US": "The work and welder fiels has mandatory"
     },
     "CapturaSoldaduraGridSoldadores": {
         "es-MX": "Los campos de Soldador y Colada son mandatorios",

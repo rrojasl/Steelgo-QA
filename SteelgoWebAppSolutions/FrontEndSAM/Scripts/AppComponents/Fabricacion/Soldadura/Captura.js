@@ -1,4 +1,5 @@
 ﻿var modeloRenglon;
+var editado = false;
 
 function changeLanguageCall() {
     asignarProyecto();
@@ -13,8 +14,8 @@ function changeLanguageCall() {
 };
 
 function asignarProyecto() {
-    $("#InputOrdenTrabajo").val(Cookies.get('LetraProyecto') == undefined ? '' : Cookies.get('LetraProyecto'));
-    $("#LabelProyecto").text('Proyecto :' + (Cookies.get('Proyecto') == undefined ? 'No hay ningun proyecto' : Cookies.get('Proyecto')));
+    //$("#InputOrdenTrabajo").val(Cookies.get('LetraProyecto') == undefined ? '' : Cookies.get('LetraProyecto'));
+    //$("#LabelProyecto").text('Proyecto :' + (Cookies.get('Proyecto') == undefined ? 'No hay ningun proyecto' : Cookies.get('Proyecto')));
 }
 
 
