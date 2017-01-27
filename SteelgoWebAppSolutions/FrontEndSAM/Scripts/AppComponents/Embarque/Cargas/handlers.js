@@ -329,20 +329,7 @@ function SuscribirEventoProyecto() {
 
             if (ds._data.length == 0) {
                 proyectoInicial = $("#inputProyecto").data("kendoComboBox").value();
-                Limpiar();
-                $("#grid").data("kendoGrid").dataSource.data([]);
-                $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").setDataSource();
-                $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").value("");
-                $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").dataSource.data([]);
-
-                $("#inputProveedor").data("kendoComboBox").setDataSource();
-                $("#inputProveedor").data("kendoComboBox").value("");
-                $("#inputProveedor").data("kendoComboBox").dataSource.data([]);
-
-                $("#inputZonaPaquete").data("kendoComboBox").dataSource.data([]);
-                $("#inputZonaPaquete").data("kendoComboBox").value("");
-                $("#inputZonaPaqueteDescarga").data("kendoComboBox").dataSource.data([]);
-                $("#inputZonaPaqueteDescarga").data("kendoComboBox").value("");
+                LimpiarSelectProyecto();
                 if (dataItem != undefined) {
                     if (dataItem.ProyectoID != 0) {
                         AjaxEmbarqueCargaProveedores(dataItem.ProyectoID, null);
@@ -379,17 +366,7 @@ function SuscribirEventoProyecto() {
                 ventanaConfirm.open().center();
                 $("#yesButtonProy").click(function () {
                     proyectoInicial = $("#inputProyecto").data("kendoComboBox").value();
-                    $("#grid").data("kendoGrid").dataSource.data([]);
-                    $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").setDataSource();
-                    $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").value("");
-                    $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").dataSource.data([]);
-
-                    $("#inputProveedor").data("kendoComboBox").setDataSource();
-                    $("#inputProveedor").data("kendoComboBox").value("");
-                    $("#inputProveedor").data("kendoComboBox").dataSource.data([]);
-
-                    $("#inputZonaPaquete").data("kendoComboBox").dataSource.data([]);
-                    $("#inputZonaPaquete").data("kendoComboBox").value("");
+                    LimpiarSelectProyecto();
 
                     if (dataItem != undefined) {
                         if (dataItem.ProyectoID != 0) {
@@ -1048,8 +1025,19 @@ function SuscribirEventoGuardarProveedor() {
 }
 
 function Limpiar() {
+    $("#inputProveedor").data("kendoComboBox").dataSource.data([]);
+    $("#inputProveedor").data("kendoComboBox").value("");
+
+    $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").dataSource.data([]);
+    $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").value("");
     $('#lblEmbarqueCargaTotalPiezas').text("");
     $('#lblEmbarqueCargaToneladasCargadas').text("");
+    $("#inputCerrar")[0].checked = false;
+
+    $("#inputZonaPaquete").data("kendoComboBox").dataSource.data([]);
+    $("#inputZonaPaquete").data("kendoComboBox").value("");
+    $("#inputZonaPaqueteDescarga").data("kendoComboBox").dataSource.data([]);
+    $("#inputZonaPaqueteDescarga").data("kendoComboBox").value("");
 
     $("#InputOrdenTrabajo").val("");
     $("#inputCodigo").val("");
@@ -1057,7 +1045,10 @@ function Limpiar() {
     $("#InputID").data("kendoComboBox").value("");
     $("#inputPaquete").data("kendoComboBox").dataSource.data([]);
     $("#inputPaquete").data("kendoComboBox").value("");
-    $("#inputCerrar")[0].checked = false;
+
+    $("#grid").data("kendoGrid").dataSource.data([]);
+    AjaxCargarCamposPredeterminados();
+    AjaxCargarProyecto();
     opcionHabilitarView(false, "FieldSetView");
 }
 
@@ -1084,4 +1075,26 @@ function LimpiarSelectProveedor() {
     $("#InputID").data("kendoComboBox").dataSource.data([]);
     $("#InputID").data("kendoComboBox").value("");
     $("#inputPaquete").data("kendoComboBox").value("");
+}
+
+function LimpiarSelectProyecto() {
+    $("#inputProveedor").data("kendoComboBox").dataSource.data([]);
+    $("#inputProveedor").data("kendoComboBox").value("");
+
+    $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").dataSource.data([]);
+    $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").value("");
+
+    $("#inputZonaPaquete").data("kendoComboBox").dataSource.data([]);
+    $("#inputZonaPaquete").data("kendoComboBox").value("");
+    $("#inputZonaPaqueteDescarga").data("kendoComboBox").dataSource.data([]);
+    $("#inputZonaPaqueteDescarga").data("kendoComboBox").value("");
+
+    $("#InputOrdenTrabajo").val("");
+    $("#inputCodigo").val("");
+    $("#InputID").data("kendoComboBox").dataSource.data([]);
+    $("#InputID").data("kendoComboBox").value("");
+    $("#inputPaquete").data("kendoComboBox").dataSource.data([]);
+    $("#inputPaquete").data("kendoComboBox").value("");
+
+    $("#grid").data("kendoGrid").dataSource.data([]);
 }

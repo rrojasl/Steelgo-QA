@@ -563,11 +563,12 @@ function SuscribirEventoPopUpGuardarEmbarque() {
 
 function SuscribirEventoEliminarEmbarque() {
     $("#btnELiminarEmbarque, #btnELiminarEmbarque1").click(function (e) {
-
-        if ($("#Embarque").data("kendoComboBox").value() != "" && $("#Embarque").data("kendoComboBox").value() != "0") {
-            AjaxEliminarEmbarque($("#Embarque").data("kendoComboBox").value());
-        } else {
-            displayNotify("MensajeSeleccionaEmbarque", "", '2');
+        if ($('#Guardar').text() == _dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]) {
+            if ($("#Embarque").data("kendoComboBox").value() != "" && $("#Embarque").data("kendoComboBox").value() != "0") {
+                AjaxEliminarEmbarque($("#Embarque").data("kendoComboBox").value());
+            } else {
+                displayNotify("MensajeSeleccionaEmbarque", "", '2');
+            }
         }
     });
 }

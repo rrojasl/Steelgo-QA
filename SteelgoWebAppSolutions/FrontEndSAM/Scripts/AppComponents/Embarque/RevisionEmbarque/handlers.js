@@ -292,7 +292,7 @@ function SuscribirEventoGuardar() {
                 if (embarqueID != "" && embarqueID != undefined && embarqueID != "0") {
                     if (ds.length > 0) {
                         embarqueID = parseInt(embarqueID);
-                        AjaxGuardarCaptura(ds, embarqueID, 1);
+                        AjaxGuardarCaptura(ds, embarqueID, proyectoID, 1);
                         //opcionHabilitarView(true, "");
                     } else {
                         displayNotify("MensajeAdverteciaExcepcionGuardado", "", "2");
@@ -310,12 +310,22 @@ function SuscribirEventoGuardar() {
 
     $('.accionGuardarNuevo').click(function (e) {
         var ds = $("#grid").data("kendoGrid").dataSource._data;
-        if (ds.length > 0) {
-            AjaxGuardarCaptura(ds, 2);
-            //Limpiar();
-            //opcionHabilitarView(false, "");
-        }       
+        var proyectoID = $("#Proyecto").data("kendoComboBox").value();
+        var embarqueID = $("#Embarque").data("kendoComboBox").value();
 
+        if (proyectoID != "" && proyectoID != undefined && proyectoID != "0") {
+            if (embarqueID != "" && embarqueID != undefined && embarqueID != "0") {
+                if (ds.length > 0) {
+                    embarqueID = parseInt(embarqueID);
+                    AjaxGuardarCaptura(ds, embarqueID, proyectoID, 2);
+                    //opcionHabilitarView(true, "");
+                } else {
+                    displayNotify("MensajeAdverteciaExcepcionGuardado", "", "2");
+                }
+            }else
+                displayNotify('MensajeSeleccionaEmbarque', '', '1');
+        }else
+            displayNotify('MensajeSeleccionaProyecto', '', '1');
     });
 
 };

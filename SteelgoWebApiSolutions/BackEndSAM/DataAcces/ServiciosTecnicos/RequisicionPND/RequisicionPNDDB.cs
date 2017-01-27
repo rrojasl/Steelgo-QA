@@ -91,8 +91,8 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.GenerarRequisicion
                             TipoPruebaID = item.TipoPruebaID.GetValueOrDefault(),
                             Especificacion = item.Especificacion,
                             //Disposicion = item.Disposicion,
-                            //ClasificacionPNDID = item.ClasificacionPNDID,
-                            //OrdenTrabajoID = item.OrdenTrabajoID
+                            ClasificacionPNDID = item.ClasificacionPNDID,
+                            OrdenTrabajoID = item.OrdenTrabajoID
                         });
                     }
 
@@ -273,8 +273,8 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.GenerarRequisicion
                             TipoPruebaID = item.TipoPruebaID.GetValueOrDefault(),
                             Especificacion = item.Especificacion,
                             ClasificacionPNDID = item.ClasificacionPNDID,
-                            OrdenTrabajoID = item.OrdenTrabajoID
-
+                            OrdenTrabajoID = item.OrdenTrabajoID,
+                            ClasificacionManual = 1
                         });
                     }
                     return listaElementos;

@@ -250,6 +250,7 @@ function AjaxAgregarDetallePaquete(paqueteID) {
 
 
 function AjaxDescargarSpool() {
+    windowDownloadSpool.close();
     loadingStart();
 
     $RevisionEmbarque.RevisionEmbarque.read({
@@ -258,23 +259,23 @@ function AjaxDescargarSpool() {
     }).done(function (data) {
         var ds = $("#grid").data("kendoGrid").dataSource;
 
-        if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "OK") {
+        if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
             ds.insert(0, jsonSpoolAgregar);
             ds.sync();
             displayNotify("EmbarqueRevisionMsjExitoSpoolCargado", "", "0");
         } else {
             displayNotify("EmbarqueRevisionMsjErrorSpoolCargado", "", "2");
         }
-
         loadingStop();
     });
 }
 
 function AjaxDescargarPaquete() {
+    windowDownloadSpool.close();
     loadingStart();
 
     $RevisionEmbarque.RevisionEmbarque.read({
-        token: Cookies.get("token"), PaqueteID: arrayPaqueteAgregar[0].PaqueteID
+        token: Cookies.get("token"), Paquete: arrayPaqueteAgregar[0].PaqueteID
     }).done(function (data) {
         var ds = $("#grid").data("kendoGrid").dataSource;
         if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
@@ -290,7 +291,7 @@ function AjaxDescargarPaquete() {
     });
 }
 
-function AjaxGuardarCaptura(ds, embarqueID, tipoGuardar) {
+function AjaxGuardarCaptura(ds, embarqueID, proyectoID, tipoGuardar) {
     loadingStart();
     
     var Captura = { listaDetalle: "", RevisionEmbarqueID: "" };
@@ -308,7 +309,7 @@ function AjaxGuardarCaptura(ds, embarqueID, tipoGuardar) {
         ListaDetalleCaptura[x].Llego = ds[x].Llego;
         ListaDetalleCaptura[x].NoLlego = ds[x].NoLlego;
         ListaDetalleCaptura[x].LlegoComentario = ds[x].LlegoComentario;
-        ListaDetalleCaptura[x].Comentario = ds[x].Comentario;
+        ListaDetalleCaptura[x].Comentario = ds[x].Comentario == "" ? null : ds[x].Comentario;
         ListaDetalleCaptura[x].CapturaManual = ds[x].CapturaManual;
 
         if (obtieneEstatusSpool(ds[x].Llego, ds[x].NoLlego, ds[x].LlegoComentario) != ds[x].EstatusSpool || 
@@ -329,7 +330,7 @@ function AjaxGuardarCaptura(ds, embarqueID, tipoGuardar) {
                     ListaDetalleCaptura[x].Accion = 3;
                     $("#grid").data("kendoGrid").dataSource._data[x].RowOk = true;
                 } else {
-                    if ((ds[x].LlegoComentario && ds[x].Comentario == null)) {
+                    if ((ds[x].LlegoComentario && (ds[x].Comentario == null || ds[x].Comentario == ""))) {
                         ListaDetalleCaptura[x].Estatus = 0;
                         $("#grid").data("kendoGrid").dataSource._data[x].RowOk = false;
                     } else
@@ -365,6 +366,7 @@ function AjaxGuardarCaptura(ds, embarqueID, tipoGuardar) {
                 if (tipoGuardar == 1) {
                     opcionHabilitarView(true, "FieldSetView");
                     AjaxObtieneDetalle(embarqueID);
+                    AjaxCargarPaquetes(proyectoID);
                 } else {
                     Limpiar();
                     loadingStop();

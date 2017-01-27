@@ -1,7 +1,7 @@
 ﻿var listadoSoldadoresParaRaiz = [];
 var listadoSoldadoresParaRelleno = [];
 var listadoColada = [];
-var editado = false;
+
 
 
 function SuscribirEventos() {
@@ -437,6 +437,7 @@ function suscribirEventoChangeRadioTipoListado() {
 
         if ($('input:radio[name=TipoAgregado]:checked').val() == "Reporte") {
             console.log("noabrepop");
+            $('#InputOrdenTrabajo').val('');
             if (!editado) {
                 $("#grid").data("kendoGrid").dataSource.data([]);
                 CambioTipoListado();
@@ -447,6 +448,7 @@ function suscribirEventoChangeRadioTipoListado() {
             }
         }
         else if ($('input:radio[name=TipoAgregado]:checked').val() == "Listado") {
+            $('#InputOrdenTrabajo').val('');
             if (!editado) {
                 $("#grid").data("kendoGrid").dataSource.data([]);
                 CambioTipoListado();

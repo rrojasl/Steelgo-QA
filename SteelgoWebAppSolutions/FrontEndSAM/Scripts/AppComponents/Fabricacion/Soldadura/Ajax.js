@@ -126,6 +126,7 @@ function AjaxCargarReporteJuntas() {
         loadingStart();
         $Soldadura.Soldadura.read({ JsonCaptura: JSON.stringify(listadoReporte[0]), isReporte: true, lenguaje: $("#language").val(), token: Cookies.get("token") }).done(function (data) {
             if (Error(data)) {
+                editado = true;
                 var elementosModificados = "";
                 var elementosNoModificados = "";
                 var ds = $("#grid").data("kendoGrid").dataSource;
@@ -289,6 +290,7 @@ function ObtenerJSonGridSoldadura() {
         loadingStart();
         $Soldadura.Soldadura.read({ JsonCaptura: JSON.stringify(ArregloListadoCaptura()), isReporte: false, lenguaje: $("#language").val(), token: Cookies.get("token") }).done(function (data) {
             if (Error(data)) {
+                editado = true;
                 var ds = $("#grid").data("kendoGrid").dataSource;
                 var array = JSON.parse(data);
                 var elementoNoEncontrado = false;
@@ -637,7 +639,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                       ListaDetalles[index].ProcesoSoldaduraRellenoID == "" || ListaDetalles[index].ProcesoSoldaduraRellenoID == 0 ||
                       ListaDetalles[index].FechaSoldadura == "" || 
                       (ListaDetalles[index].ListaSoldaduraRelleno.length == 0 && arregloCaptura[index].ProcesoSoldaduraRelleno != "N/A") || 
-                      (ListaDetalles[index].ListaSoldaduraRaiz.length == 0 && arregloCaptura[index].ProcesoSoldaduraRelleno != "N/A") 
+                      (ListaDetalles[index].ListaSoldaduraRaiz.length == 0 && arregloCaptura[index].ProcesoSoldaduraRaiz != "N/A") 
                    ) && (ListaDetalles[index].Accion != 3 && ListaDetalles[index].Accion != 4)
                   ) {
                 if ((ListaDetalles[index].WPSID == "" || ListaDetalles[index].WPSID == 0) &&
@@ -655,7 +657,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                         ListaDetalles[index].ProcesoSoldaduraRaizID == "" || ListaDetalles[index].ProcesoSoldaduraRaizID == 0  ||
                         ListaDetalles[index].FechaSoldadura == "" || 
                         (ListaDetalles[index].ListaSoldaduraRelleno.length == 0 && arregloCaptura[index].ProcesoSoldaduraRelleno != "N/A") ||
-                        (ListaDetalles[index].ListaSoldaduraRaiz.length == 0 && arregloCaptura[index].ProcesoSoldaduraRelleno != "N/A")
+                        (ListaDetalles[index].ListaSoldaduraRaiz.length == 0 && arregloCaptura[index].ProcesoSoldaduraRaiz != "N/A")
                         ) {
                         ListaDetalles[index].Estatus = 0;
                         $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
@@ -758,7 +760,7 @@ function AjaxEjecutarGuardado(Captura, tipoGuardar) {
         if (Error(data)) {
             if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
                 displayNotify("CapturaMensajeGuardadoExitoso", "", '0');
-
+                editado = false;
                 if (tipoGuardar == 1) {
                     Limpiar();
                     loadingStop();
