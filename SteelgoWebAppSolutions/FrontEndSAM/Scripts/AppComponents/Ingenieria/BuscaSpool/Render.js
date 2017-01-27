@@ -4,6 +4,117 @@ var llamadasATodos = 0;
 var numeroPlacasAnteriorElemento;
 var dataItem;
 
+function RenderTipoSalida(container, options) {
+    $('<input required data-text-field="Titulo" id=' + options.model.uid + ' data-value-field="SalidaID" data-bind="value:' + options.field + '"/>')
+        .appendTo(container)
+        .kendoComboBox({
+            autoBind: false,
+            dataSource: options.model.TipoSalida,
+            dataTextField: "Titulo",
+            dataValueField: "SalidaID",
+            change: function (e) {
+                dataItem = this.dataItem(e.sender.selectedIndex);
+
+                options.model.TipoSalidaSelect = dataItem.Titulo;
+                //options.model.SalidaID = dataItem.SalidaID;
+                //options.model.Titulo = dataItem.Titulo;
+
+
+            }
+        });
+
+}
+
+function RenderJunta(container, options) {
+    var dataItem;
+    $('<input required data-text-field="Junta" id=' + options.model.uid + ' data-value-field="JuntaID" data-bind="value:' + options.field + '"/>')
+        .appendTo(container)
+        .kendoComboBox({
+            autoBind: false,
+            dataTextField: "Junta",
+            dataValueField: "JuntaID",
+            dataSource: options.model.JuntaSpoolID,
+            template: "<i class=\"fa fa-#=data.Junta#\"></i> #=data.Junta#",
+            change: function (e) {
+                dataItem = this.dataItem(e.sender.selectedIndex);
+                
+                options.model.SpoolSelect = dataItem.Junta;
+                //options.model.JuntaID = dataItem.JuntaID;
+                //options.model.Junta = dataItem.Junta;
+                
+                options.model.Detalle1 = "5%";
+                options.model.Detalle2 = "99";
+                options.model.Detalle3 = "100";
+                options.model.Detalle4 = "5.4";
+                $("#grid").data("kendoGrid").refresh();
+
+                if (dataItem.JuntaID == 2) {
+                    $("#controls_content_2").show();
+                    $("#grid_content_2").show();
+                }
+
+                //if (dataItem != undefined && dataItem.DefectoID != 0) {
+                //    options.model.DefectoID = dataItem.DefectoID;
+                //    options.model.Defecto = dataItem.Defecto;
+                //    //OrdenTrabajoID+SpoolID+JuntaSpoolID+Ubicacion+Posicion
+                //    var itemPlaca = $("#PlacaID").text().split("°")
+                //    options.model.OrdenTrabajoID = itemPlaca[0];
+                //    options.model.SpoolID = itemPlaca[1];
+                //    options.model.JuntaSpoolID = itemPlaca[2];
+                //    options.model.Ubicacion = itemPlaca[3];
+                //    options.model.Posicion = itemPlaca[4];
+                //}
+            }
+        }
+        );
+
+}
+
+function RenderJunta2(container, options) {
+    var dataItem;
+    $('<input required data-text-field="Junta" id=' + options.model.uid + ' data-value-field="JuntaID" data-bind="value:' + options.field + '"/>')
+        .appendTo(container)
+        .kendoComboBox({
+            autoBind: false,
+            dataTextField: "Junta",
+            dataValueField: "JuntaID",
+            dataSource: options.model.JuntaSpoolID,
+            template: "<i class=\"fa fa-#=data.Junta#\"></i> #=data.Junta#",
+            change: function (e) {
+                dataItem = this.dataItem(e.sender.selectedIndex);
+
+                options.model.SpoolSelect = dataItem.Junta;
+                //options.model.JuntaID = dataItem.JuntaID;
+                //options.model.Junta = dataItem.Junta;
+
+                options.model.Detalle1 = "60%";
+                options.model.Detalle2 = "87";
+                options.model.Detalle3 = "160";
+                options.model.Detalle4 = "8.4";
+                $("#grid2").data("kendoGrid").refresh();
+
+                if (dataItem.JuntaID == 2) {
+                    $("#controls_content_3").show();
+                    $("#grid_content_3").show();
+                }
+
+                //if (dataItem != undefined && dataItem.DefectoID != 0) {
+                //    options.model.DefectoID = dataItem.DefectoID;
+                //    options.model.Defecto = dataItem.Defecto;
+                //    //OrdenTrabajoID+SpoolID+JuntaSpoolID+Ubicacion+Posicion
+                //    var itemPlaca = $("#PlacaID").text().split("°")
+                //    options.model.OrdenTrabajoID = itemPlaca[0];
+                //    options.model.SpoolID = itemPlaca[1];
+                //    options.model.JuntaSpoolID = itemPlaca[2];
+                //    options.model.Ubicacion = itemPlaca[3];
+                //    options.model.Posicion = itemPlaca[4];
+                //}
+            }
+        }
+        );
+
+}
+
 function RenderNumeroPlacas(container, options) {
 
     if ($('#Guardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {

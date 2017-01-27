@@ -86,24 +86,15 @@ function CargarGrid() {
             schema: {
                 model: {
                     fields: {
-                        OrdenTrabajoID: { type: "number", editable: false },
-                        NumeroControl: { type: "string", editable: false },
-                        SpoolID: { type: "number", editable: false },
-                        JuntaSpoolID: { type: "number", editable: false },
-                        Junta: { type: "string", editable: false },
-                        ClasificacionPND: { type: "string", editable: false },
-                        TipoPrueba: { type: "string", editable: false },
-                        Observaciones: { type: "string", editable: false },
-                        CodigoAsme: { type: "string", editable: false },
-                        NumeroPlacas: { type: "number", editable: true },
-                        Tamano: { type: "number", editable: true },
-                        Densidad: { type: "number", editable: true },
-                        ResultadoConciliacionID: { type: "number", editable: true },
-                        ResultadoConciliacion: { type: "string", editable: true },
-                        RazonNoConciliacionID: { type: "number", editable: true },
-                        RazonNoConciliacion: { type: "string", editable: true },
-                        Comentarios: { type: "string", editable: true },
-                        TemplateDetalleElemento: { type: "string", editable: false }
+                        NumeroSalida: { type: "number", editable: false },
+                        TipoSalida: { type: "number", editable: true },
+                        SpoolID: { type: "number", editable: true },
+                        JuntaSpoolID: { type: "number", editable: true },
+                        Junta: { type: "string", editable: true },
+                        Detalle1: { type: "string", editable: false },
+                        Detalle2: { type: "string", editable: false },
+                        Detalle3: { type: "string", editable: false },
+                        Detalle4: { type: "string", editable: false }
                     }
                 }
             },
@@ -124,21 +115,14 @@ function CargarGrid() {
         },
         filterable: getGridFilterableMaftec(),
         columns: [
-            { field: "NumeroControl", title: _dictionary.CapturaReporteGridColumnSpoolJunta[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "100px" },
-            { field: "Junta", title: _dictionary.CapturaReporteGridColumnJunta[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "50px" }, 
-            { field: "ClasificacionPND", title: _dictionary.CapturaReporteGridColumnClasificacionPND[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "60px" },
-            { field: "TipoPrueba", title: _dictionary.CapturaReporteGridColumnTipoPrueba[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "120px" },
-            { field: "Observaciones", title: _dictionary.CapturaReporteGridColumnObservaciones[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "150px" },
-            { field: "CodigoAsme", title: _dictionary.CapturaReporteGridColumnCodigoAsme[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "120px" },
-            { field: "NumeroPlacas", title: _dictionary.CapturaReporteGridColumnNumeroPlacas[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "90px", editor: RenderNumeroPlacas, attributes: { style: "text-align:right;" } },
-            { field: "Tamano", title: _dictionary.CapturaReporteGridColumnTamano[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "90px", editor: RenderTamano, format: "{0:n4}", attributes: { style: "text-align:right;" } },
-            { field: "Densidad", title: _dictionary.CapturaReporteGridColumnDensidad[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "90px", editor: RenderDensidad, format: "{0:n4}", attributes: { style: "text-align:right;" } },
-            //{ field: "ResultadoConciliacion", title: _dictionary.CapturaReporteGridColumnRusult1[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "170px" },
-            //{ field: "RazonNoConciliacion", title: _dictionary.CapturaReporteGridColumnRusult2[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "170px" },
-            { field: "TemplateDetalleElemento", title: _dictionary.CapturaReporteGridColumnInformacionResultados[$("#language").data("kendoDropDownList").value()], filterable: false, width: "150px"/*, editor: RenderGridDetallePorPlaca*/, template: "<div class='EnlacePorPlaca' style='text-align:center;'><a href='\\#'  > <span>#=TemplateDetalleElemento#</span></a></div> " },
-            { field: "ResultadoConciliacion", title: _dictionary.CapturaReporteGridColumnRusult1[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: comboBoxResultadoConciliacion, width: "170px" },
-            { field: "RazonNoConciliacion", title: _dictionary.CapturaReporteGridColumnRusult2[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: comboBoxRazonNoConciliacion, width: "170px" },
-            { field: "Comentarios", title: _dictionary.columnComentario[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "170px" },
+            { field: "NumeroSalida", title: 'Numero de Salida', filterable: getGridFilterableCellMaftec(), width: "150px" },
+            { field: "TipoSalidaSelect", title: 'Tipo de Salida', filterable: getGridFilterableCellMaftec(), width: "100px", editor: RenderTipoSalida, attributes: { style: "text-align:right;" } },
+            { field: "SpoolID", title: 'SpoolID', filterable: getGridFilterableCellMaftec(), width: "100px" },
+            { field: "SpoolSelect", title: 'Juntas', filterable: getGridFilterableCellMaftec(), width: "120px", editor: RenderJunta, attributes: { style: "text-align:right;" } },
+            { field: "Detalle1", title: 'Detalle1', filterable: getGridFilterableCellMaftec(), width: "100px" },
+            { field: "Detalle2", title: 'Detalle2', filterable: getGridFilterableCellMaftec(), width: "100px" },
+            { field: "Detalle3", title: 'Detalle3', filterable: getGridFilterableCellNumberMaftec(), width: "100px" },
+            { field: "Detalle4", title: 'Detalle4', filterable: getGridFilterableCellNumberMaftec(), width: "100px"},
         ],
         beforeEdit: function (e) {
             var columnIndex = this.cellIndex(e.container);
@@ -152,6 +136,126 @@ function CargarGrid() {
         navigatable: true
     });
     CustomisaGrid($("#grid"));
+
+
+    ////////////////////////////////
+
+    $("#grid2").kendoGrid({
+        dataSource: {
+            data: [],
+            schema: {
+                model: {
+                    fields: {
+                        NumeroSalida: { type: "number", editable: false },
+                        TipoSalidaSelect: { type: "number", editable: true },
+                        SpoolID: { type: "number", editable: true },
+                        JuntaSpoolID: { type: "number", editable: true },
+                        Junta: { type: "string", editable: true },
+                        Detalle1: { type: "string", editable: false },
+                        Detalle2: { type: "string", editable: false },
+                        Detalle3: { type: "string", editable: false },
+                        Detalle4: { type: "string", editable: false }
+                    }
+                }
+            },
+        },
+        edit: function (e) {
+            if ($('#Guardar').text() == _dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]) {
+                this.closeCell();
+
+            };
+        },
+        selectable: true,
+        pageable: {
+            refresh: false,
+            pageSizes: [10, 25, 50, 100],
+            info: false,
+            input: false,
+            numeric: true,
+        },
+        filterable: getGridFilterableMaftec(),
+        columns: [
+            { field: "NumeroSalida", title: 'Numero de Salida', filterable: getGridFilterableCellMaftec(), width: "150px" },
+            { field: "TipoSalidaSelect", title: 'Tipo de Salida', filterable: getGridFilterableCellMaftec(), width: "100px", editor: RenderTipoSalida, attributes: { style: "text-align:right;" } },
+            { field: "SpoolID", title: 'SpoolID', filterable: getGridFilterableCellMaftec(), width: "100px" },
+            { field: "SpoolSelect", title: 'Juntas', filterable: getGridFilterableCellMaftec(), width: "120px", editor: RenderJunta2, attributes: { style: "text-align:right;" } },
+            { field: "Detalle1", title: 'Detalle1', filterable: getGridFilterableCellMaftec(), width: "100px" },
+            { field: "Detalle2", title: 'Detalle2', filterable: getGridFilterableCellMaftec(), width: "100px" },
+            { field: "Detalle3", title: 'Detalle3', filterable: getGridFilterableCellNumberMaftec(), width: "100px" },
+            { field: "Detalle4", title: 'Detalle4', filterable: getGridFilterableCellNumberMaftec(), width: "100px" },
+        ],
+        beforeEdit: function (e) {
+            var columnIndex = this.cellIndex(e.container);
+            var fieldName = this.thead.find("th").eq(columnIndex).data("field");
+            if (!isEditable(fieldName, e.model)) {
+                e.preventDefault();
+            }
+        },
+
+        editable: true,
+        navigatable: true
+    });
+    CustomisaGrid($("#grid2"));
+
+
+    ////////////////////////////////
+
+    $("#grid3").kendoGrid({
+        dataSource: {
+            data: [],
+            schema: {
+                model: {
+                    fields: {
+                        NumeroSalida: { type: "number", editable: false },
+                        TipoSalida: { type: "number", editable: true },
+                        SpoolID: { type: "number", editable: true },
+                        JuntaSpoolID: { type: "number", editable: true },
+                        Junta: { type: "string", editable: true },
+                        Detalle1: { type: "string", editable: false },
+                        Detalle2: { type: "string", editable: false },
+                        Detalle3: { type: "string", editable: false },
+                        Detalle4: { type: "string", editable: false }
+                    }
+                }
+            },
+        },
+        edit: function (e) {
+            if ($('#Guardar').text() == _dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]) {
+                this.closeCell();
+
+            };
+        },
+        selectable: true,
+        pageable: {
+            refresh: false,
+            pageSizes: [10, 25, 50, 100],
+            info: false,
+            input: false,
+            numeric: true,
+        },
+        filterable: getGridFilterableMaftec(),
+        columns: [
+            { field: "NumeroSalida", title: 'Numero de Salida', filterable: getGridFilterableCellMaftec(), width: "150px" },
+            { field: "TipoSalidaSelect", title: 'Tipo de Salida', filterable: getGridFilterableCellMaftec(), width: "100px", editor: RenderTipoSalida, attributes: { style: "text-align:right;" } },
+            { field: "SpoolID", title: 'SpoolID', filterable: getGridFilterableCellMaftec(), width: "100px" },
+            { field: "SpoolSelect", title: 'Juntas', filterable: getGridFilterableCellMaftec(), width: "120px", editor: RenderJunta, attributes: { style: "text-align:right;" } },
+            { field: "Detalle1", title: 'Detalle1', filterable: getGridFilterableCellMaftec(), width: "100px" },
+            { field: "Detalle2", title: 'Detalle2', filterable: getGridFilterableCellMaftec(), width: "100px" },
+            { field: "Detalle3", title: 'Detalle3', filterable: getGridFilterableCellNumberMaftec(), width: "100px" },
+            { field: "Detalle4", title: 'Detalle4', filterable: getGridFilterableCellNumberMaftec(), width: "100px" },
+        ],
+        beforeEdit: function (e) {
+            var columnIndex = this.cellIndex(e.container);
+            var fieldName = this.thead.find("th").eq(columnIndex).data("field");
+            if (!isEditable(fieldName, e.model)) {
+                e.preventDefault();
+            }
+        },
+
+        editable: true,
+        navigatable: true
+    });
+    CustomisaGrid($("#grid3"));
 };
 
 function isEditable(fieldName, model) {
