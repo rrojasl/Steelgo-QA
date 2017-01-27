@@ -7,6 +7,7 @@ using SecurityManager.Api.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Web;
 
@@ -194,10 +195,21 @@ namespace BackEndSAM.DataAcces.Embarque.ListadoEmbarque
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    ctx.Sam3_Embarque_LE_GuardarEnvio(UsuarioID, Lenguaje, dtEnvio.EmbarqueID, dtEnvio.DestinoID, dtEnvio.SolicitudPermiso, dtEnvio.FechaPermiso, dtEnvio.AprobadoAduana, dtEnvio.BitacoraAduana, NumeroEmbarque, NumeroEmbarqueCliente, FechaEnvio, dtEnvio.ProyectoID);
+                    var oMyString = new ObjectParameter("Retorno", typeof(string));
+                    var resultSp = ctx.Sam3_Embarque_LE_GuardarEnvio(UsuarioID, Lenguaje, dtEnvio.EmbarqueID, dtEnvio.DestinoID, dtEnvio.SolicitudPermiso, dtEnvio.FechaPermiso, dtEnvio.AprobadoAduana, dtEnvio.BitacoraAduana, NumeroEmbarque, NumeroEmbarqueCliente, FechaEnvio, dtEnvio.ProyectoID, oMyString);
+                    var data = oMyString.Value.ToString();
 
                     TransactionalInformation result = new TransactionalInformation();
-                    result.ReturnMessage.Add("Ok");
+
+                    if (data!= "AMBOS EXISTEN" && data!= "NE EXISTE" && data!= "NEC EXISTE")
+                    {
+                        result.ReturnMessage.Add("Ok");
+                    }
+                    else
+                    {
+                        result.ReturnMessage.Add(data);
+                    }
+
                     result.ReturnCode = 200;
                     result.ReturnStatus = true;
                     result.IsAuthenicated = true;
