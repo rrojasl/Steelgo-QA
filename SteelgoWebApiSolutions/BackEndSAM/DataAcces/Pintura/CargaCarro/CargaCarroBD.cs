@@ -92,7 +92,7 @@ namespace BackEndSAM.DataAcces.Pintura.CargaCarro
                     {
                         listaDetalle.Add(new DetalleCargaCarro
                         {
-                            Accion = 2,
+                            Accion = item.Accion,
                             MedioTransporteCargaDetalleID = item.MedioTransporteCargaDetalleID,
                             EstatusCarga = item.EstatusCarga,
                             OrdenTrabajoID = item.OrdenTrabajoID,
@@ -107,8 +107,9 @@ namespace BackEndSAM.DataAcces.Pintura.CargaCarro
                             Area = item.Area.GetValueOrDefault(),
                             Peso = item.Peso.GetValueOrDefault(),
                             EstatusCaptura = 0
-
+                            
                         });
+                        
 
                     }
                     return listaDetalle.OrderByDescending(x => x.NumeroControl);
@@ -126,13 +127,13 @@ namespace BackEndSAM.DataAcces.Pintura.CargaCarro
             }
         }
 
-        public object ObtenerDetalleCargaCarroBacklog(int medioTransporteCargaID, int medioTransporteID, int proyectoID, string lenguaje)
+        public object ObtenerDetalleCargaCarroBacklog(int medioTransporteID, int proyectoID, string lenguaje)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Pintura_Get_DetalleCargaCarroBackLog_Result> result = ctx.Sam3_Pintura_Get_DetalleCargaCarroBackLog(medioTransporteCargaID, medioTransporteID, proyectoID, lenguaje).ToList();
+                    List<Sam3_Pintura_Get_DetalleCargaCarroBackLog_Result> result = ctx.Sam3_Pintura_Get_DetalleCargaCarroBackLog(medioTransporteID, proyectoID, lenguaje).ToList();
                     List<DetalleCargaCarroBackLog> listaDetalle = new List<DetalleCargaCarroBackLog>();
                     foreach (Sam3_Pintura_Get_DetalleCargaCarroBackLog_Result item in result)
                     {

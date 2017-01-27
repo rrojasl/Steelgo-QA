@@ -223,8 +223,8 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                 if (ListaDetalles[index].Accion == 2 && ListaDetalles[index].FechaArmado == "" &&
                     (ListaDetalles[index].TallerID == "" || ListaDetalles[index].TallerID == "0") &&
                    (ListaDetalles[index].TuberoID == "" || ListaDetalles[index].TuberoID == "0") &&
-                    (ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID == "" || ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID == null || ListaDetalles[index].NumeroUnicoAsignado[0].NumeroUnico1ID == "0") &&
-                    (ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID == "" || ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID == null || ListaDetalles[index].NumeroUnicoAsignado[0].NumeroUnico2ID == "0")) {
+                    (ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID == "" || ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID == null || ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID == "0") &&
+                    (ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID == "" || ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID == null || ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID == "0")) {
                     ListaDetalles[index].Accion = 4;
                 }
                 else {
@@ -237,15 +237,15 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
             else if (ListaDetalles[index].Accion == 4) {
                 if ((ListaDetalles[index].FechaArmado != "" &&
                     (ListaDetalles[index].TallerID != "" && ListaDetalles[index].TallerID != "0") &&
-                    (ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID != "" && ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID != null && ListaDetalles[index].NumeroUnicoAsignado[0].NumeroUnico1ID != "0") &&
-                    (ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID != "" && ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID != null && ListaDetalles[index].NumeroUnicoAsignado[0].NumeroUnico2ID != "0") &&
+                    (ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID != "" && ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID != null && ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID != "0") &&
+                    (ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID != "" && ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID != null && ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID != "0") &&
                    (ListaDetalles[index].TuberoID != "" && ListaDetalles[index].TuberoID != "0"))) {
                     ListaDetalles[index].Accion = 2;
                 }
                 else if (!(ListaDetalles[index].FechaArmado == "" &&
                     (ListaDetalles[index].TallerID == "" || ListaDetalles[index].TallerID == "0") &&
-                    (ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID == "" || ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID == null || ListaDetalles[index].NumeroUnicoAsignado[0].NumeroUnico1ID == "0") &&
-                    (ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID == "" || ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID == null || ListaDetalles[index].NumeroUnicoAsignado[0].NumeroUnico2ID == "0") &&
+                    (ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID == "" || ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID == null || ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID == "0") &&
+                    (ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID == "" || ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID == null || ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID == "0") &&
                    (ListaDetalles[index].TuberoID == "" || ListaDetalles[index].TuberoID == "0"))) {
                     ListaDetalles[index].Estatus = 0;
                     //$('tr[data-uid="' + arregloCaptura[index].uid + '"] ').css("background-color", "#ffcccc");
