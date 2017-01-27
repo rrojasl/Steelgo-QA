@@ -8281,6 +8281,14 @@ _dictionary = {
         "es-MX": "Listado embarque enviados",
         "en-US": "Sent shipping list"
     },
+    "menuIngenieria": {
+        "es-MX": "Ingeniería",
+        "en-US": "Enginnering"
+    },
+    "menuIngenieriaBuscaSpool": {
+        "es-MX": "Busca Spool",
+        "en-US": "Spool Search"
+    },
     // Finalizan Etiquetas de Menú General
 
 
