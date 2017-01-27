@@ -1,16 +1,51 @@
 ﻿var editado = false;
 var ventanaConfirmEdicion;
+var windowNewCarriage;
+
 
 function changeLanguageCall() {
     SuscribirEventos();
     CargaGrid();
     AjaxCargarCamposPredeterminados();
-    //AjaxCargarProyecto();
+    AjaxCargarProyecto();
     document.title = _dictionary.PinturaHeaderCargaCarro[$("#language").data("kendoDropDownList").value()];
 }
 
+function LimpiarCargaCarro() {
+    $("#grid").data('kendoGrid').dataSource.data([]);
 
+    $("#labelM2E").text("");
+    $("#labelM2P").text("");
+    $("#labelToneladasE").text("");
+    $("#labelToneladasP").text("");
+}
 
+function LimpiarCargaProyecto() {
+    //$("#inputZonaPopup").data("kendoComboBox").dataSource.data([]);
+    //$("#inputZonaPopup").data("kendoComboBox").value("");
+
+    $("#inputCarro").data("kendoComboBox").dataSource.data([]);
+    $("#inputCarro").data("kendoComboBox").value("");
+
+    $("#labelM2E").text("");
+    $("#labelToneladasE").text("");
+
+    $("#grid").data('kendoGrid').dataSource.data([]);
+    
+}
+
+function LimpiarCambioEscenario() {
+    $("#inputProyecto").data("kendoComboBox").value("");
+
+    $("#inputCarro").data("kendoComboBox").dataSource.data([]);
+    $("#inputCarro").data("kendoComboBox").value("");
+
+    $("#labelM2E").text("");
+    $("#labelToneladasE").text("");
+
+    $("#grid").data('kendoGrid').dataSource.data([]);
+
+}
 
 function CargaGrid()
 {
@@ -172,4 +207,69 @@ function eliminarCaptura(e) {
             });
         }
     }
+}
+
+
+function CargaPopupNuevoMedioTransporte(e) {
+    $("#InputNombre").val("");
+
+    windowNewCarriage = $("#divNuevoMedioTransporte").kendoWindow({
+        iframe: false,
+        title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
+        visible: false,
+        width: "502px",
+        height: "auto",
+        modal: true,
+        draggable: false,
+        resizable: false,
+        animation: {
+            close: false,
+            open: false
+        },
+        actions: [],
+        close: function () {
+            $("#inputCarro").data("kendoComboBox").value("");
+            $("#InputNombre").blur();
+        }
+    }).data("kendoWindow");
+
+    $("#divNuevoMedioTransporte").data("kendoWindow").title(_dictionary.PinturaCargaNuevoCarro[$("#language").data("kendoDropDownList").value()]);
+    $("#divNuevoMedioTransporte").data("kendoWindow").center().open();
+
+    $("#InputNombre").focus();
+}
+
+function ImprimirAreaTonelada() {
+    var ds = $("#grid").data("kendoGrid").dataSource;
+    var array = ds._data;
+    var totalAreaCargada = 0;
+    var totalToneladasCargadas = 0;
+    var curr_filters = ds.filter().filters;
+
+    if (ds._data.length > 0) {
+
+        for (var i = 0; i < array.length; i++) {
+            if (curr_filters.length > 1) {
+                if (array[i]["Accion"] == 1 || array[i]["Accion"] == 2) {
+                    totalAreaCargada += parseFloat(array[i]["Area"], 10);
+                    totalToneladasCargadas += parseFloat(array[i]["Peso"], 10);
+                }
+            } else {
+                if (array[i]["Accion"] == 1) {
+                    totalAreaCargada += parseFloat(array[i]["Area"], 10);
+                    totalToneladasCargadas += parseFloat(array[i]["Peso"], 10);
+                }
+            }
+        }
+
+        totalToneladasCargadas = totalToneladasCargadas / 1000;
+
+        $("#labelM2").css('text-align', 'left');
+        $("#labelToneladas").css('text-align', 'left');
+
+        $("#labelM2").text(totalAreaCargada != 0 ? totalAreaCargada.toFixed(2) : "");
+        $("#labelToneladas").text(totalToneladasCargadas != 0 ? totalToneladasCargadas.toFixed(2) : "");
+    }
+
+    //return totalAreaCargada;
 }

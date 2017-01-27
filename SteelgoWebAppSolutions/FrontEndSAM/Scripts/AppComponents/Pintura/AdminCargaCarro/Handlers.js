@@ -1,12 +1,34 @@
 ﻿function SuscribirEventos() {
-
     SuscribirEventoProyecto();
     SuscribirEventoSpoolID();
     SuscribirEventoCarro();
     SuscribirEventoCambiarEscenario();
     suscribirEventoWindowsConfirmaCaptura();
+    SuscribirEventoGuardarNuevoMedioTransporte();
+    SuscribirEventoCerrarNuevoMedioTransporte();
 }
 
+
+function SuscribirEventoCerrarNuevoMedioTransporte() {
+    $('#btnCerrarVentanaCrearMedioTransporte').click(function (e) {
+        windowNewCarriage.close();
+        $("#InputNombre").blur();
+    });
+};
+
+function SuscribirEventoGuardarNuevoMedioTransporte() {
+    $('#btnGuardarCrearMedioTransporte').click(function (e) {
+        AjaxGuardarNuevoCarro();
+    });
+
+    $('#InputNombre').keydown(function (e) {
+        if ($('#InputNombre').val() != "") {
+            if (e.keyCode == 13) {
+                AjaxGuardarNuevoCarro();
+            }
+        }
+    });
+}
 
 
 function SuscribirEventoSpoolID() {
@@ -88,6 +110,7 @@ function SuscribirEventoProyecto() {
             LimpiarCargaProyecto();
 
             if (dataItem != undefined) {
+                
                 if (dataItem.ProyectoID != 0) {
                     AjaxCargarMedioTransporte(dataItem.ProyectoID, null);
                 }
@@ -96,6 +119,13 @@ function SuscribirEventoProyecto() {
             }
         }
     });
+
+    $('#inputProyecto').closest('.k-widget').keydown(function (e) {
+        if (e.keyCode == 13) {
+            
+        }
+    });
+
 }
 
 
@@ -112,45 +142,56 @@ function SuscribirEventoCarro() {
             LimpiarCargaCarro();
 
             if (dataItem != undefined) {
-                CheckCerrarCarro(1, dataItem);
+                $("#chkCerrar")[0].checked = dataItem.CarroCerrado;
                 if (dataItem.MedioTransporteID == -1) {
                     CargaPopupNuevoMedioTransporte();
                 } else {
+                     
                     AjaxObtenerDetalleCargaCarroBacklog(dataItem);
+                    AjaxObtenerDetalleCargaCarro(dataItem.MedioTransporteID);
                 }
             } else {
                 $("#inputCarroEscritorio").data("kendoComboBox").value("");
             }
         }
     });
+
+    $('#inputCarro').closest('.k-widget').keydown(function (e) {
+        if (e.keyCode == 13) {
+
+        }
+        else if (e.keyCode == 9) {
+
+        }
+
+    });
+
+    $('#inputCarro').blur(function (e) {
+        var spoollIDValue = $("#InputID").val();
+        var listaSpoolID = $("#InputID").data("kendoComboBox").dataSource._data;
+
+    });
+
 }
 
 function eventoCambioTipoEscenario() {
+  
 
     if ($('input:radio[name=TipoVista]:checked').val() == "Escritorio") {
-        //$("#JuntaDiv").css('display', 'none');
-        //$("#MuestraDiv").css('display', 'block');
         $("#AgregarSpoolManual").css('display', 'none');
-        
         $("#grid").data("kendoGrid").showColumn("Prioridad");
         $("#grid").data("kendoGrid").showColumn("MedioTransporte");
         $("#grid").data("kendoGrid").showColumn("Seleccionado");
         $("#grid").data("kendoGrid").refresh();
-        
-
-        //Limpiar();
-       // AjaxCargarCamposPredeterminadosOcultaJunta();
+        LimpiarCambioEscenario();
     }
     else if ($('input:radio[name=TipoVista]:checked').val() == "Patio") {
-        //$("#JuntaDiv").css('display', 'block');
-        //$("#MuestraDiv").css('display', 'block');
         $("#AgregarSpoolManual").css('display', 'block');
         $("#grid").data("kendoGrid").hideColumn("Prioridad");
         $("#grid").data("kendoGrid").hideColumn("MedioTransporte");
         $("#grid").data("kendoGrid").hideColumn("Seleccionado");
         $("#grid").data("kendoGrid").refresh();
-        //Limpiar();
-        //AjaxCargarCamposPredeterminadosOcultaJunta();
+        LimpiarCambioEscenario();
     }
 }
 
@@ -196,7 +237,7 @@ function suscribirEventoWindowsConfirmaCaptura() {
 
     $("#yesButtonProy").click(function (e) {
         $("#grid").data("kendoGrid").dataSource.data([]);
-        eventoCambioTipoListado();
+        LimpiarCambioEscenario();
         ventanaConfirmEdicion.close();
         editado = false;
     });
@@ -205,3 +246,18 @@ function suscribirEventoWindowsConfirmaCaptura() {
         ventanaConfirmEdicion.close();
     });
 }
+
+function eventoRegresarTipoListado() {
+
+    if ($('input:radio[name=TipoVista]:checked').val() == "Escritorio") {
+        $('input:radio[name=TipoVista]:nth(1)').attr('checked', true);
+        $('input:radio[name=TipoVista]:nth(1)').trigger("click");
+    }
+    else if ($('input:radio[name=TipoVista]:checked').val() == "Patio") {
+        $('input:radio[name=TipoVista]:nth(0)').attr('checked', true);
+        $('input:radio[name=TipoVista]:nth(0)').trigger("click");
+    }
+}
+
+
+
