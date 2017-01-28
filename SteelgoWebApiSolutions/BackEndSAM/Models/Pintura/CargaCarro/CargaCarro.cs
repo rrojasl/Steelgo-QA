@@ -69,29 +69,14 @@ namespace BackEndSAM.Models.Pintura.CargaCarro
         public decimal Peso { get; set; }
         public decimal Area { get; set; }
         public int EstatusCaptura { get; set; }
-    }
-
-    public class DetalleCargaCarroBackLog
-    {
-        public int Accion { get; set; }
-        public int MedioTransporteCargaDetalleID { get; set; }
-        public int OrdenTrabajoID { get; set; }
-        public int SpoolID { get; set; }
         public int Prioridad { get; set; }
-        public string NumeroControl { get; set; }
-        public int SistemaPinturaID { get; set; }
-        public string SistemaPintura { get; set; }
-        public string ColorPintura { get; set; }
-        public int CuadranteID { get; set; }
-        public int CuadranteAnteriorID { get; set; }
-        public string Cuadrante { get; set; }
-        public decimal Area { get; set; }
-        public decimal Peso { get; set; }
         public string MedioTransporte { get; set; }
         public bool CarroCerrado { get; set; }
         public bool Seleccionado { get; set; }
-        public int EstatusCaptura { get; set; }
+        
     }
+
+  
     public class CerrarMedioTransporte
     {
         public int CerrarCarro { get; set; }

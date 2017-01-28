@@ -103,6 +103,8 @@ function AjaxCargarMedioTransporte(ProyectoID, nuevoCarro) {
                     }
                 }
             }
+            else
+                $("#inputCarro").data("kendoComboBox").trigger("change");
         }
     });
 }
@@ -148,6 +150,7 @@ function AjaxObtenerDetalleCargaCarro(MedioTransporteID,tipoEscenario) {
         var array = data;
 
         if (data.length > 0) {
+            editado = true;
             for (var i = 0; i < array.length; i++) {
                 if (tipoEscenario=="Patio" && !validarInformacion(array[i])) {
                     ds.add(array[i]);
@@ -155,7 +158,7 @@ function AjaxObtenerDetalleCargaCarro(MedioTransporteID,tipoEscenario) {
                 else
                     ds.add(array[i]);
             }
-
+            ds.sync();
             ImprimirAreaTonelada();
         }
 

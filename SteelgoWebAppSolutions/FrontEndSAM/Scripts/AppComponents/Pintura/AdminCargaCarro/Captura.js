@@ -14,21 +14,17 @@ function changeLanguageCall() {
 function LimpiarCargaCarro() {
     $("#grid").data('kendoGrid').dataSource.data([]);
 
-    $("#labelM2E").text("");
-    $("#labelM2P").text("");
-    $("#labelToneladasE").text("");
-    $("#labelToneladasP").text("");
+    $("#labelM2").text("");
+    $("#labelToneladas").text("");
+  
 }
 
 function LimpiarCargaProyecto() {
-    //$("#inputZonaPopup").data("kendoComboBox").dataSource.data([]);
-    //$("#inputZonaPopup").data("kendoComboBox").value("");
-
     $("#inputCarro").data("kendoComboBox").dataSource.data([]);
     $("#inputCarro").data("kendoComboBox").value("");
 
-    $("#labelM2E").text("");
-    $("#labelToneladasE").text("");
+    $("#labelM2").text("");
+    $("#labelToneladas").text("");
 
     $("#grid").data('kendoGrid').dataSource.data([]);
     
@@ -40,9 +36,9 @@ function LimpiarCambioEscenario() {
     $("#inputCarro").data("kendoComboBox").dataSource.data([]);
     $("#inputCarro").data("kendoComboBox").value("");
 
-    $("#labelM2E").text("");
-    $("#labelToneladasE").text("");
-
+    $("#labelM2").text("");
+    $("#labelToneladas").text("");
+    $("#chkCerrar")[0].checked = false;
     $("#grid").data('kendoGrid').dataSource.data([]);
 
 }
@@ -272,4 +268,18 @@ function ImprimirAreaTonelada() {
     }
 
     //return totalAreaCargada;
+}
+
+function validarInformacion(row) {
+    //solo para patio.
+    var ds = $("#grid").data("kendoGrid").dataSource;
+    var existe = false;
+
+    for (var i = 0; i < ds._data.length; i++) {
+        if (ds._data[i]["SpoolID"] == row.SpoolID && ds._data[i]["Accion"] != 3) {
+            existe = true;
+            break;
+        }
+    }
+    return existe;
 }
