@@ -8281,6 +8281,14 @@ _dictionary = {
         "es-MX": "Listado embarque enviados",
         "en-US": "Sent shipping list"
     },
+    "menuIngenieria": {
+        "es-MX": "Ingeniería",
+        "en-US": "Enginnering"
+    },
+    "menuIngenieriaBuscaSpool": {
+        "es-MX": "Busca Spool",
+        "en-US": "Spool Search"
+    },
     // Finalizan Etiquetas de Menú General
 
 
@@ -11593,6 +11601,18 @@ _dictionary = {
     "EmbarqueListadoTitlePopUpEnviar": {
         "es-MX": "Enviar Embarque",
         "en-US": "Send Shipment"
+    },
+    "EmbarqueListadoErrorEnvioNumeroEmbarqueExiste": {
+        "es-MX": "El número de embarque ya existe",
+        "en-US": "The shipment number already exists"
+    },
+    "EmbarqueListadoErrorEnvioNumeroEmbarqueClienteExiste": {
+        "es-MX": "El número de embarque cliente ya existe",
+        "en-US": "The customer shipment number already exists"
+    },
+    "EmbarqueListadoErrorEnvioNumeroEmbarquesExisten": {
+        "es-MX": "Número de embarque y Número embarque cliente ya existen",
+        "en-US": "Shipment number and Customer shipment number already exist"
     },
     //Finaliza pantalla listado embarque
     //Inicia pantalla listado embarque enviados

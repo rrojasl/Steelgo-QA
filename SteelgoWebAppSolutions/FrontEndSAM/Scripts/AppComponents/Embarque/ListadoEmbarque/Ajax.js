@@ -7,7 +7,6 @@
         else if (data == "Transitados") {
             $('#btnTransito').trigger("click");
         }
-        loadingStop();
     });
 }
 
@@ -95,7 +94,6 @@ function AjaxGuardarCaptura(ds, tipoGuardado) {
             } else {
                 var estatus = $("#btnPendientes").hasClass("active") ? 1 : 2;
                 opcionHabilitarView(true, "FieldSetView");
-                $("#grid").data("kendoGrid").dataSource.data([]);
                 AjaxObtenerDetalleListadoEmbarque(estatus);
 
             }
@@ -132,9 +130,18 @@ function AjaxEnviarEmbarque(dataItem, numEmb, numEmbCliente, fechaEnvio) {
         token: Cookies.get("token"), Lenguaje: $("#language").val(), NumeroEmbarque: numEmb,
         NumeroEmbarqueCliente: numEmbCliente, FechaEnvio: fechaEnvio, ProyectoID: dataItem.ProyectoID
     }).done(function (data) {
-        if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
-            AjaxObtenerDetalleListadoEmbarque(1);
-            displayNotify("EmbarqueListadoMsjExitoEnviar", "", '0');
+        if (data.ReturnCode == 200) {
+            if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
+                AjaxObtenerDetalleListadoEmbarque(1);
+                displayNotify("EmbarqueListadoMsjExitoEnviar", "", '0');
+            } else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
+                if (data.ReturnMessage[0] == "NE EXISTE")
+                    displayNotify("EmbarqueListadoErrorEnvioNumeroEmbarqueExiste", "", '2');
+                else if (data.ReturnMessage[0] == "NEC EXISTE")
+                    displayNotify("EmbarqueListadoErrorEnvioNumeroEmbarqueClienteExiste", "", '2');
+                else
+                    displayNotify("EmbarqueListadoErrorEnvioNumeroEmbarquesExisten", "", '2');
+            }
         } else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
             displayNotify("EmbarqueListadoMsjErrorEnviar", "", '2');
             loadingStop();
