@@ -72,6 +72,9 @@ function CargarGridCapturaAvanceIntAcabado() {
     //loadingStart();
     $("#grid").kendoGrid({
         edit: function (e) {
+            var inputName = e.container.find('input');
+            inputName.select();
+
             //if ($('#lblGuardar').text() != _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
             //}
             //else {

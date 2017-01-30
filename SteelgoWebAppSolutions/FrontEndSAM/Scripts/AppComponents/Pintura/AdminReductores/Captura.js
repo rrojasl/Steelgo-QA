@@ -16,6 +16,12 @@ setTimeout(function () { suscribirEventos(); }, 100);
 function CargarGrid() {
     $("#grid").kendoGrid({
         edit: function (e) {
+            setTimeout(function () {
+                var inputName = e.container.find('input');
+
+                inputName.select();
+            });
+
             if ($('#Guardar').text() != _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
                 this.closeCell();
             }

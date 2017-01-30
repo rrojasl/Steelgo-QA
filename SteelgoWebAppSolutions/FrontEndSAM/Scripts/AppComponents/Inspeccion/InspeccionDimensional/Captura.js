@@ -82,6 +82,8 @@ function CargarGrid() {
         autoSync: true,
         edit: function (e) {
          
+            var inputName = e.container.find('input');
+            inputName.select();
 
             if ($('#Guardar').text() == "Editar" || $('#Guardar').text() == "Edit") {
                 this.closeCell();

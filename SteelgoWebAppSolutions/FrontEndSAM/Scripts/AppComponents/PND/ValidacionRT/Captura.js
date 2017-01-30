@@ -109,6 +109,11 @@ function CargarGrid() {
             },
         },
         edit: function (e) {
+            setTimeout(function () {
+                var inputName = e.container.find('input');
+
+                inputName.select();
+            });
             if ($('#Guardar').text() == _dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]) {
                 this.closeCell();
 

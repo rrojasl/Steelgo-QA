@@ -18,6 +18,11 @@ function changeLanguageCall() {
 
 function CargarGrid() {
     $("#grid").kendoGrid({
+        edit: function (e) {
+            var inputName = e.container.find('input');
+            inputName.select();
+
+        },
         autoBind: true,
         dataSource: {
             schema: {

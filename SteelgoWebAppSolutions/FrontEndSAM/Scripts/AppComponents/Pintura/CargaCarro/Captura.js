@@ -29,6 +29,11 @@ function getParameterByName(name, url) {
 function CargarGridEscritorio(){
     $("#grid[name='grid-Escritorio']").kendoGrid({
         edit: function (e) {
+
+                var inputName = e.container.find('input');
+                inputName.select();
+
+
             if ($('#Guardar').text() != _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
 
                 this.closeCell();
