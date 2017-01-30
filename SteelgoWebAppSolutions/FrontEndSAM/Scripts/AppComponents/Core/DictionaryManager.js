@@ -9365,6 +9365,10 @@ _dictionary = {
         "es-MX": "El spool esta aprobado, no puedes especificar juntas",
         "en-US": "The spool is aproved, can´t  especify joint"
     },
+    "mensajeInspeccionVisualDimensionalSeleccionarResultado": {
+        "es-MX": "Necesitas seleccionar  el resultado",
+        "en-US": "You need to select the result"
+    },
     "NoExistenJuntasSel": {
         "es-MX": "No hay juntas seleccionadas",
         "en-US": "No joints are selected"
@@ -10709,7 +10713,11 @@ _dictionary = {
     // Finaliza Listado Sistema Pintura
 
     //Comienza Sistema Pintura
-
+    
+    "NumeroComponentesMenorListado": {
+            "es-MX": "Máximo puedes ingresar ?1 componentes",
+            "en-US": "Maximum you can enter ?1 components"
+        },
     "MensajeSpoolAsignado": {
         "es-MX": "No puedes editar el sistema de pintura el motivo es: ya se encuentra asignado a un spool",
         "en-US": "You can not edit the painting system the reason is: it is already assigned to a spool"

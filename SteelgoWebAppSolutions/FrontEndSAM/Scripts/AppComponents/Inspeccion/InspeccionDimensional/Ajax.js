@@ -343,13 +343,8 @@ function AjaxGuardar(jSonCaptura, tipoGuardado) {
                         $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
                     }
                     else {
-                        if (jSonCaptura[index].TIPO == "NoEspecificarJunta") {
-                            if ((inspeccionDimensional[index].ListaJuntas == undefined || JuntasEliminadasGuardar(inspeccionDimensional[index].ListaJuntas))) {
-                                inspeccionDimensional[index].Estatus = 0;
-                                $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
-                            }
-                        }
-                        else {
+                        if (jSonCaptura[index].TIPO != "NoEspecificarJunta") {
+                           
                             if (!JuntasCorrectasGuardar(inspeccionDimensional[index].ListaJuntas)) {
                                 inspeccionDimensional[index].Estatus = 0;
                                 $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
@@ -383,9 +378,10 @@ function AjaxGuardar(jSonCaptura, tipoGuardado) {
                     else {
                         displayNotify("CapturaMensajeGuardadoErroneo", "", '2');
                     }
+                    loadingStop();
                 }
             });
-            loadingStop();
+           
         }
         else {
             loadingStop();
@@ -469,7 +465,7 @@ function AjaxGuardar(jSonCaptura, tipoGuardado) {
 
     }
 
-    loadingStop();
+    
 }
 
 function InspectorCorrecto(array) {

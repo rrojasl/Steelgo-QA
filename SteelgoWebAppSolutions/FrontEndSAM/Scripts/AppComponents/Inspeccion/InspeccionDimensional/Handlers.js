@@ -326,7 +326,6 @@ function suscribirEventoGuardar() {
 
         if (ds._data.length > 0) {
             if ($('#Guardar').text() == "Guardar" || $('#Guardar').text() == "Save") {
-
                 AjaxGuardar(ds._data, 0);
             }
             else if ($('#Guardar').text() == "Editar" || $('#Guardar').text() == "Edit") {

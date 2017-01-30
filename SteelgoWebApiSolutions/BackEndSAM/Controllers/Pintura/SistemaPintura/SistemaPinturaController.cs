@@ -19,7 +19,7 @@ namespace BackEndSAM.Controllers.Pintura.SistemaPintura
     public class SistemaPinturaController : ApiController
     {
         [HttpGet]
-        public object GetCreacionSistemaPintura(string token, string Lenguaje, int SistemaPinturaID, int ProyectoID)
+        public object GetNuevoSistemaPintura(string token, string Lenguaje, int SistemaPinturaID, int ProyectoID)
         {
             //Create a generic return object
             string payload = "";
@@ -44,7 +44,7 @@ namespace BackEndSAM.Controllers.Pintura.SistemaPintura
 
         }
         [HttpGet]
-        public object GetCreacionSistemaPintura(string token, string Lenguaje, int SistemaPinturaID)
+        public object GetDetalleSistemaPintura(string token, string Lenguaje, int SistemaPinturaID)
         {
             //Create a generic return object
             string payload = "";

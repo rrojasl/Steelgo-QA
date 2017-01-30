@@ -210,7 +210,8 @@ function FiltroMostrar(mostrar) {
 function isEditable(fieldName, model) {
     if (fieldName === "Defectos") {
         // condition for the field "ProductName"
-        return model.ResultadoID !== "1";
+        displayNotify('mensajeInspeccionVisualDimensionalSeleccionarResultado', '', '1');
+        return model.ResultadoID !== "1" && model.ResultadoID != "" && model.ResultadoID != 0 && model.ResultadoID != undefined;
     }
     else if (fieldName === "ListaJuntasSeleccionadas") {
         // condition for the field "ProductName"

@@ -93,6 +93,13 @@ function CargarGrid() {
             if ($('#botonGuardar').text() != _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()] || ($("#inputNoAplicable").is(':checked'))) {
                 this.closeCell();
             }
+            
+
+            setTimeout(function () {
+                var inputName = e.container.find('input');
+
+                inputName.select();
+            });
         },
 
         dataSource: {
@@ -378,6 +385,10 @@ function limpiarRenglon(e) {
 function CargarGridPopUp() {
 
     $("#gridPopUp").kendoGrid({
+        edit: function (e) {
+                var inputName = e.container.find('input');
+                inputName.select();
+        },
         dataSource: {
             data: [],
             schema: {
@@ -456,7 +467,11 @@ function LlenarGridPopUp(data) {
 function CargarGridPopUpComponenteAgregado() {
 
     $("#gridPopUpComponentesAgregados").kendoGrid({
-        dataSource: {
+        edit: function (e) {
+            var inputName = e.container.find('input');
+            inputName.select();
+        },
+        dataSource: { 
             data: [],
             schema: {
                 model: {
