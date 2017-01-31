@@ -40,6 +40,32 @@ namespace BackEndSAM.Controllers.Embarque.ListadoEmbarque
         }
 
         [HttpGet]
+        public object ObtenerDetalleListadoEmbarqueEnviado(string token, string Lenguaje, int ProyectoID, string FechaInicio, string FechaFin)
+        {
+            string payload = "";
+            string newToken = "";
+
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+
+                return ListadoEmbarqueBD.Instance.ObtenerDetalleListadoEmbarqueEnviado(usuario.UsuarioID, ProyectoID, Lenguaje, FechaInicio, FechaFin);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+
+                return result;
+            }
+        }
+
+        [HttpGet]
         public object ObtenerElementosPorEstatus(string token, string lenguaje)
         {
             string payload = "";

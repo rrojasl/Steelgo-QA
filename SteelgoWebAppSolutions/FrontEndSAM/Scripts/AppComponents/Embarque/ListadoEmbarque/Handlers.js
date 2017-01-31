@@ -63,11 +63,7 @@ function SuscribirEventoPopUPEnviarEmbarque() {
                 displayNotify("EmbarqueListadoMsjErrorNumEmbarqueCliente", "", "2");
         } else {
             displayNotify("EmbarqueListadoMsjErrorNumEmbarqueSteelgo", "", "2");
-        }
-        var fecha = kendo.toString(new Date(), String(_dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()].replace('{', '').replace('}', '').replace("0:", ""))).trim();
-        $("#NumEmb").val("");
-        $("#NumEmbCliente").val("");
-        $("#Fecha").val(fecha);
+        }        
     });
 
     $("#btnCerrarPopUp").click(function (e) {

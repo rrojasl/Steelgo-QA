@@ -98,13 +98,11 @@ function AjaxGuardarCaptura(ds, tipoGuardado) {
 
             }
             displayNotify("MensajeGuardadoExistoso", "", '0');
-        } else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok")
+        } else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
             displayNotify("MensajeGuardadoErroneo", "", '2');
-        
-        loadingStop();
+            loadingStop();
+        }
     });
-
-    loadingStop();
 }
 
 function AjaxEnviarEmbarque(dataItem, numEmb, numEmbCliente, fechaEnvio) {
@@ -146,6 +144,10 @@ function AjaxEnviarEmbarque(dataItem, numEmb, numEmbCliente, fechaEnvio) {
             displayNotify("EmbarqueListadoMsjErrorEnviar", "", '2');
             loadingStop();
         }
+        var fecha = kendo.toString(new Date(), String(_dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()].replace('{', '').replace('}', '').replace("0:", ""))).trim();
+        $("#NumEmb").val("");
+        $("#NumEmbCliente").val("");
+        $("#Fecha").val(fecha);
     });
 
 }

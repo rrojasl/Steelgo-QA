@@ -1,6 +1,7 @@
 ﻿
 
 using BackEndSAM.Models.Sam3General.OpcionValidacion;
+using System;
 using System.Collections.Generic;
 
 namespace BackEndSAM.Models.Embarque.ListadoEmbarque
@@ -84,5 +85,27 @@ namespace BackEndSAM.Models.Embarque.ListadoEmbarque
         public string FechaPermiso { get; set; }
         public int AprobadoAduana { get; set; }
         public int BitacoraAduana { get; set; }
+    }
+
+    public class DetalleListadoEmbarqueEnviado
+    {
+        public int EmbarqueID { get; set; }
+        public string Embarque { get; set; }
+        public int EmbarqueEstatusID { get; set; }
+        public int? ProyectoID { get; set; }
+        public string Proyecto { get; set; }
+        public int DestinoID { get; set; }
+        public string Destino { get; set; }
+        public string FolioSolicitudPermiso { get; set; }
+        public string FechaSolicitudPermiso { get; set; }
+        public string Planas { get; set; }
+        public Nullable<bool> RequierePapCliente { get; set; }
+        public Nullable<bool> RequierePermisoAduana { get; set; }
+        public Nullable<bool> RequiereRevisionCliente { get; set; }
+        public Nullable<bool> OkEmbarque { get; set; }
+        public int AprobadoAduana { get; set; }
+        public string AprobadoAduanaDesc { get; set; }
+        public Nullable<bool> OkCliente { get; set; }
+        public int? CapturaEnvioID { get; set; }
     }
 }

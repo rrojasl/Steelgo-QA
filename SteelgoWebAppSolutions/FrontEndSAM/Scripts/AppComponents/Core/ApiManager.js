@@ -175,6 +175,7 @@ var $Dashboard = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Cuadrante = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Zona = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Patios = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Periodo = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 
 //Fabricación
 var $Armado = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
@@ -360,6 +361,7 @@ $Dashboard.add("Dashboard");
 $Cuadrante.add('Cuadrante');
 $Zona.add('Zona');
 $Patios.add('Patios');
+$Periodo.add('Periodo');
 
 //Fabricación
 $Armado.add("Armado");

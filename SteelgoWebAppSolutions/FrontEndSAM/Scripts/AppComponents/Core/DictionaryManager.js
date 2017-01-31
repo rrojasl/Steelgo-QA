@@ -8077,6 +8077,18 @@ _dictionary = {
         "es-MX": "Por favor seleccione un embarque",
         "en-US": "Please select to shipment"
     },
+    "MensajeSeleccionaFechaInicio": {
+        "es-MX": "Por favor seleccione fecha inicio",
+        "en-US": "Please select start date"
+    },
+    "MensajeSeleccionaFechaFin": {
+        "es-MX": "Por favor seleccione fecha fin",
+        "en-US": "Please select end date"
+    },
+    "MensajeSeleccionaFechaFinMenorFechaInicio": {
+        "es-MX": "La fecha inicio no puede ser mayor a la fecha fin",
+        "en-US": "The start date can not be greater than the end date"
+    },
     // Finalizan Mensajes generales
 
     // Menú lateral

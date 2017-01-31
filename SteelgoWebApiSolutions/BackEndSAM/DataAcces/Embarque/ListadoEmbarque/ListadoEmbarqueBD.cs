@@ -128,6 +128,55 @@ namespace BackEndSAM.DataAcces.Embarque.ListadoEmbarque
             }
         }
 
+        public object ObtenerDetalleListadoEmbarqueEnviado(int UsuarioID, int ProyectoID, string Lenguaje, string FechaInicio, string FechaFin)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Sam3_Embarque_LE_Get_ListadoEmbarqueEnviado_Result> result = ctx.Sam3_Embarque_LE_Get_ListadoEmbarqueEnviado(Lenguaje, UsuarioID, ProyectoID, FechaInicio, FechaFin).ToList();
+                    List<DetalleListadoEmbarqueEnviado> listaDetalle = new List<DetalleListadoEmbarqueEnviado>();
+
+                    foreach (Sam3_Embarque_LE_Get_ListadoEmbarqueEnviado_Result item in result)
+                    {
+                        listaDetalle.Add(new DetalleListadoEmbarqueEnviado
+                        {
+                            EmbarqueID = item.EmbarqueID,
+                            Embarque = item.Embarque,
+                            EmbarqueEstatusID = item.EmbarqueEstatusID,
+                            ProyectoID = item.ProyectoID,
+                            Proyecto = item.Proyecto,
+                            Planas = item.Planas,
+                            DestinoID = item.DestinoID,
+                            Destino = item.Destino,
+                            FolioSolicitudPermiso = item.RequiereAduana.GetValueOrDefault() ? item.SolicitudPermiso : "NA",
+                            FechaSolicitudPermiso = item.RequiereAduana.GetValueOrDefault() ? item.FechaPermiso.ToString() : "NA",
+                            RequierePapCliente = item.RequierePapCliente,
+                            RequierePermisoAduana = item.RequiereAduana,
+                            RequiereRevisionCliente = item.RequiereRevisionCliente,
+                            OkCliente = item.OkCliente,
+                            AprobadoAduana = item.RequiereAduana.GetValueOrDefault() ? item.AprobadoAduana.GetValueOrDefault() : 1,
+                            AprobadoAduanaDesc = item.RequiereAduana.GetValueOrDefault() ? item.AprobadoAduanaDesc : "NA",
+                            OkEmbarque = item.OkEmbarque,
+                            CapturaEnvioID = item.CapturaEnvioID
+                        });
+                    }
+
+                    return listaDetalle;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
         public object ObtenerElementosPorEstatus(string lenguaje, int UsuarioID)
         {
             try
