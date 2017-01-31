@@ -103,7 +103,7 @@ function SuscribirEventoOrdenTrabajo()
     $("#InputOrdenTrabajo").focus(function (e) {
         $("#InputOrdenTrabajo").val("");
         $("#InputID").data("kendoComboBox").value("");
-        $("#InputID").data("kendoComboBox").setDataSource();
+        //$("#InputID").data("kendoComboBox").setDataSource();
         limpiarJuntaMultiselect();
     });
 }
