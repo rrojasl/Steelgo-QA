@@ -97,11 +97,11 @@ function CargarGrid() {
 
             setTimeout(function () {
                 var inputName = e.container.find('input');
-
                 inputName.select();
             });
-        },
 
+        },
+        autoBind: true,
         dataSource: {
             data: [],
             schema: {
@@ -217,7 +217,7 @@ function CargarGrid() {
                                 height: "auto",
                                 modal: true,
                                 animation: {
-                                    close: false,
+                                  
                                     open: false
                                 },
                                 actions:[]
@@ -569,9 +569,8 @@ function VentanaModalComponentesAgregados() {
             top: "10px",
             left: "10px"
         },
-        actions: [
-    
-        ],
+        actions: [],
+
         close: function onClose(e) {
             var gridDataSource = $("#gridPopUpComponentesAgregados").data("kendoGrid").dataSource;
             gridDataSource.filter([]);
@@ -598,9 +597,7 @@ function VentanaModal() {
             top: "10px",
             left: "10px"
         },
-        actions: [
-            
-        ],
+        actions: [],
         close: function onClose(e) {
             var gridDataSource = $("#gridPopUp").data("kendoGrid").dataSource;
             gridDataSource.filter([]);

@@ -59,11 +59,12 @@ function suscribirEventoChangeAplicable() {
                     width: "auto",
                     height: "auto",
                     modal: true,
-                    actions: [],
+                   
                     animation: {
-                        close: false,
+                        
                         open: false
-                    }
+                    },
+                    actions: []
                 }).data("kendoWindow");
 
                 ventanaConfirm.content(_dictionary.MensajeEliminarColoresYProcesosSistemaNoPintable[$("#language").data("kendoDropDownList").value()] +
@@ -96,11 +97,12 @@ function suscribirEventoChangeAplicable() {
                         width: "auto",
                         height: "auto",
                         modal: true,
-                        actions: [],
+
                         animation: {
-                            close: false,
+                           
                             open: false
-                        }
+                        },
+                        actions: []
                     }).data("kendoWindow");
 
                     ventanaConfirm.content(_dictionary.MensajeEliminarColoresSistemaNoPintable[$("#language").data("kendoDropDownList").value()] +
@@ -330,9 +332,8 @@ function SuscribirEventoGuardarDetalleComponentes() {
                 width: "auto",
                 height: "auto",
                 modal: true,
-                actions: [],
                 animation: {
-                    close: false,
+                   
                     open: false
                 },
                 actions: []
@@ -473,7 +474,7 @@ function SuscribirEventoEliminarSistemaPintura() {
             height: "auto",
             modal: true,
             animation: {
-                close: false,
+                
                 open: false
             },
             actions: []

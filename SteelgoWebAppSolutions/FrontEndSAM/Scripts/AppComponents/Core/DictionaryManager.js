@@ -7828,6 +7828,10 @@ _dictionary = {
         "es-MX": "Agregar",
         "en-US": "Add"
     },
+    "botonAgregar2": {
+        "es-MX": "Agregar",
+        "en-US": "Add"
+    },
     "botonLimpiar": {
         "es-MX": "Limpiar",
         "en-US": "Clean"
@@ -10313,6 +10317,17 @@ _dictionary = {
         "es-MX": "Captura Pruebas por Spool",
         "en-US": "Spool Capture Test"
     },
+
+    "SistemaPinturaSup": {
+        "es-MX": "Sistema Pintura Aplicable",
+        "en-US": "Applicable Paint System"
+    },
+
+    "SistemaPinturaInf": {
+        "es-MX": "Sistema Pintura Aplicable",
+        "en-US": "Applicable Paint System"
+    },
+
     //Finaliza Etiquetas Generales Pintura
     //Inicia Captura Admin componentes
 
@@ -10800,13 +10815,13 @@ _dictionary = {
         "en-US": "Component"
     },
     "botonGuardarComponenteAgregado": {
-        "es-MX": "Guardar",
+        "es-MX": "Agregar",
         "en-US": "Save"
     },
 
     "botonAgregarComponente": {
-        "es-MX": "Guardar",
-        "en-US": "Save"
+        "es-MX": "Agregar",
+        "en-US": "Add"
     },
 
     "botonCancelarComponenteAgregado": {
