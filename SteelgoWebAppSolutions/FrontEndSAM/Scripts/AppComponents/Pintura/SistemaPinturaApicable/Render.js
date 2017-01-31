@@ -104,3 +104,19 @@ function ObtenerColorPinturaCorrecto(lista, ColorPinturaID) {
     }
     return "";
 }
+
+function Diametro(container, options) {
+    if ($('#Guardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
+        var dataItem;
+        var Diametro = $('<input data-text-field="Diametro" id=' + options.model.uid + ' data-value-field="Diametro" data-bind="value:' + options.field + '"/>')
+         .appendTo(container)
+         .kendoNumericTextBox({
+             format: "#",
+             min: 0
+         });
+
+        Diametro.focus(function () {
+            this.select();
+        });
+    };
+}

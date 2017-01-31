@@ -285,7 +285,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                     height: "auto",
                     modal: true,
                     animation: {
-                        close: false,
+                       
                         open: false
                     },
                     actions:[]

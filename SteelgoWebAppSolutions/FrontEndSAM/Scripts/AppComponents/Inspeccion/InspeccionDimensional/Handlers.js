@@ -136,7 +136,7 @@ function SuscribirEventoSpoolID() {
     $("#InputOrdenTrabajo").focus(function (e) {
         $("#InputOrdenTrabajo").val("");
         $("#InputID").data("kendoComboBox").value("");
-        $("#InputID").data("kendoComboBox").setDataSource();
+        //$("#InputID").data("kendoComboBox").setDataSource();
     });
 
     $("#InputID").blur(function (e) {
