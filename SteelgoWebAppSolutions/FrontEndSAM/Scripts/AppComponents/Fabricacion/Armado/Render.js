@@ -21,7 +21,7 @@
                     options.model.Taller = undefined;
                     options.model.TallerID = undefined;
                 }
-                
+                $("#grid").data("kendoGrid").dataSource.sync();
             }
         }
         );
@@ -58,6 +58,8 @@ function RenderDatePicker(container, options) {
             change: function () {
                 var value = this.value();
                 options.model.FechaArmado = value;
+
+                $("#grid").data("kendoGrid").dataSource.sync();
             }
         }
         );
@@ -94,11 +96,11 @@ function RenderComboBoxTubero(container, options) {
                 else {
                     //    options.model.Tubero = ObtenerDescCorrectaTubero(options.model.ListaTubero, options.model.TuberoID);
                     options.model.Tubero = "";
-                    options.model.TuberoID = "";
+                    options.model.TuberoID = 0;
                 }
                 //    this.data('kendoComboBox').select(options.model.TuberoID)
                 //$("#MyComboBox").data("kendoComboBox").value(id);
-                // $("#grid").data("kendoGrid").dataSource.sync();
+                $("#grid").data("kendoGrid").dataSource.sync();
             }
         }
         );
@@ -169,8 +171,8 @@ function RenderComboBoxNumeroUnico1(container, options) {
                 }
                 else {
                     options.model.NumeroUnico1 = "";
-                    options.model.NumeroUnico1ID = "";
-                    //$("#grid").data("kendoGrid").dataSource.sync();
+                    options.model.NumeroUnico1ID = 0;
+                    $("#grid").data("kendoGrid").dataSource.sync();
                 }
             }
         });
@@ -232,8 +234,8 @@ function RenderComboBoxNumeroUnico2(container, options) {
                  }
                  else {
                      options.model.NumeroUnico2 = "";
-                     options.model.NumeroUnico2ID = "";
-                    // $("#grid").data("kendoGrid").dataSource.sync();
+                     options.model.NumeroUnico2ID = 0;
+                    $("#grid").data("kendoGrid").dataSource.sync();
                  }
 
              },
