@@ -688,8 +688,9 @@ function suscribirEventoWindowsConfirmaCaptura() {
         editado = false;
     });
     $("#noButtonProy").click(function (e) {
-        CambioTipoListado();
         eventoRegresarTipoListado();
+        CambioTipoListado();
+        
         AjaxCargarCamposPredeterminadosCambiaTipoVista();
         ventanaConfirm.close();
     });

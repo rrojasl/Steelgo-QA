@@ -234,7 +234,7 @@ function AjaxCargarReporteJuntas() {
 function AjaxObtenerListadoWPS(dataItem) {
 
     loadingStart();
-    $Soldadura.Soldadura.read({ ProyectoID: Cookies.get("Proyecto").split('°')[0], ProcesoRaizID: dataItem.ProcesoSoldaduraRaizID, ProcesoRellenoID: dataItem.ProcesoSoldaduraRellenoID, Espesor: dataItem.Espesor, lenguaje: $("#language").val(), token: Cookies.get("token") }).done(function (data) {
+    $Soldadura.Soldadura.read({ ProyectoID: dataItem.IDProyecto, ProcesoRaizID: dataItem.ProcesoSoldaduraRaizID, ProcesoRellenoID: dataItem.ProcesoSoldaduraRellenoID, Espesor: dataItem.Espesor, lenguaje: $("#language").val(), token: Cookies.get("token") }).done(function (data) {
         if (Error(data)) {
             dataItem.ListaWPS = data;
         }
