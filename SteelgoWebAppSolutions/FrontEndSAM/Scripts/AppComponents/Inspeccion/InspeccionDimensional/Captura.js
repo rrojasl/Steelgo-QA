@@ -212,14 +212,20 @@ function FiltroMostrar(mostrar) {
 function isEditable(fieldName, model) {
     if (fieldName === "Defectos") {
         // condition for the field "ProductName"
-        displayNotify('mensajeInspeccionVisualDimensionalSeleccionarResultado', '', '1');
-        return model.ResultadoID !== "1" && model.ResultadoID != "" && model.ResultadoID != 0 && model.ResultadoID != undefined;
+        var validarDefecto = true;
+        if (model.ResultadoID == "" || model.ResultadoID == 0 || model.ResultadoID == undefined || model.ResultadoID == "1") {
+            displayNotify('mensajeInspeccionVisualDimensionalSeleccionarResultado', '', '1');
+            validarDefecto = false;
+        }
+        
+
+        return validarDefecto;
     }
     else if (fieldName === "ListaJuntasSeleccionadas") {
         // condition for the field "ProductName"
         //alert(model.TIPO );
 
-        if (model.ResultadoID == "1") {
+        if (model.ResultadoID == "1"  || model.ResultadoID == undefined || model.ResultadoID == "0" || model.ResultadoID == 0) {
             displayNotify('mensajeInspeccionVisualDimensionalNoAdmiteJuntasDefectoSpoolAprobado', '', '1');
         }
         else if (model.Defectos == "") {

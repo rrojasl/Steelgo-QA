@@ -1,17 +1,19 @@
 ﻿function RenderMultiSelectJuntas(container, options) {
-    $('<input  data-text-field="Junta" id=' + options.model.uid + ' data-value-field="JuntaID" data-bind="value:' + options.field + '"/>')
-            .appendTo(container)
-            .kendoMultiSelect({
-                autoBind: false,
-                dataSource: options.model.ListaJuntas,
-                template: "<i class=\"fa fa-#=data.Junta.toLowerCase()#\"></i> #=data.Junta#",
-                change: function (e) {
-                    // options.model.TemplateRender = _dictionary.NoExistenJuntasSel[$("#language").data("kendoDropDownList").value()];
-                    options.model.TemplateRender = $("#language").data("kendoDropDownList").value() == "es-MX" ? "Existen " + options.model.ListaJuntasSeleccionadas.length + " Juntas" : "There are " + options.model.ListaJuntasSeleccionadas.length + " board";
-                    this.dataSource.sync();
-                },
-                value: options.model.ListaJuntasSeleccionadas
-            }).data("kendoMultiSelect");
+   
+        $('<input  data-text-field="Junta" id=' + options.model.uid + ' data-value-field="JuntaID" data-bind="value:' + options.field + '"/>')
+                .appendTo(container)
+                .kendoMultiSelect({
+                    autoBind: false,
+                    dataSource: options.model.ListaJuntas,
+                    template: "<i class=\"fa fa-#=data.Junta.toLowerCase()#\"></i> #=data.Junta#",
+                    change: function (e) {
+                        // options.model.TemplateRender = _dictionary.NoExistenJuntasSel[$("#language").data("kendoDropDownList").value()];
+                        options.model.TemplateRender = $("#language").data("kendoDropDownList").value() == "es-MX" ? "Existen " + options.model.ListaJuntasSeleccionadas.length + " Juntas" : "There are " + options.model.ListaJuntasSeleccionadas.length + " board";
+                        this.dataSource.sync();
+                    },
+                    value: options.model.ListaJuntasSeleccionadas
+                }).data("kendoMultiSelect");
+    
 }
 
 function RenderOptionResultado(container, options) {
@@ -32,7 +34,7 @@ function RenderOptionResultado(container, options) {
                 if (dataItem != undefined) {
                     options.model.Resultado = dataItem._Resultado;
                     options.model.ResultadoID = dataItem._ResultadoID;
-                    if (options.model.ResultadoID == "1") {
+                    if (options.model.ResultadoID == "1" || options.model.ResultadoID == "" || options.model.ResultadoID == "0" || options.model.ResultadoID == undefined) {
                         options.model.DefectosID = 0;
                         options.model.Defectos = "";
                         options.model.ListaJuntasSeleccionadas = [];
