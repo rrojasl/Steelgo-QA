@@ -49,7 +49,7 @@
     </div>
     @*Controles Superior*@
     <div class="row addedSectionInLineWithoutColor" id="FieldSetView">
-        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2 altoControl" >
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2 altoControl">
             <div class="btn-group " data-toggle="buttons" role="group">
                 <label>&nbsp;</label>
                 <div class="btn btn-primary" id="styleReporte">
@@ -60,14 +60,15 @@
                 </div>
             </div>
         </div>
-        <div class="col-xs-6 col-sm-6 col-md-3 col-lg-2 altoControl" id="CapturaArmadoHeaderSpoolIDDiv" >
+        <div class="col-xs-6 col-sm-6 col-md-3 col-lg-2 altoControl" id="CapturaArmadoHeaderSpoolIDDiv">
             <label id="lblSpoolID"></label>
             <input style="width:40%" id="InputOrdenTrabajo" class="item-select general-input" />-<input id="InputID" placeholder="ID" style="width:40%;" />
         </div>
-        <div class="col-xs-4 col-sm-6 col-md-3 col-lg-2 altoControl" id="JuntaDiv">
+        <div class="col-xs-12 col-sm-1 col-md-1 col-lg-1 altoControl" id="JuntaDiv">
             <label id="lblJunta1"></label>
             <input id="Junta" class="" />
         </div>
+        
         <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2 altoControl" id="MuestraDiv">
             <label id="lblMostrar"></label>
             <input type="radio" name="Muestra" class="radio-responsive" style="width:auto;" value="Sin Capturar" /><span id="lblSinCaptura"></span>
@@ -100,7 +101,7 @@
             <label id="lblPlanchar"></label>
             <input type="radio" name="LLena" class="radio-responsive" style=" width:auto;" value="Todos" /><span id="lblTodos1"></span>
             <input type="radio" name="LLena" class="radio-responsive" style=" width:auto;" value="Vacios" /><span id="lblVacios"></span>
-            
+
 
         </div>
         <div class="col-xs-12 col-sm-4 col-md-1 col-lg-1">
@@ -166,7 +167,7 @@
 
                 </div>
                 <div id="SoldaduraInspeccionDivPie" class="button-section">
-                    <a id="SoldaduraInspeccionPie" href="@Url.Action("InspeccionVisualDimensional", "inspeccion")"  class="btn btn-primary"><span id="soldaduraInspeccionVisualInf"></span></a>
+                    <a id="SoldaduraInspeccionPie" href="@Url.Action("InspeccionVisualDimensional", "inspeccion")" class="btn btn-primary"><span id="soldaduraInspeccionVisualInf"></span></a>
                 </div>
 
                 <div class="button-section actionButtonSection">
@@ -185,10 +186,10 @@
 
     <div id="windowGridSoldadorRaiz" style="display: none; z-index:inherit;">
         <div id="formaObrero" class="col-sm-12 col-md-12 col-lg-11">
-            
+
             <div class="row">
                 <div class=" col-sm-12 col-md-12 col-lg-12" style="display:none;">
-                    
+
                     <input type="radio" name="CertificadoRaiz" class="radio-responsive" style=" width:auto;" value="Certificado" /><span id="">Certificado</span>
                     <input type="radio" name="CertificadoRaiz" class="radio-responsive" style=" width:auto;" value="NoCertificado" /><span id="">No certificado</span>
                 </div>
@@ -217,16 +218,16 @@
                 </div>
 
             </div>
-            
+
         </div>
 
     </div>
     <div id="windowMultiselectSoldadorRelleno" style="display: none; z-index:inherit;">
         <div id="formaObrero" class="col-sm-12 col-md-12 col-lg-11">
-            
+
             <div class="row">
                 <div class=" col-sm-12 col-md-12 col-lg-12" style="display:none;">
-                    
+
                     <input type="radio" name="CertificadoRelleno" class="radio-responsive" style=" width:auto;" value="Certificado" /><span id="">Certificado</span>
                     <input type="radio" name="CertificadoRelleno" class="radio-responsive" style=" width:auto;" value="NoCertificado" /><span id="">No certificado</span>
                 </div>
@@ -235,7 +236,8 @@
                         <div id="inputSoldadoresRelleno" />
                     </div>
                 </div>
-                <div class="row col-sm-12 col-md-12 col-lg-12" style="padding-right:0px;">
+            </div>
+            <div class="row col-sm-12 col-md-12 col-lg-12" style="padding-right:0px;">
                 <div class="col-sm-2 col-md-2 col-lg-2">
                 </div>
                 <div class="col-sm-3 col-d-3 col-lg-3">
@@ -250,10 +252,10 @@
                     </a>
                 </div>
             </div>
-            </div>
 
-            
-            
+
+
+
         </div>
     </div>
 </div>

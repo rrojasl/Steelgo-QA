@@ -409,6 +409,7 @@ function SuscribirEventosOrdenTrabajo() {
 
     $("#InputOrdenTrabajo").focus(function (e) {
         $("#InputOrdenTrabajo").val("");
+        $('#InputID').val('');
         $("#InputID").data("kendoComboBox").value("");
         $("#InputID").data("kendoComboBox").setDataSource()
     });
@@ -438,6 +439,7 @@ function suscribirEventoChangeRadioTipoListado() {
         if ($('input:radio[name=TipoAgregado]:checked').val() == "Reporte") {
             console.log("noabrepop");
             $('#InputOrdenTrabajo').val('');
+            $('#InputID').val('');
             if (!editado) {
                 $("#grid").data("kendoGrid").dataSource.data([]);
                 CambioTipoListado();
@@ -449,6 +451,7 @@ function suscribirEventoChangeRadioTipoListado() {
         }
         else if ($('input:radio[name=TipoAgregado]:checked').val() == "Listado") {
             $('#InputOrdenTrabajo').val('');
+            $('#InputID').val('');
             if (!editado) {
                 $("#grid").data("kendoGrid").dataSource.data([]);
                 CambioTipoListado();
@@ -654,7 +657,7 @@ function suscribirEventoGridPopupTrabajosAdicionales() {
 
             var grid = $("#grid").data("kendoGrid");
             dataItem = grid.dataItem($(e.target).closest("tr"));
-            if (dataItem.ListaSoldadoresRaizCapturados.length > 0 && dataItem.ListaSoldadoresRellenoCapturados.length > 0)
+            if (dataItem.ListaSoldadoresRaizCapturados.length > 0 || dataItem.ListaSoldadoresRellenoCapturados.length > 0)
                 GridPopUpTrabajosAdicionales(dataItem);
         }
     });
@@ -686,7 +689,25 @@ function suscribirEventoWindowsConfirmaCaptura() {
     });
     $("#noButtonProy").click(function (e) {
         CambioTipoListado();
+        eventoRegresarTipoListado();
         AjaxCargarCamposPredeterminadosCambiaTipoVista();
         ventanaConfirm.close();
     });
+}
+
+
+function eventoRegresarTipoListado() {
+
+    if ($('input:radio[name=TipoAgregado]:checked').val() == "Reporte") {
+        $("#styleReporte").removeClass("active");
+        $("#styleListado").addClass("active");
+        $('input:radio[name=TipoAgregado]:nth(1)').attr('checked', true);
+        $('input:radio[name=TipoAgregado]:nth(1)').trigger("click");
+    }
+    else if ($('input:radio[name=TipoAgregado]:checked').val() == "Listado") {
+        $("#styleReporte").addClass("active");
+        $("#styleListado").removeClass("active");
+        $('input:radio[name=TipoAgregado]:nth(0)').attr('checked', true);
+        $('input:radio[name=TipoAgregado]:nth(0)').trigger("click");
+    }
 }
