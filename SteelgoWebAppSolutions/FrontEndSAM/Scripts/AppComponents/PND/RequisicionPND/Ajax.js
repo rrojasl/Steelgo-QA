@@ -170,7 +170,8 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                 top: "1%",
                 left: "1%"
             },
-            animation: false
+            animation: false,
+            actions:[]
 
         }).data("kendoWindow");
 

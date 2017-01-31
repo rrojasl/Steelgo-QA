@@ -37,11 +37,12 @@ function suscribirEventoChangeRadio() {
                     modal: true,
                     close: function () {
                         $('input[name="Muestra"][value="Todos"]').prop('checked', true);
-                    }
+                    },
+                    actions:[]
                 }).data("kendoWindow");
 
                 ventanaConfirm.content(_dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] +
-                    "</br><center><button class='btn btn-blue' id='yesButtonProy'>" + _dictionary.EntregaPlacasGraficasbotonSi[$("#language").data("kendoDropDownList").value()] + "</button><button class='btn btn-blue' id='noButtonProy'>" + _dictionary.EntregaPlacasGraficasbotonNo[$("#language").data("kendoDropDownList").value()] + "</button></center>");
+                    "</br><center><button class='btn btn-blue' id='yesButtonProy'>" + _dictionary.lblSi[$("#language").data("kendoDropDownList").value()] + "</button><button class='btn btn-blue' id='noButtonProy'>" + _dictionary.lblNo[$("#language").data("kendoDropDownList").value()] + "</button></center>");
 
                 ventanaConfirm.open().center();
                 $("#yesButtonProy").click(function () {
@@ -76,11 +77,12 @@ function suscribirEventoChangeRadio() {
                     modal: true,
                     close: function () {
                         $('input[name="Muestra"][value="SinCaptura"]').prop('checked', true);
-                    }
+                    },
+                    actions:[]
                 }).data("kendoWindow");
 
                 ventanaConfirm.content(_dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] +
-                    "</br><center><button class='btn btn-blue' id='yesButtonProy'>Si</button><button class='btn btn-blue' id='noButtonProy'>No</button></center>");
+                    "</br><center><button class='btn btn-blue' id='yesButtonProy'>" + _dictionary.lblSi[$("#language").data("kendoDropDownList").value()] +" </button><button class='btn btn-blue' id='noButtonProy'>" + _dictionary.lblNo[$("#language").data("kendoDropDownList").value()] +"</button></center>");
 
                 ventanaConfirm.open().center();
                 $("#yesButtonProy").click(function () {
@@ -218,11 +220,12 @@ function suscribirEventoProyecto() {
                     modal: true,
                     close: function () {
                         $("#inputProyecto").data("kendoComboBox").value(proyectoInicial);
-                    }
+                    },
+                    actions:[]
                 }).data("kendoWindow");
 
                 ventanaConfirm.content(_dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] +
-                    "</br><center><button class='btn btn-blue' id='yesButtonProy'>Si</button><button class='btn btn-blue' id='noButtonProy'>No</button></center>");
+                    "</br><center><button class='btn btn-blue' id='yesButtonProy'> "+ _dictionary.lblSi[$("#language").data("kendoDropDownList").value()] +"</button><button class='btn btn-blue' id='noButtonProy'>" + _dictionary.lblNo[$("#language").data("kendoDropDownList").value()] +"</button></center>");
 
                 ventanaConfirm.open().center();
                 $("#yesButtonProy").click(function () {
@@ -328,11 +331,12 @@ function suscribirEventoTipoPrueba() {
                     modal: true,
                     close: function () {
                         $("#inputTipoPrueba").data("kendoComboBox").value(pruebaInicial);
-                    }
+                    },
+                    actions:[]
                 }).data("kendoWindow");
 
                 ventanaConfirm.content(_dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] +
-                    "</br><center><button class='btn btn-blue' id='yesButtonProy'>Si</button><button class='btn btn-blue' id='noButtonProy'>No</button></center>");
+                    "</br><center><button class='btn btn-blue' id='yesButtonProy'>" + _dictionary.lblSi[$("#language").data("kendoDropDownList").value()] +"</button><button class='btn btn-blue' id='noButtonProy'> "+ _dictionary.lblNo[$("#language").data("kendoDropDownList").value()] +"</button></center>");
 
                 ventanaConfirm.open().center();
                 $("#yesButtonProy").click(function () {
@@ -456,11 +460,12 @@ function suscribirEventoRequisiciones() {
                     modal: true,
                     close: function () {
                         $("#listaRequisiciones").data("kendoComboBox").value(requisicionOriginal);
-                    }
+                    },
+                    actioons:[]
                 }).data("kendoWindow");
 
                 ventanaConfirm.content(_dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] +
-                    "</br><center><button class='btn btn-blue' id='yesButtonProy'>Si</button><button class='btn btn-blue' id='noButtonProy'>No</button></center>");
+                    "</br><center><button class='btn btn-blue' id='yesButtonProy'> "+ _dictionary.lblSi[$("#language").data("kendoDropDownList").value()] +"</button><button class='btn btn-blue' id='noButtonProy'>" + _dictionary.lblNo[$("#language").data("kendoDropDownList").value()] +"</button></center>");
 
                 ventanaConfirm.open().center();
                 $("#yesButtonProy").click(function () {
