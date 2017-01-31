@@ -10510,6 +10510,16 @@ _dictionary = {
         "es-MX": "Por favor seleccione un carro para la descarga del spool",
         "en-US": "Please select a cart to discharge the spool"
     },
+
+    "CargaCarroSup": {
+        "es-MX": "Carga de Carro",
+        "en-US": "Load Carriage"
+    },
+
+    "CargaCarroInf": {
+        "es-MX": "Carga de Carro",
+        "en-US": "Load Carriage"
+    },
     //Finaliza Carga de Carro
 
     //Inicia Captura Avance
