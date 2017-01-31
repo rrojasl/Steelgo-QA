@@ -135,6 +135,9 @@ function ajaxobtenerDetalleDimensional(spoolID) {
             }
 
             $("#inputDefecto").data("kendoComboBox").value(data.ListaDetalleDimensional[0].DefectoID == 0 ? "" : data.ListaDetalleDimensional[0].DefectoID);
+            if (data.ListaDetalleDimensional[0].DefectoID != 0)
+                $("#inputDefecto").data("kendoComboBox").trigger("change");
+
             $("#inputInspector").data("kendoComboBox").value(data.ListaDetalleDimensional[0].ObreroID);
             $("#InspeccionDimensionalID").val(data.ListaDetalleDimensional[0].InspeccionDimensionalID);
             endRangeDate.val(data.ListaDetalleDimensional[0].FechaInspeccion);
@@ -412,7 +415,7 @@ function ajaxGuardado(jSonCaptura, tipoGuardar) {
         $("#lblAprobado").css({ 'color': '#000' });
         
     }
-    else if (ResultadoDimensional == "Rechazado" && (inspeccionDimensional[0].ListaJuntas == undefined || JuntasValidas(inspeccionDimensional[0].ListaJuntas) == 0)) {
+    else if (ResultadoDimensional == "Rechazado" && (inspeccionDimensional[0].DefectoID == "" || inspeccionDimensional[0].FechaInspeccion == "" || inspeccionDimensional[0].ObreroID == "" || (tipoDefecto == "NoEspecificarJunta" ? false : (inspeccionDimensional[0].ListaJuntas == undefined || JuntasValidas(inspeccionDimensional[0].ListaJuntas) == 0)))) {
 
         existRowEmpty = true;
        
@@ -436,7 +439,6 @@ function ajaxGuardado(jSonCaptura, tipoGuardar) {
     }
     else {
         aplicarColorBlancoCapturaDimensional();
-
     }
 
     // Asignación de elementos vacios de prueba

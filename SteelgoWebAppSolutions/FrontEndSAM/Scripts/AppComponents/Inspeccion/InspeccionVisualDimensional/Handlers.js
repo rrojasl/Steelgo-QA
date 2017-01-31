@@ -552,8 +552,8 @@ function opcionHabilitarView(valor, name) {
         $('#divAplicarCapturaRapida').find('*').attr('disabled', true);
         $('#ResultadoVisualRadio').find('*').attr('disabled', true);
         $('#ResultadoLlenadoMasivoRadio').find('*').attr('disabled', true);
-
-        //$("#InputID").data("kendoComboBox").enable(false);
+        
+        $("#InputID").data("kendoComboBox").enable(false);
         $("#inputInspectorVisual").data("kendoComboBox").enable(false);
         $("#inputFechaVisual").data("kendoDatePicker").enable(false);
         $("#FechaInspeccion").data("kendoDatePicker").enable(false);
@@ -574,7 +574,7 @@ function opcionHabilitarView(valor, name) {
         $('#ResultadoVisualRadio').find('*').attr('disabled', false);
         $('#ResultadoLlenadoMasivoRadio').find('*').attr('disabled', false);
         $('#divAplicarCapturaRapida').find('*').attr('disabled', false);
-
+        $("#InputID").data("kendoComboBox").enable(true);
         $("#inputInspectorVisual").data("kendoComboBox").enable(true);
         $("#inputFechaVisual").data("kendoDatePicker").enable(true);
         $("#inputTaller").data("kendoComboBox").enable(true);
