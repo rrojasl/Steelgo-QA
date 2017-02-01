@@ -170,7 +170,7 @@ namespace BackEndSAM.Models.Pintura.SistemaPintura
 
     public class SPColor
     {
-        public int SistemaPinturaID { get; set; }
+        public int SistemaPintura { get; set; }
         public int ColorID { get; set; }
         public int Accion { get; set; }
     }
