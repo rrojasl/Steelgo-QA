@@ -50,19 +50,21 @@
     <div class="row">
         <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 altoControl" id="divRequisicion">
             <label id="EmbarqueEmpaquetadoOpcionSpool"></label>
-            <input id="inputProyecto" type="text" />
+            <input id="inputProyecto" class="item-select general-input" />
         </div>
         <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 altoControl" id="divPrueba">
             <label >Cuantas Salidas</label>
-            <input id="inputPrueba" class="" />
+            <input style="width:47%" id="inputPrueba" class="" />
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 altoControl" id="divPrueba">
+            <label>Cuantas juntas cerradas</label>
+            <input style="width:30%" id="inputPruebaJuntasCerradas" class="" />
         </div>
         <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
             <label>-</label>
-            <button type="button" id="btnAgregar" class="btn btn-blue"><span id="CapturaReporteBotonBuscar"></span></button>
+            <button type="button" id="btnAgregar" class="btn btn-blue">Agregar</button>
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-7 col-lg-7 altoControl" id="divProveedor">
-            
-        </div>
+        
         
     </div>
     @*<div class="row">
@@ -73,17 +75,15 @@
 
     @*GRID PARA RT*@
     @*<div class="row addedSectionInLine" id="gridRT">*@
-        <div class="col-xs-12 col-sm-6 col-md-1 col-lg-1 altoControl" id="divProveedor">
-
-        </div>
-        <div class="col-xs-11col-sm-11 col-md-11 col-lg-11">
-            <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
+        
+        @*<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">*@
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <div id="ContenedorGrid" class="row">
                     <div id="grid" data-role="grid" class="k-grid k-widget">
                     </div>
                 </div>
             </div>
-        </div>
+        @*</div>*@
         
     @*</div>*@
     <div class="row">
@@ -99,28 +99,30 @@
 
     <div class="row" id="controls_content_2" hidden="hidden">
         <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 altoControl" id="divRequisicion">
-            <label >.</label>
-            <input type="text" />
+            <label >SPOOL</label>
+            <input class="" value="s5-k1113-07-1" readonly="readonly" />
         </div>
         <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 altoControl" id="divPrueba">
             <label>Cuantas Salidas</label>
-            <input id="inputPrueba2" class="" />
+            <input style="width:47%" id="inputPrueba2" class="" />
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 altoControl" id="divPrueba">
+            <label>Cuantas juntas cerradas</label>
+            <input style="width:30%" id="inputPruebaJuntasCerradas2" class="" />
         </div>
         <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
             <label>-</label>
-            <button type="button" id="btnAgregar2" class="btn btn-blue">Buscar</button>
+            <button type="button" id="btnAgregar2" class="btn btn-blue">Agregar</button>
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-7 col-lg-7 altoControl" id="divProveedor">
-
-        </div>
+        
 
     </div>
 
-    <div class="col-xs-12 col-sm-6 col-md-1 col-lg-1 altoControl" id="divProveedor">
+    @*<div class="col-xs-12 col-sm-6 col-md-1 col-lg-1 altoControl" id="divProveedor">*@
 
     </div>
-    <div class="col-xs-11col-sm-11 col-md-11 col-lg-11" id="grid_content_2" hidden="hidden">
-        <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
+    <div class="col-xs-12col-sm-12 col-md-12 col-lg-12" id="grid_content_2" hidden="hidden">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div id="ContenedorGrid" class="row">
                 <div id="grid2" data-role="grid" class="k-grid k-widget">
                 </div>
@@ -141,28 +143,30 @@
 
     <div class="row" id="controls_content_3" hidden="hidden">
         <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 altoControl" id="divRequisicion">
-            <label>.</label>
-            <input type="text" />
+            <label style="width:120px" >SPOOL</label>
+            <input class="" value="s5-k1113-08-1" readonly="readonly" />
         </div>
         <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 altoControl" id="divPrueba">
             <label>Cuantas Salidas</label>
-            <input id="inputPrueba3" class="" />
+            <input style="width:47%" id="inputPrueba3" class="" />
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 altoControl" id="divPrueba">
+            <label>Cuantas juntas cerradas</label>
+            <input style="width:30%" id="inputPruebaJuntasCerradas3" class="" />
         </div>
         <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
             <label>-</label>
-            <button type="button" id="btnAgregar3" class="btn btn-blue">Buscar</button>
+            <button type="button" id="btnAgregar3" class="btn btn-blue">Agregar</button>
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-7 col-lg-7 altoControl" id="divProveedor">
-
-        </div>
+        
 
     </div>
 
-    <div class="col-xs-12 col-sm-6 col-md-1 col-lg-1 altoControl" id="divProveedor">
+    @*<div class="col-xs-12 col-sm-6 col-md-1 col-lg-1 altoControl" id="divProveedor">
 
-    </div>
-    <div class="col-xs-11col-sm-11 col-md-11 col-lg-11" id="grid_content_3" hidden="hidden">
-        <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
+    </div>*@
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="grid_content_3" hidden="hidden">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div id="ContenedorGrid" class="row">
                 <div id="grid3" data-role="grid" class="k-grid k-widget">
                 </div>

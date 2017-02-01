@@ -33,22 +33,110 @@ function RenderJunta(container, options) {
             autoBind: false,
             dataTextField: "Junta",
             dataValueField: "JuntaID",
-            dataSource: options.model.JuntaSpoolID,
+            dataSource: options.model.Juntas,
             template: "<i class=\"fa fa-#=data.Junta#\"></i> #=data.Junta#",
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
                 
-                options.model.SpoolSelect = dataItem.Junta;
+                options.model.JuntaSelect = dataItem.Junta;
                 //options.model.JuntaID = dataItem.JuntaID;
                 //options.model.Junta = dataItem.Junta;
-                
-                options.model.Detalle1 = "5%";
-                options.model.Detalle2 = "99";
-                options.model.Detalle3 = "100";
-                options.model.Detalle4 = "5.4";
+
+                if (dataItem.JuntaID == 0) {//Sin definir
+                    options.model.TipoJunta = "";
+                    options.model.Cedula = "";
+                    options.model.Acero1 = "";
+                    options.model.Acero2 = "";
+                    options.model.Diametro = "";
+                }
+                else if (dataItem.JuntaID == 1) {//FW15
+                    options.model.TipoJunta = "BW";
+                    options.model.Cedula = "STD";
+                    options.model.Acero1 = "CS-g70";
+                    options.model.Acero2 = "CS-g70";
+                    options.model.Diametro = "18";
+                }
+                else if (dataItem.JuntaID == 2) {//FW12
+                    options.model.TipoJunta = "TH";
+                    options.model.Cedula = "80";
+                    options.model.Acero1 = "CS-g70";
+                    options.model.Acero2 = "CS-g70";
+                    options.model.Diametro = "0.75";
+                }
+                else if (dataItem.JuntaID == 3) {//FW10
+                    options.model.TipoJunta = "";
+                    options.model.Cedula = "";
+                    options.model.Acero1 = "";
+                    options.model.Acero2 = "";
+                    options.model.Diametro = "";
+                }
+                else if (dataItem.JuntaID == 5) {//
+                    options.model.TipoJunta = "TH";
+                    options.model.Cedula = "80";
+                    options.model.Acero1 = "CS-g70";
+                    options.model.Acero2 = "CS-g70";
+                    options.model.Diametro = "0.75";
+                }
+                else if (dataItem.JuntaID == 6) {//
+                    options.model.TipoJunta = "TH";
+                    options.model.Cedula = "80";
+                    options.model.Acero1 = "CS-g70";
+                    options.model.Acero2 = "CS-g70";
+                    options.model.Diametro = "0.75";
+                }
+
+                //options.model.Detalle1 = "5%";
+                //options.model.Detalle2 = "99";
+                //options.model.Detalle3 = "100";
+                //options.model.Detalle4 = "5.4";
                 $("#grid").data("kendoGrid").refresh();
 
-                if (dataItem.JuntaID == 2) {
+                //if (dataItem.JuntaID == 2) {
+                //    $("#controls_content_2").show();
+                //    $("#grid_content_2").show();
+                //}
+
+                //if (dataItem != undefined && dataItem.DefectoID != 0) {
+                //    options.model.DefectoID = dataItem.DefectoID;
+                //    options.model.Defecto = dataItem.Defecto;
+                //    //OrdenTrabajoID+SpoolID+JuntaSpoolID+Ubicacion+Posicion
+                //    var itemPlaca = $("#PlacaID").text().split("°")
+                //    options.model.OrdenTrabajoID = itemPlaca[0];
+                //    options.model.SpoolID = itemPlaca[1];
+                //    options.model.JuntaSpoolID = itemPlaca[2];
+                //    options.model.Ubicacion = itemPlaca[3];
+                //    options.model.Posicion = itemPlaca[4];
+                //}
+            }
+        }
+        );
+
+}
+
+function RenderSpool_IC(container, options) {
+    var dataItem;
+    $('<input required data-text-field="Titulo" id=' + options.model.uid + ' data-value-field="ID" data-bind="value:' + options.field + '"/>')
+        .appendTo(container)
+        .kendoComboBox({
+            autoBind: false,
+            dataTextField: "Titulo",
+            dataValueField: "ID",
+            dataSource: options.model.Spool_IC,
+            template: "<i class=\"fa fa-#=data.Titulo#\"></i> #=data.Titulo#",
+            change: function (e) {
+                dataItem = this.dataItem(e.sender.selectedIndex);
+
+                options.model.Spool_ICSelect = dataItem.Titulo;
+                //options.model.JuntaID = dataItem.JuntaID;
+                //options.model.Junta = dataItem.Junta;
+
+                //options.model.Detalle1 = "5%";
+                //options.model.Detalle2 = "99";
+                //options.model.Detalle3 = "100";
+                //options.model.Detalle4 = "5.4";
+                //$("#grid").data("kendoGrid").refresh();
+
+                if (dataItem.ID == 1) {
                     $("#controls_content_2").show();
                     $("#grid_content_2").show();
                 }
@@ -70,6 +158,52 @@ function RenderJunta(container, options) {
 
 }
 
+function RenderSpool_IC2(container, options) {
+    var dataItem;
+    $('<input required data-text-field="Titulo" id=' + options.model.uid + ' data-value-field="ID" data-bind="value:' + options.field + '"/>')
+        .appendTo(container)
+        .kendoComboBox({
+            autoBind: false,
+            dataTextField: "Titulo",
+            dataValueField: "ID",
+            dataSource: options.model.Spool_IC,
+            template: "<i class=\"fa fa-#=data.Titulo#\"></i> #=data.Titulo#",
+            change: function (e) {
+                dataItem = this.dataItem(e.sender.selectedIndex);
+
+                options.model.Spool_ICSelect = dataItem.Titulo;
+                //options.model.JuntaID = dataItem.JuntaID;
+                //options.model.Junta = dataItem.Junta;
+
+                //options.model.Detalle1 = "5%";
+                //options.model.Detalle2 = "99";
+                //options.model.Detalle3 = "100";
+                //options.model.Detalle4 = "5.4";
+                //$("#grid").data("kendoGrid").refresh();
+
+                if (dataItem.ID == 2) {
+                    $("#controls_content_3").show();
+                    $("#grid_content_3").show();
+                }
+
+                //if (dataItem != undefined && dataItem.DefectoID != 0) {
+                //    options.model.DefectoID = dataItem.DefectoID;
+                //    options.model.Defecto = dataItem.Defecto;
+                //    //OrdenTrabajoID+SpoolID+JuntaSpoolID+Ubicacion+Posicion
+                //    var itemPlaca = $("#PlacaID").text().split("°")
+                //    options.model.OrdenTrabajoID = itemPlaca[0];
+                //    options.model.SpoolID = itemPlaca[1];
+                //    options.model.JuntaSpoolID = itemPlaca[2];
+                //    options.model.Ubicacion = itemPlaca[3];
+                //    options.model.Posicion = itemPlaca[4];
+                //}
+            }
+        }
+        );
+
+}
+
+
 function RenderJunta2(container, options) {
     var dataItem;
     $('<input required data-text-field="Junta" id=' + options.model.uid + ' data-value-field="JuntaID" data-bind="value:' + options.field + '"/>')
@@ -78,7 +212,7 @@ function RenderJunta2(container, options) {
             autoBind: false,
             dataTextField: "Junta",
             dataValueField: "JuntaID",
-            dataSource: options.model.JuntaSpoolID,
+            dataSource: options.model.Juntas,
             template: "<i class=\"fa fa-#=data.Junta#\"></i> #=data.Junta#",
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
@@ -87,13 +221,24 @@ function RenderJunta2(container, options) {
                 //options.model.JuntaID = dataItem.JuntaID;
                 //options.model.Junta = dataItem.Junta;
 
-                options.model.Detalle1 = "60%";
-                options.model.Detalle2 = "87";
-                options.model.Detalle3 = "160";
-                options.model.Detalle4 = "8.4";
+                if (dataItem.JuntaID == 1) {//FW17
+                    options.model.TipoJunta = "BW";
+                    options.model.Cedula = "STD";
+                    options.model.Acero1 = "CS-g78";
+                    options.model.Acero2 = "CS-g79";
+                    options.model.Diametro = "16";
+                }
+                else if (dataItem.JuntaID == 2) {//FW18
+                    options.model.TipoJunta = "TH";
+                    options.model.Cedula = "80";
+                    options.model.Acero1 = "CS-g70";
+                    options.model.Acero2 = "CS-g70";
+                    options.model.Diametro = "0.75";
+                }
+
                 $("#grid2").data("kendoGrid").refresh();
 
-                if (dataItem.JuntaID == 2) {
+                if (dataItem.JuntaID == 1) {
                     $("#controls_content_3").show();
                     $("#grid_content_3").show();
                 }
@@ -281,6 +426,16 @@ function RenderFinMM(container, options) {
         min: 0
     });
 
+}
+
+var idSelect = '';
+function RenderMateriales(container, options) {
+    idSelect = options.model.NumeroSalida;
+
+    $("#gridPopUp").data("kendoGrid").dataSource.data([]);
+
+
+    VentanaModalDetallePlaca2();
 }
 
 function renderGenerarJsonNumeroPlacas(spoolJunta, junta, numeroControl) {

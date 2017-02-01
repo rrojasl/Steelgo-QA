@@ -7,6 +7,8 @@ function SuscribirEventos() {
     suscribirEventoProyecto();
     //suscribirEventoProveedor();
     SuscribirEventoComboPrueba();
+
+    nombreLoop();
     //suscribirEventoRequisicion();
     //suscribirEventoFuente();
     //suscribirEventTurno();
@@ -15,6 +17,36 @@ function SuscribirEventos() {
     //suscribirUsuarioVR();
 }
 
+function nombreLoop() {
+    ventanaConfirm = $("#ventanaConfirm").kendoWindow({
+        iframe: true,
+        title:'Busqueda de Loop',
+        visible: false, //the window will not appear before its .open method is called
+        width: "auto",
+        height: "auto",
+        modal: true,
+        animation: {
+            close: false,
+            open: false
+        }
+    }).data("kendoWindow");
+
+    ventanaConfirm.content("<label>Nombre del Loop: </label>" + "<input type='text' style='width:120px' value='Escribe un nombre'/>" +
+                "</br><center><button class='btn btn-blue' id='yesButton'>Buscar</button><button class='btn btn-blue' id='noButton'> Cancelar</button></center>");
+
+    ventanaConfirm.open().center();
+
+    $("#yesButton").click(function () {
+        //$("#gridPopUp").data("kendoGrid").dataSource._data[i].ListaDetalleDefectos = listaDetalleDefectos;
+        //hayDatosCapturados = true;
+        ventanaConfirm.close();
+        //$("#windowGridDefectos").data("kendoWindow").close();
+    });
+    $("#noButton").click(function () {
+        ventanaConfirm.close();
+        //return false;
+    });
+}
 function suscribirEventoDetallePlaca() {
 
     $(document).on('click', '.EnlacePorPlaca', function (e) {
@@ -45,10 +77,23 @@ function suscribirEventoDetalleDefectoPorPlaca() {
 function suscribirEventoGuardar() {
 
     $('#GuardarPlacas').click(function (e) {
-        var ds = $("#gridPopUp").data("kendoGrid").dataSource;
+        //var ds = $("#gridPopUp").data("kendoGrid").dataSource;
+
+        
+        for (var i = 0; i < $("#grid").data("kendoGrid").dataSource._data.length; i++) {
+            if ($("#grid").data("kendoGrid").dataSource._data[i].NumeroSalida == idSelect) {
+                $("#grid").data("kendoGrid").dataSource._data[i].Materiales = $("#gridPopUp").data("kendoGrid").dataSource._data.length;
+                $("#grid").data("kendoGrid").refresh();
+                break;
+            }
+        }
+        
+
         var window = $("#windowGrid");
 
-        actualizaGridGeneralPorPlaca();
+        $("#windowGrid").data("kendoWindow").close();
+
+        //actualizaGridGeneralPorPlaca();
         //if (actualizaGridGeneralPorPlaca())
         //    $("#windowGrid").data("kendoWindow").close();
     });
@@ -104,9 +149,13 @@ function suscribirEventoGuardar() {
 
     $('#btnAgregar').click(function (e) {
         //alert('xD');
-        var data = [{ NumeroSalida: 1, TipoSalidaSelect: '', TipoSalida: [{ SalidaID: "1", Titulo: "Spool" }, { SalidaID: "2", Titulo: "IC"}, {SalidaID: "3", Titulo: "Frontera" }], SpoolID: '', SpoolSelect: '', JuntaSpoolID: [{ JuntaID: 1, Junta: 'Junta 1' }, { JuntaID: 2, Junta: 'Junta 2' }, { JuntaID: 3, Junta: 'Junta 3' }], Detalle1: '', Detalle2: '', Detalle3: '', Detalle4: '' }
-                    , { NumeroSalida: 2, TipoSalidaSelect: '', TipoSalida: [{ SalidaID: "1", Titulo: "Spool" }, { SalidaID: "2", Titulo: "IC" }, { Titulo: "Frontera" }], SpoolID: '', SpoolSelect: '', JuntaSpoolID: [{ JuntaID: 1, Junta: 'Junta 1' }, { JuntaID: 2, Junta: 'Junta 2' }, { JuntaID: 3, Junta: 'Junta 3' }], Detalle1: '', Detalle2: '', Detalle3: '', Detalle4: '' }
-                    , { NumeroSalida: 3, TipoSalidaSelect: '', TipoSalida: [{ SalidaID: "1", Titulo: "Spool" }, { SalidaID: "2", Titulo: "IC" }, { Titulo: "Frontera" }], SpoolID: '', SpoolSelect: '', JuntaSpoolID: [{ JuntaID: 1, Junta: 'Junta 1' }, { JuntaID: 2, Junta: 'Junta 2' }, { JuntaID: 3, Junta: 'Junta 3' }], Detalle1: '', Detalle2: '', Detalle3: '', Detalle4: '' }];
+        //VentanaModalDetallePlaca();
+        var data = [{ NumeroSalida: 'S1', TipoSalidaSelect: '', TipoSalida: [{ SalidaID: "1", Titulo: "Spool" }, { SalidaID: "2", Titulo: "IC" }, { SalidaID: "3", Titulo: "Frontera" }], Materiales: '0', Spool_ICSelect: '', Spool_IC: [{ ID: 0, Titulo: 'Sin Definir' }, { ID: 1, Titulo: 's5-k1113-07-1' }, { ID: 2, Titulo: 's5-k1113-08-1' }, { ID: 3, Titulo: 's5-k1113-09-1' }, { ID: 4, Titulo: 's5-k1113-10-1' }, { ID: 5, Titulo: 's5-k1113-01-1' }], JuntaSelect: '', Juntas: [{ JuntaID: 1, Junta: 'FW15' }, { JuntaID: 2, Junta: 'FW12' }, { JuntaID: 3, Junta: 'FW10' }], TipoJunta: '', Cedula: '', Acero1: '', Acero2: '', Diametro: '' }
+         , { NumeroSalida: 'S2', TipoSalidaSelect: '', TipoSalida: [{ SalidaID: "1", Titulo: "Spool" }, { SalidaID: "2", Titulo: "IC" }, { SalidaID: "3", Titulo: "Frontera" }], Materiales: '0', Spool_ICSelect: '', Spool_IC: [{ ID: 0, Titulo: 'Sin Definir' }, { ID: 1, Titulo: 's5-k1113-07-1' }, { ID: 2, Titulo: 's5-k1113-08-1' }, { ID: 3, Titulo: 's5-k1113-09-1' }, { ID: 4, Titulo: 's5-k1113-10-1' }, { ID: 5, Titulo: 's5-k1113-01-1' }], JuntaSelect: '', Juntas: [{ JuntaID: 1, Junta: 'FW15' }, { JuntaID: 2, Junta: 'FW12' }, { JuntaID: 3, Junta: 'FW10' }], TipoJunta: '', Cedula: '', Acero1: '', Acero2: '', Diametro: '' }
+         , { NumeroSalida: 'S3', TipoSalidaSelect: '', TipoSalida: [{ SalidaID: "1", Titulo: "Spool" }, { SalidaID: "2", Titulo: "IC" }, { SalidaID: "3", Titulo: "Frontera" }], Materiales: '0', Spool_ICSelect: '', Spool_IC: [{ ID: 0, Titulo: 'Sin Definir' }, { ID: 2, Titulo: 'TPAQZAAA' }, { ID: 3, Titulo: 'TPAQZBBB' }, { ID: 4, Titulo: 'TPAQZCCC' }], JuntaSelect: '', Juntas: [{ JuntaID: 2, Junta: 'FW12' }, { JuntaID: 3, Junta: 'FW10' }], TipoJunta: '', Cedula: '', Acero1: '', Acero2: '', Diametro: '' }
+         , { NumeroSalida: 'JC1', TipoSalidaSelect: '', TipoSalida: [{ SalidaID: "1", Titulo: "Soporte" }, { SalidaID: "2", Titulo: "IC" }], Materiales: '0', Spool_ICSelect: '', Spool_IC: [{ ID: 0, Titulo: 'Sin Definir' }, { ID: 2, Titulo: 'RE-02-20' }, { ID: 3, Titulo: 'GU-01-20' }, { ID: 4, Titulo: 'RE-04-40' }], JuntaSelect: '', Juntas: [{ JuntaID: 5, Junta: 'BQ-09' }, { JuntaID: 6, Junta: 'BQ-10' }], TipoJunta: '', Cedula: '', Acero1: '', Acero2: '', Diametro: '' }
+         , { NumeroSalida: 'JC2', TipoSalidaSelect: '', TipoSalida: [{ SalidaID: "1", Titulo: "Soporte" }, { SalidaID: "2", Titulo: "IC" }], Materiales: '0', Spool_ICSelect: '', Spool_IC: [{ ID: 0, Titulo: 'Sin Definir' }, { ID: 3, Titulo: 'GU-01-20' }, { ID: 4, Titulo: 'RE-04-40' }], JuntaSelect: '', Juntas: [{ JuntaID: 6, Junta: 'BQ-10' }], TipoJunta: '', Cedula: '', Acero1: '', Acero2: '', Diametro: '' }
+        ];
         $("#grid").data('kendoGrid').dataSource.data([]);
         var ds = $("#grid").data("kendoGrid").dataSource;
         for (var i = 0; i < data.length; i++) {
@@ -184,8 +233,7 @@ function suscribirEventoGuardar() {
 
     $('#btnAgregar2').click(function (e) {
         //alert('xD');
-        var data = [{ NumeroSalida: 1, TipoSalidaSelect: '', TipoSalida: [{ SalidaID: "1", Titulo: "Spool" }, { SalidaID: "2", Titulo: "IC" }, { SalidaID: "3", Titulo: "Frontera" }], SpoolID: '', JuntaSpoolID: [{ JuntaID: 1, Junta: 'Junta 1' }, { JuntaID: 2, Junta: 'Junta 2' }, { JuntaID: 3, Junta: 'Junta 3' }], Detalle1: '', Detalle2: '', Detalle3: '', Detalle4: '' }
-                    , { NumeroSalida: 2, TipoSalidaSelect: '', TipoSalida: [{ SalidaID: "1", Titulo: "Spool" }, { SalidaID: "2", Titulo: "IC" }, { Titulo: "Frontera" }], SpoolID: '', JuntaSpoolID: [{ JuntaID: 1, Junta: 'Junta 1' }, { JuntaID: 2, Junta: 'Junta 2' }, { JuntaID: 3, Junta: 'Junta 3' }], Detalle1: '', Detalle2: '', Detalle3: '', Detalle4: '' }];
+        var data = [{ NumeroSalida: 'S1', TipoSalidaSelect: '', TipoSalida: [{ SalidaID: "1", Titulo: "Spool" }, { SalidaID: "2", Titulo: "IC" }, { SalidaID: "3", Titulo: "Frontera" }], Materiales: '0', Spool_ICSelect: '', Spool_IC: [{ ID: 0, Titulo: 'Sin Definir' }, { ID: 2, Titulo: 's5-k1113-08-1' }, { ID: 3, Titulo: 's5-k1113-09-1' }, { ID: 4, Titulo: 's5-k1113-10-1' }, { ID: 5, Titulo: 's5-k1113-01-1' }], JuntaSelect: '', Juntas: [{ JuntaID: 1, Junta: 'FW17' }, { JuntaID: 2, Junta: 'FW18' }, { JuntaID: 3, Junta: 'FW19' }], TipoJunta: '', Cedula: '', Acero1: '', Acero2: '', Diametro: '' }];
         $("#grid2").data('kendoGrid').dataSource.data([]);
         var ds = $("#grid2").data("kendoGrid").dataSource;
         for (var i = 0; i < data.length; i++) {
@@ -195,7 +243,7 @@ function suscribirEventoGuardar() {
 
     $('#btnAgregar3').click(function (e) {
         //alert('xD');
-        var data = [{ NumeroSalida: 1, TipoSalidaSelect: '', TipoSalida: [{ SalidaID: "1", Titulo: "Spool" }, { SalidaID: "2", Titulo: "IC" }, { SalidaID: "3", Titulo: "Frontera" }], SpoolID: '', JuntaSpoolID: [{ JuntaID: 1, Junta: 'Junta 1' }, { JuntaID: 2, Junta: 'Junta 2' }, { JuntaID: 3, Junta: 'Junta 3' }], Detalle1: '', Detalle2: '', Detalle3: '', Detalle4: '' }];
+        var data = [{ NumeroSalida: 'S1', TipoSalidaSelect: '', TipoSalida: [{ SalidaID: "1", Titulo: "Spool" }, { SalidaID: "2", Titulo: "IC" }, { SalidaID: "3", Titulo: "Frontera" }], Materiales: '0', Spool_ICSelect: '', Spool_IC: [{ ID: 0, Titulo: 'Sin Definir' }, { ID: 3, Titulo: 's5-k1113-09-1' }, { ID: 4, Titulo: 's5-k1113-10-1' }, { ID: 5, Titulo: 's5-k1113-01-1' }], JuntaSelect: '', Juntas: [{ JuntaID: 2, Junta: 'FW18' }, { JuntaID: 3, Junta: 'FW19' }], TipoJunta: '', Cedula: '', Acero1: '', Acero2: '', Diametro: '' }];
         $("#grid3").data('kendoGrid').dataSource.data([]);
         var ds = $("#grid3").data("kendoGrid").dataSource;
         for (var i = 0; i < data.length; i++) {
@@ -207,14 +255,14 @@ function suscribirEventoGuardar() {
 
 function suscribirEventoProyecto() {
     
-    $('#inputProyecto').kendoComboBox({
-        dataTextField: "Nombre",
-        dataValueField: "ProyectoID",
-        suggest: true,
-        filter: "contains",
-        index: 3,
-        change: function (e) { }
-    });
+    //$('#inputProyecto').kendoComboBox({
+    //    dataTextField: "Nombre",
+    //    dataValueField: "ProyectoID",
+    //    suggest: true,
+    //    filter: "contains",
+    //    index: 3,
+    //    change: function (e) { }
+    //});
 
     //$('#inputProyecto').kendoComboBox({
     //    dataTextField: "Nombre",
@@ -383,21 +431,27 @@ function suscribirEventoProveedor() {
 function SuscribirEventoComboPrueba() {
 
     $('#inputPrueba').kendoNumericTextBox({
-        //blur: function (e) {
-        //    alert('xD');
-        //}
+        format: "###"
+    });
+
+    $('#inputPruebaJuntasCerradas').kendoNumericTextBox({
+        format: "###"
     });
 
     $('#inputPrueba2').kendoNumericTextBox({
-        //blur: function (e) {
-        //    alert('xD');
-        //}
+        format: "###"
+    });
+
+    $('#inputPruebaJuntasCerradas2').kendoNumericTextBox({
+        format: "###"
     });
 
     $('#inputPrueba3').kendoNumericTextBox({
-        //blur: function (e) {
-        //    alert('xD');
-        //}
+        format: "###"
+    });
+
+    $('#inputPruebaJuntasCerradas3').kendoNumericTextBox({
+        format: "###"
     });
 
     $('inputPrueba[type=text]').blur(function () {
