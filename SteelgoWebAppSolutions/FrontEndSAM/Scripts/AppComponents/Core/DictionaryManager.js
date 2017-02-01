@@ -8294,8 +8294,8 @@ _dictionary = {
         "en-US": "Spool Capture Test"
     },
     "menuListadoEmbarqueEnviados": {
-        "es-MX": "Listado embarque enviados",
-        "en-US": "Sent shipping list"
+        "es-MX": "Listado Embarques Enviados",
+        "en-US": "Shipped Shipment List"
     },
     "menuIngenieria": {
         "es-MX": "Ingeniería",
@@ -11662,8 +11662,8 @@ _dictionary = {
     //Finaliza pantalla listado embarque
     //Inicia pantalla listado embarque enviados
     "EmbarqueListadoEnviadosBreadcrumb": {
-        "es-MX": "Listado embarque enviados",
-        "en-US": "Sent shipping list"
+        "es-MX": "Listado Embarques Enviados",
+        "en-US": "Shipped Shipment List"
     },
     "EmbarqueListadoEnviadosTituloPagina": {
         "es-MX": "Listado embarque enviados",
