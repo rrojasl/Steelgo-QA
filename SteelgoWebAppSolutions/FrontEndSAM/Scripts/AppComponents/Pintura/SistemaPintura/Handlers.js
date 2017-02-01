@@ -277,7 +277,7 @@ function SuscribirEventoComboProyecto() {
             var dataItem = this.dataItem(e.sender.selectedIndex);
 
             if (dataItem != undefined) {
-                AjaxCargarNuevoSistemaPintura();
+                AjaxCargarEdicionSistemaPintura();
             }
             else {
                 $("#comboProyecto").data("kendoComboBox").value("");

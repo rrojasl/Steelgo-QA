@@ -40,26 +40,26 @@ namespace BackEndSAM.DataAcces.Pintura.SistemaPintura
         }
 
 
-        public object ObtenerSistemaPinturaNuevo(string lenguaje, int sistemaPinturaID, int proyectoID)
+        public object ObtenerSistemaPinturaNuevo(string lenguaje, string sistemaPintura, int proyectoID)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
                     List<SistemaPinturaNuevo> listaSistemaPinturaNuevo = new List<SistemaPinturaNuevo>();
-                    List<Sam3_SP_Get_DetalleSistemaPintura_Result> result = ctx.Sam3_SP_Get_DetalleSistemaPintura(lenguaje, sistemaPinturaID, proyectoID).ToList();
+                    List<Sam3_SP_Get_DetalleSistemaPintura_Result> result = ctx.Sam3_SP_Get_DetalleSistemaPintura(lenguaje, sistemaPintura, proyectoID).ToList();
                     List<UnidadMedida> listadoUnidadesMedida = (List<UnidadMedida>)ObtenerUnidadMedidaPruebasProceso(lenguaje);
                     List<Reductores> listadoReductores=(List<Reductores>)  AdminReductoresBD.Instance.ObtenerCatalogoReductores(lenguaje);
                     List<Componentes> listadoComponentes = (List<Componentes>)AdminComponentesBD.Instance.ObtenerCatalogoComponentes(lenguaje);
-                    object statusSpool = SistemaPinturaBD.Instance.ObtenerStatusSpool(sistemaPinturaID);
-                    bool asignado = (statusSpool == null) ? false : (bool)statusSpool;
+                  
+                   
 
                     foreach (Sam3_SP_Get_DetalleSistemaPintura_Result item in result)
                     {
-                        List<ComponenteAgregado> listaDetalleComponentesAgregados = (List<ComponenteAgregado>)AdminComponentesBD.Instance.ObtenerCatalogoComponentesAgregados(item.SistemaPinturaProyectoProcesoID,lenguaje,listadoComponentes, asignado);
+                        List<ComponenteAgregado> listaDetalleComponentesAgregados = (List<ComponenteAgregado>)AdminComponentesBD.Instance.ObtenerCatalogoComponentesAgregados(item.SistemaPinturaProyectoProcesoID,lenguaje,listadoComponentes, item.AsignadoSpool.GetValueOrDefault());
                         listaSistemaPinturaNuevo.Add(new SistemaPinturaNuevo
                         {
-                            Accion = asignado?2:1,
+                            Accion = item.AsignadoSpool.GetValueOrDefault()? 2:1,
                             Agregar = item.SistemaPinturaProyectoProcesoID == 0 ? false : true,
                             Proceso = item.NombreProceso,
                             ProcesoPinturaID = item.ProcesoPinturaID,
@@ -78,9 +78,9 @@ namespace BackEndSAM.DataAcces.Pintura.SistemaPintura
                             ListadoReductores = listadoReductores,
                             TemplateDetalleComponentes = lenguaje == "es-MX" ? "Detalle componentes" : "components details",
                             listadoPruebasProceso = (List<PruebasProcesos>)ObtenerPruebasProceso(lenguaje, item.ProcesoPinturaID),
-                            listadoPruebasDetalle = item.SistemaPinturaProyectoProcesoID == 0 ? new List<DetallePruebas>() : (List<DetallePruebas>)ObtenerDetallePruebasProceso(lenguaje, item.SistemaPinturaProyectoProcesoID,asignado),
+                            listadoPruebasDetalle = item.SistemaPinturaProyectoProcesoID == 0 ? new List<DetallePruebas>() : (List<DetallePruebas>)ObtenerDetallePruebasProceso(lenguaje, item.SistemaPinturaProyectoProcesoID, item.AsignadoSpool.GetValueOrDefault()),
                             RowOk = true,
-                            AsignadoSpool = asignado
+                            AsignadoSpool = item.AsignadoSpool.GetValueOrDefault()
                         });
                     }
 
@@ -214,14 +214,14 @@ namespace BackEndSAM.DataAcces.Pintura.SistemaPintura
             }
         }
 
-        public object ObtenerSistemaPinturaEdicicion(string lenguaje, int sistemaPinturaID)
+        public object ObtenerSistemaPinturaEdicicion(string lenguaje, string sistemaPintura,int proyectoID)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
                     List<SistemaPinturaEdicion> DetalleSistemaPintura = new List<SistemaPinturaEdicion>();
-                    List<Sam3_SP_GET_SistemaPintura_Result> result = ctx.Sam3_SP_GET_SistemaPintura(sistemaPinturaID).ToList();
+                    List<Sam3_SP_GET_SistemaPintura_Result> result = ctx.Sam3_SP_GET_SistemaPintura(sistemaPintura, proyectoID).ToList();
 
 
                     foreach (Sam3_SP_GET_SistemaPintura_Result item in result)
@@ -231,8 +231,8 @@ namespace BackEndSAM.DataAcces.Pintura.SistemaPintura
                             Nombre = item.Nombre.Split('~')[0],
                             SistemaPinturaID = item.SistemaPinturaID,
                             NoPintable = item.NoPintable.GetValueOrDefault(),
-                            listadoColor = (List<Color>)ObtenerColoresSistemaPintura(lenguaje, sistemaPinturaID),
-                            listadoProyectos = (List<Proyectos>)ObtenerProyectosSistemaPintura(sistemaPinturaID)
+                            listadoColor = (List<Color>)ObtenerColoresSistemaPintura(lenguaje, sistemaPintura, proyectoID),
+                            listadoProyectos = (List<Proyectos>)ObtenerProyectosSistemaPintura(sistemaPintura)
 
                         });
                     }
@@ -253,14 +253,14 @@ namespace BackEndSAM.DataAcces.Pintura.SistemaPintura
         }
 
 
-        public object ObtenerColoresSistemaPintura(string lenguaje, int sistemaPinturaID)
+        public object ObtenerColoresSistemaPintura(string lenguaje, string sistemaPintura,int proyectoid)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
                     List<Color> DetalleSistemaPintura = new List<Color>();
-                    List<Sam3_SP_GET_ColorSistemaPintura_Result> result = ctx.Sam3_SP_GET_ColorSistemaPintura(sistemaPinturaID, lenguaje).ToList();
+                    List<Sam3_SP_GET_ColorSistemaPintura_Result> result = ctx.Sam3_SP_GET_ColorSistemaPintura(sistemaPintura, lenguaje, proyectoid).ToList();
 
 
                     foreach (Sam3_SP_GET_ColorSistemaPintura_Result item in result)
@@ -287,7 +287,7 @@ namespace BackEndSAM.DataAcces.Pintura.SistemaPintura
             }
         }
 
-        public object ObtenerProyectosSistemaPintura(int sistemaPinturaID)
+        public object ObtenerProyectosSistemaPintura(string sistemaPintura)
         {
             try
             {
@@ -295,7 +295,7 @@ namespace BackEndSAM.DataAcces.Pintura.SistemaPintura
                 {
                     List<Proyectos> DetalleSistemaPintura = new List<Proyectos>();
 
-                    List<Sam3_SP_GET_Proyectos_Result> result = ctx.Sam3_SP_GET_Proyectos(sistemaPinturaID).ToList();
+                    List<Sam3_SP_GET_Proyectos_Result> result = ctx.Sam3_SP_GET_Proyectos(sistemaPintura).ToList();
 
                     DetalleSistemaPintura.Add(new Proyectos());
                     foreach (Sam3_SP_GET_Proyectos_Result item in result)
@@ -364,6 +364,7 @@ namespace BackEndSAM.DataAcces.Pintura.SistemaPintura
                     TransactionalInformation result = new TransactionalInformation();
                     result.ReturnMessage.Add("Ok");
                     result.ReturnMessage.Add(valorSPID.ToString());
+                    result.ReturnMessage.Add(dtDetalleSPNuevo.Rows[0][0].ToString());
                     result.ReturnCode = 200;
                     result.ReturnStatus = true;
                     result.IsAuthenicated = true;
@@ -406,7 +407,6 @@ namespace BackEndSAM.DataAcces.Pintura.SistemaPintura
                             Proyecto = item["Proyecto"].ToString(),
                             Existe = int.Parse( item["Existe"].ToString()),
                             ProyectoID = int.Parse(item["ProyectoID"].ToString())
-                            
                         });
                     }
 
@@ -439,28 +439,6 @@ namespace BackEndSAM.DataAcces.Pintura.SistemaPintura
             return result;
         }
 
-        public object ObtenerStatusSpool(int SistemaPinturaID)
-        {
-            try
-            {
-                using (SamContext ctx = new SamContext())
-                {
-                   
-                   ObjectResult< bool?> result = ctx.Sam3_Pintura_Get_StatusSistemaPintura(SistemaPinturaID);
-
-                    return result.FirstOrDefault();
-                }
-            }
-            catch (Exception ex)
-            {
-                TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add(ex.Message);
-                result.ReturnCode = 500;
-                result.ReturnStatus = false;
-                result.IsAuthenicated = true;
-
-                return result;
-            }
-        }
+       
     }
 }
