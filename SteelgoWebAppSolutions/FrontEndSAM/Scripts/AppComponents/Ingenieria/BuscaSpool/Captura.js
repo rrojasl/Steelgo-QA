@@ -865,10 +865,10 @@ function CargarGridPopUpDetallePorPlaca() {
         filterable: getGridFilterableMaftec(),
         columns: [
           { field: "ID", title: 'ITM', filterable: false, width: "10px" },
-          { field: "DIAM", title: 'DIAMETRO', filterable: false, /*editor: comboBoxResultadoDetallePlaca,*/ width: "50px" },
-          { field: "IC", title: 'ITEM CODE', filterable: false, width: "50px"},
-          { field: "DESC", title: 'DESCRIPCION', filterable: false, width: "50px" },
-          { field: "CANTIDAD", title: 'CANTIDAD', filterable: false, width: "50px" }
+          { field: "DIAM", title: 'DIAMETRO', filterable: false, /*editor: comboBoxResultadoDetallePlaca,*/ width: "30px" },
+          { field: "IC", title: 'ITEM CODE', filterable: false, width: "30px", editor: RenderMaterialesPopup, template: "<div class='EnlacePorPlaca' style='text-align:center;'><a href='\\#'  > <span>#=IC#</span></a></div> " },
+          { field: "DESC", title: 'DESCRIPCION', filterable: false, width: "90px" },
+          { field: "CANTIDAD", title: 'CANTIDAD', filterable: false, width: "40px" }
         ],
         editable: true,
         //toolbar: [{ name: "cancel" }],
@@ -887,7 +887,7 @@ function CargarGridPopUpDetallePorPlaca() {
 
             //    //window.location.href = url;
             //});
-        }, toolbar: [{ name: "create" }]
+        }//, toolbar: [{ name: "create" }]
     });
     CustomisaGrid($("#gridPopUp"));
 

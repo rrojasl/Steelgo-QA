@@ -32,7 +32,7 @@ function nombreLoop() {
     }).data("kendoWindow");
 
     ventanaConfirm.content("<label>Nombre del Loop: </label>" + "<input type='text' style='width:120px' value='Escribe un nombre'/>" +
-                "</br><center><button class='btn btn-blue' id='yesButton'>Buscar</button><button class='btn btn-blue' id='noButton'> Cancelar</button></center>");
+                "</br></br><center><button class='btn btn-blue' id='yesButton'>Aceptar</button></center>");
 
     ventanaConfirm.open().center();
 
@@ -82,7 +82,7 @@ function suscribirEventoGuardar() {
         
         for (var i = 0; i < $("#grid").data("kendoGrid").dataSource._data.length; i++) {
             if ($("#grid").data("kendoGrid").dataSource._data[i].NumeroSalida == idSelect) {
-                $("#grid").data("kendoGrid").dataSource._data[i].Materiales = $("#gridPopUp").data("kendoGrid").dataSource._data.length;
+                $("#grid").data("kendoGrid").dataSource._data[i].Materiales = ICSelect;//$("#gridPopUp").data("kendoGrid").dataSource._data.length;
                 $("#grid").data("kendoGrid").refresh();
                 break;
             }

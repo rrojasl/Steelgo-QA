@@ -432,11 +432,40 @@ var idSelect = '';
 function RenderMateriales(container, options) {
     idSelect = options.model.NumeroSalida;
 
-    $("#gridPopUp").data("kendoGrid").dataSource.data([]);
+    $("#gridPopUp").data("kendoGrid").dataSource.data([
+          { ID: '1', DIAM: '18', IC: 'PAAAABBABB', DESC: 'TUBO, API-5L-B , S/C, CED. STD , BIS', CANTIDAD: '8766 MM' }
+        , { ID: '2', DIAM: '18', IC: 'PAAAABBABB', DESC: 'TUBO, API-5L-B , S/C, CED. STD , BIS', CANTIDAD: '618 MM' }
+        , { ID: '3', DIAM: '18X3/4', IC: 'VOCCCBQAFA', DESC: 'THREDOLET, ASM-A105, 300#, BISROSC', CANTIDAD: '1' }
+        , { ID: '4', DIAM: '18', IC: 'WAAAABBAA', DESC: 'CODO 90 RL, ASMT-V234-WPB, S/C CED STD, BIS', CANTIDAD: '1' }
+        ]);
 
 
     VentanaModalDetallePlaca2();
 }
+
+var ICSelect = '';
+function RenderMaterialesPopup(container, options) {
+
+    for (var i = 0; i < $("#grid").data("kendoGrid").dataSource._data.length; i++) {
+        if ($("#grid").data("kendoGrid").dataSource._data[i].NumeroSalida == idSelect) {
+            ICSelect = options.model.IC;
+            //$("#grid").data("kendoGrid").dataSource._data[i].Materiales = options.model.IC;
+            //$("#gridPopUp").data("kendoGrid").refresh();
+            break;
+        }
+    }
+
+
+    var window = $("#windowGrid");
+    //window.data("kendoWindow").close();
+    try {
+        //$("#windowGrid").data("kendoWindow").close();
+    } catch (e) {
+
+    }
+    
+}
+
 
 function renderGenerarJsonNumeroPlacas(spoolJunta, junta, numeroControl) {
     //alert(spoolJunta);
