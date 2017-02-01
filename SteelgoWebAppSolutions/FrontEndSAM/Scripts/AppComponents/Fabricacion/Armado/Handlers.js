@@ -433,8 +433,8 @@ function suscribirEventoOrdenTrabajo() {
         $("#InputOrdenTrabajo").val("");
         $("#InputID").data("kendoComboBox").value("");
         $("#Junta").data("kendoComboBox").value("");
-        $("#Junta").data("kendoComboBox").setDataSource();
-        $("#InputID").data("kendoComboBox").setDataSource();
+        //$("#Junta").data("kendoComboBox").setDataSource();
+        //$("#InputID").data("kendoComboBox").setDataSource();
     });
 };
 

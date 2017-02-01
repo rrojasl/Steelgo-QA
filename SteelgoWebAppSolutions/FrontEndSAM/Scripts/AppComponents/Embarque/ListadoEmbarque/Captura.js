@@ -43,6 +43,9 @@ function CargarGrid() {
     $("#grid").kendoGrid({
         autoBind: true,
         edit: function (e) {
+            var inputName = e.container.find('input');
+            inputName.select();
+
             if ($('#Guardar').text() == _dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]) {
                 this.closeCell();
             }

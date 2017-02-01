@@ -1,13 +1,13 @@
-﻿function renderCantidad(container, options) {
-    $('<input name="' + options.field + '"/>')
-            .appendTo(container)
-            .kendoNumericTextBox({
-                decimals: 0,
-                step: 1,
-                min: 0,
-                format: "#"
-            });
-};
+﻿//function renderCantidad(container, options) {
+//    $('<input name="' + options.field + '"/>')
+//            .appendTo(container)
+//            .kendoNumericTextBox({
+//                decimals: 0,
+//                step: 1,
+//                min: 0,
+//                format: "#"
+//            });
+//};
 
 
 function renderComponente(container, options) {
@@ -49,6 +49,22 @@ function renderComponente(container, options) {
             }
         }
     });
+}
+
+function Cantidad(container, options) {
+    if ($('#Guardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
+        var dataItem;
+        var Cantidad = $('<input data-text-field="Cantidad" id=' + options.model.uid + ' data-value-field="Cantidad" data-bind="value:' + options.field + '"/>')
+         .appendTo(container)
+         .kendoNumericTextBox({
+             format: "#",
+             min: 0
+         });
+
+        Cantidad.focus(function () {
+            this.select();
+        });
+    };
 }
 
 

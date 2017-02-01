@@ -243,10 +243,13 @@ namespace BackEndSAM.Controllers.Inspeccion.VisualDimensional
 
                 foreach (DetalleGuardarInspeccionVisual item in listaCapturaInspeccion.Detalles[0].ListaDetalleGuardarInspeccionVisual)
                 {
-                    if (dtNumerosUnicosAsignados == null)
-                        dtNumerosUnicosAsignados = Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(item.ListaNumeroUnicoAsignado);
-                    else
-                        dtNumerosUnicosAsignados.Merge(Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(item.ListaNumeroUnicoAsignado));
+                    if (item.ListaNumeroUnicoAsignado != null)
+                    {
+                        if (dtNumerosUnicosAsignados == null)
+                            dtNumerosUnicosAsignados = Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(item.ListaNumeroUnicoAsignado);
+                        else
+                            dtNumerosUnicosAsignados.Merge(Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(item.ListaNumeroUnicoAsignado));
+                    }
                 }
 
                 if (listaCapturaInspeccion.Detalles[0].ListaDetalleGuardarInspeccionVisual != null)

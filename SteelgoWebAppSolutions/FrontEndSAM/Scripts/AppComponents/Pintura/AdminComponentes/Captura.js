@@ -16,6 +16,9 @@ setTimeout(function () { suscribirEventos(); }, 100);
 function CargarGrid() {
     $("#grid").kendoGrid({
         edit: function (e) {
+            var inputName = e.container.find('input');
+            inputName.select();
+
             if ($('#Guardar').text() != _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
                 this.closeCell();
             }
@@ -27,7 +30,7 @@ function CargarGrid() {
                     fields: {
                         Componente: { type: "string", editable: true },
                         Lote: { type: "string", editable: true },
-                        Cantidad: { type: "number", editable: true, validation: { min: 0, required: false } },
+                        Cantidad: { type: "number", editable: true},
                         Unidad: { type: "string", editable: false },
                         RowOk: { type: "boolean", editable: false },
                         Accion: { type: "number", editable: false },
@@ -66,7 +69,7 @@ function CargarGrid() {
         columns: [
             { field: "Componente", title: _dictionary.columnComponente[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "150px", editor: renderComponente },
             { field: "Lote", title: _dictionary.columnLote[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "80px", attributes: { style: "text-align:left;" } },
-            { field: "Cantidad", title: _dictionary.columnCantidad[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "80px", attributes: { style: "text-align:right;" }, editor: renderCantidad },
+            { field: "Cantidad", title: _dictionary.columnCantidad[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), editor: Cantidad, width: "80px", attributes: { style: "text-align:right;" }},
             { field: "Unidad", title: _dictionary.columnUnidad[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "50px", attributes: { style: "text-align:left;" } },
             { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: eliminarCaptura }, title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], width: "40px", attributes: { style: "text-align:center;" } }//,
             //{ command: { text: _dictionary.botonLimpiar[$("#language").data("kendoDropDownList").value()], click: limpiarCaptura }, title: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()], width: "40px", attributes: { style: "text-align:center;" } }

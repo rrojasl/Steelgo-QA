@@ -63,7 +63,7 @@ function SuscribirEventoPopUPEnviarEmbarque() {
                 displayNotify("EmbarqueListadoMsjErrorNumEmbarqueCliente", "", "2");
         } else {
             displayNotify("EmbarqueListadoMsjErrorNumEmbarqueSteelgo", "", "2");
-        }
+        }        
     });
 
     $("#btnCerrarPopUp").click(function (e) {

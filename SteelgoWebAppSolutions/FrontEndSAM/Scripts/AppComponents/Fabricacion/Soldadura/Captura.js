@@ -24,6 +24,10 @@ function CargarGrid() {
     $("#grid").kendoGrid({
         autoBind: false,
         edit: function (e) {
+            
+            var inputName = e.container.find('input');
+            inputName.select();
+
             if ($('#botonGuardar').text() != _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
                 this.closeCell();
             }
@@ -37,7 +41,7 @@ function CargarGrid() {
                         Junta: { type: "string", editable: false },
                         DetalleJunta: { type: "string", editable: false },
                         Taller: { type: "string", editable: true },
-                        Diametro: { type: "string", editable: false },
+                        Diametro: { type: "number", editable: false },
                         FechaSoldadura: { type: "date", editable: true },
                         ProcesoSoldaduraRaiz: { type: "string", editable: true },
                         TemplateSoldadoresRaiz: { type: "string", editable: false },
@@ -80,7 +84,7 @@ function CargarGrid() {
             { field: "SpoolID", title: _dictionary.columnNumeroControl[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "100px" },
             { field: "Junta", title: _dictionary.columnJunta[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "70px" },
             { field: "DetalleJunta", title: _dictionary.columnDetalleJunta[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "180px" },
-            { field: "Diametro", title: _dictionary.columnDiametro[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "80px", attributes: { style: "text-align:right;" } },
+            { field: "Diametro", title: _dictionary.columnDiametro[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "80px", attributes: { style: "text-align:right;" } },
             { field: "FechaSoldadura", title: _dictionary.columnFecha[$("#language").data("kendoDropDownList").value()], filterable: getKendoGridFilterableDateMaftec(), editor: RenderDatePicker, width: "110px", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()] },
             { field: "Taller", title: _dictionary.columnTaller[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxTaller, width: "130px" },
             { field: "ProcesoSoldaduraRaiz", title: _dictionary.columnProcesoRaiz[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "140px", editor: RenderComboBoxProcesoSoldaduraRaiz },
@@ -157,6 +161,23 @@ function Limpiar() {
     $("#FechaSoldadura").data("kendoDatePicker").value("");
     $("#inputTaller").data("kendoComboBox").value("");
     $("#grid").data('kendoGrid').dataSource.data([]);
+
+
+    $('#InputOrdenTrabajo').css('opacity', '1');
+    $('#FieldSetView').find('*').attr('disabled', false);
+    $('#planchadoZone').find('*').attr('disabled', false);
+    $("#InputID").data("kendoComboBox").enable(true);
+    $("#inputTaller").data("kendoComboBox").enable(true);
+    $("#FechaSoldadura").data("kendoDatePicker").enable(true);
+    $("#Junta").data("kendoComboBox").enable(true);
+    $('#botonGuardar').text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);
+    $("#DetalleAvisoLlegada0017").text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);
+    $('#ButtonAplicar').attr("disabled", false);
+    $('#btnGuardarPiePagina').text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);
+    $('#botonGuardar2').text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);
+    $('#botonGuardar3').text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);
+    $("#botonGuardar1").text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);
+
 }
 
 

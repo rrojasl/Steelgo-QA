@@ -41,6 +41,12 @@ function CargarGrid() {
     $("#grid").kendoGrid({
         autoBind: true,
         edit: function (e) {
+            setTimeout(function () {
+                var inputName = e.container.find('input');
+
+                inputName.select();
+            });
+
             if ($('#Guardar').text() == "Editar" || $('#Guardar').text() == "Edit") {
                 this.closeCell();
             }

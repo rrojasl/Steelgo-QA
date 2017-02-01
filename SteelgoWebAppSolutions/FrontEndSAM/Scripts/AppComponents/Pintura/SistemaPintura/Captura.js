@@ -93,8 +93,15 @@ function CargarGrid() {
             if ($('#botonGuardar').text() != _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()] || ($("#inputNoAplicable").is(':checked'))) {
                 this.closeCell();
             }
-        },
+            
 
+            setTimeout(function () {
+                var inputName = e.container.find('input');
+                inputName.select();
+            });
+
+        },
+        autoBind: true,
         dataSource: {
             data: [],
             schema: {
@@ -210,7 +217,7 @@ function CargarGrid() {
                                 height: "auto",
                                 modal: true,
                                 animation: {
-                                    close: false,
+                                  
                                     open: false
                                 },
                                 actions:[]
@@ -378,6 +385,10 @@ function limpiarRenglon(e) {
 function CargarGridPopUp() {
 
     $("#gridPopUp").kendoGrid({
+        edit: function (e) {
+                var inputName = e.container.find('input');
+                inputName.select();
+        },
         dataSource: {
             data: [],
             schema: {
@@ -456,7 +467,11 @@ function LlenarGridPopUp(data) {
 function CargarGridPopUpComponenteAgregado() {
 
     $("#gridPopUpComponentesAgregados").kendoGrid({
-        dataSource: {
+        edit: function (e) {
+            var inputName = e.container.find('input');
+            inputName.select();
+        },
+        dataSource: { 
             data: [],
             schema: {
                 model: {
@@ -554,9 +569,8 @@ function VentanaModalComponentesAgregados() {
             top: "10px",
             left: "10px"
         },
-        actions: [
-    
-        ],
+        actions: [],
+
         close: function onClose(e) {
             var gridDataSource = $("#gridPopUpComponentesAgregados").data("kendoGrid").dataSource;
             gridDataSource.filter([]);
@@ -583,9 +597,7 @@ function VentanaModal() {
             top: "10px",
             left: "10px"
         },
-        actions: [
-            
-        ],
+        actions: [],
         close: function onClose(e) {
             var gridDataSource = $("#gridPopUp").data("kendoGrid").dataSource;
             gridDataSource.filter([]);

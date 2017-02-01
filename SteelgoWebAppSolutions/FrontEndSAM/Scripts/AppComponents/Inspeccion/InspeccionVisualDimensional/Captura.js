@@ -129,6 +129,8 @@ function CargarGrid() {
         autoBind: true,
         autoSync: true,
         edit: function (e) {
+
+
             if ($('#Guardar').text() == "Editar" || $('#Guardar').text() == "Edit") {
                 this.closeCell();
             }

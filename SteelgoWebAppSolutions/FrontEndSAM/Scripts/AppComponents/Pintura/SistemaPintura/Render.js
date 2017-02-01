@@ -6,61 +6,71 @@ function RenderNumeroComponentes(container, options) {
     if ($('#Guardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
 
         var dataItem;
-        $('<input data-text-field="NumeroComponentes" id=' + options.model.uid + ' data-value-field="NumeroComponentes" data-bind="value:' + options.field + '"/>')
+        var numeroComponentesNumeric = $('<input data-text-field="NumeroComponentes" id=' + options.model.uid + ' data-value-field="NumeroComponentes" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoNumericTextBox({
             format: "#",
             min: 0,
             change: function (e) {
-                if (numeroPlacasComponentesElemento.NumeroComponentes != null && numeroPlacasComponentesElemento.NumeroComponentes != this.value()) {
-                    ventanaConfirm = $("#ventanaConfirm").kendoWindow({
-                        iframe: true,
-                        title: _dictionary.WarningTitle[$("#language").data("kendoDropDownList").value()],
-                        visible: false, //the window will not appear before its .open method is called
-                        width: "auto",
-                        height: "auto",
-                        modal: true,
-                        animation: {
-                            close: false,
-                            open: false
-                        }
-                    }).data("kendoWindow");
-
-                    ventanaConfirm.content(_dictionary.SistemaPinturaModificaNumeroComponentes[$("#language").data("kendoDropDownList").value()] +
-                                "</br><center><button class='btn btn-blue' id='yesButton'>Si</button><button class='btn btn-blue' id='noButton'> No</button></center>");
-
-                    ventanaConfirm.open().center();
-
-                    $("#yesButton").click(function () {
-                        if (options.model.ListaDetalleComponentesAgregados != undefined) {
-                            for (var i = 0; i < options.model.ListaDetalleComponentesAgregados.length; i++) {
-                                options.model.ListaDetalleComponentesAgregados[i].Accion = 3;
+                if (this.value() <= options.model.ListadoComponentes.length-1) {
+                    if (numeroPlacasComponentesElemento.NumeroComponentes != null && numeroPlacasComponentesElemento.NumeroComponentes != this.value()) {
+                        ventanaConfirm = $("#ventanaConfirm").kendoWindow({
+                            iframe: true,
+                            title: _dictionary.WarningTitle[$("#language").data("kendoDropDownList").value()],
+                            visible: false, //the window will not appear before its .open method is called
+                            width: "auto",
+                            height: "auto",
+                            modal: true,
+                            animation: {
+                                close: false,
+                                open: false
                             }
-                        }
+                        }).data("kendoWindow");
 
-                        var arrayModelComponentesAgregados = [];
-                        options.model.ListaDetalleComponentesAgregados= options.model.ListaDetalleComponentesAgregados == null ? [] : options.model.ListaDetalleComponentesAgregados;
-                        for (var i = 0; i < options.model.NumeroComponentes; i++) {
-                            arrayModelComponentesAgregados[i] = { ComponenteAgregadoID: "", ComponenteID: "", Nombre: "", Accion: 1, ListadoComponentes: "", RowOk: "",ProcesoPinturaID:"" };
-                            arrayModelComponentesAgregados[i].ComponenteAgregadoID = i + 1;
-                            arrayModelComponentesAgregados[i].Nombre = "";
-                            arrayModelComponentesAgregados[i].ListadoComponentes = options.model.ListadoComponentes;
-                            arrayModelComponentesAgregados[i].RowOk = true;
-                            options.model.ListaDetalleComponentesAgregados.push(arrayModelComponentesAgregados[i]);
-                        }
-                        //options.model.ListaDetalleComponentesAgregados = arrayModelComponentesAgregados;
+                        ventanaConfirm.content(_dictionary.SistemaPinturaModificaNumeroComponentes[$("#language").data("kendoDropDownList").value()] +
+                                    "</br><center><button class='btn btn-blue' id='yesButton'>Si</button><button class='btn btn-blue' id='noButton'> No</button></center>");
 
-                        $("#grid").data("kendoGrid").refresh();
-                        ventanaConfirm.close();
-                    });
-                    $("#noButton").click(function () {
-                        //dataItem.NumeroPlacas = numeroPlacasAnteriorElemento;
-                        options.model.NumeroComponentes = numeroPlacasComponentesElemento.NumeroComponentes;
-                        $("#grid").data("kendoGrid").refresh();
-                        ventanaConfirm.close();
-                    });
+                        ventanaConfirm.open().center();
+
+                        $("#yesButton").click(function () {
+                            if (options.model.ListaDetalleComponentesAgregados != undefined) {
+                                for (var i = 0; i < options.model.ListaDetalleComponentesAgregados.length; i++) {
+                                    options.model.ListaDetalleComponentesAgregados[i].Accion = 3;
+                                }
+                            }
+
+                            var arrayModelComponentesAgregados = [];
+                            options.model.ListaDetalleComponentesAgregados = options.model.ListaDetalleComponentesAgregados == null ? [] : options.model.ListaDetalleComponentesAgregados;
+                            for (var i = 0; i < options.model.NumeroComponentes; i++) {
+                                arrayModelComponentesAgregados[i] = { ComponenteAgregadoID: "", ComponenteID: "", Nombre: "", Accion: 1, ListadoComponentes: "", RowOk: "", ProcesoPinturaID: "" };
+                                arrayModelComponentesAgregados[i].ComponenteAgregadoID = i + 1;
+                                arrayModelComponentesAgregados[i].Nombre = "";
+                                arrayModelComponentesAgregados[i].ListadoComponentes = options.model.ListadoComponentes;
+                                arrayModelComponentesAgregados[i].RowOk = true;
+                                options.model.ListaDetalleComponentesAgregados.push(arrayModelComponentesAgregados[i]);
+                            }
+                            //options.model.ListaDetalleComponentesAgregados = arrayModelComponentesAgregados;
+
+                            $("#grid").data("kendoGrid").refresh();
+                            ventanaConfirm.close();
+                        });
+                        $("#noButton").click(function () {
+                            //dataItem.NumeroPlacas = numeroPlacasAnteriorElemento;
+                            options.model.NumeroComponentes = numeroPlacasComponentesElemento.NumeroComponentes;
+                            $("#grid").data("kendoGrid").refresh();
+                            ventanaConfirm.close();
+                        });
+                    }
+                }
+                else {
+                    displayNotify("", _dictionary.NumeroComponentesMenorListado[$("#language").data("kendoDropDownList").value()].replace("?1", options.model.ListadoComponentes.length -1 ), '2');
+                    options.model.NumeroComponentes = numeroPlacasComponentesElemento.NumeroComponentes;
                 }
             }
+        });
+
+        numeroComponentesNumeric.focus(function () {
+            this.select();
         });
     };
 }
@@ -205,7 +215,7 @@ function RenderUnidadMinima(container, options) {
     if ($('#Guardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
 
         var dataItem;
-        $('<input data-text-field="UnidadMinima" id=' + options.model.uid + ' data-value-field="UnidadMinima" data-bind="value:' + options.field + '"/>')
+        var unidadMinimaNumeric = $('<input data-text-field="UnidadMinima" id=' + options.model.uid + ' data-value-field="UnidadMinima" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoNumericTextBox({
             format: "#",
@@ -213,6 +223,10 @@ function RenderUnidadMinima(container, options) {
             change: function (e) {
                 //hayDatosCapturados = true;
             }
+        });
+
+        unidadMinimaNumeric.focus(function () {
+            this.select();
         });
     };
 }
@@ -221,7 +235,7 @@ function RenderUnidadMaxima(container, options) {
     if ($('#Guardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
 
         var dataItem;
-        $('<input data-text-field="UnidadMaxima" id=' + options.model.uid + ' data-value-field="UnidadMaxima" data-bind="value:' + options.field + '"/>')
+        var unidadMaximaNumeric = $('<input data-text-field="UnidadMaxima" id=' + options.model.uid + ' data-value-field="UnidadMaxima" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoNumericTextBox({
             format: "#",
@@ -230,38 +244,44 @@ function RenderUnidadMaxima(container, options) {
                 //hayDatosCapturados = true;
             }
         });
+
+        unidadMaximaNumeric.focus(function () {
+            this.select();
+        });
     };
 }
-
 
 
 function RenderMetrosLote(container, options) {
     if ($('#Guardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
 
         var dataItem;
-        $('<input data-text-field="MetrosLote" id=' + options.model.uid + ' data-value-field="MetrosLote" data-bind="value:' + options.field + '"/>')
+        var metrosLoteNumerico = $('<input data-text-field="MetrosLote" id=' + options.model.uid + ' data-value-field="MetrosLote" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoNumericTextBox({
             format: "#",
-            min: 0,
-            change: function (e) {
-                //hayDatosCapturados = true;
-            }
+            min: 0
         });
+
+        metrosLoteNumerico.focus(function () {
+            this.select();
+        });
+
     };
 }
 
 function RenderNumeroPruebas(container, options) {
     if ($('#Guardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
         var dataItem;
-        $('<input data-text-field="NumeroPruebas" id=' + options.model.uid + ' data-value-field="NumeroPruebas" data-bind="value:' + options.field + '"/>')
-        .appendTo(container)
-        .kendoNumericTextBox({
-            format: "#",
-            min: 0,
-            change: function (e) {
-                //hayDatosCapturados = true;
-            }
+        var numeroPruebasNumerico = $('<input data-text-field="NumeroPruebas" id=' + options.model.uid + ' data-value-field="NumeroPruebas" data-bind="value:' + options.field + '"/>')
+         .appendTo(container)
+         .kendoNumericTextBox({
+             format: "#",
+             min: 0
+         });
+
+        numeroPruebasNumerico.focus(function () {
+            this.select();
         });
     };
 }

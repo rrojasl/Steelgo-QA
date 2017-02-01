@@ -7828,6 +7828,10 @@ _dictionary = {
         "es-MX": "Agregar",
         "en-US": "Add"
     },
+    "botonAgregar2": {
+        "es-MX": "Agregar",
+        "en-US": "Add"
+    },
     "botonLimpiar": {
         "es-MX": "Limpiar",
         "en-US": "Clean"
@@ -8073,6 +8077,18 @@ _dictionary = {
         "es-MX": "Por favor seleccione un embarque",
         "en-US": "Please select to shipment"
     },
+    "MensajeSeleccionaFechaInicio": {
+        "es-MX": "Por favor seleccione fecha inicio",
+        "en-US": "Please select start date"
+    },
+    "MensajeSeleccionaFechaFin": {
+        "es-MX": "Por favor seleccione fecha fin",
+        "en-US": "Please select end date"
+    },
+    "MensajeSeleccionaFechaFinMenorFechaInicio": {
+        "es-MX": "La fecha inicio no puede ser mayor a la fecha fin",
+        "en-US": "The start date can not be greater than the end date"
+    },
     // Finalizan Mensajes generales
 
     // Menú lateral
@@ -8280,6 +8296,14 @@ _dictionary = {
     "menuListadoEmbarqueEnviados": {
         "es-MX": "Listado embarque enviados",
         "en-US": "Sent shipping list"
+    },
+    "menuIngenieria": {
+        "es-MX": "Ingeniería",
+        "en-US": "Enginnering"
+    },
+    "menuIngenieriaBuscaSpool": {
+        "es-MX": "Busca Spool",
+        "en-US": "Spool Search"
     },
     // Finalizan Etiquetas de Menú General
 
@@ -9357,6 +9381,10 @@ _dictionary = {
         "es-MX": "El spool esta aprobado, no puedes especificar juntas",
         "en-US": "The spool is aproved, can´t  especify joint"
     },
+    "mensajeInspeccionVisualDimensionalSeleccionarResultado": {
+        "es-MX": "Necesitas seleccionar  el resultado",
+        "en-US": "You need to select the result"
+    },
     "NoExistenJuntasSel": {
         "es-MX": "No hay juntas seleccionadas",
         "en-US": "No joints are selected"
@@ -10301,6 +10329,17 @@ _dictionary = {
         "es-MX": "Captura Pruebas por Spool",
         "en-US": "Spool Capture Test"
     },
+
+    "SistemaPinturaSup": {
+        "es-MX": "Sistema Pintura Aplicable",
+        "en-US": "Applicable Paint System"
+    },
+
+    "SistemaPinturaInf": {
+        "es-MX": "Sistema Pintura Aplicable",
+        "en-US": "Applicable Paint System"
+    },
+
     //Finaliza Etiquetas Generales Pintura
     //Inicia Captura Admin componentes
 
@@ -10482,6 +10521,16 @@ _dictionary = {
     "PinturaSeleccionaCarroDescarga": {
         "es-MX": "Por favor seleccione un carro para la descarga del spool",
         "en-US": "Please select a cart to discharge the spool"
+    },
+
+    "CargaCarroSup": {
+        "es-MX": "Carga de Carro",
+        "en-US": "Load Carriage"
+    },
+
+    "CargaCarroInf": {
+        "es-MX": "Carga de Carro",
+        "en-US": "Load Carriage"
     },
     //Finaliza Carga de Carro
 
@@ -10701,7 +10750,11 @@ _dictionary = {
     // Finaliza Listado Sistema Pintura
 
     //Comienza Sistema Pintura
-
+    
+    "NumeroComponentesMenorListado": {
+            "es-MX": "Máximo puedes ingresar ?1 componentes",
+            "en-US": "Maximum you can enter ?1 components"
+        },
     "MensajeSpoolAsignado": {
         "es-MX": "No puedes editar el sistema de pintura el motivo es: ya se encuentra asignado a un spool",
         "en-US": "You can not edit the painting system the reason is: it is already assigned to a spool"
@@ -10784,13 +10837,13 @@ _dictionary = {
         "en-US": "Component"
     },
     "botonGuardarComponenteAgregado": {
-        "es-MX": "Guardar",
+        "es-MX": "Agregar",
         "en-US": "Save"
     },
 
     "botonAgregarComponente": {
-        "es-MX": "Guardar",
-        "en-US": "Save"
+        "es-MX": "Agregar",
+        "en-US": "Add"
     },
 
     "botonCancelarComponenteAgregado": {
@@ -11593,6 +11646,18 @@ _dictionary = {
     "EmbarqueListadoTitlePopUpEnviar": {
         "es-MX": "Enviar Embarque",
         "en-US": "Send Shipment"
+    },
+    "EmbarqueListadoErrorEnvioNumeroEmbarqueExiste": {
+        "es-MX": "El número de embarque ya existe",
+        "en-US": "The shipment number already exists"
+    },
+    "EmbarqueListadoErrorEnvioNumeroEmbarqueClienteExiste": {
+        "es-MX": "El número de embarque cliente ya existe",
+        "en-US": "The customer shipment number already exists"
+    },
+    "EmbarqueListadoErrorEnvioNumeroEmbarquesExisten": {
+        "es-MX": "Número de embarque y Número embarque cliente ya existen",
+        "en-US": "Shipment number and Customer shipment number already exist"
     },
     //Finaliza pantalla listado embarque
     //Inicia pantalla listado embarque enviados

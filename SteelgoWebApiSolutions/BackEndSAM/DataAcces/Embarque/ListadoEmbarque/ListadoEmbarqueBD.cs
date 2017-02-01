@@ -7,6 +7,7 @@ using SecurityManager.Api.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Web;
 
@@ -127,6 +128,55 @@ namespace BackEndSAM.DataAcces.Embarque.ListadoEmbarque
             }
         }
 
+        public object ObtenerDetalleListadoEmbarqueEnviado(int UsuarioID, int ProyectoID, string Lenguaje, string FechaInicio, string FechaFin)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Sam3_Embarque_LE_Get_ListadoEmbarqueEnviado_Result> result = ctx.Sam3_Embarque_LE_Get_ListadoEmbarqueEnviado(Lenguaje, UsuarioID, ProyectoID, FechaInicio, FechaFin).ToList();
+                    List<DetalleListadoEmbarqueEnviado> listaDetalle = new List<DetalleListadoEmbarqueEnviado>();
+
+                    foreach (Sam3_Embarque_LE_Get_ListadoEmbarqueEnviado_Result item in result)
+                    {
+                        listaDetalle.Add(new DetalleListadoEmbarqueEnviado
+                        {
+                            EmbarqueID = item.EmbarqueID,
+                            Embarque = item.Embarque,
+                            EmbarqueEstatusID = item.EmbarqueEstatusID,
+                            ProyectoID = item.ProyectoID,
+                            Proyecto = item.Proyecto,
+                            Planas = item.Planas,
+                            DestinoID = item.DestinoID,
+                            Destino = item.Destino,
+                            FolioSolicitudPermiso = item.RequiereAduana.GetValueOrDefault() ? item.SolicitudPermiso : "NA",
+                            FechaSolicitudPermiso = item.RequiereAduana.GetValueOrDefault() ? item.FechaPermiso.ToString() : "NA",
+                            RequierePapCliente = item.RequierePapCliente,
+                            RequierePermisoAduana = item.RequiereAduana,
+                            RequiereRevisionCliente = item.RequiereRevisionCliente,
+                            OkCliente = item.OkCliente,
+                            AprobadoAduana = item.RequiereAduana.GetValueOrDefault() ? item.AprobadoAduana.GetValueOrDefault() : 1,
+                            AprobadoAduanaDesc = item.RequiereAduana.GetValueOrDefault() ? item.AprobadoAduanaDesc : "NA",
+                            OkEmbarque = item.OkEmbarque,
+                            CapturaEnvioID = item.CapturaEnvioID
+                        });
+                    }
+
+                    return listaDetalle;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
         public object ObtenerElementosPorEstatus(string lenguaje, int UsuarioID)
         {
             try
@@ -194,10 +244,21 @@ namespace BackEndSAM.DataAcces.Embarque.ListadoEmbarque
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    ctx.Sam3_Embarque_LE_GuardarEnvio(UsuarioID, Lenguaje, dtEnvio.EmbarqueID, dtEnvio.DestinoID, dtEnvio.SolicitudPermiso, dtEnvio.FechaPermiso, dtEnvio.AprobadoAduana, dtEnvio.BitacoraAduana, NumeroEmbarque, NumeroEmbarqueCliente, FechaEnvio, dtEnvio.ProyectoID);
+                    var oMyString = new ObjectParameter("Retorno", typeof(string));
+                    var resultSp = ctx.Sam3_Embarque_LE_GuardarEnvio(UsuarioID, Lenguaje, dtEnvio.EmbarqueID, dtEnvio.DestinoID, dtEnvio.SolicitudPermiso, dtEnvio.FechaPermiso, dtEnvio.AprobadoAduana, dtEnvio.BitacoraAduana, NumeroEmbarque, NumeroEmbarqueCliente, FechaEnvio, dtEnvio.ProyectoID, oMyString);
+                    var data = oMyString.Value.ToString();
 
                     TransactionalInformation result = new TransactionalInformation();
-                    result.ReturnMessage.Add("Ok");
+
+                    if (data!= "AMBOS EXISTEN" && data!= "NE EXISTE" && data!= "NEC EXISTE")
+                    {
+                        result.ReturnMessage.Add("Ok");
+                    }
+                    else
+                    {
+                        result.ReturnMessage.Add(data);
+                    }
+
                     result.ReturnCode = 200;
                     result.ReturnStatus = true;
                     result.IsAuthenicated = true;

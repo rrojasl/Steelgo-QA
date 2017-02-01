@@ -17,6 +17,10 @@ function CargarGrid() {
         autoBind: true,
         autoSync: true,
         edit: function (e) {
+
+                var inputName = e.container.find('input');
+                inputName.select();
+
             if ($('#BotonGuardar').text() != _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()])
                 this.closeCell();
         },
