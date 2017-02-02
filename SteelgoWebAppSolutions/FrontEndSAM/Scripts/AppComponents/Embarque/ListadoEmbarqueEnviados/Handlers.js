@@ -29,14 +29,59 @@ function SuscribirEventoFecha() {
     FechaInicio = $("#InputFechaInicio").kendoDatePicker({
         max: new Date(),
         change: function (e) {
-            ValidarFecha(e.sender._value)
+            if (!ValidarFecha(e.sender._value)) {
+                $("#InputFechaInicio").data("kendoDatePicker").value("");
+            }
+            
+        }
+    });
+
+    FechaInicio.on("keydown", function (e) {
+        if (e.keyCode == 13) {
+            if (!ValidarFecha($("#InputFechaInicio").data("kendoDatePicker").value())) {
+                $("#InputFechaInicio").data("kendoDatePicker").value("");
+            }
+        }
+
+        if (e.keyCode == 9) {
+            if (!ValidarFecha($("#InputFechaInicio").data("kendoDatePicker").value())) {
+                $("#InputFechaInicio").data("kendoDatePicker").value("");
+            }
+        }
+    });
+
+    $("#InputFechaInicio").blur(function (e) {
+        if (!ValidarFecha($("#InputFechaInicio").data("kendoDatePicker").value())) {
+            $("#InputFechaInicio").data("kendoDatePicker").value("");
         }
     });
 
     FechaFin = $("#InputFechaFin").kendoDatePicker({
         max: new Date(),
         change: function (e) {
-            ValidarFecha(e.sender._value)
+            if (!ValidarFecha(e.sender._value)) {
+                $("#InputFechaFin").data("kendoDatePicker").value("");
+            }
+        }
+    });
+
+    FechaFin.on("keydown", function (e) {
+        if (e.keyCode == 13) {
+            if (!ValidarFecha($("#InputFechaFin").data("kendoDatePicker").value())) {
+                $("#InputFechaFin").data("kendoDatePicker").value("");
+            }
+        }
+
+        if (e.keyCode == 9) {
+            if (!ValidarFecha($("#InputFechaFin").data("kendoDatePicker").value())) {
+                $("#InputFechaFin").data("kendoDatePicker").value("");
+            }
+        }
+    });
+
+    $("#InputFechaFin").blur(function (e) {
+        if (!ValidarFecha($("#InputFechaFin").data("kendoDatePicker").value())) {
+            $("#InputFechaFin").data("kendoDatePicker").value("");
         }
     });
 }
