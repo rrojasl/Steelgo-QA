@@ -79,13 +79,13 @@ namespace BackEndSAM.DataAcces.Pintura.AdminComponentes
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Pintura_Get_Componentes_Result> listaComponentes = ctx.Sam3_Pintura_Get_Componentes(lenguaje).ToList();
+                    List<Sam3_Pintura_Get_ComponentesAdministrados_Result> listaComponentes = ctx.Sam3_Pintura_Get_ComponentesAdministrados(lenguaje).ToList();
 
                     List<Componentes> listaComponentesRender = new List<Componentes>();
                     if (listaComponentes.Count > 0)
                         listaComponentesRender.Add(new Componentes());
 
-                    foreach (Sam3_Pintura_Get_Componentes_Result item in listaComponentes)
+                    foreach (Sam3_Pintura_Get_ComponentesAdministrados_Result item in listaComponentes)
                     {
                         Componentes componentes = new Componentes
                         {
