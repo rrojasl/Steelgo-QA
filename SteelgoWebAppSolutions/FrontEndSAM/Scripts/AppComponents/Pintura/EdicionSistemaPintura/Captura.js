@@ -15,13 +15,14 @@ function CargarGrid() {
     $("#grid").kendoGrid({
         edit: function (e) {
 
-                var inputName = e.container.find('input');
-                inputName.select();
-
-                if ($('#Guardar').text() != _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
+            var inputName = e.container.find('input');
+            inputName.select();
 
             if ($('#Guardar').text() != _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
-                this.closeCell();
+
+                if ($('#Guardar').text() != _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
+                    this.closeCell();
+                }
             }
         },
         dataBound: function () {
