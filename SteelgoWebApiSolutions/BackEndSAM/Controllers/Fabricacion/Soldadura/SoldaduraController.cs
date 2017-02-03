@@ -242,7 +242,7 @@ namespace BackEndSAM.Controllers.Fabricacion.Soldadura
                             TipoJuntaID = item.TipoJuntaID.ToString(),
                             TipoJunta = item.TipoJunta,
                             JuntaID = capturaDatosJson.JuntaID,
-                            Junta = capturaDatosJson.Junta,
+                            Junta = item.Etiqueta,
                             TallerID = item.TallerID.GetValueOrDefault().ToString(),
                             Taller = item.Taller,
                             ListaTaller = ObtenerListaTaller((List<Taller>)SoldaduraBD.Instance.ObtenerTallerXPoryecto(usuario, capturaDatosJson.IDProyecto)),
@@ -280,7 +280,7 @@ namespace BackEndSAM.Controllers.Fabricacion.Soldadura
                         listaDetalleDatos.Add(detalleDatos);
                     }
                 }
-                return serializer.Serialize(listaDetalleDatos.OrderByDescending(x => int.Parse(x.Junta)));
+                return serializer.Serialize(listaDetalleDatos.OrderByDescending(x => x.Junta));
 
             }
             else

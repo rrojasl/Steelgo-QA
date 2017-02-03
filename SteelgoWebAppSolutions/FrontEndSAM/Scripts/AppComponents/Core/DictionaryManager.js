@@ -7725,6 +7725,14 @@ _dictionary = {
         "es-MX": "Destino",
         "en-US": "Destiny"
     },
+    "lblPorM2": {
+        "es-MX": "Por M2",
+        "en-US": "By M2"
+    },
+    "lblPorTonelada": {
+        "es-MX": "Por Tonelada",
+        "en-US": "By Ton"
+    },
     //Finaliza Etiquetas
     //Etiquetas header alertas
     "SuccessTitle": {
@@ -11730,8 +11738,46 @@ _dictionary = {
     "EmbarqueRevisionMsjErrorPaqueteCargado": {
         "es-MX": "El paquete no se pudo agregar",
         "en-US": "Package could not be added"
-    }
+    },
     //Finaliza pantalla revision
+    //Inicia pantalla Dashboard
+    "EmbarqueDashboardBreadcrumb": {
+        "es-MX": "Dashboard Embarque",
+        "en-US": "Dashboard Shipment"
+    },
+    "EmbarqueDashboardBotonPorCargar": {
+        "es-MX": "Por Cargar",
+        "en-US": "For upload"
+    },
+    "EmbarqueDashboardBotonPorEmbarcar": {
+        "es-MX": "Por Embarcar",
+        "en-US": "By Boarding"
+    },
+    "EmbarqueDashboardBotonPorEnviar": {
+        "es-MX": "Por Enviar",
+        "en-US": "To send"
+    },
+    "EmbarqueDashboardBotonPorValidar": {
+        "es-MX": "Por Validar",
+        "en-US": "To Validate"
+    },
+    "EmbarqueDashboardOpcionPorCargar": {
+        "es-MX": "Por Cargar",
+        "en-US": "For upload"
+    },
+    "EmbarqueDashboardOpcionPorEmbarcar": {
+        "es-MX": "Por Embarcar",
+        "en-US": "By Boarding"
+    },
+    "EmbarqueDashboardOpcionPorEnviar": {
+        "es-MX": "Por Enviar",
+        "en-US": "To send"
+    },
+    "EmbarqueDashboardOpcionPorValidar": {
+        "es-MX": "Por Validar",
+        "en-US": "To Validate"
+    },
+    //Finaliza pantalla Dashboard
     //Finaliza Modulo Embarque 
 
 };

@@ -232,7 +232,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                             ListaDetalles[i].ListaDetalleComponentesAgregados[g].ProcesoPinturaID = arregloCaptura[index].ProcesoPinturaID;
                             ListaDetalles[i].ListaDetalleComponentesAgregados[g].ComponenteAgregadoID = arregloCaptura[index].ListaDetalleComponentesAgregados[g].ComponenteAgregadoID;
                             ListaDetalles[i].ListaDetalleComponentesAgregados[g].ComponenteID = arregloCaptura[index].ListaDetalleComponentesAgregados[g].ComponenteID;
-                            ListaDetalles[i].ListaDetalleComponentesAgregados[g].Accion = 1;
+                            ListaDetalles[i].ListaDetalleComponentesAgregados[g].Accion = arregloCaptura[index].ListaDetalleComponentesAgregados[g].Accion;
                         }
                     } else {
                         ListaDetalles[i].Estatus = 0;

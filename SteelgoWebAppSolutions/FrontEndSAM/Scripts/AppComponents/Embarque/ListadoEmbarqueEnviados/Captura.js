@@ -110,6 +110,7 @@ function CargarGrid() {
 function ValidarFecha(valor) {
     var fecha = kendo.toString(valor, String(_dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()].replace('{', '').replace('}', '').replace("0:", "")));
     if (fecha == null) {
-        $("#InputFechaInicio").data("kendoDatePicker").value('');
+        return false;
     }
+    return true;
 }

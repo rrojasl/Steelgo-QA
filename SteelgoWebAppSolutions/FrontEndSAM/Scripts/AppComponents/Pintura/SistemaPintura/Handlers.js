@@ -1,6 +1,9 @@
 ﻿var proyectoInicial = 0;
 var pruebaOriginal = 0;
 var requisicionOriginal = 0;
+var ventanaNumeroComponentes;
+var ventanaProcesosPintura;
+
 
 function SuscribirEventos() {
     GuardarDetallePruebas();
@@ -15,7 +18,107 @@ function SuscribirEventos() {
     SuscribirEventoEliminarSistemaPintura();
     SuscribirEventoGuardarDetalleComponentes();
     SuscribirEventoCancelarDetalleComponentes();
+    suscribirEventoVentanaCambioNumeroDeComponentes();
+    suscribirEventoVentanaCambioProcesosPintura();
 };
+
+
+function suscribirEventoVentanaCambioProcesosPintura() {
+    ventanaProcesosPintura = $("#ventanaConfirmProcesos").kendoWindow({
+        iframe: true,
+        title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
+        visible: false, //the window will not appear before its .open method is called
+        width: "auto",
+        height: "auto",
+        modal: true,
+        animation: {
+
+            open: false
+        },
+        actions: []
+    }).data("kendoWindow");
+
+    ventanaProcesosPintura.content("Se eliminaran los datos del proceso, ¿desea continuar?" +
+        "</br><center><button class='btn btn-blue' id='yesButton'>Si</button><button class='btn btn-blue' id='noButton'> No</button></center>");
+
+   
+
+
+
+    $("#yesButton").click(function () {
+        dataItemProcesoPintura.Agregar = false;
+        dataItemProcesoPintura.MetrosLote = 0;
+        dataItemProcesoPintura.NumeroPruebas = 0;
+        dataItemProcesoPintura.NumeroComponentes = 0;
+        dataItemProcesoPintura.ListaDetalleComponentesAgregados = [];
+        //dataItem.
+        dataItemProcesoPintura.Reductor = "";
+        dataItemProcesoPintura.ReductorID = "";
+        dataItemProcesoPintura.listadoPruebasDetalle = [];
+        ventanaProcesosPintura.close();
+        $("#grid").data("kendoGrid").dataSource.sync();
+    });
+    $("#noButton").click(function () {
+       
+        dataItemProcesoPintura.Agregar = true;
+       // $(this)[0].checked = true;
+        $("#grid").data("kendoGrid").dataSource.sync();
+        ventanaProcesosPintura.close();
+    });
+}
+
+
+
+function suscribirEventoVentanaCambioNumeroDeComponentes()
+{
+    ventanaNumeroComponentes = $("#ventanaConfirmCompontes").kendoWindow({
+        iframe: true,
+        title: _dictionary.WarningTitle[$("#language").data("kendoDropDownList").value()],
+        visible: false, //the window will not appear before its .open method is called
+        width: "auto",
+        height: "auto",
+        modal: true,
+        animation: {
+            close: false,
+            open: false
+        },
+        actions: []
+    }).data("kendoWindow");
+
+    ventanaNumeroComponentes.content(_dictionary.SistemaPinturaModificaNumeroComponentes[$("#language").data("kendoDropDownList").value()] +
+                "</br><center><button class='btn btn-blue' id='yesButtonComponente'>Si</button><button class='btn btn-blue' id='noButtonComponente'> No</button></center>");
+
+   
+
+    $("#yesButtonComponente").click(function (e) {
+
+        if (dataItemRender.ListaDetalleComponentesAgregados != undefined) {
+            for (var i = 0; i < dataItemRender.ListaDetalleComponentesAgregados.length; i++) {
+                dataItemRender.ListaDetalleComponentesAgregados[i].Accion = 3;
+            }
+        }
+
+        var arrayModelComponentesAgregados = [];
+        dataItemRender.ListaDetalleComponentesAgregados = dataItemRender.ListaDetalleComponentesAgregados == null ? [] : dataItemRender.ListaDetalleComponentesAgregados;
+        for (var i = 0; i < dataItemRender.NumeroComponentes; i++) {
+            arrayModelComponentesAgregados[i] = { ComponenteAgregadoID: "", ComponenteID: "", Nombre: "", Accion: 1, ListadoComponentes: "", RowOk: "", ProcesoPinturaID: "" };
+            arrayModelComponentesAgregados[i].ComponenteAgregadoID = i + 1;
+            arrayModelComponentesAgregados[i].Nombre = "";
+            arrayModelComponentesAgregados[i].ListadoComponentes = dataItemRender.ListadoComponentes;
+            arrayModelComponentesAgregados[i].RowOk = true;
+            dataItemRender.ListaDetalleComponentesAgregados.push(arrayModelComponentesAgregados[i]);
+        }
+        
+        $("#grid").data("kendoGrid").refresh();
+        ventanaNumeroComponentes.close();
+    });
+    $("#noButtonComponente").click(function (e) {
+       
+        dataItemRender.NumeroComponentes = numeroPlacasComponentesElemento.NumeroComponentes;
+        $("#grid").data("kendoGrid").refresh();
+        ventanaNumeroComponentes.close();
+    });
+}
 
 function suscribirEventoChangeAplicable() {
     $('#inputNoAplicable').change(function () {

@@ -438,8 +438,7 @@ function suscribirEventoChangeRadioTipoListado() {
 
         if ($('input:radio[name=TipoAgregado]:checked').val() == "Reporte") {
             console.log("noabrepop");
-            $('#InputOrdenTrabajo').val('');
-            $('#InputID').val('');
+            
             if (!editado) {
                 $("#grid").data("kendoGrid").dataSource.data([]);
                 CambioTipoListado();
@@ -450,8 +449,7 @@ function suscribirEventoChangeRadioTipoListado() {
             }
         }
         else if ($('input:radio[name=TipoAgregado]:checked').val() == "Listado") {
-            $('#InputOrdenTrabajo').val('');
-            $('#InputID').val('');
+            
             if (!editado) {
                 $("#grid").data("kendoGrid").dataSource.data([]);
                 CambioTipoListado();
@@ -682,6 +680,9 @@ function suscribirEventoWindowsConfirmaCaptura() {
 
     $("#yesButtonProy").click(function (e) {
         $("#grid").data("kendoGrid").dataSource.data([]);
+        $('#InputOrdenTrabajo').val('');
+        $('#InputID').data('kendoComboBox').text("");
+        $('#Junta').data('kendoComboBox').text("");
         CambioTipoListado();
         AjaxCargarCamposPredeterminadosCambiaTipoVista();
         ventanaConfirm.close();

@@ -15,27 +15,25 @@ function CargarGrid() {
     $("#grid").kendoGrid({
         edit: function (e) {
 
-                var inputName = e.container.find('input');
-                inputName.select();
-
-                if ($('#Guardar').text() != _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
-
+            var inputName = e.container.find('input');
+            inputName.select();
             if ($('#Guardar').text() != _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
                 this.closeCell();
             }
+
         },
         dataBound: function () {
-                var myElem = document.getElementById('trParentHeader');
-                if (myElem == null) {
-                    $("#grid").find("th.k-header").parent().before("<tr id='trParentHeader'> " +
-                        "<th scope='col' colspan='4' class='k-header'>"+
-                        "</th><th width='auto'  colspan='6' class='k-header' style='text-align: center;'><span id=''>" + _dictionary.lblShotblast[$("#language").data("kendoDropDownList").value()] + "</span></th>" +
-                        "<th width='auto'  colspan='6' class='k-header' style='text-align: center;'><span>" + _dictionary.lblPrimario[$("#language").data("kendoDropDownList").value()] + "</span></th>" +
-                        "<th width='auto'  colspan='6' class='k-header' style='text-align: center;'><span id=''>" + _dictionary.lblIntermedio[$("#language").data("kendoDropDownList").value()] + "</span></th>" +
-                        "<th width='auto'  colspan='6' class='k-header' style='text-align: center;'><span id=''>" + _dictionary.lblAcabado[$("#language").data("kendoDropDownList").value()] + "</span></th>" +
-                        "<th width='auto'  colspan='1' class='k-header' style='text-align: center;'><span id=''></span></th>" +
-                        "</tr>");
-                }
+            var myElem = document.getElementById('trParentHeader');
+            if (myElem == null) {
+                $("#grid").find("th.k-header").parent().before("<tr id='trParentHeader'> " +
+                    "<th scope='col' colspan='4' class='k-header'>" +
+                    "</th><th width='auto'  colspan='6' class='k-header' style='text-align: center;'><span id=''>" + _dictionary.lblShotblast[$("#language").data("kendoDropDownList").value()] + "</span></th>" +
+                    "<th width='auto'  colspan='6' class='k-header' style='text-align: center;'><span>" + _dictionary.lblPrimario[$("#language").data("kendoDropDownList").value()] + "</span></th>" +
+                    "<th width='auto'  colspan='6' class='k-header' style='text-align: center;'><span id=''>" + _dictionary.lblIntermedio[$("#language").data("kendoDropDownList").value()] + "</span></th>" +
+                    "<th width='auto'  colspan='6' class='k-header' style='text-align: center;'><span id=''>" + _dictionary.lblAcabado[$("#language").data("kendoDropDownList").value()] + "</span></th>" +
+                    "<th width='auto'  colspan='1' class='k-header' style='text-align: center;'><span id=''></span></th>" +
+                    "</tr>");
+            }
         },
         autoBind: true,
         dataSource: {
@@ -77,7 +75,7 @@ function CargarGrid() {
                         PruebaPorLoteAcabado: { type: "number", editable: false },
                         MetrosPorLoteAcabado: { type: "number", editable: false },
                         PruebaAcabado: { type: "string", editable: false },
-                        
+
                         NumeroComponentesAcabado: { type: "number", editable: false },
                         TemplateComponentesAcabado: { type: "string", editable: false },
                         TemplateReductoresAcabado: { type: "string", editable: false }
@@ -117,11 +115,11 @@ function CargarGrid() {
             { field: "SistemaPintura", title: _dictionary.columnSistemaPintura[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "135px", template: "<div style='text-align:left;'><a href='/Pintura/SistemaPintura?SistemaPinturaID= #=SistemaPinturaID#'> <span>#=SistemaPintura#</span></a></div> " },
             { field: "Proyecto", title: _dictionary.columnProyecto[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "135px" },
             { field: "Color", title: _dictionary.columnColor[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "160px" },
-            { field: "PruebaShotblast", title: _dictionary.columnPrueba[$("#language").data("kendoDropDownList").value()], filterable: false, width: "120px", template: "<div class='DetalleShotblast' style='text-align:left;'><a href='\\#'  > <span >#=PruebaShotblast#</span></a></div> "},
+            { field: "PruebaShotblast", title: _dictionary.columnPrueba[$("#language").data("kendoDropDownList").value()], filterable: false, width: "120px", template: "<div class='DetalleShotblast' style='text-align:left;'><a href='\\#'  > <span >#=PruebaShotblast#</span></a></div> " },
             { field: "PruebaPorLoteShotblast", title: _dictionary.columnPruebasPorLote[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "130px", attributes: { style: "text-align:right;" }, template: "<span >#=PruebaPorLoteShotblast!=0?PruebaPorLoteShotblast:'N/A' #</span></a></div>" },
             { field: "MetrosPorLoteShotblast", title: _dictionary.columnMetrosPorLote[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), format: "{0:n2}", width: "120px", attributes: { style: "text-align:right;" }, template: "<span >#=MetrosPorLoteShotblast!=0?MetrosPorLoteShotblast:'N/A' #</span></a></div>" },
 
-            { field: "NumeroComponentesShootblast", title: _dictionary.columnNumeroComponentes[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "150px" , attributes: { style: "text-align:right;" } },
+            { field: "NumeroComponentesShootblast", title: _dictionary.columnNumeroComponentes[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "150px", attributes: { style: "text-align:right;" } },
             { field: "TemplateComponentesShotBlast", title: _dictionary.columnTemplateComponentes[$("#language").data("kendoDropDownList").value()], filterable: false, width: "130px", attributes: { style: "text-align:center;" } },
             { field: "TemplateReductoresShotblast", title: _dictionary.columnTemplateReductores[$("#language").data("kendoDropDownList").value()], filterable: false, width: "120px", attributes: { style: "text-align:center;" } },
 
@@ -158,44 +156,44 @@ function CargarGrid() {
 
 function eliminarCaptura(e) {
     e.preventDefault();
-        e.preventDefault();
-        var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
-            
-            ventanaConfirm = $("#ventanaConfirm").kendoWindow({
-                iframe: true,
-                title: _dictionary.PinturaCargaTitulo[$("#language").data("kendoDropDownList").value()],
-                visible: false, //the window will not appear before its .open method is called
-                width: "23%",
-                height: "auto",
-                draggable: false,
-                modal: true,
-                animation: {
-                    close: false,
-                    open: false
-                }
-            }).data("kendoWindow");
+    e.preventDefault();
+    var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
 
-            ventanaConfirm.content('<center>' + _dictionary.SistemaPinturaMensajeConfirmaEliminar[$("#language").data("kendoDropDownList").value()] + '</center>' +
-                         "</br><center><button class='confirm_yes btn btn-blue' id='yesButton'>Si</button>  <button class='confirm_yes btn btn-blue' id='noButton'> No</button></center>");
+    ventanaConfirm = $("#ventanaConfirm").kendoWindow({
+        iframe: true,
+        title: _dictionary.PinturaCargaTitulo[$("#language").data("kendoDropDownList").value()],
+        visible: false, //the window will not appear before its .open method is called
+        width: "23%",
+        height: "auto",
+        draggable: false,
+        modal: true,
+        animation: {
+            close: false,
+            open: false
+        }
+    }).data("kendoWindow");
 
-            ventanaConfirm.open().center();
+    ventanaConfirm.content('<center>' + _dictionary.SistemaPinturaMensajeConfirmaEliminar[$("#language").data("kendoDropDownList").value()] + '</center>' +
+                 "</br><center><button class='confirm_yes btn btn-blue' id='yesButton'>Si</button>  <button class='confirm_yes btn btn-blue' id='noButton'> No</button></center>");
 
-            $("#yesButton").click(function () {
-                if (!dataItem.AsignadoSpool) {
-                    AjaxEliminaSistemaPintura(dataItem.SistemaPinturaID);
-                    
-                } else {
-                    displayNotify("SistemaPinturaErrorEliminado", "", '2');
-                }
-                ventanaConfirm.close();
-            });
-            $("#noButton").click(function () {
-                ventanaConfirm.close();
-     });
+    ventanaConfirm.open().center();
+
+    $("#yesButton").click(function () {
+        if (!dataItem.AsignadoSpool) {
+            AjaxEliminaSistemaPintura(dataItem.SistemaPinturaID);
+
+        } else {
+            displayNotify("SistemaPinturaErrorEliminado", "", '2');
+        }
+        ventanaConfirm.close();
+    });
+    $("#noButton").click(function () {
+        ventanaConfirm.close();
+    });
 }
 function editaSistemaPintura(dataItem) {
-    
-    if ($('#Guardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {        
+
+    if ($('#Guardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
         var SistemaPinturaID = dataItem.SistemaPinturaID;
         var url = '/Pintura/SistemaPintura?SistemaPinturaID=' + SistemaPinturaID
         window.open(url, '_blank');
