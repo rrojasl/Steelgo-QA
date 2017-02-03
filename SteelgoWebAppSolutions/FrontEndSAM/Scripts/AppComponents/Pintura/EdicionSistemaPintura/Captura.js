@@ -170,7 +170,9 @@ function eliminarCaptura(e) {
         animation: {
             close: false,
             open: false
-        }
+        },
+        actions: []
+       
     }).data("kendoWindow");
 
     ventanaConfirm.content('<center>' + _dictionary.SistemaPinturaMensajeConfirmaEliminar[$("#language").data("kendoDropDownList").value()] + '</center>' +

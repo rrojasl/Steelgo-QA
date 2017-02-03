@@ -114,12 +114,14 @@ function AjaxCargarEdicionSistemaPintura() {
                     else {
                         $("#comboProyecto").data("kendoComboBox").select(0);
                     }
+
+                    loadingStop();
                 }
 
              
 
             }
-            loadingStop();
+            
         }
     });
 
@@ -248,7 +250,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                         ListaDetalles[i].ListadoPruebas[j].UnidadMaxima = arregloCaptura[index].listadoPruebasDetalle[j].UnidadMaxima;
                         ListaDetalles[i].ListadoPruebas[j].PruebaProcesoPinturaID = arregloCaptura[index].listadoPruebasDetalle[j].PruebaProcesoPinturaID;
                     }
-                    if (arregloCaptura[index].Agregar && (arregloCaptura[index].MetrosLote == 0 || arregloCaptura[index].NumeroPruebas == 0 || arregloCaptura[index].NumeroComponentes == 0 || tieneComponentesSinCaptura(arregloCaptura[index].ListaDetalleComponentesAgregados))) {
+                    if (arregloCaptura[index].Agregar && (arregloCaptura[index].MetrosLote == 0 || arregloCaptura[index].NumeroPruebas == 0 || arregloCaptura[index].listadoPruebasDetalle.length==0  || arregloCaptura[index].NumeroComponentes == 0 || tieneComponentesSinCaptura(arregloCaptura[index].ListaDetalleComponentesAgregados))) {
                         ListaDetalles[i].Estatus = 0;
                         arregloCaptura[index].RowOk = false;
                     }
@@ -298,7 +300,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                 loadingStop();
 
                 $("#grid").data("kendoGrid").dataSource.sync();
-                ventanaConfirm = $("#ventanaConfirm").kendoWindow({
+                ventanaConfirmGuardado = $("#ventanaConfirm").kendoWindow({
                     iframe: true,
                     title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
                     visible: false, //the window will not appear before its .open method is called
@@ -306,20 +308,20 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                     height: "auto",
                     modal: true,
                     animation: {
-
+                        close: false,
                         open: false
                     },
                     actions: []
                 }).data("kendoWindow");
 
-                ventanaConfirm.content(_dictionary.EntregaPlacasGraficasMensajePreguntaGuardado[$("#language").data("kendoDropDownList").value()] +
-                    "</br><center><button class='btn btn-blue' id='yesButton'>Si</button><button class='btn btn-blue' id='noButton'> No</button></center>");
+                ventanaConfirmGuardado.content(_dictionary.EntregaPlacasGraficasMensajePreguntaGuardado[$("#language").data("kendoDropDownList").value()] +
+                    "</br><center><button class='btn btn-blue' id='yesButtonConfirmarGuardado'>Si</button><button class='btn btn-blue' id='noButtonConfirmarGuardado'> No</button></center>");
 
-                ventanaConfirm.open().center();
+                ventanaConfirmGuardado.open().center();
 
 
 
-                $("#yesButton").click(function () {
+                $("#yesButtonConfirmarGuardado").click(function () {
                     loadingStart();
 
                     ArregloGuardado = [];
@@ -369,10 +371,10 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                         displayNotify("MensajeAdverteciaExcepcionGuardado", "", '1');
                     }
                     opcionHabilitarView(false, "FieldSetView");
-                    ventanaConfirm.close();
+                    ventanaConfirmGuardado.close();
                 });
-                $("#noButton").click(function () {
-                    ventanaConfirm.close();
+                $("#noButtonConfirmarGuardado").click(function () {
+                    ventanaConfirmGuardado.close();
                     opcionHabilitarView(false, "FieldSetView");
                     $("#inputNombre").attr('disabled', false);
                 });

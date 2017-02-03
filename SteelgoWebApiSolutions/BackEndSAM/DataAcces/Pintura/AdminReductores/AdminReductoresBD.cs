@@ -108,6 +108,43 @@ namespace BackEndSAM.DataAcces.Pintura.AdminReductores
             }
         }
 
+        public object ObtenerCatalogoReductoresAdministrados(string lenguaje)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Sam3_Pintura_Get_Reductores_Administrados_Result> listaReductores = ctx.Sam3_Pintura_Get_Reductores_Administrados(lenguaje).ToList();
+
+                    List<Reductores> listaReductoresRender = new List<Reductores>();
+                    if (listaReductores.Count > 0)
+                        listaReductoresRender.Add(new Reductores());
+
+                    foreach (Sam3_Pintura_Get_Reductores_Administrados_Result item in listaReductores)
+                    {
+                        Reductores reductores = new Reductores
+                        {
+                            Reductor = item.Reductor,
+                            ReductorID = item.ReductorID,
+                            Unidad = item.Unidad
+                        };
+                        listaReductoresRender.Add(reductores);
+                    }
+                    return listaReductoresRender;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
         public object Guardar(DataTable dtDetalle, Sam3_Usuario usuario, string lenguaje)
         {
             try
