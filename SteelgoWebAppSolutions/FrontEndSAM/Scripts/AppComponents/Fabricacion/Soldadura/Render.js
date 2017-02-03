@@ -31,7 +31,9 @@ function RenderComboBoxTaller(container, options) {
                     options.model.TallerID = 0;
 
                 }
+                $("#grid").data("kendoGrid").dataSource.sync();
             }
+            
         }
         );
     $(".k-combobox").parent().on('mouseleave', function (send) {
