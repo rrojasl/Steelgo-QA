@@ -8,7 +8,7 @@ function SuscribirEventos() {
     //suscribirEventoProveedor();
     SuscribirEventoComboPrueba();
 
-    nombreLoop();
+    //nombreLoop();
     //suscribirEventoRequisicion();
     //suscribirEventoFuente();
     //suscribirEventTurno();
@@ -150,11 +150,15 @@ function suscribirEventoGuardar() {
     $('#btnAgregar').click(function (e) {
         //alert('xD');
         //VentanaModalDetallePlaca();
-        var data = [{ NumeroSalida: 'S1', TipoSalidaSelect: '', TipoSalida: [{ SalidaID: "1", Titulo: "Spool" }, { SalidaID: "2", Titulo: "IC" }, { SalidaID: "3", Titulo: "Frontera" }], Materiales: '0', Spool_ICSelect: '', Spool_IC: [{ ID: 0, Titulo: 'Sin Definir' }, { ID: 1, Titulo: 's5-k1113-07-1' }, { ID: 2, Titulo: 's5-k1113-08-1' }, { ID: 3, Titulo: 's5-k1113-09-1' }, { ID: 4, Titulo: 's5-k1113-10-1' }, { ID: 5, Titulo: 's5-k1113-01-1' }], JuntaSelect: '', Juntas: [{ JuntaID: 1, Junta: 'FW15' }, { JuntaID: 2, Junta: 'FW12' }, { JuntaID: 3, Junta: 'FW10' }], TipoJunta: '', Cedula: '', Acero1: '', Acero2: '', Diametro: '' }
-         , { NumeroSalida: 'S2', TipoSalidaSelect: '', TipoSalida: [{ SalidaID: "1", Titulo: "Spool" }, { SalidaID: "2", Titulo: "IC" }, { SalidaID: "3", Titulo: "Frontera" }], Materiales: '0', Spool_ICSelect: '', Spool_IC: [{ ID: 0, Titulo: 'Sin Definir' }, { ID: 1, Titulo: 's5-k1113-07-1' }, { ID: 2, Titulo: 's5-k1113-08-1' }, { ID: 3, Titulo: 's5-k1113-09-1' }, { ID: 4, Titulo: 's5-k1113-10-1' }, { ID: 5, Titulo: 's5-k1113-01-1' }], JuntaSelect: '', Juntas: [{ JuntaID: 1, Junta: 'FW15' }, { JuntaID: 2, Junta: 'FW12' }, { JuntaID: 3, Junta: 'FW10' }], TipoJunta: '', Cedula: '', Acero1: '', Acero2: '', Diametro: '' }
-         , { NumeroSalida: 'S3', TipoSalidaSelect: '', TipoSalida: [{ SalidaID: "1", Titulo: "Spool" }, { SalidaID: "2", Titulo: "IC" }, { SalidaID: "3", Titulo: "Frontera" }], Materiales: '0', Spool_ICSelect: '', Spool_IC: [{ ID: 0, Titulo: 'Sin Definir' }, { ID: 2, Titulo: 'TPAQZAAA' }, { ID: 3, Titulo: 'TPAQZBBB' }, { ID: 4, Titulo: 'TPAQZCCC' }], JuntaSelect: '', Juntas: [{ JuntaID: 2, Junta: 'FW12' }, { JuntaID: 3, Junta: 'FW10' }], TipoJunta: '', Cedula: '', Acero1: '', Acero2: '', Diametro: '' }
-         , { NumeroSalida: 'JC1', TipoSalidaSelect: '', TipoSalida: [{ SalidaID: "1", Titulo: "Soporte" }, { SalidaID: "2", Titulo: "IC" }], Materiales: '0', Spool_ICSelect: '', Spool_IC: [{ ID: 0, Titulo: 'Sin Definir' }, { ID: 2, Titulo: 'RE-02-20' }, { ID: 3, Titulo: 'GU-01-20' }, { ID: 4, Titulo: 'RE-04-40' }], JuntaSelect: '', Juntas: [{ JuntaID: 5, Junta: 'BQ-09' }, { JuntaID: 6, Junta: 'BQ-10' }], TipoJunta: '', Cedula: '', Acero1: '', Acero2: '', Diametro: '' }
-         , { NumeroSalida: 'JC2', TipoSalidaSelect: '', TipoSalida: [{ SalidaID: "1", Titulo: "Soporte" }, { SalidaID: "2", Titulo: "IC" }], Materiales: '0', Spool_ICSelect: '', Spool_IC: [{ ID: 0, Titulo: 'Sin Definir' }, { ID: 3, Titulo: 'GU-01-20' }, { ID: 4, Titulo: 'RE-04-40' }], JuntaSelect: '', Juntas: [{ JuntaID: 6, Junta: 'BQ-10' }], TipoJunta: '', Cedula: '', Acero1: '', Acero2: '', Diametro: '' }
+
+        //var contextMenu = $("#context-menu").kendoContextMenu().data("kendoContextMenu");
+        //contextMenu.open();
+
+        var data = [{ NumeroSalida: 'S1', TipoSalidaSelect: '', TipoSalida: [{ SalidaID: "1", Titulo: "Spool" }, { SalidaID: "2", Titulo: "Item Code" }, { SalidaID: "3", Titulo: "Frontera" }], Materiales: '0', Spool_ICSelect: '', Spool_IC: [{ ID: 0, Titulo: 'Sin Definir' }, { ID: 1, Titulo: 's5-k1113-07-1' }, { ID: 2, Titulo: 's5-k1113-08-1' }, { ID: 3, Titulo: 's5-k1113-09-1' }, { ID: 4, Titulo: 's5-k1113-10-1' }, { ID: 5, Titulo: 's5-k1113-01-1' }], JuntaSelect: '', Juntas: [{ JuntaID: 1, Junta: 'FW15' }, { JuntaID: 2, Junta: 'FW12' }, { JuntaID: 3, Junta: 'FW10' }], TipoJunta: '', Cedula: '', Acero1: '', Acero2: '', Diametro: '' }
+         , { NumeroSalida: 'S2', TipoSalidaSelect: '', TipoSalida: [{ SalidaID: "1", Titulo: "Spool" }, { SalidaID: "2", Titulo: "Item Code" }, { SalidaID: "3", Titulo: "Frontera" }], Materiales: '0', Spool_ICSelect: '', Spool_IC: [{ ID: 0, Titulo: 'Sin Definir' }, { ID: 1, Titulo: 's5-k1113-07-1' }, { ID: 2, Titulo: 's5-k1113-08-1' }, { ID: 3, Titulo: 's5-k1113-09-1' }, { ID: 4, Titulo: 's5-k1113-10-1' }, { ID: 5, Titulo: 's5-k1113-01-1' }], JuntaSelect: '', Juntas: [{ JuntaID: 1, Junta: 'FW15' }, { JuntaID: 2, Junta: 'FW12' }, { JuntaID: 3, Junta: 'FW10' }], TipoJunta: '', Cedula: '', Acero1: '', Acero2: '', Diametro: '' }
+         , { NumeroSalida: 'S3', TipoSalidaSelect: '', TipoSalida: [{ SalidaID: "1", Titulo: "Spool" }, { SalidaID: "2", Titulo: "Item Code" }, { SalidaID: "3", Titulo: "Frontera" }], Materiales: '0', Spool_ICSelect: '', Spool_IC: [{ ID: 0, Titulo: 'Sin Definir' }, { ID: 2, Titulo: 'TPAQZAAA' }, { ID: 3, Titulo: 'TPAQZBBB' }, { ID: 4, Titulo: 'TPAQZCCC' }], JuntaSelect: '', Juntas: [{ JuntaID: 2, Junta: 'FW12' }, { JuntaID: 3, Junta: 'FW10' }], TipoJunta: '', Cedula: '', Acero1: '', Acero2: '', Diametro: '' }
+         , { NumeroSalida: 'JC1', TipoSalidaSelect: '', TipoSalida: [{ SalidaID: "1", Titulo: "Soporte" }, { SalidaID: "2", Titulo: "Item Code" }], Materiales: '0', Spool_ICSelect: '', Spool_IC: [{ ID: 0, Titulo: 'Sin Definir' }, { ID: 2, Titulo: 'RE-02-20' }, { ID: 3, Titulo: 'GU-01-20' }, { ID: 4, Titulo: 'RE-04-40' }], JuntaSelect: '', Juntas: [{ JuntaID: 5, Junta: 'BQ-09' }, { JuntaID: 6, Junta: 'BQ-10' }], TipoJunta: '', Cedula: '', Acero1: '', Acero2: '', Diametro: '' }
+         , { NumeroSalida: 'JC2', TipoSalidaSelect: '', TipoSalida: [{ SalidaID: "1", Titulo: "Soporte" }, { SalidaID: "2", Titulo: "Item Code" }], Materiales: '0', Spool_ICSelect: '', Spool_IC: [{ ID: 0, Titulo: 'Sin Definir' }, { ID: 3, Titulo: 'GU-01-20' }, { ID: 4, Titulo: 'RE-04-40' }], JuntaSelect: '', Juntas: [{ JuntaID: 6, Junta: 'BQ-10' }], TipoJunta: '', Cedula: '', Acero1: '', Acero2: '', Diametro: '' }
         ];
         $("#grid").data('kendoGrid').dataSource.data([]);
         var ds = $("#grid").data("kendoGrid").dataSource;
@@ -457,6 +461,18 @@ function SuscribirEventoComboPrueba() {
     $('inputPrueba[type=text]').blur(function () {
         alert('xD');
     });
+
+    $("#context-menu").kendoContextMenu({
+        dataSource:
+            [{
+                text: "<b>Agregar hijo</b>",
+                encoded: false
+            }],                              // Allows use of HTML for item text
+        select: function (e) {
+            alert(numeroSalidaSelect);
+        }
+    });
+
 
     //$("#inputPrueba").input.on("focus", function () {
         

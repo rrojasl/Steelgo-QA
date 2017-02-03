@@ -118,7 +118,7 @@ function CargarGrid() {
         },
         filterable: getGridFilterableMaftec(),
         columns: [
-            { field: "NumeroSalida", title: 'Numero de Salida', filterable: getGridFilterableCellMaftec(), width: "70px", attributes: { style: "text-align:right;" } },
+            { field: "NumeroSalida", title: 'Numero de Salida', filterable: getGridFilterableCellMaftec(), width: "70px", attributes: { style: "text-align:right;" }, template: "<div class='EnlacePorPlaca' style='text-align:center;' contextmenu='showMenuContext();'  onmouseover='numeroSalidaSelect = \"#=NumeroSalida#\";'><span>#=NumeroSalida#</span></div> " },
             { field: "TipoSalidaSelect", title: 'Tipo de Salida', filterable: getGridFilterableCellMaftec(), width: "130px", editor: RenderTipoSalida, attributes: { style: "text-align:right;" } },
             { field: "Materiales", title: 'Materiales', filterable: getGridFilterableCellMaftec(), filterable: false, width: "100px", attributes: { style: "text-align:right;" }, editor: RenderMateriales, template: "<div class='EnlacePorPlaca' style='text-align:center;'><a href='\\#'  > <span>#=Materiales#</span></a></div> " },
             { field: "Spool_ICSelect", title: 'Spool-IC', filterable: getGridFilterableCellMaftec(), width: "130px", editor: RenderSpool_IC, attributes: { style: "text-align:right;" } },
@@ -138,7 +138,18 @@ function CargarGrid() {
         },
 
         editable: true,
-        navigatable: true
+        navigatable: true,
+        dataBound: function (a) {
+            var that = this;
+            
+            //$(that.tbody).on("contextmenu", "tr", function (e) {
+
+            //    alert('xD');
+
+
+            //});
+
+        }
     });
     CustomisaGrid($("#grid"));
 
@@ -268,6 +279,11 @@ function CargarGrid() {
     });
     CustomisaGrid($("#grid3"));
 };
+
+var numeroSalidaSelect = '';
+function showMenuContext() {
+    $("#context-menu").kendoContextMenu().data("kendoContextMenu").open();
+}
 
 function isEditable(fieldName, model) {
    
@@ -852,10 +868,10 @@ function CargarGridPopUpDetallePorPlaca() {
                 model: {
                     fields: {
                         ID: { type: "number", editable: false },
-                        DIAM: { type: "number", editable: true },
-                        IC: { type: "number", editable: true },
-                        DESC: { type: "string", editable: true },
-                        CANTIDAD: { type: "number", editable: true },
+                        DIAM: { type: "number", editable: false },
+                        IC: { type: "number", editable: false },
+                        DESC: { type: "string", editable: false },
+                        CANTIDAD: { type: "number", editable: false },
                         
                     }
                 }
@@ -864,23 +880,45 @@ function CargarGridPopUpDetallePorPlaca() {
         selectable: true,
         filterable: getGridFilterableMaftec(),
         columns: [
-          { field: "ID", title: 'ITM', filterable: false, width: "10px" },
-          { field: "DIAM", title: 'DIAMETRO', filterable: false, /*editor: comboBoxResultadoDetallePlaca,*/ width: "30px" },
-          { field: "IC", title: 'ITEM CODE', filterable: false, width: "30px", editor: RenderMaterialesPopup, template: "<div class='EnlacePorPlaca' style='text-align:center;'><a href='\\#'  > <span>#=IC#</span></a></div> " },
-          { field: "DESC", title: 'DESCRIPCION', filterable: false, width: "90px" },
-          { field: "CANTIDAD", title: 'CANTIDAD', filterable: false, width: "40px" }
+          { field: "ID", title: 'ID ITEM', filterable: false, width: "20px", template: "<div class='EnlacePorPlaca' style='text-align:center;' onmouseover='ICSelect = \"#=IC#\";'><span>#=ID#</span></div> " },
+          { field: "DIAM", title: 'DIAMETRO', filterable: false, /*editor: comboBoxResultadoDetallePlaca,*/ width: "30px", template: "<div class='EnlacePorPlaca' style='text-align:center;' onmouseover='ICSelect = \"#=IC#\";'><span>#=DIAM#</span></div> " },
+          { field: "IC", title: 'ETIQUETA', filterable: false, width: "30px"/*, editor: RenderMaterialesPopup*/, template: "<div class='EnlacePorPlaca' style='text-align:center;' onmouseover='ICSelect = \"#=IC#\";'><span>#=IC#</span></div> " },
+          { field: "DESC", title: 'DESCRIPCION', filterable: false, width: "90px", template: "<div class='EnlacePorPlaca' style='text-align:center;' onmouseover='ICSelect = \"#=IC#\";'><span>#=DESC#</span></div> " },
+          { field: "CANTIDAD", title: 'CANTIDAD', filterable: false, width: "40px", template: "<div class='EnlacePorPlaca' style='text-align:center;' onmouseover='ICSelect = \"#=IC#\";'><span>#=CANTIDAD#</span></div> " }
         ],
         editable: true,
         //toolbar: [{ name: "cancel" }],
         navigatable: true,
         dataBound: function (a) {
-            //var that = this;
-            //$(that.tbody).on("click", "tr", function (e) {
-            //    var rowData = that.dataItem(this);
-            //    //var url = "@Url.Action("Index", "Home")/" + rowData.OrderID;
+            var that = this;
+            $(that.tbody).on("dblclick", "tr", function (e) {
+                //var rowData = that.dataItem(this);
+                //var url = "@Url.Action("Index", "Home")/" + rowData.OrderID;
  
-            //    //window.location.href = url;
+                //window.location.href = url;
+                //alert('xD');
+
+                for (var i = 0; i < $("#grid").data("kendoGrid").dataSource._data.length; i++) {
+                    if ($("#grid").data("kendoGrid").dataSource._data[i].NumeroSalida == idSelect) {
+                        $("#grid").data("kendoGrid").dataSource._data[i].Materiales = ICSelect;//$("#gridPopUp").data("kendoGrid").dataSource._data.length;
+                        $("#grid").data("kendoGrid").refresh();
+                        break;
+                    }
+                }
+
+
+                var window = $("#windowGrid");
+
+                $("#windowGrid").data("kendoWindow").close();
+            });
+
+            //$(that.tbody).on("contextmenu", "tr", function (e) {
+
+            //    alert('xD');
+
+                
             //});
+
             //$(that.tbody).on("click", "th", function (e) {
             //    var rowData = that.dataItem(this);
             //    //var url = "@Url.Action("Index", "Home")/" + rowData.OrderID;
@@ -889,6 +927,15 @@ function CargarGridPopUpDetallePorPlaca() {
             //});
         }//, toolbar: [{ name: "create" }]
     });
+
+    //$(".k-content").dblclick(function () { alert('dblclick'); });
+
+    //$('.k-grid-content tr').dblclick(function () {
+    //    alert('dblclick');
+    //});
+
+    //$(".k-list-container .k-item").addClass("k-font-small");
+
     CustomisaGrid($("#gridPopUp"));
 
     //WindowModalGridDefectoDetalle(model);

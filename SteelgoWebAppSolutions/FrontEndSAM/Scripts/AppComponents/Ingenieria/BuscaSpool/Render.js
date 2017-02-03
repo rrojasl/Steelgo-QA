@@ -433,8 +433,8 @@ function RenderMateriales(container, options) {
     idSelect = options.model.NumeroSalida;
 
     $("#gridPopUp").data("kendoGrid").dataSource.data([
-          { ID: '1', DIAM: '18', IC: 'PAAAABBABB', DESC: 'TUBO, API-5L-B , S/C, CED. STD , BIS', CANTIDAD: '8766 MM' }
-        , { ID: '2', DIAM: '18', IC: 'PAAAABBABB', DESC: 'TUBO, API-5L-B , S/C, CED. STD , BIS', CANTIDAD: '618 MM' }
+          { ID: '1', DIAM: '18', IC: 'PAAAABBABB', DESC: 'TUBO, API-5L-B , S/C, CED. STD , BIS', CANTIDAD: '8766' }
+        , { ID: '2', DIAM: '18', IC: 'PAAAABBABB', DESC: 'TUBO, API-5L-B , S/C, CED. STD , BIS', CANTIDAD: '618' }
         , { ID: '3', DIAM: '18X3/4', IC: 'VOCCCBQAFA', DESC: 'THREDOLET, ASM-A105, 300#, BISROSC', CANTIDAD: '1' }
         , { ID: '4', DIAM: '18', IC: 'WAAAABBAA', DESC: 'CODO 90 RL, ASMT-V234-WPB, S/C CED STD, BIS', CANTIDAD: '1' }
         ]);
