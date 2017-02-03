@@ -1,4 +1,5 @@
 ﻿var numeroPlacasComponentesElemento;
+var dataItemRender;
 
 function RenderNumeroComponentes(container, options) {
     numeroPlacasComponentesElemento = { NumeroComponentes: options.model.NumeroComponentes };
@@ -14,52 +15,8 @@ function RenderNumeroComponentes(container, options) {
             change: function (e) {
                 if (this.value() <= options.model.ListadoComponentes.length-1) {
                     if (numeroPlacasComponentesElemento.NumeroComponentes != null && numeroPlacasComponentesElemento.NumeroComponentes != this.value()) {
-                        ventanaConfirm = $("#ventanaConfirm").kendoWindow({
-                            iframe: true,
-                            title: _dictionary.WarningTitle[$("#language").data("kendoDropDownList").value()],
-                            visible: false, //the window will not appear before its .open method is called
-                            width: "auto",
-                            height: "auto",
-                            modal: true,
-                            animation: {
-                                close: false,
-                                open: false
-                            }
-                        }).data("kendoWindow");
-
-                        ventanaConfirm.content(_dictionary.SistemaPinturaModificaNumeroComponentes[$("#language").data("kendoDropDownList").value()] +
-                                    "</br><center><button class='btn btn-blue' id='yesButton'>Si</button><button class='btn btn-blue' id='noButton'> No</button></center>");
-
-                        ventanaConfirm.open().center();
-
-                        $("#yesButton").click(function () {
-                            if (options.model.ListaDetalleComponentesAgregados != undefined) {
-                                for (var i = 0; i < options.model.ListaDetalleComponentesAgregados.length; i++) {
-                                    options.model.ListaDetalleComponentesAgregados[i].Accion = 3;
-                                }
-                            }
-
-                            var arrayModelComponentesAgregados = [];
-                            options.model.ListaDetalleComponentesAgregados = options.model.ListaDetalleComponentesAgregados == null ? [] : options.model.ListaDetalleComponentesAgregados;
-                            for (var i = 0; i < options.model.NumeroComponentes; i++) {
-                                arrayModelComponentesAgregados[i] = { ComponenteAgregadoID: "", ComponenteID: "", Nombre: "", Accion: 1, ListadoComponentes: "", RowOk: "", ProcesoPinturaID: "" };
-                                arrayModelComponentesAgregados[i].ComponenteAgregadoID = i + 1;
-                                arrayModelComponentesAgregados[i].Nombre = "";
-                                arrayModelComponentesAgregados[i].ListadoComponentes = options.model.ListadoComponentes;
-                                arrayModelComponentesAgregados[i].RowOk = true;
-                                options.model.ListaDetalleComponentesAgregados.push(arrayModelComponentesAgregados[i]);
-                            }
-                            //options.model.ListaDetalleComponentesAgregados = arrayModelComponentesAgregados;
-
-                            $("#grid").data("kendoGrid").refresh();
-                            ventanaConfirm.close();
-                        });
-                        $("#noButton").click(function () {
-                            //dataItem.NumeroPlacas = numeroPlacasAnteriorElemento;
-                            options.model.NumeroComponentes = numeroPlacasComponentesElemento.NumeroComponentes;
-                            $("#grid").data("kendoGrid").refresh();
-                            ventanaConfirm.close();
-                        });
+                        dataItemRender = options.model;
+                        ventanaNumeroComponentes.open().center();
                     }
                 }
                 else {
