@@ -121,6 +121,7 @@ namespace BackEndSAM.DataAcces.Pintura.ListadoSistemaPintura
                             ProyectoProcesoIntermedioID = item.ProyectoProcesoIntermedioID.GetValueOrDefault(),
                             ProyectoProcesoAcabadoID = item.ProyectoProcesoAcabadoID.GetValueOrDefault(),
                             Proyecto = item.Proyecto,
+                            ProyectoID=item.ProyectoID,
                             Color = (string)ListadoSistemaPinturaBD.Instance.ObtieneListadoColorPintura(item.SistemaPinturaID, lenguaje),
                             PruebaPorLoteShotblast = item.PruebaPorLoteShotblast.GetValueOrDefault(),
                             MetrosPorLoteShotblast = item.MetrosPorLoteShotblast.GetValueOrDefault(),

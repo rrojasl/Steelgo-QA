@@ -74,8 +74,13 @@ function AjaxCargarEdicionSistemaPintura() {
 
 
     SistemaPintura = $("#inputSistemaPinturaID").val();
-    ProyectoID = $("#comboProyecto").data("kendoComboBox").value() == "" ? 0 : parseInt($("#comboProyecto").data("kendoComboBox").value());
 
+    if ($("#comboProyecto").data("kendoComboBox").value() == "") {
+        ProyectoID=  paramReqProyectoID;
+    }
+    else {
+        ProyectoID = parseInt($("#comboProyecto").data("kendoComboBox").value());
+    }
 
 
 
@@ -112,7 +117,12 @@ function AjaxCargarEdicionSistemaPintura() {
                         AjaxCargarNuevoSistemaPintura();
                     }
                     else {
-                        $("#comboProyecto").data("kendoComboBox").select(0);
+                        if (paramReqProyectoID == 0)
+                            $("#comboProyecto").data("kendoComboBox").select(0);
+                        else {
+                            $("#comboProyecto").data("kendoComboBox").value(paramReqProyectoID)
+                            $("#comboProyecto").data("kendoComboBox").trigger("change");
+                        }
                     }
 
                     loadingStop();

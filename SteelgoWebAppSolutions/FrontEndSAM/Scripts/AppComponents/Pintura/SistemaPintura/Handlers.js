@@ -5,6 +5,7 @@ var ventanaNumeroComponentes;
 var ventanaProcesosPintura;
 var ventanaConfirmBorrarProcesoNoPintable;
 var ventanaConfirmGuardado;
+var ventanaConfirmConColor;
 
 function SuscribirEventos() {
     GuardarDetallePruebas();
@@ -191,7 +192,7 @@ function suscribirEventoChangeAplicable() {
             }
             else {
                 if (!isEmptyColor) {
-                    ventanaConfirm = $("#ventanaConfirm").kendoWindow({
+                    ventanaConfirmConColor = $("#ventanaConfirm").kendoWindow({
                         iframe: true,
                         title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
                         visible: false, //the window will not appear before its .open method is called
@@ -200,28 +201,28 @@ function suscribirEventoChangeAplicable() {
                         modal: true,
 
                         animation: {
-                           
+                            close: false,
                             open: false
                         },
                         actions: []
                     }).data("kendoWindow");
 
-                    ventanaConfirm.content(_dictionary.MensajeEliminarColoresSistemaNoPintable[$("#language").data("kendoDropDownList").value()] +
-                        "</br><center><button class='btn btn-blue' id='yesButton'>" + _dictionary.lblSi[$("#language").data("kendoDropDownList").value()] + "</button><button class='btn btn-blue' id='noButton'>" + _dictionary.lblNo[$("#language").data("kendoDropDownList").value()] + "</button></center>");
+                    ventanaConfirmConColor.content(_dictionary.MensajeEliminarColoresSistemaNoPintable[$("#language").data("kendoDropDownList").value()] +
+                        "</br><center><button class='btn btn-blue' id='yesButtonConColor'>" + _dictionary.lblSi[$("#language").data("kendoDropDownList").value()] + "</button><button class='btn btn-blue' id='noButtonConColor'>" + _dictionary.lblNo[$("#language").data("kendoDropDownList").value()] + "</button></center>");
 
-                    ventanaConfirm.open().center();
+                    ventanaConfirmConColor.open().center();
 
 
 
-                    $("#yesButton").click(function () {
+                    $("#yesButtonConColor").click(function () {
                         LimpiarGrid();
                         $("#inputNoAplicable").prop("checked", true);
                         $("#inputColor").data("kendoMultiSelect").value([]);
                         $("#inputColor").data("kendoMultiSelect").enable(false);
-                        ventanaConfirm.close();
+                        ventanaConfirmConColor.close();
                     });
-                    $("#noButton").click(function () {
-                        ventanaConfirm.close();
+                    $("#noButtonConColor").click(function () {
+                        ventanaConfirmConColor.close();
                         $("#inputNoAplicable").prop("checked", false);
 
                     });
@@ -435,7 +436,7 @@ function SuscribirEventoGuardarDetalleComponentes() {
                 height: "auto",
                 modal: true,
                 animation: {
-                   
+                    close: false,
                     open: false
                 },
                 actions: []
@@ -567,7 +568,7 @@ function SuscribirEventoEliminarSistemaPintura() {
             height: "auto",
             modal: true,
             animation: {
-                
+                close: false,
                 open: false
             },
             actions: []
