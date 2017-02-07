@@ -11752,6 +11752,10 @@ _dictionary = {
         "es-MX": "Dashboard Embarque",
         "en-US": "Dashboard Shipment"
     },
+    "EmbarqueDashboardTituloPagina": {
+        "es-MX": "Dashboard Embarque",
+        "en-US": "Dashboard Shipment"
+    },
     "EmbarqueDashboardBotonPorCargar": {
         "es-MX": "Por Cargar",
         "en-US": "For upload"
