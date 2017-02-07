@@ -6,6 +6,7 @@ var actuallongitudTrabajosAdicionales;
 var editado = false;
 var spooolAnterior;
 var ventanaConfirm;
+var ventanaConfirmCambiarCaptura;
 
 IniciarCapturaInspecion();
 

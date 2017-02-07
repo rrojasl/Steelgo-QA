@@ -235,22 +235,22 @@ function AjaxGuardarCaptura(listaCaptura, GuardarYNuevo) {
             }
         });
     } else {
-        var ventanaConfirm = $("#ventanaConfirm").kendoWindow({
+
+        ventanaConfirm = $("#ventanaConfirmCaptura").kendoWindow({
             iframe: true,
-            title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
+            title: _dictionary.CapturaArmadoTituloPopup[$("#language").data("kendoDropDownList").value()],
             visible: false,
-            width: "30%",
+            width: "auto",
             height: "auto",
-            draggable: false,
             modal: true,
-            animation: {
-                close: false,
-                open: false
-            }
+            resizable: false,
+            animation: false,
+            actions: []
         }).data("kendoWindow");
 
-        ventanaConfirm.content('<center>'+_dictionary.EntregaPlacasGraficasMensajePreguntaGuardado[$("#language").data("kendoDropDownList").value()] + '</center>'+
-            "</br><center><button class='btn btn-blue' id='yesButton'>Si</button><button class='btn btn-blue' id='noButton'>No</button></center>");
+        ventanaConfirm.content(_dictionary.EntregaPlacasGraficasMensajePreguntaGuardado[$("#language").data("kendoDropDownList").value()] +
+            "</br><center><button class='btn btn-blue' id='yesButton'>" + _dictionary.lblSi[$("#language").data("kendoDropDownList").value()] + "</button><button class='btn btn-blue' id='noButton'>" + _dictionary.lblNo[$("#language").data("kendoDropDownList").value()] + "</button></center>");
+
 
         ventanaConfirm.open().center();
         $("#yesButton").click(function () {
