@@ -51,6 +51,7 @@ function RenderComboBoxProcesoSoldaduraRaiz(container, options) {
                     options.model.CodigoRaiz = "";
                     options.model.ProcesoSoldaduraRaizID = 0;
                 }
+                $("#grid").data("kendoGrid").dataSource.sync();
             }
         });
     $(".k-combobox").parent().on('mouseleave', function (send) {
@@ -107,6 +108,7 @@ function RenderComboBoxProcesoSoldaduraRelleno(container, options) {
                         options.model.CodigoRelleno = "";
                         options.model.ProcesoSoldaduraRellenoID = 0;
                     }
+                    $("#grid").data("kendoGrid").dataSource.sync();
                 }
             }
             );
@@ -160,6 +162,7 @@ function RenderComboBoxMaterialesBase1(container, options) {
                         options.model.GrupoPMaterialBase1 = 0;
                         options.model.GrupoPMaterialBase1Nombre = "";
                     }
+                    $("#grid").data("kendoGrid").dataSource.sync();
                 }
             }
             );
@@ -213,6 +216,7 @@ function RenderComboBoxMaterialesBase2(container, options) {
                         options.model.GrupoPMaterialBase2 = 0;
                         options.model.GrupoPMaterialBase2Nombre = "";
                     }
+                    $("#grid").data("kendoGrid").dataSource.sync();
                 }
             }
             );
@@ -250,6 +254,7 @@ function RenderComboBoxEspecificacion(container, options) {
                         options.model.CodigoASMEID = 0;
                         options.model.Especificacion = "";
                     }
+                    $("#grid").data("kendoGrid").dataSource.sync();
                 }
             }
             );

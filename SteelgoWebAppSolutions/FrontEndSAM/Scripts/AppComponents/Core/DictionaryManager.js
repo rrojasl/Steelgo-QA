@@ -10758,7 +10758,14 @@ _dictionary = {
     // Finaliza Listado Sistema Pintura
 
     //Comienza Sistema Pintura
-    
+    "NoHayReductores": {
+        "es-MX": "No se tienen reductores, favor de agregarlos en la pagina 'Administracion de reductores'",
+        "en-US": "There are no reducers, please add them in the page 'Administration of reducers'"
+    },
+    "NoHayComponentes": {
+        "es-MX": "No se tienen componentes, favor de agregarlos en la pagina 'Administracion de Componentes'",
+        "en-US": "There are no components, please add them in the page 'Administration of Components'"
+    },
     "NumeroComponentesMenorListado": {
             "es-MX": "Máximo puedes ingresar ?1 componentes",
             "en-US": "Maximum you can enter ?1 components"

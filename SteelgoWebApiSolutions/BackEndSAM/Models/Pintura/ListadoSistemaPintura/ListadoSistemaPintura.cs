@@ -17,6 +17,7 @@ namespace BackEndSAM.Models.Pintura.ListadoSistemaPintura
         public int ProyectoProcesoIntermedioID { get; set; }
         public int ProyectoProcesoAcabadoID { get; set; }
         public string Proyecto { get; set; }
+        public int ProyectoID { get; set; }
         public string Color { get; set; }
         public int PruebaPorLoteShotblast { get; set; }
         public double MetrosPorLoteShotblast { get; set; }

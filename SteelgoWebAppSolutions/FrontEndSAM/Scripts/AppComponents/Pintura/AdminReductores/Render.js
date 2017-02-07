@@ -1,5 +1,5 @@
 ﻿function renderCantidad(container, options) {
-    $('<input name="' + options.field + '"/>')
+    var inputCantidad = $('<input name="' + options.field + '"/>')
             .appendTo(container)
             .kendoNumericTextBox({
                 decimals: 0,
@@ -7,6 +7,9 @@
                 min: 0,
                 format: "#"
             });
+    inputCantidad.focus(function () {
+        this.select();
+    });
 };
 
 

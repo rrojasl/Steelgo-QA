@@ -3,7 +3,9 @@ var pruebaOriginal = 0;
 var requisicionOriginal = 0;
 var ventanaNumeroComponentes;
 var ventanaProcesosPintura;
-
+var ventanaConfirmBorrarProcesoNoPintable;
+var ventanaConfirmGuardado;
+var ventanaConfirmConColor;
 
 function SuscribirEventos() {
     GuardarDetallePruebas();
@@ -32,7 +34,7 @@ function suscribirEventoVentanaCambioProcesosPintura() {
         height: "auto",
         modal: true,
         animation: {
-
+            close: false,
             open: false
         },
         actions: []
@@ -40,10 +42,6 @@ function suscribirEventoVentanaCambioProcesosPintura() {
 
     ventanaProcesosPintura.content("Se eliminaran los datos del proceso, ¿desea continuar?" +
         "</br><center><button class='btn btn-blue' id='yesButton'>Si</button><button class='btn btn-blue' id='noButton'> No</button></center>");
-
-   
-
-
 
     $("#yesButton").click(function () {
         dataItemProcesoPintura.Agregar = false;
@@ -55,8 +53,9 @@ function suscribirEventoVentanaCambioProcesosPintura() {
         dataItemProcesoPintura.Reductor = "";
         dataItemProcesoPintura.ReductorID = "";
         dataItemProcesoPintura.listadoPruebasDetalle = [];
-        ventanaProcesosPintura.close();
         $("#grid").data("kendoGrid").dataSource.sync();
+        ventanaProcesosPintura.close();
+       
     });
     $("#noButton").click(function () {
        
@@ -155,7 +154,7 @@ function suscribirEventoChangeAplicable() {
         else if (($("#inputNoAplicable").is(':checked'))) {
             if (isEmptyGrid) {
 
-                ventanaConfirm = $("#ventanaConfirm").kendoWindow({
+                ventanaConfirmBorrarProcesoNoPintable = $("#ventanaConfirm").kendoWindow({
                     iframe: true,
                     title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
                     visible: false, //the window will not appear before its .open method is called
@@ -164,26 +163,26 @@ function suscribirEventoChangeAplicable() {
                     modal: true,
                    
                     animation: {
-                        
+                        close: false,
                         open: false
                     },
                     actions: []
                 }).data("kendoWindow");
 
-                ventanaConfirm.content(_dictionary.MensajeEliminarColoresYProcesosSistemaNoPintable[$("#language").data("kendoDropDownList").value()] +
-                    "</br><center><button class='btn btn-blue' id='yesButton'>" + _dictionary.lblSi[$("#language").data("kendoDropDownList").value()] + "</button><button class='btn btn-blue' id='noButton'> " + _dictionary.lblNo[$("#language").data("kendoDropDownList").value()] + "</button></center>");
+                ventanaConfirmBorrarProcesoNoPintable.content(_dictionary.MensajeEliminarColoresYProcesosSistemaNoPintable[$("#language").data("kendoDropDownList").value()] +
+                    "</br><center><button class='btn btn-blue' id='yesButtonNoPintable'>" + _dictionary.lblSi[$("#language").data("kendoDropDownList").value()] + "</button><button class='btn btn-blue' id='noButtonNoPintable'> " + _dictionary.lblNo[$("#language").data("kendoDropDownList").value()] + "</button></center>");
 
-                ventanaConfirm.open().center();
+                ventanaConfirmBorrarProcesoNoPintable.open().center();
 
 
 
-                $("#yesButton").click(function () {
+                $("#yesButtonNoPintable").click(function () {
                     LimpiarGrid();
                     $("#inputNoAplicable").prop("checked", true);
-                    ventanaConfirm.close();
+                    ventanaConfirmBorrarProcesoNoPintable.close();
                 });
-                $("#noButton").click(function () {
-                    ventanaConfirm.close();
+                $("#noButtonNoPintable").click(function () {
+                    ventanaConfirmBorrarProcesoNoPintable.close();
                     $("#inputNoAplicable").prop("checked", false);
 
                 });
@@ -193,7 +192,7 @@ function suscribirEventoChangeAplicable() {
             }
             else {
                 if (!isEmptyColor) {
-                    ventanaConfirm = $("#ventanaConfirm").kendoWindow({
+                    ventanaConfirmConColor = $("#ventanaConfirm").kendoWindow({
                         iframe: true,
                         title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
                         visible: false, //the window will not appear before its .open method is called
@@ -202,28 +201,28 @@ function suscribirEventoChangeAplicable() {
                         modal: true,
 
                         animation: {
-                           
+                            close: false,
                             open: false
                         },
                         actions: []
                     }).data("kendoWindow");
 
-                    ventanaConfirm.content(_dictionary.MensajeEliminarColoresSistemaNoPintable[$("#language").data("kendoDropDownList").value()] +
-                        "</br><center><button class='btn btn-blue' id='yesButton'>" + _dictionary.lblSi[$("#language").data("kendoDropDownList").value()] + "</button><button class='btn btn-blue' id='noButton'>" + _dictionary.lblNo[$("#language").data("kendoDropDownList").value()] + "</button></center>");
+                    ventanaConfirmConColor.content(_dictionary.MensajeEliminarColoresSistemaNoPintable[$("#language").data("kendoDropDownList").value()] +
+                        "</br><center><button class='btn btn-blue' id='yesButtonConColor'>" + _dictionary.lblSi[$("#language").data("kendoDropDownList").value()] + "</button><button class='btn btn-blue' id='noButtonConColor'>" + _dictionary.lblNo[$("#language").data("kendoDropDownList").value()] + "</button></center>");
 
-                    ventanaConfirm.open().center();
+                    ventanaConfirmConColor.open().center();
 
 
 
-                    $("#yesButton").click(function () {
+                    $("#yesButtonConColor").click(function () {
                         LimpiarGrid();
                         $("#inputNoAplicable").prop("checked", true);
                         $("#inputColor").data("kendoMultiSelect").value([]);
                         $("#inputColor").data("kendoMultiSelect").enable(false);
-                        ventanaConfirm.close();
+                        ventanaConfirmConColor.close();
                     });
-                    $("#noButton").click(function () {
-                        ventanaConfirm.close();
+                    $("#noButtonConColor").click(function () {
+                        ventanaConfirmConColor.close();
                         $("#inputNoAplicable").prop("checked", false);
 
                     });
@@ -380,6 +379,7 @@ function SuscribirEventoComboProyecto() {
             var dataItem = this.dataItem(e.sender.selectedIndex);
 
             if (dataItem != undefined) {
+                $("#grid").data("kendoGrid").dataSource.data([]);
                 AjaxCargarEdicionSistemaPintura();
             }
             else {
@@ -436,7 +436,7 @@ function SuscribirEventoGuardarDetalleComponentes() {
                 height: "auto",
                 modal: true,
                 animation: {
-                   
+                    close: false,
                     open: false
                 },
                 actions: []
@@ -464,15 +464,6 @@ function SuscribirEventoGuardarDetalleComponentes() {
             });
 
         }
-        ////
-        //if (componentesCorrectos) {
-        //    modeloRenglon.ListaDetalleTrabajoAdicional = ds._data;
-        //    $("#windowGridComponenteAgregado").data("kendoWindow").close();
-        //    $("#grid").data("kendoGrid").dataSource.sync();
-        //}
-        //else {
-        //    displayNotify('CapturaSistemaPinturaComponente', '', '2');
-        //}
     });
 }
 
@@ -577,7 +568,7 @@ function SuscribirEventoEliminarSistemaPintura() {
             height: "auto",
             modal: true,
             animation: {
-                
+                close: false,
                 open: false
             },
             actions: []

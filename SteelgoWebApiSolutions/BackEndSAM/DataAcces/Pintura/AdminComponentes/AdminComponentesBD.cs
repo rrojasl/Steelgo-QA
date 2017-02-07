@@ -79,6 +79,43 @@ namespace BackEndSAM.DataAcces.Pintura.AdminComponentes
             {
                 using (SamContext ctx = new SamContext())
                 {
+                    List<Sam3_Pintura_Get_Componentes_Result> listaComponentes = ctx.Sam3_Pintura_Get_Componentes(lenguaje).ToList();
+
+                    List<Componentes> listaComponentesRender = new List<Componentes>();
+                    if (listaComponentes.Count > 0)
+                        listaComponentesRender.Add(new Componentes());
+
+                    foreach (Sam3_Pintura_Get_Componentes_Result item in listaComponentes)
+                    {
+                        Componentes componentes = new Componentes
+                        {
+                            Componente = item.Componente,
+                            ComponenteID = item.ComponenteID,
+                            Unidad = item.Unidad
+                        };
+                        listaComponentesRender.Add(componentes);
+                    }
+                    return listaComponentesRender;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object ObtenerCatalogoComponentesAdministrados(string lenguaje)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
                     List<Sam3_Pintura_Get_ComponentesAdministrados_Result> listaComponentes = ctx.Sam3_Pintura_Get_ComponentesAdministrados(lenguaje).ToList();
 
                     List<Componentes> listaComponentesRender = new List<Componentes>();

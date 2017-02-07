@@ -20,7 +20,7 @@ function RenderNumeroComponentes(container, options) {
                     }
                 }
                 else {
-                    displayNotify("", _dictionary.NumeroComponentesMenorListado[$("#language").data("kendoDropDownList").value()].replace("?1", options.model.ListadoComponentes.length -1 ), '2');
+                    displayNotify("", (options.model.ListadoComponentes.length - 1) <= 0 ? _dictionary.NoHayComponentes[$("#language").data("kendoDropDownList").value()] : _dictionary.NumeroComponentesMenorListado[$("#language").data("kendoDropDownList").value()].replace("?1", options.model.ListadoComponentes.length - 1), '1');
                     options.model.NumeroComponentes = numeroPlacasComponentesElemento.NumeroComponentes;
                 }
             }
@@ -71,36 +71,42 @@ function renderComboboxNombreComponente(container, options) {
 }
 
 function RenderReductores(container, options) {
-    $('<input required data-text-field="Reductor" id=' + options.model.uid + ' data-value-field="ReductorID" data-bind="value:' + options.field + '"/>')
-           .appendTo(container)
-           .kendoComboBox({
-               autoBind: false,
-               dataSource: options.model.ListadoReductores,
-               dataTextField: "Reductor",
-               dataValueField: "ReductorID",
-               template: "<i class=\"fa fa-#=data.Reductor#\"></i> #=data.Reductor#",
-               change: function (e) {
-                   dataItem = this.dataItem(e.sender.selectedIndex);
-                   if (dataItem != undefined && dataItem.ReductorID != 0) {
-                       options.model.Reductor = dataItem.Reductor;
-                       options.model.ReductorID = dataItem.ReductorID;
+    if (options.model.ListadoReductores.length > 1) {
+        
+        $('<input required data-text-field="Reductor" id=' + options.model.uid + ' data-value-field="ReductorID" data-bind="value:' + options.field + '"/>')
+               .appendTo(container)
+               .kendoComboBox({
+                   autoBind: false,
+                   dataSource: options.model.ListadoReductores,
+                   dataTextField: "Reductor",
+                   dataValueField: "ReductorID",
+                   template: "<i class=\"fa fa-#=data.Reductor#\"></i> #=data.Reductor#",
+                   change: function (e) {
+                       dataItem = this.dataItem(e.sender.selectedIndex);
+                       if (dataItem != undefined && dataItem.ReductorID != 0) {
+                           options.model.Reductor = dataItem.Reductor;
+                           options.model.ReductorID = dataItem.ReductorID;
+                       }
+                       else {
+                           options.model.Reductor = "";
+                           options.model.ReductorID = 0;
+                       }
+                       $("#gridPopUp").data("kendoGrid").dataSource.sync();
                    }
-                   else {
-                       options.model.Reductor = "";
-                       options.model.ReductorID = 0;
-                   }
-                   $("#gridPopUp").data("kendoGrid").dataSource.sync();
-               }
-           });
-    $(".k-combobox").parent().on('mouseleave', function (send) {
-        var e = $.Event("keydown", { keyCode: 27 });
-        var item = $(this).find(".k-combobox")[0];
-        if (item != undefined) {
-            if (!tieneClase(item)) {
-                $(container).trigger(e);
+               });
+        $(".k-combobox").parent().on('mouseleave', function (send) {
+            var e = $.Event("keydown", { keyCode: 27 });
+            var item = $(this).find(".k-combobox")[0];
+            if (item != undefined) {
+                if (!tieneClase(item)) {
+                    $(container).trigger(e);
+                }
             }
-        }
-    });
+        });
+    }
+    else
+        displayNotify("NoHayReductores", "", '1');
+        
 }
 function comboBoxPruebas(container, options) {
     var dataItem;

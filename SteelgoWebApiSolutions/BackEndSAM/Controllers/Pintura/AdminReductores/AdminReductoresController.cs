@@ -40,8 +40,8 @@ namespace BackEndSAM.Controllers.Pintura.AdminReductores
             }
         }
 
-        [HttpGet]
-        public object ObtieneCatalogoComponentes(string token, string lenguaje, int bandera)
+        //obtiene el catalogo de reductores
+        public object GET(string token, string lenguaje, int bandera)
         {
             //bandera no se ocupa solo es un parametro para diferenciar en el servicio rest
             string payload = "";
