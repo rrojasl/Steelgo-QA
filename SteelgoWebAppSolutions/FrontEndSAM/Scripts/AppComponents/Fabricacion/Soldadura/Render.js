@@ -31,6 +31,7 @@ function RenderComboBoxTaller(container, options) {
                     options.model.TallerID = 0;
 
                 }
+                editado = true;
                 $("#grid").data("kendoGrid").dataSource.sync();
             }
             
@@ -97,7 +98,7 @@ function RenderComboBoxProcesoSoldaduraRaiz(container, options) {
                     $("#grid").data("kendoGrid").dataSource.sync();
                     AjaxObtenerListadoWPS(options.model);
                 }
-                    
+                editado = true;
             }
         }
         );
@@ -149,6 +150,7 @@ function RenderComboBoxProcesoSoldaduraRelleno(container, options) {
                     $("#grid").data("kendoGrid").dataSource.sync();
                     AjaxObtenerListadoWPS(options.model);
                 }
+                editado = true;
             }
 
         }
@@ -222,6 +224,7 @@ function RenderComboBoxColada(container, options) {
                     options.model.Colada = "";
                     options.model.ColadaID = 0;
                 }
+                editado = true;
             }
         }
         );
@@ -263,7 +266,7 @@ function RenderComboBoxSoldadorRaiz(container, options) {
                     options.model.Soldador = "";
                     options.model.ObreroID = 0;
                 }
-                
+                editado = true;
             }
         }
         );
@@ -304,7 +307,7 @@ function RenderComboBoxSoldadorRelleno(container, options) {
                     options.model.Soldador = "";
                     options.model.ObreroID = 0;
                 }
-
+                editado = true;
             }
         }
         );
@@ -346,6 +349,7 @@ function RenderComboBoxTrabajos(container, options) {
                         options.model.TrabajoAdicional = "";
                         options.model.TrabajoAdicionalID = 0;
                     }
+                    editado = true;
                 }
             }
             );
@@ -386,7 +390,7 @@ function RenderComboBoxObrerosAdicionales(container, options) {
                         options.model.Soldador = "";
                         options.model.ObreroID = 0;
                     }
-
+                    editado = true;
                 }
             }
             );

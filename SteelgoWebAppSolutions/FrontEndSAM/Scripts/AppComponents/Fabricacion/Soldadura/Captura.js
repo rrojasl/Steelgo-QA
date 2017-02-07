@@ -27,7 +27,7 @@ function CargarGrid() {
             
             var inputName = e.container.find('input');
             inputName.select();
-
+            editado = true;
             if ($('#botonGuardar').text() != _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
                 this.closeCell();
             }
@@ -231,11 +231,13 @@ function CambioTipoListado() {
     if ($('input:radio[name=TipoAgregado]:checked').val() == "Reporte") {
         $("#JuntaDiv").css('display', 'none');
         $("#MuestraDiv").css('display', 'block');
+        
         AjaxObtenerListaTaller();
     }
     else if ($('input:radio[name=TipoAgregado]:checked').val() == "Listado") {
         $("#JuntaDiv").css('display', 'block');
         $("#MuestraDiv").css('display', 'block');
+        
         AjaxObtenerListaTaller();
     }
 }
@@ -433,6 +435,7 @@ function CargarGridPopupSoldadoresRellenoCapturados() {
 
 
     $("#inputSoldadoresRelleno").kendoGrid({
+        
         dataSource: {
             data: [],
             schema: {
