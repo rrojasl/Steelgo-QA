@@ -90,7 +90,8 @@ function CargarGrid() {
                     fields: {
                         NumeroSalida: { type: "string", editable: false },
                         TipoSalida: { type: "number", editable: true },
-                        Materiales: { type: "number", editable: true },
+                        Etiqueta: { type: "string", editable: true },
+                        Material: { type: "string", editable: false },
                         Spool_IC: { type: "number", editable: true },
                         Juntas: { type: "number", editable: true },
                         TipoJunta: { type: "string", editable: false },
@@ -109,25 +110,26 @@ function CargarGrid() {
             };
         },
         selectable: true,
-        pageable: {
-            refresh: false,
-            pageSizes: [10, 25, 50, 100],
-            info: false,
-            input: false,
-            numeric: true,
-        },
+        //pageable: {
+        //    refresh: false,
+        //    pageSizes: [10, 25, 50, 100],
+        //    info: false,
+        //    input: false,
+        //    numeric: true,
+        //},
         filterable: getGridFilterableMaftec(),
         columns: [
-            { field: "NumeroSalida", title: 'Numero de Salida', filterable: getGridFilterableCellMaftec(), width: "70px", attributes: { style: "text-align:right;" }, template: "<div class='EnlacePorPlaca' style='text-align:center;' contextmenu='showMenuContext();'  onmouseover='numeroSalidaSelect = \"#=NumeroSalida#\";'><span>#=NumeroSalida#</span></div> " },
-            { field: "TipoSalidaSelect", title: 'Tipo de Salida', filterable: getGridFilterableCellMaftec(), width: "130px", editor: RenderTipoSalida, attributes: { style: "text-align:right;" } },
-            { field: "Materiales", title: 'Materiales', filterable: getGridFilterableCellMaftec(), filterable: false, width: "100px", attributes: { style: "text-align:right;" }, editor: RenderMateriales, template: "<div class='EnlacePorPlaca' style='text-align:center;'><a href='\\#'  > <span>#=Materiales#</span></a></div> " },
-            { field: "Spool_ICSelect", title: 'Spool-IC', filterable: getGridFilterableCellMaftec(), width: "130px", editor: RenderSpool_IC, attributes: { style: "text-align:right;" } },
-            { field: "JuntaSelect", title: 'Juntas', filterable: getGridFilterableCellMaftec(), width: "90px", editor: RenderJunta, attributes: { style: "text-align:right;" } },
-            { field: "TipoJunta", title: 'TipoJunta', filterable: getGridFilterableCellMaftec(), width: "100px", attributes: { style: "text-align:right;" } },
-            { field: "Cedula", title: 'Cedula', filterable: getGridFilterableCellMaftec(), width: "100px", attributes: { style: "text-align:right;" } },
-            { field: "Acero1", title: 'Acero', filterable: getGridFilterableCellNumberMaftec(), width: "80px", attributes: { style: "text-align:right;" } },
-            { field: "Acero2", title: 'Acero', filterable: getGridFilterableCellNumberMaftec(), width: "80px", attributes: { style: "text-align:right;" } },
-            { field: "Diametro", title: 'Diametro', filterable: getGridFilterableCellNumberMaftec(), width: "100px", attributes: { style: "text-align:right;" } },
+            { field: "NumeroSalida", title: 'Numero de Salida', filterable: getGridFilterableCellMaftec(), filterable: false, width: "70px", attributes: { style: "text-align:right;" }, template: "<div class='EnlacePorPlaca' style='text-align:center;' contextmenu='showMenuContext();'  onmouseover='numeroSalidaSelect = \"#=NumeroSalida#\";'><span>#=NumeroSalida#</span></div> " },
+            { field: "TipoSalidaSelect", title: 'Tipo de Salida', filterable: getGridFilterableCellMaftec(), filterable: false, width: "130px", editor: RenderTipoSalida, attributes: { style: "text-align:right;" } },
+            { field: "Etiqueta", title: 'Etiqueta', filterable: getGridFilterableCellMaftec(), filterable: false, width: "100px", attributes: { style: "text-align:right;" }, editor: RenderMateriales, template: "<div class='EnlacePorPlaca' style='text-align:center;'><a href='\\#'  > <span>#=Etiqueta#</span></a></div> " },
+            { field: "Material", title: 'Material', filterable: getGridFilterableCellMaftec(), filterable: false, width: "100px", attributes: { style: "text-align:right;" }, editor: RenderMateriales/*, template: "<div class='EnlacePorPlaca' style='text-align:center;'><a href='\\#'  > <span>#=Material#</span></a></div> "*/ },
+            { field: "Spool_ICSelect", title: 'Spool-IC', filterable: getGridFilterableCellMaftec(), filterable: false, width: "130px", editor: RenderSpool_IC, attributes: { style: "text-align:right;" } },
+            { field: "JuntaSelect", title: 'Juntas', filterable: getGridFilterableCellMaftec(), filterable: false, width: "90px", editor: RenderJunta, attributes: { style: "text-align:right;" } },
+            { field: "TipoJunta", title: 'TipoJunta', filterable: getGridFilterableCellMaftec(), filterable: false, width: "100px", attributes: { style: "text-align:right;" } },
+            { field: "Cedula", title: 'Cedula', filterable: getGridFilterableCellMaftec(), filterable: false, width: "100px", attributes: { style: "text-align:right;" } },
+            { field: "Acero1", title: 'Acero', filterable: getGridFilterableCellNumberMaftec(), filterable: false, width: "80px", attributes: { style: "text-align:right;" } },
+            { field: "Acero2", title: 'Acero', filterable: getGridFilterableCellNumberMaftec(), filterable: false, width: "80px", attributes: { style: "text-align:right;" } },
+            { field: "Diametro", title: 'Diametro', filterable: getGridFilterableCellNumberMaftec(), filterable: false, width: "100px", attributes: { style: "text-align:right;" } },
         ],
         beforeEdit: function (e) {
             var columnIndex = this.cellIndex(e.container);
@@ -164,7 +166,8 @@ function CargarGrid() {
                     fields: {
                         NumeroSalida: { type: "string", editable: false },
                         TipoSalida: { type: "number", editable: true },
-                        Materiales: { type: "number", editable: true },
+                        Etiqueta: { type: "string", editable: true },
+                        Material: { type: "string", editable: false },
                         Spool_IC: { type: "number", editable: true },
                         Juntas: { type: "number", editable: true },
                         TipoJunta: { type: "string", editable: false },
@@ -183,25 +186,25 @@ function CargarGrid() {
             };
         },
         selectable: true,
-        pageable: {
-            refresh: false,
-            pageSizes: [10, 25, 50, 100],
-            info: false,
-            input: false,
-            numeric: true,
-        },
+        //pageable: {
+        //    refresh: false,
+        //    pageSizes: [10, 25, 50, 100],
+        //    info: false,
+        //    input: false,
+        //    numeric: true,
+        //},
         filterable: getGridFilterableMaftec(),
         columns: [
-            { field: "NumeroSalida", title: 'Numero de Salida', filterable: getGridFilterableCellMaftec(), width: "70px", attributes: { style: "text-align:right;" } },
-            { field: "TipoSalidaSelect", title: 'Tipo de Salida', filterable: getGridFilterableCellMaftec(), width: "130px", editor: RenderTipoSalida, attributes: { style: "text-align:right;" } },
-            { field: "Materiales", title: 'Materiales', filterable: getGridFilterableCellMaftec(), width: "100px", attributes: { style: "text-align:right;" } },
-            { field: "Spool_ICSelect", title: 'Spool-IC', filterable: getGridFilterableCellMaftec(), width: "130px", editor: RenderSpool_IC2, attributes: { style: "text-align:right;" } },
-            { field: "JuntaSelect", title: 'Juntas', filterable: getGridFilterableCellMaftec(), width: "90px", editor: RenderJunta2, attributes: { style: "text-align:right;" } },
-            { field: "TipoJunta", title: 'TipoJunta', filterable: getGridFilterableCellMaftec(), width: "100px", attributes: { style: "text-align:right;" } },
-            { field: "Cedula", title: 'Cedula', filterable: getGridFilterableCellMaftec(), width: "100px", attributes: { style: "text-align:right;" } },
-            { field: "Acero1", title: 'Acero', filterable: getGridFilterableCellNumberMaftec(), width: "80px", attributes: { style: "text-align:right;" } },
-            { field: "Acero2", title: 'Acero', filterable: getGridFilterableCellNumberMaftec(), width: "80px", attributes: { style: "text-align:right;" } },
-            { field: "Diametro", title: 'Diametro', filterable: getGridFilterableCellNumberMaftec(), width: "100px", attributes: { style: "text-align:right;" } },
+            { field: "NumeroSalida", title: 'Numero de Salida', filterable: getGridFilterableCellMaftec(), filterable: false, width: "70px", attributes: { style: "text-align:right;" } },
+            { field: "TipoSalidaSelect", title: 'Tipo de Salida', filterable: getGridFilterableCellMaftec(), filterable: false, width: "130px", editor: RenderTipoSalida, attributes: { style: "text-align:right;" } },
+            { field: "Materiales", title: 'Materiales', filterable: getGridFilterableCellMaftec(), filterable: false, width: "100px", attributes: { style: "text-align:right;" } },
+            { field: "Spool_ICSelect", title: 'Spool-IC', filterable: getGridFilterableCellMaftec(), filterable: false, width: "130px", editor: RenderSpool_IC2, attributes: { style: "text-align:right;" } },
+            { field: "JuntaSelect", title: 'Juntas', filterable: getGridFilterableCellMaftec(), filterable: false, width: "90px", editor: RenderJunta2, attributes: { style: "text-align:right;" } },
+            { field: "TipoJunta", title: 'TipoJunta', filterable: getGridFilterableCellMaftec(), filterable: false, width: "100px", attributes: { style: "text-align:right;" } },
+            { field: "Cedula", title: 'Cedula', filterable: getGridFilterableCellMaftec(), filterable: false, width: "100px", attributes: { style: "text-align:right;" } },
+            { field: "Acero1", title: 'Acero', filterable: getGridFilterableCellNumberMaftec(), filterable: false, width: "80px", attributes: { style: "text-align:right;" } },
+            { field: "Acero2", title: 'Acero', filterable: getGridFilterableCellNumberMaftec(), filterable: false, width: "80px", attributes: { style: "text-align:right;" } },
+            { field: "Diametro", title: 'Diametro', filterable: getGridFilterableCellNumberMaftec(), filterable: false, width: "100px", attributes: { style: "text-align:right;" } },
         ],
         beforeEdit: function (e) {
             var columnIndex = this.cellIndex(e.container);
@@ -227,7 +230,8 @@ function CargarGrid() {
                     fields: {
                         NumeroSalida: { type: "string", editable: false },
                         TipoSalida: { type: "number", editable: true },
-                        Materiales: { type: "number", editable: true },
+                        Etiqueta: { type: "string", editable: true },
+                        Material: { type: "string", editable: false },
                         Spool_IC: { type: "number", editable: true },
                         Juntas: { type: "number", editable: true },
                         TipoJunta: { type: "string", editable: false },
@@ -246,25 +250,26 @@ function CargarGrid() {
             };
         },
         selectable: true,
-        pageable: {
-            refresh: false,
-            pageSizes: [10, 25, 50, 100],
-            info: false,
-            input: false,
-            numeric: true,
-        },
+        //pageable: {
+        //    refresh: false,
+        //    pageSizes: [10, 25, 50, 100],
+        //    info: false,
+        //    input: false,
+        //    numeric: true,
+        //},
         filterable: getGridFilterableMaftec(),
         columns: [
-            { field: "NumeroSalida", title: 'Numero de Salida', filterable: getGridFilterableCellMaftec(), width: "70px", attributes: { style: "text-align:right;" } },
-            { field: "TipoSalidaSelect", title: 'Tipo de Salida', filterable: getGridFilterableCellMaftec(), width: "130px", editor: RenderTipoSalida, attributes: { style: "text-align:right;" } },
-            { field: "Materiales", title: 'Materiales', filterable: getGridFilterableCellMaftec(), width: "100px", attributes: { style: "text-align:right;" } },
-            { field: "Spool_ICSelect", title: 'Spool-IC', filterable: getGridFilterableCellMaftec(), width: "130px", editor: RenderSpool_IC, attributes: { style: "text-align:right;" } },
-            { field: "JuntaSelect", title: 'Juntas', filterable: getGridFilterableCellMaftec(), width: "90px", editor: RenderJunta2, attributes: { style: "text-align:right;" } },
-            { field: "TipoJunta", title: 'TipoJunta', filterable: getGridFilterableCellMaftec(), width: "100px", attributes: { style: "text-align:right;" } },
-            { field: "Cedula", title: 'Cedula', filterable: getGridFilterableCellMaftec(), width: "100px", attributes: { style: "text-align:right;" } },
-            { field: "Acero1", title: 'Acero', filterable: getGridFilterableCellNumberMaftec(), width: "80px", attributes: { style: "text-align:right;" } },
-            { field: "Acero2", title: 'Acero', filterable: getGridFilterableCellNumberMaftec(), width: "80px", attributes: { style: "text-align:right;" } },
-            { field: "Diametro", title: 'Diametro', filterable: getGridFilterableCellNumberMaftec(), width: "100px", attributes: { style: "text-align:right;" } },
+            { field: "NumeroSalida", title: 'Numero de Salida', filterable: getGridFilterableCellMaftec(), filterable: false, width: "70px", attributes: { style: "text-align:right;" } },
+            { field: "TipoSalidaSelect", title: 'Tipo de Salida', filterable: getGridFilterableCellMaftec(), filterable: false, width: "130px", editor: RenderTipoSalida, attributes: { style: "text-align:right;" } },
+            { field: "Etiqueta", title: 'Etiqueta', filterable: getGridFilterableCellMaftec(), filterable: false, width: "100px", attributes: { style: "text-align:right;" } },
+            { field: "Material", title: 'Material', filterable: getGridFilterableCellMaftec(), filterable: false, width: "100px", attributes: { style: "text-align:right;" } },
+            { field: "Spool_ICSelect", title: 'Spool-IC', filterable: getGridFilterableCellMaftec(), filterable: false, width: "130px", editor: RenderSpool_IC, attributes: { style: "text-align:right;" } },
+            { field: "JuntaSelect", title: 'Juntas', filterable: getGridFilterableCellMaftec(), filterable: false, width: "90px", editor: RenderJunta2, attributes: { style: "text-align:right;" } },
+            { field: "TipoJunta", title: 'TipoJunta', filterable: getGridFilterableCellMaftec(), filterable: false, width: "100px", attributes: { style: "text-align:right;" } },
+            { field: "Cedula", title: 'Cedula', filterable: getGridFilterableCellMaftec(), filterable: false, width: "100px", attributes: { style: "text-align:right;" } },
+            { field: "Acero1", title: 'Acero', filterable: getGridFilterableCellNumberMaftec(), filterable: false, width: "80px", attributes: { style: "text-align:right;" } },
+            { field: "Acero2", title: 'Acero', filterable: getGridFilterableCellNumberMaftec(), filterable: false, width: "80px", attributes: { style: "text-align:right;" } },
+            { field: "Diametro", title: 'Diametro', filterable: getGridFilterableCellNumberMaftec(), filterable: false, width: "100px", attributes: { style: "text-align:right;" } },
         ],
         beforeEdit: function (e) {
             var columnIndex = this.cellIndex(e.container);
@@ -282,7 +287,8 @@ function CargarGrid() {
 
 var numeroSalidaSelect = '';
 function showMenuContext() {
-    $("#context-menu").kendoContextMenu().data("kendoContextMenu").open();
+    if(numeroSalidaSelect.startsWith('JC') )
+        $("#context-menu").kendoContextMenu().data("kendoContextMenu").open();
 }
 
 function isEditable(fieldName, model) {
@@ -867,11 +873,11 @@ function CargarGridPopUpDetallePorPlaca() {
             schema: {
                 model: {
                     fields: {
-                        ID: { type: "number", editable: false },
-                        DIAM: { type: "number", editable: false },
+                        ETIQUETA: { type: "number", editable: false },
+                        DIAMETRO1: { type: "number", editable: false },
+                        DIAMETRO2: { type: "number", editable: false },
                         IC: { type: "number", editable: false },
                         DESC: { type: "string", editable: false },
-                        CANTIDAD: { type: "number", editable: false },
                         
                     }
                 }
@@ -880,11 +886,11 @@ function CargarGridPopUpDetallePorPlaca() {
         selectable: true,
         filterable: getGridFilterableMaftec(),
         columns: [
-          { field: "ID", title: 'ID ITEM', filterable: false, width: "20px", template: "<div class='EnlacePorPlaca' style='text-align:center;' onmouseover='ICSelect = \"#=IC#\";'><span>#=ID#</span></div> " },
-          { field: "DIAM", title: 'DIAMETRO', filterable: false, /*editor: comboBoxResultadoDetallePlaca,*/ width: "30px", template: "<div class='EnlacePorPlaca' style='text-align:center;' onmouseover='ICSelect = \"#=IC#\";'><span>#=DIAM#</span></div> " },
+          { field: "ETIQUETA", title: 'ETIQUETA', filterable: false, width: "30px", template: "<div class='EnlacePorPlaca' style='text-align:center;' onmouseover='ICSelect = \"#=IC#\";'><span>#=ETIQUETA#</span></div> " },
+          { field: "DIAMETRO1", title: 'DIAMETRO 1', filterable: false, /*editor: comboBoxResultadoDetallePlaca,*/ width: "30px", template: "<div class='EnlacePorPlaca' style='text-align:center;' onmouseover='ICSelect = \"#=IC#\";'><span>#=DIAMETRO1#</span></div> " },
+          { field: "DIAMETRO2", title: 'DIAMETRO 2', filterable: false, /*editor: comboBoxResultadoDetallePlaca,*/ width: "30px", template: "<div class='EnlacePorPlaca' style='text-align:center;' onmouseover='ICSelect = \"#=IC#\";'><span>#=DIAMETRO2#</span></div> " },
           { field: "IC", title: 'ETIQUETA', filterable: false, width: "30px"/*, editor: RenderMaterialesPopup*/, template: "<div class='EnlacePorPlaca' style='text-align:center;' onmouseover='ICSelect = \"#=IC#\";'><span>#=IC#</span></div> " },
-          { field: "DESC", title: 'DESCRIPCION', filterable: false, width: "90px", template: "<div class='EnlacePorPlaca' style='text-align:center;' onmouseover='ICSelect = \"#=IC#\";'><span>#=DESC#</span></div> " },
-          { field: "CANTIDAD", title: 'CANTIDAD', filterable: false, width: "40px", template: "<div class='EnlacePorPlaca' style='text-align:center;' onmouseover='ICSelect = \"#=IC#\";'><span>#=CANTIDAD#</span></div> " }
+          { field: "DESC", title: 'DESCRIPCION', filterable: false, width: "90px", template: "<div class='EnlacePorPlaca' style='text-align:center;' onmouseover='ICSelect = \"#=IC#\";'><span>#=DESC#</span></div> " }
         ],
         editable: true,
         //toolbar: [{ name: "cancel" }],
@@ -900,7 +906,8 @@ function CargarGridPopUpDetallePorPlaca() {
 
                 for (var i = 0; i < $("#grid").data("kendoGrid").dataSource._data.length; i++) {
                     if ($("#grid").data("kendoGrid").dataSource._data[i].NumeroSalida == idSelect) {
-                        $("#grid").data("kendoGrid").dataSource._data[i].Materiales = ICSelect;//$("#gridPopUp").data("kendoGrid").dataSource._data.length;
+                        $("#grid").data("kendoGrid").dataSource._data[i].Etiqueta = (i+1);//EtiquetaSelect;
+                        $("#grid").data("kendoGrid").dataSource._data[i].Material = ICSelect;//$("#gridPopUp").data("kendoGrid").dataSource._data.length;
                         $("#grid").data("kendoGrid").refresh();
                         break;
                     }
