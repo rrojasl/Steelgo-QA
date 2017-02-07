@@ -760,8 +760,9 @@ function AjaxEjecutarGuardado(Captura, tipoGuardar) {
         if (Error(data)) {
             if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
                 displayNotify("CapturaMensajeGuardadoExitoso", "", '0');
-                editado = false;
+                
                 if (tipoGuardar == 1) {
+                    editado = false;
                     Limpiar();
                     loadingStop();
                     AjaxCargarCamposPredeterminados();

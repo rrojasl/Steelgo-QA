@@ -57,7 +57,12 @@ function opcionHabilitarView(valor, name) {
         $("#NombreId").attr('disabled', false);
         $("#chkPreheat").prop('disabled', false);
         $("#chkPwht").prop('disabled', false);
-        
+        $("#EspesorRelleno").data("kendoNumericTextBox").readonly(false);
+        $("#EspesorRelleno").data("kendoNumericTextBox").enable(true);
+        $("#EspesorRelleno").data("kendoNumericTextBox").wrapper.find(".k-numeric-wrap").find(".k-select").show();
+        $("#EspesorRaiz").data("kendoNumericTextBox").readonly(false);
+        $("#EspesorRaiz").data("kendoNumericTextBox").enable(true);
+        $("#EspesorRaiz").data("kendoNumericTextBox").wrapper.find(".k-numeric-wrap").find(".k-select").show();
         $("#ProcesoSoldaduraRellenoID").data("kendoComboBox").enable(true);
         $("#ProcesoSoldaduraRaizID").data("kendoComboBox").enable(true);
         $("#GrupoPMaterialBase1ID").data("kendoComboBox").enable(true);
