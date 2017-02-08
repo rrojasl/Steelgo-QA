@@ -5,6 +5,7 @@ var numeroPlacasAnteriorElemento;
 var dataItem;
 
 function RenderTipoSalida(container, options) {
+    
     $('<input required data-text-field="Titulo" id=' + options.model.uid + ' data-value-field="SalidaID" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoComboBox({
@@ -16,6 +17,50 @@ function RenderTipoSalida(container, options) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
 
                 options.model.TipoSalidaSelect = dataItem.Titulo;
+                //options.model.SalidaID = dataItem.SalidaID;
+                //options.model.Titulo = dataItem.Titulo;
+
+
+            }
+        });
+
+}
+
+function RenderTipoCorte1(container, options) {
+
+    $('<input required data-text-field="Titulo" id=' + options.model.uid + ' data-value-field="TipoCorte1ID" data-bind="value:' + options.field + '"/>')
+        .appendTo(container)
+        .kendoComboBox({
+            autoBind: false,
+            dataSource: options.model.TipoCorte1,
+            dataTextField: "Titulo",
+            dataValueField: "TipoCorte1ID",
+            change: function (e) {
+                dataItem = this.dataItem(e.sender.selectedIndex);
+
+                options.model.TipoCorte1Select = dataItem.Titulo;
+                //options.model.SalidaID = dataItem.SalidaID;
+                //options.model.Titulo = dataItem.Titulo;
+
+
+            }
+        });
+
+}
+
+function RenderTipoCorte2(container, options) {
+
+    $('<input required data-text-field="Titulo" id=' + options.model.uid + ' data-value-field="TipoCorte2ID" data-bind="value:' + options.field + '"/>')
+        .appendTo(container)
+        .kendoComboBox({
+            autoBind: false,
+            dataSource: options.model.TipoCorte2,
+            dataTextField: "Titulo",
+            dataValueField: "TipoCorte2ID",
+            change: function (e) {
+                dataItem = this.dataItem(e.sender.selectedIndex);
+
+                options.model.TipoCorte2Select = dataItem.Titulo;
                 //options.model.SalidaID = dataItem.SalidaID;
                 //options.model.Titulo = dataItem.Titulo;
 
@@ -115,7 +160,125 @@ function RenderJunta(container, options) {
 
 function RenderSpool_IC(container, options) {
     var dataItem;
-    $('<input required data-text-field="Titulo" id=' + options.model.uid + ' data-value-field="ID" data-bind="value:' + options.field + '"/>')
+    var tipoSalidaARenderear = '';
+
+    if (options.model.TipoSalidaSelect == 'Item Code DEMO') {
+
+        $('<div name=' + options.model.NumeroSalida + '' + options.model.TipoSalidaSelect + '/>')
+        .appendTo(container)
+        .kendoGrid({
+
+        dataSource: {
+          // batch: true,
+          data: options.model.ListaDetalleItemCode,
+          schema: {
+              model: {
+                  fields: {
+
+                      ItemCode: { type: "string", editable: false },
+                      D1: { type: "string", editable: false },
+                      D2: { type: "string", editable: false },
+                      Descipcion: { type: "string", editable: false }
+                  }
+              }
+          }, filter: {
+              logic: "or",
+              filters: [
+                      { field: "Accion", operator: "eq", value: 1 },
+                      { field: "Accion", operator: "eq", value: 2 },
+                        { field: "Accion", operator: "eq", value: 0 },
+                        { field: "Accion", operator: "eq", value: undefined }
+              ]
+          }
+
+
+      },
+
+      selectable: true,
+      dataBinding: function (e) {
+
+      },
+      edit: function (e) {
+      },
+      change: function (e) {
+
+          //ItemSeleccionadoAnidado = this.dataSource.view()[this.select().index()];
+
+          //var dataSource = this.dataSource;
+          //var filters = dataSource.filter();
+          //var allData = dataSource.data();
+          //var query = new kendo.data.Query(allData);
+          //var data = query.filter(filters).data;
+
+
+          //actuallongitudTrabajosAdicionales = data.length;;
+          //options.model.TemplateMensajeTrabajosAdicionales = " Ahora tienes " + actuallongitudTrabajosAdicionales + " trabajos adicionales";
+          
+
+      },
+      columns: [
+      { field: "ItemCode", title: 'IC'/*, editor: RenderComboBoxTrabajoAdicional*/, filterable: false, width: "30px" },
+      { field: "D1", title: 'D1', filterable: false, width: "30px" },
+      { field: "D2", title: 'D2', filterable: false, width: "30px" },
+      { field: "Descipcion", title: 'Desc', filterable: false, width: "30px" }
+      //,
+      //{
+      //    command: {
+      //        name: "",
+      //        title: "",
+      //        text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()],
+      //        click: function (e) {
+      //            e.preventDefault();
+
+      //            var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+
+      //            //if (confirm(_dictionary.CapturaArmadoPreguntaBorradoCaptura[$("#language").data("kendoDropDownList").value()])) {
+      //            //    var dataSource = this.dataSource;
+
+      //            //    if (dataItem.JuntaArmadoID == "1" || dataItem.JuntaArmadoID == undefined)
+      //            //        dataSource.remove(dataItem);
+
+      //            //    dataItem.Accion = 3;
+
+
+
+      //            //    var filters = dataSource.filter();
+      //            //    var allData = dataSource.data();
+      //            //    var query = new kendo.data.Query(allData);
+      //            //    var data = query.filter(filters).data;
+
+      //            //    actuallongitudTrabajosAdicionales = data.length;
+
+      //            //    options.model.TemplateMensajeTrabajosAdicionales = " Ahora tienes " + actuallongitudTrabajosAdicionales + " trabajos adicionales"
+
+      //            //    this.dataSource.sync();
+      //            //}
+
+      //            ///////////////////
+
+
+      //            //////////////////
+
+
+
+
+      //        }
+      //    }, width: "99px"
+      //}
+      ], saveChanges: function (e) {
+          if (!confirm("Are you sure you want to save all changes?")) {
+              e.preventDefault();
+          }
+      },
+      editable: true,
+      navigatable: true,
+      //toolbar: [{ name: "create" }]
+  });
+
+
+    }
+    else {
+        $('<input required data-text-field="Titulo" id=' + options.model.uid + ' data-value-field="ID" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoComboBox({
             autoBind: false,
@@ -141,6 +304,11 @@ function RenderSpool_IC(container, options) {
                     $("#grid_content_2").show();
                 }
 
+                if ((options.model.Spool_ICSelect == 'Tubo') && (options.model.TipoSalidaSelect == 'Item Code')) {
+                    $("#grid").data("kendoGrid").showColumn(11);
+                    $("#grid").data("kendoGrid").showColumn(12);
+                    $("#grid").data("kendoGrid").showColumn(13);
+                }
                 //if (dataItem != undefined && dataItem.DefectoID != 0) {
                 //    options.model.DefectoID = dataItem.DefectoID;
                 //    options.model.Defecto = dataItem.Defecto;
@@ -155,6 +323,7 @@ function RenderSpool_IC(container, options) {
             }
         }
         );
+    }
 
 }
 

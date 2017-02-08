@@ -98,7 +98,10 @@ function CargarGrid() {
                         Cedula: { type: "string", editable: false },
                         Acero1: { type: "string", editable: false },
                         Acero2: { type: "string", editable: false },
-                        Diametro: { type: "string", editable: false }
+                        Diametro: { type: "string", editable: false },
+                        TipoCorte1: { type: "number", editable: true },
+                        TipoCorte2: { type: "number", editable: true },
+                        Cantidad: { type: "number", editable: true }
                     }
                 }
             },
@@ -130,6 +133,9 @@ function CargarGrid() {
             { field: "Acero1", title: 'Acero', filterable: getGridFilterableCellNumberMaftec(), filterable: false, width: "80px", attributes: { style: "text-align:right;" } },
             { field: "Acero2", title: 'Acero', filterable: getGridFilterableCellNumberMaftec(), filterable: false, width: "80px", attributes: { style: "text-align:right;" } },
             { field: "Diametro", title: 'Diametro', filterable: getGridFilterableCellNumberMaftec(), filterable: false, width: "100px", attributes: { style: "text-align:right;" } },
+            { field: "TipoCorte1Select", title: 'Tipo Corte 1', filterable: getGridFilterableCellNumberMaftec(), filterable: false, width: "100px", attributes: { style: "text-align:right;" }, hidden: true, editor: RenderTipoCorte1 },
+            { field: "TipoCorte2Select", title: 'Tipo Corte 2', filterable: getGridFilterableCellNumberMaftec(), filterable: false, width: "100px", attributes: { style: "text-align:right;" }, hidden: true, editor: RenderTipoCorte2 },
+            { field: "Cantidad", title: 'Cantidad', filterable: getGridFilterableCellNumberMaftec(), filterable: false, width: "100px", attributes: { style: "text-align:right;" }, hidden: true },
         ],
         beforeEdit: function (e) {
             var columnIndex = this.cellIndex(e.container);
