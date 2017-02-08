@@ -146,6 +146,7 @@ function AjaxGuardarNuevoCarro() {
 function AjaxObtenerDetalleCargaCarro(MedioTransporteID,tipoEscenario) {
     loadingStart();
     $CargaCarro.CargaCarro.read({  medioTransporteID: MedioTransporteID, token: Cookies.get("token"), proyectoID: $("#inputProyecto").data("kendoComboBox").value(), lenguaje: $("#language").val(), escenario: tipoEscenario }).done(function (data) {
+        $("#grid").data("kendoGrid").dataSource.data([]);
         var ds = $("#grid").data("kendoGrid").dataSource;
         var array = data;
 
