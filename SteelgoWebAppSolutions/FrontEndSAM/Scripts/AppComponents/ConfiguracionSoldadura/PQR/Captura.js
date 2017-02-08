@@ -144,7 +144,7 @@ function CargarGrid() {
              { width: "120px", field: "Respaldo", title: _dictionary.columnRespaldo[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec() },
              { width: "120px", field: "GrupoF", title: _dictionary.columnGrupoF[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec() },
              { width: "200px", field: "Especificacion", title: _dictionary.columnCodigo[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxEspecificacion },
-             { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: cancelarCaptura }, width: "50px", title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()] }
+             { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: cancelarCaptura }, width: "50px", title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], attributes: { style: "text-align:right;" } }
         ]
 
     });

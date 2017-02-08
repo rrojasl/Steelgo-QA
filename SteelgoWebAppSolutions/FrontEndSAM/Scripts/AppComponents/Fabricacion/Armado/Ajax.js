@@ -180,8 +180,8 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
             ListaDetalles[index].TuberoID = arregloCaptura[index].TuberoID;
             ListaDetalles[index].FechaArmado = arregloCaptura[index].FechaArmado == null ? "" : kendo.toString(arregloCaptura[index].FechaArmado, String(_dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()].replace('{', '').replace('}', '').replace("0:", ""))).trim();
             ListaDetalles[index].JuntaAnteriorNumeroUnicoGuardado = arregloCaptura[index].JuntaAnteriorNumeroUnicoGuardado;
-            
-            ObjetoNumeroUnicoAsignado= []
+
+            ObjetoNumeroUnicoAsignado = []
             ObjetoNumeroUnicoAsignado[0] = { Accion: "", JuntaID: "", NumeroUnico1ID: "", NumeroUnico2ID: "" }
             ObjetoNumeroUnicoAsignado[0].Accion = arregloCaptura[index].Accion;
             ObjetoNumeroUnicoAsignado[0].JuntaID = arregloCaptura[index].JuntaID;
@@ -193,7 +193,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
             if (arregloCaptura[index].ListaDetalleTrabajoAdicional != null) {
                 for (j = 0; j < arregloCaptura[index].ListaDetalleTrabajoAdicional.length; j++) {
                     ListaTrabajosAdicionalesEditados[j] = { Accion: "", JuntaID: "", TrabajoAdicionalID: "", ObreroID: "", Observacion: "" };
-                    ListaTrabajosAdicionalesEditados[j].Accion = arregloCaptura[index].Accion==3?arregloCaptura[index].Accion:arregloCaptura[index].AccionNumeroUnico;
+                    ListaTrabajosAdicionalesEditados[j].Accion = (jSonCaptura[index].Accion == 3 || jSonCaptura[index].Accion == 4) ? arregloCaptura[index].Accion : arregloCaptura[index].AccionNumeroUnico;
                     ListaTrabajosAdicionalesEditados[j].JuntaID = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].JuntaID;
                     ListaTrabajosAdicionalesEditados[j].TrabajoAdicionalID = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].TrabajoAdicionalID;
                     ListaTrabajosAdicionalesEditados[j].ObreroID = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].ObreroID;
@@ -207,29 +207,24 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                 $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
                 ListaDetalles[index].Estatus = 0;
             }
-            else if (
-                (
-                   ListaDetalles[index].TipoJuntaID == "" ||
-                   ListaDetalles[index].JuntaID == "" || ListaDetalles[index].JuntaID == "0" ||
-                   ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID == "" || ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID == null ||
-                   ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID == "" || ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID == null ||
-                   ListaDetalles[index].TallerID == "" ||
-                   ListaDetalles[index].TallerID == "0" ||
-                   ListaDetalles[index].TuberoID == "" ||
-                   ListaDetalles[index].TuberoID == "0" ||
-                   ListaDetalles[index].FechaArmado == ""
-                ) && (ListaDetalles[index].Accion != 3 && ListaDetalles[index].Accion != 4)
-               ) {
-                if (ListaDetalles[index].Accion == 2 && ListaDetalles[index].FechaArmado == "" &&
+            else if (ListaDetalles[index].Accion != 3 && ListaDetalles[index].Accion != 4) {
+                if (ListaDetalles[index].Accion == 2 &&
+                    ListaDetalles[index].FechaArmado == "" &&
                     (ListaDetalles[index].TallerID == "" || ListaDetalles[index].TallerID == "0") &&
-                   (ListaDetalles[index].TuberoID == "" || ListaDetalles[index].TuberoID == "0") &&
+                    (ListaDetalles[index].TuberoID == "" || ListaDetalles[index].TuberoID == "0") &&
                     (ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID == "" || ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID == null || ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID == "0") &&
                     (ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID == "" || ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID == null || ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID == "0")) {
                     ListaDetalles[index].Accion = 4;
                 }
-                else {
+
+                else if (
+                     ListaDetalles[index].FechaArmado == "" ||
+                    (ListaDetalles[index].TallerID == "" || ListaDetalles[index].TallerID == "0") ||
+                    (ListaDetalles[index].TuberoID == "" || ListaDetalles[index].TuberoID == "0") ||
+                    (ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID == "" || ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID == null || ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID == "0") ||
+                    (ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID == "" || ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID == null || ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID == "0")
+                    ) {
                     ListaDetalles[index].Estatus = 0;
-                    //$('tr[data-uid="' + arregloCaptura[index].uid + '"] ').css("background-color", "#ffcccc");
                     $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
                 }
 
@@ -499,7 +494,7 @@ function AjaxCambiarAccionAModificacion() {
             var ds = $("#grid").data("kendoGrid").dataSource;
             var array = JSON.parse(data);
 
-            
+
 
             for (var i = 0; i < array.length; i++) {
 
@@ -518,7 +513,7 @@ function AjaxCambiarAccionAModificacion() {
         loadingStop();
     });
 
-  
+
 
 
 

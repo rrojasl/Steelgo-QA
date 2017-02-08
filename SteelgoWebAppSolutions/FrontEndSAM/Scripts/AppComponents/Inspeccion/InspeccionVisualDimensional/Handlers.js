@@ -18,7 +18,7 @@
 
 
 function suscribirEventoWindowsConfirmaCaptura() {
-    ventanaConfirm = $("#ventanaConfirmCaptura").kendoWindow({
+    ventanaConfirmCambiarCaptura = $("#ventanaConfirmCaptura").kendoWindow({
         iframe: true,
         title: _dictionary.CapturaArmadoTituloPopup[$("#language").data("kendoDropDownList").value()],
         visible: false,
@@ -29,20 +29,20 @@ function suscribirEventoWindowsConfirmaCaptura() {
         actions: []
     }).data("kendoWindow");
 
-    ventanaConfirm.content(_dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] +
+    ventanaConfirmCambiarCaptura.content(_dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] +
         "</br><center><button class='btn btn-blue' id='yesButtonProy'>" + _dictionary.lblSi[$("#language").data("kendoDropDownList").value()] + "</button><button class='btn btn-blue' id='noButtonProy'>" + _dictionary.lblNo[$("#language").data("kendoDropDownList").value()] + "</button></center>");
 
 
     $("#yesButtonProy").click(function (e) {
         $("#grid").data("kendoGrid").dataSource.data([]);
         AplicarCambioSpoolID($("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()));
-        ventanaConfirm.close();
+        ventanaConfirmCambiarCaptura.close();
         editado = false;
     });
     $("#noButtonProy").click(function (e) {
         
         $("#InputID").data("kendoComboBox").value(spooolAnterior.Valor);
-        ventanaConfirm.close();
+        ventanaConfirmCambiarCaptura.close();
     });
 }
 
@@ -136,7 +136,7 @@ function SuscribirEventoSpoolID() {
             if (dataItem != undefined && dataItem.IDValido != "") {
                 if ($("#grid").data("kendoGrid").dataSource._data.length > 0 || editado)
                 {
-                    ventanaConfirm.open().center();
+                    ventanaConfirmCambiarCaptura.open().center();
                 }
                 else
                 {

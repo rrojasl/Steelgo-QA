@@ -163,8 +163,8 @@ function SuscribirEventoCarro() {
                 if (dataItem.MedioTransporteID == -1) {
                     CargaPopupNuevoMedioTransporte();
                 } else {
-                   // LimpiarCargaCarro();
-                    //AjaxObtenerDetalleCargaCarro(dataItem.MedioTransporteID, $('input:radio[name=TipoVista]:checked').val());
+                    // LimpiarCargaCarro();
+                        AjaxObtenerDetalleCargaCarro(dataItem.MedioTransporteID, $('input:radio[name=TipoVista]:checked').val());
                 }
             } else {
                 $("#inputCarro").data("kendoComboBox").value("");
