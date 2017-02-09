@@ -7,8 +7,15 @@
     SuscribirEventoGuardarNuevoMedioTransporte();
     SuscribirEventoCerrarNuevoMedioTransporte();
     suscribirEventoAgregarColumna();
+    suscribirEventoMostrar();
 }
 
+function suscribirEventoMostrar()
+{
+    $('#btnMostrar').click(function (e) {
+        AjaxObtenerDetalleCargaCarro($("#inputCarro").data("kendoComboBox").select() == -1 ? 0 : $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()).MedioTransporteID, $('input:radio[name=TipoVista]:checked').val());
+    });
+}
 
 function suscribirEventoAgregarColumna() {
     $('#btnAgregarColumna').click(function (e) {
@@ -164,7 +171,7 @@ function SuscribirEventoCarro() {
                     CargaPopupNuevoMedioTransporte();
                 } else {
                     // LimpiarCargaCarro();
-                        AjaxObtenerDetalleCargaCarro(dataItem.MedioTransporteID, $('input:radio[name=TipoVista]:checked').val());
+                    //AjaxObtenerDetalleCargaCarro(dataItem.MedioTransporteID, $('input:radio[name=TipoVista]:checked').val());
                 }
             } else {
                 $("#inputCarro").data("kendoComboBox").value("");
