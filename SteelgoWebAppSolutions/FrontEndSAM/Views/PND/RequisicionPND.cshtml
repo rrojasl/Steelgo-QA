@@ -53,7 +53,7 @@
     </div>
     <div id="FieldSetView">
         @*Controles Superior*@
-        <div class="row" id="AgregadoDiv">
+        <div class="row addedSectionInLineWithoutColor" id="AgregadoDiv">
             <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 altoControl" id="divProyecto">
                 <label id=""><span id="lblProyecto"></span></label>
                 <input id="inputProyecto" class="" />
@@ -75,20 +75,28 @@
         @*GRID*@
         <div class="row addedSectionInLine">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <div class="row" id="containerDiv">
-                    <div class="col-xs-8 col-sm-2 col-md-2 col-lg-2" id="CapturaArmadoHeaderSpoolIDDiv">
-                        <label id="lblSpoolID"></label>
-                        <input style="width:40%" id="InputOrdenTrabajo" class="item-select general-input" />-<input id="InputID" placeholder="ID" style="width:40%;" />
+                <div class="row" id="">
+                    <div id="containerDiv">
+                        <div class="col-xs-8 col-sm-2 col-md-2 col-lg-2" id="CapturaArmadoHeaderSpoolIDDiv">
+                            <label id="lblSpoolID"></label>
+                            <input style="width:40%" id="InputOrdenTrabajo" class="item-select general-input" />-<input id="InputID" placeholder="ID" style="width:40%;" />
+                        </div>
+                        <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2" id="CapturaRequisicionJunta">
+                            <label id="lblJunta"></label>
+                            <input id="Junta" class="" />
+                        </div>
+                        <div class="col-xs-12 col-sm-1 col-md-1 col-lg-1">
+                            <label id="">&nbsp;</label>
+                            <button type="button" id="ButtonAgregar" class="btn btn-blue"><span id="botonAgregar"></span></button>
+                        </div>
                     </div>
-                    <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2" id="CapturaRequisicionJunta">
-                        <label id="lblJunta"></label>
-                        <input id="Junta" class="" />
+                    
+                    <div class="col-sm-2 col-md-2 col-lg-2">
+                        <label id="lblEncintado1"></label>
+                        <input type="radio" id="SelectTodosSi" name="SelectTodos" style="width:auto;" value="Si" /><span id="lblSi"></span><br />
+                        <input type="radio" id="SelectTodosNo" name="SelectTodos" style="width:auto;" value="No" /><span id="lblNo"></span><br />
+                        <input type="radio" id="SelectTodosNinguno" name="SelectTodos" style="width:auto;" value="Ninguno" /><span id="lblNinguno"></span>
                     </div>
-                    <div class="col-xs-12 col-sm-1 col-md-1 col-lg-1">
-                        <label id="">&nbsp;</label>
-                        <button type="button" id="ButtonAgregar" class="btn btn-blue"><span id="botonAgregar"></span></button>
-                    </div>
-
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <div id="ContenedorGrid" class="row">
