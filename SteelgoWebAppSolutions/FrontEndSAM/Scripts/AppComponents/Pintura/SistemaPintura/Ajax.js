@@ -114,6 +114,7 @@ function AjaxCargarEdicionSistemaPintura() {
                     
                     if ($("#comboProyecto").data("kendoComboBox").dataSource._data.length == 2) {
                         $("#comboProyecto").data("kendoComboBox").select(1);
+                        $("#comboProyecto").data("kendoComboBox").trigger("change");
                         AjaxCargarNuevoSistemaPintura();
                     }
                     else {
@@ -260,7 +261,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                         ListaDetalles[i].ListadoPruebas[j].UnidadMaxima = arregloCaptura[index].listadoPruebasDetalle[j].UnidadMaxima;
                         ListaDetalles[i].ListadoPruebas[j].PruebaProcesoPinturaID = arregloCaptura[index].listadoPruebasDetalle[j].PruebaProcesoPinturaID;
                     }
-                    if (arregloCaptura[index].Agregar && (arregloCaptura[index].MetrosLote == 0 || arregloCaptura[index].NumeroPruebas == 0 || arregloCaptura[index].listadoPruebasDetalle.length==0  || arregloCaptura[index].NumeroComponentes == 0 || tieneComponentesSinCaptura(arregloCaptura[index].ListaDetalleComponentesAgregados))) {
+                    if (arregloCaptura[index].Agregar && (arregloCaptura[index].MetrosLote == null || arregloCaptura[index].MetrosLote == 0 || arregloCaptura[index].NumeroPruebas == 0 || arregloCaptura[index].NumeroPruebas == null || arregloCaptura[index].listadoPruebasDetalle.length == 0 || arregloCaptura[index].NumeroComponentes == 0 || tieneComponentesSinCaptura(arregloCaptura[index].ListaDetalleComponentesAgregados))) {
                         ListaDetalles[i].Estatus = 0;
                         arregloCaptura[index].RowOk = false;
                     }

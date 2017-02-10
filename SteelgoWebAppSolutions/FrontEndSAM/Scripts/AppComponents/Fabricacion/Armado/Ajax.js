@@ -93,10 +93,36 @@ function AjaxObtenerJSonGridArmado() {
                         ds.insert(0, array[i]);
                     }
                     else {
-                        if (elementosNoModificados != "")
-                            elementosNoModificados += ", " + array[i].Junta;
-                        else
-                            elementosNoModificados = array[i].Junta;
+                        var elemento;
+                        var posicionElemento;
+                        for (var h = 0; h < ds._data.length; h++) {
+                            if (ds._data[h].JuntaID == array[i].JuntaID)
+                            {
+                                elemento = ds._data[h];
+                                posicionElemento = h;
+                            }
+                        }
+
+                        if (elemento.Accion == 3 || elemento.Accion == 4) {
+                            ds._data.splice(posicionElemento, 1);
+                            if (array[i].FechaArmado != null) {
+                                array[i].FechaArmado = new Date(ObtenerDato(array[i].FechaArmado, 1), ObtenerDato(array[i].FechaArmado, 2), ObtenerDato(array[i].FechaArmado, 3));//año, mes, dia
+                            }
+                            if (elementosModificados != "")
+                                elementosModificados += ", " + array[i].Junta;
+                            else
+                                elementosModificados = array[i].Junta;
+                            ds.insert(0, array[i]);
+                        }
+                        else {
+                            if (elementosNoModificados != "")
+                                elementosNoModificados += ", " + array[i].Junta;
+                            else
+                                elementosNoModificados = array[i].Junta;
+                        }
+
+                       
+                        
                     }
 
                 }
@@ -183,7 +209,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
 
             ObjetoNumeroUnicoAsignado = []
             ObjetoNumeroUnicoAsignado[0] = { Accion: "", JuntaID: "", NumeroUnico1ID: "", NumeroUnico2ID: "" }
-            ObjetoNumeroUnicoAsignado[0].Accion = arregloCaptura[index].Accion;
+            ObjetoNumeroUnicoAsignado[0].Accion = (arregloCaptura[index].Accion == 3 || arregloCaptura[index].Accion == 4) ? 3 : arregloCaptura[index].AccionNumeroUnico;
             ObjetoNumeroUnicoAsignado[0].JuntaID = arregloCaptura[index].JuntaID;
             ObjetoNumeroUnicoAsignado[0].NumeroUnico1ID = arregloCaptura[index].NumeroUnico1ID;
             ObjetoNumeroUnicoAsignado[0].NumeroUnico2ID = arregloCaptura[index].NumeroUnico2ID;
@@ -193,7 +219,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
             if (arregloCaptura[index].ListaDetalleTrabajoAdicional != null) {
                 for (j = 0; j < arregloCaptura[index].ListaDetalleTrabajoAdicional.length; j++) {
                     ListaTrabajosAdicionalesEditados[j] = { Accion: "", JuntaID: "", TrabajoAdicionalID: "", ObreroID: "", Observacion: "" };
-                    ListaTrabajosAdicionalesEditados[j].Accion = (jSonCaptura[index].Accion == 3 || jSonCaptura[index].Accion == 4) ? arregloCaptura[index].Accion : arregloCaptura[index].AccionNumeroUnico;
+                    ListaTrabajosAdicionalesEditados[j].Accion = (arregloCaptura[index].Accion == 3 || arregloCaptura[index].Accion == 4) ? arregloCaptura[index].Accion : arregloCaptura[index].AccionNumeroUnico;
                     ListaTrabajosAdicionalesEditados[j].JuntaID = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].JuntaID;
                     ListaTrabajosAdicionalesEditados[j].TrabajoAdicionalID = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].TrabajoAdicionalID;
                     ListaTrabajosAdicionalesEditados[j].ObreroID = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].ObreroID;

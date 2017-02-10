@@ -9,13 +9,15 @@ var editado = false;
 
 IniciarCapturaArmado();
 function IniciarCapturaArmado() {
-
     AltaFecha();
     asignarProyecto();
     setTimeout(function () {SuscribirEventos() },100);
-
 }
 
+function ObtenerCatalogos() {
+    AjaxObtenerListaTubero();
+    AjaxObtenerListaTaller();
+}
 function changeLanguageCall() {
     endRangeDate.data("kendoDatePicker").setOptions({
         format: _dictionary.FormatoFecha2[$("#language").data("kendoDropDownList").value()]
@@ -26,10 +28,11 @@ function changeLanguageCall() {
     CargarGridPopUp();
     suscribirEventoWindowsConfirmaCaptura();
     Limpiar();
-    AjaxObtenerListaTubero();
-    AjaxObtenerListaTaller();
+   
     opcionHabilitarView(false, "FieldSetView")
     document.title = _dictionary.CapturaArmadoBreadcrumb[$("#language").data("kendoDropDownList").value()];
+
+    setTimeout(ObtenerCatalogos(), 100);
 }
 function asignarProyecto() {
     $("#InputOrdenTrabajo").val(Cookies.get('LetraProyecto') == undefined ? '' : Cookies.get('LetraProyecto'));
