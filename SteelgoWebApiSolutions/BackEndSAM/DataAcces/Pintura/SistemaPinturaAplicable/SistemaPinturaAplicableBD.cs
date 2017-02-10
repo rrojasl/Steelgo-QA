@@ -151,7 +151,8 @@ namespace BackEndSAM.DataAcces.Pintura.SistemaPinturaAplicable
                             Color = item.Color != null ? item.Color : "",
                             EstatusCaptura = item.EstatusCaptura,
                             ListaSistemPintura = (List<SistemaPinturaData>)SistemaPinturaAplicableBD.Instance.ObtieneListadoSistemaPintura(ProyectoID),
-                            ListaColorPintura = item.SistemaPinturaID.GetValueOrDefault() != 0 ? (List<ColorPintura>)SistemaPinturaAplicableBD.Instance.ObtieneListadoColorPintura(item.SistemaPinturaID.GetValueOrDefault(), Lenguaje) : null
+                            ListaColorPintura = item.SistemaPinturaID.GetValueOrDefault() != 0 ? (List<ColorPintura>)SistemaPinturaAplicableBD.Instance.ObtieneListadoColorPintura(item.SistemaPinturaID.GetValueOrDefault(), Lenguaje) : null,
+                            RowOk = true
                         });
                     }
 

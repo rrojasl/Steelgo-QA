@@ -41,7 +41,7 @@ function CargarGrid() {
         edit: function (e) {
 
             if ($('#Guardar').text() != _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
-                    this.closeCell();
+                this.closeCell();
             }
             setTimeout(function () {
                 var inputName = e.container.find('input');
@@ -101,19 +101,34 @@ function CargarGrid() {
         columns: [
             { field: "Spool", title: _dictionary.columnSpool[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "140px" },
             { field: "NumeroControl", title: _dictionary.columnNumeroControl2[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px" },
-            { field: "Diametro", title: _dictionary.columnDiametro[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), editor: Diametro,  width: "100px", width: "95px", attributes: { style: "text-align:right;" } },
+            { field: "Diametro", title: _dictionary.columnDiametro[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), editor: Diametro, width: "100px", width: "95px", attributes: { style: "text-align:right;" } },
             { field: "SistemaPintura", title: _dictionary.columnSistemaPintura[$("#language").data("kendoDropDownList").value()], editor: comboBoxSistemaPintura, filterable: getGridFilterableCellMaftec(), width: "120px" },
             { field: "Color", title: _dictionary.columnColor[$("#language").data("kendoDropDownList").value()], editor: comboBoxColor, filterable: getGridFilterableCellMaftec(), width: "110px" },
             { command: { text: _dictionary.botonLimpiar[$("#language").data("kendoDropDownList").value()], click: eliminaCaptura }, title: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()], width: "99px", attributes: { style: "text-align:center;" } }
 
         ],
         beforeEdit: function (e) {
-        var columnIndex = this.cellIndex(e.container);
-        var fieldName = this.thead.find("th").eq(columnIndex).data("field");
-        if (!isEditable(fieldName, e.model)) {
-            e.preventDefault();
+            var columnIndex = this.cellIndex(e.container);
+            var fieldName = this.thead.find("th").eq(columnIndex).data("field");
+            if (!isEditable(fieldName, e.model)) {
+                e.preventDefault();
+            }
+        },
+        dataBound: function () {
+            var grid = $("#grid").data("kendoGrid");
+            var gridData = grid.dataSource.view();
+
+            for (var i = 0; i < gridData.length; i++) {
+                var currentUid = gridData[i].uid;
+                if (gridData[i].RowOk == false) {
+                    grid.table.find("tr[data-uid='" + currentUid + "']").css("background-color", "#ffcccc");
+                }
+                else if (gridData[i].RowOk) {
+                    grid.table.find("tr[data-uid='" + currentUid + "']").css("background-color", "#ffffff");
+                }
+
+            }
         }
-    },
     });
     CustomisaGrid($("#grid"));
 }
@@ -147,10 +162,10 @@ function plancharTodo(tipoLlenado) {
     var itemSistemaPintura = $("#inputSistemaPintura").data("kendoComboBox").dataItem($("#inputSistemaPintura").data("kendoComboBox").select());
     var itemColor = $("#inputColorPintura").data("kendoComboBox").dataItem($("#inputColorPintura").data("kendoComboBox").select());
 
-    if (itemSistemaPintura != undefined && itemSistemaPintura.SistemaPinturaID!= 0) {
+    if (itemSistemaPintura != undefined && itemSistemaPintura.SistemaPinturaID != 0) {
         PlanchadoSistemaPintura(tipoLlenado);
     }
-    
+
 }
 
 function PlanchadoSistemaPintura(tipoLlenado) {
@@ -198,7 +213,7 @@ function PlanchadoSistemaPintura(tipoLlenado) {
                     data[i].ColorPinturaID = itemColor.ColorPinturaID;
                     data[i].SistemaPinturaColorID = itemColor.SistemaPinturaColorID;
                 }
-            }           
+            }
         }
     }
 
@@ -241,7 +256,7 @@ function PlanchadoColor(tipoLlenado) {
                     data[i].SistemaPinturaColorID = itemColor.SistemaPinturaColorID;
                     data[i].EstatusCaptura = 1;
                 }
-            }            
+            }
         }
     }
 

@@ -9,7 +9,7 @@ var paramReqProyectoID=0;
 function changeLanguageCall() {
     
     var paramReq = getParameterByName('SistemaPinturaID')==undefined|| getParameterByName('SistemaPinturaID')==null?"": getParameterByName('SistemaPinturaID').trim();
-    paramReqProyectoID =(getParameterByName(' ProyectoID')==undefined || getParameterByName(' ProyectoID')==null)?0:parseInt(  getParameterByName(' ProyectoID').trim());
+    paramReqProyectoID =(getParameterByName('ProyectoID')==undefined || getParameterByName('ProyectoID')==null)?0:parseInt(  getParameterByName('ProyectoID').trim());
     paramReq = paramReq == null ? "" : paramReq;
     $("#inputSistemaPinturaID").val(paramReq);
    

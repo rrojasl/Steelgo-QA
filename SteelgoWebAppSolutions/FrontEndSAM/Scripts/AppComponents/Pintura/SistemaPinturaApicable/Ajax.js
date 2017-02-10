@@ -48,7 +48,7 @@ function AjaxCargarSistemaPintura(proyectoID) {
 
         var spid = 0;
 
-        if (data.length < 3) {
+        if (data.length ==2) {
             for (var i = 0; i < data.length; i++) {
                 if (data[i].SistemaPinturaID != 0) {
                     spid = data[i].SistemaPinturaID;
@@ -184,25 +184,19 @@ function AjaxGuardarCaptura(listaCaptura, GuardarYNuevo) {
 
                     if (listaDetalles[i].SistemaPinturaID == 0) {
                         listaDetalles[i].Estatus = 0;
-                        $('tr[data-uid="' + listaCaptura[i].uid + '"] ').css("background-color", "#ffcccc");
+                        listaCaptura[i].RowOk = false;
+                        //$('tr[data-uid="' + listaCaptura[i].uid + '"] ').css("background-color", "#ffcccc");
                     }
                     if (listaDetalles[i].SistemaPinturaColorID == 0 && listaCaptura[i].ListaColorPintura.length > 1) {
                         listaDetalles[i].Estatus = 0;
-                        $('tr[data-uid="' + listaCaptura[i].uid + '"] ').css("background-color", "#ffcccc");
+                        listaCaptura[i].RowOk = false;
+                        //$('tr[data-uid="' + listaCaptura[i].uid + '"] ').css("background-color", "#ffcccc");
                     }
                 }
             }else{
-                    listaDetalles[i].Estatus = 0;
-                    $('tr[data-uid="' + listaCaptura[i].uid + '"] ').css("background-color", "#ffcccc");
-
-                //if (listaDetalles[i].SistemaPinturaID == 0) {
-                //    listaDetalles[i].Estatus = 0;
-                //    $('tr[data-uid="' + listaCaptura[i].uid + '"] ').css("background-color", "#ffcccc");
-                //}
-                //if (listaDetalles[i].SistemaPinturaColorID == 0 && listaCaptura[i].ListaColorPintura.length>1) {
-                //    listaDetalles[i].Estatus = 0;
-                //    $('tr[data-uid="' + listaCaptura[i].uid + '"] ').css("background-color", "#ffcccc");
-                //}
+                listaDetalles[i].Estatus = 0;
+                listaCaptura[i].RowOk = false;
+                    //$('tr[data-uid="' + listaCaptura[i].uid + '"] ').css("background-color", "#ffcccc");
             }
         }
     }
@@ -235,7 +229,7 @@ function AjaxGuardarCaptura(listaCaptura, GuardarYNuevo) {
             }
         });
     } else {
-
+        $("#grid").data("kendoGrid").dataSource.sync();
         ventanaConfirm = $("#ventanaConfirmCaptura").kendoWindow({
             iframe: true,
             title: _dictionary.CapturaArmadoTituloPopup[$("#language").data("kendoDropDownList").value()],
