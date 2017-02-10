@@ -182,13 +182,14 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                                     '<input id="NombreRequisicion" class="form-control" />' +
                                 '</div>' +
                                 '<div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">' +
+                                    '<label id=""><span>' + _dictionary.lblNumeroClienteRequisicion[$("#language").data("kendoDropDownList").value()] + '</span></label>' +
+                                    '<input id="CodigoAsme" class="form-control"  />' +
+                                '</div>' +
+                                '<div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">' +
                                     '<label id=""><span>' + _dictionary.lblFechaRequisicion[$("#language").data("kendoDropDownList").value()] + '</span></label>' +
                                     '<input id="FechaRequisicion" class="form-control"/>' +
                                 '</div>' +
-                                //'<div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">' +
-                                //    '<label id=""><span>' + _dictionary.lblCodigoAsme[$("#language").data("kendoDropDownList").value()] + '</span></label>' +
-                                //    '<input id="CodigoAsme" class="form-control" readonly disabled />' +
-                                //'</div>' +
+                                
                                 '<div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">' +
                                     '<label id=""><span>' + _dictionary.lblObservacion[$("#language").data("kendoDropDownList").value()] + '</span></label>' +
                                     '<input id="Observacion" class="form-control" />' +

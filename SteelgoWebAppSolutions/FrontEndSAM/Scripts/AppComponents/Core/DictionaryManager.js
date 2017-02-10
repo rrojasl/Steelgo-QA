@@ -7037,9 +7037,13 @@ _dictionary = {
         "es-MX": "Requisición",
         "en-US": "Requisition"
     },
+    "lblNumeroClienteRequisicion": {
+        "es-MX": "Número cliente",
+        "en-US": "Client Number"
+    },
     "lblRequisicion1": {
-        "es-MX": "Requisición",
-        "en-US": "Requisition"
+        "es-MX": "Folio",
+        "en-US": "Folio"
     },
     "lblMostrar": {
         "es-MX": "Mostrar",
