@@ -214,6 +214,17 @@ function PlanchadoSistemaPintura(tipoLlenado) {
                     data[i].SistemaPinturaColorID = itemColor.SistemaPinturaColorID;
                 }
             }
+            else if (data[i].SistemaPintura === itemSistemaPintura.Nombre) {
+                if (data[i].ListaColorPintura.length < 1) {
+                    data[i].Color = "";
+                    data[i].ColorPinturaID = 0;
+                    data[i].SistemaPinturaColorID = 0;
+                } else {
+                    data[i].Color = itemColor.Nombre;
+                    data[i].ColorPinturaID = itemColor.ColorPinturaID;
+                    data[i].SistemaPinturaColorID = itemColor.SistemaPinturaColorID;
+                }
+            }
         }
     }
 

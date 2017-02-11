@@ -283,10 +283,10 @@ function limpiarRenglon(e) {
         itemToClean.Taller = "";
         itemToClean.TallerID = 0;
         itemToClean.FechaArmado = "";
-        itemToClean.NumeroUnico1 = "";
-        itemToClean.NumeroUnico1ID = 0;
-        itemToClean.NumeroUnico2 = "";
-        itemToClean.NumeroUnico2ID = 0;
+        //itemToClean.NumeroUnico1 = "";
+        //itemToClean.NumeroUnico1ID = 0;
+        //itemToClean.NumeroUnico2 = "";
+        //itemToClean.NumeroUnico2ID = 0;
         itemToClean.Tubero = "";
         itemToClean.TuberoID = 0;
         if (itemToClean.Accion == 2)

@@ -444,7 +444,9 @@ namespace BackEndSAM.Controllers
                     //item.TipoJunta
                     DetalleDatosJson detalleDatos = new DetalleDatosJson
                     {
+                        
                         Accion = item["JuntaSpoolIDArmado"].ToString() ==  "" ? 1 : 2,
+                        AccionNumeroUnico = (item["Clave1"] != null || item["Clave2"] != null) ? 2 : 1,
                         IDProyecto = int.Parse(item["ProyectoID"].ToString()),
                         IdOrdenTrabajo = item["OrdenTrabajoID"].ToString(),
                         OrdenTrabajo = item["OrdenTrabajo"].ToString(),

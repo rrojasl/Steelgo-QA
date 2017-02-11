@@ -209,7 +209,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
 
             ObjetoNumeroUnicoAsignado = []
             ObjetoNumeroUnicoAsignado[0] = { Accion: "", JuntaID: "", NumeroUnico1ID: "", NumeroUnico2ID: "" }
-            ObjetoNumeroUnicoAsignado[0].Accion = (arregloCaptura[index].Accion == 3 || arregloCaptura[index].Accion == 4) ? 3 : arregloCaptura[index].AccionNumeroUnico;
+            ObjetoNumeroUnicoAsignado[0].Accion = arregloCaptura[index].AccionNumeroUnico;//(arregloCaptura[index].Accion == 3 || arregloCaptura[index].Accion == 4) ? 3 : arregloCaptura[index].AccionNumeroUnico;
             ObjetoNumeroUnicoAsignado[0].JuntaID = arregloCaptura[index].JuntaID;
             ObjetoNumeroUnicoAsignado[0].NumeroUnico1ID = arregloCaptura[index].NumeroUnico1ID;
             ObjetoNumeroUnicoAsignado[0].NumeroUnico2ID = arregloCaptura[index].NumeroUnico2ID;
@@ -265,8 +265,8 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                 }
                 else if (!(ListaDetalles[index].FechaArmado == "" &&
                     (ListaDetalles[index].TallerID == "" || ListaDetalles[index].TallerID == "0") &&
-                    (ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID == "" || ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID == null || ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID == "0") &&
-                    (ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID == "" || ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID == null || ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID == "0") &&
+                    //(ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID == "" || ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID == null || ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID == "0") &&
+                    //(ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID == "" || ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID == null || ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID == "0") &&
                    (ListaDetalles[index].TuberoID == "" || ListaDetalles[index].TuberoID == "0"))) {
                     ListaDetalles[index].Estatus = 0;
                     //$('tr[data-uid="' + arregloCaptura[index].uid + '"] ').css("background-color", "#ffcccc");

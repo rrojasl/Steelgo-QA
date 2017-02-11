@@ -486,10 +486,10 @@ function limpiarCaptura(e) {
         itemToClean.Defectos = "";
         itemToClean.Inspector = "";
         itemToClean.FechaInspeccion = "";
-        itemToClean.NumeroUnico1 = "";
-        itemToClean.NumeroUnico2 = "";
-        itemToClean.NumeroUnico1ID = "";
-        itemToClean.NumeroUnico2ID = "";
+        //itemToClean.NumeroUnico1 = "";
+        //itemToClean.NumeroUnico2 = "";
+        //itemToClean.NumeroUnico1ID = "";
+        //itemToClean.NumeroUnico2ID = "";
 
         if (itemToClean.Accion == 1)
             itemToClean.Accion = 1;
