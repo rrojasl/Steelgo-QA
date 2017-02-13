@@ -36,34 +36,32 @@ function AjaxObtenerSpoolID() {
 }
 
 function AjaxObtenerListaTubero() {
-    loadingStart();
+    
     if (Cookies.get("Proyecto") != undefined) {
         $Armado.Armado.read({ idProyecto: Cookies.get("Proyecto").split('°')[0], tipo: 2, token: Cookies.get("token") }).done(function (data) {
             if (Error(data)) {
                 $("#inputTubero").data("kendoComboBox").value("");
                 $("#inputTubero").data("kendoComboBox").dataSource.data(data);
             }
-            loadingStop();
+            
 
         });
     }
-    else
-        loadingStop();
+   
 }
 
 function AjaxObtenerListaTaller() {
-    loadingStart();
+   
     if (Cookies.get("Proyecto") != undefined) {
         $Armado.Armado.read({ idProyecto: Cookies.get("Proyecto").split('°')[0], token: Cookies.get("token") }).done(function (data) {
             if (Error(data)) {
                 $("#inputTaller").data("kendoComboBox").value("");
                 $("#inputTaller").data("kendoComboBox").dataSource.data(data);
             }
-            loadingStop();
+            
         });
     }
-    else
-        loadingStop();
+   
 }
 
 function AjaxObtenerJSonGridArmado() {
@@ -219,7 +217,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
             if (arregloCaptura[index].ListaDetalleTrabajoAdicional != null) {
                 for (j = 0; j < arregloCaptura[index].ListaDetalleTrabajoAdicional.length; j++) {
                     ListaTrabajosAdicionalesEditados[j] = { Accion: "", JuntaID: "", TrabajoAdicionalID: "", ObreroID: "", Observacion: "" };
-                    ListaTrabajosAdicionalesEditados[j].Accion = (arregloCaptura[index].Accion == 3 || arregloCaptura[index].Accion == 4) ? arregloCaptura[index].Accion : arregloCaptura[index].AccionNumeroUnico;
+                    ListaTrabajosAdicionalesEditados[j].Accion = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].Accion == undefined ? 1 : arregloCaptura[index].ListaDetalleTrabajoAdicional[j].Accion;
                     ListaTrabajosAdicionalesEditados[j].JuntaID = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].JuntaID;
                     ListaTrabajosAdicionalesEditados[j].TrabajoAdicionalID = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].TrabajoAdicionalID;
                     ListaTrabajosAdicionalesEditados[j].ObreroID = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].ObreroID;
@@ -236,8 +234,8 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
             else if (ListaDetalles[index].Accion != 3 && ListaDetalles[index].Accion != 4) {
                 if (ListaDetalles[index].Accion == 2 &&
                     ListaDetalles[index].FechaArmado == "" &&
-                    (ListaDetalles[index].TallerID == "" || ListaDetalles[index].TallerID == "0") &&
-                    (ListaDetalles[index].TuberoID == "" || ListaDetalles[index].TuberoID == "0") &&
+                    (ListaDetalles[index].TallerID == "" || ListaDetalles[index].TallerID == "0" || ListaDetalles[index].TallerID == undefined) &&
+                    (ListaDetalles[index].TuberoID == "" || ListaDetalles[index].TuberoID == "0" || ListaDetalles[index].TuberoID == undefined) &&
                     (ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID == "" || ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID == null || ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID == "0") &&
                     (ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID == "" || ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID == null || ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID == "0")) {
                     ListaDetalles[index].Accion = 4;
@@ -245,8 +243,8 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
 
                 else if (
                      ListaDetalles[index].FechaArmado == "" ||
-                    (ListaDetalles[index].TallerID == "" || ListaDetalles[index].TallerID == "0") ||
-                    (ListaDetalles[index].TuberoID == "" || ListaDetalles[index].TuberoID == "0") ||
+                    (ListaDetalles[index].TallerID == "" || ListaDetalles[index].TallerID == "0") || ListaDetalles[index].TallerID == undefined ||
+                    (ListaDetalles[index].TuberoID == "" || ListaDetalles[index].TuberoID == "0")  || ListaDetalles[index].TuberoID == undefined ||
                     (ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID == "" || ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID == null || ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID == "0") ||
                     (ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID == "" || ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID == null || ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID == "0")
                     ) {
@@ -257,17 +255,17 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
             }
             else if (ListaDetalles[index].Accion == 4) {
                 if ((ListaDetalles[index].FechaArmado != "" &&
-                    (ListaDetalles[index].TallerID != "" && ListaDetalles[index].TallerID != "0") &&
+                    (ListaDetalles[index].TallerID != "" && ListaDetalles[index].TallerID != "0" && ListaDetalles[index].TallerID != undefined) &&
                     (ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID != "" && ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID != null && ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID != "0") &&
                     (ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID != "" && ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID != null && ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID != "0") &&
-                   (ListaDetalles[index].TuberoID != "" && ListaDetalles[index].TuberoID != "0"))) {
+                   (ListaDetalles[index].TuberoID != "" && ListaDetalles[index].TuberoID != "0" && ListaDetalles[index].TuberoID != undefined))) {
                     ListaDetalles[index].Accion = 2;
                 }
                 else if (!(ListaDetalles[index].FechaArmado == "" &&
-                    (ListaDetalles[index].TallerID == "" || ListaDetalles[index].TallerID == "0") &&
+                    (ListaDetalles[index].TallerID == "" || ListaDetalles[index].TallerID == "0" || ListaDetalles[index].TallerID == undefined) &&
                     //(ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID == "" || ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID == null || ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID == "0") &&
                     //(ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID == "" || ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID == null || ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID == "0") &&
-                   (ListaDetalles[index].TuberoID == "" || ListaDetalles[index].TuberoID == "0"))) {
+                   (ListaDetalles[index].TuberoID == "" || ListaDetalles[index].TuberoID == "0" || ListaDetalles[index].TuberoID == undefined))) {
                     ListaDetalles[index].Estatus = 0;
                     //$('tr[data-uid="' + arregloCaptura[index].uid + '"] ').css("background-color", "#ffcccc");
                     $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;

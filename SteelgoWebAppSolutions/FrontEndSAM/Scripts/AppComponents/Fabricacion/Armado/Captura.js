@@ -31,8 +31,6 @@ function changeLanguageCall() {
    
     opcionHabilitarView(false, "FieldSetView")
     document.title = _dictionary.CapturaArmadoBreadcrumb[$("#language").data("kendoDropDownList").value()];
-
-    setTimeout(ObtenerCatalogos(), 100);
 }
 function asignarProyecto() {
     $("#InputOrdenTrabajo").val(Cookies.get('LetraProyecto') == undefined ? '' : Cookies.get('LetraProyecto'));
@@ -353,7 +351,7 @@ function CargarGridPopUp() {
                       var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
 
 
-                      if (dataItem.JuntaArmadoID == "1" || dataItem.JuntaArmadoID == undefined)
+                      if (dataItem.Accion==1)
                           dataSource.remove(dataItem);
 
                       dataItem.Accion = 3;
