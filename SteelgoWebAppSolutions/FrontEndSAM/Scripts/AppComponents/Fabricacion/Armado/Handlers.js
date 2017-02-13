@@ -456,6 +456,7 @@ function SuscribirEventoSpoolID() {
                 if ($('input:radio[name=TipoAgregado]:checked').val() != "Reporte") {
                     AjaxJunta($("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()).Valor);
                 }
+                setTimeout(ObtenerCatalogos(), 100);
             }
             else
                 $("#InputID").val("")
