@@ -19,6 +19,19 @@ namespace BackEndSAM.Models.Embarque.RevisionEmbarque
         public int PaqueteID { get; set; }
         public string Nombre { get; set; }
     }
+
+    public class DetalleProyecto
+    {
+        public DetalleProyecto()
+        {
+            ProyectoID = 0;
+            Nombre = "";
+        }
+
+        public int ProyectoID { get; set; }
+        public string Nombre { get; set; }
+    }
+
     public class EmbarqueEnviado
     {
         public EmbarqueEnviado ()

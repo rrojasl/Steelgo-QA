@@ -1,50 +1,173 @@
-﻿SuscribirEventoProyecto();
+﻿function SuscribirEventos() {
+    SuscribirEventoProyecto();
+    SuscribirEventoPeriodo();
+    SuscribirEventoFecha();
+    SuscribirEventoButtonMenu();
+    SuscribirEventoTabMenu();
+}
+
 
 function SuscribirEventoProyecto() {
-    $('#inputProyecto').kendoComboBox({
+    $('#InputProyecto').kendoComboBox({
         dataTextField: "Nombre",
         dataValueField: "ProyectoID",
         suggest: true,
         filter: "contains",
-        index: 3
-    });
+        index: 3,
+        change: function (e) {
+            var dataItem = this.dataItem(e.sender.selectedIndex);
 
-}
+            if (dataItem != undefined) {
 
-
-function ActivarRefrescarGrid(idBoton) {
-    $("#contenidoDashboard").css('display', 'block');
-    $("#divStatusRequisiciones").css("display", "block");
-    $("#pestanias").css("display", "block");
-    $("#tabEstatus").html("");
-    tabActivo(idBoton);
-    AccionesListado(idBoton);
-}
-
-function suscribirEventoElementos() {
-
-    $(document).on('click', '.EnlaceDetalleElementos', function (e) {
-        e.preventDefault();
-        var grid = $("#grid").data("kendoGrid");
-        dataItem = grid.dataItem($(e.target).closest("tr"));
-        LlenarGridPopUp(dataItem);
-
-    });
-}
-
-
-function tabActivo(idButton) {
-    $(".btn-tab").removeClass("active");
-
-    var list = document.getElementById("divStatusRequisiciones").getElementsByTagName("button");
-
-    for (var i = 0; i < list.length; i++) {
-        if (list[i].id == idButton) {
-            $("#" + idButton).addClass("active");
-            break;
+            }
+            else {
+                $("#InputProyecto").data("kendoComboBox").value("");
+            }
         }
-    }
-};
+    });
+
+}
+
+function SuscribirEventoPeriodo() {
+    $("#InputPeriodo").kendoComboBox({
+        dataTextField: "Periodo",
+        dataValueField: "PeriodoID",
+        suggest: true,
+        filter: "contains",
+        index: 3,
+        change: function (e) {
+            var dataItem = this.dataItem(e.sender.selectedIndex);
+            $("#InputFechaInicio").data("kendoDatePicker").value("");
+            $("#InputFechaFin").data("kendoDatePicker").value("");
+            if (dataItem != undefined) {
+                if (dataItem.PeriodoID != 0) {
+                    AjaxCargarRangoFechas(dataItem);
+                }
+            }
+            else {
+                $("#InputPeriodo").data("kendoComboBox").value("");
+            }
+        }
+    });
+}
+
+function SuscribirEventoFecha() {
+    FechaInicio = $("#InputFechaInicio").kendoDatePicker({
+        max: new Date(),
+        change: function (e) {
+            if (!ValidarFecha(e.sender._value)) {
+                $("#InputFechaInicio").data("kendoDatePicker").value("");
+            }
+        }
+    });
+
+    FechaInicio.on("keydown", function (e) {
+        if (e.keyCode == 13) {
+            if (!ValidarFecha($("#InputFechaInicio").data("kendoDatePicker").value())) {
+                $("#InputFechaInicio").data("kendoDatePicker").value("");
+            }
+        }
+
+        if (e.keyCode == 9) {
+            if(!ValidarFecha($("#InputFechaInicio").data("kendoDatePicker").value())){
+                $("#InputFechaInicio").data("kendoDatePicker").value("");
+            }
+        }
+    });
+
+    $("#InputFechaInicio").blur(function (e) {
+        if (!ValidarFecha($("#InputFechaInicio").data("kendoDatePicker").value())) {
+            $("#InputFechaInicio").data("kendoDatePicker").value("");
+        }
+    });
+
+    FechaFin = $("#InputFechaFin").kendoDatePicker({
+        max: new Date(),
+        change: function (e) {
+            if (!ValidarFecha(e.sender._value)) {
+                $("#InputFechaFin").data("kendoDatePicker").value("");
+            }
+        }
+    });
+
+    FechaFin.on("keydown", function (e) {
+        if (e.keyCode == 13) {
+            if (!ValidarFecha($("#InputFechaFin").data("kendoDatePicker").value())) {
+                $("#InputFechaFin").data("kendoDatePicker").value("");
+            }
+        }
+
+        if (e.keyCode == 9) {
+            if (!ValidarFecha($("#InputFechaFin").data("kendoDatePicker").value())) {
+                $("#InputFechaFin").data("kendoDatePicker").value("");
+            }
+        }
+    });
+
+    $("#InputFechaFin").blur(function (e) {
+        if (!ValidarFecha($("#InputFechaFin").data("kendoDatePicker").value())) {
+            $("#InputFechaFin").data("kendoDatePicker").value("");
+        }
+    });
+}
+
+function SuscribirEventoButtonMenu() {
+    $(".tbmenuEmb").click(function () {
+        var activar = "#"+$(this).attr("data-bind");
+        $("#tabButtonMenuEmbarque").hide();
+        $("#tabGrid").show();
+        $(activar).trigger("click");
+    });
+}
+
+function SuscribirEventoTabMenu() {
+    $("#divTabEmbarque .tabListEmb").click(function (e) {
+        var idButton = $(this).attr("id");
+        $(".btn-tabList").removeClass("active");
+
+        $("#grid").data("kendoGrid").dataSource.data([]);
+        $("#gridCarga").data("kendoGrid").dataSource.data([]);
+
+        switch (idButton) {
+            case "btnPorCargar":
+                $("#" + idButton).addClass("active");
+                $("#grid").hide();
+                $("#gridCarga").show();
+                break;
+            case "btnPorEmbarcar":
+                $("#" + idButton).addClass("active");
+                $("#gridCarga").hide();
+                $("#grid").data("kendoGrid").hideColumn("Embarque");
+                $("#grid").show();
+                break;
+            case "btnPorEnviar":
+                $("#" + idButton).addClass("active");
+                $("#gridCarga").hide();
+                $("#grid").data("kendoGrid").showColumn("Embarque");
+                $("#grid").show();
+                break;
+            case "btnPorCargar":
+                $("#" + idButton).addClass("active");
+                $("#gridCarga").hide();
+                $("#grid").data("kendoGrid").showColumn("Embarque");
+                $("#grid").show();
+                break;
+            case "btnPorValidar":
+                $("#" + idButton).addClass("active");
+                $("#gridCarga").hide();
+                $("#grid").data("kendoGrid").showColumn("Embarque");
+                $("#grid").show();
+                break;
+            default:
+                $("#btnPorCargar").addClass("active");
+                $("#gridCarga").hide();
+                $("#grid").data("kendoGrid").hideColumn("Plana");
+                $("#grid").data("kendoGrid").showColumn("Embarque");
+                $("#grid").show();
+                break;
+        }
+    });
+}
 
 function AccionesListado(idButton) {
     switch (idButton) {
@@ -102,7 +225,6 @@ function AccionesListado(idButton) {
     }
 }
 
-changeLabelNumElementos();
 function changeLabelNumElementos() {
     $('input:radio[name=Muestra]:nth(0)').change(function () {
         $('#PorCarcar').text('2');

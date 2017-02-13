@@ -6,10 +6,10 @@ function IniciarCapturaEmbarqueCarga() {
 
 function changeLanguageCall() {
     CargarGrid();
-    //opcionHabilitarView(true, "FieldSetView");
     document.title = _dictionary.EmbarqueRevisionTituloPagina[$("#language").data("kendoDropDownList").value()];
     AjaxCargarProyecto();
     AjaxCargarCamposPredeterminados();
+    opcionHabilitarView(false, "")
 };
 
 function CargarGrid() {

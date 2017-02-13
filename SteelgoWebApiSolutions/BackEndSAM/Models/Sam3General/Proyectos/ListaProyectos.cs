@@ -48,4 +48,20 @@ namespace BackEndSAM.Models.Sam3General
         }
     }
 
+    public class DetalleProyectoIngeneria
+    {
+        public DetalleProyectoIngeneria()
+        {
+            ProyectoID = 0;
+            Nombre = "";
+            ProyectoSpoolID = 0;
+            ProyectoSoporteID = 0;
+        }
+
+        public int ProyectoID { get; set; }
+        public string Nombre { get; set; }
+        public int ProyectoSpoolID { get; set; }
+        public int ProyectoSoporteID { get; set; }
+    }
+
 }
