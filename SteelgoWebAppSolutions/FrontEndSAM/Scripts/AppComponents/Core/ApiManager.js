@@ -177,7 +177,7 @@ var $Zona = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Patios = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Periodo = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Cedula = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
-var $FamiliaAcero = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Acero = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $TipoJunta = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 
 //Fabricación
@@ -369,7 +369,7 @@ $Zona.add('Zona');
 $Patios.add('Patios');
 $Periodo.add('Periodo');
 $Cedula.add('Cedula');
-$FamiliaAcero.add('FamiliaAcero');
+$Acero.add('FamiliaAcero');
 $TipoJunta.add('TipoJunta');
 
 //Fabricación
