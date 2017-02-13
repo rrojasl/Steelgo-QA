@@ -31,7 +31,7 @@ function AjaxCargarCamposPredeterminados() {
 
 function AjaxCargarProyecto() {
     loadingStart();
-    $Proyectos.Proyectos.read({ token: Cookies.get("token") }).done(function (data) {
+    $RevisionEmbarque.RevisionEmbarque.read({ token: Cookies.get("token") }).done(function (data) {
         if (Error(data)) {
             $("#Proyecto").data("kendoComboBox").dataSource.data([]);
             var proyectoId = 0;

@@ -30,7 +30,40 @@ namespace BackEndSAM.DataAcces.Embarque.RevisionEmbarque
             }
         }
 
-        public object ObtenerListoPaquete(int ProyectoID)
+        public object ObtenerListadoProyecto(int UsuarioID)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Sam3_Embarque_RE_Get_ListaProyectos_Result> result = ctx.Sam3_Embarque_RE_Get_ListaProyectos(UsuarioID).ToList();
+                    List<DetalleProyecto> listaDetalle = new List<DetalleProyecto>();
+                    listaDetalle.Add(new DetalleProyecto());
+
+                    foreach (Sam3_Embarque_RE_Get_ListaProyectos_Result item in result)
+                    {
+                        listaDetalle.Add(new DetalleProyecto
+                        {
+                            ProyectoID = item.ProyectoID,
+                            Nombre = item.Nombre
+                        });
+                    }
+                    return listaDetalle;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object ObtenerListadoPaquete(int ProyectoID)
         {
             try
             {

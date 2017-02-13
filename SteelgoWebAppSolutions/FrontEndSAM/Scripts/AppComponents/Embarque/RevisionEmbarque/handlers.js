@@ -1,10 +1,12 @@
 ﻿var ProyectoInicial = 0;
 var EmbarqueInicial = 0;
 var windowDownloadSpool;
+
 function SuscribirEventos() {
     SuscribirEventoProyecto();
     SuscribirEventoEmbarque();
     SuscribirEventoBuscar();
+    SuscribirEventoCerrar();
     SuscribirEventoChangeRadioTipoListado();
     SuscribirEventoSpoolID();
     SuscribirEventoPaquete();
@@ -405,6 +407,20 @@ function SuscribirEventoBuscar() {
             });
         }
         
+    });
+}
+
+function SuscribirEventoCerrar() {
+    $("#InputCerrar").change(function (e) {
+        var ds = $("#grid").data("kendoGrid").dataSource._data;
+        if (ds.length > 0) {
+            if ($(this).is(":checked")) {
+
+            }
+        } else {
+            $(this)[0].checked = false;
+        }
+
     });
 }
 
