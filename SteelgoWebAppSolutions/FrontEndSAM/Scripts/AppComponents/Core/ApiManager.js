@@ -222,6 +222,9 @@ var $PreparacionEmbarque = new $.RestClient($BackEndSAMUri + '/backendsam/api/')
 var $RevisionEmbarque = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $ListadoEmbarque = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 
+//Ingeneria
+var $BuscaSpool = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+
 
 //#region Declaracion
 //#region Catalogos
@@ -400,6 +403,9 @@ $Empaquetado.add('Empaquetado');
 $PreparacionEmbarque.add('PreparacionEmbarque');
 $RevisionEmbarque.add('RevisionEmbarque');
 $ListadoEmbarque.add('ListadoEmbarque');
+
+//Ingeneria
+$BuscaSpool.add('BuscaSpool');
 
 //Soldadura
 $PQR.add("PQR");
