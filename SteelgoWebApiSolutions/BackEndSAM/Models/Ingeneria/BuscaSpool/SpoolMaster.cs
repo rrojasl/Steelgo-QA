@@ -28,14 +28,9 @@ namespace BackEndSAM.Models.Ingeneria.BuscaSpool
 
     public class DetalleSalida
     {
-        public List<DetalleSalidaAgrupado> SalidasEstandar { get; set; }
-        public List<DetalleSalidaAgrupado> SalidasJuntasCerradas { get; set; }
-    }
-
-    public class DetalleSalidaAgrupado
-    {
         public int UsuarioID { get; set; }
         public string NombreLoop { get; set; }
+        public int SpoolID { get; set; }
         public int PosicionSalida { get; set; }
         public string ClaveSalida { get; set; }
         public int RevisionCliente { get; set; }
@@ -45,6 +40,14 @@ namespace BackEndSAM.Models.Ingeneria.BuscaSpool
         public string ColorPinturaID { get; set; }
         public string ColorPintura { get; set; }
 
+
+        public List<DetalleSalidaAgrupado> SalidasEstandar { get; set; }
+        public List<DetalleSalidaAgrupado> SalidasJuntasCerradas { get; set; }
+    }
+
+    public class DetalleSalidaAgrupado
+    {
+        
         public int TipoSalidaID { get; set; }
         public string TipoSalida { get; set; }
         public List<DetalleTipoSalida> TipoSalidaLista { get; set; }
