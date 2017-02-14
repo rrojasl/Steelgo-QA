@@ -22,10 +22,17 @@ namespace BackEndSAM.Models.Ingeneria.BuscaSpool
         public double PDI { get; set; }
         public string SistemaPintura { get; set; }
         public string ColorPintura { get; set; }
+
         public List<DetalleSalida> DetalleSalidas { get; set; }
     }
 
     public class DetalleSalida
+    {
+        public List<DetalleSalidaAgrupado> SalidasEstandar { get; set; }
+        public List<DetalleSalidaAgrupado> SalidasJuntasCerradas { get; set; }
+    }
+
+    public class DetalleSalidaAgrupado
     {
         public int UsuarioID { get; set; }
         public string NombreLoop { get; set; }
