@@ -31,8 +31,7 @@ namespace BackEndSAM.Models.Ingeneria.BuscaSpool
         public int UsuarioID { get; set; }
         public string NombreLoop { get; set; }
         public int SpoolID { get; set; }
-        public int PosicionSalida { get; set; }
-        public string ClaveSalida { get; set; }
+        public int Posicion { get; set; }
         public int RevisionCliente { get; set; }
         public string RevisionSteelgo { get; set; }
         public string SistemaPinturaID { get; set; }
@@ -47,7 +46,9 @@ namespace BackEndSAM.Models.Ingeneria.BuscaSpool
 
     public class DetalleSalidaAgrupado
     {
-        
+        public int PosicionSalida { get; set; }
+        public string ClaveSalida { get; set; }
+
         public int TipoSalidaID { get; set; }
         public string TipoSalida { get; set; }
         public List<DetalleTipoSalida> TipoSalidaLista { get; set; }
