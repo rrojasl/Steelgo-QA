@@ -8,9 +8,8 @@ namespace BackEndSAM.Models.Ingeneria.BuscaSpool
 {
     public class SpoolMaster
     {
-        public int UsuarioID { get; set; }
         public int ProyectoID { get; set; }
-        public int ProyectoNombre { get; set; }
+        public string ProyectoNombre { get; set; }
         public string NombreLoop { get; set; }
         public string Dibujo { get; set; }
         public string PND { get; set; }
@@ -28,7 +27,6 @@ namespace BackEndSAM.Models.Ingeneria.BuscaSpool
 
     public class DetalleSalida
     {
-        public int UsuarioID { get; set; }
         public string NombreLoop { get; set; }
         public int SpoolID { get; set; }
         public int Posicion { get; set; }

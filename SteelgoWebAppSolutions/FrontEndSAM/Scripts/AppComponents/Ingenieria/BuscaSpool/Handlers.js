@@ -1,5 +1,86 @@
 ﻿var previousCurrentItem;
 
+var currentSpoolMaster = null;
+
+function initSpoolMaster() {
+    currentSpoolMaster = {
+        UsuarioID: 0,
+        ProyectoID: 0,
+        ProyectoNombre: '',
+        NombreLoop: '',
+        Dibujo: '',
+        PND: '',
+        RequierePWHT: false,
+        RevisionCliente: 0,
+        RevisionSteelgo: '',
+        Acero: '',
+        Especificacion: '',
+        PDI: 0.0,
+        SistemaPintura: '',
+        ColorPintura: '',
+
+        DetalleSalidas: [] 
+    };
+}
+
+function addNewDetalleSalida(spoolID) {
+    currentSpoolMaster.DetalleSalidas[currentSpoolMaster.DetalleSalidas.length] = {
+        NombreLoop: currentSpoolMaster.NombreLoop,
+        SpoolID: spoolID,
+        Posicion: 0,
+        RevisionCliente: 0,
+        RevisionSteelgo: '',
+        SistemaPinturaID: '',
+        SistemaPintura: '',
+        ColorPinturaID: '',
+        ColorPintura: '',
+
+        SalidasEstandar: [],
+        SalidasJuntasCerradas: []
+    };
+
+    //addNewDetalleSalida(spoolID);
+}
+
+function addNewDetalleSalidaAgrupado(spoolID, salidasEstandar, salidasJuntasCerradas) {
+    for (var i = 0; i < currentSpoolMaster.DetalleSalidas.length; i++) {
+        if (currentSpoolMaster.DetalleSalidas[i].SpoolID == spoolID) {
+            for (var j = 0; j < salidasEstandar; j++) {
+                currentSpoolMaster.DetalleSalidas[i].SalidasEstandar[j] = {
+                    PosicionSalida: i,
+                    ClaveSalida: 'S',
+                    TipoSalidaID: 0,
+                    TipoSalida: '',
+                    TipoSalidaLista: [],
+                    DetalleMaterialSpoolID: 0,
+                    DetalleMaterialSpool: '',
+                    DetalleMaterialSpoolLista: [],
+                    SpoolItemCodeID: 0,
+                    SpoolItemCode: '',
+                    SpoolItemCodeLista: [],
+                    ItemCodeSelect: '',
+                    DetalleJuntaSpoolID: 0,
+                    DetalleJuntaSpool: '',
+                    DetalleJuntaSpoolLista: [],
+                    Nivel: 0,
+                    PosicionSalidaPadre: 0,
+                    ClaveSalidaPadre: '',
+                    TipoCorte1ID: 0,
+                    TipoCorte1: '',
+                    TipoCorte1Lista: [],
+                    TipoCorte2ID: 0,
+                    TipoCorte2: '',
+                    TipoCorte2Lista: [],
+                    Cantidad: 0.0
+
+                };
+            }
+            break;
+        }
+    }
+}
+
+
 function SuscribirEventos() {
     suscribirEventoGuardar();
     //suscribirEventoCancelar();
