@@ -168,14 +168,14 @@ namespace BackEndSAM.DataAcces.Pintura.ListadoSistemaPintura
             }
         }
 
-        public object EliminaSistemaPintura(int SistemaPinturaID, int UsuarioID)
+        public object EliminaSistemaPintura(int SistemaPinturaID, int UsuarioID, int ProyectoID)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
                     ObjetosSQL _SQL = new ObjetosSQL();
-                    ObjectResult<int?> resultSp = ctx.Sam3_SP_EliminaSistemaPintura(SistemaPinturaID, UsuarioID);
+                    ObjectResult<int?> resultSp = ctx.Sam3_SP_EliminaSistemaPintura(SistemaPinturaID, UsuarioID, ProyectoID);
                     var valor = resultSp.Where(x => x.HasValue).Select(x => x.Value).ToList()[0];
                     
 
