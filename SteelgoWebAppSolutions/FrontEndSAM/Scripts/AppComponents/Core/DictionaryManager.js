@@ -9675,6 +9675,11 @@ _dictionary = {
        "es-MX": "los campos marcados con un asterisco (*) son obligatorios",
        "en-US": "Fields marked with an asterisk ( *) are required"
    },
+    "MensajeCamposIncorrectorEnRojo":
+  {
+      "es-MX": "los campos marcados  son obligatorios",
+      "en-US": "Fields marked are required"
+  },
     "SoldadorCertificacionBreadcrumb": {
         "es-MX": "Soldador Certificación",
         "en-US": "Certification Welder"
