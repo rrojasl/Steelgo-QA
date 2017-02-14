@@ -683,8 +683,12 @@ function opcionHabilitarView(disable) {
 function LimpiaTipoBusqueda() {
     $("#inputSpool").val("");
     $("#inputNc").val("");
+    $("#inputSistemaPintura").data("kendoComboBox").dataSource.data([]);
     $("#inputSistemaPintura").data("kendoComboBox").value("");
+    $("#inputColorPintura").data("kendoComboBox").dataSource.data([]);
     $("#inputColorPintura").data("kendoComboBox").value("");
+    $("#inputProyecto").data("kendoComboBox").select(0);
+    
     $("#grid").data("kendoGrid").dataSource.data([]);
 }
 
@@ -696,6 +700,8 @@ function LimpiaCargaProyecto() {
     $("#inputSistemaPintura").data("kendoComboBox").value("");
     $("#inputColorPintura").data("kendoComboBox").dataSource.data([]);
     $("#inputColorPintura").data("kendoComboBox").value("");
+  
+    
     $("#grid").data("kendoGrid").dataSource.data([]);
 }
 
