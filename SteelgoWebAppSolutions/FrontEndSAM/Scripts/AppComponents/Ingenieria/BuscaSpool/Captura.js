@@ -12,7 +12,7 @@ function changeLanguageCall() {
 
 function inicio() {
     SuscribirEventos();
-    //AjaxProyecto();
+    AjaxProyecto();
     //AjaxFuente();
     //AjaxTurno();
 }

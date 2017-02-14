@@ -460,9 +460,9 @@ function SuscribirEventoComboPrueba() {
         format: "###"
     });
 
-    $('inputPrueba[type=text]').blur(function () {
-        alert('xD');
-    });
+    //$('inputPrueba[type=text]').blur(function () {
+    //    alert('xD');
+    //});
 
     $("#context-menu").kendoContextMenu({
         dataSource:
@@ -646,7 +646,7 @@ function SuscribirEventoComboPrueba() {
     });
 
     $('#inputProyecto').kendoComboBox({
-        dataTextField: "Proyecto",
+        dataTextField: "Nombre",
         dataValueField: "ProyectoID",
         suggest: true,
         filter: "contains",
@@ -654,6 +654,11 @@ function SuscribirEventoComboPrueba() {
         change: function (e) {
 
         }
+    });
+
+    
+    $('inputNombreLoop[type=text]').blur(function () {
+        alert('Busca');
     });
 
     $('#inputRevisionCliente').kendoComboBox({

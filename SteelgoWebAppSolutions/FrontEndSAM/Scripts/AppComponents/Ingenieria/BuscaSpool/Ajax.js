@@ -3,18 +3,18 @@
 
     loadingStart();
     //console.log($CapturaReporteRT);
-    $ReporteRT.ReporteRT.read({ token: Cookies.get("token") }).done(function (data) {
-        //$Almacenaje.Almacenaje.read({ token: Cookies.get("token") }).done(function (data) {
+    //$BuscaSpool.BuscaSpool.read({ token: Cookies.get("token") }).done(function (data) {
+    $Proyectos.Proyectos.read({ token: Cookies.get("token") }).done(function (data) {
         if (Error(data)) {
 
             /*var data = [{ ProyectoID: 1, Nombre: 'Proyecto 1' }, { ProyectoID: 2, Nombre: 'Proyecto 2' }];*/
             $("#inputProyecto").data("kendoComboBox").value("");
             $("#inputProyecto").data("kendoComboBox").dataSource.data(data);
-            if (data.length == 2) {
-                $("#inputProyecto").data("kendoComboBox").select(1);
-                AjaxProveedor(data[1].ProyectoID, data[1].PatioID)
-                AjaxPruebas(data[1].ProyectoID);
-            }
+            //if (data.length == 2) {
+            //    $("#inputProyecto").data("kendoComboBox").select(1);
+            //    AjaxProveedor(data[1].ProyectoID, data[1].PatioID)
+            //    AjaxPruebas(data[1].ProyectoID);
+            //}
             //else
             //    ajaxResultadosDetalle($("#inputProyecto").data("kendoComboBox").value(), $("#inputProveedor").data("kendoComboBox").value(), $("#inputRequisicion").data("kendoComboBox").value());
         }
