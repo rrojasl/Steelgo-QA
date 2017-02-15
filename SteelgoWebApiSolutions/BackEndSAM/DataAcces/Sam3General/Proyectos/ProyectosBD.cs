@@ -84,7 +84,7 @@ namespace BackEndSAM.DataAcces.Sam3General.Proyectos
                             ProyectoSoporteID = item.ProyectoSoporteID
                         });
                     }
-                    return null;
+                    return listaDetalle;
                 }
             }
             catch (Exception ex)
