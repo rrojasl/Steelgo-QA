@@ -75,6 +75,37 @@ function addNewDetalleSalidaAgrupado(spoolID, salidasEstandar, salidasJuntasCerr
 
                 };
             }
+
+            for (var j = 0; j < salidasJuntasCerradas; j++) {
+                currentSpoolMaster.DetalleSalidas[i].SalidasJuntasCerradas[j] = {
+                    PosicionSalida: i,
+                    ClaveSalida: 'JC',
+                    TipoSalidaID: 0,
+                    TipoSalida: '',
+                    TipoSalidaLista: [],
+                    DetalleMaterialSpoolID: 0,
+                    DetalleMaterialSpool: '',
+                    DetalleMaterialSpoolLista: [],
+                    SpoolItemCodeID: 0,
+                    SpoolItemCode: '',
+                    SpoolItemCodeLista: [],
+                    ItemCodeSelect: '',
+                    DetalleJuntaSpoolID: 0,
+                    DetalleJuntaSpool: '',
+                    DetalleJuntaSpoolLista: [],
+                    Nivel: 0,
+                    PosicionSalidaPadre: 0,
+                    ClaveSalidaPadre: '',
+                    TipoCorte1ID: 0,
+                    TipoCorte1: '',
+                    TipoCorte1Lista: [],
+                    TipoCorte2ID: 0,
+                    TipoCorte2: '',
+                    TipoCorte2Lista: [],
+                    Cantidad: 0.0
+
+                };
+            }
             break;
         }
     }
@@ -96,6 +127,91 @@ function SuscribirEventos() {
     //suscribirEventoDetallePlaca();
     //suscribirEventoDetalleDefectoPorPlaca();
     //suscribirUsuarioVR();
+}
+
+function buscaLoop() {
+    //AJAX
+    var loopHTML = '';
+    initSpoolMaster();
+    addNewDetalleSalida(0);//Primer Item
+
+    loopHTML += '<div id="content_0">';
+    loopHTML += '<div class="row">';
+    loopHTML += '<div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 altoControl" >';
+    loopHTML += '<label>Spool</label>';
+    loopHTML += '<input id="spool_0" class="item-select general-input" />';
+    loopHTML += '</div>';
+    loopHTML += '<div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 altoControl" id="divPrueba">';
+    loopHTML += '<label>Cuantas Salidas</label>';
+    loopHTML += '<input style="width:47%" id="inputSalidas_0" />';
+    loopHTML += '</div>';
+    loopHTML += '<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 altoControl" id="divPrueba">';
+    loopHTML += '<label>Cuantas juntas cerradas</label>';
+    loopHTML += '<input style="width:30%" id="inputJuntasCerradas_0" />';
+    loopHTML += '</div>';
+    loopHTML += '<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">';
+    loopHTML += '<label>-</label>';
+    loopHTML += '<button type="button" id="btnAgregar_0" class="btn btn-blue"  onclick="eventBuscar(0);">Agregar</button>';
+    loopHTML += '</div>';
+    loopHTML += '</div>';
+
+    loopHTML += '<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">';
+    loopHTML += '<div id="ContenedorGrid" class="row">';
+    loopHTML += '<div id="grid_0" data-role="grid" class="k-grid k-widget">';
+    loopHTML += '</div>';
+    loopHTML += '</div>';
+    loopHTML += '</div>';
+
+    loopHTML += '<div class="row">';
+    loopHTML += '<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">';
+    loopHTML += '<label>&nbsp;</label>';
+    loopHTML += '</div>';
+    loopHTML += '</div>';
+
+    loopHTML += '';
+    loopHTML += '';
+    loopHTML += '</div>';
+
+    if ($('#content_0').length > 0)
+        $("#content_0").remove();
+
+    $("#contenedor_master").append(loopHTML);
+
+    $('#inputSalidas_0').kendoNumericTextBox({
+        format: "###"
+    });
+
+    $('#inputJuntasCerradas_0').kendoNumericTextBox({
+        format: "###"
+    });
+
+    CargarGridDynamic(0);
+}
+
+function eventBuscar(posicion) {
+    if (posicion == 0) {
+        //Falta Ajax
+
+        var salidas = $("#inputSalidas_" + posicion).data("kendoNumericTextBox").value();
+        var salidasJuntasCerradas = $("#inputJuntasCerradas_" + posicion).data("kendoNumericTextBox").value();
+
+        addNewDetalleSalidaAgrupado(0, salidas, salidasJuntasCerradas);
+
+        $("#grid_" + posicion).data('kendoGrid').dataSource.data([]);
+        var ds = $("#grid_" + posicion).data("kendoGrid").dataSource;
+
+            
+        for (var i = 0; i < currentSpoolMaster.DetalleSalidas[0].SalidasEstandar.length; i++) {
+            ds.add(currentSpoolMaster.DetalleSalidas[0].SalidasEstandar[i]);
+        }
+
+        for (var i = 0; i < currentSpoolMaster.DetalleSalidas[0].SalidasJuntasCerradas.length; i++) {
+            ds.add(currentSpoolMaster.DetalleSalidas[0].SalidasJuntasCerradas[i]);
+        }
+    }
+    else {
+
+    }
 }
 
 function nombreLoop() {

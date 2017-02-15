@@ -1,7 +1,7 @@
 ﻿var modeloRenglon;
 
 function changeLanguageCall() {
-    CargarGrid();
+    //CargarGrid();
     //CargarGridPopUpDetallePorPlaca();
     //CargarGridPopUpDetallePorPlacaPorDefectos();
     inicio();
@@ -55,6 +55,110 @@ function validarReglasDeLlenado() {
     return true;
 }
 
+function CargarGridDynamic(posicion) {
+    kendo.ui.Grid.fn.editCell = (function (editCell) {
+        return function (cell) {
+            cell = $(cell);
+
+            var that = this,
+                column = that.columns[that.cellIndex(cell)],
+                model = that._modelForContainer(cell),
+                event = {
+                    container: cell,
+                    model: model,
+                    preventDefault: function () {
+                        this.isDefaultPrevented = true;
+                    }
+                };
+
+            if (model && typeof this.options.beforeEdit === "function") {
+                this.options.beforeEdit.call(this, event);
+                if (event.isDefaultPrevented) return;
+            }
+
+            editCell.call(this, cell);
+        };
+    })(kendo.ui.Grid.fn.editCell);
+
+    $("#grid_" + posicion).kendoGrid({
+        dataSource: {
+            data: [],
+            schema: {
+                model: {
+                    fields: {
+                        ClaveSalida: { type: "string", editable: false },
+                        TipoSalida: { type: "number", editable: true },
+                        DetalleMaterialSpoolID: { type: "number", editable: true },
+                        DetalleMaterialSpool: { type: "string", editable: false },
+                        SpoolItemCode: { type: "number", editable: true },
+                        ItemCodeSelect: { type: "number", editable: true },
+                        DetalleJuntaSpool: { type: "string", editable: false },
+                        Cedula: { type: "string", editable: false },
+                        Nivel: { type: "string", editable: false },
+                        ClaveSalidaPadre: { type: "string", editable: false },
+                        Diametro: { type: "string", editable: false },
+                        TipoCorte1: { type: "number", editable: true },
+                        TipoCorte2: { type: "number", editable: true },
+                        Cantidad: { type: "number", editable: true }
+                    }
+                }
+            },
+        },
+        edit: function (e) {
+            if ($('#Guardar').text() == _dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]) {
+                this.closeCell();
+
+            };
+        },
+        selectable: true,
+        //pageable: {
+        //    refresh: false,
+        //    pageSizes: [10, 25, 50, 100],
+        //    info: false,
+        //    input: false,
+        //    numeric: true,
+        //},
+        filterable: getGridFilterableMaftec(),
+        columns: [
+            { field: "ClaveSalida", title: 'Numero de Salida', filterable: getGridFilterableCellMaftec(), filterable: false, width: "70px", attributes: { style: "text-align:right;" }, template: "<div class='EnlacePorPlaca' style='text-align:center;' contextmenu='showMenuContext();'  onmouseover='numeroSalidaSelect = \"#=ClaveSalida#\";'><span>#=ClaveSalida#</span></div> " },
+            { field: "TipoSalida", title: 'Tipo de Salida', filterable: getGridFilterableCellMaftec(), filterable: false, width: "130px", editor: RenderTipoSalida, attributes: { style: "text-align:right;" } },
+            { field: "DetalleMaterialSpoolID", title: 'Etiqueta', filterable: getGridFilterableCellMaftec(), filterable: false, width: "100px", attributes: { style: "text-align:right;" }, editor: RenderMateriales, template: "<div class='EnlacePorPlaca' style='text-align:center;'><a href='\\#'  > <span>#=DetalleMaterialSpoolID#</span></a></div> " },
+            { field: "DetalleMaterialSpool", title: 'Material', filterable: getGridFilterableCellMaftec(), filterable: false, width: "100px", attributes: { style: "text-align:right;" }, editor: RenderMateriales/*, template: "<div class='EnlacePorPlaca' style='text-align:center;'><a href='\\#'  > <span>#=Material#</span></a></div> "*/ },
+            { field: "SpoolItemCode", title: 'Spool-IC', filterable: getGridFilterableCellMaftec(), filterable: false, width: "130px", editor: RenderSpool_IC, attributes: { style: "text-align:right;" } },
+            { field: "ItemCodeSelect", title: 'Juntas', filterable: getGridFilterableCellMaftec(), filterable: false, width: "90px", editor: RenderJunta, attributes: { style: "text-align:right;" } },
+            { field: "DetalleJuntaSpool", title: 'TipoJunta', filterable: getGridFilterableCellMaftec(), filterable: false, width: "100px", attributes: { style: "text-align:right;" } },
+            { field: "Cedula", title: 'Cedula', filterable: getGridFilterableCellMaftec(), filterable: false, width: "100px", attributes: { style: "text-align:right;" } },
+            { field: "Nivel", title: 'Acero', filterable: getGridFilterableCellNumberMaftec(), filterable: false, width: "80px", attributes: { style: "text-align:right;" } },
+            { field: "ClaveSalidaPadre", title: 'Acero', filterable: getGridFilterableCellNumberMaftec(), filterable: false, width: "80px", attributes: { style: "text-align:right;" } },
+            { field: "Diametro", title: 'Diametro', filterable: getGridFilterableCellNumberMaftec(), filterable: false, width: "100px", attributes: { style: "text-align:right;" } },
+            { field: "TipoCorte1", title: 'Tipo Corte 1', filterable: getGridFilterableCellNumberMaftec(), filterable: false, width: "100px", attributes: { style: "text-align:right;" }, hidden: true, editor: RenderTipoCorte1 },
+            { field: "TipoCorte2", title: 'Tipo Corte 2', filterable: getGridFilterableCellNumberMaftec(), filterable: false, width: "100px", attributes: { style: "text-align:right;" }, hidden: true, editor: RenderTipoCorte2 },
+            { field: "Cantidad", title: 'Cantidad', filterable: getGridFilterableCellNumberMaftec(), filterable: false, width: "100px", attributes: { style: "text-align:right;" }, hidden: true },
+        ],
+        beforeEdit: function (e) {
+            var columnIndex = this.cellIndex(e.container);
+            var fieldName = this.thead.find("th").eq(columnIndex).data("field");
+            if (!isEditable(fieldName, e.model)) {
+                e.preventDefault();
+            }
+        },
+
+        editable: true,
+        navigatable: true,
+        dataBound: function (a) {
+            var that = this;
+
+            //$(that.tbody).on("contextmenu", "tr", function (e) {
+
+            //    alert('xD');
+
+
+            //});
+
+        }
+    });
+    CustomisaGrid($("#grid_" + posicion));
+}
 
 function CargarGrid() {
     
