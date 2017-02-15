@@ -66,7 +66,7 @@ namespace BackEndSAM.Controllers.Pintura.ListadoSistemaPintura
         }
 
         [HttpGet]
-        public object EliminaSistemaPintura(string token, int SistemaPinturaID)
+        public object EliminaSistemaPintura(string token, int SistemaPinturaID, int ProyectoID)
         {
             string payload = "";
             string newToken = "";
@@ -75,7 +75,7 @@ namespace BackEndSAM.Controllers.Pintura.ListadoSistemaPintura
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return ListadoSistemaPinturaBD.Instance.EliminaSistemaPintura(SistemaPinturaID, usuario.UsuarioID);
+                return ListadoSistemaPinturaBD.Instance.EliminaSistemaPintura(SistemaPinturaID, usuario.UsuarioID, ProyectoID);
             }
             else
             {

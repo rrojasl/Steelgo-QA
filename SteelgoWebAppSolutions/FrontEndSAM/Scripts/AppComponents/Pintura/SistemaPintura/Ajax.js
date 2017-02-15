@@ -227,6 +227,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
         var i = 0;
         for (var k = 0; k < ListaProyectos.length; k++) {
             for (index = 0; index < arregloCaptura.length; index++) {
+                arregloCaptura[index].RowOk = true;
                 if (arregloCaptura[index].Agregar) {
                     ListaDetalles[i] = { Accion: "", ProcesoPinturaID: "", MetrosLote: "", NumeroPruebas: "", ProyectoID: "", ListadoPruebas: [], Estatus: 1, NumeroComponentes: "", ReductorID: "", ListaDetalleComponentesAgregados: [] };
 
@@ -282,7 +283,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
         if (NoPintable == 0 && ListaDetalles.length == 0)
             displayNotify("SistemaPinturaMensajeErrorRequiereProceso", "", 1);
         else
-            if (!ExistRowEmpty(ListaDetalles)) {
+            if (!ExistRowErrors(arregloCaptura)) {
                 loadingStart();
                 $SistemaPintura.SistemaPintura.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val(), asignadoSPASpool: asignadoSpool }).done(function (data) {
                     if (Error(data)) {

@@ -156,7 +156,6 @@ function CargarGrid() {
 
 function eliminarCaptura(e) {
     e.preventDefault();
-    e.preventDefault();
     var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
 
     ventanaConfirm = $("#ventanaConfirm").kendoWindow({
@@ -182,7 +181,7 @@ function eliminarCaptura(e) {
 
     $("#yesButton").click(function () {
         if (!dataItem.AsignadoSpool) {
-            AjaxEliminaSistemaPintura(dataItem.SistemaPinturaID);
+            AjaxEliminaSistemaPintura(dataItem.SistemaPinturaID,dataItem.ProyectoID);
 
         } else {
             displayNotify("SistemaPinturaErrorEliminado", "", '2');

@@ -426,43 +426,43 @@ function SuscribirEventoGuardarDetalleComponentes() {
             }
         }
         else {
-            loadingStop();
+            //loadingStop();
             $("#gridPopUpComponentesAgregados").data("kendoGrid").dataSource.sync();
-            ventanaConfirm = $("#ventanaConfirm").kendoWindow({
-                iframe: true,
-                title: _dictionary.TituloPopUpError[$("#language").data("kendoDropDownList").value()],
-                visible: false, //the window will not appear before its .open method is called
-                width: "auto",
-                height: "auto",
-                modal: true,
-                animation: {
-                    close: false,
-                    open: false
-                },
-                actions: []
-            }).data("kendoWindow");
+            //ventanaConfirm = $("#ventanaConfirm").kendoWindow({
+            //    iframe: true,
+            //    title: _dictionary.TituloPopUpError[$("#language").data("kendoDropDownList").value()],
+            //    visible: false, //the window will not appear before its .open method is called
+            //    width: "auto",
+            //    height: "auto",
+            //    modal: true,
+            //    animation: {
+            //        close: false,
+            //        open: false
+            //    },
+            //    actions: []
+            //}).data("kendoWindow");
 
-            ventanaConfirm.content(_dictionary.MensajeConfirmacionGuardadoGeneral[$("#language").data("kendoDropDownList").value()] +
-                "</br><center><button class='btn btn-blue' id='yesButton'>" + _dictionary.lblSi[$("#language").data("kendoDropDownList").value()] + "</button><button class='btn btn-blue' id='noButton'>" + _dictionary.lblNo[$("#language").data("kendoDropDownList").value()] + "</button></center>");
+            //ventanaConfirm.content(_dictionary.MensajeConfirmacionGuardadoGeneral[$("#language").data("kendoDropDownList").value()] +
+            //    "</br><center><button class='btn btn-blue' id='yesButton'>" + _dictionary.lblSi[$("#language").data("kendoDropDownList").value()] + "</button><button class='btn btn-blue' id='noButton'>" + _dictionary.lblNo[$("#language").data("kendoDropDownList").value()] + "</button></center>");
 
-            ventanaConfirm.open().center();
+            //ventanaConfirm.open().center();
 
-            $("#yesButton").click(function () {
-                loadingStart();
+            //$("#yesButton").click(function () {
+            //    loadingStart();
 
-                ArregloGuardado = [];
-                var ds = $("#gridPopUpComponentesAgregados").data("kendoGrid").dataSource;
+            //    ArregloGuardado = [];
+            //    var ds = $("#gridPopUpComponentesAgregados").data("kendoGrid").dataSource;
 
-                SincronizarOrigen(ds._data);
-                loadingStop();
-                ventanaConfirm.close();
-                $("#windowGridComponenteAgregado").data("kendoWindow").close();
-            });
+            //    SincronizarOrigen(ds._data);
+            //    loadingStop();
+            //    ventanaConfirm.close();
+            //    $("#windowGridComponenteAgregado").data("kendoWindow").close();
+            //});
 
-            $("#noButton").click(function () {
-                ventanaConfirm.close();
-            });
-
+            //$("#noButton").click(function () {
+            //    ventanaConfirm.close();
+            //});
+            displayNotify("MensajeCamposIncorrectorEnRojo", "", '2');
         }
     });
 }
