@@ -6,19 +6,21 @@ var dataItem;
 
 function RenderTipoSalida(container, options) {
     
-    $('<input required data-text-field="Titulo" id=' + options.model.uid + ' data-value-field="SalidaID" data-bind="value:' + options.field + '"/>')
+    $('<input required data-text-field="Nombre" id=' + options.model.uid + ' data-value-field="TipoSalidaID" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoComboBox({
             autoBind: false,
-            dataSource: options.model.TipoSalida,
-            dataTextField: "Titulo",
-            dataValueField: "SalidaID",
+            dataSource: options.model.TipoSalidaLista,
+            dataTextField: "Nombre",
+            dataValueField: "TipoSalidaID",
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
 
-                options.model.TipoSalidaSelect = dataItem.Titulo;
-                //options.model.SalidaID = dataItem.SalidaID;
-                //options.model.Titulo = dataItem.Titulo;
+                options.model.TipoSalidaID = dataItem.TipoSalidaID;
+                options.model.TipoSalida = dataItem.Nombre;
+
+                ////options.model.TipoSalidaID = dataItem.SalidaID;
+                ////options.model.TipoSalida = dataItem.Titulo;
 
 
             }
@@ -72,69 +74,79 @@ function RenderTipoCorte2(container, options) {
 
 function RenderJunta(container, options) {
     var dataItem;
-    $('<input required data-text-field="Junta" id=' + options.model.uid + ' data-value-field="JuntaID" data-bind="value:' + options.field + '"/>')
+    $('<input required data-text-field="Etiqueta" id=' + options.model.uid + ' data-value-field="JuntaSpoolID" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoComboBox({
             autoBind: false,
-            dataTextField: "Junta",
-            dataValueField: "JuntaID",
-            dataSource: options.model.Juntas,
-            template: "<i class=\"fa fa-#=data.Junta#\"></i> #=data.Junta#",
+            dataTextField: "Etiqueta",
+            dataValueField: "JuntaSpoolID",
+            dataSource: options.model.DetalleJuntaSpoolLista,
+            //template: "<i class=\"fa fa-#=data.Junta#\"></i> #=data.Junta#",
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
                 
-                options.model.JuntaSelect = dataItem.Junta;
+                options.model.DetalleJuntaSpoolID = dataItem.JuntaSpoolID;
+                options.model.DetalleJuntaSpool = dataItem.Etiqueta;
+
+                //for (var i = 0; i < currentSpoolMaster.DetalleSalidas.length; i++) {
+                //    if (currentSpoolMaster.DetalleSalidas[i].SpoolID == options.model.SpoolID) {
+                //        $("#grid_" + currentSpoolMaster.DetalleSalidas[i].Posicion).data("kendoGrid").refresh();
+                //        break;
+                //    }
+                //}
+                
+
                 //options.model.JuntaID = dataItem.JuntaID;
                 //options.model.Junta = dataItem.Junta;
 
-                if (dataItem.JuntaID == 0) {//Sin definir
-                    options.model.TipoJunta = "";
-                    options.model.Cedula = "";
-                    options.model.Acero1 = "";
-                    options.model.Acero2 = "";
-                    options.model.Diametro = "";
-                }
-                else if (dataItem.JuntaID == 1) {//FW15
-                    options.model.TipoJunta = "BW";
-                    options.model.Cedula = "STD";
-                    options.model.Acero1 = "CS-g70";
-                    options.model.Acero2 = "CS-g70";
-                    options.model.Diametro = "18";
-                }
-                else if (dataItem.JuntaID == 2) {//FW12
-                    options.model.TipoJunta = "TH";
-                    options.model.Cedula = "80";
-                    options.model.Acero1 = "CS-g70";
-                    options.model.Acero2 = "CS-g70";
-                    options.model.Diametro = "0.75";
-                }
-                else if (dataItem.JuntaID == 3) {//FW10
-                    options.model.TipoJunta = "";
-                    options.model.Cedula = "";
-                    options.model.Acero1 = "";
-                    options.model.Acero2 = "";
-                    options.model.Diametro = "";
-                }
-                else if (dataItem.JuntaID == 5) {//
-                    options.model.TipoJunta = "TH";
-                    options.model.Cedula = "80";
-                    options.model.Acero1 = "CS-g70";
-                    options.model.Acero2 = "CS-g70";
-                    options.model.Diametro = "0.75";
-                }
-                else if (dataItem.JuntaID == 6) {//
-                    options.model.TipoJunta = "TH";
-                    options.model.Cedula = "80";
-                    options.model.Acero1 = "CS-g70";
-                    options.model.Acero2 = "CS-g70";
-                    options.model.Diametro = "0.75";
-                }
+                //if (dataItem.JuntaID == 0) {//Sin definir
+                //    options.model.TipoJunta = "";
+                //    options.model.Cedula = "";
+                //    options.model.Acero1 = "";
+                //    options.model.Acero2 = "";
+                //    options.model.Diametro = "";
+                //}
+                //else if (dataItem.JuntaID == 1) {//FW15
+                //    options.model.TipoJunta = "BW";
+                //    options.model.Cedula = "STD";
+                //    options.model.Acero1 = "CS-g70";
+                //    options.model.Acero2 = "CS-g70";
+                //    options.model.Diametro = "18";
+                //}
+                //else if (dataItem.JuntaID == 2) {//FW12
+                //    options.model.TipoJunta = "TH";
+                //    options.model.Cedula = "80";
+                //    options.model.Acero1 = "CS-g70";
+                //    options.model.Acero2 = "CS-g70";
+                //    options.model.Diametro = "0.75";
+                //}
+                //else if (dataItem.JuntaID == 3) {//FW10
+                //    options.model.TipoJunta = "";
+                //    options.model.Cedula = "";
+                //    options.model.Acero1 = "";
+                //    options.model.Acero2 = "";
+                //    options.model.Diametro = "";
+                //}
+                //else if (dataItem.JuntaID == 5) {//
+                //    options.model.TipoJunta = "TH";
+                //    options.model.Cedula = "80";
+                //    options.model.Acero1 = "CS-g70";
+                //    options.model.Acero2 = "CS-g70";
+                //    options.model.Diametro = "0.75";
+                //}
+                //else if (dataItem.JuntaID == 6) {//
+                //    options.model.TipoJunta = "TH";
+                //    options.model.Cedula = "80";
+                //    options.model.Acero1 = "CS-g70";
+                //    options.model.Acero2 = "CS-g70";
+                //    options.model.Diametro = "0.75";
+                //}
 
                 //options.model.Detalle1 = "5%";
                 //options.model.Detalle2 = "99";
                 //options.model.Detalle3 = "100";
                 //options.model.Detalle4 = "5.4";
-                $("#grid").data("kendoGrid").refresh();
+                //$("#grid").data("kendoGrid").refresh();
 
                 //if (dataItem.JuntaID == 2) {
                 //    $("#controls_content_2").show();
@@ -598,18 +610,25 @@ function RenderFinMM(container, options) {
 }
 
 var idSelect = '';
+var spoolIDSelectMateriales = 0;
 function RenderMateriales(container, options) {
-    idSelect = options.model.NumeroSalida;
+    idSelect = options.model.ClaveSalida;
+    spoolIDSelectMateriales = options.model.SpoolID;
 
-    $("#gridPopUp").data("kendoGrid").dataSource.data([
-          { ETIQUETA: '1', DIAMETRO1: '18', DIAMETRO2: '1/2', IC: 'PAAAABBABB', DESC: 'TUBO, API-5L-B , S/C, CED. STD , BIS' }
-        , { ETIQUETA: '2', DIAMETRO1: '18', DIAMETRO2: '1/4', IC: 'PAAAABBABB', DESC: 'TUBO, API-5L-B , S/C, CED. STD , BIS' }
-        , { ETIQUETA: '3', DIAMETRO1: '18', DIAMETRO2: '3/4', IC: 'VOCCCBQAFA', DESC: 'THREDOLET, ASM-A105, 300#, BISROSC' }
-        , { ETIQUETA: '4', DIAMETRO1: '18', DIAMETRO2: '1/2', IC: 'WAAAABBAA', DESC: 'CODO 90 RL, ASMT-V234-WPB, S/C CED STD, BIS' }
-        ]);
+    if ($("#gridPopUp").data("kendoGrid").dataSource._data.length <= 0)
+        AjaxDetalleMateriales(spoolIDSelectMateriales);
+    else
+        VentanaModalDetallePlaca2();
+
+    //$("#gridPopUp").data("kendoGrid").dataSource.data([
+    //      { ETIQUETA: '1', DIAMETRO1: '18', DIAMETRO2: '1/2', IC: 'PAAAABBABB', DESC: 'TUBO, API-5L-B , S/C, CED. STD , BIS' }
+    //    , { ETIQUETA: '2', DIAMETRO1: '18', DIAMETRO2: '1/4', IC: 'PAAAABBABB', DESC: 'TUBO, API-5L-B , S/C, CED. STD , BIS' }
+    //    , { ETIQUETA: '3', DIAMETRO1: '18', DIAMETRO2: '3/4', IC: 'VOCCCBQAFA', DESC: 'THREDOLET, ASM-A105, 300#, BISROSC' }
+    //    , { ETIQUETA: '4', DIAMETRO1: '18', DIAMETRO2: '1/2', IC: 'WAAAABBAA', DESC: 'CODO 90 RL, ASMT-V234-WPB, S/C CED STD, BIS' }
+    //    ]);
 
 
-    VentanaModalDetallePlaca2();
+    //VentanaModalDetallePlaca2();
 }
 
 var EtiquetaSelect = '';

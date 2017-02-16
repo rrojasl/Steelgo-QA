@@ -1,4 +1,116 @@
-﻿function AjaxProyecto() {
+﻿
+function AjaxTipoSalida() {
+
+
+    //loadingStart();
+    //console.log($CapturaReporteRT);
+    $BuscaSpool.BuscaSpool.read({ token: Cookies.get("token") }).done(function (data) {
+    //$Proyectos.Proyectos.read({ token: Cookies.get("token") }).done(function (data) {
+        if (Error(data)) {
+            currentTipoSalidaArray = data;
+            //$("#inputProyecto").data("kendoComboBox").value("");
+            //$("#inputProyecto").data("kendoComboBox").dataSource.data(data);
+            
+        }
+        //loadingStop();
+    });
+
+
+
+}
+
+function AjaxDetalleSpoolXNombre(posicion, proyectoID, nombreSpool) {
+
+
+    loadingStart();
+    //console.log($CapturaReporteRT);
+    $BuscaSpool.BuscaSpool.read({ token: Cookies.get("token"), ProyectoID: proyectoID, Spool: nombreSpool }).done(function (data) {
+    
+        if (Error(data)) {
+
+            if (data.length == 1) {
+
+                
+                currentSpoolMaster.DetalleSalidas[posicion].SpoolID = data[0].SpoolID;
+                currentSpoolMaster.DetalleSalidas[posicion].NombreSpool = nombreSpool;
+                currentSpoolMaster.DetalleSalidas[posicion].RevisionCliente = data[0].RevisionCliente;
+                currentSpoolMaster.DetalleSalidas[posicion].RevisionSteelgo = data[0].RevisionSteelgo;
+                currentSpoolMaster.DetalleSalidas[posicion].SistemaPintura = data[0].SistemaPintura;
+                currentSpoolMaster.DetalleSalidas[posicion].ColorPintura = data[0].ColorPintura;
+                //currentTipoSalidaArray.DetalleSalidas[posicion]. = data[0].;
+
+                AjaxListadoJuntaSpool(posicion, currentSpoolMaster.DetalleSalidas[posicion].SpoolID);
+                
+                
+            }
+            else
+                alert('El spool '+nombreSpool+', no existe');
+        }
+        loadingStop();
+    });
+
+
+    //var token = Cookies.get("token");
+    //var respuesta = 1;
+    //$EntregaPlacasGraficas.EntregaPlacasGraficas.read({ token: token, numeroCatalogo: respuesta }).done(function (data) {
+    //    alert('xD');
+    //    //$("#inputDocumentoRecibido").data("kendoComboBox").dataSource.data([]);
+    //    //$("#inputDocumentoRecibido").data("kendoComboBox").dataSource.data(data);
+    //    //AjaxCargaListaDocumentoEstatus();
+    //});
+}
+
+function AjaxDetalleMateriales(spoolID) {
+
+
+    loadingStart();
+    $BuscaSpool.BuscaSpool.read({ token: Cookies.get("token"), Spool: spoolID }).done(function (data) {
+
+        if (Error(data)) {
+            $("#gridPopUp").data("kendoGrid").dataSource.data(data);
+
+
+            VentanaModalDetallePlaca2();
+            
+        }
+        loadingStop();
+    });
+
+}
+
+function AjaxListadoJuntaSpool(posicion, spoolID) {
+
+
+    loadingStart();
+    $BuscaSpool.BuscaSpool.read({ token: Cookies.get("token"), SpoolID: spoolID }).done(function (data) {
+
+        if (Error(data)) {
+            
+            var salidas = $("#inputSalidas_" + posicion).data("kendoNumericTextBox").value();
+            var salidasJuntasCerradas = $("#inputJuntasCerradas_" + posicion).data("kendoNumericTextBox").value();
+
+            addNewDetalleSalidaAgrupado(currentSpoolMaster.DetalleSalidas[posicion].SpoolID, salidas, salidasJuntasCerradas, data);
+
+            $("#grid_" + posicion).data('kendoGrid').dataSource.data([]);
+            var ds = $("#grid_" + posicion).data("kendoGrid").dataSource;
+
+
+            for (var i = 0; i < currentSpoolMaster.DetalleSalidas[0].SalidasEstandar.length; i++) {
+                ds.add(currentSpoolMaster.DetalleSalidas[0].SalidasEstandar[i]);
+            }
+
+            for (var i = 0; i < currentSpoolMaster.DetalleSalidas[0].SalidasJuntasCerradas.length; i++) {
+                ds.add(currentSpoolMaster.DetalleSalidas[0].SalidasJuntasCerradas[i]);
+            }
+        }
+        loadingStop();
+    });
+
+}
+
+
+
+function AjaxProyecto() {
 
 
     loadingStart();

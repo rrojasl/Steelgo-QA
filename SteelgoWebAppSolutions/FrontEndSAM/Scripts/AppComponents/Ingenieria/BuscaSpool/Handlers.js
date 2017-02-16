@@ -2,6 +2,8 @@
 
 var currentSpoolMaster = null;
 
+var currentTipoSalidaArray = [];
+
 function initSpoolMaster() {
     currentSpoolMaster = {
         UsuarioID: 0,
@@ -23,10 +25,11 @@ function initSpoolMaster() {
     };
 }
 
-function addNewDetalleSalida(spoolID) {
+function addNewDetalleSalida(spoolID, nombreSpool) {
     currentSpoolMaster.DetalleSalidas[currentSpoolMaster.DetalleSalidas.length] = {
         NombreLoop: currentSpoolMaster.NombreLoop,
         SpoolID: spoolID,
+        NombreSpool: nombreSpool,
         Posicion: 0,
         RevisionCliente: 0,
         RevisionSteelgo: '',
@@ -42,16 +45,17 @@ function addNewDetalleSalida(spoolID) {
     //addNewDetalleSalida(spoolID);
 }
 
-function addNewDetalleSalidaAgrupado(spoolID, salidasEstandar, salidasJuntasCerradas) {
+function addNewDetalleSalidaAgrupado(spoolID, salidasEstandar, salidasJuntasCerradas, listadoJuntaSpool) {
     for (var i = 0; i < currentSpoolMaster.DetalleSalidas.length; i++) {
         if (currentSpoolMaster.DetalleSalidas[i].SpoolID == spoolID) {
             for (var j = 0; j < salidasEstandar; j++) {
                 currentSpoolMaster.DetalleSalidas[i].SalidasEstandar[j] = {
+                    SpoolID: spoolID,
                     PosicionSalida: i,
-                    ClaveSalida: 'S',
+                    ClaveSalida: 'S' + (j+1),
                     TipoSalidaID: 0,
                     TipoSalida: '',
-                    TipoSalidaLista: [],
+                    TipoSalidaLista: currentTipoSalidaArray,
                     DetalleMaterialSpoolID: 0,
                     DetalleMaterialSpool: '',
                     DetalleMaterialSpoolLista: [],
@@ -61,7 +65,7 @@ function addNewDetalleSalidaAgrupado(spoolID, salidasEstandar, salidasJuntasCerr
                     ItemCodeSelect: '',
                     DetalleJuntaSpoolID: 0,
                     DetalleJuntaSpool: '',
-                    DetalleJuntaSpoolLista: [],
+                    DetalleJuntaSpoolLista: listadoJuntaSpool,
                     Nivel: 0,
                     PosicionSalidaPadre: 0,
                     ClaveSalidaPadre: '',
@@ -79,7 +83,7 @@ function addNewDetalleSalidaAgrupado(spoolID, salidasEstandar, salidasJuntasCerr
             for (var j = 0; j < salidasJuntasCerradas; j++) {
                 currentSpoolMaster.DetalleSalidas[i].SalidasJuntasCerradas[j] = {
                     PosicionSalida: i,
-                    ClaveSalida: 'JC',
+                    ClaveSalida: 'JC' + (j + 1),
                     TipoSalidaID: 0,
                     TipoSalida: '',
                     TipoSalidaLista: [],
@@ -133,7 +137,7 @@ function buscaLoop() {
     //AJAX
     var loopHTML = '';
     initSpoolMaster();
-    addNewDetalleSalida(0);//Primer Item
+    addNewDetalleSalida(0, '');//Primer Item
 
     loopHTML += '<div id="content_0">';
     loopHTML += '<div class="row">';
@@ -189,30 +193,17 @@ function buscaLoop() {
 }
 
 function eventBuscar(posicion) {
+    var nombreSpoolABuscar = '';
     if (posicion == 0) {
         //Falta Ajax
 
-        var salidas = $("#inputSalidas_" + posicion).data("kendoNumericTextBox").value();
-        var salidasJuntasCerradas = $("#inputJuntasCerradas_" + posicion).data("kendoNumericTextBox").value();
-
-        addNewDetalleSalidaAgrupado(0, salidas, salidasJuntasCerradas);
-
-        $("#grid_" + posicion).data('kendoGrid').dataSource.data([]);
-        var ds = $("#grid_" + posicion).data("kendoGrid").dataSource;
-
-            
-        for (var i = 0; i < currentSpoolMaster.DetalleSalidas[0].SalidasEstandar.length; i++) {
-            ds.add(currentSpoolMaster.DetalleSalidas[0].SalidasEstandar[i]);
-        }
-
-        for (var i = 0; i < currentSpoolMaster.DetalleSalidas[0].SalidasJuntasCerradas.length; i++) {
-            ds.add(currentSpoolMaster.DetalleSalidas[0].SalidasJuntasCerradas[i]);
-        }
+        AjaxDetalleSpoolXNombre(posicion, (($("#inputProyecto").data("kendoComboBox").value() != "") ? ($("#inputProyecto").data("kendoComboBox").value()) : (0)), $('#spool_' + posicion).val());
     }
     else {
 
     }
 }
+
 
 function nombreLoop() {
     ventanaConfirm = $("#ventanaConfirm").kendoWindow({
