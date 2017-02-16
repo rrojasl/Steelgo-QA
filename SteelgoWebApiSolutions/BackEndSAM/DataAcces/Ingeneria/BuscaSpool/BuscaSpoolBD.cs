@@ -60,7 +60,40 @@ namespace BackEndSAM.DataAcces.Ingenieria.BuscaSpool
                 return result;
             }
         }
-        
+
+        public object ObtieneListadoTipoCorte()
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Sam3_Steelgo_Get_TipoCorte_Result> result = ctx.Sam3_Steelgo_Get_TipoCorte().ToList();
+                    List<ListaTipoCorte> listaDetalle = new List<ListaTipoCorte>();
+                    listaDetalle.Add(new ListaTipoCorte());
+
+                    foreach (Sam3_Steelgo_Get_TipoCorte_Result item in result)
+                    {
+                        listaDetalle.Add(new ListaTipoCorte
+                        {
+                            TipoCorteID = item.TipoCorteID,
+                            Nombre = item.Nombre
+                        });
+                    }
+                    return listaDetalle;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
         public object ObtieneListadoSpool(int ProyectoID, string SpoolContiene)
         {
             try
@@ -141,6 +174,7 @@ namespace BackEndSAM.DataAcces.Ingenieria.BuscaSpool
                     {
                         listaDetalle.Add(new DetalleMaterialSpool
                         {
+                            MaterialSpoolID = item.MaterialSpoolID,
                             ItemCodeID = item.ItemCodeID,
                             Etiqueta = item.Etiqueta,
                             Diametro1 = item.Diametro1,
@@ -170,27 +204,28 @@ namespace BackEndSAM.DataAcces.Ingenieria.BuscaSpool
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Ingeneria_Get_DetalleSpool_Result> result = ctx.Sam3_Ingeneria_Get_DetalleSpool(UsuarioID, ProyectoID, Spool).ToList();
-                    List<DetalleSpool> listaDetalle = new List<DetalleSpool>();
+                    Sam3_Ingeneria_Get_DetalleSpool_Result result = ctx.Sam3_Ingeneria_Get_DetalleSpool(UsuarioID, ProyectoID, Spool).SingleOrDefault();
+                    DetalleSpool listaDetalle = null;
 
-                    foreach (Sam3_Ingeneria_Get_DetalleSpool_Result item in result)
+                    if (result != null)
                     {
-                        listaDetalle.Add(new DetalleSpool
-                        {
-                            SpoolID = item.SpoolID,
-                            ProyectoID = item.ProyectoID,
-                            RevisionCliente = item.RevisionCliente,
-                            RevisionSteelgo = item.RevisionSteelgo,
-                            FamiliarAcero1ID = item.FamiliaAcero1ID,
-                            FamiliarAcero2ID = item.FamiliaAcero2ID,
-                            Especificacion = item.Especificacion,
-                            SistemaPintura = item.SistemaPintura,
-                            ColorPintura = item.ColorPintura,
-                            PDI = item.PDI,
-                            Acero = item.Acero
-                        });
-                    }
+                        listaDetalle = new DetalleSpool {
+                            SpoolID = result.SpoolID,
+                            NombreSpool = result.Nombre,
+                            ProyectoID = result.ProyectoID,
+                            RevisionCliente = result.RevisionCliente,
+                            RevisionSteelgo = result.RevisionSteelgo,
+                            FamiliarAcero1ID = result.FamiliaAcero1ID,
+                            FamiliarAcero2ID = result.FamiliaAcero2ID,
+                            Especificacion = result.Especificacion,
+                            SistemaPintura = result.SistemaPintura,
+                            ColorPintura = result.ColorPintura,
+                            PDI = result.PDI,
+                            Acero = result.Acero
+                        };
+                        
 
+                    }
                     return listaDetalle;
                 }
             }

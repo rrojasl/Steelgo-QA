@@ -9,6 +9,7 @@ namespace BackEndSAM.Models.Ingenieria.BuscaSpool
     public class DetalleSpool
     {
         public int SpoolID { get; set; }
+        public string NombreSpool { get; set; }
         public int ProyectoID { get; set; }
         public string RevisionCliente { get; set; }
         public string RevisionSteelgo { get; set; }
@@ -19,6 +20,43 @@ namespace BackEndSAM.Models.Ingenieria.BuscaSpool
         public string ColorPintura { get; set; }
         public decimal? PDI { get; set; }
         public string Acero { get; set; }
+        List<DetalleJsonGrid> SalidasEstandar { get; set; }
+        List<DetalleJsonGrid> SalidasJuntasCerradas { get; set; }
+    }
+
+    public class DetalleJsonGrid
+    {
+        public int PosicionSalida { get; set; }
+        public string ClaveSalida { get; set; }
+        public int TipoSalidaID { get; set; }
+        public string TipoSalida { get; set; }
+
+        //Etiqueta y Material
+        public int DetalleMaterialSpoolID { get; set; }
+        public string DetalleMaterialSpool { get; set; }
+        public List<DetalleMaterialSpool> DetalleMaterialSpoolLista { get; set; }
+
+        //Catalogo
+        public int SpoolItemCodeID { get; set; }
+        public string SpoolItemCode { get; set; }        
+        public string ItemCodeSelect { get; set; }
+        public int DetalleJuntaSpoolID { get; set; }
+        public string DetalleJuntaSpool { get; set; }
+        public int Nivel { get; set; }
+        public int PosicionSalidaPadre { get; set; }
+        public string ClaveSalidaPadre { get; set; }
+        public int TipoCorte1ID { get; set; }
+        public string TipoCorte1 { get; set; }
+        public int TipoCorte2ID { get; set; }
+        public string TipoCorte2 { get; set; }
+        public double Cantidad { get; set; }
+
+        //Listados
+        public List<DetalleTipoSalida> TipoSalidaLista { get; set; }
+        public List<DetalleMaterialSpool> SpoolItemCodeLista { get; set; }
+        public List<ListaTipoCorte> TipoCorte1Lista { get; set; }
+        public List<ListaTipoCorte> TipoCorte2Lista { get; set; }
+        public List<DetalleJuntaSpool> DetalleJuntaSpoolLista { get; set; }
     }
 
     public class DetalleJuntaSpool
@@ -70,9 +108,21 @@ namespace BackEndSAM.Models.Ingenieria.BuscaSpool
         public string Nombre { get; set; }
     }
 
+    public class ListaTipoCorte
+    {
+        public ListaTipoCorte()
+        {
+            TipoCorteID = 0;
+            Nombre = "";
+        }
+
+        public int TipoCorteID { get; set; }
+        public string Nombre { get; set; }
+    }
+
     public class DetalleMaterialSpool
     {
-
+        public int MaterialSpoolID { get; set; }
         public int ItemCodeID { get; set; }
         public string Etiqueta { get; set; }
         public decimal Diametro1 { get; set; }
