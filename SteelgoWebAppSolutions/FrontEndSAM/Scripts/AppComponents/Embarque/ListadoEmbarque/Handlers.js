@@ -29,7 +29,7 @@ function SuscribirEventoPopUPEnviarEmbarque() {
             title: "",
             resizable: false,
             visible: false,
-            width: "500px",
+            width: "45%",
             actions: [ //"Pin", "Minimize", "Maximize", "Close"
             ],
     }).data("kendoWindow");
@@ -129,7 +129,8 @@ function SuscribirEventoGuardar() {
 
 function opcionHabilitarView(valor, name) {
     if (valor){
-        $('#FieldSetView').find('*').attr('disabled', true);
+        $("#btnPendientes").attr('disabled', true);
+        $("#btnTransito").attr('disabled', true);
 
         $("#Guardar").text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
         $("#btnGuardar").text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
@@ -137,7 +138,10 @@ function opcionHabilitarView(valor, name) {
         $('#btnGuardar1').text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
     }
     else {
-        $('#FieldSetView').find('*').attr('disabled', false);
+        $("#btnPendientes").attr('disabled', false);
+        $("#btnTransito").attr('disabled', false);
+
+        //$('#FieldSetView').find('*').attr('disabled', false);
         $("#Guardar").text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);
         $("#btnGuardar").text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);
         $("#Guardar1").text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);
