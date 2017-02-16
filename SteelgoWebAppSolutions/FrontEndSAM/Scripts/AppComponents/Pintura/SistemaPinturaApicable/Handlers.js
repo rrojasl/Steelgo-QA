@@ -1,4 +1,7 @@
-﻿function SuscribirEventos() {
+﻿var ventanaConfirmPlanchar;
+
+
+function SuscribirEventos() {
     SuscribirEventoProyecto();
     SuscribirEventoSistemaPintura();
     SuscribirEventoColor();
@@ -119,7 +122,7 @@ function SuscribirEventoPlanchado() {
         if ($("#grid").data("kendoGrid").dataSource._data.length > 0) {
             var tipoLlenado = $('input:radio[name=Planchar]:checked').val()
             if (tipoLlenado === "Todos") {
-                ventanaConfirm = $("#ventanaConfirm").kendoWindow({
+                ventanaConfirmPlanchar = $("#ventanaConfirm").kendoWindow({
                     iframe: true,
                     title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
                     visible: false,
@@ -134,17 +137,17 @@ function SuscribirEventoPlanchado() {
                     },
                 }).data("kendoWindow");
 
-                ventanaConfirm.content('<center>' + _dictionary.EntregaPlacasGraficasPlancharTodos[$("#language").data("kendoDropDownList").value()] + '</center>' +
-                             "</br><center><button class='confirm_yes btn btn-blue' id='yesButton'>" + _dictionary.lblSi[$("#language").data("kendoDropDownList").value()] + "</button>  <button class='confirm_yes btn btn-blue' id='noButton'>" + _dictionary.lblNo[$("#language").data("kendoDropDownList").value()] + "</button></center>");
+                ventanaConfirmPlanchar.content('<center>' + _dictionary.EntregaPlacasGraficasPlancharTodos[$("#language").data("kendoDropDownList").value()] + '</center>' +
+                             "</br><center><button class='confirm_yes btn btn-blue' id='yesButtonPlanchar'>" + _dictionary.lblSi[$("#language").data("kendoDropDownList").value()] + "</button>  <button class='confirm_yes btn btn-blue' id='noButtonPlanchar'>" + _dictionary.lblNo[$("#language").data("kendoDropDownList").value()] + "</button></center>");
 
-                ventanaConfirm.open().center();
+                ventanaConfirmPlanchar.open().center();
 
-                $("#yesButton").click(function (handler) {
+                $("#yesButtonPlanchar").click(function (handler) {
                     plancharTodo(tipoLlenado);
-                    ventanaConfirm.close();
+                    ventanaConfirmPlanchar.close();
                 });
-                $("#noButton").click(function (handler) {
-                    ventanaConfirm.close();
+                $("#noButtonPlanchar").click(function (handler) {
+                    ventanaConfirmPlanchar.close();
                 });
             } else {
                 plancharTodo(tipoLlenado);
