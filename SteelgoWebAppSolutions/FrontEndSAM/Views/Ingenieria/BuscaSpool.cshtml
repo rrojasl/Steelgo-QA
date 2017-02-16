@@ -50,45 +50,45 @@
     
     <div class="row">
         <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 altoControl">
-            <label id="labelProyecto">Proyecto:</label>
+            <label id="lblProyecto"></label>
             <input id="inputProyecto" />
         </div>
         <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 altoControl">
-            <label id="labelNombreLoop">Nombre del Loop:</label>
+            <label id="lblNombreLoop"></label>
             <input id="inputNombreLoop" class="item-select general-input" onblur="buscaLoop();" />
         </div>
         <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 altoControl">
-            <label id="labelDibujo">Dibujo:</label>
+            <label id="lblDibujo"></label>
             <input id="inputDibujo" class="item-select general-input" />
         </div>
         <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 altoControl">
-            <label id="labelPND">% PND:</label>
+            <label id="lblProcentahePnd"></label>
             <input id="inputPND" class="item-select general-input" />
         </div>
         <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 altoControl">
-            <label id="labelRequierePWHT">¿Requere PWHT?:</label>
-            <input id="inputRequierePWHT" type="checkbox" /> Si
+            <label id="lblRequierePWHT"></label>
+            <input id="inputRequierePWHT" type="checkbox"/>
         </div>
     </div>
     <div class="row">
         <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 altoControl">
-            <label id="labelRevisionCliente">Revisión del Cliente:</label>
-            <label id="labelRevisionCliente2">1</label>
+            <label id="lblRevisionCliente"></label>
+            <label id="labelRevisionCliente2"></label>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 altoControl">
-            <label id="labelRevision">Revision Steelgo:</label>
-            <label id="labelRevision2">2</label>
+            <label id="lblRevisionSteelgo"></label>
+            <label id="labelRevision2"></label>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 altoControl">
-            <label id="labelAcero">Acero:</label>
-            <label id="labelAcero2">CS</label>
+            <label id="lblAcero"></label>
+            <label id="labelAcero2"></label>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 altoControl">
-            <label id="labelEspecificacion">Especificacion:</label>
-            <label id="labelEspecificacion2">BC62</label>
+            <label id="lblEspecificacion"></label>
+            <label id="labelEspecificacion2"></label>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 altoControl">
-            <label id="labelPDI">PDI:</label>
+            <label id="lblPdi"></label>
             <label id="labelPDI2">38.0000</label>
         </div>
     </div>
@@ -96,12 +96,12 @@
         
         
         <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 altoControl">
-            <label id="labelSistemaPintura">Sistema pintura:</label>
-            <label id="labelSistemaPintura2">A2</label>
+            <label id="lblSistemaPintura"></label>
+            <label id="labelSistemaPintura2"></label>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 altoControl">
-            <label id="labelColorPintura">Color pintura:</label>
-            <label id="labelColorPintura">GRIS CLARO:</label>
+            <label id="lblColorPintura"></label>
+            <label id="labelColorPintura"></label>
         </div>
     </div>
     <div id="contenedor_master">
@@ -121,27 +121,24 @@
 
         <div class="row" id="controls_content_2" hidden="hidden">
             <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 altoControl" id="divRequisicion">
-                <label>SPOOL</label>
+                <label id="lblSpool"></label>
                 <input class="" value="s5-k1113-07-1" readonly="readonly" />
             </div>
             <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 altoControl" id="divPrueba">
-                <label>Cuantas Salidas</label>
+                <label id="lblNumeroSalidas"></label>
                 <input style="width:47%" id="inputPrueba2" class="" />
             </div>
             <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 altoControl" id="divPrueba">
-                <label>Cuantas juntas cerradas</label>
+                <label id="lblNumeroSalidas"></label>
                 <input style="width:30%" id="inputPruebaJuntasCerradas2" class="" />
             </div>
             <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
-                <label>-</label>
+                <label>&nbsp;</label>
                 <button type="button" id="btnAgregar2" class="btn btn-blue">Agregar</button>
             </div>
 
 
         </div>
-
-        @*<div class="col-xs-12 col-sm-6 col-md-1 col-lg-1 altoControl" id="divProveedor">*@
-
     </div>
     <div class="col-xs-12col-sm-12 col-md-12 col-lg-12" id="grid_content_2" hidden="hidden">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">

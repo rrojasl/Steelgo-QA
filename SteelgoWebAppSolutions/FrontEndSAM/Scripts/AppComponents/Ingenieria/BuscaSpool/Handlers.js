@@ -142,19 +142,19 @@ function buscaLoop() {
     loopHTML += '<div id="content_0">';
     loopHTML += '<div class="row">';
     loopHTML += '<div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 altoControl" >';
-    loopHTML += '<label>Spool</label>';
+    loopHTML += '<label>' + _dictionary.lblSpool[$("#language").data("kendoDropDownList").value()] + '</label>';
     loopHTML += '<input id="spool_0" class="item-select general-input" />';
     loopHTML += '</div>';
     loopHTML += '<div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 altoControl" id="divPrueba">';
-    loopHTML += '<label>Cuantas Salidas</label>';
+    loopHTML += '<label>' + _dictionary.lblNumeroSalidas[$("#language").data("kendoDropDownList").value()] + '</label>';
     loopHTML += '<input style="width:47%" id="inputSalidas_0" />';
     loopHTML += '</div>';
     loopHTML += '<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 altoControl" id="divPrueba">';
-    loopHTML += '<label>Cuantas juntas cerradas</label>';
+    loopHTML += '<label>' + _dictionary.lblNumeroSalidasCerradas[$("#language").data("kendoDropDownList").value()] + '</label>';
     loopHTML += '<input style="width:30%" id="inputJuntasCerradas_0" />';
     loopHTML += '</div>';
     loopHTML += '<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">';
-    loopHTML += '<label>-</label>';
+    loopHTML += '<label></label>';
     loopHTML += '<button type="button" id="btnAgregar_0" class="btn btn-blue"  onclick="eventBuscar(0);">Agregar</button>';
     loopHTML += '</div>';
     loopHTML += '</div>';
@@ -194,13 +194,17 @@ function buscaLoop() {
 
 function eventBuscar(posicion) {
     var nombreSpoolABuscar = '';
-    if (posicion == 0) {
-        //Falta Ajax
+    var Proyecto = $("#inputProyecto").data("kendoComboBox").dataItem($("#inputProyecto").data("kendoComboBox").select());
 
-        AjaxDetalleSpoolXNombre(posicion, (($("#inputProyecto").data("kendoComboBox").value() != "") ? ($("#inputProyecto").data("kendoComboBox").value()) : (0)), $('#spool_' + posicion).val());
-    }
-    else {
+    if (Proyecto != undefined && Proyecto.ProyectoID != 0) {
+        if (posicion == 0) {
+            AjaxDetalleSpoolXNombre(posicion, Proyecto.ProyectoSpoolID, $('#spool_' + posicion).val());
+        }
+        else {
 
+        }
+    } else {
+        alert("Por favor seleccione un proyecto");
     }
 }
 

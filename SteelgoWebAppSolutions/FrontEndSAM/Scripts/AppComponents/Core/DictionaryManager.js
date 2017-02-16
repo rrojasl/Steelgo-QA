@@ -7737,6 +7737,54 @@ _dictionary = {
         "es-MX": "Por Tonelada",
         "en-US": "By Ton"
     },
+    "lblRequierePWHT": {
+        "es-MX": "¿Requiere PWHT?",
+        "en-US": "Required PWHT?"
+    },
+    "lblProcentahePnd": {
+        "es-MX": "% PND",
+        "en-US": "% PND"
+    },
+    "lblDibujo": {
+        "es-MX": "Dibujo",
+        "en-US": "Drawing"
+    },
+    "lblNombreLoop": {
+        "es-MX": "Nombre del Loop",
+        "en-US": "Loop Name"
+    },
+    "lblRevisionCliente": {
+        "es-MX": "Revisión Cliente",
+        "en-US": "Customer Review"
+    },
+    "lblRevisionSteelgo": {
+        "es-MX": "Revisión Steelgo",
+        "en-US": "Steelgo Review"
+    },
+    "lblAcero": {
+        "es-MX": "Acero",
+        "en-US": "Acer"
+    },
+    "lblEspecificacion": {
+        "es-MX": "Especificación",
+        "en-US": "Specification"
+    },
+    "lblPdi": {
+        "es-MX": "PDI",
+        "en-US": "PDI"
+    },
+    "lblColorPintura": {
+        "es-MX": "Color Pintura",
+        "en-US": "Color Paint"
+    },
+    "lblNumeroSalidas": {
+        "es-MX": "No. Salidas",
+        "en-US": "Num Departures"
+    },
+    "lblNumeroSalidasCerradas": {
+        "es-MX": "No. Salidas Cerradas",
+        "en-US": "Num Closed Departures"
+    },
     //Finaliza Etiquetas
     //Etiquetas header alertas
     "SuccessTitle": {

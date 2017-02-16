@@ -20,44 +20,28 @@ function AjaxTipoSalida() {
 }
 
 function AjaxDetalleSpoolXNombre(posicion, proyectoID, nombreSpool) {
-
-
     loadingStart();
     //console.log($CapturaReporteRT);
     $BuscaSpool.BuscaSpool.read({ token: Cookies.get("token"), ProyectoID: proyectoID, Spool: nombreSpool }).done(function (data) {
-    
-        if (Error(data)) {
+        if (data != null) {
+            if (proyectoID == data.ProyectoID) {
+                currentSpoolMaster.DetalleSalidas[posicion].SpoolID = data.SpoolID;
+                currentSpoolMaster.DetalleSalidas[posicion].NombreSpool = data.NombreSpool;
+                currentSpoolMaster.DetalleSalidas[posicion].RevisionCliente = data.RevisionCliente;
+                currentSpoolMaster.DetalleSalidas[posicion].RevisionSteelgo = data.RevisionSteelgo;
+                currentSpoolMaster.DetalleSalidas[posicion].SistemaPintura = data.SistemaPintura;
+                currentSpoolMaster.DetalleSalidas[posicion].ColorPintura = data.ColorPintura;
 
-            if (data.length == 1) {
+                AjaxListadoJuntaSpool(posicion, data.SpoolID);
+            } else
+                displayNotify("", "El spool" + data.NombreSpool + " no pertenece al proyecto configurado", "2");
 
-                
-                currentSpoolMaster.DetalleSalidas[posicion].SpoolID = data[0].SpoolID;
-                currentSpoolMaster.DetalleSalidas[posicion].NombreSpool = nombreSpool;
-                currentSpoolMaster.DetalleSalidas[posicion].RevisionCliente = data[0].RevisionCliente;
-                currentSpoolMaster.DetalleSalidas[posicion].RevisionSteelgo = data[0].RevisionSteelgo;
-                currentSpoolMaster.DetalleSalidas[posicion].SistemaPintura = data[0].SistemaPintura;
-                currentSpoolMaster.DetalleSalidas[posicion].ColorPintura = data[0].ColorPintura;
-                //currentTipoSalidaArray.DetalleSalidas[posicion]. = data[0].;
 
-                AjaxListadoJuntaSpool(posicion, currentSpoolMaster.DetalleSalidas[posicion].SpoolID);
-                
-                
-            }
-            else
-                alert('El spool '+nombreSpool+', no existe');
         }
+        else
+            displayNotify('El spool ' + nombreSpool + ', no existe');
         loadingStop();
     });
-
-
-    //var token = Cookies.get("token");
-    //var respuesta = 1;
-    //$EntregaPlacasGraficas.EntregaPlacasGraficas.read({ token: token, numeroCatalogo: respuesta }).done(function (data) {
-    //    alert('xD');
-    //    //$("#inputDocumentoRecibido").data("kendoComboBox").dataSource.data([]);
-    //    //$("#inputDocumentoRecibido").data("kendoComboBox").dataSource.data(data);
-    //    //AjaxCargaListaDocumentoEstatus();
-    //});
 }
 
 function AjaxDetalleMateriales(spoolID) {
@@ -72,6 +56,23 @@ function AjaxDetalleMateriales(spoolID) {
 
             VentanaModalDetallePlaca2();
             
+        }
+        loadingStop();
+    });
+
+}
+
+//Obtiene la lista del Spool-IC
+function AjaxListadoSpool(options, spoolContiene) {
+    loadingStart();
+
+    var Proyecto = $("#inputProyecto").data("kendoComboBox").dataItem($("#inputProyecto").data("kendoComboBox").select());
+
+    $BuscaSpool.BuscaSpool.read({ token: Cookies.get("token"), ProyectoID: Proyecto.ProyectoSpoolID, SpoolContiene: spoolContiene }).done(function (data) {
+        if (Error(data)) {
+            if (data.length > 0) {
+                options.model.Spool_ICSelect = data;
+            }            
         }
         loadingStop();
     });
@@ -111,37 +112,27 @@ function AjaxListadoJuntaSpool(posicion, spoolID) {
 
 
 function AjaxProyecto() {
-
-
     loadingStart();
-    //console.log($CapturaReporteRT);
-    //$BuscaSpool.BuscaSpool.read({ token: Cookies.get("token") }).done(function (data) {
-    $Proyectos.Proyectos.read({ token: Cookies.get("token") }).done(function (data) {
+    $Proyectos.Proyectos.read({ tkn: Cookies.get("token") }).done(function (data) {
         if (Error(data)) {
+            var proyectoId = 0;
+            $("#inputProyecto").data("kendoComboBox").dataSource.data([]);
 
-            /*var data = [{ ProyectoID: 1, Nombre: 'Proyecto 1' }, { ProyectoID: 2, Nombre: 'Proyecto 2' }];*/
-            $("#inputProyecto").data("kendoComboBox").value("");
-            $("#inputProyecto").data("kendoComboBox").dataSource.data(data);
-            //if (data.length == 2) {
-            //    $("#inputProyecto").data("kendoComboBox").select(1);
-            //    AjaxProveedor(data[1].ProyectoID, data[1].PatioID)
-            //    AjaxPruebas(data[1].ProyectoID);
-            //}
-            //else
-            //    ajaxResultadosDetalle($("#inputProyecto").data("kendoComboBox").value(), $("#inputProveedor").data("kendoComboBox").value(), $("#inputRequisicion").data("kendoComboBox").value());
+            if (data.length > 0) {
+                $("#inputProyecto").data("kendoComboBox").dataSource.data(data);
+                if (data.length == 2) {
+                    for (var x = 0; x < data.length; x++) {
+                        if (data[x].ProyectoID != 0)
+                            proyectoId = data[x].ProyectoID;
+                    }
+                }
+
+                $("#inputProyecto").data("kendoComboBox").value(proyectoId);
+                $("#inputProyecto").data("kendoComboBox").trigger("change");
+            }
         }
         loadingStop();
     });
-
-
-    //var token = Cookies.get("token");
-    //var respuesta = 1;
-    //$EntregaPlacasGraficas.EntregaPlacasGraficas.read({ token: token, numeroCatalogo: respuesta }).done(function (data) {
-    //    alert('xD');
-    //    //$("#inputDocumentoRecibido").data("kendoComboBox").dataSource.data([]);
-    //    //$("#inputDocumentoRecibido").data("kendoComboBox").dataSource.data(data);
-    //    //AjaxCargaListaDocumentoEstatus();
-    //});
 }
 
 function AjaxProveedor(proyectoID, patioID) {
