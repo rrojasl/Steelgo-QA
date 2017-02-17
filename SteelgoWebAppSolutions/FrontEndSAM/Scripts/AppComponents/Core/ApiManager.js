@@ -240,6 +240,7 @@ var $Defectos = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $ListadoCamposPredeterminados = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Taller = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Pruebas = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Secuencias = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 //#endregion
 
 /****************************/
@@ -420,5 +421,6 @@ $SoldadorCertificacion.add("SoldadorCertificacion");
 
 //Catalogos
 $Taller.add("Taller");
+$Secuencias.add("Secuencias");
 
 //#endregion
