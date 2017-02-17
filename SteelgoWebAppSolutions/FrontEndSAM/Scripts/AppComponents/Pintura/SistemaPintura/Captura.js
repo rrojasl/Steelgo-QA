@@ -353,8 +353,10 @@ function CargarGridPopUp() {
 
     $("#gridPopUp").kendoGrid({
         edit: function (e) {
+            setTimeout(function () {
                 var inputName = e.container.find('input');
                 inputName.select();
+            });
         },
         dataSource: {
             data: [],

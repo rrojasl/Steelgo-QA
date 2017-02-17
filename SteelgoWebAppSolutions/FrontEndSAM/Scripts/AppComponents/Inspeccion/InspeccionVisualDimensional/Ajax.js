@@ -539,6 +539,7 @@ function ejecutaGuardado(Captura, guardadoSinInspeccionDimensional, guardadoSinI
                 limpiar();
                 LimpiarPlanchado();
                 habilitaSpool();
+                editado = false;
             }
             else {
                 opcionHabilitarView(true, "FieldSetSetView");
