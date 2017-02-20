@@ -8,6 +8,11 @@ function changeLanguageCall() {
 
 function CargarGrid() {
     $("#grid").kendoGrid({
+        save: function (e) {
+            e.preventDefault();
+            this;
+            console.log(e);
+        },
         edit: function (e) {
 
             if ($('#Guardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()] && e.model.RegistrosWPS == 0) {
@@ -17,10 +22,6 @@ function CargarGrid() {
                 if ($('#Guardar').text() != _dictionary.textoEditar[$("#language").data("kendoDropDownList").value()])
                     displayNotify("", _dictionary.lblPQRElementoPQR[$("#language").data("kendoDropDownList").value()] + e.model.Nombre + _dictionary.lblPQRYaAsignado[$("#language").data("kendoDropDownList").value()], 1);
             }
-
-
-
-
         },
         dataBound: function () {
             var myElem = document.getElementById('trParentHeader');
@@ -46,6 +47,7 @@ function CargarGrid() {
                 }
 
             }
+
         },
         dataSource: {
             data: [],
@@ -109,6 +111,7 @@ function CargarGrid() {
             numeric: true,
         },
         filterable: getGridFilterableMaftec(),
+        
         columns: [
              { width: "110px", field: "Nombre", title: _dictionary.columnNombre[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec() },
              {
@@ -144,7 +147,7 @@ function CargarGrid() {
              { width: "120px", field: "Respaldo", title: _dictionary.columnRespaldo[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec() },
              { width: "120px", field: "GrupoF", title: _dictionary.columnGrupoF[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec() },
              { width: "200px", field: "Especificacion", title: _dictionary.columnCodigo[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxEspecificacion },
-             { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: cancelarCaptura }, width: "50px", title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], attributes: { style: "text-align:right;" } }
+             { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: cancelarCaptura }, width: "50px", title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], attributes: { style: "text-align:center;" } }
         ]
 
     });

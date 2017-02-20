@@ -156,7 +156,7 @@ function AjaxGuardarCaptura(listaCaptura, GuardarYNuevo) {
 
     var listaDetalles = [];
     for (var i = 0; i < listaCaptura.length; i++) {
-
+        listaCaptura[i].RowOk = true;
         listaDetalles[i] = {
             Accion: "",
             SpoolAplicableID: "",
