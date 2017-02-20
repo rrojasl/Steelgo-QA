@@ -32,7 +32,8 @@ function AjaxDetalleSpoolXNombre(posicion, proyectoID, nombreSpool) {
                 currentSpoolMaster.DetalleSalidas[posicion].SistemaPintura = data.SistemaPintura;
                 currentSpoolMaster.DetalleSalidas[posicion].ColorPintura = data.ColorPintura;
 
-                AjaxListadoJuntaSpool(posicion, data.SpoolID);
+                //AjaxListadoJuntaSpool(posicion, data.SpoolID);
+                AjaxDetalleMateriales(posicion, proyectoID, data.SpoolID);
             } else
                 displayNotify("", "El spool" + data.NombreSpool + " no pertenece al proyecto configurado", "2");
 
@@ -44,18 +45,19 @@ function AjaxDetalleSpoolXNombre(posicion, proyectoID, nombreSpool) {
     });
 }
 
-function AjaxDetalleMateriales(spoolID) {
+function AjaxDetalleMateriales(posicion, proyectoID, spoolID) {
 
 
     loadingStart();
     $BuscaSpool.BuscaSpool.read({ token: Cookies.get("token"), Spool: spoolID }).done(function (data) {
 
         if (Error(data)) {
-            $("#gridPopUp").data("kendoGrid").dataSource.data(data);
+            //$("#gridPopUp").data("kendoGrid").dataSource.data(data);
 
 
-            VentanaModalDetallePlaca2();
+            //VentanaModalDetallePlaca2();
             
+            AjaxListadoSpool(posicion, proyectoID, spoolID, data);
         }
         loadingStop();
     });
@@ -63,23 +65,22 @@ function AjaxDetalleMateriales(spoolID) {
 }
 
 //Obtiene la lista del Spool-IC
-function AjaxListadoSpool(options, spoolContiene) {
+function AjaxListadoSpool(posicion, proyectoID, spoolID, detalleMaterialesSpool) {
     loadingStart();
 
     var Proyecto = $("#inputProyecto").data("kendoComboBox").dataItem($("#inputProyecto").data("kendoComboBox").select());
 
-    $BuscaSpool.BuscaSpool.read({ token: Cookies.get("token"), ProyectoID: Proyecto.ProyectoSpoolID, SpoolContiene: spoolContiene }).done(function (data) {
+    $BuscaSpool.BuscaSpool.read({ token: Cookies.get("token"), ProyectoID: Proyecto.ProyectoSpoolID, SpoolContiene: currentSpoolMaster.DetalleSalidas[posicion].NombreSpool.substring(0, 5) }).done(function (data) {
         if (Error(data)) {
-            if (data.length > 0) {
-                options.model.Spool_ICSelect = data;
-            }            
+
+            AjaxListadoJuntaSpool(posicion, proyectoID, spoolID, detalleMaterialesSpool, data);
         }
         loadingStop();
     });
 
 }
 
-function AjaxListadoJuntaSpool(posicion, spoolID) {
+function AjaxListadoJuntaSpool(posicion, proyectoID, spoolID, detalleMaterialesSpool, detalleListadoSpool) {
 
 
     loadingStart();
@@ -90,26 +91,41 @@ function AjaxListadoJuntaSpool(posicion, spoolID) {
             var salidas = $("#inputSalidas_" + posicion).data("kendoNumericTextBox").value();
             var salidasJuntasCerradas = $("#inputJuntasCerradas_" + posicion).data("kendoNumericTextBox").value();
 
-            addNewDetalleSalidaAgrupado(currentSpoolMaster.DetalleSalidas[posicion].SpoolID, salidas, salidasJuntasCerradas, data);
+            addNewDetalleSalidaAgrupado(currentSpoolMaster.DetalleSalidas[posicion].SpoolID, salidas, salidasJuntasCerradas, detalleMaterialesSpool, detalleListadoSpool, data);
 
-            $("#grid_" + posicion).data('kendoGrid').dataSource.data([]);
-            var ds = $("#grid_" + posicion).data("kendoGrid").dataSource;
-
-
-            for (var i = 0; i < currentSpoolMaster.DetalleSalidas[0].SalidasEstandar.length; i++) {
-                ds.add(currentSpoolMaster.DetalleSalidas[0].SalidasEstandar[i]);
-            }
-
-            for (var i = 0; i < currentSpoolMaster.DetalleSalidas[0].SalidasJuntasCerradas.length; i++) {
-                ds.add(currentSpoolMaster.DetalleSalidas[0].SalidasJuntasCerradas[i]);
-            }
+            RenderGridRowsDynamic();
         }
         loadingStop();
     });
 
 }
 
+function AjaxDetalleJunta(posicion, posicionSalida, claveSalida, juntaSpoolID) {
+    loadingStart();
 
+    $BuscaSpool.BuscaSpool.read({ token: Cookies.get("token"), JuntaSpoolID: juntaSpoolID }).done(function (data) {
+        if (Error(data)) {
+
+            if (data.length == 1) {
+                if (claveSalida == 'JC')
+                    posicionSalida += currentSpoolMaster.DetalleSalidas[posicion].SalidasEstandar.length;
+
+                $("#grid_" + posicion).data("kendoGrid").dataSource._data[posicionSalida].TipoJuntaID = data[0].TipoJuntaID;
+                $("#grid_" + posicion).data("kendoGrid").dataSource._data[posicionSalida].TipoJunta = data[0].TipoJunta;
+                $("#grid_" + posicion).data("kendoGrid").dataSource._data[posicionSalida].Cedula = data[0].Cedula;
+                $("#grid_" + posicion).data("kendoGrid").dataSource._data[posicionSalida].FamiliaAceroMaterial1ID = data[0].FamiliaAceroMaterial1ID;
+                $("#grid_" + posicion).data("kendoGrid").dataSource._data[posicionSalida].FamiliaAceroMaterial1 = data[0].FamiliaAceroMaterial1;
+                $("#grid_" + posicion).data("kendoGrid").dataSource._data[posicionSalida].FamiliaAceroMaterial2ID = data[0].FamiliaAceroMaterial2ID;
+                $("#grid_" + posicion).data("kendoGrid").dataSource._data[posicionSalida].FamiliaAceroMaterial2 = data[0].FamiliaAceroMaterial2;
+                $("#grid_" + posicion).data("kendoGrid").dataSource._data[posicionSalida].Diametro = data[0].Diametro;
+
+                $("#grid_" + posicion).data("kendoGrid").refresh();
+            }
+        }
+        loadingStop();
+    });
+
+}
 
 function AjaxProyecto() {
     loadingStart();

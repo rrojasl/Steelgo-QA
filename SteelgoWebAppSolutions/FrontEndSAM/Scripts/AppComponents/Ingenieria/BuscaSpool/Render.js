@@ -19,9 +19,9 @@ function RenderTipoSalida(container, options) {
                     options.model.TipoSalidaID = dataItem.TipoSalidaID;
                     options.model.TipoSalida = dataItem.Nombre;
 
-                    if (dataItem.TipoSalidaID == 1) {
-                        AjaxListadoSpool(options, "NG-02");
-                    }
+                    //if (dataItem.TipoSalidaID == 1) {
+                    //    AjaxListadoSpool(options, "NG-02");
+                    //}
                 }
                 
                 ////options.model.TipoSalidaID = dataItem.SalidaID;
@@ -92,6 +92,8 @@ function RenderJunta(container, options) {
                 
                 options.model.DetalleJuntaSpoolID = dataItem.JuntaSpoolID;
                 options.model.DetalleJuntaSpool = dataItem.Etiqueta;
+
+                AjaxDetalleJunta(options.model.PosicionSalidaPadre, options.model.PosicionSalida, ((options.model.ClaveSalida.match('^JC')) ? (options.model.ClaveSalida.substring(0, 2)) : (options.model.ClaveSalida.substring(0, 1))), options.model.DetalleJuntaSpoolID);
             }
         }
         );
@@ -102,7 +104,7 @@ function RenderSpool_IC(container, options) {
     var dataItem;
     var tipoSalidaARenderear = '';
 
-    if (options.model.TipoSalida == "Item Code") {
+    if (options.model.TipoSalida == "Item Code Demo") {
 
         $('<div name=' + options.model.NumeroSalida + '' + options.model.TipoSalidaSelect + '/>')
         .appendTo(container)
@@ -218,18 +220,29 @@ function RenderSpool_IC(container, options) {
 
     }
     else {
-        $('<input required data-text-field="Titulo" id=' + options.model.uid + ' data-value-field="ID" data-bind="value:' + options.field + '"/>')
+        $('<input required data-text-field="Nombre" id=' + options.model.uid + ' data-value-field="SpoolID" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoComboBox({
             autoBind: false,
             dataTextField: "Nombre",
             dataValueField: "SpoolID",
-            dataSource: options.model.Spool_ICSelect,
-            template: "<i class=\"fa fa-#=data.Nombre#\"></i> #=data.Nombre#",
+            dataSource: options.model.SpoolItemCodeLista,
+            //template: "<i class=\"fa fa-#=data.Nombre#\"></i> #=data.Nombre#",
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
 
-                options.model.Spool_ICSelect = dataItem.Nombre;
+                options.model.SpoolItemCodeID = dataItem.SpoolID;
+                options.model.SpoolItemCode = dataItem.Nombre;
+
+                //currentSpoolMaster.DetalleSalidas[i]
+                var posicionSalida = options.model.PosicionSalida;
+                if (options.model.ClaveSalida == 'JC')
+                    posicionSalida += currentSpoolMaster.DetalleSalidas[PosicionSalidaPadre].SalidasEstandar.length;
+
+                addNewDetalleSalida(options.model.SpoolItemCodeID, options.model.SpoolItemCode);
+
+                reloadControls();
+
                 //options.model.JuntaID = dataItem.JuntaID;
                 //options.model.Junta = dataItem.Junta;
 
@@ -239,6 +252,7 @@ function RenderSpool_IC(container, options) {
                 //options.model.Detalle4 = "5.4";
                 //$("#grid").data("kendoGrid").refresh();
 
+                /*
                 if (dataItem.ID == 1) {
                     $("#controls_content_2").show();
                     $("#grid_content_2").show();
@@ -248,7 +262,7 @@ function RenderSpool_IC(container, options) {
                     $("#grid").data("kendoGrid").showColumn(11);
                     $("#grid").data("kendoGrid").showColumn(12);
                     $("#grid").data("kendoGrid").showColumn(13);
-                }
+                }*/
                 //if (dataItem != undefined && dataItem.DefectoID != 0) {
                 //    options.model.DefectoID = dataItem.DefectoID;
                 //    options.model.Defecto = dataItem.Defecto;
@@ -265,6 +279,24 @@ function RenderSpool_IC(container, options) {
         );
     }
 
+}
+
+function RenderGridRowsDynamic() {
+
+    for (var posicion = 0; posicion < currentSpoolMaster.DetalleSalidas.length; posicion++) {
+
+        $("#grid_" + posicion).data('kendoGrid').dataSource.data([]);
+        var ds = $("#grid_" + posicion).data("kendoGrid").dataSource;
+
+
+        for (var i = 0; i < currentSpoolMaster.DetalleSalidas[posicion].SalidasEstandar.length; i++) {
+            ds.add(currentSpoolMaster.DetalleSalidas[posicion].SalidasEstandar[i]);
+        }
+
+        for (var i = 0; i < currentSpoolMaster.DetalleSalidas[posicion].SalidasJuntasCerradas.length; i++) {
+            ds.add(currentSpoolMaster.DetalleSalidas[posicion].SalidasJuntasCerradas[i]);
+        }
+    }
 }
 
 function RenderSpool_IC2(container, options) {
@@ -543,9 +575,11 @@ function RenderMateriales(container, options) {
     idSelect = options.model.ClaveSalida;
     spoolIDSelectMateriales = options.model.SpoolID;
 
-    if ($("#gridPopUp").data("kendoGrid").dataSource._data.length <= 0)
-        AjaxDetalleMateriales(spoolIDSelectMateriales);
-    else
+    $("#gridPopUp").data("kendoGrid").dataSource.data(options.model.DetalleMaterialSpoolLista);
+
+    //if ($("#gridPopUp").data("kendoGrid").dataSource._data.length <= 0)
+    //    AjaxDetalleMateriales(spoolIDSelectMateriales);
+    //else
         VentanaModalDetallePlaca2();
 
     //$("#gridPopUp").data("kendoGrid").dataSource.data([

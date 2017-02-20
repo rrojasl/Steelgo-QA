@@ -3,6 +3,7 @@
 var currentSpoolMaster = null;
 
 var currentTipoSalidaArray = [];
+//var currentListaSpools = [];
 
 function initSpoolMaster() {
     currentSpoolMaster = {
@@ -45,30 +46,40 @@ function addNewDetalleSalida(spoolID, nombreSpool) {
     //addNewDetalleSalida(spoolID);
 }
 
-function addNewDetalleSalidaAgrupado(spoolID, salidasEstandar, salidasJuntasCerradas, listadoJuntaSpool) {
+function addNewDetalleSalidaAgrupado(spoolID, salidasEstandar, salidasJuntasCerradas, detalleMaterialesSpool, detalleListadoSpool, listadoJuntaSpool) {
     for (var i = 0; i < currentSpoolMaster.DetalleSalidas.length; i++) {
         if (currentSpoolMaster.DetalleSalidas[i].SpoolID == spoolID) {
             for (var j = 0; j < salidasEstandar; j++) {
                 currentSpoolMaster.DetalleSalidas[i].SalidasEstandar[j] = {
                     SpoolID: spoolID,
-                    PosicionSalida: i,
+                    PosicionSalida: j,
                     ClaveSalida: 'S' + (j+1),
                     TipoSalidaID: 0,
                     TipoSalida: '',
                     TipoSalidaLista: currentTipoSalidaArray,
                     DetalleMaterialSpoolID: 0,
                     DetalleMaterialSpool: '',
-                    DetalleMaterialSpoolLista: [],
+                    DetalleMaterialSpoolLista: detalleMaterialesSpool,
                     SpoolItemCodeID: 0,
                     SpoolItemCode: '',
-                    SpoolItemCodeLista: [],
+                    SpoolItemCodeLista: detalleListadoSpool,
                     ItemCodeSelect: '',
                     DetalleJuntaSpoolID: 0,
                     DetalleJuntaSpool: '',
                     DetalleJuntaSpoolLista: listadoJuntaSpool,
                     Nivel: 0,
-                    PosicionSalidaPadre: 0,
+                    PosicionSalidaPadre: currentSpoolMaster.DetalleSalidas[i].Posicion,
                     ClaveSalidaPadre: '',
+
+                    TipoJuntaID: 0,
+                    TipoJunta: '',
+                    Cedula: '',
+                    FamiliaAceroMaterial1ID: 0,
+                    FamiliaAceroMaterial1: '',
+                    FamiliaAceroMaterial2ID: 0,
+                    FamiliaAceroMaterial2: '',
+                    Diametro: 0.0,
+
                     TipoCorte1ID: 0,
                     TipoCorte1: '',
                     TipoCorte1Lista: [],
@@ -82,24 +93,34 @@ function addNewDetalleSalidaAgrupado(spoolID, salidasEstandar, salidasJuntasCerr
 
             for (var j = 0; j < salidasJuntasCerradas; j++) {
                 currentSpoolMaster.DetalleSalidas[i].SalidasJuntasCerradas[j] = {
-                    PosicionSalida: i,
+                    PosicionSalida: j,
                     ClaveSalida: 'JC' + (j + 1),
                     TipoSalidaID: 0,
                     TipoSalida: '',
                     TipoSalidaLista: [],
                     DetalleMaterialSpoolID: 0,
                     DetalleMaterialSpool: '',
-                    DetalleMaterialSpoolLista: [],
+                    DetalleMaterialSpoolLista: detalleMaterialesSpool,
                     SpoolItemCodeID: 0,
                     SpoolItemCode: '',
-                    SpoolItemCodeLista: [],
+                    SpoolItemCodeLista: detalleListadoSpool,
                     ItemCodeSelect: '',
                     DetalleJuntaSpoolID: 0,
                     DetalleJuntaSpool: '',
-                    DetalleJuntaSpoolLista: [],
+                    DetalleJuntaSpoolLista: listadoJuntaSpool,
                     Nivel: 0,
-                    PosicionSalidaPadre: 0,
+                    PosicionSalidaPadre: currentSpoolMaster.DetalleSalidas[i].Posicion,
                     ClaveSalidaPadre: '',
+
+                    TipoJuntaID: 0,
+                    TipoJunta: '',
+                    Cedula: '',
+                    FamiliaAceroMaterial1ID: 0,
+                    FamiliaAceroMaterial1: '',
+                    FamiliaAceroMaterial2ID: 0,
+                    FamiliaAceroMaterial2: '',
+                    Diametro: 0.0,
+
                     TipoCorte1ID: 0,
                     TipoCorte1: '',
                     TipoCorte1Lista: [],
@@ -201,13 +222,81 @@ function eventBuscar(posicion) {
             AjaxDetalleSpoolXNombre(posicion, Proyecto.ProyectoSpoolID, $('#spool_' + posicion).val());
         }
         else {
-
+            AjaxDetalleSpoolXNombre(posicion, Proyecto.ProyectoSpoolID, currentSpoolMaster.DetalleSalidas[posicion].NombreSpool);
         }
     } else {
         alert("Por favor seleccione un proyecto");
     }
 }
 
+function reloadControls() {
+    var loopHTML = '';
+
+    for (var i = 0; i < currentSpoolMaster.DetalleSalidas.length; i++) {
+        if ($('#content_' + i).length > 0)
+            $('#content_' + i).remove();
+
+        loopHTML += '<div id="content_' + i + '">';
+        loopHTML += '<div class="row">';
+        loopHTML += '<div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 altoControl" >';
+        loopHTML += '<label>' + _dictionary.lblSpool[$("#language").data("kendoDropDownList").value()] + '</label>';
+        if (i == 0)
+            loopHTML += '<input id="spool_' + i + '" class="item-select general-input" value="' + currentSpoolMaster.DetalleSalidas[i].NombreSpool + '" />';
+        else
+            loopHTML += '<label>' + currentSpoolMaster.DetalleSalidas[i].NombreSpool + '</label>';
+        loopHTML += '</div>';
+        loopHTML += '<div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 altoControl" id="divPrueba">';
+        loopHTML += '<label>' + _dictionary.lblNumeroSalidas[$("#language").data("kendoDropDownList").value()] + '</label>';
+        loopHTML += '<input style="width:47%" id="inputSalidas_' + i + '" />';
+        loopHTML += '</div>';
+        loopHTML += '<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 altoControl" id="divPrueba">';
+        loopHTML += '<label>' + _dictionary.lblNumeroSalidasCerradas[$("#language").data("kendoDropDownList").value()] + '</label>';
+        loopHTML += '<input style="width:30%" id="inputJuntasCerradas_' + i + '" />';
+        loopHTML += '</div>';
+        loopHTML += '<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">';
+        loopHTML += '<label></label>';
+        loopHTML += '<button type="button" id="btnAgregar_' + i + '" class="btn btn-blue"  onclick="eventBuscar(' + i + ');">Agregar</button>';
+        loopHTML += '</div>';
+        loopHTML += '</div>';
+
+        loopHTML += '<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">';
+        loopHTML += '<div id="ContenedorGrid" class="row">';
+        loopHTML += '<div id="grid_' + i + '" data-role="grid" class="k-grid k-widget">';
+        loopHTML += '</div>';
+        loopHTML += '</div>';
+        loopHTML += '</div>';
+
+        loopHTML += '<div class="row">';
+        loopHTML += '<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">';
+        loopHTML += '<label>&nbsp;</label>';
+        loopHTML += '</div>';
+        loopHTML += '</div>';
+
+        loopHTML += '';
+        loopHTML += '';
+        loopHTML += '</div>';
+
+    }
+
+    
+    $("#contenedor_master").append(loopHTML);
+
+    for (var i = 0; i < currentSpoolMaster.DetalleSalidas.length; i++) {
+        $('#inputSalidas_' + i).kendoNumericTextBox({
+            format: "###",
+            value: currentSpoolMaster.DetalleSalidas[i].SalidasEstandar.length
+        });
+
+        $('#inputJuntasCerradas_' + i).kendoNumericTextBox({
+            format: "###",
+            value: currentSpoolMaster.DetalleSalidas[i].SalidasJuntasCerradas.length
+        });
+
+        CargarGridDynamic(i);
+    }
+
+    RenderGridRowsDynamic();
+}
 
 function nombreLoop() {
     ventanaConfirm = $("#ventanaConfirm").kendoWindow({
