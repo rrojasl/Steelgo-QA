@@ -17,7 +17,7 @@ namespace BackEndSAM.Controllers.Secuencias
     public class SecuenciasController : ApiController
     {
         [HttpGet]
-        public object ObtenerFolio(string token, int ProyectoID, string Modulo)
+        public object ObtenerFolio(string token, int ProyectoID, string Modulo, string CampoExtra)
         {
             string payload = "";
             string newToken = "";
@@ -28,7 +28,7 @@ namespace BackEndSAM.Controllers.Secuencias
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                return new object();
+                return SecuenciasBD.Instance.ObtenerFolio(ProyectoID,Modulo,CampoExtra);
             }
             else
             {

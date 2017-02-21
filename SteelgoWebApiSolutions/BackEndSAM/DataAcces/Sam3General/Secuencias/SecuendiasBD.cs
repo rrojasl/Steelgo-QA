@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DatabaseManager.Sam3;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -22,6 +23,25 @@ namespace BackEndSAM.DataAcces.Sam3General.Secuencias
                     }
                 }
                 return _instance;
+            }
+        }
+
+        public object ObtenerFolio( int proyectoID, string modulo, string campoExtra)
+        {
+            try
+            {
+                String result = "";
+                using (SamContext ctx = new SamContext())
+                {
+                    
+                     result = ctx.Sam3_Steelgo_Get_Secuencia(proyectoID,modulo,campoExtra).ToString();
+                 
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return "";
             }
         }
     }
