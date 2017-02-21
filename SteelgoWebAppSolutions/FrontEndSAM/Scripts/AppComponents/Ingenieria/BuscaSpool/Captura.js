@@ -1023,6 +1023,9 @@ function CargarGridPopUpDetallePorPlaca() {
 
                         for (var j = 0; j < currentSpoolMaster.DetalleSalidas[i].SalidasEstandar.length; j++) {
                             if (currentSpoolMaster.DetalleSalidas[i].SalidasEstandar[j].ClaveSalida == idSelect) {
+                                currentSpoolMaster.DetalleSalidas[i].SalidasEstandar[j].DetalleMaterialSpoolID = (j + 1);
+                                currentSpoolMaster.DetalleSalidas[i].SalidasEstandar[j].DetalleMaterialSpool = ICSelect;
+
                                 $("#grid_" + currentSpoolMaster.DetalleSalidas[i].Posicion).data("kendoGrid").dataSource._data[j].DetalleMaterialSpoolID = (j + 1);//EtiquetaSelect;
                                 $("#grid_" + currentSpoolMaster.DetalleSalidas[i].Posicion).data("kendoGrid").dataSource._data[j].DetalleMaterialSpool = ICSelect;//$("#gridPopUp").data("kendoGrid").dataSource._data.length;
                                 $("#grid_" + currentSpoolMaster.DetalleSalidas[i].Posicion).data("kendoGrid").refresh();
@@ -1032,8 +1035,12 @@ function CargarGridPopUpDetallePorPlaca() {
 
                         for (var j = 0; j < currentSpoolMaster.DetalleSalidas[i].SalidasJuntasCerradas.length; j++) {
                             if (currentSpoolMaster.DetalleSalidas[i].SalidasJuntasCerradas[j].ClaveSalida == idSelect) {
-                                $("#grid_" + currentSpoolMaster.DetalleSalidas[i].Posicion).data("kendoGrid").dataSource._data[j].DetalleMaterialSpoolID = (j + 1);//EtiquetaSelect;
-                                $("#grid_" + currentSpoolMaster.DetalleSalidas[i].Posicion).data("kendoGrid").dataSource._data[j].DetalleMaterialSpool = ICSelect;//$("#gridPopUp").data("kendoGrid").dataSource._data.length;
+
+                                currentSpoolMaster.DetalleSalidas[i].SalidasJuntasCerradas[j].DetalleMaterialSpoolID = (j + 1);
+                                currentSpoolMaster.DetalleSalidas[i].SalidasJuntasCerradas[j].DetalleMaterialSpool = ICSelect;
+
+                                $("#grid_" + currentSpoolMaster.DetalleSalidas[i].Posicion).data("kendoGrid").dataSource._data[j + currentSpoolMaster.DetalleSalidas[i].SalidasEstandar.length].DetalleMaterialSpoolID = (j + 1);//EtiquetaSelect;
+                                $("#grid_" + currentSpoolMaster.DetalleSalidas[i].Posicion).data("kendoGrid").dataSource._data[j + currentSpoolMaster.DetalleSalidas[i].SalidasEstandar.length].DetalleMaterialSpool = ICSelect;//$("#gridPopUp").data("kendoGrid").dataSource._data.length;
                                 $("#grid_" + currentSpoolMaster.DetalleSalidas[i].Posicion).data("kendoGrid").refresh();
                                 break;
                             }

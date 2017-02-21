@@ -22,6 +22,16 @@ function RenderTipoSalida(container, options) {
                     //if (dataItem.TipoSalidaID == 1) {
                     //    AjaxListadoSpool(options, "NG-02");
                     //}
+
+                    if (options.model.ClaveSalida.match('^JC')) {
+                        currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].TipoSalidaID = dataItem.TipoSalidaID;
+                        currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].TipoSalida = dataItem.Nombre;
+                    }
+                    else {
+                        currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].TipoSalidaID = dataItem.TipoSalidaID;
+                        currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].TipoSalida = dataItem.Nombre;
+                    }
+
                 }
                 
                 ////options.model.TipoSalidaID = dataItem.SalidaID;
@@ -92,6 +102,15 @@ function RenderJunta(container, options) {
                 
                 options.model.DetalleJuntaSpoolID = dataItem.JuntaSpoolID;
                 options.model.DetalleJuntaSpool = dataItem.Etiqueta;
+
+                if (options.model.ClaveSalida.match('^JC')) {
+                    currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].DetalleJuntaSpoolID = dataItem.JuntaSpoolID;
+                    currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].DetalleJuntaSpool = dataItem.Etiqueta;
+                }
+                else {
+                    currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].DetalleJuntaSpoolID = dataItem.JuntaSpoolID;
+                    currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].DetalleJuntaSpool = dataItem.Etiqueta;
+                }
 
                 AjaxDetalleJunta(options.model.PosicionSalidaPadre, options.model.PosicionSalida, ((options.model.ClaveSalida.match('^JC')) ? (options.model.ClaveSalida.substring(0, 2)) : (options.model.ClaveSalida.substring(0, 1))), options.model.DetalleJuntaSpoolID);
             }
@@ -231,17 +250,31 @@ function RenderSpool_IC(container, options) {
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
 
-                options.model.SpoolItemCodeID = dataItem.SpoolID;
-                options.model.SpoolItemCode = dataItem.Nombre;
+                if (dataItem.SpoolID != 0) {
+                    options.model.SpoolItemCodeID = dataItem.SpoolID;
+                    options.model.SpoolItemCode = dataItem.Nombre;
 
-                //currentSpoolMaster.DetalleSalidas[i]
-                var posicionSalida = options.model.PosicionSalida;
-                if (options.model.ClaveSalida == 'JC')
-                    posicionSalida += currentSpoolMaster.DetalleSalidas[PosicionSalidaPadre].SalidasEstandar.length;
+                    //currentSpoolMaster.DetalleSalidas[i]
+                    //((options.model.ClaveSalida.match('^JC')) ? (options.model.ClaveSalida.substring(0, 2)) : (options.model.ClaveSalida.substring(0, 1)))
+                    var posicionSalida = options.model.PosicionSalida;
+                    if (options.model.ClaveSalida.match('^JC')) {
+                        currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].SpoolItemCodeID = dataItem.SpoolID;//posicionSalida += currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar.length;
+                        currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].SpoolItemCode = dataItem.Nombre;
+                    }
+                    else {
+                        currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].SpoolItemCodeID = dataItem.SpoolID;
+                        currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].SpoolItemCode = dataItem.Nombre;
+                    }
 
-                addNewDetalleSalida(options.model.SpoolItemCodeID, options.model.SpoolItemCode);
 
-                reloadControls();
+                    addNewDetalleSalida(options.model.SpoolItemCodeID, options.model.SpoolItemCode);
+
+                    reloadControls();
+                }
+                //else {
+                //    options.model.SpoolItemCodeID = dataItem.SpoolID;
+                //    options.model.SpoolItemCodeID = "Sin Definir"
+                //}
 
                 //options.model.JuntaID = dataItem.JuntaID;
                 //options.model.Junta = dataItem.Junta;

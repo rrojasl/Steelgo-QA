@@ -15,7 +15,7 @@ function initSpoolMaster() {
         PND: '',
         RequierePWHT: false,
         RevisionCliente: 0,
-        RevisionSteelgo: '',
+        RevisionSteelgo: 'A1',
         Acero: '',
         Especificacion: '',
         PDI: 0.0,
@@ -31,12 +31,12 @@ function addNewDetalleSalida(spoolID, nombreSpool) {
         NombreLoop: currentSpoolMaster.NombreLoop,
         SpoolID: spoolID,
         NombreSpool: nombreSpool,
-        Posicion: 0,
+        Posicion: currentSpoolMaster.DetalleSalidas.length,
         RevisionCliente: 0,
         RevisionSteelgo: '',
-        SistemaPinturaID: '',
+        SistemaPinturaID: 0,
         SistemaPintura: '',
-        ColorPinturaID: '',
+        ColorPinturaID: 0,
         ColorPintura: '',
 
         SalidasEstandar: [],
@@ -93,11 +93,12 @@ function addNewDetalleSalidaAgrupado(spoolID, salidasEstandar, salidasJuntasCerr
 
             for (var j = 0; j < salidasJuntasCerradas; j++) {
                 currentSpoolMaster.DetalleSalidas[i].SalidasJuntasCerradas[j] = {
+                    SpoolID: spoolID,
                     PosicionSalida: j,
                     ClaveSalida: 'JC' + (j + 1),
                     TipoSalidaID: 0,
                     TipoSalida: '',
-                    TipoSalidaLista: [],
+                    TipoSalidaLista: currentTipoSalidaArray,
                     DetalleMaterialSpoolID: 0,
                     DetalleMaterialSpool: '',
                     DetalleMaterialSpoolLista: detalleMaterialesSpool,
@@ -211,6 +212,8 @@ function buscaLoop() {
     });
 
     CargarGridDynamic(0);
+
+    reCalculaReglas();
 }
 
 function eventBuscar(posicion) {
@@ -296,6 +299,24 @@ function reloadControls() {
     }
 
     RenderGridRowsDynamic();
+}
+
+function reCalculaReglas() {
+    //RevisionCliente: 0,
+    //RevisionSteelgo: '',
+    //Acero: '',
+    //Especificacion: '',
+    //PDI: 0.0,
+    //SistemaPintura: '',
+    //ColorPintura: '
+
+    $("#labelRevisionCliente2").text("" + currentSpoolMaster.RevisionCliente);
+    $("#labelRevision2").text(currentSpoolMaster.RevisionSteelgo);
+    $("#labelAcero2").text(currentSpoolMaster.Acero);
+    $("#labelEspecificacion2").text(currentSpoolMaster.Especificacion);
+    $("#labelPDI2").text(currentSpoolMaster.PDI);
+    $("#labelSistemaPintura2").text(currentSpoolMaster.SistemaPintura);
+    $("#labelColorPintura").text(currentSpoolMaster.ColorPintura);
 }
 
 function nombreLoop() {

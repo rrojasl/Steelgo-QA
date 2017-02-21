@@ -32,6 +32,14 @@ function AjaxDetalleSpoolXNombre(posicion, proyectoID, nombreSpool) {
                 currentSpoolMaster.DetalleSalidas[posicion].SistemaPintura = data.SistemaPintura;
                 currentSpoolMaster.DetalleSalidas[posicion].ColorPintura = data.ColorPintura;
 
+                if (!(currentSpoolMaster.SistemaPintura.indexOf(data.SistemaPintura) !== -1)) {
+                    currentSpoolMaster.SistemaPintura += data.SistemaPintura + '-';
+                }
+                if (!(currentSpoolMaster.ColorPintura.indexOf(data.ColorPintura) !== -1)) {
+                    currentSpoolMaster.ColorPintura += data.ColorPintura + '-';
+                }
+                reCalculaReglas();
+
                 //AjaxListadoJuntaSpool(posicion, data.SpoolID);
                 AjaxDetalleMateriales(posicion, proyectoID, data.SpoolID);
             } else
@@ -106,7 +114,35 @@ function AjaxDetalleJunta(posicion, posicionSalida, claveSalida, juntaSpoolID) {
     $BuscaSpool.BuscaSpool.read({ token: Cookies.get("token"), JuntaSpoolID: juntaSpoolID }).done(function (data) {
         if (Error(data)) {
 
-            if (data.length == 1) {
+            if (data.length == 1) {                
+
+                if (!(currentSpoolMaster.Acero.indexOf(data[0].FamiliaAceroMaterial1) !== -1)) {
+                    currentSpoolMaster.Acero += data[0].FamiliaAceroMaterial1 + '-';
+                }
+                currentSpoolMaster.PDI += data[0].Diametro;
+                reCalculaReglas();
+
+                if (claveSalida =='JC') {
+                    currentSpoolMaster.DetalleSalidas[posicion].SalidasJuntasCerradas[posicionSalida].TipoJuntaID = data[0].TipoJuntaID;
+                    currentSpoolMaster.DetalleSalidas[posicion].SalidasJuntasCerradas[posicionSalida].TipoJunta = data[0].TipoJunta;
+                    currentSpoolMaster.DetalleSalidas[posicion].SalidasJuntasCerradas[posicionSalida].Cedula = data[0].Cedula;
+                    currentSpoolMaster.DetalleSalidas[posicion].SalidasJuntasCerradas[posicionSalida].FamiliaAceroMaterial1ID = data[0].FamiliaAceroMaterial1ID;
+                    currentSpoolMaster.DetalleSalidas[posicion].SalidasJuntasCerradas[posicionSalida].FamiliaAceroMaterial1 = data[0].FamiliaAceroMaterial1;
+                    currentSpoolMaster.DetalleSalidas[posicion].SalidasJuntasCerradas[posicionSalida].FamiliaAceroMaterial2ID = data[0].FamiliaAceroMaterial2ID;
+                    currentSpoolMaster.DetalleSalidas[posicion].SalidasJuntasCerradas[posicionSalida].FamiliaAceroMaterial2 = data[0].FamiliaAceroMaterial2;
+                    currentSpoolMaster.DetalleSalidas[posicion].SalidasJuntasCerradas[posicionSalida].Diametro = data[0].Diametro;
+                }
+                else {
+                    currentSpoolMaster.DetalleSalidas[posicion].SalidasEstandar[posicionSalida].TipoJuntaID = data[0].TipoJuntaID;
+                    currentSpoolMaster.DetalleSalidas[posicion].SalidasEstandar[posicionSalida].TipoJunta = data[0].TipoJunta;
+                    currentSpoolMaster.DetalleSalidas[posicion].SalidasEstandar[posicionSalida].Cedula = data[0].TipoJunta;
+                    currentSpoolMaster.DetalleSalidas[posicion].SalidasEstandar[posicionSalida].FamiliaAceroMaterial1ID = data[0].FamiliaAceroMaterial1ID;
+                    currentSpoolMaster.DetalleSalidas[posicion].SalidasEstandar[posicionSalida].FamiliaAceroMaterial1 = data[0].FamiliaAceroMaterial1;
+                    currentSpoolMaster.DetalleSalidas[posicion].SalidasEstandar[posicionSalida].FamiliaAceroMaterial2ID = data[0].FamiliaAceroMaterial2ID;
+                    currentSpoolMaster.DetalleSalidas[posicion].SalidasEstandar[posicionSalida].FamiliaAceroMaterial2 = data[0].FamiliaAceroMaterial2;
+                    currentSpoolMaster.DetalleSalidas[posicion].SalidasEstandar[posicionSalida].Diametro = data[0].Diametro;
+                }
+
                 if (claveSalida == 'JC')
                     posicionSalida += currentSpoolMaster.DetalleSalidas[posicion].SalidasEstandar.length;
 
