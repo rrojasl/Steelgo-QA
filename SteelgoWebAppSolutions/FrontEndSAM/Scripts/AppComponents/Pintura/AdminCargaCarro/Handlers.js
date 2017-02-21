@@ -8,6 +8,31 @@
     SuscribirEventoCerrarNuevoMedioTransporte();
     suscribirEventoAgregarColumna();
     suscribirEventoMostrar();
+    SuscribirEventoTipoSeleccion();
+    SuscribirEventoAgregar();
+}
+
+function SuscribirEventoAgregar() {
+    $('#btnAgregar').click(function () {
+        AjaxAgregarSpool();
+    });
+
+}
+
+function SuscribirEventoTipoSeleccion() {
+    $('input:radio[name=TipoSeleccion]:nth(0)').change(function () {
+        $("#InputIDDiv").show();
+        $("#divCodigo").hide();
+        $("#inputCodigo").val('');
+
+    });
+
+    $('input:radio[name=TipoSeleccion]:nth(1)').change(function () {
+        $("#InputIDDiv").hide();
+        $("#divCodigo").show();
+        $("#InputOrdenTrabajo").val('');
+        $("#InputID").data("kendoComboBox").value("");
+    });
 }
 
 function suscribirEventoMostrar()
