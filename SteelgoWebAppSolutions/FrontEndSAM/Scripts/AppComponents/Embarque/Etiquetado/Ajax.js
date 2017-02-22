@@ -147,13 +147,13 @@ function AjaxGuardarCaptura(rows, tipoGuardar) {
             else
                 ListaDetalles[i].Accion = rows[i].Accion;
 
-            if (rows[i].CuadranteID == rows[i].CuadranteAnteriorSam3ID){
-                ListaDetalles[i].CuadranteAnteriorID = 0;
-                ListaDetalles[i].CuadranteAnteriorSam2ID = 0;
+            if (rows[i].CuadranteID != null && rows[i].CuadranteID == rows[i].CuadranteAnteriorSam3ID) {
+                    ListaDetalles[i].CuadranteAnteriorID = 0;
+                    ListaDetalles[i].CuadranteAnteriorSam2ID = 0;
             }                
             else {
-                ListaDetalles[i].CuadranteAnteriorID = rows[i].CuadranteAnteriorSam3ID;
-                ListaDetalles[i].CuadranteAnteriorSam2ID = rows[i].CuadranteAnteriorSam2ID;
+                ListaDetalles[i].CuadranteAnteriorID = rows[i].CuadranteAnteriorSam3ID == null ? -1 : rows[i].CuadranteAnteriorSam3ID;
+                ListaDetalles[i].CuadranteAnteriorSam2ID = rows[i].CuadranteAnteriorSam2ID == null ? -1 : rows[i].CuadranteAnteriorSam2ID;
             }
     };
     Captura[0].listaDetalle = ListaDetalles;

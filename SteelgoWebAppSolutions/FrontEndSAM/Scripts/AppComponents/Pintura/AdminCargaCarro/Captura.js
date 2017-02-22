@@ -150,6 +150,8 @@ function CargaGrid()
 
         }
     });
+
+    CustomisaGrid($("#grid"));
 }
 
 function eliminarCaptura(e) {

@@ -13,17 +13,17 @@ namespace BackEndSAM.Models.Embarque.Encintado
         public string Spool { get; set; }
         public int ProyectoID { get; set; }
         public string Proyecto { get; set; }
-        public int CuadranteAnteriorSam2ID { get; set; }
-        public int CuadranteAnteriorSam3ID { get; set; }
+        public int? CuadranteAnteriorSam2ID { get; set; }
+        public int? CuadranteAnteriorSam3ID { get; set; }
         public int? CuadranteID { get; set; }
         public int? CuadranteSam2ID { get; set; }
         public string Cuadrante { get; set; }
-        public int EncintadoID { get; set; }
+        public int? EncintadoID { get; set; }
         public bool? Encintado { get; set; }
-        public int EtiquetadoID { get; set; }
+        public int? EtiquetadoID { get; set; }
         public bool Etiquetado { get; set; }
-        public int ColorAnteriorID { get; set; }
-        public int ColorID { get; set; }
+        public int? ColorAnteriorID { get; set; }
+        public int? ColorID { get; set; }
         public string NombreColor { get; set; }
         public bool OkPintura { get; set; }
         public bool OkPND { get; set; }

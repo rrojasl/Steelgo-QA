@@ -51,7 +51,7 @@ function AjaxPruebas() {
 function AjaxRequisicion() {
     if ($("#inputPrueba").data("kendoComboBox").text() != "") {
         loadingStart();
-        $ServiciosTecnicosGeneral.ServiciosTecnicosGeneral.read({ token: Cookies.get("token"), ProyectoID: $("#inputProyecto").data("kendoComboBox").value(), TipoPruebaID: $("#inputPrueba").data("kendoComboBox").value(), estatusID: 2 }).done(function (data) {
+        $ServiciosTecnicosGeneral.ServiciosTecnicosGeneral.read({ token: Cookies.get("token"), ProyectoID: $("#inputProyecto").data("kendoComboBox").value(), TipoPruebaID: $("#inputPrueba").data("kendoComboBox").value(), estatusID: 2, lenguaje: $("#language").val() }).done(function (data) {
             if (Error(data)) {
                 $("#inputRequisicion").data("kendoComboBox").value("");
                 $("#inputRequisicion").data("kendoComboBox").dataSource.data(data);
