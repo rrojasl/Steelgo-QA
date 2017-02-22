@@ -9131,16 +9131,16 @@ _dictionary = {
         "en-US": " already exist in the list"
     },
     "CapturaArmadoMsgExisteReporte": {
-        "es-MX": " ya existe en el spool",
-        "en-US": " already exist in the spool"
+        "es-MX": " ya existe en la captura",
+        "en-US": " already exist in the capture"
     },
     "CapturaArmadoMsgNuevoEnListado": {
         "es-MX": " se agregó en el listado",
         "en-US": " already add in the list"
     },
     "CapturaArmadoMsgNuevoEnReporte": {
-        "es-MX": " se agregó en el spool",
-        "en-US": " already add in the spool"
+        "es-MX": " se agregó en la captura",
+        "en-US": " already add in the capture"
     },
     "CapturaArmadoTrabajoMandatorio": {
         "es-MX": "El campo adicionales, es mandatorio",
@@ -9468,6 +9468,11 @@ _dictionary = {
         "es-MX": "Los campos de Soldador y Colada, no pueden ser los mismos en mas de un registro",
         "en-US": "The welder and laver fields cant be equals in more than one reccord"
     },
+    "CapturaSoldaduraTrabajoAdicionalSeraBorrado": {
+        "es-MX": "El soldador tiene trabajos adicionales asignados, los cuales seran eliminados, ¿desea continuar?",
+        "en-US": "The welder have additional works assigned, wich will be eliminated, do you wish to continue?"
+    },
+
 
         
     "CapturaSoldaduraHeaderTrabajosAdicionalesAnidado": {

@@ -382,7 +382,7 @@ function CargarGridPopupSoldadoresRaizCapturados() {
                             }
                         }).data("kendoWindow");
 
-                        ventanaConfirm.content("El soldador tiene trabajos adicionales asignados, los cuales seran eliminados, ¿desea continuar?" +
+                        ventanaConfirm.content(_dictionary.CapturaSoldaduraTrabajoAdicionalSeraBorrado[$("#language").data("kendoDropDownList").value()] +
                                      "</br><center><button class='confirm_yes btn btn-blue' id='yesButton'>Si</button><button class='confirm_yes btn btn-blue' id='noButton'> No</button></center>");
 
                         ventanaConfirm.open().center();
@@ -528,7 +528,7 @@ function CargarGridPopupSoldadoresRellenoCapturados() {
                             }
                         }).data("kendoWindow");
 
-                        ventanaConfirm.content("El soldador tiene trabajos adicionales asignados, los cuales seran eliminados, ¿desea continuar?" +
+                        ventanaConfirm.content(_dictionary.CapturaSoldaduraTrabajoAdicionalSeraBorrado[$("#language").data("kendoDropDownList").value()] +
                                      "</br><center><button class='confirm_yes btn btn-blue' id='yesButton'>Si</button><button class='confirm_yes btn btn-blue' id='noButton'> No</button></center>");
 
                         ventanaConfirm.open().center();
