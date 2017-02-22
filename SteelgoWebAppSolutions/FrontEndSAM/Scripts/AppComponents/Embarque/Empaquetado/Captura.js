@@ -67,7 +67,7 @@ function CargarGrid() {
         },
         filterable: getGridFilterableMaftec(),
         columns: [
-            { field: "Consecutivo", title: _dictionary.columnConsecutivoEmbarque[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), attributes: { style: "text-align:right;" } },
+            { field: "Consecutivo", title: _dictionary.columnConsecutivoEmbarque[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "150px", attributes: { style: "text-align:right;" } },
             { field: "NumeroControl", title: _dictionary.columnSpool[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec() },
             { field: "Cuadrante", title: _dictionary.columnCuadrante[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec() },
             { field: "Area", title: _dictionary.columnM2[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), aggregates: ["sum"], footerTemplate: "<div style='text-align:right;'>SUM: #= kendo.toString(sum, 'n3') #</div>", attributes: { style: "text-align:right;" } },
@@ -183,4 +183,16 @@ function ObtieneConsecutivo() {
     }
 
     ds.sync();
+}
+
+function TryParseInt(str, defaultValue) {
+    var retValue = defaultValue;
+    if (str !== null) {
+        if (str.length > 0) {
+            if (!isNaN(str)) {
+                retValue = parseInt(str);
+            }
+        }
+    }
+    return retValue;
 }
