@@ -124,7 +124,7 @@ function CargarGridDynamic(posicion) {
         //},
         filterable: getGridFilterableMaftec(),
         columns: [
-            { field: "ClaveSalida", title: 'Numero de Salida', filterable: getGridFilterableCellMaftec(), filterable: false, width: "70px", attributes: { style: "text-align:right;" }, template: "<div class='EnlacePorPlaca' style='text-align:center;' contextmenu='showMenuContext();'  onmouseover='numeroSalidaSelect = \"#=ClaveSalida#\";'><span>#=ClaveSalida#</span></div> " },
+            { field: "ClaveSalida", title: 'Numero de Salida', filterable: getGridFilterableCellMaftec(), filterable: false, width: "70px", attributes: { style: "text-align:right;" }, template: "<div class='EnlacePorPlaca' style='text-align:center;' contextmenu='showMenuContext();'  onmouseover='numeroSalidaSelect = \"#=ClaveSalida#\"; posicionMenuContext = \"#=PosicionSalidaPadre#\";'><span>#=ClaveSalida#</span></div> " },
             { field: "TipoSalida", title: 'Tipo de Salida', filterable: getGridFilterableCellMaftec(), filterable: false, width: "130px", editor: RenderTipoSalida, attributes: { style: "text-align:right;" } },
             { field: "DetalleMaterialSpoolID", title: 'Etiqueta', filterable: getGridFilterableCellMaftec(), filterable: false, width: "100px", attributes: { style: "text-align:right;" }, editor: RenderMateriales, template: "<div class='EnlacePorPlaca' style='text-align:center;'><a href='\\#'  > <span>#=DetalleMaterialSpoolID#</span></a></div> " },
             { field: "DetalleMaterialSpool", title: 'Material', filterable: getGridFilterableCellMaftec(), filterable: false, width: "100px", attributes: { style: "text-align:right;" }, editor: RenderMateriales/*, template: "<div class='EnlacePorPlaca' style='text-align:center;'><a href='\\#'  > <span>#=Material#</span></a></div> "*/ },
@@ -400,6 +400,7 @@ function CargarGrid() {
 };
 
 var numeroSalidaSelect = '';
+var posicionMenuContext = 0;
 function showMenuContext() {
     if(numeroSalidaSelect.startsWith('JC') )
         $("#context-menu").kendoContextMenu().data("kendoContextMenu").open();
