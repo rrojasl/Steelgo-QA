@@ -24,7 +24,7 @@ function CargarGrid() {
     $("#grid").kendoGrid({
         autoBind: false,
         edit: function (e) {
-            
+
             var inputName = e.container.find('input');
             inputName.select();
             editado = true;
@@ -190,9 +190,8 @@ function cancelarCaptura(e) {
         var spoolIDRegistro = dataItem.SpoolID;
 
         var dataSource = $("#grid").data("kendoGrid").dataSource;
-        dataItem.Accion = 3;
-        if (dataItem.JuntaSoldaduraID == 0)
-            dataSource.remove(dataItem);
+
+        dataSource.remove(dataItem);
         $("#grid").data("kendoGrid").dataSource.sync();
 
     }
@@ -231,13 +230,13 @@ function CambioTipoListado() {
     if ($('input:radio[name=TipoAgregado]:checked').val() == "Reporte") {
         $("#JuntaDiv").css('display', 'none');
         $("#MuestraDiv").css('display', 'block');
-        
+
         AjaxObtenerListaTaller();
     }
     else if ($('input:radio[name=TipoAgregado]:checked').val() == "Listado") {
         $("#JuntaDiv").css('display', 'block');
         $("#MuestraDiv").css('display', 'block');
-        
+
         AjaxObtenerListaTaller();
     }
 }
@@ -364,16 +363,56 @@ function CargarGridPopupSoldadoresRaizCapturados() {
                 text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()],
                 click: function (e) {
                     e.preventDefault();
+                    modeloRenglon.DetalleAdicional.length;
                     var dataSource = this.dataSource;
                     var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-                    if (dataItem != null) {
-                        if (dataItem.Accion == 1 || dataItem.Accion == undefined)
-                            dataSource.remove(dataItem);
-                        else
-                            dataItem.Accion = 3;
-                    }
-                    dataSource.sync();
+                    if (buscarSoldadoresTrabajoAdicional(dataItem.ObreroID, modeloRenglon.ListaDetalleTrabajoAdicional)) {
+                        windowTemplate = kendo.template($("#windowTemplate").html());
 
+                        ventanaConfirm = $("#ventanaConfirm").kendoWindow({
+                            iframe: true,
+                            title: _dictionary.CapturaAvanceTitulo[$("#language").data("kendoDropDownList").value()],
+                            visible: false, //the window will not appear before its .open method is called
+                            width: "auto",
+                            height: "auto",
+                            modal: true,
+                            animation: {
+                                close: false,
+                                open: false
+                            }
+                        }).data("kendoWindow");
+
+                        ventanaConfirm.content("El soldador tiene trabajos adicionales asignados, los cuales seran eliminados, ¿desea continuar?" +
+                                     "</br><center><button class='confirm_yes btn btn-blue' id='yesButton'>Si</button><button class='confirm_yes btn btn-blue' id='noButton'> No</button></center>");
+
+                        ventanaConfirm.open().center();
+
+                        $("#yesButton").click(function () {
+
+                            if (dataItem != null) {
+                                if (dataItem.Accion == 1 || dataItem.Accion == undefined)
+                                    dataSource.remove(dataItem);
+                                else
+                                    dataItem.Accion = 3;
+                            }
+                            eliminaSoldadoresTrabajoAdicional(dataItem.ObreroID,modeloRenglon.ListaDetalleTrabajoAdicional)
+                            dataSource.sync();
+
+                            ventanaConfirm.close();
+                        });
+                        $("#noButton").click(function () {
+                            ventanaConfirm.close();
+                        });
+                    }
+                    else {
+                        if (dataItem != null) {
+                            if (dataItem.Accion == 1 || dataItem.Accion == undefined)
+                                dataSource.remove(dataItem);
+                            else
+                                dataItem.Accion = 3;
+                        }
+                        dataSource.sync();
+                    }
                 }
             }, width: "50px", attributes: { style: "text-align:center;" }, title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()]
         },
@@ -435,7 +474,7 @@ function CargarGridPopupSoldadoresRellenoCapturados() {
 
 
     $("#inputSoldadoresRelleno").kendoGrid({
-        
+
         dataSource: {
             data: [],
             schema: {
@@ -470,16 +509,57 @@ function CargarGridPopupSoldadoresRellenoCapturados() {
                 text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()],
                 click: function (e) {
                     e.preventDefault();
+                    modeloRenglon.ListaDetalleTrabajoAdicional;
                     var dataSource = this.dataSource;
                     var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+                    if (buscarSoldadoresTrabajoAdicional(dataItem.ObreroID, modeloRenglon.ListaDetalleTrabajoAdicional)) {
+                        windowTemplate = kendo.template($("#windowTemplate").html());
 
-                    if (dataItem != null) {
-                        if (dataItem.Accion == 1 || dataItem.Accion == undefined)
-                            dataSource.remove(dataItem);
-                        else
-                            dataItem.Accion = 3;
+                        ventanaConfirm = $("#ventanaConfirm").kendoWindow({
+                            iframe: true,
+                            title: _dictionary.CapturaAvanceTitulo[$("#language").data("kendoDropDownList").value()],
+                            visible: false, //the window will not appear before its .open method is called
+                            width: "auto",
+                            height: "auto",
+                            modal: true,
+                            animation: {
+                                close: false,
+                                open: false
+                            }
+                        }).data("kendoWindow");
+
+                        ventanaConfirm.content("El soldador tiene trabajos adicionales asignados, los cuales seran eliminados, ¿desea continuar?" +
+                                     "</br><center><button class='confirm_yes btn btn-blue' id='yesButton'>Si</button><button class='confirm_yes btn btn-blue' id='noButton'> No</button></center>");
+
+                        ventanaConfirm.open().center();
+
+                        $("#yesButton").click(function () {
+
+                            if (dataItem != null) {
+                                if (dataItem.Accion == 1 || dataItem.Accion == undefined)
+                                    dataSource.remove(dataItem);
+                                else
+                                    dataItem.Accion = 3;
+                            }
+                            eliminaSoldadoresTrabajoAdicional(dataItem.ObreroID, modeloRenglon.ListaDetalleTrabajoAdicional)
+                            dataSource.sync();
+
+                            ventanaConfirm.close();
+                        });
+                        $("#noButton").click(function () {
+                            ventanaConfirm.close();
+                        });
                     }
-                    dataSource.sync();
+                    else {
+                        if (dataItem != null) {
+                            if (dataItem.Accion == 1 || dataItem.Accion == undefined)
+                                dataSource.remove(dataItem);
+                            else
+                                dataItem.Accion = 3;
+                        }
+
+                        dataSource.sync();
+                    }
                 }
             }, width: "50px", attributes: { style: "text-align:center;" }, title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()]
         },
@@ -604,7 +684,6 @@ function CargarGridPopUp() {
             schema: {
                 model: {
                     fields: {
-                        TrabajoAdicionalID: { type: "int", editable: true },
                         juntaSpoolID: { type: "int", editable: true },
                         juntaSoldaduraID: { type: "int", editable: true },
                         TrabajoAdicional: { type: "string", editable: true },
@@ -690,9 +769,7 @@ function CargarGridPopUp() {
                  click: function (e) {
                      var itemToClean = $("#gridPopUp").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
                      itemToClean.TrabajoAdicional = "";
-                     itemToClean.TrabajoAdicionalID = 0;
                      itemToClean.Soldador = "";
-                     itemToClean.ObreroID = 0;
                      itemToClean.Observacion = "";
                      var dataSource = $("#gridPopUp").data("kendoGrid").dataSource;
                      dataSource.sync();
@@ -912,10 +989,10 @@ function desplegarNotificacion() {
         displayNotify("CapturaSoldaduraSpoolNoCapturado", "", '1');
     }
     else if (InputJuntaVacia) {
-        displayNotify("JuntaSinSeleccionar", "", '1'); 
+        displayNotify("JuntaSinSeleccionar", "", '1');
     }
     else if (!spoolIDDefinido) {
-        displayNotify("NoExisteSpoolID", "", '2'); 
+        displayNotify("NoExisteSpoolID", "", '2');
     }
     else if (tipoCapturaSpool) {
         displayNotify("NoExisteSpoolID", "", '2');
@@ -936,4 +1013,29 @@ function desplegarNotificacion() {
         }
     }
 
+}
+
+
+function buscarSoldadoresTrabajoAdicional(ObreroID, listaTrabajoAdicional) {
+
+    for (var i = 0; i < listaTrabajoAdicional.length; i++) {
+        if (listaTrabajoAdicional[i].Accion != 3 || listaTrabajoAdicional[i].Accion != 4) {
+            if (listaTrabajoAdicional[i].ObreroID == ObreroID) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+function eliminaSoldadoresTrabajoAdicional(ObreroID, listaTrabajoAdicional) {
+
+    for (var i = 0; i < listaTrabajoAdicional.length; i++) {
+        if (listaTrabajoAdicional[i].Accion != 3 || listaTrabajoAdicional[i].Accion != 4) {
+            if (listaTrabajoAdicional[i].ObreroID == ObreroID) {
+                    listaTrabajoAdicional[i].Accion = 3;
+            }
+        }
+    }
+    
 }
