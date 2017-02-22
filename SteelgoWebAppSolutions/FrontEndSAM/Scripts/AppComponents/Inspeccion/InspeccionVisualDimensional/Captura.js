@@ -443,34 +443,36 @@ function BuscarItemSiguienteEnGrid(siguienteItemBuscar) {
 }
 function cancelarCaptura(e) {
     e.preventDefault();
+    var dataSource = $("#grid").data("kendoGrid").dataSource;
     if ($("#language").val() == "es-MX") {
         if ($('#Guardar').text().trim() != "Editar") {
-            var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
-            var spoolIDRegistro = dataItem.SpoolID;
-            var modalTitle = "";
+            //var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+            //var spoolIDRegistro = dataItem.SpoolID;
+            //var modalTitle = "";
 
-            var dataSource = $("#grid").data("kendoGrid").dataSource;
-            if (dataItem.Accion == 2 || dataItem.Accion == 4)
-                dataItem.Accion = 3;
-            if (dataItem.Accion == 1)
+           
+            //if (dataItem.Accion == 2 || dataItem.Accion == 4)
+            //    dataItem.Accion = 3;
+            //if (dataItem.Accion == 1)
                 dataSource.remove(dataItem);
             $("#grid").data("kendoGrid").dataSource.sync();
         }
     }
     else {
         if ($('#Guardar').text().trim() != "Edit") {
-            var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
-            var spoolIDRegistro = dataItem.SpoolID;
-            var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
-            var spoolIDRegistro = dataItem.SpoolID;
+            //var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+            //var spoolIDRegistro = dataItem.SpoolID;
+            //var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+            //var spoolIDRegistro = dataItem.SpoolID;
 
-            dataItem.Accion = 3;
-            if (dataItem.Accion == 1)
+            //dataItem.Accion = 3;
+            //if (dataItem.Accion == 1)
                 dataSource.remove(dataItem);
             $("#grid").data("kendoGrid").dataSource.sync();
 
         }
     }
+
 
 };
 

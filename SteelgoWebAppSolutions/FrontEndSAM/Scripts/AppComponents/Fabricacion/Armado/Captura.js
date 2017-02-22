@@ -156,7 +156,6 @@ function FiltroMostrar(mostrar) {
 function CargarGrid() {
 
     $("#grid").kendoGrid({
-
         edit: function (e) {
 
             //if ($('#botonGuardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
@@ -714,12 +713,12 @@ function eliminarCaptura(e) {
 
 
 
-        var dataSource = $("#grid").data("kendoGrid").dataSource;
-        dataItem.Accion = 3;
+        //var dataSource = $("#grid").data("kendoGrid").dataSource;
+        //dataItem.Accion = 3;
 
-        if (dataItem.JuntaArmadoID === 0)
-        { dataSource.remove(dataItem); }
-
+        //if (dataItem.JuntaArmadoID === 0)
+        //{ dataSource.remove(dataItem); }
+        dataSource.remove(dataItem);
 
         dataSource.sync();
 
@@ -859,10 +858,14 @@ function ArregloListadoJuntasCapturadas() {
     var dataSource = $("#grid").data("kendoGrid").dataSource;
     var data = dataSource._data
     JsonCaptura = [];
+    var index = 0;
     for (var i = 0; i < data.length ; i++) {
-        JsonCaptura[i] = { OrdenTrabajoSpoolID: "", JuntaID: "" };
-        JsonCaptura[i].OrdenTrabajoSpoolID = data[i].IdVal;
-        JsonCaptura[i].JuntaID = data[i].JuntaID;
+        
+            JsonCaptura[index] = { OrdenTrabajoSpoolID: "", JuntaID: "" };
+            JsonCaptura[index].OrdenTrabajoSpoolID = data[i].IdVal;
+            JsonCaptura[index].JuntaID = data[i].JuntaID;
+            index++;
+        
     }
     return JsonCaptura;
 }
