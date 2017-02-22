@@ -170,12 +170,12 @@ function AjaxGuardarCaptura(rows, tipoGuardar) {
             ListaDetalles[index].CuadranteID = rows[i].CuadranteID;
             ListaDetalles[index].CuadranteSam2ID = rows[i].CuadranteSam2ID;
 
-            if (rows[i].CuadranteID == rows[i].CuadranteAnteriorSam3ID){
+            if (rows[i].CuadranteID != null && rows[i].CuadranteID == rows[i].CuadranteAnteriorSam3ID) {
                 ListaDetalles[index].CuadranteAnteriorID = 0;
                 ListaDetalles[index].CuadranteAnteriorSam2ID = 0;
-            }else{
-                ListaDetalles[index].CuadranteAnteriorID = rows[i].CuadranteAnteriorSam3ID;
-                ListaDetalles[index].CuadranteAnteriorSam2ID = rows[i].CuadranteAnteriorSam2ID;
+            } else {
+                ListaDetalles[index].CuadranteAnteriorID = rows[i].CuadranteAnteriorSam3ID == null ? -1 : rows[i].CuadranteAnteriorSam3ID;
+                ListaDetalles[index].CuadranteAnteriorSam2ID = rows[i].CuadranteAnteriorSam2ID == null ? -1 : rows[i].CuadranteAnteriorSam2ID;
             }
 
             if (rows[i].ColorID == rows[i].ColorAnteriorID)

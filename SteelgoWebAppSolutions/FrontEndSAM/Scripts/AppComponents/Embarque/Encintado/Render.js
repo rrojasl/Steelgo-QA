@@ -10,7 +10,7 @@
                 e.preventDefault();
                 var dataItem = this.dataItem(e.sender.selectedIndex);
 
-                if (dataItem != undefined && dataItem.CuadranteID != 0) {
+                if (dataItem != undefined) {
                     // Actualiza el nuevo cuadrante seleccionado
                     options.model.CuadranteID = dataItem.CuadranteID;
                     options.model.CuadranteSam2ID = dataItem.CuadranteSam2ID;
@@ -28,9 +28,9 @@
                     
                     $("#grid").data("kendoGrid").dataSource.sync();
                 } else {
-                    options.model.CuadranteID = options.model.CuadranteAnteriorSam3ID;
-                    options.model.CuadranteSam2ID = options.model.CuadranteAnteriorSam2ID;
-                    options.model.Cuadrante = ObtieneCuadranteAnterior(options.model.ListaCuadrantes, options.model.CuadranteAnteriorSam3ID);
+                    options.model.CuadranteID = 0;
+                    options.model.CuadranteSam2ID = 0;
+                    options.model.Cuadrante = "";
                     options.model.ModificadoPorUsuario = true;
 
                     //if ((options.model.Accion == 1 && !options.model.Etiquetado && options.model.ColorID == options.model.ColorAnteriorID)
