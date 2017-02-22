@@ -31,6 +31,7 @@ namespace BackEndSAM.Models.Embarque.PreparacionEmbarque
         {
             EmbarqueID = 0;
             Nombre = "";
+            NombreCliente = "";
             Estatus = 0;
             TractoID = 0;
             ChoferID = 0;
@@ -38,6 +39,7 @@ namespace BackEndSAM.Models.Embarque.PreparacionEmbarque
 
         public int EmbarqueID { get; set; }
         public string Nombre { get; set; }
+        public string NombreCliente { get; set; }
         public int Estatus { get; set; }
         public int TractoID { get; set; }
         public int ChoferID { get; set; }

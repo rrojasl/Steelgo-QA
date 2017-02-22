@@ -11638,12 +11638,12 @@ _dictionary = {
         "en-US": "The shipment already exists the name entered"
     },
     "EmbarquePreparacionEmbarqueErrorEliminado": {
-        "es-MX": "El embarque se eliminó correctamente",
-        "en-US": "Shipment successfully deleted"
-    },
-    "EmbarquePreparacionEmbarqueEliminadoCorrectamente": {
         "es-MX": "El embarque no se pudo eliminar",
         "en-US": "Shipment could not be deleted"
+    },
+    "EmbarquePreparacionEmbarqueEliminadoCorrectamente": {
+        "es-MX": "El embarque se eliminó correctamente",
+        "en-US": "Shipment successfully deleted"
     },
     "EmbarquePreparacionEmbarqueNuevo": {
         "es-MX": "Nuevo Embarque",
@@ -11656,6 +11656,14 @@ _dictionary = {
     "EmbarquePreparacionChoferNuevo": {
         "es-MX": "Nuevo Chofer",
         "en-US": "New Driver"
+    },
+    "EmbarquePreparacionNumEmbarqueCliente": {
+        "es-MX": "No. Prep Cliente",
+        "en-US": "Client Prep Num"
+    },
+    "EmbarquePreparacionNumEmbarqueSteelgo": {
+        "es-MX": "No. Prep",
+        "en-US": "Prep Num"
     },
     //Finaliza pantalla Preparacion Embarque
     //Inicia pantalla listado embarque

@@ -135,6 +135,7 @@ namespace BackEndSAM.DataAcces.Embarque.PreparacionEmbarque
                         {
                             EmbarqueID = item.EmbarqueID,
                             Nombre = item.Nombre,
+                            NombreCliente = item.NombreCliente,
                             ChoferID = item.ChoferID,
                             TractoID = item.TractoID,
                             Estatus = item.Estatus,
@@ -188,7 +189,7 @@ namespace BackEndSAM.DataAcces.Embarque.PreparacionEmbarque
 
 
 
-        public object InsertarCaptura(DataTable dtDetalleCaptura, Sam3_Usuario usuario, string lenguaje, int EmbarqueID, string NombreEmbarque, int TractoID, int ChoferID, string FechaCreacion)
+        public object InsertarCaptura(DataTable dtDetalleCaptura, Sam3_Usuario usuario, string lenguaje, int EmbarqueID, string NombreEmbarque, string NombreEmbarqueCliente, int TractoID, int ChoferID, string FechaCreacion)
         {
             try
             {
@@ -196,7 +197,7 @@ namespace BackEndSAM.DataAcces.Embarque.PreparacionEmbarque
                 {
                     ObjetosSQL _SQL = new ObjetosSQL();
                     string[,] parametro = { { "@EmbarqueID", EmbarqueID.ToString() }, { "@NombreEmbarque", NombreEmbarque },
-                        { "@TractoID", TractoID.ToString() }, { "@ChoferID", ChoferID.ToString() },
+                        { "@NombreCliente", NombreEmbarqueCliente }, { "@TractoID", TractoID.ToString() }, { "@ChoferID", ChoferID.ToString() },
                         { "@FechaCreacion", FechaCreacion } ,{ "@Usuario", usuario.UsuarioID.ToString() }, { "@Lenguaje", lenguaje } };
                     int valor = _SQL.EjecutaInsertUpdate(Stords.GUARDARPREPARACIONEMBARQUE, dtDetalleCaptura, "@TTDetalleEmbarque", parametro);
                     TransactionalInformation result = new TransactionalInformation();

@@ -156,88 +156,92 @@ function CargarGrid() {
         },
     });
 
-    $("#grid .k-grid-content").on("change", "input.chk-OkEmbarque", function (e) {
+    $("#grid").on("change",  ":checkbox", function (e) {
+        if ($(this)[0].className == "chk-OkEmbarque" || $(this)[0].name == "OkEmbarque") {
+            if ($('#Guardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
+                var grid = $("#grid").data("kendoGrid");
+                var dataItem = grid.dataItem($(e.target).closest("tr"));
+                if (dataItem.EstatusEmbarqueID != 2) {
+                    if ($(this)[0].checked) {
+                        dataItem.OkEmbarque = true;
 
-        if ($('#Guardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
-            var grid = $("#grid").data("kendoGrid");
-            var dataItem = grid.dataItem($(e.target).closest("tr"));
-            if (dataItem.EstatusEmbarqueID != 2) {
-                if ($(this)[0].checked) {
-                    dataItem.OkEmbarque = true;
+                        if (dataItem.Accion == 1)
+                            dataItem.ModificadoPorUsuario = true;
 
-                    if (dataItem.Accion == 1)
-                        dataItem.ModificadoPorUsuario = true;
+                    }
+                    else {
+                        dataItem.OkEmbarque = false;
 
+                        if (dataItem.Accion == 2)
+                            dataItem.ModificadoPorUsuario = true;
+                    }
+
+                    if (SetValueEnviar(dataItem))
+                        dataItem.Enviar = true;
+                    else
+                        dataItem.Enviar = false;
+                } else {
+                    if (e.target.checked)
+                        $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).OkEmbarque = false;
+                    else
+                        $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).OkEmbarque = true;
                 }
-                else {
-                    dataItem.OkEmbarque = false;
-
-                    if (dataItem.Accion == 2)
-                        dataItem.ModificadoPorUsuario = true;
-                }
-
-                if (SetValueEnviar(dataItem))
-                    dataItem.Enviar = true;
-                else
-                    dataItem.Enviar = false;
-            } else {
+            }
+            else {
                 if (e.target.checked)
                     $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).OkEmbarque = false;
                 else
                     $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).OkEmbarque = true;
             }
-        }
-        else {
-            if (e.target.checked)
-                $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).OkEmbarque = false;
-            else
-                $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).OkEmbarque = true;
-        }
 
-        $("#grid").data("kendoGrid").dataSource.sync();
-    });
+            $("#grid").data("kendoGrid").dataSource.sync();
+        } else if ($(this)[0].className == "chk-OkCliente" || $(this)[0].name == "OkCliente") {
+            if ($('#Guardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
+                var grid = $("#grid").data("kendoGrid");
+                var dataItem = grid.dataItem($(e.target).closest("tr"));
+                if (dataItem.EstatusEmbarqueID != 2) {
 
-    $("#grid .k-grid-content").on("change", "input.chk-OkCliente", function (e) {
+                    if ($(this)[0].checked) {
+                        dataItem.OkCliente = true;
 
-        if ($('#Guardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {            
-            var grid = $("#grid").data("kendoGrid");
-            var dataItem = grid.dataItem($(e.target).closest("tr"));
-            if (dataItem.EstatusEmbarqueID != 2) {
+                        if (dataItem.Accion == 1)
+                            dataItem.ModificadoPorUsuario = true;
 
-                if ($(this)[0].checked) {
-                    dataItem.OkCliente = true;
+                    }
+                    else {
+                        dataItem.OkCliente = false;
 
-                    if (dataItem.Accion == 1)
-                        dataItem.ModificadoPorUsuario = true;
+                        if (dataItem.Accion == 2)
+                            dataItem.ModificadoPorUsuario = true;
+                    }
 
+                    if (SetValueEnviar(dataItem))
+                        dataItem.Enviar = true;
+                    else
+                        dataItem.Enviar = false;
+
+                } else {
+                    if (e.target.checked)
+                        $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).OkCliente = false;
+                    else
+                        $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).OkCliente = true;
                 }
-                else {
-                    dataItem.OkCliente = false;
-
-                    if (dataItem.Accion == 2)
-                        dataItem.ModificadoPorUsuario = true;
-                }
-
-                if (SetValueEnviar(dataItem))
-                    dataItem.Enviar = true;
-                else
-                    dataItem.Enviar = false;
-
-            } else {
+            }
+            else {
                 if (e.target.checked)
                     $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).OkCliente = false;
                 else
                     $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).OkCliente = true;
             }
-        }
-        else {
-            if (e.target.checked)
-                $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).OkCliente = false;
-            else
-                $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).OkCliente = true;
-        }
 
-        $("#grid").data("kendoGrid").dataSource.sync();
+            $("#grid").data("kendoGrid").dataSource.sync();
+        }
+        
+    });
+
+    $("#grid").on("change", ":checkbox", function (e) {
+
+        
     });
     CustomisaGrid($("#grid"));
 };

@@ -532,7 +532,7 @@ function SuscribirEventoPopUpGuardarEmbarque() {
     divNuevoEmbarque = $("#divNuevoEmbarque").kendoWindow({
         title: _dictionary.EmbarquePreparacionEmbarqueNuevo[$("#language").data("kendoDropDownList").value()],
         visible: false,
-        width: "30%",
+        width: "50%",
         height: "auto",
         draggable: false,
         resizable: false,

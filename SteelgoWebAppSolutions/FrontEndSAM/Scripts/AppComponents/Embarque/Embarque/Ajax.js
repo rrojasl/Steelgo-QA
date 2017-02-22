@@ -306,6 +306,9 @@ function AbrirPopUpGuardar(Embarque, tipoGuardado) {
         $("#inputNombreEmbarque").val("");
         $("#inputNombreEmbarque").attr("disabled", false);
 
+        $("#inputNombreEmbarqueCliente").val("");
+        $("#inputNombreEmbarqueCliente").attr("disabled", false);
+
         var idFechaPaquete = 3068;
         $CamposPredeterminados.CamposPredeterminados.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), id: idFechaPaquete }).done(function (data) {
             fechaPredeterminada = kendo.toString(data, _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()]);
@@ -314,6 +317,9 @@ function AbrirPopUpGuardar(Embarque, tipoGuardado) {
     } else {
         $("#inputNombreEmbarque").val(Embarque.Nombre);
         $("#inputNombreEmbarque").attr("disabled", true);
+
+        $("#inputNombreEmbarqueCliente").val(Embarque.NombreCliente);
+        $("#inputNombreEmbarqueCliente").attr("disabled", true);
 
         fechaPredeterminada = kendo.toString(Embarque.FechaCreacion, _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()]);
         $("#inputFechaEmbarque").val(fechaPredeterminada);
@@ -331,9 +337,11 @@ function AjaxGuardarCaptura(ds, tipoGuardado, proveedorID) {
     var listaDetalle = [];
     var embarqueID = $("#Embarque").data("kendoComboBox").value();
     var nombreEmbarque = $("#inputNombreEmbarque").val();
+    var nombreEmbarqueCliente = $("#inputNombreEmbarqueCliente").val();
     var tractoID = $("#Tracto").data("kendoComboBox").value();
     var choferID = $("#Chofer").data("kendoComboBox").value();
     var fechaCreacion = $("#inputFechaEmbarque").val();
+
 
     var cont = 0;
 
@@ -356,7 +364,7 @@ function AjaxGuardarCaptura(ds, tipoGuardado, proveedorID) {
     if (cont > 0) {
         $PreparacionEmbarque.PreparacionEmbarque.create(Captura[0], {
             token: Cookies.get("token"), lenguaje: $("#language").val(), EmbarqueID: embarqueID,
-            NombreEmbarque: nombreEmbarque, TractoID: tractoID, ChoferID: choferID, FechaCreacion: fechaCreacion
+            NombreEmbarque: nombreEmbarque, NombreEmbarqueCliente: nombreEmbarqueCliente, TractoID: tractoID, ChoferID: choferID, FechaCreacion: fechaCreacion
         }).done(function (data) {
             if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
                 if (tipoGuardado != "1") {
