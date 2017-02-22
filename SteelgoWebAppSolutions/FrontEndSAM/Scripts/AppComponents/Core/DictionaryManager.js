@@ -10412,7 +10412,10 @@ _dictionary = {
 
     //Finaliza Etiquetas Generales Pintura
     //Inicia Captura Admin componentes
-
+    "AdminComponenteComponenteAsignado": {
+        "es-MX": "El Componente se encuentra asignado a un sistema de pintura",
+        "en-US": "The component is assigned to a painting system"
+    },
     "lblSistemaPinturaSiguientePasoHeader": {
         "es-MX": "Sistema Pintura",
         "en-US": "Paint System."
@@ -10459,6 +10462,11 @@ _dictionary = {
     },
     //Finaliza Captura Admin componentes
     //Inicia Captura Admin reductores
+    
+    "AdminReductorAsignado": {
+        "es-MX": "El reductor se encuentra asignado a un sistema de pintura",
+        "en-US": "The reducer is assigned to a painting system"
+    },
     "CapturaAdminReductoresTituloPagina": {
         "es-MX": "Administracion Reductores",
         "en-US": "Administration of reducers"

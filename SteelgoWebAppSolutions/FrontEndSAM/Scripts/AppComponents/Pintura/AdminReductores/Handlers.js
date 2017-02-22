@@ -86,13 +86,12 @@ function eliminarCaptura(e) {
 
         var filterValue = $(e.currentTarget).val();
         var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
-        var dataSource = $("#grid").data("kendoGrid").dataSource;
 
-        if (dataItem.Accion == 0 || dataItem.Accion == undefined)
-            dataSource.remove(dataItem);
-        else
-            dataItem.Accion = 3;
-        dataSource.sync();
+        AjaxValidarReductorAsignado(dataItem.ReductorID, dataItem.Lote,dataItem.Cantidad, dataItem.Accion, dataItem);
+
+      
+
+       
     }
 };
 

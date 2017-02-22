@@ -60,3 +60,23 @@ function AjaxGuardar(arregloCaptura, tipoGuardar) {
     });
 
 }
+
+function AjaxValidarReductorAsignado(reductorID, Lote,Cantidad, Accion, dataItem) {
+
+    $AdminReductores.AdminReductores.read({ token: Cookies.get("token"), ReductorID: reductorID, Lote: Lote, Cantidad: Cantidad }).done(function (data) {
+        if (data.ReturnMessage.length > 0 && data.ReturnMessage[1] == "No") {
+            var dataSource = $("#grid").data("kendoGrid").dataSource;
+
+            if (dataItem.Accion == 0 || dataItem.Accion == undefined)
+                dataSource.remove(dataItem);
+            else
+                dataItem.Accion = 3;
+            
+            dataSource.sync();
+        }
+        else {
+            displayNotify("AdminReductorAsignado", "", '2');
+        }
+    });
+
+}

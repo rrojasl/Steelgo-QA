@@ -6,6 +6,7 @@ using SecurityManager.Api.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Web;
 
@@ -222,5 +223,49 @@ namespace BackEndSAM.DataAcces.Pintura.AdminComponentes
                 return result;
             }
 }
+
+        public object ValidarComponente(int ComponenteID,string Lote,int Cantidad)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    ObjetosSQL _SQL = new ObjetosSQL();
+                    ObjectResult<int?> resultSp = ctx.Sam3_Pintura_AdminComponentes_ValidaAsignacion(ComponenteID, Lote, Cantidad);
+                    var valor = resultSp.Where(x => x.HasValue).Select(x => x.Value).ToList()[0];
+
+
+                    TransactionalInformation result = new TransactionalInformation();
+
+                    if (valor > 0)
+                    {
+                        result.ReturnMessage.Add("Ok");
+                        result.ReturnMessage.Add("Si");
+                        result.ReturnCode = 200;
+                        result.ReturnStatus = true;
+                        result.IsAuthenicated = true;
+                    }
+                    else
+                    {
+                        result.ReturnMessage.Add("No");
+                        result.ReturnMessage.Add("No");
+                        result.ReturnCode = 200;
+                        result.ReturnStatus = true;
+                        result.IsAuthenicated = true;
+                    }
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
     }
 }

@@ -81,18 +81,12 @@ function suscribirEventoGuardar() {
 function eliminarCaptura(e) {
     e.preventDefault();
     if ($('#botonGuardar').text() == _dictionary.DetalleAvisoLlegada0017[$("#language").data("kendoDropDownList").value()]) {
-
         var filterValue = $(e.currentTarget).val();
         var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
-        var dataSource = $("#grid").data("kendoGrid").dataSource;
-
-        if (dataItem.Accion == 0 || dataItem.Accion == undefined)
-            dataSource.remove(dataItem);
-        else
-            dataItem.Accion = 3;
-        dataSource.sync();
+        AjaxValidarComponenteAsignado(dataItem.ComponenteID, dataItem.Lote, dataItem.Cantidad, dataItem.Accion, dataItem);
     }
 };
+
 function limpiarCaptura(e) {
     e.preventDefault();
 
