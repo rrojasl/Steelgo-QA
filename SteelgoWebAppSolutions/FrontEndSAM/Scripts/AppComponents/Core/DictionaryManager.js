@@ -9497,8 +9497,8 @@ _dictionary = {
         "en-US": "The joint is captured"
     },
     "CapturaSoldaduraMsgExisteListado": {
-        "es-MX": " ya existe en el listado",
-        "en-US": " already exist in the list"
+        "es-MX": " ya existe en la captura",
+        "en-US": " already exist in the capture"
     },
 
     "CapturaSoldaduraSpoolNoCapturado": {
@@ -9562,8 +9562,8 @@ _dictionary = {
         "en-US": "Welders"
     },
     "CapturaSoldaduraMsgNuevoEnListado": {
-        "es-MX": " se agregó en el listado",
-        "en-US": " already add in the list"
+        "es-MX": " se agregó a la captura",
+        "en-US": " already add in the capture"
     },
     "CapturaSoldaduraMsgExiste": {
         "es-MX": "La junta ",
@@ -9672,8 +9672,8 @@ _dictionary = {
         "en-US": "WPS"
     },
     "WPSMensajeEliminar": {
-        "es-MX": "¿Esta seguro de eliminar el WPS?",
-        "en-US": "Are you sure to delete the WPS?"
+        "es-MX": "¿Esta seguro de cancelar el detalle de la captura del WPS?",
+        "en-US": "Are you sure you want to cancel the detail of the capture of WPS?"
     },
     "WPSMensajeErrorNombreRepetido": {
         "es-MX": "El nombre del WPS no se puede repetir",

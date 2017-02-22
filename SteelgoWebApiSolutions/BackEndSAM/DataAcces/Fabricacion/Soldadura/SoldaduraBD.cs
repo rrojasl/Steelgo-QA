@@ -82,7 +82,7 @@ namespace BackEndSAM.DataAcces.Fabricacion.Soldadura
                         listaWPS.Add(new WPS
                         {
                             WPSID = item.WPSID,
-                            WPSNombre = item. WPSNombre + " " + item.Certificado,
+                            WPSNombre = item.Certificado + " "+ item. WPSNombre,
                             EspesorMaximo = item.EspesorMaximo.GetValueOrDefault(),
                             EspesorMinimo = item.EspesorMinimo.GetValueOrDefault(),
                             GrupoMaterialBase1RaizD = item.GrupoMaterialBase1RaizD,
