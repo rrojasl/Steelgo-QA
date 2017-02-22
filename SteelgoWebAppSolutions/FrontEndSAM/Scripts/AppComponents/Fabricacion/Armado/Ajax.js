@@ -36,32 +36,32 @@ function AjaxObtenerSpoolID() {
 }
 
 function AjaxObtenerListaTubero() {
-    
+
     if (Cookies.get("Proyecto") != undefined) {
         $Armado.Armado.read({ idProyecto: Cookies.get("Proyecto").split('°')[0], tipo: 2, token: Cookies.get("token") }).done(function (data) {
             if (Error(data)) {
                 $("#inputTubero").data("kendoComboBox").value("");
                 $("#inputTubero").data("kendoComboBox").dataSource.data(data);
             }
-            
+
 
         });
     }
-   
+
 }
 
 function AjaxObtenerListaTaller() {
-   
+
     if (Cookies.get("Proyecto") != undefined) {
         $Armado.Armado.read({ idProyecto: Cookies.get("Proyecto").split('°')[0], token: Cookies.get("token") }).done(function (data) {
             if (Error(data)) {
                 $("#inputTaller").data("kendoComboBox").value("");
                 $("#inputTaller").data("kendoComboBox").dataSource.data(data);
             }
-            
+
         });
     }
-   
+
 }
 
 function AjaxObtenerJSonGridArmado() {
@@ -94,8 +94,7 @@ function AjaxObtenerJSonGridArmado() {
                         var elemento;
                         var posicionElemento;
                         for (var h = 0; h < ds._data.length; h++) {
-                            if (ds._data[h].JuntaID == array[i].JuntaID)
-                            {
+                            if (ds._data[h].JuntaID == array[i].JuntaID) {
                                 elemento = ds._data[h];
                                 posicionElemento = h;
                             }
@@ -119,8 +118,8 @@ function AjaxObtenerJSonGridArmado() {
                                 elementosNoModificados = array[i].Junta;
                         }
 
-                       
-                        
+
+
                     }
 
                 }
@@ -144,7 +143,7 @@ function AjaxObtenerJSonGridArmado() {
                 }
                 if (elementosNoModificados != "") {
                     displayNotify("", _dictionary.CapturaArmadoMsgExiste[$("#language").data("kendoDropDownList").value()] +
-                        elementosNoModificados + _dictionary.CapturaArmadoMsgExisteReporte[$("#language").data("kendoDropDownList").value()], '2');
+                        elementosNoModificados + _dictionary.CapturaArmadoMsgExisteReporte[$("#language").data("kendoDropDownList").value()], '1');
                 }
                 loadingStop();
 
@@ -244,7 +243,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                 else if (
                      ListaDetalles[index].FechaArmado == "" ||
                     (ListaDetalles[index].TallerID == "" || ListaDetalles[index].TallerID == "0") || ListaDetalles[index].TallerID == undefined ||
-                    (ListaDetalles[index].TuberoID == "" || ListaDetalles[index].TuberoID == "0")  || ListaDetalles[index].TuberoID == undefined ||
+                    (ListaDetalles[index].TuberoID == "" || ListaDetalles[index].TuberoID == "0") || ListaDetalles[index].TuberoID == undefined ||
                     (ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID == "" || ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID == null || ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID == "0") ||
                     (ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID == "" || ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID == null || ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID == "0")
                     ) {
@@ -486,7 +485,7 @@ function AjaxCargarReporteJuntas() {
                 }
                 if (elementosNoModificados != "") {
                     displayNotify("", _dictionary.CapturaArmadoMsgExiste[$("#language").data("kendoDropDownList").value()] +
-                        elementosNoModificados + _dictionary.CapturaArmadoMsgExisteReporte[$("#language").data("kendoDropDownList").value()], '2');
+                        elementosNoModificados + _dictionary.CapturaArmadoMsgExisteReporte[$("#language").data("kendoDropDownList").value()], '1');
                 }
                 loadingStop();
 
@@ -581,6 +580,51 @@ function AjaxListaDetalleTrabajosAdicionales(juntaID) {
                 ds.add(data[i]);
             }
             ds.sync();
+
+            for (var i = 0; i < $("#grid").data("kendoGrid").dataSource._data.length; i++) {
+                if ($("#grid").data("kendoGrid").dataSource._data[i].JuntaID == juntaID)
+                {
+                    $("#grid").data("kendoGrid").dataSource._data.ListaDetalleTrabajoAdicional = data;
+                    break;
+                }
+            }
+        }
+        loadingStop();
+    });
+
+}
+
+function AjaxListaDetalleTrabajosAdicionalesLimpiar(itemToClean) {
+    loadingStart();
+    $Armado.Armado.read({ token: Cookies.get("token"), juntaID: itemToClean.JuntaID }).done(function (data) {
+        if (Error(data)) {
+            var ds = $("#gridPopUp").data("kendoGrid").dataSource;
+            for (var i = 0; i < data.length; i++) {
+                ds.add(data[i]);
+            }
+            ds.sync();
+
+           
+            itemToClean.Taller = "";
+            itemToClean.TallerID = 0;
+            itemToClean.FechaArmado = "";
+            itemToClean.Tubero = "";
+            itemToClean.TuberoID = 0;
+            itemToClean.ListaDetalleTrabajoAdicional = data;
+
+            if (itemToClean.Accion == 2)
+                itemToClean.Accion = 4;
+
+            for (var i = 0; i < itemToClean.ListaDetalleTrabajoAdicional.length; i++) {
+                if (itemToClean.ListaDetalleTrabajoAdicional[i].Accion == 2 || itemToClean.ListaDetalleTrabajoAdicional[i].Accion == 4)
+                    itemToClean.ListaDetalleTrabajoAdicional[i].Accion = 3;
+                else
+                    itemToClean.ListaDetalleTrabajoAdicional[i].splice(i, 1);
+            }
+
+            itemToClean.TemplateMensajeTrabajosAdicionales = _dictionary.CapturaArmadoTemplateNoHayTrabajosAdicionales[$("#language").data("kendoDropDownList").value()];
+            var dataSource = $("#grid").data("kendoGrid").dataSource;
+            dataSource.sync();
         }
         loadingStop();
     });

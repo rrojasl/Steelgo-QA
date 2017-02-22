@@ -296,6 +296,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                             else {
                                 $("#grid").data("kendoGrid").dataSource.data([]);
                                 opcionHabilitarView(true, "FieldSetView");
+                                $("#inputhiddenSistemaPinturaID").val(data.ReturnMessage[1]);
                                 $("#inputSistemaPinturaID").val(data.ReturnMessage[2]);
                                 $("#inputNombre").attr('disabled', true);
                                 AjaxObtenerColor();
@@ -370,6 +371,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                                         $("#grid").data("kendoGrid").dataSource.data([]);
                                         opcionHabilitarView(true, "FieldSetView");
                                         $("#inputSistemaPinturaID").val(data.ReturnMessage[2]);
+                                        $("#inputhiddenSistemaPinturaID").val(data.ReturnMessage[1]);
                                         AjaxObtenerColor();
                                     }
                                     displayNotify("MensajeGuardadoExistoso", "", "0");
@@ -413,8 +415,9 @@ function tieneComponentesSinCaptura(data) {
     return ComponenteIncompleto;
 }
 
-function AjaxEliminaSistemaPintura(sistemaPintura) {
-    $ListadoSistemaPintura.ListadoSistemaPintura.read({ token: Cookies.get("token"), SistemaPintura: sistemaPintura }).done(function (data) {
+function AjaxEliminaSistemaPintura(sistemaPintura, proyectoid) {
+    
+    $ListadoSistemaPintura.ListadoSistemaPintura.read({ token: Cookies.get("token"), SistemaPinturaID: sistemaPintura,   ProyectoID: proyectoid }).done(function (data) {
         if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
 
             AjaxObtenerColor();

@@ -228,6 +228,9 @@ var $ListadoEmbarque = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 //Ingeneria
 var $BuscaSpool = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 
+//Planeacion Y Control
+var $EmisionOT = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $Ciclos = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 
 //#region Declaracion
 //#region Catalogos
@@ -418,6 +421,10 @@ $BuscaSpool.add('BuscaSpool');
 $PQR.add("PQR");
 $WPS.add("WPS");
 $SoldadorCertificacion.add("SoldadorCertificacion");
+
+//Planeacion Y Control
+$EmisionOT.add('EmisionOT');
+$Ciclos.add('Ciclos');
 
 //Catalogos
 $Taller.add("Taller");

@@ -308,6 +308,27 @@ function isEditable(fieldName, model) {
     return true; // default to editable
 }
 
+function agregarComponentesAutomaticos()
+{
+    if (dataItemRender.ListaDetalleComponentesAgregados != undefined) {
+        for (var i = 0; i < dataItemRender.ListaDetalleComponentesAgregados.length; i++) {
+            dataItemRender.ListaDetalleComponentesAgregados[i].Accion = 3;
+        }
+    }
+
+    var arrayModelComponentesAgregados = [];
+    dataItemRender.ListaDetalleComponentesAgregados = dataItemRender.ListaDetalleComponentesAgregados == null ? [] : dataItemRender.ListaDetalleComponentesAgregados;
+    for (var i = 0; i < dataItemRender.NumeroComponentes; i++) {
+        arrayModelComponentesAgregados[i] = { ComponenteAgregadoID: "", ComponenteID: "", Nombre: "", Accion: 1, ListadoComponentes: "", RowOk: "", ProcesoPinturaID: "" };
+        arrayModelComponentesAgregados[i].ComponenteAgregadoID = i + 1;
+        arrayModelComponentesAgregados[i].Nombre = "";
+        arrayModelComponentesAgregados[i].ListadoComponentes = dataItemRender.ListadoComponentes;
+        arrayModelComponentesAgregados[i].RowOk = true;
+        dataItemRender.ListaDetalleComponentesAgregados.push(arrayModelComponentesAgregados[i]);
+    }
+
+    $("#grid").data("kendoGrid").refresh();
+}
 
 function cancelarCaptura(e) {
     e.preventDefault();
@@ -321,7 +342,6 @@ function cancelarCaptura(e) {
         dataSource.remove(dataItem);
     }
     $("#gridPopUp").data("kendoGrid").dataSource.sync();
-    ventanaConfirm.close();
 }
 
 function limpiarRenglon(e) {

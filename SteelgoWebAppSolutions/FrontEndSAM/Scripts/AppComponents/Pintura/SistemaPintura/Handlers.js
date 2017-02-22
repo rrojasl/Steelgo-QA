@@ -6,6 +6,7 @@ var ventanaProcesosPintura;
 var ventanaConfirmBorrarProcesoNoPintable;
 var ventanaConfirmGuardado;
 var ventanaConfirmConColor;
+var ventanaConfirmEliminarSP;
 
 function SuscribirEventos() {
     GuardarDetallePruebas();
@@ -91,24 +92,7 @@ function suscribirEventoVentanaCambioNumeroDeComponentes()
 
     $("#yesButtonComponente").click(function (e) {
 
-        if (dataItemRender.ListaDetalleComponentesAgregados != undefined) {
-            for (var i = 0; i < dataItemRender.ListaDetalleComponentesAgregados.length; i++) {
-                dataItemRender.ListaDetalleComponentesAgregados[i].Accion = 3;
-            }
-        }
-
-        var arrayModelComponentesAgregados = [];
-        dataItemRender.ListaDetalleComponentesAgregados = dataItemRender.ListaDetalleComponentesAgregados == null ? [] : dataItemRender.ListaDetalleComponentesAgregados;
-        for (var i = 0; i < dataItemRender.NumeroComponentes; i++) {
-            arrayModelComponentesAgregados[i] = { ComponenteAgregadoID: "", ComponenteID: "", Nombre: "", Accion: 1, ListadoComponentes: "", RowOk: "", ProcesoPinturaID: "" };
-            arrayModelComponentesAgregados[i].ComponenteAgregadoID = i + 1;
-            arrayModelComponentesAgregados[i].Nombre = "";
-            arrayModelComponentesAgregados[i].ListadoComponentes = dataItemRender.ListadoComponentes;
-            arrayModelComponentesAgregados[i].RowOk = true;
-            dataItemRender.ListaDetalleComponentesAgregados.push(arrayModelComponentesAgregados[i]);
-        }
-        
-        $("#grid").data("kendoGrid").refresh();
+        agregarComponentesAutomaticos();
         ventanaNumeroComponentes.close();
     });
     $("#noButtonComponente").click(function (e) {
@@ -558,9 +542,8 @@ function suscribirEventoGuardar() {
 function SuscribirEventoEliminarSistemaPintura() {
     $('.eliminarSistema').click(function (e) {
         e.preventDefault();
-        var SistemaPinturaID = $("#inputSistemaPinturaID").val();
-
-        ventanaConfirm = $("#ventanaConfirm").kendoWindow({
+        var SistemaPinturaID = $("#inputhiddenSistemaPinturaID").val();
+        ventanaConfirmEliminarSP = $("#ventanaConfirm").kendoWindow({
             iframe: true,
             title: _dictionary.PinturaCargaTitulo[$("#language").data("kendoDropDownList").value()],
             visible: false, //the window will not appear before its .open method is called
@@ -574,17 +557,21 @@ function SuscribirEventoEliminarSistemaPintura() {
             actions: []
         }).data("kendoWindow");
 
-        ventanaConfirm.content(_dictionary.SistemaPinturaMensajeConfirmaEliminar[$("#language").data("kendoDropDownList").value()] +
-                     "</br><center><button class='confirm_yes btn btn-blue' id='yesButton'>" + _dictionary.lblSi[$("#language").data("kendoDropDownList").value()] + "</button><button class='confirm_yes btn btn-blue' id='noButton'>" + _dictionary.lblNo[$("#language").data("kendoDropDownList").value()] + "</button></center>");
+        ventanaConfirmEliminarSP.content(_dictionary.SistemaPinturaMensajeConfirmaEliminar[$("#language").data("kendoDropDownList").value()] +
+                     "</br><center><button class='confirm_yes btn btn-blue' id='yesButtonEliminar'>" + _dictionary.lblSi[$("#language").data("kendoDropDownList").value()] + "</button><button class='confirm_yes btn btn-blue' id='noButtonEliminar'>" + _dictionary.lblNo[$("#language").data("kendoDropDownList").value()] + "</button></center>");
 
-        ventanaConfirm.open().center();
+        ventanaConfirmEliminarSP.open().center();
 
-        $("#yesButton").click(function () {
-            AjaxEliminaSistemaPintura(SistemaPinturaID);
-            ventanaConfirm.close();
+        $("#yesButtonEliminar").click(function () {
+            if ($("#comboProyecto").data("kendoComboBox").select() > 0) {
+                AjaxEliminaSistemaPintura(SistemaPinturaID, $("#comboProyecto").data("kendoComboBox").dataItem($("#comboProyecto").data("kendoComboBox").select()).ProyectoID);
+                ventanaConfirmEliminarSP.close();
+            }
+            else
+                displayNotify("SistemaPinturaMensajeErrorProyecto", "", "1");
         });
-        $("#noButton").click(function () {
-            ventanaConfirm.close();
+        $("#noButtonEliminar").click(function () {
+            ventanaConfirmEliminarSP.close();
         });
     });
 }

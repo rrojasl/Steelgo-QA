@@ -458,8 +458,7 @@ function SuscribirEventoSpoolID() {
                 }
                 setTimeout(ObtenerCatalogos(), 100);
             }
-            else
-                $("#InputID").val("")
+            
         }
     });
 
@@ -527,14 +526,15 @@ function SuscribirEventoSpoolID() {
     });
 
     $('#InputID').blur(function (e) {
-        var spoollIDValue = $("#InputID").val();
+        var spoollIDValue = $("#InputID").val().trim();
         var listaSpoolID = $("#InputID").data("kendoComboBox").dataSource._data;
+        var valorEncontrado = false;
         if (listaSpoolID.length > 0) {
             for (var i = 0; i < listaSpoolID.length; i++) {
-                var idvalSpoolID = listaSpoolID[i].IDValido + '';
-                if (idvalSpoolID.indexOf(spoollIDValue) > 0) {
+                if (TryParseInt(spoollIDValue, 0) != 0 && (TryParseInt(spoollIDValue, 0) == TryParseInt(listaSpoolID[i].IDValido, 0))) {       
+                    valorEncontrado = true;
                     $("#InputID").data("kendoComboBox").select(0);
-                    AjaxJunta($("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()).Valor);
+                    $("#InputID").data("kendoComboBox").value(listaSpoolID[i].Valor);
                     break;
                 }
             }

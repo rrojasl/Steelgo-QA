@@ -140,7 +140,7 @@ function SuscribirEventoSpoolID() {
                 }
                 else
                 {
-                    AplicarCambioSpoolID(dataItem);
+                    //AplicarCambioSpoolID(dataItem);
                 }
             }
            
@@ -405,6 +405,7 @@ function suscribirEventoAgregar() {
         e.preventDefault();
         if ($("#InputID").val()!="0"  && $("#InputID").val() != "" && $("#InputOrdenTrabajo").val()) {
             //ajaxobtenerDetalleDimensional($("#InputID").val());
+            ajaxobtenerDetalleDimensional($("#InputID").val());
             ajaxObtenerJSonGrid();
             //deshabilitaSpool();
         }

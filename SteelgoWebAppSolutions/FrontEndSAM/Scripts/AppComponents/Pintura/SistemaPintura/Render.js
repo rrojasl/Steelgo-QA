@@ -13,11 +13,16 @@ function RenderNumeroComponentes(container, options) {
             format: "#",
             min: 0,
             change: function (e) {
-                if (this.value() <= options.model.ListadoComponentes.length-1) {
+                if (numeroPlacasComponentesElemento.NumeroComponentes>0 && this.value() <= options.model.ListadoComponentes.length - 1) {
                     if (numeroPlacasComponentesElemento.NumeroComponentes != null && numeroPlacasComponentesElemento.NumeroComponentes != this.value()) {
                         dataItemRender = options.model;
                         ventanaNumeroComponentes.open().center();
                     }
+                }
+                else if (numeroPlacasComponentesElemento.NumeroComponentes==0 && this.value() <= options.model.ListadoComponentes.length - 1)
+                {
+                    dataItemRender = options.model;
+                    agregarComponentesAutomaticos();
                 }
                 else {
                     displayNotify("", (options.model.ListadoComponentes.length - 1) <= 0 ? _dictionary.NoHayComponentes[$("#language").data("kendoDropDownList").value()] : _dictionary.NumeroComponentesMenorListado[$("#language").data("kendoDropDownList").value()].replace("?1", options.model.ListadoComponentes.length - 1), '1');
@@ -126,6 +131,19 @@ function comboBoxPruebas(container, options) {
                     options.model.ProyectoProcesoPrueba = dataItem.Nombre;
                     options.model.UnidadMedidaID = dataItem.UnidadMedidaID;
                     options.model.UnidadMedida = dataItem.UnidadMedida;
+                    var numeroVecesExiste = 0;
+                    for (var i = 0; i < $("#gridPopUp").data("kendoGrid").dataSource._data.length; i++) {
+                        if (options.model.PruebaProcesoPinturaID == $("#gridPopUp").data("kendoGrid").dataSource._data[i].PruebaProcesoPinturaID) {
+                            numeroVecesExiste++;
+                            
+                        }
+                    }
+
+                    if (numeroVecesExiste > 1)
+                    {
+                        options.model.PruebaProcesoPinturaID.PruebaProcesoPinturaID = 0;
+                        options.model.ProyectoProcesoPrueba = "";
+                    }
                 }
                 $("#gridPopUp").data("kendoGrid").dataSource.sync();
             }

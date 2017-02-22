@@ -9474,7 +9474,7 @@ _dictionary = {
     },
 
 
-        
+
     "CapturaSoldaduraHeaderTrabajosAdicionalesAnidado": {
         "es-MX": "Trabajo",
         "en-US": "Work"
@@ -10829,9 +10829,9 @@ _dictionary = {
         "en-US": "There are no components, please add them in the page 'Administration of Components'"
     },
     "NumeroComponentesMenorListado": {
-            "es-MX": "Máximo puedes ingresar ?1 componentes",
-            "en-US": "Maximum you can enter ?1 components"
-        },
+        "es-MX": "Máximo puedes ingresar ?1 componentes",
+        "en-US": "Maximum you can enter ?1 components"
+    },
     "MensajeSpoolAsignado": {
         "es-MX": "No puedes editar el sistema de pintura el motivo es: ya se encuentra asignado a un spool",
         "en-US": "You can not edit the painting system the reason is: it is already assigned to a spool"
@@ -11860,5 +11860,558 @@ _dictionary = {
     },
     //Finaliza pantalla Dashboard
     //Finaliza Modulo Embarque 
+    //#region "PlaneacionYControl"
 
+    "menuPlaneacionYControl": {
+        "es-MX": "Planeación y Control",
+        "en-US": "Planning and Control"
+    },
+    "menuEmisionOrdenTrabajo": {
+        "es-MX": "Emisión OT",
+        "en-US": "WO Emission"
+    },
+    "menuCiclos": {
+        "es-MX": "Ciclos",
+        "en-US": "Cycles"
+    },
+    "menuPeticionMontaje": {
+        "es-MX": "Petición Montaje",
+        "en-US": "Assembly Request"
+    },
+    "menuGrupoEmbarque": {
+        "es-MX": "Grupo Embarque",
+        "en-US": "Shipment Group"
+    },
+    "menuAutorizacionPeticion": {
+        "es-MX": "Autorización de Petición",
+        "en-US": "Request Authorization"
+    },
+
+    "menuCapacidad": {
+        "es-MX": "Capacidad",
+        "en-US": "Capacity"
+    },
+
+    "errorNoExisteProyecto": {
+        "es-MX": "No existe el proyecto",
+        "en-US": "Project doesn´t exist"
+    },
+    "errorNoExistePatio": {
+        "es-MX": "No existe patio",
+        "en-US": "Areway doesn´t exist"
+    },
+    "errorSeleccionePatio": {
+        "es-MX": "Por favor seleccione patio",
+        "en-US": "Select an areway please"
+    },
+    "spanEmisionProyectar": {
+        "es-MX": "Proyectar",
+        "en-US": "To project"
+    },
+    "spanEmisionEmitir": {
+        "es-MX": "Emitir",
+        "en-US": "issue"
+    },
+    "spanEmisionEmitirx": {
+        "es-MX": "Emitir",
+        "en-US": "issue"
+    },
+    "divEmisionTotalProyecciones": {
+        "es-MX": "Totalizado de las proyecciones",
+        "en-US": "Tote projections"
+    },
+
+    "divEmisionCapacidad": {
+        "es-MX": "Capacidad",
+        "en-US": "Capacity"
+    },
+
+    "spanEmisionCapacidadAuto": {
+        "es-MX": "Auto",
+        "en-US": "Automatic"
+    },
+
+
+    "spanEmisionCapacidadAutoMan": {
+        "es-MX": "Auto-Man",
+        "en-US": "Automatic - Manual"
+    },
+
+
+    "spanEmisionCapacidadMan": {
+        "es-MX": "Man",
+        "en-US": "Manual"
+    },
+    "divEmisionProyecciones": {
+        "es-MX": "Proyecciones",
+        "en-US": "Projections"
+    },
+
+
+    "lblEmisionNuevaProyeccion": {
+        "es-MX": "Escriba la nueva proyección",
+        "en-US": "Enter the new projection"
+    },
+
+    "lblEmisionSelNuevaProyeccion": {
+        "es-MX": "Seleccione la proyección",
+        "en-US": "Select the projection"
+    },
+
+    "spanPreguntaCrearProyeccion": {
+        "es-MX": "¿Deseas crear una proyección o proyectar en una existente?",
+        "en-US": "Want to create a projection or an existing project?"
+    },
+
+    "spanEmisionCrear": {
+        "es-MX": "Crear",
+        "en-US": "Create"
+    },
+
+
+
+    "lblEmisionEscribaOrdenTrabajo": {
+        "es-MX": "Escriba la nueva Orden de Trabajo",
+        "en-US": "Enter the new Work Order"
+    },
+
+    "spanEmitirOrdenTrabajo": {
+        "es-MX": "Emitir Orden de Trabajo",
+        "en-US": "Issue Work Order"
+    },
+
+
+    "lblSeleccionOrdenTrabajo": {
+        "es-MX": "Seleccione la Orden de Trabajo",
+        "en-US": "Select Work Order"
+    },
+
+    "spanPreguntaCrearOrdenTrabajo": {
+        "es-MX": "¿Deseas crear una Orden de Trabajo o emitir en una Orden de Trabajo existente?",
+        "en-US": "Want to create a work order or issue in an existing work order?"
+    },
+
+    "GridStackProducto": {
+        "es-MX": "Producto",
+        "en-US": "Product"
+    },
+
+    "GridstackFibeline": {
+        "es-MX": "FibeLine",
+        "en-US": "Fibeline"
+    },
+
+    "GridstackSpools": {
+        "es-MX": "Spools",
+        "en-US": "Spools"
+    },
+
+
+    "GridstackKgs": {
+        "es-MX": "Kgs",
+        "en-US": "Kgs"
+    },
+
+    "GridstackM2": {
+        "es-MX": "M2",
+        "en-US": "M2"
+    },
+
+    "botonPlanchar": {
+        "es-MX": "Aplicar",
+        "en-US": "Apply"
+    },
+
+    "GridstackBoards": {
+        "es-MX": "Juntas",
+        "en-US": "Boards"
+    },
+
+    "GridstackPqs": {
+        "es-MX": "Pqs",
+        "en-US": "Pqs"
+    },
+
+    "CapturaMensajeArmadoPlancharTodos": {
+        "es-MX": "¿Esta seguro de reemplazar todos los datos?",
+        "en-US": "Are you sure to replace all data"
+    },
+
+
+    "GridstackFamilia": {
+        "es-MX": "Familia",
+        "en-US": "Family"
+    },
+
+    "GridstackAcero": {
+        "es-MX": "Acero",
+        "en-US": "Steel"
+    },
+
+    "ProyeccionBorradoCaptura": {
+        "es-MX": "¿Está seguro de cancelar el detalle de la proyección?",
+        "en-US": "Are you sure you want to cancel the detail of the projection?"
+    },
+    "ProyeccionPreguntaBorradoCaptura": {
+        "es-MX": "¿Está seguro de borrar la proyeccion?",
+        "en-US": "Are you sure you want to erase the projection?"
+    },
+    "AdvertenciaSeleccioneSpool": {
+        "es-MX": "Por favor seleccione un spool",
+        "en-US": "Select a spool please"
+    },
+    "AdvertenciaNoExistenProyecciones": {
+        "es-MX": "Aún no se han creado proyecciones",
+        "en-US": "Have not been created projections yet"
+    },
+    "AdvertenciaExisteProyeccion": {
+        "es-MX": "Ya existe la proyección",
+        "en-US": "The projection already exists"
+    },
+    "AdvertenciaNombreProyeccion": {
+        "es-MX": "Escriba el nombre de la proyección",
+        "en-US": "Write projection name"
+    },
+    "AdvertenciaElegirTaller": {
+        "es-MX": "Por favor seleccione un taller",
+        "en-US": "Select a workshop please"
+    },
+
+    //
+    //EntregaResultadosHeader
+    "GridstackHeaderPlaneacionControl": {
+        "es-MX": "Planeacion y Control",
+        "en-US": "Planning and control"
+    },
+    //#endregion "PlaneacionYControl"
+
+    //#region "Autorización de Petición"
+
+    "AutorizacionPeticionlblPeticion": {
+        "es-MX": "Petición",
+        "en-US": "Request"
+    },
+    "AutorizacionPeticionHeaderResolucion": {
+        "es-MX": "Resolución",
+        "en-US": "Resolution"
+    },
+    "AutorizacionPeticionHeaderNombre": {
+        "es-MX": "Nombre",
+        "en-US": "Name"
+    },
+    "AutorizacionPeticionHeaderSpoolID": {
+        "es-MX": "Spool ID",
+        "en-US": "Spool ID"
+    },
+    "AutorizacionPeticionHeaderPaso": {
+        "es-MX": "Paso",
+        "en-US": "Step"
+    },
+    "AutorizacionPeticionHeaderCiclo": {
+        "es-MX": "Ciclo",
+        "en-US": "Cycle"
+    },
+    "AutorizacionPeticionHeaderFase": {
+        "es-MX": "Fase",
+        "en-US": "Phase"
+    },
+    "AutorizacionPeticionHeaderGrupoEmision": {
+        "es-MX": "Grupo Emisión",
+        "en-US": "Emission Group"
+    },
+    "AutorizacionPeticionHeaderEmitido": {
+        "es-MX": "Emitido",
+        "en-US": "Issued"
+    },
+    "AutorizacionPeticionHeaderEmbarque": {
+        "es-MX": "Embarque",
+        "en-US": "Shipment"
+    },
+    "AutorizacionPeticionHeaderFechaPeticion": {
+        "es-MX": "Fecha Petición",
+        "en-US": "Request Date"
+    },
+    "AutorizacionPeticionHeaderTipoMaterial": {
+        "es-MX": "Tipo Material",
+        "en-US": "Material Type"
+    },
+    "AutorizacionPeticionHeaderKg": {
+        "es-MX": "Kg",
+        "en-US": "Kg"
+    },
+    "AutorizacionPeticionHeaderArea": {
+        "es-MX": "Área",
+        "en-US": "Area"
+    },
+    "AutorizacionPeticionHeaderM2": {
+        "es-MX": "M2",
+        "en-US": "M2"
+    },
+    "AutorizacionPeticionHeaderJuntas": {
+        "es-MX": "Juntas",
+        "en-US": "Joints"
+    },
+    "AutorizacionPeticionHeaderPeqs": {
+        "es-MX": "Peqs",
+        "en-US": "Peqs"
+    },
+    "lblAutorizacionPeticion": {
+        "es-MX": "Autorización Petición",
+        "en-US": "Request Authorizatión"
+    },
+    //#endregion
+    //#region "Autorización de Petición"
+
+    "OrdenesTrabajoHeaderProyeccion": {
+        "es-MX": "Proyección",
+        "en-US": "Projection"
+    },
+    "OrdenesTrabajoHeaderProyecto": {
+        "es-MX": "Proyecto",
+        "en-US": "Project"
+    },
+    "OrdenesTrabajoHeaderOrdenTrabajo": {
+        "es-MX": "Orden de Trabajo",
+        "en-US": "Work Order"
+    },
+    "lblOrdenesTrabajo": {
+        "es-MX": "Ordenes Trabajo",
+        "en-US": "Work Order"
+    },
+    //#endregion
+
+    //#region "Peticiones"
+
+    "PeticionGrupoEmbarque": {
+        "es-MX": "Grupo Embarque",
+        "en-US": "Shipment Group"
+    },
+    "PeticionlblPeticion": {
+        "es-MX": "Petición",
+        "en-US": "Request"
+    },
+    "PeticionHeaderResolucion": {
+        "es-MX": "Resolución",
+        "en-US": "Resolution"
+    },
+    "PeticionHeaderNombre": {
+        "es-MX": "Nombre",
+        "en-US": "Name"
+    },
+    "PeticionHeaderSpoolID": {
+        "es-MX": "Spool ID",
+        "en-US": "Spool ID"
+    },
+    "PeticionHeaderPaso": {
+        "es-MX": "Paso",
+        "en-US": "Step"
+    },
+    "PeticionHeaderCiclo": {
+        "es-MX": "Ciclo",
+        "en-US": "Cycle"
+    },
+    "PeticionHeaderFase": {
+        "es-MX": "Fase",
+        "en-US": "Phase"
+    },
+    "PeticionHeaderKg": {
+        "es-MX": "Kg",
+        "en-US": "Kg"
+    },
+    "PeticionHeaderArea": {
+        "es-MX": "Área",
+        "en-US": "Area"
+    },
+    "PeticionHeaderM2": {
+        "es-MX": "M2",
+        "en-US": "M2"
+    },
+    "PeticionHeaderJuntas": {
+        "es-MX": "Juntas",
+        "en-US": "Joints"
+    },
+    "PeticionHeaderPeqs": {
+        "es-MX": "Peqs",
+        "en-US": "Peqs"
+    },
+    "PeticionHeaderGrupoEmision": {
+        "es-MX": "Grupo Emisión",
+        "en-US": "Emission Group"
+    },
+    "PeticionHeaderEmitido": {
+        "es-MX": "Emitido",
+        "en-US": "Issued"
+    },
+    "PeticionHeaderEmbarque": {
+        "es-MX": "Embarque",
+        "en-US": "Shipment"
+    },
+    "PeticionHeaderFechaPeticion": {
+        "es-MX": "Fecha Petición",
+        "en-US": "Request Date"
+    },
+    "PeticionHeaderTipoMaterial": {
+        "es-MX": "Tipo Material",
+        "en-US": "Material Type"
+    },
+
+    //#endregion
+    //#region "Autorización de Petición"
+
+    "AutorizacionPeticionlblPeticion": {
+        "es-MX": "Petición",
+        "en-US": "Request"
+    },
+    "AutorizacionPeticionHeaderResolucion": {
+        "es-MX": "Resolución",
+        "en-US": "Resolution"
+    },
+    "AutorizacionPeticionHeaderNombre": {
+        "es-MX": "Nombre",
+        "en-US": "Name"
+    },
+    "AutorizacionPeticionHeaderSpoolID": {
+        "es-MX": "Spool ID",
+        "en-US": "Spool ID"
+    },
+    "AutorizacionPeticionHeaderPaso": {
+        "es-MX": "Paso",
+        "en-US": "Step"
+    },
+    "AutorizacionPeticionHeaderCiclo": {
+        "es-MX": "Ciclo",
+        "en-US": "Cycle"
+    },
+    "AutorizacionPeticionHeaderFase": {
+        "es-MX": "Fase",
+        "en-US": "Phase"
+    },
+    "AutorizacionPeticionHeaderGrupoEmision": {
+        "es-MX": "Grupo Emisión",
+        "en-US": "Emission Group"
+    },
+    "AutorizacionPeticionHeaderEmitido": {
+        "es-MX": "Emitido",
+        "en-US": "Issued"
+    },
+    "AutorizacionPeticionHeaderEmbarque": {
+        "es-MX": "Embarque",
+        "en-US": "Shipment"
+    },
+    "AutorizacionPeticionHeaderFechaPeticion": {
+        "es-MX": "Fecha Petición",
+        "en-US": "Request Date"
+    },
+    "AutorizacionPeticionHeaderTipoMaterial": {
+        "es-MX": "Tipo Material",
+        "en-US": "Material Type"
+    },
+    "AutorizacionPeticionHeaderKg": {
+        "es-MX": "Kg",
+        "en-US": "Kg"
+    },
+    "AutorizacionPeticionHeaderArea": {
+        "es-MX": "Área",
+        "en-US": "Area"
+    },
+    "AutorizacionPeticionHeaderM2": {
+        "es-MX": "M2",
+        "en-US": "M2"
+    },
+    "AutorizacionPeticionHeaderJuntas": {
+        "es-MX": "Juntas",
+        "en-US": "Joints"
+    },
+    "AutorizacionPeticionHeaderPeqs": {
+        "es-MX": "Peqs",
+        "en-US": "Peqs"
+    },
+
+    //#endregion
+    "lblGrupoEmbarque": {
+        "es-MX": "Grupo Embarque",
+        "en-US": "Shipment Group"
+    },
+    //#region "Peticion Montaje"
+    "PeticionMotajeBtnGrupoEmbarque": {
+        "es-MX": "Grupo de Embarque",
+        "en-US": "Shipment Group"
+    },
+    "PeticionMotajeBtnGrupoEmbarque2": {
+        "es-MX": "Grupo de Embarque",
+        "en-US": "Shipment Group"
+    },
+    "PeticionMotajeBtnExplorar": {
+        "es-MX": "Explorar",
+        "en-US": "Search"
+    },
+    "PeticionMotajelblProyecto": {
+        "es-MX": "Proyecto",
+        "en-US": "Project"
+    },
+    "PeticionMotajelblFechaDeseable": {
+        "es-MX": "Fecha Deseable",
+        "en-US": "Desirable Date"
+    },
+    "PeticionMotajelblNombre": {
+        "es-MX": "Nombre",
+        "en-US": "Name"
+    },
+    "PeticionMotajelblCargarCsv": {
+        "es-MX": "Cargar CSV",
+        "en-US": "Upload CSV"
+    },
+    "PeticionMotajeHeaderSpool": {
+        "es-MX": "Spool",
+        "en-US": "Spool"
+    },
+    "PeticionMotajeHeaderSpoolID": {
+        "es-MX": "Spool ID",
+        "en-US": "Spool ID"
+    },
+    "PeticionMotajeHeaderGrupoEmbarque": {
+        "es-MX": "Grupo de Embarque",
+        "en-US": "Shipment Group"
+    },
+    "PeticionMotajeHeaderJunta": {
+        "es-MX": "Junta",
+        "en-US": "Joint"
+    },
+    "PeticionMotajeHeaderEmitido": {
+        "es-MX": "Emitido",
+        "en-US": "Issued"
+    },
+    "PeticionMotajeHeaderM2": {
+        "es-MX": "M2",
+        "en-US": "M2"
+    },
+    "PeticionMotajeHeaderPeqs": {
+        "es-MX": "Peqs",
+        "en-US": "Peqs"
+    },
+    "PeticionMotajeHeaderKg": {
+        "es-MX": "Kg",
+        "en-US": "Kg"
+    },
+    "PeticionMotajeHeaderArea": {
+        "es-MX": "Área",
+        "en-US": "Area"
+    },
+    "PeticionMotajeHeaderTipoMateriales": {
+        "es-MX": "Tipo Materiales",
+        "en-US": "Material Type"
+    },
+    "PeticionMotajeHeaderPeticion": {
+        "es-MX": "Petición",
+        "en-US": "Request"
+    },
+    "PeticionMotajeHeaderFechaPeticion": {
+        "es-MX": "Fecha Petición",
+        "en-US": "Request Date"
+    },
+    "JuntaGrid": {
+        "es-MX": "Jta",
+        "en-US": "Jnt"
+    },
+    //#endregion
 };
