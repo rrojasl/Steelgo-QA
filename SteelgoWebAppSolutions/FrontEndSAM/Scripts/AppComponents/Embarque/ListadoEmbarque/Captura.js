@@ -42,6 +42,21 @@ function CargarGrid() {
 
     $("#grid").kendoGrid({
         autoBind: true,
+        //save: function (e) {
+        //    var focusedCellIndex = this.current()[0].cellIndex;
+        //    var dataItem = e.model;
+        //    var grid = this;
+        //    nextDataItem = this.dataSource.at(this.dataSource.indexOf(dataItem) + 1);
+
+        //    this.refresh();
+        //    setTimeout(function () {
+        //        return function () {
+        //            var focusedCell = $("#grid tr[data-uid='" + e.model.uid + "'] td:nth-child(" + (focusedCellIndex + 1) + ")");
+        //            grid.select(focusedCell);
+        //            grid.editCell(focusedCell);
+        //        }
+        //    }(), 200);
+        //},
         edit: function (e) {
             var inputName = e.container.find('input');
             inputName.select();

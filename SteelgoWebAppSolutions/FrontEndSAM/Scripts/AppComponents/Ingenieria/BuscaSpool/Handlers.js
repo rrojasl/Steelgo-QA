@@ -5,6 +5,7 @@ var currentSpoolMaster = null;
 var currentTipoSalidaArray = [];
 //var currentListaSpools = [];
 
+//Ingenieria_Loop
 function initSpoolMaster() {
     currentSpoolMaster = {
         UsuarioID: 0,
@@ -26,6 +27,7 @@ function initSpoolMaster() {
     };
 }
 
+//Ingenieria_Detalle_Salidas
 function addNewDetalleSalida(spoolID, nombreSpool) {
     currentSpoolMaster.DetalleSalidas[currentSpoolMaster.DetalleSalidas.length] = {
         NombreLoop: currentSpoolMaster.NombreLoop,
@@ -46,6 +48,7 @@ function addNewDetalleSalida(spoolID, nombreSpool) {
     //addNewDetalleSalida(spoolID);
 }
 
+//Ingenieria_Salidas_Agrupado
 function addNewDetalleSalidaAgrupado(spoolID, salidasEstandar, salidasJuntasCerradas, detalleMaterialesSpool, detalleListadoSpool, listadoJuntaSpool) {
     for (var i = 0; i < currentSpoolMaster.DetalleSalidas.length; i++) {
         if (currentSpoolMaster.DetalleSalidas[i].SpoolID == spoolID) {
