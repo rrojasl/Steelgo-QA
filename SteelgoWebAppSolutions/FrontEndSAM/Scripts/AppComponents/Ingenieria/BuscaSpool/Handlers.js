@@ -766,187 +766,138 @@ function SuscribirEventoComboPrueba() {
     //    alert('xD');
     //});
 
+    
     $("#context-menu").kendoContextMenu({
         dataSource:
             [{
-                text: "<b>Agregar hijo</b>",
+                text: "<b>Agregar Junta</b>",
                 encoded: false
             }],                              // Allows use of HTML for item text
         select: function (e) {
-            //alert(numeroSalidaSelect);
-
+            //alert(numeroSalidaSelect + ';' + posicionMenuContext);
+            
             var listaDetalles = [];
             var itemEncontrado = false;
-            //var cont = 0;
-            for (var i = 0; i < $("#grid").data("kendoGrid").dataSource._data.length; i++) {
+            if (numeroSalidaSelect.match('^JC')) {
+                for (var i = 0; i < $("#grid_" + posicionMenuContext).data("kendoGrid").dataSource._data.length; i++) {
 
-                
+                    if ($("#grid_" + posicionMenuContext).data("kendoGrid").dataSource._data[i].ClaveSalida == numeroSalidaSelect) {
+                        var newData = {
+                            SpoolID: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].SpoolID,
+                            PosicionSalida: i,
+                            ClaveSalida: 'JC-' + 'H',
+                            TipoSalidaID: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].TipoSalidaID,
+                            TipoSalida: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].TipoSalida,
+                            TipoSalidaLista: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].TipoSalidaLista,
+                            DetalleMaterialSpoolID: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].DetalleMaterialSpoolID,
+                            DetalleMaterialSpool: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].DetalleMaterialSpool,
+                            DetalleMaterialSpoolLista: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].DetalleMaterialSpoolLista,
+                            SpoolItemCodeID: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].SpoolItemCodeID,
+                            SpoolItemCode: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].SpoolItemCode,
+                            SpoolItemCodeLista: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].SpoolItemCodeLista,
+                            ItemCodeSelect: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].ItemCodeSelect,
+                            DetalleJuntaSpoolID: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].DetalleJuntaSpoolID,
+                            DetalleJuntaSpool: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].DetalleJuntaSpool,
+                            DetalleJuntaSpoolLista: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].DetalleJuntaSpoolLista,
+                            Nivel: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].Nivel + 1,
+                            PosicionSalidaPadre: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].PosicionSalidaPadre,
+                            ClaveSalidaPadre: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].ClaveSalidaPadre,
 
-                if (!itemEncontrado) {
-                    if ($("#grid").data("kendoGrid").dataSource._data[i].NumeroSalida == numeroSalidaSelect) {
-                        listaDetalles[i] = {
-                            NumeroSalida: '',
-                            TipoSalidaSelect: '',
-                            TipoSalida: [{ SalidaID: "1", Titulo: "Spool" }, { SalidaID: "2", Titulo: "Item Code" }, { SalidaID: "3", Titulo: "Frontera" }],
-                            Etiqueta: '0',
-                            Material: '',
-                            Spool_ICSelect: '',
-                            Spool_IC: [{ ID: 0, Titulo: 'Sin Definir' }, { ID: 1, Titulo: 's5-k1113-07-1' }, { ID: 2, Titulo: 's5-k1113-08-1' }, { ID: 3, Titulo: 's5-k1113-09-1' }, { ID: 4, Titulo: 's5-k1113-10-1' }, { ID: 5, Titulo: 's5-k1113-01-1' }],
-                            JuntaSelect: '',
-                            Juntas: [{ JuntaID: 1, Junta: 'FW15' }, { JuntaID: 2, Junta: 'FW12' }, { JuntaID: 3, Junta: 'FW10' }],
-                            TipoJunta: '',
-                            Cedula: '',
-                            Acero1: '',
-                            Acero2: '',
-                            Diametro: '',
-                            Nivel: 0
+                            TipoJuntaID: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].TipoJuntaID,
+                            TipoJunta: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].TipoJunta,
+                            Cedula: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].Cedula,
+                            FamiliaAceroMaterial1ID: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].FamiliaAceroMaterial1ID,
+                            FamiliaAceroMaterial1: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].FamiliaAceroMaterial1,
+                            FamiliaAceroMaterial2ID: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].FamiliaAceroMaterial2ID,
+                            FamiliaAceroMaterial2: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].FamiliaAceroMaterial2,
+                            Diametro: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].Diametro,
+
+                            TipoCorte1ID: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].TipoCorte1ID,
+                            TipoCorte1: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].TipoCorte1,
+                            TipoCorte1Lista: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].TipoCorte1Lista,
+                            TipoCorte2ID: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].TipoCorte2ID,
+                            TipoCorte2: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].TipoCorte2,
+                            TipoCorte2Lista: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].TipoCorte2Lista,
+                            Cantidad: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].Cantidad
+
                         };
-                        listaDetalles[i+1] = {
-                            NumeroSalida: '',
-                            TipoSalidaSelect: '',
-                            TipoSalida: [{ SalidaID: "1", Titulo: "Spool" }, { SalidaID: "2", Titulo: "Item Code" }, { SalidaID: "3", Titulo: "Frontera" }],
-                            Etiqueta: '0',
-                            Material: '',
-                            Spool_ICSelect: '',
-                            Spool_IC: [{ ID: 0, Titulo: 'Sin Definir' }, { ID: 1, Titulo: 's5-k1113-07-1' }, { ID: 2, Titulo: 's5-k1113-08-1' }, { ID: 3, Titulo: 's5-k1113-09-1' }, { ID: 4, Titulo: 's5-k1113-10-1' }, { ID: 5, Titulo: 's5-k1113-01-1' }],
-                            JuntaSelect: '',
-                            Juntas: [{ JuntaID: 1, Junta: 'FW15' }, { JuntaID: 2, Junta: 'FW12' }, { JuntaID: 3, Junta: 'FW10' }],
-                            TipoJunta: '',
-                            Cedula: '',
-                            Acero1: '',
-                            Acero2: '',
-                            Diametro: '',
-                            Nivel: 0
-                        };
+                        //currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i].insert((i + 1), newData);
+                        //currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas = insertAt(currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas, (i + 1));
+                        break;
+                    }
 
-                        listaDetalles[i].NumeroSalida = $("#grid").data("kendoGrid").dataSource._data[i].NumeroSalida;
-                        listaDetalles[i].TipoSalidaSelect = $("#grid").data("kendoGrid").dataSource._data[i].TipoSalidaSelect;
-                        listaDetalles[i].TipoSalida = $("#grid").data("kendoGrid").dataSource._data[i].TipoSalida;
-                        listaDetalles[i].Etiqueta = $("#grid").data("kendoGrid").dataSource._data[i].Etiqueta;
-                        listaDetalles[i].Material = $("#grid").data("kendoGrid").dataSource._data[i].Material;
-                        listaDetalles[i].Spool_ICSelect = $("#grid").data("kendoGrid").dataSource._data[i].Spool_ICSelect;
-                        listaDetalles[i].Spool_IC = $("#grid").data("kendoGrid").dataSource._data[i].Spool_IC;
-                        listaDetalles[i].JuntaSelect = $("#grid").data("kendoGrid").dataSource._data[i].JuntaSelect;
-                        listaDetalles[i].Juntas = $("#grid").data("kendoGrid").dataSource._data[i].Juntas;
-                        listaDetalles[i].TipoJunta = $("#grid").data("kendoGrid").dataSource._data[i].TipoJunta;
-                        listaDetalles[i].Cedula = $("#grid").data("kendoGrid").dataSource._data[i].Cedula;
-                        listaDetalles[i].Acero1 = $("#grid").data("kendoGrid").dataSource._data[i].Acero1;
-                        listaDetalles[i].Acero2 = $("#grid").data("kendoGrid").dataSource._data[i].Acero2;
-                        listaDetalles[i].Diametro = $("#grid").data("kendoGrid").dataSource._data[i].Diametro;
-                        listaDetalles[i].Nivel = $("#grid").data("kendoGrid").dataSource._data[i].Nivel;
+                    if (!itemEncontrado) {
+                        //if ($("#grid_" + posicionMenuContext).data("kendoGrid").dataSource._data[i].NumeroSalida == numeroSalidaSelect) {
+                            
+                        //    itemEncontrado = true;
+                        //}
+                        //else {
 
-                        listaDetalles[i + 1].NumeroSalida = $("#grid").data("kendoGrid").dataSource._data[i].NumeroSalida + '-H' + ($("#grid").data("kendoGrid").dataSource._data[i].Nivel + 1);
-                        listaDetalles[i + 1].TipoSalidaSelect = $("#grid").data("kendoGrid").dataSource._data[i].TipoSalidaSelect;
-                        listaDetalles[i + 1].TipoSalida = $("#grid").data("kendoGrid").dataSource._data[i].TipoSalida;
-                        listaDetalles[i + 1].Etiqueta = $("#grid").data("kendoGrid").dataSource._data[i].Etiqueta;
-                        listaDetalles[i + 1].Material = $("#grid").data("kendoGrid").dataSource._data[i].Material;
-                        listaDetalles[i + 1].Spool_ICSelect = $("#grid").data("kendoGrid").dataSource._data[i].Spool_ICSelect;
-                        listaDetalles[i + 1].Spool_IC = $("#grid").data("kendoGrid").dataSource._data[i].Spool_IC;
-                        listaDetalles[i + 1].JuntaSelect = $("#grid").data("kendoGrid").dataSource._data[i].JuntaSelect;
-                        listaDetalles[i + 1].Juntas = $("#grid").data("kendoGrid").dataSource._data[i].Juntas;
-                        listaDetalles[i + 1].TipoJunta = $("#grid").data("kendoGrid").dataSource._data[i].TipoJunta;
-                        listaDetalles[i + 1].Cedula = $("#grid").data("kendoGrid").dataSource._data[i].Cedula;
-                        listaDetalles[i + 1].Acero1 = $("#grid").data("kendoGrid").dataSource._data[i].Acero1;
-                        listaDetalles[i + 1].Acero2 = $("#grid").data("kendoGrid").dataSource._data[i].Acero2;
-                        listaDetalles[i + 1].Diametro = $("#grid").data("kendoGrid").dataSource._data[i].Diametro;
-                        listaDetalles[i + 1].Nivel = ($("#grid").data("kendoGrid").dataSource._data[i].Nivel + 1);
+                        //}
 
-                        itemEncontrado = true;
                     }
                     else {
-                        listaDetalles[i] = {
-                            NumeroSalida: '',
-                            TipoSalidaSelect: '',
-                            TipoSalida: [{ SalidaID: "1", Titulo: "Spool" }, { SalidaID: "2", Titulo: "Item Code" }, { SalidaID: "3", Titulo: "Frontera" }],
-                            Etiqueta: '0',
-                            Material: '',
-                            Spool_ICSelect: '',
-                            Spool_IC: [{ ID: 0, Titulo: 'Sin Definir' }, { ID: 1, Titulo: 's5-k1113-07-1' }, { ID: 2, Titulo: 's5-k1113-08-1' }, { ID: 3, Titulo: 's5-k1113-09-1' }, { ID: 4, Titulo: 's5-k1113-10-1' }, { ID: 5, Titulo: 's5-k1113-01-1' }],
-                            JuntaSelect: '',
-                            Juntas: [{ JuntaID: 1, Junta: 'FW15' }, { JuntaID: 2, Junta: 'FW12' }, { JuntaID: 3, Junta: 'FW10' }],
-                            TipoJunta: '',
-                            Cedula: '',
-                            Acero1: '',
-                            Acero2: '',
-                            Diametro: '',
-                            Nivel: 0
-                        };
+                        //listaDetalles[i + 1] = {
+                        //    NumeroSalida: '',
+                        //    TipoSalidaSelect: '',
+                        //    TipoSalida: [{ SalidaID: "1", Titulo: "Spool" }, { SalidaID: "2", Titulo: "Item Code" }, { SalidaID: "3", Titulo: "Frontera" }],
+                        //    Etiqueta: '0',
+                        //    Material: '',
+                        //    Spool_ICSelect: '',
+                        //    Spool_IC: [{ ID: 0, Titulo: 'Sin Definir' }, { ID: 1, Titulo: 's5-k1113-07-1' }, { ID: 2, Titulo: 's5-k1113-08-1' }, { ID: 3, Titulo: 's5-k1113-09-1' }, { ID: 4, Titulo: 's5-k1113-10-1' }, { ID: 5, Titulo: 's5-k1113-01-1' }],
+                        //    JuntaSelect: '',
+                        //    Juntas: [{ JuntaID: 1, Junta: 'FW15' }, { JuntaID: 2, Junta: 'FW12' }, { JuntaID: 3, Junta: 'FW10' }],
+                        //    TipoJunta: '',
+                        //    Cedula: '',
+                        //    Acero1: '',
+                        //    Acero2: '',
+                        //    Diametro: '',
+                        //    Nivel: 0
+                        //};
 
-                        listaDetalles[i].NumeroSalida= $("#grid").data("kendoGrid").dataSource._data[i].NumeroSalida;
-                        listaDetalles[i].TipoSalidaSelect= $("#grid").data("kendoGrid").dataSource._data[i].TipoSalidaSelect;
-                        listaDetalles[i].TipoSalida= $("#grid").data("kendoGrid").dataSource._data[i].TipoSalida;
-                        listaDetalles[i].Etiqueta= $("#grid").data("kendoGrid").dataSource._data[i].Etiqueta;
-                        listaDetalles[i].Material= $("#grid").data("kendoGrid").dataSource._data[i].Material;
-                        listaDetalles[i].Spool_ICSelect= $("#grid").data("kendoGrid").dataSource._data[i].Spool_ICSelect;
-                        listaDetalles[i].Spool_IC= $("#grid").data("kendoGrid").dataSource._data[i].Spool_IC;
-                        listaDetalles[i].JuntaSelect= $("#grid").data("kendoGrid").dataSource._data[i].JuntaSelect;
-                        listaDetalles[i].Juntas= $("#grid").data("kendoGrid").dataSource._data[i].Juntas;
-                        listaDetalles[i].TipoJunta= $("#grid").data("kendoGrid").dataSource._data[i].TipoJunta;
-                        listaDetalles[i].Cedula= $("#grid").data("kendoGrid").dataSource._data[i].Cedula;
-                        listaDetalles[i].Acero1= $("#grid").data("kendoGrid").dataSource._data[i].Acero1;
-                        listaDetalles[i].Acero2= $("#grid").data("kendoGrid").dataSource._data[i].Acero2;
-                        listaDetalles[i].Diametro= $("#grid").data("kendoGrid").dataSource._data[i].Diametro;
-                        listaDetalles[i].Nivel = $("#grid").data("kendoGrid").dataSource._data[i].Nivel;
+                        //listaDetalles[i + 1].NumeroSalida = $("#grid").data("kendoGrid").dataSource._data[i].NumeroSalida;
+                        //listaDetalles[i + 1].TipoSalidaSelect = $("#grid").data("kendoGrid").dataSource._data[i].TipoSalidaSelect;
+                        //listaDetalles[i + 1].TipoSalida = $("#grid").data("kendoGrid").dataSource._data[i].TipoSalida;
+                        //listaDetalles[i + 1].Etiqueta = $("#grid").data("kendoGrid").dataSource._data[i].Etiqueta;
+                        //listaDetalles[i + 1].Material = $("#grid").data("kendoGrid").dataSource._data[i].Material;
+                        //listaDetalles[i + 1].Spool_ICSelect = $("#grid").data("kendoGrid").dataSource._data[i].Spool_ICSelect;
+                        //listaDetalles[i + 1].Spool_IC = $("#grid").data("kendoGrid").dataSource._data[i].Spool_IC;
+                        //listaDetalles[i + 1].JuntaSelect = $("#grid").data("kendoGrid").dataSource._data[i].JuntaSelect;
+                        //listaDetalles[i + 1].Juntas = $("#grid").data("kendoGrid").dataSource._data[i].Juntas;
+                        //listaDetalles[i + 1].TipoJunta = $("#grid").data("kendoGrid").dataSource._data[i].TipoJunta;
+                        //listaDetalles[i + 1].Cedula = $("#grid").data("kendoGrid").dataSource._data[i].Cedula;
+                        //listaDetalles[i + 1].Acero1 = $("#grid").data("kendoGrid").dataSource._data[i].Acero1;
+                        //listaDetalles[i + 1].Acero2 = $("#grid").data("kendoGrid").dataSource._data[i].Acero2;
+                        //listaDetalles[i + 1].Diametro = $("#grid").data("kendoGrid").dataSource._data[i].Diametro;
+                        //listaDetalles[i + 1].Nivel = $("#grid").data("kendoGrid").dataSource._data[i].Nivel;
                     }
-                    
+
+
+
+
+
+
+                    //if ($("#grid").data("kendoGrid").dataSource._data[i].NumeroSalida == idSelect) {
+                    //    $("#grid").data("kendoGrid").dataSource._data[i].Etiqueta = (i + 1);//EtiquetaSelect;
+                    //    $("#grid").data("kendoGrid").dataSource._data[i].Material = ICSelect;//$("#gridPopUp").data("kendoGrid").dataSource._data.length;
+                    //    $("#grid").data("kendoGrid").refresh();
+                    //    break;
+                    //}
+
                 }
-                else {
-                    listaDetalles[i + 1] = {
-                        NumeroSalida: '',
-                        TipoSalidaSelect: '',
-                        TipoSalida: [{ SalidaID: "1", Titulo: "Spool" }, { SalidaID: "2", Titulo: "Item Code" }, { SalidaID: "3", Titulo: "Frontera" }],
-                        Etiqueta: '0',
-                        Material: '',
-                        Spool_ICSelect: '',
-                        Spool_IC: [{ ID: 0, Titulo: 'Sin Definir' }, { ID: 1, Titulo: 's5-k1113-07-1' }, { ID: 2, Titulo: 's5-k1113-08-1' }, { ID: 3, Titulo: 's5-k1113-09-1' }, { ID: 4, Titulo: 's5-k1113-10-1' }, { ID: 5, Titulo: 's5-k1113-01-1' }],
-                        JuntaSelect: '',
-                        Juntas: [{ JuntaID: 1, Junta: 'FW15' }, { JuntaID: 2, Junta: 'FW12' }, { JuntaID: 3, Junta: 'FW10' }],
-                        TipoJunta: '',
-                        Cedula: '',
-                        Acero1: '',
-                        Acero2: '',
-                        Diametro: '',
-                        Nivel: 0
-                    };
-
-                    listaDetalles[i + 1].NumeroSalida = $("#grid").data("kendoGrid").dataSource._data[i].NumeroSalida;
-                    listaDetalles[i + 1].TipoSalidaSelect = $("#grid").data("kendoGrid").dataSource._data[i].TipoSalidaSelect;
-                    listaDetalles[i + 1].TipoSalida = $("#grid").data("kendoGrid").dataSource._data[i].TipoSalida;
-                    listaDetalles[i + 1].Etiqueta = $("#grid").data("kendoGrid").dataSource._data[i].Etiqueta;
-                    listaDetalles[i + 1].Material = $("#grid").data("kendoGrid").dataSource._data[i].Material;
-                    listaDetalles[i + 1].Spool_ICSelect = $("#grid").data("kendoGrid").dataSource._data[i].Spool_ICSelect;
-                    listaDetalles[i + 1].Spool_IC = $("#grid").data("kendoGrid").dataSource._data[i].Spool_IC;
-                    listaDetalles[i + 1].JuntaSelect = $("#grid").data("kendoGrid").dataSource._data[i].JuntaSelect;
-                    listaDetalles[i + 1].Juntas = $("#grid").data("kendoGrid").dataSource._data[i].Juntas;
-                    listaDetalles[i + 1].TipoJunta = $("#grid").data("kendoGrid").dataSource._data[i].TipoJunta;
-                    listaDetalles[i + 1].Cedula = $("#grid").data("kendoGrid").dataSource._data[i].Cedula;
-                    listaDetalles[i + 1].Acero1 = $("#grid").data("kendoGrid").dataSource._data[i].Acero1;
-                    listaDetalles[i + 1].Acero2 = $("#grid").data("kendoGrid").dataSource._data[i].Acero2;
-                    listaDetalles[i + 1].Diametro = $("#grid").data("kendoGrid").dataSource._data[i].Diametro;
-                    listaDetalles[i + 1].Nivel = $("#grid").data("kendoGrid").dataSource._data[i].Nivel;
-                }
-                
-
-                
-                
-
-                //if ($("#grid").data("kendoGrid").dataSource._data[i].NumeroSalida == idSelect) {
-                //    $("#grid").data("kendoGrid").dataSource._data[i].Etiqueta = (i + 1);//EtiquetaSelect;
-                //    $("#grid").data("kendoGrid").dataSource._data[i].Material = ICSelect;//$("#gridPopUp").data("kendoGrid").dataSource._data.length;
-                //    $("#grid").data("kendoGrid").refresh();
-                //    break;
-                //}
+            }
+            else {//No es JC
 
             }
 
-            $("#grid").data('kendoGrid').dataSource.data([]);
-            var ds = $("#grid").data("kendoGrid").dataSource;
-            for (var i = 0; i < listaDetalles.length; i++) {
-                ds.add(listaDetalles[i]);
-            }
+            //$("#grid").data('kendoGrid').dataSource.data([]);
+            //var ds = $("#grid").data("kendoGrid").dataSource;
+            //for (var i = 0; i < listaDetalles.length; i++) {
+            //    ds.add(listaDetalles[i]);
+            //}
         }
     });
-
+    
     $('#inputProyecto').kendoComboBox({
         dataTextField: "Nombre",
         dataValueField: "ProyectoID",
@@ -957,7 +908,7 @@ function SuscribirEventoComboPrueba() {
 
         }
     });
-
+    
     
     $('inputNombreLoop[type=text]').blur(function () {
         alert('Busca');
@@ -1049,6 +1000,18 @@ function SuscribirEventoComboPrueba() {
     //    previousCurrentItem = this.value;
     //});
 };
+
+//Array.prototype.insert = function (index, item) {
+//    this.splice(index, 0, item);
+//};
+
+function insertAt(array, index) {
+    var arrayToInsert = Array.prototype.splice.apply(arguments, [2]);
+    return insertArrayAt(array, index, arrayToInsert);
+}
+
+
+
 
 function suscribirEventoChangeRadioTipo() {
 

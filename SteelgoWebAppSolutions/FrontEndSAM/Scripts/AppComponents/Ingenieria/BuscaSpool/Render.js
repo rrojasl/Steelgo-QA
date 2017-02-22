@@ -119,10 +119,11 @@ function RenderJunta(container, options) {
 
 }
 
+var dataItemAterior;
 function RenderSpool_IC(container, options) {
-    var dataItem;
+    
     var tipoSalidaARenderear = '';
-
+    dataItemAterior = { SpoolItemCodeID: options.model.SpoolItemCodeID, SpoolItemCode: options.model.SpoolItemCode };
     if (options.model.TipoSalida == "Item Code Demo") {
 
         $('<div name=' + options.model.NumeroSalida + '' + options.model.TipoSalidaSelect + '/>')
@@ -250,12 +251,34 @@ function RenderSpool_IC(container, options) {
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
 
-                if (dataItem.SpoolID != 0) {
-                    options.model.SpoolItemCodeID = dataItem.SpoolID;
-                    options.model.SpoolItemCode = dataItem.Nombre;
+                if (dataItemAterior.SpoolItemCodeID == 0) {
+                    if (dataItem.SpoolID != 0) {
+                        options.model.SpoolItemCodeID = dataItem.SpoolID;
+                        options.model.SpoolItemCode = dataItem.Nombre;
 
-                    //currentSpoolMaster.DetalleSalidas[i]
-                    //((options.model.ClaveSalida.match('^JC')) ? (options.model.ClaveSalida.substring(0, 2)) : (options.model.ClaveSalida.substring(0, 1)))
+                        //currentSpoolMaster.DetalleSalidas[i]
+                        //((options.model.ClaveSalida.match('^JC')) ? (options.model.ClaveSalida.substring(0, 2)) : (options.model.ClaveSalida.substring(0, 1)))
+                        var posicionSalida = options.model.PosicionSalida;
+                        if (options.model.ClaveSalida.match('^JC')) {
+                            currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].SpoolItemCodeID = dataItem.SpoolID;//posicionSalida += currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar.length;
+                            currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].SpoolItemCode = dataItem.Nombre;
+                        }
+                        else {
+                            currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].SpoolItemCodeID = dataItem.SpoolID;
+                            currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].SpoolItemCode = dataItem.Nombre;
+                        }
+
+
+                        addNewDetalleSalida(options.model.SpoolItemCodeID, options.model.SpoolItemCode);
+
+                        reloadControls();
+                    }
+                    //else {
+                    //    options.model.SpoolItemCodeID = dataItem.SpoolID;
+                    //    options.model.SpoolItemCodeID = "Sin Definir"
+                    //}
+                }
+                else {
                     var posicionSalida = options.model.PosicionSalida;
                     if (options.model.ClaveSalida.match('^JC')) {
                         currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].SpoolItemCodeID = dataItem.SpoolID;//posicionSalida += currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar.length;
@@ -266,16 +289,15 @@ function RenderSpool_IC(container, options) {
                         currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].SpoolItemCode = dataItem.Nombre;
                     }
 
-
-                    addNewDetalleSalida(options.model.SpoolItemCodeID, options.model.SpoolItemCode);
+                    currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre + 1].SpoolID = dataItem.SpoolID;
+                    currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre + 1].NombreSpool = dataItem.Nombre;
+                    
 
                     reloadControls();
-                }
-                //else {
-                //    options.model.SpoolItemCodeID = dataItem.SpoolID;
-                //    options.model.SpoolItemCodeID = "Sin Definir"
-                //}
+                    //addNewDetalleSalida(options.model.SpoolItemCodeID, options.model.SpoolItemCode);
 
+                    //reloadControls();
+                }
                 //options.model.JuntaID = dataItem.JuntaID;
                 //options.model.Junta = dataItem.Junta;
 
