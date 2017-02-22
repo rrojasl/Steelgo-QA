@@ -544,7 +544,7 @@ function GuardarDetalleAdicional() {
         for (var i = 0; i < ds._data.length; i++) {
             if (ds._data[i].Accion == undefined || ds._data[i].Accion == 0)
                 ds._data[i].Accion = 1;
-            if (ds._data[i].TrabajoAdicional == "" || ds._data[i].Soldador == "" && !(ds._data[i].Accion == 3 || ds._data[i].Accion == 4))
+            if ((ds._data[i].TrabajoAdicional == "" || ds._data[i].Soldador == "") && !(ds._data[i].Accion == 3 || ds._data[i].Accion == 4))
                 trabajosCorrectos = false;
         }
         if (trabajosCorrectos) {
@@ -611,6 +611,8 @@ function GuardarSoldadoresRaiz() {
                     modeloRenglon.TemplateSoldadoresRaiz = _dictionary.CapturaSoldaduraMensajeCambioLongitud[$("#language").data("kendoDropDownList").value()] + actuallongitudSoldadoresRaiz + _dictionary.CapturaSoldaduraMensajeCambioSoldadoresRaiz[$("#language").data("kendoDropDownList").value()];
 
                 $("#grid").data("kendoGrid").dataSource.sync();
+
+                
 
                 $("#windowGridSoldadorRaiz").data("kendoWindow").close();
             }
