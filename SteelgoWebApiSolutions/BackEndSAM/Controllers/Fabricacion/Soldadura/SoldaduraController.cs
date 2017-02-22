@@ -237,6 +237,7 @@ namespace BackEndSAM.Controllers.Fabricacion.Soldadura
                             OrdenTrabajo = capturaDatosJson.OrdenTrabajo,
                             idVal = capturaDatosJson.idVal,
                             idText = capturaDatosJson.idText,
+                            Espesor = item.Espesor.GetValueOrDefault(),
                             SpoolID = capturaDatosJson.OrdenTrabajo + "-" + capturaDatosJson.idText,
                             DetalleJunta = "Tipo Junta: " + item.TipoJunta + " - " + "Cedula: " + item.Cedula + " - " + "Localización: " + item.Localizacion,
                             TipoJuntaID = item.TipoJuntaID.ToString(),
