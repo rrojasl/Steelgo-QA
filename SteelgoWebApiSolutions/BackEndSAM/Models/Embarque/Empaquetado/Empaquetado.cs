@@ -87,12 +87,12 @@ namespace BackEndSAM.Models.Embarque.Empaquetado
         public decimal Area { get; set; }
         public decimal Peso { get; set; }
         public int ProyectoID { get; set; }
-        public int CuadranteSam2ID { get; set; }
-        public int CuadranteSam3ID { get; set; }
+        public int? CuadranteSam2ID { get; set; }
+        public int? CuadranteSam3ID { get; set; }
         public string Cuadrante { get; set; }
-        public int CuadranteAnteriorSam2ID { get; set; }
-        public int CuadranteAnteriorSam3ID { get; set; }
-        public int ZonaAnteriorID { get; set; }
+        public int? CuadranteAnteriorSam2ID { get; set; }
+        public int? CuadranteAnteriorSam3ID { get; set; }
+        public int? ZonaAnteriorID { get; set; }
         public int Empaquetado { get; set; }
         public string Paquete { get; set; }
         public int CargaPlana { get; set; }
