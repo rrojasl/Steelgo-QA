@@ -8,6 +8,7 @@ var currentTipoSalidaArray = [];
 //Ingenieria_Loop
 function initSpoolMaster() {
     currentSpoolMaster = {
+        LoopID: 0,
         UsuarioID: 0,
         ProyectoID: 0,
         ProyectoNombre: '',
@@ -30,6 +31,8 @@ function initSpoolMaster() {
 //Ingenieria_Detalle_Salidas
 function addNewDetalleSalida(spoolID, nombreSpool) {
     currentSpoolMaster.DetalleSalidas[currentSpoolMaster.DetalleSalidas.length] = {
+        Detalle_SalidasID: 0,
+        LoopID: currentSpoolMaster.LoopID,
         NombreLoop: currentSpoolMaster.NombreLoop,
         SpoolID: spoolID,
         NombreSpool: nombreSpool,
@@ -40,6 +43,10 @@ function addNewDetalleSalida(spoolID, nombreSpool) {
         SistemaPintura: '',
         ColorPinturaID: 0,
         ColorPintura: '',
+
+        Acero: '',
+        Especificacion: '',
+        PDI: 0,
 
         SalidasEstandar: [],
         SalidasJuntasCerradas: []
@@ -54,6 +61,8 @@ function addNewDetalleSalidaAgrupado(spoolID, salidasEstandar, salidasJuntasCerr
         if (currentSpoolMaster.DetalleSalidas[i].SpoolID == spoolID) {
             for (var j = 0; j < salidasEstandar; j++) {
                 currentSpoolMaster.DetalleSalidas[i].SalidasEstandar[j] = {
+                    Salidas_AgrupadoID: 0,
+                    Detalle_SalidasID: 0,
                     SpoolID: spoolID,
                     PosicionSalida: j,
                     ClaveSalida: 'S' + (j+1),
@@ -96,6 +105,8 @@ function addNewDetalleSalidaAgrupado(spoolID, salidasEstandar, salidasJuntasCerr
 
             for (var j = 0; j < salidasJuntasCerradas; j++) {
                 currentSpoolMaster.DetalleSalidas[i].SalidasJuntasCerradas[j] = {
+                    Salidas_AgrupadoID: 0,
+                    Detalle_SalidasID: 0,
                     SpoolID: spoolID,
                     PosicionSalida: j,
                     ClaveSalida: 'JC' + (j + 1),
@@ -436,21 +447,23 @@ function suscribirEventoGuardar() {
     });
 
     //Guardar
-    $("#Guardar, #btnGuardar, #Guardar1, #btnGuardar1").click(function (e) {
+    $("#Guardar, #btnGuardar2, #btnGuardar, #Guardar1, #btnGuardar1").click(function (e) {
         //alert('2');
+        AjaxGuardarCaptura();
+        //if (infoGridTemp != null)
+        //    if ($("#grid").data("kendoGrid").dataSource._data.length != infoGridTemp.length)
+        //        $("#grid").data("kendoGrid").dataSource._data = infoGridTemp;
 
-        if (infoGridTemp != null)
-            if ($("#grid").data("kendoGrid").dataSource._data.length != infoGridTemp.length)
-                $("#grid").data("kendoGrid").dataSource._data = infoGridTemp;
+        //if (validarReglasDeLlenado()) {
+        //    if ($("#Guardar").text() == _dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]) {
+        //        var ds = $("#grid").data("kendoGrid").dataSource;
+        //        AjaxGuardarCaptura(ds._data, false);
+        //    } else if ($("#Guardar").text() == _dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]) {
+        //        disableEnableView(false);
+        //    }
+        //}
 
-        if (validarReglasDeLlenado()) {
-            if ($("#Guardar").text() == _dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]) {
-                var ds = $("#grid").data("kendoGrid").dataSource;
-                AjaxGuardarCaptura(ds._data, false);
-            } else if ($("#Guardar").text() == _dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]) {
-                disableEnableView(false);
-            }
-        }
+
     });
 
     $('#btnAgregar').click(function (e) {
