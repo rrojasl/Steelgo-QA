@@ -20,6 +20,7 @@ function SuscribirEventos() {
     SuscribirEventoWindowsPopup();
     SuscribirEventoPopupDescaga();
     SuscribirEventoPopUpPaqueteVacio();
+    SuscribirEventoEliminaRegistro();
 }
 
 function SuscribirEventoWindowsPopup()
@@ -776,6 +777,26 @@ function ChangeEstatusPaquete(cerrado) {
     } else {
         $("#InputCerrar")[0].checked = false;
     }
+}
+
+function SuscribirEventoEliminaRegistro() {
+    $(document).on('click', '.k-grid-Cancelar', function (e) {
+        if (!$("#inputCerrar").is(":checked")) {
+            if ($('#Guardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
+                var dataSource = $("#grid").data("kendoGrid").dataSource;
+                var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+
+                if (dataItem.Accion == 1) {
+                   dataSource.remove(dataItem);
+                }
+                ObtieneConsecutivo();
+                ImprimirTotalToneladas(dataSource._data);
+                ImprimirTotalPiezas(dataSource._data);
+            }
+        } else {
+            displayNotify("EmbarqueCargaMsjDescargaPlanaCerrada", "", "1");
+        }
+    });
 }
 
 function opcionHabilitarView(valor, name) {

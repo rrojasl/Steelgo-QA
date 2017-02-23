@@ -108,10 +108,14 @@ function CargarGrid() {
             if (gridData.length > 0) {
                 for (var i = 0; i < gridData.length; i++) {
                     var currentUid = gridData[i].uid;
-                    if (gridData[i].Accion != 2) {
-                        var currenRow = ds.table.find("tr[data-uid='" + currentUid + "']");
-                        var editButton = $(currenRow).find(".k-button");
-                        editButton.hide();
+                    var currenRow = ds.table.find("tr[data-uid='" + currentUid + "']");
+                    var editButton = $(currenRow).find(".k-button");
+                    if (gridData[i].Accion == 2) {
+                        editButton[0].outerHTML = '<a class="k-button k-button-icontext k-grid-Descarga" href="#/"><span class=""></span>' +
+                            _dictionary.botonDescarga[$("#language").data("kendoDropDownList").value()] + '</a>';
+                    } else {
+                        editButton[0].outerHTML = '<a class="k-button k-button-icontext k-grid-Cancelar" href="#/"><span class=""></span>' +
+                            _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()] + '</a>';
                     }
                 }
             }
