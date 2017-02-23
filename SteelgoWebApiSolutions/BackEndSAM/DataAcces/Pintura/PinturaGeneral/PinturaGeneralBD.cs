@@ -4,7 +4,9 @@ using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
@@ -138,6 +140,56 @@ namespace BackEndSAM.DataAcces.Pintura.PinturaGeneral
 
                 return result;
             }
+        }
+
+
+        public object GuardarImagenSerializa(string imgSerializada)
+        {
+            try
+            {
+                ObjetosSQL _SQL = new ObjetosSQL();
+                
+
+                using (SqlCommand cmd = new SqlCommand("SAM3_ImagenesPrueba", new SqlConnection(ConfigurationManager.ConnectionStrings["SqlServer"].ConnectionString)))
+                {
+                    cmd.Parameters.Add("@imageBits", SqlDbType.Image).Value = StringToBytes(imgSerializada);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    try
+                    {
+                        cmd.CommandTimeout = 0;
+                        cmd.Connection.Open();
+                        cmd.ExecuteNonQuery();
+                        cmd.Connection.Close();
+                        return true;
+                    }
+                    catch (Exception e)
+                    {
+                        cmd.Connection.Close();
+                        throw new Exception(e.Message);
+                    }
+                }
+
+
+
+                
+                return "ok";
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public byte[] StringToBytes(String cadenaImagenSerializar)
+        {
+            System.Text.ASCIIEncoding codificador = new System.Text.ASCIIEncoding();
+            return codificador.GetBytes(cadenaImagenSerializar);
         }
     }
 }

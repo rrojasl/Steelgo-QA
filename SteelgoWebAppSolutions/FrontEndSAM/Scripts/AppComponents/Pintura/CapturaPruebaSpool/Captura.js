@@ -173,3 +173,19 @@ function LlenarCombo(){
     $("#inputPrueba").data("kendoComboBox").dataSource.data([]);
     $("#inputPrueba").data("kendoComboBox").dataSource.data(pr);
 }
+
+function convertirImagen() {
+    var file = document.querySelector('input[type=file]').files[0];
+    var preview = document.querySelector('img');
+    var reader = new FileReader();
+
+    reader.onloadend = function () {
+        //alert(reader.result);
+        AjaxEnviarImagenBase64(reader.result.toString());
+    }
+    if (file) {
+        reader.readAsDataURL(file);
+    } else {
+        preview.src = "";
+    }
+};

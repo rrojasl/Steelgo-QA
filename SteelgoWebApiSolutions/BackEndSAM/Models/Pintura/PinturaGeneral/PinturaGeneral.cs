@@ -42,5 +42,15 @@ namespace BackEndSAM.Models.Pintura.PinturaGeneral
         public int ColorID { get; set; }
         public string Nombre { get; set; }
         public string CodigoHexadecimal { get; set; }
-    }    
+    }
+
+    public class Captura
+    {
+        public List<ImgSerializadas> Detalles { get; set; }
+    }
+
+    public class ImgSerializadas
+    {
+        public string imgSerializada { get; set; }
+    }
 }

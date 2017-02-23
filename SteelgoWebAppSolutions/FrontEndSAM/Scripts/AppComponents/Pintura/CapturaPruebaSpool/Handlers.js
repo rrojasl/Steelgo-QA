@@ -8,7 +8,9 @@
     SuscribirEventoBuscar();
     SuscribirEventoGuardar();
     SuscribirEventoAgregarPrueba();
+    
 }
+
 
 //function SuscribirEventoSistemaPintura() {
 //    $("#inputSistemaPintura").kendoComboBox({
@@ -152,7 +154,7 @@ function SuscribirEventoGuardar() {
 
         if ($('#Guardar').text() == "Guardar") {
 
-           
+            convertirImagen();
             ajaxGuardar($("#grid").data("kendoGrid").dataSource._data);
 
         }

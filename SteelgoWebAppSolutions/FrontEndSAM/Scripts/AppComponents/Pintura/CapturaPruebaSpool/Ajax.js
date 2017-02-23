@@ -26,3 +26,21 @@ function ajaxGuardar(data) {
     opcionHabilitarView(true, "FieldSetView");
     loadingStop();
 };
+
+function AjaxEnviarImagenBase64(imgSerializada) {
+    loadingStart();
+
+    Captura = [];
+    Captura[0] = { Detalles: "" };
+    ListaDetalles = [];
+    ListaDetalles[0] = { imgSerializada: "" };
+    ListaDetalles[0].imgSerializada = imgSerializada;
+    Captura[0].Detalles = ListaDetalles;
+
+    $PinturaGeneral.PinturaGeneral.create(Captura[0], { token: Cookies.get("token") }).done(function (data) {
+        if (Error(data)) {
+            alert("termino de guardar segun..")
+            loadingStop();
+        }
+    });
+}
