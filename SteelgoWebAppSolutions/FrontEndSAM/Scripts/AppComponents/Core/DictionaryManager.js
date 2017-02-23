@@ -11481,6 +11481,10 @@ _dictionary = {
         "es-MX": "El paquete ya se encuentra cargado en la plana ",
         "en-US": "The package is already loaded on the flat "
     },
+    "EmbarqueCargaMsjEliminaPaquete": {
+        "es-MX": "¿Esta seguro de eliminar el paquete?",
+        "en-US": "Are you sure to delete the package?"
+    },
     //Finaliza pantalla carga plana
     //Inicia pantalla empaquetado
     "EmbarqueEmpaquetadoTituloPagina": {
