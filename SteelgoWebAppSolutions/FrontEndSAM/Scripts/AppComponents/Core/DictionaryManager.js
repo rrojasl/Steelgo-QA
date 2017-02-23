@@ -9794,8 +9794,8 @@ _dictionary = {
         "en-US": "Are you sure you want to cancel the detail of the capture of Certification?"
     },
     "SoldadorCertificacionPreguntaBorradoCaptura": {
-        "es-MX": "¿Está seguro de eliminar el detalle de la captura de Soldador Certificación?",
-        "en-US": "You are sure to delete the capture detail Welder Certification?"
+        "es-MX": "¿Está seguro de cancelar el detalle de la captura de Soldador Certificación?",
+        "en-US": "You are sure you want to cancel the capture detail of Welder Certification?"
     },
     "SoldadorCertificacionMensajeEspesorMinimo": {
         "es-MX": "El Espesor M. tiene que ser mayor a cero",

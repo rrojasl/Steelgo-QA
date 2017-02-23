@@ -9,9 +9,7 @@ function changeLanguageCall() {
 function CargarGrid() {
     $("#grid").kendoGrid({
         save: function (e) {
-            e.preventDefault();
-            this;
-            console.log(e);
+           
         },
         edit: function (e) {
 
