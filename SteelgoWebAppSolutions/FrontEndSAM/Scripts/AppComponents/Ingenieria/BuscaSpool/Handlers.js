@@ -82,6 +82,7 @@ function addNewDetalleSalidaAgrupado(spoolID, salidasEstandar, salidasJuntasCerr
                     Nivel: 0,
                     PosicionSalidaPadre: currentSpoolMaster.DetalleSalidas[i].Posicion,
                     ClaveSalidaPadre: '',
+                    Salidas_AgrupadoID_Padre: 0,
 
                     TipoJuntaID: 0,
                     TipoJunta: '',
@@ -126,6 +127,7 @@ function addNewDetalleSalidaAgrupado(spoolID, salidasEstandar, salidasJuntasCerr
                     Nivel: 0,
                     PosicionSalidaPadre: currentSpoolMaster.DetalleSalidas[i].Posicion,
                     ClaveSalidaPadre: '',
+                    Salidas_AgrupadoID_Padre: 0,
 
                     TipoJuntaID: 0,
                     TipoJunta: '',
@@ -793,15 +795,25 @@ function SuscribirEventoComboPrueba() {
             //alert(numeroSalidaSelect + ';' + posicionMenuContext);
             
             var listaDetalles = [];
+            var count = 0;
             var itemEncontrado = false;
             if (numeroSalidaSelect.match('^JC')) {
-                for (var i = 0; i < $("#grid_" + posicionMenuContext).data("kendoGrid").dataSource._data.length; i++) {
+                //for (var i = 0; i < currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length; i++) {
+                //    listaDetalles[count] = currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar[i];
+                //    count++;
+                //}
 
+                for (var i = currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length; i < $("#grid_" + posicionMenuContext).data("kendoGrid").dataSource._data.length; i++) {
+
+                    listaDetalles[count] = currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length];
+                    listaDetalles[count].PosicionSalida = count;
+                    count++;
+                    
                     if ($("#grid_" + posicionMenuContext).data("kendoGrid").dataSource._data[i].ClaveSalida == numeroSalidaSelect) {
                         var newData = {
                             SpoolID: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].SpoolID,
-                            PosicionSalida: i,
-                            ClaveSalida: 'JC-' + 'H',
+                            PosicionSalida: count,
+                            ClaveSalida: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].ClaveSalida + '-' + 'H',
                             TipoSalidaID: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].TipoSalidaID,
                             TipoSalida: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].TipoSalida,
                             TipoSalidaLista: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].TipoSalidaLista,
@@ -818,6 +830,7 @@ function SuscribirEventoComboPrueba() {
                             Nivel: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].Nivel + 1,
                             PosicionSalidaPadre: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].PosicionSalidaPadre,
                             ClaveSalidaPadre: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].ClaveSalidaPadre,
+                            Salidas_AgrupadoID_Padre: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].Salidas_AgrupadoID_Padre,
 
                             TipoJuntaID: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].TipoJuntaID,
                             TipoJunta: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].TipoJunta,
@@ -835,12 +848,15 @@ function SuscribirEventoComboPrueba() {
                             TipoCorte2: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].TipoCorte2,
                             TipoCorte2Lista: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].TipoCorte2Lista,
                             Cantidad: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].Cantidad
-
+                            
                         };
                         //currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i].insert((i + 1), newData);
                         //currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas = insertAt(currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas, (i + 1));
-                        break;
+                        listaDetalles[count] = newData;
+                        count++;
                     }
+
+                    
 
                     if (!itemEncontrado) {
                         //if ($("#grid_" + posicionMenuContext).data("kendoGrid").dataSource._data[i].NumeroSalida == numeroSalidaSelect) {
@@ -900,6 +916,11 @@ function SuscribirEventoComboPrueba() {
                     //    break;
                     //}
 
+                }
+                if ((currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas.length) < (listaDetalles.length)) {
+                    currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas = [];
+                    currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas = listaDetalles;
+                    reloadControls();
                 }
             }
             else {//No es JC
@@ -1017,14 +1038,21 @@ function SuscribirEventoComboPrueba() {
     //});
 };
 
+//function spaceBlank(nivel) {
+//    var space = '';
+//    for (var i = 0; i < nivel; i++) {
+//        space += '&nbsp;';
+//    }
+//    return space;
+//}
 //Array.prototype.insert = function (index, item) {
 //    this.splice(index, 0, item);
 //};
 
-function insertAt(array, index) {
-    var arrayToInsert = Array.prototype.splice.apply(arguments, [2]);
-    return insertArrayAt(array, index, arrayToInsert);
-}
+//function insertAt(array, index) {
+//    var arrayToInsert = Array.prototype.splice.apply(arguments, [2]);
+//    return insertArrayAt(array, index, arrayToInsert);
+//}
 
 
 

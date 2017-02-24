@@ -354,6 +354,18 @@ function RenderGridRowsDynamic() {
     }
 }
 
+//function RenderClaveSalida(container, options) {
+//    var dataItem;
+//    $('<input data-text-field="ClaveSalida" id=' + options.model.uid + ' data-value-field="ClaveSalida" data-bind="value:' + options.field + '"/>')
+//    .appendTo(container);
+//    //.kendoNumericTextBox({
+//    //    format: "{0: }",
+//    //    min: 0
+//    //});
+
+//}
+
+
 function RenderSpool_IC2(container, options) {
     var dataItem;
     $('<input required data-text-field="Titulo" id=' + options.model.uid + ' data-value-field="ID" data-bind="value:' + options.field + '"/>')

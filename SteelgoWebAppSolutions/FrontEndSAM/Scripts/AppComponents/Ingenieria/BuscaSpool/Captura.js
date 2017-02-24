@@ -124,7 +124,7 @@ function CargarGridDynamic(posicion) {
         //},
         filterable: getGridFilterableMaftec(),
         columns: [
-            { field: "ClaveSalida", title: 'Numero de Salida', filterable: getGridFilterableCellMaftec(), filterable: false, width: "70px", attributes: { style: "text-align:right;" }, template: "<div class='EnlacePorPlaca' style='text-align:center;' contextmenu='showMenuContext();'  onmouseover='numeroSalidaSelect = \"#=ClaveSalida#\"; posicionMenuContext = \"#=PosicionSalidaPadre#\";'><span>#=ClaveSalida#</span></div> " },
+            { field: "ClaveSalida", title: 'Numero de Salida', filterable: getGridFilterableCellMaftec(), filterable: false, width: "70px", attributes: { style: "text-align:right;" }, template: "<div class='EnlacePorPlaca' style='text-align:left;' contextmenu='showMenuContext();'  onmouseover='numeroSalidaSelect = \"#=ClaveSalida#\"; posicionMenuContext = \"#=PosicionSalidaPadre#\";'><span>#=ClaveSalida#</span></div> " },
             { field: "TipoSalida", title: 'Tipo de Salida', filterable: getGridFilterableCellMaftec(), filterable: false, width: "130px", editor: RenderTipoSalida, attributes: { style: "text-align:right;" } },
             { field: "DetalleMaterialSpoolID", title: 'Etiqueta', filterable: getGridFilterableCellMaftec(), filterable: false, width: "100px", attributes: { style: "text-align:right;" }, editor: RenderMateriales, template: "<div class='EnlacePorPlaca' style='text-align:center;'><a href='\\#'  > <span>#=DetalleMaterialSpoolID#</span></a></div> " },
             { field: "DetalleMaterialSpool", title: 'Material', filterable: getGridFilterableCellMaftec(), filterable: false, width: "100px", attributes: { style: "text-align:right;" }, editor: RenderMateriales/*, template: "<div class='EnlacePorPlaca' style='text-align:center;'><a href='\\#'  > <span>#=Material#</span></a></div> "*/ },
@@ -162,6 +162,15 @@ function CargarGridDynamic(posicion) {
         }
     });
     CustomisaGrid($("#grid_" + posicion));
+}
+
+
+function spaceBlank(nivel) {
+    var space = '';
+    for (var i = 0; i < nivel; i++) {
+        space += '&nbsp;';
+    }
+    return space;
 }
 
 function CargarGrid() {
