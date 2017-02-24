@@ -12,7 +12,6 @@
     });
 }
 
-
 function AjaxObtenerColor() {
     loadingStart();
 
@@ -38,7 +37,6 @@ function AjaxObtenerColor() {
         }
     });
 }
-
 
 function AjaxCargarNuevoSistemaPintura() {
     var SistemaPintura = "", ProyectoID = 0;
@@ -67,7 +65,6 @@ function AjaxCargarNuevoSistemaPintura() {
     });
 
 }
-
 
 function AjaxCargarEdicionSistemaPintura() {
     var SistemaPintura = "", ProyectoID = 0;;
@@ -125,12 +122,8 @@ function AjaxCargarEdicionSistemaPintura() {
                             $("#comboProyecto").data("kendoComboBox").trigger("change");
                         }
                     }
-
                     loadingStop();
                 }
-
-             
-
             }
             
         }
@@ -140,8 +133,6 @@ function AjaxCargarEdicionSistemaPintura() {
 
 
 }
-
-
 
 function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
     try {
@@ -438,7 +429,6 @@ function AjaxEliminaSistemaPintura(sistemaPintura, proyectoid) {
         }
     });
 }
-
 
 function AjaxVerificarNombre(Nombre, arregloCaptura, tipoGuardar) {
 

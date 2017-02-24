@@ -11,19 +11,23 @@
             template: "<i class=\"fa fa-#=data.Nombre.toLowerCase()#\"></i> #=data.Nombre#",
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
-                if (dataItem != undefined && dataItem.TallerID !=0) {
+                if (dataItem != undefined && dataItem.TallerID != 0) {
                     options.model.Taller = dataItem.Nombre;
                     options.model.TallerID = dataItem.TallerID;
-                   // $("#grid").data("kendoGrid").dataSource.sync();
+                    // $("#grid").data("kendoGrid").dataSource.sync();
                 }
                 else {
                     // options.model.Taller = ObtenerDescCorrectaTaller(options.model.ListaTaller, options.model.TallerID);
                     options.model.Taller = undefined;
                     options.model.TallerID = undefined;
                 }
+
                 $("#grid").data("kendoGrid").dataSource.sync();
+
+               
             }
         }
+
         );
     $(".k-combobox").parent().on('mouseleave', function (send) {
         var e = $.Event("keydown", { keyCode: 27 });
@@ -165,7 +169,7 @@ function RenderComboBoxNumeroUnico1(container, options) {
                     } else {
                         var jsonGridArmado = $("#grid").data("kendoGrid").dataSource._data;
                         AplicarAsignacionAutomaticaNumeroUnico(options.model, textAnterior, dataItem, 0, jsonGridArmado, options.model.ListaNumerosUnicos1.length);
-                        
+
                     }
                     $("#grid").data("kendoGrid").dataSource.sync();
                 }
@@ -228,14 +232,14 @@ function RenderComboBoxNumeroUnico2(container, options) {
                      } else {
                          var jsonGridArmado = $("#grid").data("kendoGrid").dataSource._data;
                          AplicarAsignacionAutomaticaNumeroUnico(options.model, textAnterior, dataItem, 0, jsonGridArmado, options.model.ListaNumerosUnicos2.length);
-                       
+
                      }
                      $("#grid").data("kendoGrid").dataSource.sync();
                  }
                  else {
                      options.model.NumeroUnico2 = "";
                      options.model.NumeroUnico2ID = 0;
-                    $("#grid").data("kendoGrid").dataSource.sync();
+                     $("#grid").data("kendoGrid").dataSource.sync();
                  }
 
              },

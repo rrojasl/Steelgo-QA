@@ -268,10 +268,10 @@ namespace BackEndSAM.Controllers
                 {
                     Accion = item.JuntaSpoolID == 0 ? 1 : 2,
                     Observacion = item.Observacion,
-                    ObreroID = item.ObreroID,
                     TrabajoAdicional = item.TrabajoAdicional,
                     TrabajoAdicionalID = item.TrabajoAdicionalID,
-                    Tubero = item.Tubero
+                    ArmadoTrabajoAdicionalID = item.ArmadoTrabajoAdicionalID
+
                 };
                 listaDetalleAdicional.Add(detalleAdicional);
             }
@@ -364,7 +364,7 @@ namespace BackEndSAM.Controllers
                         {
                             detalleTrabajoAdicional.Accion = detalleTrabajoAdicional.Accion == 0 ? 1 : detalleTrabajoAdicional.Accion;
                             detalleTrabajoAdicional.JuntaID = detalleTrabajoAdicional.JuntaID == null ? item.JuntaID : detalleTrabajoAdicional.JuntaID;
-                            detalleTrabajoAdicional.ObreroID = detalleTrabajoAdicional.ObreroID == 0 ? int.Parse(item.TuberoID) : detalleTrabajoAdicional.ObreroID;
+                            
                         }
                         if (TabajosAdicionales == null)
                             TabajosAdicionales = Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(item.ListaDetalleTrabajoAdicional);

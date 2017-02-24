@@ -174,12 +174,11 @@ namespace BackEndSAM.Models.Armado
     public class DetalleTrabajoAdicional
     {
         [Key]
-        public int Accion { get; set; }
-        public int TrabajoAdicionalID { get; set; }
+        public int? Accion { get; set; }
+        public int? TrabajoAdicionalID { get; set; }
         public string TrabajoAdicional { get; set; }
-        public int ObreroID { get; set; }
-        public string Tubero { get; set; }
         public string Observacion { get; set; }
+        public int? ArmadoTrabajoAdicionalID { get; set; }
     }
 
     public class TrabajosAdicionalesXJunta
@@ -238,7 +237,7 @@ namespace BackEndSAM.Models.Armado
         public int Accion { get; set; }
         public string JuntaID { get; set; }
         public int TrabajoAdicionalID { get; set; }
-        public int ObreroID { get; set; }
+        public int ArmadoTrabajoAdicionalID { get; set; }
         public string Observacion { get; set; }
     }
 }

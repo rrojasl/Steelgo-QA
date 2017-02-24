@@ -203,9 +203,7 @@ function AjaxObtenerDetalleSpool(tipoConsulta, spoolID, codigo) {
                     if (data[i].ProyectoID === ProyectoID) {
                         if (data[i].CargaPlana === 0) {
                             if (data[i].Empaquetado === 0) {
-                                //data[i].Consecutivo = $("#grid").data("kendoGrid").dataSource._data.length + 1;
                                 ds.insert(0, data[i]);
-                                //ds.add(data[i]);
                             } else {
                                 displayNotify("", _dictionary.EmbarqueEmpaquetadoErrorSpoolPaquete[$("#language").data("kendoDropDownList").value()] +
                                     data[i].Paquete, '1');

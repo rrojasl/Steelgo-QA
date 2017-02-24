@@ -135,7 +135,7 @@ namespace BackEndSAM.DataAcces.Embarque.PreparacionEmbarque
                         {
                             EmbarqueID = item.EmbarqueID,
                             Nombre = item.Nombre,
-                            //NombreCliente = item.NombreCliente,
+                            NombreCliente = item.NombreCliente,
                             ChoferID = item.ChoferID,
                             TractoID = item.TractoID,
                             Estatus = item.Estatus,

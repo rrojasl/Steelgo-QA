@@ -559,7 +559,7 @@ namespace BackEndSAM.Controllers.Fabricacion.Soldadura
         }
 
         [HttpGet]
-        public object getListadoWPS(int ProyectoID,int ProcesoRaizID, int ProcesoRellenoID, int Espesor, string lenguaje, string token)
+        public object getListadoWPS(int ProyectoID,int ProcesoRaizID, int ProcesoRellenoID, decimal Espesor, string lenguaje, string token)
         {
 
             string payload = "";

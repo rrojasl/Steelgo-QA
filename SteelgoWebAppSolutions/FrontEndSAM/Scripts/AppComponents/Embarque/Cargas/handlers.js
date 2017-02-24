@@ -4,6 +4,7 @@ var planaInicial = 0;
 
 var windowDownloadPaquete;
 var ventanaPopup;
+var windowDeletePackage;
 
 function SuscribirEventos() {
     //SuscribirEventoMostrar();
@@ -30,6 +31,7 @@ function SuscribirEventos() {
     SuscribirEventoPopUpDescargaSpool();
     SuscribirEventoPopUpPaqueteVacio();
     SuscribirEventoEliminaRegistro();
+    SuscribirEventoPopUpEliminaPaquete();
 }
 function SuscribirEventoPopUpDescargaPaquete() {
     windowDownloadPaquete = $("#divDescargaPaquete").kendoWindow({
@@ -123,6 +125,10 @@ function SuscribirEventoDescargarPaquete() {
 
                         windowDownloadPaquete.title(_dictionary.EmbarqueCargaTituloPopupDescargaPaquete[$("#language").data("kendoDropDownList").value()]);
                         windowDownloadPaquete.center().open();
+                    } else {
+                        $("#rowGridEliminaPaquete").val(dataItem.uid);
+                        windowDeletePackage.title(_dictionary.TituloPopupCancelar[$("#language").data("kendoDropDownList").value()]);
+                        windowDeletePackage.open().center();
                     }
                 } else 
                     displayNotify("EmbarqueCargaMsjDescargaPaquetePlanaCerrada", "", "1");
@@ -147,7 +153,6 @@ function SuscribirEventoPopUpPaqueteVacio() {
         },
         actions: [],
     }).data("kendoWindow");
-    $("#windowPackageEmpty").parent().find(".k-window-action").css("visibility", "hidden");
 
     $("#btnDescargarPaqueteVacio").click(function (e) {
         var zonaID = $("#inputZonaPaqueteDescarga").data("kendoComboBox").value();
@@ -170,6 +175,49 @@ function SuscribirEventoPopUpPaqueteVacio() {
         var PaqueteID = $("#detallePaquete").val();
         var CuadrantePaqueteID = $("#CuadrantePaquete").val();
         AjaxEliminarPaquete(PaqueteID, CuadrantePaqueteID);
+    });
+}
+
+function SuscribirEventoPopUpEliminaPaquete() {
+    windowDeletePackage = $("#windowDeletePackage").kendoWindow({
+        iframe: true,
+        title: "",
+        visible: false,
+        width: "20%",
+        height: "auto",
+        modal: true,
+        draggable: false,
+        resizable: false,
+        animation: {
+            close: false,
+            open: false
+        },
+        actions: [],
+    }).data("kendoWindow");
+
+    $("#btnElimina").click(function (e) {
+        var ds = $('#grid').data("kendoGrid").dataSource;
+        var uid = $("#rowGridEliminaPaquete").val();
+        var dataItem = $('#grid').data("kendoGrid").dataSource.getByUid(uid);
+        if (dataItem != undefined) {
+            var paqueteID = dataItem.PaqueteID;
+            for (var i = 0; i < ds._data.length;i++){
+                if (ds._data[i].PaqueteID == paqueteID) {
+                    ds.remove(ds._data[i]);
+                    i--;
+                }
+            }
+
+            ObtieneConsecutivo();
+            ImprimirTotalToneladas(ds._data);
+            ImprimirTotalPiezas(ds._data);
+            windowDeletePackage.close();
+        } else {
+            alert("Favor de intentarlo mas tarde :S");
+        }
+    });
+    $("#btnCancela").click(function (e) {
+        windowDeletePackage.close();
     });
 }
 

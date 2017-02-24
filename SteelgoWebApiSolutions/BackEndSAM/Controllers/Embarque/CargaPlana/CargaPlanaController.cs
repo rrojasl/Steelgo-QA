@@ -46,7 +46,7 @@ namespace BackEndSAM.Controllers.Embarque.CargaPlana
         }
 
         [HttpGet]
-        public object ObtieneDetalleSpoolAgregar(string token, int CargaPlanaID, int TipoConsulta, int OrdenTrabajoSpoolID, string NumeroControl)
+        public object ObtieneDetalleSpoolAgregar(string token, int TipoConsulta, int OrdenTrabajoSpoolID, string NumeroControl)
         {
             string payload = "";
             string newToken = "";
@@ -57,7 +57,7 @@ namespace BackEndSAM.Controllers.Embarque.CargaPlana
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                return CargaPlanaBD.Instance.ObtieneDetalleSpoolAgregar(CargaPlanaID, TipoConsulta, OrdenTrabajoSpoolID, NumeroControl);
+                return CargaPlanaBD.Instance.ObtieneDetalleSpoolAgregar(TipoConsulta, OrdenTrabajoSpoolID, NumeroControl);
             }
             else
             {
