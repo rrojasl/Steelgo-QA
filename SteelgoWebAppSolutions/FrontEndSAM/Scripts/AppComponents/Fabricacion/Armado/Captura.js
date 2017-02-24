@@ -13,7 +13,6 @@ function IniciarCapturaArmado() {
     asignarProyecto();
     setTimeout(function () { SuscribirEventos() }, 100);
 }
-
 function TryParseInt(str, defaultValue) {
     var retValue = defaultValue;
     if (str !== null) {
@@ -25,7 +24,6 @@ function TryParseInt(str, defaultValue) {
     }
     return retValue;
 }
-
 function ObtenerCatalogos() {
     AjaxObtenerListaTubero();
     AjaxObtenerListaTaller();
@@ -83,7 +81,6 @@ function ExisteJunta(Row) {
     }
     return false;
 }
-
 function ExisteJuntaEnSpool(Row) {
 
     var jsonGridArmado = $("#grid").data("kendoGrid").dataSource._data;
@@ -95,10 +92,6 @@ function ExisteJuntaEnSpool(Row) {
     }
     return false;
 }
-
-
-
-
 function ArregloListadoCaptura() {
     JsonCaptura = [];
     JsonCaptura[0] = { IDProyecto: "", Proyecto: "", IdOrdenTrabajo: "", OrdenTrabajo: "", IdVal: "", IdText: "", SpoolID: "", JuntaID: "", Junta: "", FechaArmado: "", TuberoID: "", Tubero: "", TallerID: "", Taller: "", SinCaptura: "" };
@@ -273,10 +266,15 @@ function CargarGrid() {
             for (var i = 0; i < gridData.length; i++) {
                 var currentUid = gridData[i].uid;
                 if (gridData[i].RowOk == false) {
-                    grid.table.find("tr[data-uid='" + currentUid + "']").css("background-color", "#ffcccc");
+                    grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("k-alt");
+                    grid.table.find("tr[data-uid='" + currentUid + "']").addClass("kRowError");
+
                 }
                 else if (gridData[i].RowOk) {
-                    grid.table.find("tr[data-uid='" + currentUid + "']").css("background-color", "#ffffff");
+                    if (i % 2 == 0)
+                        grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("k-alt");
+
+                    grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("kRowError");
                 }
 
             }
@@ -292,7 +290,6 @@ function limpiarRenglon(e) {
        
     }
 }
-
 function CargarGridPopUp() {
 
     $("#gridPopUp").kendoGrid({
@@ -412,7 +409,6 @@ function CargarGridPopUp() {
 
     CustomisaGrid($("#gridPopUp"));
 };
-
 function LlenarGridPopUp(data) {
     $('#ContenedorGridPopUp').empty();
     $('#ContenedorGridPopUp').append($('<div id="gridPopUp" data-role="grid" class="k-grid k-widget">'));
@@ -436,7 +432,6 @@ function LlenarGridPopUp(data) {
 
     VentanaModal();
 }
-
 function VentanaModal() {
 
     var modalTitle = "";
@@ -468,7 +463,6 @@ function VentanaModal() {
     window.data("kendoWindow").center().open();
 
 };
-
 function AddRow(idTable) {
     var row = '';
     row += ' <tr>';
@@ -481,7 +475,6 @@ function AddRow(idTable) {
 
     SuscribirEventoEliminar(idTable);
 }
-
 function AplicarAsignacionAutomaticaNumeroUnico(rowitem, textoAnterior, comboboxItemSeleccionado, posicionSiguiente, jsonGridArmado, cantidadItems) {
     if (seEncuentraEtiquetaMaterialOtrasJuntas(jsonGridArmado, comboboxItemSeleccionado.EtiquetaMaterial, rowitem)) {
         for (var i = 0; i < jsonGridArmado.length; i++) {
@@ -530,7 +523,6 @@ function AplicarAsignacionAutomaticaNumeroUnico(rowitem, textoAnterior, combobox
             AplicarAsignacionAutomaticaNumeroUnico(SiguienteElemento[0], textoAnterior, SiguienteElemento[1], 1, jsonGridArmado);
     }
 }
-
 function encontrarSiguienteItem(rowitem, comboboxItemSeleccionado) {
     var itemSiguienteMismoMaterial;
     var arrayListaNumerosUnicos;
@@ -548,7 +540,6 @@ function encontrarSiguienteItem(rowitem, comboboxItemSeleccionado) {
     }
     return [, ];
 }
-
 function seEncuentraEtiquetaMaterialOtrasJuntas(jsonGridArmado, LocalizacionEtiquetaMaterial, rowitem) {
     var cantidadEtiquetaMaterialLocalizacionRepetido = 0;
     for (var i = 0; i < jsonGridArmado.length; i++) {
@@ -562,9 +553,6 @@ function seEncuentraEtiquetaMaterialOtrasJuntas(jsonGridArmado, LocalizacionEtiq
         return true;
     return false;
 };
-
-
-
 function AplicarLimpiarAsignacionAutomatica(rowitem, textoAnterior, combobox, posicionSiguiente) {
     var jsonGridArmado = $("#grid").data("kendoGrid").dataSource._data;
 
@@ -636,7 +624,6 @@ function elNUSeEncuentraEnJuntasNoAgregadasGrid(combobox, jsonGridArmado, rowite
         return false;
     return true;
 };
-
 function EliminarItemNUSeleccionado(jsonGridArmado, NumeroUnicoID, rowitem) {
     for (var i = 0; i < jsonGridArmado.length; i++) {
         if (jsonGridArmado[i].NumeroUnico1ID == NumeroUnicoID && (jsonGridArmado[i].IdOrdenTrabajo + '-' + jsonGridArmado[i].IdVal) == (rowitem.IdOrdenTrabajo + '-' + rowitem.IdVal) && (jsonGridArmado[i].IdOrdenTrabajo + '-' + jsonGridArmado[i].IdVal + jsonGridArmado[i].JuntaID) != (rowitem.IdOrdenTrabajo + '-' + rowitem.IdVal + rowitem.JuntaID)) {
@@ -649,7 +636,6 @@ function EliminarItemNUSeleccionado(jsonGridArmado, NumeroUnicoID, rowitem) {
         }
     }
 }
-
 function ExisteNUGrid(NumeroUnicoID, jsonGridArmado, rowitem) {
     var existe = false;
     for (var i = 0; i < jsonGridArmado.length; i++) {
@@ -661,7 +647,6 @@ function ExisteNUGrid(NumeroUnicoID, jsonGridArmado, rowitem) {
     }
     return false;
 }
-
 function DatoDefaultNumeroUnico1()
 { }
 function DatoDefaultNumeroUnico2()
@@ -792,7 +777,6 @@ function PlanchaFecha() {
     }
     $("#grid").data("kendoGrid").dataSource.sync();
 }
-
 function ObtenerDato(fecha, tipoDatoObtener) {
     var cultura = $("#language").val();
 
@@ -814,7 +798,6 @@ function ObtenerDato(fecha, tipoDatoObtener) {
             break;
     }
 }
-
 function ArregloListadoReporte() {
     JsonCaptura = [];
     var lista = $("#Junta").data("kendoComboBox").dataSource._data;
@@ -846,13 +829,11 @@ function ArregloListadoReporte() {
     }
     return JsonCaptura;
 }
-
 function tieneClase(item) {
 
     var tieneClass = $(item).hasClass("k-state-border-up") || $(item).hasClass("k-state-border-down");
     return tieneClass;
 }
-
 function ArregloListadoJuntasCapturadas() {
 
     var dataSource = $("#grid").data("kendoGrid").dataSource;
@@ -869,16 +850,12 @@ function ArregloListadoJuntasCapturadas() {
     }
     return JsonCaptura;
 }
-
-
 function ValidarFecha(valor) {
     var fecha = kendo.toString(valor, String(_dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()].replace('{', '').replace('}', '').replace("0:", "")));
     if (fecha == null) {
         $("#FechaArmado").data("kendoDatePicker").value('');
     }
 }
-
-
 function MensajesSteelGO(control, mensajeExepcionTecnico) {
 
     switch (control) {
@@ -910,7 +887,6 @@ function MensajesSteelGO(control, mensajeExepcionTecnico) {
 
     }
 };
-
 function ObjetoBorrado(item) {
     JsonCaptura = [];
     JsonCaptura[0] = { IDProyecto: "", Proyecto: "", IdOrdenTrabajo: "", OrdenTrabajo: "", IdVal: "", IdText: "", SpoolID: "", JuntaID: "", Junta: "", FechaArmado: "", TuberoID: "", Tubero: "", TallerID: "", Taller: "", SinCaptura: "" };
@@ -933,7 +909,6 @@ function ObjetoBorrado(item) {
 
     return JsonCaptura[0];
 }
-
 function esCorrectaJunta(juntas) {
     if (juntas != null) {
         var arrayJuntas = juntas.split(',');

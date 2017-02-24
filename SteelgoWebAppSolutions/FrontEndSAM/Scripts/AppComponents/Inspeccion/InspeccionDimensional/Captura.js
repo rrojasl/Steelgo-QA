@@ -170,10 +170,15 @@ function CargarGrid() {
             for (var i = 0; i < gridData.length; i++) {
                 var currentUid = gridData[i].uid;
                 if (gridData[i].RowOk == false) {
-                    grid.table.find("tr[data-uid='" + currentUid + "']").css("background-color", "#ffcccc");
+                    grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("k-alt");
+                    grid.table.find("tr[data-uid='" + currentUid + "']").addClass("kRowError");
+
                 }
                 else if (gridData[i].RowOk) {
-                    grid.table.find("tr[data-uid='" + currentUid + "']").css("background-color", "#ffffff");
+                    if (i % 2 == 0)
+                        grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("k-alt");
+
+                    grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("kRowError");
                 }
 
             }

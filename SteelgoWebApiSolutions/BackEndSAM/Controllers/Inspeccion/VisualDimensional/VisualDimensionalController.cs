@@ -90,7 +90,7 @@ namespace BackEndSAM.Controllers.Inspeccion.VisualDimensional
 
                         //EtiquetaMaterial1 = item.EtiquetaMaterial1,
                         //EtiquetaMaterial2 = item.EtiquetaMaterial2,
-                        RowOk = true,
+                        
                         Localizacion = item.Localizacion
                     };
 

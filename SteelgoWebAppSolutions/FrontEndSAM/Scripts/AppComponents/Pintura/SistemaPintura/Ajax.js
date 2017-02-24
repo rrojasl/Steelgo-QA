@@ -277,8 +277,8 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                         if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
                             if (tipoGuardar == 1) {
                                 AjaxObtenerColor();
-
-                                Limpiar();
+                                $("#btnCancelar").trigger("click");
+                                //Limpiar();
                             }
                             else {
                                 $("#grid").data("kendoGrid").dataSource.data([]);

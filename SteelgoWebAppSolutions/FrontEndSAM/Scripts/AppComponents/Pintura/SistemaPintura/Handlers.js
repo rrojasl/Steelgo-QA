@@ -381,6 +381,7 @@ function Limpiar() {
     $("#grid").data("kendoGrid").dataSource.data([]);
     opcionHabilitarView(false, "FieldSetView");
     $("#inputNombre").val("");
+    $("#inputhiddenSistemaPinturaID").val("");
     $("#inputSistemaPinturaID").val("");
     $("#divComboProyecto").css("display", "none");
     $("#divMultiselectProyecto").css("display", "block");

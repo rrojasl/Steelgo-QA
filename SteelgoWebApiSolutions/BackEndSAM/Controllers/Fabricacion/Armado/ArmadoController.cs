@@ -173,7 +173,7 @@ namespace BackEndSAM.Controllers
                         NumeroUnico1ID = item.NumeroUnico1ID == null ? (listNumeroUnico1.Count == 2 ? listNumeroUnico1[1].NumeroUnicoID.ToString() : "") : item.NumeroUnico1ID.ToString(),
                         NumeroUnico2ID = item.NumeroUnico1ID == null ? (listNumeroUnico2.Count == 2 ? listNumeroUnico2[1].NumeroUnicoID.ToString() : "") : item.NumeroUnico2ID.ToString(),
                         DetalleJunta = "Junta: " + item.TipoJunta + " - " + "Ced: " + item.Cedula + " - " + "Loc: " + item.Localizacion + " - " + "Acero: " + item.FamiliaAcero + "",
-                        RowOk = true,
+                        //RowOk = true,
                         LongitudMaterial1 = item.LongitudMaterial1,
                         LongitudMaterial2 = item.LongitudMaterial2
                     };
@@ -477,7 +477,7 @@ namespace BackEndSAM.Controllers
                         NumeroUnico1ID = item["NumeroUnico1ID"].ToString() == "" ? (listNumeroUnico1.Count == 2 ? listNumeroUnico1[1].NumeroUnicoID.ToString() : "") : item["NumeroUnico1ID"].ToString(),
                         NumeroUnico2ID = item["NumeroUnico1ID"].ToString() == "" ? (listNumeroUnico2.Count == 2 ? listNumeroUnico2[1].NumeroUnicoID.ToString() : "") : item["NumeroUnico2ID"].ToString(),
                         DetalleJunta = "Junta: " + item["TipoJunta"].ToString() + " - " + "Ced: " + item["Cedula"].ToString() + " - " + "Loc: " + item["Localizacion"].ToString() + " - " + "Acero: " + item["FamiliaAcero"].ToString() + "",
-                        RowOk = true,
+                        //RowOk = true,
                         LongitudMaterial1 =int.Parse( item["LongitudMaterial1"].ToString()),
                         LongitudMaterial2 =int.Parse( item["LongitudMaterial2"].ToString())
                     };

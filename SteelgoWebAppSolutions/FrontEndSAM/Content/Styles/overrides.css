@@ -105,6 +105,12 @@
     padding: 2px 0;
 }
 
+.k-grid tr.kRowError{
+    background-color:#ffcccc ;
+}
+
+
+
 .form .k-dropdown-wrap .k-input {
     line-height: 2.4;
 }

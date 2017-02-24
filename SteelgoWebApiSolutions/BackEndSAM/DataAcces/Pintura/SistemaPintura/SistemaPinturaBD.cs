@@ -79,7 +79,7 @@ namespace BackEndSAM.DataAcces.Pintura.SistemaPintura
                             TemplateDetalleComponentes = lenguaje == "es-MX" ? "Detalle componentes" : "components details",
                             listadoPruebasProceso = (List<PruebasProcesos>)ObtenerPruebasProceso(lenguaje, item.ProcesoPinturaID),
                             listadoPruebasDetalle = item.SistemaPinturaProyectoProcesoID == 0 ? new List<DetallePruebas>() : (List<DetallePruebas>)ObtenerDetallePruebasProceso(lenguaje, item.SistemaPinturaProyectoProcesoID, item.AsignadoSpool.GetValueOrDefault()),
-                            RowOk = true,
+                            
                             AsignadoSpool = item.AsignadoSpool.GetValueOrDefault()
                         });
                     }

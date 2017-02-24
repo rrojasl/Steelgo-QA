@@ -29,8 +29,6 @@ namespace BackEndSAM.Models.Pintura.SistemaPintura
         public List<UnidadMedida> listadoUnidadesMedida { get; set; }
         public List<PruebasProcesos> listadoPruebasProceso { get; set; }
         public List<DetallePruebas> listadoPruebasDetalle { get; set; }
-        public bool RowOk { get; set; }
-
         public bool AsignadoSpool { get; set; }
     }
 
