@@ -363,6 +363,8 @@ function SuscribirEventoComboProyecto() {
             var dataItem = this.dataItem(e.sender.selectedIndex);
 
             if (dataItem != undefined) {
+                $("#inputNoAplicable").prop("checked", false);
+                $("#inputColor").data("kendoMultiSelect").enable(true);
                 $("#grid").data("kendoGrid").dataSource.data([]);
                 AjaxCargarEdicionSistemaPintura();
             }
