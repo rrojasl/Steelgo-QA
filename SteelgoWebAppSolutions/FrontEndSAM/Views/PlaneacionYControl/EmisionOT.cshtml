@@ -1,0 +1,225 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@section breadcrumb {
+    <li>
+        <a href=""><span id="">Inicio</span></a>
+    </li>
+    <li>
+        <a href="#"><span id="">Planeación y Control</span></a>
+    </li>
+    <li class="active">
+        <a href=""><span id="">Emisión OT</span></a>
+    </li>
+}
+
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="formNav clearfix">
+            <div class="button-section editButtonSection">
+                <div class="btn-group save-group">
+                    <button id="Proyectar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span>Proyectar</span></button>
+
+                </div>
+                <a id="btnCancelar" class="btn btn-black"><span id="">Cancelar</span></a>
+            </div>
+            <div id="ArmadoSoldaduraDivSuperior" class="button-section">
+                <a id="EmitirOT" href="#" onclick="AbrirVentanaEmitirOrdenTrabajo()" class="btn btn-primary"><span id="">Emitir</span></a>
+            </div>
+            <div class="button-section actionButtonSection">
+                <div class="dropdown action-group">
+                    <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
+                        <span id="">Acciones</span>
+                        <span class="caretBlue"></span>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="Acciones"></ul>
+                </div>
+            </div>
+            <a id="Imprimir" href="#" class="btn btn-fadeBlue actionButtonSection"></a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="form-group col-xs-3 col-sm-3 col-md-3 col-lg-3" ">
+        <label id="">Proyecto:</label>
+        <input id="inputProyecto" />
+    </div>
+    <div class="form-group col-xs-3 col-sm-3 col-md-3 col-lg-3">
+        <label id="">Patio:</label>
+        <input id="inputPatio" />
+    </div>
+    <div class="col-sm-2 col-md-2 col-lg-2">
+        <br />
+        <button class="btn btn-blue" id="btnMostrar"><span id="lblMostrar"></span></button>
+    </div>
+</div>
+
+<br />
+<br />
+<div class="row ">
+    <div id="FloatContainer" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+        <div id="gridStack">
+            <div class="grid-stack" style="font-size:10px;">
+                <div class="grid-stack-item grid-stack-proyecciones" data-gs-x="0" data-gs-y="0" data-gs-width="12" data-gs-height="4" style="overflow-y:auto">
+                    <div class="grid-stack-item-content border-shadow" id="gridProyecciones">
+                        <div style="color:#ffffff; font-size:14px;position: relative; bottom: 0; width:100%" class="header-grid header-proyecciones text-center">Totalizado de las proyecciones</div>
+                        <div id="grid" style="overflow-x:auto;overflow-y:auto"></div>
+
+                        <script type="text/x-kendo-template" id="templateGridNivelDos">
+                            <div class="nivel2"></div>
+                        </script>
+
+                        <script type="text/x-kendo-template" id="templateGridNivelTres">
+                            <div class="nivel3"></div>
+                        </script>
+                    </div>
+                </div>
+
+                @*Grid Capacidad*@
+                <div class="grid-stack-item grid-stack-capacidad" data-gs-x="6" data-gs-y="7" data-gs-width="6" data-gs-height="4">
+                    <div class="grid-stack-item-content border-shadow" id="gridCapacidad">
+                        <div style="color:#ffffff; font-size:14px;position:relative" class="header-grid header-capacidad text-center">Capacidad</div>
+                        @*Vista de Sergio*@
+                        <div style="overflow-x:auto;overflow-y:auto">
+                            <table class="table table-condensed" style="border-collapse:collapse;margin-top: 30px;">
+                                <thead>
+                                    <tr>
+                                        <th>Taller</th>
+                                        <th>Auto</th>
+                                        <th>Auto-Man</th>
+                                        <th>Man</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="contenedorTalleresCapacidad"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                @*Grid proyecciones*@
+                <div class="grid-stack-item grid-stack-talleres" data-gs-x="0" data-gs-y="7" data-gs-width="6" data-gs-height="4">
+                    <div class="grid-stack-item-content border-shadow" id="gridTalleres">
+                        <div style="color:#ffffff; font-size:14px;" class="header-grid header-talleres text-center">Proyecciones</div>
+                        <div style="overflow-x:auto">
+                            <table class="table table-condensed" style="border-collapse:collapse;">
+                                <thead>
+                                    <tr id="talleresProyeccion">
+                                        <th width="20px">&nbsp;</th>
+                                        <th>&nbsp;</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody id="contenedorProyecciones"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <span style="color:#ffffff">.</span>
+
+                @*Ventanas - popup*@
+                <form id="divProyectarWindow" style="display:none">
+                    <div class="row">
+                        <div class="container" style="padding:15px;;width:inherit">
+                            <div class="form-group col-xs-9 col-sm-9 col-md-9 col-lg-9" style="display:none" id="inputCrearProyeccion">
+                                <label id="">Escriba la nueva proyección</label>
+                                <input id="inputWindowProyeccion" class="form-control" type="text" />
+
+                                <label id="">Seleccione un taller</label>
+                                <input id="inputTalleresWindow" class="form-control" type="text" />
+
+                                <button class="btn btn-primary" type="button" id="btnCrearProyeccion"><span id="">Proyectar</span></button>
+                            </div>
+                            <div class="form-group col-xs-9 col-sm-9 col-md-9 col-lg-9" style="display:none" id="cmbSeleccionarProyeccion">
+                                <label id="">Seleccione la proyección</label>
+                                <input id="inputProyecciones" class="form-control" type="text" />
+                                <button class="btn btn-primary" type="button" id="btnSeleccionaProyeccion"><span id="">Proyectar</span></button>
+                            </div>
+                            <div id="ProyectarPreguntaDiv">
+                                <span>¿Deseas crear una proyección o proyectar en una existente?</span>
+                                <div class="buttonSave col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center" style="padding:15px;">
+                                    <button class="btn btn-primary" type="button" id="btnCrearNuevaProyeccion"><span id="">Crear</span></button>
+                                    <button class="btn btn-primary" type="button" id="btnUtilizarProyeccionExistente"><span id="">Existente</span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <form id="divEmitirWindow" style="display:none">
+                    <div class="row">
+                        <div class="container" style="padding:15px;width:inherit">
+                            <div class="form-group col-xs-9 col-sm-9 col-md-9 col-lg-9" style="display:none" id="inputCrearOrdenTrabajo">
+                                <label id="">Escriba la nueva Orden de Trabajo</label>
+                                <input id="inputOrdenTrabajo" class="form-control" type="text" />
+                                <div id="CargaCarroDivInferior" class="button-section">
+                                    @*<a id="crearOrdenTrabajo" class="btn btn-primary" href="#" onclick="AbrirVentanaEmitirOrdenTrabajo()"><span id="">Emitir Orden de Trabajo</span></a>*@
+                                    <button id="crearOrdenTrabajo" onclick="AbrirVentanaEmitirOrdenTrabajo()" type="button" class="btn btn-primary"><span id="">Emitir Orden de Trabajo</span></button>
+                                </div>
+                            </div>
+                            <div class="form-group col-xs-9 col-sm-9 col-md-9 col-lg-9" style="display:none" id="cmbSeleccionarOT">
+                                <label id="">Seleccione la Orden de Trabajo</label>
+                                <input id="inputOrdenesTrabajo" class="form-control" type="text" />
+                                <a id="emitirExistenteOrdenTrabajo" class="btn btn-primary" href="@Url.Action("OrdenesDeTrabajo","PlaneacionYControl")"><span id="">Emitir Orden de Trabajo</span></a>
+                            </div>
+                            <div id="EmitirPreguntaDiv">
+                                <span>¿Deseas crear una Orden de Trabajo o emitir en una Orden de Trabajo existente?</span>
+                                <div class="buttonSave col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center" style="padding:15px;">
+                                    <button class="btn btn-primary" type="button" id="btnCrearNuevaOrdenTrabajo"><span id="">Crear</span></button>
+                                    <button class="btn btn-primary" type="button" id="btnUtilizarOrdenTrabajoExistente"><span id="">Existente</span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div id="divEliminarProyeccionWindow"></div>
+        <br /><br />
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="formNav clearfix">
+                    <div class="button-section editButtonSection">
+                        <div class="btn-group save-group">
+                            <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span>Proyectar</span></button>
+
+                        </div>
+                        <a id="btnCancelar" class="btn btn-black"><span id="">Cancelar</span></a>
+                    </div>
+                    <div id="ArmadoSoldaduraDivSuperior" class="button-section">
+                        <a id="EmitirOT" href="#" onclick="AbrirVentanaEmitirOrdenTrabajo()" class="btn btn-primary"><span id="">Emitir</span></a>
+                    </div>
+                    <div class="button-section actionButtonSection">
+                        <div class="dropdown action-group">
+                            <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
+                                <span id="">Acciones</span>
+                                <span class="caretBlue"></span>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="Acciones"></ul>
+                        </div>
+                    </div>
+                    <a id="Imprimir" href="#" class="btn btn-fadeBlue actionButtonSection"></a>
+                </div>
+            </div>
+        </div>
+
+        <script type="text/javascript" src="~/Scripts/AppComponents/PlaneacionYControl/EmisionOrdenesTrabajo/Render.js"></script>
+        @*<script type="text/javascript" src="~/Scripts/AppComponents/PlaneacionYControl/EmisionOrdenesTrabajo/Seguridad.js"></script>*@
+        <script type="text/javascript" src="~/Scripts/AppComponents/PlaneacionYControl/EmisionOrdenesTrabajo/Ajax.js"></script>
+        <script type="text/javascript" src="~/Scripts/AppComponents/PlaneacionYControl/EmisionOrdenesTrabajo/Handlers.js"></script>
+        <script type="text/javascript" src="~/Scripts/AppComponents/PlaneacionYControl/EmisionOrdenesTrabajo/Captura.js"></script>
+        <link href="~/Content/EmisionOT/EmisionOT.css" rel="stylesheet">
+
+        @*GridStack*@
+        <script type="text/javascript" src="~/Scripts/Widgets/GridStack/Underscore.js"></script>
+        <script type="text/javascript" src="~/Scripts/Widgets/GridStack/gridstack.js"></script>
+        <link href="~/Scripts/Widgets/GridStack/gridstack.css" rel="stylesheet">
+
+
+        @*<script>
+                @section JavascriptDocumentReadyFunctions {
+                $authorizationModel["EmisionOT"] = $EmisionOTModel;
+                }
+            </script>*@

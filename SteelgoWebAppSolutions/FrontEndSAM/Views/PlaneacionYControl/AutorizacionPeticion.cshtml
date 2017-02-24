@@ -1,0 +1,149 @@
+﻿
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+@section breadcrumb {
+    <li>
+        <a href=""><span id="lblInicio"></span></a>
+    </li>
+    <li>
+        <a href="#"><span id="GridstackHeaderPlaneacionControl"></span></a>
+    </li>
+    <li class="active">
+        <a href=""><span id="lblAutorizacionPeticion"></span></a>
+    </li>
+}
+
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="formNav clearfix">
+            <div class="button-section editButtonSection">
+                <div class="btn-group save-group">
+                    <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="botonGuardar"></span></button>
+                    <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle botonDeplegaMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="caretWhite"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" id="btnGuardar"><span id="botonGuardar2"></span></a></li>
+                        <li><a href="#" id="btnGuardarYNuevo"><span id="botonGuardarYNuevo"></span></a></li>
+                    </ul>
+
+                </div>
+                <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar"></span></a>
+            </div>
+            @*<div id="ArmadoSoldaduraDivSuperior" class="button-section">
+                    <a id="EmitirOT" href="#" onclick="javascript:void(0);" class="btn btn-primary"><span id="">Emitir</span></a>
+                </div>*@
+            <div class="button-section actionButtonSection">
+                <div class="dropdown action-group">
+                    <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
+                        <span id="botonAcciones1"></span>
+                        <span class="caretBlue"></span>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="Acciones"></ul>
+                </div>
+            </div>
+            <a id="Imprimir" href="#" class="btn btn-fadeBlue actionButtonSection"></a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="form-group col-xs-3 col-sm-3 col-md-3 col-lg-3">
+        <label><span id="AutorizacionPeticionlblPeticion"></span></label>
+        <input id="inputPeticiones" />
+    </div>
+    <div class="col-sm-2 col-md-2 col-lg-2">
+        <br />
+        <button class="btn btn-blue" id="btnMostrar"><span id="lblMostrar"></span></button>
+    </div>
+</div>
+
+@*GRID*@
+<div class="row addedSectionInLine">
+    <div id="ContenedorGrid" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div id="grid" data-role="grid" class="k-grid k-widget"></div>
+
+        <script type="text/x-kendo-template" id="templateGridDetalleSpool">
+            <div class="gridDetalleSpool"></div>
+        </script>
+
+    </div>
+    <input id="hdAccionFiltrado" type="hidden" />
+</div>
+
+<br /><br />
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="formNav clearfix">
+            <div class="button-section editButtonSection">
+                <div class="btn-group save-group">
+                    <button id="GuardarPie" onclick="javascript:void(0);" type="button" class="btn btn-yellow accionGuardar"><span id="botonGuardar3"></span></button>
+                    <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle botonDeplegaMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="caretWhite"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" id="Guardar1"><span id="botonGuardar4"></span></a></li>
+                        <li><a href="#" id="btnGuardarYNuevo1"><span id="botonGuardarYNuevo1"></span></a></li>
+                    </ul>
+                </div>
+                <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar2"></span></a>
+            </div>
+
+            <div class="button-section actionButtonSection">
+                <div class="dropdown action-group">
+                    <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
+                        <span id="botonAcciones2"></span>
+                        <span class="caretBlue"></span>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="Acciones"></ul>
+                </div>
+            </div>
+            <a id="Imprimir" href="#" class="btn btn-fadeBlue actionButtonSection"></a>
+        </div>
+    </div>
+</div>
+
+<div id="windowDetalle" style="display: none; z-index:inherit;">
+    <div class="col-sm-11 col-md-11 col-lg-11">
+        <div class="row">
+            <table class="table">
+                <tbody>
+                    <tr><td>Objetivo</td><td>30</td><td>dias</td></tr>
+                    <tr style="background-color:silver;"><td></td><td>ciclo</td><td>fase</td></tr>
+                    <tr style="background-color:#EEEEEE;"><td>Ingeniería</td><td>5</td><td><input id="uno" value="5" disabled /></td></tr>
+                    <tr style="background-color:#EEEEEE;"><td>Materiales</td><td>10</td><td><input id="dos" value="15" disabled /></td></tr>
+                    <tr><td>Fabricación</td><td>5</td><td><input id="tres" class="itemSumatoria" value="5" /></td></tr>
+                    <tr><td>Servicios Técnicos</td><td>10</td><td><input class="itemSumatoria" id="cuatro" value="10" /></td></tr>
+                    <tr><td>Pintura</td><td>4</td><td><input class="itemSumatoria" id="cinco" value="4" /></td></tr>
+                    <tr><td>Embarques</td><td>2</td><td><input class="itemSumatoria" id="seis" value="2" /></td></tr>
+                    <tr style="background-color:#353232; color:white;"><td></td><td>36</td><td><label id="total"></label></td></tr>
+                    <tr>
+                        <td><button id="btnGuarda" onclick="javascript:void(0);" type="button" class="btn btn-primary accionGuardar"><span id="btnGd">Guardar</span></button></td>
+                        <td><button id="btnCancela" onclick="javascript:void(0);" type="button" class="btn btn-primary accionGuardar"><span id="btnCancel">Cancelar</span></button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        @*<div class="row">
+                <a class=" btn btn-primary col-sm-4 col-md-4 col-lg-4" href="#" id="GuardarTrabajosAdicionales">
+                    <span id="textoGuardar"></span>
+                </a>
+                <div class="col-sm-1 col-md-1 col-lg-1"></div>
+                <a class=" btn btn-primary col-sm-4 col-md-4 col-lg-4" href="#" id="CancelarTrabajosAdicionales">
+                    <span id="textoCancelar"></span>
+                </a>
+            </div>*@
+
+    </div>
+</div>
+
+<script type="text/javascript" src="~/Scripts/AppComponents/PlaneacionYControl/AutorizacionPeticion/Render.js"></script>
+@*<script type="text/javascript" src="~/Scripts/AppComponents/PlaneacionYControl/AutorizacionPeticion/Seguridad.js"></script>*@
+<script type="text/javascript" src="~/Scripts/AppComponents/PlaneacionYControl/AutorizacionPeticion/Ajax.js"></script>
+<script type="text/javascript" src="~/Scripts/AppComponents/PlaneacionYControl/AutorizacionPeticion/Handler.js"></script>
+<script type="text/javascript" src="~/Scripts/AppComponents/PlaneacionYControl/AutorizacionPeticion/Captura.js"></script>

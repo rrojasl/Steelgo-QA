@@ -68,18 +68,13 @@ function AjaxCargarNuevoSistemaPintura() {
 
 function AjaxCargarEdicionSistemaPintura() {
     var SistemaPintura = "", ProyectoID = 0;;
-
-
     SistemaPintura = $("#inputSistemaPinturaID").val();
-
     if ($("#comboProyecto").data("kendoComboBox").value() == "") {
         ProyectoID=  paramReqProyectoID;
     }
     else {
         ProyectoID = parseInt($("#comboProyecto").data("kendoComboBox").value());
     }
-
-
 
     loadingStart();
     $SistemaPintura.SistemaPintura.read({ token: Cookies.get("token"), Lenguaje: $("#language").val(), SistemaPintura: SistemaPintura, ProyectoID: ProyectoID, actividad: 2 }).done(function (data) {
@@ -88,6 +83,7 @@ function AjaxCargarEdicionSistemaPintura() {
                 $("#inputColor").data("kendoMultiSelect").value("")
                 $("#inputNombre").val(data[0].Nombre);
                 $("#inputSistemaPinturaID").val(data[0].Nombre.split('~')[0]);
+                $("#inputhiddenSistemaPinturaID").val(data[0].SistemaPinturaID);
 
                 if (data[0].NoPintable) {
                     $("#inputNoAplicable").prop("checked", true);
@@ -409,6 +405,7 @@ function tieneComponentesSinCaptura(data) {
 function AjaxEliminaSistemaPintura(sistemaPintura, proyectoid) {
     
     $ListadoSistemaPintura.ListadoSistemaPintura.read({ token: Cookies.get("token"), SistemaPinturaID: sistemaPintura,   ProyectoID: proyectoid }).done(function (data) {
+        
         if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
 
             AjaxObtenerColor();

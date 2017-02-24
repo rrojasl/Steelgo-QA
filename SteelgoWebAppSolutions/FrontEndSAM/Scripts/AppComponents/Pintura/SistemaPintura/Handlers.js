@@ -541,6 +541,7 @@ function suscribirEventoGuardar() {
 
 function SuscribirEventoEliminarSistemaPintura() {
     $('.eliminarSistema').click(function (e) {
+       
         e.preventDefault();
         var SistemaPinturaID = $("#inputhiddenSistemaPinturaID").val();
         ventanaConfirmEliminarSP = $("#ventanaConfirm").kendoWindow({
@@ -563,7 +564,9 @@ function SuscribirEventoEliminarSistemaPintura() {
         ventanaConfirmEliminarSP.open().center();
 
         $("#yesButtonEliminar").click(function () {
+            
             if ($("#comboProyecto").data("kendoComboBox").select() > 0) {
+                
                 AjaxEliminaSistemaPintura(SistemaPinturaID, $("#comboProyecto").data("kendoComboBox").dataItem($("#comboProyecto").data("kendoComboBox").select()).ProyectoID);
                 ventanaConfirmEliminarSP.close();
             }

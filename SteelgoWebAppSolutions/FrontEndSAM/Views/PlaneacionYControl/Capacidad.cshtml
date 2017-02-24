@@ -1,0 +1,230 @@
+﻿
+@{
+    ViewBag.Title = "Capacidad";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+@section breadcrumb {
+    <li>
+        <a href=""><span id="lblInicio"></span></a>
+    </li>
+    <li>
+        <a href="#"><span id="GridstackHeaderPlaneacionControl"></span></a>
+    </li>
+    <li class="active">
+        <a href=""><span id="menuCapacidad"></span></a>
+    </li>
+}
+
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="formNav clearfix">
+            <div class="button-section editButtonSection">
+                <div class="btn-group save-group">
+                    <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="botonGuardar"></span></button>
+                    <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle botonDeplegaMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="caretWhite"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" id="btnGuardar"><span id="botonGuardar2"></span></a></li>
+                        <li><a href="#" id="btnGuardarYNuevo"><span id="botonGuardarYNuevo"></span></a></li>
+                    </ul>
+
+                </div>
+                <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar"></span></a>
+            </div>
+            @*<div id="ArmadoSoldaduraDivSuperior" class="button-section">
+                    <a id="EmitirOT" href="#" onclick="javascript:void(0);" class="btn btn-primary"><span id="">Emitir</span></a>
+                </div>*@
+            <div class="button-section actionButtonSection">
+                <div class="dropdown action-group">
+                    <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
+                        <span id="botonAcciones1"></span>
+                        <span class="caretBlue"></span>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="Acciones"></ul>
+                </div>
+            </div>
+            <a id="Imprimir" href="#" class="btn btn-fadeBlue actionButtonSection"></a>
+        </div>
+    </div>
+</div>
+
+
+
+@*GRID*@
+<div class="row addedSectionInLine">
+    <div class="col-sm-12 col-md-12 col-lg-12">
+        <label id="CapacidadlblSemana"></label> <input class="k-input" style=" width:150px !important;" />
+        <br /><br />
+
+        <table class="table">
+            <tbody>
+                <tr style="background-color:silver "><td width="20%"></td><td width="20%">Unidad</td><td width="20%"></td><td width="20%"></td><td width="20%"></td></tr>
+
+                <tr><td>Recepci&oacute;n</td><td>Tons</td><td></td><td></td><td><input style="background-color:#f8f8f8;" value="1000" /></td></tr>
+                <tr><td>Despacho</td><td>Tons</td><td></td><td></td><td><input style="background-color:#f8f8f8;" value="1000" /></td></tr>
+
+
+                <tr style="background-color:silver" data-toggle="collapse" data-target="#Familia001" class="accordion-toggle" id="ContenedorFamilia001">
+                    <td>Soldadura</td>
+                    <td>peqs</td>
+                    <td id="encabezadoTaller">Taller</td>
+                    <td style="text-align:center;">Aceros</td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td colspan="3" class="hiddenRow nivel2-Familia001">
+                        <div class="accordian-body collapse" id="Familia001">
+                            <table style="width:100%;">
+                                <tr data-toggle="collapse" data-target="#Familia002" class="accordion-toggle" id="ContenedorFamilia002">
+                                    <td width="33%">Taller A</td>
+                                    <td width="33%"></td>
+                                    <td width="33%"><label id="totalA">900</label></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td colspan="2" class="hiddenRow nivel2-Familia002">
+                                        <div class="accordian-body collapse" id="Familia002">
+                                            <table style="width:100%;">
+                                                <tr>
+                                                    <td width="50%" style="text-align:center">CS</td>
+                                                    <td width="50%"><input style="background-color:#f8f8f8;" class="sumaA" value="200" /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="50%" style="text-align:center">Alloy</td>
+                                                    <td><input style="background-color:#f8f8f8;" value="300" class="sumaA" /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="50%" style="text-align:center">Inox</td>
+                                                    <td><input style="background-color:#f8f8f8;" value="400" class="sumaA" /></td>
+                                                </tr>
+
+                                            </table>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr data-toggle="collapse" data-target="#Familia003" class="accordion-toggle" id="ContenedorFamilia003">
+                                    <td width="33%">Taller B</td>
+                                    <td width="33%"></td>
+                                    <td width="33%"><label id="totalB">700</label></td>
+                                </tr>
+
+                                <tr>
+                                    <td></td>
+                                    <td colspan="2" class="hiddenRow nivel2-Familia003">
+                                        <div class="accordian-body collapse" id="Familia003">
+                                            <table style="width:100%;">
+                                                <tr>
+                                                    <td width="50%" style="text-align:center">CS</td>
+                                                    <td><input style="background-color:#f8f8f8;" class="sumaB" value="100" /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="50%" style="text-align:center">Alloy</td>
+                                                    <td><input style="background-color:#f8f8f8;" class="sumaB" value="200" /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="50%" style="text-align:center">Inox</td>
+                                                    <td><input style="background-color:#f8f8f8;" class="sumaB" value="400" /></td>
+                                                </tr>
+
+                                            </table>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr data-toggle="collapse" data-target="#Familia004" class="accordion-toggle" id="ContenedorFamilia004">
+                                    <td width="33%">Taller C</td>
+                                    <td width="33%"></td>
+                                    <td width="33%"><label id="totalC">280</label></td>
+                                </tr>
+
+                                <tr>
+                                    <td></td>
+                                    <td colspan="2" class="hiddenRow nivel2-Familia004">
+                                        <div class="accordian-body collapse" id="Familia004">
+                                            <table style="width:100%;">
+                                                <tr>
+                                                    <td width="50%" style="text-align:center">CS</td>
+                                                    <td><input style="background-color:#f8f8f8;" value="40" class="sumaC" /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="50%" style="text-align:center">Alloy</td>
+                                                    <td><input style="background-color:#f8f8f8;" value="40" class="sumaC" /></td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="50%" style="text-align:center">Inox</td>
+                                                    <td><input style="background-color:#f8f8f8;" value="200" class="sumaC" /></td>
+                                                </tr>
+
+                                            </table>
+                                        </div>
+                                    </td>
+                                </tr>
+
+
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr style="background-color:silver"><td>Serv tec</td><td>Cantidad</td><td></td><td>Tipo prueba</td><td></td></tr>
+                <tr><td></td><td></td><td></td><td>Rayos X</td><td><input style="background-color:#f8f8f8;" value="1000" /></td></tr>
+                <tr style="background-color:silver"><td>Pintura</td><td>m2</td><td></td><td></td><td></td></tr>
+                <tr><td></td><td></td><td></td><td>Shotblast/Primario</td><td><input style="background-color:#f8f8f8;" value="1000" /></td></tr>
+                <tr><td></td><td></td><td></td><td>Intermedio/Acabado</td><td><input style="background-color:#f8f8f8;" value="1000" /></td></tr>
+                <tr style="background-color:silver"><td>Embarque</td><td></td><td></td><td></td><td></td></tr>
+                <tr><td></td><td></td><td></td><td>Toneladas</td><td><input style="background-color:#f8f8f8;" value="1000" /></td></tr>
+                <tr><td></td><td></td><td></td><td>Spool</td><td><input style="background-color:#f8f8f8;" value="1000" /></td></tr>
+
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<br /><br />
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="formNav clearfix">
+            <div class="button-section editButtonSection">
+                <div class="btn-group save-group">
+                    <button id="GuardarPie" onclick="javascript:void(0);" type="button" class="btn btn-yellow accionGuardar"><span id="botonGuardar3"></span></button>
+                    <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle botonDeplegaMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="caretWhite"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" id="Guardar1"><span id="botonGuardar4"></span></a></li>
+                        <li><a href="#" id="btnGuardarYNuevo1"><span id="botonGuardarYNuevo1"></span></a></li>
+                    </ul>
+                </div>
+                <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar2"></span></a>
+            </div>
+            <div class="button-section actionButtonSection">
+                <div class="dropdown action-group">
+                    <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
+                        <span id="botonAcciones2"></span>
+                        <span class="caretBlue"></span>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="Acciones"></ul>
+                </div>
+            </div>
+            <a id="Imprimir" href="#" class="btn btn-fadeBlue actionButtonSection"></a>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script type="text/javascript" src="~/Scripts/AppComponents/PlaneacionYControl/Capacidad/Render.js"></script>
+@*<script type="text/javascript" src="~/Scripts/AppComponents/PlaneacionYControl/AutorizacionPeticion/Seguridad.js"></script>*@
+<script type="text/javascript" src="~/Scripts/AppComponents/PlaneacionYControl/Capacidad/Ajax.js"></script>
+<script type="text/javascript" src="~/Scripts/AppComponents/PlaneacionYControl/Capacidad/Handler.js"></script>
+<script type="text/javascript" src="~/Scripts/AppComponents/PlaneacionYControl/Capacidad/Captura.js"></script>
