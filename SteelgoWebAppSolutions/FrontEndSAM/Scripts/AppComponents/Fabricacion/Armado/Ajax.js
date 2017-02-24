@@ -215,11 +215,11 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
             ListaTrabajosAdicionalesEditados = [];
             if (arregloCaptura[index].ListaDetalleTrabajoAdicional != null) {
                 for (j = 0; j < arregloCaptura[index].ListaDetalleTrabajoAdicional.length; j++) {
-                    ListaTrabajosAdicionalesEditados[j] = { Accion: "", JuntaID: "", TrabajoAdicionalID: "", ObreroID: "", Observacion: "" };
+                    ListaTrabajosAdicionalesEditados[j] = { Accion: "", JuntaID: "", TrabajoAdicionalID: "", ArmadoTrabajoAdicionalID: "", Observacion: "" };
                     ListaTrabajosAdicionalesEditados[j].Accion = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].Accion == undefined ? 1 : arregloCaptura[index].ListaDetalleTrabajoAdicional[j].Accion;
-                    ListaTrabajosAdicionalesEditados[j].JuntaID = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].JuntaID;
+                    ListaTrabajosAdicionalesEditados[j].JuntaID = arregloCaptura[index].JuntaID;
                     ListaTrabajosAdicionalesEditados[j].TrabajoAdicionalID = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].TrabajoAdicionalID;
-                    ListaTrabajosAdicionalesEditados[j].ObreroID = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].ObreroID;
+                    ListaTrabajosAdicionalesEditados[j].ArmadoTrabajoAdicionalID = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].ArmadoTrabajoAdicionalID;
                     ListaTrabajosAdicionalesEditados[j].Observacion = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].Observacion;
                 }
             }

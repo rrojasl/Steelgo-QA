@@ -713,7 +713,7 @@ function eliminarCaptura(e) {
 
 
 
-        //var dataSource = $("#grid").data("kendoGrid").dataSource;
+        var dataSource = $("#grid").data("kendoGrid").dataSource;
         //dataItem.Accion = 3;
 
         //if (dataItem.JuntaArmadoID === 0)
