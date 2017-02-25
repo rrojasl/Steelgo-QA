@@ -50,6 +50,11 @@ namespace BackEndSAM.Models.Ingenieria.BuscaSpool
         public int TipoCorte2ID { get; set; }
         public string TipoCorte2 { get; set; }
         public double Cantidad { get; set; }
+        //Cedula: '',
+        //            FamiliaAceroMaterial1ID: 0,
+        //            FamiliaAceroMaterial1: '',
+        //            FamiliaAceroMaterial2ID: 0,
+        //            FamiliaAceroMaterial2: '',
 
         //Listados
         public List<DetalleTipoSalida> TipoSalidaLista { get; set; }
@@ -77,7 +82,7 @@ namespace BackEndSAM.Models.Ingenieria.BuscaSpool
         public ListaSpool()
         {
             SpoolID = 0;
-            Nombre = "";
+            Nombre = "Sin Definir";
         }
 
         public int SpoolID { get; set; }

@@ -63,6 +63,7 @@
         public static string GUARDARCAPTURALISTADOEMBARQUE = "Sam3_Embarque_LE_GuardarCaptura";
         public static string ARMADOACTUALIZARINFORMACION = "Sam3_Armado_Get_ActualizarCaptura";
         public static string GUARDARREVISIONEMBARQUE = "Sam3_Embarque_RE_GuardarCaptura";
+        public static string GUARDARCAPTURABUSCASPOOL = "Sam3_Ingenieria_GuardarLoop";
 
     }
 }
