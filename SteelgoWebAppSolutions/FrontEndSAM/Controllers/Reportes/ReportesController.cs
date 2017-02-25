@@ -36,7 +36,7 @@ namespace FrontEndSAM.Controllers.Reportes
                     //reportViewer.ServerReport.ReportServerUrl = new Uri("http://www.samaltamira.net/ReportServer");
                     reportViewer.ServerReport.ReportServerUrl = new Uri(ConfigurationManager.AppSettings["URLReportingServices"]);
                     //reportViewer.ServerReport.ReportPath = "/SAM 3.0/Materiales/Detalles/FotoIncidencia";
-                    reportViewer.ServerReport.ReportPath = "";
+                    reportViewer.ServerReport.ReportPath = path.Replace("?leng=es-MX","");
                     reportViewer.ServerReport.Refresh();
                     ViewBag.ReportViewer = reportViewer;
                 }

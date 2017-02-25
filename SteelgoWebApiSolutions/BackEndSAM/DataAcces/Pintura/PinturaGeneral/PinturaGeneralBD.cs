@@ -152,7 +152,7 @@ namespace BackEndSAM.DataAcces.Pintura.PinturaGeneral
 
                 using (SqlCommand cmd = new SqlCommand("SAM3_ImagenesPrueba", new SqlConnection(ConfigurationManager.ConnectionStrings["SqlServer"].ConnectionString)))
                 {
-                    cmd.Parameters.Add("@imageBits", SqlDbType.Image).Value = StringToBytes(imgSerializada);
+                    cmd.Parameters.Add("@imageBits", SqlDbType.VarChar).Value = imgSerializada;// StringToBytes();
                     cmd.CommandType = CommandType.StoredProcedure;
                     try
                     {
