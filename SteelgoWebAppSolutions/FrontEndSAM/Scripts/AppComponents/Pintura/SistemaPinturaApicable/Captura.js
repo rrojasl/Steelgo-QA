@@ -1,5 +1,5 @@
 ﻿IniciarSistemaPinturaAplicable();
-
+var esNormal;
 function IniciarSistemaPinturaAplicable() {
     SuscribirEventos();
 }
@@ -48,7 +48,12 @@ function CargarGrid() {
 
                 inputName.select();
             });
-
+            if ($(".k-grid-content td").css("white-space") == "normal") {
+                esNormal = true;
+            }
+            else {
+                esNormal = false;
+            }
         },
         autoBind: true,
         dataSource: {
@@ -127,6 +132,13 @@ function CargarGrid() {
                     grid.table.find("tr[data-uid='" + currentUid + "']").css("background-color", "#ffffff");
                 }
 
+            }
+
+            if (esNormal) {
+                $(".k-grid-content td").css("white-space", "normal");
+            }
+            else {
+                $(".k-grid-content td").css("white-space", "nowrap");
             }
         }
     });

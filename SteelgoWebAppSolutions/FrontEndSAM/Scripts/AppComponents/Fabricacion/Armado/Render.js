@@ -1,4 +1,6 @@
-﻿function RenderComboBoxTaller(container, options) {
+﻿
+
+function RenderComboBoxTaller(container, options) {
     var dataItem;
     $('<input  data-text-field="Nombre" data-value-field="TallerID" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
@@ -104,6 +106,7 @@ function RenderComboBoxTubero(container, options) {
                 }
                 //    this.data('kendoComboBox').select(options.model.TuberoID)
                 //$("#MyComboBox").data("kendoComboBox").value(id);
+
                 $("#grid").data("kendoGrid").dataSource.sync();
             }
         }

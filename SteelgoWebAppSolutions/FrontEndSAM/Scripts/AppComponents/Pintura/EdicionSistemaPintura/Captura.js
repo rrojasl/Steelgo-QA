@@ -1,4 +1,5 @@
 ﻿IniciarEdicionSistemaPintura();
+var esNormal;
 
 function IniciarEdicionSistemaPintura() {
     SuscribirEventos();
@@ -21,6 +22,13 @@ function CargarGrid() {
                 this.closeCell();
             }
 
+            if ($(".k-grid-content td").css("white-space") == "normal") {
+                esNormal = true;
+            }
+            else {
+                esNormal = false;
+            }
+
         },
         dataBound: function () {
             var myElem = document.getElementById('trParentHeader');
@@ -33,6 +41,13 @@ function CargarGrid() {
                     "<th width='auto'  colspan='6' class='k-header' style='text-align: center;'><span id=''>" + _dictionary.lblAcabado[$("#language").data("kendoDropDownList").value()] + "</span></th>" +
                     "<th width='auto'  colspan='1' class='k-header' style='text-align: center;'><span id=''></span></th>" +
                     "</tr>");
+            }
+
+            if (esNormal) {
+                $(".k-grid-content td").css("white-space", "normal");
+            }
+            else {
+                $(".k-grid-content td").css("white-space", "nowrap");
             }
         },
         autoBind: true,

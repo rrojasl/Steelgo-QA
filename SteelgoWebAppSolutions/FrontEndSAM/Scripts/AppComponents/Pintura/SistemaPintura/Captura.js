@@ -4,7 +4,7 @@ var ListaUnidadMedida = [];
 var modeloRenglon;
 var dataItemProcesoPintura;
 var paramReqProyectoID=0;
-
+var esNormal;
 
 function changeLanguageCall() {
     
@@ -104,6 +104,12 @@ function CargarGrid() {
                 inputName.select();
             });
 
+            if ($(".k-grid-content td").css("white-space") == "normal") {
+                esNormal = true;
+            }
+            else {
+                esNormal = false;
+            }
         },
         autoBind: true,
         dataSource: {
@@ -186,6 +192,13 @@ function CargarGrid() {
                     grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("kRowError"); //.css("background-color", "#ffffff");
                 }
 
+            }
+
+            if (esNormal) {
+                $(".k-grid-content td").css("white-space", "normal");
+            }
+            else {
+                $(".k-grid-content td").css("white-space", "nowrap");
             }
         }
     });

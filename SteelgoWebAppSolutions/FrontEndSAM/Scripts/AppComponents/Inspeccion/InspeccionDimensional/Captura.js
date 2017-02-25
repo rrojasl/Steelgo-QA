@@ -6,6 +6,7 @@ var endRangeDate;
 var listadoJsonCaptura;
 var anteriorlongitudTrabajosAdicionales;
 var actuallongitudTrabajosAdicionales;
+var esNormal;
 
 function IniciarCapturaInspecion() {
 
@@ -93,6 +94,12 @@ function CargarGrid() {
                 inputName.select();
             }
 
+            if ($(".k-grid-content td").css("white-space") == "normal") {
+                esNormal = true;
+            }
+            else {
+                esNormal = false;
+            }
         },
         change: function () {
             var dataItem = this.dataSource.view()[this.select().index()];
@@ -181,6 +188,12 @@ function CargarGrid() {
                     grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("kRowError");
                 }
 
+            }
+            if (esNormal) {
+                $(".k-grid-content td").css("white-space", "normal");
+            }
+            else {
+                $(".k-grid-content td").css("white-space", "nowrap");
             }
         }
     });

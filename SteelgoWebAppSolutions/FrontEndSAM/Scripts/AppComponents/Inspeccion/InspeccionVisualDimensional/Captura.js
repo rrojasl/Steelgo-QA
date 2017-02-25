@@ -7,6 +7,7 @@ var editado = false;
 var spooolAnterior;
 var ventanaConfirm;
 var ventanaConfirmCambiarCaptura;
+var esNormal;
 
 IniciarCapturaInspecion();
 
@@ -139,6 +140,16 @@ function CargarGrid() {
                 var inputName = e.container.find('input');
                 inputName.select();
             }
+
+            if ($('#botonGuardar').text() != _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()])
+                this.closeCell();
+
+            if ($(".k-grid-content td").css("white-space") == "normal") {
+                esNormal = true;
+            }
+            else {
+                esNormal = false;
+            }
         },
         change: function () {
             var dataItem = this.dataSource.view()[this.select().index()];
@@ -229,6 +240,13 @@ function CargarGrid() {
                     grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("kRowError");
                 }
 
+            }
+
+            if (esNormal) {
+                $(".k-grid-content td").css("white-space", "normal");
+            }
+            else {
+                $(".k-grid-content td").css("white-space", "nowrap");
             }
         }
     });
