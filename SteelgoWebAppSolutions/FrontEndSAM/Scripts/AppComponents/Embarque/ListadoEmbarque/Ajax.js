@@ -13,8 +13,8 @@
 function AjaxObtenerContadorPorEstatus() {
     loadingStart();
     $ListadoEmbarque.ListadoEmbarque.read({ token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
-        $("#nPendientes").text("");
-        $("#nTransito").text("");
+        $("#nPendientes").text(" 0");
+        $("#nTransito").text(" 0");
 
         if (data.length > 0) {
             $("#nPendientes").text(" "+data[0].Pendientes);

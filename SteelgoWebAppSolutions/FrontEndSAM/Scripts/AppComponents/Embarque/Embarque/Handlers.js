@@ -411,21 +411,23 @@ function SuscribirEventoPlana() {
     $('#Plana').closest('.k-widget').keydown(function (e) {
         if (e.keyCode == 13) {
             var ds = $("#grid").data("kendoGrid").dataSource;
-            if (ds._data.length < 2) {
-                if ($("#Plana").data("kendoComboBox").text() != "" && $("#Plana").data("kendoComboBox").text() != undefined) {
-                    var cargaPlanaID = $("#Plana").data("kendoComboBox").dataItem($("#Plana").data("kendoComboBox").select()).CargaPlanaID;
-                    AjaxAgregaRenglon($("#Plana").data("kendoComboBox").value());
+            if ($("#Proveedor").data("kendoComboBox").value() != "" && $("#Proveedor").data("kendoComboBox").value() != "0") {
+                if (ds._data.length < 2) {
+                    if ($("#Plana").data("kendoComboBox").text() != "" && $("#Plana").data("kendoComboBox").text() != undefined) {
+                        var cargaPlanaID = $("#Plana").data("kendoComboBox").dataItem($("#Plana").data("kendoComboBox").select()).CargaPlanaID;
+                        AjaxAgregaRenglon(cargaPlanaID);
 
-                    $("#Plana").data("kendoComboBox").value("");
+                        $("#Plana").data("kendoComboBox").value("");
+                    }
+                    else {
+                        displayNotify('EmarquePreparacionMensajeEligePlana', '', '1');
+                    }
                 }
                 else {
-                    displayNotify('EmarquePreparacionMensajeEligePlana', '', '1');
+                    displayNotify('EmarquePreparacionMensajeErrorCargaMaxima', '', '1');
                 }
-            }
-            else {
-                displayNotify('EmarquePreparacionMensajeErrorCargaMaxima', '', '1');
-            }
-
+            }else
+                displayNotify('MensajeSeleccionaProveedor', '', '1');
         }
     });
 
