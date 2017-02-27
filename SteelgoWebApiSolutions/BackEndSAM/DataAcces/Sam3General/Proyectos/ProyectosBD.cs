@@ -71,11 +71,11 @@ namespace BackEndSAM.DataAcces.Sam3General.Proyectos
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Steelgo_Get_ProyectoIngeneria_Result> result = ctx.Sam3_Steelgo_Get_ProyectoIngeneria(UsuarioID).ToList();
+                    List<Sam3_Steelgo_Get_ProyectoIngenieria_Result> result = ctx.Sam3_Steelgo_Get_ProyectoIngenieria(UsuarioID).ToList();
                     List<DetalleProyectoIngeneria> listaDetalle = new List<DetalleProyectoIngeneria>();
                     listaDetalle.Add(new DetalleProyectoIngeneria());
 
-                    foreach (Sam3_Steelgo_Get_ProyectoIngeneria_Result item in result)
+                    foreach (Sam3_Steelgo_Get_ProyectoIngenieria_Result item in result)
                     {
                         listaDetalle.Add(new DetalleProyectoIngeneria {
                             ProyectoID = item.ProyectoID,
