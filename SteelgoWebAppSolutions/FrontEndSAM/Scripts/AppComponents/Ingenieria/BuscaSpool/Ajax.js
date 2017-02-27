@@ -29,15 +29,35 @@ function AjaxDetalleSpoolXNombre(posicion, proyectoID, nombreSpool) {
                 currentSpoolMaster.DetalleSalidas[posicion].NombreSpool = data.NombreSpool;
                 currentSpoolMaster.DetalleSalidas[posicion].RevisionCliente = data.RevisionCliente;
                 currentSpoolMaster.DetalleSalidas[posicion].RevisionSteelgo = data.RevisionSteelgo;
+                currentSpoolMaster.DetalleSalidas[posicion].Especificacion = data.Especificacion;
+                currentSpoolMaster.DetalleSalidas[posicion].FamiliarAcero1ID = data.FamiliarAcero1ID;
+                currentSpoolMaster.DetalleSalidas[posicion].Acero = data.Acero;
+                currentSpoolMaster.DetalleSalidas[posicion].FamiliarAcero2ID = data.FamiliarAcero2ID;
+                currentSpoolMaster.DetalleSalidas[posicion].Acero2 = data.Acero2;
                 currentSpoolMaster.DetalleSalidas[posicion].SistemaPintura = data.SistemaPintura;
                 currentSpoolMaster.DetalleSalidas[posicion].ColorPintura = data.ColorPintura;
 
-                if (!(currentSpoolMaster.SistemaPintura.indexOf(data.SistemaPintura) !== -1)) {
-                    currentSpoolMaster.SistemaPintura += data.SistemaPintura + '-';
+                if (!(currentSpoolMaster.Acero.indexOf(data.Acero) !== -1)) {
+                    currentSpoolMaster.Acero += data.Acero + '/';
                 }
-                if (!(currentSpoolMaster.ColorPintura.indexOf(data.ColorPintura) !== -1)) {
-                    currentSpoolMaster.ColorPintura += data.ColorPintura + '-';
+                if (data.FamiliarAcero2ID != null) {
+                    if (!(currentSpoolMaster.Acero2.indexOf(data.Acero2) !== -1)) {
+                        currentSpoolMaster.Acero2 += data.Acero2 + '/';
+                    }
                 }
+
+                if (!(currentSpoolMaster.Especificacion.indexOf(data.Especificacion) !== -1)) {
+                    currentSpoolMaster.Especificacion += data.Especificacion + '/';
+                }
+
+                AddPinturaSistemaColor(data.SistemaPintura, data.ColorPintura);
+
+                //if (!(currentSpoolMaster.SistemaPintura.indexOf(data.SistemaPintura) !== -1)) {
+                //    currentSpoolMaster.SistemaPintura += data.SistemaPintura + '/';
+                //}
+                //if (!(currentSpoolMaster.ColorPintura.indexOf(data.ColorPintura) !== -1)) {
+                //    currentSpoolMaster.ColorPintura += data.ColorPintura + '/';
+                //}
                 reCalculaReglas();
 
                 //AjaxListadoJuntaSpool(posicion, data.SpoolID);
@@ -116,9 +136,7 @@ function AjaxDetalleJunta(posicion, posicionSalida, claveSalida, juntaSpoolID) {
 
             if (data.length == 1) {                
 
-                if (!(currentSpoolMaster.Acero.indexOf(data[0].FamiliaAceroMaterial1) !== -1)) {
-                    currentSpoolMaster.Acero += data[0].FamiliaAceroMaterial1 + '-';
-                }
+                
                 currentSpoolMaster.PDI += data[0].Diametro;
                 reCalculaReglas();
 

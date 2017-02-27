@@ -19,10 +19,13 @@ function initSpoolMaster() {
         RevisionCliente: 0,
         RevisionSteelgo: 'A1',
         Acero: '',
+        Acero2: '',
         Especificacion: '',
         PDI: 0.0,
         SistemaPintura: '',
         ColorPintura: '',
+
+        PinturaSistemaColor: [],
 
         DetalleSalidas: [] 
     };
@@ -44,7 +47,10 @@ function addNewDetalleSalida(spoolID, nombreSpool) {
         ColorPinturaID: 0,
         ColorPintura: '',
 
+        FamiliarAcero1ID: 0,
         Acero: '',
+        FamiliarAcero2ID: 0,
+        Acero2: '',
         Especificacion: '',
         PDI: 0,
 
@@ -329,11 +335,53 @@ function reCalculaReglas() {
     $("#labelRevisionCliente2").text("" + currentSpoolMaster.RevisionCliente);
     $("#labelRevision2").text(currentSpoolMaster.RevisionSteelgo);
     $("#labelAcero2").text(currentSpoolMaster.Acero);
+    $("#labelAcero4").text(currentSpoolMaster.Acero2);
     $("#labelEspecificacion2").text(currentSpoolMaster.Especificacion);
     $("#labelPDI2").text(currentSpoolMaster.PDI);
+
+    currentSpoolMaster.SistemaPintura = '';
+    currentSpoolMaster.ColorPintura = '';
+    for (var i = 0; i < currentSpoolMaster.PinturaSistemaColor.length; i++) {
+        currentSpoolMaster.SistemaPintura += currentSpoolMaster.PinturaSistemaColor[i].Sistema + '/';
+        for (var j = 0; j < currentSpoolMaster.PinturaSistemaColor[i].Colores.length; j++) {
+            currentSpoolMaster.ColorPintura += currentSpoolMaster.PinturaSistemaColor[i].Colores[j].Color + '-';
+        }
+        currentSpoolMaster.ColorPintura += '/';
+    }
     $("#labelSistemaPintura2").text(currentSpoolMaster.SistemaPintura);
     $("#labelColorPintura").text(currentSpoolMaster.ColorPintura);
 }
+
+function AddPinturaSistemaColor(sistemaPintura, colorPintura) {
+    var sistemaEncontrado = false;
+    var pinturaEncontrado = false;
+    for (var i = 0; i < currentSpoolMaster.PinturaSistemaColor.length; i++) {
+        if (currentSpoolMaster.PinturaSistemaColor[i].Sistema == sistemaPintura) {
+            pinturaEncontrado = false;
+            for (var j = 0; j < currentSpoolMaster.PinturaSistemaColor[i].Colores.length; j++) {
+                if (currentSpoolMaster.PinturaSistemaColor[i].Colores[j].Color == colorPintura) {
+                    pinturaEncontrado = true;
+                    break;
+                }
+            }
+            if (!pinturaEncontrado) {
+                //currentSpoolMaster.DetalleSalidas[currentSpoolMaster.DetalleSalidas.length] = {
+                currentSpoolMaster.PinturaSistemaColor[i].Colores[currentSpoolMaster.PinturaSistemaColor[i].Colores.length] = {
+                    Color: colorPintura
+                };
+            }
+            sistemaEncontrado = true;
+        }
+    }
+
+    if (!sistemaEncontrado) {
+        currentSpoolMaster.PinturaSistemaColor[currentSpoolMaster.PinturaSistemaColor.length] = {
+            Sistema: sistemaPintura,
+            Colores: [{ Color: colorPintura }]
+        };
+    }
+}
+
 
 function nombreLoop() {
     ventanaConfirm = $("#ventanaConfirm").kendoWindow({
