@@ -95,10 +95,6 @@ function DatoDefaultNumeroUnico2() {
     return "";
 }
 
-function MostrarDetalleVisualDimensional() {
-    ajaxobtenerDetalleDimensional($("#InputID").val());
-    ajaxObtenerListaTaller();
-}
 
 function CargarGrid() {
     kendo.ui.Grid.fn.editCell = (function (editCell) {
@@ -141,7 +137,7 @@ function CargarGrid() {
                 inputName.select();
             }
 
-            if ($('#botonGuardar').text() != _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()])
+            if ($('#Guardar').text() != _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()])
                 this.closeCell();
 
             if ($(".k-grid-content td").css("white-space") == "normal") {

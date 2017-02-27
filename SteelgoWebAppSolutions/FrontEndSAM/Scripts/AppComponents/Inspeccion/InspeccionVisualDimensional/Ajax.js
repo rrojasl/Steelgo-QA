@@ -210,6 +210,9 @@ function ajaxObtenerJSonGrid() {
                         displayNotify("", _dictionary.DimensionalVisualMensajeJuntasAgregadas[$("#language").data("kendoDropDownList").value()] + JuntasAgregadas, '0');
                     }
                 }
+
+                spooolAnterior=$("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select())
+              
             }
 
             //deshabilitaSpool();
