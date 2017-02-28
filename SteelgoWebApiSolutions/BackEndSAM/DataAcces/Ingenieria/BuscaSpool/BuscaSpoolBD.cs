@@ -282,12 +282,12 @@ namespace BackEndSAM.DataAcces.Ingenieria.BuscaSpool
             }
         }
 
-        public object GuardarCaptura(DataTable DtListaSpool, DataTable DtListaJuntaSpool,  int UsuarioID, int ProyectoID, int LoopID, string NombreLoop, string Dibujo, int PorcentajePnd, bool RequierePWHT) 
+        public object GuardarCaptura(DataTable DtListaSpool, DataTable DtListaJuntaSpool, SpoolMasterGuardado Captura,  int UsuarioID) 
         {
             try
             {
                 ObjetosSQL _SQL = new ObjetosSQL();
-                string[,] parametros = { { "@UsuarioID", UsuarioID.ToString() }, { "@ProyectoID", ProyectoID.ToString() }, { "@LoopID", LoopID.ToString() }, { "@NombreLoop", NombreLoop }, {"@Dibujo", Dibujo }, {"@PorcentajePND", PorcentajePnd.ToString() }, {"@RequierePWHT", RequierePWHT.ToString() } };
+                string[,] parametros = { { "@UsuarioID", UsuarioID.ToString() }, { "@ProyectoID", Captura.ProyectoID.ToString() }, { "@LoopID", Captura.LoopID.ToString() }, { "@NombreLoop", Captura.NombreLoop }, {"@Dibujo", Captura.Dibujo }, {"@PorcentajePND", Captura.PND.ToString() }, {"@RequierePWHT", Captura.RequierePWHT.ToString() }, { "@RevisionSteelgo", Captura.RevisionSteelgo }, { "@RevisionCliente", Captura.RevisionCliente.ToString() }, { "@FamiliaAcero1ID", Captura.FamiliaAcero1ID.ToString() }, { "@FamiliaAcero2ID", Captura.FamiliaAcero2ID.ToString() }, { "@Especificacion", Captura.Especificacion }, { "@Pdi", Captura.PDI.ToString() }, { "@SistemaPintura", Captura.SistemaPintura }, { "@ColorPintura", Captura.ColorPintura } };
 
                bool resultado = _SQL.Ejecuta(Stords.GUARDARCAPTURABUSCASPOOL, DtListaSpool, "@TTDetalleSalidas", DtListaJuntaSpool, "@TTDetalleAgrupadoSalidas", parametros);
 

@@ -1,9 +1,11 @@
 ﻿using BackEndSAM.DataAcces.Ingenieria.BuscaSpool;
+using BackEndSAM.Models.Ingenieria.BuscaSpool;
 using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
 using SecurityManager.TokenHandler;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
@@ -170,6 +172,46 @@ namespace BackEndSAM.Controllers.Ingenieria
                 return result;
             }
         }
-        
+
+        [HttpPost]
+        public object GuardarCaptura(SpoolMasterGuardado Captura, string token)
+        {
+            string payload = "";
+            string newToken = "";
+
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                DataTable dtDetalleSalidas = Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(Captura.detalleSalidas);
+                List<DetalleAgrupadoSalidas> listaAgrupadoSalidas = new List<DetalleAgrupadoSalidas>();
+
+                foreach (DetalleSalidas item in Captura.detalleSalidas)
+                {
+                   if (item.detalleAgrupadoSalidas!=null)
+                    {
+                        foreach (DetalleAgrupadoSalidas x in item.detalleAgrupadoSalidas)
+                        {
+                            listaAgrupadoSalidas.Add(x);
+                        }
+                    }
+                }
+                DataTable dtDetalleAgrupadoSalidas = Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(listaAgrupadoSalidas);
+
+                return BuscaSpoolBD.Instance.GuardarCaptura(dtDetalleSalidas, dtDetalleAgrupadoSalidas, Captura, usuario.UsuarioID);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+
+                return result;
+            }
+        }
+
     }
 }

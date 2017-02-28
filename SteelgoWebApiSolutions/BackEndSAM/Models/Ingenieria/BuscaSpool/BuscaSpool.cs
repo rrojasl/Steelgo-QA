@@ -23,46 +23,6 @@ namespace BackEndSAM.Models.Ingenieria.BuscaSpool
         public string Acero2 { get; set; }
     }
 
-    public class DetalleJsonGrid
-    {
-        public int PosicionSalida { get; set; }
-        public string ClaveSalida { get; set; }
-        public int TipoSalidaID { get; set; }
-        public string TipoSalida { get; set; }
-
-        //Etiqueta y Material
-        public int DetalleMaterialSpoolID { get; set; }
-        public string DetalleMaterialSpool { get; set; }
-        public List<DetalleMaterialSpool> DetalleMaterialSpoolLista { get; set; }
-
-        //Catalogo
-        public int SpoolItemCodeID { get; set; }
-        public string SpoolItemCode { get; set; }        
-        public string ItemCodeSelect { get; set; }
-        public int DetalleJuntaSpoolID { get; set; }
-        public string DetalleJuntaSpool { get; set; }
-        public int Nivel { get; set; }
-        public int PosicionSalidaPadre { get; set; }
-        public string ClaveSalidaPadre { get; set; }
-        public int TipoCorte1ID { get; set; }
-        public string TipoCorte1 { get; set; }
-        public int TipoCorte2ID { get; set; }
-        public string TipoCorte2 { get; set; }
-        public double Cantidad { get; set; }
-        public string Cedula { get; set; }
-        public int FamiliaAceroMaterial1ID { get; set; }
-        public string FamiliaAceroMaterial1 { get; set; }
-        public int FamiliaAceroMaterial2ID { get; set; }
-        public string FamiliaAceroMaterial2 { get; set; }
-
-        //Listados
-        public List<DetalleTipoSalida> TipoSalidaLista { get; set; }
-        public List<DetalleMaterialSpool> SpoolItemCodeLista { get; set; }
-        public List<ListaTipoCorte> TipoCorte1Lista { get; set; }
-        public List<ListaTipoCorte> TipoCorte2Lista { get; set; }
-        public List<DetalleJuntaSpool> DetalleJuntaSpoolLista { get; set; }
-    }
-
     public class DetalleJuntaSpool
     {
         public int JuntaSpoolID { get; set; }
@@ -135,7 +95,7 @@ namespace BackEndSAM.Models.Ingenieria.BuscaSpool
         public string Codigo { get; set; }
     }
 
-    public class SpoolMaster
+    public class SpoolMasterGuardado
     {
         public int LoopID { get; set; }
         public int ProyectoID { get; set; }
@@ -143,24 +103,55 @@ namespace BackEndSAM.Models.Ingenieria.BuscaSpool
         public string Dibujo { get; set; }
         public int PND { get; set; }
         public bool RequierePWHT { get; set; }
-        List<DetalleSalidas> listaDetalles { get; set; }
+        public string RevisionSteelgo { get; set; }
+        public int RevisionCliente { get; set; }
+        public int FamiliaAcero1ID { get; set; }
+        public int FamiliaAcero2ID { get; set; }
+        public string Especificacion { get; set; }
+        public decimal PDI { get; set; }
+        public string SistemaPintura { get; set; }
+        public string ColorPintura { get; set; }
+        public List<DetalleSalidas> detalleSalidas { get; set; }
 
     }
 
     public class DetalleSalidas
     {
-        public int Detalle_SalidasID { get; set; }
-        public int LoopID { get; set; }
-        public string NombreLoop { get; set; }
         public int SpoolID { get; set; }
         public int Posicion { get; set; }
-        public int RevisionCliente { get; set; }
         public string RevisionSteelgo { get; set; }
-        public string SistemaPintura { get; set; }
-        public string ColorPintura { get; set; }
+        public int RevisionCliente { get; set; }
         public int FamiliaAcero1ID { get; set; }
         public int FamiliaAcero2ID { get; set; }
         public string Especificacion { get; set; }
         public decimal PDI { get; set; }
+        public string SistemaPintura { get; set; }
+        public string ColorPintura { get; set; }
+        public List<DetalleAgrupadoSalidas> detalleAgrupadoSalidas { get; set; }
+    }
+
+    public class DetalleAgrupadoSalidas
+    {
+        public int Salidas_AgrupadoID { get; set; }
+        public int Detalle_SalidasID { get; set; }
+        public int SpoolID { get; set; }
+        public int PosicionSalida { get; set; }
+        public string ClaveSalida { get; set; }
+        public int PosicionSalidaPadre { get; set; }
+        public string ClaveSalidaPadre { get; set; }
+        public int Salidas_AgrupadoID_Padre { get; set; }
+        public int Nivel { get; set; }
+        public int TipoSalidaID { get; set; }
+        public int MaterialSpoolID { get; set; }
+        public int SpoolItemCodeID { get; set; }
+        public int ItemCodeID { get; set; }
+        public int JuntaSpoolID { get; set; }
+        public string Cedula { get; set; }
+        public int FamiliaAceroMaterial1ID { get; set; }
+        public int FamiliaAceroMaterial2ID { get; set; }
+        public decimal Diametro { get; set; }
+        public int TipoCorte1ID { get; set; }
+        public int TipoCorte2ID { get; set; }
+        public decimal Cantidad { get; set; }
     }
 }
