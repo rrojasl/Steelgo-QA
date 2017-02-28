@@ -14,6 +14,7 @@ function inicio() {
     SuscribirEventos();
     AjaxProyecto();
     AjaxTipoSalida();
+    //AjaxTipoCorte();
     //AjaxFuente();
     //AjaxTurno();
 }
@@ -128,7 +129,7 @@ function CargarGridDynamic(posicion) {
             { field: "TipoSalida", title: 'Tipo de Salida', filterable: getGridFilterableCellMaftec(), filterable: false, width: "130px", editor: RenderTipoSalida, attributes: { style: "text-align:right;" } },
             { field: "DetalleMaterialSpoolID", title: 'Etiqueta', filterable: getGridFilterableCellMaftec(), filterable: false, width: "100px", attributes: { style: "text-align:right;" }, editor: RenderMateriales, template: "<div class='EnlacePorPlaca' style='text-align:center;'><a href='\\#'  > <span>#=DetalleMaterialSpoolID#</span></a></div> " },
             { field: "DetalleMaterialSpool", title: 'Material', filterable: getGridFilterableCellMaftec(), filterable: false, width: "100px", attributes: { style: "text-align:right;" }, editor: RenderMateriales/*, template: "<div class='EnlacePorPlaca' style='text-align:center;'><a href='\\#'  > <span>#=Material#</span></a></div> "*/ },
-            { field: "SpoolItemCode", title: 'Spool-IC', filterable: getGridFilterableCellMaftec(), filterable: false, width: "130px", editor: RenderSpool_IC, attributes: { style: "text-align:right;" } },
+            { field: "SpoolItemCode", title: 'Spool-IC', filterable: getGridFilterableCellMaftec(), filterable: false, width: "180px", editor: RenderSpool_IC, attributes: { style: "text-align:right;" } },
             { field: "DetalleJuntaSpool", title: 'Juntas', filterable: getGridFilterableCellMaftec(), filterable: false, width: "90px", editor: RenderJunta, attributes: { style: "text-align:right;" } },
             { field: "TipoJunta", title: 'TipoJunta', filterable: getGridFilterableCellMaftec(), filterable: false, width: "100px", attributes: { style: "text-align:right;" } },
             { field: "Cedula", title: 'Cedula', filterable: getGridFilterableCellMaftec(), filterable: false, width: "100px", attributes: { style: "text-align:right;" } },
@@ -1010,11 +1011,11 @@ function CargarGridPopUpDetallePorPlaca() {
         selectable: true,
         filterable: getGridFilterableMaftec(),
         columns: [
-          { field: "Etiqueta", title: 'ETIQUETA', filterable: false, width: "30px", template: "<div class='EnlacePorPlaca' style='text-align:center;' onmouseover='ICSelect = \"#=ItemCodeID#\";'><span>#=Etiqueta#</span></div> " },
-          { field: "Diametro1", title: 'DIAMETRO 1', filterable: false, /*editor: comboBoxResultadoDetallePlaca,*/ width: "30px", template: "<div class='EnlacePorPlaca' style='text-align:center;' onmouseover='ICSelect = \"#=ItemCodeID#\";'><span>#=Diametro1#</span></div> " },
-          { field: "Diametro2", title: 'DIAMETRO 2', filterable: false, /*editor: comboBoxResultadoDetallePlaca,*/ width: "30px", template: "<div class='EnlacePorPlaca' style='text-align:center;' onmouseover='ICSelect = \"#=ItemCodeID#\";'><span>#=Diametro2#</span></div> " },
-          { field: "ItemCodeID", title: 'ITEM CODE', filterable: false, width: "30px"/*, editor: RenderMaterialesPopup*/, template: "<div class='EnlacePorPlaca' style='text-align:center;' onmouseover='ICSelect = \"#=ItemCodeID#\";'><span>#=ItemCodeID#</span></div> " },
-          { field: "DescripcionMaterial", title: 'DESCRIPCION', filterable: false, width: "90px", template: "<div class='EnlacePorPlaca' style='text-align:center;' onmouseover='ICSelect = \"#=ItemCodeID#\";'><span>#=DescripcionMaterial#</span></div> " }
+          { field: "Etiqueta", title: 'ETIQUETA', filterable: false, width: "30px", template: "<div class='EnlacePorPlaca' style='text-align:center;' onmouseover='ICSelect = \"#=Codigo#\";'><span>#=Etiqueta#</span></div> " },
+          { field: "Diametro1", title: 'DIAMETRO 1', filterable: false, /*editor: comboBoxResultadoDetallePlaca,*/ width: "30px", template: "<div class='EnlacePorPlaca' style='text-align:center;' onmouseover='ICSelect = \"#=Codigo#\";'><span>#=Diametro1#</span></div> " },
+          { field: "Diametro2", title: 'DIAMETRO 2', filterable: false, /*editor: comboBoxResultadoDetallePlaca,*/ width: "30px", template: "<div class='EnlacePorPlaca' style='text-align:center;' onmouseover='ICSelect = \"#=Codigo#\";'><span>#=Diametro2#</span></div> " },
+          { field: "Codigo", title: 'ITEM CODE', filterable: false, width: "30px"/*, editor: RenderMaterialesPopup*/, template: "<div class='EnlacePorPlaca' style='text-align:center;' onmouseover='ICSelect = \"#=Codigo#\";'><span>#=Codigo#</span></div> " },
+          { field: "DescripcionMaterial", title: 'DESCRIPCION', filterable: false, width: "90px", template: "<div class='EnlacePorPlaca' style='text-align:center;' onmouseover='ICSelect = \"#=Codigo#\";'><span>#=DescripcionMaterial#</span></div> " }
         ],
         editable: true,
         //toolbar: [{ name: "cancel" }],

@@ -3,6 +3,7 @@
 var currentSpoolMaster = null;
 
 var currentTipoSalidaArray = [];
+var currentTipoCorteArray = [];
 //var currentListaSpools = [];
 
 //Ingenieria_Loop
@@ -62,7 +63,7 @@ function addNewDetalleSalida(spoolID, nombreSpool) {
 }
 
 //Ingenieria_Salidas_Agrupado
-function addNewDetalleSalidaAgrupado(spoolID, salidasEstandar, salidasJuntasCerradas, detalleMaterialesSpool, detalleListadoSpool, listadoJuntaSpool) {
+function addNewDetalleSalidaAgrupado(spoolID, salidasEstandar, salidasJuntasCerradas, detalleMaterialesSpool, detalleListadoSpool, detalleListadoSoporte, detalleListadoItemCode, listadoJuntaSpool) {
     for (var i = 0; i < currentSpoolMaster.DetalleSalidas.length; i++) {
         if (currentSpoolMaster.DetalleSalidas[i].SpoolID == spoolID) {
             for (var j = 0; j < salidasEstandar; j++) {
@@ -74,13 +75,15 @@ function addNewDetalleSalidaAgrupado(spoolID, salidasEstandar, salidasJuntasCerr
                     ClaveSalida: 'S' + (j+1),
                     TipoSalidaID: 0,
                     TipoSalida: '',
-                    TipoSalidaLista: currentTipoSalidaArray,
+                    TipoSalidaLista: currentTipoSalidaArray,//Tipo de Salida
                     DetalleMaterialSpoolID: 0,
                     DetalleMaterialSpool: '',
-                    DetalleMaterialSpoolLista: detalleMaterialesSpool,
+                    DetalleMaterialSpoolLista: detalleMaterialesSpool,//Grid de materiales
                     SpoolItemCodeID: 0,
                     SpoolItemCode: '',
-                    SpoolItemCodeLista: detalleListadoSpool,
+                    SpoolItemCodeLista: detalleListadoSpool,//Tipo Spool
+                    SpoolItemCodeListaSoporte: detalleListadoSoporte,//Tipo Soporte
+                    ItemCodeLista: detalleListadoItemCode,//Tipo Item Code
                     ItemCodeSelect: '',
                     DetalleJuntaSpoolID: 0,
                     DetalleJuntaSpool: '',
@@ -125,7 +128,9 @@ function addNewDetalleSalidaAgrupado(spoolID, salidasEstandar, salidasJuntasCerr
                     DetalleMaterialSpoolLista: detalleMaterialesSpool,
                     SpoolItemCodeID: 0,
                     SpoolItemCode: '',
-                    SpoolItemCodeLista: detalleListadoSpool,
+                    SpoolItemCodeLista: detalleListadoSpool,//Tipo Spool
+                    SpoolItemCodeListaSoporte: detalleListadoSoporte,//Tipo Soporte
+                    ItemCodeLista: detalleListadoItemCode,//Tipo Item Code
                     ItemCodeSelect: '',
                     DetalleJuntaSpoolID: 0,
                     DetalleJuntaSpool: '',
@@ -146,10 +151,10 @@ function addNewDetalleSalidaAgrupado(spoolID, salidasEstandar, salidasJuntasCerr
 
                     TipoCorte1ID: 0,
                     TipoCorte1: '',
-                    TipoCorte1Lista: [],
+                    TipoCorte1Lista: currentTipoCorteArray,
                     TipoCorte2ID: 0,
                     TipoCorte2: '',
-                    TipoCorte2Lista: [],
+                    TipoCorte2Lista: currentTipoCorteArray,
                     Cantidad: 0.0
 
                 };

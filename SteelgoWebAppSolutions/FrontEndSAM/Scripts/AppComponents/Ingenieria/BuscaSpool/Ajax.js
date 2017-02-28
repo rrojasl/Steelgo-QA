@@ -19,6 +19,26 @@ function AjaxTipoSalida() {
 
 }
 
+function AjaxTipoCorte() {
+
+
+    //loadingStart();
+    //console.log($CapturaReporteRT);
+    $BuscaSpool.BuscaSpool.read({ tkn: Cookies.get("token") }).done(function (data) {
+        //$Proyectos.Proyectos.read({ token: Cookies.get("token") }).done(function (data) {
+        if (Error(data)) {
+            currentTipoCorteArray = data;
+            //$("#inputProyecto").data("kendoComboBox").value("");
+            //$("#inputProyecto").data("kendoComboBox").dataSource.data(data);
+
+        }
+        //loadingStop();
+    });
+
+
+
+}
+
 function AjaxDetalleSpoolXNombre(posicion, proyectoID, nombreSpool) {
     loadingStart();
     //console.log($CapturaReporteRT);
@@ -101,14 +121,47 @@ function AjaxListadoSpool(posicion, proyectoID, spoolID, detalleMaterialesSpool)
     $BuscaSpool.BuscaSpool.read({ token: Cookies.get("token"), ProyectoID: Proyecto.ProyectoSpoolID, SpoolContiene: currentSpoolMaster.DetalleSalidas[posicion].NombreSpool.substring(0, 5) }).done(function (data) {
         if (Error(data)) {
 
-            AjaxListadoJuntaSpool(posicion, proyectoID, spoolID, detalleMaterialesSpool, data);
+            //AjaxListadoJuntaSpool(posicion, proyectoID, spoolID, detalleMaterialesSpool, data);
+            AjaxListadoSoportes(posicion, proyectoID, spoolID, detalleMaterialesSpool, data);
         }
         loadingStop();
     });
 
 }
 
-function AjaxListadoJuntaSpool(posicion, proyectoID, spoolID, detalleMaterialesSpool, detalleListadoSpool) {
+function AjaxListadoSoportes(posicion, proyectoID, spoolID, detalleMaterialesSpool, detalleListadoSpool) {
+    loadingStart();
+
+    var Proyecto = $("#inputProyecto").data("kendoComboBox").dataItem($("#inputProyecto").data("kendoComboBox").select());
+
+    $BuscaSpool.BuscaSpool.read({ token: Cookies.get("token"), ProyectoID: Proyecto.ProyectoSoporteID, SpoolContiene: currentSpoolMaster.DetalleSalidas[posicion].NombreSpool.substring(0, 5) }).done(function (data) {
+        if (Error(data)) {
+
+            //AjaxListadoJuntaSpool(posicion, proyectoID, spoolID, detalleMaterialesSpool, detalleListadoSpool, data);
+            AjaxListadoItemCode(posicion, proyectoID, spoolID, detalleMaterialesSpool, detalleListadoSpool, data);
+        }
+        loadingStop();
+    });
+
+}
+
+function AjaxListadoItemCode(posicion, proyectoID, spoolID, detalleMaterialesSpool, detalleListadoSpool, detalleListadoSoportes) {
+    loadingStart();
+
+    var Proyecto = $("#inputProyecto").data("kendoComboBox").dataItem($("#inputProyecto").data("kendoComboBox").select());
+
+    //$BuscaSpool.BuscaSpool.read({ token: Cookies.get("token"), ProyectoID: Proyecto.ProyectoSpoolID, SpoolContiene: currentSpoolMaster.DetalleSalidas[posicion].NombreSpool.substring(0, 5) }).done(function (data) {
+    $BuscaSpool.BuscaSpool.read({ token: Cookies.get("token"), Spool: spoolID }).done(function (data) {
+        if (Error(data)) {
+
+            AjaxListadoJuntaSpool(posicion, proyectoID, spoolID, detalleMaterialesSpool, detalleListadoSpool, detalleListadoSoportes, data);
+        }
+        loadingStop();
+    });
+
+}
+
+function AjaxListadoJuntaSpool(posicion, proyectoID, spoolID, detalleMaterialesSpool, detalleListadoSpool, detalleListadoSoportes, detalleListadoItemCodes) {
 
 
     loadingStart();
@@ -119,7 +172,7 @@ function AjaxListadoJuntaSpool(posicion, proyectoID, spoolID, detalleMaterialesS
             var salidas = $("#inputSalidas_" + posicion).data("kendoNumericTextBox").value();
             var salidasJuntasCerradas = $("#inputJuntasCerradas_" + posicion).data("kendoNumericTextBox").value();
 
-            addNewDetalleSalidaAgrupado(currentSpoolMaster.DetalleSalidas[posicion].SpoolID, salidas, salidasJuntasCerradas, detalleMaterialesSpool, detalleListadoSpool, data);
+            addNewDetalleSalidaAgrupado(currentSpoolMaster.DetalleSalidas[posicion].SpoolID, salidas, salidasJuntasCerradas, detalleMaterialesSpool, detalleListadoSpool, detalleListadoSoportes, detalleListadoItemCodes, data);
 
             RenderGridRowsDynamic();
         }

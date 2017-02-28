@@ -120,27 +120,32 @@ function RenderJunta(container, options) {
 }
 
 var dataItemAterior;
+var spoolIDSelectGridIC = 0;
+//function RenderMateriales(container, options) {
+//    idSelect = options.model.ClaveSalida;
+//    spoolIDSelectMateriales = options.model.SpoolID;
 function RenderSpool_IC(container, options) {
     
     var tipoSalidaARenderear = '';
     dataItemAterior = { SpoolItemCodeID: options.model.SpoolItemCodeID, SpoolItemCode: options.model.SpoolItemCode };
-    if (options.model.TipoSalida == "Item Code Demo") {
-
-        $('<div name=' + options.model.NumeroSalida + '' + options.model.TipoSalidaSelect + '/>')
+    if (options.model.TipoSalidaID == 2) {
+        spoolIDSelectGridIC = options.model.SpoolID;
+        idSelect = options.model.ClaveSalida;
+        $('<div name=' + options.model.SpoolID + '' + options.model.Nombre + '/>')
         .appendTo(container)
         .kendoGrid({
 
         dataSource: {
           // batch: true,
-          data: options.model.ListaDetalleItemCode,
+          data: options.model.ItemCodeLista,
           schema: {
               model: {
                   fields: {
 
-                      ItemCode: { type: "string", editable: false },
-                      D1: { type: "string", editable: false },
-                      D2: { type: "string", editable: false },
-                      Descipcion: { type: "string", editable: false }
+                      ItemCodeID: { type: "string", editable: false },
+                      Diametro1: { type: "string", editable: false },
+                      Diametro2: { type: "string", editable: false },
+                      DescripcionMaterial: { type: "string", editable: false }
                   }
               }
           }, filter: {
@@ -179,10 +184,10 @@ function RenderSpool_IC(container, options) {
 
       },
       columns: [
-      { field: "ItemCode", title: 'IC'/*, editor: RenderComboBoxTrabajoAdicional*/, filterable: false, width: "30px" },
-      { field: "D1", title: 'D1', filterable: false, width: "30px" },
-      { field: "D2", title: 'D2', filterable: false, width: "30px" },
-      { field: "Descipcion", title: 'Desc', filterable: false, width: "30px" }
+      { field: "ItemCodeID", title: 'IC'/*, editor: RenderComboBoxTrabajoAdicional*/, filterable: false, width: "40px", template: "<div class='EnlacePorPlaca' style='text-align:center;' onmouseover='ICSelect = \"#=ItemCodeID#\";'><span>#=ItemCodeID#</span></div> " },
+      { field: "Diametro1", title: 'D1', filterable: false, width: "30px", template: "<div class='EnlacePorPlaca' style='text-align:center;' onmouseover='ICSelect = \"#=ItemCodeID#\";'><span>#=Diametro1#</span></div> " },
+      { field: "Diametro2", title: 'D2', filterable: false, width: "30px", template: "<div class='EnlacePorPlaca' style='text-align:center;' onmouseover='ICSelect = \"#=ItemCodeID#\";'><span>#=Diametro2#</span></div> " },
+      { field: "DescipcionMaterial", title: 'Desc', filterable: false, width: "60px", template: "<div class='EnlacePorPlaca' style='text-align:center;' onmouseover='ICSelect = \"#=ItemCodeID#\";'><span>#=DescripcionMaterial#</span></div> " }
       //,
       //{
       //    command: {
@@ -234,7 +239,66 @@ function RenderSpool_IC(container, options) {
       },
       editable: true,
       navigatable: true,
-      //toolbar: [{ name: "create" }]
+            //toolbar: [{ name: "create" }]
+      dataBound: function (a) {
+          var that = this;
+          $(that.tbody).on("dblclick", "tr", function (e) {
+              //var rowData = that.dataItem(this);
+              //var url = "@Url.Action("Index", "Home")/" + rowData.OrderID;
+
+              //window.location.href = url;
+              //alert('xD');
+
+              for (var i = 0; i < currentSpoolMaster.DetalleSalidas.length; i++) {
+                  if (currentSpoolMaster.DetalleSalidas[i].SpoolID == spoolIDSelectGridIC) {
+
+                      for (var j = 0; j < currentSpoolMaster.DetalleSalidas[i].SalidasEstandar.length; j++) {
+                          if (currentSpoolMaster.DetalleSalidas[i].SalidasEstandar[j].ClaveSalida == idSelect) {
+                              currentSpoolMaster.DetalleSalidas[i].SalidasEstandar[j].SpoolItemCodeID = ICSelect;
+                              currentSpoolMaster.DetalleSalidas[i].SalidasEstandar[j].SpoolItemCode = ICSelect;
+
+                              $("#grid_" + currentSpoolMaster.DetalleSalidas[i].Posicion).data("kendoGrid").dataSource._data[j].SpoolItemCodeID = ICSelect;//EtiquetaSelect;
+                              $("#grid_" + currentSpoolMaster.DetalleSalidas[i].Posicion).data("kendoGrid").dataSource._data[j].SpoolItemCode = ICSelect;//$("#gridPopUp").data("kendoGrid").dataSource._data.length;
+                              $("#grid_" + currentSpoolMaster.DetalleSalidas[i].Posicion).data("kendoGrid").refresh();
+                              break;
+                          }
+                      }
+
+                      for (var j = 0; j < currentSpoolMaster.DetalleSalidas[i].SalidasJuntasCerradas.length; j++) {
+                          if (currentSpoolMaster.DetalleSalidas[i].SalidasJuntasCerradas[j].ClaveSalida == idSelect) {
+
+                              currentSpoolMaster.DetalleSalidas[i].SalidasJuntasCerradas[j].SpoolItemCodeID = ICSelect;
+                              currentSpoolMaster.DetalleSalidas[i].SalidasJuntasCerradas[j].SpoolItemCode = ICSelect;
+
+                              $("#grid_" + currentSpoolMaster.DetalleSalidas[i].Posicion).data("kendoGrid").dataSource._data[j + currentSpoolMaster.DetalleSalidas[i].SalidasEstandar.length].SpoolItemCodeID = ICSelect;//EtiquetaSelect;
+                              $("#grid_" + currentSpoolMaster.DetalleSalidas[i].Posicion).data("kendoGrid").dataSource._data[j + currentSpoolMaster.DetalleSalidas[i].SalidasEstandar.length].SpoolItemCode = ICSelect;//$("#gridPopUp").data("kendoGrid").dataSource._data.length;
+                              $("#grid_" + currentSpoolMaster.DetalleSalidas[i].Posicion).data("kendoGrid").refresh();
+                              break;
+                          }
+                      }
+                  }
+              }
+
+
+              //var window = $("#windowGrid");
+
+              //$("#windowGrid").data("kendoWindow").close();
+          });
+
+          //$(that.tbody).on("contextmenu", "tr", function (e) {
+
+          //    alert('xD');
+
+
+          //});
+
+          //$(that.tbody).on("click", "th", function (e) {
+          //    var rowData = that.dataItem(this);
+          //    //var url = "@Url.Action("Index", "Home")/" + rowData.OrderID;
+
+          //    //window.location.href = url;
+          //});
+      }
   });
 
 
@@ -246,7 +310,7 @@ function RenderSpool_IC(container, options) {
             autoBind: false,
             dataTextField: "Nombre",
             dataValueField: "SpoolID",
-            dataSource: options.model.SpoolItemCodeLista,
+            dataSource: ((options.model.TipoSalidaID == 1) ? (options.model.SpoolItemCodeLista) : (options.model.SpoolItemCodeListaSoporte)),
             //template: "<i class=\"fa fa-#=data.Nombre#\"></i> #=data.Nombre#",
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
@@ -298,6 +362,13 @@ function RenderSpool_IC(container, options) {
 
                     //reloadControls();
                 }
+
+                if ((options.model.SpoolItemCode == 'Tubo') && (options.model.TipoSalidaID == 'Item Code')) {
+                    $("#grid").data("kendoGrid").showColumn(11);
+                    $("#grid").data("kendoGrid").showColumn(12);
+                    $("#grid").data("kendoGrid").showColumn(13);
+                }
+
                 //options.model.JuntaID = dataItem.JuntaID;
                 //options.model.Junta = dataItem.Junta;
 
