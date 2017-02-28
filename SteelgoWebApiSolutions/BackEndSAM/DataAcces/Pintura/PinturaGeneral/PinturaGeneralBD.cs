@@ -142,6 +142,45 @@ namespace BackEndSAM.DataAcces.Pintura.PinturaGeneral
             }
         }
 
+        public object ObtenerSpoolConSP(int proyectoID,string dato,int tipoBusqueda,string lenguaje)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<PinturaRevision> listaRevisionSpool = new List<PinturaRevision>();
+                    List<Sam3_Pintura_Get_Revision_Result> result = ctx.Sam3_Pintura_Get_Revision(proyectoID, dato, tipoBusqueda, lenguaje).ToList();
+
+                    listaRevisionSpool.Add(new PinturaRevision());
+                    foreach (Sam3_Pintura_Get_Revision_Result item in result)
+                    {
+                        listaRevisionSpool.Add(new PinturaRevision
+                        {
+                            Accion = item.GenerarRevision == 0 ? 1 : 2,
+                            SpoolID = item.SpoolID,
+                            NumeroControl = item.NumeroControl,
+                            SistemaPintura = item.SistemaPintura,
+                            Color = item.Color,
+                            Area =item.Area,
+                            GenerarRevision = item.GenerarRevision,
+                            Comentario =item.Comentario,
+                            Version=item.Version
+                        });
+                    }
+                    return listaRevisionSpool;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
 
         public object GuardarImagenSerializa(string imgSerializada)
         {
@@ -168,11 +207,6 @@ namespace BackEndSAM.DataAcces.Pintura.PinturaGeneral
                         throw new Exception(e.Message);
                     }
                 }
-
-
-
-                
-                return "ok";
             }
             catch (Exception ex)
             {

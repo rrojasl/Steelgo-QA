@@ -53,4 +53,30 @@ namespace BackEndSAM.Models.Pintura.PinturaGeneral
     {
         public string imgSerializada { get; set; }
     }
+
+    public class PinturaRevision
+    {
+        public string SpoolID { get; set; }
+        public string NumeroControl { get; set; }
+        public string SistemaPintura { get; set; }
+        public string Color { get; set; }
+        public string Area { get; set; }
+        public bool GenerarRevision { get; set; }
+        public string Comentario { get; set; }
+        public int Version { get; set; }
+
+        public int Accion { get; set; }
+        public PinturaRevision()
+        {
+            this.Accion = 0;
+            this.SpoolID = "";
+            this.NumeroControl = "";
+            this.SistemaPintura = "";
+            this.Color = "";
+            this.Area = "";
+            this.GenerarRevision = false;
+            this.Comentario = "";
+            this.Version = 0;
+        }
+    }
 }
