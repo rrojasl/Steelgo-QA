@@ -12426,4 +12426,32 @@ _dictionary = {
         "en-US": "Jnt"
     },
     //#endregion
+    //#region Inicia modulo RevisionPintura
+    "PinturaRevisionBreadcrumb": {
+        "es-MX": "Revison de pintura",
+        "en-US": "Paint revision"
+    },
+    "columnArea": {
+        "es-MX": "M2",
+        "en-US": "Area"
+    },
+    "columnRevision": {
+        "es-MX": "Generar Revision",
+        "en-US": "Create Revision"
+    },
+    "columnComentario": {
+        "es-MX": "Comentario",
+        "en-US": "Comment"
+    },
+    "columnVersion": {
+        "es-MX": "Version",
+        "en-US": "Version"
+    },
+    "RevisionPinturaHeader": {
+        "es-MX": "Revision Pintura",
+        "en-US": "Painting Revision"
+    }
+    
+    
+    //#endregion
 };

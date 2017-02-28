@@ -71,5 +71,10 @@ namespace FrontEndSAM.Controllers.Pintura
         {
             return View();
         }
+
+        public ActionResult RevisionPintura()
+        {
+            return View();
+        }
     }
 }
