@@ -51,14 +51,14 @@ function AjaxDetalleSpoolXNombre(posicion, proyectoID, nombreSpool) {
                 currentSpoolMaster.DetalleSalidas[posicion].RevisionSteelgo = data.RevisionSteelgo;
                 currentSpoolMaster.DetalleSalidas[posicion].Especificacion = data.Especificacion;
                 currentSpoolMaster.DetalleSalidas[posicion].FamiliarAcero1ID = data.FamiliarAcero1ID;
-                currentSpoolMaster.DetalleSalidas[posicion].Acero = data.Acero;
+                currentSpoolMaster.DetalleSalidas[posicion].Acero1 = data.Acero1;
                 currentSpoolMaster.DetalleSalidas[posicion].FamiliarAcero2ID = data.FamiliarAcero2ID;
                 currentSpoolMaster.DetalleSalidas[posicion].Acero2 = data.Acero2;
                 currentSpoolMaster.DetalleSalidas[posicion].SistemaPintura = data.SistemaPintura;
                 currentSpoolMaster.DetalleSalidas[posicion].ColorPintura = data.ColorPintura;
 
-                if (!(currentSpoolMaster.Acero.indexOf(data.Acero) !== -1)) {
-                    currentSpoolMaster.Acero += data.Acero + '/';
+                if (!(currentSpoolMaster.Acero1.indexOf(data.Acero1) !== -1)) {
+                    currentSpoolMaster.Acero1 += data.Acero1 + '/';
                 }
                 if (data.FamiliarAcero2ID != null) {
                     if (!(currentSpoolMaster.Acero2.indexOf(data.Acero2) !== -1)) {
@@ -399,7 +399,7 @@ function AjaxGuardarCaptura() {
                 Posicion: currentSpoolMaster.DetalleSalidas[i].Posicion,//Falta en base
                 RevisionSteelgo: currentSpoolMaster.DetalleSalidas[i].RevisionSteelgo,
                 RevisionCliente: currentSpoolMaster.DetalleSalidas[i].RevisionCliente,
-                Acero: currentSpoolMaster.DetalleSalidas[i].Acero,//No se que poner
+                Acero: currentSpoolMaster.DetalleSalidas[i].Acero1,//No se que poner
                 Especificacion: currentSpoolMaster.DetalleSalidas[i].Especificacion,
                 PDI: currentSpoolMaster.DetalleSalidas[i].PDI,
                 SistemaPintura: currentSpoolMaster.DetalleSalidas[i].SistemaPintura,

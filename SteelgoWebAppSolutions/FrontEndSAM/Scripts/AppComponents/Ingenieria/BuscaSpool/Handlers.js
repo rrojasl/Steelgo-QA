@@ -19,7 +19,7 @@ function initSpoolMaster() {
         RequierePWHT: false,
         RevisionCliente: 0,
         RevisionSteelgo: 'A1',
-        Acero: '',
+        Acero1: '',
         Acero2: '',
         Especificacion: '',
         PDI: 0.0,
@@ -49,7 +49,7 @@ function addNewDetalleSalida(spoolID, nombreSpool) {
         ColorPintura: '',
 
         FamiliarAcero1ID: 0,
-        Acero: '',
+        Acero1: '',
         FamiliarAcero2ID: 0,
         Acero2: '',
         Especificacion: '',
@@ -339,7 +339,7 @@ function reCalculaReglas() {
 
     $("#labelRevisionCliente2").text("" + currentSpoolMaster.RevisionCliente);
     $("#labelRevision2").text(currentSpoolMaster.RevisionSteelgo);
-    $("#labelAcero2").text(currentSpoolMaster.Acero);
+    $("#labelAcero2").text(currentSpoolMaster.Acero1);
     $("#labelAcero4").text(currentSpoolMaster.Acero2);
     $("#labelEspecificacion2").text(currentSpoolMaster.Especificacion);
     $("#labelPDI2").text(currentSpoolMaster.PDI);
@@ -399,7 +399,8 @@ function nombreLoop() {
         animation: {
             close: false,
             open: false
-        }
+        },
+        action:[]
     }).data("kendoWindow");
 
     ventanaConfirm.content("<label>Nombre del Loop: </label>" + "<input type='text' style='width:120px' value='Escribe un nombre'/>" +

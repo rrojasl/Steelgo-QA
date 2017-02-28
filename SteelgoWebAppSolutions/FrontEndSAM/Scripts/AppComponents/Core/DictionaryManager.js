@@ -12450,8 +12450,16 @@ _dictionary = {
     "RevisionPinturaHeader": {
         "es-MX": "Revision Pintura",
         "en-US": "Painting Revision"
+    },
+    //Inicia Modulo Ingenieria
+    "IngenieriaBreadcrumb": {
+        "es-MX": "Ingenieria",
+        "en-US": "Engineering"
+    },
+    "IngenieriaBuscaSpoolBreadcrumb": {
+        "es-MX": "Busca Spool",
+        "en-US": "Search Spool"
     }
-    
-    
+    //Finaliza Modulo Ingenieria
     //#endregion
 };
