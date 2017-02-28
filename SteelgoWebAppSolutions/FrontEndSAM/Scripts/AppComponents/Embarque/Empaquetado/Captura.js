@@ -1,5 +1,6 @@
 ﻿IniciarCapturaEmpaquetado();
 var FechaPaquete;
+var esNormal;
 
 function IniciarCapturaEmpaquetado() {
     SuscribirEventos();
@@ -20,6 +21,14 @@ function changeLanguageCall() {
 function CargarGrid() {
     $("#grid").kendoGrid({
         autoBind: true,
+        edit: function (e) {
+            if ($(".k-grid-content td").css("white-space") == "normal") {
+                esNormal = true;
+            }
+            else {
+                esNormal = false;
+            }
+        },
         dataSource: {
             data: [],
             schema: {
@@ -85,13 +94,22 @@ function CargarGrid() {
                     var editButton = $(currenRow).find(".k-button");
 
                     if (gridData[i].Accion == 2) {
-                        editButton[0].outerHTML = '<a class="k-button k-button-icontext k-grid-Descarga" href="#/"><span class=""></span>' +
+                        var classDescarga = $("#language").val() == "es-MX" ? "k-grid-Descarga" : "k-grid-Discharging";
+
+                        editButton[0].outerHTML = '<a class="k-button k-button-icontext '+classDescarga+'" href="#/"><span class=""></span>' +
                             _dictionary.botonDescarga[$("#language").data("kendoDropDownList").value()] + '</a>';
                     } else {
                         editButton[0].outerHTML = '<a class="k-button k-button-icontext k-grid-Cancelar" href="#/"><span class=""></span>' +
                             _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()] + '</a>';
                     }
                 }
+            }
+
+            if (esNormal) {
+                $(".k-grid-content td").css("white-space", "normal");
+            }
+            else {
+                $(".k-grid-content td").css("white-space", "nowrap");
             }
         }
     });

@@ -1,6 +1,7 @@
 ﻿IniciarListadoEmbarqueEnviados();
 var FechaInicio;
 var FechaFin;
+var esNormal;
 
 function IniciarListadoEmbarqueEnviados() {
     SuscribirEventos();
@@ -26,6 +27,14 @@ function changeLanguageCall() {
 function CargarGrid() {
     $("#grid").kendoGrid({
         autoBind: true,
+        edit: function (e) {
+            if ($(".k-grid-content td").css("white-space") == "normal") {
+                esNormal = true;
+            }
+            else {
+                esNormal = false;
+            }
+        },
         dataSource: {
             schema: {
                 model: {
@@ -102,7 +111,15 @@ function CargarGrid() {
                     dataSource: [{ OkEmbarque: true }, { OkEmbarque: false }]
                 }, template: '<input type="checkbox" class="chk-OkEmbarque" #= OkEmbarque ? "checked=checked" : "" # class="chkbx" disabled></input>', width: "150px", attributes: { style: "text-align:center;" }
             }
-        ]
+        ],
+        dataBound: function (e) {
+            if (esNormal) {
+                $(".k-grid-content td").css("white-space", "normal");
+            }
+            else {
+                $(".k-grid-content td").css("white-space", "nowrap");
+            }
+        }
     });
     CustomisaGrid($("#grid"));
 };

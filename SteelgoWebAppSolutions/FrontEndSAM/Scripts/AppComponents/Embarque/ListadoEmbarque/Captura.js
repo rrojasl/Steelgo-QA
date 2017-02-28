@@ -1,4 +1,5 @@
-﻿IniciarListadoEmbarque();
+﻿var esNormal;
+IniciarListadoEmbarque();
 
 function IniciarListadoEmbarque() {
     SuscribirEventos();
@@ -63,6 +64,13 @@ function CargarGrid() {
 
             if ($('#Guardar').text() == _dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]) {
                 this.closeCell();
+            }
+
+            if ($(".k-grid-content td").css("white-space") == "normal") {
+                esNormal = true;
+            }
+            else {
+                esNormal = false;
             }
         },
         dataSource: {
@@ -162,6 +170,14 @@ function CargarGrid() {
                    _dictionary.botonEnviar[$("#language").data("kendoDropDownList").value()] + "</span></button></center>", width: "115px"
             },
         ],
+        dataBound: function (e) {
+            if (esNormal) {
+                $(".k-grid-content td").css("white-space", "normal");
+            }
+            else {
+                $(".k-grid-content td").css("white-space", "nowrap");
+            }
+        },
         beforeEdit: function (e) {
             var columnIndex = this.cellIndex(e.container);
             var fieldName = this.thead.find("th").eq(columnIndex).data("field");

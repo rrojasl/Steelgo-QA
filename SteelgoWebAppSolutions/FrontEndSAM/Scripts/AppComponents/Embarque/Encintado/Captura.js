@@ -1,4 +1,5 @@
-﻿IniciarEtiquetado();
+﻿var esNormal;
+IniciarEtiquetado();
 function IniciarEtiquetado() {
     SuscribirEventos();
 }
@@ -49,7 +50,12 @@ function CargarGrid() {
             if ($('#Guardar').text() == _dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]) {
                 this.closeCell();
             }
-
+            if ($(".k-grid-content td").css("white-space") == "normal") {
+                esNormal = true;
+            }
+            else {
+                esNormal = false;
+            }
         },
         dataSource: {
             schema: {
@@ -153,25 +159,27 @@ function CargarGrid() {
             }
         },
         dataBound: function (e) {
-            var ds = $("#grid").data("kendoGrid");
-            var gridData = ds.dataSource.view();
+            var grid = $("#grid").data("kendoGrid");
+            var gridData = grid.dataSource.view();
 
-            if (gridData.length > 0) {
-                
-                for (var i = 0; i < gridData.length; i++) {
-                    var aux;
-                    var currentUid = gridData[i].uid;
-                    if (gridData[i].RowOk == false) {
-                        ds.table.find("tr[data-uid='" + currentUid + "']").css("background-color", "#ffcccc");
-                    }
-                    else if (gridData[i].RowOk) {
-                        aux = i + 1;
-                        if(aux%2 == 0)
-                            ds.table.find("tr[data-uid='" + currentUid + "']").css("background-color", "#F5F5F5");
-                        else
-                            ds.table.find("tr[data-uid='" + currentUid + "']").css("background-color", "#FFFFFF");
-                    }
+            for (var i = 0; i < gridData.length; i++) {
+                var currentUid = gridData[i].uid;
+                if (gridData[i].RowOk == false) {
+                    grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("k-alt");
+                    grid.table.find("tr[data-uid='" + currentUid + "']").addClass("kRowError");
                 }
+                else if (gridData[i].RowOk) {
+                    grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("kRowError");
+                    if (i % 2 == 0)
+                        grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("k-alt");
+                }
+            }
+
+            if (esNormal) {
+                $(".k-grid-content td").css("white-space", "normal");
+            }
+            else {
+                $(".k-grid-content td").css("white-space", "nowrap");
             }
         }
     });    

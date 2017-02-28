@@ -6,20 +6,14 @@ function AjaxCargarCamposPredeterminados() {
     $CamposPredeterminados.CamposPredeterminados.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), id: TipoMuestraPredeterminadoID }).done(function (data) {
         
             if (data == "Spool") {
-                $('input:radio[name=EmbarqueCargaTipoSeleccion]:nth(0)').attr('checked', true);
-                $('input:radio[name=EmbarqueCargaTipoSeleccion]:nth(1)').attr('checked', false);
-                $('input:radio[name=EmbarqueCargaTipoSeleccion]:nth(2)').attr('checked', false);
+                $('input:radio[name=EmbarqueCargaTipoSeleccion]:nth(0)').trigger("click");
 
             }
             else if (data == "Paquete") {
-                $('input:radio[name=EmbarqueCargaTipoSeleccion]:nth(0)').attr('checked', false);
-                $('input:radio[name=EmbarqueCargaTipoSeleccion]:nth(1)').attr('checked', true);
-                $('input:radio[name=EmbarqueCargaTipoSeleccion]:nth(2)').attr('checked', false);
+                $('input:radio[name=EmbarqueCargaTipoSeleccion]:nth(1)').trigger("click");
             }
             else if (data == "Codigo") {
-                $('input:radio[name=EmbarqueCargaTipoSeleccion]:nth(0)').attr('checked', false);
-                $('input:radio[name=EmbarqueCargaTipoSeleccion]:nth(1)').attr('checked', false);
-                $('input:radio[name=EmbarqueCargaTipoSeleccion]:nth(2)').attr('checked', true);
+                $('input:radio[name=EmbarqueCargaTipoSeleccion]:nth(2)').trigger("click");
             }
         loadingStop();
     });
@@ -223,21 +217,18 @@ function AjaxAgregarCarga() {
     }
 }
 
-function AjaxAgregarPaquete() {
+function AjaxAgregarPaquete(Paquete) {
     if (!$("#inputCerrar").is(":checked")) {
-        var peso = 0;
         if ($("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").text() != '' && $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").value() != undefined) {
             loadingStart();
-            $CargaPlana.CargaPlana.read({ token: Cookies.get("token"), PaqueteID: $("#inputPaquete").val(), lenguaje: $("#language").val() }).done(function (data) {
+            $CargaPlana.CargaPlana.read({ token: Cookies.get("token"), PaqueteID: Paquete.PaqueteID, lenguaje: $("#language").val() }).done(function (data) {
                 if (data.length > 0) {
                     var ds = $("#grid").data("kendoGrid").dataSource;
 
                     var array = data;
-                    if (array[0].Cargado != 1 ) {
+                    if (array[0].Cargado != 1) {
                         for (var i = 0; i < array.length; i++) {
-                            if (!ExisteSpool(array[i])) {
-                                ds.insert(0, array[i]);
-                            }
+                            ds.insert(0, array[i]);
                         }
                     } else {
                         displayNotify('', _dictionary.EmbarqueCargaMsjErrorPaqueteCargado[$("#language").data("kendoDropDownList").value()]
@@ -285,21 +276,6 @@ function AjaxObtenerGrid() {
         displayNotify('EmarqueCargaMensajeEligePlana', '', '1');
     }
 }
-
-
-
-function ExisteSpool(row) {
-    var jsonGrid = $("#grid").data("kendoGrid").dataSource._data;
-
-    for (var i = 0; i < jsonGrid.length; i++) {
-        if (jsonGrid[i].SpoolID == row.SpoolID) {
-            return true
-        }
-    }
-    return false;
-
-}
-
 
 function AjaxCargarZona() {
     loadingStart();

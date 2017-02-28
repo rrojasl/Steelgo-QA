@@ -1,4 +1,6 @@
 ﻿var cambioAlgoGrid = false;
+var esNormal;
+
 function changeLanguageCall() {
     CargarGrid();
     AjaxCargarCamposPredeterminados();
@@ -43,6 +45,13 @@ function CargarGrid() {
 
             if ($('#Guardar').text() == _dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]) {
                 this.closeCell();
+            }
+
+            if ($(".k-grid-content td").css("white-space") == "normal") {
+                esNormal = true;
+            }
+            else {
+                esNormal = false;
             }
         },
         dataSource: {
@@ -122,7 +131,15 @@ function CargarGrid() {
                     dataSource: [{ Etiquetado: true }, { Etiquetado: false }]
                 }, template: "<input name='fullyPaid' class='chk-Etiquetado' type='checkbox' data-bind='checked: Etiquetado' #= Etiquetado ? checked='checked' : '' #/>", width: "80px", attributes: { style: "text-align:center;" }
             },
-        ]
+        ],
+        dataBound: function (e) {
+            if (esNormal) {
+                $(".k-grid-content td").css("white-space", "normal");
+            }
+            else {
+                $(".k-grid-content td").css("white-space", "nowrap");
+            }
+        }
     });
 
     $("#grid .k-grid-content").on("change", "input.chk-Etiquetado", function (e) {

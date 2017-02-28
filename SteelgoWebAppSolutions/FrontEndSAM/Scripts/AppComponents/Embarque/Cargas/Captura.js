@@ -2,6 +2,7 @@
 
 var dataItemSeleccionadoPopup;
 var EmbarquePlanaID = 0;
+var esNormal;
 
 function changeLanguageCall() {
     CargarGrid();
@@ -49,6 +50,13 @@ function CargarGrid() {
 
             if ($('#Guardar').text() == "Editar" || $('#Guardar').text() == "Edit") {
                 this.closeCell();
+            }
+
+            if ($(".k-grid-content td").css("white-space") == "normal") {
+                esNormal = true;
+            }
+            else {
+                esNormal = false;
             }
         },
         dataSource: {
@@ -111,8 +119,10 @@ function CargarGrid() {
                     var currenRow = ds.table.find("tr[data-uid='" + currentUid + "']");
                     var editButton = $(currenRow).find(".k-button");
                     if (gridData[i].Accion == 2) {
-                        editButton[0].outerHTML = '<a class="k-button k-button-icontext k-grid-Descarga" href="#/"><span class=""></span>' +
+                        var classDescarga = $("#language").val() == "es-MX" ? "k-grid-Descarga" : "k-grid-Discharging";
+                        editButton[0].outerHTML = '<a class="k-button k-button-icontext '+classDescarga+'" href="#/"><span class=""></span>' +
                             _dictionary.botonDescarga[$("#language").data("kendoDropDownList").value()] + '</a>';
+
                     } else {
                         editButton[0].outerHTML = '<a class="k-button k-button-icontext k-grid-Cancelar" href="#/"><span class=""></span>' +
                             _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()] + '</a>';
@@ -120,6 +130,12 @@ function CargarGrid() {
                 }
             }
 
+            if (esNormal) {
+                $(".k-grid-content td").css("white-space", "normal");
+            }
+            else {
+                $(".k-grid-content td").css("white-space", "nowrap");
+            }
         }
     });
     CustomisaGrid($("#grid"));
@@ -352,4 +368,27 @@ function TryParseInt(str, defaultValue) {
         }
     }
     return retValue;
+}
+
+function ExisteSpool(row) {
+    var jsonGrid = $("#grid").data("kendoGrid").dataSource._data;
+
+    for (var i = 0; i < jsonGrid.length; i++) {
+        if (jsonGrid[i].SpoolID == row.SpoolID) {
+            return true
+        }
+    }
+    return false;
+
+}
+
+function ExistePaquete(PaqueteID) {
+    var jsonGrid = $("#grid").data("kendoGrid").dataSource._data;
+
+    for (var i = 0; i < jsonGrid.length; i++) {
+        if (jsonGrid[i].PaqueteID == PaqueteID) {
+            return true
+        }
+    }
+    return false;
 }
