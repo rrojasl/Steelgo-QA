@@ -18,6 +18,32 @@ namespace BackEndSAM.Controllers.Ingenieria
     public class BuscaSpoolController: ApiController
     {
         [HttpGet]
+        public object ObtenerListadoTipoCorte(string tkn)
+        {
+            string payload = "";
+            string newToken = "";
+
+            bool tokenValido = ManageTokens.Instance.ValidateToken(tkn, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+
+                return BuscaSpoolBD.Instance.ObtieneListadoTipoCorte();
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+
+                return result;
+            }
+        }
+
+        [HttpGet]
         public object ObtenerListadoTipoSalida(string token)
         {
             string payload = "";
