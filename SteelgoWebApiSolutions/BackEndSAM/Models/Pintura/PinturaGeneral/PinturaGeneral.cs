@@ -60,10 +60,10 @@ namespace BackEndSAM.Models.Pintura.PinturaGeneral
         public string NumeroControl { get; set; }
         public string SistemaPintura { get; set; }
         public string Color { get; set; }
-        public string Area { get; set; }
-        public bool GenerarRevision { get; set; }
+        public decimal? Area { get; set; }
+        public bool? GenerarRevision { get; set; }
         public string Comentario { get; set; }
-        public int Version { get; set; }
+        public int? Version { get; set; }
 
         public int Accion { get; set; }
         public PinturaRevision()
@@ -73,7 +73,7 @@ namespace BackEndSAM.Models.Pintura.PinturaGeneral
             this.NumeroControl = "";
             this.SistemaPintura = "";
             this.Color = "";
-            this.Area = "";
+            this.Area = 0;
             this.GenerarRevision = false;
             this.Comentario = "";
             this.Version = 0;

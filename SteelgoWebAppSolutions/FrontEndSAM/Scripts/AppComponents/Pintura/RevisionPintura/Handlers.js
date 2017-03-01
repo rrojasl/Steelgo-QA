@@ -120,7 +120,7 @@ function SuscribirEventoBusqueda() {
                     tipoBusqueda = 1;
                     cadena = $("#inputSpool").val().trim();
                     //AjaxCargarNumeroElementosPorBusqueda(Proyecto.ProyectoID, tipoBusqueda, cadena);
-                    alert("busqueda realizada spool");
+                    AjaxConsultarSpoolsConSP();
                 } else {
                     displayNotify("SPAMensajeIngresaSpool", "", '1');
                 }
@@ -130,7 +130,7 @@ function SuscribirEventoBusqueda() {
                     tipoBusqueda = 2;
                     cadena = $("#inputNc").val().trim();
                     //AjaxCargarNumeroElementosPorBusqueda(Proyecto.ProyectoID, tipoBusqueda, cadena);
-                    alert("busqueda realizada numero control");
+                    AjaxConsultarSpoolsConSP();
                 } else {
                     displayNotify("SPAMensajeIngresaNc", "", '1');
                 }
@@ -147,7 +147,7 @@ function SuscribirEventoBusqueda() {
             $("#inputSpool").attr("saAttr", $("#inputSpool").val());
             if ($('#inputSpool').val() != "") {
                 // AjaxCargarNumeroElementosPorBusqueda(Proyecto.ProyectoID, 1, $('#inputSpool').val());
-                alert("busqueda realizada spool");
+                AjaxConsultarSpoolsConSP();
             } else {
                 $("#grid").data("kendoGrid").dataSource.data([]);
             }
@@ -161,7 +161,7 @@ function SuscribirEventoBusqueda() {
             $("#inputNc").attr("ncaAttr", $("#inputNc").val());
             if ($('#inputNc').val() != "") {
                 //AjaxCargarNumeroElementosPorBusqueda(Proyecto.ProyectoID, 2, $('#inputNc').val());
-                alert("busqueda realizada numero control");
+                AjaxConsultarSpoolsConSP();
             } else {
                 $("#grid").data("kendoGrid").dataSource.data([]);
             }

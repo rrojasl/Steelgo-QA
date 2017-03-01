@@ -14,6 +14,7 @@
 
 
 function AjaxCargaProyecto() {
+
     $Proyectos.Proyectos.read({ token: Cookies.get("token") }).done(function (data) {
         $("#inputProyecto").data("kendoComboBox").dataSource.data([]);
         $("#inputProyecto").data("kendoComboBox").dataSource.data(data);
@@ -32,3 +33,17 @@ function AjaxCargaProyecto() {
         $("#inputProyecto").data("kendoComboBox").trigger("change");
     });
 }
+
+function AjaxConsultarSpoolsConSP() {
+    var tipoBusquedaSeleccionada= $('input:radio[name=TipoBusqueda]:checked').val() == "spool"?1:2;
+    var datoSeleccionado = tipoBusquedaSeleccionada == 1 ? $("#inputSpool").val() : $("#inputNc").val();
+
+    $RevisionPintura.RevisionPintura.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), proyectoid: $("#inputProyecto").data("kendoComboBox").value(), dato: datoSeleccionado, tipoBusqueda: tipoBusquedaSeleccionada }).done(function (data) {
+        var array = data;
+
+        var ds = $("#grid").data("kendoGrid").dataSource;
+        for (var i = 0; i < array.length; i++) {
+            ds.insert(0, array[i]);
+        }
+    });
+};

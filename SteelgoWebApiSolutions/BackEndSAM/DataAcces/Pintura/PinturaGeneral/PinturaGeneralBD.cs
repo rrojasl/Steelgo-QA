@@ -162,7 +162,7 @@ namespace BackEndSAM.DataAcces.Pintura.PinturaGeneral
                             SistemaPintura = item.SistemaPintura,
                             Color = item.Color,
                             Area =item.Area,
-                            GenerarRevision = item.GenerarRevision,
+                            GenerarRevision = item.GenerarRevision==0?true:false,
                             Comentario =item.Comentario,
                             Version=item.Version
                         });

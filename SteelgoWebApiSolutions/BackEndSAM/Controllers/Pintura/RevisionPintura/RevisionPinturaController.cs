@@ -17,7 +17,7 @@ namespace BackEndSAM.Controllers.Pintura.RevisionPintura
     public class RevisionPinturaController : ApiController
     {
         //obtenemos la spools a partir de la orden de trabajo.
-        public object Get(string ordenTrabajo, int tipo, string token, string lenguaje)
+        public object Get( string token, string lenguaje,int proyectoid,string dato,int tipoBusqueda)
         {
             //Create a generic return object
             string payload = "";
@@ -28,7 +28,7 @@ namespace BackEndSAM.Controllers.Pintura.RevisionPintura
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                return PinturaGeneralBD.Instance.ObtenerSpoolConSP(usuario, ordenTrabajo, tipo, lenguaje);
+                return PinturaGeneralBD.Instance.ObtenerSpoolConSP(proyectoid,dato,tipoBusqueda, lenguaje);
             }
             else
             {
