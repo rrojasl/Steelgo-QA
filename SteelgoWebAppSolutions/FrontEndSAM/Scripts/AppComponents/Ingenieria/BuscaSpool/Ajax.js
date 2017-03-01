@@ -68,7 +68,7 @@ function AjaxCedulaCatalog() {
 function AjaxAceroCatalog() {
 
     loadingStart();
-    $Acero.FamiliaAcero.read({ token: Cookies.get("token") }).done(function (data) {
+    $Acero.Acero.read({ token: Cookies.get("token") }).done(function (data) {
         if (Error(data)) {
             currentAceroArray = data;
 

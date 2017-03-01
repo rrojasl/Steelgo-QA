@@ -374,7 +374,7 @@ $Zona.add('Zona');
 $Patios.add('Patios');
 $Periodo.add('Periodo');
 $Cedula.add('Cedula');
-$Acero.add('FamiliaAcero');
+$Acero.add('Acero');
 $TipoJunta.add('TipoJunta');
 
 //Fabricación
