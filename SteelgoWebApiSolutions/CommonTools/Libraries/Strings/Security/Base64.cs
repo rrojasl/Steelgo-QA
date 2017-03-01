@@ -35,5 +35,13 @@ namespace CommonTools.Libraries.Strings.Security
             }
             return returnString; 
         }
+
+        public string RegresarCadena(string base64EncodedData)
+        {
+
+            return base64EncodedData.Substring(27, base64EncodedData.ToString().Length - 27);
+
+
+        }
     }
 }

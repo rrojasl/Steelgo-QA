@@ -182,7 +182,7 @@ namespace BackEndSAM.DataAcces.Pintura.PinturaGeneral
             }
         }
 
-        public object GuardarImagenSerializa(string imgSerializada)
+        public object GuardarImagenSerializa(byte[] imgSerializada)
         {
             try
             {
@@ -191,7 +191,7 @@ namespace BackEndSAM.DataAcces.Pintura.PinturaGeneral
 
                 using (SqlCommand cmd = new SqlCommand("SAM3_ImagenesPrueba", new SqlConnection(ConfigurationManager.ConnectionStrings["SqlServer"].ConnectionString)))
                 {
-                    cmd.Parameters.Add("@imageBits", SqlDbType.VarChar).Value = imgSerializada;// StringToBytes();
+                    cmd.Parameters.Add("@imageBits", SqlDbType.Image).Value = imgSerializada;// StringToBytes(imgSerializada);
                     cmd.CommandType = CommandType.StoredProcedure;
                     try
                     {

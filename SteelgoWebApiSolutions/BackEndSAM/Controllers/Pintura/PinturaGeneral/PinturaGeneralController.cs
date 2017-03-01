@@ -1,11 +1,13 @@
 ﻿using BackEndSAM.DataAcces.Pintura.PinturaGeneral;
 using BackEndSAM.Models.Pintura.PinturaGeneral;
+using CommonTools.Libraries.Strings.Security;
 using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
 using SecurityManager.TokenHandler;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
@@ -134,7 +136,18 @@ namespace BackEndSAM.Controllers.Pintura.PinturaGeneral
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                return PinturaGeneralBD.Instance.GuardarImagenSerializa(((ImgSerializadas)listaImagenes.Detalles[0]).imgSerializada);///arreglo de la imagen
+               
+                Base64Security b = new Base64Security();
+                string imagenDecodificada= b.RegresarCadena(((ImgSerializadas)listaImagenes.Detalles[0]).imgSerializada);
+
+                FileStream fs = new FileStream(((ImgSerializadas)listaImagenes.Detalles[0]).imgSerializada, FileMode.Open);
+                byte[] pdf = new byte[fs.Length];
+                fs.Read(pdf, 0, (int)fs.Length);
+
+
+                fs.Close();
+
+                return PinturaGeneralBD.Instance.GuardarImagenSerializa(pdf);///arreglo de la imagen
             }
             else
             {
