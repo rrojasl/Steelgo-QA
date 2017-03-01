@@ -14,7 +14,11 @@ function inicio() {
     SuscribirEventos();
     AjaxProyecto();
     AjaxTipoSalida();
-    //AjaxTipoCorte();
+    AjaxTipoCorte();
+    AjaxTipoJuntasCatalog();
+    AjaxCedulaCatalog();
+    AjaxAceroCatalog();
+
     //AjaxFuente();
     //AjaxTurno();
 }
@@ -131,7 +135,7 @@ function CargarGridDynamic(posicion) {
             { field: "DetalleMaterialSpool", title: 'Material', filterable: getGridFilterableCellMaftec(), filterable: false, width: "100px", attributes: { style: "text-align:right;" }, editor: RenderMateriales/*, template: "<div class='EnlacePorPlaca' style='text-align:center;'><a href='\\#'  > <span>#=Material#</span></a></div> "*/ },
             { field: "SpoolItemCode", title: 'Spool-IC', filterable: getGridFilterableCellMaftec(), filterable: false, width: "180px", editor: RenderSpool_IC, attributes: { style: "text-align:right;" } },
             { field: "DetalleJuntaSpool", title: 'Juntas', filterable: getGridFilterableCellMaftec(), filterable: false, width: "90px", editor: RenderJunta, attributes: { style: "text-align:right;" } },
-            { field: "TipoJunta", title: 'TipoJunta', filterable: getGridFilterableCellMaftec(), filterable: false, width: "100px", attributes: { style: "text-align:right;" } },
+            { field: "TipoJunta", title: 'TipoJunta', filterable: getGridFilterableCellMaftec(), filterable: false, width: "100px", editor: RenderTipoJuta, attributes: { style: "text-align:right;" } },
             { field: "Cedula", title: 'Cedula', filterable: getGridFilterableCellMaftec(), filterable: false, width: "100px", attributes: { style: "text-align:right;" } },
             { field: "FamiliaAceroMaterial1", title: 'Acero', filterable: getGridFilterableCellNumberMaftec(), filterable: false, width: "80px", attributes: { style: "text-align:right;" } },
             { field: "FamiliaAceroMaterial2", title: 'Acero', filterable: getGridFilterableCellNumberMaftec(), filterable: false, width: "80px", attributes: { style: "text-align:right;" } },

@@ -39,12 +39,52 @@ function AjaxTipoCorte() {
 
 }
 
+function AjaxTipoJuntasCatalog() {
+
+    loadingStart();
+    $TipoJunta.TipoJunta.read({ token: Cookies.get("token") }).done(function (data) {
+        if (Error(data)) {
+            currentTipoJuntasArray = data;
+
+        }
+        loadingStop();
+    });
+
+}
+
+function AjaxCedulaCatalog() {
+
+    loadingStart();
+    $Cedula.Cedula.read({ token: Cookies.get("token") }).done(function (data) {
+        if (Error(data)) {
+            currentCedulaArray = data;
+
+        }
+        loadingStop();
+    });
+
+}
+
+function AjaxAceroCatalog() {
+
+    loadingStart();
+    $Acero.FamiliaAcero.read({ token: Cookies.get("token") }).done(function (data) {
+        if (Error(data)) {
+            currentAceroArray = data;
+
+        }
+        loadingStop();
+    });
+
+}
+
+
 function AjaxDetalleSpoolXNombre(posicion, proyectoID, nombreSpool) {
     loadingStart();
     //console.log($CapturaReporteRT);
     $BuscaSpool.BuscaSpool.read({ token: Cookies.get("token"), ProyectoID: proyectoID, Spool: nombreSpool }).done(function (data) {
         if (data != null) {
-            if (proyectoID == data.ProyectoID) {
+            //if (proyectoID == data.ProyectoID) {
                 currentSpoolMaster.DetalleSalidas[posicion].SpoolID = data.SpoolID;
                 currentSpoolMaster.DetalleSalidas[posicion].NombreSpool = data.NombreSpool;
                 currentSpoolMaster.DetalleSalidas[posicion].RevisionCliente = data.RevisionCliente;
@@ -82,8 +122,8 @@ function AjaxDetalleSpoolXNombre(posicion, proyectoID, nombreSpool) {
 
                 //AjaxListadoJuntaSpool(posicion, data.SpoolID);
                 AjaxDetalleMateriales(posicion, proyectoID, data.SpoolID);
-            } else
-                displayNotify("", "El spool" + data.NombreSpool + " no pertenece al proyecto configurado", "2");
+            //} else
+            //    displayNotify("", "El spool" + data.NombreSpool + " no pertenece al proyecto configurado", "2");
 
 
         }
@@ -136,7 +176,10 @@ function AjaxListadoSoportes(posicion, proyectoID, spoolID, detalleMaterialesSpo
 
     $BuscaSpool.BuscaSpool.read({ token: Cookies.get("token"), ProyectoID: Proyecto.ProyectoSoporteID, SpoolContiene: currentSpoolMaster.DetalleSalidas[posicion].NombreSpool.substring(0, 5) }).done(function (data) {
         if (Error(data)) {
-
+            data[data.length] = {
+                SpoolID: -99,
+                Nombre: 'Tubo'
+            };
             //AjaxListadoJuntaSpool(posicion, proyectoID, spoolID, detalleMaterialesSpool, detalleListadoSpool, data);
             AjaxListadoItemCode(posicion, proyectoID, spoolID, detalleMaterialesSpool, detalleListadoSpool, data);
         }
@@ -171,6 +214,11 @@ function AjaxListadoJuntaSpool(posicion, proyectoID, spoolID, detalleMaterialesS
             
             var salidas = $("#inputSalidas_" + posicion).data("kendoNumericTextBox").value();
             var salidasJuntasCerradas = $("#inputJuntasCerradas_" + posicion).data("kendoNumericTextBox").value();
+
+            data[data.length] = {
+                JuntaSpoolID: -99,
+                Etiqueta: 'Agregar'
+            };
 
             addNewDetalleSalidaAgrupado(currentSpoolMaster.DetalleSalidas[posicion].SpoolID, salidas, salidasJuntasCerradas, detalleMaterialesSpool, detalleListadoSpool, detalleListadoSoportes, detalleListadoItemCodes, data);
 

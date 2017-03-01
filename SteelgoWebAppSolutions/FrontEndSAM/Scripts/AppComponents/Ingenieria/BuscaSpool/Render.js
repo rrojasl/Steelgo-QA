@@ -45,17 +45,27 @@ function RenderTipoSalida(container, options) {
 
 function RenderTipoCorte1(container, options) {
 
-    $('<input required data-text-field="Titulo" id=' + options.model.uid + ' data-value-field="TipoCorte1ID" data-bind="value:' + options.field + '"/>')
+    $('<input required data-text-field="Nombre" id=' + options.model.uid + ' data-value-field="TipoCorteID" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoComboBox({
             autoBind: false,
-            dataSource: options.model.TipoCorte1,
-            dataTextField: "Titulo",
-            dataValueField: "TipoCorte1ID",
+            dataSource: options.model.TipoCorte1Lista,
+            dataTextField: "Nombre",
+            dataValueField: "TipoCorteID",
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
 
-                options.model.TipoCorte1Select = dataItem.Titulo;
+                options.model.TipoCorte1ID = dataItem.TipoCorteID;
+                options.model.TipoCorte1 = dataItem.Nombre;
+
+                if (options.model.ClaveSalida.match('^JC')) {
+                    currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].TipoCorte1ID = dataItem.TipoCorteID;
+                    currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].TipoCorte1 = dataItem.Nombre;
+                }
+                else {
+                    currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].TipoCorte1ID = dataItem.TipoCorteID;
+                    currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].TipoCorte1 = dataItem.Nombre;
+                }
                 //options.model.SalidaID = dataItem.SalidaID;
                 //options.model.Titulo = dataItem.Titulo;
 
@@ -67,21 +77,29 @@ function RenderTipoCorte1(container, options) {
 
 function RenderTipoCorte2(container, options) {
 
-    $('<input required data-text-field="Titulo" id=' + options.model.uid + ' data-value-field="TipoCorte2ID" data-bind="value:' + options.field + '"/>')
+    $('<input required data-text-field="Nombre" id=' + options.model.uid + ' data-value-field="TipoCorteID" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoComboBox({
             autoBind: false,
-            dataSource: options.model.TipoCorte2,
-            dataTextField: "Titulo",
-            dataValueField: "TipoCorte2ID",
+            dataSource: options.model.TipoCorte2Lista,
+            dataTextField: "Nombre",
+            dataValueField: "TipoCorteID",
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
 
-                options.model.TipoCorte2Select = dataItem.Titulo;
+                options.model.TipoCorte2ID = dataItem.TipoCorteID;
+                options.model.TipoCorte2 = dataItem.Nombre;
                 //options.model.SalidaID = dataItem.SalidaID;
                 //options.model.Titulo = dataItem.Titulo;
 
-
+                if (options.model.ClaveSalida.match('^JC')) {
+                    currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].TipoCorte2ID = dataItem.TipoCorteID;
+                    currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].TipoCorte2 = dataItem.Nombre;
+                }
+                else {
+                    currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].TipoCorte2ID = dataItem.TipoCorteID;
+                    currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].TipoCorte2 = dataItem.Nombre;
+                }
             }
         });
 
@@ -316,23 +334,23 @@ function RenderSpool_IC(container, options) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
 
                 if (dataItemAterior.SpoolItemCodeID == 0) {
-                    if (dataItem.SpoolID != 0) {
-                        options.model.SpoolItemCodeID = dataItem.SpoolID;
-                        options.model.SpoolItemCode = dataItem.Nombre;
 
-                        //currentSpoolMaster.DetalleSalidas[i]
-                        //((options.model.ClaveSalida.match('^JC')) ? (options.model.ClaveSalida.substring(0, 2)) : (options.model.ClaveSalida.substring(0, 1)))
-                        var posicionSalida = options.model.PosicionSalida;
-                        if (options.model.ClaveSalida.match('^JC')) {
-                            currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].SpoolItemCodeID = dataItem.SpoolID;//posicionSalida += currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar.length;
-                            currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].SpoolItemCode = dataItem.Nombre;
-                        }
-                        else {
-                            currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].SpoolItemCodeID = dataItem.SpoolID;
-                            currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].SpoolItemCode = dataItem.Nombre;
-                        }
+                    options.model.SpoolItemCodeID = dataItem.SpoolID;
+                    options.model.SpoolItemCode = dataItem.Nombre;
 
+                    //currentSpoolMaster.DetalleSalidas[i]
+                    //((options.model.ClaveSalida.match('^JC')) ? (options.model.ClaveSalida.substring(0, 2)) : (options.model.ClaveSalida.substring(0, 1)))
+                    var posicionSalida = options.model.PosicionSalida;
+                    if (options.model.ClaveSalida.match('^JC')) {
+                        currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].SpoolItemCodeID = dataItem.SpoolID;//posicionSalida += currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar.length;
+                        currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].SpoolItemCode = dataItem.Nombre;
+                    }
+                    else {
+                        currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].SpoolItemCodeID = dataItem.SpoolID;
+                        currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].SpoolItemCode = dataItem.Nombre;
+                    }
 
+                    if ((dataItem.SpoolID != 0) && (dataItem.SpoolID != (-99))) {
                         addNewDetalleSalida(options.model.SpoolItemCodeID, options.model.SpoolItemCode);
 
                         reloadControls();
@@ -355,7 +373,7 @@ function RenderSpool_IC(container, options) {
 
                     currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre + 1].SpoolID = dataItem.SpoolID;
                     currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre + 1].NombreSpool = dataItem.Nombre;
-                    
+
 
                     reloadControls();
                     //addNewDetalleSalida(options.model.SpoolItemCodeID, options.model.SpoolItemCode);
@@ -363,10 +381,10 @@ function RenderSpool_IC(container, options) {
                     //reloadControls();
                 }
 
-                if ((options.model.SpoolItemCode == 'Tubo') && (options.model.TipoSalidaID == 'Item Code')) {
-                    $("#grid").data("kendoGrid").showColumn(11);
-                    $("#grid").data("kendoGrid").showColumn(12);
-                    $("#grid").data("kendoGrid").showColumn(13);
+                if ((options.model.SpoolItemCodeID == (-99)) && (options.model.TipoSalidaID == 4)) {
+                    $("#grid_" + options.model.PosicionSalidaPadre).data("kendoGrid").showColumn(11);
+                    $("#grid_" + options.model.PosicionSalidaPadre).data("kendoGrid").showColumn(12);
+                    $("#grid_" + options.model.PosicionSalidaPadre).data("kendoGrid").showColumn(13);
                 }
 
                 //options.model.JuntaID = dataItem.JuntaID;
@@ -403,6 +421,38 @@ function RenderSpool_IC(container, options) {
             }
         }
         );
+    }
+
+}
+
+
+function RenderTipoJuta(container, options) {
+    //if ((options.model.SpoolItemCode == 0) && (options.model.TipoSalidaID == 4)) {
+    if (options.model.DetalleJuntaSpoolID == -99) {
+        $('<input required data-text-field="Nombre" id=' + options.model.uid + ' data-value-field="TipoJuntaID" data-bind="value:' + options.field + '"/>')
+        .appendTo(container)
+        .kendoComboBox({
+            autoBind: false,
+            dataTextField: "Nombre",
+            dataValueField: "TipoJuntaID",
+            dataSource: currentTipoJuntasArray,
+            change: function (e) {
+                dataItem = this.dataItem(e.sender.selectedIndex);
+
+                //options.model.SpoolItemCodeID = dataItem.TipoJuntaID;
+                options.model.TipoJunta = dataItem.Nombre;
+
+                var posicionSalida = options.model.PosicionSalida;
+                if (options.model.ClaveSalida.match('^JC')) {
+                    currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].TipoJuntaID = 0;
+                    currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].TipoJunta = dataItem.Nombre;
+                }
+                else {
+                    currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].TipoJuntaID = 0;
+                    currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].TipoJunta = dataItem.Nombre;
+                }
+            }
+        });
     }
 
 }

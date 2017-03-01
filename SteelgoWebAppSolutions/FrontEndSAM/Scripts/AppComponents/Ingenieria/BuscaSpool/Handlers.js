@@ -4,6 +4,9 @@ var currentSpoolMaster = null;
 
 var currentTipoSalidaArray = [];
 var currentTipoCorteArray = [];
+var currentTipoJuntasArray = [];
+var currentCedulaArray = [];
+var currentAceroArray = [];
 //var currentListaSpools = [];
 
 //Ingenieria_Loop
@@ -104,10 +107,10 @@ function addNewDetalleSalidaAgrupado(spoolID, salidasEstandar, salidasJuntasCerr
 
                     TipoCorte1ID: 0,
                     TipoCorte1: '',
-                    TipoCorte1Lista: [],
+                    TipoCorte1Lista: currentTipoCorteArray,
                     TipoCorte2ID: 0,
                     TipoCorte2: '',
-                    TipoCorte2Lista: [],
+                    TipoCorte2Lista: currentTipoCorteArray,
                     Cantidad: 0.0
 
                 };
