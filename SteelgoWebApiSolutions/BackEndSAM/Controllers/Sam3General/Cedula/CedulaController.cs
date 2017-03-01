@@ -15,6 +15,7 @@ namespace BackEndSAM.Controllers.Sam3General.Cedula
     [EnableCors(origins:"*", headers:"*", methods:"*")]
     public class CedulaController: ApiController
     {
+        [HttpGet]
         public object ObtieneListadoCedula(string token)
         {
             string payload = "";
