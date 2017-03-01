@@ -1,17 +1,34 @@
 ﻿var modeloRenglon;
 var editado = false;
+var endRangeDate;
+var esNormal;
+
+
+IniciarCapturaSoldadura();
+function IniciarCapturaSoldadura() {
+    SuscribirFechaSoldadura();
+    asignarProyecto();
+    setTimeout(function () { SuscribirEventos() }, 100);
+}
 
 function changeLanguageCall() {
-    asignarProyecto();
-    SuscribirEventos();
+    editado = false;
+    endRangeDate.data("kendoDatePicker").setOptions({
+        format: _dictionary.FormatoFecha2[$("#language").data("kendoDropDownList").value()]
+    });
     AjaxCargarCamposPredeterminados();
     CargarGrid();
     CargarGridPopUp();
     CargarGridPopupSoldadoresRaizCapturados();
     CargarGridPopupSoldadoresRellenoCapturados();
-    opcionHabilitarView(false, "FieldSetView");
+    suscribirEventoWindowsConfirmaCaptura();
+    Limpiar();
+    opcionHabilitarView(false, "FieldSetView")
     document.title = _dictionary.CapturaSoldaduraSoldaduraSpool[$("#language").data("kendoDropDownList").value()];
+    
 };
+
+
 
 function asignarProyecto() {
     //$("#InputOrdenTrabajo").val(Cookies.get('LetraProyecto') == undefined ? '' : Cookies.get('LetraProyecto'));
@@ -45,6 +62,13 @@ function CargarGrid() {
             editado = true;
             if ($('#botonGuardar').text() != _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
                 this.closeCell();
+            }
+
+            if ($(".k-grid-content td").css("white-space") == "normal") {
+                esNormal = true;
+            }
+            else {
+                esNormal = false;
             }
         },
         dataSource: {
@@ -118,13 +142,26 @@ function CargarGrid() {
             for (var i = 0; i < gridData.length; i++) {
                 var currentUid = gridData[i].uid;
                 if (gridData[i].RowOk == false) {
-                    grid.table.find("tr[data-uid='" + currentUid + "']").css("background-color", "#ffcccc");
+                    grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("k-alt");
+                    grid.table.find("tr[data-uid='" + currentUid + "']").addClass("kRowError");
+
                 }
                 else if (gridData[i].RowOk) {
-                    grid.table.find("tr[data-uid='" + currentUid + "']").css("background-color", "#ffffff");
+                    if (i % 2 == 0)
+                        grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("k-alt");
+
+                    grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("kRowError");
                 }
 
             }
+
+            if (esNormal) {
+                $(".k-grid-content td").css("white-space", "normal");
+            }
+            else {
+                $(".k-grid-content td").css("white-space", "nowrap");
+            }
+
         }
     });
 
@@ -1083,4 +1120,32 @@ function eliminaSoldadoresTrabajoAdicional(ObreroID, listaTrabajoAdicional) {
         }
     }
     
+}
+
+function SuscribirFechaSoldadura() {
+
+    endRangeDate = $("#FechaSoldadura").kendoDatePicker({
+        max: new Date(),
+        //format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()],
+        change: function (e) {
+            ValidarFecha(e.sender._value)
+        }
+    });
+
+    endRangeDate.on("keydown", function (e) {
+        if (e.keyCode == 9) {
+            ValidarFecha($("#FechaSoldadura").data("kendoDatePicker").value());
+        }
+    });
+
+    $("#FechaSoldadura").blur(function (e) {
+        ValidarFecha($("#FechaSoldadura").data("kendoDatePicker").value());
+    });
+}
+
+function ValidarFecha(valor) {
+    var fecha = kendo.toString(valor, String(_dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()].replace('{', '').replace('}', '').replace("0:", "")));
+    if (fecha == null) {
+        $("#FechaArmado").data("kendoDatePicker").value('');
+    }
 }

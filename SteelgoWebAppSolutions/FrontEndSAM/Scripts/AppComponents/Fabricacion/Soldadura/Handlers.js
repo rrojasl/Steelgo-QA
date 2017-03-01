@@ -17,7 +17,7 @@ function SuscribirEventos() {
     suscribirEventoChangeRadioTipoListado();
     suscribirEventoWindowsConfirmaCaptura();
     SuscribirEventoMuestraJunta();
-    SuscribirFechaSoldadura();
+    
 
     suscribirEventoGridPopupTrabajosAdicionales();
     suscribirEventoGridPopupSoldadoresRaiz();
@@ -514,26 +514,7 @@ function suscribirEventoGridPopupSoldadoresRelleno() {
 }
 
 
-function SuscribirFechaSoldadura() {
 
-    endRangeDate = $("#FechaSoldadura").kendoDatePicker({
-        max: new Date(),
-        format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()],
-        change: function (e) {
-            ValidarFecha(e.sender._value)
-        }
-    });
-
-    endRangeDate.on("keydown", function (e) {
-        if (e.keyCode == 9) {
-            ValidarFecha($("#FechaSoldadura").data("kendoDatePicker").value());
-        }
-    });
-
-    $("#FechaSoldadura").blur(function (e) {
-        ValidarFecha($("#FechaSoldadura").data("kendoDatePicker").value());
-    });
-}
 
 
 function GuardarDetalleAdicional() {
@@ -729,3 +710,5 @@ function eventoRegresarTipoListado() {
         $('input:radio[name=TipoAgregado]:nth(0)').trigger("click");
     }
 }
+
+
