@@ -3,6 +3,7 @@ var bandera = false;
 var EmbarqueID = 0;
 var DestinoGuardado = 0;
 var FechaEmbarque;
+var esNormal;
 
 function changeLanguageCall() {
     CargarGrid();
