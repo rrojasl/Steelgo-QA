@@ -17,12 +17,12 @@ namespace BackEndSAM.Models.Sam3General.Cuadrante
             ZonaID = 0;
             CuadranteAnterior = 0;
         }
-        public int CuadranteID { get; set; }
-        public int CuadranteSam2ID { get; set; }
+        public int? CuadranteID { get; set; }
+        public int? CuadranteSam2ID { get; set; }
         public string Nombre { get; set; }
-        public int PatioID { get; set; }
-        public int ProyectoID { get; set; }
-        public int ZonaID { get; set; }
-        public int CuadranteAnterior { get; set; }
+        public int? PatioID { get; set; }
+        public int? ProyectoID { get; set; }
+        public int? ZonaID { get; set; }
+        public int? CuadranteAnterior { get; set; }
     }
 }
