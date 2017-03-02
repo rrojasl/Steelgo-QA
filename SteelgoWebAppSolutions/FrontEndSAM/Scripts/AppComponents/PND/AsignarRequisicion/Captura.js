@@ -76,7 +76,7 @@ function CargarGrid() {
 
                 inputName.select();
             });
-            if ($('#botonGuardar').text() != _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
+            if ($('#botonGuardar').text() != _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()] ){//|| e.model.Accion == 2) {
                 this.closeCell();
             }
         },

@@ -5,13 +5,14 @@ var requisicionOriginal = 0;
 function SuscribirEventos() {
     SuscribirEventoComboPrueba();
     suscribirEventoGuardar();
-    
+
     suscribirEventoJuntas();
     SuscribirEventoCerrarPopUpJuntas();
     SuscribirEventoComboProyecto();
     SuscribirEventoComboRequisicion();
     suscribirEventoElementosAsignados();
     suscribirEventoReady();
+    suscribirEventoSepararRequisicion();
 };
 
 function suscribirEventoReady() {
@@ -19,7 +20,7 @@ function suscribirEventoReady() {
         var requisicionID = getParameterByName('requisicion');
         if (requisicionID == null) {
             AjaxCargarCamposPredeterminados(true);
-            
+
         } else {
             AjaxCargarCamposPredeterminados(false);
             AjaxObtenerElementoRequisicion(requisicionID)
@@ -50,7 +51,7 @@ function suscribirEventoElementosAsignados() {
 
             var grid = $("#grid").data("kendoGrid"),
             dataItem = grid.dataItem($(e.target).closest("tr"));
-            AjaxCargarElementosTurnoAsignados(dataItem.RequisicionID, dataItem.CapacidadTurnoEquipoID, dataItem.CapacidadTurnoProveedorID,dataItem);
+            AjaxCargarElementosTurnoAsignados(dataItem.RequisicionID, dataItem.CapacidadTurnoEquipoID, dataItem.CapacidadTurnoProveedorID, dataItem);
         }
     });
 }
@@ -240,9 +241,9 @@ function SuscribirEventoComboRequisicion() {
         dataValueField: "RequisicionID",
         change: function (e) {
             dataItem = this.dataItem(e.sender.selectedIndex);
-            if (dataItem != undefined ) {
+            if (dataItem != undefined) {
                 if (!editado) {
-                    
+
                     requisicionOriginal = $("#inputRequisicion").data("kendoComboBox").value();
 
                     AjaxCargarRequisicionAsignacion();
@@ -439,4 +440,104 @@ function opcionHabilitarView(valor, name) {
 
 
     }
+}
+
+
+function suscribirEventoSepararRequisicion() {
+
+    $("#SepararRequisicion").click(function () {
+
+
+
+        var modalTitle = "";
+        modalTitle = _dictionary.MensajeNuevaRequisicion[$("#language").data("kendoDropDownList").value()];
+        var ventanaConfirm = $("#ventanaConfirm");
+        var window = ventanaConfirm.kendoWindow({
+            modal: true,
+            title: modalTitle,
+            resizable: false,
+            visible: true,
+            width: "50%",
+            minWidth: 30,
+            position: {
+                top: "1%",
+                left: "1%"
+            },
+            animation: false,
+            actions: []
+
+        }).data("kendoWindow");
+
+        window.content('<div id="ventanaConfirm" z-index: inherit">' +
+                            '<div class="col-sm-11 col-md-11 col-lg-11">' +
+                                '<div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">' +
+                                    '<label id=""><span>' + _dictionary.lblRequisicion1[$("#language").data("kendoDropDownList").value()] + '</span></label>' +
+                                    '<input id="NombreRequisicion" class="form-control" />' +
+                                '</div>' +
+                                '<div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">' +
+                                    '<label id=""><span>' + _dictionary.lblNumeroClienteRequisicion[$("#language").data("kendoDropDownList").value()] + '</span></label>' +
+                                    '<input id="CodigoAsme" class="form-control"  />' +
+                                '</div>' +
+                                '<div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">' +
+                                    '<label id=""><span>' + _dictionary.lblFechaRequisicion[$("#language").data("kendoDropDownList").value()] + '</span></label>' +
+                                    '<input id="FechaRequisicion" class="form-control"/>' +
+                                '</div>' +
+
+                                '<div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">' +
+                                    '<label id=""><span>' + _dictionary.lblObservacion[$("#language").data("kendoDropDownList").value()] + '</span></label>' +
+                                    '<input id="Observacion" class="form-control" />' +
+                                '</div>' +
+                                '<div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">' +
+                                    '<center><button class="btn btn-blue" id="YesButton">' + _dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()] + '</button>&nbsp;<button class="btn btn-blue" id="NoButton"> ' + _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()] + '</button></center>' +
+                                '</div>' +
+                            '</div>' +
+                        '</div>');
+
+        ventanaConfirm.data("kendoWindow").title(modalTitle);
+
+
+        var idFechaRequisicion = 2047;
+        $CamposPredeterminados.CamposPredeterminados.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), id: idFechaRequisicion }).done(function (data) {
+            $("#FechaRequisicion").val(data);
+        });
+
+
+        ventanaConfirm.data("kendoWindow").center().open();
+
+        $("#YesButton").click(function (handler) {
+            Captura[0].Requisicion = $("#NombreRequisicion").val();
+            //Captura[0].CodigoAsme = $("#CodigoAsme").val();
+            Captura[0].Observacion = $("#Observacion").val();
+            Captura[0].FechaRequisicion = $("#FechaRequisicion").val();
+
+            $RequisicionPND.RequisicionPND.create(Captura[0], { token: Cookies.get("token") }).done(function (data) {
+                if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
+                    if (data.ReturnMessage[1] != undefined) {
+                        if (tipoGuardar == 1) {
+                            Limpiar();
+                            opcionHabilitarView(false, "FieldSetView");
+                        }
+                        else {
+                            $('input[name="Muestra"][value="SinCaptura"]').prop('checked', true);
+                            AjaxGetGuardado(data.ReturnMessage[1]);
+                            opcionHabilitarView(true, "FieldSetView");
+                        }
+
+                        displayNotify("EntregaPlacasGraficasMensajeGuardadoExistoso", "", "0");
+                    }
+                }
+                else {
+                    opcionHabilitarView(false, "FieldSetView");
+                    mensaje = "La requisición: " + Captura[0].Requisicion + " ya existe, por favor asigne otro nombre";
+                    displayNotify("", mensaje, '1');
+                }
+            });
+
+            window.close();
+        });
+        $("#NoButton").click(function (handler) {
+            window.close();
+        });
+
+    });
 }

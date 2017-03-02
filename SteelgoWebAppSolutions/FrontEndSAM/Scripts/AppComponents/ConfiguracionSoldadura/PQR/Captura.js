@@ -1,4 +1,5 @@
-﻿
+﻿var esNormal;
+
 function changeLanguageCall() {
     document.title = _dictionary.PQRBreadcrumb[$("#language").data("kendoDropDownList").value()];
     CargarGrid();
@@ -8,9 +9,7 @@ function changeLanguageCall() {
 
 function CargarGrid() {
     $("#grid").kendoGrid({
-        save: function (e) {
-           
-        },
+        
         edit: function (e) {
 
             if ($('#Guardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()] && e.model.RegistrosWPS == 0) {
@@ -19,6 +18,13 @@ function CargarGrid() {
                 this.closeCell();
                 if ($('#Guardar').text() != _dictionary.textoEditar[$("#language").data("kendoDropDownList").value()])
                     displayNotify("", _dictionary.lblPQRElementoPQR[$("#language").data("kendoDropDownList").value()] + e.model.Nombre + _dictionary.lblPQRYaAsignado[$("#language").data("kendoDropDownList").value()], 1);
+            }
+
+            if ($(".k-grid-content td").css("white-space") == "normal") {
+                esNormal = true;
+            }
+            else {
+                esNormal = false;
             }
         },
         dataBound: function () {
@@ -31,22 +37,34 @@ function CargarGrid() {
                     "<th width='auto'  colspan='6' class='k-header' style='text-align: center;'><span id=''></span></th>" +
                     "</tr>");
             }
-
             var grid = $("#grid").data("kendoGrid");
             var gridData = grid.dataSource.view();
 
             for (var i = 0; i < gridData.length; i++) {
                 var currentUid = gridData[i].uid;
                 if (gridData[i].RowOk == false) {
-                    grid.table.find("tr[data-uid='" + currentUid + "']").css("background-color", "#ffcccc");
+                    grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("k-alt");
+                    grid.table.find("tr[data-uid='" + currentUid + "']").addClass("kRowError");
+
                 }
                 else if (gridData[i].RowOk) {
-                    grid.table.find("tr[data-uid='" + currentUid + "']").css("background-color", "#ffffff");
+                    if (i % 2 == 0)
+                        grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("k-alt");
+
+                    grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("kRowError");
                 }
 
             }
 
+            if (esNormal) {
+                $(".k-grid-content td").css("white-space", "normal");
+            }
+            else {
+                $(".k-grid-content td").css("white-space", "nowrap");
+            }
+
         },
+        autoBind: true,
         dataSource: {
             data: [],
             schema: {
@@ -93,7 +111,7 @@ function CargarGrid() {
             pageSize: 10,
             serverPaging: false,
             serverFiltering: false,
-            serverSorting: false
+            serverSorting: false,
         },
         navigatable: true,
         editable: true,
@@ -146,10 +164,12 @@ function CargarGrid() {
              { width: "120px", field: "GrupoF", title: _dictionary.columnGrupoF[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec() },
              { width: "200px", field: "Especificacion", title: _dictionary.columnCodigo[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxEspecificacion },
              { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: cancelarCaptura }, width: "50px", title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], attributes: { style: "text-align:center;" } }
-        ]
+        ],
+        editable: true,
+        navigatable: true
 
     });
-    CustomisaGrid($("#grid"));
+    
 
     $("#grid .k-grid-content").on("change", "input.chk-PWHT", function (e) {
         if ($("#language").val() == "es-MX") {
@@ -284,6 +304,8 @@ function CargarGrid() {
             }
         }
     });
+
+    CustomisaGrid($("#grid"));
 };
 
 function NombreRepetido(listaDetalles) {

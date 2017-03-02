@@ -457,6 +457,99 @@ function RenderTipoJuta(container, options) {
 
 }
 
+function RenderCedula(container, options) {
+    //if ((options.model.SpoolItemCode == 0) && (options.model.TipoSalidaID == 4)) {
+    if (options.model.DetalleJuntaSpoolID == -99) {
+        $('<input required data-text-field="Nombre" id=' + options.model.uid + ' data-value-field="CedulaID" data-bind="value:' + options.field + '"/>')
+        .appendTo(container)
+        .kendoComboBox({
+            autoBind: false,
+            dataTextField: "Nombre",
+            dataValueField: "CedulaID",
+            dataSource: currentCedulaArray,
+            change: function (e) {
+                dataItem = this.dataItem(e.sender.selectedIndex);
+
+                //options.model.SpoolItemCodeID = dataItem.TipoJuntaID;
+                options.model.Cedula = dataItem.Nombre;
+
+                var posicionSalida = options.model.PosicionSalida;
+                if (options.model.ClaveSalida.match('^JC')) {
+                    //currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].TipoJuntaID = 0;
+                    currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].Cedula = dataItem.Nombre;
+                }
+                else {
+                    //currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].TipoJuntaID = 0;
+                    currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].Cedula = dataItem.Nombre;
+                }
+            }
+        });
+    }
+
+}
+
+function RenderFamiliaAcero1(container, options) {
+    //if ((options.model.SpoolItemCode == 0) && (options.model.TipoSalidaID == 4)) {
+    if (options.model.DetalleJuntaSpoolID == -99) {
+        $('<input required data-text-field="Nombre" id=' + options.model.uid + ' data-value-field="FamiliaAceroID" data-bind="value:' + options.field + '"/>')
+        .appendTo(container)
+        .kendoComboBox({
+            autoBind: false,
+            dataTextField: "Nombre",
+            dataValueField: "FamiliaAceroID",
+            dataSource: currentAceroArray,
+            change: function (e) {
+                dataItem = this.dataItem(e.sender.selectedIndex);
+
+                //options.model.SpoolItemCodeID = dataItem.TipoJuntaID;
+                options.model.FamiliaAceroMaterial1 = dataItem.Nombre;
+
+                var posicionSalida = options.model.PosicionSalida;
+                if (options.model.ClaveSalida.match('^JC')) {
+                    //currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].TipoJuntaID = 0;
+                    currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].FamiliaAceroMaterial1 = dataItem.Nombre;
+                }
+                else {
+                    //currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].TipoJuntaID = 0;
+                    currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].FamiliaAceroMaterial1 = dataItem.Nombre;
+                }
+            }
+        });
+    }
+
+}
+
+function RenderFamiliaAcero2(container, options) {
+    //if ((options.model.SpoolItemCode == 0) && (options.model.TipoSalidaID == 4)) {
+    if (options.model.DetalleJuntaSpoolID == -99) {
+        $('<input required data-text-field="Nombre" id=' + options.model.uid + ' data-value-field="FamiliaAceroID" data-bind="value:' + options.field + '"/>')
+        .appendTo(container)
+        .kendoComboBox({
+            autoBind: false,
+            dataTextField: "Nombre",
+            dataValueField: "FamiliaAceroID",
+            dataSource: currentAceroArray,
+            change: function (e) {
+                dataItem = this.dataItem(e.sender.selectedIndex);
+
+                //options.model.SpoolItemCodeID = dataItem.TipoJuntaID;
+                options.model.FamiliaAceroMaterial2 = dataItem.Nombre;
+
+                var posicionSalida = options.model.PosicionSalida;
+                if (options.model.ClaveSalida.match('^JC')) {
+                    //currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].TipoJuntaID = 0;
+                    currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].FamiliaAceroMaterial2 = dataItem.Nombre;
+                }
+                else {
+                    //currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].TipoJuntaID = 0;
+                    currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].FamiliaAceroMaterial2 = dataItem.Nombre;
+                }
+            }
+        });
+    }
+
+}
+
 function RenderGridRowsDynamic() {
 
     for (var posicion = 0; posicion < currentSpoolMaster.DetalleSalidas.length; posicion++) {
