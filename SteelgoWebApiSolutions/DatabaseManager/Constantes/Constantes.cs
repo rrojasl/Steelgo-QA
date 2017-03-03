@@ -27,6 +27,8 @@
 
     public static class Stords
     {
+        
+            public static string GUARDARCAPTURAREVISIONPINTURA = "Sam3_Pintura_Set_Revision";
         public static string GUARDARCAPTURAARMADO = "Sam3_Armado_Set_Captura";
         public static string GUARDARCAPTURASOLDADURA = "Sam3_Soldadura_JuntaSoldadura";
         public static string GUARDARCAPTURAINSPECCIONVISUALDIMENSIONAL = "Sam3_InspeccionVisualDimensional_SetCaptura";

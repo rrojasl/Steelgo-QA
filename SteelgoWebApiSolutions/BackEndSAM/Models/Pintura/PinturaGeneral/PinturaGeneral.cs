@@ -56,7 +56,8 @@ namespace BackEndSAM.Models.Pintura.PinturaGeneral
 
     public class PinturaRevision
     {
-        public string SpoolID { get; set; }
+        public int? SpoolID { get; set; }
+        public string NombreSpool { get; set; }
         public string NumeroControl { get; set; }
         public string SistemaPintura { get; set; }
         public string Color { get; set; }
@@ -69,7 +70,8 @@ namespace BackEndSAM.Models.Pintura.PinturaGeneral
         public PinturaRevision()
         {
             this.Accion = 0;
-            this.SpoolID = "";
+            this.SpoolID = 0;
+            this.NombreSpool = "";
             this.NumeroControl = "";
             this.SistemaPintura = "";
             this.Color = "";
@@ -78,5 +80,17 @@ namespace BackEndSAM.Models.Pintura.PinturaGeneral
             this.Comentario = "";
             this.Version = 0;
         }
+    }
+
+    public class GuardarRevisionPintura
+    {
+        public List<GuardarRevision> Detalles { get; set; }
+    }
+
+    public class GuardarRevision
+    {
+        public int Accion { get; set; }
+        public int SpoolID { get; set; }
+        public string Comentario { get; set; }
     }
 }

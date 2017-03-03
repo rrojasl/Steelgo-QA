@@ -65,13 +65,14 @@ function CargarGrid() {
                 model: {
                     fields: {
                         Accion: { type: "number", editable: false },
-                        SpoolID: { type: "string", editable: false },
+                        SpoolID: { type: "int", editable: false },
+                        NombreSpool: { type: "string", editable: false },
                         NumeroControl: { type: "string", editable: false },
-                        SistemaPintura: { type: "string", editable: true },
-                        Color: { type: "string", editable: true },
+                        SistemaPintura: { type: "string", editable: false },
+                        Color: { type: "string", editable: false },
                         Area: { type: "number", editable: false },
                         GenerarRevision: { type: "boolean", editable: true },
-                        Comentario: { type: "string", editable: false },
+                        Comentario: { type: "string", editable: true },
                         Version: { type: "number", editable: false }
                     }
                 }
@@ -103,11 +104,11 @@ function CargarGrid() {
             numeric: true,
         },
         columns: [
-           { field: "SpoolID", title: _dictionary.columnSpool[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "140px" },
+           { field: "NombreSpool", title: _dictionary.columnSpool[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "140px" },
             { field: "NumeroControl", title: _dictionary.columnNumeroControl2[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px" },
-            { field: "SistemaPintura", title: _dictionary.columnSistemaPintura[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "100px", width: "95px", attributes: { style: "text-align:right;" } },
+            { field: "SistemaPintura", title: _dictionary.columnSistemaPintura[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "100px", width: "95px", attributes: { style: "text-align:left;" } },
             { field: "Color", title: _dictionary.columnColor[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "120px" },
-            { field: "Area", title: _dictionary.columnArea[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "110px" },
+            { field: "Area", title: _dictionary.columnArea[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "110px", attributes: { style: "text-align:right;" }  },
             { field: "GenerarRevision", title: _dictionary.columnRevision[$("#language").data("kendoDropDownList").value()], filterable: {
                 multi: true,
                 messages: {
@@ -116,17 +117,18 @@ function CargarGrid() {
                     style: "max-width:100px;"
                 },
                 dataSource: [{ GenerarRevision: true }, { GenerarRevision: false }]
-            }, width: "110px" },
+            }, width: "110px", template: "<input name='fullyPaid' class='ob-paid' type='checkbox' #= GenerarRevision ? 'checked=checked':'' #/>", width: "100px", attributes: { style: "text-align:center;" }
+            },
             { field: "Comentario", title: _dictionary.columnComentario[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "110px" },
-            { field: "Version", title: _dictionary.columnVersion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "110px" }
+            { field: "Version", title: _dictionary.columnVersion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "110px", attributes: { style: "text-align:center;" }  }
 
         ],
         beforeEdit: function (e) {
-            var columnIndex = this.cellIndex(e.container);
-            var fieldName = this.thead.find("th").eq(columnIndex).data("field");
-            if (!isEditable(fieldName, e.model)) {
-                e.preventDefault();
-            }
+            //var columnIndex = this.cellIndex(e.container);
+            //var fieldName = this.thead.find("th").eq(columnIndex).data("field");
+            //if (!isEditable(fieldName, e.model)) {
+            //    e.preventDefault();
+            //}
         },
         dataBound: function () {
             var grid = $("#grid").data("kendoGrid");
@@ -148,8 +150,25 @@ function CargarGrid() {
             else {
                 $(".k-grid-content td").css("white-space", "nowrap");
             }
+
         }
     });
+    $("#grid").on("change", ":checkbox", function (e) {
+        var grid = $("#grid").data("kendoGrid"),
+        dataItem = grid.dataItem($(e.target).closest("tr"));
+
+        if ($('#Guardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
+
+            dataItem.GenerarRevision = e.target.checked;
+        }
+        else {
+            dataItem.GenerarRevision = !e.target.checked;
+           // $("#grid").data("kendoGrid").dataSource.sync();
+            grid.dataSource.sync();
+        }
+       
+    });
+
     CustomisaGrid($("#grid"));
 }
 
@@ -162,3 +181,29 @@ function isEditable(fieldName, model) {
     }
     return true;
 }
+
+function opcionHabilitarView(valor, name) {
+    if (valor) {
+        $('#FieldSetView').find('*').attr('disabled', true);
+        $("#inputProyecto").data("kendoComboBox").enable(false);
+        $("input[name='TipoBusqueda']").attr("disabled", true);
+        $("#btnBuscar").attr("disabled", true);
+       
+
+        $("#Guardar").text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
+        $("#btnGuardar").text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
+        $("#botonGuardar3").text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
+        $("#botonGuardar4").text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
+    }
+    else {
+        $('#FieldSetView').find('*').attr('disabled', false);
+        $("#inputProyecto").data("kendoComboBox").enable(true);
+        $("input[name='TipoBusqueda']").attr("disabled", false);
+        $("#btnBuscar").attr("disabled", false);
+
+        $("#Guardar").text(_dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]);
+        $("#btnGuardar").text(_dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]);
+        $("#botonGuardar3").text(_dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]);
+        $("#botonGuardar4").text(_dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]);
+    }
+};

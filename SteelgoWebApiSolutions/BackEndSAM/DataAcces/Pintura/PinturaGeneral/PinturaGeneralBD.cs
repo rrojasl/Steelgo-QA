@@ -156,18 +156,19 @@ namespace BackEndSAM.DataAcces.Pintura.PinturaGeneral
                     {
                         listaRevisionSpool.Add(new PinturaRevision
                         {
-                            Accion = item.GenerarRevision == 0 ? 1 : 2,
+                            Accion = 1,
                             SpoolID = item.SpoolID,
+                            NombreSpool = item.NombreSpool,
                             NumeroControl = item.NumeroControl,
                             SistemaPintura = item.SistemaPintura,
                             Color = item.Color,
-                            Area =item.Area,
-                            GenerarRevision = item.GenerarRevision==0?true:false,
-                            Comentario =item.Comentario,
-                            Version=item.Version
+                            Area = item.Area,
+                            GenerarRevision = false,
+                            Comentario = item.Comentario,
+                            Version = item.Version
                         });
                     }
-                    return listaRevisionSpool;
+                    return  listaRevisionSpool;
                 }
             }
             catch (Exception ex)

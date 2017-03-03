@@ -1,5 +1,5 @@
 ﻿function AjaxCargarCamposPredeterminados() {
-    var TipoMuestraPredeterminadoID = 3071;
+    var TipoMuestraPredeterminadoID = 3073;
     $CamposPredeterminados.CamposPredeterminados.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), id: TipoMuestraPredeterminadoID }).done(function (data) {
         if (data == "Spool") {
             $('input:radio[name=TipoBusqueda]:nth(0)').trigger("click");
@@ -11,7 +11,6 @@
     });
    // AjaxCargarTipoLlenado();
 }
-
 
 function AjaxCargaProyecto() {
 
@@ -47,3 +46,123 @@ function AjaxConsultarSpoolsConSP() {
         }
     });
 };
+
+function AjaxGuardar(arregloCaptura, tipoGuardar) {
+
+    loadingStart();
+    Captura = [];
+    Captura[0] = { Detalles: "" };
+    ListaDetalles = [];
+    var row = 0;
+    for (index = 0; index < arregloCaptura.length; index++) {
+        $("#grid").data("kendoGrid").dataSource._data[index].RowOk = true;
+        if (arregloCaptura[index].GenerarRevision) {
+            ListaDetalles[row] = { Accion: "", SpoolID: "", Comentario: "", Estatus: 1 };
+            ListaDetalles[row].Accion = arregloCaptura[index].Accion;
+            ListaDetalles[row].SpoolID = arregloCaptura[index].SpoolID;
+            ListaDetalles[row].Comentario = arregloCaptura[index].Comentario;
+            if (arregloCaptura[index].Comentario == "" || arregloCaptura[index].Comentario == null || arregloCaptura[index].Comentario == undefined) {
+                ListaDetalles[row].Estatus = 0;
+                $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
+            }
+            row++;
+        }
+    };
+    Captura[0].Detalles = ListaDetalles;
+
+    if (ListaDetalles.length > 0) {
+        if (!ExistRowEmpty(ListaDetalles)) {
+            if (Captura[0].Detalles.length > 0) {
+                AjaxEjecutarGuardado(Captura[0], tipoGuardar);
+            }
+            else {
+                loadingStop();
+            }
+        }
+        else {
+            loadingStop();
+            $("#grid").data("kendoGrid").dataSource.sync();
+            ventanaConfirm = $("#ventanaConfirm").kendoWindow({
+                iframe: true,
+                title: _dictionary.TituloPopUpError[$("#language").data("kendoDropDownList").value()],
+                visible: false, //the window will not appear before its .open method is called
+                width: "auto",
+                height: "auto",
+                modal: true,
+                actions: [],
+                animation: {
+                    close: false,
+                    open: false
+                }
+            }).data("kendoWindow");
+
+            ventanaConfirm.content(_dictionary.MensajeConfirmacionGuardadoGeneral[$("#language").data("kendoDropDownList").value()] +
+                "</br><center><button class='btn btn-blue' id='yesButton'>" + _dictionary.EntregaPlacasGraficasbotonSi[$("#language").data("kendoDropDownList").value()] + "</button><button class='btn btn-blue' id='noButton'>" + _dictionary.EntregaPlacasGraficasbotonNo[$("#language").data("kendoDropDownList").value()] + "</button></center>");
+
+            ventanaConfirm.open().center();
+
+            $("#yesButton").click(function () {
+                loadingStart();
+
+                ArregloGuardado = [];
+                var indice = 0;
+                for (var i = 0; i < Captura[0].Detalles.length; i++) {
+                    if (Captura[0].Detalles[i].Estatus == 1) {
+                        ArregloGuardado[indice] = ListaDetalles[i];
+                        indice++;
+                    }
+                }
+
+                Captura[0].Detalles = [];
+                Captura[0].Detalles = ArregloGuardado;
+
+                if (Captura[0].Detalles.length > 0) {
+
+                    AjaxEjecutarGuardado(Captura[0], tipoGuardar);
+                }
+                else {
+                    loadingStop();
+                    displayNotify("AdverteciaExcepcionGuardado", "", '1');
+                }
+
+                ventanaConfirm.close();
+            });
+
+            $("#noButton").click(function () {
+                ventanaConfirm.close();
+            });
+
+        }
+    }
+    else {
+        displayNotify("AdverteciaExcepcionGuardado", "", '1');
+        $("#grid").data("kendoGrid").dataSource.sync();
+        loadingStop();
+    }
+
+};
+
+function AjaxEjecutarGuardado(rows, tipoGuardar) {
+    loadingStart();
+    $RevisionPintura.RevisionPintura.create(rows, { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
+
+        if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
+            displayNotify("MensajeGuardadoExistoso", "", '0');
+            loadingStop();
+
+            if (tipoGuardar == 1) {
+                $("#btnCancelar").trigger("click");
+            }
+            else {
+                opcionHabilitarView(true, "FieldSetView");
+                //AjaxCambiarAccionAModificacion();
+            }
+        }
+        else {
+            //mensaje = "No se guardo la informacion el error es: " + data.ReturnMessage[0] + "-2";
+            displayNotify("MensajeGuardadoErroneo", "", '2');
+            loadingStop();
+
+        }
+    });
+}

@@ -2,6 +2,36 @@
     SuscribirEventoProyecto();
     suscribirEventoChangeRadioTipoBusqueda();
     SuscribirEventoBusqueda();
+    SuscribirEventoGuardar();
+}
+
+function SuscribirEventoGuardar()
+{
+    $('.accionGuardar').click(function (e) {
+       
+        //e.stopPropagation();
+        if ($('#Guardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
+            //opcionHabilitarView(true, "FieldSetView");
+            var ds = $("#grid").data("kendoGrid").dataSource;
+            AjaxGuardar(ds._data, false);
+        }
+        else if ($('#Guardar').text() == _dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]) {
+            opcionHabilitarView(false, "FieldSetView")
+        }
+    });
+
+    $('.accionGuardarYNuevo').click(function (e) {
+       
+        //e.stopPropagation();
+        if ($('#Guardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
+            //opcionHabilitarView(true, "FieldSetView");
+            var ds = $("#grid").data("kendoGrid").dataSource;
+            AjaxGuardar(ds._data, false);
+        }
+        else if ($('#Guardar').text() == _dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]) {
+            opcionHabilitarView(false, "FieldSetView")
+        }
+    });
 }
 
 function SuscribirEventoProyecto() {

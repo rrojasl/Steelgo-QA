@@ -24,13 +24,13 @@
             <div class="formNav clearfix">
                 <div class="button-section editButtonSection">
                     <div class="btn-group save-group">
-                        <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="botonGuardar"></span></button>
+                        <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow  accionGuardar"><span id="botonGuardar"></span></button>
                         <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="caretWhite"></span>
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a href="#/" id="btnGuardar"><span id="botonGuardar2"></span></a></li>
-                            <li><a href="#/" id="btnGuardarYNuevo"><span id="botonGuardarYNuevo"></span></a></li>
+                            <li><a href="#/" id="btnGuardar"  class="accionGuardar"><span id="botonGuardar2"></span></a></li>
+                            <li><a href="#/" id="btnGuardarYNuevo" class="accionGuardarYNuevo"><span id="botonGuardarYNuevo"  ></span></a></li>
                         </ul>
                     </div>
                     <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar"></span></a>
@@ -47,8 +47,7 @@
                             <span class="caretBlue"></span>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="Acciones">
-                            <li><a href="#/" id="btnCargaCsv"><span id="botonCargaExcel"></span></a></li>
-                            <li><a href="#/" id="btnDescargaCsv"><span id="botonDescargaExcel"></span></a></li>
+                           
                         </ul>
                     </div>
                 </div>
@@ -57,7 +56,7 @@
         </div>
     </div>
     @*Filtros de Búsqueda*@
-    <div class="row">
+    <div class="row"  id="FieldSetView">
         <div class="col-xs-12 col-sm-3 col-md-3 col-lg-2" style="left: 16px;">
             <div id="tipoVista" class="btn-group " data-toggle="buttons" role="group">
                 <label>&nbsp;</label>
@@ -98,13 +97,13 @@
             <div class="formNav clearfix">
                 <div class="button-section editButtonSection">
                     <div class="btn-group save-group">
-                        <button id="Guardar1" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="botonGuardar3"></span></button>
+                        <button id="Guardar1" onclick="javascript:void(0);" type="button" class="btn btn-yellow accionGuardar"><span id="botonGuardar3"></span></button>
                         <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="caretWhite"></span>
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a href="#/" id="btnGuardar1"><span id="botonGuardar4"></span></a></li>
-                            <li><a href="#/" id="btnGuardarYNuevo1"><span id="botonGuardarYNuevo1"></span></a></li>
+                            <li><a href="#/" id="btnGuardar1" class="accionGuardar"><span id="botonGuardar4" ></span></a></li>
+                            <li><a href="#/" id="btnGuardarYNuevo1" class="accionGuardarYNuevo"><span id="botonGuardarYNuevo1" ></span></a></li>
                         </ul>
                     </div>
                     <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar1"></span></a>
@@ -120,57 +119,12 @@
                             <span class="caretBlue"></span>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="Acciones">
-                            <li><a href="#/" id="btnCargaCsv1"><span id="botonCargaExcel1"></span></a></li>
-                            <li><a href="#/" id="btnDescargaCsv1"><span id="botonDescargaExcel1"></span></a></li>
+                           
                         </ul>
                     </div>
                 </div>
                 <a id="Imprimir" href="#" class="btn btn-fadeBlue actionButtonSection"></a>
             </div>
-        </div>
-    </div>
-</div>
-<div id="windowLoadFile" style="display:none;">
-    <div class="row" style="margin:0px">
-        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
-            <label>Tipo de Carga</label><br />
-            <input type="radio" name="TipoCarga" style="width:auto;" value="spool" /><span id="SPAlblSpool"></span>
-            <input type="radio" name="TipoCarga" style="width:auto;" value="nc" /><span id="SPAlblNc"> </span>
-        </div>
-        <div class="form-group col-xs-12 col-sm-4 col-md-4 col-lg-4 selectFilesDiv">
-            <input type="file" name="File Upload" id="inputFile" class="hidden" accept=".csv" />
-            <button id="btntFile" class="btn btn-primary" type="button">
-                <span id="botonSeleccionarArchivo"></span>
-            </button>
-        </div>
-        <div class="form-group col-xs-12 col-sm-7 col-md-7 col-lg-7 selectFilesDiv">
-            <span id="lblRutaArchivo"></span>
-        </div><br /><br />
-        <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
-            <center>
-                <button type="button" class='confirm_yes btn btn-blue' id='btnGuardarCarga'>
-                    <span id="lblGuardar"></span>
-                </button>
-                <button type="button" class='confirm_yes btn btn-blue' id='btnCerrarPopup'>
-                    <span id="PinturaCargaCerrarPopup"></span>
-                </button>
-            </center>
-        </div>
-    </div>
-</div>
-<div id="windowDelete" style="display:none;">
-    <div class="row" style="margin:0px">
-        <span id="spanDetalle"></span>
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <div id="gridDetalle" data-role="grid" class="k-grid k-widget"></div>
-        </div><br /><br />
-        <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
-            <button type="button" class='confirm_yes btn btn-blue' id="btnDescargar">
-                <span id="PinturaCargaDescargar"></span>
-            </button>
-            <button type="button" class='confirm_yes btn btn-blue' id='btnCerrarPopup'>
-                <span id="PinturaCargaCerrarPopup"></span>
-            </button>
         </div>
     </div>
 </div>
