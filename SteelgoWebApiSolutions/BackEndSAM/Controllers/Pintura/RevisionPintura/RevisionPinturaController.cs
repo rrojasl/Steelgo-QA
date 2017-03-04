@@ -1,4 +1,5 @@
 ﻿using BackEndSAM.DataAcces.Pintura.PinturaGeneral;
+using BackEndSAM.DataAcces.Pintura.RevisionPintura;
 using BackEndSAM.Models.Pintura.PinturaGeneral;
 using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
@@ -69,5 +70,32 @@ namespace BackEndSAM.Controllers.Pintura.RevisionPintura
             }
         }
 
+
+        public object Put(ElementosCapturados listaCapturaActualizar, string token, string lenguaje, string SinCaptura)
+        {
+            string payload = "";
+            string newToken = "";
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                DataTable dtDetalleActualizaCaptura = Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(listaCapturaActualizar.Detalles);
+                List<PinturaRevision> listaDetalleDatos = new List<PinturaRevision>();
+
+                return RevisionPinturaBD.Instance.ActualizaDatos(dtDetalleActualizaCaptura,lenguaje);
+  
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
     }
 }

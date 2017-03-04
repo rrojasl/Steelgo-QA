@@ -93,4 +93,16 @@ namespace BackEndSAM.Models.Pintura.PinturaGeneral
         public int SpoolID { get; set; }
         public string Comentario { get; set; }
     }
+
+    
+
+    public class ElementosCapturados
+    {
+        public List<ElementosSpool> Detalles { get; set; }
+    }
+
+    public class ElementosSpool
+    {
+        public int SpoolID { get; set; }
+    }
 }

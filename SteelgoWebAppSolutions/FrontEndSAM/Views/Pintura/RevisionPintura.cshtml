@@ -19,6 +19,7 @@
 }
 <div id="FormEntregaRequisicion" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
     @*Menu superior*@
+    <div id="ventanaConfirmCapturaCambioTipo"></div>
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="formNav clearfix">
@@ -29,8 +30,8 @@
                             <span class="caretWhite"></span>
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a href="#/" id="btnGuardar"  class="accionGuardar"><span id="botonGuardar2"></span></a></li>
-                            <li><a href="#/" id="btnGuardarYNuevo" class="accionGuardarYNuevo"><span id="botonGuardarYNuevo"  ></span></a></li>
+                            <li><a href="#/" id="btnGuardar" class="accionGuardar"><span id="botonGuardar2"></span></a></li>
+                            <li><a href="#/" id="btnGuardarYNuevo" class="accionGuardarYNuevo"><span id="botonGuardarYNuevo"></span></a></li>
                         </ul>
                     </div>
                     <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar"></span></a>
@@ -46,9 +47,7 @@
                             <span id="botonAcciones1"></span>
                             <span class="caretBlue"></span>
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="Acciones">
-                           
-                        </ul>
+                        <ul class="dropdown-menu" aria-labelledby="Acciones"></ul>
                     </div>
                 </div>
                 <a id="Imprimir" href="#" class="btn btn-fadeBlue actionButtonSection"></a>
@@ -56,7 +55,7 @@
         </div>
     </div>
     @*Filtros de Búsqueda*@
-    <div class="row"  id="FieldSetView">
+    <div class="row" id="FieldSetView">
         <div class="col-xs-12 col-sm-3 col-md-3 col-lg-2" style="left: 16px;">
             <div id="tipoVista" class="btn-group " data-toggle="buttons" role="group">
                 <label>&nbsp;</label>
@@ -74,11 +73,11 @@
         </div>
         <div class="col-xs-12 col-sm-3 col-md-3 col-lg-2" id="divSpool">
             <label id="lblSpoolContiene"></label>
-            <input id="inputSpool" class="general-input"  />
+            <input id="inputSpool" class="general-input" />
         </div>
         <div class="col-xs-12 col-sm-3 col-md-3 col-lg-2" id="divNc">
             <label id="lblNcContiene"></label>
-            <input id="inputNc" class="general-input"  />
+            <input id="inputNc" class="general-input" />
         </div>
         <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
             <label id="">&nbsp;</label>
@@ -102,8 +101,8 @@
                             <span class="caretWhite"></span>
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a href="#/" id="btnGuardar1" class="accionGuardar"><span id="botonGuardar4" ></span></a></li>
-                            <li><a href="#/" id="btnGuardarYNuevo1" class="accionGuardarYNuevo"><span id="botonGuardarYNuevo1" ></span></a></li>
+                            <li><a href="#/" id="btnGuardar1" class="accionGuardar"><span id="botonGuardar4"></span></a></li>
+                            <li><a href="#/" id="btnGuardarYNuevo1" class="accionGuardarYNuevo"><span id="botonGuardarYNuevo1"></span></a></li>
                         </ul>
                     </div>
                     <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar1"></span></a>
@@ -118,9 +117,7 @@
                             <span id="botonAcciones2"></span>
                             <span class="caretBlue"></span>
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="Acciones">
-                           
-                        </ul>
+                        <ul class="dropdown-menu" aria-labelledby="Acciones"></ul>
                     </div>
                 </div>
                 <a id="Imprimir" href="#" class="btn btn-fadeBlue actionButtonSection"></a>
@@ -134,3 +131,9 @@
 <script type="text/javascript" src="~/Scripts/AppComponents/Pintura/RevisionPintura/Handlers.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/Pintura/RevisionPintura/Captura.js"> </script>
 <script type="text/javascript" src="~/Scripts/AppComponents/Pintura/RevisionPintura/Seguridad.js"> </script>
+
+<script>
+        @section JavascriptDocumentReadyFunctions {
+    $authorizationModel["RevisonPintura"] = $RevisionPinturaModel;
+         }
+</script>

@@ -15,6 +15,19 @@ function changeLanguageCall() {
 }
 
 
+function ArregloListadoSpoolsCapturados() {
+
+    var dataSource = $("#grid").data("kendoGrid").dataSource;
+    var data = dataSource._data
+    JsonCaptura = [];
+
+    for (var i = 0; i < data.length ; i++) {
+        JsonCaptura[i] = { SpoolID: "" };
+        JsonCaptura[i].SpoolID = data[i].SpoolID;
+    }
+    return JsonCaptura;
+}
+
 function CargarGrid() {
     //BeforeEdit
     kendo.ui.Grid.fn.editCell = (function (editCell) {

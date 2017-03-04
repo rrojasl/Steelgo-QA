@@ -12451,6 +12451,14 @@ _dictionary = {
         "es-MX": "Revision Pintura",
         "en-US": "Painting Revision"
     },
+    "InformacionAgregada": {
+        "es-MX": "Se agrego la informacion a la captura",
+        "en-US": "The information was added to the catch"
+    },
+    "InformacionSinResultado": {
+        "es-MX": "La informacion buscada no produjo ni un solo resultado",
+        "en-US": "The information sought did not produce a single result"
+    },
     //Inicia Modulo Ingenieria
     "IngenieriaBreadcrumb": {
         "es-MX": "Ingenieria",
