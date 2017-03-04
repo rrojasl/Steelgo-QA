@@ -432,7 +432,7 @@ function AjaxGuardarCaptura() {
             ProyectoID: currentSpoolMaster.ProyectoID,
             NombreLoop: currentSpoolMaster.NombreLoop,
             Dibujo: currentSpoolMaster.Dibujo,
-            PorcentajePND: currentSpoolMaster.PND,
+            PND: currentSpoolMaster.PND,
             RequierePWHT: currentSpoolMaster.RequierePWHT,
 
             DetalleSalidas: []
@@ -453,10 +453,10 @@ function AjaxGuardarCaptura() {
                 SistemaPintura: currentSpoolMaster.DetalleSalidas[i].SistemaPintura,
                 ColorPintura: currentSpoolMaster.DetalleSalidas[i].ColorPintura,
 
-                Salidas: []
+                detalleAgrupadoSalidas: []
             };
             for (var j = 0; j < currentSpoolMaster.DetalleSalidas[i].SalidasEstandar.length; j++) {
-                Captura[0].DetalleSalidas[i].Salidas[j] = {
+                Captura[0].DetalleSalidas[i].detalleAgrupadoSalidas[j] = {
                     Salidas_AgrupadoID: currentSpoolMaster.DetalleSalidas[i].SalidasEstandar[j].Salidas_AgrupadoID,
                     Detalle_SalidasID: currentSpoolMaster.DetalleSalidas[i].SalidasEstandar[j].Detalle_SalidasID,
                     TipoSalidaID: currentSpoolMaster.DetalleSalidas[i].SalidasEstandar[j].TipoSalidaID,
@@ -483,7 +483,7 @@ function AjaxGuardarCaptura() {
             }
 
             for (var j = 0; j < currentSpoolMaster.DetalleSalidas[i].SalidasJuntasCerradas.length; j++) {
-                Captura[0].DetalleSalidas[i].Salidas[j + currentSpoolMaster.DetalleSalidas[i].SalidasEstandar.length] = {
+                Captura[0].DetalleSalidas[i].detalleAgrupadoSalidas[j + currentSpoolMaster.DetalleSalidas[i].SalidasEstandar.length] = {
                     Salidas_AgrupadoID: currentSpoolMaster.DetalleSalidas[i].SalidasJuntasCerradas[j].Salidas_AgrupadoID,
                     Detalle_SalidasID: currentSpoolMaster.DetalleSalidas[i].SalidasJuntasCerradas[j].Detalle_SalidasID,
                     TipoSalidaID: currentSpoolMaster.DetalleSalidas[i].SalidasJuntasCerradas[j].TipoSalidaID,
