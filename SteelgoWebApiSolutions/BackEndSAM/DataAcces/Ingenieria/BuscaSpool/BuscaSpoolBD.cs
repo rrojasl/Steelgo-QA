@@ -282,12 +282,153 @@ namespace BackEndSAM.DataAcces.Ingenieria.BuscaSpool
             }
         }
 
+        public object ObtieneDetalleAgrupadoSalidaLoop(int DetalleSalidaID)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Sam3_Ingenieria_Get_DetalleAgrupadoSalidas_Result> result = ctx.Sam3_Ingenieria_Get_DetalleAgrupadoSalidas(DetalleSalidaID).ToList();
+                    List<DetalleAgrupadoSalidasConsulta> listaDetalle = new List<DetalleAgrupadoSalidasConsulta>();
+
+                    foreach (Sam3_Ingenieria_Get_DetalleAgrupadoSalidas_Result item in result)
+                    {
+                        listaDetalle.Add(new DetalleAgrupadoSalidasConsulta {
+                            Salidas_AgrupadoID = item.Salidas_AgrupadoID,
+                            Detalle_SalidasID = item.Detalle_SalidasID,
+                            PosicionSalida = item.PosicionSalida,
+                            ClaveSalida = item.ClaveSalida,
+                            PosicionSalidaPadre = item.PosicionSalidaPadre,
+                            ClaveSalidaPadre = item.ClaveSalidaPadre,
+                            Salidas_AgrupadoID_Padre = item.Salidas_AgrupadoID_Padre,
+                            Nivel = item.Nivel,
+                            TipoSalidaID = item.TipoSalidaID,
+                            TipoSalida = item.TipoSalida,
+                            MaterialSpoolID = item.MaterialSpoolID,
+                            ItemCode = item.ItemCode,
+                            ItemCodeID = item.ItemCodeID,
+                            SpoolItemCodeID = item.SpoolItemCodeID,
+                            SpoolItemCode = item.SpoolItemCode,
+                            MaterialItemCodeID = item.MaterialItemCodeID,
+                            MaterialItemCode = item.MaterialItemCode,
+                            JuntaSpoolID = item.JuntaSpoolID,
+                            Etiqueta = item.Etiqueta,
+                            TipoJuntaID = item.TipoJuntaID,
+                            TipoJunta = item.TipoJunta,
+                            Cedula = item.Cedula,
+                            FamiliaAceroMaterial1ID = item.FamiliaAceroMaterial1ID,
+                            FamiliaAceroMaterial1 = item.FamiliaAceroMaterial1,
+                            FamiliaAceroMaterial2ID = item.FamiliaAceroMaterial2ID,
+                            FamiliaAceroMaterial2 = item.FamiliaAceroMaterial2,
+                            Diametro = item.Diametro,
+                            TipoCorte1ID = item.TipoCorte1ID,
+                            TipoCorte1 = item.TipoCorte1,
+                            TipoCorte2ID = item.TipoCorte2ID,
+                            TipoCorte2 = item.TipoCorte2,
+                            Cantidad = item.Cantidad
+                        });
+                    }
+
+                    return listaDetalle;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object ObtieneDetalleSalidaLoop(int LoopID)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Sam3_Ingenieria_Get_DetalleSalidaLoop_Result> result = ctx.Sam3_Ingenieria_Get_DetalleSalidaLoop(LoopID).ToList();
+                    List<DetalleSalidasConsulta> listaDetalleSalida = new List<DetalleSalidasConsulta>();
+
+                    foreach (Sam3_Ingenieria_Get_DetalleSalidaLoop_Result item in result)
+                    {
+                        listaDetalleSalida.Add(new DetalleSalidasConsulta {
+                            Detalle_SalidasID = item.Detalle_SalidasID,
+                            SpoolID = item.SpoolID,
+                            Posicion = item.Posicion,
+                            RevisionSteelgo = item.RevisionSteelgo,
+                            RevisionCliente = item.RevisionCliente,
+                            FamiliaAcero1ID = item.FamiliaAcero1ID,
+                            FamiliaAcero1 = item.FamiliaAcero1,
+                            FamiliaAcero2ID = item.FamiliaAcero2ID,
+                            FamiliaAcero2 = item.FamiliaAcero2,
+                            Especificacion = item.Especificacion,
+                            PDI = item.PDI,
+                            SistemaPintura = item.SistemaPintura,
+                            ColorPintura = item.ColorPintura,
+                            detalleAgrupadoSalidas = (List<DetalleAgrupadoSalidasConsulta>) ObtieneDetalleAgrupadoSalidaLoop(item.Detalle_SalidasID)
+                        });
+                    }
+
+
+                    return listaDetalleSalida;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object ObtieneDetalleLoop(int ProyectoID, string NombreLoop)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    Sam3_Ingenieria_Get_DetalleLoop_Result result = ctx.Sam3_Ingenieria_Get_DetalleLoop(ProyectoID, NombreLoop).SingleOrDefault();
+                    SpoolMasterConsulta loopMaster = new SpoolMasterConsulta();
+
+                    if (result != null)
+                    {
+                        loopMaster.LoopID = result.LoopID;
+                        loopMaster.ProyectoID = result.ProyectoID;
+                        loopMaster.NombreLoop = result.NombreLoop;
+                        loopMaster.Dibujo = result.Dibujo;
+                        loopMaster.PND = result.PorcentajePND;
+                        loopMaster.RequierePWHT = result.RequierePWHT;
+                        loopMaster.detalleSalidas = (List<DetalleSalidasConsulta>)ObtieneDetalleSalidaLoop(result.LoopID);
+                    }
+
+                    return loopMaster;
+                }
+            }
+            catch (Exception ex){
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
         public object GuardarCaptura(DataTable DtListaSpool, DataTable DtListaJuntaSpool, SpoolMasterGuardado Captura,  int UsuarioID) 
         {
             try
             {
                 ObjetosSQL _SQL = new ObjetosSQL();
-                string[,] parametros = { { "@UsuarioID", UsuarioID.ToString() }, { "@ProyectoID", Captura.ProyectoID.ToString() }, { "@LoopID", Captura.LoopID.ToString() }, { "@NombreLoop", Captura.NombreLoop }, {"@Dibujo", Captura.Dibujo }, {"@PorcentajePND", Captura.PND.ToString() }, {"@RequierePWHT", Captura.RequierePWHT.ToString() }, { "@RevisionSteelgo", Captura.RevisionSteelgo }, { "@RevisionCliente", Captura.RevisionCliente.ToString() }, { "@FamiliaAcero1ID", Captura.FamiliaAcero1ID.ToString() }, { "@FamiliaAcero2ID", Captura.FamiliaAcero2ID.ToString() }, { "@Especificacion", Captura.Especificacion }, { "@Pdi", Captura.PDI.ToString() }, { "@SistemaPintura", Captura.SistemaPintura }, { "@ColorPintura", Captura.ColorPintura } };
+                string[,] parametros = { { "@UsuarioID", UsuarioID.ToString() }, { "@ProyectoID", Captura.ProyectoID.ToString() }, { "@LoopID", Captura.LoopID.ToString() }, { "@NombreLoop", Captura.NombreLoop }, {"@Dibujo", Captura.Dibujo }, {"@PorcentajePND", Captura.PND.ToString() }, {"@RequierePWHT", Captura.RequierePWHT.ToString() } };
 
                bool resultado = _SQL.Ejecuta(Stords.GUARDARCAPTURABUSCASPOOL, DtListaSpool, "@TTDetalleSalidas", DtListaJuntaSpool, "@TTDetalleAgrupadoSalidas", parametros);
 

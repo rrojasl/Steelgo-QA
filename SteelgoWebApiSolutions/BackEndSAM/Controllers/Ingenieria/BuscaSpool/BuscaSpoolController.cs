@@ -122,6 +122,32 @@ namespace BackEndSAM.Controllers.Ingenieria
         }
 
         [HttpGet]
+        public object ObtieneDetalleLoop(string token, int ProyectoID, string NombreLoop)
+        {
+            string payload = "";
+            string newToken = "";
+
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+
+                return BuscaSpoolBD.Instance.ObtieneDetalleLoop(ProyectoID, NombreLoop);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+
+                return result;
+            }
+        }
+
+        [HttpGet]
         public object ObtieneDetalleMaterialSpool(string token, int Spool)
         {
             string payload = "";
@@ -210,11 +236,25 @@ namespace BackEndSAM.Controllers.Ingenieria
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                DataTable dtDetalleSalidas = Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(Captura.detalleSalidas);
+                List<DetalleSalidasGuardado> listadoSalidas = new List<DetalleSalidasGuardado>();
                 List<DetalleAgrupadoSalidas> listaAgrupadoSalidas = new List<DetalleAgrupadoSalidas>();
 
                 foreach (DetalleSalidas item in Captura.detalleSalidas)
                 {
+
+                    listadoSalidas.Add(new DetalleSalidasGuardado
+                    {
+                        Detalle_SalidasID = item.Detalle_SalidasID,
+                        SpoolID = item.SpoolID,
+                        Posicion = item.Posicion,
+                        RevisionSteelgo = item.RevisionSteelgo,
+                        RevisionCliente = item.RevisionCliente,
+                        FamiliaAcero1ID = item.FamiliaAcero1ID,
+                        FamiliaAcero2ID = item.FamiliaAcero2ID,
+                        SistemaPintura = item.SistemaPintura,
+                        ColorPintura = item.ColorPintura
+                    });
+
                    if (item.detalleAgrupadoSalidas!=null)
                     {
                         foreach (DetalleAgrupadoSalidas x in item.detalleAgrupadoSalidas)
@@ -222,7 +262,9 @@ namespace BackEndSAM.Controllers.Ingenieria
                             listaAgrupadoSalidas.Add(x);
                         }
                     }
+                   
                 }
+                DataTable dtDetalleSalidas = Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(listadoSalidas);
                 DataTable dtDetalleAgrupadoSalidas = Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(listaAgrupadoSalidas);
 
                 return BuscaSpoolBD.Instance.GuardarCaptura(dtDetalleSalidas, dtDetalleAgrupadoSalidas, Captura, usuario.UsuarioID);
