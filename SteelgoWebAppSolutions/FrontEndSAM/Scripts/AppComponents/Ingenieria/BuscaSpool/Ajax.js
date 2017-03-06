@@ -78,6 +78,83 @@ function AjaxAceroCatalog() {
 
 }
 
+function AjaxGetLoop(proyectoID, nombreLoop) {
+
+
+    loadingStart();
+    $BuscaSpool.BuscaSpool.read({ token: Cookies.get("token"), ProyectoID: proyectoID, NombreLoop: nombreLoop }).done(function (data) {
+
+        if (Error(data)) {
+            if (data.LoopID == 0) {//No exite
+                var loopHTML = '';
+                initSpoolMaster();
+                addNewDetalleSalida(0, '');//Primer Item
+
+                loopHTML += '<div id="content_0">';
+                loopHTML += '<div class="row">';
+                loopHTML += '<div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 altoControl" >';
+                loopHTML += '<label>' + _dictionary.lblSpool[$("#language").data("kendoDropDownList").value()] + '</label>';
+                loopHTML += '<input id="spool_0" class="item-select general-input" />';
+                loopHTML += '</div>';
+                loopHTML += '<div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 altoControl" id="divPrueba">';
+                loopHTML += '<label>' + _dictionary.lblNumeroSalidas[$("#language").data("kendoDropDownList").value()] + '</label>';
+                loopHTML += '<input style="width:47%" id="inputSalidas_0" />';
+                loopHTML += '</div>';
+                loopHTML += '<div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 altoControl" id="divPrueba">';
+                loopHTML += '<label>' + _dictionary.lblNumeroSalidasCerradas[$("#language").data("kendoDropDownList").value()] + '</label>';
+                loopHTML += '<input style="width:30%" id="inputJuntasCerradas_0" />';
+                loopHTML += '</div>';
+                loopHTML += '<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">';
+                loopHTML += '<label></label>';
+                loopHTML += '<button type="button" id="btnAgregar_0" class="btn btn-blue"  onclick="eventBuscar(0);">Agregar</button>';
+                loopHTML += '</div>';
+                loopHTML += '</div>';
+
+                loopHTML += '<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">';
+                loopHTML += '<div id="ContenedorGrid" class="row">';
+                loopHTML += '<div id="grid_0" data-role="grid" class="k-grid k-widget">';
+                loopHTML += '</div>';
+                loopHTML += '</div>';
+                loopHTML += '</div>';
+
+                loopHTML += '<div class="row">';
+                loopHTML += '<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">';
+                loopHTML += '<label>&nbsp;</label>';
+                loopHTML += '</div>';
+                loopHTML += '</div>';
+
+                loopHTML += '';
+                loopHTML += '';
+                loopHTML += '</div>';
+
+                if ($('#content_0').length > 0)
+                    $("#content_0").remove();
+
+                $("#contenedor_master").append(loopHTML);
+
+                $('#inputSalidas_0').kendoNumericTextBox({
+                    format: "###"
+                });
+
+                $('#inputJuntasCerradas_0').kendoNumericTextBox({
+                    format: "###"
+                });
+
+                CargarGridDynamic(0);
+
+                reCalculaReglas();
+            }
+            else {//si existe el Loop
+                currentSpoolMaster = data;
+                reloadControls();
+                reCalculaReglas();
+
+            }
+        }
+        loadingStop();
+    });
+
+}
 
 function AjaxDetalleSpoolXNombre(posicion, proyectoID, nombreSpool) {
     loadingStart();
@@ -515,7 +592,7 @@ function AjaxGuardarCaptura() {
         
         $BuscaSpool.BuscaSpool.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
             if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
-
+                buscaLoop();
             } else {
                 displayNotify("CapturaReporteGuardadoErroneo", "", '2');
             }
