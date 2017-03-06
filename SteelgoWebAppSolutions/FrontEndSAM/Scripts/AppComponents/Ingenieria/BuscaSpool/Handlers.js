@@ -190,7 +190,7 @@ function buscaLoop() {
     var Proyecto = $("#inputProyecto").data("kendoComboBox").dataItem($("#inputProyecto").data("kendoComboBox").select());
 
     
-    AjaxGetLoop(Proyecto.ProyectoSpoolID, $("#inputNombreLoop").val());
+    AjaxGetLoop(Proyecto.ProyectoID, $("#inputNombreLoop").val());
     
 }
 
