@@ -8306,8 +8306,8 @@ _dictionary = {
         "en-US": "Paint System"
     },
     "menuConfiguracionSoldadura": {
-        "es-MX": "Configuración de soldadura",
-        "en-US": "Welding Configuration"
+        "es-MX": "Fabricación",
+        "en-US": "Manufacturing"
     },
     "menuPQR": {
         "es-MX": "PQR",

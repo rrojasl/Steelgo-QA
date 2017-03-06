@@ -457,7 +457,7 @@ function suscribirEventoSepararRequisicion() {
             title: modalTitle,
             resizable: false,
             visible: true,
-            width: "50%",
+            width: "40%",
             minWidth: 30,
             position: {
                 top: "1%",
