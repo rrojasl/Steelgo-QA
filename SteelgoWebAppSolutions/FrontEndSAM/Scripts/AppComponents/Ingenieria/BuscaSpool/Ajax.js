@@ -459,6 +459,7 @@ function AjaxGuardarCaptura() {
                 Captura[0].DetalleSalidas[i].detalleAgrupadoSalidas[j] = {
                     Salidas_AgrupadoID: currentSpoolMaster.DetalleSalidas[i].SalidasEstandar[j].Salidas_AgrupadoID,
                     Detalle_SalidasID: currentSpoolMaster.DetalleSalidas[i].SalidasEstandar[j].Detalle_SalidasID,
+                    SpoolID: currentSpoolMaster.DetalleSalidas[i].SpoolID,
                     TipoSalidaID: currentSpoolMaster.DetalleSalidas[i].SalidasEstandar[j].TipoSalidaID,
                     Nivel: currentSpoolMaster.DetalleSalidas[i].SalidasEstandar[j].Nivel,
                     ClaveSalida: currentSpoolMaster.DetalleSalidas[i].SalidasEstandar[j].ClaveSalida,
@@ -486,6 +487,7 @@ function AjaxGuardarCaptura() {
                 Captura[0].DetalleSalidas[i].detalleAgrupadoSalidas[j + currentSpoolMaster.DetalleSalidas[i].SalidasEstandar.length] = {
                     Salidas_AgrupadoID: currentSpoolMaster.DetalleSalidas[i].SalidasJuntasCerradas[j].Salidas_AgrupadoID,
                     Detalle_SalidasID: currentSpoolMaster.DetalleSalidas[i].SalidasJuntasCerradas[j].Detalle_SalidasID,
+                    SpoolID: currentSpoolMaster.DetalleSalidas[i].SpoolID,
                     TipoSalidaID: currentSpoolMaster.DetalleSalidas[i].SalidasJuntasCerradas[j].TipoSalidaID,
                     Nivel: currentSpoolMaster.DetalleSalidas[i].SalidasJuntasCerradas[j].Nivel,
                     ClaveSalida: currentSpoolMaster.DetalleSalidas[i].SalidasJuntasCerradas[j].ClaveSalida,
