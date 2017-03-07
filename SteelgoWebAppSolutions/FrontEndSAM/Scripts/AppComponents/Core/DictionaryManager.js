@@ -8308,7 +8308,7 @@ _dictionary = {
     "menuConfiguracionSoldadura": {
         "es-MX": "Fabricación",
         "en-US": "Manufacturing"
-    },
+        },
     "menuPQR": {
         "es-MX": "PQR",
         "en-US": "PQR"
@@ -10462,7 +10462,7 @@ _dictionary = {
     },
     //Finaliza Captura Admin componentes
     //Inicia Captura Admin reductores
-    
+
     "AdminReductorAsignado": {
         "es-MX": "El reductor se encuentra asignado a un sistema de pintura",
         "en-US": "The reducer is assigned to a painting system"
@@ -10920,6 +10920,10 @@ _dictionary = {
     "CapturaSistemaPinturaComponenteNombre": {
         "es-MX": "Componente",
         "en-US": "Component"
+    },
+    "CapturaSistemaPinturaAgregarPruebas": {
+        "es-MX": "No se puede repetir la prueba en la captura",
+        "en-US": "You can not repeat test on capture"
     },
     "botonGuardarComponenteAgregado": {
         "es-MX": "Agregar",
