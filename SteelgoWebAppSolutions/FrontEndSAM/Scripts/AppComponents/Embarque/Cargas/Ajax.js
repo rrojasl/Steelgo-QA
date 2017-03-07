@@ -198,6 +198,8 @@ function AjaxAgregarCarga() {
                             displayNotify('EmbarqueCargaMsjErrorSpoolAgregarProyectoIncorrecto', '', '1');
                         }
                     }
+                } else {
+                    displayNotify('NoExisteSpoolID', '', '1');
                 }
 
                 $("#InputID").data("kendoComboBox").value("");

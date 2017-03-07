@@ -79,6 +79,48 @@ function AjaxGetListaCuadrantes(zonaID) {
     });
 }
 
+function AjaxGetElementosPorConsulta(tipoConsulta, todos, zonaID, cuadranteID, spoolIDContiene) {
+    loadingStart();
+    $Etiquetado.Etiquetado.read({ token: Cookies.get("token"), TipoConsulta: tipoConsulta, ZonaID: zonaID, CuadranteID: cuadranteID, NumeroControl: spoolIDContiene }).done(function (data) {
+        if (data != null) {
+            if (data > 100) {
+                    var ventanaConfirmBusqueda = $("#ventanaConfirm").kendoWindow({
+                        iframe: true,
+                        title: _dictionary.TituloPopupCancelar[$("#language").data("kendoDropDownList").value()],
+                        visible: false,
+                        width: "45%",
+                        height: "auto",
+                        draggable: false,
+                        actions: [],
+                        modal: true,
+                        animation: {
+                            close: false,
+                            open: false
+                        }
+                    }).data("kendoWindow");
+                    ventanaConfirmBusqueda.content('<center>' + _dictionary.EmbarqueAlertaCantidadRegistros[$("#language").data("kendoDropDownList").value()] + '</center>' +
+                        "</br><center><button class='btn btn-blue' id='btnContinuarBusqueda'>" + _dictionary.lblSi[$("#language").data("kendoDropDownList").value()] + "</button> <button class='btn btn-blue' id='btnCancelarBusqueda'>" + _dictionary.lblNo[$("#language").data("kendoDropDownList").value()] + "</button></center>");
+
+                    ventanaConfirmBusqueda.open().center();
+                    $("#btnContinuarBusqueda").click(function () {
+                        ventanaConfirmBusqueda.close();
+                        AjaxGetDetalleEtiquetado(tipoConsulta, todos, zonaID, cuadranteID, spoolIDContiene);
+                        if (tipoConsulta != 1)
+                            AjaxGetCuadranteListadoPorSpool(spoolIDContiene);
+                    });
+                    $("#btnCancelarBusqueda").click(function () {
+                        ventanaConfirmBusqueda.close();
+                        loadingStop();
+                    });
+            } else {
+                AjaxGetDetalleEtiquetado(tipoConsulta, todos, zonaID, cuadranteID, spoolIDContiene);
+                if (tipoConsulta != 1)
+                    AjaxGetCuadranteListadoPorSpool(spoolIDContiene);
+            }
+        }
+    });
+}
+
 function AjaxGetDetalleEtiquetado(tipoConsulta, todos, zonaID, cuadranteID, spoolIDContiene) {
     loadingStart();
     $Etiquetado.Etiquetado.read({ token: Cookies.get("token"), TipoConsulta: tipoConsulta, Todos: todos, ZonaID: zonaID, CuadranteID: cuadranteID, SpoolContiene: spoolIDContiene }).done(function (data) {

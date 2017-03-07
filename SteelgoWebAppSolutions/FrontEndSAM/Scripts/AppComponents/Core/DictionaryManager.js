@@ -8308,7 +8308,7 @@ _dictionary = {
     "menuConfiguracionSoldadura": {
         "es-MX": "Fabricación",
         "en-US": "Manufacturing"
-        },
+    },
     "menuPQR": {
         "es-MX": "PQR",
         "en-US": "PQR"
@@ -11115,6 +11115,11 @@ _dictionary = {
         "es-MX": "Guardar, Cerrar y Nuevo ",
         "en-US": "Sava, Close and New"
     },
+    //Etiquetas Generales
+    "EmbarqueAlertaCantidadRegistros": {
+        "es-MX": "El tipo de búsqueda que ejecuto obtendrá mas de 100 registros, eso puedo tardar varios minutos. ¿Desea Continuar?",
+        "en-US": "The type of search you get run over 100 records, it can take several minutes. Continue anyway?"
+    },
     //Fin acciones botones de embarque
     //Inicia Pantalla Etiquetado
     "EmbarqueEtiquetadoTituloPagina": {
@@ -11685,6 +11690,14 @@ _dictionary = {
     "EmbarquePreparacionNumEmbarqueSteelgo": {
         "es-MX": "No. Prep",
         "en-US": "Prep Num"
+    },
+    "EmbarquePreparacionNumEmbarqueSteelgoError": {
+        "es-MX": "Por favor ingrese No. Prep",
+        "en-US": "Please enter Prep Num"
+    },
+    "EmbarquePreparacionFechaEmbarqueError": {
+        "es-MX": "Por favor ingrese Fecha del Embarque",
+        "en-US": "Please enter Date of shipping"
     },
     //Finaliza pantalla Preparacion Embarque
     //Inicia pantalla listado embarque

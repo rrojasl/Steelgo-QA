@@ -197,7 +197,7 @@ namespace BackEndSAM.DataAcces.Embarque.PreparacionEmbarque
                 {
                     ObjetosSQL _SQL = new ObjetosSQL();
                     string[,] parametro = { { "@EmbarqueID", EmbarqueID.ToString() }, { "@NombreEmbarque", NombreEmbarque },
-                        { "@NombreCliente", NombreEmbarqueCliente }, { "@TractoID", TractoID.ToString() }, { "@ChoferID", ChoferID.ToString() },
+                        { "@NombreCliente", NombreEmbarqueCliente ==  null ?"": NombreEmbarqueCliente }, { "@TractoID", TractoID.ToString() }, { "@ChoferID", ChoferID.ToString() },
                         { "@FechaCreacion", FechaCreacion } ,{ "@Usuario", usuario.UsuarioID.ToString() }, { "@Lenguaje", lenguaje } };
                     int valor = _SQL.EjecutaInsertUpdate(Stords.GUARDARPREPARACIONEMBARQUE, dtDetalleCaptura, "@TTDetalleEmbarque", parametro);
                     TransactionalInformation result = new TransactionalInformation();

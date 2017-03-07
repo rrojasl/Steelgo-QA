@@ -162,7 +162,7 @@ function SuscribirEventoCuadrante() {
                 if (ZonaID != "0" && ZonaID != "") {
                     if (Cuadrante != undefined) {
                         CuadranteActual = Cuadrante.CuadranteID;
-                        AjaxCargarDetalleEncintado(TipoBusqueda, ZonaID, Cuadrante.CuadranteID, "", Todos);
+                        AjaxCargarElementosPorConsulta(TipoBusqueda, ZonaID, Cuadrante.CuadranteID, "", Todos);
                     }
                 } else {
                     displayNotify("MensajeSeleccionarZona", "", '2');
@@ -198,7 +198,7 @@ function SuscribirEventoCuadrante() {
                     if (ZonaID != "0" && ZonaID != "") {
                         if (Cuadrante != undefined) {
                             CuadranteActual = Cuadrante.CuadranteID;
-                            AjaxCargarDetalleEncintado(TipoBusqueda, ZonaID, Cuadrante.CuadranteID, "", Todos);
+                            AjaxCargarElementosPorConsulta(TipoBusqueda, ZonaID, Cuadrante.CuadranteID, "", Todos);
                         }
                     } else {
                         displayNotify("MensajeSeleccionarZona", "", '2');
@@ -415,7 +415,7 @@ function SuscribirEventoMostrar() {
                 CuadranteID = $("#InputCuadrante").data("kendoComboBox").value();
 
                 if (ZonaID != "0" && ZonaID != "") {
-                    AjaxCargarDetalleEncintado(TipoBusqueda, ZonaID, CuadranteID == "" ? 0 : CuadranteID, SpoolIDContiene, Todos);
+                    AjaxCargarElementosPorConsulta(TipoBusqueda, ZonaID, CuadranteID == "" ? 0 : CuadranteID, SpoolIDContiene, Todos);
                 } else {
                     displayNotify("MensajeSeleccionaZona", "", '1');
                 }
@@ -425,8 +425,7 @@ function SuscribirEventoMostrar() {
                 LimpiarCargaSpoolContiene();
 
                 if (SpoolIDContiene != "") {
-                    AjaxCargarCuadranteSpool(SpoolIDContiene);
-                    AjaxCargarDetalleEncintado(TipoBusqueda, ZonaID, CuadranteID, SpoolIDContiene, Todos);
+                    AjaxCargarElementosPorConsulta(TipoBusqueda, ZonaID, CuadranteID, SpoolIDContiene, Todos);
                 } else {
                     displayNotify("MensajeSeleccionaSpoolcontiene", "", '1');
                 }
@@ -463,7 +462,7 @@ function SuscribirEventoMostrar() {
                     CuadranteID = $("#InputCuadrante").data("kendoComboBox").value();
 
                     if (ZonaID != "0" && ZonaID != "") {
-                        AjaxCargarDetalleEncintado(TipoBusqueda, ZonaID, CuadranteID == "" ? 0 : CuadranteID, SpoolIDContiene, Todos);
+                        AjaxCargarElementosPorConsulta(TipoBusqueda, ZonaID, CuadranteID == "" ? 0 : CuadranteID, SpoolIDContiene, Todos);
                     } else {
                         displayNotify("MensajeSeleccionaZona", "", '1');
                     }
@@ -473,8 +472,7 @@ function SuscribirEventoMostrar() {
                     LimpiarCargaSpoolContiene();
 
                     if (SpoolIDContiene != "") {
-                        AjaxCargarCuadranteSpool(SpoolIDContiene);
-                        AjaxCargarDetalleEncintado(TipoBusqueda, ZonaID, CuadranteID, SpoolIDContiene, Todos);
+                        AjaxCargarElementosPorConsulta(TipoBusqueda, ZonaID, CuadranteID, SpoolIDContiene, Todos);
                     } else {
                         displayNotify("MensajeSeleccionaSpoolcontiene", "", '1');
                     }
@@ -501,8 +499,7 @@ function SuscribirEventoMostrar() {
 
                 if (SpoolIDContiene != "") {
                     SpoolIDActual = SpoolIDContiene;
-                    AjaxCargarCuadranteSpool(SpoolIDContiene);
-                    AjaxCargarDetalleEncintado(TipoBusqueda, 0, 0, SpoolIDContiene, Todos);
+                    AjaxCargarElementosPorConsulta(TipoBusqueda, 0, 0, SpoolIDContiene, Todos);
                 }
             } else {
                 ventanaConfirm = $("#ventanaConfirm").kendoWindow({
@@ -534,8 +531,7 @@ function SuscribirEventoMostrar() {
 
                     if (SpoolIDContiene != "") {
                         SpoolIDActual = SpoolIDContiene;
-                        AjaxCargarCuadranteSpool(SpoolIDContiene);
-                        AjaxCargarDetalleEncintado(TipoBusqueda, 0, 0, SpoolIDContiene, Todos);
+                        AjaxCargarElementosPorConsulta(TipoBusqueda, 0, 0, SpoolIDContiene, Todos);
                     }
                 });
                 $("#noButton").click(function (handler) {

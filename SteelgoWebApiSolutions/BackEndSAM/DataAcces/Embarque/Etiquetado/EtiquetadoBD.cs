@@ -7,6 +7,7 @@ using SecurityManager.Api.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Web;
 
@@ -29,6 +30,31 @@ namespace BackEndSAM.DataAcces.Embarque.Etiquetado
                     }
                 }
                 return _instance;
+            }
+        }
+
+        public object ObtieneElementosPorBusqueda(int TipoConsulta, int ZonaID, int CuadranteID, string NumeroControl, int UsuarioID)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    ObjectResult<int?> elementos = ctx.Sam3_Embarque_Etiquetado_NumeroElementosBusqueda(TipoConsulta, ZonaID, CuadranteID, NumeroControl, UsuarioID);
+
+                    var valor = elementos.Where(x => x.HasValue).Select(x => x.Value).ToList()[0];
+
+                    return valor;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
             }
         }
 

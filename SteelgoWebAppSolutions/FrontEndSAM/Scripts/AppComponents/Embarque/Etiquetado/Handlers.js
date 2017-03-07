@@ -165,7 +165,7 @@ function SuscribirEventoCuadrante() {
                 if (ZonaID != "0" && ZonaID != "") {
                     if (Cuadrante != undefined) {
                         CuadranteActual = Cuadrante.CuadranteID;
-                        AjaxGetDetalleEtiquetado(TipoBusqueda, Todos, ZonaID, Cuadrante.CuadranteID, "");
+                        AjaxGetElementosPorConsulta(TipoBusqueda, Todos, ZonaID, Cuadrante.CuadranteID, "");
                     }
                 } else {
                     displayNotify("MensajeSeleccionaZona", "", '2');
@@ -201,7 +201,7 @@ function SuscribirEventoCuadrante() {
                     if (ZonaID != "0" && ZonaID != "") {
                         if (Cuadrante != undefined) {
                             CuadranteActual = Cuadrante.CuadranteID;
-                            AjaxGetDetalleEtiquetado(TipoBusqueda, Todos, ZonaID, Cuadrante.CuadranteID, "");
+                            AjaxGetElementosPorConsulta(TipoBusqueda, Todos, ZonaID, Cuadrante.CuadranteID, "");
                         }
                     } else {
                         displayNotify("MensajeSeleccionaZona", "", '2');
@@ -250,7 +250,7 @@ function SuscribirEventoMostrar() {
                 LimpiarCargaCuadrante();
 
                 if (ZonaID != "0" && ZonaID != "") {
-                    AjaxGetDetalleEtiquetado(TipoBusqueda, Todos, ZonaID, CuadranteID == "" ? 0 : CuadranteID, SpoolIDContiene);
+                    AjaxGetElementosPorConsulta(TipoBusqueda, Todos, ZonaID, CuadranteID == "" ? 0 : CuadranteID, SpoolIDContiene);
                 } else {
                     displayNotify("MensajeSeleccionaZona", "", '1');
                 }
@@ -260,8 +260,7 @@ function SuscribirEventoMostrar() {
                 LimpiarCargaSpoolContiene();
 
                 if(SpoolIDContiene != ""){
-                    AjaxGetCuadranteListadoPorSpool(SpoolIDContiene);
-                    AjaxGetDetalleEtiquetado(TipoBusqueda, Todos, ZonaID, CuadranteID == "" ? 0 : CuadranteID, SpoolIDContiene);
+                    AjaxGetElementosPorConsulta(TipoBusqueda, Todos, ZonaID, CuadranteID == "" ? 0 : CuadranteID, SpoolIDContiene);
                 } else {
                     displayNotify("MensajeSeleccionaSpoolcontiene", "", '1');
                 }
@@ -298,7 +297,7 @@ function SuscribirEventoMostrar() {
                     LimpiarCargaCuadrante();
 
                     if (ZonaID != "0" && ZonaID != "") {
-                        AjaxGetDetalleEtiquetado(TipoBusqueda, Todos, ZonaID, CuadranteID == "" ? 0 : CuadranteID, SpoolIDContiene);
+                        AjaxGetElementosPorConsulta(TipoBusqueda, Todos, ZonaID, CuadranteID == "" ? 0 : CuadranteID, SpoolIDContiene);
                     } else {
                         displayNotify("MensajeSeleccionaZona", "", '1');
                     }
@@ -308,8 +307,7 @@ function SuscribirEventoMostrar() {
                     LimpiarCargaSpoolContiene();
 
                     if (SpoolIDContiene != "") {
-                        AjaxGetCuadranteListadoPorSpool(SpoolIDContiene);
-                        AjaxGetDetalleEtiquetado(TipoBusqueda, Todos, ZonaID, CuadranteID == "" ? 0 : CuadranteID, SpoolIDContiene);
+                        AjaxGetElementosPorConsulta(TipoBusqueda, Todos, ZonaID, CuadranteID == "" ? 0 : CuadranteID, SpoolIDContiene);
                     } else {
                         displayNotify("MensajeSeleccionaSpoolcontiene", "", '1');
                     }
@@ -334,8 +332,7 @@ function SuscribirEventoMostrar() {
 
                 if (spoolIDContiene != "") {
                     SpoolIDActual = spoolIDContiene;
-                    AjaxGetDetalleEtiquetado(tipoBusqueda, todos, 0, 0, spoolIDContiene);
-                    AjaxGetCuadranteListadoPorSpool(spoolIDContiene);
+                    AjaxGetElementosPorConsulta(tipoBusqueda, todos, 0, 0, spoolIDContiene);
                 }
             } else {
                 ventanaConfirm = $("#ventanaConfirm").kendoWindow({
@@ -369,8 +366,7 @@ function SuscribirEventoMostrar() {
 
                     if (spoolIDContiene != "") {
                         SpoolIDActual = spoolIDContiene;
-                        AjaxGetDetalleEtiquetado(tipoBusqueda, todos, 0, 0, spoolIDContiene);
-                        AjaxGetCuadranteListadoPorSpool(spoolIDContiene);
+                        AjaxGetElementosPorConsulta(tipoBusqueda, todos, 0, 0, spoolIDContiene);
                     }
                     ventanaConfirm.close();
                 });
