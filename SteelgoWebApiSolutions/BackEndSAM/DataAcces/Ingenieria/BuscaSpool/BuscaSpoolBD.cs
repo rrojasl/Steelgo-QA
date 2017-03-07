@@ -282,12 +282,19 @@ namespace BackEndSAM.DataAcces.Ingenieria.BuscaSpool
             }
         }
 
-        public object ObtieneDetalleAgrupadoSalidaLoop(int DetalleSalidaID)
+        public object ObtieneDetalleAgrupadoSalidaLoop(int DetalleSalidaID, int SpoolID, int ProyectoSpoolID, int ProyectoSoporteID, int UsuarioID)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
+                    List<DetalleTipoSalida> listaTipoSalida = (List<DetalleTipoSalida>)ObtieneListadoTipoSalida();
+                    List<ListaTipoCorte> listaTipoCorte = (List<ListaTipoCorte>)ObtieneListadoTipoCorte();
+                    List<DetalleMaterialSpool> listaMaterialSpool = (List<DetalleMaterialSpool>)ObtieneDetalleMaterialSpool(SpoolID);
+                    List<DetalleJuntaSpool> listaJuntaSpool = (List<DetalleJuntaSpool>)ObtieneListadoJuntaSpool(SpoolID);
+                    List<DetalleSpool> listaSpool = (List<DetalleSpool>)ObtieneDetalleSpool(UsuarioID, ProyectoSpoolID, "");
+                    List<DetalleSpool> listaSpoolSoporte = (List<DetalleSpool>)ObtieneDetalleSpool(UsuarioID, ProyectoSoporteID, "");
+
                     List<Sam3_Ingenieria_Get_DetalleAgrupadoSalidas_Result> result = ctx.Sam3_Ingenieria_Get_DetalleAgrupadoSalidas(DetalleSalidaID).ToList();
                     List<DetalleAgrupadoSalidasConsulta> listaDetalle = new List<DetalleAgrupadoSalidasConsulta>();
 
@@ -325,7 +332,15 @@ namespace BackEndSAM.DataAcces.Ingenieria.BuscaSpool
                             TipoCorte1 = item.TipoCorte1,
                             TipoCorte2ID = item.TipoCorte2ID,
                             TipoCorte2 = item.TipoCorte2,
-                            Cantidad = item.Cantidad
+                            Cantidad = item.Cantidad,
+                            TipoSalidaLista = listaTipoSalida,
+                            DetalleMaterialSpoolLista = listaMaterialSpool,
+                            SpoolItemCodeLista = listaSpool,
+                            SpoolItemCodeListaSoporte = listaSpoolSoporte,
+                            ItemCodeLista = listaMaterialSpool,
+                            DetalleJuntaSpoolLista = listaJuntaSpool,
+                            TipoCorte1Lista = listaTipoCorte,
+                            TipoCorte2Lista = listaTipoCorte
                         });
                     }
 
@@ -344,7 +359,7 @@ namespace BackEndSAM.DataAcces.Ingenieria.BuscaSpool
             }
         }
 
-        public object ObtieneDetalleSalidaLoop(int LoopID)
+        public object ObtieneDetalleSalidaLoop(int LoopID, int ProyectoSpoolID, int ProyectoSoporteID, int UsuarioID)
         {
             try
             {
@@ -358,6 +373,7 @@ namespace BackEndSAM.DataAcces.Ingenieria.BuscaSpool
                         listaDetalleSalida.Add(new DetalleSalidasConsulta {
                             Detalle_SalidasID = item.Detalle_SalidasID,
                             SpoolID = item.SpoolID,
+                            NombreSpool = item.NombreSpool,
                             Posicion = item.Posicion,
                             RevisionSteelgo = item.RevisionSteelgo,
                             RevisionCliente = item.RevisionCliente,
@@ -369,7 +385,7 @@ namespace BackEndSAM.DataAcces.Ingenieria.BuscaSpool
                             PDI = item.PDI,
                             SistemaPintura = item.SistemaPintura,
                             ColorPintura = item.ColorPintura,
-                            detalleAgrupadoSalidas = (List<DetalleAgrupadoSalidasConsulta>) ObtieneDetalleAgrupadoSalidaLoop(item.Detalle_SalidasID)
+                            detalleAgrupadoSalidas = (List<DetalleAgrupadoSalidasConsulta>) ObtieneDetalleAgrupadoSalidaLoop(item.Detalle_SalidasID, item.SpoolID, ProyectoSpoolID, ProyectoSoporteID, UsuarioID)
                         });
                     }
 
@@ -389,7 +405,7 @@ namespace BackEndSAM.DataAcces.Ingenieria.BuscaSpool
             }
         }
 
-        public object ObtieneDetalleLoop(int ProyectoID, string NombreLoop)
+        public object ObtieneDetalleLoop(int ProyectoID, int ProyectoSpoolID, int ProyectoSoporteID, string NombreLoop, int UsuarioID)
         {
             try
             {
@@ -406,7 +422,7 @@ namespace BackEndSAM.DataAcces.Ingenieria.BuscaSpool
                         loopMaster.Dibujo = result.Dibujo;
                         loopMaster.PND = result.PorcentajePND;
                         loopMaster.RequierePWHT = result.RequierePWHT;
-                        loopMaster.detalleSalidas = (List<DetalleSalidasConsulta>)ObtieneDetalleSalidaLoop(result.LoopID);
+                        loopMaster.detalleSalidas = (List<DetalleSalidasConsulta>)ObtieneDetalleSalidaLoop(result.LoopID, ProyectoSpoolID, ProyectoSoporteID, UsuarioID);
                     }
 
                     return loopMaster;

@@ -119,6 +119,7 @@ namespace BackEndSAM.Models.Ingenieria.BuscaSpool
     {
         public int Detalle_SalidasID { get; set; }
         public int SpoolID { get; set; }
+        public string NombreSpool { get; set; }
         public int Posicion { get; set; }
         public string RevisionSteelgo { get; set; }
         public int? RevisionCliente { get; set; }
@@ -167,6 +168,14 @@ namespace BackEndSAM.Models.Ingenieria.BuscaSpool
         public int? TipoCorte2ID { get; set; }
         public string TipoCorte2 { get; set; }
         public decimal? Cantidad { get; set; }
+        public List<DetalleTipoSalida> TipoSalidaLista { get; set; }
+        public List<DetalleMaterialSpool> DetalleMaterialSpoolLista { get; set; }
+        public List<DetalleSpool> SpoolItemCodeLista { get; set; }
+        public List<DetalleSpool> SpoolItemCodeListaSoporte { get; set; }
+        public List<DetalleMaterialSpool> ItemCodeLista { get; set; }
+        public List<DetalleJuntaSpool> DetalleJuntaSpoolLista { get; set; }
+        public List<ListaTipoCorte> TipoCorte1Lista { get; set; }
+        public List<ListaTipoCorte> TipoCorte2Lista { get; set; }
     }
 
     public class SpoolMasterGuardado
