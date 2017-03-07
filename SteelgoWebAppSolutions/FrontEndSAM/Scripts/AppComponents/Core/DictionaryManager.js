@@ -12431,6 +12431,10 @@ _dictionary = {
     },
     //#endregion
     //#region Inicia modulo RevisionPintura
+    "MenuRevisionPintura": {
+        "es-MX": "Revision Pintura",
+        "en-US": "Painting Revision"
+    },
     "PinturaRevisionBreadcrumb": {
         "es-MX": "Revison de pintura",
         "en-US": "Paint revision"
