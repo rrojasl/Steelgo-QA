@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Data.Entity.Core.Objects;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -21,7 +22,8 @@ namespace BackEndSAM.DataAcces.Pintura.PinturaGeneral
         {
             get
             {
-                lock(_mutex){
+                lock (_mutex)
+                {
                     if (_instance == null)
                     {
                         _instance = new PinturaGeneralBD();
@@ -43,7 +45,8 @@ namespace BackEndSAM.DataAcces.Pintura.PinturaGeneral
                     listaMedioTransporte.Add(new MedioTransporte());
                     foreach (Sam3_Pintura_Get_MedioTransporte_Result item in result)
                     {
-                        listaMedioTransporte.Add(new MedioTransporte {
+                        listaMedioTransporte.Add(new MedioTransporte
+                        {
                             MedioTransporteID = item.MedioTransporteID,
                             MedioTransporteCargaID = item.MedioTransporteCargaID.GetValueOrDefault(),
                             Nombre = item.Nombre,
@@ -77,7 +80,7 @@ namespace BackEndSAM.DataAcces.Pintura.PinturaGeneral
 
                     int resultSp = _SQL.EjecutaInsertUpdate(Stords.GUARDACAPTURANUEVOMEDIOTRANSPORTE, dtMedioTransporte, "@TablaMedioTransporte");
                     TransactionalInformation result = new TransactionalInformation();
-                    
+
                     if (resultSp > 0)
                     {
                         result.ReturnMessage.Add("Ok");
@@ -94,7 +97,7 @@ namespace BackEndSAM.DataAcces.Pintura.PinturaGeneral
                     }
                     return result;
                 }
-            
+
             }
             catch (Exception ex)
             {
@@ -142,7 +145,7 @@ namespace BackEndSAM.DataAcces.Pintura.PinturaGeneral
             }
         }
 
-        public object ObtenerSpoolConSP(int proyectoID,string dato,int tipoBusqueda,string lenguaje)
+        public object ObtenerSpoolConSP(int proyectoID, string dato, int tipoBusqueda, string lenguaje)
         {
             try
             {
@@ -151,7 +154,7 @@ namespace BackEndSAM.DataAcces.Pintura.PinturaGeneral
                     List<PinturaRevision> listaRevisionSpool = new List<PinturaRevision>();
                     List<Sam3_Pintura_Get_Revision_Result> result = ctx.Sam3_Pintura_Get_Revision(proyectoID, dato, tipoBusqueda, lenguaje).ToList();
 
-                   
+
                     foreach (Sam3_Pintura_Get_Revision_Result item in result)
                     {
                         listaRevisionSpool.Add(new PinturaRevision
@@ -168,7 +171,7 @@ namespace BackEndSAM.DataAcces.Pintura.PinturaGeneral
                             Version = item.Version
                         });
                     }
-                    return  listaRevisionSpool;
+                    return listaRevisionSpool;
                 }
             }
             catch (Exception ex)
@@ -183,12 +186,35 @@ namespace BackEndSAM.DataAcces.Pintura.PinturaGeneral
             }
         }
 
+
+        public object ObtenerCantidadSpoolConSP(int proyectoID, string dato, int tipoBusqueda)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<PinturaRevision> listaRevisionSpool = new List<PinturaRevision>();
+                    return ctx.Sam3_Pintura_Get_CountRevision(proyectoID, dato, tipoBusqueda).ToList();
+                    
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
         public object GuardarImagenSerializa(byte[] imgSerializada)
         {
             try
             {
                 ObjetosSQL _SQL = new ObjetosSQL();
-                
+
 
                 using (SqlCommand cmd = new SqlCommand("SAM3_ImagenesPrueba", new SqlConnection(ConfigurationManager.ConnectionStrings["SqlServer"].ConnectionString)))
                 {

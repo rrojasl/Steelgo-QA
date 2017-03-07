@@ -30,7 +30,7 @@ namespace BackEndSAM.Controllers.Pintura.RevisionPintura
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-
+                
                 return PinturaGeneralBD.Instance.ObtenerSpoolConSP(proyectoid,dato,tipoBusqueda, lenguaje);
             }
             else
@@ -97,5 +97,32 @@ namespace BackEndSAM.Controllers.Pintura.RevisionPintura
                 return result;
             }
         }
+
+        //obtenemos la cantidad de  spools a partir de la orden de trabajo.
+        public object Get(string token, int proyectoid, string dato, int tipoBusqueda)
+        {
+            //Create a generic return object
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+
+                return PinturaGeneralBD.Instance.ObtenerCantidadSpoolConSP(proyectoid, dato, tipoBusqueda);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+
+        }
+
     }
 }

@@ -1,15 +1,18 @@
-﻿function AjaxCargarCamposPredeterminados() {
+﻿var datoSeleccionado;
+var tipoBusquedaSeleccionada;
+
+function AjaxCargarCamposPredeterminados() {
     var TipoMuestraPredeterminadoID = 3073;
     $CamposPredeterminados.CamposPredeterminados.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), id: TipoMuestraPredeterminadoID }).done(function (data) {
         if (data == "Spool") {
             $('input:radio[name=TipoBusqueda]:nth(0)').trigger("click");
-            
+
         }
         else if (data == "nc") {
             $('input:radio[name=TipoBusqueda]:nth(1)').trigger("click");
         }
     });
-   // AjaxCargarTipoLlenado();
+    // AjaxCargarTipoLlenado();
 }
 
 function AjaxCargaProyecto() {
@@ -33,36 +36,71 @@ function AjaxCargaProyecto() {
     });
 }
 
-function AjaxConsultarSpoolsConSP() {
-    var tipoBusquedaSeleccionada= $('input:radio[name=TipoBusqueda]:checked').val() == "spool"?1:2;
-    var datoSeleccionado = tipoBusquedaSeleccionada == 1 ? $("#inputSpool").val() : $("#inputNc").val();
-
+function AjaxEjecutarBusquedaSpoolConSP()
+{
     $RevisionPintura.RevisionPintura.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), proyectoid: $("#inputProyecto").data("kendoComboBox").value(), dato: datoSeleccionado, tipoBusqueda: tipoBusquedaSeleccionada }).done(function (data) {
-            var array = data;
-            var elementosModificados = "";
-            $("#grid").data("kendoGrid").dataSource.data([]);
-            var ds = $("#grid").data("kendoGrid").dataSource;
-            for (var i = 0; i < array.length; i++) {
-                ds.insert(0, array[i]);
-                if (elementosModificados != "")
-                    elementosModificados += ", " + array[i].NombreSpool;
-                else
-                    elementosModificados = array[i].NombreSpool;
-            }
+        var array = data;
+        var elementosModificados = "";
+        $("#grid").data("kendoGrid").dataSource.data([]);
+        var ds = $("#grid").data("kendoGrid").dataSource;
+        for (var i = 0; i < array.length; i++) {
+            ds.insert(0, array[i]);
+            if (elementosModificados != "")
+                elementosModificados += ", " + array[i].NombreSpool;
+            else
+                elementosModificados = array[i].NombreSpool;
+        }
 
-            if ($('input:radio[name=TipoBusqueda]:checked').val() == "spool" && elementosModificados != "") {
-                editado = true;
-                $("#inputSpool").val("")
-                displayNotify("InformacionAgregada", "", '0');
-            }
-            else if (elementosModificados != "") {
-                editado = true;
-                $("#inputNc").val("")
-                displayNotify("InformacionAgregada", "", '0');
-            }
-            else {
-                displayNotify("InformacionSinResultado", "", '1');
-            }
+        if ($('input:radio[name=TipoBusqueda]:checked').val() == "spool" && elementosModificados != "") {
+            editado = true;
+            $("#inputSpool").val("")
+            displayNotify("InformacionAgregada", "", '0');
+        }
+        else if (elementosModificados != "") {
+            editado = true;
+            $("#inputNc").val("")
+            displayNotify("InformacionAgregada", "", '0');
+        }
+        else {
+            displayNotify("InformacionSinResultado", "", '1');
+        }
+    });
+}
+
+function AjaxConsultarSpoolsConSP() {
+    tipoBusquedaSeleccionada = $('input:radio[name=TipoBusqueda]:checked').val() == "spool" ? 1 : 2;
+    datoSeleccionado= tipoBusquedaSeleccionada == 1 ? $("#inputSpool").val() : $("#inputNc").val();
+    $RevisionPintura.RevisionPintura.read({ token: Cookies.get("token"), proyectoid: $("#inputProyecto").data("kendoComboBox").value(), dato: datoSeleccionado, tipoBusqueda: tipoBusquedaSeleccionada }).done(function (numeroData) {
+        if (numeroData < 100) {
+            AjaxEjecutarBusquedaSpoolConSP();
+        }
+        else {
+            var ventanaConfirmBusqueda = $("#ventanaConfirm").kendoWindow({
+                iframe: true,
+                title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
+                visible: false,
+                width: "45%",
+                height: "auto",
+                draggable: false,
+                actions: [],
+                modal: true,
+                animation: {
+                    close: false,
+                    open: false
+                }
+            }).data("kendoWindow");
+            ventanaConfirmBusqueda.content('<center>' + _dictionary.SPAMensajeAlertaCantidadRegistros[$("#language").data("kendoDropDownList").value()] + '</center>' +
+                "</br><center><button class='btn btn-blue' id='btnContinuarBusqueda'>Si</button> <button class='btn btn-blue' id='btnCancelarBusqueda'>No</button></center>");
+
+            ventanaConfirmBusqueda.open().center();
+            $("#btnContinuarBusqueda").click(function () {
+                AjaxEjecutarBusquedaSpoolConSP();
+                ventanaConfirmBusqueda.close();
+            });
+            $("#btnCancelarBusqueda").click(function () {
+                ventanaConfirmBusqueda.close();
+            });
+        }
     });
 };
 
@@ -132,7 +170,7 @@ function AjaxGuardar(arregloCaptura, tipoGuardar) {
                     }
                 }
 
-               
+
                 Captura[0].Detalles = [];
                 Captura[0].Detalles = ArregloGuardado;
 
@@ -169,7 +207,7 @@ function AjaxEjecutarGuardado(rows, tipoGuardar) {
         if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
             displayNotify("MensajeGuardadoExistoso", "", '0');
             loadingStop();
-            
+
             if (tipoGuardar == 1) {
                 $("#btnCancelar").trigger("click");
             }
@@ -206,7 +244,7 @@ function AjaxCambiarAccionAModificacion() {
             for (var i = 0; i < array.length; i++) {
                 ds.insert(array[i], 0);
             }
-            
+
             if (data.length > 0)
                 ds.page(1);
             $("#grid").data("kendoGrid").dataSource.sync();
