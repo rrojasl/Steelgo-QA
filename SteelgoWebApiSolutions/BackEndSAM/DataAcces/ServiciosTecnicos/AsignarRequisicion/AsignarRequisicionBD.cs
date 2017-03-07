@@ -120,21 +120,26 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos
                             Cedula = item.Cedula,
                             Clasificacion = item.Clasificacion,
                             Cuadrante = item.Cuadrante,
-                            //Diametro = item.DiametroPlano.ToString(),
+                            Diametro = item.DiametroPlano.ToString(),
                             ElementoPorClasificacionPNDID = item.ElementoPorClasificacionPNDID,
                             Especificacion = item.Especificacion,
                             Espesor  = item.Espesor.ToString(),
                             EtiquetaJunta = item.EtiquetaJunta,
-                            //JuntaSpoolID = item.JuntaSpoolID.GetValueOrDefault(),
+                            JuntaSpoolID = item.JuntaSpoolID.GetValueOrDefault(),
                             NombreRequisicion = item.NombreRequisicion,
                             NumeroControl = item.NumeroControl,
                             OrdenTrabajoSpoolID = item.OrdenTrabajoSpoolID,
                             Prioridad = item.Prioridad.GetValueOrDefault(),
                             ProyectoID = item.ProyectoID,
                             RequisicionID = item.RequisicionID,
-                            //SpoolID = item.SpoolID.GetValueOrDefault(),
+                            SpoolID = item.SpoolID.GetValueOrDefault(),
                             TipoJunta = item.TipoJunta,
-                            TipoPruebaID = item.TipoPruebaID.GetValueOrDefault()
+                            TipoPruebaID = item.TipoPruebaID.GetValueOrDefault(),
+                            PermiteSeparar = item.PermiteSeparar,
+                            Agregar = false,
+                            ClasificacionPNDID = item.ClasificacionPNDID.GetValueOrDefault(),
+                            ClasificacionManual = item.ClasificacionManual.GetValueOrDefault(),
+                            OrdenTrabajoID = item.OrdenTrabajoID
 
                         });
                     }

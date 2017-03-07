@@ -92,6 +92,11 @@ namespace BackEndSAM.Models.ServiciosTecnicos.AsignarRequisicion
         public string Especificacion { get; set; }
         public int CapacidadTurnoEquipoID { get; set; }
         public int CapacidadTurnoProveedorID { get; set; }
+        public int PermiteSeparar { get; set; }
+        public int ClasificacionPNDID { get; set; }
+        public int ClasificacionManual { get; set; }
+        public int OrdenTrabajoID { get; set; }
+        public bool Agregar { get; set; }
     }
 
     public class ElementoRequisicion

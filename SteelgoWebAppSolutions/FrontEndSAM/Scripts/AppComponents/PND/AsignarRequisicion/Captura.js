@@ -12,11 +12,11 @@ function changeLanguageCall() {
 IniciarAsignarRequisicion();
 
 function IniciarAsignarRequisicion() {
-    
+
 
     SuscribirEventos();
- 
-    
+
+
 };
 
 function getParameterByName(name, url) {
@@ -76,7 +76,7 @@ function CargarGrid() {
 
                 inputName.select();
             });
-            if ($('#botonGuardar').text() != _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()] ){//|| e.model.Accion == 2) {
+            if ($('#botonGuardar').text() != _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {//|| e.model.Accion == 2) {
                 this.closeCell();
             }
         },
@@ -263,11 +263,11 @@ function limpiarRenglon(e) {
     if ($('#Guardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
 
         var itemToClean = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
-        
+
         if (itemToClean.Accion == 2)
             itemToClean.Accion = 4;
 
-        
+
         if (itemToClean.TurnoLaboral != "") {
             var JuntasAsignadasFinal = parseInt(itemToClean.JuntasAsignadas) - parseInt(itemToClean.CantidadJuntas);
 
@@ -283,7 +283,7 @@ function limpiarRenglon(e) {
             }
 
         }
-        
+
         itemToClean.TipoPruebaProveedorID = 0;
         itemToClean.HerramientadePruebaID = 0;
         itemToClean.TurnoLaboral = "";
@@ -364,11 +364,26 @@ function CargarGridPopUp() {
                         style: "max-width:100px;"
                     },
                     dataSource: [{ Etiquetado: true }, { Etiquetado: false }]
-                }, template: "<input name='fullyPaid' class='ob-paid' type='checkbox'  />", width: "90px", attributes: { style: "text-align:center;" }
+                }, template: "<input name='fullyPaid' class='ob-paid' type='checkbox'   #= (PermiteSeparar == 0) ? 'hidden=true': '' # />", width: "90px", attributes: { style: "text-align:center;" }
             },
         ],
         editable: false,
-        navigatable: true
+        navigatable: true,
+        dataBound: function (a) {
+            $(".ob-paid").bind("change", function (e) {
+
+                var grid = $("#gridPopUp").data("kendoGrid"),
+                    dataItem = grid.dataItem($(e.target).closest("tr"));
+                if (e.target.checked == true)
+                    dataItem.Agregar = true;
+                else
+                    dataItem.Agregar = false;
+
+
+                $("#gridPopUp").data("kendoGrid").closeCell();
+                
+            });
+        }
     });
     CustomisaGrid($("#gridPopUp"));
 };
@@ -478,7 +493,7 @@ function getNumeroJuntasAsignadasEquipo(CapacidadTurnoEquipoID) {
 
     for (var i = 0; i < ds.length; i++) {
         if (ds[i].JuntasAsignadas != "" && ds[i].CapacidadTurnoEquipoID == CapacidadTurnoEquipoID && ds[i].RequiereEquipo) {
-            return ds[i].JuntasAsignadas ;
+            return ds[i].JuntasAsignadas;
         }
     }
     return 0;
@@ -570,7 +585,7 @@ function generarListadoCorrectoAsignacionEquipo(ListaElementosRequisicion, Capac
         if (ds[i].CapacidadTurnoEquipoID == CapacidadTurnoEquipoID && ds[i].RequiereEquipo) {
             if (!listaAux.length < ds[i].ListaElementosAsignadosTurno.length)
                 listaAux = ds[i].ListaElementosAsignadosTurno;
-            
+
         }
     }
 
@@ -599,8 +614,8 @@ function generaListadoCorrectoAsignacionProveedor(ListaElementosRequisicion, Cap
         if (ds[i].CapacidadTurnoProveedorID == CapacidadTurnoProveedorID && !ds[i].RequiereEquipo) {
             if (!listaAux.length < ds[i].ListaElementosAsignadosTurno.length)
                 listaAux = ds[i].ListaElementosAsignadosTurno;
-            
-            
+
+
         }
     }
 
@@ -632,7 +647,7 @@ function removerListadoCorrectoAsignacionEquipo(ListaElementosRequisicion, Capac
     }
     for (var i = listaAux.length - 1; i >= 0; i--) {
         for (var k = 0; k < ListaElementosRequisicion.length; k++) {
-            if (ListaElementosRequisicion[k].SpoolID == listaAux[i].SpoolID && ListaElementosRequisicion[k].EtiquetaJunta == listaAux[i].EtiquetaJunta ) {
+            if (ListaElementosRequisicion[k].SpoolID == listaAux[i].SpoolID && ListaElementosRequisicion[k].EtiquetaJunta == listaAux[i].EtiquetaJunta) {
                 listaAux.splice(i, 1);
                 break;
             }

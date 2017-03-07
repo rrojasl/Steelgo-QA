@@ -6,23 +6,25 @@ function AjaxObtenerProyectos() {
     loadingStart();
 
     $Proyectos.Proyectos.read({ token: Cookies.get("token") }).done(function (data) {
-        $("#inputProyecto").data("kendoComboBox").value("");
-        $("#inputProyecto").data("kendoComboBox").dataSource.data(data);
+        if (Error(data)) {
+            $("#inputProyecto").data("kendoComboBox").value("");
+            $("#inputProyecto").data("kendoComboBox").dataSource.data(data);
 
-        $("#inputPrueba").data("kendoComboBox").value("");
-        $("#inputPrueba").data("kendoComboBox").dataSource.data([]);
-        $("#inputRequisicion").data("kendoComboBox").value("");
-        $("#inputRequisicion").data("kendoComboBox").dataSource.data([]);
+            $("#inputPrueba").data("kendoComboBox").value("");
+            $("#inputPrueba").data("kendoComboBox").dataSource.data([]);
+            $("#inputRequisicion").data("kendoComboBox").value("");
+            $("#inputRequisicion").data("kendoComboBox").dataSource.data([]);
 
-        if ($("#inputProyecto").data("kendoComboBox").dataSource._data.length == 2) {
-            $("#inputProyecto").data("kendoComboBox").select(1);
-            AjaxPruebas();
+            if ($("#inputProyecto").data("kendoComboBox").dataSource._data.length == 2) {
+                $("#inputProyecto").data("kendoComboBox").select(1);
+                AjaxPruebas();
+            }
+            else {
+                $("#inputProyecto").data("kendoComboBox").select(0);
+                loadingStop();
+            }
+
         }
-        else {
-            $("#inputProyecto").data("kendoComboBox").select(0);
-            loadingStop();
-        }
-
 
     });
 }
