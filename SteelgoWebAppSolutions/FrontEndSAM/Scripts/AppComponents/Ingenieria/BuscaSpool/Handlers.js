@@ -31,19 +31,19 @@ function initSpoolMaster() {
 
         PinturaSistemaColor: [],
 
-        DetalleSalidas: [] 
+        detalleSalidas: [] 
     };
 }
 
 //Ingenieria_Detalle_Salidas
 function addNewDetalleSalida(spoolID, nombreSpool) {
-    currentSpoolMaster.DetalleSalidas[currentSpoolMaster.DetalleSalidas.length] = {
+    currentSpoolMaster.detalleSalidas[currentSpoolMaster.detalleSalidas.length] = {
         Detalle_SalidasID: 0,
         LoopID: currentSpoolMaster.LoopID,
         NombreLoop: currentSpoolMaster.NombreLoop,
         SpoolID: spoolID,
         NombreSpool: nombreSpool,
-        Posicion: currentSpoolMaster.DetalleSalidas.length,
+        Posicion: currentSpoolMaster.detalleSalidas.length,
         RevisionCliente: 0,
         RevisionSteelgo: '',
         SistemaPinturaID: 0,
@@ -67,10 +67,10 @@ function addNewDetalleSalida(spoolID, nombreSpool) {
 
 //Ingenieria_Salidas_Agrupado
 function addNewDetalleSalidaAgrupado(spoolID, salidasEstandar, salidasJuntasCerradas, detalleMaterialesSpool, detalleListadoSpool, detalleListadoSoporte, detalleListadoItemCode, listadoJuntaSpool) {
-    for (var i = 0; i < currentSpoolMaster.DetalleSalidas.length; i++) {
-        if (currentSpoolMaster.DetalleSalidas[i].SpoolID == spoolID) {
+    for (var i = 0; i < currentSpoolMaster.detalleSalidas.length; i++) {
+        if (currentSpoolMaster.detalleSalidas[i].SpoolID == spoolID) {
             for (var j = 0; j < salidasEstandar; j++) {
-                currentSpoolMaster.DetalleSalidas[i].SalidasEstandar[j] = {
+                currentSpoolMaster.detalleSalidas[i].SalidasEstandar[j] = {
                     Salidas_AgrupadoID: 0,
                     Detalle_SalidasID: 0,
                     SpoolID: spoolID,
@@ -92,7 +92,7 @@ function addNewDetalleSalidaAgrupado(spoolID, salidasEstandar, salidasJuntasCerr
                     DetalleJuntaSpool: '',
                     DetalleJuntaSpoolLista: listadoJuntaSpool,
                     Nivel: 0,
-                    PosicionSalidaPadre: currentSpoolMaster.DetalleSalidas[i].Posicion,
+                    PosicionSalidaPadre: currentSpoolMaster.detalleSalidas[i].Posicion,
                     ClaveSalidaPadre: '',
                     Salidas_AgrupadoID_Padre: 0,
 
@@ -117,7 +117,7 @@ function addNewDetalleSalidaAgrupado(spoolID, salidasEstandar, salidasJuntasCerr
             }
 
             for (var j = 0; j < salidasJuntasCerradas; j++) {
-                currentSpoolMaster.DetalleSalidas[i].SalidasJuntasCerradas[j] = {
+                currentSpoolMaster.detalleSalidas[i].SalidasJuntasCerradas[j] = {
                     Salidas_AgrupadoID: 0,
                     Detalle_SalidasID: 0,
                     SpoolID: spoolID,
@@ -139,7 +139,7 @@ function addNewDetalleSalidaAgrupado(spoolID, salidasEstandar, salidasJuntasCerr
                     DetalleJuntaSpool: '',
                     DetalleJuntaSpoolLista: listadoJuntaSpool,
                     Nivel: 0,
-                    PosicionSalidaPadre: currentSpoolMaster.DetalleSalidas[i].Posicion,
+                    PosicionSalidaPadre: currentSpoolMaster.detalleSalidas[i].Posicion,
                     ClaveSalidaPadre: '',
                     Salidas_AgrupadoID_Padre: 0,
 
@@ -203,7 +203,7 @@ function eventBuscar(posicion) {
             AjaxDetalleSpoolXNombre(posicion, Proyecto.ProyectoSpoolID, $('#spool_' + posicion).val());
         }
         else {
-            AjaxDetalleSpoolXNombre(posicion, Proyecto.ProyectoSpoolID, currentSpoolMaster.DetalleSalidas[posicion].NombreSpool);
+            AjaxDetalleSpoolXNombre(posicion, Proyecto.ProyectoSpoolID, currentSpoolMaster.detalleSalidas[posicion].NombreSpool);
         }
     } else {
         alert("Por favor seleccione un proyecto");
@@ -213,7 +213,7 @@ function eventBuscar(posicion) {
 function reloadControls() {
     var loopHTML = '';
 
-    for (var i = 0; i < currentSpoolMaster.DetalleSalidas.length; i++) {
+    for (var i = 0; i < currentSpoolMaster.detalleSalidas.length; i++) {
         if ($('#content_' + i).length > 0)
             $('#content_' + i).remove();
 
@@ -222,9 +222,9 @@ function reloadControls() {
         loopHTML += '<div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 altoControl" >';
         loopHTML += '<label>' + _dictionary.lblSpool[$("#language").data("kendoDropDownList").value()] + '</label>';
         if (i == 0)
-            loopHTML += '<input id="spool_' + i + '" class="item-select general-input" value="' + currentSpoolMaster.DetalleSalidas[i].NombreSpool + '" />';
+            loopHTML += '<input id="spool_' + i + '" class="item-select general-input" value="' + currentSpoolMaster.detalleSalidas[i].NombreSpool + '" />';
         else
-            loopHTML += '<label>' + currentSpoolMaster.DetalleSalidas[i].NombreSpool + '</label>';
+            loopHTML += '<label>' + currentSpoolMaster.detalleSalidas[i].NombreSpool + '</label>';
         loopHTML += '</div>';
         loopHTML += '<div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 altoControl" id="divPrueba">';
         loopHTML += '<label>' + _dictionary.lblNumeroSalidas[$("#language").data("kendoDropDownList").value()] + '</label>';
@@ -262,15 +262,15 @@ function reloadControls() {
     
     $("#contenedor_master").append(loopHTML);
 
-    for (var i = 0; i < currentSpoolMaster.DetalleSalidas.length; i++) {
+    for (var i = 0; i < currentSpoolMaster.detalleSalidas.length; i++) {
         $('#inputSalidas_' + i).kendoNumericTextBox({
             format: "###",
-            value: currentSpoolMaster.DetalleSalidas[i].SalidasEstandar.length
+            value: currentSpoolMaster.detalleSalidas[i].SalidasEstandar.length
         });
 
         $('#inputJuntasCerradas_' + i).kendoNumericTextBox({
             format: "###",
-            value: currentSpoolMaster.DetalleSalidas[i].SalidasJuntasCerradas.length
+            value: currentSpoolMaster.detalleSalidas[i].SalidasJuntasCerradas.length
         });
 
         CargarGridDynamic(i);
@@ -321,7 +321,7 @@ function AddPinturaSistemaColor(sistemaPintura, colorPintura) {
                 }
             }
             if (!pinturaEncontrado) {
-                //currentSpoolMaster.DetalleSalidas[currentSpoolMaster.DetalleSalidas.length] = {
+                //currentSpoolMaster.detalleSalidas[currentSpoolMaster.detalleSalidas.length] = {
                 currentSpoolMaster.PinturaSistemaColor[i].Colores[currentSpoolMaster.PinturaSistemaColor[i].Colores.length] = {
                     Color: colorPintura
                 };
@@ -443,20 +443,21 @@ function suscribirEventoGuardar() {
     $("#btnGuardarYNuevo, #btnGuardarYNuevo1").click(function (e) {
         //alert('1');
 
-        if (infoGridTemp != null)
-            if ($("#grid").data("kendoGrid").dataSource._data.length != infoGridTemp.length)
-                $("#grid").data("kendoGrid").dataSource._data = infoGridTemp;
+        //if (infoGridTemp != null)
+        //    if ($("#grid").data("kendoGrid").dataSource._data.length != infoGridTemp.length)
+        //        $("#grid").data("kendoGrid").dataSource._data = infoGridTemp;
 
-        if (validarReglasDeLlenado()) {
-            var ds = $("#grid").data("kendoGrid").dataSource;
-            AjaxGuardarCaptura(ds._data, true);
-        }
+        //if (validarReglasDeLlenado()) {
+        //    var ds = $("#grid").data("kendoGrid").dataSource;
+        //    AjaxGuardarCaptura(ds._data, true);
+        //}
+        AjaxGuardarCaptura(true);
     });
 
     //Guardar
     $("#Guardar, #btnGuardar2, #btnGuardar, #Guardar1, #btnGuardar1").click(function (e) {
         //alert('2');
-        AjaxGuardarCaptura();
+        AjaxGuardarCaptura(false);
         //if (infoGridTemp != null)
         //    if ($("#grid").data("kendoGrid").dataSource._data.length != infoGridTemp.length)
         //        $("#grid").data("kendoGrid").dataSource._data = infoGridTemp;
@@ -803,60 +804,60 @@ function SuscribirEventoComboPrueba() {
             var count = 0;
             var itemEncontrado = false;
             if (numeroSalidaSelect.match('^JC')) {
-                //for (var i = 0; i < currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length; i++) {
-                //    listaDetalles[count] = currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar[i];
+                //for (var i = 0; i < currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasEstandar.length; i++) {
+                //    listaDetalles[count] = currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasEstandar[i];
                 //    count++;
                 //}
 
-                for (var i = currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length; i < $("#grid_" + posicionMenuContext).data("kendoGrid").dataSource._data.length; i++) {
+                for (var i = currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasEstandar.length; i < $("#grid_" + posicionMenuContext).data("kendoGrid").dataSource._data.length; i++) {
 
-                    listaDetalles[count] = currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length];
+                    listaDetalles[count] = currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasEstandar.length];
                     listaDetalles[count].PosicionSalida = count;
                     count++;
                     
                     if ($("#grid_" + posicionMenuContext).data("kendoGrid").dataSource._data[i].ClaveSalida == numeroSalidaSelect) {
                         var newData = {
-                            SpoolID: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].SpoolID,
+                            SpoolID: currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasEstandar.length].SpoolID,
                             PosicionSalida: count,
-                            ClaveSalida: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].ClaveSalida + '-' + 'H',
-                            TipoSalidaID: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].TipoSalidaID,
-                            TipoSalida: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].TipoSalida,
-                            TipoSalidaLista: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].TipoSalidaLista,
-                            DetalleMaterialSpoolID: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].DetalleMaterialSpoolID,
-                            DetalleMaterialSpool: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].DetalleMaterialSpool,
-                            DetalleMaterialSpoolLista: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].DetalleMaterialSpoolLista,
-                            SpoolItemCodeID: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].SpoolItemCodeID,
-                            SpoolItemCode: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].SpoolItemCode,
-                            SpoolItemCodeLista: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].SpoolItemCodeLista,
-                            ItemCodeSelect: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].ItemCodeSelect,
-                            DetalleJuntaSpoolID: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].DetalleJuntaSpoolID,
-                            DetalleJuntaSpool: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].DetalleJuntaSpool,
-                            DetalleJuntaSpoolLista: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].DetalleJuntaSpoolLista,
-                            Nivel: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].Nivel + 1,
-                            PosicionSalidaPadre: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].PosicionSalidaPadre,
-                            ClaveSalidaPadre: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].ClaveSalidaPadre,
-                            Salidas_AgrupadoID_Padre: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].Salidas_AgrupadoID_Padre,
+                            ClaveSalida: currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasEstandar.length].ClaveSalida + '-' + 'H',
+                            TipoSalidaID: currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasEstandar.length].TipoSalidaID,
+                            TipoSalida: currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasEstandar.length].TipoSalida,
+                            TipoSalidaLista: currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasEstandar.length].TipoSalidaLista,
+                            DetalleMaterialSpoolID: currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasEstandar.length].DetalleMaterialSpoolID,
+                            DetalleMaterialSpool: currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasEstandar.length].DetalleMaterialSpool,
+                            DetalleMaterialSpoolLista: currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasEstandar.length].DetalleMaterialSpoolLista,
+                            SpoolItemCodeID: currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasEstandar.length].SpoolItemCodeID,
+                            SpoolItemCode: currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasEstandar.length].SpoolItemCode,
+                            SpoolItemCodeLista: currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasEstandar.length].SpoolItemCodeLista,
+                            ItemCodeSelect: currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasEstandar.length].ItemCodeSelect,
+                            DetalleJuntaSpoolID: currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasEstandar.length].DetalleJuntaSpoolID,
+                            DetalleJuntaSpool: currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasEstandar.length].DetalleJuntaSpool,
+                            DetalleJuntaSpoolLista: currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasEstandar.length].DetalleJuntaSpoolLista,
+                            Nivel: currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasEstandar.length].Nivel + 1,
+                            PosicionSalidaPadre: currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasEstandar.length].PosicionSalidaPadre,
+                            ClaveSalidaPadre: currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasEstandar.length].ClaveSalidaPadre,
+                            Salidas_AgrupadoID_Padre: currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasEstandar.length].Salidas_AgrupadoID_Padre,
 
-                            TipoJuntaID: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].TipoJuntaID,
-                            TipoJunta: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].TipoJunta,
-                            Cedula: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].Cedula,
-                            FamiliaAceroMaterial1ID: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].FamiliaAceroMaterial1ID,
-                            FamiliaAceroMaterial1: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].FamiliaAceroMaterial1,
-                            FamiliaAceroMaterial2ID: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].FamiliaAceroMaterial2ID,
-                            FamiliaAceroMaterial2: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].FamiliaAceroMaterial2,
-                            Diametro: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].Diametro,
+                            TipoJuntaID: currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasEstandar.length].TipoJuntaID,
+                            TipoJunta: currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasEstandar.length].TipoJunta,
+                            Cedula: currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasEstandar.length].Cedula,
+                            FamiliaAceroMaterial1ID: currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasEstandar.length].FamiliaAceroMaterial1ID,
+                            FamiliaAceroMaterial1: currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasEstandar.length].FamiliaAceroMaterial1,
+                            FamiliaAceroMaterial2ID: currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasEstandar.length].FamiliaAceroMaterial2ID,
+                            FamiliaAceroMaterial2: currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasEstandar.length].FamiliaAceroMaterial2,
+                            Diametro: currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasEstandar.length].Diametro,
 
-                            TipoCorte1ID: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].TipoCorte1ID,
-                            TipoCorte1: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].TipoCorte1,
-                            TipoCorte1Lista: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].TipoCorte1Lista,
-                            TipoCorte2ID: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].TipoCorte2ID,
-                            TipoCorte2: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].TipoCorte2,
-                            TipoCorte2Lista: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].TipoCorte2Lista,
-                            Cantidad: currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasEstandar.length].Cantidad
+                            TipoCorte1ID: currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasEstandar.length].TipoCorte1ID,
+                            TipoCorte1: currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasEstandar.length].TipoCorte1,
+                            TipoCorte1Lista: currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasEstandar.length].TipoCorte1Lista,
+                            TipoCorte2ID: currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasEstandar.length].TipoCorte2ID,
+                            TipoCorte2: currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasEstandar.length].TipoCorte2,
+                            TipoCorte2Lista: currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasEstandar.length].TipoCorte2Lista,
+                            Cantidad: currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i - currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasEstandar.length].Cantidad
                             
                         };
-                        //currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i].insert((i + 1), newData);
-                        //currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas = insertAt(currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas, (i + 1));
+                        //currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasJuntasCerradas[i].insert((i + 1), newData);
+                        //currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasJuntasCerradas = insertAt(currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasJuntasCerradas, (i + 1));
                         listaDetalles[count] = newData;
                         count++;
                     }
@@ -922,9 +923,9 @@ function SuscribirEventoComboPrueba() {
                     //}
 
                 }
-                if ((currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas.length) < (listaDetalles.length)) {
-                    currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas = [];
-                    currentSpoolMaster.DetalleSalidas[posicionMenuContext].SalidasJuntasCerradas = listaDetalles;
+                if ((currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasJuntasCerradas.length) < (listaDetalles.length)) {
+                    currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasJuntasCerradas = [];
+                    currentSpoolMaster.detalleSalidas[posicionMenuContext].SalidasJuntasCerradas = listaDetalles;
                     reloadControls();
                 }
             }

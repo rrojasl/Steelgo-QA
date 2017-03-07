@@ -24,12 +24,12 @@ function RenderTipoSalida(container, options) {
                     //}
 
                     if (options.model.ClaveSalida.match('^JC')) {
-                        currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].TipoSalidaID = dataItem.TipoSalidaID;
-                        currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].TipoSalida = dataItem.Nombre;
+                        currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].TipoSalidaID = dataItem.TipoSalidaID;
+                        currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].TipoSalida = dataItem.Nombre;
                     }
                     else {
-                        currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].TipoSalidaID = dataItem.TipoSalidaID;
-                        currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].TipoSalida = dataItem.Nombre;
+                        currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].TipoSalidaID = dataItem.TipoSalidaID;
+                        currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].TipoSalida = dataItem.Nombre;
                     }
 
                 }
@@ -59,12 +59,12 @@ function RenderTipoCorte1(container, options) {
                 options.model.TipoCorte1 = dataItem.Nombre;
 
                 if (options.model.ClaveSalida.match('^JC')) {
-                    currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].TipoCorte1ID = dataItem.TipoCorteID;
-                    currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].TipoCorte1 = dataItem.Nombre;
+                    currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].TipoCorte1ID = dataItem.TipoCorteID;
+                    currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].TipoCorte1 = dataItem.Nombre;
                 }
                 else {
-                    currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].TipoCorte1ID = dataItem.TipoCorteID;
-                    currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].TipoCorte1 = dataItem.Nombre;
+                    currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].TipoCorte1ID = dataItem.TipoCorteID;
+                    currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].TipoCorte1 = dataItem.Nombre;
                 }
                 //options.model.SalidaID = dataItem.SalidaID;
                 //options.model.Titulo = dataItem.Titulo;
@@ -93,12 +93,12 @@ function RenderTipoCorte2(container, options) {
                 //options.model.Titulo = dataItem.Titulo;
 
                 if (options.model.ClaveSalida.match('^JC')) {
-                    currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].TipoCorte2ID = dataItem.TipoCorteID;
-                    currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].TipoCorte2 = dataItem.Nombre;
+                    currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].TipoCorte2ID = dataItem.TipoCorteID;
+                    currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].TipoCorte2 = dataItem.Nombre;
                 }
                 else {
-                    currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].TipoCorte2ID = dataItem.TipoCorteID;
-                    currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].TipoCorte2 = dataItem.Nombre;
+                    currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].TipoCorte2ID = dataItem.TipoCorteID;
+                    currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].TipoCorte2 = dataItem.Nombre;
                 }
             }
         });
@@ -122,12 +122,12 @@ function RenderJunta(container, options) {
                 options.model.DetalleJuntaSpool = dataItem.Etiqueta;
 
                 if (options.model.ClaveSalida.match('^JC')) {
-                    currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].DetalleJuntaSpoolID = dataItem.JuntaSpoolID;
-                    currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].DetalleJuntaSpool = dataItem.Etiqueta;
+                    currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].DetalleJuntaSpoolID = dataItem.JuntaSpoolID;
+                    currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].DetalleJuntaSpool = dataItem.Etiqueta;
                 }
                 else {
-                    currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].DetalleJuntaSpoolID = dataItem.JuntaSpoolID;
-                    currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].DetalleJuntaSpool = dataItem.Etiqueta;
+                    currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].DetalleJuntaSpoolID = dataItem.JuntaSpoolID;
+                    currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].DetalleJuntaSpool = dataItem.Etiqueta;
                 }
 
                 AjaxDetalleJunta(options.model.PosicionSalidaPadre, options.model.PosicionSalida, ((options.model.ClaveSalida.match('^JC')) ? (options.model.ClaveSalida.substring(0, 2)) : (options.model.ClaveSalida.substring(0, 1))), options.model.DetalleJuntaSpoolID);
@@ -267,30 +267,30 @@ function RenderSpool_IC(container, options) {
               //window.location.href = url;
               //alert('xD');
 
-              for (var i = 0; i < currentSpoolMaster.DetalleSalidas.length; i++) {
-                  if (currentSpoolMaster.DetalleSalidas[i].SpoolID == spoolIDSelectGridIC) {
+              for (var i = 0; i < currentSpoolMaster.detalleSalidas.length; i++) {
+                  if (currentSpoolMaster.detalleSalidas[i].SpoolID == spoolIDSelectGridIC) {
 
-                      for (var j = 0; j < currentSpoolMaster.DetalleSalidas[i].SalidasEstandar.length; j++) {
-                          if (currentSpoolMaster.DetalleSalidas[i].SalidasEstandar[j].ClaveSalida == idSelect) {
-                              currentSpoolMaster.DetalleSalidas[i].SalidasEstandar[j].SpoolItemCodeID = ICSelect;
-                              currentSpoolMaster.DetalleSalidas[i].SalidasEstandar[j].SpoolItemCode = ICSelect;
+                      for (var j = 0; j < currentSpoolMaster.detalleSalidas[i].SalidasEstandar.length; j++) {
+                          if (currentSpoolMaster.detalleSalidas[i].SalidasEstandar[j].ClaveSalida == idSelect) {
+                              currentSpoolMaster.detalleSalidas[i].SalidasEstandar[j].SpoolItemCodeID = ICSelect;
+                              currentSpoolMaster.detalleSalidas[i].SalidasEstandar[j].SpoolItemCode = ICSelect;
 
-                              $("#grid_" + currentSpoolMaster.DetalleSalidas[i].Posicion).data("kendoGrid").dataSource._data[j].SpoolItemCodeID = ICSelect;//EtiquetaSelect;
-                              $("#grid_" + currentSpoolMaster.DetalleSalidas[i].Posicion).data("kendoGrid").dataSource._data[j].SpoolItemCode = ICSelect;//$("#gridPopUp").data("kendoGrid").dataSource._data.length;
-                              $("#grid_" + currentSpoolMaster.DetalleSalidas[i].Posicion).data("kendoGrid").refresh();
+                              $("#grid_" + currentSpoolMaster.detalleSalidas[i].Posicion).data("kendoGrid").dataSource._data[j].SpoolItemCodeID = ICSelect;//EtiquetaSelect;
+                              $("#grid_" + currentSpoolMaster.detalleSalidas[i].Posicion).data("kendoGrid").dataSource._data[j].SpoolItemCode = ICSelect;//$("#gridPopUp").data("kendoGrid").dataSource._data.length;
+                              $("#grid_" + currentSpoolMaster.detalleSalidas[i].Posicion).data("kendoGrid").refresh();
                               break;
                           }
                       }
 
-                      for (var j = 0; j < currentSpoolMaster.DetalleSalidas[i].SalidasJuntasCerradas.length; j++) {
-                          if (currentSpoolMaster.DetalleSalidas[i].SalidasJuntasCerradas[j].ClaveSalida == idSelect) {
+                      for (var j = 0; j < currentSpoolMaster.detalleSalidas[i].SalidasJuntasCerradas.length; j++) {
+                          if (currentSpoolMaster.detalleSalidas[i].SalidasJuntasCerradas[j].ClaveSalida == idSelect) {
 
-                              currentSpoolMaster.DetalleSalidas[i].SalidasJuntasCerradas[j].SpoolItemCodeID = ICSelect;
-                              currentSpoolMaster.DetalleSalidas[i].SalidasJuntasCerradas[j].SpoolItemCode = ICSelect;
+                              currentSpoolMaster.detalleSalidas[i].SalidasJuntasCerradas[j].SpoolItemCodeID = ICSelect;
+                              currentSpoolMaster.detalleSalidas[i].SalidasJuntasCerradas[j].SpoolItemCode = ICSelect;
 
-                              $("#grid_" + currentSpoolMaster.DetalleSalidas[i].Posicion).data("kendoGrid").dataSource._data[j + currentSpoolMaster.DetalleSalidas[i].SalidasEstandar.length].SpoolItemCodeID = ICSelect;//EtiquetaSelect;
-                              $("#grid_" + currentSpoolMaster.DetalleSalidas[i].Posicion).data("kendoGrid").dataSource._data[j + currentSpoolMaster.DetalleSalidas[i].SalidasEstandar.length].SpoolItemCode = ICSelect;//$("#gridPopUp").data("kendoGrid").dataSource._data.length;
-                              $("#grid_" + currentSpoolMaster.DetalleSalidas[i].Posicion).data("kendoGrid").refresh();
+                              $("#grid_" + currentSpoolMaster.detalleSalidas[i].Posicion).data("kendoGrid").dataSource._data[j + currentSpoolMaster.detalleSalidas[i].SalidasEstandar.length].SpoolItemCodeID = ICSelect;//EtiquetaSelect;
+                              $("#grid_" + currentSpoolMaster.detalleSalidas[i].Posicion).data("kendoGrid").dataSource._data[j + currentSpoolMaster.detalleSalidas[i].SalidasEstandar.length].SpoolItemCode = ICSelect;//$("#gridPopUp").data("kendoGrid").dataSource._data.length;
+                              $("#grid_" + currentSpoolMaster.detalleSalidas[i].Posicion).data("kendoGrid").refresh();
                               break;
                           }
                       }
@@ -338,16 +338,16 @@ function RenderSpool_IC(container, options) {
                     options.model.SpoolItemCodeID = dataItem.SpoolID;
                     options.model.SpoolItemCode = dataItem.Nombre;
 
-                    //currentSpoolMaster.DetalleSalidas[i]
+                    //currentSpoolMaster.detalleSalidas[i]
                     //((options.model.ClaveSalida.match('^JC')) ? (options.model.ClaveSalida.substring(0, 2)) : (options.model.ClaveSalida.substring(0, 1)))
                     var posicionSalida = options.model.PosicionSalida;
                     if (options.model.ClaveSalida.match('^JC')) {
-                        currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].SpoolItemCodeID = dataItem.SpoolID;//posicionSalida += currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar.length;
-                        currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].SpoolItemCode = dataItem.Nombre;
+                        currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].SpoolItemCodeID = dataItem.SpoolID;//posicionSalida += currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar.length;
+                        currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].SpoolItemCode = dataItem.Nombre;
                     }
                     else {
-                        currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].SpoolItemCodeID = dataItem.SpoolID;
-                        currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].SpoolItemCode = dataItem.Nombre;
+                        currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].SpoolItemCodeID = dataItem.SpoolID;
+                        currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].SpoolItemCode = dataItem.Nombre;
                     }
 
                     if ((dataItem.SpoolID != 0) && (dataItem.SpoolID != (-99))) {
@@ -363,16 +363,16 @@ function RenderSpool_IC(container, options) {
                 else {
                     var posicionSalida = options.model.PosicionSalida;
                     if (options.model.ClaveSalida.match('^JC')) {
-                        currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].SpoolItemCodeID = dataItem.SpoolID;//posicionSalida += currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar.length;
-                        currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].SpoolItemCode = dataItem.Nombre;
+                        currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].SpoolItemCodeID = dataItem.SpoolID;//posicionSalida += currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar.length;
+                        currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].SpoolItemCode = dataItem.Nombre;
                     }
                     else {
-                        currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].SpoolItemCodeID = dataItem.SpoolID;
-                        currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].SpoolItemCode = dataItem.Nombre;
+                        currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].SpoolItemCodeID = dataItem.SpoolID;
+                        currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].SpoolItemCode = dataItem.Nombre;
                     }
 
-                    currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre + 1].SpoolID = dataItem.SpoolID;
-                    currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre + 1].NombreSpool = dataItem.Nombre;
+                    currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre + 1].SpoolID = dataItem.SpoolID;
+                    currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre + 1].NombreSpool = dataItem.Nombre;
 
 
                     reloadControls();
@@ -444,12 +444,12 @@ function RenderTipoJuta(container, options) {
 
                 var posicionSalida = options.model.PosicionSalida;
                 if (options.model.ClaveSalida.match('^JC')) {
-                    currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].TipoJuntaID = 0;
-                    currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].TipoJunta = dataItem.Nombre;
+                    currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].TipoJuntaID = 0;
+                    currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].TipoJunta = dataItem.Nombre;
                 }
                 else {
-                    currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].TipoJuntaID = 0;
-                    currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].TipoJunta = dataItem.Nombre;
+                    currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].TipoJuntaID = 0;
+                    currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].TipoJunta = dataItem.Nombre;
                 }
             }
         });
@@ -475,12 +475,12 @@ function RenderCedula(container, options) {
 
                 var posicionSalida = options.model.PosicionSalida;
                 if (options.model.ClaveSalida.match('^JC')) {
-                    //currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].TipoJuntaID = 0;
-                    currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].Cedula = dataItem.Nombre;
+                    //currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].TipoJuntaID = 0;
+                    currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].Cedula = dataItem.Nombre;
                 }
                 else {
-                    //currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].TipoJuntaID = 0;
-                    currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].Cedula = dataItem.Nombre;
+                    //currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].TipoJuntaID = 0;
+                    currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].Cedula = dataItem.Nombre;
                 }
             }
         });
@@ -506,12 +506,12 @@ function RenderFamiliaAcero1(container, options) {
 
                 var posicionSalida = options.model.PosicionSalida;
                 if (options.model.ClaveSalida.match('^JC')) {
-                    //currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].TipoJuntaID = 0;
-                    currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].FamiliaAceroMaterial1 = dataItem.Nombre;
+                    //currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].TipoJuntaID = 0;
+                    currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].FamiliaAceroMaterial1 = dataItem.Nombre;
                 }
                 else {
-                    //currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].TipoJuntaID = 0;
-                    currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].FamiliaAceroMaterial1 = dataItem.Nombre;
+                    //currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].TipoJuntaID = 0;
+                    currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].FamiliaAceroMaterial1 = dataItem.Nombre;
                 }
             }
         });
@@ -537,12 +537,12 @@ function RenderFamiliaAcero2(container, options) {
 
                 var posicionSalida = options.model.PosicionSalida;
                 if (options.model.ClaveSalida.match('^JC')) {
-                    //currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].TipoJuntaID = 0;
-                    currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].FamiliaAceroMaterial2 = dataItem.Nombre;
+                    //currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].TipoJuntaID = 0;
+                    currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].FamiliaAceroMaterial2 = dataItem.Nombre;
                 }
                 else {
-                    //currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].TipoJuntaID = 0;
-                    currentSpoolMaster.DetalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].FamiliaAceroMaterial2 = dataItem.Nombre;
+                    //currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].TipoJuntaID = 0;
+                    currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].FamiliaAceroMaterial2 = dataItem.Nombre;
                 }
             }
         });
@@ -552,18 +552,18 @@ function RenderFamiliaAcero2(container, options) {
 
 function RenderGridRowsDynamic() {
 
-    for (var posicion = 0; posicion < currentSpoolMaster.DetalleSalidas.length; posicion++) {
+    for (var posicion = 0; posicion < currentSpoolMaster.detalleSalidas.length; posicion++) {
 
         $("#grid_" + posicion).data('kendoGrid').dataSource.data([]);
         var ds = $("#grid_" + posicion).data("kendoGrid").dataSource;
 
 
-        for (var i = 0; i < currentSpoolMaster.DetalleSalidas[posicion].SalidasEstandar.length; i++) {
-            ds.add(currentSpoolMaster.DetalleSalidas[posicion].SalidasEstandar[i]);
+        for (var i = 0; i < currentSpoolMaster.detalleSalidas[posicion].SalidasEstandar.length; i++) {
+            ds.add(currentSpoolMaster.detalleSalidas[posicion].SalidasEstandar[i]);
         }
 
-        for (var i = 0; i < currentSpoolMaster.DetalleSalidas[posicion].SalidasJuntasCerradas.length; i++) {
-            ds.add(currentSpoolMaster.DetalleSalidas[posicion].SalidasJuntasCerradas[i]);
+        for (var i = 0; i < currentSpoolMaster.detalleSalidas[posicion].SalidasJuntasCerradas.length; i++) {
+            ds.add(currentSpoolMaster.detalleSalidas[posicion].SalidasJuntasCerradas[i]);
         }
     }
 }
