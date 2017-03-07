@@ -151,7 +151,7 @@ namespace BackEndSAM.DataAcces.Pintura.PinturaGeneral
                     List<PinturaRevision> listaRevisionSpool = new List<PinturaRevision>();
                     List<Sam3_Pintura_Get_Revision_Result> result = ctx.Sam3_Pintura_Get_Revision(proyectoID, dato, tipoBusqueda, lenguaje).ToList();
 
-                    listaRevisionSpool.Add(new PinturaRevision());
+                   
                     foreach (Sam3_Pintura_Get_Revision_Result item in result)
                     {
                         listaRevisionSpool.Add(new PinturaRevision

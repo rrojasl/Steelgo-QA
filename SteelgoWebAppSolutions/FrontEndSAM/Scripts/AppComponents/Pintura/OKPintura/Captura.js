@@ -100,7 +100,7 @@ function CargarGrid() {
                     },
                     dataSource: [{ Etiquetado: true }, { Etiquetado: false }]
                 }, template: "<input name='fullyPaid' class='ob-paid' type='checkbox' #= OkPintura ? 'checked=checked':'' #/>", width: "100px", attributes: { style: "text-align:center;" }
-            },
+            }
         ]
     });
     CustomisaGrid($("#grid"));

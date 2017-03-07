@@ -125,13 +125,15 @@ function AjaxCargarDetalleSpool(proyectoID, tipoBusqueda, cadena) {
         $("#grid").data("kendoGrid").dataSource.data([]);
 
         var ds = $("#grid").data("kendoGrid").dataSource;
-        if(data.length > 0){
+        if (data.length > 0) {
+            editado = true;
             for (var i = 0; i < data.length; i++) {
                 if (data[i].ListaColorPintura == null)
                     data[i].ListaColorPintura = [];
                 
                 ds.add(data[i]);
             }
+                ds.page(1);
         }
         else
         {
