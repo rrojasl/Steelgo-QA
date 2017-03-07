@@ -574,7 +574,7 @@ function SuscribirEventoGuardar() {
 function opcionHabilitarView(disable) {
     if (disable) {
         $('#FieldSetView').find('*').attr('disabled', true);
-        $(".addedSectionInLine").find('*').attr("disabled", true);
+        //$(".addedSectionInLine").find('*').attr("disabled", true);
         $("#styleSpool").attr("disabled", true);
         $("#styleNc").attr("disabled", true);
         $("#inputProyecto").data("kendoComboBox").enable(false);
@@ -593,7 +593,7 @@ function opcionHabilitarView(disable) {
 
     } else {
         $('#FieldSetView').find('*').attr('disabled', false);
-        $(".addedSectionInLine").find('*').attr("disabled", false);
+        //$(".addedSectionInLine").find('*').attr("disabled", false);
         $("#styleSpool").attr("disabled", false);
         $("#styleNc").attr("disabled", false);
         $("#inputProyecto").data("kendoComboBox").enable(true);
