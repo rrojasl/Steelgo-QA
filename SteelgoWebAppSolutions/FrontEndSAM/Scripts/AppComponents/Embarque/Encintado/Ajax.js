@@ -129,6 +129,52 @@ function AjaxCargarCuadranteSpool(spool) {
     }
 }
 
+function AjaxCargarElementosPorConsulta(tipoBusqueda, zonaID, cuadranteID, spoolContiene, todos) {
+    loadingStart();
+    $Encintado.Encintado.read({
+        token: Cookies.get("token"), TipoConsulta: tipoBusqueda, ZonaID: zonaID, CuadranteID: cuadranteID,
+        NumeroControl: spoolContiene, lenguaje: $("#language").val()
+    }).done(function (data) {
+        if (data != null) {
+            if (data > 100) {
+                var ventanaConfirmBusqueda = $("#ventanaConfirm").kendoWindow({
+                    iframe: true,
+                    title: _dictionary.TituloPopupCancelar[$("#language").data("kendoDropDownList").value()],
+                    visible: false,
+                    width: "45%",
+                    height: "auto",
+                    draggable: false,
+                    actions: [],
+                    modal: true,
+                    animation: {
+                        close: false,
+                        open: false
+                    }
+                }).data("kendoWindow");
+                ventanaConfirmBusqueda.content('<center>' + _dictionary.EmbarqueAlertaCantidadRegistros[$("#language").data("kendoDropDownList").value()] + '</center>' +
+                    "</br><center><button class='btn btn-blue' id='btnContinuarBusqueda'>" + _dictionary.lblSi[$("#language").data("kendoDropDownList").value()] + "</button> <button class='btn btn-blue' id='btnCancelarBusqueda'>" + _dictionary.lblNo[$("#language").data("kendoDropDownList").value()] + "</button></center>");
+
+                ventanaConfirmBusqueda.open().center();
+                $("#btnContinuarBusqueda").click(function () {
+                    ventanaConfirmBusqueda.close();
+                    AjaxCargarDetalleEncintado(tipoBusqueda, zonaID, cuadranteID, spoolContiene, todos);
+
+                    if (tipoBusqueda != 1)
+                        AjaxCargarCuadranteSpool(spoolContiene);
+                });
+                $("#btnCancelarBusqueda").click(function () {
+                    ventanaConfirmBusqueda.close();
+                    loadingStop();
+                });
+            } else {
+                AjaxCargarDetalleEncintado(tipoBusqueda, zonaID, cuadranteID, spoolContiene, todos);
+                if (tipoBusqueda != 1)
+                    AjaxCargarCuadranteSpool(spoolContiene);
+            }
+        }
+    });
+}
+
 function AjaxCargarDetalleEncintado(tipoBusqueda, zonaID, cuadranteID, spoolContiene, todos) {
     loadingStart();
     $Encintado.Encintado.read({

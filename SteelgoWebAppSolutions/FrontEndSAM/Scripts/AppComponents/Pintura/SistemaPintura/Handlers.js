@@ -267,15 +267,15 @@ function suscribirEventoProyecto() {
 function GuardarDetallePruebas() {
     $('#GuardarDetallePruebas').click(function () {
 
-        var ds = $("#gridPopUp").data("kendoGrid").dataSource;
+            var ds = $("#gridPopUp").data("kendoGrid").dataSource;
 
         for (var i = 0; i < ds._data.length; i++) {
             if (ds._data[i].UnidadMinima == "" || ds._data[i].UnidadMaxima == "" || ds._data[i].ProyectoProcesoPrueba == "" || ds._data[i].UnidadMedida == "") {
-                displayNotify("SistemaPinturaMensajeCamposMandatorios", "", 1);
+                displayNotify("SistemaPinturaMensajeCamposMandatorios", "", "1");
                 return;
             }
             else if (parseInt(ds._data[i].UnidadMinima) > parseInt(ds._data[i].UnidadMaxima)) {
-                displayNotify("SistemaPinturaMensajeUnidadMedidaError", "", 1);
+                displayNotify("SistemaPinturaMensajeUnidadMedidaError", "", "1");
                 return;
             }
 

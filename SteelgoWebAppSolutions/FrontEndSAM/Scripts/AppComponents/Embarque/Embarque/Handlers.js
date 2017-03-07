@@ -552,9 +552,20 @@ function SuscribirEventoPopUpGuardarEmbarque() {
         var ds = $("#grid").data("kendoGrid").dataSource._data;
         var tipoGuardado = $("#InputTipoGuardado").val();
         var proveedorID = $("#Proveedor").data("kendoComboBox").value();
+        var nombreEmbarque = $("#inputNombreEmbarque").val();
+        var nombreEmbarqueCliente = $("#inputNombreEmbarqueCliente").val();
+        var fechaCreacion = $("#inputFechaEmbarque").val();
 
-        divNuevoEmbarque.close();
-        AjaxGuardarCaptura(ds, tipoGuardado, proveedorID);
+        if (nombreEmbarque != "") {
+            if (fechaCreacion != undefined && fechaCreacion != "") {
+                divNuevoEmbarque.close();
+                AjaxGuardarCaptura(ds, tipoGuardado, proveedorID);
+            } else {
+                displayNotify("EmbarquePreparacionNumEmbarqueSteelgoError", "", '2');
+            }
+        } else {
+            displayNotify("EmbarquePreparacionNumEmbarqueSteelgoError", "", '2');
+        }
     });
 
     $("#CancelarNuevoEmbarque").click(function (e) {

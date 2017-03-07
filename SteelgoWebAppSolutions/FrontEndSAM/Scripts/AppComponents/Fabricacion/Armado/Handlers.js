@@ -591,9 +591,7 @@ function eventoCambioTipoListado() {
 function suscribirEventoChangeRadioTipoListado() {
 
     $('input:radio[name=TipoAgregado]').change(function () {
-
         if ($('input:radio[name=TipoAgregado]:checked').val() == "Reporte") {
-            console.log("noabrepop");
             if (!editado) {
                 $("#grid").data("kendoGrid").dataSource.data([]);
                 eventoCambioTipoListado();

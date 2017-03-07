@@ -10462,7 +10462,7 @@ _dictionary = {
     },
     //Finaliza Captura Admin componentes
     //Inicia Captura Admin reductores
-    
+
     "AdminReductorAsignado": {
         "es-MX": "El reductor se encuentra asignado a un sistema de pintura",
         "en-US": "The reducer is assigned to a painting system"
@@ -10921,6 +10921,10 @@ _dictionary = {
         "es-MX": "Componente",
         "en-US": "Component"
     },
+    "CapturaSistemaPinturaAgregarPruebas": {
+        "es-MX": "No se puede repetir la prueba en la captura",
+        "en-US": "You can not repeat test on capture"
+    },
     "botonGuardarComponenteAgregado": {
         "es-MX": "Agregar",
         "en-US": "Save"
@@ -11110,6 +11114,11 @@ _dictionary = {
     "BtnGuardarCerrarNuevoEmbarqueInf": {
         "es-MX": "Guardar, Cerrar y Nuevo ",
         "en-US": "Sava, Close and New"
+    },
+    //Etiquetas Generales
+    "EmbarqueAlertaCantidadRegistros": {
+        "es-MX": "El tipo de búsqueda que ejecuto obtendrá mas de 100 registros, eso puedo tardar varios minutos. ¿Desea Continuar?",
+        "en-US": "The type of search you get run over 100 records, it can take several minutes. Continue anyway?"
     },
     //Fin acciones botones de embarque
     //Inicia Pantalla Etiquetado
@@ -11681,6 +11690,14 @@ _dictionary = {
     "EmbarquePreparacionNumEmbarqueSteelgo": {
         "es-MX": "No. Prep",
         "en-US": "Prep Num"
+    },
+    "EmbarquePreparacionNumEmbarqueSteelgoError": {
+        "es-MX": "Por favor ingrese No. Prep",
+        "en-US": "Please enter Prep Num"
+    },
+    "EmbarquePreparacionFechaEmbarqueError": {
+        "es-MX": "Por favor ingrese Fecha del Embarque",
+        "en-US": "Please enter Date of shipping"
     },
     //Finaliza pantalla Preparacion Embarque
     //Inicia pantalla listado embarque
@@ -12427,6 +12444,10 @@ _dictionary = {
     },
     //#endregion
     //#region Inicia modulo RevisionPintura
+    "MenuRevisionPintura": {
+        "es-MX": "Revision Pintura",
+        "en-US": "Painting Revision"
+    },
     "PinturaRevisionBreadcrumb": {
         "es-MX": "Revison de pintura",
         "en-US": "Paint revision"

@@ -143,6 +143,10 @@ function comboBoxPruebas(container, options) {
                     {
                         options.model.PruebaProcesoPinturaID.PruebaProcesoPinturaID = 0;
                         options.model.ProyectoProcesoPrueba = "";
+                        displayNotify("CapturaSistemaPinturaAgregarPruebas", "", "1");
+                        var dataSource = $("#gridPopUp").data("kendoGrid").dataSource;
+                        dataSource.remove(options.model);
+
                     }
                 }
                 $("#gridPopUp").data("kendoGrid").dataSource.sync();
