@@ -170,10 +170,10 @@ namespace BackEndSAM.Models.Ingenieria.BuscaSpool
         public decimal? Cantidad { get; set; }
         public List<DetalleTipoSalida> TipoSalidaLista { get; set; }
         public List<DetalleMaterialSpool> DetalleMaterialSpoolLista { get; set; }
-        public List<DetalleSpool> SpoolItemCodeLista { get; set; }
-        public List<DetalleSpool> SpoolItemCodeListaSoporte { get; set; }
+        public List<ListaSpool> SpoolItemCodeLista { get; set; }
+        public List<ListaSpool> SpoolItemCodeListaSoporte { get; set; }
         public List<DetalleMaterialSpool> ItemCodeLista { get; set; }
-        public List<DetalleJuntaSpool> DetalleJuntaSpoolLista { get; set; }
+        public List<ListaJuntaSpool> DetalleJuntaSpoolLista { get; set; }
         public List<ListaTipoCorte> TipoCorte1Lista { get; set; }
         public List<ListaTipoCorte> TipoCorte2Lista { get; set; }
     }
