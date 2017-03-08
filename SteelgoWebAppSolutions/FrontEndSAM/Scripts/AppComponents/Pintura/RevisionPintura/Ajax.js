@@ -54,15 +54,15 @@ function AjaxEjecutarBusquedaSpoolConSP()
         if ($('input:radio[name=TipoBusqueda]:checked').val() == "spool" && elementosModificados != "") {
             editado = true;
             $("#inputSpool").val("")
-            displayNotify("InformacionAgregada", "", '0');
+            //displayNotify("InformacionAgregada", "", '0');
         }
         else if (elementosModificados != "") {
             editado = true;
             $("#inputNc").val("")
-            displayNotify("InformacionAgregada", "", '0');
+            //displayNotify("InformacionAgregada", "", '0');
         }
         else {
-            displayNotify("InformacionSinResultado", "", '1');
+            displayNotify("ErrorSpoolAgregarProyectoIncorrecto", "", '1');
         }
     });
 }
