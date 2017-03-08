@@ -78,11 +78,11 @@ function AjaxAceroCatalog() {
 
 }
 
-function AjaxGetLoop(proyectoID, nombreLoop) {
+function AjaxGetLoop(proyectoID, proyectoSpoolID, proyectoSoporteID, nombreLoop) {
 
 
     loadingStart();
-    $BuscaSpool.BuscaSpool.read({ token: Cookies.get("token"), ProyectoID: proyectoID, NombreLoop: nombreLoop }).done(function (data) {
+    $BuscaSpool.BuscaSpool.read({ token: Cookies.get("token"), ProyectoID: proyectoID, ProyectoSpoolID: proyectoSpoolID, ProyectoSoporteID: proyectoSoporteID, NombreLoop: nombreLoop }).done(function (data) {
 
         if (Error(data)) {
             if (data.LoopID == 0) {//No exite
