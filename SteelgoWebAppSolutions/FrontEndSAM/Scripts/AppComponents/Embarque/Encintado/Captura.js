@@ -184,42 +184,46 @@ function CargarGrid() {
         }
     });    
 
-    $("#grid .k-grid-content").on("change", "input.chk-Encintado", function (e) {
-        if ($('#Guardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
-            
-            var grid = $("#grid").data("kendoGrid");
-            var dataItem = grid.dataItem($(e.target).closest("tr"));
+    $("#grid").on("change", ":checkbox", function (e) {
+        e.preventDefault();
+        if ($(this)[0].className == "chk-Encintado" || $(this)[0].name == "Encintado") {
+            if ($('#Guardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
 
-            if ($(this)[0].checked) {
-                dataItem.Encintado = true;
-                dataItem.ModificadoPorUsuario = true;
+                var grid = $("#grid").data("kendoGrid");
+                var dataItem = grid.dataItem($(e.target).closest("tr"));
 
-                //if (dataItem.Accion == 1|| (dataItem.Accion == 2 && (dataItem.CuadranteID != dataItem.CuadranteAnteriorSam3ID 
-                //    || dataItem.ColorID != dataItem.ColorAnteriorID)))
-                //    dataItem.ModificadoPorUsuario = true;
-                //else
+                if ($(this)[0].checked) {
+                    dataItem.Encintado = true;
+                    dataItem.ModificadoPorUsuario = true;
+
+                    //if (dataItem.Accion == 1|| (dataItem.Accion == 2 && (dataItem.CuadranteID != dataItem.CuadranteAnteriorSam3ID 
+                    //    || dataItem.ColorID != dataItem.ColorAnteriorID)))
+                    //    dataItem.ModificadoPorUsuario = true;
+                    //else
                     //dataItem.ModificadoPorUsuario = false;
-            }
-            else {
-                dataItem.Encintado = false;
-                dataItem.NombreColor = "";
-                dataItem.ColorID = 0;
-                dataItem.ModificadoPorUsuario = true;
-                
-                //if (dataItem.Accion == 2|| (dataItem.Accion == 1 && (dataItem.CuadranteID != dataItem.CuadranteAnteriorSam3ID
+                }
+                else {
+                    dataItem.Encintado = false;
+                    dataItem.NombreColor = "";
+                    dataItem.ColorID = 0;
+                    dataItem.ModificadoPorUsuario = true;
+
+                    //if (dataItem.Accion == 2|| (dataItem.Accion == 1 && (dataItem.CuadranteID != dataItem.CuadranteAnteriorSam3ID
                     //|| dataItem.ColorID != dataItem.ColorAnteriorID)))
                     //dataItem.ModificadoPorUsuario = true;
-                //else
-                //    dataItem.ModificadoPorUsuario = false;
+                    //else
+                    //    dataItem.ModificadoPorUsuario = false;
+                }
+            }
+            else {
+                if (e.target.checked)
+                    $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Encintado = false;
+                else
+                    $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Encintado = true;
             }
         }
-        else {
-            if (e.target.checked)
-                $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Encintado = false;
-            else
-                $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Encintado = true;
-        }
-        $("#grid").data("kendoGrid").dataSource.sync();
+        
+        $("#grid").data("kendoGrid").refresh();
     });
 
     CustomisaGrid($("#grid"));
@@ -286,7 +290,7 @@ function PlancharCuadrante(Cuadrante) {
         }
     }
 
-    $("#grid").data("kendoGrid").dataSource.sync();
+    $("#grid").data("kendoGrid").refresh();
 }
 
 function PlanchaEncintado(Encintado) {
@@ -336,7 +340,7 @@ function PlanchaEncintado(Encintado) {
             }
         }
     }
-    $("#grid").data("kendoGrid").dataSource.sync();
+    $("#grid").data("kendoGrid").refresh();
 }
 
 function PlanchaColorCinta(ColorCinta) {
@@ -383,7 +387,7 @@ function PlanchaColorCinta(ColorCinta) {
         }
     }
 
-    $("#grid").data("kendoGrid").dataSource.sync();
+    $("#grid").data("kendoGrid").refresh();
 }
 function FiltroMostrar(mostrar) {
     var ds = $("#grid").data("kendoGrid").dataSource;
@@ -393,16 +397,18 @@ function FiltroMostrar(mostrar) {
         if (curr_filters[0].filters != undefined)
             ds.filter(curr_filters[0].filters[0])
         else
-            ds.filter(curr_filters[0])
-        ds.sync();
+            ds.filter(curr_filters[0]);
+
+        $("#grid").data("kendoGrid").refresh();
     }
     else {
         var curr_filters = ds.filter().filters;
         ds.filter(curr_filters[0])
-        ds.sync();
+        $("#grid").data("kendoGrid").refresh();
         var filters = ds.filter();
         filters.logic = "or"
 
-        filters.filters.push({ field: "Accion", operator: "eq", value: 2 });        ds.sync();
+        filters.filters.push({ field: "Accion", operator: "eq", value: 2 });
+        $("#grid").data("kendoGrid").refresh();
     }
 }

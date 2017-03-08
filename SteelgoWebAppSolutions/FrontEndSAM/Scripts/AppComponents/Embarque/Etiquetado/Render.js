@@ -26,7 +26,7 @@
                         //        options.model.ModificadoPorUsuario = true;
                         //}
                         //else                        
-                        $("#grid").data("kendoGrid").dataSource.sync();
+                        $("#grid").data("kendoGrid").refresh();
                     } else {
                         options.model.CuadranteID = 0;
                         options.model.CuadranteSam2ID = 0;

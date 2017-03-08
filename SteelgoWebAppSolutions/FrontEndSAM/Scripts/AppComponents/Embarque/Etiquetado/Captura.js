@@ -142,39 +142,40 @@ function CargarGrid() {
         }
     });
 
-    $("#grid .k-grid-content").on("change", "input.chk-Etiquetado", function (e) {
+    $("#grid").on("change", ":checkbox", function (e) {
+        e.preventDefault();
+        if ($(this)[0].className == "chk-Etiquetado" || $(this)[0].name == "Etiquetado") {
+            if ($('#Guardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
 
-        if ($('#Guardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
-            var grid = $("#grid").data("kendoGrid");
-            var dataItem = grid.dataItem($(e.target).closest("tr"));
-            
-            if ($(this)[0].checked) {
-                dataItem.Etiquetado = true;
+                var grid = $("#grid").data("kendoGrid");
+                var dataItem = grid.dataItem($(e.target).closest("tr"));
 
-                if (dataItem.Accion == 1)//|| (dataItem.Accion == 2 && dataItem.CuadranteID != dataItem.CuadranteAnteriorSam3ID)
-                    dataItem.ModificadoPorUsuario = true;
-                //else
-                //    dataItem.ModificadoPorUsuario = false;
+                if ($(this)[0].checked) {
+                    dataItem.Etiquetado = true;
+
+                    if (dataItem.Accion == 1)//|| (dataItem.Accion == 2 && dataItem.CuadranteID != dataItem.CuadranteAnteriorSam3ID)
+                        dataItem.ModificadoPorUsuario = true;
+                    //else
+                    //    dataItem.ModificadoPorUsuario = false;
+                }
+                else {
+                    dataItem.Etiquetado = false;
+
+                    if (dataItem.Accion == 2)//|| (dataItem.Accion == 1 && dataItem.CuadranteID != dataItem.CuadranteAnteriorSam3ID)
+                        dataItem.ModificadoPorUsuario = true;
+                    //else
+                    //    dataItem.ModificadoPorUsuario = false;
+                }
             }
             else {
-                dataItem.Etiquetado = false;
-
-                if (dataItem.Accion == 2)//|| (dataItem.Accion == 1 && dataItem.CuadranteID != dataItem.CuadranteAnteriorSam3ID)
-                    dataItem.ModificadoPorUsuario = true;
-                //else
-                //    dataItem.ModificadoPorUsuario = false;
+                if (e.target.checked)
+                    $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Etiquetado = false;
+                else
+                    $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Etiquetado = true;
             }
+        }       
 
-            $("#grid").data("kendoGrid").dataSource.sync();
-        }
-        else {
-            if (e.target.checked)
-                $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Etiquetado = false;
-            else
-                $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Etiquetado = true;
-        }
-
-        $("#grid").data("kendoGrid").dataSource.sync();
+        $("#grid").data("kendoGrid").refresh();
     });
 
     CustomisaGrid($("#grid"));
@@ -234,7 +235,7 @@ function PlanchaEtiquedo(Etiquetado) {
         }
     }
 
-    $("#grid").data("kendoGrid").dataSource.sync();
+    $("#grid").data("kendoGrid").refresh();
 }
 
 function PlanchaCuadrante(Cuadrante) {
@@ -277,7 +278,7 @@ function PlanchaCuadrante(Cuadrante) {
         }
     }
 
-    $("#grid").data("kendoGrid").dataSource.sync();
+    $("#grid").data("kendoGrid").refresh();
 }
 
 function FiltroMostrar(mostrar) {
@@ -289,16 +290,16 @@ function FiltroMostrar(mostrar) {
             ds.filter(curr_filters[0].filters[0])
         else
             ds.filter(curr_filters[0])
-        ds.sync();
+        $("#grid").data("kendoGrid").refresh();
     }
     else {
         var curr_filters = ds.filter().filters;
         ds.filter(curr_filters[0])
-        ds.sync();
+        $("#grid").data("kendoGrid").refresh();
         var filters = ds.filter();
         filters.logic = "or"
 
         filters.filters.push({ field: "Accion", operator: "eq", value: 2 });
-        ds.sync();
+        $("#grid").data("kendoGrid").refresh();
     }
 }
