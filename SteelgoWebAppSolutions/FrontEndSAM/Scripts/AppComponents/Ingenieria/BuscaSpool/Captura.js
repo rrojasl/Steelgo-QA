@@ -233,6 +233,11 @@ function initSpoolMasterTotal() {
         format: "###"
     });
 
+    //$("#inputNombreLoop").val(currentSpoolMaster.NombreLoop);
+    $("#inputDibujo").val(currentSpoolMaster.Dibujo);
+    $("#inputPND").val(currentSpoolMaster.PND);
+    $('#inputRequierePWHT:checked').val(currentSpoolMaster.RequierePWHT);
+
     CargarGridDynamic(0);
 
     reCalculaReglas();

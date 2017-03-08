@@ -86,6 +86,10 @@ function AjaxGetLoop(proyectoID, proyectoSpoolID, proyectoSoporteID, nombreLoop)
 
         if (Error(data)) {
             if (data.LoopID == 0) {//No exite
+                for (var i = 0; i < currentSpoolMaster.detalleSalidas.length; i++) {
+                    if ($('#content_' + i).length > 0)
+                        $('#content_' + i).remove();
+                }
                 initSpoolMasterTotal();
             }
             else {//si existe el Loop
@@ -115,6 +119,22 @@ function AjaxGetLoop(proyectoID, proyectoSpoolID, proyectoSoporteID, nombreLoop)
                 for (var i = 0; i < currentSpoolMaster.detalleSalidas.length; i++) {
                     currentSpoolMaster.detalleSalidas[i].SalidasEstandar = [];
                     currentSpoolMaster.detalleSalidas[i].SalidasJuntasCerradas = [];
+
+                    if (!(currentSpoolMaster.Acero1.indexOf(currentSpoolMaster.detalleSalidas[i].Acero1) !== -1)) {
+                        currentSpoolMaster.Acero1 += currentSpoolMaster.detalleSalidas[i].Acero1 + '/';
+                    }
+                    if (currentSpoolMaster.detalleSalidas[i].FamiliarAcero2ID != null) {
+                        if (!(currentSpoolMaster.Acero2.indexOf(currentSpoolMaster.detalleSalidas[i].Acero2) !== -1)) {
+                            currentSpoolMaster.Acero2 += currentSpoolMaster.detalleSalidas[i].Acero2 + '/';
+                        }
+                    }
+
+                    if (!(currentSpoolMaster.Especificacion.indexOf(currentSpoolMaster.detalleSalidas[i].Especificacion) !== -1)) {
+                        currentSpoolMaster.Especificacion += currentSpoolMaster.detalleSalidas[i].Especificacion + '/';
+                    }
+
+                    AddPinturaSistemaColor(currentSpoolMaster.detalleSalidas[i].SistemaPintura, currentSpoolMaster.detalleSalidas[i].ColorPintura);
+
                     for (var j = 0; j < currentSpoolMaster.detalleSalidas[i].detalleAgrupadoSalidas.length; j++) {
 
                         var newData = {
@@ -125,17 +145,17 @@ function AjaxGetLoop(proyectoID, proyectoSpoolID, proyectoSoporteID, nombreLoop)
                             ClaveSalida: currentSpoolMaster.detalleSalidas[i].detalleAgrupadoSalidas[j].ClaveSalida,
                             TipoSalidaID: currentSpoolMaster.detalleSalidas[i].detalleAgrupadoSalidas[j].TipoSalidaID,
                             TipoSalida: currentSpoolMaster.detalleSalidas[i].detalleAgrupadoSalidas[j].TipoSalida,
-                            TipoSalidaLista: [],
+                            TipoSalidaLista: currentSpoolMaster.detalleSalidas[i].detalleAgrupadoSalidas[j].TipoSalidaLista,
                             DetalleMaterialSpoolID: currentSpoolMaster.detalleSalidas[i].detalleAgrupadoSalidas[j].MaterialSpoolID,
                             DetalleMaterialSpool: currentSpoolMaster.detalleSalidas[i].detalleAgrupadoSalidas[j].ItemCode,
-                            DetalleMaterialSpoolLista: [],
+                            DetalleMaterialSpoolLista: currentSpoolMaster.detalleSalidas[i].detalleAgrupadoSalidas[j].DetalleMaterialSpoolLista,
                             SpoolItemCodeID: currentSpoolMaster.detalleSalidas[i].detalleAgrupadoSalidas[j].SpoolItemCodeID,
                             SpoolItemCode: currentSpoolMaster.detalleSalidas[i].detalleAgrupadoSalidas[j].SpoolItemCode,
-                            SpoolItemCodeLista: [],
+                            SpoolItemCodeLista: currentSpoolMaster.detalleSalidas[i].detalleAgrupadoSalidas[j].SpoolItemCodeLista,
                             ItemCodeSelect: currentSpoolMaster.detalleSalidas[i].detalleAgrupadoSalidas[j].SpoolItemCode,
                             DetalleJuntaSpoolID: currentSpoolMaster.detalleSalidas[i].detalleAgrupadoSalidas[j].JuntaSpoolID,
                             DetalleJuntaSpool: currentSpoolMaster.detalleSalidas[i].detalleAgrupadoSalidas[j].Etiqueta,
-                            DetalleJuntaSpoolLista: [],
+                            DetalleJuntaSpoolLista: currentSpoolMaster.detalleSalidas[i].detalleAgrupadoSalidas[j].DetalleJuntaSpoolLista,
                             Nivel: currentSpoolMaster.detalleSalidas[i].detalleAgrupadoSalidas[j].Nivel,
                             PosicionSalidaPadre: currentSpoolMaster.detalleSalidas[i].detalleAgrupadoSalidas[j].PosicionSalidaPadre,
                             ClaveSalidaPadre: currentSpoolMaster.detalleSalidas[i].detalleAgrupadoSalidas[j].ClaveSalidaPadre,
@@ -152,10 +172,10 @@ function AjaxGetLoop(proyectoID, proyectoSpoolID, proyectoSoporteID, nombreLoop)
 
                             TipoCorte1ID: currentSpoolMaster.detalleSalidas[i].detalleAgrupadoSalidas[j].TipoCorte1ID,
                             TipoCorte1: currentSpoolMaster.detalleSalidas[i].detalleAgrupadoSalidas[j].TipoCorte1,
-                            TipoCorte1Lista: [],
+                            TipoCorte1Lista: currentSpoolMaster.detalleSalidas[i].detalleAgrupadoSalidas[j].TipoCorte1Lista,
                             TipoCorte2ID: currentSpoolMaster.detalleSalidas[i].detalleAgrupadoSalidas[j].TipoCorte2ID,
                             TipoCorte2: currentSpoolMaster.detalleSalidas[i].detalleAgrupadoSalidas[j].TipoCorte2,
-                            TipoCorte2Lista: [],
+                            TipoCorte2Lista: currentSpoolMaster.detalleSalidas[i].detalleAgrupadoSalidas[j].TipoCorte2Lista,
                             Cantidad: currentSpoolMaster.detalleSalidas[i].detalleAgrupadoSalidas[j].Cantidad
 
                         };
@@ -286,7 +306,7 @@ function AjaxListadoSoportes(posicion, proyectoID, spoolID, detalleMaterialesSpo
     $BuscaSpool.BuscaSpool.read({ token: Cookies.get("token"), ProyectoID: Proyecto.ProyectoSoporteID, SpoolContiene: currentSpoolMaster.detalleSalidas[posicion].NombreSpool.substring(0, 5) }).done(function (data) {
         if (Error(data)) {
             data[data.length] = {
-                SpoolID: -99,
+                SpoolID: -1,
                 Nombre: 'Tubo'
             };
             //AjaxListadoJuntaSpool(posicion, proyectoID, spoolID, detalleMaterialesSpool, detalleListadoSpool, data);
@@ -325,7 +345,7 @@ function AjaxListadoJuntaSpool(posicion, proyectoID, spoolID, detalleMaterialesS
             var salidasJuntasCerradas = $("#inputJuntasCerradas_" + posicion).data("kendoNumericTextBox").value();
 
             data[data.length] = {
-                JuntaSpoolID: -99,
+                JuntaSpoolID: -1,
                 Etiqueta: 'Agregar'
             };
 
@@ -627,6 +647,10 @@ function AjaxGuardarCaptura(guardarYNuevo) {
                 //buscaLoop();
                 if (guardarYNuevo) {
                     //cleanView();
+                    for (var i = 0; i < currentSpoolMaster.detalleSalidas.length; i++) {
+                        if ($('#content_' + i).length > 0)
+                            $('#content_' + i).remove();
+                    }
                     initSpoolMasterTotal();
 
                     $("#inputNombreLoop").val('');
