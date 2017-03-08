@@ -350,7 +350,7 @@ function RenderSpool_IC(container, options) {
                         currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].SpoolItemCode = dataItem.Nombre;
                     }
 
-                    if ((dataItem.SpoolID != 0) && (dataItem.SpoolID != (-99))) {
+                    if ((dataItem.SpoolID != 0) && (dataItem.SpoolID != (-1))) {
                         addNewDetalleSalida(options.model.SpoolItemCodeID, options.model.SpoolItemCode);
 
                         reloadControls();
@@ -381,7 +381,7 @@ function RenderSpool_IC(container, options) {
                     //reloadControls();
                 }
 
-                if ((options.model.SpoolItemCodeID == (-99)) && (options.model.TipoSalidaID == 4)) {
+                if ((options.model.SpoolItemCodeID == (-1)) && (options.model.TipoSalidaID == 4)) {
                     $("#grid_" + options.model.PosicionSalidaPadre).data("kendoGrid").showColumn(11);
                     $("#grid_" + options.model.PosicionSalidaPadre).data("kendoGrid").showColumn(12);
                     $("#grid_" + options.model.PosicionSalidaPadre).data("kendoGrid").showColumn(13);
@@ -428,7 +428,7 @@ function RenderSpool_IC(container, options) {
 
 function RenderTipoJuta(container, options) {
     //if ((options.model.SpoolItemCode == 0) && (options.model.TipoSalidaID == 4)) {
-    if (options.model.DetalleJuntaSpoolID == -99) {
+    if (options.model.DetalleJuntaSpoolID == -1) {
         $('<input required data-text-field="Nombre" id=' + options.model.uid + ' data-value-field="TipoJuntaID" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoComboBox({
@@ -459,7 +459,7 @@ function RenderTipoJuta(container, options) {
 
 function RenderCedula(container, options) {
     //if ((options.model.SpoolItemCode == 0) && (options.model.TipoSalidaID == 4)) {
-    if (options.model.DetalleJuntaSpoolID == -99) {
+    if (options.model.DetalleJuntaSpoolID == -1) {
         $('<input required data-text-field="Nombre" id=' + options.model.uid + ' data-value-field="CedulaID" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoComboBox({
@@ -490,7 +490,7 @@ function RenderCedula(container, options) {
 
 function RenderFamiliaAcero1(container, options) {
     //if ((options.model.SpoolItemCode == 0) && (options.model.TipoSalidaID == 4)) {
-    if (options.model.DetalleJuntaSpoolID == -99) {
+    if (options.model.DetalleJuntaSpoolID == -1) {
         $('<input required data-text-field="Nombre" id=' + options.model.uid + ' data-value-field="FamiliaAceroID" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoComboBox({
@@ -521,7 +521,7 @@ function RenderFamiliaAcero1(container, options) {
 
 function RenderFamiliaAcero2(container, options) {
     //if ((options.model.SpoolItemCode == 0) && (options.model.TipoSalidaID == 4)) {
-    if (options.model.DetalleJuntaSpoolID == -99) {
+    if (options.model.DetalleJuntaSpoolID == -1) {
         $('<input required data-text-field="Nombre" id=' + options.model.uid + ' data-value-field="FamiliaAceroID" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoComboBox({
