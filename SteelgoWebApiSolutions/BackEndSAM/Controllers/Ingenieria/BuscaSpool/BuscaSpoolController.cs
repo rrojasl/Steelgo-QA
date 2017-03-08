@@ -122,7 +122,7 @@ namespace BackEndSAM.Controllers.Ingenieria
         }
 
         [HttpGet]
-        public object ObtieneDetalleLoop(string token, int ProyectoID, string NombreLoop)
+        public object ObtieneDetalleLoop(string token, int ProyectoID, int ProyectoSpoolID, int ProyectoSoporteID, string NombreLoop)
         {
             string payload = "";
             string newToken = "";
@@ -133,7 +133,7 @@ namespace BackEndSAM.Controllers.Ingenieria
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                return BuscaSpoolBD.Instance.ObtieneDetalleLoop(ProyectoID, NombreLoop);
+                return BuscaSpoolBD.Instance.ObtieneDetalleLoop(ProyectoID, ProyectoSpoolID, ProyectoSoporteID, NombreLoop, usuario.UsuarioID);
             }
             else
             {
