@@ -289,6 +289,15 @@ function reCalculaReglas() {
     //SistemaPintura: '',
     //ColorPintura: '
 
+    //for (var i = 0; i < currentSpoolMaster.detalleSalidas.length; i++) {
+
+    //}
+
+    if (currentSpoolMaster.detalleSalidas.length > 0) {
+        currentSpoolMaster.RevisionCliente = currentSpoolMaster.detalleSalidas[0].RevisionCliente;
+        currentSpoolMaster.RevisionSteelgo = currentSpoolMaster.detalleSalidas[0].RevisionSteelgo;
+    }
+
     $("#labelRevisionCliente2").text("" + currentSpoolMaster.RevisionCliente);
     $("#labelRevision2").text(currentSpoolMaster.RevisionSteelgo);
     $("#labelAcero2").text(currentSpoolMaster.Acero1);
