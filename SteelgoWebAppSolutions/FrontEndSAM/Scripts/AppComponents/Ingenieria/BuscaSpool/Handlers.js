@@ -51,9 +51,9 @@ function addNewDetalleSalida(spoolID, nombreSpool) {
         ColorPinturaID: 0,
         ColorPintura: '',
 
-        FamiliarAcero1ID: 0,
+        FamiliaAcero1ID: 0,
         Acero1: '',
-        FamiliarAcero2ID: 0,
+        FamiliaAcero2ID: 0,
         Acero2: '',
         Especificacion: '',
         PDI: 0,
@@ -189,8 +189,9 @@ function buscaLoop() {
     //AJAX
     var Proyecto = $("#inputProyecto").data("kendoComboBox").dataItem($("#inputProyecto").data("kendoComboBox").select());
 
-    
-    AjaxGetLoop(Proyecto.ProyectoID, Proyecto.ProyectoSpoolID, Proyecto.ProyectoSoporteID, $("#inputNombreLoop").val());
+    if (Proyecto != undefined && Proyecto.ProyectoID != 0) {
+        AjaxGetLoop(Proyecto.ProyectoID, Proyecto.ProyectoSpoolID, Proyecto.ProyectoSoporteID, $("#inputNombreLoop").val());
+    }
     
 }
 

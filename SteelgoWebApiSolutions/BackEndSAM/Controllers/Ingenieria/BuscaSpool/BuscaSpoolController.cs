@@ -251,6 +251,8 @@ namespace BackEndSAM.Controllers.Ingenieria
                         RevisionCliente = item.RevisionCliente,
                         FamiliaAcero1ID = item.FamiliaAcero1ID,
                         FamiliaAcero2ID = item.FamiliaAcero2ID,
+                        Especificacion = item.Especificacion,
+                        PDI = item.PDI,
                         SistemaPintura = item.SistemaPintura,
                         ColorPintura = item.ColorPintura
                     });

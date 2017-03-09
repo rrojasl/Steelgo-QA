@@ -13,8 +13,8 @@ namespace BackEndSAM.Models.Ingenieria.BuscaSpool
         public int ProyectoID { get; set; }
         public string RevisionCliente { get; set; }
         public string RevisionSteelgo { get; set; }
-        public int? FamiliarAcero1ID { get; set; }
-        public int? FamiliarAcero2ID { get; set; }
+        public int? FamiliaAcero1ID { get; set; }
+        public int? FamiliaAcero2ID { get; set; }
         public string Especificacion { get; set; }
         public string SistemaPintura { get; set; }
         public string ColorPintura { get; set; }
@@ -124,9 +124,9 @@ namespace BackEndSAM.Models.Ingenieria.BuscaSpool
         public string RevisionSteelgo { get; set; }
         public int? RevisionCliente { get; set; }
         public int? FamiliaAcero1ID { get; set; }
-        public string FamiliaAcero1 { get; set; }
+        public string Acero1 { get; set; }
         public int? FamiliaAcero2ID { get; set; }
-        public string FamiliaAcero2 { get; set; }
+        public string Acero2 { get; set; }
         public string Especificacion { get; set; }
         public decimal? PDI { get; set; }
         public string SistemaPintura { get; set; }
