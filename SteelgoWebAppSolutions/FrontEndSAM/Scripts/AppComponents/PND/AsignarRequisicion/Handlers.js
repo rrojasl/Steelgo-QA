@@ -112,18 +112,15 @@ function SuscribirEventoComboPrueba() {
                     height: "auto",
                     modal: true,
                     animation: {
-                        close: function () {
-                            $("#inputPrueba").data("kendoComboBox").value(pruebaOriginal);
-                        },
+                        close: false,
                         open: false
                     },
-                    actions: [
-                        "Close"
-                    ]
+                    actions: [],
+
                 }).data("kendoWindow");
 
                 ventanaConfirm.content(_dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] +
-                    "</br><center><button class='btn btn-blue' id='yesButtonProy'>" + _dictionary.EntregaPlacasGraficasbotonSi + "</button><button class='btn btn-blue' id='noButtonProy'>" + _dictionary.EntregaPlacasGraficasbotonNo + "</button></center>");
+                    "</br><center><button class='btn btn-blue' id='yesButtonProy'>" + _dictionary.EntregaPlacasGraficasbotonSi[$("#language").data("kendoDropDownList").value()] + "</button><button class='btn btn-blue' id='noButtonProy'>" + _dictionary.EntregaPlacasGraficasbotonNo[$("#language").data("kendoDropDownList").value()] + "</button></center>");
 
                 ventanaConfirm.open().center();
                 $("#yesButtonProy").click(function () {
@@ -190,18 +187,14 @@ function SuscribirEventoComboProyecto() {
                         height: "auto",
                         modal: true,
                         animation: {
-                            close: function () {
-                                $("#inputProyecto").data("kendoComboBox").value(proyectoInicial);
-                            },
+                            close: false,
                             open: false
                         },
-                        actions: [
-                            "Close"
-                        ]
+                        actions: [],
                     }).data("kendoWindow");
 
                     ventanaConfirm.content(_dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] +
-                        "</br><center><button class='btn btn-blue' id='yesButtonProy'>Si</button><button class='btn btn-blue' id='noButtonProy'>No</button></center>");
+                        "</br><center><button class='btn btn-blue' id='yesButtonProy'>" + _dictionary.EntregaPlacasGraficasbotonSi[$("#language").data("kendoDropDownList").value()] + "</button><button class='btn btn-blue' id='noButtonProy'>" + _dictionary.EntregaPlacasGraficasbotonNo[$("#language").data("kendoDropDownList").value()] + "</button></center>");
 
                     ventanaConfirm.open().center();
                     $("#yesButtonProy").click(function () {
@@ -257,18 +250,14 @@ function SuscribirEventoComboRequisicion() {
                         height: "auto",
                         modal: true,
                         animation: {
-                            close: function () {
-                                $("#inputProyecto").data("kendoComboBox").value($("#inputProyecto").attr("proyectoAntrior"));
-                            },
+                            close: false,
                             open: false
                         },
-                        actions: [
-                            "Close"
-                        ]
+                        actions: []
                     }).data("kendoWindow");
 
                     ventanaConfirm.content(_dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] +
-                        "</br><center><button class='btn btn-blue' id='yesButtonProy'>Si</button><button class='btn btn-blue' id='noButtonProy'>No</button></center>");
+                        "</br><center><button class='btn btn-blue' id='yesButtonProy'>" + _dictionary.EntregaPlacasGraficasbotonSi[$("#language").data("kendoDropDownList").value()] + "</button><button class='btn btn-blue' id='noButtonProy'>" + _dictionary.EntregaPlacasGraficasbotonNo[$("#language").data("kendoDropDownList").value()] + "</button></center>");
 
                     ventanaConfirm.open().center();
                     $("#yesButtonProy").click(function () {
@@ -343,8 +332,8 @@ function SuscribirEventoComboTurno() {
 
 
 function Limpiar() {
-    $("#inputProveedor").data("kendoComboBox").value("")
-    AjaxCargarCamposPredeterminados();
+
+    AjaxCargarCamposPredeterminados(true);
     //AjaxPruebas();
 
     $("#grid").data('kendoGrid').dataSource.data([]);
@@ -522,7 +511,7 @@ function suscribirEventoSepararRequisicion() {
 
 
         if (ListaCaptura.length != 0) {
-            
+
 
             loadingStart();
 
@@ -583,37 +572,41 @@ function suscribirEventoSepararRequisicion() {
             ventanaConfirm.data("kendoWindow").center().open();
 
             $("#YesButton").click(function (handler) {
+                if ($("#FechaRequisicion").val() != "" && $("#NombreRequisicion").val() != "") {
+                    Captura[0].RequisicionID = 0;
+                    Captura[0].Requisicion = $("#NombreRequisicion").val();
+                    Captura[0].ProyectoID = $("#inputProyecto").data("kendoComboBox").value();
+                    Captura[0].TipoPruebaID = $("#inputPrueba").data("kendoComboBox").value() == "" ? 0 : $("#inputPrueba").data("kendoComboBox").value();
+                    Captura[0].Observacion = "";
+                    Captura[0].Lenguaje = $("#language").val();
+                    Captura[0].FechaRequisicion = $("#FechaRequisicion").val();
 
-                Captura[0].RequisicionID = 0;
-                Captura[0].Requisicion = "";
-                Captura[0].ProyectoID = $("#inputProyecto").data("kendoComboBox").value();
-                Captura[0].TipoPruebaID = $("#inputPrueba").data("kendoComboBox").value() == "" ? 0 : $("#inputPrueba").data("kendoComboBox").value();
-                Captura[0].Observacion = "";
-                Captura[0].Lenguaje = $("#language").val();
-                Captura[0].FechaRequisicion = "";
-
-                Captura[0].ListaDetalle = ListaCaptura;
+                    Captura[0].ListaDetalle = ListaCaptura;
 
 
-                $RequisicionPND.RequisicionPND.create(Captura[0], { token: Cookies.get("token") }).done(function (data) {
-                    if (Error(data)) {
-                        if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
-                            if (data.ReturnMessage[1] != undefined) {
+                    $RequisicionPND.RequisicionPND.create(Captura[0], { token: Cookies.get("token") }).done(function (data) {
+                        if (Error(data)) {
+                            if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
+                                if (data.ReturnMessage[1] != undefined) {
+                                    $("#windowGrid").data("kendoWindow").close();
                                     Limpiar();
-                                    opcionHabilitarView(true, "FieldSetView");
+                                    displayNotify("EntregaPlacasGraficasMensajeGuardadoExistoso", "", "0");
+                                }
+                            }
+                            else {
 
-                                displayNotify("EntregaPlacasGraficasMensajeGuardadoExistoso", "", "0");
+                                mensaje = "La requisición: " + Captura[0].Requisicion + " ya existe, por favor asigne otro nombre";
+                                displayNotify("", mensaje, '1');
                             }
                         }
-                        else {
-                            opcionHabilitarView(false, "FieldSetView");
-                            mensaje = "La requisición: " + Captura[0].Requisicion + " ya existe, por favor asigne otro nombre";
-                            displayNotify("", mensaje, '1');
-                        }
-                    }
-                    window.close();
-                });
+                        window.close();
 
+                    });
+
+                }
+                else {
+                    displayNotify("", "Todos los campos excepto el comentario, son mandatorios", "1");
+                }
 
             });
             $("#NoButton").click(function (handler) {
@@ -621,7 +614,7 @@ function suscribirEventoSepararRequisicion() {
             });
         }
         else {
-            displayNotify("", "Para guardar o modificar una requisición es necesario seleccionar al menos un elemento", "1");
+            displayNotify("", "Para separar una requisición es necesario seleccionar al menos un elemento", "1");
         }
     });
 

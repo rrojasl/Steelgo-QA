@@ -381,7 +381,7 @@ function CargarGridPopUp() {
 
 
                 $("#gridPopUp").data("kendoGrid").closeCell();
-                
+
             });
         }
     });
@@ -427,17 +427,7 @@ function VentanaModal() {
             top: "10px",
             left: "10px"
         },
-        actions: [
-            "Close"
-        ],
-        close: function onClose(e) {
-            var gridDataSource = $("#gridPopUp").data("kendoGrid").dataSource;
-            gridDataSource.filter([]);
 
-            //    gridDataSource.filter({ field: gridDataSource.options.fields[i].field, value: "" });
-
-
-        }
     }).data("kendoWindow");
     window.data("kendoWindow").title(modalTitle);
     window.data("kendoWindow").center().open();

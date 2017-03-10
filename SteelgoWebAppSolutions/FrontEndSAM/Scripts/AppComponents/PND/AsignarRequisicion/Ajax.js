@@ -7,13 +7,19 @@ function AjaxObtenerProyectos() {
 
     $Proyectos.Proyectos.read({ token: Cookies.get("token") }).done(function (data) {
         if (Error(data)) {
+
+            $("#inputRequisicion").val("");
+            $("#inputRequisicion").data("kendoComboBox").dataSource.data([]);
+
             $("#inputProyecto").data("kendoComboBox").value("");
             $("#inputProyecto").data("kendoComboBox").dataSource.data(data);
 
+
             $("#inputPrueba").data("kendoComboBox").value("");
             $("#inputPrueba").data("kendoComboBox").dataSource.data([]);
-            $("#inputRequisicion").data("kendoComboBox").value("");
-            $("#inputRequisicion").data("kendoComboBox").dataSource.data([]);
+
+
+
 
             if ($("#inputProyecto").data("kendoComboBox").dataSource._data.length == 2) {
                 $("#inputProyecto").data("kendoComboBox").select(1);
@@ -256,7 +262,7 @@ function AjaxCargarCamposPredeterminados(capturaNormal) {
     if (capturaNormal) {
         AjaxObtenerProyectos();
     }
-    
+
 
 }
 
@@ -394,7 +400,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                         if (Error(data)) {
                             if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
                                 if (tipoGuardar == 1) {
-                                    AjaxCargarRequisicionAsignacion();
+                                    Limpiar();
                                     opcionHabilitarView(false, "FieldSetView");
                                 }
                                 else {
