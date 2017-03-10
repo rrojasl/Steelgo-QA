@@ -203,7 +203,7 @@ function DescargarSpool(e) {
             var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
             $("#rowGridDescargaSpool").val(dataItem.uid);
 
-            $("#inputZonaPopup").data("kendoComboBox").value(dataItem.ZonaAnteriorID);
+            $("#inputZonaPopup").data("kendoComboBox").value(dataItem.ZonaAnteriorID == 0 && dataItem.CuadranteAnteriorID != 0 ? 1 : dataItem.ZonaAnteriorID);
             $("#inputZonaPopup").data("kendoComboBox").trigger("change");
             CuadranteSpoolAnterior = dataItem.CuadranteAnteriorID;
 
@@ -211,6 +211,7 @@ function DescargarSpool(e) {
             ventanaPopup.open().center();
         }
     } else {
+        CuadranteSpoolAnterior = 0;
         displayNotify("EmbarqueCargaMsjDescargaPlanaCerrada", "", "1");
     }
 }

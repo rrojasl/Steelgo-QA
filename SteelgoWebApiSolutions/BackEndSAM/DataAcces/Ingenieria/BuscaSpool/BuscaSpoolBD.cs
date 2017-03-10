@@ -224,7 +224,11 @@ namespace BackEndSAM.DataAcces.Ingenieria.BuscaSpool
                             ColorPintura = result.ColorPintura,
                             PDI = result.PDI,
                             Acero1 = result.Acero1,
-                            Acero2 = result.Acero2
+                            Acero2 = result.Acero2,
+                            Cedula = result.Cedula,
+                            Dibujo = result.Dibujo,
+                            Peso = result.Peso,
+                            Area = result.Area
                         };
                         
 

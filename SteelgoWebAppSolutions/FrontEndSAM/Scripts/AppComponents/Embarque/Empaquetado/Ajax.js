@@ -234,8 +234,9 @@ function AjaxObtenerDetalleSpool(tipoConsulta, spoolID, codigo) {
 function AbrirPopUpGuardar(Paquete, TipoGuardado, PatioID) {
     var fechaPredeterminada;
     cuadranteSave = Paquete == undefined ? 0 : Paquete.CuadranteUbicacion;
-    var cerrado = $("#InputCerrar").is(":checked")?1:0;
-    AjaxCargarZonaGuardado(PatioID, Paquete.ZonaID, cerrado);
+    var cerrado = $("#InputCerrar").is(":checked") ? 1 : 0;
+    var zonaID = Paquete.ZonaID == 0 && Paquete.CuadranteUbicacion != 0 ? 1 : Paquete.ZonaID;
+    AjaxCargarZonaGuardado(PatioID, zonaID, cerrado);
 
     $("#InputTipoGuardado").val(TipoGuardado);
     if (Paquete.PaqueteID == 0) {
@@ -250,7 +251,7 @@ function AbrirPopUpGuardar(Paquete, TipoGuardado, PatioID) {
         $("#InputNombre").val(Paquete.Nombre);
         $("#InputNombre").attr("disabled", true);
         $("#InputCuadrantePaquete").data("kendoComboBox").value("");
-        $("#InputZonaPaquete").data("kendoComboBox").value(Paquete.ZonaID);
+        $("#InputZonaPaquete").data("kendoComboBox").value(Paquete.ZonaID == 0 && Paquete.CuadranteUbicacion != 0 ? 1 : Paquete.ZonaID);
         $("#InputZonaPaquete").data("kendoComboBox").trigger("change");
         fechaPredeterminada = kendo.toString(Paquete.FechaCreacion, _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()]);
         $("#InputFechaPaquete").val(fechaPredeterminada);

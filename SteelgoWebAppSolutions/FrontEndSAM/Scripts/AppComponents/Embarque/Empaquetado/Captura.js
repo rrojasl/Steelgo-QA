@@ -122,7 +122,7 @@ function descargaSpool(e) {
         if ($('#Guardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
             var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
 
-            $("#InputZonaDescarga").data("kendoComboBox").value(dataItem.ZonaAnteriorID);
+            $("#InputZonaDescarga").data("kendoComboBox").value(dataItem.ZonaAnteriorID == 0 && dataItem.CuadranteAnteriorSam3ID != 0 ? 1 : dataItem.ZonaAnteriorID);
             $("#InputZonaDescarga").data("kendoComboBox").trigger("change");
             CuadranteAnterior = dataItem.CuadranteAnteriorSam3ID;
             $("#InputUidRow").val(dataItem.uid);

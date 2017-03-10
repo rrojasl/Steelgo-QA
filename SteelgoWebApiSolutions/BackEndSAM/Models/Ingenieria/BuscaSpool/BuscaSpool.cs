@@ -21,6 +21,10 @@ namespace BackEndSAM.Models.Ingenieria.BuscaSpool
         public decimal? PDI { get; set; }
         public string Acero1 { get; set; }
         public string Acero2 { get; set; }
+        public string Cedula { get; set; }
+        public string Dibujo { get; set; }
+        public decimal? Peso { get; set; }
+        public decimal? Area { get; set; }
     }
 
     public class DetalleJuntaSpool
@@ -149,6 +153,8 @@ namespace BackEndSAM.Models.Ingenieria.BuscaSpool
         public int MaterialSpoolID { get; set; }
         public string ItemCode { get; set; }
         public int? ItemCodeID { get; set; }
+        public decimal? DiametroMaterialIC1 { get; set; }
+        public decimal? DiametroMaterialIC2 { get; set; }
         public int? SpoolItemCodeID { get; set; }
         public string SpoolItemCode { get; set; }
         public int? MaterialItemCodeID { get; set; }
@@ -243,6 +249,8 @@ namespace BackEndSAM.Models.Ingenieria.BuscaSpool
         public int TipoSalidaID { get; set; }
         public int MaterialSpoolID { get; set; }
         public int ItemCodeID { get; set; }
+        public decimal? DiametroMaterialIC1 { get; set; }
+        public decimal? DiametroMaterialIC2 { get; set; }
         public int SpoolItemCodeID { get; set; }
         public int MaterialItemCodeID { get; set; }
         public int JuntaSpoolID { get; set; }
