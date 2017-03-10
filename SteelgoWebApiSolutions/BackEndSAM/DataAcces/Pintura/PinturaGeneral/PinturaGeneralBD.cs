@@ -1,4 +1,5 @@
-﻿using BackEndSAM.Models.Pintura.PinturaGeneral;
+﻿using BackEndSAM.DataAcces.Pintura.RevisionPintura;
+using BackEndSAM.Models.Pintura.PinturaGeneral;
 using DatabaseManager.Constantes;
 using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
@@ -145,70 +146,7 @@ namespace BackEndSAM.DataAcces.Pintura.PinturaGeneral
             }
         }
 
-        public object ObtenerSpoolConSP(int proyectoID, string dato, int tipoBusqueda, string lenguaje)
-        {
-            try
-            {
-                using (SamContext ctx = new SamContext())
-                {
-                    List<PinturaRevision> listaRevisionSpool = new List<PinturaRevision>();
-                    List<Sam3_Pintura_Get_Revision_Result> result = ctx.Sam3_Pintura_Get_Revision(proyectoID, dato, tipoBusqueda, lenguaje).ToList();
-
-
-                    foreach (Sam3_Pintura_Get_Revision_Result item in result)
-                    {
-                        listaRevisionSpool.Add(new PinturaRevision
-                        {
-                            Accion = 1,
-                            SpoolID = item.SpoolID,
-                            NombreSpool = item.NombreSpool,
-                            NumeroControl = item.NumeroControl,
-                            SistemaPintura = item.SistemaPintura,
-                            Color = item.Color,
-                            Area = item.Area,
-                            GenerarRevision = false,
-                            Comentario = item.Comentario,
-                            Version = item.Version
-                        });
-                    }
-                    return listaRevisionSpool;
-                }
-            }
-            catch (Exception ex)
-            {
-                TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add(ex.Message);
-                result.ReturnCode = 500;
-                result.ReturnStatus = false;
-                result.IsAuthenicated = true;
-
-                return result;
-            }
-        }
-
-
-        public object ObtenerCantidadSpoolConSP(int proyectoID, string dato, int tipoBusqueda)
-        {
-            try
-            {
-                using (SamContext ctx = new SamContext())
-                {
-                    List<PinturaRevision> listaRevisionSpool = new List<PinturaRevision>();
-                    return ctx.Sam3_Pintura_Get_CountRevision(proyectoID, dato, tipoBusqueda).ToList();
-                    
-                }
-            }
-            catch (Exception ex)
-            {
-                TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add(ex.Message);
-                result.ReturnCode = 500;
-                result.ReturnStatus = false;
-                result.IsAuthenicated = true;
-
-                return result;
-            }
-        }
+       
         public object GuardarImagenSerializa(byte[] imgSerializada)
         {
             try

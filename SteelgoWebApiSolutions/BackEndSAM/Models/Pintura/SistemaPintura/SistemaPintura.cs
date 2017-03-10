@@ -7,6 +7,20 @@ using System.Web;
 
 namespace BackEndSAM.Models.Pintura.SistemaPintura
 {
+    public class SistemaPintura
+    {
+        public int SistemaPinturaID { get; set; }
+        public string NombreSistemaPintura { get; set; }
+
+        public bool NoPintable { get; set; }
+
+        public SistemaPintura()
+        {
+            SistemaPinturaID = 0;
+            NombreSistemaPintura = "";
+            NoPintable = false;
+        }
+    }
     public class SistemaPinturaNuevo
     {
         public int Accion { get; set; }

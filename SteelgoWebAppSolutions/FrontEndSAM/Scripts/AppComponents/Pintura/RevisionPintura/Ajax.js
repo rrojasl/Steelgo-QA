@@ -71,10 +71,10 @@ function AjaxConsultarSpoolsConSP() {
     tipoBusquedaSeleccionada = $('input:radio[name=TipoBusqueda]:checked').val() == "spool" ? 1 : 2;
     datoSeleccionado= tipoBusquedaSeleccionada == 1 ? $("#inputSpool").val() : $("#inputNc").val();
     $RevisionPintura.RevisionPintura.read({ token: Cookies.get("token"), proyectoid: $("#inputProyecto").data("kendoComboBox").value(), dato: datoSeleccionado, tipoBusqueda: tipoBusquedaSeleccionada }).done(function (numeroData) {
-        if (numeroData < 100) {
+        if (numeroData > 0 && numeroData < 100) {
             AjaxEjecutarBusquedaSpoolConSP();
         }
-        else {
+        else if (numeroData > 0) {
             var ventanaConfirmBusqueda = $("#ventanaConfirm").kendoWindow({
                 iframe: true,
                 title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
@@ -114,11 +114,18 @@ function AjaxGuardar(arregloCaptura, tipoGuardar) {
     for (index = 0; index < arregloCaptura.length; index++) {
         $("#grid").data("kendoGrid").dataSource._data[index].RowOk = true;
         if (arregloCaptura[index].GenerarRevision) {
-            ListaDetalles[row] = { Accion: "", SpoolID: "", Comentario: "", Estatus: 1 };
+            ListaDetalles[row] = { Accion: "", SpoolID: "",SistemaPinturaID:"",SistemaPinturaColorID:"", ComentarioID: "", Estatus: 1 };
             ListaDetalles[row].Accion = arregloCaptura[index].Accion;
             ListaDetalles[row].SpoolID = arregloCaptura[index].SpoolID;
-            ListaDetalles[row].Comentario = arregloCaptura[index].Comentario;
-            if (arregloCaptura[index].Comentario == "" || arregloCaptura[index].Comentario == null || arregloCaptura[index].Comentario == undefined) {
+            ListaDetalles[row].SistemaPinturaID = arregloCaptura[index].SistemaPinturaID;
+            ListaDetalles[row].ComentarioID = arregloCaptura[index].ComentarioID;
+            ListaDetalles[row].SistemaPinturaColorID = arregloCaptura[index].SistemaPinturaColorID;
+            if (arregloCaptura[index].ComentarioID == "" || arregloCaptura[index].ComentarioID == null || arregloCaptura[index].ComentarioID == undefined|| arregloCaptura[index].ComentarioID == 0) {
+                ListaDetalles[row].Estatus = 0;
+                $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
+            }
+            if (arregloCaptura[index].NoPintable == false && (arregloCaptura[index].Color == "" || arregloCaptura[index].Color == undefined || arregloCaptura[index].Color == null))
+            {
                 ListaDetalles[row].Estatus = 0;
                 $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
             }
@@ -225,7 +232,6 @@ function AjaxEjecutarGuardado(rows, tipoGuardar) {
     });
 }
 
-
 function AjaxCambiarAccionAModificacion() {
     var capturaListado = [];
     capturaListado[0] = { Detalles: "" };
@@ -251,5 +257,14 @@ function AjaxCambiarAccionAModificacion() {
         }
 
         loadingStop();
+    });
+}
+
+function AjaxCargarColorPinturaRender(sistemaPinturaID, options) {
+    $SistemaPinturaAplicable.SistemaPinturaAplicable.read({ token: Cookies.get("token"), SistemaPinturaID: sistemaPinturaID, Lenguaje: $("#language").val() }).done(function (data) {
+        if (data.length > 0) {
+            options.model.ListaColorPintura = data;
+            $("#grid").data("kendoGrid").refresh();
+        }
     });
 }

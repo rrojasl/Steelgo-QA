@@ -1,4 +1,6 @@
-﻿using System;
+﻿
+using BackEndSAM.Models.Pintura.SistemaPinturaAplicable;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -59,14 +61,20 @@ namespace BackEndSAM.Models.Pintura.PinturaGeneral
         public int? SpoolID { get; set; }
         public string NombreSpool { get; set; }
         public string NumeroControl { get; set; }
+        public int? SistemaPinturaID { get; set; }
         public string SistemaPintura { get; set; }
+        public  List<SistemaPintura.SistemaPintura> ListadoSistemaPinturaPorProyecto { get; set; }
+        public int? SistemaPinturaColorID { get; set; }
+        public List<ColorPintura> ListaColorPintura { get; set; }
         public string Color { get; set; }
         public decimal? Area { get; set; }
         public bool? GenerarRevision { get; set; }
         public string Comentario { get; set; }
         public int? Version { get; set; }
-
         public int Accion { get; set; }
+        public List<TiposRechazo> ListaMotivosRechazo { get; set; }
+        public bool? NoPintable { get; set; }
+
         public PinturaRevision()
         {
             this.Accion = 0;
@@ -79,9 +87,22 @@ namespace BackEndSAM.Models.Pintura.PinturaGeneral
             this.GenerarRevision = false;
             this.Comentario = "";
             this.Version = 0;
+            this.NoPintable = false;
         }
     }
 
+    public class TiposRechazo
+    {
+        public int TipoRechazoID { get; set; }
+        public string Rechazo { get; set; }
+
+        public TiposRechazo()
+        {
+            TipoRechazoID = 0;
+            Rechazo = "";
+        }
+
+    }
     public class GuardarRevisionPintura
     {
         public List<GuardarRevision> Detalles { get; set; }
@@ -91,7 +112,9 @@ namespace BackEndSAM.Models.Pintura.PinturaGeneral
     {
         public int Accion { get; set; }
         public int SpoolID { get; set; }
-        public string Comentario { get; set; }
+        public int SistemaPinturaID { get; set; }
+        public int ComentarioID { get; set; }
+        public int SistemaPinturaColorID { get; set; }
     }
 
     
@@ -104,5 +127,6 @@ namespace BackEndSAM.Models.Pintura.PinturaGeneral
     public class ElementosSpool
     {
         public int SpoolID { get; set; }
+        public int SistemaPinturaColorID { get; set; }
     }
 }

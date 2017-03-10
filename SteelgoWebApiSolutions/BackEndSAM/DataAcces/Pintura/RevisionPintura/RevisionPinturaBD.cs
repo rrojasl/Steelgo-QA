@@ -1,4 +1,6 @@
-﻿using BackEndSAM.Models.Pintura.PinturaGeneral;
+﻿using BackEndSAM.DataAcces.Pintura.SistemaPinturaAplicable;
+using BackEndSAM.Models.Pintura.PinturaGeneral;
+using BackEndSAM.Models.Pintura.SistemaPinturaAplicable;
 using DatabaseManager.Constantes;
 using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
@@ -31,6 +33,47 @@ namespace BackEndSAM.DataAcces.Pintura.RevisionPintura
             }
         }
 
+        
+        public object GetRechazos(string lenguaje)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                   
+                    List<Sam3_Pintura_Get_Rechazos_Result> lista = ctx.Sam3_Pintura_Get_Rechazos(lenguaje).ToList();
+
+                    List<TiposRechazo> listaRechazos = new List<TiposRechazo>();
+
+                    if (lista.Count > 0)
+                        listaRechazos.Add(new TiposRechazo());
+
+                    foreach (var item in lista)
+                    {
+                        TiposRechazo tipoRechazo = new TiposRechazo
+                        {
+                            Rechazo = item.Rechazo,
+                            TipoRechazoID = item.TipoRechazoID
+                        };
+                        listaRechazos.Add(tipoRechazo);
+                    }
+                        
+                    
+                    return listaRechazos;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
 
         public object GuardarSpoolRevision(DataTable dtCaptura,int usuario)
         {
@@ -77,6 +120,8 @@ namespace BackEndSAM.DataAcces.Pintura.RevisionPintura
 
                 List<PinturaRevision> listaRevisionSpool = new List<PinturaRevision>();
 
+                List<TiposRechazo> listaRechazos = (List<TiposRechazo>)RevisionPinturaBD.Instance.GetRechazos(lenguaje);
+
                 foreach (DataRow row in dtCaptura.Rows)
                 {
                     listaRevisionSpool.Add(new PinturaRevision
@@ -90,13 +135,39 @@ namespace BackEndSAM.DataAcces.Pintura.RevisionPintura
                         Area = decimal.Parse(row["Area"].ToString()),
                         GenerarRevision = false,
                         Comentario = row["Comentario"].ToString(),
-                        Version =int.Parse( row["Version"].ToString())
+                        Version =int.Parse( row["Version"].ToString()),
+                        ListaMotivosRechazo= listaRechazos,
+                        SistemaPinturaID =int.Parse(row["SistemaPinturaID"].ToString()),
+                        NoPintable =bool.Parse(row["NoPintable"].ToString()),
+                        SistemaPinturaColorID= row["SistemaPinturaColorID"].ToString()=="" ? 0: int.Parse(row["SistemaPinturaColorID"].ToString()),
+                        ListadoSistemaPinturaPorProyecto = GetSistemaPinturaPorProyecto(ctx.Sam3_SPA_Get_SistemaPintura(int.Parse(row["ProyectoID"].ToString())).ToList()),
+                        ListaColorPintura = (List<ColorPintura>)SistemaPinturaAplicableBD.Instance.ObtieneListadoColorPintura(int.Parse(row["SistemaPinturaID"].ToString()), lenguaje)
                     });
                 }
                 return listaRevisionSpool;
             }
 
           
+        }
+
+        public List<Models.Pintura.SistemaPintura.SistemaPintura> GetSistemaPinturaPorProyecto(List<Sam3_SPA_Get_SistemaPintura_Result> listaSistemaPinturaProyecto)
+        {
+            List<Models.Pintura.SistemaPintura.SistemaPintura> listadoSistemaPintura = new List<Models.Pintura.SistemaPintura.SistemaPintura>();
+
+            if(listaSistemaPinturaProyecto.Count>0)
+                listadoSistemaPintura.Add(new Models.Pintura.SistemaPintura.SistemaPintura());
+
+            foreach (Sam3_SPA_Get_SistemaPintura_Result item in listaSistemaPinturaProyecto)
+            {
+                Models.Pintura.SistemaPintura.SistemaPintura sistemaPintura = new Models.Pintura.SistemaPintura.SistemaPintura
+                {
+                    NombreSistemaPintura = item.Nombre,
+                    SistemaPinturaID = item.SistemaPinturaID
+                };
+                listadoSistemaPintura.Add(sistemaPintura);
+            }
+
+            return listadoSistemaPintura;
         }
 
         public List<T> ConvertTo<T>(DataTable datatable) where T : new()
@@ -154,6 +225,77 @@ namespace BackEndSAM.DataAcces.Pintura.RevisionPintura
             }
         }
 
+        public object ObtenerSpoolConSP(int proyectoID, string dato, int tipoBusqueda, string lenguaje)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<PinturaRevision> listaRevisionSpool = new List<PinturaRevision>();
+                    List<Sam3_Pintura_Get_Revision_Result> result = ctx.Sam3_Pintura_Get_Revision(proyectoID, dato, tipoBusqueda, lenguaje).ToList();
+                    List<TiposRechazo> listaRechazos = (List<TiposRechazo>)RevisionPinturaBD.Instance.GetRechazos(lenguaje);
+
+                    foreach (Sam3_Pintura_Get_Revision_Result item in result)
+                    {
+                        listaRevisionSpool.Add(new PinturaRevision
+                        {
+                            Accion = 1,
+                            SpoolID = item.SpoolID,
+                            NombreSpool = item.NombreSpool,
+                            NumeroControl = item.NumeroControl,
+                            SistemaPinturaID = item.SistemaPinturaID,
+                            SistemaPintura = item.SistemaPintura,
+                            ListadoSistemaPinturaPorProyecto = GetSistemaPinturaPorProyecto(ctx.Sam3_SPA_Get_SistemaPintura(proyectoID).ToList()),
+                            Color = item.Color,
+                            Area = item.Area,
+                            GenerarRevision = false,
+                            Comentario = item.Comentario,
+                            Version = item.Version,
+                            ListaMotivosRechazo = listaRechazos,
+                            NoPintable=item.NoPintable,
+                            SistemaPinturaColorID=item.SistemaPinturaColorID,
+                            ListaColorPintura = (List<ColorPintura>)SistemaPinturaAplicableBD.Instance.ObtieneListadoColorPintura(item.SistemaPinturaID.GetValueOrDefault(), lenguaje)
+                        });
+                    }
+                    return listaRevisionSpool;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+
+        public object ObtenerCantidadSpoolConSP(int proyectoID, string dato, int tipoBusqueda)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<PinturaRevision> listaRevisionSpool = new List<PinturaRevision>();
+                    int cantidadDatos= ctx.Sam3_Pintura_Get_CountRevision(proyectoID, dato, tipoBusqueda);
+                    return cantidadDatos;
+
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
 
     }
 }

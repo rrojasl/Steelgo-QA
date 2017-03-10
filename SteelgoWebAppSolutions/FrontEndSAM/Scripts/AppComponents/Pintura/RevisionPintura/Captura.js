@@ -22,8 +22,9 @@ function ArregloListadoSpoolsCapturados() {
     JsonCaptura = [];
 
     for (var i = 0; i < data.length ; i++) {
-        JsonCaptura[i] = { SpoolID: "" };
+        JsonCaptura[i] = { SpoolID: "",SistemaPinturaColorID:"" };
         JsonCaptura[i].SpoolID = data[i].SpoolID;
+        JsonCaptura[i].SistemaPinturaColorID = data[i].SistemaPinturaColorID;
     }
     return JsonCaptura;
 }
@@ -81,8 +82,8 @@ function CargarGrid() {
                         SpoolID: { type: "int", editable: false },
                         NombreSpool: { type: "string", editable: false },
                         NumeroControl: { type: "string", editable: false },
-                        SistemaPintura: { type: "string", editable: false },
-                        Color: { type: "string", editable: false },
+                        SistemaPintura: { type: "string", editable: true },
+                        Color: { type: "string", editable: true },
                         Area: { type: "number", editable: false },
                         GenerarRevision: { type: "boolean", editable: true },
                         Comentario: { type: "string", editable: true },
@@ -119,8 +120,8 @@ function CargarGrid() {
         columns: [
            { field: "NombreSpool", title: _dictionary.columnSpool[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "140px" },
             { field: "NumeroControl", title: _dictionary.columnNumeroControl2[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px" },
-            { field: "SistemaPintura", title: _dictionary.columnSistemaPintura[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "100px", width: "95px", attributes: { style: "text-align:left;" } },
-            { field: "Color", title: _dictionary.columnColor[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "120px" },
+            { field: "SistemaPintura", title: _dictionary.columnSistemaPintura[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "100px", width: "95px", editor: renderSistemaPintura, attributes: { style: "text-align:left;" } },
+            { field: "Color", title: _dictionary.columnColor[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "120px", editor: renderColor },
             { field: "Area", title: _dictionary.columnArea[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "110px", attributes: { style: "text-align:right;" } },
             { field: "GenerarRevision", title: _dictionary.columnRevision[$("#language").data("kendoDropDownList").value()], filterable: {
                 multi: true,
@@ -132,7 +133,7 @@ function CargarGrid() {
                 dataSource: [{ GenerarRevision: true }, { GenerarRevision: false }]
             }, width: "110px", template: "<input name='fullyPaid' class='ob-paid' type='checkbox' #= GenerarRevision ? 'checked=checked':'' #/>", width: "100px", attributes: { style: "text-align:center;" }
             },
-            { field: "Comentario", title: _dictionary.columnComentario[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "110px" },
+            { field: "Comentario", title: _dictionary.HeaderComentario[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "110px", editor: renderComentario },
             { field: "Version", title: _dictionary.columnVersion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "110px", attributes: { style: "text-align:center;" }  }
 
         ],
@@ -220,3 +221,9 @@ function opcionHabilitarView(valor, name) {
         $("#botonGuardar4").text(_dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]);
     }
 };
+
+function tieneClase(item) {
+
+    var tieneClass = $(item).hasClass("k-state-border-up") || $(item).hasClass("k-state-border-down");
+    return tieneClass;
+}

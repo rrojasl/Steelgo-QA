@@ -31,7 +31,7 @@ namespace BackEndSAM.Controllers.Pintura.RevisionPintura
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
                 
-                return PinturaGeneralBD.Instance.ObtenerSpoolConSP(proyectoid,dato,tipoBusqueda, lenguaje);
+                return RevisionPinturaBD.Instance.ObtenerSpoolConSP(proyectoid,dato,tipoBusqueda, lenguaje);
             }
             else
             {
@@ -110,7 +110,7 @@ namespace BackEndSAM.Controllers.Pintura.RevisionPintura
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                return PinturaGeneralBD.Instance.ObtenerCantidadSpoolConSP(proyectoid, dato, tipoBusqueda);
+                return  RevisionPinturaBD.Instance.ObtenerCantidadSpoolConSP(proyectoid, dato, tipoBusqueda);
             }
             else
             {

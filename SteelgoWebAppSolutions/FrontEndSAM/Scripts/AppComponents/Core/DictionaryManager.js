@@ -12444,6 +12444,10 @@ _dictionary = {
     },
     //#endregion
     //#region Inicia modulo RevisionPintura
+    "HeaderComentario": {
+        "es-MX": "Motivo",
+        "en-US": "Reason"
+    },
     "MenuRevisionPintura": {
         "es-MX": "Revision Pintura",
         "en-US": "Painting Revision"
