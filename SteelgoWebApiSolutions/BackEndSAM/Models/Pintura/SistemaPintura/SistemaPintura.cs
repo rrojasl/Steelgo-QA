@@ -12,7 +12,7 @@ namespace BackEndSAM.Models.Pintura.SistemaPintura
         public int SistemaPinturaID { get; set; }
         public string NombreSistemaPintura { get; set; }
 
-        public bool NoPintable { get; set; }
+        public bool? NoPintable { get; set; }
 
         public SistemaPintura()
         {

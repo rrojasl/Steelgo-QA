@@ -85,7 +85,36 @@
         </div>
     </div>
     @*GRID*@
+
     <div class="row addedSectionInLine">
+        <div  class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+            <label id="labelPlanchadoSP">&nbsp;</label>
+             <input id="inputPlanchadoSP" type="text"/>
+        </div>
+        <div  class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+            <label id="labelPlanchadoColor">&nbsp;</label>
+            <input id="inputPlanchadoColor" type="text" />
+        </div>
+        <div class="col-sm-2 col-md-2 col-lg-2" id="TodosDiv">
+            <label id="lblGenerarRevision"></label>
+            <input type="radio" id="SelectTodosSi" name="SelectTodos" style="width:auto;" value="Si" /><span id="lblSi"></span><br />
+            <input type="radio" id="SelectTodosNo" name="SelectTodos" style="width:auto;" value="No" /><span id="lblNo"></span><br />
+            <input type="radio" id="SelectTodosNinguno" name="SelectTodos" style="width:auto;" value="Ninguno" /><span id="lblNinguno"></span>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+            <label id="labelPlanchadoMotivo">&nbsp;</label>
+            <input id="inputPlanchadoMotivo" type="text" />
+        </div>
+        <div class="btn-group col-xs-12 col-sm-6 col-md-2 col-lg-2" role="group" id="LlenaCapturaAvanceIntAcabadoDiv">
+            <label id="lblPlanchar"></label>
+            <input type="radio" id="LlenaTodos" name="LLena" style="width:auto;" value="Todos" /><span id="lblTodos1"></span>
+            <input type="radio" id="LlenaVacios" name="LLena" style="width:auto;" value="Vacios" /><span id="lblVacios"></span>
+
+        </div>
+        <div class="col-xs-12 col-sm-2 col-md-12 col-lg-2">
+            <label id="">&nbsp;</label>
+            <button type="button" id="ButtonPlanchar" class="btn btn-blue botonSizeGeneral"><span id="botonPlanchar"></span></button>
+        </div>
         <div id="ContenedorGrid" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div id="grid" data-role="grid" class="k-grid k-widget"></div>
         </div>
@@ -135,5 +164,5 @@
 <script>
         @section JavascriptDocumentReadyFunctions {
     $authorizationModel["RevisonPintura"] = $RevisionPinturaModel;
-         }
+    }
 </script>

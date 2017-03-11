@@ -120,12 +120,17 @@ function AjaxGuardar(arregloCaptura, tipoGuardar) {
             ListaDetalles[row].SistemaPinturaID = arregloCaptura[index].SistemaPinturaID;
             ListaDetalles[row].ComentarioID = arregloCaptura[index].ComentarioID;
             ListaDetalles[row].SistemaPinturaColorID = arregloCaptura[index].SistemaPinturaColorID;
+
             if (arregloCaptura[index].ComentarioID == "" || arregloCaptura[index].ComentarioID == null || arregloCaptura[index].ComentarioID == undefined|| arregloCaptura[index].ComentarioID == 0) {
                 ListaDetalles[row].Estatus = 0;
                 $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
             }
             if (arregloCaptura[index].NoPintable == false && (arregloCaptura[index].Color == "" || arregloCaptura[index].Color == undefined || arregloCaptura[index].Color == null))
             {
+                ListaDetalles[row].Estatus = 0;
+                $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
+            }
+            if (arregloCaptura[index].SistemaPinturaID == "" || arregloCaptura[index].SistemaPinturaID == null || arregloCaptura[index].SistemaPinturaID == undefined || arregloCaptura[index].SistemaPinturaID == 0) {
                 ListaDetalles[row].Estatus = 0;
                 $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
             }
@@ -264,6 +269,32 @@ function AjaxCargarColorPinturaRender(sistemaPinturaID, options) {
     $SistemaPinturaAplicable.SistemaPinturaAplicable.read({ token: Cookies.get("token"), SistemaPinturaID: sistemaPinturaID, Lenguaje: $("#language").val() }).done(function (data) {
         if (data.length > 0) {
             options.model.ListaColorPintura = data;
+            $("#grid").data("kendoGrid").refresh();
+        }
+    });
+}
+
+function AjaxObtenerCatalogosPlanchado()
+{
+    $RevisionPintura.RevisionPintura.read({ token: Cookies.get("token"), proyectoid: $("#inputProyecto").data("kendoComboBox").value(), lenguaje: $("#language").val() }).done(function (data) {
+        $("#inputPlanchadoSP").data("kendoComboBox").value("");
+        $("#inputPlanchadoSP").data("kendoComboBox").dataSource.data([]);
+        $("#inputPlanchadoColor").data("kendoComboBox").value("");
+        $("#inputPlanchadoColor").data("kendoComboBox").dataSource.data([]);
+        $("#inputPlanchadoMotivo").data("kendoComboBox").value("");
+        $("#inputPlanchadoMotivo").data("kendoComboBox").dataSource.data([]);
+
+        $("#inputPlanchadoSP").data("kendoComboBox").dataSource.data(data[0]);
+        $("#inputPlanchadoMotivo").data("kendoComboBox").dataSource.data(data[1]);
+    });
+}
+
+function AjaxCargarColorPinturaPlanchado(sistemaPinturaID) {
+    $SistemaPinturaAplicable.SistemaPinturaAplicable.read({ token: Cookies.get("token"), SistemaPinturaID: sistemaPinturaID, Lenguaje: $("#language").val() }).done(function (data) {
+        if (data.length > 0) {
+            $("#inputPlanchadoColor").data("kendoComboBox").value("");
+            $("#inputPlanchadoColor").data("kendoComboBox").dataSource.data([]);
+            $("#inputPlanchadoColor").data("kendoComboBox").dataSource.data(data);
             $("#grid").data("kendoGrid").refresh();
         }
     });

@@ -69,8 +69,6 @@ namespace BackEndSAM.Controllers.Pintura.RevisionPintura
                 return result;
             }
         }
-
-
         public object Put(ElementosCapturados listaCapturaActualizar, string token, string lenguaje, string SinCaptura)
         {
             string payload = "";
@@ -97,7 +95,6 @@ namespace BackEndSAM.Controllers.Pintura.RevisionPintura
                 return result;
             }
         }
-
         //obtenemos la cantidad de  spools a partir de la orden de trabajo.
         public object Get(string token, int proyectoid, string dato, int tipoBusqueda)
         {
@@ -111,6 +108,32 @@ namespace BackEndSAM.Controllers.Pintura.RevisionPintura
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
                 return  RevisionPinturaBD.Instance.ObtenerCantidadSpoolConSP(proyectoid, dato, tipoBusqueda);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+
+        }
+        
+        //Obtenemos los catalogos para el planchado SP y Motivos
+        public object Get(string token, string lenguaje, int proyectoid)
+        {
+            //Create a generic return object
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+
+                return RevisionPinturaBD.Instance.ObtenerCatalogosPlanchado(proyectoid, lenguaje);
             }
             else
             {

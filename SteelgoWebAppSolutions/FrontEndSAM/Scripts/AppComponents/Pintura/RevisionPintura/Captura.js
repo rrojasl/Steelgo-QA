@@ -227,3 +227,105 @@ function tieneClase(item) {
     var tieneClass = $(item).hasClass("k-state-border-up") || $(item).hasClass("k-state-border-down");
     return tieneClass;
 }
+
+function PlanchaSistemaPintura() {
+    var dataSource = $("#grid").data("kendoGrid").dataSource;
+    var filters = dataSource.filter();
+    var allData = dataSource.data();
+    var query = new kendo.data.Query(allData);
+    var data = query.filter(filters).data;
+    if ($("#inputPlanchadoSP").data("kendoComboBox").text() != "") {
+        for (var i = 0; i < data.length; i++) {
+            if ($('input:radio[name=LLena]:checked').val() === "Todos") {
+                data[i].SistemaPinturaID = $("#inputPlanchadoSP").val();
+                data[i].SistemaPintura = $("#inputPlanchadoSP").data("kendoComboBox").text();
+                data[i].ListaColorPintura = $("#inputPlanchadoColor").data("kendoComboBox").dataSource._data;
+                data[i].NoPintable =$("#inputPlanchadoSP").data("kendoComboBox").dataItem($("#inputPlanchadoSP").data("kendoComboBox").select()).NoPintable;
+            }
+            else {
+                if (data[i].SistemaPintura === "" || data[i].SistemaPintura === null || data[i].SistemaPintura === undefined) {
+                    data[i].SistemaPinturaID = $("#inputPlanchadoSP").val();
+                    data[i].SistemaPintura = $("#inputPlanchadoSP").data("kendoComboBox").text();
+                    data[i].ListaColorPintura = $("#inputPlanchadoColor").data("kendoComboBox").dataSource._data;
+                    data[i].NoPintable = $("#inputPlanchadoSP").data("kendoComboBox").dataItem($("#inputPlanchadoSP").data("kendoComboBox").select()).NoPintable;
+                }
+            }
+        }
+    }
+    $("#grid").data("kendoGrid").dataSource.sync();
+}
+
+function PlanchaColor() {
+    var dataSource = $("#grid").data("kendoGrid").dataSource;
+    var filters = dataSource.filter();
+    var allData = dataSource.data();
+    var query = new kendo.data.Query(allData);
+    var data = query.filter(filters).data;
+    if ($("#inputPlanchadoColor").data("kendoComboBox").text() != "") {
+        for (var i = 0; i < data.length; i++) {
+            if ($('input:radio[name=LLena]:checked').val() === "Todos") {
+                data[i].SistemaPinturaColorID = $("#inputPlanchadoColor").val();
+                data[i].Color = $("#inputPlanchadoColor").data("kendoComboBox").text();
+            }
+            else {
+                if (data[i].SistemaPinturaID == $("#inputPlanchadoSP").val() && (data[i].Color === "" || data[i].Color === null || data[i].Color === undefined)) {
+                    data[i].SistemaPinturaColorID = $("#inputPlanchadoColor").val();
+                    data[i].Color = $("#inputPlanchadoColor").data("kendoComboBox").text();
+                }
+            }
+        }
+    }
+    $("#grid").data("kendoGrid").dataSource.sync();
+}
+
+function PlanchaMotivo() {
+    var dataSource = $("#grid").data("kendoGrid").dataSource;
+    var filters = dataSource.filter();
+    var allData = dataSource.data();
+    var query = new kendo.data.Query(allData);
+    var data = query.filter(filters).data;
+    if ($("#inputPlanchadoMotivo").data("kendoComboBox").text() != "") {
+        for (var i = 0; i < data.length; i++) {
+            if ($('input:radio[name=LLena]:checked').val() === "Todos") {
+                data[i].ComentarioID = $("#inputPlanchadoMotivo").val();
+                data[i].Comentario = $("#inputPlanchadoMotivo").data("kendoComboBox").text();
+            }
+            else {
+                if (data[i].Comentario === "" || data[i].Comentario === null || data[i].Comentario === undefined) {
+                    data[i].ComentarioID = $("#inputPlanchadoMotivo").val();
+                    data[i].Comentario = $("#inputPlanchadoMotivo").data("kendoComboBox").text();
+                }
+            }
+        }
+    }
+    $("#grid").data("kendoGrid").dataSource.sync();
+}
+
+function PlancharGenerarRevision() {
+    var generar = $('input:radio[name=SelectTodos]:checked').val();
+
+    var dataSource = $("#grid").data("kendoGrid").dataSource;
+    var filters = dataSource.filter();
+    var allData = dataSource.data();
+    var query = new kendo.data.Query(allData);
+    var data = query.filter(filters).data;
+    if (generar != "" && generar != "Ninguno") {
+        for (var i = 0; i < data.length; i++) {
+            if ($('input:radio[name=LLena]:checked').val() === "Todos") {
+                if (generar == "Si")
+                    data[i].GenerarRevision = true;
+                if (generar == "No")
+                    data[i].GenerarRevision = false;
+            }
+            else {
+                if (data[i].GenerarRevision === false || data[i].GenerarRevision === null || data[i].GenerarRevision === undefined) {
+                    if (generar == "Si")
+                        data[i].GenerarRevision = true;
+                    if (generar == "No")
+                        data[i].GenerarRevision = false;
+                }
+            }
+        }
+    }
+    $("#grid").data("kendoGrid").dataSource.sync();
+}

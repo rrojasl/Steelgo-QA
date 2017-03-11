@@ -12444,6 +12444,23 @@ _dictionary = {
     },
     //#endregion
     //#region Inicia modulo RevisionPintura
+    
+    "lblGenerarRevision": {
+            "es-MX": "Generar Revision",
+            "en-US": "Generate Revision"
+        },
+    "labelPlanchadoSP": {
+        "es-MX": "Sistema Pintura",
+        "en-US": "Painting System"
+    },
+    "labelPlanchadoColor": {
+        "es-MX": "Color",
+        "en-US": "Color"
+    },
+    "labelPlanchadoMotivo": {
+        "es-MX": "Motivo",
+        "en-US": "Reason"
+    },
     "HeaderComentario": {
         "es-MX": "Motivo",
         "en-US": "Reason"

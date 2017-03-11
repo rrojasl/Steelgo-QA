@@ -134,6 +134,7 @@ namespace BackEndSAM.DataAcces.Pintura.RevisionPintura
                         Color = row["Color"].ToString(),
                         Area = decimal.Parse(row["Area"].ToString()),
                         GenerarRevision = false,
+                        ComentarioID = int.Parse(row["ComentarioID"].ToString()),
                         Comentario = row["Comentario"].ToString(),
                         Version =int.Parse( row["Version"].ToString()),
                         ListaMotivosRechazo= listaRechazos,
@@ -162,7 +163,8 @@ namespace BackEndSAM.DataAcces.Pintura.RevisionPintura
                 Models.Pintura.SistemaPintura.SistemaPintura sistemaPintura = new Models.Pintura.SistemaPintura.SistemaPintura
                 {
                     NombreSistemaPintura = item.Nombre,
-                    SistemaPinturaID = item.SistemaPinturaID
+                    SistemaPinturaID = item.SistemaPinturaID,
+                    NoPintable=item.NoPintable
                 };
                 listadoSistemaPintura.Add(sistemaPintura);
             }
@@ -249,6 +251,7 @@ namespace BackEndSAM.DataAcces.Pintura.RevisionPintura
                             Color = item.Color,
                             Area = item.Area,
                             GenerarRevision = false,
+                            ComentarioID=item.ComentarioID,
                             Comentario = item.Comentario,
                             Version = item.Version,
                             ListaMotivosRechazo = listaRechazos,
@@ -271,8 +274,6 @@ namespace BackEndSAM.DataAcces.Pintura.RevisionPintura
                 return result;
             }
         }
-
-
         public object ObtenerCantidadSpoolConSP(int proyectoID, string dato, int tipoBusqueda)
         {
             try
@@ -295,6 +296,18 @@ namespace BackEndSAM.DataAcces.Pintura.RevisionPintura
 
                 return result;
             }
+        }
+
+        public object ObtenerCatalogosPlanchado(int? proyectoID, string lenguaje)
+        {
+            List<object> listaCatalogos = new List<object>();
+            using (SamContext ctx = new SamContext())
+            {
+                listaCatalogos.Add(GetSistemaPinturaPorProyecto(ctx.Sam3_SPA_Get_SistemaPintura(proyectoID).ToList()));
+                listaCatalogos.Add(GetRechazos(lenguaje));
+                return listaCatalogos;
+            }
+
         }
 
     }

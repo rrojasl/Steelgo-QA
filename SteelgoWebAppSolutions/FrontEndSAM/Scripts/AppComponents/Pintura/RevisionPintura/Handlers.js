@@ -8,6 +8,70 @@ function SuscribirEventos() {
     SuscribirEventoGuardar();
     suscribirEventoWindowsConfirmaCaptura();
     suscribirEventoWindowsConfirmaCapturaSinCambiarTipoBusqueda();
+    suscribirEventoPlanchadoSistemaPintura();
+    suscribirEventoPlanchadoSistemaPinturaColor();
+    suscribirEventoPlanchadoMotivo();
+    SuscribirEventoPlanchar();
+}
+
+function suscribirEventoPlanchadoSistemaPintura()
+{
+    $('#inputPlanchadoSP').kendoComboBox({
+        dataTextField: "NombreSistemaPintura",
+        dataValueField: "SistemaPinturaID",
+        suggest: true,
+        delay: 10,
+        filter: "contains",
+        index: 3,
+        change: function (e) {
+            dataItem = this.dataItem(e.sender.selectedIndex);
+            if (dataItem == undefined) {
+                $("#inputPlanchadoSP").data("kendoComboBox").value("");
+            }
+            else {
+                AjaxCargarColorPinturaPlanchado(dataItem.SistemaPinturaID);
+            }
+        }
+    });
+    
+}
+
+function suscribirEventoPlanchadoSistemaPinturaColor()
+{
+    $('#inputPlanchadoColor').kendoComboBox({
+        dataTextField: "Nombre",
+        dataValueField: "SistemaPinturaColorID",
+        suggest: true,
+        delay: 10,
+        filter: "contains",
+        index: 3,
+        change: function (e) {
+            dataItem = this.dataItem(e.sender.selectedIndex);
+            if (dataItem == undefined) {
+                $("#inputPlanchadoSP").data("kendoComboBox").value("");
+            }
+        }
+    });
+   
+}
+
+function suscribirEventoPlanchadoMotivo()
+{
+    $('#inputPlanchadoMotivo').kendoComboBox({
+        dataTextField: "Rechazo",
+        dataValueField: "TipoRechazoID",
+        suggest: true,
+        delay: 10,
+        filter: "contains",
+        index: 3,
+        change: function (e) {
+            dataItem = this.dataItem(e.sender.selectedIndex);
+            if (dataItem == undefined) {
+                $("#inputPlanchadoSP").data("kendoComboBox").value("");
+            }
+        }
+    });
+   
 }
 
 function suscribirEventoWindowsConfirmaCapturaSinCambiarTipoBusqueda()
@@ -91,7 +155,16 @@ function SuscribirEventoProyecto() {
         suggest: true,
         delay: 10,
         filter: "contains",
-        index: 3
+        index: 3,
+        change: function (e) {
+            dataItem = this.dataItem(e.sender.selectedIndex);
+            if (dataItem == undefined) {
+                $("#inputProyecto").data("kendoComboBox").value("");
+            }
+            else {
+                AjaxObtenerCatalogosPlanchado();
+            }
+        }
     });
 }
 
@@ -227,4 +300,61 @@ function SuscribirEventoBusqueda() {
             }
         }
     });
+}
+
+function SuscribirEventoPlanchar() {
+    $("#ButtonPlanchar").click(function (e) {
+        e.preventDefault();
+        if ($("#grid").data("kendoGrid").dataSource._data.length > 0) {
+
+             if ($('input:radio[name=LLena]:checked').val() === "Todos") {
+                //windowTemplate = kendo.template($("#windowTemplate").html());
+
+                ventanaConfirm = $("#ventanaConfirm").kendoWindow({
+                    iframe: true,
+                    title: _dictionary.CapturaAvanceTitulo[$("#language").data("kendoDropDownList").value()],
+                    visible: false, //the window will not appear before its .open method is called
+                    width: "auto",
+                    height: "auto",
+                    modal: true,
+                    animation: false,
+                    actions: []
+                }).data("kendoWindow");
+
+                ventanaConfirm.content(_dictionary.CapturaMensajeArmadoPlancharTodos[$("#language").data("kendoDropDownList").value()] +
+                             "</br><center><button class='confirm_yes btn btn-blue' id='yesButton'>" + _dictionary.lblSi[$("#language").data("kendoDropDownList").value()] + "</button><button class='confirm_yes btn btn-blue' id='noButton'> " + _dictionary.lblNo[$("#language").data("kendoDropDownList").value()] + "</button></center>");
+
+                ventanaConfirm.open().center();
+
+                $("#yesButton").click(function (handler) {
+                    plancharTodo();
+                    ventanaConfirm.close();
+                });
+                $("#noButton").click(function (handler) {
+                    ventanaConfirm.close();
+                });
+            }
+            else {
+                plancharTodo();
+            }
+        }
+    });
+}
+
+function plancharTodo() {
+    loadingStart();
+    if ($("#inputPlanchadoSP").data("kendoComboBox").dataItem($("#inputPlanchadoSP").data("kendoComboBox").select()) != undefined) {
+        PlanchaSistemaPintura();
+    }
+    if ($("#inputPlanchadoColor").data("kendoComboBox").dataItem($("#inputPlanchadoColor").data("kendoComboBox").select()) != undefined) {
+        PlanchaColor();
+    }
+    if ($("#inputPlanchadoMotivo").data("kendoComboBox").dataItem($("#inputPlanchadoMotivo").data("kendoComboBox").select()) != undefined) {
+        PlanchaMotivo();
+    }
+    if ($('input:radio[name=SelectTodos]:checked').val() != "Ninguno" || $('input:radio[name=SelectTodos]:checked').val()=="") {
+        PlancharGenerarRevision();
+    }
+
+    loadingStop();
 }

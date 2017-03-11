@@ -69,10 +69,12 @@ namespace BackEndSAM.Models.Pintura.PinturaGeneral
         public string Color { get; set; }
         public decimal? Area { get; set; }
         public bool? GenerarRevision { get; set; }
+        public int? ComentarioID { get; set; }
         public string Comentario { get; set; }
+        public List<TiposRechazo> ListaMotivosRechazo { get; set; }
         public int? Version { get; set; }
         public int Accion { get; set; }
-        public List<TiposRechazo> ListaMotivosRechazo { get; set; }
+        
         public bool? NoPintable { get; set; }
 
         public PinturaRevision()
