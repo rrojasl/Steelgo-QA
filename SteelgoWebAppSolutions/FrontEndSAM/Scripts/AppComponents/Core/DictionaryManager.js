@@ -10323,6 +10323,10 @@ _dictionary = {
 
     // Inicia Módulo Pintura
     // Etiquetas Generales Pintura
+    "SpoolAgregado": {
+        "es-MX": "El Spool ",
+        "en-US": "The Spool "
+    },
     "menuPinturaAdminControladores": {
         "es-MX": "Administracion de componentes",
         "en-US": "Administration of components"

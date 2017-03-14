@@ -11,6 +11,19 @@ function changeLanguageCall() {
     document.title = _dictionary.PinturaHeaderCargaCarro[$("#language").data("kendoDropDownList").value()];
 }
 
+
+function TryParseInt(str, defaultValue) {
+    var retValue = defaultValue;
+    if (str !== null) {
+        if (str.length > 0) {
+            if (!isNaN(str)) {
+                retValue = parseInt(str);
+            }
+        }
+    }
+    return retValue;
+}
+
 function LimpiarCargaCarro() {
     $("#grid").data('kendoGrid').dataSource.data([]);
 
@@ -22,11 +35,12 @@ function LimpiarCargaCarro() {
 function LimpiarCargaProyecto() {
     $("#inputCarro").data("kendoComboBox").dataSource.data([]);
     $("#inputCarro").data("kendoComboBox").value("");
-
     $("#labelM2").text("");
     $("#labelToneladas").text("");
-
     $("#grid").data('kendoGrid').dataSource.data([]);
+    $("#InputOrdenTrabajo").val("");
+    $("#InputID").val("");
+    $("#inputCodigo").val("");
     
 }
 

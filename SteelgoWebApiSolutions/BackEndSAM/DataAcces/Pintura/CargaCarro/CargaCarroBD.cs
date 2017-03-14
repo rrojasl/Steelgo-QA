@@ -76,18 +76,17 @@ namespace BackEndSAM.DataAcces.Pintura.CargaCarro
             }
         }
 
-        public object ObtenerDetalleCargaCarro(int medioTransporteID, int proyectoID, string lenguaje)
+        public object ObtenerDetalleCargaCarro(int medioTransporteID, int proyectoID, string lenguaje,int tipobusqueda,string valorBusqueda)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
 
-                    List<Sam3_Pintura_Get_DetalleCargaCarro_Result> result = ctx.Sam3_Pintura_Get_DetalleCargaCarro(medioTransporteID, proyectoID, lenguaje).ToList();
+                    List<Sam3_Pintura_Get_DetalleCargaCarro_Result> result = ctx.Sam3_Pintura_Get_DetalleCargaCarro(medioTransporteID, proyectoID, lenguaje, tipobusqueda, valorBusqueda).ToList();
 
                     List<DetalleCargaCarro> listaDetalle = new List<DetalleCargaCarro>();
                     
-
                     foreach (Sam3_Pintura_Get_DetalleCargaCarro_Result item in result)
                     {
                         listaDetalle.Add(new DetalleCargaCarro

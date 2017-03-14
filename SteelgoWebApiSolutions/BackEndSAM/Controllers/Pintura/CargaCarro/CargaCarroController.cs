@@ -68,7 +68,7 @@ namespace BackEndSAM.Controllers.Pintura.CargaCarro
         }
 
         [HttpGet]
-        public object ObtenerDetalleCargaCarro(int medioTransporteID, int proyectoID, string token, string lenguaje, string escenario)
+        public object ObtenerDetalleCargaCarro(int medioTransporteID, int proyectoID, string token, string lenguaje, string escenario,string valorBusqueda)
         {
             string payload = "";
             string newToken = "";
@@ -78,7 +78,7 @@ namespace BackEndSAM.Controllers.Pintura.CargaCarro
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
                 if (escenario == "Patio")
-                    return CargaCarroBD.Instance.ObtenerDetalleCargaCarro(medioTransporteID, proyectoID, lenguaje);
+                    return CargaCarroBD.Instance.ObtenerDetalleCargaCarro(medioTransporteID, proyectoID, lenguaje, valorBusqueda == null?0 : (valorBusqueda.Split('~')[1]=="Spool"?1:2), valorBusqueda == null ? "" : valorBusqueda.Split('~')[0]);
                 else
                     return CargaCarroBD.Instance.ObtenerDetalleCargaCarroBacklog(medioTransporteID, proyectoID, lenguaje);
             }

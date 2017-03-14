@@ -49,9 +49,10 @@
     @RenderSection("HtmlHead", required: false)
 
     <!-- App Scripts General Validate -->
+    @Scripts.Render("~/Scripts/General/Filtros/Filtros.js")
     @Scripts.Render("~/Scripts/General/Validate/Grid.js")
     @Scripts.Render("~/Scripts/General/DescargaArchivos/Archivos.js")
-
+   
     <!--App Scripts widgets-->
     @Scripts.Render("~/Scripts/Widgets/Notify/src/pnotify.js")
     @Styles.Render("~/Scripts/Widgets/Notify/src/pnotify.css")
