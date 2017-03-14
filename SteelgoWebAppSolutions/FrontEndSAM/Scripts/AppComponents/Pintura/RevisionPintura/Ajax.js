@@ -12,7 +12,17 @@ function AjaxCargarCamposPredeterminados() {
             $('input:radio[name=TipoBusqueda]:nth(1)').trigger("click");
         }
     });
-    // AjaxCargarTipoLlenado();
+
+    var TipoPredeterminadoID = 3074;
+    $CamposPredeterminados.CamposPredeterminados.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), id: TipoPredeterminadoID }).done(function (data) {
+        if (data == "Todos") {
+            $('input:radio[name=LLena]:nth(0)').trigger("click");
+
+        }
+        else if (data == "Vacios") {
+            $('input:radio[name=LLena]:nth(1)').trigger("click");
+        }
+    });
 }
 
 function AjaxCargaProyecto() {
@@ -112,7 +122,7 @@ function AjaxGuardar(arregloCaptura, tipoGuardar) {
     ListaDetalles = [];
     var row = 0;
     for (index = 0; index < arregloCaptura.length; index++) {
-        $("#grid").data("kendoGrid").dataSource._data[index].RowOk = true;
+        arregloCaptura[index].RowOk = true;
         if (arregloCaptura[index].GenerarRevision) {
             ListaDetalles[row] = { Accion: "", SpoolID: "",SistemaPinturaID:"",SistemaPinturaColorID:"", ComentarioID: "", Estatus: 1 };
             ListaDetalles[row].Accion = arregloCaptura[index].Accion;
@@ -123,16 +133,16 @@ function AjaxGuardar(arregloCaptura, tipoGuardar) {
 
             if (arregloCaptura[index].ComentarioID == "" || arregloCaptura[index].ComentarioID == null || arregloCaptura[index].ComentarioID == undefined|| arregloCaptura[index].ComentarioID == 0) {
                 ListaDetalles[row].Estatus = 0;
-                $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
+                arregloCaptura[index].RowOk = false;
             }
             if (arregloCaptura[index].NoPintable == false && (arregloCaptura[index].Color == "" || arregloCaptura[index].Color == undefined || arregloCaptura[index].Color == null))
             {
                 ListaDetalles[row].Estatus = 0;
-                $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
+                arregloCaptura[index].RowOk = false;
             }
             if (arregloCaptura[index].SistemaPinturaID == "" || arregloCaptura[index].SistemaPinturaID == null || arregloCaptura[index].SistemaPinturaID == undefined || arregloCaptura[index].SistemaPinturaID == 0) {
                 ListaDetalles[row].Estatus = 0;
-                $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
+                arregloCaptura[index].RowOk = false;
             }
             row++;
         }
@@ -140,7 +150,7 @@ function AjaxGuardar(arregloCaptura, tipoGuardar) {
     Captura[0].Detalles = ListaDetalles;
 
     if (ListaDetalles.length > 0) {
-        if (!ExistRowEmpty(ListaDetalles)) {
+        if (!ExistRowWithErrors(ListaDetalles)) {
             if (Captura[0].Detalles.length > 0) {
                 AjaxEjecutarGuardado(Captura[0], tipoGuardar);
             }

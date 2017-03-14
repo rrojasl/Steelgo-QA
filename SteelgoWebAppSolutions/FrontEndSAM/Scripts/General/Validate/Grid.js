@@ -121,3 +121,13 @@ function ExistRowEmptyAble(rows) {
 
     return false;
 }
+
+function ExistRowWithErrors(rows) {
+    for (var i = 0; i < rows.length; i++) {
+        if (rows[i].Estatus == 0) {
+            return true;
+        }
+    }
+
+    return false;
+}
