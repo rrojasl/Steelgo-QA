@@ -63,12 +63,12 @@ function AjaxEjecutarBusquedaSpoolConSP()
 
         if ($('input:radio[name=TipoBusqueda]:checked').val() == "spool" && elementosModificados != "") {
             editado = true;
-            $("#inputSpool").val("")
+            //$("#inputSpool").val("")
             //displayNotify("InformacionAgregada", "", '0');
         }
         else if (elementosModificados != "") {
             editado = true;
-            $("#inputNc").val("")
+            //$("#inputNc").val("")
             //displayNotify("InformacionAgregada", "", '0');
         }
         else {
