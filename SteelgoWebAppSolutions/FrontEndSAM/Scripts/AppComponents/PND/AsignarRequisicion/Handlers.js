@@ -17,14 +17,7 @@ function SuscribirEventos() {
 
 function suscribirEventoReady() {
     $(document).on('ready', function () {
-        var requisicionID = getParameterByName('requisicion');
-        if (requisicionID == null) {
-            AjaxCargarCamposPredeterminados(true);
-
-        } else {
-            AjaxCargarCamposPredeterminados(false);
-            AjaxObtenerElementoRequisicion(requisicionID)
-        }
+        
     });
 
 }
@@ -345,22 +338,22 @@ function suscribirEventoGuardar() {
     $('#Guardar').click(function (e) {
         e.preventDefault();
         var ds = $("#grid").data("kendoGrid").dataSource;
-        if ($('#botonGuardar').text() == "Guardar") {
+        if ($('#botonGuardar').text() == "Guardar" || $('#botonGuardar').text() == "Save") {
             // opcionHabilitarView(true, "FieldSetView");
             AjaxGuardarCaptura(ds._data, 0);
         }
-        else if ($('#botonGuardar').text() == "Editar")
+        else if ($('#botonGuardar').text() == "Editar" || $('#botonGuardar').text() == "Edit")
             opcionHabilitarView(false, "FieldSetView")
     });
 
     $('#btnGuardar').click(function (e) {
         e.preventDefault();
         var ds = $("#grid").data("kendoGrid").dataSource;
-        if ($('#botonGuardar').text() == "Guardar") {
+        if ($('#botonGuardar').text() == "Guardar" || $('#botonGuardar').text() == "Save") {
             //opcionHabilitarView(true, "FieldSetView");
             AjaxGuardarCaptura(ds._data, 0);
         }
-        else if ($('#botonGuardar').text() == "Editar")
+        else if ($('#botonGuardar').text() == "Editar" || $('#botonGuardar').text() == "Edit")
             opcionHabilitarView(false, "FieldSetView")
     });
 
@@ -375,22 +368,22 @@ function suscribirEventoGuardar() {
     $('#GuardarPie').click(function (e) {
         e.preventDefault();
         var ds = $("#grid").data("kendoGrid").dataSource;
-        if ($('#botonGuardar').text() == "Guardar") {
+        if ($('#botonGuardar').text() == "Guardar" || $('#botonGuardar').text() == "Save") {
             // opcionHabilitarView(true, "FieldSetView");
             AjaxGuardarCaptura(ds._data, 0);
         }
-        else if ($('#botonGuardar').text() == "Editar")
+        else if ($('#botonGuardar').text() == "Editar" || $('#botonGuardar').text() == "Edit")
             opcionHabilitarView(false, "FieldSetView")
     });
 
     $('#btnGuardar1').click(function (e) {
         e.preventDefault();
         var ds = $("#grid").data("kendoGrid").dataSource;
-        if ($('#botonGuardar').text() == "Guardar") {
+        if ($('#botonGuardar').text() == "Guardar" || $('#botonGuardar').text() == "Save") {
             //opcionHabilitarView(true, "FieldSetView");
             AjaxGuardarCaptura(ds._data, 0);
         }
-        else if ($('#botonGuardar').text() == "Editar")
+        else if ($('#botonGuardar').text() == "Editar" || $('#botonGuardar').text() == "Edit")
             opcionHabilitarView(false, "FieldSetView")
     });
 
@@ -518,6 +511,7 @@ function suscribirEventoSepararRequisicion() {
 
             var modalTitle = "";
             modalTitle = _dictionary.MensajeNuevaRequisicion[$("#language").data("kendoDropDownList").value()];
+            $("#ventanaConfirm").empty();
             var ventanaConfirm = $("#ventanaConfirm");
             var window = ventanaConfirm.kendoWindow({
                 modal: true,
@@ -565,7 +559,9 @@ function suscribirEventoSepararRequisicion() {
 
             var idFechaRequisicion = 2047;
             $CamposPredeterminados.CamposPredeterminados.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), id: idFechaRequisicion }).done(function (data) {
-                $("#FechaRequisicion").val(data);
+                if (Error(data)) {
+                    $("#FechaRequisicion").val(data);
+                }
             });
 
 

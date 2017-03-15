@@ -8,19 +8,18 @@ function AjaxObtenerProyectos() {
     $Proyectos.Proyectos.read({ token: Cookies.get("token") }).done(function (data) {
         if (Error(data)) {
 
-            $("#inputRequisicion").val("");
-            $("#inputRequisicion").data("kendoComboBox").dataSource.data([]);
 
-            $("#inputProyecto").data("kendoComboBox").value("");
+            $("#inputRequisicion").data("kendoComboBox").setDataSource([]);
+            $("#inputRequisicion").data("kendoComboBox").text("");
+            $("#inputPrueba").data("kendoComboBox").setDataSource([]);
+            $("#inputPrueba").data("kendoComboBox").text("");
+            $("#inputPrueba").data("kendoComboBox").setDataSource([]);
+            $("#inputProyecto").data("kendoComboBox").text("");
+
+
+
             $("#inputProyecto").data("kendoComboBox").dataSource.data(data);
-
-
-            $("#inputPrueba").data("kendoComboBox").value("");
-            $("#inputPrueba").data("kendoComboBox").dataSource.data([]);
-
-
-
-
+            
             if ($("#inputProyecto").data("kendoComboBox").dataSource._data.length == 2) {
                 $("#inputProyecto").data("kendoComboBox").select(1);
                 AjaxPruebas();
@@ -44,7 +43,7 @@ function AjaxPruebas() {
                 $("#inputPrueba").data("kendoComboBox").value("");
                 $("#inputPrueba").data("kendoComboBox").dataSource.data(data);
                 $("#inputRequisicion").data("kendoComboBox").value("");
-                $("#inputRequisicion").data("kendoComboBox").dataSource.data([]);
+                $("#inputRequisicion").data("kendoComboBox").setDataSource([]);
 
                 if ($("#inputPrueba").data("kendoComboBox").dataSource._data.length == 2) {
                     $("#inputPrueba").data("kendoComboBox").select(1);
@@ -224,7 +223,7 @@ function AjaxCargarRequisicionAsignacion() {
                 var ds = $("#grid").data("kendoGrid").dataSource;
                 var array = data;
                 for (var i = 0; i < array.length; i++) {
-                    array[i].Fecha = new Date(ObtenerDato(array[i].Fecha, 1), ObtenerDato(array[i].Fecha, 2), ObtenerDato(array[i].Fecha, 3));//año, mes, dia
+                    //array[i].Fecha = new Date(ObtenerDato(array[i].Fecha, 1), ObtenerDato(array[i].Fecha, 2), ObtenerDato(array[i].Fecha, 3));//año, mes, dia
                     ds.add(array[i]);
                 }
 
@@ -240,6 +239,7 @@ function AjaxCargarRequisicionAsignacion() {
 
 function AjaxCargarCamposPredeterminados(capturaNormal) {
     loadingStart();
+
     $CamposPredeterminados.CamposPredeterminados.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), id: CampoMuestra }).done(function (data) {
         if (Error(data)) {
             if (data == "sin captura") {
@@ -368,11 +368,12 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                 animation: {
                     close: false,
                     open: false
-                }
+                },
+                actions: [],
             }).data("kendoWindow");
 
             ventanaConfirm.content(_dictionary.EntregaPlacasGraficasMensajePreguntaGuardado[$("#language").data("kendoDropDownList").value()] +
-                "</br><center><button class='btn btn-blue' id='yesButton'>Si</button><button class='btn btn-blue' id='noButton'> No</button></center>");
+                "</br><center><button class='btn btn-blue' id='yesButton'>" + _dictionary.EntregaPlacasGraficasbotonSi[$("#language").data("kendoDropDownList").value()] + "</button><button class='btn btn-blue' id='noButton'> " + _dictionary.EntregaPlacasGraficasbotonNo[$("#language").data("kendoDropDownList").value()] + "</button></center>");
 
             ventanaConfirm.open().center();
 

@@ -1,7 +1,16 @@
 ﻿var editado = false;
 
 function changeLanguageCall() {
+    editado = false;
     var paramReq = getParameterByName('requisicion');
+    var requisicionID = getParameterByName('requisicion');
+    if (requisicionID == null) {
+        AjaxCargarCamposPredeterminados(true);
+
+    } else {
+        AjaxCargarCamposPredeterminados(false);
+        AjaxObtenerElementoRequisicion(requisicionID)
+    }
 
     SiguienteProceso(paramReq);
     CargarGrid();
@@ -140,7 +149,7 @@ function CargarGrid() {
             { field: "Capacidad", title: _dictionary.columnCapacidad[$("#language").data("kendoDropDownList").value()], editor: RenderComboBoxTurnoLaboral, filterable: getGridFilterableCellMaftec(), width: "80px" },
             { field: "JuntasAsignadas", title: _dictionary.columnJuntasAsignadas[$("#language").data("kendoDropDownList").value()], editor: RenderComboBoxTurnoLaboral, template: "<div class='EnlaceDetalleElementosAsignados' style='text-align:center;'><a href='\\#'  > <span>#=JuntasAsignadas#</span></a></div>", filterable: getGridFilterableCellMaftec(), width: "110px" },
         //{ command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: cancelarCaptura }, title: _dictionary.tituloEliminar[$("#language").data("kendoDropDownList").value()], width: "50px" },
-            { command: { text: _dictionary.botonLimpiar[$("#language").data("kendoDropDownList").value()], click: limpiarRenglon }, title: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()], width: "50px" }
+            { command: { text: _dictionary.botonLimpiar[$("#language").data("kendoDropDownList").value()], click: limpiarRenglon }, title: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()], width: "50px", attributes: { style: "text-align:center;" } }
         ],
         beforeEdit: function (e) {
             var columnIndex = this.cellIndex(e.container);
@@ -427,6 +436,11 @@ function VentanaModal() {
             top: "10px",
             left: "10px"
         },
+        animation: {
+            close: false,
+            open: false
+        },
+        actions: [],
 
     }).data("kendoWindow");
     window.data("kendoWindow").title(modalTitle);

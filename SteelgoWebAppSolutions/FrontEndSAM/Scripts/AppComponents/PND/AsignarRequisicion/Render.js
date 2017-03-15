@@ -61,6 +61,25 @@
 
                             }
                             else {
+
+                                var JuntasAsignadasBusqueda = 0;
+                                if (options.model.RequiereEquipo) {
+                                    JuntasAsignadasBusqueda = getNumeroJuntasAsignadasEquipo(options.model.CapacidadTurnoEquipoID);
+                                }
+                                else {
+                                    JuntasAsignadasBusqueda = getNumeroJuntasAsignadasProveedor(options.model.CapacidadTurnoProveedorID)
+                                }
+
+
+                                var JuntasAsignadasFinal = parseInt(JuntasAsignadasBusqueda) - parseInt(options.model.CantidadJuntas);
+
+                                if (!options.model.RequiereEquipo) 
+                                    setJuntasAsignatdasCapacidadTurnoProveedor(JuntasAsignadasFinal, options.model.CapacidadTurnoProveedorID);
+                                else 
+                                    setJuntasAsignatdasCapacidadTurnoEquipo(JuntasAsignadasFinal, options.model.CapacidadTurnoEquipoID);
+
+
+
                                 options.model.TurnoLaboralID = 0;
                                 options.model.TurnoLaboral = "";
                                 options.model.Equipo = "";
@@ -383,7 +402,7 @@ function RenderComboBoxTurnoLaboral(container, options) {
                         var JuntasAsignadasFinal = parseInt(JuntasAsignadasBusqueda) + parseInt(options.model.CantidadJuntas);
 
                         if (!options.model.RequiereEquipo) {
-                            if (options.model.TurnoLaboral != "") {
+                            if (options.model.TurnoLaboral != "" && options.model.JuntasAsignadas != "") {
                                 setJuntasAsignatdasCapacidadTurnoProveedor(parseInt(options.model.JuntasAsignadas) - parseInt(options.model.CantidadJuntas), options.model.CapacidadTurnoProveedorAnteriorID);
                             }
                             options.model.CapacidadTurnoProveedorID = dataItem.CapacidadTurnoProveedorID;

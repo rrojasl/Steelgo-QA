@@ -41,11 +41,11 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos
                 {
                     List<Sam3_ST_Get_AsignarRequisicion_Result> result = ctx.Sam3_ST_Get_AsignarRequisicion(lenguaje, tipoVista, tipoPruebaID, proyectoID,requisicionID).ToList();
                     List<RequisicionAsignacion> ListadoRequisicionAsignacion = new List<RequisicionAsignacion>();
-
+                    List<TurnoLaboral> listaTurnoLaboralAll = (List<TurnoLaboral>)ObtenerTurnoLaboralTotal(lenguaje, proyectoID, tipoPruebaID);
+                    List<Equipo> listaEquipoAll = (List<Equipo>)ServiciosTecnicosGeneral.ServiciosTecnicosGeneralBD.Instance.ObtenerListadoEquipos(tipoPruebaID, 0, lenguaje);
                     foreach (Sam3_ST_Get_AsignarRequisicion_Result item in result)
                     {
-                        List<TurnoLaboral> listaTurnoLaboralAll = (List<TurnoLaboral>)ObtenerTurnoLaboralTotal(lenguaje, item.ProyectoID, item.TipoPruebaID.GetValueOrDefault());
-                        List<Equipo> listaEquipoAll = (List<Equipo>)ServiciosTecnicosGeneral.ServiciosTecnicosGeneralBD.Instance.ObtenerListadoEquipos(item.TipoPruebaID.GetValueOrDefault(),0, lenguaje);
+                        
                         ListadoRequisicionAsignacion.Add(new RequisicionAsignacion
                         {
                             Accion = item.RequisicionAsignacionID == 0 ? 1 : 2,
