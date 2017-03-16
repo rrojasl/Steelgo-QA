@@ -182,8 +182,8 @@ namespace BackEndSAM.DataAcces.Pintura.CargaCarro
                 using (SamContext ctx = new SamContext())
                 {
                     ObjetosSQL _SQL = new ObjetosSQL();
-                    string[,] parametro = { { "@Usuario", usuario.UsuarioID.ToString() }, { "@MedioTransporteID", medioTransporteID.ToString() },
-                        { "@MedioTransporteCargaID", medioTransporteCargaID.ToString() }, { "@Cerrar", cerrar.ToString() } };
+                    string[,] parametro = { { "@Usuario", usuario.UsuarioID.ToString() }, { "@CarroID", medioTransporteID.ToString() },
+                         { "@Cerrar", cerrar.ToString() } };
 
                     _SQL.Ejecuta(Stords.GUARDACAPTURAPINTURASPOOLCARGA, dtCarga, "@Tabla", parametro);
 

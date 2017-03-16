@@ -40,8 +40,8 @@
         public static string GUARDARCAPTURAREPORTE = "Sam3_ST_CRRT_Guarda";
         public static string GUARDARCAPTURAREPORTEVALIDACION = "Sam3_ST_CRVT_Actualiza";
         public static string ELIMINAREQUISICIONPND = "Sam3_ERPND_EliminaRequisicion";
-        public static string GUARDACAPTURANUEVOMEDIOTRANSPORTE = "Sam3_Pintura_Guardar_NuevoMedioTransporte";
-        public static string GUARDACAPTURAPINTURASPOOLCARGA = "Sam3_Pintura_Guardar_CargaMedioTransporte";
+        public static string GUARDACAPTURANUEVOMEDIOTRANSPORTE = "Sam3_Pintura_Guardar_NuevoCarro";
+        public static string GUARDACAPTURAPINTURASPOOLCARGA = "Sam3_Pintura_CargaCarro_Guardar";
         public static string SETCIERRACARRO = "Sam3_Pintura_Set_CierraCarro";
         public static string GUARDACAPTURAAVANCE = "Sam3_Pintura_Guarda_CapturaAvance";
         public static string OKPND = "Sam3_ST_GuardaOKPND";

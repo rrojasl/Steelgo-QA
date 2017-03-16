@@ -41,10 +41,10 @@ namespace BackEndSAM.DataAcces.Pintura.PinturaGeneral
                 using (SamContext ctx = new SamContext())
                 {
                     List<MedioTransporte> listaMedioTransporte = new List<MedioTransporte>();
-                    List<Sam3_Pintura_Get_MedioTransporte_Result> result = ctx.Sam3_Pintura_Get_MedioTransporte(lenguaje, proyectoID).ToList();
+                    List<Sam3_Pintura_Get_Carros_Result> result = ctx.Sam3_Pintura_Get_Carros(lenguaje, proyectoID).ToList();
 
                     listaMedioTransporte.Add(new MedioTransporte());
-                    foreach (Sam3_Pintura_Get_MedioTransporte_Result item in result)
+                    foreach (Sam3_Pintura_Get_Carros_Result item in result)
                     {
                         listaMedioTransporte.Add(new MedioTransporte
                         {

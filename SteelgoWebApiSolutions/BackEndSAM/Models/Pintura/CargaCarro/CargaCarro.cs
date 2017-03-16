@@ -50,6 +50,7 @@ namespace BackEndSAM.Models.Pintura.CargaCarro
         public int SpoolID { get; set; }
         public int MedioTransporteCargaID { get; set; }
         public int CuadranteID { set; get; }
+       // public int SistemaPinturaID { get; set; }
     }
 
     public class DetalleCargaCarro

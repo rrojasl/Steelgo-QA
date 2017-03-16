@@ -55,48 +55,48 @@ namespace BackEndSAM.Controllers.Pintura.PinturaGeneral
             }
         }
 
-        //public object Post(CapturaMedioTransporte captura, string token)
-        //{
-        //    try
-        //    {
-        //        string payload = "";
-        //        string newToken = "";
-        //        bool totokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
-        //        if (totokenValido)
-        //        {
-        //            JavaScriptSerializer serializer = new JavaScriptSerializer();
-        //            Sam3_Usuario Usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-        //            captura.UsuarioID = Usuario.UsuarioID;
+        public object Post(CapturaMedioTransporte captura, string token)
+        {
+            try
+            {
+                string payload = "";
+                string newToken = "";
+                bool totokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+                if (totokenValido)
+                {
+                    JavaScriptSerializer serializer = new JavaScriptSerializer();
+                    Sam3_Usuario Usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                    captura.UsuarioID = Usuario.UsuarioID;
 
-        //            List<CapturaMedioTransporte> list = new List<CapturaMedioTransporte>();
-        //            list.Add(captura);
+                    List<CapturaMedioTransporte> list = new List<CapturaMedioTransporte>();
+                    list.Add(captura);
 
-        //            DataTable dt= new DataTable();
-        //            dt = Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(list);
+                    DataTable dt = new DataTable();
+                    dt = Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(list);
 
-        //            return PinturaGeneralBD.Instance.GuardarMedioTransporte(dt);
+                    return PinturaGeneralBD.Instance.GuardarMedioTransporte(dt);
 
-        //        }
-        //        else
-        //        {
-        //            TransactionalInformation result = new TransactionalInformation();
-        //            result.ReturnMessage.Add(payload);
-        //            result.ReturnCode = 401;
-        //            result.ReturnStatus = false;
-        //            result.IsAuthenicated = false;
-        //            return result;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        TransactionalInformation result = new TransactionalInformation();
-        //        result.ReturnMessage.Add(ex.Message);
-        //        result.ReturnCode = 500;
-        //        result.ReturnStatus = false;
-        //        result.IsAuthenicated = true;
-        //        return result;
-        //    }
-        //}
+                }
+                else
+                {
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add(payload);
+                    result.ReturnCode = 401;
+                    result.ReturnStatus = false;
+                    result.IsAuthenicated = false;
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+                return result;
+            }
+        }
 
         [HttpGet]
         public object GetColor(string token, string Lenguaje)
@@ -124,42 +124,42 @@ namespace BackEndSAM.Controllers.Pintura.PinturaGeneral
 
         }
 
-        public object Post(Captura listaImagenes, string token)
-        {
+        //public object Post(Captura listaImagenes, string token)
+        //{
 
-            string payload = "";
-            string newToken = "";
+        //    string payload = "";
+        //    string newToken = "";
 
-            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
-            if (tokenValido)
-            {
-                JavaScriptSerializer serializer = new JavaScriptSerializer();
-                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+        //    bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+        //    if (tokenValido)
+        //    {
+        //        JavaScriptSerializer serializer = new JavaScriptSerializer();
+        //        Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
                
-                Base64Security b = new Base64Security();
-                string imagenDecodificada= b.RegresarCadena(((ImgSerializadas)listaImagenes.Detalles[0]).imgSerializada);
+        //        Base64Security b = new Base64Security();
+        //        string imagenDecodificada= b.RegresarCadena(((ImgSerializadas)listaImagenes.Detalles[0]).imgSerializada);
 
-                FileStream fs = new FileStream(((ImgSerializadas)listaImagenes.Detalles[0]).imgSerializada, FileMode.Open);
-                byte[] pdf = new byte[fs.Length];
-                fs.Read(pdf, 0, (int)fs.Length);
+        //        FileStream fs = new FileStream(((ImgSerializadas)listaImagenes.Detalles[0]).imgSerializada, FileMode.Open);
+        //        byte[] pdf = new byte[fs.Length];
+        //        fs.Read(pdf, 0, (int)fs.Length);
 
 
-                fs.Close();
+        //        fs.Close();
 
-                return PinturaGeneralBD.Instance.GuardarImagenSerializa(pdf);///arreglo de la imagen
-            }
-            else
-            {
-                TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add(payload);
-                result.ReturnCode = 401;
-                result.ReturnStatus = false;
-                result.IsAuthenicated = false;
+        //        return PinturaGeneralBD.Instance.GuardarImagenSerializa(pdf);///arreglo de la imagen
+        //    }
+        //    else
+        //    {
+        //        TransactionalInformation result = new TransactionalInformation();
+        //        result.ReturnMessage.Add(payload);
+        //        result.ReturnCode = 401;
+        //        result.ReturnStatus = false;
+        //        result.IsAuthenicated = false;
 
-                return result;
-            }
-        }
+        //        return result;
+        //    }
+        //}
 
      
     }

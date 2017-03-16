@@ -10604,6 +10604,10 @@ _dictionary = {
         "es-MX": "Por favor seleccione un carro para la descarga del spool",
         "en-US": "Please select a cart to discharge the spool"
     },
+    "PinturaBotonMostrar": {
+        "es-MX": "Necesitas presionar el boton mostrar para despues agregar un spool",
+        "en-US": "You need to press the show button to later add a spool"
+    },
 
     "CargaCarroSup": {
         "es-MX": "Carga de Carro",

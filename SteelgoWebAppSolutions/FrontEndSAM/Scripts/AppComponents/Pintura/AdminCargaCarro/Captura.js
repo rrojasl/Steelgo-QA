@@ -1,7 +1,7 @@
 ﻿var editado = false;
 var ventanaConfirmEdicion;
 var windowNewCarriage;
-
+var InformacionMostrada = false;
 
 function changeLanguageCall() {
     SuscribirEventos();
@@ -11,6 +11,18 @@ function changeLanguageCall() {
     document.title = _dictionary.PinturaHeaderCargaCarro[$("#language").data("kendoDropDownList").value()];
 }
 
+function ServicioPinturaCorrecto(ListaDetalles) {
+    var sistemaID;
+    for (var i = 0 ; i < ListaDetalles.length ; i++) {
+        if (i == 0) {
+            sistemaID = ListaDetalles[0].SistemaPinturaID;
+        }
+        if (sistemaID != ListaDetalles[i].SistemaPinturaID) {
+            return false;
+        }
+    }
+    return true;
+}
 
 function TryParseInt(str, defaultValue) {
     var retValue = defaultValue;
@@ -29,7 +41,17 @@ function LimpiarCargaCarro() {
 
     $("#labelM2").text("");
     $("#labelToneladas").text("");
-  
+
+}
+
+function LimpiarInformacionAgregada()
+{
+    $("#grid").data('kendoGrid').dataSource.data([]);
+    $("#labelM2").text("");
+    $("#labelToneladas").text("");
+    $("#InputOrdenTrabajo").val("");
+    $("#InputID").val("");
+    $("#inputCodigo").val("");
 }
 
 function LimpiarCargaProyecto() {
@@ -41,7 +63,7 @@ function LimpiarCargaProyecto() {
     $("#InputOrdenTrabajo").val("");
     $("#InputID").val("");
     $("#inputCodigo").val("");
-    
+
 }
 
 function LimpiarCambioEscenario() {
@@ -57,8 +79,7 @@ function LimpiarCambioEscenario() {
 
 }
 
-function CargaGrid()
-{
+function CargaGrid() {
     $("#grid").kendoGrid({
         edit: function (e) {
             if ($('#Guardar').text() != _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
@@ -166,6 +187,22 @@ function CargaGrid()
     });
 
     CustomisaGrid($("#grid"));
+
+    $("#grid .k-grid-content").on("change", "input.chkbx", function (e) {
+        if ($('#Guardar').text() != "Editar") {
+            var grid = $("#grid").data("kendoGrid")
+            dataItem = grid.dataItem($(e.target).closest("tr"));
+            dataItem.Seleccionado = $(this)[0].checked
+        }
+        else {
+            if ($(this)[0].checked) {
+                $(this)[0].checked = false;
+            }
+            else {
+                $(this)[0].checked = true;
+            }
+        }
+    });
 }
 
 function eliminarCaptura(e) {
@@ -220,7 +257,6 @@ function eliminarCaptura(e) {
         }
     }
 }
-
 
 function CargaPopupNuevoMedioTransporte(e) {
     $("#InputNombre").val("");
