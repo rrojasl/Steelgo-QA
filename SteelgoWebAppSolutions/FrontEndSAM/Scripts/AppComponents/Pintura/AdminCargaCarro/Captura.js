@@ -206,11 +206,12 @@ function CargaGrid() {
 }
 
 function eliminarCaptura(e) {
-    if ($('#Guardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()] && !$("#chkCerrarEscritorio")[0].disabled) {
+    e.preventDefault();
+    if ($('#Guardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()] && !$("#chkCerrar")[0].disabled) {
         var filterValue = $(e.currentTarget).val();
-        var dataItem = $("#grid[name='grid-Escritorio']").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+        var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
         AjaxCargarZona($("#inputProyecto").data("kendoComboBox").dataItem($("#inputProyecto").data("kendoComboBox").select()).PatioID);
-        if (dataItem.Accion != 1 && $("#inputCarroEscritorio").data("kendoComboBox").value() != "0" && $("#inputCarroEscritorio").data("kendoComboBox").value() != "") {
+        if (dataItem.Accion != 1 && $("#inputCarro").data("kendoComboBox").value() != "0") {
             windowDownload = $("#windowDownload").kendoWindow({
                 iframe: true,
                 title: _dictionary.PinturaCargaTitulo[$("#language").data("kendoDropDownList").value()],
@@ -231,22 +232,22 @@ function eliminarCaptura(e) {
             windowDownload.open().center();
 
             $("#btnDescargar").click(function (handler) {
-                var dataSource = $("#grid[name='grid-Escritorio']").data("kendoGrid").dataSource;
-                if ($("#inputCuadrantePopup").data("kendoComboBox").value() != "") {
-                    if (dataItem.Accion === 1) {
-                        dataSource.remove(dataItem);
-                    }
-                    else {
-                        dataItem.CuadranteID = $("#inputCuadrantePopup").data("kendoComboBox").value();
-                        dataItem.Accion = 3;
-                    }
+                
 
-                    windowDownload.close();
-                    ImprimirAreaToneladaBackLog();
-                    dataSource.sync();
+                var Zona = $("#inputZonaPopup").data("kendoComboBox").dataItem($("#inputZonaPopup").data("kendoComboBox").select());
+                var Cuadrante = $("#inputCuadrantePopup").data("kendoComboBox").dataItem($("#inputCuadrantePopup").data("kendoComboBox").select());
+                var uid = $("#rowGridDescargaSpool").val();
+                var dataItem = $('#grid').data("kendoGrid").dataSource.getByUid(uid);
 
+                if (Zona != undefined && Zona.ZonaID != 0) {
+                    if (Cuadrante != undefined && Cuadrante.CuadranteID != 0) {
+                        windowDownload.close();
+                        AjaxDescargarSpool(dataItem, Cuadrante);
+                    } else {
+                        displayNotify("EmbarqueCargaMsjErrorCuadrante", "", "1");
+                    }
                 } else {
-                    displayNotify("PinturaCargaCuadrante", '', '1');
+                    displayNotify("EmbarqueCargaMsjErrorZona", "", "1");
                 }
 
             });

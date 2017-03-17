@@ -17,6 +17,51 @@ function SuscribirEventos() {
     suscribirEventoWindowsConfirmaCapturaSinCambiarTipoBusqueda();
     suscribirEventoChangeMostrar();
     SuscribirEventoGuardarCaptura();
+    SuscribirEventoZona();
+    SuscribirEventoCuadrante();
+}
+
+
+function SuscribirEventoCuadrante() {
+    $('#inputCuadrantePopup').kendoComboBox({
+        dataTextField: "Nombre",
+        dataValueField: "CuadranteID",
+        suggest: true,
+        filter: "contains",
+        change: function (e) {
+            var dataItem = this.dataItem(e.sender.selectedIndex);
+            if (dataItem != undefined) {
+
+            }
+            else {
+                $("#inputCuadrantePopup").data("kendoComboBox").value("");
+            }
+        }
+    });
+}
+
+
+function SuscribirEventoZona() {
+    $('#inputZonaPopup').kendoComboBox({
+        dataTextField: "Nombre",
+        dataValueField: "ZonaID",
+        suggest: true,
+        filter: "contains",
+        change: function (e) {
+            var dataItem = this.dataItem(e.sender.selectedIndex);
+            $("#inputCuadrantePopup").data("kendoComboBox").dataSource.data([]);
+            $("#inputCuadrantePopup").data("kendoComboBox").value("");
+
+            if (dataItem != undefined) {
+                if (dataItem.ZonaID != 0) {
+                    AjaxCargarCuadrante(dataItem.ZonaID);
+                }
+            }
+            else {
+                $("#inputZonaPopup").data("kendoComboBox").value("");
+            }
+        }
+    });
 }
 
 function suscribirEventoChangeMostrar() {

@@ -245,7 +245,6 @@ function AjaxObtenerSpoolID() {
     });
 }
 
-
 function ajaxGuardarPatio(arregloCaptura, guardarYNuevo) {
     try {
 
@@ -380,4 +379,47 @@ function ajaxGuardarEscritorio(listaSpool, guardarYNuevo) {
     else {
         displayNotify("PinturaSeleccionaCarro", "", '1');
     }
+}
+
+function AjaxCargarZona(patioID) {
+    loadingStart();
+    $Zona.Zona.read({ token: Cookies.get("token"), PatioID: patioID }).done(function (data) {
+        var ZonaId = 0;
+        if (data.length > 0) {
+            $("#inputZonaPopup").data("kendoComboBox").dataSource.data(data);
+
+            if (data.length < 3) {
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].ZonaID != 0) {
+                        ZonaId = data[i].ZonaID;
+                    }
+                }
+            }
+            $("#inputZonaPopup").data("kendoComboBox").value(ZonaId);
+            $("#inputZonaPopup").data("kendoComboBox").trigger("change");
+        }
+
+        loadingStop();
+    });
+}
+
+function AjaxCargarCuadrante(zonaID) {
+    $Cuadrante.Cuadrante.read({ token: Cookies.get("token"), ZonaID: zonaID }).done(function (data) {
+        var CuadranteId = 0;
+
+        if (data.length > 0) {
+            $("#inputCuadrantePopup").data("kendoComboBox").dataSource.data(data);
+
+            if (data.length < 3) {
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].CuadranteID != 0) {
+                        CuadranteId = data[i].CuadranteID;
+                    }
+                }
+            }
+
+            $("#inputCuadrantePopup").data("kendoComboBox").value(CuadranteId);
+            $("#inputCuadrantePopup").data("kendoComboBox").trigger("change");
+        }
+    });
 }

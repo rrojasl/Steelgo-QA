@@ -585,6 +585,10 @@ function opcionHabilitarView(disable) {
         $("#inputSistemaPintura").data("kendoComboBox").enable(false);
         $("#inputColorPintura").data("kendoComboBox").enable(false);
 
+      
+        $("input[name='Planchar']").attr("disabled", true);
+        $("#btnPlanchar").attr("disabled", true);
+
         $("#btnBuscar").attr("disabled", true);
         $("#Guardar").text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
         $("#btnGuardar").text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
@@ -603,6 +607,10 @@ function opcionHabilitarView(disable) {
         $("#inputNc").attr("disabled", false);
         $("#inputSistemaPintura").data("kendoComboBox").enable(true);
         $("#inputColorPintura").data("kendoComboBox").enable(true);
+
+      
+        $("input[name='Planchar']").attr("disabled", false);
+        $("#btnPlanchar").attr("disabled", false);
 
         $("#btnBuscar").attr("disabled", false);
         $("#Guardar").text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);

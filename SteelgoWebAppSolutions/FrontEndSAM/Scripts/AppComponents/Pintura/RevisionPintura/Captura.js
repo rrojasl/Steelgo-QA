@@ -6,6 +6,7 @@ function IniciarSistemaPinturaAplicable() {
 }
 
 function changeLanguageCall() {
+    editado = false;
     IniciarSistemaPinturaAplicable();
     //$('input[value="spool"]').prop("checked", true);
     CargarGrid();
@@ -138,11 +139,11 @@ function CargarGrid() {
 
         ],
         beforeEdit: function (e) {
-            //var columnIndex = this.cellIndex(e.container);
-            //var fieldName = this.thead.find("th").eq(columnIndex).data("field");
-            //if (!isEditable(fieldName, e.model)) {
-            //    e.preventDefault();
-            //}
+            var columnIndex = this.cellIndex(e.container);
+            var fieldName = this.thead.find("th").eq(columnIndex).data("field");
+            if (!isEditable(fieldName, e.model)) {
+                e.preventDefault();
+            }
         },
         dataBound: function () {
             var grid = $("#grid").data("kendoGrid");
@@ -188,8 +189,7 @@ function CargarGrid() {
 
 function isEditable(fieldName, model) {
     if (fieldName === "Color") {
-        var sistemaPinturaID = model.SistemaPinturaID
-        if (model.ListaColorPintura.length < 1) {
+        if (model.ListaColorPintura.length <= 1) {
             return false;
         }
     }
@@ -203,6 +203,12 @@ function opcionHabilitarView(valor, name) {
         $("input[name='TipoBusqueda']").attr("disabled", true);
         $("#btnBuscar").attr("disabled", true);
        
+        $("#inputPlanchadoSP").data("kendoComboBox").enable(false);
+        $("#inputPlanchadoColor").data("kendoComboBox").enable(false);
+        $("input[name='SelectTodos']").attr("disabled", true);
+        $("#inputPlanchadoMotivo").data("kendoComboBox").enable(false);
+        $("input[name='LLena']").attr("disabled", true);
+        $("#ButtonPlanchar").attr("disabled", true);
 
         $("#Guardar").text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
         $("#btnGuardar").text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
@@ -214,6 +220,13 @@ function opcionHabilitarView(valor, name) {
         $("#inputProyecto").data("kendoComboBox").enable(true);
         $("input[name='TipoBusqueda']").attr("disabled", false);
         $("#btnBuscar").attr("disabled", false);
+
+        $("#inputPlanchadoSP").data("kendoComboBox").enable(true);
+        $("#inputPlanchadoColor").data("kendoComboBox").enable(true);
+        $("input[name='SelectTodos']").attr("disabled", false);
+        $("#inputPlanchadoMotivo").data("kendoComboBox").enable(true);
+        $("input[name='LLena']").attr("disabled", false);
+        $("#ButtonPlanchar").attr("disabled", false);
 
         $("#Guardar").text(_dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]);
         $("#btnGuardar").text(_dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]);
