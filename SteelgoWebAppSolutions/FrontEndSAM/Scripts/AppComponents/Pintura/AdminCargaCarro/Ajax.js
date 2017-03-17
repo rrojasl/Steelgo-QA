@@ -423,3 +423,37 @@ function AjaxCargarCuadrante(zonaID) {
         }
     });
 }
+
+function AjaxDescargarSpool(dataItem, Cuadrante) {
+    loadingStart();
+    var dataSource = $("#grid").data("kendoGrid").dataSource;
+    var elemento = 0;
+    $CargaPlana.CargaPlana.read({
+        token: Cookies.get("token"), DetalleCargaID: dataItem.DetalleCargaID, PaqueteID: dataItem.PaqueteID, SpoolID: dataItem.SpoolID,
+        CuadranteID: Cuadrante.CuadranteID, CuadranteSam2ID: Cuadrante.CuadranteSam2ID, CuadranteAnterior: dataItem.CuadranteID
+    }).done(function (data) {
+        if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "OK") {
+            elemento = parseInt(data.ReturnMessage[1]);
+            dataSource.remove(dataItem);
+            dataSource.sync();
+            if (elemento == 0) {
+                $("#detallePaquete").val(dataItem.PaqueteID);
+                $("#CuadrantePaquete").val(dataItem.CuadranteID);
+                CuadrantePaqueteAnterior = dataItem.CuadrantePaqueteAnteriorID;
+                $("#inputZonaPaqueteDescarga").data("kendoComboBox").value(dataItem.ZonaPaqueteAnteriorID);
+                $("#inputZonaPaqueteDescarga").data("kendoComboBox").trigger("change");
+
+                windowPackageEmpty.title(_dictionary.EmbarqueEmpaquetadoAdvertenciaPaqueteVacio[$("#language").data("kendoDropDownList").value()]);
+                windowPackageEmpty.open().center();
+            }
+            displayNotify("EmbarqueCargaMsjDescargaSpoolExito", "", "0");
+        } else {
+            displayNotify("EmbarqueCargaMsjDescargaSpoolError", "", "2");
+        }
+
+        ObtieneConsecutivo();
+        ImprimirTotalToneladas(dataSource._data);
+        ImprimirTotalPiezas(dataSource._data);
+        loadingStop();
+    });
+}
