@@ -6,6 +6,7 @@ using DatabaseManager.Sam3;
 using DatabaseManager.EntidadesPersonalizadas;
 using BackEndSAM.Utilities;
 using System.Web.Script.Serialization;
+using CommonTools.Libraries.Strings.Security;
 
 namespace BackEndSAM.DataAcces
 {
@@ -13,7 +14,7 @@ namespace BackEndSAM.DataAcces
     {
         private static readonly object _mutex = new object();
         private static PerfilBd _instance;
-
+        Base64Security base64 = new Base64Security();
         /// <summary>
         /// constructor privado para implementar el patron Singleton
         /// </summary>
@@ -103,6 +104,17 @@ namespace BackEndSAM.DataAcces
                                                          nivel = mg.Nivel.Value, 
                                                          acomodo = mg.Acomodo.Value
                                                      }).AsParallel().OrderBy(x => x.idPadre).ThenBy(x => x.acomodo).ToList();
+
+                foreach (SideMenuElement item in lstElements)
+                {
+                    
+                        if (item.liga.Contains("token"))
+                        {
+                            item.liga = item.liga.Replace("°", base64.Encode(usuario.UsuarioID + "~" + usuario.ContrasenaHash));
+                        }
+                    
+                }
+
 
                 objsidemenu.elements = lstElements;
 

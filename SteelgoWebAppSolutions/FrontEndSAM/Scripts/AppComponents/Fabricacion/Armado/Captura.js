@@ -710,16 +710,35 @@ function eliminarCaptura(e) {
         var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
         var spoolIDRegistro = dataItem.SpoolID;
 
+        var JuntaBorrada = dataItem.Junta;
+        var juntasAnteriores = "";
+        var eliminarFila = false;
+        for (var i = 0; i < $("#grid").data("kendoGrid").dataSource._data.length; i++) {
+            juntasAnteriores += $("#grid").data("kendoGrid").dataSource._data[i].JuntaAnteriorNumeroUnicoGuardado
+        }
 
+        for (var i = 0; i < juntasAnteriores.split(',').length; i++) {
+            if (juntasAnteriores.split(',')[i].trim() == JuntaBorrada)
+            {
+                eliminarFila = true;
+                break;
+            }
+        }
 
         var dataSource = $("#grid").data("kendoGrid").dataSource;
         //dataItem.Accion = 3;
 
         //if (dataItem.JuntaArmadoID === 0)
         //{ dataSource.remove(dataItem); }
-        dataSource.remove(dataItem);
+        if (!eliminarFila) {
+            dataSource.remove(dataItem);
+            dataSource.sync();
+        }
+        else {
+            displayNotify("CapturaArmadoMensajeEliminarJuntaIncorrectaPorNU", "", '1');
+        }
 
-        dataSource.sync();
+       
 
     }
 

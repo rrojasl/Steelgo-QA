@@ -14,12 +14,19 @@ namespace FrontEndSAM.Controllers.Reportes
             return View();
         }
 
-        public ActionResult ObtenerReportes(string path)
+        public ActionResult ObtenerReportes(string path,string token)
         {
             try
             {
                 if (path != null)
                 {
+                    token = token.Replace("?leng=es-MX", "");
+
+                    string seguridad = System.Text.Encoding.UTF8.GetString(System.Convert.FromBase64String(token));
+
+                    string usr = seguridad.Split('~')[0].ToString();
+                    string pws = seguridad.Split('~')[1].ToString();
+
                     ReportViewer reportViewer = new ReportViewer();
                     reportViewer.SizeToReportContent = true;
                     //reportViewer.Width = new System.Web.UI.WebControls.Unit("100%");
@@ -31,7 +38,8 @@ namespace FrontEndSAM.Controllers.Reportes
                     reportViewer.ProcessingMode = ProcessingMode.Remote;
 
                     //IReportServerCredentials irsc = new CustomReportCredentials("Sam3", "Steelgo2016", "STEELGO-DB01");
-                    IReportServerCredentials irsc = new CustomReportCredentials(ConfigurationManager.AppSettings["Usuario"], ConfigurationManager.AppSettings["Pass"], ConfigurationManager.AppSettings["Dominio"]);
+                    //IReportServerCredentials irsc = new CustomReportCredentials(ConfigurationManager.AppSettings["Usuario"], ConfigurationManager.AppSettings["Pass"], ConfigurationManager.AppSettings["Dominio"]);
+                    IReportServerCredentials irsc = new CustomReportCredentials(usr, pws, ConfigurationManager.AppSettings["Dominio"]);
                     reportViewer.ServerReport.ReportServerCredentials = irsc;
                     //reportViewer.ServerReport.ReportServerUrl = new Uri("http://www.samaltamira.net/ReportServer");
                     reportViewer.ServerReport.ReportServerUrl = new Uri(ConfigurationManager.AppSettings["URLReportingServices"]);

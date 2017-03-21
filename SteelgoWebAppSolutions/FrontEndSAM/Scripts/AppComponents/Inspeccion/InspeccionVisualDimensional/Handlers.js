@@ -139,6 +139,9 @@ function SuscribirEventoSpoolID() {
                 {
                     ventanaConfirmCambiarCaptura.open().center();
                 }
+                if ($("#InputID").val() != '' && $("#InputOrdenTrabajo").val() != '') {
+                    Cookies.set("Proyecto", dataItem.ProyectoID + '°' + dataItem.Proyecto);
+                }
                 ajaxObtenerListaTaller();
             }
            
