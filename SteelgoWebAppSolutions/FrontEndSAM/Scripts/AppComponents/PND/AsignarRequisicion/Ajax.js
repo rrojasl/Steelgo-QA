@@ -361,15 +361,17 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
             ventanaConfirm = $("#ventanaConfirm").kendoWindow({
                 iframe: true,
                 title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
-                visible: false, //the window will not appear before its .open method is called
-                width: "auto",
-                height: "auto",
+                resizable: false,
+                visible: true,
                 modal: true,
-                animation: {
-                    close: false,
-                    open: false
+                width: "40%",
+                minWidth: 30,
+                position: {
+                    top: "1%",
+                    left: "1%"
                 },
-                actions: [],
+                animation: false,
+                actions: []
             }).data("kendoWindow");
 
             ventanaConfirm.content(_dictionary.EntregaPlacasGraficasMensajePreguntaGuardado[$("#language").data("kendoDropDownList").value()] +

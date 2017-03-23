@@ -327,7 +327,7 @@ function SuscribirEventoComboTurno() {
 function Limpiar() {
 
     AjaxCargarCamposPredeterminados(true);
-    //AjaxPruebas();
+    editado = false;
 
     $("#grid").data('kendoGrid').dataSource.data([]);
 }
@@ -511,7 +511,7 @@ function suscribirEventoSepararRequisicion() {
 
             var modalTitle = "";
             modalTitle = _dictionary.MensajeNuevaRequisicion[$("#language").data("kendoDropDownList").value()];
-            $("#ventanaConfirm").empty();
+            
             var ventanaConfirm = $("#ventanaConfirm");
             var window = ventanaConfirm.kendoWindow({
                 modal: true,
@@ -529,8 +529,8 @@ function suscribirEventoSepararRequisicion() {
 
             }).data("kendoWindow");
 
-            window.content('<div id="ventanaConfirm" z-index: inherit">' +
-                                '<div class="col-sm-11 col-md-11 col-lg-11">' +
+            window.content(
+                                '<div class="col-sm-10 col-md-10 col-lg-10">' +
                                     '<div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">' +
                                         '<label id=""><span>' + _dictionary.lblRequisicion1[$("#language").data("kendoDropDownList").value()] + '</span></label>' +
                                         '<input id="NombreRequisicion" class="form-control" />' +
@@ -551,7 +551,7 @@ function suscribirEventoSepararRequisicion() {
                                     '<div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">' +
                                         '<center><button class="btn btn-blue" id="YesButton">' + _dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()] + '</button>&nbsp;<button class="btn btn-blue" id="NoButton"> ' + _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()] + '</button></center>' +
                                     '</div>' +
-                                '</div>' +
+                                
                             '</div>');
 
             ventanaConfirm.data("kendoWindow").title(modalTitle);
