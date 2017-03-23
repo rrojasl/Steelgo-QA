@@ -597,6 +597,11 @@ function AjaxGuardarCaptura(guardarYNuevo) {
                 SistemaPintura: currentSpoolMaster.detalleSalidas[i].SistemaPintura,
                 ColorPintura: currentSpoolMaster.detalleSalidas[i].ColorPintura,
 
+                Cedula: currentSpoolMaster.detalleSalidas[i].Cedula,
+                Dibujo: currentSpoolMaster.detalleSalidas[i].Dibujo,
+                Peso: currentSpoolMaster.detalleSalidas[i].Peso,
+                Area: currentSpoolMaster.detalleSalidas[i].Area,
+
                 detalleAgrupadoSalidas: []
             };
             for (var j = 0; j < currentSpoolMaster.detalleSalidas[i].SalidasEstandar.length; j++) {
