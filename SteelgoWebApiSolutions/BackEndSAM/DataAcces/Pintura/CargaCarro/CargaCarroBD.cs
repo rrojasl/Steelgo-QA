@@ -240,5 +240,36 @@ namespace BackEndSAM.DataAcces.Pintura.CargaCarro
                 return result;
             }
         }
+
+        public object DescargaCarroSpool(int CarroID, int SpoolID, int CuadranteID, int CuadranteSamID, int UsuarioID)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+
+                    ctx.Sam3_Pintura_DescargaCuadranteSpool(CarroID, SpoolID, CuadranteID, CuadranteSamID, UsuarioID);
+
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add("OK");
+                    result.ReturnCode = 200;
+                    result.ReturnStatus = true;
+                    result.IsAuthenicated = true;
+
+                    return result;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
     }
 }

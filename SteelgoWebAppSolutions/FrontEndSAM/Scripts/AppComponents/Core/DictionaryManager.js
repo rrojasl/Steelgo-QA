@@ -9041,9 +9041,9 @@ _dictionary = {
 
     //Pantalla Armado
 
-    "CapturaArmadoMensajeEliminarJuntaIncorrectaPorNU": {
-        "es-MX": "No se puede eliminar, esto causaria inconsistencia en la asignacion de los numeros unicos",
-        "en-US": "Can not delete, this would cause inconsistency in the allocation of unique numbers"
+    "CapturaArmadoMensajeJuntaIncorrectaPorNU": {
+        "es-MX": "Números únicos repetidos",
+        "en-US": "Repeat single numbers"
     },
 
     "CapturaArmadoTituloPopup": {

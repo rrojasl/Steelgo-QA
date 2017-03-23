@@ -24,10 +24,35 @@ function TryParseInt(str, defaultValue) {
     }
     return retValue;
 }
+
 function ObtenerCatalogos() {
     AjaxObtenerListaTubero();
     AjaxObtenerListaTaller();
 }
+
+function ContarElementosAsignados(elementoID, array, rowitem) {
+
+    var numeroVecesAsignado = 0;
+    for (var i = 0; i < array.length; i++) {
+        if (array[i].IdOrdenTrabajo + '-' + array[i].IdVal == (rowitem.IdOrdenTrabajo + '-' + rowitem.IdVal)) {
+            if (array[i].NumeroUnico1ID == elementoID || array[i].NumeroUnico2ID == elementoID)
+                numeroVecesAsignado++;
+        }
+    }
+    return numeroVecesAsignado;
+}
+
+function ContarElementosConMismaLocalizacion(array, localizacion, rowitem) {
+    var numeroVecesMismaLocalizacion = 0;
+    for (var i = 0; i < array.length; i++) {
+        if (array[i].IdOrdenTrabajo + '-' + array[i].IdVal == (rowitem.IdOrdenTrabajo + '-' + rowitem.IdVal)) {
+            if (array[i].Localizacion.split("-")[0] == localizacion || array[i].Localizacion.split("-")[1] == localizacion)
+                numeroVecesMismaLocalizacion++;
+        }
+    }
+    return numeroVecesMismaLocalizacion;
+}
+
 function changeLanguageCall() {
     endRangeDate.data("kendoDatePicker").setOptions({
         format: _dictionary.FormatoFecha2[$("#language").data("kendoDropDownList").value()]
@@ -274,15 +299,20 @@ function CargarGrid() {
                 if (gridData[i].RowOk == false) {
                     grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("k-alt");
                     grid.table.find("tr[data-uid='" + currentUid + "']").addClass("kRowError");
-
+                    grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("kRowErrorNU");
                 }
                 else if (gridData[i].RowOk) {
                     if (i % 2 == 0)
                         grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("k-alt");
-
                     grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("kRowError");
+                    grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("kRowErrorNU");
                 }
 
+                if (gridData[i].NUOk == false) {
+                    grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("k-alt");
+                    grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("kRowError");
+                    grid.table.find("tr[data-uid='" + currentUid + "']").addClass("kRowErrorNU");
+                }
             }
 
             if (esNormal) {
@@ -291,19 +321,21 @@ function CargarGrid() {
             else {
                 $(".k-grid-content td").css("white-space", "nowrap");
             }
-           
+
         }
     });
     CustomisaGrid($("#grid"));
 }
+
 function limpiarRenglon(e) {
     e.preventDefault();
 
     if ($('#botonGuardar').text() == _dictionary.DetalleAvisoLlegada0017[$("#language").data("kendoDropDownList").value()]) {
         AjaxListaDetalleTrabajosAdicionalesLimpiar($("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr")));
-       
+
     }
 }
+
 function CargarGridPopUp() {
 
     $("#gridPopUp").kendoGrid({
@@ -710,35 +742,40 @@ function eliminarCaptura(e) {
         var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
         var spoolIDRegistro = dataItem.SpoolID;
 
-        var JuntaBorrada = dataItem.Junta;
-        var juntasAnteriores = "";
-        var eliminarFila = false;
-        for (var i = 0; i < $("#grid").data("kendoGrid").dataSource._data.length; i++) {
-            juntasAnteriores += $("#grid").data("kendoGrid").dataSource._data[i].JuntaAnteriorNumeroUnicoGuardado
-        }
+        //var JuntaBorrada = dataItem.Junta;
+        //var juntasAnteriores = "";
+        //var eliminarFila = false;
 
-        for (var i = 0; i < juntasAnteriores.split(',').length; i++) {
-            if (juntasAnteriores.split(',')[i].trim() == JuntaBorrada)
-            {
-                eliminarFila = true;
-                break;
-            }
-        }
+        //for (var i = 0; i < $("#grid").data("kendoGrid").dataSource._data.length; i++) {
+        //    if ($("#grid").data("kendoGrid").dataSource._data[i].IdOrdenTrabajo + '-' + $("#grid").data("kendoGrid").dataSource._data[i].IdVal == (dataItem.IdOrdenTrabajo + '-' + dataItem.IdVal))
+        //    {
+        //        if(juntasAnteriores=="")
+        //            juntasAnteriores = $("#grid").data("kendoGrid").dataSource._data[i].JuntaAnteriorNumeroUnicoGuardado == null ? "" : $("#grid").data("kendoGrid").dataSource._data[i].JuntaAnteriorNumeroUnicoGuardado;
+        //        else
+        //            juntasAnteriores += "," +( $("#grid").data("kendoGrid").dataSource._data[i].JuntaAnteriorNumeroUnicoGuardado == null ? "" : $("#grid").data("kendoGrid").dataSource._data[i].JuntaAnteriorNumeroUnicoGuardado);
+        //    }
+
+        //}
+
+        //for (var i = 0; i < juntasAnteriores.split(',').length; i++) {
+        //    if (juntasAnteriores.split(',')[i].trim() == JuntaBorrada)
+        //    {
+        //        eliminarFila = true;
+        //        break;
+        //    }
+        //}
 
         var dataSource = $("#grid").data("kendoGrid").dataSource;
-        //dataItem.Accion = 3;
 
-        //if (dataItem.JuntaArmadoID === 0)
-        //{ dataSource.remove(dataItem); }
-        if (!eliminarFila) {
-            dataSource.remove(dataItem);
-            dataSource.sync();
-        }
-        else {
-            displayNotify("CapturaArmadoMensajeEliminarJuntaIncorrectaPorNU", "", '1');
-        }
+        //if (!eliminarFila) {
+        dataSource.remove(dataItem);
+        dataSource.sync();
+        //}
+        //else {
+        //    displayNotify("CapturaArmadoMensajeEliminarJuntaIncorrectaPorNU", "", '1');
+        //}
 
-       
+
 
     }
 
@@ -874,12 +911,12 @@ function ArregloListadoJuntasCapturadas() {
     JsonCaptura = [];
     var index = 0;
     for (var i = 0; i < data.length ; i++) {
-        
-            JsonCaptura[index] = { OrdenTrabajoSpoolID: "", JuntaID: "" };
-            JsonCaptura[index].OrdenTrabajoSpoolID = data[i].IdVal;
-            JsonCaptura[index].JuntaID = data[i].JuntaID;
-            index++;
-        
+
+        JsonCaptura[index] = { OrdenTrabajoSpoolID: "", JuntaID: "" };
+        JsonCaptura[index].OrdenTrabajoSpoolID = data[i].IdVal;
+        JsonCaptura[index].JuntaID = data[i].JuntaID;
+        index++;
+
     }
     return JsonCaptura;
 }

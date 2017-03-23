@@ -428,24 +428,9 @@ function AjaxDescargarSpool(dataItem, Cuadrante) {
     loadingStart();
     var dataSource = $("#grid").data("kendoGrid").dataSource;
     var elemento = 0;
-    $CargaPlana.CargaPlana.read({
-        token: Cookies.get("token"), DetalleCargaID: dataItem.DetalleCargaID, PaqueteID: dataItem.PaqueteID, SpoolID: dataItem.SpoolID,
-        CuadranteID: Cuadrante.CuadranteID, CuadranteSam2ID: Cuadrante.CuadranteSam2ID, CuadranteAnterior: dataItem.CuadranteID
-    }).done(function (data) {
+    $PinturaGeneral.PinturaGeneral.read({token: Cookies.get("token"), CarroID: dataItem.CarroID, SpoolID: dataItem.SpoolID,CuadranteID: Cuadrante.CuadranteID, CuadranteSam2ID: Cuadrante.CuadranteSam2ID}).done(function (data) {
         if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "OK") {
-            elemento = parseInt(data.ReturnMessage[1]);
-            dataSource.remove(dataItem);
-            dataSource.sync();
-            if (elemento == 0) {
-                $("#detallePaquete").val(dataItem.PaqueteID);
-                $("#CuadrantePaquete").val(dataItem.CuadranteID);
-                CuadrantePaqueteAnterior = dataItem.CuadrantePaqueteAnteriorID;
-                $("#inputZonaPaqueteDescarga").data("kendoComboBox").value(dataItem.ZonaPaqueteAnteriorID);
-                $("#inputZonaPaqueteDescarga").data("kendoComboBox").trigger("change");
-
-                windowPackageEmpty.title(_dictionary.EmbarqueEmpaquetadoAdvertenciaPaqueteVacio[$("#language").data("kendoDropDownList").value()]);
-                windowPackageEmpty.open().center();
-            }
+            AjaxObtenerDetalleCargaCarro($("#inputCarro").data("kendoComboBox").select() == -1 ? 0 : $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()).MedioTransporteID, $('input:radio[name=TipoVista]:checked').val(), '');
             displayNotify("EmbarqueCargaMsjDescargaSpoolExito", "", "0");
         } else {
             displayNotify("EmbarqueCargaMsjDescargaSpoolError", "", "2");

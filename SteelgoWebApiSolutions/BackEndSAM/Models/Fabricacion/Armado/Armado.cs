@@ -64,15 +64,36 @@ namespace BackEndSAM.Models.Armado
         }
     }
 
-    public class DetalleDatosJson
+    public class DetalleCaptura
     {
-        public int AccionNumeroUnico { get; set; }
-        public int Accion { get; set; }
-        public int IDProyecto { get; set; }
+       public int? IDProyecto { get; set; }
         public string Proyecto { get; set; }
         public string IdOrdenTrabajo { get; set; }
         public string OrdenTrabajo { get; set; }
         public string IdVal { get; set; }
+        public string IdText { get; set; }
+        public string SpoolID { get; set; }
+        public int? JuntaID { get; set; }
+        public string Junta { get; set; }
+      
+        public string FechaArmado { get; set; }
+        public string TuberoID { get; set; }
+        public string Tubero { get; set; }
+       
+        public string TallerID { get; set; }
+        public string Taller { get; set; }
+        public string SinCaptura { get; set; }
+    }
+
+    public class DetalleDatosJson
+    {
+        public int AccionNumeroUnico { get; set; }
+        public int Accion { get; set; }
+        public int? IDProyecto { get; set; }
+        public string Proyecto { get; set; }
+        public int? IdOrdenTrabajo { get; set; }
+        public string OrdenTrabajo { get; set; }
+        public int? IdVal { get; set; }
         public string IdText { get; set; }
         public string SpoolID { get; set; }
         public int? JuntaID { get; set; }
@@ -239,5 +260,20 @@ namespace BackEndSAM.Models.Armado
         public int TrabajoAdicionalID { get; set; }
         public int ArmadoTrabajoAdicionalID { get; set; }
         public string Observacion { get; set; }
+    }
+
+    public class ValidarCaptura
+    {
+        public List<NuCapturado> Detalles { get; set; }
+    }
+
+    public class NuCapturado
+    {
+        public int JuntaSpoolID { get; set; }
+        public int NumeroUnico1ID { get; set; }
+        public int NumeroUnico2ID { get; set; }
+        public int Localizacion1 { get; set; }
+        public int Localizacion2 { get; set; }
+
     }
 }

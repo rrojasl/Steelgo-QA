@@ -29,21 +29,16 @@ namespace FrontEndSAM.Controllers.Reportes
 
                     ReportViewer reportViewer = new ReportViewer();
                     reportViewer.SizeToReportContent = true;
-                    //reportViewer.Width = new System.Web.UI.WebControls.Unit("100%");
-                    //reportViewer.Height = new System.Web.UI.WebControls.Unit("100%");
+                   
                     reportViewer.BackColor = System.Drawing.ColorTranslator.FromHtml("#305E8E");
                     reportViewer.ForeColor = System.Drawing.Color.White;
                     reportViewer.ID = "reportViewerReportes";
 
                     reportViewer.ProcessingMode = ProcessingMode.Remote;
 
-                    //IReportServerCredentials irsc = new CustomReportCredentials("Sam3", "Steelgo2016", "STEELGO-DB01");
-                    //IReportServerCredentials irsc = new CustomReportCredentials(ConfigurationManager.AppSettings["Usuario"], ConfigurationManager.AppSettings["Pass"], ConfigurationManager.AppSettings["Dominio"]);
                     IReportServerCredentials irsc = new CustomReportCredentials(usr, pws, ConfigurationManager.AppSettings["Dominio"]);
                     reportViewer.ServerReport.ReportServerCredentials = irsc;
-                    //reportViewer.ServerReport.ReportServerUrl = new Uri("http://www.samaltamira.net/ReportServer");
                     reportViewer.ServerReport.ReportServerUrl = new Uri(ConfigurationManager.AppSettings["URLReportingServices"]);
-                    //reportViewer.ServerReport.ReportPath = "/SAM 3.0/Materiales/Detalles/FotoIncidencia";
                     reportViewer.ServerReport.ReportPath = path.Replace("?leng=es-MX","");
                     reportViewer.ServerReport.Refresh();
                     ViewBag.ReportViewer = reportViewer;
