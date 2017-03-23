@@ -11,6 +11,18 @@ var esNormal;
 
 IniciarCapturaInspecion();
 
+function TryParseInt(str, defaultValue) {
+    var retValue = defaultValue;
+    if (str !== null) {
+        if (str.length > 0) {
+            if (!isNaN(str)) {
+                retValue = parseInt(str);
+            }
+        }
+    }
+    return retValue;
+}
+
 //Cambia lenguaje
 function changeLanguageCall() {
     endRangeDate.data("kendoDatePicker").setOptions({
@@ -325,7 +337,7 @@ function AplicarAsignacionAutomaticaNumeroUnico(rowitem, textoAnterior, combobox
             if (jsonGridArmado[i].IdOrdenTrabajo + '-' + jsonGridArmado[i].IdVal == (rowitem.IdOrdenTrabajo + '-' + rowitem.IdVal)) {
                 if (jsonGridArmado[i].Localizacion.split('-')[0] == comboboxItemSeleccionado.EtiquetaMaterial) {
                     jsonGridArmado[i].NumeroUnico1 = comboboxItemSeleccionado.Clave;
-                    jsonGridArmado[i].NumeroUnico1ID = comboboxItemSeleccionado.NumeroUnicoID; 
+                    jsonGridArmado[i].NumeroUnico1ID = comboboxItemSeleccionado.NumeroUnicoID;
                     jsonGridArmado[i].JuntaAnteriorNumeroUnicoGuardado = comboboxItemSeleccionado.JuntasEncontradas;
                 }
                     //se evalua en NU2
@@ -462,35 +474,33 @@ function BuscarItemSiguienteEnGrid(siguienteItemBuscar) {
 }
 function cancelarCaptura(e) {
     e.preventDefault();
-    if ($("#language").val() == "es-MX") {
-        if ($('#Guardar').text().trim() != "Editar") {
-            var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
-            var spoolIDRegistro = dataItem.SpoolID;
-            var modalTitle = "";
+    if ($('#Guardar').text().trim() != "Editar") {
+        var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+        var spoolIDRegistro = dataItem.SpoolID;
+        var modalTitle = "";
 
+        var JuntaBorrada = dataItem.Junta;
+        var juntasAnteriores = "";
+        var eliminarFila = false;
+        for (var i = 0; i < $("#grid").data("kendoGrid").dataSource._data.length; i++) {
+            juntasAnteriores += $("#grid").data("kendoGrid").dataSource._data[i].JuntaAnteriorNumeroUnicoGuardado
+        }
+
+        for (var i = 0; i < juntasAnteriores.split(',').length; i++) {
+            if (juntasAnteriores.split(',')[i].trim() == JuntaBorrada) {
+                eliminarFila = true;
+                break;
+            }
+        }
+        if (!eliminarFila) {
             var dataSource = $("#grid").data("kendoGrid").dataSource;
-            if (dataItem.Accion == 2 || dataItem.Accion == 4)
-                dataItem.Accion = 3;
-            if (dataItem.Accion == 1)
-                dataSource.remove(dataItem);
+            dataSource.remove(dataItem);
             $("#grid").data("kendoGrid").dataSource.sync();
         }
-    }
-    else {
-        if ($('#Guardar').text().trim() != "Edit") {
-            var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
-            var spoolIDRegistro = dataItem.SpoolID;
-            var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
-            var spoolIDRegistro = dataItem.SpoolID;
-
-            dataItem.Accion = 3;
-            if (dataItem.Accion == 1)
-                dataSource.remove(dataItem);
-            $("#grid").data("kendoGrid").dataSource.sync();
-
+        else {
+            displayNotify("CapturaArmadoMensajeEliminarJuntaIncorrectaPorNU", "", '1');
         }
     }
-
 };
 
 function limpiarCaptura(e) {

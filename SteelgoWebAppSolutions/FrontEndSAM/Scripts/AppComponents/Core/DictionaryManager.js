@@ -9041,6 +9041,11 @@ _dictionary = {
 
     //Pantalla Armado
 
+    "CapturaArmadoMensajeJuntaIncorrectaPorNU": {
+        "es-MX": "Números únicos repetidos",
+        "en-US": "Repeat single numbers"
+    },
+
     "CapturaArmadoTituloPopup": {
         "es-MX": "Alerta!!!",
         "en-US": "Warning!!!"
@@ -12452,11 +12457,11 @@ _dictionary = {
     },
     //#endregion
     //#region Inicia modulo RevisionPintura
-    
+
     "lblGenerarRevision": {
-            "es-MX": "Generar Revision",
-            "en-US": "Generate Revision"
-        },
+        "es-MX": "Generar Revision",
+        "en-US": "Generate Revision"
+    },
     "labelPlanchadoSP": {
         "es-MX": "Sistema Pintura",
         "en-US": "Painting System"

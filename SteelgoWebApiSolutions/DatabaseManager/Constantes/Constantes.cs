@@ -30,6 +30,7 @@
         
             public static string ACTUALIZARCAPTURAREVISIONPINTURA = "Sam3_Pintura_Update_Revision";
         public static string GUARDARCAPTURAREVISIONPINTURA = "Sam3_Pintura_Set_Revision";
+        public static string GUARDARCAPTURAARMADOVALIDANUMEROSUNICOS = "Sam3_Armado_Valida_NumerosUnicos";
         public static string GUARDARCAPTURAARMADO = "Sam3_Armado_Set_Captura";
         public static string GUARDARCAPTURASOLDADURA = "Sam3_Soldadura_JuntaSoldadura";
         public static string GUARDARCAPTURAINSPECCIONVISUALDIMENSIONAL = "Sam3_InspeccionVisualDimensional_SetCaptura";

@@ -72,7 +72,7 @@ function CargarGrid() {
         },
         columns: [
             { field: "Reductor", title: _dictionary.columnReductor[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "150px", editor: renderReductor },
-            { field: "Lote", title: _dictionary.columnLote[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "80px", attributes: { style: "text-align:left;" } },
+            { field: "Lote", title: _dictionary.columnLote[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "80px", attributes: { style: "text-align:left;" }, editor: RenderLote },
             { field: "Cantidad", title: _dictionary.columnCantidad[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "80px", attributes: { style: "text-align:right;" }, editor: renderCantidad },
             { field: "Unidad", title: _dictionary.columnUnidad[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "50px", attributes: { style: "text-align:left;" } },
             { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: eliminarCaptura }, title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], width: "40px", attributes: { style: "text-align:center;" } }//,

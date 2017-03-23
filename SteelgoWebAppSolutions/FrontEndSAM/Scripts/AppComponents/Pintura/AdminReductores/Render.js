@@ -1,4 +1,22 @@
-﻿function renderCantidad(container, options) {
+﻿
+function RenderLote(container, options) {
+    numeroPlacasComponentesElemento = { NumeroComponentes: options.model.NumeroComponentes };
+
+    if ($('#Guardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
+        var dataItem;
+        var textLote = $('<input data-text-field="Lote" id=' + options.model.uid + ' data-value-field="Lote" data-bind="value:' + options.field + '"/>')
+        .appendTo(container)
+        .kendoAutoComplete({
+        });
+
+        textLote.blur(function () {
+            $("#grid").data("kendoGrid").dataSource.sync();
+        });
+    };
+}
+
+
+function renderCantidad(container, options) {
     var inputCantidad = $('<input name="' + options.field + '"/>')
             .appendTo(container)
             .kendoNumericTextBox({

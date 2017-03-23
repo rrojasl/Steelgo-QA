@@ -153,7 +153,7 @@ namespace BackEndSAM.DataAcces.ArmadoBD
             }
         }
 
-        public object ObtenerDetalleArmado(DetalleDatosJson JsonCaptura, Sam3_Usuario usuario, string lenguaje)
+        public object ObtenerDetalleArmado(DetalleCaptura JsonCaptura, Sam3_Usuario usuario, string lenguaje)
         {
             try
             {
@@ -378,6 +378,38 @@ namespace BackEndSAM.DataAcces.ArmadoBD
                 result.ReturnStatus = false;
                 result.IsAuthenicated = true;
 
+                return result;
+            }
+        }
+
+        public object ValidarNumerosUnicos(DataTable dtValida)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    ObjetosSQL _SQL = new ObjetosSQL();
+                    
+
+                    DataTable dtSpoolsInvalidos= _SQL.EjecutaDataAdapter(Stords.GUARDARCAPTURAARMADOVALIDANUMEROSUNICOS, dtValida, "@NumerosUnicos");
+
+                    List<string> listaSpoolInvalidos = new List<string>();
+
+                    for (int i = 0; i < dtSpoolsInvalidos.Rows.Count; i++)
+                    {
+                        listaSpoolInvalidos.Add(dtSpoolsInvalidos.Rows[i][0].ToString());
+                    }
+
+                    return listaSpoolInvalidos;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
                 return result;
             }
         }

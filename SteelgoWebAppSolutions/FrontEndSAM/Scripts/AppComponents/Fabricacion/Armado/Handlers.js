@@ -193,7 +193,8 @@ function suscribirEventoChangeRadio() {
 function EventoGuardar() {
     var ds = $("#grid").data("kendoGrid").dataSource;
     if ($('#Guardar').text() == _dictionary.DetalleAvisoLlegada0017[$("#language").data("kendoDropDownList").value()]) {
-        AjaxGuardarCaptura(ds._data, 0);
+        
+        AjaxValidarNumerosUnicos(ds._data, 0);
     }
     else if ($('#Guardar').text() == _dictionary.DetalleAvisoLlegada0082[$("#language").data("kendoDropDownList").value()])
         opcionHabilitarView(false, "FieldSetView")
@@ -207,7 +208,7 @@ function suscribirEventoGuardar() {
 
     $('.accionGuardarYNuevo').click(function (e) {
         var ds = $("#grid").data("kendoGrid").dataSource;
-        AjaxGuardarCaptura(ds._data, 1)
+        AjaxValidarNumerosUnicos(ds._data, 1)
 
     });
 

@@ -1,4 +1,5 @@
-﻿using BackEndSAM.DataAcces.Pintura.PinturaGeneral;
+﻿using BackEndSAM.DataAcces.Pintura.CargaCarro;
+using BackEndSAM.DataAcces.Pintura.PinturaGeneral;
 using BackEndSAM.Models.Pintura.PinturaGeneral;
 using CommonTools.Libraries.Strings.Security;
 using DatabaseManager.Sam3;
@@ -136,7 +137,7 @@ namespace BackEndSAM.Controllers.Pintura.PinturaGeneral
         //        JavaScriptSerializer serializer = new JavaScriptSerializer();
         //        Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-               
+
         //        Base64Security b = new Base64Security();
         //        string imagenDecodificada= b.RegresarCadena(((ImgSerializadas)listaImagenes.Detalles[0]).imgSerializada);
 
@@ -161,6 +162,31 @@ namespace BackEndSAM.Controllers.Pintura.PinturaGeneral
         //    }
         //}
 
-     
+        [HttpGet]
+        public object DescargaCuadranteSpool(string token,int CarroID, int SpoolID, int CuadranteID, int CuadranteSam2ID, int CuadranteAnterior)
+        {
+            string payload = "";
+            string newToken = "";
+
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+
+                return CargaCarroBD.Instance.DescargaCarroSpool(CarroID, SpoolID, CuadranteID, CuadranteSam2ID, usuario.UsuarioID);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+
+                return result;
+            }
+        }
+
     }
 }

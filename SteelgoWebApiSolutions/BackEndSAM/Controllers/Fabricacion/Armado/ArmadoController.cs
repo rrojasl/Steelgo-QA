@@ -117,7 +117,7 @@ namespace BackEndSAM.Controllers
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                DetalleDatosJson capturaDatosJson = serializer.Deserialize<DetalleDatosJson>(JsonCaptura);
+                DetalleCaptura capturaDatosJson = serializer.Deserialize<DetalleCaptura>(JsonCaptura);
                 capturaDatosJson.SinCaptura = capturaDatosJson.SinCaptura == "Todos" ? "1" : "0";
                 List<DetalleDatosJson> listaDetalleDatos = new List<DetalleDatosJson>();
                 //List<JuntaSpool> listaJuntasXSpool = null;
@@ -126,27 +126,23 @@ namespace BackEndSAM.Controllers
                 List<Sam3_Armado_Get_Detalle_Result> detalle = (List<Sam3_Armado_Get_Detalle_Result>)ArmadoBD.Instance.ObtenerDetalleArmado(capturaDatosJson, usuario, lenguaje);
                 
                 List<TrabajosAdicionalesXJunta> listaTrabajoAdicionalXJunta = (List<TrabajosAdicionalesXJunta>)ArmadoBD.Instance.listaTrabajosAdicionalesXJunta(usuario);
-                
-                
                 foreach (Sam3_Armado_Get_Detalle_Result item in detalle)
                 {
                     List<Sam3_Armado_Get_MaterialesSpool_Result> listaNumeroUnicos = (List<Sam3_Armado_Get_MaterialesSpool_Result>)ArmadoBD.Instance.listaNumeroUnicos(item.JuntaSpoolID, usuario, 2, capturaDatosJson.SinCaptura);
                     List<NumeroUnico> listNumeroUnico1 = GenerarListaNumerosUnicos(listaNumeroUnicos, 1, detalle[0] != null ? detalle[0].LongitudMaterial1 : 0);
                     List<NumeroUnico> listNumeroUnico2 = GenerarListaNumerosUnicos(listaNumeroUnicos, 2, detalle[0] != null ? detalle[0].LongitudMaterial2 : 0);
-
+                    
                     //item.TipoJunta
                     DetalleDatosJson detalleDatos = new DetalleDatosJson
                     {
                         
                         AccionNumeroUnico = (item.Clave1 != null || item.Clave2 != null) ? 2 : 1,
                         Accion = item.JuntaSpoolIDArmado == null ? 1 : 2,
-                        IDProyecto = capturaDatosJson.IDProyecto,
-                        Proyecto = capturaDatosJson.Proyecto,
-                        IdOrdenTrabajo = capturaDatosJson.IdOrdenTrabajo,
-                        OrdenTrabajo = capturaDatosJson.OrdenTrabajo,
-                        IdVal = capturaDatosJson.IdVal,
-                        IdText = capturaDatosJson.IdText,
-                        SpoolID = capturaDatosJson.OrdenTrabajo + "-" + capturaDatosJson.IdText,
+                        IDProyecto = item.ProyectoID,
+                        IdOrdenTrabajo = item.OrdenTrabajoID,
+                        OrdenTrabajo = item.OrdenTrabajo,
+                        IdVal = item.OrdenTrabajoSpoolID,
+                        SpoolID = item.NumeroControl,
                         JuntaID = item.JuntaSpoolID,
                         Junta = item.Etiqueta,
                         TipoJunta = item.TipoJunta,
@@ -165,8 +161,8 @@ namespace BackEndSAM.Controllers
                         TemplateMensajeTrabajosAdicionales = item.TabajosAdicionales,
                         ListaNumerosUnicos1 = listNumeroUnico1,
                         ListaNumerosUnicos2 = listNumeroUnico2,
-                        ListaTaller = ObtenerListaTaller((List<Sam3_SteelGo_Get_Taller_Result>)ArmadoBD.Instance.ObtenerTallerXPoryecto(usuario, capturaDatosJson.IDProyecto)),
-                        ListaTubero = ObtenerListaTubero((List<Sam3_Steelgo_Get_Obrero_Result>)ArmadoBD.Instance.ObtenerTuberoXProyecto(usuario, capturaDatosJson.IDProyecto, 2)),
+                        ListaTaller = ObtenerListaTaller((List<Sam3_SteelGo_Get_Taller_Result>)ArmadoBD.Instance.ObtenerTallerXPoryecto(usuario, item.ProyectoID.GetValueOrDefault())),
+                        ListaTubero = ObtenerListaTubero((List<Sam3_Steelgo_Get_Obrero_Result>)ArmadoBD.Instance.ObtenerTuberoXProyecto(usuario, item.ProyectoID.GetValueOrDefault(), 2)),
                        // ListaDetalleTrabajoAdicional = listDetalleTrabajoAdicional,
                         listadoTrabajosAdicionalesXJunta = listaTrabajoAdicionalXJunta,
                         SinCaptura = capturaDatosJson.SinCaptura,
@@ -256,8 +252,6 @@ namespace BackEndSAM.Controllers
             }
             return numerosUnicos;
         }
-
-      
 
         public List<DetalleTrabajoAdicional> GenerarDetalleAdicionalJson(List<Sam3_Armado_Get_DetalleTrabajoAdicional_Result> listaTrabajoAdicional, Sam3_Usuario usuario)
         {
@@ -394,8 +388,6 @@ namespace BackEndSAM.Controllers
             }
         }
 
-       
-
         public object Get(string token,int juntaID)
         {
             string payload = "";
@@ -448,9 +440,9 @@ namespace BackEndSAM.Controllers
                         Accion = item["JuntaSpoolIDArmado"].ToString() ==  "" ? 1 : 2,
                         AccionNumeroUnico = (item["Clave1"] != null || item["Clave2"] != null) ? 2 : 1,
                         IDProyecto = int.Parse(item["ProyectoID"].ToString()),
-                        IdOrdenTrabajo = item["OrdenTrabajoID"].ToString(),
+                        IdOrdenTrabajo = int.Parse(item["OrdenTrabajoID"].ToString()),
                         OrdenTrabajo = item["OrdenTrabajo"].ToString(),
-                        IdVal = item["OrdenTrabajoSpoolID"].ToString(),
+                        IdVal =int.Parse( item["OrdenTrabajoSpoolID"].ToString()),
                         SpoolID = item["NumeroControl"].ToString(),
                         JuntaID =  int.Parse( item["JuntaSpoolID"].ToString()),
                         Junta = item["Etiqueta"].ToString(),
@@ -495,6 +487,34 @@ namespace BackEndSAM.Controllers
                 return result;
             }
         }
+
+        public object Put(ValidarCaptura Captura, string token)
+        {
+            string payload = "";
+            string newToken = "";
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                DataTable dtValidarNumerosUnicos = Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(Captura.Detalles);
+                List<DetalleDatosJson> listaDetalleDatos = new List<DetalleDatosJson>();
+
+                List<string> listaSpoolsIncorrectos = (List<string>)ArmadoBD.Instance.ValidarNumerosUnicos(dtValidarNumerosUnicos);
+                return listaSpoolsIncorrectos;
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
+
 
     }
 }
