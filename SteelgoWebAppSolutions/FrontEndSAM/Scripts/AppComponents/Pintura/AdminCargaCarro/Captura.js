@@ -219,47 +219,7 @@ function eliminarCaptura(e) {
         CuadranteSpoolAnterior = dataItem.CuadranteAnteriorID;
 
          if (dataItem.Accion != 1 && $("#inputCarro").data("kendoComboBox").value() != "0") {
-            windowDownload = $("#windowDownload").kendoWindow({
-                iframe: true,
-                title: _dictionary.PinturaCargaTitulo[$("#language").data("kendoDropDownList").value()],
-                visible: false,
-                width: "auto",
-                height: "auto",
-                modal: true,
-                animation: {
-                    close: false,
-                    open: false
-                },
-                actions: [
-                    "Close"
-                ],
-            }).data("kendoWindow");
-
-
             windowDownload.open().center();
-
-            $("#btnDescargar").click(function (handler) {
-                
-
-                var Zona = $("#inputZonaPopup").data("kendoComboBox").dataItem($("#inputZonaPopup").data("kendoComboBox").select());
-                var Cuadrante = $("#inputCuadrantePopup").data("kendoComboBox").dataItem($("#inputCuadrantePopup").data("kendoComboBox").select());
-               
-                if (Zona != undefined && Zona.ZonaID != 0) {
-                    if (Cuadrante != undefined && Cuadrante.CuadranteID != 0) {
-                        windowDownload.close();
-                        AjaxDescargarSpool(dataItem, Cuadrante);
-                    } else {
-                        displayNotify("EmbarqueCargaMsjErrorCuadrante", "", "1");
-                    }
-                } else {
-                    displayNotify("EmbarqueCargaMsjErrorZona", "", "1");
-                }
-
-            });
-
-            $("#btnCerrarPopup").click(function () {
-                windowDownload.close();
-            });
         }
     }
 }
