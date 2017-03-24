@@ -135,6 +135,11 @@ namespace BackEndSAM.Models.Ingenieria.BuscaSpool
         public decimal? PDI { get; set; }
         public string SistemaPintura { get; set; }
         public string ColorPintura { get; set; }
+
+        public string Cedula { get; set; }
+        public string Dibujo { get; set; }
+        public decimal Peso { get; set; }
+        public decimal Area { get; set; }
         public List<DetalleAgrupadoSalidasConsulta> detalleAgrupadoSalidas { get; set; }
     }
 
@@ -217,6 +222,11 @@ namespace BackEndSAM.Models.Ingenieria.BuscaSpool
         public decimal PDI { get; set; }
         public string SistemaPintura { get; set; }
         public string ColorPintura { get; set; }
+
+        public string Cedula { get; set; }
+        public string Dibujo { get; set; }
+        public decimal Peso { get; set; }
+        public decimal Area { get; set; }
         public List<DetalleAgrupadoSalidas> detalleAgrupadoSalidas { get; set; }
     }
 
@@ -233,6 +243,11 @@ namespace BackEndSAM.Models.Ingenieria.BuscaSpool
         public decimal PDI { get; set; }
         public string SistemaPintura { get; set; }
         public string ColorPintura { get; set; }
+
+        public string Cedula { get; set; }
+        public string Dibujo { get; set; }
+        public decimal Peso { get; set; }
+        public decimal Area { get; set; }
     }
 
     public class DetalleAgrupadoSalidas

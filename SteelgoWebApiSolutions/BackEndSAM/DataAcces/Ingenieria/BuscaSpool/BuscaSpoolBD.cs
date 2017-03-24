@@ -389,6 +389,12 @@ namespace BackEndSAM.DataAcces.Ingenieria.BuscaSpool
                             PDI = item.PDI,
                             SistemaPintura = item.SistemaPintura,
                             ColorPintura = item.ColorPintura,
+
+                            Cedula = item.Cedula,//item.
+                            Dibujo = item.Dibujo,
+                            Peso = (decimal)item.Peso,
+                            Area = (decimal)item.Area,
+
                             detalleAgrupadoSalidas = (List<DetalleAgrupadoSalidasConsulta>) ObtieneDetalleAgrupadoSalidaLoop(item.Detalle_SalidasID, item.SpoolID, ProyectoSpoolID, ProyectoSoporteID)
                         });
                     }

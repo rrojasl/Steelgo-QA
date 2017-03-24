@@ -254,7 +254,11 @@ namespace BackEndSAM.Controllers.Ingenieria
                         Especificacion = item.Especificacion,
                         PDI = item.PDI,
                         SistemaPintura = item.SistemaPintura,
-                        ColorPintura = item.ColorPintura
+                        ColorPintura = item.ColorPintura,
+                        Cedula = item.Cedula,
+                        Dibujo = item.Dibujo,
+                        Peso = item.Peso,
+                        Area = item.Area
                     });
 
                    if (item.detalleAgrupadoSalidas!=null)

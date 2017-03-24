@@ -58,6 +58,11 @@ function addNewDetalleSalida(spoolID, nombreSpool) {
         Especificacion: '',
         PDI: 0,
 
+        Cedula: '',
+        Dibujo: '',
+        Peso: 0.0,
+        Area: 0.0,
+
         SalidasEstandar: [],
         SalidasJuntasCerradas: []
     };
