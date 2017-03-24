@@ -410,13 +410,15 @@ function AjaxCargarCuadrante(zonaID) {
         if (data.length > 0) {
             $("#inputCuadrantePopup").data("kendoComboBox").dataSource.data(data);
 
-            if (data.length < 3) {
+            if (data.length < 3 && CuadranteSpoolAnterior == 0) {
                 for (var i = 0; i < data.length; i++) {
                     if (data[i].CuadranteID != 0) {
                         CuadranteId = data[i].CuadranteID;
                     }
                 }
             }
+            else
+                CuadranteId = CuadranteSpoolAnterior;
 
             $("#inputCuadrantePopup").data("kendoComboBox").value(CuadranteId);
             $("#inputCuadrantePopup").data("kendoComboBox").trigger("change");
@@ -428,17 +430,15 @@ function AjaxDescargarSpool(dataItem, Cuadrante) {
     loadingStart();
     var dataSource = $("#grid").data("kendoGrid").dataSource;
     var elemento = 0;
-    $PinturaGeneral.PinturaGeneral.read({token: Cookies.get("token"), CarroID: dataItem.CarroID, SpoolID: dataItem.SpoolID,CuadranteID: Cuadrante.CuadranteID, CuadranteSam2ID: Cuadrante.CuadranteSam2ID}).done(function (data) {
+    $PinturaGeneral.PinturaGeneral.read({ token: Cookies.get("token"), CarroID: $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()).MedioTransporteID, SpoolID: dataItem.SpoolID, CuadranteID: Cuadrante.CuadranteID, CuadranteSam2ID: Cuadrante.CuadranteSam2ID, CuadranteAnterior: dataItem.CuadranteID }).done(function (data) {
         if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "OK") {
+            var dataSource = $("#grid").data("kendoGrid").dataSource;
+            dataSource.remove(dataItem);
             AjaxObtenerDetalleCargaCarro($("#inputCarro").data("kendoComboBox").select() == -1 ? 0 : $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()).MedioTransporteID, $('input:radio[name=TipoVista]:checked').val(), '');
             displayNotify("EmbarqueCargaMsjDescargaSpoolExito", "", "0");
         } else {
             displayNotify("EmbarqueCargaMsjDescargaSpoolError", "", "2");
         }
-
-        ObtieneConsecutivo();
-        ImprimirTotalToneladas(dataSource._data);
-        ImprimirTotalPiezas(dataSource._data);
         loadingStop();
     });
 }

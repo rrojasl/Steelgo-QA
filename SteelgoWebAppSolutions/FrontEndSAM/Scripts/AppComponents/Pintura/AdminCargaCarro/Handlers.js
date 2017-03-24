@@ -289,7 +289,9 @@ function SuscribirEventoProyecto() {
             LimpiarCargaProyecto();
 
             if (dataItem != undefined) {
+                
                 if (dataItem.ProyectoID != 0) {
+                    AjaxCargarZona($("#inputProyecto").data("kendoComboBox").dataItem($("#inputProyecto").data("kendoComboBox").select()).PatioID);
                     AjaxCargarMedioTransporte(dataItem.ProyectoID, null);
                 }
             } else {
