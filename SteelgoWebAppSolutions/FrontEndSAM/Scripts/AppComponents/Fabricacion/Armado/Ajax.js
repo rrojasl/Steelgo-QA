@@ -186,6 +186,105 @@ function AjaxEjecutarGuardado(rows, tipoGuardar) {
     });
 }
 
+function ValidarCaptura(arregloCaptura) {
+    Captura = [];
+    Captura[0] = { Detalles: "" };
+    ListaDetalles = [];
+    for (index = 0; index < arregloCaptura.length; index++) {
+        $("#grid").data("kendoGrid").dataSource._data[index].RowOk = true;
+        ListaDetalles[index] = { Accion: "", TipoJuntaID: "", JuntaID: "", TallerID: "", TuberoID: "", FechaArmado: "", ListaDetalleTrabajoAdicional: "", Estatus: 1, JuntaAnteriorNumeroUnicoGuardado: "", ListaNumeroUnicoAsignado: "" };
+        ListaDetalles[index].Accion = arregloCaptura[index].Accion;
+        ListaDetalles[index].TipoJuntaID = arregloCaptura[index].TipoJuntaID;
+        ListaDetalles[index].JuntaID = arregloCaptura[index].JuntaID;
+        ListaDetalles[index].TallerID = arregloCaptura[index].TallerID;
+        ListaDetalles[index].TuberoID = arregloCaptura[index].TuberoID;
+        ListaDetalles[index].FechaArmado = arregloCaptura[index].FechaArmado == null ? "" : kendo.toString(arregloCaptura[index].FechaArmado, String(_dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()].replace('{', '').replace('}', '').replace("0:", ""))).trim();
+        ListaDetalles[index].JuntaAnteriorNumeroUnicoGuardado = arregloCaptura[index].JuntaAnteriorNumeroUnicoGuardado;
+
+        ObjetoNumeroUnicoAsignado = []
+        ObjetoNumeroUnicoAsignado[0] = { Accion: "", JuntaID: "", NumeroUnico1ID: "", NumeroUnico2ID: "" }
+        ObjetoNumeroUnicoAsignado[0].Accion = arregloCaptura[index].AccionNumeroUnico;//(arregloCaptura[index].Accion == 3 || arregloCaptura[index].Accion == 4) ? 3 : arregloCaptura[index].AccionNumeroUnico;
+        ObjetoNumeroUnicoAsignado[0].JuntaID = arregloCaptura[index].JuntaID;
+        ObjetoNumeroUnicoAsignado[0].NumeroUnico1ID = arregloCaptura[index].NumeroUnico1ID;
+        ObjetoNumeroUnicoAsignado[0].NumeroUnico2ID = arregloCaptura[index].NumeroUnico2ID;
+        ListaDetalles[index].ListaNumeroUnicoAsignado = ObjetoNumeroUnicoAsignado;
+
+        ListaTrabajosAdicionalesEditados = [];
+        if (arregloCaptura[index].ListaDetalleTrabajoAdicional != null) {
+            for (j = 0; j < arregloCaptura[index].ListaDetalleTrabajoAdicional.length; j++) {
+                ListaTrabajosAdicionalesEditados[j] = { Accion: "", JuntaID: "", TrabajoAdicionalID: "", ArmadoTrabajoAdicionalID: "", Observacion: "" };
+                ListaTrabajosAdicionalesEditados[j].Accion = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].Accion == undefined ? 1 : arregloCaptura[index].ListaDetalleTrabajoAdicional[j].Accion;
+                ListaTrabajosAdicionalesEditados[j].JuntaID = arregloCaptura[index].JuntaID;
+                ListaTrabajosAdicionalesEditados[j].TrabajoAdicionalID = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].TrabajoAdicionalID;
+                ListaTrabajosAdicionalesEditados[j].ArmadoTrabajoAdicionalID = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].ArmadoTrabajoAdicionalID;
+                ListaTrabajosAdicionalesEditados[j].Observacion = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].Observacion;
+            }
+        }
+        ListaDetalles[index].ListaDetalleTrabajoAdicional = (arregloCaptura[index].ListaDetalleTrabajoAdicional == null || arregloCaptura[index].ListaDetalleTrabajoAdicional.length == 0) ? undefined : ListaTrabajosAdicionalesEditados;
+
+        //validar los numeros unicos
+        var elementoNumeroUnico;
+        var numeroVecesRepite;
+        for (var i = 0; i < 2; i++) {
+            elementoNumeroUnico = i == 0 ? arregloCaptura[index].NumeroUnico1ID : arregloCaptura[index].NumeroUnico2ID
+            numeroVecesRepite = ContarElementosConMismaLocalizacion(arregloCaptura, i == 0 ? arregloCaptura[index].Localizacion.split("-")[0] : arregloCaptura[index].Localizacion.split("-")[1], arregloCaptura[index])
+            numeroElementosAsignados = ContarElementosAsignados(elementoNumeroUnico, arregloCaptura, arregloCaptura[index]);
+            if (numeroVecesRepite != numeroElementosAsignados) {
+                $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
+                ListaDetalles[index].Estatus = 0;
+            }
+        }
+
+
+
+        //fin de validar los numeros unicos
+
+        if (!esCorrectaJunta(ListaDetalles[index].JuntaAnteriorNumeroUnicoGuardado)) {
+            // la junta del numero unico anterior no se ah asignado correctamente 
+            $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
+            ListaDetalles[index].Estatus = 0;
+        }
+        else if (ListaDetalles[index].Accion != 3 && ListaDetalles[index].Accion != 4) {
+            if (ListaDetalles[index].Accion == 2 &&
+                ListaDetalles[index].FechaArmado == "" &&
+                (ListaDetalles[index].TallerID == "" || ListaDetalles[index].TallerID == "0" || ListaDetalles[index].TallerID == undefined) &&
+                (ListaDetalles[index].TuberoID == "" || ListaDetalles[index].TuberoID == "0" || ListaDetalles[index].TuberoID == undefined) &&
+                (ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID == "" || ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID == null || ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID == "0") &&
+                (ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID == "" || ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID == null || ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID == "0")) {
+                ListaDetalles[index].Accion = 4;
+            }
+
+            else if (
+                 ListaDetalles[index].FechaArmado == "" ||
+                (ListaDetalles[index].TallerID == "" || ListaDetalles[index].TallerID == "0") || ListaDetalles[index].TallerID == undefined ||
+                (ListaDetalles[index].TuberoID == "" || ListaDetalles[index].TuberoID == "0") || ListaDetalles[index].TuberoID == undefined ||
+                (ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID == "" || ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID == null || ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID == "0") ||
+                (ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID == "" || ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID == null || ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID == "0")
+                ) {
+                ListaDetalles[index].Estatus = 0;
+                $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
+            }
+
+        }
+        else if (ListaDetalles[index].Accion == 4) {
+            if ((ListaDetalles[index].FechaArmado != "" &&
+                (ListaDetalles[index].TallerID != "" && ListaDetalles[index].TallerID != "0" && ListaDetalles[index].TallerID != undefined) &&
+                (ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID != "" && ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID != null && ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico1ID != "0") &&
+                (ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID != "" && ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID != null && ListaDetalles[index].ListaNumeroUnicoAsignado[0].NumeroUnico2ID != "0") &&
+               (ListaDetalles[index].TuberoID != "" && ListaDetalles[index].TuberoID != "0" && ListaDetalles[index].TuberoID != undefined))) {
+                ListaDetalles[index].Accion = 2;
+            }
+            else if (!(ListaDetalles[index].FechaArmado == "" &&
+                (ListaDetalles[index].TallerID == "" || ListaDetalles[index].TallerID == "0" || ListaDetalles[index].TallerID == undefined) &&
+               (ListaDetalles[index].TuberoID == "" || ListaDetalles[index].TuberoID == "0" || ListaDetalles[index].TuberoID == undefined))) {
+                ListaDetalles[index].Estatus = 0;
+                $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
+
+            }
+        }
+    }
+}
+
 function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
     
         try {
@@ -196,6 +295,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
             ListaDetalles = [];
             for (index = 0; index < arregloCaptura.length; index++) {
                 $("#grid").data("kendoGrid").dataSource._data[index].RowOk = true;
+                $("#grid").data("kendoGrid").dataSource._data[index].NUOk = true;
                 ListaDetalles[index] = { Accion: "", TipoJuntaID: "", JuntaID: "", TallerID: "", TuberoID: "", FechaArmado: "", ListaDetalleTrabajoAdicional: "", Estatus: 1, JuntaAnteriorNumeroUnicoGuardado: "", ListaNumeroUnicoAsignado: "" };
                 ListaDetalles[index].Accion = arregloCaptura[index].Accion;
                 ListaDetalles[index].TipoJuntaID = arregloCaptura[index].TipoJuntaID;
@@ -392,6 +492,9 @@ function AjaxValidarNumerosUnicos(arregloCaptura, tipoGuardar)
                     }
                 }
             }
+
+            ValidarCaptura(arregloCaptura);
+
             displayNotify("CapturaArmadoMensajeJuntaIncorrectaPorNU", "", '1');
             $("#grid").data("kendoGrid").dataSource.sync();
         }

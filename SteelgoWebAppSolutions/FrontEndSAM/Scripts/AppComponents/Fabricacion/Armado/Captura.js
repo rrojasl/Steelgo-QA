@@ -313,6 +313,12 @@ function CargarGrid() {
                     grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("kRowError");
                     grid.table.find("tr[data-uid='" + currentUid + "']").addClass("kRowErrorNU");
                 }
+                else if (gridData[i].NUOk)
+                {
+                    if (i % 2 == 0)
+                        grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("k-alt");
+                    grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("kRowErrorNU");
+                }
             }
 
             if (esNormal) {
