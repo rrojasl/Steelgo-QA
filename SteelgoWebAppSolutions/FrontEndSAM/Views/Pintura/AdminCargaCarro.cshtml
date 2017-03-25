@@ -62,11 +62,11 @@
                 </div>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 altoControl" id="divProyecto">
+        <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2 altoControl" id="DivProyecto">
             <label id="lblProyecto"></label>
             <input id="inputProyecto" />
         </div>
-        <div class="col-xs-8 col-sm-6 col-md-2 col-lg-2 altoControl" id="DivCarroEscritorio">
+        <div class="col-xs-8 col-sm-6 col-md-2 col-lg-2 altoControl" id="DivCarro">
             <label id="lblCarro"></label>
             <input id="inputCarro" />
         </div>
@@ -94,8 +94,8 @@
             <label id="labelToneladas" style="text-align:left"></label>
         </div>
         @*<div class="col-xs-6 col-sm-3 col-md-2 col-lg-2 altoControl">
-            <button class="btn btn-blue" id="btnAgregarColumna"><span>AgregarColumna</span></button>
-        </div>*@
+                <button class="btn btn-blue" id="btnAgregarColumna"><span>AgregarColumna</span></button>
+            </div>*@
     </div>
     @*GRID*@
     <div class="row addedSectionInLine" id="FieldSetView1">
@@ -134,7 +134,7 @@
             </div>
         </div>
     </div>
-  
+
     @*Menu Inferior*@
     <div class="row">
         <div class="col-sm-12 col-md-12 col-lg-12">
@@ -214,8 +214,15 @@
 </div>
 
 
+
 <script type="text/javascript" src="~/Scripts/AppComponents/Pintura/AdminCargaCarro/Ajax.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/Pintura/AdminCargaCarro/Handlers.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/Pintura/AdminCargaCarro/Render.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/Pintura/AdminCargaCarro/Captura.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/Pintura/AdminCargaCarro/Seguridad.js"></script>
+
+<script>
+    @section JavascriptDocumentReadyFunctions {
+    $authorizationModel["Carga Carro"] = $AdminCargaCarroModel;
+    }
+</script>
