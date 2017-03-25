@@ -239,15 +239,25 @@ function CargarGrid() {
                 if (gridData[i].RowOk == false) {
                     grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("k-alt");
                     grid.table.find("tr[data-uid='" + currentUid + "']").addClass("kRowError");
-
+                    grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("kRowErrorNU");
                 }
                 else if (gridData[i].RowOk) {
                     if (i % 2 == 0)
                         grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("k-alt");
-
                     grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("kRowError");
+                    grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("kRowErrorNU");
                 }
 
+                if (gridData[i].NUOk == false) {
+                    grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("k-alt");
+                    grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("kRowError");
+                    grid.table.find("tr[data-uid='" + currentUid + "']").addClass("kRowErrorNU");
+                }
+                else if (gridData[i].NUOk) {
+                    if (i % 2 == 0)
+                        grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("k-alt");
+                    grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("kRowErrorNU");
+                }
             }
 
             if (esNormal) {
@@ -479,27 +489,9 @@ function cancelarCaptura(e) {
         var spoolIDRegistro = dataItem.SpoolID;
         var modalTitle = "";
 
-        var JuntaBorrada = dataItem.Junta;
-        var juntasAnteriores = "";
-        var eliminarFila = false;
-        for (var i = 0; i < $("#grid").data("kendoGrid").dataSource._data.length; i++) {
-            juntasAnteriores += $("#grid").data("kendoGrid").dataSource._data[i].JuntaAnteriorNumeroUnicoGuardado
-        }
-
-        for (var i = 0; i < juntasAnteriores.split(',').length; i++) {
-            if (juntasAnteriores.split(',')[i].trim() == JuntaBorrada) {
-                eliminarFila = true;
-                break;
-            }
-        }
-        if (!eliminarFila) {
-            var dataSource = $("#grid").data("kendoGrid").dataSource;
-            dataSource.remove(dataItem);
-            $("#grid").data("kendoGrid").dataSource.sync();
-        }
-        else {
-            displayNotify("CapturaArmadoMensajeEliminarJuntaIncorrectaPorNU", "", '1');
-        }
+        var dataSource = $("#grid").data("kendoGrid").dataSource;
+        dataSource.remove(dataItem);
+        $("#grid").data("kendoGrid").dataSource.sync();
     }
 };
 

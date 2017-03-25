@@ -432,24 +432,23 @@ function suscribirEventoGuardar() {
         var ds = $("#grid").data("kendoGrid").dataSource;
 
         if ($('#Guardar').text() == "Guardar" || $('#Guardar').text() == "Save") {
-            ajaxGuardado(ds._data, 0);
+            AjaxValidarNumerosUnicos(ds._data, 0);
         }
         else if ($('#Guardar').text() == "Editar" || $('#Guardar').text() == "Edit") {
             opcionHabilitarView(false, "FieldSetView");
-            //deshabilitaSpool();
         }
     });
 
     $('#btnGuardarYNuevo').click(function (e) {
         e.preventDefault();
         var ds = $("#grid").data("kendoGrid").dataSource;
-        ajaxGuardado(ds._data, 1);
+        AjaxValidarNumerosUnicos(ds._data, 1);
     });
 
     $('#btnGuardarYNuevo1').click(function (e) {
         e.preventDefault();
         var ds = $("#grid").data("kendoGrid").dataSource;
-        ajaxGuardado(ds._data, 1);
+        AjaxValidarNumerosUnicos(ds._data, 1);
     });
 }
 function SuscribirEventoAgregarCapturaRapida() {
