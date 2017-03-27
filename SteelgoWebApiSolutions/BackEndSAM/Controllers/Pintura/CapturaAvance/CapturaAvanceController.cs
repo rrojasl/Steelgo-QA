@@ -57,7 +57,7 @@ namespace BackEndSAM.Controllers.PinturaControllers.CapturaAvance
         }
 
         [HttpGet]
-        public object ObtenerCarrosCargados(string token, string lenguaje, int cargado)
+        public object ObtenerCarrosCargados(string token, string lenguaje,int procesoID)
         {
             string payload = "";
             string newToken = "";

@@ -1,16 +1,14 @@
 ﻿function SuscribirEventos() {
     suscribirEventoCarro();
     suscribirEventoGuardarCarro();
-    suscribirEventoShotBlastero();
-    suscribirEventoPintor();
-    suscribirEventoComponente();
+    suscribirEventoPlancharShotBlastero();
     SuscribirEventoSpoolID();
     suscribirEventoCuadrante();
-    suscribirEventoCuadrante1();
     suscribirEventoDescargar();
     SuscribirEventoAgregar();
     SuscribirEventoPlanchar();
-    suscribirEventoChangeRadio();
+    suscribirEventoSeleccionMuestra();
+    suscribirEventoSeleccionProcesoPintura();
     SuscribirEventoMostrar();
 }
 
@@ -165,22 +163,6 @@ function suscribirEventoCuadrante() {
 
 }
 
-function suscribirEventoCuadrante1() {
-
-    $("#inputCuadrante1").kendoComboBox({
-        dataTextField: "Nombre",
-        dataValueField: "CuadranteID",
-        suggest: true,
-        filter: "contains",
-        change: function (e) {
-            if ($("#inputCuadrante1").data("kendoComboBox").dataItem($("#inputCuadrante1").data("kendoComboBox").select()) != undefined) {
-            }
-            else {
-                $("#inputCuadrante1").data("kendoComboBox").value("");
-            }
-        }
-    });
-}
 
 
 function suscribirEventoCarro() {
@@ -218,52 +200,10 @@ function suscribirEventoCarro() {
 
 }
 
-function suscribirEventoComponente() {
-
-    $("#inputComponente").kendoComboBox({
-        dataTextField: "Nombre",
-        dataValueField: "PinturaComponenteComposicionID",
-        suggest: true,
-        filter: "contains",
-        change: function (e) {
-            if ($("#inputComponente").data("kendoComboBox").dataItem($("#inputComponente").data("kendoComboBox").select()) != undefined) {
-            }
-            else {
-                $("#inputComponente").data("kendoComboBox").value("");
-            }
-        }
-    });
-
-    $("#inputComponente").blur(function () {
-        $("#inputComponente").data("kendoComboBox").trigger("change");
-    });
-}
-
-function suscribirEventoPintor() {
-
-    $("#inputPintor").kendoMultiSelect({
-        dataSource: '',
-        dataTextField: "Codigo1",
-        dataValueField: "ObreroID1",
-        suggest: true,
-        filter: "contains",
-        change: function (e) {
-        }
-    }).data("kendoMultiSelect");
-    $('#inputPintor').closest('.k-widget').keydown(function (e) {
-        if (e.keyCode == 13) {
-
-            if ($("#grid").data("kendoGrid").dataSource._data.length != 0) {
-                //PlancharPintor($("#grid").data("kendoGrid").dataSource._data);
-            }
-        }
-
-    });
 
 
-}
 
-function suscribirEventoShotBlastero() {
+function suscribirEventoPlancharShotBlastero() {
 
     $("#inputShotBlastero").kendoMultiSelect({
         dataSource: '',
@@ -272,15 +212,6 @@ function suscribirEventoShotBlastero() {
         suggest: true,
         filter: "contains"
     }).data("kendoMultiSelect");
-
-    $('#inputShotBlastero').closest('.k-widget').keydown(function (e) {
-        if (e.keyCode == 13) {
-            if ($("#grid").data("kendoGrid").dataSource._data.length != 0) {
-                //PlancharShotBlastero($("#grid").data("kendoGrid").dataSource._data);
-            }
-        }
-
-    });
 }
 
 function SuscribirEventoAgregar() {
@@ -375,7 +306,23 @@ function SuscribirEventoSpoolID() {
     });
 
 }
-function suscribirEventoChangeRadio() {
+
+function suscribirEventoSeleccionProcesoPintura() {
+    $('input:radio[name=ProcesoPintura]:nth(0)').change(function () {
+        AjaxCargarCarrosCargadosPorProceso(1);
+    });
+    $('input:radio[name=ProcesoPintura]:nth(1)').change(function () {
+        AjaxCargarCarrosCargadosPorProceso(1);
+    });
+    $('input:radio[name=ProcesoPintura]:nth(2)').change(function () {
+        AjaxCargarCarrosCargadosPorProceso(1);
+    });
+    $('input:radio[name=ProcesoPintura]:nth(3)').change(function () {
+        AjaxCargarCarrosCargadosPorProceso(1);
+    });
+}
+
+function suscribirEventoSeleccionMuestra() {
     $('input:radio[name=Muestra]:nth(0)').change(function () {
         FiltroMostrar(0);
     });

@@ -1,24 +1,4 @@
-﻿function RendercomboBoxPintor(container, options) {
-    var dataItem;
-    var valores;
-    $('<input  data-text-field="Codigo1" id=' + options.model.uid + ' data-value-field="ObreroID1" data-bind="value:' + options.field + '"/>')
-        .appendTo(container)
-        .kendoMultiSelect({
-            autoBind: false,
-            dataTextField: "Codigo",
-            dataValueField: "ObreroID",
-            dataSource: options.model.ListaPintores,
-            template: "<i class=\"fa fa-#=data.Codigo1.toLowerCase()#\"></i> #=data.Codigo1#",
-            select: function (e) {
-               
-            },
-            change: function (e) {
-                options.model.plantillaPintor = _dictionary.CapturaAvancePintoresPrimariosExistentes[$("#language").data("kendoDropDownList").value()] + options.model.ListaPintorGuargado.length;
-            },
-            value: options.model.ListaPintorGuargado
-        }
-        );
-}
+﻿
 
 function RendercomboBoxShotBlastero(container, options) {
     var dataItem;

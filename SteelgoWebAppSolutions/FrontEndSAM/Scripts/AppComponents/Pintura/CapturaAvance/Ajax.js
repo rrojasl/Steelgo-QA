@@ -14,10 +14,11 @@
         else if (data.Llenado.toLowerCase() == "vacios") {
             $('input#LlenaVacios').attr('checked', true).trigger("change");
         }
-
+      
         loadingStop();
+        AjaxCargaMostrarPredeterminado();
     });
-    AjaxCargaMostrarPredeterminado();
+   
 }
 
 function AjaxCargaMostrarPredeterminado() {
@@ -29,17 +30,33 @@ function AjaxCargaMostrarPredeterminado() {
         else if (data == "Todos") {
             $('input:radio[name=Muestra]:nth(1)').trigger("click");
         }
+
+        AjaxCargaMostrarPredeterminadoseleciconProcesosPintura();
     });
 }
 
-//function AjaxCargarCuadranteMain() {
-//    $Cuadrante.Cuadrante.read({ token: Cookies.get("token"), PatioID: 6 }).done(function (data) {
-//        $("#inputCuadrante1").data("kendoComboBox").value("");
-//        $("#inputCuadrante1").data("kendoComboBox").dataSource.data(data);
-
-//    });
-
-//}
+function AjaxCargaMostrarPredeterminadoseleciconProcesosPintura() {
+    var TipoMuestraPredeterminadoID = 4074;
+    var procesoid = 0;
+    $CamposPredeterminados.CamposPredeterminados.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), id: TipoMuestraPredeterminadoID }).done(function (data) {
+        if (data == "shotblast") {
+           
+            $('input:radio[name=ProcesoPintura]:nth(0)').trigger("click");
+           
+        }
+        else if (data == "primario") {
+            $('input:radio[name=ProcesoPintura]:nth(1)').trigger("click");
+           
+        }
+        else if (data == "intermedio") {
+            $('input:radio[name=ProcesoPintura]:nth(2)').trigger("click");
+        }
+        else if (data == "acabado") {
+            $('input:radio[name=ProcesoPintura]:nth(3)').trigger("click");
+        }
+       
+    });
+}
 
 function AjaxCargarCuadrante(area) {
     loadingStart();
@@ -50,15 +67,23 @@ function AjaxCargarCuadrante(area) {
     });
 }
 
-function AjaxCargarCarrosCargados() {
-
-    AjaxCargarMedioTransporte(16, $("#InputNombre").val());
-}
-
-function AjaxCargarMedioTransporte(ProyectoID, nuevoCarro) {
-    $("#inputCarro").data("kendoComboBox").dataSource.data([{ "MedioTransporteID": 0, "MedioTransporteCargaID": 0, "Nombre": "", "CarroCerrado": false, "ProyectoID": 0 }, { "MedioTransporteID": 9, "MedioTransporteCargaID": 0, "Nombre": "carro 670", "CarroCerrado": false, "ProyectoID": 0 }]);
-    $("#inputCarro").data("kendoComboBox").value(9);
-    $("#inputCarro").data("kendoComboBox").trigger("change");
+function AjaxCargarCarrosCargadosPorProceso(idProceso) {
+    loadingStart();
+    $CapturaAvance.CapturaAvance.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), procesoID: idProceso }).done(function (data) {
+        var medioTranporteId = 0;
+        $("#inputCarro").data("kendoComboBox").dataSource.data([]);
+        $("#inputCarro").data("kendoComboBox").dataSource.data(data);
+        if (data.length < 3) {
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].MedioTransporteID != 0) {
+                    medioTranporteId = data[i].MedioTransporteID;
+                }
+            }
+            $("#inputCarro").data("kendoComboBox").value(medioTranporteId);
+            $("#inputCarro").data("kendoComboBox").trigger("change");
+        }
+        loadingStop();
+    });
 }
 
 function AjaxObtenerSpoolID() {
@@ -83,33 +108,17 @@ function AjaxObtenerSpoolID() {
     });
 }
 
-function AjaxCargarPintor() {
 
-    loadingStart();
-
-    //$CapturaAvance.CapturaAvance.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), tipo: 2, tipoObrero: "Pintor" }).done(function (data) {
-    //    if (Error(data)) {
-    //        $("#inputPintor").data("kendoMultiSelect").setDataSource(data);
-    //    }
-    //    loadingStop();
-    //});
-
-    $("#inputPintor").data("kendoMultiSelect").setDataSource([{ Codigo1: "T-239 - Josue Gonzales", ObreroID1: "1" }, { Codigo1: "T-001 Tomas Edison", ObreroID1: "1" }]);
-}
 
 function AjaxCargarShotBlastero() {
-
-    $("#inputShotBlastero").data("kendoMultiSelect").setDataSource([{ Codigo: "T-523 - Raul Saldaña", ObreroID: "1" }, { Codigo: "T-133 Gabriela B.", ObreroID: "1" }]);
-    //loadingStart();
-
-    //$CapturaAvance.CapturaAvance.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), tipo: 2, tipoObrero: "ShotBlastero" }).done(function (data) {
-    //    if (Error(data)) {
-    //        $("#inputShotBlastero").data("kendoMultiSelect").setDataSource(data);
-    //    }
-    //    loadingStop();
-    //});
+    loadingStart();
+    $CapturaAvance.CapturaAvance.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), tipo: 2, tipoObrero: "ShotBlastero" }).done(function (data) {
+        if (Error(data)) {
+            $("#inputShotBlastero").data("kendoMultiSelect").setDataSource(data);
+        }
+        loadingStop();
+    });
 }
-
 function AjaxCargarOrdenTrabajo() {
     loadingStart();
     $CapturaSoldadura.Soldadura.read({ ordenTrabajo: $("#InputOrdenTrabajo").val(), tipo: '1', token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {

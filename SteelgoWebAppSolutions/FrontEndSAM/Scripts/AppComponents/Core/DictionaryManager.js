@@ -8221,8 +8221,8 @@ _dictionary = {
         "en-US": "Load Carriage"
     },
     "menuPinturaCargaAvance": {
-        "es-MX": "Avance Shotblast Primario",
-        "en-US": "Progress Shotblast Primary"
+        "es-MX": "Avance de Carro",
+        "en-US": "Car Advance"
     },
     "menuCapturaAvanceIntAcabado": {
         "es-MX": "Avance Intermedio Acabado",
@@ -8591,16 +8591,16 @@ _dictionary = {
         "en-US": "Quadrant"
     },
     "columnFechaShotblast": {
-        "es-MX": "F. ShotBlast",
-        "en-US": "ShotBlast D."
+        "es-MX": "Fecha Proceso",
+        "en-US": "Process Date"
     },
     "columnFechaPrimario": {
         "es-MX": "F. Primario",
         "en-US": "Primary D."
     },
     "columnShotblastero": {
-        "es-MX": "Shotblastero",
-        "en-US": "Shotblaster"
+        "es-MX": "Trabajador",
+        "en-US": "Employee"
     },
     "columnPintor": {
         "es-MX": "Pintor",
@@ -10361,8 +10361,8 @@ _dictionary = {
         "en-US": "Load Carriage"
     },
     "PinturaCapturaAvanceBreadcrumb": {
-        "es-MX": "Avance Shotblast Primario",
-        "en-US": "Progress Shotblast Primary"
+        "es-MX": "Avance de Carro",
+        "en-US": "Car Advance"
     },
     "PinturaAvanceIntermedioAcabadoBreadcrumb": {
         "es-MX": "Avance Intermedio Acabado",
@@ -10625,7 +10625,32 @@ _dictionary = {
     },
     //Finaliza Carga de Carro
 
-    //Inicia Captura Avance
+    //Inicia Captura Avance de carro
+
+    "lblProcesosPintura": {
+        "es-MX": "Procesos de pintura",
+        "en-US": "Painting processes"
+    },
+
+    "lblSPShotBlast": {
+        "es-MX": "ShotBlast",
+        "en-US": "ShotBlast"
+    },
+
+    "lblSPPrimario": {
+        "es-MX": "Primario",
+        "en-US": "Primary"
+    },
+
+    "lblSPIntermedio": {
+        "es-MX": "Intermedio",
+        "en-US": "Intermediate"
+    },
+
+    "lblSPAvanzado": {
+        "es-MX": "Acabado",
+        "en-US": "Finish"
+    },
     "CapturaAvanceIntermedioSup": {
         "es-MX": "Avance Intermedio Acabado",
         "en-US": "Progress Intermediate Finishes"
@@ -10635,16 +10660,16 @@ _dictionary = {
         "en-US": "Progress Intermediate Finishes"
     },
     "lblFechaShotblast": {
-        "es-MX": "Fecha ShotBlast",
-        "en-US": "ShotBlast Date"
+        "es-MX": "Fecha Proceso",
+        "en-US": "Process Date"
     },
     "lblFechaPrimario": {
         "es-MX": "Fecha Primario",
         "en-US": "Primary Date"
     },
     "lblShotblastero": {
-        "es-MX": "Shotblastero",
-        "en-US": "Shotblaster"
+        "es-MX": "Trabajador",
+        "en-US": "Employee"
     },
     "lblPintor": {
         "es-MX": "Pintor",
