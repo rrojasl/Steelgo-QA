@@ -198,21 +198,7 @@ function suscribirEventoMostrar() {
     });
 }
 
-function suscribirEventoAgregarColumna() {
-    $('#btnAgregarColumna').click(function (e) {
-        var grid = $("#grid").data("kendoGrid");
-        var dataSource = grid.dataSource;
-        var options = grid.options;
-        options.columns = $("#grid").data("kendoGrid").columns;
-        options.columns.push({ field: 'hola', title: 'hola' });
-        grid.destroy();
-        $("#grid")
-              .empty()
-              .kendoGrid(options);
 
-        //genero el for para insertar la informacion.
-    });
-}
 
 function SuscribirEventoCerrarNuevoMedioTransporte() {
     $('#btnCerrarVentanaCrearMedioTransporte').click(function (e) {

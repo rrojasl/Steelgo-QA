@@ -10,12 +10,8 @@
     suscribirEventoSeleccionMuestra();
     suscribirEventoSeleccionProcesoPintura();
     SuscribirEventoMostrar();
+    
 }
-
-SuscribirEventos();
-
-
-
 
 
 function SuscribirEventoPlanchar() {
@@ -173,10 +169,8 @@ function suscribirEventoCarro() {
         suggest: true,
         filter: "contains",
         change: function (e) {
-
             if ($("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()) != undefined) {
                 var dataItem = this.dataItem(e.sender.selectedIndex);
-                //AjaxCargarSpool(dataItem.MedioTransporteID);
             }
             else {
                 $("#inputCarro").data("kendoComboBox").value("");
@@ -189,7 +183,7 @@ function suscribirEventoCarro() {
         if (e.keyCode == 13) {
             if ($("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()) != undefined) {
                 var dataItem = $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select());
-                AjaxCargarSpool(dataItem.MedioTransporteID);
+                AjaxCargarLayoutGrid(dataItem.MedioTransporteID, $('input:radio[name=ProcesoPintura]:checked').val(), dataItem.MedioTransporteCargaID);
             }
             else {
                 $("#inputCarro").data("kendoComboBox").value("");
@@ -230,10 +224,7 @@ function SuscribirEventoMostrar() {
     $("#btnMostrar").click(function () {
         if ($("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()) != undefined) {
             var dataItem = $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select());
-            AjaxCargarSpool(dataItem.MedioTransporteID);
-        }
-        else {
-            
+            AjaxCargarLayoutGrid(dataItem.MedioTransporteID, $('input:radio[name=ProcesoPintura]:checked').val(), dataItem.MedioTransporteCargaID);
         }
     });
 }

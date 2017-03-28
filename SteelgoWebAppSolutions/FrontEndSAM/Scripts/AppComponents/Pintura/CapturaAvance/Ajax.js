@@ -14,11 +14,11 @@
         else if (data.Llenado.toLowerCase() == "vacios") {
             $('input#LlenaVacios').attr('checked', true).trigger("change");
         }
-      
+
         loadingStop();
         AjaxCargaMostrarPredeterminado();
     });
-   
+
 }
 
 function AjaxCargaMostrarPredeterminado() {
@@ -40,13 +40,13 @@ function AjaxCargaMostrarPredeterminadoseleciconProcesosPintura() {
     var procesoid = 0;
     $CamposPredeterminados.CamposPredeterminados.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), id: TipoMuestraPredeterminadoID }).done(function (data) {
         if (data == "shotblast") {
-           
+
             $('input:radio[name=ProcesoPintura]:nth(0)').trigger("click");
-           
+
         }
         else if (data == "primario") {
             $('input:radio[name=ProcesoPintura]:nth(1)').trigger("click");
-           
+
         }
         else if (data == "intermedio") {
             $('input:radio[name=ProcesoPintura]:nth(2)').trigger("click");
@@ -54,7 +54,7 @@ function AjaxCargaMostrarPredeterminadoseleciconProcesosPintura() {
         else if (data == "acabado") {
             $('input:radio[name=ProcesoPintura]:nth(3)').trigger("click");
         }
-       
+
     });
 }
 
@@ -81,6 +81,7 @@ function AjaxCargarCarrosCargadosPorProceso(idProceso) {
             }
             $("#inputCarro").data("kendoComboBox").value(medioTranporteId);
             $("#inputCarro").data("kendoComboBox").trigger("change");
+            $("#btnMostrar").trigger("click");
         }
         loadingStop();
     });
@@ -130,28 +131,109 @@ function AjaxCargarOrdenTrabajo() {
     });
 }
 
+function AjaxCargarLayoutGrid(sistemaPinturaProyectoId, procesoID, CargaCarroID) {
+    $CapturaAvance.CapturaAvance.read({ token: Cookies.get("token"), sistemaPinturaProyectoId: sistemaPinturaProyectoId, procesoID: procesoID, lenguaje: $("#language").val() }).done(function (data) {
+        if (data.length > 0) {
+
+            $("#grid").kendoGrid({
+                dataSource: []
+            });
+
+            var grid = $("#grid").data("kendoGrid");
+            var dataSource = grid.dataSource;
+            var options = grid.options;
+
+
+            ////////////////////
+            options.edit = function (e) {
+                var inputName = e.container.find('input');
+                inputName.select();
+
+                if ($('#Guardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
+
+                }
+                else {
+                    this.closeCell();
+                }
+
+            };
+
+            options.autoBind = true;
+
+            options.filter = {
+                logic: "or",
+                filters: [
+                  { field: "Accion", operator: "eq", value: 1 },
+                  { field: "Accion", operator: "eq", value: 2 }
+                ]
+            };
+            options.pageSize = 10
+            options.serverPaging = false,
+            options.serverFiltering = false,
+            options.serverSorting = false
+
+            options.navigatable = true,
+            options.filterable = getGridFilterableMaftec(),
+            options.editable = true,
+            options.autoHeight = true,
+            options.sortable = true,
+            options.scrollable = true,
+            options.pageable = {
+                refresh: false,
+                pageSizes: [10, 25, 50, 100],
+                info: false,
+                input: false,
+                numeric: true,
+            };
+            ///////////////////
+
+            options.columns = $("#grid").data("kendoGrid").columns;
+
+            options.columns.push({ field: "Spool", title: _dictionary.columnNumeroControl[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec() });
+            options.columns.push({ field: "SistemaPintura", title: _dictionary.columnSistemaPintura[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec() });
+            options.columns.push({ field: "Color", title: _dictionary.columnColor[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec() });
+            options.columns.push({ field: "Metros2", title: _dictionary.columnM2[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), attributes: { style: "text-align:right;" } });
+            options.columns.push({ field: "Lote", title: _dictionary.columnLote[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), attributes: { style: "text-align:right;" } });
+            options.columns.push({ field: "FechaShotblast", title: _dictionary.columnFechaShotblast[$("#language").data("kendoDropDownList").value()], type: "date", filterable: getKendoGridFilterableDateMaftec(), format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()] });
+            options.columns.push({ field: "ListaShotblasteroGuargado", title: _dictionary.columnShotblastero[$("#language").data("kendoDropDownList").value()], filterable: false, editor: RendercomboBoxShotBlastero, template: "#:plantillaShotblastero#", width: "25%" });
+
+
+            for (var i = 0; i < data.length; i++) {
+                options.columns.push({ field: data[i].NombreComponente, title: data[i].NombreComponente, filterable: getGridFilterableCellMaftec(), width: "120px" });
+            }
+
+            options.columns.push({ command: { text: _dictionary.botonDescarga[$("#language").data("kendoDropDownList").value()] }, title: _dictionary.columnDescargar[$("#language").data("kendoDropDownList").value()], width: "60px", attributes: { style: "text-align:center;" } });
+            options.columns.push({ command: { text: _dictionary.botonLimpiar[$("#language").data("kendoDropDownList").value()], click: VentanaModalDescargarMedioTransporte }, title: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()], width: "50px" });
+
+
+            grid.destroy();
+            $("#grid").kendoGrid(options);
+
+            CustomisaGrid($("#grid"));
+            AjaxCargarSpool(CargaCarroID);
+        }
+    });
+}
+
 function AjaxCargarSpool(medioTransporteCargaID) {
-    var array1 = [{
-        RowOk: true,
-        Accion: 2,
-        Spool: "X002-002",
-        SistemaPintura: "A4",
-        Color: "ALUMINIO",
-        Metros2: 4.12,
-        Lote: '',
-        Peso: 300.40,
-        FechaShotblast: '',
-        FechaPrimario: '',
-        plantillaShotblastero: "",
-        ListaShotblasteros: [{ Codigo: "T-523 - Raul Saldaña", ObreroID: "1" }, { Codigo: "T-133 Gabriela B.", ObreroID: "1" }],
-        ListaShotblasteroGuargado: [],
+    $CapturaAvance.CapturaAvance.read({ token: Cookies.get("token"), medioTransporteCargaID: medioTransporteCargaID, lenguaje: $("#language").val() }).done(function (data) {
+        $("#grid").data('kendoGrid').dataSource.data([]);
+        var ds = $("#grid").data("kendoGrid").dataSource;
+        var array = data;
 
-        ListaPintores: [{ Codigo1: "T-239 - Josue Gonzales", ObreroID1: "1" }, { Codigo1: "T-001 Tomas Edison", ObreroID1: "1" }],
-        ListaPintorGuargado: [],
-        plantillaPintor: ''
-    }];
+        for (var i = 0; i < array.length; i++) {
+            if (array[i].ListaShotblasteroGuargado.length > 0) {
+                array[i].plantillaShotblastero = _dictionary.CapturaAvancePintoresShotblastExistentes[$("#language").data("kendoDropDownList").value()] + array[i].ListaShotblasteroGuargado.length;
+            }
+            else {
+                array[i].plantillaShotblastero = _dictionary.CapturaAvancePintoresShotblastNoExistentes[$("#language").data("kendoDropDownList").value()];
+            }
+            ds.add(array[i]);
+        }
 
-    $("#grid").data('kendoGrid').dataSource.data(array1);
+        ds.sync();
+        loadingStop();
+    });
 }
 
 function ajaxAgregarSpool() {
@@ -167,13 +249,13 @@ function ajaxAgregarSpool() {
         Peso: 300.40,
         FechaShotblast: '',
         FechaPrimario: '',
-        plantillaShotblastero:"",
+        plantillaShotblastero: "",
         ListaShotblasteros: [{ Codigo: "T-523 - Raul Saldaña", ObreroID: "1" }, { Codigo: "T-133 Gabriela B.", ObreroID: "1" }],
         ListaShotblasteroGuargado: [],
 
         ListaPintores: [{ Codigo1: "T-239 - Josue Gonzales", ObreroID1: "1" }, { Codigo1: "T-001 Tomas Edison", ObreroID1: "1" }],
         ListaPintorGuargado: [],
-        plantillaPintor:''
+        plantillaPintor: ''
     }];
     ds.insert(0, array2[0]);
     $("#grid").data("kendoGrid").dataSource.sync();
