@@ -28,7 +28,7 @@
     public static class Stords
     {
         
-            public static string ACTUALIZARCAPTURAREVISIONPINTURA = "Sam3_Pintura_Update_Revision";
+        public static string ACTUALIZARCAPTURAREVISIONPINTURA = "Sam3_Pintura_Update_Revision";
         public static string GUARDARCAPTURAREVISIONPINTURA = "Sam3_Pintura_Set_Revision";
         public static string GUARDARCAPTURAARMADOVALIDANUMEROSUNICOS = "Sam3_Armado_Valida_NumerosUnicos";
         public static string GUARDARCAPTURAARMADO = "Sam3_Armado_Set_Captura";
@@ -68,6 +68,7 @@
         public static string ARMADOACTUALIZARINFORMACION = "Sam3_Armado_Get_ActualizarCaptura";
         public static string GUARDARREVISIONEMBARQUE = "Sam3_Embarque_RE_GuardarCaptura";
         public static string GUARDARCAPTURABUSCASPOOL = "Sam3_Ingenieria_GuardarLoop";
-
+        public static string OBTIENEDETALLEAVANCECARRO = "Sam3_Pintura_AvanceCarro_Get_Detalle";
+        
     }
 }

@@ -210,24 +210,24 @@ function AjaxCargarLayoutGrid(sistemaPinturaProyectoId, procesoID, CargaCarroID)
             $("#grid").kendoGrid(options);
 
             CustomisaGrid($("#grid"));
-            AjaxCargarSpool(CargaCarroID);
+            AjaxCargarSpool(CargaCarroID, sistemaPinturaProyectoId, procesoID);
         }
     });
 }
 
-function AjaxCargarSpool(medioTransporteCargaID) {
-    $CapturaAvance.CapturaAvance.read({ token: Cookies.get("token"), medioTransporteCargaID: medioTransporteCargaID, lenguaje: $("#language").val() }).done(function (data) {
+function AjaxCargarSpool(medioTransporteCargaID,sistemaPinturaProyectoID,procesopinturaID) {
+    $CapturaAvance.CapturaAvance.read({ token: Cookies.get("token"), medioTransporteCargaID: medioTransporteCargaID, lenguaje: $("#language").val(), sistemaPinturaProyectoID: sistemaPinturaProyectoID, procesopinturaID: procesopinturaID }).done(function (data) {
         $("#grid").data('kendoGrid').dataSource.data([]);
         var ds = $("#grid").data("kendoGrid").dataSource;
-        var array = data;
+        var array =JSON.parse(data);
 
         for (var i = 0; i < array.length; i++) {
-            if (array[i].ListaShotblasteroGuargado.length > 0) {
-                array[i].plantillaShotblastero = _dictionary.CapturaAvancePintoresShotblastExistentes[$("#language").data("kendoDropDownList").value()] + array[i].ListaShotblasteroGuargado.length;
-            }
-            else {
-                array[i].plantillaShotblastero = _dictionary.CapturaAvancePintoresShotblastNoExistentes[$("#language").data("kendoDropDownList").value()];
-            }
+            //if (array[i].ListaShotblasteroGuargado.length > 0) {
+            //    array[i].plantillaShotblastero = _dictionary.CapturaAvancePintoresShotblastExistentes[$("#language").data("kendoDropDownList").value()] + array[i].ListaShotblasteroGuargado.length;
+            //}
+            //else {
+            //    array[i].plantillaShotblastero = _dictionary.CapturaAvancePintoresShotblastNoExistentes[$("#language").data("kendoDropDownList").value()];
+            //}
             ds.add(array[i]);
         }
 

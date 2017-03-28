@@ -10,7 +10,7 @@ namespace BackEndSAM.Models.Pintura.CapturaAvance
         public int CargaCarroID { get; set; }
         public int SpoolID { get; set; }
         public string Spool { get; set; }
-        public int SistemaPinturaID { get; set; }
+        public int? SistemaPinturaID { get; set; }
         public string SistemaPintura { get; set; }
         public int ColorPinturaID { get; set; }
         public string Color { get; set; }

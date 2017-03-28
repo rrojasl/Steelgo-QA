@@ -80,7 +80,7 @@ namespace BackEndSAM.Controllers.PinturaControllers.CapturaAvance
         }
 
         [HttpGet]
-        public object ObtenerDetalleCarrosCargados(string token, int medioTransporteCargaID, string lenguaje)
+        public object ObtenerDetalleCarrosCargados(string token, int medioTransporteCargaID, string lenguaje,int sistemaPinturaProyectoID,int procesopinturaID)
         {
             string payload = "";
             string newToken = "";
@@ -89,7 +89,7 @@ namespace BackEndSAM.Controllers.PinturaControllers.CapturaAvance
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return CapturaAvanceBD.Instance.ObtenerListaMedioTransporteCargado(medioTransporteCargaID, lenguaje);
+                return CapturaAvanceBD.Instance.ObtenerListaMedioTransporteCargado(medioTransporteCargaID, lenguaje, sistemaPinturaProyectoID, procesopinturaID);
             }
             else
             {
