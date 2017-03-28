@@ -1,5 +1,5 @@
 ﻿var endRangeDateShotblast;
-var endRangeDatePrimario;
+
 var plantillaShotblastero = "";
 var plantillaPintor = "";
 var currentDataItemGridDownload;
@@ -13,16 +13,11 @@ function changeLanguageCall() {
     endRangeDateShotblast.data("kendoDatePicker").setOptions({
         format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()]
     });
-    endRangeDatePrimario.data("kendoDatePicker").setOptions({
-        format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()]
-    });
-    CargarGrid();
+    SuscribirEventos();
+
     AjaxCargarCamposPredeterminados();
-    AjaxCargarCarrosCargados();
-    AjaxCargarPintor();
     AjaxCargarShotBlastero();
-    //AjaxCargarCuadrante(0);
-    //AjaxCargarCuadranteMain();
+   
     document.title = _dictionary.lblCapturaAvance[$("#language").data("kendoDropDownList").value()];
     $('#Guardar1').text(_dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]);
     $("#Guardar").text(_dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]);
@@ -85,79 +80,6 @@ function ValidarFechaPrimario(valor) {
     }
 }
 
-function CargarGrid() {
-    $("#grid").kendoGrid({
-        edit: function (e) {
-            var inputName = e.container.find('input');
-            inputName.select();
-
-            if ($('#Guardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
-
-            }
-            else {
-                this.closeCell();
-            }
-
-        },
-        autoBind: true,
-        dataSource: {
-            data: [],
-            schema: {
-                model: {
-                    fields: {
-                        Spool: { type: "string", editable: false },
-                        SistemaPintura: { type: "string", editable: false },
-                        Metros2: { type: "number", editable: false },
-                        Peso: { type: "string", editable: false },
-                        Color: { type: "string", editable: false },
-                        FechaShotblast: { type: "date", editable: true },
-                        FechaPrimario: { type: "date", editable: true },
-                        Lote:{ type: "string", editable: false }
-                    }
-                }
-            },
-            filter: {
-                logic: "or",
-                filters: [
-                  { field: "Accion", operator: "eq", value: 1 },
-                  { field: "Accion", operator: "eq", value: 2 }
-                ]
-            },
-            pageSize: 10,
-            serverPaging: false,
-            serverFiltering: false,
-            serverSorting: false
-        },
-        navigatable: true,
-        filterable: getGridFilterableMaftec(),
-        editable: true,
-        autoHeight: true,
-        sortable: true,
-        scrollable: true,
-        pageable: {
-            refresh: false,
-            pageSizes: [10, 25, 50, 100],
-            info: false,
-            input: false,
-            numeric: true,
-        },
-        columns: [
-            { field: "Spool", title: _dictionary.columnNumeroControl[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "100px" },
-            { field: "SistemaPintura", title: _dictionary.columnSistemaPintura[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "120px" },
-            { field: "Color", title: _dictionary.columnColor[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "110px" },
-            { field: "Metros2", title: _dictionary.columnM2[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "65px", attributes: { style: "text-align:right;" } },
-            { field: "Lote", title: _dictionary.columnLote[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "80px", attributes: { style: "text-align:right;" } },
-            { field: "FechaShotblast", title: _dictionary.columnFechaShotblast[$("#language").data("kendoDropDownList").value()], type: "date", filterable: getKendoGridFilterableDateMaftec(), width: "130px", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()] },
-            { field: "FechaPrimario", title: _dictionary.columnFechaPrimario[$("#language").data("kendoDropDownList").value()], type: "date", filterable: getKendoGridFilterableDateMaftec(), width: "130px", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()] },
-            { field: "ListaShotblasteroGuargado", title: _dictionary.columnShotblastero[$("#language").data("kendoDropDownList").value()], filterable: false, editor: RendercomboBoxShotBlastero, template: "#:plantillaShotblastero#", width: "220px" },
-            { field: "ListaPintorGuargado", title: _dictionary.columnPintor[$("#language").data("kendoDropDownList").value()], filterable: false, editor: RendercomboBoxPintor, template: "#:plantillaPintor#", width: "220px" },
-            { command: { text: _dictionary.botonDescarga[$("#language").data("kendoDropDownList").value()] }, title: _dictionary.columnDescargar[$("#language").data("kendoDropDownList").value()], width: "60px", attributes: { style: "text-align:center;" } },
-            { command: { text: _dictionary.botonLimpiar[$("#language").data("kendoDropDownList").value()], click: VentanaModalDescargarMedioTransporte }, title: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()], width: "50px" }
-
-        ]
-    });
-    CustomisaGrid($("#grid"));
-};
 
 function VentanaModalDescargarMedioTransporte(e) {
     e.preventDefault();
@@ -175,7 +97,7 @@ function VentanaModalDescargarMedioTransporte(e) {
                 top: "1%",
                 left: "1%"
             },
-                animation:false,
+            animation: false,
             actions: [
                 "Close"
             ],
@@ -375,28 +297,31 @@ function PlanchaCuadranteDescarga() {
 }
 
 function FiltroMostrar(mostrar) {
-    var ds = $("#grid").data("kendoGrid").dataSource;
+    if ($("#grid").data("kendoGrid") != undefined) {
+        var ds = $("#grid").data("kendoGrid").dataSource;
 
-    if (mostrar == 0) {
-        var curr_filters = ds.filter().filters;
-        if (curr_filters[0].filters != undefined)
-            ds.filter(curr_filters[0].filters[0])
-        else
-            ds.filter(curr_filters[0])
-        ds.sync();
+        if (mostrar == 0) {
+            var curr_filters = ds.filter().filters;
+            if (curr_filters[0].filters != undefined)
+                ds.filter(curr_filters[0].filters[0])
+            else
+                ds.filter(curr_filters[0])
+            ds.sync();
 
 
-    }
-    else {
+        }
+        else {
+            if (ds.filter() != undefined) {
+                var curr_filters = ds.filter().filters;
+                ds.filter(curr_filters[0])
+                ds.sync();
+                var filters = ds.filter();
+                filters.logic = "or"
 
-        var curr_filters = ds.filter().filters;
-        ds.filter(curr_filters[0])
-        ds.sync();
-        var filters = ds.filter();
-        filters.logic = "or"
-
-        filters.filters.push({ field: "Accion", operator: "eq", value: 2 });
-        filters.filters.push({ field: "Accion", operator: "eq", value: 4 });
-        ds.sync();
+                filters.filters.push({ field: "Accion", operator: "eq", value: 2 });
+                filters.filters.push({ field: "Accion", operator: "eq", value: 4 });
+                ds.sync();
+            }
+        }
     }
 }

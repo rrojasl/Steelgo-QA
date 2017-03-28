@@ -61,27 +61,31 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
             }
         }
 
-        public object ObtenerMedioTransporteCargado(string lenguaje)
+        public object ObtenerCarrosCerradosPorProceso(string lenguaje,int procesoID)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
 
-                    List<Sam3_Pintura_Get_MedioTransporteCargado_Result> result = ctx.Sam3_Pintura_Get_MedioTransporteCargado(lenguaje).ToList();
-                    List<MedioTransporte> ListadoMedioTransporte = new List<MedioTransporte>();
+                    List<Sam3_Pintura_AvanceCarro_Get_CarrosCerrados_Result> result = ctx.Sam3_Pintura_AvanceCarro_Get_CarrosCerrados( procesoID).ToList();
+                    List<CarroCerrado> ListadoMedioTransporte = new List<CarroCerrado>();
 
-                    foreach (Sam3_Pintura_Get_MedioTransporteCargado_Result item in result)
+                    if (result.Count > 0)
+                        ListadoMedioTransporte.Add(new CarroCerrado());
+
+                    foreach (Sam3_Pintura_AvanceCarro_Get_CarrosCerrados_Result item in result)
                     {
-                        ListadoMedioTransporte.Add(new MedioTransporte
+                        ListadoMedioTransporte.Add(new CarroCerrado
                         {
-                            MedioTransporteID = item.MedioTransporteCargaID.GetValueOrDefault(),
-                            Nombre = item.Nombre
+                            MedioTransporteID = item.MedioTransporteID,
+                            Nombre = item.Nombre,
+                            MedioTransporteCargaID= item.MedioTransporteCargaID,
+                            SistemaPinturaProyectoID=item.SistemaPinturaProyectoID
                         });
 
                     }
                     return ListadoMedioTransporte;
-                    //
                 }
             }
             catch (Exception ex)
@@ -105,7 +109,7 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
                     RetornaDetalles detalles = new RetornaDetalles();
                     int sPinturaID = 0;
                     List<Sam3_Pintura_Get_DetalleSpoolCapturaAvance_Result> result = ctx.Sam3_Pintura_Get_DetalleSpoolCapturaAvance(medioTransporteCargaID, lenguaje).ToList();
-                    List<CapturaAvance> ListadoMedioTransporte = new List<CapturaAvance>();
+                    List<DetalleCapturaAvanceCarro> ListadoMedioTransporte = new List<DetalleCapturaAvanceCarro>();
                     List<Sam3_Pintura_Get_DetalleSpoolCapturaAvance_Result> spoolsCargados = new List<Sam3_Pintura_Get_DetalleSpoolCapturaAvance_Result>();
                     List<Sam3_Steelgo_Get_Cuadrante_Result> GetlistaCuandrantes = (List<Sam3_Steelgo_Get_Cuadrante_Result>)CuadranteBD.Instance.ObtenerCuadrante(6);
 
@@ -124,67 +128,37 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
                     {
 
                         bool existe = spoolsCargados.Exists(element => element.SpoolID == item.SpoolID);
-
                         if (!existe)
                         {
-
                             spoolsCargados.Add(item);
-
                         }
-
                     }
 
                     foreach (Sam3_Pintura_Get_DetalleSpoolCapturaAvance_Result item in spoolsCargados)
                     {
-
-                        ListadoMedioTransporte.Add(new CapturaAvance
+                        ListadoMedioTransporte.Add(new DetalleCapturaAvanceCarro
                         {
-                            SpoolJunta = item.SpoolJunta,
                             Accion = item.PinturaSpoolID == null ? 1 : 2,
-                            PinturaSpoolIDShotblastero = item.PinturaSpoolIDShotblastero == null ? 0 : item.PinturaSpoolIDShotblastero.GetValueOrDefault(),
-                            PinturaSpoolIDShotPrimario = item.PinturaSpoolIDShotPrimario == null ? 0 : item.PinturaSpoolIDShotPrimario.GetValueOrDefault(),
-                            MedioTransporteCargaID = item.MedioTransporteCargaID,
-                            MedioTransporteID = item.MedioTransporteID,
-                            Metros2 = item.Area.GetValueOrDefault(),
+                            CargaCarroID = item.CargaCarroID,
+                            Area = item.Area.GetValueOrDefault(),
                             Color = item.ColorPintura,
-                            ColorPinturaID = item.ColorPinturaID,
-                            OrdenImportancia = item.OrdenImportancia.GetValueOrDefault(),
-                            Peso = item.Peso.GetValueOrDefault(),
+                            ColorPinturaID = item.ColorPinturaID,                           
                             SistemaPintura = item.SistemaPintura,
-                            SistemaPinturaID = item.SistemaPinturaID,
-                            Cuadrante = item.Cuadrante,
-                            CuadranteID = item.CuadranteID.GetValueOrDefault(),
+                            SistemaPinturaID = item.SistemaPinturaID,                           
                             SpoolID = item.SpoolID,
                             Spool = item.SpoolJunta,
                             FechaShotblast = item.FechaShootblast,
-                            FechaPrimario = item.FechaPrimario,
-                            ListaPintores = (List<PintorSpool>)CapturaAvanceBD.Instance.ObtenerObreros(lenguaje, 2, "Pintor"),
                             ListaShotblasteros = (List<PintorSpool>)CapturaAvanceBD.Instance.ObtenerObreros(lenguaje, 2, "ShotBlastero"),
-                            ListaPintorGuargado = (List<PintorSpool>)CapturaAvanceBD.Instance.ObtenerObrerosGuardados(lenguaje, item.PinturaSpoolIDShotPrimario.GetValueOrDefault(), 2),
                             ListaShotblasteroGuargado = (List<PintorSpool>)CapturaAvanceBD.Instance.ObtenerObrerosGuardados(lenguaje, item.PinturaSpoolIDShotblastero.GetValueOrDefault(), 1),
-                            ListaPintorInicial = (List<PintorSpool>)CapturaAvanceBD.Instance.ObtenerObrerosGuardados(lenguaje, item.PinturaSpoolIDShotPrimario.GetValueOrDefault(), 2),
                             ListaShotblasteroInicial = (List<PintorSpool>)CapturaAvanceBD.Instance.ObtenerObrerosGuardados(lenguaje, item.PinturaSpoolIDShotblastero.GetValueOrDefault(), 1),
-                            plantillaPintor = pintores,
                             plantillaShotblastero = shotblasteros,
-                            ListaCuandrantes = ListaCuandrantes,
-                            Descarga = 0
-
+                            Lote="Falta Agoritmo de lotes."
                         });
                         sPinturaID = item.SistemaPinturaID;
                     }
                     detalles.listaCapturaAvance = ListadoMedioTransporte;
-                    List<Sam3_Pintura_Get_ComponenteSistemaPintura_Result> result2 = ctx.Sam3_Pintura_Get_ComponenteSistemaPintura(sPinturaID).ToList();
-                    List<ComponenteDetalle> listaComponentes = new List<ComponenteDetalle>();
-
-                    foreach (Sam3_Pintura_Get_ComponenteSistemaPintura_Result item in result2)
-                    {
-                        listaComponentes.Add(new ComponenteDetalle
-                        {
-                            Nombre = item.Nombre,
-                            PinturaComponenteComposicionID = item.PinturaComponenteComposicionID
-                        });
-                    }
-                    detalles.listaComponenteDetalle = listaComponentes;
+                   
+                   
                     return detalles;
                     //
                 }
@@ -220,12 +194,12 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
                     }
 
                     List<Sam3_Pintura_Get_DetalleSpoolAgregar_Result> result = ctx.Sam3_Pintura_Get_DetalleSpoolAgregar(OrdenTrabajoSpoolID).ToList();
-                    List<CapturaAvance> ListadoMedioTransporte = new List<CapturaAvance>();
+                    List<DetalleCapturaAvanceCarro> ListadoMedioTransporte = new List<DetalleCapturaAvanceCarro>();
 
                     foreach (Sam3_Pintura_Get_DetalleSpoolAgregar_Result item in result)
                     {
 
-                        ListadoMedioTransporte.Add(new CapturaAvance
+                        ListadoMedioTransporte.Add(new DetalleCapturaAvanceCarro
                         {
                             Accion = 1,
                             PinturaSpoolIDShotblastero = 0,
@@ -386,5 +360,40 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
                 return result;
             }
         }
+
+        public object ObtenerLayoutProcesoPintura(int sistemaPinturaProyectoId, int procesoID,string lenguaje)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+
+                    List<Sam3_Pintura_AvanceCarro_Get_LayoutComponentes_Result> result = ctx.Sam3_Pintura_AvanceCarro_Get_LayoutComponentes(sistemaPinturaProyectoId, procesoID, lenguaje).ToList();
+                    List<Componente> ListadoLayoutComponentes = new List<Componente>();
+
+                    
+
+                    foreach (Sam3_Pintura_AvanceCarro_Get_LayoutComponentes_Result item in result)
+                    {
+                        ListadoLayoutComponentes.Add(new Componente
+                        {
+                           NombreComponente=item.NombreComponente
+                        });
+                    }
+                    return ListadoLayoutComponentes;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+        
     }
 }

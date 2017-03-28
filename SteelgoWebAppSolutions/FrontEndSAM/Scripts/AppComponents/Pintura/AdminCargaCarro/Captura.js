@@ -3,6 +3,7 @@ var ventanaConfirmEdicion;
 var windowNewCarriage;
 var InformacionMostrada = false;
 var filaSeleccionada;
+var CuadranteSpoolAnterior;
 
 function changeLanguageCall() {
     SuscribirEventos();
@@ -210,50 +211,15 @@ function eliminarCaptura(e) {
     e.preventDefault();
     if ($('#Guardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()] && !$("#chkCerrar")[0].disabled) {
         var filterValue = $(e.currentTarget).val();
-         filaSeleccionada = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
-        AjaxCargarZona($("#inputProyecto").data("kendoComboBox").dataItem($("#inputProyecto").data("kendoComboBox").select()).PatioID);
-        if (filaSeleccionada.Accion != 1 && $("#inputCarro").data("kendoComboBox").value() != "0") {
-            windowDownload = $("#windowDownload").kendoWindow({
-                iframe: true,
-                title: _dictionary.PinturaCargaTitulo[$("#language").data("kendoDropDownList").value()],
-                visible: false,
-                width: "auto",
-                height: "auto",
-                modal: true,
-                animation: {
-                    close: false,
-                    open: false
-                },
-                actions: [
-                    "Close"
-                ],
-            }).data("kendoWindow");
+        dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
 
+        $("#inputZonaPopup").data("kendoComboBox").value(dataItem.ZonaAnteriorID == 0 && dataItem.CuadranteAnteriorID != 0 ? 1 : dataItem.ZonaAnteriorID);
+        $("#inputZonaPopup").data("kendoComboBox").trigger("change");
 
+        CuadranteSpoolAnterior = dataItem.CuadranteAnteriorID;
+
+         if (dataItem.Accion != 1 && $("#inputCarro").data("kendoComboBox").value() != "0") {
             windowDownload.open().center();
-
-            $("#btnDescargar").click(function (handler) {
-                
-
-                var Zona = $("#inputZonaPopup").data("kendoComboBox").dataItem($("#inputZonaPopup").data("kendoComboBox").select());
-                var Cuadrante = $("#inputCuadrantePopup").data("kendoComboBox").dataItem($("#inputCuadrantePopup").data("kendoComboBox").select());
-               
-                if (Zona != undefined && Zona.ZonaID != 0) {
-                    if (Cuadrante != undefined && Cuadrante.CuadranteID != 0) {
-                        windowDownload.close();
-                        AjaxDescargarSpool(filaSeleccionada, Cuadrante);
-                    } else {
-                        displayNotify("EmbarqueCargaMsjErrorCuadrante", "", "1");
-                    }
-                } else {
-                    displayNotify("EmbarqueCargaMsjErrorZona", "", "1");
-                }
-
-            });
-
-            $("#btnCerrarPopup").click(function () {
-                windowDownload.close();
-            });
         }
     }
 }

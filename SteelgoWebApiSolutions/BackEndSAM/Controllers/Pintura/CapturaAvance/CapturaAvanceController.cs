@@ -57,7 +57,7 @@ namespace BackEndSAM.Controllers.PinturaControllers.CapturaAvance
         }
 
         [HttpGet]
-        public object ObtenerCarrosCargados(string token, string lenguaje, int cargado)
+        public object ObtenerCarrosCargados(string token, string lenguaje,int procesoID)
         {
             string payload = "";
             string newToken = "";
@@ -66,7 +66,7 @@ namespace BackEndSAM.Controllers.PinturaControllers.CapturaAvance
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return CapturaAvanceBD.Instance.ObtenerMedioTransporteCargado(lenguaje);
+                return CapturaAvanceBD.Instance.ObtenerCarrosCerradosPorProceso(lenguaje, procesoID);
             }
             else
             {
@@ -125,28 +125,28 @@ namespace BackEndSAM.Controllers.PinturaControllers.CapturaAvance
             }
         }
 
-        [HttpGet]
-        public object getObreros(string token, string lenguaje, int tipo, string tipoObrero)
-        {
-            string payload = "";
-            string newToken = "";
-            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
-            if (tokenValido)
-            {
-                JavaScriptSerializer serializer = new JavaScriptSerializer();
-                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return CapturaAvanceBD.Instance.ObtenerObreros(lenguaje, tipo, tipoObrero);
-            }
-            else
-            {
-                TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add(payload);
-                result.ReturnCode = 401;
-                result.ReturnStatus = false;
-                result.IsAuthenicated = false;
-                return result;
-            }
-        }
+        //[HttpGet]
+        //public object getObreros(string token, string lenguaje, int tipo, string tipoObrero)
+        //{
+        //    string payload = "";
+        //    string newToken = "";
+        //    bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+        //    if (tokenValido)
+        //    {
+        //        JavaScriptSerializer serializer = new JavaScriptSerializer();
+        //        Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+        //        return CapturaAvanceBD.Instance.ObtenerObreros(lenguaje, tipo, tipoObrero);
+        //    }
+        //    else
+        //    {
+        //        TransactionalInformation result = new TransactionalInformation();
+        //        result.ReturnMessage.Add(payload);
+        //        result.ReturnCode = 401;
+        //        result.ReturnStatus = false;
+        //        result.IsAuthenicated = false;
+        //        return result;
+        //    }
+        //}
 
 
         public object Post(Captura listaCapturasRequisicion, string token, string lenguaje, int medioTransporteCargaID)
@@ -244,5 +244,27 @@ namespace BackEndSAM.Controllers.PinturaControllers.CapturaAvance
             }
         }
 
+        [HttpGet]
+        public object ObtenerLayoutPorProceso(string token, int sistemaPinturaProyectoId, int procesoID,string lenguaje)
+        {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                return CapturaAvanceBD.Instance.ObtenerLayoutProcesoPintura(sistemaPinturaProyectoId, procesoID, lenguaje);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
     }
 }
