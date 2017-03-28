@@ -136,14 +136,14 @@ function AjaxGetLoop(proyectoID, proyectoSpoolID, proyectoSoporteID, nombreLoop)
                             currentSpoolMaster.Especificacion += currentSpoolMaster.detalleSalidas[i].Especificacion + '/';
                         }
 
-                        if (currentSpoolMaster.detalleSalidas[i].PDI != 0) {
-                            currentSpoolMaster.PDI += currentSpoolMaster.detalleSalidas[i].PDI;
-                        }
+                        //if (currentSpoolMaster.detalleSalidas[i].PDI != 0) {
+                        //    currentSpoolMaster.PDI += currentSpoolMaster.detalleSalidas[i].PDI;
+                        //}
 
                         AddPinturaSistemaColor(currentSpoolMaster.detalleSalidas[i].SistemaPintura, currentSpoolMaster.detalleSalidas[i].ColorPintura);
 
                         for (var j = 0; j < currentSpoolMaster.detalleSalidas[i].detalleAgrupadoSalidas.length; j++) {
-
+                            currentSpoolMaster.PDI += currentSpoolMaster.detalleSalidas[i].detalleAgrupadoSalidas[j].Diametro;
                             var newData = {
                                 Salidas_AgrupadoID: currentSpoolMaster.detalleSalidas[i].detalleAgrupadoSalidas[j].Salidas_AgrupadoID,
                                 Detalle_SalidasID: currentSpoolMaster.detalleSalidas[i].detalleAgrupadoSalidas[j].Detalle_SalidasID,
@@ -202,7 +202,8 @@ function AjaxGetLoop(proyectoID, proyectoSpoolID, proyectoSoporteID, nombreLoop)
 
                     $("#inputNombreLoop").val(currentSpoolMaster.NombreLoop);
                     $("#inputDibujo").val(currentSpoolMaster.Dibujo);
-                    $("#inputPND").val(currentSpoolMaster.PND);
+                    //$("#inputTurno").data("kendoComboBox").value(dataItem.TurnoID);
+                    $("#inputPND").data("kendoNumericTextBox").value(currentSpoolMaster.PND);
                     $('#inputRequierePWHT:checked').val(currentSpoolMaster.RequierePWHT);
 
                     reloadControls();
@@ -249,9 +250,9 @@ function AjaxDetalleSpoolXNombre(posicion, proyectoID, nombreSpool) {
                     currentSpoolMaster.Especificacion += data.Especificacion + '/';
                 }
 
-                if (data.PDI != 0) {
-                    currentSpoolMaster.PDI += data.PDI;
-                }
+                //if (data.PDI != 0) {
+                //    currentSpoolMaster.PDI += data.PDI;
+                //}
 
                 AddPinturaSistemaColor(data.SistemaPintura, data.ColorPintura);
 
@@ -381,7 +382,7 @@ function AjaxDetalleJunta(posicion, posicionSalida, claveSalida, juntaSpoolID) {
             if (data.length == 1) {                
 
                 
-                //currentSpoolMaster.PDI += data[0].Diametro;//¿Porque al PDI del spool le incrementas el valor del diametro de la junta?
+               currentSpoolMaster.PDI += data[0].Diametro;//¿Porque al PDI del spool le incrementas el valor del diametro de la junta?
                 reCalculaReglas();
 
                 if (claveSalida =='JC') {
@@ -565,7 +566,7 @@ function AjaxGuardarCaptura(guardarYNuevo) {
     currentSpoolMaster.ProyectoID = $("#inputProyecto").data("kendoComboBox").dataItem($("#inputProyecto").data("kendoComboBox").select()).ProyectoID;
     currentSpoolMaster.NombreLoop = $("#inputNombreLoop").val();
     currentSpoolMaster.Dibujo = $("#inputDibujo").val();
-    currentSpoolMaster.PND = $("#inputPND").val();
+    currentSpoolMaster.PND = $("#inputPND").data("kendoNumericTextBox").value();
     currentSpoolMaster.RequierePWHT = $('#inputRequierePWHT:checked').val();
 
     if (currentSpoolMaster.detalleSalidas.length > 0) {
@@ -675,7 +676,7 @@ function AjaxGuardarCaptura(guardarYNuevo) {
 
                     $("#inputNombreLoop").val('');
                     $("#inputDibujo").val('');
-                    $("#inputPND").val('');
+                    $("#inputPND").data("kendoNumericTextBox").value('');
                     $('#inputRequierePWHT:checked').val(false);
 
                     reloadControls();

@@ -226,16 +226,18 @@ function initSpoolMasterTotal() {
     $("#contenedor_master").append(loopHTML);
 
     $('#inputSalidas_0').kendoNumericTextBox({
-        format: "###"
+        format: "###",
+        min: 0
     });
 
     $('#inputJuntasCerradas_0').kendoNumericTextBox({
-        format: "###"
+        format: "###",
+        min: 0
     });
 
     //$("#inputNombreLoop").val(currentSpoolMaster.NombreLoop);
     $("#inputDibujo").val(currentSpoolMaster.Dibujo);
-    $("#inputPND").val(currentSpoolMaster.PND);
+    $("#inputPND").data("kendoNumericTextBox").value(currentSpoolMaster.PND);
     $('#inputRequierePWHT:checked').val(currentSpoolMaster.RequierePWHT);
 
     CargarGridDynamic(0);

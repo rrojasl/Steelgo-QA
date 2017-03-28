@@ -271,12 +271,14 @@ function reloadControls() {
     for (var i = 0; i < currentSpoolMaster.detalleSalidas.length; i++) {
         $('#inputSalidas_' + i).kendoNumericTextBox({
             format: "###",
-            value: currentSpoolMaster.detalleSalidas[i].SalidasEstandar.length
+            value: currentSpoolMaster.detalleSalidas[i].SalidasEstandar.length,
+            min: 0
         });
 
         $('#inputJuntasCerradas_' + i).kendoNumericTextBox({
             format: "###",
-            value: currentSpoolMaster.detalleSalidas[i].SalidasJuntasCerradas.length
+            value: currentSpoolMaster.detalleSalidas[i].SalidasJuntasCerradas.length,
+            min: 0
         });
 
         CargarGridDynamic(i);
@@ -805,6 +807,16 @@ function SuscribirEventoComboPrueba() {
     //    alert('xD');
     //});
 
+    $('#inputPND').kendoNumericTextBox({
+        format: "##0",
+        //value: 0,
+        min: 0,
+        max: 100,
+        step: 1
+    });
+    //$('inputPND[type=text]').blur(function () {
+    //    alert('inputPND');
+    //});
     
     $("#context-menu").kendoContextMenu({
         dataSource:
