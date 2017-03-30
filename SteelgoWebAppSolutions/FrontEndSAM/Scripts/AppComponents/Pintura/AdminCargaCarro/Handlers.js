@@ -9,7 +9,6 @@ function SuscribirEventos() {
     suscribirEventoWindowsConfirmaCaptura();
     SuscribirEventoGuardarNuevoMedioTransporte();
     SuscribirEventoCerrarNuevoMedioTransporte();
-    suscribirEventoAgregarColumna();
     suscribirEventoMostrar();
     SuscribirEventoTipoSeleccion();
     SuscribirEventoAgregar();

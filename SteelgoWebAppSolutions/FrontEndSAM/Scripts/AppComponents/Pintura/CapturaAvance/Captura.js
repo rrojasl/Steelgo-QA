@@ -4,7 +4,12 @@ var plantillaShotblastero = "";
 var plantillaPintor = "";
 var currentDataItemGridDownload;
 var win;
+var procesoPinturaSeleccionadoAnterior="";
+var editado = false;
+
+
 IniciarCapturaArmado();
+
 function IniciarCapturaArmado() {
     AltaFecha();
 }
@@ -296,6 +301,48 @@ function PlanchaCuadranteDescarga() {
     $("#grid").data("kendoGrid").dataSource.sync();
 }
 
+function LimpiarDespuesCambioProcesoPintura() {
+    $("#InputOrdenTrabajo").val("");
+    $("#InputID").data("kendoComboBox").value("");
+    $("#grid").empty();
+    CrearGrid();
+    CustomisaGrid($("#grid"));
+}
+
+function CrearGrid()
+{
+    $("#grid").kendoGrid({
+        dataSource: {
+            filter: {
+                logic: "or",
+                filters: [
+                  { field: "Accion", operator: "eq", value: 1 },
+                  { field: "Accion", operator: "eq", value: 2 },
+                  { field: "Accion", operator: "eq", value: 4 },
+                  { field: "Accion", operator: "eq", value: 0 },
+                  { field: "Accion", operator: "eq", value: undefined }
+                ]
+            },
+            pageSize: 10,
+            serverPaging: false,
+            serverFiltering: false,
+            serverSorting: false
+        },
+        edit: function (e) {
+            var inputName = e.container.find('input');
+            inputName.select();
+
+            if ($('#Guardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
+
+            }
+            else {
+                this.closeCell();
+            }
+
+        }
+    });
+}
+
 function FiltroMostrar(mostrar) {
     if ($("#grid").data("kendoGrid") != undefined) {
         var ds = $("#grid").data("kendoGrid").dataSource;
@@ -307,8 +354,6 @@ function FiltroMostrar(mostrar) {
             else
                 ds.filter(curr_filters[0])
             ds.sync();
-
-
         }
         else {
             if (ds.filter() != undefined) {

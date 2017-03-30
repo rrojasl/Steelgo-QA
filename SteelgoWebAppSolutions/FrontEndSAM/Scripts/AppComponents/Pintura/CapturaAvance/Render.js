@@ -71,3 +71,9 @@ function tieneClase(item) {
     }
     return false
 }
+
+function renderComboboxComponenteDinamico(container, options)
+{
+
+    AjaxGetLotes(container, options);
+}

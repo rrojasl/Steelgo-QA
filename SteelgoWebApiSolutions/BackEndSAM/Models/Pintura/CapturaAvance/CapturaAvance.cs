@@ -7,12 +7,15 @@ namespace BackEndSAM.Models.Pintura.CapturaAvance
     public class DetalleCapturaAvanceCarro
     {
         public int Accion { get; set; }
-        public int CargaCarroID { get; set; }
+
+        public int? CarroID { get; set; }
+        public int? CargaCarroID { get; set; }
         public int SpoolID { get; set; }
         public string Spool { get; set; }
         public int? SistemaPinturaID { get; set; }
+        public int SistemaPinturaProyectoID { get; set; }
         public string SistemaPintura { get; set; }
-        public int ColorPinturaID { get; set; }
+        public int? ColorPinturaID { get; set; }
         public string Color { get; set; }
         public decimal Area { get; set; }
         public string Lote { get; set; }
@@ -69,11 +72,7 @@ namespace BackEndSAM.Models.Pintura.CapturaAvance
         public List<ObrerosGuardar> ListaObreros { get; set; }
     }
 
-    public class CapturaNuevo
-    {
-        public List<PintorSpool> ListaPintorGuargado { get; set; }
-        public List<PintorSpool> ListaShotblasteroGuargado { get; set; }
-    }
+  
 
 
     public class PintorSpool
@@ -107,6 +106,17 @@ namespace BackEndSAM.Models.Pintura.CapturaAvance
             MedioTransporteCargaID = 0;
             Nombre = "";
             SistemaPinturaProyectoID = 0;
+        }
+    }
+
+    public class Lote
+    {
+        public string NombreLote { get; set; }
+        public int? Cantidad { get; set; }
+        public Lote()
+        {
+            NombreLote = "";
+            Cantidad = 0;
         }
     }
 }
