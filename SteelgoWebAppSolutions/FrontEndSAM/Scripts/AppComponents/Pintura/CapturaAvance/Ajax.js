@@ -169,19 +169,24 @@ function AjaxCargarLayoutGrid(sistemaPinturaProyectoId, procesoID, CargaCarroID)
 
             options.columns = $("#grid").data("kendoGrid").columns;
 
-            options.columns.push({ field: "Spool", title: _dictionary.columnNumeroControl[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec() });
-            options.columns.push({ field: "SistemaPintura", title: _dictionary.columnSistemaPintura[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec() });
-            options.columns.push({ field: "Color", title: _dictionary.columnColor[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec() });
-            options.columns.push({ field: "Area", title: _dictionary.columnM2[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), attributes: { style: "text-align:right;" } });
-            options.columns.push({ field: "Lote", title: _dictionary.columnLote[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), attributes: { style: "text-align:right;" } });
-            options.columns.push({ field: "FechaShotblast", title: _dictionary.columnFechaShotblast[$("#language").data("kendoDropDownList").value()], type: "date", filterable: getKendoGridFilterableDateMaftec(), format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()] });
-            options.columns.push({ field: "ListaShotblasteroGuargado", title: _dictionary.columnShotblastero[$("#language").data("kendoDropDownList").value()], filterable: false, editor: RendercomboBoxShotBlastero, template: "#:plantillaShotblastero#", width: "25%" });
+            options.columns.push({ field: "Spool", title: _dictionary.columnNumeroControl[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "100px" });
+            options.columns.push({ field: "SistemaPintura", title: _dictionary.columnSistemaPintura[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "160px" });
+            options.columns.push({ field: "Color", title: _dictionary.columnColor[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "100px" });
+            options.columns.push({ field: "Area", title: _dictionary.columnM2[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), attributes: { style: "text-align:right;" }, width: "80px" });
+            options.columns.push({ field: "Lote", title: _dictionary.columnLote[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), attributes: { style: "text-align:right;" }, width: "80px" });
+            options.columns.push({ field: "FechaShotblast", title: _dictionary.columnFechaShotblast[$("#language").data("kendoDropDownList").value()], type: "date", filterable: getKendoGridFilterableDateMaftec(), format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()], width: "160px" });
+            options.columns.push({ field: "ListaShotblasteroGuargado", title: _dictionary.columnShotblastero[$("#language").data("kendoDropDownList").value()], filterable: false, editor: RendercomboBoxShotBlastero, template: "#:plantillaShotblastero#", width: "280px" });
 
 
-            for (var i = 0; i < data.length; i++) {
-                options.columns.push({ field: data[i].NombreComponente, title: data[i].NombreComponente, filterable: getGridFilterableCellMaftec(), width: "120px", editor: renderComboboxComponenteDinamico });
+            for (var i = 0; i < data[0].length; i++) {
+                options.columns.push({ field: data[0][i].NombreComponente, title: data[0][i].NombreComponente, filterable: getGridFilterableCellMaftec(), editor: renderComboboxComponenteDinamico, width: "140px" });
             }
 
+            for (var i = 0; i < data[1].length; i++) {
+                options.columns.push({ field: data[1][i].NombreReductor, title: data[1][i].NombreReductor, filterable: getGridFilterableCellMaftec(), editor: RendercomboReductor, width: "140px" });
+            }
+
+            
             options.columns.push({ command: { text: _dictionary.botonDescarga[$("#language").data("kendoDropDownList").value()] }, title: _dictionary.columnDescargar[$("#language").data("kendoDropDownList").value()], width: "60px", attributes: { style: "text-align:center;" } });
             options.columns.push({ command: { text: _dictionary.botonLimpiar[$("#language").data("kendoDropDownList").value()], click: VentanaModalDescargarMedioTransporte }, title: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()], width: "50px" });
 
@@ -344,10 +349,10 @@ function ajaxAplicarDescarga(arregloCaptura) {
     }
 };
 
-function AjaxGetLotes(container, options) {
+function AjaxGetLotesComponente(container, options) {
     var datos = null;
     
-    $CapturaAvance.CapturaAvance.read({ token: Cookies.get("token"), componente: options.field, lenguaje: $("#language").val() }).done(function (data) {
+    $CapturaAvance.CapturaAvance.read({ token: Cookies.get("token"), componente: options.field, lenguaje: $("#language").val(),tipoConsulta:0 }).done(function (data) {
 
         $('<input  data-text-field="NombreLote" id=' + options.model.uid + ' data-value-field="NombreLote" data-bind="value:' + options.field + '"/>')
       .appendTo(container)
@@ -359,10 +364,10 @@ function AjaxGetLotes(container, options) {
           filter: "contains",
           change: function (e) {
               dataItem = this.dataItem(e.sender.selectedIndex);
-              if (dataItem != undefined) {
-                  options.model[options.field] = dataItem.NombreLote
-                  $("#grid").data("kendoGrid").dataSource.sync();
+              if (dataItem != undefined && dataItem.NombreLote!="") {
+                  options.model[options.field] = dataItem.NombreLote   
               }
+             // $("#grid").data("kendoGrid").dataSource.sync();
           }
       });
 
@@ -376,4 +381,41 @@ function AjaxGetLotes(container, options) {
 
         //loadingStop();
     });
+}
+
+function AjaxGetLotesReductor(container, options) {
+    var datos = null;
+
+    var datos = null;
+
+    $CapturaAvance.CapturaAvance.read({ token: Cookies.get("token"), componente: options.field, lenguaje: $("#language").val(),tipoConsulta:1 }).done(function (data) {
+
+        $('<input  data-text-field="NombreLote" id=' + options.model.uid + ' data-value-field="NombreLote" data-bind="value:' + options.field + '"/>')
+     .appendTo(container)
+     .kendoComboBox({
+         dataTextField: "NombreLote",
+         dataValueField: "NombreLote",
+         dataSource: data,
+         suggest: true,
+         filter: "contains",
+         change: function (e) {
+             dataItem = this.dataItem(e.sender.selectedIndex);
+             if (dataItem != undefined && dataItem.NombreLote != "") {
+                 options.model[options.field] = dataItem.NombreLote;
+             }
+         }
+     });
+
+        $(".k-combobox").on('mouseleave', function (send) {
+            var e = $.Event("keydown", { keyCode: 27 });
+            var item = this;
+            if (!tieneClase(item)) {
+                $(container).trigger(e);
+            }
+        });
+
+       
+    });
+
+    
 }

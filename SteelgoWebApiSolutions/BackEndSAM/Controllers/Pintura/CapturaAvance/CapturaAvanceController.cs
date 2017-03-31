@@ -172,7 +172,7 @@ namespace BackEndSAM.Controllers.PinturaControllers.CapturaAvance
         }
 
         [HttpGet]
-        public object ObtenerLotes(string token,string componente, string lenguaje)
+        public object ObtenerLotes(string token,string componente, string lenguaje,int tipoConsulta)
         {
             string payload = "";
             string newToken = "";
@@ -181,7 +181,10 @@ namespace BackEndSAM.Controllers.PinturaControllers.CapturaAvance
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return CapturaAvanceBD.Instance.ObtenerLotes(componente, lenguaje);
+                if(tipoConsulta==0)
+                return CapturaAvanceBD.Instance.ObtenerLotesComponentes(componente, lenguaje);
+                else
+                    return CapturaAvanceBD.Instance.ObtenerLotesReductor(componente, lenguaje);
             }
             else
             {

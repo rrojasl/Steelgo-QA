@@ -48,6 +48,16 @@ namespace BackEndSAM.Models.Pintura.CapturaAvance
         }
     }
 
+    public class Reductor
+    {
+        public string NombreReductor { get; set; }
+
+        public Reductor()
+        {
+            this.NombreReductor = "";
+        }
+    }
+
     public class RetornaDetalles
     {
         public List<DetalleCapturaAvanceCarro> listaCapturaAvance { get; set; }

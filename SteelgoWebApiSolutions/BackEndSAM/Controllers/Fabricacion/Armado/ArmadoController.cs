@@ -498,8 +498,9 @@ namespace BackEndSAM.Controllers
             {
 
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                DataTable dtValidarNumerosUnicos = Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(Captura.Detalles);
-                List<DetalleDatosJson> listaDetalleDatos = new List<DetalleDatosJson>();
+                DataTable dtValidarNumerosUnicos = null;
+                if (Captura!=null )
+                     dtValidarNumerosUnicos = Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(Captura.Detalles);
 
                 List<string> listaSpoolsIncorrectos = (List<string>)ArmadoBD.Instance.ValidarNumerosUnicos(dtValidarNumerosUnicos);
                 return listaSpoolsIncorrectos;

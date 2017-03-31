@@ -74,6 +74,10 @@ function tieneClase(item) {
 
 function renderComboboxComponenteDinamico(container, options)
 {
+    AjaxGetLotesComponente(container, options);
+}
 
-    AjaxGetLotes(container, options);
+function RendercomboReductor(container, options)
+{
+    AjaxGetLotesReductor(container, options);
 }

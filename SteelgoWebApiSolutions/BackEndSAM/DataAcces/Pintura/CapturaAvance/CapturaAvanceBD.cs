@@ -305,8 +305,13 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
                 {
 
                     List<Sam3_Pintura_AvanceCarro_Get_LayoutComponentes_Result> result = ctx.Sam3_Pintura_AvanceCarro_Get_LayoutComponentes(sistemaPinturaProyectoId, procesoID, lenguaje).ToList();
-                    List<Componente> ListadoLayoutComponentes = new List<Componente>();
 
+                    List<Sam3_Pintura_AvanceCarro_Get_LayoutReducores_Result> resultReductores = ctx.Sam3_Pintura_AvanceCarro_Get_LayoutReducores(sistemaPinturaProyectoId, procesoID, lenguaje).ToList();
+
+                    List<object> listadoColumns = new List<object>();
+
+                    List<Componente> ListadoLayoutComponentes = new List<Componente>();
+                    List<Reductor> ListadoLayoutReductor = new List<Reductor>();
 
 
                     foreach (Sam3_Pintura_AvanceCarro_Get_LayoutComponentes_Result item in result)
@@ -316,7 +321,19 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
                             NombreComponente = item.NombreComponente
                         });
                     }
-                    return ListadoLayoutComponentes;
+
+                    foreach (Sam3_Pintura_AvanceCarro_Get_LayoutReducores_Result item in resultReductores)
+                    {
+                            ListadoLayoutReductor.Add(new Reductor
+                            {
+                                NombreReductor = item.NombreReductor
+                            });
+                    }
+
+                    listadoColumns.Add(ListadoLayoutComponentes);
+                    listadoColumns.Add(ListadoLayoutReductor);
+
+                    return listadoColumns;
                 }
             }
             catch (Exception ex)
@@ -333,23 +350,57 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
 
 
 
-        public object ObtenerLotes(string componente, string lenguaje)
+        public object ObtenerLotesComponentes(string componente, string lenguaje)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Pintura_AvanceCarro_Get_Lotes_Result> result = ctx.Sam3_Pintura_AvanceCarro_Get_Lotes(componente, lenguaje).ToList();
+                    List<Sam3_Pintura_AvanceCarro_Get_LotesComponente_Result> result = ctx.Sam3_Pintura_AvanceCarro_Get_LotesComponente(componente, lenguaje).ToList();
                     List<Lote> ListadoLotes = new List<Lote>();
                     if (result.Count > 0)
                         ListadoLotes.Add(new Lote());
 
-                    foreach (Sam3_Pintura_AvanceCarro_Get_Lotes_Result item in result)
+                    foreach (Sam3_Pintura_AvanceCarro_Get_LotesComponente_Result item in result)
                     {
                         ListadoLotes.Add(new Lote
                         {
                             NombreLote=item.Lote,
                             Cantidad=item.Cantidad
+                        });
+                    }
+                    return ListadoLotes;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object ObtenerLotesReductor(string componente, string lenguaje)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Sam3_Pintura_AvanceCarro_Get_LotesReductor_Result> result = ctx.Sam3_Pintura_AvanceCarro_Get_LotesReductor(componente, lenguaje).ToList();
+                    List<Lote> ListadoLotes = new List<Lote>();
+                    if (result.Count > 0)
+                        ListadoLotes.Add(new Lote());
+
+                    foreach (Sam3_Pintura_AvanceCarro_Get_LotesReductor_Result item in result)
+                    {
+                        ListadoLotes.Add(new Lote
+                        {
+                            NombreLote = item.Lote,
+                            Cantidad = item.Cantidad
                         });
                     }
                     return ListadoLotes;

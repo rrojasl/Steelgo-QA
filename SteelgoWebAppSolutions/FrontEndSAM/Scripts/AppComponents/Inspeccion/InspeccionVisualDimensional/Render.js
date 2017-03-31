@@ -315,3 +315,23 @@ function ObtenerDescCorrectaNumeroUnico(lista, NumeroUnicoID) {
     }
     return "";
 }
+
+function RenderDatePicker(container, options) {
+    //container  contiene las propiedades de la celda
+    //options contiene el modelo del datasource ejemplo options.model.Junta
+    var dataItem;
+
+    $('<input   data-bind="value:' + options.field + '"/>')
+        .appendTo(container)
+        .kendoDatePicker({
+            max: new Date(),
+            change: function () {
+                var value = this.value();
+                options.model.FechaInspeccion = value;
+
+                $("#grid").data("kendoGrid").dataSource.sync();
+            }
+        }
+        );
+
+}

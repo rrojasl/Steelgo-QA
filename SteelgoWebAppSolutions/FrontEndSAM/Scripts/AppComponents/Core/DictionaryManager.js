@@ -10505,12 +10505,12 @@ _dictionary = {
         "en-US": "Areway"
     },
     "PinturaCapturaAvanceSup": {
-        "es-MX": "Avance Shotblast Primario",
-        "en-US": "Progress Shotblast Primary"
+        "es-MX": "Avance de Carro",
+        "en-US": "Car Advance"
     },
     "PinturaCapturaAvanceInf": {
-        "es-MX": "Avance Shotblast Primario",
-        "en-US": "Progress Shotblast Primary"
+        "es-MX": "Avance de Carro",
+        "en-US": "Car Advance"
     },
     "PinturaCargaTitulo": {
         "es-MX": "Alerta!!!",

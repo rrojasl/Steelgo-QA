@@ -29,19 +29,21 @@ function AjaxValidarNumerosUnicos(arregloCaptura, tipoGuardar) {
         var elementoNumeroUnico;
         var numeroVecesRepite;
         for (var i = 0; i < 2; i++) {
-            elementoNumeroUnico = i == 0 ? arregloCaptura[index].NumeroUnico1ID : arregloCaptura[index].NumeroUnico2ID
-            numeroVecesRepite = ContarElementosConMismaLocalizacion(arregloCaptura, i == 0 ? arregloCaptura[index].Localizacion.split("-")[0] : arregloCaptura[index].Localizacion.split("-")[1], arregloCaptura[index])
-            numeroElementosAsignados = ContarElementosAsignados(elementoNumeroUnico, arregloCaptura, arregloCaptura[index]);
-            if (!(numeroVecesRepite >= numeroElementosAsignados)) {
-                $("#grid").data("kendoGrid").dataSource._data[index].NUOk = false;
-                numUnicosIncorrectosCliente = true;
+            if (arregloCaptura[index].NumeroUnico1ID != "" && arregloCaptura[index].NumeroUnico2ID != "" && arregloCaptura[index].NumeroUnico1ID != undefined && arregloCaptura[index].NumeroUnico2ID != undefined && arregloCaptura[index].NumeroUnico1ID != "0" && arregloCaptura[index].NumeroUnico2ID != "0") {
+                elementoNumeroUnico = i == 0 ? arregloCaptura[index].NumeroUnico1ID : arregloCaptura[index].NumeroUnico2ID
+                numeroVecesRepite = ContarElementosConMismaLocalizacion(arregloCaptura, i == 0 ? arregloCaptura[index].Localizacion.split("-")[0] : arregloCaptura[index].Localizacion.split("-")[1], arregloCaptura[index])
+                numeroElementosAsignados = ContarElementosAsignados(elementoNumeroUnico, arregloCaptura, arregloCaptura[index]);
+                if (!(numeroVecesRepite >= numeroElementosAsignados)) {
+                    $("#grid").data("kendoGrid").dataSource._data[index].NUOk = false;
+                    numUnicosIncorrectosCliente = true;
+                }
             }
         }
 
     }
     Captura[0].Detalles = ListaDetalles;
 
-    if (!numUnicosIncorrectosCliente) {
+    
         $Armado.Armado.update(Captura[0], { token: Cookies.get("token") }).done(function (data) {
             if (data.length == 0) {
                 ajaxGuardado(arregloCaptura, tipoGuardar)
@@ -61,12 +63,7 @@ function AjaxValidarNumerosUnicos(arregloCaptura, tipoGuardar) {
                 $("#grid").data("kendoGrid").dataSource.sync();
             }
         });
-    }
-    else {
-        displayNotify("CapturaArmadoMensajeJuntaIncorrectaPorNU", "", '1');
-        ValidarCaptura(arregloCaptura);
-        $("#grid").data("kendoGrid").dataSource.sync();
-    }
+    
 }
 
 function ValidarCaptura(jSonCaptura) {
@@ -301,6 +298,45 @@ function ajaxobtenerDetalleDimensional(spoolID) {
     });
 }
 
+
+
+function ajaxObtenerJSonGridDespuesGuardar(rowsVisualDimensional) {
+    loadingStart();
+    try {
+        $InspeccionVisualDimensional.VisualDimensional.read({ JsonCaptura: JSON.stringify(ArregloListadoCaptura()), token: Cookies.get("token"), Lenguaje: $("#language").val(), juntasSeleccionadas: $("#ListaJuntas").data("kendoMultiSelect").value().toString() }).done(function (data) {
+            var desplegado = false;
+
+            var ds = $("#grid").data("kendoGrid").dataSource;
+            var array = JSON.parse(data);
+
+
+            var ExistenJuntasGrid = [];
+            var JuntasAgregadas = [];
+            for (var j = 0; j < rowsVisualDimensional.length; j++) {
+                for (var i = 0; i < array.length; i++) {
+                    if (array[i].JuntaID == rowsVisualDimensional[j].JuntaID) {
+                        JuntasAgregadas.push(array[i].Junta);
+                        array[i].NumeroUnico1 = array[i].NumeroUnico1 == "" ? DatoDefaultNumeroUnico1() : array[i].NumeroUnico1;
+                        array[i].NumeroUnico2 = array[i].NumeroUnico2 == "" ? DatoDefaultNumeroUnico2() : array[i].NumeroUnico2;
+                        array[i].NumeroUnico1ID = array[i].NumeroUnico1ID == "" ? 0 : array[i].NumeroUnico1ID;
+                        array[i].NumeroUnico2ID = array[i].NumeroUnico2ID == "" ? 0 : array[i].NumeroUnico2ID;
+                        if (array[i].FechaInspeccion != null) {
+                            array[i].FechaInspeccion = new Date(ObtenerDato(array[i].FechaInspeccion, 1), ObtenerDato(array[i].FechaInspeccion, 2), ObtenerDato(array[i].FechaInspeccion, 3));//año, mes, dia
+                        }
+                        ds.add(array[i]);
+                    }
+                }
+            }
+           
+
+            //deshabilitaSpool();
+            loadingStop();
+        });
+    } catch (e) {
+        displayNotify("", e.message, '2');
+    }
+}
+
 function ajaxObtenerJSonGrid() {
     loadingStart();
     try {
@@ -310,6 +346,7 @@ function ajaxObtenerJSonGrid() {
             var ds = $("#grid").data("kendoGrid").dataSource;
             var array = JSON.parse(data);
 
+           
 
             var ExistenJuntasGrid = [];
             var JuntasAgregadas = [];
@@ -338,6 +375,8 @@ function ajaxObtenerJSonGrid() {
                         displayNotify("", _dictionary.DimensionalVisualMensajeJuntasRepetidas[$("#language").data("kendoDropDownList").value()].replace("?1", ExistenJuntasGrid), '2');
                     }
                     if (JuntasAgregadas.length > 0) {
+                        $("#InputID").data("kendoComboBox").value("");
+                        $("#InputID").val("")
                         displayNotify("", _dictionary.DimensionalVisualMensajeJuntasAgregadas[$("#language").data("kendoDropDownList").value()] + JuntasAgregadas, '0');
                     }
                 }
@@ -664,6 +703,7 @@ function ejecutaGuardado(Captura, guardadoSinInspeccionDimensional, guardadoSinI
     }
     else $InspeccionVisualDimensional.VisualDimensional.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
         if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
+            var datos = $("#grid").data('kendoGrid').dataSource._data
             $("#grid").data('kendoGrid').dataSource.data([]);
             if (tipoGuardar == 1) {
                 opcionHabilitarView(false, "FieldSetView");
@@ -674,8 +714,8 @@ function ejecutaGuardado(Captura, guardadoSinInspeccionDimensional, guardadoSinI
             }
             else {
                 opcionHabilitarView(true, "FieldSetSetView");
-                ajaxobtenerDetalleDimensional($("#InputID").val());
-                ajaxObtenerJSonGrid();
+                ajaxobtenerDetalleDimensional(ordentrabajoSpoolID.Valor);
+                ajaxObtenerJSonGridDespuesGuardar(datos);
             }
             displayNotify("CapturaMensajeGuardadoExitoso", "", '0');
         }
@@ -683,9 +723,9 @@ function ejecutaGuardado(Captura, guardadoSinInspeccionDimensional, guardadoSinI
             displayNotify("MensajeGuardadoErroneo", "", '2');
             opcionHabilitarView(false, "FieldSetView");
             //deshabilitaSpool();
-
+            loadingStop();
         }
-        loadingStop();
+       
     });
 }
 
