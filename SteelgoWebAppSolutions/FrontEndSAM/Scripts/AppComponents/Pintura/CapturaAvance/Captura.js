@@ -3,7 +3,7 @@
 var plantillaShotblastero = "";
 var plantillaPintor = "";
 var currentDataItemGridDownload;
-var win;
+var windowDownload = null;
 var procesoPinturaSeleccionadoAnterior="";
 var editado = false;
 
@@ -85,33 +85,22 @@ function ValidarFechaPrimario(valor) {
     }
 }
 
+function limpiarFila(e)
+{
+    e.preventDefault();
+    var itemRow;
+    itemRow = this.dataItem($(e.currentTarget).closest("tr"));
+    alert("falta funcionalidad");
+}
 
-function VentanaModalDescargarMedioTransporte(e) {
+
+function VentanaModalDescargarSpool(e) {
     e.preventDefault();
     if ($("#Guardar").text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
         currentDataItemGridDownload = this.dataItem($(e.currentTarget).closest("tr"));
-
-        win = $("#windowDownload").kendoWindow({
-            modal: true,
-            title: "",
-            resizable: false,
-            visible: true,
-            width: "50%",
-            minWidth: 30,
-            position: {
-                top: "1%",
-                left: "1%"
-            },
-            animation: false,
-            actions: [
-                "Close"
-            ],
-        }).data("kendoWindow");
-
-        $("#windowDownload").data("kendoWindow").center().open();
-
+        AjaxCargarZona(currentDataItemGridDownload.PatioID);
+        windowDownload.open().center();
     }
-
 };
 
 

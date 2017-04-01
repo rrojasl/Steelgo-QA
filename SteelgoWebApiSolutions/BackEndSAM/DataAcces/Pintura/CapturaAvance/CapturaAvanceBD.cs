@@ -159,7 +159,12 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
                             plantillaShotblastero = "",
                             CargaCarroID = item.CargaCarroID,
                             CarroID = item.CarroID,
-                            Lote = item.Lote
+                            Lote = item.Lote,
+                            CuadranteAnteriorID=item.CuadranteAnteriorID,
+                            ZonaAnteriorID=item.ZonaAnteriorID,
+                            CuadranteID=item.CuadranteID,
+                            Cuadrante=item.Cuadrante,
+                            PatioID=item.PatioID
                         });
                     }
                     return ListadoMedioTransporte;

@@ -7,7 +7,6 @@ namespace BackEndSAM.Models.Pintura.CapturaAvance
     public class DetalleCapturaAvanceCarro
     {
         public int Accion { get; set; }
-
         public int? CarroID { get; set; }
         public int? CargaCarroID { get; set; }
         public int SpoolID { get; set; }
@@ -24,6 +23,12 @@ namespace BackEndSAM.Models.Pintura.CapturaAvance
         public List<PintorSpool> ListaShotblasteroGuargado { get; set; }
         public List<PintorSpool> ListaShotblasteroInicial { get; set; }
         public List<PintorSpool> ListaShotblasteros { get; set; }
+
+        public int PatioID { get; set; }
+        public int? CuadranteAnteriorID { get; set; }
+        public int? ZonaAnteriorID { get; set; }
+        public int? CuadranteID { get; set; }
+        public string Cuadrante { get; set; }
     }
 
     public class CamposPredeterminados

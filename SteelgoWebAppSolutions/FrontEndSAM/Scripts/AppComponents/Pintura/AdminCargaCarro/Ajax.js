@@ -117,7 +117,7 @@ function AjaxGuardarNuevoCarro() {
         loadingStart();
 
         var Proyecto = $("#inputProyecto").data("kendoComboBox").dataItem($("#inputProyecto").data("kendoComboBox").select());
-        var Captura = { Nombre: $("#InputNombre").val(), UsuarioID: 0, PatioID: Proyecto.PatioID };
+        var Captura = { Nombre: $("#InputNombre").val(), UsuarioID: 0, PatioID: Proyecto.PatioID, ProyectoID: Proyecto.ProyectoID };
 
         if ($("#InputNombre").val() != "" && $("#InputNombre").val() != null) {
             $PinturaGeneral.PinturaGeneral.create(Captura, { token: Cookies.get("token") }).done(function (data) {

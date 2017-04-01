@@ -5,7 +5,7 @@ function SuscribirEventos() {
     suscribirEventoGuardarCarro();
     suscribirEventoPlancharShotBlastero();
     SuscribirEventoSpoolID();
-    suscribirEventoCuadrante();
+    
     suscribirEventoDescargar();
     SuscribirEventoAgregar();
     SuscribirEventoPlanchar();
@@ -14,6 +14,91 @@ function SuscribirEventos() {
     SuscribirEventoMostrar();
     suscribirEventoWindowsConfirmaCaptura();
     suscribirEventoVersion();
+    suscribirEventoDescargarCarro();
+    SuscribirEventoZona();
+    SuscribirEventoCuadrante();
+}
+
+function SuscribirEventoZona() {
+    $('#inputZonaPopup').kendoComboBox({
+        dataTextField: "Nombre",
+        dataValueField: "ZonaID",
+        suggest: true,
+        filter: "contains",
+        change: function (e) {
+            var dataItem = this.dataItem(e.sender.selectedIndex);
+            $("#inputCuadrantePopup").data("kendoComboBox").dataSource.data([]);
+            $("#inputCuadrantePopup").data("kendoComboBox").value("");
+
+            if (dataItem != undefined) {
+                if (dataItem.ZonaID != 0) {
+                    AjaxCargarCuadrante(dataItem.ZonaID);
+                }
+            }
+            else {
+                $("#inputZonaPopup").data("kendoComboBox").value("");
+            }
+        }
+    });
+}
+
+
+function SuscribirEventoCuadrante() {
+    $('#inputCuadrantePopup').kendoComboBox({
+        dataTextField: "Nombre",
+        dataValueField: "CuadranteID",
+        suggest: true,
+        filter: "contains",
+        change: function (e) {
+            var dataItem = this.dataItem(e.sender.selectedIndex);
+            if (dataItem != undefined) {
+
+            }
+            else {
+                $("#inputCuadrantePopup").data("kendoComboBox").value("");
+            }
+        }
+    });
+}
+
+function suscribirEventoDescargarCarro() {
+    windowDownload = $("#windowDownload").kendoWindow({
+        iframe: true,
+        title: _dictionary.PinturaCargaTitulo[$("#language").data("kendoDropDownList").value()],
+        visible: false,
+        width: "auto",
+        height: "auto",
+        modal: true,
+        animation: {
+            close: false,
+            open: false
+        },
+        actions: [
+            "Close"
+        ],
+    }).data("kendoWindow");
+    $("#btnDescargar").click(function (handler) {
+
+
+        var Zona = $("#inputZonaPopup").data("kendoComboBox").dataItem($("#inputZonaPopup").data("kendoComboBox").select());
+        var Cuadrante = $("#inputCuadrantePopup").data("kendoComboBox").dataItem($("#inputCuadrantePopup").data("kendoComboBox").select());
+
+        if (Zona != undefined && Zona.ZonaID != 0) {
+            if (Cuadrante != undefined && Cuadrante.CuadranteID != 0) {
+                windowDownload.close();
+                AjaxDescargarSpool(dataItem, Cuadrante);
+            } else {
+                displayNotify("EmbarqueCargaMsjErrorCuadrante", "", "1");
+            }
+        } else {
+            displayNotify("EmbarqueCargaMsjErrorZona", "", "1");
+        }
+
+    });
+
+    $("#btnCerrarPopup").click(function () {
+        windowDownload.close();
+    });
 }
 
 function suscribirEventoVersion() {
@@ -213,22 +298,6 @@ function opcionHabilitarView(valor, name) {
     }
 }
 
-function suscribirEventoCuadrante() {
-    $("#inputCuadrante").kendoComboBox({
-        dataTextField: "Nombre",
-        dataValueField: "CuadranteID",
-        suggest: true,
-        filter: "contains",
-        change: function (e) {
-            if ($("#inputCuadrante").data("kendoComboBox").dataItem($("#inputCuadrante").data("kendoComboBox").select()) != undefined) {
-            }
-            else {
-                $("#inputCuadrante").data("kendoComboBox").value("");
-            }
-        }
-    });
-
-}
 
 
 

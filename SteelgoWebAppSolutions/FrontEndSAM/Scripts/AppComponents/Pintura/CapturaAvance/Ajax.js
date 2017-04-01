@@ -58,12 +58,26 @@ function AjaxCargaMostrarPredeterminadoseleciconProcesosPintura() {
     });
 }
 
-function AjaxCargarCuadrante(area) {
-    loadingStart();
-    $Cuadrante.Cuadrante.read({ token: Cookies.get("token"), AreaID: area }).done(function (data) {
-        $("#inputCuadrante").data("kendoComboBox").value("");
-        $("#inputCuadrante").data("kendoComboBox").dataSource.data(data);
-        loadingStop();
+function AjaxCargarCuadrante(zonaID) {
+    $Cuadrante.Cuadrante.read({ token: Cookies.get("token"), ZonaID: zonaID }).done(function (data) {
+        var CuadranteId = 0;
+
+        if (data.length > 0) {
+            $("#inputCuadrantePopup").data("kendoComboBox").dataSource.data(data);
+
+            if (data.length < 3 && CuadranteSpoolAnterior == 0) {
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].CuadranteID != 0) {
+                        CuadranteId = data[i].CuadranteID;
+                    }
+                }
+            }
+            else
+                CuadranteId = currentDataItemGridDownload.CuadranteAnteriorID;
+
+            $("#inputCuadrantePopup").data("kendoComboBox").value(CuadranteId);
+            $("#inputCuadrantePopup").data("kendoComboBox").trigger("change");
+        }
     });
 }
 
@@ -174,7 +188,7 @@ function AjaxCargarLayoutGrid(sistemaPinturaProyectoId, procesoID, CargaCarroID)
             options.columns.push({ field: "Color", title: _dictionary.columnColor[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "100px" });
             options.columns.push({ field: "Area", title: _dictionary.columnM2[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), attributes: { style: "text-align:right;" }, width: "80px" });
             options.columns.push({ field: "Lote", title: _dictionary.columnLote[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), attributes: { style: "text-align:right;" }, width: "80px" });
-            options.columns.push({ field: "FechaShotblast", title: _dictionary.columnFechaShotblast[$("#language").data("kendoDropDownList").value()], type: "date", filterable: getKendoGridFilterableDateMaftec(), format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()], width: "160px" });
+            options.columns.push({ field: "FechaShotblast", title: _dictionary.columnFechaShotblast[$("#language").data("kendoDropDownList").value()], type: "date", filterable: { cell: { showOperators: false } }, editor: RenderDatePicker, format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()], width: "160px" });
             options.columns.push({ field: "ListaShotblasteroGuargado", title: _dictionary.columnShotblastero[$("#language").data("kendoDropDownList").value()], filterable: false, editor: RendercomboBoxShotBlastero, template: "#:plantillaShotblastero#", width: "280px" });
 
 
@@ -186,9 +200,9 @@ function AjaxCargarLayoutGrid(sistemaPinturaProyectoId, procesoID, CargaCarroID)
                 options.columns.push({ field: data[1][i].NombreReductor, title: data[1][i].NombreReductor, filterable: getGridFilterableCellMaftec(), editor: RendercomboReductor, width: "140px" });
             }
 
-            
-            options.columns.push({ command: { text: _dictionary.botonDescarga[$("#language").data("kendoDropDownList").value()] }, title: _dictionary.columnDescargar[$("#language").data("kendoDropDownList").value()], width: "60px", attributes: { style: "text-align:center;" } });
-            options.columns.push({ command: { text: _dictionary.botonLimpiar[$("#language").data("kendoDropDownList").value()], click: VentanaModalDescargarMedioTransporte }, title: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()], width: "50px" });
+
+            options.columns.push({ command: { text: _dictionary.botonDescarga[$("#language").data("kendoDropDownList").value()], click: VentanaModalDescargarSpool }, title: _dictionary.columnDescargar[$("#language").data("kendoDropDownList").value()], width: "60px", attributes: { style: "text-align:center;" } });
+            options.columns.push({ command: { text: _dictionary.botonLimpiar[$("#language").data("kendoDropDownList").value()], click: limpiarFila }, title: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()], width: "50px" });
 
 
             grid.destroy();
@@ -316,43 +330,27 @@ function removerRepetidos(origArr) {
     return newArr;
 }
 
-function ajaxAplicarDescarga(arregloCaptura) {
-    try {
-        loadingStart();
-        Captura = [];
-        Captura[0] = { Detalles: "" };
-        ListaDetalles = [];
-        var index = 0;
-        ListaDetalles[index] = { SpoolID: "", Accion: "", medioTransporteID: "", MedioTransporteCargaID: "", CuadranteID: "" };
-        ListaDetalles[index].Accion = arregloCaptura.Accion;
-        ListaDetalles[index].SpoolID = arregloCaptura.SpoolID;
-        ListaDetalles[index].medioTransporteID = arregloCaptura.MedioTransporteID;
-        ListaDetalles[index].CuadranteID = $("#inputCuadrante").val();
-        Captura[0].Detalles = ListaDetalles;
-
-        $MedioTransporte.MedioTransporte.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
-            if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
-                AjaxCargarSpool($("#inputCarro").data("kendoComboBox").value());
-                displayMessage("PinturaGuardarDescarga", "", '1');
-            }
-            else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
-                displayMessage("PinturaGuardarErrorDesGuardar", "", '2');
-            }
-
-            $("#grid").data("kendoGrid").dataSource.sync();
-            loadingStop();
-        });
-    } catch (e) {
+function AjaxDescargarSpool(dataItem, Cuadrante) {
+    loadingStart();
+    var dataSource = $("#grid").data("kendoGrid").dataSource;
+    var elemento = 0;
+    $PinturaGeneral.PinturaGeneral.read({ token: Cookies.get("token"), CarroID: $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()).MedioTransporteID, SpoolID: dataItem.SpoolID, CuadranteID: Cuadrante.CuadranteID, CuadranteSam2ID: Cuadrante.CuadranteSam2ID, CuadranteAnterior: dataItem.CuadranteID }).done(function (data) {
+        if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "OK") {
+            var dataSource = $("#grid").data("kendoGrid").dataSource;
+            dataSource.remove(dataItem);
+            AjaxObtenerDetalleCargaCarro($("#inputCarro").data("kendoComboBox").select() == -1 ? 0 : $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()).MedioTransporteID, $('input:radio[name=TipoVista]:checked').val(), '');
+            displayNotify("EmbarqueCargaMsjDescargaSpoolExito", "", "0");
+        } else {
+            displayNotify("EmbarqueCargaMsjDescargaSpoolError", "", "2");
+        }
         loadingStop();
-        displayMessage("Mensajes_error", e.message, '0');
-
-    }
-};
+    });
+}
 
 function AjaxGetLotesComponente(container, options) {
     var datos = null;
-    
-    $CapturaAvance.CapturaAvance.read({ token: Cookies.get("token"), componente: options.field, lenguaje: $("#language").val(),tipoConsulta:0 }).done(function (data) {
+
+    $CapturaAvance.CapturaAvance.read({ token: Cookies.get("token"), componente: options.field, lenguaje: $("#language").val(), tipoConsulta: 0 }).done(function (data) {
 
         $('<input  data-text-field="NombreLote" id=' + options.model.uid + ' data-value-field="NombreLote" data-bind="value:' + options.field + '"/>')
       .appendTo(container)
@@ -364,10 +362,10 @@ function AjaxGetLotesComponente(container, options) {
           filter: "contains",
           change: function (e) {
               dataItem = this.dataItem(e.sender.selectedIndex);
-              if (dataItem != undefined && dataItem.NombreLote!="") {
-                  options.model[options.field] = dataItem.NombreLote   
+              if (dataItem != undefined && dataItem.NombreLote != "") {
+                  options.model[options.field] = dataItem.NombreLote
               }
-             // $("#grid").data("kendoGrid").dataSource.sync();
+              // $("#grid").data("kendoGrid").dataSource.sync();
           }
       });
 
@@ -388,7 +386,7 @@ function AjaxGetLotesReductor(container, options) {
 
     var datos = null;
 
-    $CapturaAvance.CapturaAvance.read({ token: Cookies.get("token"), componente: options.field, lenguaje: $("#language").val(),tipoConsulta:1 }).done(function (data) {
+    $CapturaAvance.CapturaAvance.read({ token: Cookies.get("token"), componente: options.field, lenguaje: $("#language").val(), tipoConsulta: 1 }).done(function (data) {
 
         $('<input  data-text-field="NombreLote" id=' + options.model.uid + ' data-value-field="NombreLote" data-bind="value:' + options.field + '"/>')
      .appendTo(container)
@@ -414,8 +412,48 @@ function AjaxGetLotesReductor(container, options) {
             }
         });
 
-       
+
     });
 
-    
+
+}
+
+function AjaxCargarZona(patioID) {
+    loadingStart();
+    $Zona.Zona.read({ token: Cookies.get("token") }).done(function (data) {
+        var ZonaId = 0;
+        if (data.length > 0) {
+            $("#inputZonaPopup").data("kendoComboBox").dataSource.data(data);
+
+            if (data.length < 3) {
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].ZonaID != 0) {
+                        ZonaId = data[i].ZonaID;
+                    }
+                }
+            }
+            $("#inputZonaPopup").data("kendoComboBox").value(currentDataItemGridDownload.ZonaAnteriorID);
+            $("#inputZonaPopup").data("kendoComboBox").trigger("change");
+        }
+
+        loadingStop();
+    });
+}
+
+function AjaxObreroObreros(container, options) {
+    $CapturaAvance.CapturaAvance.read({ token: Cookies.get("token"), CampturaAvanceDetalleID: options.CampturaAvanceDetalleID }).done(function (data) {
+        $('<input  data-text-field="Codigo" id=' + options.model.uid + ' data-value-field="ObreroID" data-bind="value:' + options.field + '"/>')
+            .appendTo(container)
+            .kendoMultiSelect({
+                autoBind: false,
+                dataTextField: "Codigo",
+                dataValueField: "ObreroID",
+                dataSource: data.ListaShotblasteros,
+                template: "<i class=\"fa fa-#=data.Codigo.toLowerCase()#\"></i> #=data.Codigo#",
+                change: function (e) {
+                    options.model.plantillaShotblastero = _dictionary.CapturaAvancePintoresShotblastExistentes[$("#language").data("kendoDropDownList").value()] + options.model.ListaShotblasteroGuargado.length;
+                },
+                value: data.ListaShotblasteroGuargado
+            });
+    });
 }
