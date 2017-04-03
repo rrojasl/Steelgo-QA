@@ -1,7 +1,22 @@
 ﻿
 
 function RendercomboBoxShotBlastero(container, options) {
-    AjaxObtenerObreros(container,options);
+   
+    $('<input  data-text-field="Codigo" id=' + options.model.uid + ' data-value-field="ObreroID" data-bind="value:' + options.field + '"/>')
+            .appendTo(container)
+            .kendoMultiSelect({
+                autoBind: false,
+                dataTextField: "Codigo",
+                dataValueField: "ObreroID",
+                dataSource: options.model.ListaObreros,
+                template: "<i class=\"fa fa-#=data.Codigo.toLowerCase()#\"></i> #=data.Codigo#",
+                change: function (e) {
+                    options.model.plantillaObrero = _dictionary.CapturaAvancePintoresShotblastExistentes[$("#language").data("kendoDropDownList").value()] + options.model.ListaObrerosSeleccionados.length;
+                    this.dataSource.sync();
+                },
+                value: options.model.ListaObrerosSeleccionados
+            });
+    
 }
 
 

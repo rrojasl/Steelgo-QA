@@ -19,8 +19,7 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
 
         private static readonly object _mutex = new object();
         private static CapturaAvanceBD _instance;
-        string pintores = "", shotblasteros = "";
-
+       
         public static CapturaAvanceBD Instance
         {
             get
@@ -108,16 +107,11 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
                 using (SamContext ctx = new SamContext())
                 {
                     RetornaDetalles detalles = new RetornaDetalles();
-
-                    //List<Sam3_Pintura_AvanceCarro_Get_Detalle_Result> result = ctx.Sam3_Pintura_AvanceCarro_Get_Detalle(cargaCarroID, lenguaje,sistemaPinturaProyectoID,procesoPinturaID).ToList();
-
-                    //La clase es DetalleCapturaAvanceCarro
-
                     ObjetosSQL _SQL = new ObjetosSQL();
                     string[,] parametro = { { "@cargaCarroID", cargaCarroID.ToString() }, { "@Lenguaje", lenguaje }, { "@sistemaPinturaProyectoID", sistemaPinturaProyectoID.ToString() }, { "@procesoPinturaID", procesoPinturaID.ToString() } };
                     DataTable dtDetalle = _SQL.EjecutaDataAdapter(Stords.OBTIENEDETALLEAVANCECARRO, parametro);
-
-                    return JsonConvert.SerializeObject(dtDetalle);
+                    return dtDetalle;
+                   // return  JsonConvert.SerializeObject(dtDetalle);
 
                 }
             }
@@ -133,20 +127,22 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
             }
         }
 
-        public object ObtenerSpoolNuevo(int OrdenTrabajoSpoolID, string lenguaje)
+        public object ObtenerSpoolNuevo(int OrdenTrabajoSpoolID, string lenguaje,int procesoPinturaID,int usuario)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Pintura_AvanceCarro_Get_AgregarSpool_Result> result = ctx.Sam3_Pintura_AvanceCarro_Get_AgregarSpool(OrdenTrabajoSpoolID, lenguaje).ToList();
+                    List<Sam3_Pintura_AvanceCarro_Get_AgregarSpool_Result> result = ctx.Sam3_Pintura_AvanceCarro_Get_AgregarSpool(OrdenTrabajoSpoolID, lenguaje, procesoPinturaID).ToList();
                     List<DetalleCapturaAvanceCarro> ListadoMedioTransporte = new List<DetalleCapturaAvanceCarro>();
 
+                   
                     foreach (Sam3_Pintura_AvanceCarro_Get_AgregarSpool_Result item in result)
                     {
+                        List<object> listaObreros = (List<object>)ObtenerObrerosGuardados(item.AvanceCarroID, procesoPinturaID, usuario);
                         ListadoMedioTransporte.Add(new DetalleCapturaAvanceCarro
                         {
-                            FechaShotblast = "",
+                            FechaProceso = "",
                             Accion = 1,
                             SpoolID = item.SpoolID,
                             Spool = item.NumeroControl,
@@ -156,17 +152,22 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
                             ColorPinturaID = item.ColorID,
                             Color = item.Color,
                             Area = item.Area.GetValueOrDefault(),
-                            plantillaShotblastero = "",
+                            plantillaObrero = "",
                             CargaCarroID = item.CargaCarroID,
                             CarroID = item.CarroID,
                             Lote = item.Lote,
-                            CuadranteAnteriorID=item.CuadranteAnteriorID,
-                            ZonaAnteriorID=item.ZonaAnteriorID,
-                            CuadranteID=item.CuadranteID,
-                            Cuadrante=item.Cuadrante,
-                            PatioID=item.PatioID
+                            CuadranteAnteriorID = item.CuadranteAnteriorID,
+                            ZonaAnteriorID = item.ZonaAnteriorID,
+                            CuadranteID = item.CuadranteID,
+                            Cuadrante = item.Cuadrante,
+                            PatioID = item.PatioID,
+                            ListaObreros = (List<PintorSpool>)listaObreros[1],
+                            ListaObrerosGuargados = (List<PintorSpool>)listaObreros[0],
+                            ListaObrerosSeleccionados = (List<PintorSpool>)listaObreros[0],
+                            AvanceCarroID= item.AvanceCarroID
                         });
                     }
+
                     return ListadoMedioTransporte;
                 }
             }
@@ -182,24 +183,24 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
             }
         }
 
-        public object ObtenerObreros(string lenguaje, int tipo, string tipoObrero)
+        public object ObtenerObreros(int procesoPinturaID,int usuario)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
 
-                    List<Sam3_Steelgo_Get_Obrero_Result> result = ctx.Sam3_Steelgo_Get_Obrero(tipo, tipoObrero, null, null, null).ToList();
+                    List<Sam3_Pintura_Get_Obrero_Result> result = ctx.Sam3_Pintura_Get_Obrero(procesoPinturaID, usuario).ToList();
                     List<PintorSpool> ListadoPintores = new List<PintorSpool>();
 
-                    foreach (Sam3_Steelgo_Get_Obrero_Result item in result)
+                    foreach (Sam3_Pintura_Get_Obrero_Result item in result)
                     {
                         ListadoPintores.Add(new PintorSpool
                         {
                             Accion = 1,
                             Codigo = item.Codigo,
                             ObreroID = item.ObreroID,
-                            PinturaSpoolObreroID = 0
+                            AvanceCarroObreroId = 0
                         });
                     }
 
@@ -221,41 +222,32 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
             }
         }
 
-        public object ObtenerObrerosGuardados(string lenguaje, int pinturaSpoolID, int pasoID)
+        public object ObtenerObrerosGuardados( int avanceCarroID, int procesoID,int usuarioID)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    pintores = pasoID == 2 ? "" : pintores;
-                    shotblasteros = pasoID == 1 ? "" : shotblasteros;
-                    List<Sam3_Pintura_Get_DetalleSpoolObreroPaso_Result> result = ctx.Sam3_Pintura_Get_DetalleSpoolObreroPaso(pinturaSpoolID, pasoID, lenguaje).ToList();
+                    List<Sam3_Pintura_AvanceCarro_Get_ObrerosProcesoPintura_Result> result = ctx.Sam3_Pintura_AvanceCarro_Get_ObrerosProcesoPintura(avanceCarroID, procesoID).ToList();
+
+                    List<object> listaObreros = new List<object>();
+
+                   
                     List<PintorSpool> ListadoPintores = new List<PintorSpool>();
 
-                    foreach (Sam3_Pintura_Get_DetalleSpoolObreroPaso_Result item in result)
+                    foreach (Sam3_Pintura_AvanceCarro_Get_ObrerosProcesoPintura_Result item in result)
                     {
                         ListadoPintores.Add(new PintorSpool
                         {
                             Accion = 2,
                             ObreroID = item.ObreroID.GetValueOrDefault(),
                             Codigo = item.Codigo,
-                            PinturaSpoolObreroID = item.PinturaSpoolObreroId,
+                            AvanceCarroObreroId = item.AvanceCarroObreroId,
                         });
                     }
-
-                    foreach (PintorSpool item in ListadoPintores)
-                    {
-                        if (pasoID == 2)
-                        {
-                            pintores = pintores + item.Codigo + ", ";
-                        }
-                        else if (pasoID == 1)
-                        {
-                            shotblasteros = shotblasteros + item.Codigo + ", ";
-                        }
-                    }
-
-                    return ListadoPintores;
+                    listaObreros.Add(ListadoPintores);
+                    listaObreros.Add(ObtenerObreros(procesoID, usuarioID));
+                    return listaObreros;
                 }
             }
             catch (Exception ex)

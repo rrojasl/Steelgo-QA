@@ -10717,8 +10717,8 @@ _dictionary = {
     },
 
     "CapturaAvancePintoresShotblastExistentes": {
-        "es-MX": "Pintores shotblast seleccionados:",
-        "en-US": "Selected shotblast painters:"
+        "es-MX": "Pintores  seleccionados:",
+        "en-US": "Selected  painters:"
     },
     "CapturaAvancePintoresPrimariosNoExistentes": {
         "es-MX": "No hay pintores seleccionados",

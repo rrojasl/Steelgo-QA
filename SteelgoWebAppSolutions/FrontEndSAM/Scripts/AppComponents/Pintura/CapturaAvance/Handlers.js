@@ -311,6 +311,7 @@ function suscribirEventoCarro() {
         change: function (e) {
             if ($("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()) != undefined) {
                 var dataItem = this.dataItem(e.sender.selectedIndex);
+                AjaxCargarShotBlastero();
             }
             else {
                 $("#inputCarro").data("kendoComboBox").value("");

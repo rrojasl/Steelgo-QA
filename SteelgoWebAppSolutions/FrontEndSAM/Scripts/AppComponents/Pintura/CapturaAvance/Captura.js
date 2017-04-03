@@ -21,12 +21,13 @@ function changeLanguageCall() {
     SuscribirEventos();
 
     AjaxCargarCamposPredeterminados();
-    AjaxCargarShotBlastero();
    
+ 
     document.title = _dictionary.lblCapturaAvance[$("#language").data("kendoDropDownList").value()];
     $('#Guardar1').text(_dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]);
     $("#Guardar").text(_dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]);
 };
+
 
 
 function AltaFecha() {
@@ -301,22 +302,22 @@ function LimpiarDespuesCambioProcesoPintura() {
 function CrearGrid()
 {
     $("#grid").kendoGrid({
-        dataSource: {
-            filter: {
-                logic: "or",
-                filters: [
-                  { field: "Accion", operator: "eq", value: 1 },
-                  { field: "Accion", operator: "eq", value: 2 },
-                  { field: "Accion", operator: "eq", value: 4 },
-                  { field: "Accion", operator: "eq", value: 0 },
-                  { field: "Accion", operator: "eq", value: undefined }
-                ]
-            },
-            pageSize: 10,
-            serverPaging: false,
-            serverFiltering: false,
-            serverSorting: false
-        },
+        //dataSource: {
+        //    filter: {
+        //        logic: "or",
+        //        filters: [
+        //          { field: "Accion", operator: "eq", value: 1 },
+        //          { field: "Accion", operator: "eq", value: 2 },
+        //          { field: "Accion", operator: "eq", value: 4 },
+        //          { field: "Accion", operator: "eq", value: 0 },
+        //          { field: "Accion", operator: "eq", value: undefined }
+        //        ]
+        //    },
+        //    pageSize: 10,
+        //    serverPaging: false,
+        //    serverFiltering: false,
+        //    serverSorting: false
+        //},
         edit: function (e) {
             var inputName = e.container.find('input');
             inputName.select();
