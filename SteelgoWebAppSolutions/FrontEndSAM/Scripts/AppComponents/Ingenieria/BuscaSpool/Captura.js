@@ -139,7 +139,7 @@ function CargarGridDynamic(posicion) {
             { field: "Cedula", title: 'Cedula', filterable: getGridFilterableCellMaftec(), filterable: false, width: "100px", editor: RenderCedula, attributes: { style: "text-align:right;" } },
             { field: "FamiliaAceroMaterial1", title: 'Acero', filterable: getGridFilterableCellNumberMaftec(), filterable: false, editor: RenderFamiliaAcero1, width: "80px", attributes: { style: "text-align:right;" } },
             { field: "FamiliaAceroMaterial2", title: 'Acero', filterable: getGridFilterableCellNumberMaftec(), filterable: false, editor: RenderFamiliaAcero2, width: "80px", attributes: { style: "text-align:right;" } },
-            { field: "Diametro", title: 'Diametro', filterable: getGridFilterableCellNumberMaftec(), filterable: false, width: "100px", attributes: { style: "text-align:right;" } },
+            { field: "Diametro", title: 'Diametro', filterable: getGridFilterableCellNumberMaftec(), filterable: false, width: "100px", attributes: { style: "text-align:right;" }, editor: RenderDiametro },
             { field: "TipoCorte1", title: 'Tipo Corte 1', filterable: getGridFilterableCellNumberMaftec(), filterable: false, width: "100px", attributes: { style: "text-align:right;" }, hidden: true, editor: RenderTipoCorte1 },
             { field: "TipoCorte2", title: 'Tipo Corte 2', filterable: getGridFilterableCellNumberMaftec(), filterable: false, width: "100px", attributes: { style: "text-align:right;" }, hidden: true, editor: RenderTipoCorte2 },
             { field: "Cantidad", title: 'Cantidad', filterable: getGridFilterableCellNumberMaftec(), filterable: false, width: "100px", attributes: { style: "text-align:right;" }, hidden: true },
@@ -484,7 +484,7 @@ var numeroSalidaSelect = '';
 var posicionMenuContext = 0;
 function showMenuContext() {
     if(numeroSalidaSelect.startsWith('JC') )
-        $("#context-menu").kendoContextMenu().data("kendoContextMenu").open();
+        $("#context-menu_agregar_junta").kendoContextMenu().data("kendoContextMenu").open();
 }
 
 function isEditable(fieldName, model) {
@@ -1082,11 +1082,11 @@ function CargarGridPopUpDetallePorPlaca() {
         selectable: true,
         filterable: getGridFilterableMaftec(),
         columns: [
-          { field: "Etiqueta", title: 'ETIQUETA', filterable: false, width: "30px", template: "<div class='EnlacePorPlaca' style='text-align:center;' onmouseover='ICSelect = \"#=Codigo#\";'><span>#=Etiqueta#</span></div> " },
-          { field: "Diametro1", title: 'DIAMETRO 1', filterable: false, /*editor: comboBoxResultadoDetallePlaca,*/ width: "30px", template: "<div class='EnlacePorPlaca' style='text-align:center;' onmouseover='ICSelect = \"#=Codigo#\";'><span>#=Diametro1#</span></div> " },
-          { field: "Diametro2", title: 'DIAMETRO 2', filterable: false, /*editor: comboBoxResultadoDetallePlaca,*/ width: "30px", template: "<div class='EnlacePorPlaca' style='text-align:center;' onmouseover='ICSelect = \"#=Codigo#\";'><span>#=Diametro2#</span></div> " },
-          { field: "Codigo", title: 'ITEM CODE', filterable: false, width: "30px"/*, editor: RenderMaterialesPopup*/, template: "<div class='EnlacePorPlaca' style='text-align:center;' onmouseover='ICSelect = \"#=Codigo#\";'><span>#=Codigo#</span></div> " },
-          { field: "DescripcionMaterial", title: 'DESCRIPCION', filterable: false, width: "90px", template: "<div class='EnlacePorPlaca' style='text-align:center;' onmouseover='ICSelect = \"#=Codigo#\";'><span>#=DescripcionMaterial#</span></div> " }
+          { field: "Etiqueta", title: 'ETIQUETA', filterable: false, width: "30px", template: "<div class='EnlacePorPlaca' style='text-align:center;' onmouseover='ICSelect = \"#=Codigo#\"; EtiquetaSelect = \"#=Etiqueta#\";'><span>#=Etiqueta#</span></div> " },
+          { field: "Diametro1", title: 'DIAMETRO 1', filterable: false, /*editor: comboBoxResultadoDetallePlaca,*/ width: "30px", template: "<div class='EnlacePorPlaca' style='text-align:center;' onmouseover='ICSelect = \"#=Codigo#\"; EtiquetaSelect = \"#=Etiqueta#\";'><span>#=Diametro1#</span></div> " },
+          { field: "Diametro2", title: 'DIAMETRO 2', filterable: false, /*editor: comboBoxResultadoDetallePlaca,*/ width: "30px", template: "<div class='EnlacePorPlaca' style='text-align:center;' onmouseover='ICSelect = \"#=Codigo#\"; EtiquetaSelect = \"#=Etiqueta#\";'><span>#=Diametro2#</span></div> " },
+          { field: "Codigo", title: 'ITEM CODE', filterable: false, width: "30px"/*, editor: RenderMaterialesPopup*/, template: "<div class='EnlacePorPlaca' style='text-align:center;' onmouseover='ICSelect = \"#=Codigo#\"; EtiquetaSelect = \"#=Etiqueta#\";'><span>#=Codigo#</span></div> " },
+          { field: "DescripcionMaterial", title: 'DESCRIPCION', filterable: false, width: "90px", template: "<div class='EnlacePorPlaca' style='text-align:center;' onmouseover='ICSelect = \"#=Codigo#\"; EtiquetaSelect = \"#=Etiqueta#\";'><span>#=DescripcionMaterial#</span></div> " }
         ],
         editable: true,
         //toolbar: [{ name: "cancel" }],
@@ -1099,16 +1099,16 @@ function CargarGridPopUpDetallePorPlaca() {
  
                 //window.location.href = url;
                 //alert('xD');
-
+                //var xD = EtiquetaSelect;
                 for (var i = 0; i < currentSpoolMaster.detalleSalidas.length; i++) {
                     if (currentSpoolMaster.detalleSalidas[i].SpoolID == spoolIDSelectMateriales) {
 
                         for (var j = 0; j < currentSpoolMaster.detalleSalidas[i].SalidasEstandar.length; j++) {
                             if (currentSpoolMaster.detalleSalidas[i].SalidasEstandar[j].ClaveSalida == idSelect) {
-                                currentSpoolMaster.detalleSalidas[i].SalidasEstandar[j].DetalleMaterialSpoolID = (j + 1);
+                                currentSpoolMaster.detalleSalidas[i].SalidasEstandar[j].DetalleMaterialSpoolID = EtiquetaSelect;//(j + 1);
                                 currentSpoolMaster.detalleSalidas[i].SalidasEstandar[j].DetalleMaterialSpool = ICSelect;
 
-                                $("#grid_" + currentSpoolMaster.detalleSalidas[i].Posicion).data("kendoGrid").dataSource._data[j].DetalleMaterialSpoolID = (j + 1);//EtiquetaSelect;
+                                $("#grid_" + currentSpoolMaster.detalleSalidas[i].Posicion).data("kendoGrid").dataSource._data[j].DetalleMaterialSpoolID = EtiquetaSelect;//(j + 1);//EtiquetaSelect;
                                 $("#grid_" + currentSpoolMaster.detalleSalidas[i].Posicion).data("kendoGrid").dataSource._data[j].DetalleMaterialSpool = ICSelect;//$("#gridPopUp").data("kendoGrid").dataSource._data.length;
                                 $("#grid_" + currentSpoolMaster.detalleSalidas[i].Posicion).data("kendoGrid").refresh();
                                 break;
@@ -1118,10 +1118,10 @@ function CargarGridPopUpDetallePorPlaca() {
                         for (var j = 0; j < currentSpoolMaster.detalleSalidas[i].SalidasJuntasCerradas.length; j++) {
                             if (currentSpoolMaster.detalleSalidas[i].SalidasJuntasCerradas[j].ClaveSalida == idSelect) {
 
-                                currentSpoolMaster.detalleSalidas[i].SalidasJuntasCerradas[j].DetalleMaterialSpoolID = (j + 1);
+                                currentSpoolMaster.detalleSalidas[i].SalidasJuntasCerradas[j].DetalleMaterialSpoolID = EtiquetaSelect;//(j + 1);
                                 currentSpoolMaster.detalleSalidas[i].SalidasJuntasCerradas[j].DetalleMaterialSpool = ICSelect;
 
-                                $("#grid_" + currentSpoolMaster.detalleSalidas[i].Posicion).data("kendoGrid").dataSource._data[j + currentSpoolMaster.detalleSalidas[i].SalidasEstandar.length].DetalleMaterialSpoolID = (j + 1);//EtiquetaSelect;
+                                $("#grid_" + currentSpoolMaster.detalleSalidas[i].Posicion).data("kendoGrid").dataSource._data[j + currentSpoolMaster.detalleSalidas[i].SalidasEstandar.length].DetalleMaterialSpoolID = EtiquetaSelect;//(j + 1);//EtiquetaSelect;
                                 $("#grid_" + currentSpoolMaster.detalleSalidas[i].Posicion).data("kendoGrid").dataSource._data[j + currentSpoolMaster.detalleSalidas[i].SalidasEstandar.length].DetalleMaterialSpool = ICSelect;//$("#gridPopUp").data("kendoGrid").dataSource._data.length;
                                 $("#grid_" + currentSpoolMaster.detalleSalidas[i].Posicion).data("kendoGrid").refresh();
                                 break;

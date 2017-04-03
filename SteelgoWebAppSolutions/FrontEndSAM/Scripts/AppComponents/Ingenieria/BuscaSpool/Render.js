@@ -19,6 +19,9 @@ function RenderTipoSalida(container, options) {
                     options.model.TipoSalidaID = dataItem.TipoSalidaID;
                     options.model.TipoSalida = dataItem.Nombre;
 
+                    options.model.SpoolItemCodeID = 0;
+                    options.model.SpoolItemCode = '';
+
                     //if (dataItem.TipoSalidaID == 1) {
                     //    AjaxListadoSpool(options, "NG-02");
                     //}
@@ -26,12 +29,20 @@ function RenderTipoSalida(container, options) {
                     if (options.model.ClaveSalida.match('^JC')) {
                         currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].TipoSalidaID = dataItem.TipoSalidaID;
                         currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].TipoSalida = dataItem.Nombre;
+
+                        currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].SpoolItemCodeID = 0;
+                        currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].SpoolItemCode = '';
+                                                
                     }
                     else {
                         currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].TipoSalidaID = dataItem.TipoSalidaID;
                         currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].TipoSalida = dataItem.Nombre;
+
+                        currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].SpoolItemCodeID = 0;
+                        currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].SpoolItemCode = '';
                     }
 
+                    $("#grid_" + currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].Posicion).data("kendoGrid").refresh();
                 }
                 
                 ////options.model.TipoSalidaID = dataItem.SalidaID;
@@ -679,6 +690,17 @@ function RenderJunta2(container, options) {
             }
         }
         );
+
+}
+
+function RenderDiametro(container, options) {
+    var dataItem;
+    $('<input data-text-field="Diametro" id=' + options.model.uid + ' data-value-field="Diametro" data-bind="value:' + options.field + '"/>')
+    .appendTo(container)
+    .kendoNumericTextBox({
+        format: "{0: }",
+        min: 0
+    });
 
 }
 
