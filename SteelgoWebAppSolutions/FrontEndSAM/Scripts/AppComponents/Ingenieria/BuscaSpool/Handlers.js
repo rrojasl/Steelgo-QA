@@ -212,7 +212,8 @@ function eventBuscar(posicion) {
             AjaxDetalleSpoolXNombre(posicion, Proyecto.ProyectoSpoolID, currentSpoolMaster.detalleSalidas[posicion].NombreSpool);
         }
     } else {
-        alert("Por favor seleccione un proyecto");
+        //alert("Por favor seleccione un proyecto");
+        displayNotify("Por favor seleccione un proyecto", "", '2');
     }
 }
 
@@ -818,7 +819,7 @@ function SuscribirEventoComboPrueba() {
     //    alert('inputPND');
     //});
     
-    $("#context-menu").kendoContextMenu({
+    $("#context-menu_agregar_junta").kendoContextMenu({
         dataSource:
             [{
                 text: "<b>Agregar Junta</b>",
