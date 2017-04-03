@@ -10328,6 +10328,11 @@ _dictionary = {
 
     // Inicia Módulo Pintura
     // Etiquetas Generales Pintura
+    
+    "lblVersion": {
+            "es-MX": "Version ",
+            "en-US": "Version "
+        },
     "SpoolAgregado": {
         "es-MX": "El Spool ",
         "en-US": "The Spool "
@@ -10500,12 +10505,12 @@ _dictionary = {
         "en-US": "Areway"
     },
     "PinturaCapturaAvanceSup": {
-        "es-MX": "Avance Shotblast Primario",
-        "en-US": "Progress Shotblast Primary"
+        "es-MX": "Avance de Carro",
+        "en-US": "Car Advance"
     },
     "PinturaCapturaAvanceInf": {
-        "es-MX": "Avance Shotblast Primario",
-        "en-US": "Progress Shotblast Primary"
+        "es-MX": "Avance de Carro",
+        "en-US": "Car Advance"
     },
     "PinturaCargaTitulo": {
         "es-MX": "Alerta!!!",
@@ -10626,6 +10631,15 @@ _dictionary = {
     //Finaliza Carga de Carro
 
     //Inicia Captura Avance de carro
+    
+    "PinturaSpoolCargadoEnCarro": {
+            "es-MX": "El spool ya se encuentra cargado en otro carro",
+            "en-US": "The spool is already loaded in another car"
+        },
+    "PinturaSpoolSistemaPinturaNoCoincide": {
+        "es-MX": "Procesos de pintura",
+        "en-US": "Painting processes"
+    },
 
     "lblProcesosPintura": {
         "es-MX": "Procesos de pintura",

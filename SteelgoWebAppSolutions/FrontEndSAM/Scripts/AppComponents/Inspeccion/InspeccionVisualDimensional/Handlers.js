@@ -40,8 +40,10 @@ function suscribirEventoWindowsConfirmaCaptura() {
         editado = false;
     });
     $("#noButtonProy").click(function (e) {
-        
-        $("#InputID").data("kendoComboBox").value(spooolAnterior.IDValido);
+       
+        // $("#InputID").data("kendoComboBox").value(spooolAnterior.IDValido);
+        $("#InputID").val("");
+        $("#InputID").data("kendoComboBox").value("");
         ventanaConfirmCambiarCaptura.close();
     });
 }
@@ -118,6 +120,7 @@ function AplicarCambioSpoolID(dataItem)
         ajaxobtenerDetalleDimensional($("#InputID").val());
         ajaxObtenerJSonGrid();
     }
+    ordentrabajoSpoolID = dataItem;
     spooolAnterior = dataItem;
 }
 
@@ -135,11 +138,12 @@ function SuscribirEventoSpoolID() {
             aplicarColorBlancoCapturaDimensional();
             
             if (dataItem != undefined && dataItem.IDValido != "") {
-                if ($("#grid").data("kendoGrid").dataSource._data.length > 0 || editado)
-                {
-                    ventanaConfirmCambiarCaptura.open().center();
-                }
+                //if ($("#grid").data("kendoGrid").dataSource._data.length > 0 || editado)
+                //{
+                //    ventanaConfirmCambiarCaptura.open().center();
+                //}
                 if ($("#InputID").val() != '' && $("#InputOrdenTrabajo").val() != '') {
+                    ordentrabajoSpoolID = dataItem;
                     Cookies.set("Proyecto", dataItem.ProyectoID + '°' + dataItem.Proyecto);
                 }
                 ajaxObtenerListaTaller();
@@ -178,13 +182,13 @@ function SuscribirEventoSpoolID() {
             else displayNotify("NoExisteSpoolID", '', '1');
         }
         else if (e.keyCode == 9) {
-            if (tieneClase(e.currentTarget)) {
-                $("#InputID").data("kendoComboBox").select(0);
-                var e = $.Event("keydown", { keyCode: 27 });
-                //ajaxJunta($("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()).Valor);
-                ajaxobtenerDetalleDimensional($("#InputID").val());
-                ajaxObtenerJSonGrid();
-            }
+            //if (tieneClase(e.currentTarget)) {
+            //    $("#InputID").data("kendoComboBox").select(0);
+            //    var e = $.Event("keydown", { keyCode: 27 });
+            //    //ajaxJunta($("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()).Valor);
+            //    ajaxobtenerDetalleDimensional($("#InputID").val());
+            //    ajaxObtenerJSonGrid();
+            //}
             dataItem = $("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select());
             if (dataItem != undefined) {
                 if ($("#InputID").val() != '' && $("#InputOrdenTrabajo").val() != '') {
@@ -215,8 +219,8 @@ function SuscribirEventoSpoolID() {
                     
                     $("#InputID").data("kendoComboBox").select(0);
                     $("#InputID").data("kendoComboBox").value(listaSpoolID[i].Valor);
-                    ajaxobtenerDetalleDimensional($("#InputID").val());
-                    ajaxObtenerJSonGrid();
+                    //ajaxobtenerDetalleDimensional($("#InputID").val());
+                    //ajaxObtenerJSonGrid();
                     break;
                 }
             }
@@ -406,11 +410,16 @@ function SuscribirEventoResultadoVisual() {
 function suscribirEventoAgregar() {
     $('#btnAgregar').click(function (e) {
         e.preventDefault();
-        if ($("#InputID").val()!="0"  && $("#InputID").val() != "" && $("#InputOrdenTrabajo").val()) {
-            //ajaxobtenerDetalleDimensional($("#InputID").val());
-            ajaxobtenerDetalleDimensional($("#InputID").val());
-            ajaxObtenerJSonGrid();
-            //deshabilitaSpool();
+        if ($("#grid").data("kendoGrid").dataSource._data.length > 0 || editado) {
+            ventanaConfirmCambiarCaptura.open().center();
+        }
+        else {
+            if ($("#InputID").val() != "0" && $("#InputID").val() != "" && $("#InputOrdenTrabajo").val()) {
+                //ajaxobtenerDetalleDimensional($("#InputID").val());
+                ajaxobtenerDetalleDimensional($("#InputID").val());
+                ajaxObtenerJSonGrid();
+                //deshabilitaSpool();
+            }
         }
     });
 }

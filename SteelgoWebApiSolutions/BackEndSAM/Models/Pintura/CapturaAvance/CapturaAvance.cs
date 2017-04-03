@@ -7,12 +7,14 @@ namespace BackEndSAM.Models.Pintura.CapturaAvance
     public class DetalleCapturaAvanceCarro
     {
         public int Accion { get; set; }
-        public int CargaCarroID { get; set; }
+        public int? CarroID { get; set; }
+        public int? CargaCarroID { get; set; }
         public int SpoolID { get; set; }
         public string Spool { get; set; }
-        public int SistemaPinturaID { get; set; }
+        public int? SistemaPinturaID { get; set; }
+        public int SistemaPinturaProyectoID { get; set; }
         public string SistemaPintura { get; set; }
-        public int ColorPinturaID { get; set; }
+        public int? ColorPinturaID { get; set; }
         public string Color { get; set; }
         public decimal Area { get; set; }
         public string Lote { get; set; }
@@ -21,6 +23,12 @@ namespace BackEndSAM.Models.Pintura.CapturaAvance
         public List<PintorSpool> ListaShotblasteroGuargado { get; set; }
         public List<PintorSpool> ListaShotblasteroInicial { get; set; }
         public List<PintorSpool> ListaShotblasteros { get; set; }
+
+        public int PatioID { get; set; }
+        public int? CuadranteAnteriorID { get; set; }
+        public int? ZonaAnteriorID { get; set; }
+        public int? CuadranteID { get; set; }
+        public string Cuadrante { get; set; }
     }
 
     public class CamposPredeterminados
@@ -42,6 +50,16 @@ namespace BackEndSAM.Models.Pintura.CapturaAvance
         public Componente()
         {
             this.NombreComponente = "";
+        }
+    }
+
+    public class Reductor
+    {
+        public string NombreReductor { get; set; }
+
+        public Reductor()
+        {
+            this.NombreReductor = "";
         }
     }
 
@@ -69,11 +87,7 @@ namespace BackEndSAM.Models.Pintura.CapturaAvance
         public List<ObrerosGuardar> ListaObreros { get; set; }
     }
 
-    public class CapturaNuevo
-    {
-        public List<PintorSpool> ListaPintorGuargado { get; set; }
-        public List<PintorSpool> ListaShotblasteroGuargado { get; set; }
-    }
+  
 
 
     public class PintorSpool
@@ -107,6 +121,17 @@ namespace BackEndSAM.Models.Pintura.CapturaAvance
             MedioTransporteCargaID = 0;
             Nombre = "";
             SistemaPinturaProyectoID = 0;
+        }
+    }
+
+    public class Lote
+    {
+        public string NombreLote { get; set; }
+        public int? Cantidad { get; set; }
+        public Lote()
+        {
+            NombreLote = "";
+            Cantidad = 0;
         }
     }
 }

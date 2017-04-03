@@ -30,6 +30,7 @@ namespace BackEndSAM.Models.Pintura.PinturaGeneral
         public string Nombre { get; set; }
         public int UsuarioID { get; set; }
         public int PatioID { get; set; }
+        public int ProyectoID { get; set; }
     }
 
     public class Color

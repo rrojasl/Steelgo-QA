@@ -1,24 +1,7 @@
 ﻿
 
 function RendercomboBoxShotBlastero(container, options) {
-    var dataItem;
-    $('<input  data-text-field="Codigo" id=' + options.model.uid + ' data-value-field="ObreroID" data-bind="value:' + options.field + '"/>')
-        .appendTo(container)
-        .kendoMultiSelect({
-            autoBind: false,
-            dataTextField: "Codigo",
-            dataValueField: "ObreroID",
-            dataSource: options.model.ListaShotblasteros,
-            template: "<i class=\"fa fa-#=data.Codigo.toLowerCase()#\"></i> #=data.Codigo#",
-            select: function (e) {
-                dataItem = this.dataItem(e.item.index());
-
-            },
-            change: function (e) {
-                options.model.plantillaShotblastero = _dictionary.CapturaAvancePintoresShotblastExistentes[$("#language").data("kendoDropDownList").value()] + options.model.ListaShotblasteroGuargado.length;
-            },
-            value: options.model.ListaShotblasteroGuargado
-        });
+    AjaxObtenerObreros(container,options);
 }
 
 
@@ -70,4 +53,32 @@ function tieneClase(item) {
         }
     }
     return false
+}
+
+function renderComboboxComponenteDinamico(container, options) {
+    AjaxGetLotesComponente(container, options);
+}
+
+function RendercomboReductor(container, options) {
+    AjaxGetLotesReductor(container, options);
+}
+
+function RenderDatePicker(container, options) {
+    //container  contiene las propiedades de la celda
+    //options contiene el modelo del datasource ejemplo options.model.Junta
+    var dataItem;
+
+    $('<input   data-bind="value:' + options.field + '"/>')
+        .appendTo(container)
+        .kendoDatePicker({
+            max: new Date(),
+            change: function () {
+                var value = this.value();
+                options.model.FechaShotblast = value;
+
+                $("#grid").data("kendoGrid").dataSource.sync();
+            }
+        }
+        );
+
 }

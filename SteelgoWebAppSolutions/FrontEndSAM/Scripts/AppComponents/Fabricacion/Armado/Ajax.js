@@ -1,16 +1,16 @@
 ﻿function AjaxJunta(spoolID) {
     loadingStart();
-    
+
     $Armado.Armado.read({ ordenTrabajo: $("#InputOrdenTrabajo").val(), id: spoolID, sinCaptura: $('input:radio[name=Muestra]:checked').val(), token: Cookies.get("token") }).done(function (data) {
         if (Error(data)) {
-           
+
             $("#Junta").data("kendoComboBox").value("");
             $("#Junta").data("kendoComboBox").text('');
-            if(data.length==0)
-                $("#Junta").data("kendoComboBox").dataSource.data([{ JuntaSpoolID: 0, Etiqueta :''}]);
-                else
-            $("#Junta").data("kendoComboBox").dataSource.data(data);
-           
+            if (data.length == 0)
+                $("#Junta").data("kendoComboBox").dataSource.data([{ JuntaSpoolID: 0, Etiqueta: '' }]);
+            else
+                $("#Junta").data("kendoComboBox").dataSource.data(data);
+
             loadingStop();
         }
     });
@@ -228,18 +228,7 @@ function ValidarCaptura(arregloCaptura) {
         }
         ListaDetalles[index].ListaDetalleTrabajoAdicional = (arregloCaptura[index].ListaDetalleTrabajoAdicional == null || arregloCaptura[index].ListaDetalleTrabajoAdicional.length == 0) ? undefined : ListaTrabajosAdicionalesEditados;
 
-        //validar los numeros unicos
-        var elementoNumeroUnico;
-        var numeroVecesRepite;
-        for (var i = 0; i < 2; i++) {
-            elementoNumeroUnico = i == 0 ? arregloCaptura[index].NumeroUnico1ID : arregloCaptura[index].NumeroUnico2ID
-            numeroVecesRepite = ContarElementosConMismaLocalizacion(arregloCaptura, i == 0 ? arregloCaptura[index].Localizacion.split("-")[0] : arregloCaptura[index].Localizacion.split("-")[1], arregloCaptura[index])
-            numeroElementosAsignados = ContarElementosAsignados(elementoNumeroUnico, arregloCaptura, arregloCaptura[index]);
-            if (numeroVecesRepite != numeroElementosAsignados) {
-                $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
-                ListaDetalles[index].Estatus = 0;
-            }
-        }
+
 
 
 
@@ -332,18 +321,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
             }
             ListaDetalles[index].ListaDetalleTrabajoAdicional = (arregloCaptura[index].ListaDetalleTrabajoAdicional == null || arregloCaptura[index].ListaDetalleTrabajoAdicional.length == 0) ? undefined : ListaTrabajosAdicionalesEditados;
 
-            //validar los numeros unicos
-            var elementoNumeroUnico;
-            var numeroVecesRepite;
-            for (var i = 0; i < 2; i++) {
-                elementoNumeroUnico = i == 0 ? arregloCaptura[index].NumeroUnico1ID : arregloCaptura[index].NumeroUnico2ID
-                numeroVecesRepite = ContarElementosConMismaLocalizacion(arregloCaptura, i == 0 ? arregloCaptura[index].Localizacion.split("-")[0] : arregloCaptura[index].Localizacion.split("-")[1], arregloCaptura[index])
-                numeroElementosAsignados = ContarElementosAsignados(elementoNumeroUnico, arregloCaptura, arregloCaptura[index]);
-                if (numeroVecesRepite != numeroElementosAsignados) {
-                    $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
-                    ListaDetalles[index].Estatus = 0;
-                }
-            }
+
 
 
 
@@ -474,36 +452,55 @@ function AjaxValidarNumerosUnicos(arregloCaptura, tipoGuardar) {
     Captura = [];
     Captura[0] = { Detalles: "" };
     ListaDetalles = [];
-
+    var numUnicosIncorrectosCliente = false;
     for (index = 0; index < arregloCaptura.length; index++) {
         ListaDetalles[index] = { JuntaSpoolID: "", NumeroUnico1ID: "", NumeroUnico2ID: "", Localizacion1: "", Localizacion2: "" };
+        $("#grid").data("kendoGrid").dataSource._data[index].NUOk = true;
         ListaDetalles[index].JuntaSpoolID = arregloCaptura[index].JuntaID;
         ListaDetalles[index].NumeroUnico1ID = arregloCaptura[index].NumeroUnico1ID;
         ListaDetalles[index].NumeroUnico2ID = arregloCaptura[index].NumeroUnico2ID;
         ListaDetalles[index].Localizacion1 = arregloCaptura[index].Localizacion.split("-")[0];
         ListaDetalles[index].Localizacion2 = arregloCaptura[index].Localizacion.split("-")[1];
+
+        //validar los numeros unicos del lado del cliente
+        var elementoNumeroUnico;
+        var numeroVecesRepite;
+        for (var i = 0; i < 2; i++) {
+            if (arregloCaptura[index].NumeroUnico1ID != "" && arregloCaptura[index].NumeroUnico2ID != "" && arregloCaptura[index].NumeroUnico1ID != undefined && arregloCaptura[index].NumeroUnico2ID != undefined &&  arregloCaptura[index].NumeroUnico1ID != "0" && arregloCaptura[index].NumeroUnico2ID != "0") {
+                elementoNumeroUnico = i == 0 ? arregloCaptura[index].NumeroUnico1ID : arregloCaptura[index].NumeroUnico2ID
+                numeroVecesRepite = ContarElementosConMismaLocalizacion(arregloCaptura, i == 0 ? arregloCaptura[index].Localizacion.split("-")[0] : arregloCaptura[index].Localizacion.split("-")[1], arregloCaptura[index])
+                numeroElementosAsignados = ContarElementosAsignados(elementoNumeroUnico, arregloCaptura, arregloCaptura[index]);
+                if (!(numeroVecesRepite >= numeroElementosAsignados)) {
+                    $("#grid").data("kendoGrid").dataSource._data[index].NUOk = false;
+                    numUnicosIncorrectosCliente = true;
+                }
+            }
+        }
+
     }
     Captura[0].Detalles = ListaDetalles;
 
-    $Armado.Armado.update(Captura[0], { token: Cookies.get("token") }).done(function (data) {
-        if (data.length == 0) {
-            AjaxGuardarCaptura(arregloCaptura, tipoGuardar)
-        }
-        else {
-            for (var i = 0; i < arregloCaptura.length; i++) {
-                for (var j = 0; j < data.length; j++) {
-                    if (arregloCaptura[i].JuntaID == data[j]) {
-                        $("#grid").data("kendoGrid").dataSource._data[i].NUOk = false;
+    
+        $Armado.Armado.update(Captura[0], { token: Cookies.get("token") }).done(function (data) {
+            if (data.length == 0) {
+                AjaxGuardarCaptura(arregloCaptura, tipoGuardar)
+            }
+            else {
+                for (var i = 0; i < arregloCaptura.length; i++) {
+                    for (var j = 0; j < data.length; j++) {
+                        if (arregloCaptura[i].JuntaID == data[j]) {
+                            $("#grid").data("kendoGrid").dataSource._data[i].NUOk = false;
+                        }
                     }
                 }
+
+                ValidarCaptura(arregloCaptura);
+
+                displayNotify("CapturaArmadoMensajeJuntaIncorrectaPorNU", "", '1');
+                $("#grid").data("kendoGrid").dataSource.sync();
             }
-
-            ValidarCaptura(arregloCaptura);
-
-            displayNotify("CapturaArmadoMensajeJuntaIncorrectaPorNU", "", '1');
-            $("#grid").data("kendoGrid").dataSource.sync();
-        }
-    });
+        });
+    
 }
 
 function AjaxCargarCamposPredeterminados() {

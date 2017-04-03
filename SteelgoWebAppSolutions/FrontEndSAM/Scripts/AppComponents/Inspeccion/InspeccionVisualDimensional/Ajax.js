@@ -15,36 +15,55 @@ function AjaxValidarNumerosUnicos(arregloCaptura, tipoGuardar) {
     Captura = [];
     Captura[0] = { Detalles: "" };
     ListaDetalles = [];
-
+    var numUnicosIncorrectosCliente = false;
     for (index = 0; index < arregloCaptura.length; index++) {
         ListaDetalles[index] = { JuntaSpoolID: "", NumeroUnico1ID: "", NumeroUnico2ID: "", Localizacion1: "", Localizacion2: "" };
+        $("#grid").data("kendoGrid").dataSource._data[index].NUOk = true;
         ListaDetalles[index].JuntaSpoolID = arregloCaptura[index].JuntaID;
         ListaDetalles[index].NumeroUnico1ID = arregloCaptura[index].NumeroUnico1ID;
         ListaDetalles[index].NumeroUnico2ID = arregloCaptura[index].NumeroUnico2ID;
         ListaDetalles[index].Localizacion1 = arregloCaptura[index].Localizacion.split("-")[0];
         ListaDetalles[index].Localizacion2 = arregloCaptura[index].Localizacion.split("-")[1];
+
+        //validar los numeros unicos del lado del cliente
+        var elementoNumeroUnico;
+        var numeroVecesRepite;
+        for (var i = 0; i < 2; i++) {
+            if (arregloCaptura[index].NumeroUnico1ID != "" && arregloCaptura[index].NumeroUnico2ID != "" && arregloCaptura[index].NumeroUnico1ID != undefined && arregloCaptura[index].NumeroUnico2ID != undefined && arregloCaptura[index].NumeroUnico1ID != "0" && arregloCaptura[index].NumeroUnico2ID != "0") {
+                elementoNumeroUnico = i == 0 ? arregloCaptura[index].NumeroUnico1ID : arregloCaptura[index].NumeroUnico2ID
+                numeroVecesRepite = ContarElementosConMismaLocalizacion(arregloCaptura, i == 0 ? arregloCaptura[index].Localizacion.split("-")[0] : arregloCaptura[index].Localizacion.split("-")[1], arregloCaptura[index])
+                numeroElementosAsignados = ContarElementosAsignados(elementoNumeroUnico, arregloCaptura, arregloCaptura[index]);
+                if (!(numeroVecesRepite >= numeroElementosAsignados)) {
+                    $("#grid").data("kendoGrid").dataSource._data[index].NUOk = false;
+                    numUnicosIncorrectosCliente = true;
+                }
+            }
+        }
+
     }
     Captura[0].Detalles = ListaDetalles;
 
-    $Armado.Armado.update(Captura[0], { token: Cookies.get("token") }).done(function (data) {
-        if (data.length == 0) {
-            ajaxGuardado(arregloCaptura, tipoGuardar)
-        }
-        else {
-            for (var i = 0; i < arregloCaptura.length; i++) {
-                for (var j = 0; j < data.length; j++) {
-                    if (arregloCaptura[i].JuntaID == data[j]) {
-                        $("#grid").data("kendoGrid").dataSource._data[i].NUOk = false;
+    
+        $Armado.Armado.update(Captura[0], { token: Cookies.get("token") }).done(function (data) {
+            if (data.length == 0) {
+                ajaxGuardado(arregloCaptura, tipoGuardar)
+            }
+            else {
+                for (var i = 0; i < arregloCaptura.length; i++) {
+                    for (var j = 0; j < data.length; j++) {
+                        if (arregloCaptura[i].JuntaID == data[j]) {
+                            $("#grid").data("kendoGrid").dataSource._data[i].NUOk = false;
+                        }
                     }
                 }
+
+                ValidarCaptura(arregloCaptura);
+
+                displayNotify("CapturaArmadoMensajeJuntaIncorrectaPorNU", "", '1');
+                $("#grid").data("kendoGrid").dataSource.sync();
             }
-
-            ValidarCaptura(arregloCaptura);
-
-            displayNotify("CapturaArmadoMensajeJuntaIncorrectaPorNU", "", '1');
-            $("#grid").data("kendoGrid").dataSource.sync();
-        }
-    });
+        });
+    
 }
 
 function ValidarCaptura(jSonCaptura) {
@@ -54,11 +73,11 @@ function ValidarCaptura(jSonCaptura) {
     var capturaSinDimensional = false;
     var capturaSinVisual = false;
 
-    
+
     // Elementos del grid
     ListaDetalleGuardarInspeccionVisual = []
 
-    
+
 
     // Comienza captura Visual
     for (index = 0; index < jSonCaptura.length; index++) {
@@ -279,15 +298,55 @@ function ajaxobtenerDetalleDimensional(spoolID) {
     });
 }
 
+
+
+function ajaxObtenerJSonGridDespuesGuardar(rowsVisualDimensional) {
+    loadingStart();
+    try {
+        $InspeccionVisualDimensional.VisualDimensional.read({ JsonCaptura: JSON.stringify(ArregloListadoCaptura()), token: Cookies.get("token"), Lenguaje: $("#language").val(), juntasSeleccionadas: $("#ListaJuntas").data("kendoMultiSelect").value().toString() }).done(function (data) {
+            var desplegado = false;
+
+            var ds = $("#grid").data("kendoGrid").dataSource;
+            var array = JSON.parse(data);
+
+
+            var ExistenJuntasGrid = [];
+            var JuntasAgregadas = [];
+            for (var j = 0; j < rowsVisualDimensional.length; j++) {
+                for (var i = 0; i < array.length; i++) {
+                    if (array[i].JuntaID == rowsVisualDimensional[j].JuntaID) {
+                        JuntasAgregadas.push(array[i].Junta);
+                        array[i].NumeroUnico1 = array[i].NumeroUnico1 == "" ? DatoDefaultNumeroUnico1() : array[i].NumeroUnico1;
+                        array[i].NumeroUnico2 = array[i].NumeroUnico2 == "" ? DatoDefaultNumeroUnico2() : array[i].NumeroUnico2;
+                        array[i].NumeroUnico1ID = array[i].NumeroUnico1ID == "" ? 0 : array[i].NumeroUnico1ID;
+                        array[i].NumeroUnico2ID = array[i].NumeroUnico2ID == "" ? 0 : array[i].NumeroUnico2ID;
+                        if (array[i].FechaInspeccion != null) {
+                            array[i].FechaInspeccion = new Date(ObtenerDato(array[i].FechaInspeccion, 1), ObtenerDato(array[i].FechaInspeccion, 2), ObtenerDato(array[i].FechaInspeccion, 3));//año, mes, dia
+                        }
+                        ds.add(array[i]);
+                    }
+                }
+            }
+           
+
+            //deshabilitaSpool();
+            loadingStop();
+        });
+    } catch (e) {
+        displayNotify("", e.message, '2');
+    }
+}
+
 function ajaxObtenerJSonGrid() {
     loadingStart();
     try {
         $InspeccionVisualDimensional.VisualDimensional.read({ JsonCaptura: JSON.stringify(ArregloListadoCaptura()), token: Cookies.get("token"), Lenguaje: $("#language").val(), juntasSeleccionadas: $("#ListaJuntas").data("kendoMultiSelect").value().toString() }).done(function (data) {
             var desplegado = false;
-            
+
             var ds = $("#grid").data("kendoGrid").dataSource;
             var array = JSON.parse(data);
 
+           
 
             var ExistenJuntasGrid = [];
             var JuntasAgregadas = [];
@@ -316,12 +375,14 @@ function ajaxObtenerJSonGrid() {
                         displayNotify("", _dictionary.DimensionalVisualMensajeJuntasRepetidas[$("#language").data("kendoDropDownList").value()].replace("?1", ExistenJuntasGrid), '2');
                     }
                     if (JuntasAgregadas.length > 0) {
+                        $("#InputID").data("kendoComboBox").value("");
+                        $("#InputID").val("")
                         displayNotify("", _dictionary.DimensionalVisualMensajeJuntasAgregadas[$("#language").data("kendoDropDownList").value()] + JuntasAgregadas, '0');
                     }
                 }
 
-                spooolAnterior=$("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select())
-              
+                spooolAnterior = $("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select())
+
             }
 
             //deshabilitaSpool();
@@ -333,7 +394,7 @@ function ajaxObtenerJSonGrid() {
 }
 
 function ajaxGuardado(jSonCaptura, tipoGuardar) {
-    
+
     Captura = [];
     Captura[0] = { Detalles: "" };
     var existRowEmpty = false;
@@ -351,12 +412,12 @@ function ajaxGuardado(jSonCaptura, tipoGuardar) {
     inspeccionDimensional[0] = { Accion: "", Lenguaje: "", InspeccionDimensionalID: "", OrdenTrabajoSpoolID: "", FechaInspeccion: "", ResultadoID: "", ObreroID: "", DefectoID: "", ListaDetalleGuardarInspeccionVisual: "", ListaJuntas: "" }
     inspeccionDimensional[0].Lenguaje = $("#language").val();
     inspeccionDimensional[0].InspeccionDimensionalID = $("#InspeccionDimensionalID").val();
-    inspeccionDimensional[0].OrdenTrabajoSpoolID =$("#InputID").data("kendoComboBox").select()==-1 ?0: $("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()).Valor;
+    inspeccionDimensional[0].OrdenTrabajoSpoolID = $("#InputID").data("kendoComboBox").select() == -1 ? 0 : $("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()).Valor;
     inspeccionDimensional[0].FechaInspeccion = $("#FechaInspeccion").val().trim() == null ? "" : kendo.toString($("#FechaInspeccion").val().trim(), String(_dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()].replace('{', '').replace('}', '').replace("0:", ""))).trim()
 
     var ResultadoDimensional = $('input:radio[name=ResultadoDimensional]:checked').val();
     var Defecto = $("#inputDefecto").data("kendoComboBox").select();
-    var tipoDefecto =Defecto==-1?0: $("#inputDefecto").data("kendoComboBox").dataItem(Defecto).TIPO;
+    var tipoDefecto = Defecto == -1 ? 0 : $("#inputDefecto").data("kendoComboBox").dataItem(Defecto).TIPO;
     var Inspector = $("#inputInspector").data("kendoComboBox").select();
 
     if (ResultadoDimensional == "Aprobado") inspeccionDimensional[0].ResultadoID = 1;
@@ -493,8 +554,7 @@ function ajaxGuardado(jSonCaptura, tipoGuardar) {
     if (inspeccionDimensional.length > 0) inspeccionDimensional[0].ListaDetalleGuardarInspeccionVisual = ListaDetalleGuardarFiltroStatus;
     else capturaSinVisual = true;
 
-    if (ResultadoDimensional == undefined)
-    {
+    if (ResultadoDimensional == undefined) {
         existRowEmpty = true;
         $("#FechaInspeccion").css({ 'background-color': '#ffcccc' });
         $("#inputDefecto").data("kendoComboBox").input.css("background-color", "#ffcccc");
@@ -509,10 +569,9 @@ function ajaxGuardado(jSonCaptura, tipoGuardar) {
         $("#lblRechazado").css({ 'color': '#EC4F50' });
         $("#lblAprobado").css({ 'color': '#EC4F50' });
 
-        
+
     }
-    else if (ResultadoDimensional == "Aprobado" && ((Inspector == -1 || Inspector == 0)))
-    {
+    else if (ResultadoDimensional == "Aprobado" && ((Inspector == -1 || Inspector == 0))) {
         existRowEmpty = true;
         $("#FechaInspeccion").css({ 'background-color': '#ffcccc' });
         $("#inputDefectoDiv span").css({ 'background-color': '#ffffff' });
@@ -523,17 +582,17 @@ function ajaxGuardado(jSonCaptura, tipoGuardar) {
         $("#FechaInspeccionDiv span").css({ 'background-color': '#ffcccc' });
         $("#inputInspectorDiv span").css({ 'background-color': '#ffcccc' });
         $("#listaJuntasDiv .k-multiselect").css({ 'background-color': '#ffffff' });
-      
+
         $("#lblRechazado").css({ 'color': '#000' });
         $("#lblAprobado").css({ 'color': '#000' });
-        
+
     }
     else if (ResultadoDimensional == "Rechazado" && (inspeccionDimensional[0].DefectoID == "" || inspeccionDimensional[0].FechaInspeccion == "" || inspeccionDimensional[0].ObreroID == "" || (tipoDefecto == "NoEspecificarJunta" ? false : (inspeccionDimensional[0].ListaJuntas == undefined || JuntasValidas(inspeccionDimensional[0].ListaJuntas) == 0)))) {
 
         existRowEmpty = true;
-       
+
         $("#FechaInspeccion").css({ 'background-color': '#ffcccc' });
-        $("#inputDefecto").data("kendoComboBox").input.css("background-color", "#ffcccc"); 
+        $("#inputDefecto").data("kendoComboBox").input.css("background-color", "#ffcccc");
         $("#inputInspector").data("kendoComboBox").input.css("background-color", "#ffcccc");
         $("#ListaJuntas").data("kendoMultiSelect").input.css("background-color", "#ffcccc");
 
@@ -569,8 +628,8 @@ function ajaxGuardado(jSonCaptura, tipoGuardar) {
 
     $("#grid").data("kendoGrid").dataSource.sync();
 
-   
-   
+
+
 
     if (existRowEmpty) {
         //windowTemplate = kendo.template($("#windowTemplate").html());
@@ -612,9 +671,8 @@ function ajaxGuardado(jSonCaptura, tipoGuardar) {
 }
 
 
-function JuntasValidas(data)
-{
-    var cantidadJuntasValidas=0;
+function JuntasValidas(data) {
+    var cantidadJuntasValidas = 0;
     for (var i = 0; i < data.length; i++) {
         if (data[i].Accion != 3)
             cantidadJuntasValidas++;
@@ -622,8 +680,7 @@ function JuntasValidas(data)
     return cantidadJuntasValidas;
 }
 
-function aplicarColorBlancoCapturaDimensional()
-{
+function aplicarColorBlancoCapturaDimensional() {
     $("#FechaInspeccion").css({ 'background-color': '#ffffff' });
     $("#inputDefecto").data("kendoComboBox").input.css("background-color", "#ffffff");
     $("#inputInspector").data("kendoComboBox").input.css("background-color", "#ffffff");
@@ -646,6 +703,7 @@ function ejecutaGuardado(Captura, guardadoSinInspeccionDimensional, guardadoSinI
     }
     else $InspeccionVisualDimensional.VisualDimensional.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
         if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
+            var datos = $("#grid").data('kendoGrid').dataSource._data
             $("#grid").data('kendoGrid').dataSource.data([]);
             if (tipoGuardar == 1) {
                 opcionHabilitarView(false, "FieldSetView");
@@ -656,8 +714,8 @@ function ejecutaGuardado(Captura, guardadoSinInspeccionDimensional, guardadoSinI
             }
             else {
                 opcionHabilitarView(true, "FieldSetSetView");
-                ajaxobtenerDetalleDimensional($("#InputID").val());
-                ajaxObtenerJSonGrid();
+                ajaxobtenerDetalleDimensional(ordentrabajoSpoolID.Valor);
+                ajaxObtenerJSonGridDespuesGuardar(datos);
             }
             displayNotify("CapturaMensajeGuardadoExitoso", "", '0');
         }
@@ -665,9 +723,9 @@ function ejecutaGuardado(Captura, guardadoSinInspeccionDimensional, guardadoSinI
             displayNotify("MensajeGuardadoErroneo", "", '2');
             opcionHabilitarView(false, "FieldSetView");
             //deshabilitaSpool();
-
+            loadingStop();
         }
-        loadingStop();
+       
     });
 }
 

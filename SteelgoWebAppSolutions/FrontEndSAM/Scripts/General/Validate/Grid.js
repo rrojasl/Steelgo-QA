@@ -131,3 +131,26 @@ function ExistRowWithErrors(rows) {
 
     return false;
 }
+
+function ContarElementosAsignados(elementoID, array, rowitem) {
+
+    var numeroVecesAsignado = 0;
+    for (var i = 0; i < array.length; i++) {
+        if (array[i].IdOrdenTrabajo + '-' + array[i].IdVal == (rowitem.IdOrdenTrabajo + '-' + rowitem.IdVal)) {
+            if (array[i].NumeroUnico1ID == elementoID || array[i].NumeroUnico2ID == elementoID)
+                numeroVecesAsignado++;
+        }
+    }
+    return numeroVecesAsignado;
+}
+
+function ContarElementosConMismaLocalizacion(array, localizacion, rowitem) {
+    var numeroVecesMismaLocalizacion = 0;
+    for (var i = 0; i < array.length; i++) {
+        if (array[i].IdOrdenTrabajo + '-' + array[i].IdVal == (rowitem.IdOrdenTrabajo + '-' + rowitem.IdVal)) {
+            if (array[i].Localizacion.split("-")[0] == localizacion || array[i].Localizacion.split("-")[1] == localizacion)
+                numeroVecesMismaLocalizacion++;
+        }
+    }
+    return numeroVecesMismaLocalizacion;
+}
