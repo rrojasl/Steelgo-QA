@@ -262,7 +262,7 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
             }
         }
 
-        public object InsertarCargaSpool(DataTable dtDetalleCaptura, DataTable dtDetalleObreros, Sam3_Usuario usuario, string lenguaje, int medioTransporteCargaID)
+        public object GuardarAvanceCarro(DataTable dtDetalleCaptura, DataTable dtDetalleObreros, DataTable dtDetalleComponentes, Sam3_Usuario usuario, string lenguaje, int CargaCarroID)
         {
             try
             {
@@ -270,8 +270,8 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
                 {
 
                     ObjetosSQL _SQL = new ObjetosSQL();
-                    string[,] parametro = { { "@Usuario", usuario.UsuarioID.ToString() }, { "@Lenguaje", lenguaje }, { "@medioTransporteCargaID", medioTransporteCargaID.ToString() } };
-                    _SQL.Ejecuta(Stords.GUARDACAPTURAAVANCE, dtDetalleCaptura, "@Tabla", dtDetalleObreros, "@TablaObreros", parametro);
+                    string[,] parametro = { { "@Usuario", usuario.UsuarioID.ToString() }, { "@Lenguaje", lenguaje }, { "@CargaCarroID", CargaCarroID.ToString() } };
+                    _SQL.Ejecuta(Stords.GUARDACAPTURAAVANCE, dtDetalleCaptura, "@TablaCapturaAvance", dtDetalleObreros, "@TablaObreros", dtDetalleComponentes,"@TablaComponentes", parametro);
 
                     TransactionalInformation result = new TransactionalInformation();
                     result.ReturnMessage.Add("Ok");

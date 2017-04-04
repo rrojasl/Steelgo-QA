@@ -149,7 +149,8 @@ function AjaxCargarOrdenTrabajo() {
 function AjaxCargarLayoutGrid(sistemaPinturaProyectoId, procesoID, CargaCarroID) {
     $CapturaAvance.CapturaAvance.read({ token: Cookies.get("token"), sistemaPinturaProyectoId: sistemaPinturaProyectoId, procesoID: procesoID, lenguaje: $("#language").val() }).done(function (data) {
         if (data.length > 0) {
-
+            ComponentesDinamicos = data[0];
+            ReductorDinamico = data[1];
             CrearGrid();
 
             var grid = $("#grid").data("kendoGrid");
@@ -218,7 +219,7 @@ function AjaxCargarLayoutGrid(sistemaPinturaProyectoId, procesoID, CargaCarroID)
             options.columns.push({ field: "Color", title: _dictionary.columnColor[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "100px" });
             options.columns.push({ field: "Area", title: _dictionary.columnM2[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), attributes: { style: "text-align:right;" }, width: "80px" });
             options.columns.push({ field: "Lote", title: _dictionary.columnLote[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), attributes: { style: "text-align:right;" }, width: "80px" });
-            options.columns.push({ field: "FechaShotblast", title: _dictionary.columnFechaShotblast[$("#language").data("kendoDropDownList").value()], type: "date", filterable: { cell: { showOperators: false } }, editor: RenderDatePicker, format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()], width: "160px" });
+            options.columns.push({ field: "FechaProceso", title: _dictionary.columnFechaShotblast[$("#language").data("kendoDropDownList").value()], type: "date", filterable: { cell: { showOperators: false } }, editor: RenderDatePicker, format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()], width: "160px" });
             options.columns.push({ field: "ListaObrerosSeleccionados", title: _dictionary.columnShotblastero[$("#language").data("kendoDropDownList").value()], filterable: false, editor: RendercomboBoxShotBlastero, template: "#:plantillaObrero#", width: "280px" });
 
             for (var i = 0; i < data[0].length; i++) {
@@ -258,6 +259,10 @@ function AjaxCargarSpool(medioTransporteCargaID, sistemaPinturaProyectoID, proce
             //else {
             //    array[i].plantillaShotblastero = _dictionary.CapturaAvancePintoresShotblastNoExistentes[$("#language").data("kendoDropDownList").value()];
             //}
+            if (array[i].FechaProceso != null) {
+                array[i].FechaProceso = new Date(ObtenerDato(array[i].FechaProceso, 1), ObtenerDato(array[i].FechaProceso, 2), ObtenerDato(array[i].FechaProceso, 3));//año, mes, dia
+            }
+
             ds.add(array[i]);
         }
         if (array.length > 0)
@@ -328,17 +333,70 @@ function existeSpool(spool, array) {
     return false;
 }
 
-function AjaxGuardarCarro(arregloCaptura, guardarYNuevo) {
-    loadingStart();
-    displayNotify("", "se guardo correctamente la informacion", '0');
-    opcionHabilitarView(true, "FieldSetView");
+function AjaxGuardarAvanceCarro(arregloCaptura, guardarYNuevo) {
+    Captura = [];
+    Captura[0] = { Detalles: "" };
+    ListaDetalles = [];
+    ListaDetallesObrerosSeleccionados = [];
+    ListaComponentesDinamicos = [];
 
-    for (var i = 0; i < $("#grid").data("kendoGrid").dataSource._data.length; i++) {
-        $("#grid").data("kendoGrid").dataSource._data[i].Lote = "LT-455";
+    for (var index = 0 ; index < arregloCaptura.length; index++) {
+        ListaDetalles[index] = { Accion: "", SpoolID: "", ProcesoPinturaID: 0, FechaProceso: "", SistemaPinturaID:"", Reductor: 0, ReductorLote: "", ListaObrerosSeleccionados: [], ListaComponentesDinamicos: [] };
+        ListaDetalles[index].Accion = arregloCaptura[index].Accion;
+        ListaDetalles[index].SpoolID = arregloCaptura[index].SpoolID;
+        ListaDetalles[index].ProcesoPinturaID = $('input:radio[name=ProcesoPintura]:checked').val();
+        ListaDetalles[index].FechaProceso = arregloCaptura[index].FechaProceso == null ? "" : kendo.toString(arregloCaptura[index].FechaProceso, String(_dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()].replace('{', '').replace('}', '').replace("0:", ""))).trim();
+        ListaDetalles[index].SistemaPinturaID = arregloCaptura[index].SistemaPinturaID;
+        ListaDetalles[index].Reductor = ReductorDinamico[0].NombreReductor;
+        ListaDetalles[index].ReductorLote = arregloCaptura[index][ReductorDinamico[0].NombreReductor];
+
+        for (var j = 0 ; j < arregloCaptura[index].ListaObrerosSeleccionados.length; j++) {
+            ListaDetallesObrerosSeleccionados[j] = { Accion: "", SpoolID: "", ObreroId: 0, ProcesoPinturaID: 0 };
+            ListaDetallesObrerosSeleccionados[j].Accion = arregloCaptura[index].ListaObrerosSeleccionados[j].Accion;
+            ListaDetallesObrerosSeleccionados[j].SpoolID = arregloCaptura[index].SpoolID;
+            ListaDetallesObrerosSeleccionados[j].ObreroId = arregloCaptura[index].ListaObrerosSeleccionados[j].ObreroID;
+            ListaDetallesObrerosSeleccionados[j].ProcesoPinturaID = $('input:radio[name=ProcesoPintura]:checked').val();
+        }
+        ListaDetalles[index].ListaObrerosSeleccionados = ListaDetallesObrerosSeleccionados;
+
+        for (var k = 0; k < ComponentesDinamicos.length; k++) {
+            ListaComponentesDinamicos[k] = { Accion: "", SpoolID: "", Componente: "", Lote: "", ProcesoPinturaID: 0 };
+            ListaComponentesDinamicos[k].Accion = arregloCaptura[index].Accion;
+            ListaComponentesDinamicos[k].SpoolID = arregloCaptura[index].SpoolID;
+            ListaComponentesDinamicos[k].Componente = ComponentesDinamicos[k].NombreComponente; //arregloCaptura[index][ComponentesDinamicos[k]]
+            ListaComponentesDinamicos[k].Lote = arregloCaptura[index][ComponentesDinamicos[k].NombreComponente];
+            ListaComponentesDinamicos[k].ProcesoPinturaID = $('input:radio[name=ProcesoPintura]:checked').val();
+        }
+        ListaDetalles[index].ListaComponentesDinamicos = ListaComponentesDinamicos;
     }
+    Captura[0].Detalles = ListaDetalles;
 
-    $("#grid").data('kendoGrid').dataSource.sync();
-    loadingStop();
+    $CapturaAvance.CapturaAvance.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val(), cargaCarroID: $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()).MedioTransporteCargaID }).done(function (data) {
+
+        if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
+            displayNotify("MensajeGuardadoExistoso", "", '0');
+     
+
+            if (guardarYNuevo == 1) {
+                opcionHabilitarView(false, "FieldSetView");
+                Limpiar();
+                AjaxCargarCamposPredeterminados();
+                editado = false;
+            }
+            else {
+                opcionHabilitarView(true, "FieldSetView");
+                AjaxCambiarAccionAModificacion();
+            }
+            loadingStop();
+        }
+        else {
+            //mensaje = "No se guardo la informacion el error es: " + data.ReturnMessage[0] + "-2";
+            displayNotify("MensajeGuardadoErroneo", "", '2');
+            loadingStop();
+
+        }
+    });
+
 };
 
 function removerRepetidos(origArr) {

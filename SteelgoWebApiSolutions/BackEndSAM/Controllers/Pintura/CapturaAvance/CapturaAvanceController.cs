@@ -117,7 +117,7 @@ namespace BackEndSAM.Controllers.PinturaControllers.CapturaAvance
         public static string DataTableToJSON(DataTable table, int procesopinturaID, int usuario)
         {
             var list = new List<Dictionary<string, object>>();
-            
+            int columna = 0;
             foreach (DataRow row in table.Rows)
             {
                 var dict = new Dictionary<string, object>();
@@ -125,8 +125,6 @@ namespace BackEndSAM.Controllers.PinturaControllers.CapturaAvance
 
                 foreach (DataColumn col in table.Columns)
                 {
-
-
                     if (col.ColumnName == "ListaObreros")
                         dict[col.ColumnName] = (List<PintorSpool>)listaObreros[1];
                     else if (col.ColumnName == "ListaObrerosGuargados")
@@ -135,6 +133,13 @@ namespace BackEndSAM.Controllers.PinturaControllers.CapturaAvance
                         dict[col.ColumnName] = (List<PintorSpool>)listaObreros[0];
                     else
                         dict[col.ColumnName] = row[col];
+
+                    if (columna == 20)//Consulta Valor de Reductor
+                        dict[col.ColumnName] = "valor reducotor 1";
+                    else if (columna >= 21)//Consulta valor de componente
+                        dict[col.ColumnName] = "valor Componente " + columna;
+
+                    columna++;
                 }
                 list.Add(dict);
             }
@@ -237,7 +242,7 @@ namespace BackEndSAM.Controllers.PinturaControllers.CapturaAvance
             }
         }
 
-        public object Post(Captura listaCapturasRequisicion, string token, string lenguaje, int medioTransporteCargaID)
+        public object Post(Captura listaCapturasRequisicion, string token, string lenguaje, int cargaCarroID)
         {
             string payload = "";
             string newToken = "";
@@ -251,24 +256,32 @@ namespace BackEndSAM.Controllers.PinturaControllers.CapturaAvance
 
                 DataTable dtDetalleSpool = new DataTable();
                 DataTable dtDetalleObreros = null;
+                DataTable dtDetalleComponentes = null;
 
-
-                foreach (DetalleSpool item in listaCapturasRequisicion.listaDetalleSpool)
+                foreach (var item in listaCapturasRequisicion.Detalles)
                 {
                     if (dtDetalleObreros == null)
-                        dtDetalleObreros = BackEndSAM.Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(item.ListaObreros);
+                    {
+                        dtDetalleObreros= BackEndSAM.Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(item.ListaObrerosSeleccionados);
+                    }
                     else
-                        dtDetalleObreros.Merge(BackEndSAM.Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(item.ListaObreros));
+                        dtDetalleObreros.Merge(BackEndSAM.Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(item.ListaObrerosSeleccionados));
+                    if (dtDetalleComponentes == null)
+                    {
+                        dtDetalleComponentes = BackEndSAM.Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(item.ListaComponentesDinamicos);
+                    }
+                    else
+                        dtDetalleComponentes.Merge(BackEndSAM.Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(item.ListaComponentesDinamicos));
                 }
 
-                if (listaCapturasRequisicion.listaDetalleSpool != null)
-                {
-                    dtDetalleSpool = BackEndSAM.Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(listaCapturasRequisicion.listaDetalleSpool);
-                }
+                dtDetalleSpool=  BackEndSAM.Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(listaCapturasRequisicion.Detalles);
 
-                dtDetalleSpool.Columns.Remove("ListaObreros");
+               
+                dtDetalleSpool.Columns.Remove("ListaObrerosSeleccionados");
+                dtDetalleSpool.Columns.Remove("ListaComponentesDinamicos");
 
-                return CapturaAvanceBD.Instance.InsertarCargaSpool(dtDetalleSpool, dtDetalleObreros, usuario, lenguaje, medioTransporteCargaID);
+                return CapturaAvanceBD.Instance.GuardarAvanceCarro(dtDetalleSpool, dtDetalleObreros, dtDetalleComponentes, usuario, lenguaje, cargaCarroID);
+               
             }
             else
             {

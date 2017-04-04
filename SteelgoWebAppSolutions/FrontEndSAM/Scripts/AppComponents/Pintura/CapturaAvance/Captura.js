@@ -4,9 +4,11 @@ var plantillaShotblastero = "";
 var plantillaPintor = "";
 var currentDataItemGridDownload;
 var windowDownload = null;
-var procesoPinturaSeleccionadoAnterior="";
+var procesoPinturaSeleccionadoAnterior = "";
 var editado = false;
-
+var esNormal;
+var ComponentesDinamicos;
+var ReductorDinamico;
 
 IniciarCapturaArmado();
 
@@ -21,14 +23,34 @@ function changeLanguageCall() {
     SuscribirEventos();
 
     AjaxCargarCamposPredeterminados();
-   
- 
+
+
     document.title = _dictionary.lblCapturaAvance[$("#language").data("kendoDropDownList").value()];
     $('#Guardar1').text(_dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]);
     $("#Guardar").text(_dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]);
 };
 
+function ObtenerDato(fecha, tipoDatoObtener) {
+    var cultura = $("#language").val();
 
+    switch (tipoDatoObtener) {
+        case 1://anho
+            return fecha.split('/')[2]
+            break;
+        case 2://mes
+            if (cultura == 'es-MX')
+                return fecha.split('/')[1] - 1
+            else
+                return fecha.split('/')[0] - 1
+            break;
+        case 3://dia
+            if (cultura == 'es-MX')
+                return fecha.split('/')[0]
+            else
+                return fecha.split('/')[1]
+            break;
+    }
+}
 
 function AltaFecha() {
     endRangeDateShotblast = $("#FechaShotBlast").kendoDatePicker({
@@ -86,8 +108,7 @@ function ValidarFechaPrimario(valor) {
     }
 }
 
-function limpiarFila(e)
-{
+function limpiarFila(e) {
     e.preventDefault();
     var itemRow;
     itemRow = this.dataItem($(e.currentTarget).closest("tr"));
@@ -97,11 +118,13 @@ function limpiarFila(e)
 
 function VentanaModalDescargarSpool(e) {
     e.preventDefault();
-    if ($("#Guardar").text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
-        currentDataItemGridDownload = this.dataItem($(e.currentTarget).closest("tr"));
-        AjaxCargarZona(currentDataItemGridDownload.PatioID);
-        windowDownload.open().center();
-    }
+  
+        if ($("#Guardar").text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
+            currentDataItemGridDownload = this.dataItem($(e.currentTarget).closest("tr"));
+            AjaxCargarZona(currentDataItemGridDownload.PatioID);
+            windowDownload.open().center();
+        }
+   
 };
 
 
@@ -299,8 +322,7 @@ function LimpiarDespuesCambioProcesoPintura() {
     CustomisaGrid($("#grid"));
 }
 
-function CrearGrid()
-{
+function CrearGrid() {
     $("#grid").kendoGrid({
         //dataSource: {
         //    filter: {
@@ -329,6 +351,34 @@ function CrearGrid()
                 this.closeCell();
             }
 
+        },
+        dataBound: function (e) {
+            var ds = $("#grid").data("kendoGrid");
+            var gridData = ds.dataSource.view();
+
+            if (gridData.length > 0) {
+                for (var i = 0; i < gridData.length; i++) {
+                    var currentUid = gridData[i].uid;
+                    var currenRow = ds.table.find("tr[data-uid='" + currentUid + "']");
+                    var editButton = $(currenRow).find(".k-button");
+                    if (gridData[i].Accion == 2) {
+                        var classDescarga = $("#language").val() == "es-MX" ? "k-grid-Descarga" : "k-grid-Discharging";
+                        editButton[0].outerHTML = '<a class="k-button k-button-icontext ' + classDescarga + '" href="#/"><span class=""></span>' +
+                            _dictionary.botonDescarga[$("#language").data("kendoDropDownList").value()] + '</a>';
+
+                    } else {
+                        editButton[0].outerHTML = '<a class="k-button k-button-icontext k-grid-Cancelar" href="#/"><span class=""></span>' +
+                            _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()] + '</a>';
+                    }
+                }
+            }
+
+            if (esNormal) {
+                $(".k-grid-content td").css("white-space", "normal");
+            }
+            else {
+                $(".k-grid-content td").css("white-space", "nowrap");
+            }
         }
     });
 }
