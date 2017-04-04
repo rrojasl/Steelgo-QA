@@ -170,8 +170,8 @@ function AjaxObtenerDetalleCargaCarro(MedioTransporteID, tipoEscenario, valorBus
                 else {
                     var CargaCarroID = 0;
                     //obtenemos el id de la carga
-                    CargaCarroID = array.length>0? array[0].MedioTransporteCargaDetalleID : 0;
-                    
+                    CargaCarroID = array.length > 0 ? array[0].MedioTransporteCargaDetalleID : 0;
+
 
 
                     for (var i = 0; i < array.length; i++) {
@@ -215,6 +215,8 @@ function AjaxObtenerDetalleCargaCarro(MedioTransporteID, tipoEscenario, valorBus
 
                 ImprimirAreaTonelada();
             }
+            else
+                displayNotify("NoExisteSpoolID", "", 1);
 
             loadingStop();
         });
