@@ -5,7 +5,6 @@ function SuscribirEventos() {
     suscribirEventoGuardarCarro();
     suscribirEventoPlancharShotBlastero();
     SuscribirEventoSpoolID();
-    
     suscribirEventoDescargar();
     SuscribirEventoAgregar();
     SuscribirEventoPlanchar();
@@ -17,6 +16,24 @@ function SuscribirEventos() {
     suscribirEventoDescargarCarro();
     SuscribirEventoZona();
     SuscribirEventoCuadrante();
+    SuscribirEventoEliminaRegistro();
+}
+
+function SuscribirEventoEliminaRegistro() {
+    $(document).on('click', '.k-grid-Cancelar', function (e) {
+
+        if ($('#Guardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
+            var dataSource = $("#grid").data("kendoGrid").dataSource;
+            var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+
+            if (dataItem.Accion == 1 || dataItem.Accion== undefined) {
+                dataSource.remove(dataItem);
+                if (dataSource._data.length == 0) // si borro y es el ultimo elemento entonces se dice que el usuario no ah editado nada.
+                    editado = false;
+            }
+        }
+
+    });
 }
 
 function SuscribirEventoZona() {
@@ -102,7 +119,7 @@ function suscribirEventoDescargarCarro() {
 }
 
 function suscribirEventoVersion() {
-    
+
     $("#inputVersion").kendoComboBox({
         dataTextField: "Version",
         dataValueField: "Version",
@@ -236,7 +253,7 @@ function suscribirEventoGuardarCarro() {
     $("#btnGuardarYNuevo, #btnGuardarYNuevo2").click(function () {
 
         var ds = $("#grid").data("kendoGrid").dataSource;
-        AjaxGuardarCarro(ds._data, true);
+        AjaxGuardarAvanceCarro(ds._data, true);
         Limpiar();
     });
 
@@ -247,7 +264,7 @@ function suscribirEventoGuardarCarro() {
         if ($('#Guardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
             //opcionHabilitarView(true, "FieldSetView");
             var ds = $("#grid").data("kendoGrid").dataSource;
-            AjaxGuardarCarro(ds._data, false);
+            AjaxGuardarAvanceCarro(ds._data, false);
         }
         else if ($('#Guardar').text() == _dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]) {
             opcionHabilitarView(false, "FieldSetView")

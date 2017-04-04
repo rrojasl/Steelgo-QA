@@ -44,7 +44,7 @@
         public static string GUARDACAPTURANUEVOMEDIOTRANSPORTE = "Sam3_Pintura_Guardar_NuevoCarro";
         public static string GUARDACAPTURAPINTURASPOOLCARGA = "Sam3_Pintura_CargaCarro_Guardar";
         public static string SETCIERRACARRO = "Sam3_Pintura_Set_CierraCarro";
-        public static string GUARDACAPTURAAVANCE = "Sam3_Pintura_Guarda_CapturaAvance";
+        public static string GUARDACAPTURAAVANCE = "Sam3_Pintura_AvanceCarro_Guarda";
         public static string OKPND = "Sam3_ST_GuardaOKPND";
         public static string OKPNDMASIVO = "Sam3_ST_GuardaOKPND_Masivo";
         public static string GUARDACAPTURASISTEMAPINTURAAPLICABLE = "Sam3_SPA_GuardaCaptura";

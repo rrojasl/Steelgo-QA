@@ -85,24 +85,30 @@ namespace BackEndSAM.Models.Pintura.CapturaAvance
 
     public class Captura
     {
-        public List<DetalleSpool> listaDetalleSpool { get; set; }
+        public List<DetalleSpool> Detalles { get; set; }
     }
 
     public class DetalleSpool
     {
         public int Accion { get; set; }
         public int SpoolID { get; set; }
-        public int PinturaSpoolID { get; set; }
-        public int PasoID { get; set; }
+        public int ProcesoPinturaID { get; set; }
+        public string FechaProceso { get; set; }
         public int SistemaPinturaID { get; set; }
-        public int ColorPinturaID { get; set; }
-        public int LotePinturaID { get; set; }
-        public int PinturaComponenteComposicionID { get; set; }
-        public string Fecha { get; set; }
-        public List<ObrerosGuardar> ListaObreros { get; set; }
+        public string Reductor { get; set; }
+        public string ReductorLote { get; set; }
+        public List<ObrerosGuardar> ListaObrerosSeleccionados { get; set; }
+        public List<ComponenteDinamico> ListaComponentesDinamicos { get; set; }
     }
 
-
+    public class ComponenteDinamico
+    {
+        public int Accion { get; set; }
+        public int SpoolID { get; set; }
+        public string Componente { get; set; }
+        public string Lote { get; set; }
+        public int ProcesoPinturaID { get; set; }
+    }
 
 
     public class PintorSpool
@@ -118,10 +124,8 @@ namespace BackEndSAM.Models.Pintura.CapturaAvance
     {
         public int Accion { get; set; }
         public int SpoolID { get; set; }
-        public int PasoID { get; set; }
-        public int PinturaSpoolID { get; set; }
-        public int PinturaSpoolObreroID { get; set; }
         public int ObreroID { get; set; }
+        public int ProcesoPinturaID { get; set; }
     }
     public class CarroCerrado
     {
