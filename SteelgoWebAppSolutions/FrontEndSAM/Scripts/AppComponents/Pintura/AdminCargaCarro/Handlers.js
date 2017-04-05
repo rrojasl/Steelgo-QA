@@ -19,6 +19,24 @@ function SuscribirEventos() {
     SuscribirEventoZona();
     SuscribirEventoCuadrante();
     suscribirEventoDescargarCarro();
+    SuscribirEventoEliminaRegistro();
+}
+
+function SuscribirEventoEliminaRegistro() {
+    $(document).on('click', '.k-grid-Cancelar', function (e) {
+
+        if ($('#Guardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
+            var dataSource = $("#grid").data("kendoGrid").dataSource;
+            var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+
+            if (dataItem.Accion == 1 || dataItem.Accion == undefined) {
+                dataSource.remove(dataItem);
+                if (dataSource._data.length == 0) // si borro y es el ultimo elemento entonces se dice que el usuario no ah editado nada.
+                    editado = false;
+            }
+        }
+
+    });
 }
 
 function suscribirEventoDescargarCarro()

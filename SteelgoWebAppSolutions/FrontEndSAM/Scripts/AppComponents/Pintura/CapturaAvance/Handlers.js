@@ -96,7 +96,7 @@ function suscribirEventoDescargarCarro() {
     }).data("kendoWindow");
     $("#btnDescargar").click(function (handler) {
 
-
+ 
         var Zona = $("#inputZonaPopup").data("kendoComboBox").dataItem($("#inputZonaPopup").data("kendoComboBox").select());
         var Cuadrante = $("#inputCuadrantePopup").data("kendoComboBox").dataItem($("#inputCuadrantePopup").data("kendoComboBox").select());
 

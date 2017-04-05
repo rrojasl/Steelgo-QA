@@ -76,6 +76,7 @@ function AjaxCargarProyecto() {
 }
 
 function AjaxCargarMedioTransporte(ProyectoID, nuevoCarro) {
+    loadingStart();
     $PinturaGeneral.PinturaGeneral.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), proyectoID: ProyectoID }).done(function (data) {
         var medioTranporteId = 0;
 
@@ -106,6 +107,7 @@ function AjaxCargarMedioTransporte(ProyectoID, nuevoCarro) {
             else
                 $("#inputCarro").data("kendoComboBox").trigger("change");
         }
+        loadingStop();
     });
 }
 
@@ -182,7 +184,16 @@ function AjaxObtenerDetalleCargaCarro(MedioTransporteID, tipoEscenario, valorBus
 
                         for (var i = 0; i < array.length; i++) {
                             if (!validarInformacion(array[i])) {
-                                if (sistemaPinturaID == array[i].SistemaPinturaID) {
+                                if (sistemaPinturaID == 0)
+                                {
+                                    array[i].MedioTransporteCargaDetalleID = CargaCarroID == 0 ? $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()).MedioTransporteCargaID : CargaCarroID;
+                                    ds.add(array[i]);
+                                    if (elementosModificados != "")
+                                        elementosModificados += ", " + array[i].NumeroControl;
+                                    else
+                                        elementosModificados = array[i].NumeroControl;
+                                } 
+                                else if (sistemaPinturaID == array[i].SistemaPinturaID) {
                                     array[i].MedioTransporteCargaDetalleID = CargaCarroID == 0 ? $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()).MedioTransporteCargaID : CargaCarroID;
                                     ds.add(array[i]);
                                     if (elementosModificados != "")
@@ -226,7 +237,9 @@ function AjaxObtenerDetalleCargaCarro(MedioTransporteID, tipoEscenario, valorBus
 
                     ImprimirAreaTonelada();
                 }
-                else
+                else if(valorBusqueda=="")
+                    displayNotify("PinturaCargaCarroSinSpools", "", 1);    
+                else if (valorBusqueda != "")
                     displayNotify("NoExisteSpoolID", "", 1);
 
                 loadingStop();

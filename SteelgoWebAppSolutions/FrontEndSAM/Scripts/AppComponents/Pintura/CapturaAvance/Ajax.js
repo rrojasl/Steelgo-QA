@@ -272,7 +272,7 @@ function AjaxCargarSpool(medioTransporteCargaID, sistemaPinturaProyectoID, proce
         loadingStop();
     });
 }
-
+ 
 function AjaxAgregarSpool(ordenTrabajoSpoolID) {
     loadingStart();
     $CapturaAvance.CapturaAvance.read({ token: Cookies.get("token"), OrdenTrabajoSpoolID: ordenTrabajoSpoolID, lenguaje: $("#language").val(), procesoPinturaID: $('input:radio[name=ProcesoPintura]:checked').val() }).done(function (data) {
