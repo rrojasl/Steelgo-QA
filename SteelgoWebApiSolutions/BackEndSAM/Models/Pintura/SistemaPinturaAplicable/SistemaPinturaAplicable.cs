@@ -51,6 +51,8 @@ namespace BackEndSAM.Models.Pintura.SistemaPinturaAplicable
         public int EstatusCaptura { get; set; }
         public List<SistemaPinturaData> ListaSistemPintura { get; set; }
         public List<ColorPintura> ListaColorPintura { get; set; }
+
+        public bool AsignadoSpool { get; set; }
     }
 
     public class DetalleGuardarJson

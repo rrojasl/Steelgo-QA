@@ -156,6 +156,14 @@ function isEditable(fieldName, model) {
             return false;
         }
     }
+    if (fieldName == 'SistemaPintura' || fieldName === "Color")
+    {
+        var AsignadoSpool = model.AsignadoSpool
+        if (model.AsignadoSpool) {
+            displayNotify("SistemaPinturaAplicableYaAsigando", "", '1');
+            return false;
+        }
+    }
     return true;
 }
 function eliminaCaptura(e) {

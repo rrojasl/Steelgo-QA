@@ -10841,6 +10841,10 @@ _dictionary = {
         "es-MX": "No hay datos para guardar.",
         "en-US": "No data to save."
     },
+    "SistemaPinturaAplicableYaAsigando": {
+        "es-MX": "El spool ya se encuentra en un carro",
+        "en-US": "The spool is already in a car"
+    },
     "SistemaPinturaAplicableMensajeGuardadoExistoso": {
         "es-MX": "Datos guardados correctamente.",
         "en-US": "Data saved correctly."
