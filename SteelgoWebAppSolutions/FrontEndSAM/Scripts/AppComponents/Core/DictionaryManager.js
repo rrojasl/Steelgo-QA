@@ -10637,8 +10637,8 @@ _dictionary = {
             "en-US": "The spool is already loaded in another car"
         },
     "PinturaSpoolSistemaPinturaNoCoincide": {
-        "es-MX": "Procesos de pintura",
-        "en-US": "Painting processes"
+        "es-MX": "No puedes agregar un spool con diferente sistema de pintura",
+        "en-US": "You can not add a spool with different paint system"
     },
 
     "lblProcesosPintura": {

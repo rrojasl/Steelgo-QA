@@ -252,7 +252,7 @@ function SuscribirEventoSpoolID() {
     $("#InputOrdenTrabajo").focus(function (e) {
         $("#InputOrdenTrabajo").val("");
         $("#InputID").data("kendoComboBox").value("");
-        $("#InputID").data("kendoComboBox").setDataSource();
+       
     });
 
     $('#InputID').closest('.k-widget').keydown(function (e) {
@@ -461,10 +461,22 @@ function eventoRegresarTipoListado() {
 }
 
 function SuscribirEventoGuardarCaptura() {
-    $('#btnGuardarYNuevo').click(function (e) {
-        if ($("#grid").data("kendoGrid").dataSource._data.length > 0) {
-            ajaxGuardarEscritorio($("#grid").data("kendoGrid").dataSource._data, true);
-            $('#btnCancelar').trigger("click");
+    $('#btnGuardarYNuevo,#btnGuardarYNuevo1').click(function (e) {
+        if ($('input:radio[name=TipoVista]:checked').val() == "Escritorio") {
+            if ($('#btnGuardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
+                ajaxGuardarEscritorio($("#grid").data("kendoGrid").dataSource._data, true);
+            }
+            else if ($('#btnGuardar').text() == "Editar") {
+                opcionHabilitarView(false, "FieldSetView")
+            }
+        }
+        else if ($('input:radio[name=TipoVista]:checked').val() == "Patio") {
+            if ($('#btnGuardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
+                ajaxGuardarPatio($("#grid").data("kendoGrid").dataSource._data, true);
+            }
+            else if ($('#btnGuardar').text() == "Editar") {
+                opcionHabilitarView(false, "FieldSetView")
+            }
         }
     });
 
