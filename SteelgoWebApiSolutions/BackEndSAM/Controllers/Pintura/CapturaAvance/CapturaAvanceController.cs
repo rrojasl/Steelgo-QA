@@ -117,7 +117,6 @@ namespace BackEndSAM.Controllers.PinturaControllers.CapturaAvance
         public static string DataTableToJSON(DataTable table, int procesopinturaID, int usuario)
         {
             var list = new List<Dictionary<string, object>>();
-            int columna = 0;
             foreach (DataRow row in table.Rows)
             {
                 var dict = new Dictionary<string, object>();
@@ -133,13 +132,6 @@ namespace BackEndSAM.Controllers.PinturaControllers.CapturaAvance
                         dict[col.ColumnName] = (List<PintorSpool>)listaObreros[0];
                     else
                         dict[col.ColumnName] = row[col];
-
-                    if (columna == 20)//Consulta Valor de Reductor
-                        dict[col.ColumnName] = "valor reducotor 1";
-                    else if (columna >= 21)//Consulta valor de componente
-                        dict[col.ColumnName] = "valor Componente " + columna;
-
-                    columna++;
                 }
                 list.Add(dict);
             }
