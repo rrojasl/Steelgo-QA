@@ -8153,7 +8153,7 @@ _dictionary = {
 
     // Menú lateral
     "menuFabricacion": {
-        "es-MX": "Produccción",
+         "es-MX": "Produccción",
         "en-US": "Production"
     },
     "menuArmado": {
@@ -8306,8 +8306,8 @@ _dictionary = {
         "en-US": "Paint System"
     },
     "menuConfiguracionSoldadura": {
-        "es-MX": "Fabricación",
-        "en-US": "Manufacturing"
+         "es-MX": "Produccción",
+        "en-US": "Production"
     },
     "menuPQR": {
         "es-MX": "PQR",
@@ -9559,8 +9559,8 @@ _dictionary = {
         "en-US": "Observation"
     },
     "ConfiguracionSoldaduraBreadcrumb": {
-        "es-MX": "Fabricación",
-        "en-US": "Manufacturing"
+         "es-MX": "Produccción",
+        "en-US": "Production"
     },
     "CapturaSoldaduraHeaderSoldadores": {
         "es-MX": "Soldador",

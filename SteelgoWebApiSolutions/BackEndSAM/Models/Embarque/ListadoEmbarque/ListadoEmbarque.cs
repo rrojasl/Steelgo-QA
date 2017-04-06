@@ -39,6 +39,7 @@ namespace BackEndSAM.Models.Embarque.ListadoEmbarque
         public bool RequiereRevisionCliente { get; set; }
         public bool OkClienteAnt { get; set; }
         public bool OkCliente { get; set; }
+        public bool OkClienteEmbarque{ get; set; }
         public int AprobadoAduanaAnt { get; set; }
         public int AprobadoAduana { get; set; }
         public string AprobadoAduanaDesc { get; set; }

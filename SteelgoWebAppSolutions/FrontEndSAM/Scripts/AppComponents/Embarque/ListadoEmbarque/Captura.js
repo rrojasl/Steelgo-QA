@@ -152,7 +152,7 @@ function CargarGrid() {
                         style: "max-width:100px;"
                     },
                     dataSource: [{ OkCliente: true }, { OkCliente: false }]
-                }, template: '<input type="checkbox" class="chk-OkCliente" #= OkCliente ? "checked=checked" : "" # class="chkbx" ></input>', width: "130px", attributes: { style: "text-align:center;" }
+                }, template: '<input type="checkbox" class="chk-OkCliente" #= OkCliente ? "checked=checked" : "" # class="chkbx"  #= !OkClienteEmbarque ? "disabled= disabled": "" #></input>', width: "130px", attributes: { style: "text-align:center;" }
             },
             {
                 field: "OkEmbarque", title: _dictionary.columnOkEmbarque[$("#language").data("kendoDropDownList").value()], filterable: {
@@ -310,7 +310,7 @@ function AltaFecha() {
 function SetValueEnviar(obj) {
     var retorno = false;
     if (obj != undefined) {
-        if (obj.OkCliente && obj.AprobadoAduana == 1 && obj.OkEmbarque)
+        if ((obj.OkCliente && obj.OkClienteEmbarque || !obj.OkClienteEmbarque) && obj.AprobadoAduana == 1 && obj.OkEmbarque)
             retorno = true;
     }
 
