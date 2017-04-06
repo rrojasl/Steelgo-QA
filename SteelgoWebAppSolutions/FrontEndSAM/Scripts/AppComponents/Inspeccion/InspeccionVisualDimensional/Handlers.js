@@ -166,7 +166,7 @@ function SuscribirEventoSpoolID() {
             if ($("#InputID").val() != "" && $("#InputOrdenTrabajo").val()) {
                 if ($("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()).IDValido!="" && $("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()) != undefined) {
                     e.preventDefault();
-                    if ($("#grid").data("kendoGrid").dataSource._data.length > 0 || editado) {
+                    if (esSpoolMismoCaptura()) {
                         ventanaConfirmCambiarCaptura.open().center();
                     }
                     else {
@@ -192,7 +192,7 @@ function SuscribirEventoSpoolID() {
             dataItem = $("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select());
             if (dataItem != undefined) {
                 if ($("#InputID").val() != '' && $("#InputOrdenTrabajo").val() != '') {
-                    if ($("#grid").data("kendoGrid").dataSource._data.length > 0 || editado) {
+                    if (esSpoolMismoCaptura()) {
                         ventanaConfirmCambiarCaptura.open().center();
                     }
                     else {
@@ -410,7 +410,7 @@ function SuscribirEventoResultadoVisual() {
 function suscribirEventoAgregar() {
     $('#btnAgregar').click(function (e) {
         e.preventDefault();
-        if ($("#grid").data("kendoGrid").dataSource._data.length > 0 || editado) {
+        if (!esSpoolMismoCaptura()) {
             ventanaConfirmCambiarCaptura.open().center();
         }
         else {

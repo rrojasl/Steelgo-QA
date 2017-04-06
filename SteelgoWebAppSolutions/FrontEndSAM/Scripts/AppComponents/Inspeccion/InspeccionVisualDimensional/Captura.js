@@ -12,6 +12,18 @@ var ordentrabajoSpoolID = 0;
 
 IniciarCapturaInspecion();
 
+function esSpoolMismoCaptura()
+{
+    if ($("#grid").data("kendoGrid").dataSource._data.length > 0) {
+        if ($("#grid").data("kendoGrid").dataSource._data[0].OrdenTrabajoSpoolID == ordentrabajoSpoolID.Valor)
+            return true;
+        else
+            return false;
+    }
+    else
+        return true;
+}
+
 function TryParseInt(str, defaultValue) {
     var retValue = defaultValue;
     if (str !== null) {

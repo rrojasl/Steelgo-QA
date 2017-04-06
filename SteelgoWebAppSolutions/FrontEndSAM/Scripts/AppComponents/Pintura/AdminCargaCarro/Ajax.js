@@ -148,7 +148,7 @@ function AjaxGuardarNuevoCarro() {
 function AjaxObtenerDetalleCargaCarro(MedioTransporteID, tipoEscenario, valorBusqueda) {
     loadingStart();
     var SpoolPerteneceProyecto = true;
-    if ($("#inputCarro").data("kendoComboBox").select() > 0) {
+    if (MedioTransporteID > 0) {
 
         if (valorBusqueda != "" && $("#inputProyecto").data("kendoComboBox").dataItem($("#inputProyecto").data("kendoComboBox").select()).PrefijoOrdenTrabajo != $("#InputOrdenTrabajo").val()[0]) {
             SpoolPerteneceProyecto = false;
@@ -413,7 +413,7 @@ function ajaxGuardarEscritorio(listaSpool, guardarYNuevo) {
 }
 
 function AjaxCargarZona(patioID) {
-    loadingStart();
+    
     $Zona.Zona.read({ token: Cookies.get("token"), PatioID: patioID }).done(function (data) {
         var ZonaId = 0;
         if (data.length > 0) {
@@ -430,7 +430,7 @@ function AjaxCargarZona(patioID) {
             $("#inputZonaPopup").data("kendoComboBox").trigger("change");
         }
 
-        loadingStop();
+       
     });
 }
 

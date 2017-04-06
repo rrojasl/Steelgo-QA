@@ -362,12 +362,12 @@ function SuscribirEventoCarro() {
         filter: "contains",
         index: 3,
         change: function (e) {
-            var dataItem = this.dataItem(e.sender.selectedIndex);
+             dataItemCarro = this.dataItem(e.sender.selectedIndex);
 
 
-            if (dataItem != undefined) {
-                $("#chkCerrar")[0].checked = dataItem.CarroCerrado;
-                if (dataItem.MedioTransporteID == -1) {
+             if (dataItemCarro != undefined) {
+                 $("#chkCerrar")[0].checked = dataItemCarro.CarroCerrado;
+                 if (dataItemCarro.MedioTransporteID == -1) {
                     CargaPopupNuevoMedioTransporte();
                 } else {
                     // LimpiarCargaCarro();
@@ -382,7 +382,9 @@ function SuscribirEventoCarro() {
     $('#inputCarro').closest('.k-widget').keydown(function (e) {
         if (e.keyCode == 13) {
             InformacionMostrada = true;
-            AjaxObtenerDetalleCargaCarro($("#inputCarro").data("kendoComboBox").select() == -1 ? 0 : $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()).MedioTransporteID, $('input:radio[name=TipoVista]:checked').val(), '');
+            if (dataItemCarro != undefined) {
+                AjaxObtenerDetalleCargaCarro(dataItemCarro.MedioTransporteID, $('input:radio[name=TipoVista]:checked').val(), '');
+            }
         }
 
 
