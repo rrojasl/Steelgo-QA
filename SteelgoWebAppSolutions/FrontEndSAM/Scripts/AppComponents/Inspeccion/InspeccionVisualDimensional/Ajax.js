@@ -247,17 +247,19 @@ function ajaxobtenerDetalleDimensional(spoolID) {
             }
 
             $("#inputDefecto").data("kendoComboBox").value(data.ListaDetalleDimensional[0].DefectoID == 0 ? "" : data.ListaDetalleDimensional[0].DefectoID);
-            if (data.ListaDetalleDimensional[0].DefectoID != 0)
-                $("#inputDefecto").data("kendoComboBox").trigger("change");
-            else
-                $("#inputDefecto").data("kendoComboBox").enable(false);
-
             $("#inputInspector").data("kendoComboBox").value(data.ListaDetalleDimensional[0].ObreroID);
+            $("#ListaJuntas").data("kendoMultiSelect").dataSource.data([]);
+            $("#ListaJuntas").data("kendoMultiSelect").dataSource.data(data.ListaDetalleDimensional[0].ListaJuntas);
             $("#InspeccionDimensionalID").val(data.ListaDetalleDimensional[0].InspeccionDimensionalID);
             endRangeDate.val(data.ListaDetalleDimensional[0].FechaInspeccion);
 
-            $("#ListaJuntas").data("kendoMultiSelect").dataSource.data([]);
-            $("#ListaJuntas").data("kendoMultiSelect").dataSource.data(data.ListaDetalleDimensional[0].ListaJuntas);
+
+            
+
+            
+            
+
+           
             listadoJuntasInicialGlobal = data.ListaDetalleDimensional[0].ListaJuntasSeleccionadas.length > 0 ? data.ListaDetalleDimensional[0].ListaJuntasSeleccionadas : [];
             if (data.ListaDetalleDimensional[0].ListaJuntasSeleccionadas.length > 0) {
                 editado = true;
@@ -269,13 +271,34 @@ function ajaxobtenerDetalleDimensional(spoolID) {
                 $("#ListaJuntas").data("kendoMultiSelect").value(valores);
             }
 
+            if ($("#inputDefecto").data("kendoComboBox").select() > 0) {
+                if ($("#inputDefecto").data("kendoComboBox").dataItem().TIPO == "NoEspecificarJunta")
+                    $("#ListaJuntas").data("kendoMultiSelect").enable(false);
+                else {
+                    if ($('#Guardar').text() == "Guardar" || $('#Guardar').text() == "Save") {
+                        $("#ListaJuntas").data("kendoMultiSelect").enable(true);
+                    }
+                    else
+                        $("#ListaJuntas").data("kendoMultiSelect").enable(false);
+                }
+            }
+            else
+                $("#ListaJuntas").data("kendoMultiSelect").enable(false);
+
             $("#InputID").data("kendoComboBox").value("");
             $("#InputID").val("")
         }
         else {
             $("#ListaJuntas").data("kendoMultiSelect").value("");
             $("#ListaJuntas").data("kendoMultiSelect").dataSource.data(data.ListaDetalleDimensional[0].ListaJuntas);
-            $("#ListaJuntas").data("kendoMultiSelect").enable(false);
+            if ($("#inputDefecto").data("kendoComboBox").select() > 0) {
+                if ($("#inputDefecto").data("kendoComboBox").dataItem().TIPO == "NoEspecificarJunta")
+                    $("#ListaJuntas").data("kendoMultiSelect").enable(false);
+                else
+                    $("#ListaJuntas").data("kendoMultiSelect").enable(true);
+            }
+            else
+                $("#ListaJuntas").data("kendoMultiSelect").enable(false);
             $("#inputDefecto").data("kendoComboBox").value("");
             $("#inputDefecto").data("kendoComboBox").enable(false);
             $("#inputInspector").data("kendoComboBox").value("");
@@ -565,48 +588,41 @@ function ajaxGuardado(jSonCaptura, tipoGuardar) {
     else if (ResultadoDimensional == "Aprobado" && ((Inspector == -1 || Inspector == 0))) {
         existRowEmpty = true;
         $("#FechaInspeccion").css({ 'background-color': '#ffcccc' });
-        $("#inputDefectoDiv span").css({ 'background-color': '#ffffff' });
-        $("#inputDefecto").data("kendoComboBox").input.css("background-color", "#ffffff");
-        $("#inputInspector").data("kendoComboBox").input.css("background-color", "#ffcccc");
-        $("#ListaJuntas").data("kendoMultiSelect").input.css("background-color", "#ffffff");
-
-        $("#FechaInspeccionDiv span").css({ 'background-color': '#ffcccc' });
-        $("#inputInspectorDiv span").css({ 'background-color': '#ffcccc' });
-        $("#listaJuntasDiv .k-multiselect").css({ 'background-color': '#ffffff' });
-
-        $("#lblRechazado").css({ 'color': '#000' });
-        $("#lblAprobado").css({ 'color': '#000' });
-
-    }
-    else if (ResultadoDimensional == "Rechazado" && (inspeccionDimensional[0].DefectoID == "" || inspeccionDimensional[0].FechaInspeccion == "" || inspeccionDimensional[0].ObreroID == "" || (tipoDefecto == "NoEspecificarJunta" ? false : (inspeccionDimensional[0].ListaJuntas == undefined || JuntasValidas(inspeccionDimensional[0].ListaJuntas) == 0)))) {
-
-        existRowEmpty = true;
-
-        $("#FechaInspeccion").css({ 'background-color': '#ffcccc' });
         $("#inputDefecto").data("kendoComboBox").input.css("background-color", "#ffcccc");
         $("#inputInspector").data("kendoComboBox").input.css("background-color", "#ffcccc");
-
-        if (tipoDefecto != "NoEspecificarJunta")
-            $("#ListaJuntas").data("kendoMultiSelect").input.css("background-color", "#ffcccc");
-        else
-            $("#ListaJuntas").data("kendoMultiSelect").input.css("background-color", "#ffffff");
+        $("#ListaJuntas").data("kendoMultiSelect").input.css("background-color", "#ffcccc");
 
         $("#FechaInspeccionDiv span").css({ 'background-color': '#ffcccc' });
         $("#inputDefectoDiv span").css({ 'background-color': '#ffcccc' });
         $("#inputInspectorDiv span").css({ 'background-color': '#ffcccc' });
+        $("#listaJuntasDiv .k-multiselect").css({ 'background-color': '#ffcccc' });
 
-        if (tipoDefecto != "NoEspecificarJunta")
-            $("#listaJuntasDiv .k-multiselect").css({ 'background-color': '#ffcccc' });
-        else
-            $("#listaJuntasDiv .k-multiselect").css({ 'background-color': '#ffffff' });
+        $("#lblRechazado").css({ 'color': '#EC4F50' });
+        $("#lblAprobado").css({ 'color': '#EC4F50' });
 
-        $("#lblRechazado").css({ 'color': '#000' });
-        $("#lblAprobado").css({ 'color': '#000' });
+    }
+    else if (ResultadoDimensional == "Rechazado" && (inspeccionDimensional[0].DefectoID == "" || inspeccionDimensional[0].FechaInspeccion == "" || inspeccionDimensional[0].ObreroID == "" || (tipoDefecto == "NoEspecificarJunta" ? false : (inspeccionDimensional[0].ListaJuntas == undefined || JuntasValidas(inspeccionDimensional[0].ListaJuntas) == 0)))) {
+
+      
+        existRowEmpty = true;
+        $("#FechaInspeccion").css({ 'background-color': '#ffcccc' });
+        $("#inputDefecto").data("kendoComboBox").input.css("background-color", "#ffcccc");
+        $("#inputInspector").data("kendoComboBox").input.css("background-color", "#ffcccc");
+        $("#ListaJuntas").data("kendoMultiSelect").input.css("background-color", "#ffcccc");
+
+        $("#FechaInspeccionDiv span").css({ 'background-color': '#ffcccc' });
+        $("#inputDefectoDiv span").css({ 'background-color': '#ffcccc' });
+        $("#inputInspectorDiv span").css({ 'background-color': '#ffcccc' });
+        $("#listaJuntasDiv .k-multiselect").css({ 'background-color': '#ffcccc' });
+
+        $("#lblRechazado").css({ 'color': '#EC4F50' });
+        $("#lblAprobado").css({ 'color': '#EC4F50' });
 
         inspeccionDimensional[0].ListaJuntas = [];
         inspeccionDimensional[0].ListaJuntas.push({ Accion: 0, OrdenTrabajoSpoolID: "", DefectoID: "", JuntaID: "" });
         if ($("#inputDefecto").data("kendoComboBox").dataItem(Defecto) != undefined)
-            if ($("#inputDefecto").data("kendoComboBox").dataItem(Defecto).TIPO != "NoEspecificarJunta") capturaSinDimensional = true;
+            if ($("#inputDefecto").data("kendoComboBox").dataItem(Defecto).TIPO != "NoEspecificarJunta")
+                capturaSinDimensional = true;
     }
     else {
         aplicarColorBlancoCapturaDimensional();

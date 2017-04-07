@@ -42,6 +42,7 @@ function suscribirEventoWindowsConfirmaCaptura() {
     $("#noButtonProy").click(function (e) {
         $("#InputID").data("kendoComboBox").value(spooolAnterior.IDValido);
         $("#InputOrdenTrabajo").val(OrdenTrabajoAnterior);
+        ordentrabajoSpoolID = spooolAnterior;
         ventanaConfirmCambiarCaptura.close();
     });
 }
@@ -133,15 +134,17 @@ function SuscribirEventoSpoolID() {
             aplicarColorBlancoCapturaDimensional();
 
             if (dataItem != undefined && dataItem.IDValido != "") {
-                //if ($("#grid").data("kendoGrid").dataSource._data.length > 0 || editado)
-                //{
-                //    ventanaConfirmCambiarCaptura.open().center();
-                //}
-                if ($("#InputID").val() != '' && $("#InputOrdenTrabajo").val() != '') {
-                    ordentrabajoSpoolID = dataItem;
-                    Cookies.set("Proyecto", dataItem.ProyectoID + '°' + dataItem.Proyecto);
+                ordentrabajoSpoolID = dataItem;
+                if (!esSpoolMismoCaptura()) {
+                    ventanaConfirmCambiarCaptura.open().center();
                 }
-                ajaxObtenerListaTaller();
+                else {
+                    if ($("#InputID").val() != '' && $("#InputOrdenTrabajo").val() != '') {
+                        
+                        Cookies.set("Proyecto", dataItem.ProyectoID + '°' + dataItem.Proyecto);
+                    }
+                    ajaxObtenerListaTaller();
+                }
             }
 
         }
@@ -319,16 +322,20 @@ function SuscribirEventoDefecto() {
         filter: "contains",
         index: 3,
         change: function (e) {
-            if ($("#inputDefecto").data("kendoComboBox").dataItem($("#inputDefecto").data("kendoComboBox").select()) == undefined)
-                $("#inputDefecto").data("kendoComboBox").value("");
-
-            if ($("#inputDefecto").data("kendoComboBox").dataItem($("#inputDefecto").data("kendoComboBox").select()) != undefined
-            && $("#inputDefecto").data("kendoComboBox").dataItem($("#inputDefecto").data("kendoComboBox").select()).TIPO == "NoEspecificarJunta")
-                $("#ListaJuntas").data("kendoMultiSelect").enable(false);
-
-            else $("#ListaJuntas").data("kendoMultiSelect").enable(true);
-            editado = true;
-            $("#ListaJuntas").data("kendoMultiSelect").value("");
+            dataItem = this.dataItem(e.sender.selectedIndex);
+            if ($('#Guardar').text() == "Guardar" || $('#Guardar').text() == "Save") {
+                if (dataItem != undefined && dataItem.IDValido != "") {
+                    if (dataItem.TIPO == "NoEspecificarJunta") {
+                        $("#ListaJuntas").data("kendoMultiSelect").enable(false);
+                        //
+                    }
+                    else {
+                        $("#ListaJuntas").data("kendoMultiSelect").enable(true)
+                    }
+                    editado = true;
+                    $("#ListaJuntas").data("kendoMultiSelect").value("");
+                }
+            }
         }
     });
 
@@ -373,7 +380,16 @@ function SuscribirEventoResultadoDimensional() {
     $('input:radio[name=ResultadoDimensional]:nth(0)').change(function () {
         if ($('#Guardar').text() == "Guardar" || $('#Guardar').text() == "Save") {
             $("#inputDefecto").data("kendoComboBox").enable(false);
-            $("#ListaJuntas").data("kendoMultiSelect").enable(false);
+            
+            if ($("#inputDefecto").data("kendoComboBox").select() > 0) {
+                if ($("#inputDefecto").data("kendoComboBox").dataItem().TIPO == "NoEspecificarJunta")
+                    $("#ListaJuntas").data("kendoMultiSelect").enable(false);
+                else
+                    $("#ListaJuntas").data("kendoMultiSelect").enable(true);
+            }
+            else
+                $("#ListaJuntas").data("kendoMultiSelect").enable(false);
+
             $("#ListaJuntas").data("kendoMultiSelect").value("");
             $("#inputDefecto").data("kendoComboBox").select(0);
             editado = true;
@@ -383,7 +399,16 @@ function SuscribirEventoResultadoDimensional() {
     $('input:radio[name=ResultadoDimensional]:nth(1)').change(function () {
         if ($('#Guardar').text() == "Guardar" || $('#Guardar').text() == "Save") {
             $("#inputDefecto").data("kendoComboBox").enable(true);
-            $("#ListaJuntas").data("kendoMultiSelect").enable(false);
+            
+            if ($("#inputDefecto").data("kendoComboBox").select() > 0) {
+                if ($("#inputDefecto").data("kendoComboBox").dataItem().TIPO == "NoEspecificarJunta")
+                    $("#ListaJuntas").data("kendoMultiSelect").enable(false);
+                else
+                    $("#ListaJuntas").data("kendoMultiSelect").enable(true);
+            }
+            else
+                $("#ListaJuntas").data("kendoMultiSelect").enable(false);
+
             $("#ListaJuntas").data("kendoMultiSelect").value("");
             $("#inputDefecto").data("kendoComboBox").select(0);
             editado = true;
@@ -577,15 +602,9 @@ function opcionHabilitarView(valor, name) {
         $("#inputTaller").data("kendoComboBox").enable(false);
         $("#inputDefecto").data("kendoComboBox").enable(false);
         $("#inputDefectosVisual").data("kendoComboBox").enable(false);
+        $("#ListaJuntas").data("kendoMultiSelect").enable(false);
        
-        if ($("#inputDefecto").data("kendoComboBox").select() > 0) {
-            if ($("#inputDefecto").data("kendoComboBox").dataItem($("#inputDefecto").data("kendoComboBox").select()).TIPO == "NoEspecificarJunta")
-                $("#ListaJuntas").data("kendoMultiSelect").enable(false);
-            else
-                $("#ListaJuntas").data("kendoMultiSelect").enable(true);
-        }
-        else
-            $("#ListaJuntas").data("kendoMultiSelect").enable(false);
+        
 
         $('#Guardar').text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
         $('#btnGuardar').text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
