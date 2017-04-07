@@ -10497,8 +10497,8 @@ _dictionary = {
     //Finaliza Captura Admin reductores
     //Inicia Carga de Carro
     "PinturaCargaCarroSinSpools": {
-        "es-MX": "El carro no tiene ningun spool",
-        "en-US": "The cart does not have any spool"
+        "es-MX": "No se le ah asignado aun un sistema de pintura al spool seleccionado",
+        "en-US": "You have not yet assigned a selected spool painting system"
     },
     "PinturaCargaCarroEscritorio": {
         "es-MX": "Escritorio",

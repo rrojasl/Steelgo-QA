@@ -237,10 +237,10 @@ function AjaxObtenerDetalleCargaCarro(MedioTransporteID, tipoEscenario, valorBus
 
                     ImprimirAreaTonelada();
                 }
-                else if(valorBusqueda=="")
-                    displayNotify("PinturaCargaCarroSinSpools", "", 1);    
-                else if (valorBusqueda != "")
-                    displayNotify("NoExisteSpoolID", "", 1);
+
+                if (data.length ==0 && valorBusqueda != "")
+                    displayNotify("PinturaCargaCarroSinSpools", "", '1');
+               
 
                 loadingStop();
             });

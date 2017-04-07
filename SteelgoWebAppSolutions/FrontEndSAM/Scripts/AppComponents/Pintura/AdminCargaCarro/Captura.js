@@ -52,7 +52,7 @@ function LimpiarInformacionAgregada()
     $("#labelM2").text("");
     $("#labelToneladas").text("");
     $("#InputOrdenTrabajo").val("");
-    $("#InputID").val("");
+    $("#InputID").data("kendoComboBox").value("");
     $("#inputCodigo").val("");
 }
 
@@ -63,7 +63,7 @@ function LimpiarCargaProyecto() {
     $("#labelToneladas").text("");
     $("#grid").data('kendoGrid').dataSource.data([]);
     $("#InputOrdenTrabajo").val("");
-    $("#InputID").val("");
+    $("#InputID").data("kendoComboBox").value("");
     $("#inputCodigo").val("");
 
 }

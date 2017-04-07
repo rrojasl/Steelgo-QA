@@ -382,9 +382,17 @@ function SuscribirEventoCarro() {
     $('#inputCarro').closest('.k-widget').keydown(function (e) {
         if (e.keyCode == 13) {
             InformacionMostrada = true;
-            if (dataItemCarro != undefined) {
-                AjaxObtenerDetalleCargaCarro(dataItemCarro.MedioTransporteID, $('input:radio[name=TipoVista]:checked').val(), '');
+
+            if (!editado) {
+                if (dataItemCarro != undefined) {
+                    AjaxObtenerDetalleCargaCarro(dataItemCarro.MedioTransporteID, $('input:radio[name=TipoVista]:checked').val(), '');
+                }
             }
+            else {
+                ventanaConfirmEdicionSinTipoBusqueda.open().center();
+            }
+
+            
         }
 
 

@@ -234,12 +234,13 @@ function ValidarCaptura(arregloCaptura) {
 
         //fin de validar los numeros unicos
 
-        if (!esCorrectaJunta(ListaDetalles[index].JuntaAnteriorNumeroUnicoGuardado)) {
-            // la junta del numero unico anterior no se ah asignado correctamente 
-            $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
-            ListaDetalles[index].Estatus = 0;
-        }
-        else if (ListaDetalles[index].Accion != 3 && ListaDetalles[index].Accion != 4) {
+        //if (!esCorrectaJunta(ListaDetalles[index].JuntaAnteriorNumeroUnicoGuardado)) {
+        //    // la junta del numero unico anterior no se ah asignado correctamente 
+        //    $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
+        //    ListaDetalles[index].Estatus = 0;
+        //}
+        //else
+        if (ListaDetalles[index].Accion != 3 && ListaDetalles[index].Accion != 4) {
             if (ListaDetalles[index].Accion == 2 &&
                 ListaDetalles[index].FechaArmado == "" &&
                 (ListaDetalles[index].TallerID == "" || ListaDetalles[index].TallerID == "0" || ListaDetalles[index].TallerID == undefined) &&
@@ -454,44 +455,44 @@ function AjaxValidarNumerosUnicos(arregloCaptura, tipoGuardar) {
     ListaDetalles = [];
     var numUnicosIncorrectosCliente = false;
     for (index = 0; index < arregloCaptura.length; index++) {
-            ListaDetalles[index] = { JuntaSpoolID: "", NumeroUnico1ID: "", NumeroUnico2ID: "", Localizacion1: "", Localizacion2: "" };
-            $("#grid").data("kendoGrid").dataSource._data[index].NUOk = true;
-            ListaDetalles[index].JuntaSpoolID = arregloCaptura[index].JuntaID;
-            ListaDetalles[index].NumeroUnico1ID = arregloCaptura[index].NumeroUnico1ID;
-            ListaDetalles[index].NumeroUnico2ID = arregloCaptura[index].NumeroUnico2ID;
-            ListaDetalles[index].Localizacion1 = arregloCaptura[index].Localizacion.split("-")[0];
-            ListaDetalles[index].Localizacion2 = arregloCaptura[index].Localizacion.split("-")[1];
+        ListaDetalles[index] = { JuntaSpoolID: "", NumeroUnico1ID: "", NumeroUnico2ID: "", Localizacion1: "", Localizacion2: "" };
+        $("#grid").data("kendoGrid").dataSource._data[index].NUOk = true;
+        ListaDetalles[index].JuntaSpoolID = arregloCaptura[index].JuntaID;
+        ListaDetalles[index].NumeroUnico1ID = arregloCaptura[index].NumeroUnico1ID;
+        ListaDetalles[index].NumeroUnico2ID = arregloCaptura[index].NumeroUnico2ID;
+        ListaDetalles[index].Localizacion1 = arregloCaptura[index].Localizacion.split("-")[0];
+        ListaDetalles[index].Localizacion2 = arregloCaptura[index].Localizacion.split("-")[1];
 
-            
-        
+
+
 
     }
     Captura[0].Detalles = ListaDetalles;
 
-    
-        $Armado.Armado.update(Captura[0], { token: Cookies.get("token") }).done(function (data) {
-            if (data.length == 0) {
-                AjaxGuardarCaptura(arregloCaptura, tipoGuardar)
-            }
-            else {
 
-                for (var j = 0; j < data.length; j++) {
-                    for (var i = 0; i < arregloCaptura.length; i++) {
-                        if (arregloCaptura[i].JuntaID == data[j] && arregloCaptura[i].NumeroUnico1ID != "0" && arregloCaptura[i].NumeroUnico2ID != "0") {
-                            $("#grid").data("kendoGrid").dataSource._data[i].NUOk = false;
-                        }
+    $Armado.Armado.update(Captura[0], { token: Cookies.get("token") }).done(function (data) {
+        if (data.length == 0) {
+            AjaxGuardarCaptura(arregloCaptura, tipoGuardar)
+        }
+        else {
+
+            for (var j = 0; j < data.length; j++) {
+                for (var i = 0; i < arregloCaptura.length; i++) {
+                    if (arregloCaptura[i].JuntaID == data[j] && arregloCaptura[i].NumeroUnico1ID != "0" && arregloCaptura[i].NumeroUnico2ID != "0") {
+                        $("#grid").data("kendoGrid").dataSource._data[i].NUOk = false;
                     }
                 }
-
-
-             
-                ValidarCaptura(arregloCaptura);
-
-                displayNotify("CapturaArmadoMensajeJuntaIncorrectaPorNU", "", '1');
-                $("#grid").data("kendoGrid").dataSource.sync();
             }
-        });
-    
+
+
+
+            ValidarCaptura(arregloCaptura);
+
+            displayNotify("CapturaArmadoMensajeJuntaIncorrectaPorNU", "", '1');
+            $("#grid").data("kendoGrid").dataSource.sync();
+        }
+    });
+
 }
 
 function AjaxCargarCamposPredeterminados() {

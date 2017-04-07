@@ -31,7 +31,7 @@ function suscribirEventoWindowsConfirmaCaptura() {
 
     ventanaConfirmCambiarCaptura.content(_dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] +
         "</br><center><button class='btn btn-blue' id='yesButtonProy'>" + _dictionary.lblSi[$("#language").data("kendoDropDownList").value()] + "</button><button class='btn btn-blue' id='noButtonProy'>" + _dictionary.lblNo[$("#language").data("kendoDropDownList").value()] + "</button></center>");
-    
+
     $("#yesButtonProy").click(function (e) {
         $("#grid").data("kendoGrid").dataSource.data([]);
         ajaxObtenerListaTaller();
@@ -40,10 +40,8 @@ function suscribirEventoWindowsConfirmaCaptura() {
         editado = false;
     });
     $("#noButtonProy").click(function (e) {
-       
-        // $("#InputID").data("kendoComboBox").value(spooolAnterior.IDValido);
-        $("#InputID").val("");
-        $("#InputID").data("kendoComboBox").value("");
+        $("#InputID").data("kendoComboBox").value(spooolAnterior.IDValido);
+        $("#InputOrdenTrabajo").val(OrdenTrabajoAnterior);
         ventanaConfirmCambiarCaptura.close();
     });
 }
@@ -51,8 +49,7 @@ function suscribirEventoWindowsConfirmaCaptura() {
 function SuscribirEventoFecha() {
     endRangeDate = $("#FechaInspeccion").kendoDatePicker({
         max: new Date(),
-        change:function(e)
-        {
+        change: function (e) {
             editado = true;
         }
     });
@@ -85,8 +82,7 @@ function SuscribirEventoListaJuntas() {
 
 }
 
-function SuscribirEventoOrdenTrabajo()
-{
+function SuscribirEventoOrdenTrabajo() {
     $("#InputOrdenTrabajo").blur(function (e) {
         if ($("#InputOrdenTrabajo").val().match("^[a-zA-Z][0-9]*$")) {
             try {
@@ -106,12 +102,11 @@ function SuscribirEventoOrdenTrabajo()
         $("#InputOrdenTrabajo").val("");
         $("#InputID").data("kendoComboBox").value("");
         //$("#InputID").data("kendoComboBox").setDataSource();
-        limpiarJuntaMultiselect();
+        //limpiarJuntaMultiselect();
     });
 }
 
-function AplicarCambioSpoolID(dataItem)
-{
+function AplicarCambioSpoolID(dataItem) {
     if ($("#InputID").val().length == 1) {
         $("#InputID").data("kendoComboBox").value(("00" + $("#InputID").val()).slice(-3));
     }
@@ -136,7 +131,7 @@ function SuscribirEventoSpoolID() {
         change: function (e) {
             dataItem = this.dataItem(e.sender.selectedIndex);
             aplicarColorBlancoCapturaDimensional();
-            
+
             if (dataItem != undefined && dataItem.IDValido != "") {
                 //if ($("#grid").data("kendoGrid").dataSource._data.length > 0 || editado)
                 //{
@@ -148,12 +143,12 @@ function SuscribirEventoSpoolID() {
                 }
                 ajaxObtenerListaTaller();
             }
-           
+
         }
     });
 
 
-    
+
 
     $('#InputID').closest('.k-widget').keydown(function (e) {
         if (e.keyCode == 37) {
@@ -164,13 +159,13 @@ function SuscribirEventoSpoolID() {
         }
         else if (e.keyCode == 13) {
             if ($("#InputID").val() != "" && $("#InputOrdenTrabajo").val()) {
-                if ($("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()).IDValido!="" && $("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()) != undefined) {
+                if ($("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()).IDValido != "" && $("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()) != undefined) {
                     e.preventDefault();
-                    if (esSpoolMismoCaptura()) {
+                    if (!esSpoolMismoCaptura()) {
                         ventanaConfirmCambiarCaptura.open().center();
                     }
                     else {
-                       
+
                         if ($("#InputID").val() != "" && $("#InputOrdenTrabajo").val()) {
                             ajaxobtenerDetalleDimensional($("#InputID").val());
                             ajaxObtenerJSonGrid();
@@ -192,7 +187,7 @@ function SuscribirEventoSpoolID() {
             dataItem = $("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select());
             if (dataItem != undefined) {
                 if ($("#InputID").val() != '' && $("#InputOrdenTrabajo").val() != '') {
-                    if (esSpoolMismoCaptura()) {
+                    if (!esSpoolMismoCaptura()) {
                         ventanaConfirmCambiarCaptura.open().center();
                     }
                     else {
@@ -209,14 +204,14 @@ function SuscribirEventoSpoolID() {
         }
     });
 
-    
+
     $('#InputID').blur(function (e) {
         var spoollIDValue = $("#InputID").val().trim();
         var listaSpoolID = $("#InputID").data("kendoComboBox").dataSource._data;
         if (listaSpoolID.length > 0) {
             for (var i = 0; i < listaSpoolID.length; i++) {
                 if (TryParseInt(spoollIDValue, 0) != 0 && (TryParseInt(spoollIDValue, 0) == TryParseInt(listaSpoolID[i].IDValido, 0))) {
-                    
+
                     $("#InputID").data("kendoComboBox").select(0);
                     $("#InputID").data("kendoComboBox").value(listaSpoolID[i].Valor);
                     //ajaxobtenerDetalleDimensional($("#InputID").val());
@@ -358,7 +353,7 @@ function SuscribirEventoDefectoVisual() {
         change: function (e) {
             if ($("#inputDefectosVisual").data("kendoComboBox").dataItem($("#inputDefectosVisual").data("kendoComboBox").select()) == undefined)
                 $("#inputDefectosVisual").data("kendoComboBox").value("");
-           
+
         }
     });
 
@@ -379,20 +374,20 @@ function SuscribirEventoResultadoDimensional() {
         if ($('#Guardar').text() == "Guardar" || $('#Guardar').text() == "Save") {
             $("#inputDefecto").data("kendoComboBox").enable(false);
             $("#ListaJuntas").data("kendoMultiSelect").enable(false);
+            $("#ListaJuntas").data("kendoMultiSelect").value("");
+            $("#inputDefecto").data("kendoComboBox").select(0);
             editado = true;
         }
-        $("#ListaJuntas").data("kendoMultiSelect").value("");
-        $("#inputDefecto").data("kendoComboBox").value("");
-        $("#inputDefecto").data("kendoComboBox").select(0);
+        
     });
     $('input:radio[name=ResultadoDimensional]:nth(1)').change(function () {
         if ($('#Guardar').text() == "Guardar" || $('#Guardar').text() == "Save") {
             $("#inputDefecto").data("kendoComboBox").enable(true);
-            $("#ListaJuntas").data("kendoMultiSelect").enable(true);
+            $("#ListaJuntas").data("kendoMultiSelect").enable(false);
+            $("#ListaJuntas").data("kendoMultiSelect").value("");
+            $("#inputDefecto").data("kendoComboBox").select(0);
             editado = true;
         }
-
-        $("#inputDefecto").data("kendoComboBox").select(0);
     });
 };
 
@@ -573,7 +568,7 @@ function opcionHabilitarView(valor, name) {
         $('#divAplicarCapturaRapida').find('*').attr('disabled', true);
         $('#ResultadoVisualRadio').find('*').attr('disabled', true);
         $('#ResultadoLlenadoMasivoRadio').find('*').attr('disabled', true);
-        
+
         $("#InputID").data("kendoComboBox").enable(false);
         $("#inputInspectorVisual").data("kendoComboBox").enable(false);
         $("#inputFechaVisual").data("kendoDatePicker").enable(false);
@@ -582,7 +577,15 @@ function opcionHabilitarView(valor, name) {
         $("#inputTaller").data("kendoComboBox").enable(false);
         $("#inputDefecto").data("kendoComboBox").enable(false);
         $("#inputDefectosVisual").data("kendoComboBox").enable(false);
-        $("#ListaJuntas").data("kendoMultiSelect").enable(false);
+       
+        if ($("#inputDefecto").data("kendoComboBox").select() > 0) {
+            if ($("#inputDefecto").data("kendoComboBox").dataItem($("#inputDefecto").data("kendoComboBox").select()).TIPO == "NoEspecificarJunta")
+                $("#ListaJuntas").data("kendoMultiSelect").enable(false);
+            else
+                $("#ListaJuntas").data("kendoMultiSelect").enable(true);
+        }
+        else
+            $("#ListaJuntas").data("kendoMultiSelect").enable(false);
 
         $('#Guardar').text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
         $('#btnGuardar').text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
@@ -601,12 +604,21 @@ function opcionHabilitarView(valor, name) {
         $("#inputTaller").data("kendoComboBox").enable(true);
         if ($('input:radio[name=ResultadoDimensional]:checked').val() != "Aprobado") {
             $("#inputDefecto").data("kendoComboBox").enable(true);
-            $("#ListaJuntas").data("kendoMultiSelect").enable(true);
         }
         else {
             $("#inputDefecto").data("kendoComboBox").enable(false);
-            $("#ListaJuntas").data("kendoMultiSelect").enable(false);
         }
+
+        if ($("#inputDefecto").data("kendoComboBox").select() > 0) {
+            if ($("#inputDefecto").data("kendoComboBox").dataItem().TIPO == "NoEspecificarJunta")
+                $("#ListaJuntas").data("kendoMultiSelect").enable(false);
+            else
+                $("#ListaJuntas").data("kendoMultiSelect").enable(true);
+        }
+        else
+            $("#ListaJuntas").data("kendoMultiSelect").enable(false);
+
+
 
         if ($('input:radio[name=ResultadoVisual]:checked').val() != "Aprobado") {
             $("#inputDefectosVisual").data("kendoComboBox").enable(true);
@@ -624,4 +636,4 @@ function opcionHabilitarView(valor, name) {
 
         $("#grid").children().prop('readonly', false);
     }
-} 
+}

@@ -9,6 +9,8 @@ var ventanaConfirm;
 var ventanaConfirmCambiarCaptura;
 var esNormal;
 var ordentrabajoSpoolID = 0;
+var ObjetoCapturaCliente=[];
+var OrdenTrabajoAnterior;
 
 IniciarCapturaInspecion();
 
@@ -309,25 +311,24 @@ function seEncuentraEtiquetaMaterialOtrasJuntas(jsonGridArmado, LocalizacionEtiq
 
 function ArregloListadoCaptura() {
 
-    JsonCaptura = [];
-    JsonCaptura[0] = { ProyectoID: "", Proyecto: "", OrdenTrabajoID: "", OrdenTrabajo: "", OrdenTrabajoSpoolID: "", OrdenTrabajoSpool: "", SpoolID: "", FechaInspeccion: "", InspectorID: "", Inspector: "" };
-
-    //combobox.text()
+    ObjetoCapturaCliente = [];
+    ObjetoCapturaCliente[0] = { ProyectoID: "", Proyecto: "", OrdenTrabajoID: "", OrdenTrabajo: "", OrdenTrabajoSpoolID: "", OrdenTrabajoSpool: "", SpoolID: "", FechaInspeccion: "", InspectorID: "", Inspector: "" };
     var fechaInspeccion = new Date($("#FechaInspeccion").data("kendoDatePicker").value());
 
-    JsonCaptura[0].ProyectoID = ordentrabajoSpoolID.ProyectoID;
-    JsonCaptura[0].Proyecto = ordentrabajoSpoolID.Proyecto;
-    JsonCaptura[0].OrdenTrabajoID = $("#InputOrdenTrabajo").val();
-    JsonCaptura[0].OrdenTrabajo = $("#InputOrdenTrabajo").val();
-    JsonCaptura[0].OrdenTrabajoSpoolID = ordentrabajoSpoolID.Valor;
-    JsonCaptura[0].OrdenTrabajoSpool = ordentrabajoSpoolID.IDValido//$("#InputID").data("kendoComboBox").text()
-    JsonCaptura[0].SpoolID = $("#InputOrdenTrabajo").val() + '-' + $("#InputID").val();
-    //JsonCaptura[0].JuntaID = $("#Junta").val();
-    //JsonCaptura[0].Junta = $("#Junta").data("kendoComboBox").text();
-    JsonCaptura[0].FechaInspeccion = $("#FechaInspeccion").val();
-    JsonCaptura[0].InspectorID = $("#inputInspector").val();
-    JsonCaptura[0].Inspector = $("#inputInspector").data("kendoComboBox").text();
-    return JsonCaptura[0];
+    ObjetoCapturaCliente[0].ProyectoID = ordentrabajoSpoolID.ProyectoID;
+    ObjetoCapturaCliente[0].Proyecto = ordentrabajoSpoolID.Proyecto;
+    ObjetoCapturaCliente[0].OrdenTrabajoID = $("#InputOrdenTrabajo").val();
+    ObjetoCapturaCliente[0].OrdenTrabajo = $("#InputOrdenTrabajo").val();
+    ObjetoCapturaCliente[0].OrdenTrabajoSpoolID = ordentrabajoSpoolID.Valor;
+    ObjetoCapturaCliente[0].OrdenTrabajoSpool = ordentrabajoSpoolID.IDValido;
+    ObjetoCapturaCliente[0].SpoolID = $("#InputOrdenTrabajo").val() + '-' + $("#InputID").val();
+    ObjetoCapturaCliente[0].FechaInspeccion = $("#FechaInspeccion").val();
+    ObjetoCapturaCliente[0].InspectorID = $("#inputInspector").val();
+    ObjetoCapturaCliente[0].Inspector = $("#inputInspector").data("kendoComboBox").text();
+
+    spooolAnterior = $("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select())
+    OrdenTrabajoAnterior = $("#InputOrdenTrabajo").val();
+    return ObjetoCapturaCliente[0];
 };
 function AplicarAsignacionAutomaticaNumeroUnico(rowitem, textoAnterior, comboboxItemSeleccionado, posicionSiguiente, jsonGridArmado, cantidadItems) {
     if (seEncuentraEtiquetaMaterialOtrasJuntas(jsonGridArmado, comboboxItemSeleccionado.EtiquetaMaterial, rowitem)) {
