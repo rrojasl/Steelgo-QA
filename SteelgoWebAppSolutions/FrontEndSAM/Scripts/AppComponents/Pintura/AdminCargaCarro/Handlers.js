@@ -39,8 +39,7 @@ function SuscribirEventoEliminaRegistro() {
     });
 }
 
-function suscribirEventoDescargarCarro()
-{
+function suscribirEventoDescargarCarro() {
     windowDownload = $("#windowDownload").kendoWindow({
         iframe: true,
         title: _dictionary.PinturaCargaTitulo[$("#language").data("kendoDropDownList").value()],
@@ -149,12 +148,16 @@ function suscribirEventoWindowsConfirmaCapturaSinCambiarTipoBusqueda() {
 
 
     $("#yesButtonProySinTipoBusqueda").click(function (e) {
+        proyectoActualSeleccionado = $("#inputProyecto").data("kendoComboBox").dataItem($("#inputProyecto").data("kendoComboBox").select());
+        carroActualSeleccionado = $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select());
         LimpiarInformacionAgregada();
         AjaxObtenerDetalleCargaCarro($("#inputCarro").data("kendoComboBox").select() == -1 ? 0 : $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()).MedioTransporteID, $('input:radio[name=TipoVista]:checked').val(), '');
         ventanaConfirmEdicionSinTipoBusqueda.close();
         editado = false;
     });
     $("#noButtonProySinTipoBusqueda").click(function (e) {
+        $("#inputProyecto").data("kendoComboBox").value(proyectoActualSeleccionado.ProyectoID);
+        $("#inputCarro").data("kendoComboBox").value(carroActualSeleccionado.MedioTransporteID)
         ventanaConfirmEdicionSinTipoBusqueda.close();
     });
 }
@@ -270,7 +273,7 @@ function SuscribirEventoSpoolID() {
     $("#InputOrdenTrabajo").focus(function (e) {
         $("#InputOrdenTrabajo").val("");
         $("#InputID").data("kendoComboBox").value("");
-       
+
     });
 
     $('#InputID').closest('.k-widget').keydown(function (e) {
@@ -330,16 +333,23 @@ function SuscribirEventoProyecto() {
         index: 3,
         change: function (e) {
             var dataItem = this.dataItem(e.sender.selectedIndex);
-            LimpiarCargaProyecto();
 
-            if (dataItem != undefined) {
-                
-                if (dataItem.ProyectoID != 0) {
-                    AjaxCargarZona($("#inputProyecto").data("kendoComboBox").dataItem($("#inputProyecto").data("kendoComboBox").select()).PatioID);
-                    AjaxCargarMedioTransporte(dataItem.ProyectoID, null);
+            if (!editado) {
+                AjaxObtenerDetalleCargaCarro($("#inputCarro").data("kendoComboBox").select() == -1 ? 0 : $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()).MedioTransporteID, $('input:radio[name=TipoVista]:checked').val(), '');
+                LimpiarCargaProyecto();
+                if (dataItem != undefined) {
+
+                    if (dataItem.ProyectoID != 0) {
+                        AjaxCargarZona($("#inputProyecto").data("kendoComboBox").dataItem($("#inputProyecto").data("kendoComboBox").select()).PatioID);
+                        AjaxCargarMedioTransporte(dataItem.ProyectoID, null);
+                        proyectoActualSeleccionado = dataItem;
+                    }
+                } else {
+                    $("#inputProyecto").data("kendoComboBox").value("");
                 }
-            } else {
-                $("#inputProyecto").data("kendoComboBox").value("");
+            }
+            else {
+                ventanaConfirmEdicionSinTipoBusqueda.open().center();
             }
         }
     });
@@ -362,20 +372,28 @@ function SuscribirEventoCarro() {
         filter: "contains",
         index: 3,
         change: function (e) {
-             dataItemCarro = this.dataItem(e.sender.selectedIndex);
 
+            dataItemCarro = this.dataItem(e.sender.selectedIndex);
 
-             if (dataItemCarro != undefined) {
-                 $("#chkCerrar")[0].checked = dataItemCarro.CarroCerrado;
-                 if (dataItemCarro.MedioTransporteID == -1) {
+            if (dataItemCarro != undefined) {
+                $("#chkCerrar")[0].checked = dataItemCarro.CarroCerrado;
+                if (dataItemCarro.MedioTransporteID == -1) {
                     CargaPopupNuevoMedioTransporte();
                 } else {
                     // LimpiarCargaCarro();
                     //AjaxObtenerDetalleCargaCarro(dataItem.MedioTransporteID, $('input:radio[name=TipoVista]:checked').val());
+                    if (!editado) {
+                        carroActualSeleccionado = dataItemCarro;
+                    }
+                    else {
+                        ventanaConfirmEdicionSinTipoBusqueda.open().center();
+                    }
                 }
             } else {
                 $("#inputCarro").data("kendoComboBox").value("");
             }
+
+           
         }
     });
     //$("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select());
@@ -392,7 +410,7 @@ function SuscribirEventoCarro() {
                 ventanaConfirmEdicionSinTipoBusqueda.open().center();
             }
 
-            
+
         }
 
 
@@ -511,7 +529,7 @@ function SuscribirEventoGuardarCaptura() {
     $('#btnGuardar,#Guardar, #btnGuardar1, #Guardar1 ').click(function (e) {
         if ($('input:radio[name=TipoVista]:checked').val() == "Escritorio") {
             if ($('#btnGuardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
-                ajaxGuardarEscritorio($("#grid").data("kendoGrid").dataSource._data,false);
+                ajaxGuardarEscritorio($("#grid").data("kendoGrid").dataSource._data, false);
             }
             else if ($('#btnGuardar').text() == "Editar") {
                 opcionHabilitarView(false, "FieldSetView")
@@ -519,7 +537,7 @@ function SuscribirEventoGuardarCaptura() {
         }
         else if ($('input:radio[name=TipoVista]:checked').val() == "Patio") {
             if ($('#btnGuardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
-                ajaxGuardarPatio($("#grid").data("kendoGrid").dataSource._data,false);
+                ajaxGuardarPatio($("#grid").data("kendoGrid").dataSource._data, false);
             }
             else if ($('#btnGuardar').text() == "Editar") {
                 opcionHabilitarView(false, "FieldSetView")

@@ -4,6 +4,8 @@ var windowNewCarriage;
 var InformacionMostrada = false;
 var filaSeleccionada;
 var CuadranteSpoolAnterior;
+var proyectoActualSeleccionado;
+var carroActualSeleccionado
 
 function changeLanguageCall() {
     SuscribirEventos();

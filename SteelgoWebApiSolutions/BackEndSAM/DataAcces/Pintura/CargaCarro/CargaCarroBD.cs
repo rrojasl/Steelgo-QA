@@ -106,8 +106,9 @@ namespace BackEndSAM.DataAcces.Pintura.CargaCarro
                             Area = item.Area.GetValueOrDefault(),
                             Peso = item.Peso.GetValueOrDefault(),
                             EstatusCaptura = 0,
-                            ZonaAnteriorID=item.ZonaAnteriorID
-
+                            ZonaAnteriorID=item.ZonaAnteriorID,
+                            CarroID = item.CarroID,
+                            MedioTransporte = item.MedioTransporte
                         });
                         
 
@@ -154,6 +155,7 @@ namespace BackEndSAM.DataAcces.Pintura.CargaCarro
                             Area = item.Area.GetValueOrDefault(),
                             Peso = item.Peso.GetValueOrDefault(),
                             MedioTransporte = item.MedioTransporte,
+                            //CarroID=item.CarroID,
                             CarroCerrado = item.CarroCerrado.GetValueOrDefault(),
                             Seleccionado = item.EstatusCarga.GetValueOrDefault(),
                             EstatusCaptura = 0,

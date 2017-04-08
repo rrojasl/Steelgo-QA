@@ -10496,9 +10496,13 @@ _dictionary = {
 
     //Finaliza Captura Admin reductores
     //Inicia Carga de Carro
+    "PinturaSpoolCargadoEnCarro": {
+        "es-MX": "El spool se encuentra cargado en el carro '?'",
+        "en-US": "The spool is loaded in the cart '?' "
+    },
     "PinturaCargaCarroSinSpools": {
-        "es-MX": "No se le ah asignado aun un sistema de pintura al spool seleccionado",
-        "en-US": "You have not yet assigned a selected spool painting system"
+        "es-MX": "El spool seleccionado no tiene un sistema de pintura",
+        "en-US": "The selected spool does not have a paint system"
     },
     "PinturaCargaCarroEscritorio": {
         "es-MX": "Escritorio",
@@ -10636,10 +10640,7 @@ _dictionary = {
 
     //Inicia Captura Avance de carro
     
-    "PinturaSpoolCargadoEnCarro": {
-            "es-MX": "El spool ya se encuentra cargado en otro carro",
-            "en-US": "The spool is already loaded in another car"
-        },
+    
     "PinturaSpoolSistemaPinturaNoCoincide": {
         "es-MX": "No puedes agregar un spool con diferente sistema de pintura",
         "en-US": "You can not add a spool with different paint system"

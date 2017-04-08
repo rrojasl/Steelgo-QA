@@ -72,6 +72,7 @@ namespace BackEndSAM.Models.Pintura.CargaCarro
         public int EstatusCaptura { get; set; }
         public int Prioridad { get; set; }
         public string MedioTransporte { get; set; }
+        public int? CarroID { get; set; }
         public bool CarroCerrado { get; set; }
         public bool Seleccionado { get; set; }
         public int? ZonaAnteriorID { get; set; }
