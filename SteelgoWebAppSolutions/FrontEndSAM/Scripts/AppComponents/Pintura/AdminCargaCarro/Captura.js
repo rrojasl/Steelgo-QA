@@ -7,6 +7,23 @@ var CuadranteSpoolAnterior;
 var proyectoActualSeleccionado;
 var carroActualSeleccionado
 
+function Limpiar() {
+   
+    $("#labelM2").text("");
+    $("#inputCarro").data("kendoComboBox").dataSource.data([]);
+    $("#inputCarro").data("kendoComboBox").value("");
+    $("#labelToneladas").text("");
+    $("#grid").data('kendoGrid').dataSource.data([]);
+    $("#InputOrdenTrabajo").val("");
+    $("#InputID").data("kendoComboBox").value("");
+    $("#inputCodigo").val("");
+    $("#inputProyecto").data("kendoComboBox").value("");
+    $("#chkCerrar")[0].checked = false;
+    $("#grid").data('kendoGrid').dataSource.data([]);
+
+    opcionHabilitarView(false, "FieldSetView");
+}
+
 function changeLanguageCall() {
     SuscribirEventos();
     CargaGrid();

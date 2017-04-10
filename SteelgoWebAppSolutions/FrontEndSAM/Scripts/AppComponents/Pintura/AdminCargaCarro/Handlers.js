@@ -509,20 +509,10 @@ function eventoRegresarTipoListado() {
 function SuscribirEventoGuardarCaptura() {
     $('#btnGuardarYNuevo,#btnGuardarYNuevo1').click(function (e) {
         if ($('input:radio[name=TipoVista]:checked').val() == "Escritorio") {
-            if ($('#btnGuardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
                 ajaxGuardarEscritorio($("#grid").data("kendoGrid").dataSource._data, true);
-            }
-            else if ($('#btnGuardar').text() == "Editar") {
-                opcionHabilitarView(false, "FieldSetView")
-            }
         }
         else if ($('input:radio[name=TipoVista]:checked').val() == "Patio") {
-            if ($('#btnGuardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
                 ajaxGuardarPatio($("#grid").data("kendoGrid").dataSource._data, true);
-            }
-            else if ($('#btnGuardar').text() == "Editar") {
-                opcionHabilitarView(false, "FieldSetView")
-            }
         }
     });
 
@@ -531,16 +521,10 @@ function SuscribirEventoGuardarCaptura() {
             if ($('#btnGuardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
                 ajaxGuardarEscritorio($("#grid").data("kendoGrid").dataSource._data, false);
             }
-            else if ($('#btnGuardar').text() == "Editar") {
-                opcionHabilitarView(false, "FieldSetView")
-            }
         }
         else if ($('input:radio[name=TipoVista]:checked').val() == "Patio") {
             if ($('#btnGuardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
                 ajaxGuardarPatio($("#grid").data("kendoGrid").dataSource._data, false);
-            }
-            else if ($('#btnGuardar').text() == "Editar") {
-                opcionHabilitarView(false, "FieldSetView")
             }
         }
     });

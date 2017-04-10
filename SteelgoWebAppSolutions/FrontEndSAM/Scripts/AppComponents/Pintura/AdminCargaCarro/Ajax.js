@@ -335,7 +335,8 @@ function ajaxGuardarPatio(arregloCaptura, guardarYNuevo) {
 
                     } else {
                         displayNotify("PinturaCargaGuardar", "", '0');
-                        location.reload();
+                        Limpiar();
+                        editado = false;
                     }
 
                 } else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
@@ -403,7 +404,8 @@ function ajaxGuardarEscritorio(listaSpool, guardarYNuevo) {
                             } else {
                                 displayNotify("PinturaCargaGuardar", "", '0');
                                 //$("#btnCancelar").trigger("clik");
-                                location.reload();
+                                Limpiar();
+                                editado = false;
                             }
 
                         }

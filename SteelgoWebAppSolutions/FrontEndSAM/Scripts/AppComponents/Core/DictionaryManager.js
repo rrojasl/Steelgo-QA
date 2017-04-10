@@ -10501,8 +10501,8 @@ _dictionary = {
         "en-US": "The spool is loaded in the cart '?' "
     },
     "PinturaCargaCarroSinSpools": {
-        "es-MX": "El spool seleccionado no tiene un sistema de pintura",
-        "en-US": "The selected spool does not have a paint system"
+        "es-MX": "El spool seleccionado no tiene un sistema de pintura o el cuadrante del spool no es valido",
+        "en-US": "The selected spool does not have a paint system or the spool quadrant is not valid"
     },
     "PinturaCargaCarroEscritorio": {
         "es-MX": "Escritorio",
