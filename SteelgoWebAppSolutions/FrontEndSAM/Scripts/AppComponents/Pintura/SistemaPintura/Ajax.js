@@ -75,7 +75,7 @@ function AjaxCargarEdicionSistemaPintura() {
     else {
         ProyectoID = parseInt($("#comboProyecto").data("kendoComboBox").value());
     }
-
+    //$("#comboProyecto").data("kendoComboBox").dataItem($("#comboProyecto").data("kendoComboBox").select())
     loadingStart();
     $SistemaPintura.SistemaPintura.read({ token: Cookies.get("token"), Lenguaje: $("#language").val(), SistemaPintura: SistemaPintura, ProyectoID: ProyectoID, actividad: 2 }).done(function (data) {
         if (Error(data)) {
@@ -98,7 +98,7 @@ function AjaxCargarEdicionSistemaPintura() {
                     $("#inputColor").data("kendoMultiSelect").value(valores);
                 }
 
-                if ($("#comboProyecto").data("kendoComboBox").value() != "") {
+                if ($("#comboProyecto").data("kendoComboBox").value() != "" && $("#comboProyecto").data("kendoComboBox").value() != "0") {
                    
                     AjaxCargarNuevoSistemaPintura();
                 }
@@ -408,18 +408,21 @@ function AjaxEliminaSistemaPintura(sistemaPintura, proyectoid) {
         
         if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
 
-            AjaxObtenerColor();
             $("#inputNombre").val("");
             $("#inputSistemaPinturaID").val("");
             $("#divComboProyecto").css("display", "none");
+            $("#comboProyecto").data("kendoComboBox").value("");
+            $("#comboProyecto").data("kendoComboBox").dataSource.data([]);
             $("#inputNombre").attr('disabled', false);
             $("#divMultiselectProyecto").css("display", "block");
             $("#inputNoAplicable").prop("checked", false);
             $("#inputhiddenSistemaPinturaID").val("");
             opcionHabilitarView(false, "FieldSetView");
             $("#inputNombre").attr('disabled', false);
-
             displayNotify("SistemaPinturaEliminadoExitoso", "", '0');
+
+            AjaxObtenerColor();
+           
         }
         else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
             displayNotify("SistemaPinturaErrorEliminado", "", '2');

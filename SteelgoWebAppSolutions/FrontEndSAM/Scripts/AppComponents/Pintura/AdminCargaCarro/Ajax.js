@@ -149,8 +149,7 @@ function AjaxObtenerDetalleCargaCarro(MedioTransporteID, tipoEscenario, valorBus
     loadingStart();
     var SpoolPerteneceProyecto = true;
     if ($("#inputProyecto").data("kendoComboBox").dataItem($("#inputProyecto").data("kendoComboBox").select()).ProyectoID > 0) {
-        if (MedioTransporteID > 0) {
-
+        
             if (valorBusqueda != "" && $("#inputProyecto").data("kendoComboBox").dataItem($("#inputProyecto").data("kendoComboBox").select()).PrefijoOrdenTrabajo != $("#InputOrdenTrabajo").val()[0]) {
                 SpoolPerteneceProyecto = false;
                 displayNotify("EmbarqueCargaMsjErrorSpoolAgregarProyectoIncorrecto", "", '1');
@@ -260,11 +259,7 @@ function AjaxObtenerDetalleCargaCarro(MedioTransporteID, tipoEscenario, valorBus
                 loadingStop();
             }
 
-        }
-        else {
-            displayNotify("PinturaSeleccionaCarro", "", '1');
-            loadingStop();
-        }
+        
     }
     else {
         displayNotify("SistemaPinturaMensajeErrorProyecto", "", '1');
