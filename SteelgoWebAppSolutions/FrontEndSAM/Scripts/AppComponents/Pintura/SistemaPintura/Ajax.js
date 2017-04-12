@@ -415,7 +415,7 @@ function AjaxEliminaSistemaPintura(sistemaPintura, proyectoid) {
             $("#inputNombre").attr('disabled', false);
             $("#divMultiselectProyecto").css("display", "block");
             $("#inputNoAplicable").prop("checked", false);
-
+            $("#inputhiddenSistemaPinturaID").val("");
             opcionHabilitarView(false, "FieldSetView");
             $("#inputNombre").attr('disabled', false);
 

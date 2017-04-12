@@ -203,9 +203,12 @@ function CargaGrid() {
                         editButton[0].outerHTML = '<a class="k-button k-button-icontext ' + classDescarga + '" href="#/"><span class=""></span>' +
                             _dictionary.botonDescarga[$("#language").data("kendoDropDownList").value()] + '</a>';
 
-                    } else {
+                    } else if ($('input:radio[name=TipoVista]:checked').val() == "Patio") {
                         editButton[0].outerHTML = '<a class="k-button k-button-icontext k-grid-Cancelar" href="#/"><span class=""></span>' +
                             _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()] + '</a>';
+                    }
+                    else {
+                        editButton[0].outerHTML = '';
                     }
                 }
             }

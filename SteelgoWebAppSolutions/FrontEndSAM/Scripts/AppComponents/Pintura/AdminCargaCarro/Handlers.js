@@ -67,7 +67,7 @@ function suscribirEventoDescargarCarro() {
                 AjaxDescargarSpool(dataItem, Cuadrante);
             } else {
                 displayNotify("EmbarqueCargaMsjErrorCuadrante", "", "1");
-            }
+            } 
         } else {
             displayNotify("EmbarqueCargaMsjErrorZona", "", "1");
         }
@@ -180,12 +180,17 @@ function SuscribirEventoAgregar() {
             displayNotify("PinturaBotonMostrar", "", '1');
         }
         else {
-            var valorBusqueda = $('input:radio[name=TipoSeleccion]:checked').val() == "Spool" ? $("#InputID").val() + '~' + "Spool" : $("#inputCodigo").val() + '~' + "Codigo";
-            if ($("#inputProyecto").data("kendoComboBox").select() != 0) {
-                AjaxObtenerDetalleCargaCarro($("#inputCarro").data("kendoComboBox").select() == -1 ? 0 : $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()).MedioTransporteID, $('input:radio[name=TipoVista]:checked').val(), valorBusqueda);
+            if ($("#InputID").val() != "") {
+
+                var valorBusqueda = $('input:radio[name=TipoSeleccion]:checked').val() == "Spool" ? $("#InputID").val() + '~' + "Spool" : $("#inputCodigo").val() + '~' + "Codigo";
+                if ($("#inputProyecto").data("kendoComboBox").select() != 0) {
+                    AjaxObtenerDetalleCargaCarro($("#inputCarro").data("kendoComboBox").select() == -1 ? 0 : $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()).MedioTransporteID, $('input:radio[name=TipoVista]:checked').val(), valorBusqueda);
+                }
+                else
+                    displayNotify("SistemaPinturaMensajeErrorProyecto", "", '1');
             }
             else
-                displayNotify("SistemaPinturaMensajeErrorProyecto", "", '1');
+                displayNotify("PinturaCargaSeleccionaSpool", "", '1');
         }
     });
 }
@@ -521,14 +526,21 @@ function SuscribirEventoGuardarCaptura() {
             if ($('#btnGuardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
                 ajaxGuardarEscritorio($("#grid").data("kendoGrid").dataSource._data, false);
             }
+            else if ($('#btnGuardar').text() == "Editar") {
+                opcionHabilitarView(false, "FieldSetView")
+            }
         }
         else if ($('input:radio[name=TipoVista]:checked').val() == "Patio") {
             if ($('#btnGuardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
                 ajaxGuardarPatio($("#grid").data("kendoGrid").dataSource._data, false);
             }
+            else if ($('#btnGuardar').text() == "Editar") {
+                opcionHabilitarView(false, "FieldSetView")
+            }
         }
     });
 };
+
 
 function opcionHabilitarView(valor, name) {
 

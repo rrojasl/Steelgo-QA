@@ -363,7 +363,7 @@ function ajaxGuardarEscritorio(listaSpool, guardarYNuevo) {
 
     Captura = [];
     Captura[0] = { Detalles: "" };
-    ListaDetalles = [];
+    
     ListaGuardarDetalles = [];
 
     if (CarroID != "" && CarroID != "0" && CarroID != "-1") {
@@ -420,7 +420,7 @@ function ajaxGuardarEscritorio(listaSpool, guardarYNuevo) {
                     });
                 }
                 else {
-                    displayNotify("", _dictionary.PinturaCargaBackLogMensajeErrorServicioPintura[$("#language").data("kendoDropDownList").value()] + ListaDetalles[0].SistemaPintura, "1");
+                    displayNotify("", _dictionary.PinturaCargaBackLogMensajeErrorServicioPintura[$("#language").data("kendoDropDownList").value()] + ListaGuardarDetalles[0].SistemaPintura, "1");
                 }
             }
             else {

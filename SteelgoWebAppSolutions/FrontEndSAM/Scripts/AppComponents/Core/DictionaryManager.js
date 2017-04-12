@@ -10642,8 +10642,8 @@ _dictionary = {
     
     
     "PinturaSpoolSistemaPinturaNoCoincide": {
-        "es-MX": "No puedes agregar un spool con diferente sistema de pintura",
-        "en-US": "You can not add a spool with different paint system"
+        "es-MX": "El spool seleccionado tiene diferente Sistema de pintura",
+        "en-US": "the selected spool has different paint system"
     },
 
     "lblProcesosPintura": {
