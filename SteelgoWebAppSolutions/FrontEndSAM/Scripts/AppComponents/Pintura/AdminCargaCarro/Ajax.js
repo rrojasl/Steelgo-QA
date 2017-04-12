@@ -360,7 +360,7 @@ function ajaxGuardarEscritorio(listaSpool, guardarYNuevo) {
     Captura[0] = { Detalles: "" };
     
     ListaGuardarDetalles = [];
-
+    var sistemaPinturaCarro = "";
     if (CarroID != "" && CarroID != "0" && CarroID != "-1") {
         if (listaSpool.length > 0) {
             for (var index = 0 ; index < listaSpool.length; index++) {
@@ -373,6 +373,8 @@ function ajaxGuardarEscritorio(listaSpool, guardarYNuevo) {
                     ListaGuardarDetalles[contSave].SistemaPinturaID = listaSpool[index].SistemaPinturaID;
                     contSave++;
                 }
+                if (listaSpool[index].Accion = 2 && sistemaPinturaCarro=="")
+                    sistemaPinturaCarro = listaSpool[index].SistemaPintura;
             }
 
             var disponible = 1;
@@ -415,7 +417,8 @@ function ajaxGuardarEscritorio(listaSpool, guardarYNuevo) {
                     });
                 }
                 else {
-                    displayNotify("", _dictionary.PinturaCargaBackLogMensajeErrorServicioPintura[$("#language").data("kendoDropDownList").value()] + ListaGuardarDetalles[0].SistemaPintura, "1");
+                    
+                    displayNotify("", _dictionary.PinturaCargaBackLogMensajeErrorServicioPintura[$("#language").data("kendoDropDownList").value()] + sistemaPinturaCarro, "1");
                 }
             }
             else {

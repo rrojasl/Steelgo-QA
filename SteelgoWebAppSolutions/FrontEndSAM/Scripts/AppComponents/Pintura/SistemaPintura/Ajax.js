@@ -163,12 +163,12 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
         SistemaPintura = $("#inputSistemaPinturaID").val() == "" ? 0 : $("#inputSistemaPinturaID").val();
         Nombre = $("#inputNombre").val();
         if (Nombre == "") {
-            displayNotify("SistemaPinturaMensajeErrorNombre", "", 1);
+            displayNotify("SistemaPinturaMensajeErrorNombre", "", '1');
             return;
         }
 
         if ($("#inputColor").data("kendoMultiSelect")._values.length == 0 && necesitaColor) {
-            displayNotify("SistemaPinturaMensajeErrorColor", "", 1);
+            displayNotify("SistemaPinturaMensajeErrorColor", "", '1');
             return;
         }
         else {
@@ -189,13 +189,13 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                 ListaProyectos[0].Accion = 1;
             }
             else {
-                displayNotify("SistemaPinturaMensajeErrorProyecto", "", 1);
+                displayNotify("SistemaPinturaMensajeErrorProyecto", "", '1');
                 return;
             }
         }
         else {
             if ($("#inputProyecto").data("kendoMultiSelect")._values.length == 0) {
-                displayNotify("SistemaPinturaMensajeErrorListadoProyecto", "", 1);
+                displayNotify("SistemaPinturaMensajeErrorListadoProyecto", "", '1');
                 return;
             }
             else {
@@ -268,7 +268,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
         Captura[0].Detalles = ListasCaptura;
 
         if (NoPintable == 0 && ListaDetalles.length == 0)
-            displayNotify("SistemaPinturaMensajeErrorRequiereProceso", "", 1);
+            displayNotify("SistemaPinturaMensajeErrorRequiereProceso", "", '1');
         else
             if (!ExistRowErrors(arregloCaptura)) {
                 loadingStart();
@@ -440,7 +440,7 @@ function AjaxVerificarNombre(Nombre, arregloCaptura, tipoGuardar) {
     var ds = $("#grid").data("kendoGrid").dataSource;
 
     if (Nombre == "") {
-        displayNotify("SistemaPinturaMensajeErrorNombre", "", 1);
+        displayNotify("SistemaPinturaMensajeErrorNombre", "", '1');
         return;
     }
 
