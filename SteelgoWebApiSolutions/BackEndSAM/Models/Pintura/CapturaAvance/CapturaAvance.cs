@@ -15,14 +15,14 @@ namespace BackEndSAM.Models.Pintura.CapturaAvance
     }
     public class DetalleCapturaAvanceCarro
     {
-        public int AvanceCarroID { get; set; }
+        public int? AvanceCarroID { get; set; }
         public int Accion { get; set; }
         public int? CarroID { get; set; }
         public int? CargaCarroID { get; set; }
-        public int SpoolID { get; set; }
+        public int? SpoolID { get; set; }
         public string Spool { get; set; }
         public int? SistemaPinturaID { get; set; }
-        public int SistemaPinturaProyectoID { get; set; }
+        public int? SistemaPinturaProyectoID { get; set; }
         public string SistemaPintura { get; set; }
         public int? ColorPinturaID { get; set; }
         public string Color { get; set; }
@@ -35,13 +35,15 @@ namespace BackEndSAM.Models.Pintura.CapturaAvance
         public List<PintorSpool> ListaObrerosSeleccionados { get; set; }
 
 
-        public int PatioID { get; set; }
+        public int? PatioID { get; set; }
         public int? CuadranteAnteriorID { get; set; }
         public int? ZonaAnteriorID { get; set; }
         public int? CuadranteID { get; set; }
         public string Cuadrante { get; set; }
 
         public Dictionary<string, object> ComponenteDinamico { get; set; }
+
+        public string Banderastatus { get; set; }
 
     }
 

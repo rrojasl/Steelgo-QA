@@ -120,7 +120,7 @@ namespace BackEndSAM.Controllers.PinturaControllers.CapturaAvance
             foreach (DataRow row in table.Rows)
             {
                 var dict = new Dictionary<string, object>();
-                List<object> listaObreros = (List<object>)CapturaAvanceBD.Instance.ObtenerObrerosGuardados(int.Parse(row["AvanceCarroID"].ToString()), procesopinturaID, usuario);
+                List<object> listaObreros = (List<object>)CapturaAvanceBD.Instance.ObtenerObrerosGuardados(int.Parse(row["SpoolID"].ToString()), procesopinturaID, usuario);
 
                 foreach (DataColumn col in table.Columns)
                 {

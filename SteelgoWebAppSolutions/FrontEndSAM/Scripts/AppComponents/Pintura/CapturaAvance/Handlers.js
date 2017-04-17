@@ -199,7 +199,9 @@ function SuscribirEventoPlanchar() {
                     visible: false,
                     width: "auto",
                     height: "auto",
-                    modal: true
+                    modal: true,
+                    animation: false,
+                    actions: []
                 }).data("kendoWindow");
 
                 ventanaConfirm.content(_dictionary.EntregaPlacasGraficasPlancharTodos[$("#language").data("kendoDropDownList").value()] +
@@ -224,22 +226,14 @@ function SuscribirEventoPlanchar() {
 
 function plancharTodo() {
 
-    if ($("#inputPintor").data("kendoMultiSelect")._dataItems.length > 0) {
-        PlancharPintor($("#grid").data("kendoGrid").dataSource._data);
-    }
+   
     if ($("#inputShotBlastero").data("kendoMultiSelect")._dataItems.length > 0) {
-        PlancharShotBlastero($("#grid").data("kendoGrid").dataSource._data);
+        PlancharTrabajadores($("#grid").data("kendoGrid").dataSource._data);
     }
     if ($("#FechaShotBlast").val() != "") {
-        PlanchaFechaShotblast();
+        PlanchaFechaProceso();
     }
-    if ($("#Fechaprimario").val() != "") {
-        PlanchaFechaPrimario();
-    }
-    //if ($("#inputCuadrante1").data("kendoComboBox").dataItem($("#inputCuadrante1").data("kendoComboBox").select()) != undefined) {
-    //    PlanchaCuadranteDescarga();
-    //}
-
+  
 }
 
 function suscribirEventoDescargar() {
@@ -276,16 +270,25 @@ function opcionHabilitarView(valor, name) {
     if (valor) {
         $('.FieldSetView').find('*').attr('disabled', true);
         $("#inputCarro").data("kendoComboBox").enable(false);
-        //$("#inputComponente").data("kendoComboBox").enable(false);
-        $("#inputPintor").data("kendoMultiSelect").enable(false);
-        $("#inputShotBlastero").data("kendoMultiSelect").enable(false);
         $("#InputOrdenTrabajo").attr('disabled', true);
         $("#InputID").data("kendoComboBox").enable(false);
         $("#FechaShotBlast").data("kendoDatePicker").enable(false);
-        $("#Fechaprimario").data("kendoDatePicker").enable(false);
-        //$("#inputCuadrante1").data("kendoComboBox").enable(false);
+   
+        $("input[name='Muestra']").attr("disabled", true);
+        
+        $("#stylePPShotBlast").attr("disabled", true);
+        $("#stylePPPrimario").attr("disabled", true);
+        $("#stylePPIntermedio").attr("disabled", true);
+        $("#stylePPAvanzado").attr("disabled", true);
+
+
+
+
+        $("#inputShotBlastero").data("kendoMultiSelect").enable(false);
+
+        $("#btnMostrar").attr("disabled", true);
         $("input[name='LLena']").attr("disabled", true);
-        $("#ButtonAgregar").attr("disabled", true);
+        $("#btnAgregar").attr("disabled", true);
         $("#ButtonPlanchar").attr("disabled", true);
 
         $("#Guardar").text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
@@ -296,16 +299,23 @@ function opcionHabilitarView(valor, name) {
     else {
         $('.FieldSetView').find('*').attr('disabled', false);
         $("#inputCarro").data("kendoComboBox").enable(true);
-        //$("#inputComponente").data("kendoComboBox").enable(true);
-        $("#inputPintor").data("kendoMultiSelect").enable(true);
-        $("#inputShotBlastero").data("kendoMultiSelect").enable(true);
+        
+       
+        $("#stylePPShotBlast").attr("disabled", false);
+        $("#stylePPPrimario").attr("disabled", false);
+        $("#stylePPIntermedio").attr("disabled", false);
+        $("#stylePPAvanzado").attr("disabled", false);
+
+        $("#btnMostrar").attr("disabled", false);
+        
         $("#InputOrdenTrabajo").attr('disabled', false);
         $("#InputID").data("kendoComboBox").enable(true);
         $("#FechaShotBlast").data("kendoDatePicker").enable(true);
-        $("#Fechaprimario").data("kendoDatePicker").enable(true);
-        //$("#inputCuadrante1").data("kendoComboBox").enable(true);
+        $("#inputShotBlastero").data("kendoMultiSelect").enable(true);
+        $("input[name='Muestra']").attr("disabled", true);
+
         $("input[name='LLena']").attr("disabled", false);
-        $("#ButtonAgregar").attr("disabled", false);
+        $("#btnAgregar").attr("disabled", false);
         $("#ButtonPlanchar").attr("disabled", false);
 
         $("#Guardar").text(_dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]);

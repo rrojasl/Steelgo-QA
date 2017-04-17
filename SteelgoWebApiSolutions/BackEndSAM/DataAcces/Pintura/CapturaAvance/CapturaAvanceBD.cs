@@ -139,7 +139,7 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
                    
                     foreach (Sam3_Pintura_AvanceCarro_Get_AgregarSpool_Result item in result)
                     {
-                        List<object> listaObreros = (List<object>)ObtenerObrerosGuardados(item.AvanceCarroID, procesoPinturaID, usuario);
+                        List<object> listaObreros = (List<object>)ObtenerObrerosGuardados(item.AvanceCarroID.GetValueOrDefault(), procesoPinturaID, usuario);
                         ListadoMedioTransporte.Add(new DetalleCapturaAvanceCarro
                         {
                             FechaProceso = "",
@@ -164,7 +164,8 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
                             ListaObreros = (List<PintorSpool>)listaObreros[1],
                             ListaObrerosGuargados = (List<PintorSpool>)listaObreros[0],
                             ListaObrerosSeleccionados = (List<PintorSpool>)listaObreros[0],
-                            AvanceCarroID= item.AvanceCarroID
+                            AvanceCarroID= item.AvanceCarroID,
+                            Banderastatus=item.BanderaStatus
                         });
                     }
 
@@ -222,13 +223,13 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
             }
         }
 
-        public object ObtenerObrerosGuardados( int avanceCarroID, int procesoID,int usuarioID)
+        public object ObtenerObrerosGuardados( int spoolID, int procesoID,int usuarioID)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Pintura_AvanceCarro_Get_ObrerosProcesoPintura_Result> result = ctx.Sam3_Pintura_AvanceCarro_Get_ObrerosProcesoPintura(avanceCarroID, procesoID).ToList();
+                    List<Sam3_Pintura_AvanceCarro_Get_ObrerosProcesoPintura_Result> result = ctx.Sam3_Pintura_AvanceCarro_Get_ObrerosProcesoPintura(spoolID, procesoID).ToList();
 
                     List<object> listaObreros = new List<object>();
 

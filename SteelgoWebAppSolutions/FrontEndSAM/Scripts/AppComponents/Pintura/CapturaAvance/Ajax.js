@@ -36,7 +36,7 @@ function AjaxCargaMostrarPredeterminado() {
 }
 
 function AjaxCargaMostrarPredeterminadoseleciconProcesosPintura() {
-    var TipoMuestraPredeterminadoID = 4074;
+    var TipoMuestraPredeterminadoID = 3075;
     var procesoid = 0;
     $CamposPredeterminados.CamposPredeterminados.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), id: TipoMuestraPredeterminadoID }).done(function (data) {
         if (data == "shotblast") {
@@ -283,29 +283,32 @@ function AjaxAgregarSpool(ordenTrabajoSpoolID) {
         var elementosNoModificados = "";
         var elementosModificados = "";
         for (var i = 0; i < array.length; i++) {
-            if (!existeSpool(array[i].Spool, ds)) {
-                if (sistemaPinturaProyectoID == array[i].SistemaPinturaProyectoID) {
-                    if (array[i].CarroID == 0) {
-                        ds.add(array[i]);
-                        if (elementosModificados != "")
-                            elementosModificados += ", " + array[i].Spool;
+            if (array[i].Banderastatus == "") {
+                if (!existeSpool(array[i].Spool, ds)) {
+                    if (sistemaPinturaProyectoID == array[i].SistemaPinturaProyectoID) {
+                        if (array[i].CarroID == 0) {
+                            ds.add(array[i]);
+                            if (elementosModificados != "")
+                                elementosModificados += ", " + array[i].Spool;
+                            else
+                                elementosModificados = array[i].Spool;
+                        }
                         else
-                            elementosModificados = array[i].Spool;
+                            displayNotify("", _dictionary.PinturaSpoolCargadoEnCarro[$("#language").data("kendoDropDownList").value()].replace('?', array[i].Cuadrante), '1');
                     }
-                    else
-                        displayNotify("PinturaSpoolCargadoEnCarro", "", '1');
+                    else {
+                        displayNotify("PinturaSpoolSistemaPinturaNoCoincide", "", '1');
+                    }
                 }
                 else {
-                    displayNotify("PinturaSpoolSistemaPinturaNoCoincide", "", '1');
+                    if (elementosNoModificados != "")
+                        elementosNoModificados += ", " + array[i].Spool;
+                    else
+                        elementosNoModificados = array[i].Spool;
                 }
             }
-            else {
-                if (elementosNoModificados != "")
-                    elementosNoModificados += ", " + array[i].Spool;
-                else
-                    elementosNoModificados = array[i].Spool;
-                //displayNotify("notificationslabel0066", "", '1');
-            }
+            else
+                displayNotify("", array[i].Banderastatus, '1');
         }
 
         if (elementosModificados != "") {
@@ -337,8 +340,8 @@ function AjaxGuardarAvanceCarro(arregloCaptura, guardarYNuevo) {
     Captura = [];
     Captura[0] = { Detalles: "" };
     ListaDetalles = [];
-    ListaDetallesObrerosSeleccionados = [];
-    ListaComponentesDinamicos = [];
+    
+   
 
     for (var index = 0 ; index < arregloCaptura.length; index++) {
         ListaDetalles[index] = { Accion: "", SpoolID: "", ProcesoPinturaID: 0, FechaProceso: "", SistemaPinturaID:"", Reductor: 0, ReductorLote: "", ListaObrerosSeleccionados: [], ListaComponentesDinamicos: [] };
@@ -350,6 +353,7 @@ function AjaxGuardarAvanceCarro(arregloCaptura, guardarYNuevo) {
         ListaDetalles[index].Reductor = ReductorDinamico[0].NombreReductor;
         ListaDetalles[index].ReductorLote = arregloCaptura[index][ReductorDinamico[0].NombreReductor];
 
+        var ListaDetallesObrerosSeleccionados = [];
         for (var j = 0 ; j < arregloCaptura[index].ListaObrerosSeleccionados.length; j++) {
             ListaDetallesObrerosSeleccionados[j] = { Accion: "", SpoolID: "", ObreroId: 0, ProcesoPinturaID: 0 };
             ListaDetallesObrerosSeleccionados[j].Accion = arregloCaptura[index].ListaObrerosSeleccionados[j].Accion;
@@ -357,17 +361,38 @@ function AjaxGuardarAvanceCarro(arregloCaptura, guardarYNuevo) {
             ListaDetallesObrerosSeleccionados[j].ObreroId = arregloCaptura[index].ListaObrerosSeleccionados[j].ObreroID;
             ListaDetallesObrerosSeleccionados[j].ProcesoPinturaID = $('input:radio[name=ProcesoPintura]:checked').val();
         }
+
+        var ListaDetallesObrerosSeleccionados = [];
+        var existeObrero = false;
+        for (var k = 0 ; k < arregloCaptura[index].ListaObrerosGuargados.length; k++) {
+            for (var j = 0 ; j < arregloCaptura[index].ListaObrerosSeleccionados.length; j++) {
+
+                if (arregloCaptura[index].ListaObrerosGuargados[k].ObreroID == arregloCaptura[index].ListaObrerosSeleccionados[j].ObreroID && arregloCaptura[index].ListaObrerosGuargados[k].SpoolID == arregloCaptura[index].ListaObrerosSeleccionados[k].SpoolID && && arregloCaptura[index].ListaObrerosGuargados[k].ProcesoPinturaID == arregloCaptura[index].ListaObrerosSeleccionados[k].ProcesoPinturaID) {
+                    existeObrero = true;
+                }
+            }
+            if (!existeObrero)
+            {
+                ListaDetallesObrerosSeleccionados[j] = { Accion: "", SpoolID: "", ObreroId: 0, ProcesoPinturaID: 0 };
+                ListaDetallesObrerosSeleccionados[j].Accion = 3;// se pone tres porque ya se borra.
+                ListaDetallesObrerosSeleccionados[j].SpoolID = arregloCaptura[index].ListaObrerosGuargados[k].SpoolID;
+                ListaDetallesObrerosSeleccionados[j].ObreroId = arregloCaptura[index].ListaObrerosGuargados[k].ObreroID;
+                ListaDetallesObrerosSeleccionados[j].ProcesoPinturaID = arregloCaptura[index].ListaObrerosGuargados[k].ProcesoPinturaID;
+            }
+        }
+
         ListaDetalles[index].ListaObrerosSeleccionados = ListaDetallesObrerosSeleccionados;
 
+        var ListaDetalleComponentesDinamicos = [];
         for (var k = 0; k < ComponentesDinamicos.length; k++) {
-            ListaComponentesDinamicos[k] = { Accion: "", SpoolID: "", Componente: "", Lote: "", ProcesoPinturaID: 0 };
-            ListaComponentesDinamicos[k].Accion = arregloCaptura[index].Accion;
-            ListaComponentesDinamicos[k].SpoolID = arregloCaptura[index].SpoolID;
-            ListaComponentesDinamicos[k].Componente = ComponentesDinamicos[k].NombreComponente; //arregloCaptura[index][ComponentesDinamicos[k]]
-            ListaComponentesDinamicos[k].Lote = arregloCaptura[index][ComponentesDinamicos[k].NombreComponente];
-            ListaComponentesDinamicos[k].ProcesoPinturaID = $('input:radio[name=ProcesoPintura]:checked').val();
+            ListaDetalleComponentesDinamicos[k] = { Accion: "", SpoolID: "", Componente: "", Lote: "", ProcesoPinturaID: 0 };
+            ListaDetalleComponentesDinamicos[k].Accion = arregloCaptura[index].Accion;
+            ListaDetalleComponentesDinamicos[k].SpoolID = arregloCaptura[index].SpoolID;
+            ListaDetalleComponentesDinamicos[k].Componente = ComponentesDinamicos[k].NombreComponente; //arregloCaptura[index][ComponentesDinamicos[k]]
+            ListaDetalleComponentesDinamicos[k].Lote = arregloCaptura[index][ComponentesDinamicos[k].NombreComponente];
+            ListaDetalleComponentesDinamicos[k].ProcesoPinturaID = $('input:radio[name=ProcesoPintura]:checked').val();
         }
-        ListaDetalles[index].ListaComponentesDinamicos = ListaComponentesDinamicos;
+        ListaDetalles[index].ListaComponentesDinamicos = ListaDetalleComponentesDinamicos;
     }
     Captura[0].Detalles = ListaDetalles;
 
@@ -385,7 +410,8 @@ function AjaxGuardarAvanceCarro(arregloCaptura, guardarYNuevo) {
             }
             else {
                 opcionHabilitarView(true, "FieldSetView");
-                AjaxCambiarAccionAModificacion();
+                var dataItem = $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select());
+                AjaxCargarLayoutGrid(dataItem.SistemaPinturaProyectoID, $('input:radio[name=ProcesoPintura]:checked').val(), dataItem.MedioTransporteCargaID);
             }
             loadingStop();
         }
@@ -437,74 +463,77 @@ function AjaxDescargarSpool(dataItem, Cuadrante) {
 }
 
 function AjaxGetLotesComponente(container, options) {
-    var datos = null;
+    if ($('#Guardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
+        var datos = null;
 
-    $CapturaAvance.CapturaAvance.read({ token: Cookies.get("token"), componente: options.field, lenguaje: $("#language").val(), tipoConsulta: 0 }).done(function (data) {
+        $CapturaAvance.CapturaAvance.read({ token: Cookies.get("token"), componente: options.field, lenguaje: $("#language").val(), tipoConsulta: 0 }).done(function (data) {
 
-        $('<input  data-text-field="NombreLote" id=' + options.model.uid + ' data-value-field="NombreLote" data-bind="value:' + options.field + '"/>')
-      .appendTo(container)
-      .kendoComboBox({
-          dataTextField: "NombreLote",
-          dataValueField: "NombreLote",
-          dataSource: data,
-          suggest: true,
-          filter: "contains",
-          change: function (e) {
-              dataItem = this.dataItem(e.sender.selectedIndex);
-              if (dataItem != undefined && dataItem.NombreLote != "") {
-                  options.model[options.field] = dataItem.NombreLote
+            $('<input  data-text-field="NombreLote" id=' + options.model.uid + ' data-value-field="NombreLote" data-bind="value:' + options.field + '"/>')
+          .appendTo(container)
+          .kendoComboBox({
+              dataTextField: "NombreLote",
+              dataValueField: "NombreLote",
+              dataSource: data,
+              suggest: true,
+              filter: "contains",
+              change: function (e) {
+                  dataItem = this.dataItem(e.sender.selectedIndex);
+                  if (dataItem != undefined && dataItem.NombreLote != "") {
+                      options.model[options.field] = dataItem.NombreLote
+                  }
+                  // $("#grid").data("kendoGrid").dataSource.sync();
               }
-              // $("#grid").data("kendoGrid").dataSource.sync();
-          }
-      });
+          });
 
-        $(".k-combobox").on('mouseleave', function (send) {
-            var e = $.Event("keydown", { keyCode: 27 });
-            var item = this;
-            if (!tieneClase(item)) {
-                $(container).trigger(e);
-            }
+            $(".k-combobox").on('mouseleave', function (send) {
+                var e = $.Event("keydown", { keyCode: 27 });
+                var item = this;
+                if (!tieneClase(item)) {
+                    $(container).trigger(e);
+                }
+            });
+
+            //loadingStop();
         });
-
-        //loadingStop();
-    });
+    }
 }
 
 function AjaxGetLotesReductor(container, options) {
-    var datos = null;
+    if ($('#Guardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
+        var datos = null;
 
-    var datos = null;
+        var datos = null;
 
-    $CapturaAvance.CapturaAvance.read({ token: Cookies.get("token"), componente: options.field, lenguaje: $("#language").val(), tipoConsulta: 1 }).done(function (data) {
+        $CapturaAvance.CapturaAvance.read({ token: Cookies.get("token"), componente: options.field, lenguaje: $("#language").val(), tipoConsulta: 1 }).done(function (data) {
 
-        $('<input  data-text-field="NombreLote" id=' + options.model.uid + ' data-value-field="NombreLote" data-bind="value:' + options.field + '"/>')
-     .appendTo(container)
-     .kendoComboBox({
-         dataTextField: "NombreLote",
-         dataValueField: "NombreLote",
-         dataSource: data,
-         suggest: true,
-         filter: "contains",
-         change: function (e) {
-             dataItem = this.dataItem(e.sender.selectedIndex);
-             if (dataItem != undefined && dataItem.NombreLote != "") {
-                 options.model[options.field] = dataItem.NombreLote;
+            $('<input  data-text-field="NombreLote" id=' + options.model.uid + ' data-value-field="NombreLote" data-bind="value:' + options.field + '"/>')
+         .appendTo(container)
+         .kendoComboBox({
+             dataTextField: "NombreLote",
+             dataValueField: "NombreLote",
+             dataSource: data,
+             suggest: true,
+             filter: "contains",
+             change: function (e) {
+                 dataItem = this.dataItem(e.sender.selectedIndex);
+                 if (dataItem != undefined && dataItem.NombreLote != "") {
+                     options.model[options.field] = dataItem.NombreLote;
+                 }
              }
-         }
-     });
+         });
 
-        $(".k-combobox").on('mouseleave', function (send) {
-            var e = $.Event("keydown", { keyCode: 27 });
-            var item = this;
-            if (!tieneClase(item)) {
-                $(container).trigger(e);
-            }
+            $(".k-combobox").on('mouseleave', function (send) {
+                var e = $.Event("keydown", { keyCode: 27 });
+                var item = this;
+                if (!tieneClase(item)) {
+                    $(container).trigger(e);
+                }
+            });
+
+
         });
 
-
-    });
-
-
+    }
 }
 
 function AjaxCargarZona(patioID) {

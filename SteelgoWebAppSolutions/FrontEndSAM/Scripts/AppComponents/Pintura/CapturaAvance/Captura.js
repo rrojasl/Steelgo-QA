@@ -187,7 +187,7 @@ function PlancharPintor(arregloCaptura) {
     $("#grid").data("kendoGrid").dataSource.sync();
 }
 
-function PlancharShotBlastero(arregloCaptura) {
+function PlancharTrabajadores(arregloCaptura) {
     ListaShotblasteroGuargado = [];
     var dataShotBlast = $("#inputShotBlastero").data("kendoMultiSelect")._dataItems;
     var dataSource = $("#grid").data("kendoGrid").dataSource;
@@ -214,14 +214,14 @@ function PlancharShotBlastero(arregloCaptura) {
 
                 for (var i = 0; i < arregloCaptura.length; i++) {
 
-                    arregloCaptura[i].ListaShotblasteroGuargado = dataShotBlast;
-                    arregloCaptura[i].plantillaShotblastero = _dictionary.CapturaAvancePintoresShotblastExistentes[$("#language").data("kendoDropDownList").value()] + arregloCaptura[i].ListaShotblasteroGuargado.length;
+                    arregloCaptura[i].ListaObrerosSeleccionados = dataShotBlast;
+                    arregloCaptura[i].plantillaObrero = _dictionary.CapturaAvancePintoresShotblastExistentes[$("#language").data("kendoDropDownList").value()] + arregloCaptura[i].ListaObrerosSeleccionados.length;
                 }
                 $("#grid").data("kendoGrid").dataSource.sync();
             }
         }
         else {
-            if (data[j].ListaShotblasteroGuargado.length == 0) {
+            if (data[j].ListaObrerosSeleccionados.length == 0) {
                 for (var i = 0; i < dataShotBlast.length; i++) {
                     ListaShotblasteroGuargado[i] = {
                         Accion: "",
@@ -239,8 +239,8 @@ function PlancharShotBlastero(arregloCaptura) {
 
                     for (var i = 0; i < arregloCaptura.length; i++) {
 
-                        arregloCaptura[i].ListaShotblasteroGuargado = dataShotBlast;
-                        arregloCaptura[i].plantillaShotblastero = _dictionary.CapturaAvancePintoresShotblastExistentes[$("#language").data("kendoDropDownList").value()] + arregloCaptura[i].ListaShotblasteroGuargado.length;
+                        arregloCaptura[i].ListaObrerosSeleccionados = dataShotBlast;
+                        arregloCaptura[i].plantillaObrero = _dictionary.CapturaAvancePintoresShotblastExistentes[$("#language").data("kendoDropDownList").value()] + arregloCaptura[i].ListaObrerosSeleccionados.length;
                     }
                     $("#grid").data("kendoGrid").dataSource.sync();
                 }
@@ -249,7 +249,7 @@ function PlancharShotBlastero(arregloCaptura) {
     }
 }
 
-function PlanchaFechaShotblast() {
+function PlanchaFechaProceso() {
     var dataSource = $("#grid").data("kendoGrid").dataSource;
     var filters = dataSource.filter();
     var allData = dataSource.data();
@@ -258,31 +258,11 @@ function PlanchaFechaShotblast() {
 
     for (var i = 0; i < data.length; i++) {
         if ($('input:radio[name=LLena]:checked').val() === "Todos") {
-            data[i].FechaShotblast = String(endRangeDateShotblast.val()).trim();
+            data[i].FechaProceso = String(endRangeDateShotblast.val()).trim();
         }
         else {
-            if (data[i].FechaShotblast === "" || data[i].FechaShotblast === null || data[i].FechaShotblast === undefined) {
-                data[i].FechaShotblast = String(endRangeDateShotblast.val()).trim();
-            }
-        }
-    }
-    $("#grid").data("kendoGrid").dataSource.sync();
-}
-
-function PlanchaFechaPrimario() {
-    var dataSource = $("#grid").data("kendoGrid").dataSource;
-    var filters = dataSource.filter();
-    var allData = dataSource.data();
-    var query = new kendo.data.Query(allData);
-    var data = query.filter(filters).data;
-
-    for (var i = 0; i < data.length; i++) {
-        if ($('input:radio[name=LLena]:checked').val() === "Todos") {
-            data[i].FechaPrimario = String(endRangeDatePrimario.val()).trim();
-        }
-        else {
-            if (data[i].FechaPrimario === "" || data[i].FechaPrimario === null || data[i].FechaPrimario === undefined) {
-                data[i].FechaPrimario = String(endRangeDatePrimario.val()).trim();
+            if (data[i].FechaProceso === "" || data[i].FechaProceso === null || data[i].FechaProceso === undefined) {
+                data[i].FechaProceso = String(endRangeDateShotblast.val()).trim();
             }
         }
     }
@@ -291,28 +271,9 @@ function PlanchaFechaPrimario() {
 
 
 
-function PlanchaCuadranteDescarga() {
-    var dataSource = $("#grid").data("kendoGrid").dataSource;
-    var filters = dataSource.filter();
-    var allData = dataSource.data();
-    var query = new kendo.data.Query(allData);
-    var data = query.filter(filters).data;
 
-    for (var i = 0; i < data.length; i++) {
-        if ($('input:radio[name=LLena]:checked').val() === "Todos") {
-            data[i].Cuadrante = $("#inputCuadrante1").data("kendoComboBox").text();
-            data[i].CuadranteID = $("#inputCuadrante1").data("kendoComboBox").value();
-        }
-        else {
-            if (data[i].Cuadrante === "" || data[i].Cuadrante === null || data[i].Cuadrante === undefined) {
-                data[i].Cuadrante = $("#inputCuadrante1").data("kendoComboBox").text();
-                data[i].CuadranteID = $("#inputCuadrante1").data("kendoComboBox").value();
-            }
-        }
-    }
 
-    $("#grid").data("kendoGrid").dataSource.sync();
-}
+
 
 function LimpiarDespuesCambioProcesoPintura() {
     $("#InputOrdenTrabajo").val("");
@@ -324,22 +285,6 @@ function LimpiarDespuesCambioProcesoPintura() {
 
 function CrearGrid() {
     $("#grid").kendoGrid({
-        //dataSource: {
-        //    filter: {
-        //        logic: "or",
-        //        filters: [
-        //          { field: "Accion", operator: "eq", value: 1 },
-        //          { field: "Accion", operator: "eq", value: 2 },
-        //          { field: "Accion", operator: "eq", value: 4 },
-        //          { field: "Accion", operator: "eq", value: 0 },
-        //          { field: "Accion", operator: "eq", value: undefined }
-        //        ]
-        //    },
-        //    pageSize: 10,
-        //    serverPaging: false,
-        //    serverFiltering: false,
-        //    serverSorting: false
-        //},
         edit: function (e) {
             var inputName = e.container.find('input');
             inputName.select();
