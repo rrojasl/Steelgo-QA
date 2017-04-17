@@ -4,6 +4,25 @@ var windowNewCarriage;
 var InformacionMostrada = false;
 var filaSeleccionada;
 var CuadranteSpoolAnterior;
+var proyectoActualSeleccionado;
+var carroActualSeleccionado
+
+function Limpiar() {
+   
+    $("#labelM2").text("");
+    $("#inputCarro").data("kendoComboBox").dataSource.data([]);
+    $("#inputCarro").data("kendoComboBox").value("");
+    $("#labelToneladas").text("");
+    $("#grid").data('kendoGrid').dataSource.data([]);
+    $("#InputOrdenTrabajo").val("");
+    $("#InputID").data("kendoComboBox").value("");
+    $("#inputCodigo").val("");
+    $("#inputProyecto").data("kendoComboBox").value("");
+    $("#chkCerrar")[0].checked = false;
+    $("#grid").data('kendoGrid').dataSource.data([]);
+
+    opcionHabilitarView(false, "FieldSetView");
+}
 
 function changeLanguageCall() {
     SuscribirEventos();
@@ -52,7 +71,7 @@ function LimpiarInformacionAgregada()
     $("#labelM2").text("");
     $("#labelToneladas").text("");
     $("#InputOrdenTrabajo").val("");
-    $("#InputID").val("");
+    $("#InputID").data("kendoComboBox").value("");
     $("#inputCodigo").val("");
 }
 
@@ -63,7 +82,7 @@ function LimpiarCargaProyecto() {
     $("#labelToneladas").text("");
     $("#grid").data('kendoGrid').dataSource.data([]);
     $("#InputOrdenTrabajo").val("");
-    $("#InputID").val("");
+    $("#InputID").data("kendoComboBox").value("");
     $("#inputCodigo").val("");
 
 }
@@ -154,8 +173,8 @@ function CargaGrid() {
             { field: "SistemaPintura", title: _dictionary.columnSistemaPintura[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec() },
             { field: "ColorPintura", title: _dictionary.columnColor[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec() },
             { field: "Cuadrante", title: _dictionary.columnCuadrante[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec() },
-            { field: "Area", title: _dictionary.columnM2[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), format: "{0:n2}", attributes: { style: "text-align:right;" }, aggregates: ["sum"], footerTemplate: "<div style='text-align:right;'>SUM: #= kendo.toString(sum, 'n') #</div>" },
-            { field: "Peso", title: _dictionary.columnPeso[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), format: "{0:n2}", attributes: { style: "text-align:right;" }, aggregates: ["sum"], footerTemplate: "<div style='text-align:right;'>SUM: #= kendo.toString(sum, 'n') #</div>" },
+            { field: "Area", title: _dictionary.columnM2[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), format: "{0:n2}", attributes: { style: "text-align:right;" }, aggregates: ["sum"], footerTemplate: "<div style='text-align:right;'>SUM: #= kendo.toString(sum, 'n') #</div>" },
+            { field: "Peso", title: _dictionary.columnPeso[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec (), format: "{0:n2}", attributes: { style: "text-align:right;" }, aggregates: ["sum"], footerTemplate: "<div style='text-align:right;'>SUM: #= kendo.toString(sum, 'n') #</div>" },
             { field: "MedioTransporte", title: _dictionary.columnMedioTransporte[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec() },
             {
                 field: "Seleccionado", title: _dictionary.columnSeleccionado[$("#language").data("kendoDropDownList").value()], filterable: {
@@ -177,10 +196,19 @@ function CargaGrid() {
             if (gridData.length > 0) {
                 for (var i = 0; i < gridData.length; i++) {
                     var currentUid = gridData[i].uid;
-                    if (gridData[i].Accion != 2) {
-                        var currenRow = ds.table.find("tr[data-uid='" + currentUid + "']");
-                        var editButton = $(currenRow).find(".k-button");
-                        editButton.hide();
+                    var currenRow = ds.table.find("tr[data-uid='" + currentUid + "']");
+                    var editButton = $(currenRow).find(".k-button");
+                    if (gridData[i].Accion == 2) {
+                        var classDescarga = $("#language").val() == "es-MX" ? "k-grid-Descarga" : "k-grid-Discharging";
+                        editButton[0].outerHTML = '<a class="k-button k-button-icontext ' + classDescarga + '" href="#/"><span class=""></span>' +
+                            _dictionary.botonDescarga[$("#language").data("kendoDropDownList").value()] + '</a>';
+
+                    } else if ($('input:radio[name=TipoVista]:checked').val() == "Patio") {
+                        editButton[0].outerHTML = '<a class="k-button k-button-icontext k-grid-Cancelar" href="#/"><span class=""></span>' +
+                            _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()] + '</a>';
+                    }
+                    else {
+                        editButton[0].outerHTML = '';
                     }
                 }
             }

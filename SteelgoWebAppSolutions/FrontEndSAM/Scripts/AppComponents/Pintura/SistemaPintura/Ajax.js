@@ -75,7 +75,7 @@ function AjaxCargarEdicionSistemaPintura() {
     else {
         ProyectoID = parseInt($("#comboProyecto").data("kendoComboBox").value());
     }
-
+    //$("#comboProyecto").data("kendoComboBox").dataItem($("#comboProyecto").data("kendoComboBox").select())
     loadingStart();
     $SistemaPintura.SistemaPintura.read({ token: Cookies.get("token"), Lenguaje: $("#language").val(), SistemaPintura: SistemaPintura, ProyectoID: ProyectoID, actividad: 2 }).done(function (data) {
         if (Error(data)) {
@@ -98,7 +98,7 @@ function AjaxCargarEdicionSistemaPintura() {
                     $("#inputColor").data("kendoMultiSelect").value(valores);
                 }
 
-                if ($("#comboProyecto").data("kendoComboBox").value() != "") {
+                if ($("#comboProyecto").data("kendoComboBox").value() != "" && $("#comboProyecto").data("kendoComboBox").value() != "0") {
                    
                     AjaxCargarNuevoSistemaPintura();
                 }
@@ -163,12 +163,12 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
         SistemaPintura = $("#inputSistemaPinturaID").val() == "" ? 0 : $("#inputSistemaPinturaID").val();
         Nombre = $("#inputNombre").val();
         if (Nombre == "") {
-            displayNotify("SistemaPinturaMensajeErrorNombre", "", 1);
+            displayNotify("SistemaPinturaMensajeErrorNombre", "", '1');
             return;
         }
 
         if ($("#inputColor").data("kendoMultiSelect")._values.length == 0 && necesitaColor) {
-            displayNotify("SistemaPinturaMensajeErrorColor", "", 1);
+            displayNotify("SistemaPinturaMensajeErrorColor", "", '1');
             return;
         }
         else {
@@ -189,13 +189,13 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                 ListaProyectos[0].Accion = 1;
             }
             else {
-                displayNotify("SistemaPinturaMensajeErrorProyecto", "", 1);
+                displayNotify("SistemaPinturaMensajeErrorProyecto", "", '1');
                 return;
             }
         }
         else {
             if ($("#inputProyecto").data("kendoMultiSelect")._values.length == 0) {
-                displayNotify("SistemaPinturaMensajeErrorListadoProyecto", "", 1);
+                displayNotify("SistemaPinturaMensajeErrorListadoProyecto", "", '1');
                 return;
             }
             else {
@@ -268,7 +268,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
         Captura[0].Detalles = ListasCaptura;
 
         if (NoPintable == 0 && ListaDetalles.length == 0)
-            displayNotify("SistemaPinturaMensajeErrorRequiereProceso", "", 1);
+            displayNotify("SistemaPinturaMensajeErrorRequiereProceso", "", '1');
         else
             if (!ExistRowErrors(arregloCaptura)) {
                 loadingStart();
@@ -408,18 +408,21 @@ function AjaxEliminaSistemaPintura(sistemaPintura, proyectoid) {
         
         if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
 
-            AjaxObtenerColor();
             $("#inputNombre").val("");
             $("#inputSistemaPinturaID").val("");
             $("#divComboProyecto").css("display", "none");
+            $("#comboProyecto").data("kendoComboBox").value("");
+            $("#comboProyecto").data("kendoComboBox").dataSource.data([]);
             $("#inputNombre").attr('disabled', false);
             $("#divMultiselectProyecto").css("display", "block");
             $("#inputNoAplicable").prop("checked", false);
-
+            $("#inputhiddenSistemaPinturaID").val("");
             opcionHabilitarView(false, "FieldSetView");
             $("#inputNombre").attr('disabled', false);
-
             displayNotify("SistemaPinturaEliminadoExitoso", "", '0');
+
+            AjaxObtenerColor();
+           
         }
         else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
             displayNotify("SistemaPinturaErrorEliminado", "", '2');
@@ -437,7 +440,7 @@ function AjaxVerificarNombre(Nombre, arregloCaptura, tipoGuardar) {
     var ds = $("#grid").data("kendoGrid").dataSource;
 
     if (Nombre == "") {
-        displayNotify("SistemaPinturaMensajeErrorNombre", "", 1);
+        displayNotify("SistemaPinturaMensajeErrorNombre", "", '1');
         return;
     }
 

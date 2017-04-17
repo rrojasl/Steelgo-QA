@@ -128,14 +128,17 @@ function CargarGrid() {
 
             for (var i = 0; i < gridData.length; i++) {
                 var currentUid = gridData[i].uid;
-
                 if (gridData[i].RowOk == false) {
+                    grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("k-alt");
                     grid.table.find("tr[data-uid='" + currentUid + "']").addClass("kRowError");
+
                 }
                 else if (gridData[i].RowOk) {
-                    grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("kRowError"); //.css("background-color", "#ffffff");
-                }
+                    if (i % 2 == 0)
+                        grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("k-alt");
+                    grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("kRowError");
 
+                }
             }
 
             if (esNormal) {
@@ -153,6 +156,14 @@ function isEditable(fieldName, model) {
     if (fieldName === "Color") {
         var sistemaPinturaID = model.SistemaPinturaID
         if (model.ListaColorPintura.length < 1) {
+            return false;
+        }
+    }
+    if (fieldName == 'SistemaPintura' || fieldName === "Color")
+    {
+        var AsignadoSpool = model.AsignadoSpool
+        if (model.AsignadoSpool) {
+            displayNotify("SistemaPinturaAplicableYaAsigando", "", '1');
             return false;
         }
     }

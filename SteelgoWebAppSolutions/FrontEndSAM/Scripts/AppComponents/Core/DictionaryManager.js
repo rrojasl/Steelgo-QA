@@ -8153,7 +8153,7 @@ _dictionary = {
 
     // Menú lateral
     "menuFabricacion": {
-        "es-MX": "Produccción",
+         "es-MX": "Produccción",
         "en-US": "Production"
     },
     "menuArmado": {
@@ -8306,8 +8306,8 @@ _dictionary = {
         "en-US": "Paint System"
     },
     "menuConfiguracionSoldadura": {
-        "es-MX": "Fabricación",
-        "en-US": "Manufacturing"
+         "es-MX": "Produccción",
+        "en-US": "Production"
     },
     "menuPQR": {
         "es-MX": "PQR",
@@ -9559,8 +9559,8 @@ _dictionary = {
         "en-US": "Observation"
     },
     "ConfiguracionSoldaduraBreadcrumb": {
-        "es-MX": "Fabricación",
-        "en-US": "Manufacturing"
+         "es-MX": "Produccción",
+        "en-US": "Production"
     },
     "CapturaSoldaduraHeaderSoldadores": {
         "es-MX": "Soldador",
@@ -10496,6 +10496,14 @@ _dictionary = {
 
     //Finaliza Captura Admin reductores
     //Inicia Carga de Carro
+    "PinturaSpoolCargadoEnCarro": {
+        "es-MX": "El spool se encuentra cargado en el carro '?'",
+        "en-US": "The spool is loaded in the cart '?' "
+    },
+    "PinturaCargaCarroSinSpools": {
+        "es-MX": "El spool seleccionado no tiene un sistema de pintura o el cuadrante del spool no es valido",
+        "en-US": "The selected spool does not have a paint system or the spool quadrant is not valid"
+    },
     "PinturaCargaCarroEscritorio": {
         "es-MX": "Escritorio",
         "en-US": "Desktop"
@@ -10632,13 +10640,10 @@ _dictionary = {
 
     //Inicia Captura Avance de carro
     
-    "PinturaSpoolCargadoEnCarro": {
-            "es-MX": "El spool ya se encuentra cargado en otro carro",
-            "en-US": "The spool is already loaded in another car"
-        },
+    
     "PinturaSpoolSistemaPinturaNoCoincide": {
-        "es-MX": "Procesos de pintura",
-        "en-US": "Painting processes"
+        "es-MX": "El spool seleccionado tiene diferente Sistema de pintura",
+        "en-US": "the selected spool has different paint system"
     },
 
     "lblProcesosPintura": {
@@ -10717,8 +10722,8 @@ _dictionary = {
     },
 
     "CapturaAvancePintoresShotblastExistentes": {
-        "es-MX": "Pintores shotblast seleccionados:",
-        "en-US": "Selected shotblast painters:"
+        "es-MX": "Pintores  seleccionados:",
+        "en-US": "Selected  painters:"
     },
     "CapturaAvancePintoresPrimariosNoExistentes": {
         "es-MX": "No hay pintores seleccionados",
@@ -10840,6 +10845,10 @@ _dictionary = {
     "SistemaPinturaAplicableExcepcionGuardado": {
         "es-MX": "No hay datos para guardar.",
         "en-US": "No data to save."
+    },
+    "SistemaPinturaAplicableYaAsigando": {
+        "es-MX": "El spool ya se encuentra en un carro",
+        "en-US": "The spool is already in a car"
     },
     "SistemaPinturaAplicableMensajeGuardadoExistoso": {
         "es-MX": "Datos guardados correctamente.",

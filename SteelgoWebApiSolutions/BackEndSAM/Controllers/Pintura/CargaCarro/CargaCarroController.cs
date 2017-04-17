@@ -71,7 +71,7 @@ namespace BackEndSAM.Controllers.Pintura.CargaCarro
         public object ObtenerDetalleCargaCarro(int medioTransporteID, int proyectoID, string token, string lenguaje, string escenario,string valorBusqueda)
         {
             string payload = "";
-            string newToken = "";
+            string newToken = "";  
             bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
             if (tokenValido)
             {

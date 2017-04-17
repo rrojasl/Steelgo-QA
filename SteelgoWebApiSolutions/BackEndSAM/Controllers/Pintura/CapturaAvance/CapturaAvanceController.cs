@@ -2,6 +2,7 @@
 using BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD;
 using BackEndSAM.Models.Pintura.CapturaAvance;
 using DatabaseManager.Sam3;
+using Newtonsoft.Json;
 using SecurityManager.Api.Models;
 using SecurityManager.TokenHandler;
 using System;
@@ -11,6 +12,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Reflection;
+using System.Text;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Script.Serialization;
@@ -57,7 +59,7 @@ namespace BackEndSAM.Controllers.PinturaControllers.CapturaAvance
         }
 
         [HttpGet]
-        public object ObtenerCarrosCargados(string token, string lenguaje,int procesoID)
+        public object ObtenerCarrosCargados(string token, string lenguaje, int procesoID)
         {
             string payload = "";
             string newToken = "";
@@ -80,7 +82,7 @@ namespace BackEndSAM.Controllers.PinturaControllers.CapturaAvance
         }
 
         [HttpGet]
-        public object ObtenerDetalleCarrosCargados(string token, int medioTransporteCargaID, string lenguaje,int sistemaPinturaProyectoID,int procesopinturaID)
+        public object ObtenerDetalleCarrosCargados(string token, int medioTransporteCargaID, string lenguaje, int sistemaPinturaProyectoID, int procesopinturaID)
         {
             string payload = "";
             string newToken = "";
@@ -89,7 +91,14 @@ namespace BackEndSAM.Controllers.PinturaControllers.CapturaAvance
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return CapturaAvanceBD.Instance.ObtenerListaMedioTransporteCargado(medioTransporteCargaID, lenguaje, sistemaPinturaProyectoID, procesopinturaID);
+                DataTable dtdetalle = (DataTable)CapturaAvanceBD.Instance.ObtenerListaMedioTransporteCargado(medioTransporteCargaID, lenguaje, sistemaPinturaProyectoID, procesopinturaID);
+
+                string jsonConvertido = DataTableToJSON(dtdetalle, procesopinturaID, usuario.UsuarioID);// Convertir(dtdetalle, procesopinturaID, usuario.UsuarioID);
+
+                return jsonConvertido;
+
+                //List<DetalleCapturaAvanceCarro> listaDetalleCapturaAvanceCarro = JsonConvert.DeserializeObject<List<DetalleCapturaAvanceCarro>>(jsonDinamico);
+
             }
             else
             {
@@ -101,9 +110,37 @@ namespace BackEndSAM.Controllers.PinturaControllers.CapturaAvance
                 return result;
             }
         }
-        
+
+
+  
+
+        public static string DataTableToJSON(DataTable table, int procesopinturaID, int usuario)
+        {
+            var list = new List<Dictionary<string, object>>();
+            foreach (DataRow row in table.Rows)
+            {
+                var dict = new Dictionary<string, object>();
+                List<object> listaObreros = (List<object>)CapturaAvanceBD.Instance.ObtenerObrerosGuardados(int.Parse(row["SpoolID"].ToString()), procesopinturaID, usuario);
+
+                foreach (DataColumn col in table.Columns)
+                {
+                    if (col.ColumnName == "ListaObreros")
+                        dict[col.ColumnName] = (List<PintorSpool>)listaObreros[1];
+                    else if (col.ColumnName == "ListaObrerosGuargados")
+                        dict[col.ColumnName] = (List<PintorSpool>)listaObreros[0];
+                    else if (col.ColumnName == "ListaObrerosSeleccionados")
+                        dict[col.ColumnName] = (List<PintorSpool>)listaObreros[0];
+                    else
+                        dict[col.ColumnName] = row[col];
+                }
+                list.Add(dict);
+            }
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            return serializer.Serialize(list);
+        }
+
         [HttpGet]
-        public object getObreros(string token, string lenguaje, int tipo, string tipoObrero)
+        public object getObreros(string token, int procesoPintura)
         {
             string payload = "";
             string newToken = "";
@@ -112,7 +149,7 @@ namespace BackEndSAM.Controllers.PinturaControllers.CapturaAvance
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return CapturaAvanceBD.Instance.ObtenerObreros(lenguaje, tipo, tipoObrero);
+                return CapturaAvanceBD.Instance.ObtenerObreros(procesoPintura, usuario.UsuarioID);
             }
             else
             {
@@ -126,7 +163,7 @@ namespace BackEndSAM.Controllers.PinturaControllers.CapturaAvance
         }
 
         [HttpGet]
-        public object ObtenerLayoutPorProceso(string token, int sistemaPinturaProyectoId, int procesoID,string lenguaje)
+        public object ObtenerLayoutPorProceso(string token, int sistemaPinturaProyectoId, int procesoID, string lenguaje)
         {
             string payload = "";
             string newToken = "";
@@ -149,7 +186,7 @@ namespace BackEndSAM.Controllers.PinturaControllers.CapturaAvance
         }
 
         [HttpGet]
-        public object ObtenerDetalleSpoolAgregar(string token, int OrdenTrabajoSpoolID, string lenguaje)
+        public object ObtenerDetalleSpoolAgregar(string token, int OrdenTrabajoSpoolID, string lenguaje, int procesoPinturaID)
         {
             string payload = "";
             string newToken = "";
@@ -158,7 +195,7 @@ namespace BackEndSAM.Controllers.PinturaControllers.CapturaAvance
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return CapturaAvanceBD.Instance.ObtenerSpoolNuevo(OrdenTrabajoSpoolID, lenguaje);
+                return CapturaAvanceBD.Instance.ObtenerSpoolNuevo(OrdenTrabajoSpoolID, lenguaje, procesoPinturaID, usuario.UsuarioID);
             }
             else
             {
@@ -172,7 +209,7 @@ namespace BackEndSAM.Controllers.PinturaControllers.CapturaAvance
         }
 
         [HttpGet]
-        public object ObtenerLotes(string token,string componente, string lenguaje,int tipoConsulta)
+        public object ObtenerLotes(string token, string componente, string lenguaje, int tipoConsulta)
         {
             string payload = "";
             string newToken = "";
@@ -181,8 +218,8 @@ namespace BackEndSAM.Controllers.PinturaControllers.CapturaAvance
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                if(tipoConsulta==0)
-                return CapturaAvanceBD.Instance.ObtenerLotesComponentes(componente, lenguaje);
+                if (tipoConsulta == 0)
+                    return CapturaAvanceBD.Instance.ObtenerLotesComponentes(componente, lenguaje);
                 else
                     return CapturaAvanceBD.Instance.ObtenerLotesReductor(componente, lenguaje);
             }
@@ -197,7 +234,7 @@ namespace BackEndSAM.Controllers.PinturaControllers.CapturaAvance
             }
         }
 
-        public object Post(Captura listaCapturasRequisicion, string token, string lenguaje, int medioTransporteCargaID)
+        public object Post(Captura listaCapturasRequisicion, string token, string lenguaje, int cargaCarroID)
         {
             string payload = "";
             string newToken = "";
@@ -211,24 +248,32 @@ namespace BackEndSAM.Controllers.PinturaControllers.CapturaAvance
 
                 DataTable dtDetalleSpool = new DataTable();
                 DataTable dtDetalleObreros = null;
+                DataTable dtDetalleComponentes = null;
 
-
-                foreach (DetalleSpool item in listaCapturasRequisicion.listaDetalleSpool)
+                foreach (var item in listaCapturasRequisicion.Detalles)
                 {
                     if (dtDetalleObreros == null)
-                        dtDetalleObreros = BackEndSAM.Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(item.ListaObreros);
+                    {
+                        dtDetalleObreros= BackEndSAM.Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(item.ListaObrerosSeleccionados);
+                    }
                     else
-                        dtDetalleObreros.Merge(BackEndSAM.Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(item.ListaObreros));
+                        dtDetalleObreros.Merge(BackEndSAM.Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(item.ListaObrerosSeleccionados));
+                    if (dtDetalleComponentes == null)
+                    {
+                        dtDetalleComponentes = BackEndSAM.Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(item.ListaComponentesDinamicos);
+                    }
+                    else
+                        dtDetalleComponentes.Merge(BackEndSAM.Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(item.ListaComponentesDinamicos));
                 }
 
-                if (listaCapturasRequisicion.listaDetalleSpool != null)
-                {
-                    dtDetalleSpool = BackEndSAM.Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(listaCapturasRequisicion.listaDetalleSpool);
-                }
+                dtDetalleSpool=  BackEndSAM.Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(listaCapturasRequisicion.Detalles);
 
-                dtDetalleSpool.Columns.Remove("ListaObreros");
+               
+                dtDetalleSpool.Columns.Remove("ListaObrerosSeleccionados");
+                dtDetalleSpool.Columns.Remove("ListaComponentesDinamicos");
 
-                return CapturaAvanceBD.Instance.InsertarCargaSpool(dtDetalleSpool, dtDetalleObreros, usuario, lenguaje, medioTransporteCargaID);
+                return CapturaAvanceBD.Instance.GuardarAvanceCarro(dtDetalleSpool, dtDetalleObreros, dtDetalleComponentes, usuario, lenguaje, cargaCarroID);
+               
             }
             else
             {
@@ -240,6 +285,8 @@ namespace BackEndSAM.Controllers.PinturaControllers.CapturaAvance
                 return result;
             }
         }
+
+
 
     }
 }

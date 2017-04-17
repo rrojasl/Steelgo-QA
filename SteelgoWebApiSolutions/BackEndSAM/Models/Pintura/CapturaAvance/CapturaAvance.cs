@@ -1,34 +1,50 @@
 ﻿using BackEndSAM.Models.Pintura.PinturaGeneral;
 using BackEndSAM.Models.Sam3General.Cuadrante;
+using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Text;
 
 namespace BackEndSAM.Models.Pintura.CapturaAvance
 {
+
+    
+    public class DetalleCapturaAvanceCarroDimanico
+    {
+        public Dictionary<string, object> ComponenteDinamico { get; set; }
+    }
     public class DetalleCapturaAvanceCarro
     {
+        public int? AvanceCarroID { get; set; }
         public int Accion { get; set; }
         public int? CarroID { get; set; }
         public int? CargaCarroID { get; set; }
-        public int SpoolID { get; set; }
+        public int? SpoolID { get; set; }
         public string Spool { get; set; }
         public int? SistemaPinturaID { get; set; }
-        public int SistemaPinturaProyectoID { get; set; }
+        public int? SistemaPinturaProyectoID { get; set; }
         public string SistemaPintura { get; set; }
         public int? ColorPinturaID { get; set; }
         public string Color { get; set; }
         public decimal Area { get; set; }
         public string Lote { get; set; }
-        public string FechaShotblast { get; set; }
-        public string plantillaShotblastero { get; set; }
-        public List<PintorSpool> ListaShotblasteroGuargado { get; set; }
-        public List<PintorSpool> ListaShotblasteroInicial { get; set; }
-        public List<PintorSpool> ListaShotblasteros { get; set; }
+        public string FechaProceso { get; set; }
+        public string plantillaObrero { get; set; }
+        public List<PintorSpool> ListaObrerosGuargados { get; set; }
+        public List<PintorSpool> ListaObreros { get; set; }
+        public List<PintorSpool> ListaObrerosSeleccionados { get; set; }
 
-        public int PatioID { get; set; }
+
+        public int? PatioID { get; set; }
         public int? CuadranteAnteriorID { get; set; }
         public int? ZonaAnteriorID { get; set; }
         public int? CuadranteID { get; set; }
         public string Cuadrante { get; set; }
+
+        public Dictionary<string, object> ComponenteDinamico { get; set; }
+
+        public string Banderastatus { get; set; }
+
     }
 
     public class CamposPredeterminados
@@ -44,7 +60,8 @@ namespace BackEndSAM.Models.Pintura.CapturaAvance
         public string TipoObrero { get; set; }
     }
 
-    public class Componente {
+    public class Componente
+    {
         public string NombreComponente { get; set; }
 
         public Componente()
@@ -70,30 +87,36 @@ namespace BackEndSAM.Models.Pintura.CapturaAvance
 
     public class Captura
     {
-        public List<DetalleSpool> listaDetalleSpool { get; set; }
+        public List<DetalleSpool> Detalles { get; set; }
     }
 
     public class DetalleSpool
     {
         public int Accion { get; set; }
         public int SpoolID { get; set; }
-        public int PinturaSpoolID { get; set; }
-        public int PasoID { get; set; }
+        public int ProcesoPinturaID { get; set; }
+        public string FechaProceso { get; set; }
         public int SistemaPinturaID { get; set; }
-        public int ColorPinturaID { get; set; }
-        public int LotePinturaID { get; set; }
-        public int PinturaComponenteComposicionID { get; set; }
-        public string Fecha { get; set; }
-        public List<ObrerosGuardar> ListaObreros { get; set; }
+        public string Reductor { get; set; }
+        public string ReductorLote { get; set; }
+        public List<ObrerosGuardar> ListaObrerosSeleccionados { get; set; }
+        public List<ComponenteDinamico> ListaComponentesDinamicos { get; set; }
     }
 
-  
+    public class ComponenteDinamico
+    {
+        public int Accion { get; set; }
+        public int SpoolID { get; set; }
+        public string Componente { get; set; }
+        public string Lote { get; set; }
+        public int ProcesoPinturaID { get; set; }
+    }
 
 
     public class PintorSpool
     {
         public int Accion { get; set; }
-        public int PinturaSpoolObreroID { get; set; }
+        public int AvanceCarroObreroId { get; set; }
         public int ObreroID { get; set; }
         public string Codigo { get; set; }
     }
@@ -103,10 +126,8 @@ namespace BackEndSAM.Models.Pintura.CapturaAvance
     {
         public int Accion { get; set; }
         public int SpoolID { get; set; }
-        public int PasoID { get; set; }
-        public int PinturaSpoolID { get; set; }
-        public int PinturaSpoolObreroID { get; set; }
         public int ObreroID { get; set; }
+        public int ProcesoPinturaID { get; set; }
     }
     public class CarroCerrado
     {
