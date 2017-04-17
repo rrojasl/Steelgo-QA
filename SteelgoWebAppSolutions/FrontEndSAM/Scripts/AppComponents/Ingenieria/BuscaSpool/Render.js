@@ -4,8 +4,11 @@ var llamadasATodos = 0;
 var numeroPlacasAnteriorElemento;
 var dataItem;
 
+var dataItemTipoSalidaAterior;
 function RenderTipoSalida(container, options) {
     
+    dataItemTipoSalidaAterior = { TipoSalidaID: options.model.TipoSalidaID, TipoSalida: options.model.TipoSalida };
+    //if (options.model.TipoSalidaID == 2) {
     $('<input required data-text-field="Nombre" id=' + options.model.uid + ' data-value-field="TipoSalidaID" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoComboBox({
@@ -16,33 +19,142 @@ function RenderTipoSalida(container, options) {
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
                 if (dataItem != undefined) {
-                    options.model.TipoSalidaID = dataItem.TipoSalidaID;
-                    options.model.TipoSalida = dataItem.Nombre;
 
-                    options.model.SpoolItemCodeID = 0;
-                    options.model.SpoolItemCode = '';
+                    if (dataItemTipoSalidaAterior.TipoSalidaID == 0) {
 
-                    //if (dataItem.TipoSalidaID == 1) {
-                    //    AjaxListadoSpool(options, "NG-02");
-                    //}
 
-                    if (options.model.ClaveSalida.match('^JC')) {
-                        currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].TipoSalidaID = dataItem.TipoSalidaID;
-                        currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].TipoSalida = dataItem.Nombre;
+                        options.model.TipoSalidaID = dataItem.TipoSalidaID;
+                        options.model.TipoSalida = dataItem.Nombre;
 
-                        currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].SpoolItemCodeID = 0;
-                        currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].SpoolItemCode = '';
-                                                
+                        options.model.SpoolItemCodeID = 0;
+                        options.model.SpoolItemCode = '';
+
+                        if (options.model.ClaveSalida.match('^JC')) {
+                            currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].TipoSalidaID = dataItem.TipoSalidaID;
+                            currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].TipoSalida = dataItem.Nombre;
+
+                            currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].SpoolItemCodeID = 0;
+                            currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].SpoolItemCode = '';
+
+                        }
+                        else {
+                            currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].TipoSalidaID = dataItem.TipoSalidaID;
+                            currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].TipoSalida = dataItem.Nombre;
+
+                            currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].SpoolItemCodeID = 0;
+                            currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].SpoolItemCode = '';
+                        }
+
+                        $("#grid_" + currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].Posicion).data("kendoGrid").refresh();
+
                     }
                     else {
-                        currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].TipoSalidaID = dataItem.TipoSalidaID;
-                        currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].TipoSalida = dataItem.Nombre;
+                        ventanaConfirm = $("#ventanaConfirm").kendoWindow({
+                            iframe: true,
+                            title: _dictionary.WarningTitle[$("#language").data("kendoDropDownList").value()],
+                            visible: false,
+                            width: "auto",
+                            height: "auto",
+                            modal: true,
+                            animation: {
+                                close: false,
+                                open: false
+                            }
+                        }).data("kendoWindow");
 
-                        currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].SpoolItemCodeID = 0;
-                        currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].SpoolItemCode = '';
+                        ventanaConfirm.content("Los registros capturados no han sido guardados ¿Desea continuar?"/*_dictionary.ListadoCatalogos0011[$("#language").data("kendoDropDownList").value()]*/ +
+                            "</br><center><button class='btn btn-blue' id='yesButton'>Si</button><button class='btn btn-blue' id='noButton'>No</button></center>");
+
+                        ventanaConfirm.open().center();
+
+                        $("#yesButton").click(function () {
+                            options.model.TipoSalidaID = dataItem.TipoSalidaID;
+                            options.model.TipoSalida = dataItem.Nombre;
+
+                            options.model.SpoolItemCodeID = 0;
+                            options.model.SpoolItemCode = '';
+
+                            options.model.DetalleMaterialSpoolID = 0;
+                            options.model.DetalleMaterialSpool = '';
+                            options.model.DetalleJuntaSpoolID = 0;
+                            options.model.DetalleJuntaSpool = '';
+                            options.model.TipoJuntaID = 0;
+                            options.model.TipoJunta = '';
+                            options.model.Cedula = '';
+                            options.model.FamiliaAceroMaterial1ID = 0;
+                            options.model.FamiliaAceroMaterial1 = '';
+                            options.model.FamiliaAceroMaterial2ID = 0;
+                            options.model.FamiliaAceroMaterial2 = '';
+                            options.model.Diametro = 0.0;
+                            options.model.TipoCorte1ID = 0;
+                            options.model.TipoCorte1 = '';
+                            options.model.TipoCorte2ID = 0;
+                            options.model.TipoCorte2 = '';
+                            options.model.Cantidad = 0;
+
+                            if (options.model.ClaveSalida.match('^JC')) {
+                                currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].TipoSalidaID = dataItem.TipoSalidaID;
+                                currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].TipoSalida = dataItem.Nombre;
+
+                                currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].SpoolItemCodeID = 0;
+                                currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].SpoolItemCode = '';
+                                
+                                currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].DetalleMaterialSpoolID = 0;
+                                currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].DetalleMaterialSpool = '';
+                                currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].DetalleJuntaSpoolID = 0;
+                                currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].DetalleJuntaSpool = '';
+                                currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].TipoJuntaID = 0;
+                                currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].TipoJunta = '';
+                                currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].Cedula = '';
+                                currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].FamiliaAceroMaterial1ID = 0;
+                                currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].FamiliaAceroMaterial1 = '';
+                                currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].FamiliaAceroMaterial2ID = 0;
+                                currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].FamiliaAceroMaterial2 = '';
+                                currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].Diametro = 0.0;
+                                currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].TipoCorte1ID = 0;
+                                currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].TipoCorte1 = '';
+                                currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].TipoCorte2ID = 0;
+                                currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].TipoCorte2 = '';
+                                currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].Cantidad = 0;
+                            }
+                            else {
+                                currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].TipoSalidaID = dataItem.TipoSalidaID;
+                                currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].TipoSalida = dataItem.Nombre;
+
+                                currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].SpoolItemCodeID = 0;
+                                currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].SpoolItemCode = '';
+
+                                currentSpoolMaster.detalleSalidas[currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].PosicionSalidaPadre].SalidasEstandar[currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].PosicionSalida].DetalleMaterialSpoolID = 0;
+                                currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].DetalleMaterialSpool = '';
+                                currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].DetalleJuntaSpoolID = 0;
+                                currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].DetalleJuntaSpool = '';
+                                currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].TipoJuntaID = 0;
+                                currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].TipoJunta = '';
+                                currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].Cedula = '';
+                                currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].FamiliaAceroMaterial1ID = 0;
+                                currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].FamiliaAceroMaterial1 = '';
+                                currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].FamiliaAceroMaterial2ID = 0;
+                                currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].FamiliaAceroMaterial2 = '';
+                                currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].Diametro = 0.0;
+                                currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].TipoCorte1ID = 0;
+                                currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].TipoCorte1 = '';
+                                currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].TipoCorte2ID = 0;
+                                currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].TipoCorte2 = '';
+                                currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].Cantidad = 0;
+                            }
+
+                            $("#grid_" + currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].Posicion).data("kendoGrid").refresh();
+
+                            ventanaConfirm.close();
+                        });
+                        $("#noButton").click(function () {
+                            options.model.TipoSalidaID = dataItemTipoSalidaAterior.TipoSalidaID;
+                            options.model.TipoSalida = dataItemTipoSalidaAterior.TipoSalida;
+                            $("#grid_" + currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].Posicion).data("kendoGrid").refresh();
+                            
+                            ventanaConfirm.close();
+                        });
                     }
-
-                    $("#grid_" + currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].Posicion).data("kendoGrid").refresh();
                 }
                 
                 ////options.model.TipoSalidaID = dataItem.SalidaID;
@@ -118,34 +230,35 @@ function RenderTipoCorte2(container, options) {
 
 function RenderJunta(container, options) {
     var dataItem;
-    $('<input required data-text-field="Etiqueta" id=' + options.model.uid + ' data-value-field="JuntaSpoolID" data-bind="value:' + options.field + '"/>')
-        .appendTo(container)
-        .kendoComboBox({
-            autoBind: false,
-            dataTextField: "Etiqueta",
-            dataValueField: "JuntaSpoolID",
-            dataSource: options.model.DetalleJuntaSpoolLista,
-            //template: "<i class=\"fa fa-#=data.Junta#\"></i> #=data.Junta#",
-            change: function (e) {
-                dataItem = this.dataItem(e.sender.selectedIndex);
-                
-                options.model.DetalleJuntaSpoolID = dataItem.JuntaSpoolID;
-                options.model.DetalleJuntaSpool = dataItem.Etiqueta;
+    if (options.model.SpoolItemCodeID != 0) {
+        $('<input required data-text-field="Etiqueta" id=' + options.model.uid + ' data-value-field="JuntaSpoolID" data-bind="value:' + options.field + '"/>')
+            .appendTo(container)
+            .kendoComboBox({
+                autoBind: false,
+                dataTextField: "Etiqueta",
+                dataValueField: "JuntaSpoolID",
+                dataSource: options.model.DetalleJuntaSpoolLista,
+                //template: "<i class=\"fa fa-#=data.Junta#\"></i> #=data.Junta#",
+                change: function (e) {
+                    dataItem = this.dataItem(e.sender.selectedIndex);
 
-                if (options.model.ClaveSalida.match('^JC')) {
-                    currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].DetalleJuntaSpoolID = dataItem.JuntaSpoolID;
-                    currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].DetalleJuntaSpool = dataItem.Etiqueta;
-                }
-                else {
-                    currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].DetalleJuntaSpoolID = dataItem.JuntaSpoolID;
-                    currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].DetalleJuntaSpool = dataItem.Etiqueta;
-                }
+                    options.model.DetalleJuntaSpoolID = dataItem.JuntaSpoolID;
+                    options.model.DetalleJuntaSpool = dataItem.Etiqueta;
 
-                AjaxDetalleJunta(options.model.PosicionSalidaPadre, options.model.PosicionSalida, ((options.model.ClaveSalida.match('^JC')) ? (options.model.ClaveSalida.substring(0, 2)) : (options.model.ClaveSalida.substring(0, 1))), options.model.DetalleJuntaSpoolID);
+                    if (options.model.ClaveSalida.match('^JC')) {
+                        currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].DetalleJuntaSpoolID = dataItem.JuntaSpoolID;
+                        currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasJuntasCerradas[options.model.PosicionSalida].DetalleJuntaSpool = dataItem.Etiqueta;
+                    }
+                    else {
+                        currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].DetalleJuntaSpoolID = dataItem.JuntaSpoolID;
+                        currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre].SalidasEstandar[options.model.PosicionSalida].DetalleJuntaSpool = dataItem.Etiqueta;
+                    }
+
+                    AjaxDetalleJunta(options.model.PosicionSalidaPadre, options.model.PosicionSalida, ((options.model.ClaveSalida.match('^JC')) ? (options.model.ClaveSalida.substring(0, 2)) : (options.model.ClaveSalida.substring(0, 1))), options.model.DetalleJuntaSpoolID);
+                }
             }
-        }
-        );
-
+            );
+    }
 }
 
 var dataItemAterior;
@@ -189,7 +302,7 @@ function RenderSpool_IC(container, options) {
 
 
       },
-
+      scrollable: false,
       selectable: true,
       dataBinding: function (e) {
 
@@ -215,8 +328,10 @@ function RenderSpool_IC(container, options) {
       columns: [
       { field: "ItemCodeID", title: 'IC'/*, editor: RenderComboBoxTrabajoAdicional*/, filterable: false, width: "40px", template: "<div class='EnlacePorPlaca' style='text-align:center;' onmouseover='ICSelect = \"#=ItemCodeID#\";'><span>#=ItemCodeID#</span></div> " },
       { field: "Diametro1", title: 'D1', filterable: false, width: "30px", template: "<div class='EnlacePorPlaca' style='text-align:center;' onmouseover='ICSelect = \"#=ItemCodeID#\";'><span>#=Diametro1#</span></div> " },
-      { field: "Diametro2", title: 'D2', filterable: false, width: "30px", template: "<div class='EnlacePorPlaca' style='text-align:center;' onmouseover='ICSelect = \"#=ItemCodeID#\";'><span>#=Diametro2#</span></div> " },
-      { field: "DescipcionMaterial", title: 'Desc', filterable: false, width: "60px", template: "<div class='EnlacePorPlaca' style='text-align:center;' onmouseover='ICSelect = \"#=ItemCodeID#\";'><span>#=DescripcionMaterial#</span></div> " }
+      { field: "Diametro2", title: 'D2', filterable: false, width: "30px", template: "<div class='EnlacePorPlaca' style='text-align:center;' onmouseover='ICSelect = \"#=ItemCodeID#\";'><span>#=Diametro2#</span></div> " }
+      ,
+      //{ field: "DescipcionMaterial", title: 'Desc', filterable: false, width: "60px" }
+      { field: "DescripcionMaterial", title: 'Desc', filterable: false, width: "80px", template: "<div class='EnlacePorPlaca' style='text-align:center;' onmouseover='ICSelect = \"#=ItemCodeID#\";'><span>#=DescripcionMaterial#</span></div> " }
       //,
       //{
       //    command: {
@@ -362,7 +477,18 @@ function RenderSpool_IC(container, options) {
                     }
 
                     if ((dataItem.SpoolID != 0) && (dataItem.SpoolID != (-1))) {
-                        addNewDetalleSalida(options.model.SpoolItemCodeID, options.model.SpoolItemCode);
+
+                        //Busca si el spool existe
+                        var spoolEncontrado = false;
+                        for (var i = 0; i < currentSpoolMaster.detalleSalidas.length; i++) {
+                            if (currentSpoolMaster.detalleSalidas[i].SpoolID == dataItem.SpoolID) {
+                                spoolEncontrado = true;
+                                currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre + 1].SalidasEstandar.length = (currentSpoolMaster.detalleSalidas[options.model.PosicionSalidaPadre + 1].SalidasEstandar.length + 1);
+                            }
+                        }
+
+                        if (!spoolEncontrado)
+                            addNewDetalleSalida(options.model.SpoolItemCodeID, options.model.SpoolItemCode);
 
                         reloadControls();
                     }
@@ -439,7 +565,7 @@ function RenderSpool_IC(container, options) {
 
 function RenderTipoJuta(container, options) {
     //if ((options.model.SpoolItemCode == 0) && (options.model.TipoSalidaID == 4)) {
-    if (options.model.DetalleJuntaSpoolID == -1) {
+    if ((options.model.DetalleJuntaSpoolID == -1) && (options.model.SpoolItemCodeID != 0)) {
         $('<input required data-text-field="Nombre" id=' + options.model.uid + ' data-value-field="TipoJuntaID" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoComboBox({
@@ -570,11 +696,23 @@ function RenderGridRowsDynamic() {
 
 
         for (var i = 0; i < currentSpoolMaster.detalleSalidas[posicion].SalidasEstandar.length; i++) {
-            ds.add(currentSpoolMaster.detalleSalidas[posicion].SalidasEstandar[i]);
+            try {
+                if (!("undefined" === typeof currentSpoolMaster.detalleSalidas[posicion].SalidasEstandar[i].SpoolID))
+                    ds.add(currentSpoolMaster.detalleSalidas[posicion].SalidasEstandar[i]);
+            } catch (e) {
+                break;
+            }
+            
         }
 
         for (var i = 0; i < currentSpoolMaster.detalleSalidas[posicion].SalidasJuntasCerradas.length; i++) {
-            ds.add(currentSpoolMaster.detalleSalidas[posicion].SalidasJuntasCerradas[i]);
+            try {
+                if (!("undefined" === typeof currentSpoolMaster.detalleSalidas[posicion].SalidasJuntasCerradas[i].SpoolID))
+                    ds.add(currentSpoolMaster.detalleSalidas[posicion].SalidasJuntasCerradas[i]);
+            } catch (e) {
+                break;
+            }
+            
         }
     }
 }
