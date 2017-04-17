@@ -141,7 +141,8 @@ function CargaGrid() {
                 logic: "or",
                 filters: [
                   { field: "Accion", operator: "eq", value: 1 },
-                  { field: "Accion", operator: "eq", value: 2 }
+                  { field: "Accion", operator: "eq", value: 2 },
+                  { field: "Accion", operator: "eq", value: undefined }
                 ]
             },
             pageSize: 10,
