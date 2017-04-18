@@ -820,6 +820,7 @@ function SuscribirEventoComboPrueba() {
     //});
     
     $("#context-menu_agregar_junta").kendoContextMenu({
+        target: "#contenedor_master",
         dataSource:
             [{
                 text: "<b>Agregar Junta</b>",
