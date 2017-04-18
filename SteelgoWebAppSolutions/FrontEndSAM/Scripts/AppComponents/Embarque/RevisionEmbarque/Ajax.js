@@ -369,6 +369,7 @@ function AjaxGuardarCaptura(ds, embarqueID, proyectoID, tipoGuardar) {
                     AjaxCargarPaquetes(proyectoID);
                 } else {
                     Limpiar();
+                    opcionHabilitarView(false, "FieldSetView");
                     loadingStop();
                 }
                 displayNotify("MensajeGuardadoExistoso", "", '0');

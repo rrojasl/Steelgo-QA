@@ -334,6 +334,7 @@ function CargarGridPopUp() {
                         JuntaSpoolID: { type: "int", editable: false },
                         TipoPruebaID: { type: "int", editable: false },
                         Especificacion: { type: "number", editable: false },
+                        Agregar: { type: "boolean", editable: false },
                     }
                 }
             },
@@ -373,7 +374,7 @@ function CargarGridPopUp() {
                         style: "max-width:100px;"
                     },
                     dataSource: [{ Etiquetado: true }, { Etiquetado: false }]
-                }, template: "<input name='fullyPaid' class='ob-paid' type='checkbox'   #= (PermiteSeparar == 0) ? 'hidden=true': '' # />", width: "90px", attributes: { style: "text-align:center;" }
+                }, template: "<input name='fullyPaid' class='ob-paid' type='checkbox'   #= (PermiteSeparar == 0) ? 'hidden=true': '' # />", width: "100px", attributes: { style: "text-align:center;" }
             },
         ],
         editable: false,
