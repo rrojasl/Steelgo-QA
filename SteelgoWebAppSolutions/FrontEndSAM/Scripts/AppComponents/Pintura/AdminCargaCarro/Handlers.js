@@ -9,7 +9,6 @@ function SuscribirEventos() {
     suscribirEventoWindowsConfirmaCaptura();
     SuscribirEventoGuardarNuevoMedioTransporte();
     SuscribirEventoCerrarNuevoMedioTransporte();
-    suscribirEventoMostrar();
     SuscribirEventoTipoSeleccion();
     SuscribirEventoAgregar();
     suscribirEventoCodigo();
@@ -340,7 +339,7 @@ function SuscribirEventoProyecto() {
             var dataItem = this.dataItem(e.sender.selectedIndex);
 
             if (!editado) {
-                //AjaxObtenerDetalleCargaCarro($("#inputCarro").data("kendoComboBox").select() == -1 ? 0 : $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()).MedioTransporteID, $('input:radio[name=TipoVista]:checked').val(), '');
+                //AjaxObtenerDetalleCargaCarro(dataItem.MedioTransporteID, $('input:radio[name=TipoVista]:checked').val(), '');
                 LimpiarCargaProyecto();
                 if (dataItem != undefined) {
 
@@ -385,10 +384,10 @@ function SuscribirEventoCarro() {
                 if (dataItemCarro.MedioTransporteID == -1) {
                     CargaPopupNuevoMedioTransporte();
                 } else {
-                    // LimpiarCargaCarro();
-                    //AjaxObtenerDetalleCargaCarro(dataItem.MedioTransporteID, $('input:radio[name=TipoVista]:checked').val());
+                    InformacionMostrada = true;
                     if (!editado) {
                         carroActualSeleccionado = dataItemCarro;
+                        AjaxObtenerDetalleCargaCarro(dataItemCarro.MedioTransporteID, $('input:radio[name=TipoVista]:checked').val(), '');
                     }
                     else {
                         ventanaConfirmEdicionSinTipoBusqueda.open().center();
@@ -397,15 +396,12 @@ function SuscribirEventoCarro() {
             } else {
                 $("#inputCarro").data("kendoComboBox").value("");
             }
-
-           
         }
     });
-    //$("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select());
+    
     $('#inputCarro').closest('.k-widget').keydown(function (e) {
         if (e.keyCode == 13) {
             InformacionMostrada = true;
-
             if (!editado) {
                 if (dataItemCarro != undefined) {
                     AjaxObtenerDetalleCargaCarro(dataItemCarro.MedioTransporteID, $('input:radio[name=TipoVista]:checked').val(), '');
@@ -414,11 +410,7 @@ function SuscribirEventoCarro() {
             else {
                 ventanaConfirmEdicionSinTipoBusqueda.open().center();
             }
-
-
         }
-
-
     });
 
 

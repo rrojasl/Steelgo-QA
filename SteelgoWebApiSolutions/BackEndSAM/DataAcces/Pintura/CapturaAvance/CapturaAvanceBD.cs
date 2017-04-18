@@ -139,7 +139,7 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
                    
                     foreach (Sam3_Pintura_AvanceCarro_Get_AgregarSpool_Result item in result)
                     {
-                        List<object> listaObreros = (List<object>)ObtenerObrerosGuardados(item.AvanceCarroID.GetValueOrDefault(), procesoPinturaID, usuario);
+                        List<object> listaObreros = (List<object>)ObtenerObrerosGuardados(item.SpoolID, procesoPinturaID, usuario);
                         ListadoMedioTransporte.Add(new DetalleCapturaAvanceCarro
                         {
                             FechaProceso = "",
