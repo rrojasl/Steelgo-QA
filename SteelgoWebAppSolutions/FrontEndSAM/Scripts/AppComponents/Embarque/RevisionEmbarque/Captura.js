@@ -184,13 +184,15 @@ function CargarGrid() {
 
                 var currenRow = grid.table.find("tr[data-uid='" + currentUid + "']");
                 var editButton = $(currenRow).find(".k-button");
-                if (gridData[i].Accion == 2) {
+                if (gridData[i].CapturaManual ) {
                     var classDescarga = $("#language").val() == "es-MX" ? "k-grid-Cancelar" : "k-grid-Cancel";
                     editButton[0].outerHTML = '<a class="k-button k-button-icontext ' + classDescarga + '" href="#/"><span class=""></span>' +
                         _dictionary.botonDescarga[$("#language").data("kendoDropDownList").value()] + '</a>';
 
                 } else {
-                    editButton[0].outerHTML = '';
+                    var classDescarga = $("#language").val() == "es-MX" ? "k-grid-Cancelar" : "k-grid-Cancel";
+                    editButton[0].outerHTML = '<a class="k-button k-button-icontext ' + classDescarga + '" style="display:none;" href="#/"><span class=""></span>' +
+                        _dictionary.botonDescarga[$("#language").data("kendoDropDownList").value()] + '</a>';
                 }
 
 
