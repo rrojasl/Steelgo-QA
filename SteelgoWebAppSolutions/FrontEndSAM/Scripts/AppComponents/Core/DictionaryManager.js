@@ -10091,7 +10091,12 @@ _dictionary = {
         "en-US": "Provider acces"
     },
     // Finaliza Validacion de resultados
-
+    //carga de carro
+    "PinturaCargaCarroCerrar": {
+        "es-MX": "Favor de abrir el carro",
+        "en-US": "Please open the car"
+    },
+    //fin carga de carro
     //Reportes
     "FotoIncidencia": {
         "es-MX": "FotoIncidencia",

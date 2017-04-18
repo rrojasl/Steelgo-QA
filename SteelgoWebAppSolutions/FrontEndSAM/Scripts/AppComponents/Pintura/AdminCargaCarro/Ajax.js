@@ -89,7 +89,7 @@ function AjaxCargarMedioTransporte(ProyectoID, nuevoCarro) {
         });
 
         $("#inputCarro").data("kendoComboBox").dataSource.data(data);
-
+        var carroEcontrado = false;
         if (data.length == 3) {
             $("#inputCarro").data("kendoComboBox").value(data[2].MedioTransporteID);
             $("#inputCarro").data("kendoComboBox").trigger("change");
@@ -98,14 +98,20 @@ function AjaxCargarMedioTransporte(ProyectoID, nuevoCarro) {
             if (nuevoCarro != null) {
                 for (var i = 0; i < data.length; i++) {
                     if (data[i].Nombre == nuevoCarro) {
+                        carroEcontrado = true;
                         $("#inputCarro").data("kendoComboBox").value(data[i].MedioTransporteID);
                         $("#inputCarro").data("kendoComboBox").trigger("change");
                         break;
                     }
                 }
+                if (!carroEcontrado) {
+                    $("#chkCerrar")[0].checked = false;
+                }
             }
-            else
+            else {
                 $("#inputCarro").data("kendoComboBox").trigger("change");
+                $("#chkCerrar")[0].checked = false;
+            }
         }
         
     });
@@ -319,11 +325,7 @@ function ajaxGuardarPatio(arregloCaptura, guardarYNuevo) {
                     if (!guardarYNuevo) {
                         opcionHabilitarView(true, "FieldSetView");
                         AjaxObtenerDetalleCargaCarro($("#inputCarro").data("kendoComboBox").select() == -1 ? 0 : $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()).MedioTransporteID, $('input:radio[name=TipoVista]:checked').val(), '');
-                        if (disponible = 0) {
-                            displayNotify("PinturaCerrarCarro", "", '0');
-                        } else {
                             displayNotify("PinturaCargaGuardar", "", '0');
-                        }
 
                     } else {
                         displayNotify("PinturaCargaGuardar", "", '0');
@@ -374,9 +376,9 @@ function ajaxGuardarEscritorio(listaSpool, guardarYNuevo) {
                     sistemaPinturaCarro = listaSpool[index].SistemaPintura;
             }
 
-            var disponible = 0;
-            if ($('#chkCerrar').is(':checked')) {
-                disponible = 1;
+            var disponible = 1;
+            if ($('#chkCerrar').is(':checked') ) {
+                disponible = 0;
             }
 
             if (ListaGuardarDetalles.length > 0) {
@@ -389,11 +391,7 @@ function ajaxGuardarEscritorio(listaSpool, guardarYNuevo) {
                             if (!guardarYNuevo) {
                                 opcionHabilitarView(true, "FieldSetView");
                                 AjaxObtenerDetalleCargaCarro($("#inputCarro").data("kendoComboBox").select() == -1 ? 0 : $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()).MedioTransporteID, $('input:radio[name=TipoVista]:checked').val(), '');
-                                if (disponible == 0) {
-                                    displayNotify("PinturaCerrarCarro", "", '0');
-                                } else {
                                     displayNotify("PinturaCargaGuardar", "", '0');
-                                }
 
                             } else {
                                 displayNotify("PinturaCargaGuardar", "", '0');

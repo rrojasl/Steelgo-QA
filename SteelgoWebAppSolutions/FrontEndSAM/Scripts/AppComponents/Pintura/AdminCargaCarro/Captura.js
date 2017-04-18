@@ -186,7 +186,7 @@ function CargaGrid() {
                         style: "max-width:100px;"
                     },
                     dataSource: [{ Seleccionado: true }, { Seleccionado: false }]
-                }, template: '<input type="checkbox" #= Seleccionado ? "checked=checked" : "" # class="chkbx"  ></input>', attributes: { style: "text-align:center;" }
+                }, template: '<input  #= Seleccionado ? "checked=checked" : "" # class="chkbx" #= Accion==2? "type=hidden":"type=checkbox" #  ></input>', attributes: { style: "text-align:center;" }
             },
             { command: { text: _dictionary.botonDescarga[$("#language").data("kendoDropDownList").value()], click: eliminarCaptura }, title: _dictionary.columnDescargar[$("#language").data("kendoDropDownList").value()], attributes: { style: "text-align:center;" } }
         ],
@@ -221,9 +221,21 @@ function CargaGrid() {
 
     $("#grid .k-grid-content").on("change", "input.chkbx", function (e) {
         if ($('#Guardar').text() != "Editar") {
-            var grid = $("#grid").data("kendoGrid")
-            dataItem = grid.dataItem($(e.target).closest("tr"));
-            dataItem.Seleccionado = $(this)[0].checked
+            if (!$('#chkCerrar').is(':checked')) {
+                var grid = $("#grid").data("kendoGrid")
+                dataItem = grid.dataItem($(e.target).closest("tr"));
+                dataItem.Seleccionado = $(this)[0].checked
+            }
+            else {
+                displayNotify("PinturaCargaCarroCerrar", "", '1');
+                
+                if ($(this)[0].checked) {
+                    $(this)[0].checked = false;
+                }
+                else {
+                    $(this)[0].checked = true;
+                }
+            }
         }
         else {
             if ($(this)[0].checked) {

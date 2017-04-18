@@ -147,12 +147,9 @@ function suscribirEventoWindowsConfirmaCapturaSinCambiarTipoBusqueda() {
 
 
     $("#yesButtonProySinTipoBusqueda").click(function (e) {
-        proyectoActualSeleccionado = $("#inputProyecto").data("kendoComboBox").dataItem($("#inputProyecto").data("kendoComboBox").select());
-        carroActualSeleccionado = $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select());
-        LimpiarInformacionAgregada();
-        AjaxObtenerDetalleCargaCarro($("#inputCarro").data("kendoComboBox").select() == -1 ? 0 : $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()).MedioTransporteID, $('input:radio[name=TipoVista]:checked').val(), '');
         ventanaConfirmEdicionSinTipoBusqueda.close();
         editado = false;
+        $("#inputProyecto").data("kendoComboBox").trigger("change");
     });
     $("#noButtonProySinTipoBusqueda").click(function (e) {
         $("#inputProyecto").data("kendoComboBox").value(proyectoActualSeleccionado.ProyectoID);
@@ -175,21 +172,26 @@ function suscribirEventoCodigo() {
 }
 function SuscribirEventoAgregar() {
     $('#btnAgregar').click(function () {
-        if (!InformacionMostrada) {
-            displayNotify("PinturaBotonMostrar", "", '1');
-        }
-        else {
-            if ($("#InputID").val() != "") {
+        if (!$('#chkCerrar').is(':checked')) {
+            if (!InformacionMostrada) {
+                displayNotify("PinturaBotonMostrar", "", '1');
+            }
+            else {
+                if ($("#InputID").val() != "") {
 
-                var valorBusqueda = $('input:radio[name=TipoSeleccion]:checked').val() == "Spool" ? $("#InputID").val() + '~' + "Spool" : $("#inputCodigo").val() + '~' + "Codigo";
-                if ($("#inputProyecto").data("kendoComboBox").select() != 0) {
-                    AjaxObtenerDetalleCargaCarro($("#inputCarro").data("kendoComboBox").select() == -1 ? 0 : $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()).MedioTransporteID, $('input:radio[name=TipoVista]:checked').val(), valorBusqueda);
+                    var valorBusqueda = $('input:radio[name=TipoSeleccion]:checked').val() == "Spool" ? $("#InputID").val() + '~' + "Spool" : $("#inputCodigo").val() + '~' + "Codigo";
+                    if ($("#inputProyecto").data("kendoComboBox").select() != 0) {
+                        AjaxObtenerDetalleCargaCarro($("#inputCarro").data("kendoComboBox").select() == -1 ? 0 : $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()).MedioTransporteID, $('input:radio[name=TipoVista]:checked').val(), valorBusqueda);
+                    }
+                    else
+                        displayNotify("SistemaPinturaMensajeErrorProyecto", "", '1');
                 }
                 else
-                    displayNotify("SistemaPinturaMensajeErrorProyecto", "", '1');
+                    displayNotify("PinturaCargaSeleccionaSpool", "", '1');
             }
-            else
-                displayNotify("PinturaCargaSeleccionaSpool", "", '1');
+        }
+        else {
+            displayNotify("PinturaCargaCarroCerrar", "", '1');
         }
     });
 }
