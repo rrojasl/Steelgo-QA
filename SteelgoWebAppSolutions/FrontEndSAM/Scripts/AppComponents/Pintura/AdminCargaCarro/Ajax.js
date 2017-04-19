@@ -315,11 +315,11 @@ function ajaxGuardarPatio(arregloCaptura, guardarYNuevo) {
 
             Captura[0].Detalles = ListaGuardarDetalles;
 
-            var disponible = 1;
+            var carroCerrado = 0;
             if ($('#chkCerrar').is(':checked') /*&& carroCerrado == "false"*/) {
-                disponible = 0;
+                carroCerrado = 1;
             }
-            $CargaCarro.CargaCarro.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val(), medioTransporteID: CarroID, medioTransporteCargaID: CargaCarroID, cerrar: disponible }).done(function (data) {
+            $CargaCarro.CargaCarro.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val(), medioTransporteID: CarroID, medioTransporteCargaID: CargaCarroID, cerrar: carroCerrado }).done(function (data) {
 
                 if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
                     if (!guardarYNuevo) {
@@ -376,9 +376,9 @@ function ajaxGuardarEscritorio(listaSpool, guardarYNuevo) {
                     sistemaPinturaCarro = listaSpool[index].SistemaPintura;
             }
 
-            var disponible = 1;
-            if ($('#chkCerrar').is(':checked') ) {
-                disponible = 0;
+            var carroCerrado = 0;
+            if ($('#chkCerrar').is(':checked') /*&& carroCerrado == "false"*/) {
+                carroCerrado = 1;
             }
 
             if (ListaGuardarDetalles.length > 0) {
@@ -386,7 +386,7 @@ function ajaxGuardarEscritorio(listaSpool, guardarYNuevo) {
                     Captura[0].Detalles = ListaGuardarDetalles;
 
                     loadingStart();
-                    $CargaCarro.CargaCarro.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val(), medioTransporteID: CarroID, medioTransporteCargaID: CargaCarroID, cerrar: disponible }).done(function (data) {
+                    $CargaCarro.CargaCarro.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val(), medioTransporteID: CarroID, medioTransporteCargaID: CargaCarroID, cerrar: carroCerrado }).done(function (data) {
                         if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
                             if (!guardarYNuevo) {
                                 opcionHabilitarView(true, "FieldSetView");

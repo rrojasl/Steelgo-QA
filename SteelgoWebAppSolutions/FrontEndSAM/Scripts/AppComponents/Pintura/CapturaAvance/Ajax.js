@@ -367,7 +367,7 @@ function AjaxGuardarAvanceCarro(arregloCaptura, guardarYNuevo) {
         for (var k = 0 ; k < arregloCaptura[index].ListaObrerosGuargados.length; k++) {
             for (var j = 0 ; j < arregloCaptura[index].ListaObrerosSeleccionados.length; j++) {
 
-                if (arregloCaptura[index].ListaObrerosGuargados[k].ObreroID == arregloCaptura[index].ListaObrerosSeleccionados[j].ObreroID && arregloCaptura[index].ListaObrerosGuargados[k].SpoolID == arregloCaptura[index].ListaObrerosSeleccionados[k].SpoolID && && arregloCaptura[index].ListaObrerosGuargados[k].ProcesoPinturaID == arregloCaptura[index].ListaObrerosSeleccionados[k].ProcesoPinturaID) {
+                if (arregloCaptura[index].ListaObrerosGuargados[k].ObreroID == arregloCaptura[index].ListaObrerosSeleccionados[j].ObreroID && arregloCaptura[index].ListaObrerosGuargados[k].SpoolID == arregloCaptura[index].ListaObrerosSeleccionados[k].SpoolID &&  arregloCaptura[index].ListaObrerosGuargados[k].ProcesoPinturaID == arregloCaptura[index].ListaObrerosSeleccionados[k].ProcesoPinturaID) {
                     existeObrero = true;
                 }
             }
