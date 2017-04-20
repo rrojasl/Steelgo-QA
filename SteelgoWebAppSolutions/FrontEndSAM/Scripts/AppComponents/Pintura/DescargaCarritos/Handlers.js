@@ -71,74 +71,63 @@ function SuscribirEventoPlanchar() {
 }
 
 function plancharTodo() {
-    console.log("llama a funcion plancha C");
     if ($("#inputCuadrante").data("kendoComboBox").dataItem($("#inputCuadrante").data("kendoComboBox").select()) != undefined) {
         PlanchaCuadrante();
-
     }
 }
 
-var oldItem;
 
-//CambiarDetalleGridPorIDCarroSeleccionado()
 function SuscribirEventoCarro() {
+
+
     $('#inputCarro').kendoComboBox({
-        dataTextField: "NombreMedioTransporte",
+        dataTextField: "Nombre",
         dataValueField: "MedioTransporteID ",
         suggest: true,
         filter: "contains",
         index: 3,
-        select: function (e) {
-            oldItem = e.sender._old;  
-        },
         change: function (e) {
+            dataItem = this.dataItem(e.sender.selectedIndex);
+            if (dataItem != undefined || dataItem.MedioTransporteID != "0") {
+                if (editado) {
+                    ventanaConfirm = $("#ventanaConfirm").kendoWindow({
+                        iframe: true,
+                        title: _dictionary.WarningTitle[$("#language").data("kendoDropDownList").value()],
+                        visible: false, //the window will not appear before its .open method is called
+                        width: "auto",
+                        height: "auto",
+                        modal: true,
+                        animation: {
+                            close: false,
+                            open: false
+                        }
+                    }).data("kendoWindow");
 
-            //var elementoSeleccionado = this.dataItem(e.sender.selectedIndex);  //Obtiene objeto  
-            //$("#grid").data('kendoGrid').dataSource.data([]);
-            //CambiarDetalleGridPorIDCarroSeleccionado(elementoSeleccionado.MedioTransporteID)
-            if (modificado) {
-                ventanaConfirm = $("#ventanaConfirm").kendoWindow({
-                    iframe: true,
-                    title: _dictionary.WarningTitle[$("#language").data("kendoDropDownList").value()],
-                    visible: false, //the window will not appear before its .open method is called
-                    width: "auto",
-                    height: "auto",
-                    modal: true,
-                    animation: {
-                        close: false,
-                        open: false
-                    }
-                }).data("kendoWindow");
+                    ventanaConfirm.content(_dictionary.CapturaReportePruebasMensajeEliminarDatosCapturados[$("#language").data("kendoDropDownList").value()] +
+                                "</br><center><button class='btn btn-blue' id='yesButton'>Si</button><button class='btn btn-blue' id='noButton'> No</button></center>");
 
-                ventanaConfirm.content(_dictionary.CapturaReportePruebasMensajeEliminarDatosCapturados[$("#language").data("kendoDropDownList").value()] +
-                            "</br><center><button class='btn btn-blue' id='yesButton'>Si</button><button class='btn btn-blue' id='noButton'> No</button></center>");
+                    ventanaConfirm.open().center();
 
-                ventanaConfirm.open().center();
-
-                $("#yesButton").click(function () {
-                    // $("#btnBuscar").trigger("click");
-                    $("#grid").data("kendoGrid").dataSource.data([]);
-                    $("#grid").data("kendoGrid").dataSource.sync();
-                    ventanaConfirm.close();
-
-                });
-                $("#noButton").click(function () {
-                    $("#inputCarro").data("kendoComboBox").value(oldItem);
-                    ventanaConfirm.close();
-                });
-            }
-            else {
-
-                MostrarDatos();
-
-                
+                    $("#yesButton").click(function () {
+                        $("#grid").data("kendoGrid").dataSource.data([]);
+                        $("#grid").data("kendoGrid").dataSource.sync();
+                        AjaxObtenerDetalleGrid(dataItem.MedioTransporteID);
+                        ventanaConfirm.close();
+                    });
+                    $("#noButton").click(function () {
+                        $("#inputCarro").data("kendoComboBox").value(oldItem);
+                        ventanaConfirm.close();
+                    });
+                }
+                else {
+                    AjaxObtenerDetalleGrid(dataItem.MedioTransporteID);
+                }
             }
         }
     });
 
 }
-//
-//CambiarDetalleGridPorIDCarroSeleccionado()
+
 
 
 //SuscribirEventoCuadrante()
@@ -150,9 +139,6 @@ function SuscribirEventoZona() {
         delay: 10,
         filter: "contains",
         index: 3,
-        select: function (e) {
-            oldItem = e.sender._old;
-        },
         change: function (e) {
 
             var dataItem = this.dataItem(e.sender.selectedIndex);
@@ -179,7 +165,6 @@ function SuscribirEventoZona() {
                 ventanaConfirm.open().center();
 
                 $("#yesButton").click(function () {
-                    // $("#btnBuscar").trigger("click");
                     cambiarOpcionesCuadranteComboBox(dataItem.ZonaID);
                     ventanaConfirm.close();
 
@@ -196,10 +181,7 @@ function SuscribirEventoZona() {
         }
     });
 }
-//SuscribirEventoCuadrante()
 
-
-//cuadrante barra en el medio izquierda 
 function SuscribirEventoCuadrante() {
     $('#inputCuadrante').kendoComboBox({
         dataTextField: "Nombre",
@@ -207,28 +189,17 @@ function SuscribirEventoCuadrante() {
         suggest: true,
         filter: "contains",
         change: function () {
-
-            console.log("llama clic cuadrante"); //
-
             if ($("#inputCuadrante").data("kendoComboBox").dataItem($("#inputCuadrante").data("kendoComboBox").select()) != undefined) {
-
                 console.log("definir inputCuadrante");
             }
-
             else {
                 $("#inputCuadrante").data("kendoComboBox").value("");
                 console.log("valor lleno");
             }
         }
     });
-
-    $('#inputCuadrante').closest('.k-widget').keydown(function (e) {
-        if (e.keyCode == 13) {
-            //PlanchaCuadrante();
-        }
-    });
 }
-//cuadrante barra en el medio izquierda
+
 
 
 

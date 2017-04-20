@@ -1,50 +1,46 @@
 ﻿function AjaxCargarCamposPredeterminados() {
-    //$CamposPredeterminados.CamposPredeterminados.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), id: TipoMuestraPredeterminadoID }).done(function (data) {
-    //    if (data == "sin captura") {
-    //        $('input:radio[name=Muestra]:nth(0)').trigger("click");
-    //    }
-    //    else if (data == "Todos") {
-    //        $('input:radio[name=Muestra]:nth(1)').trigger("click");
-    //    }
-    //    loadingStop();
-    //});
-
-    AjaxCargaListadoCarro();
+    $CamposPredeterminados.CamposPredeterminados.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), id: 5075 }).done(function (data) {
+        if (data == "Todos") {
+            $('input:radio[name=LLena]:nth(1)').trigger("click");
+        }
+        else if (data == "vacios") {
+            $('input:radio[name=LLena]:nth(0)').trigger("click");
+        }
+        loadingStop();
+    });
+    AjaxCargarCarrosCargadosPorProceso(0);//el cliente no especifico si es por proceso de pintura por eso se pone el cero.
 };
 
-function AjaxCargaListadoCarro() {
-    $DescargaCarrito.DescargaCarro.read({ token: Cookies.get("token") }).done(function (data) {
+function AjaxCargarCarrosCargadosPorProceso(idProceso) {
+    loadingStart();
+    $CapturaAvance.CapturaAvance.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), procesoID: idProceso }).done(function (data) {
+        var medioTranporteId = 0;
+        $("#inputCarro").data("kendoComboBox").dataSource.data([]);
         $("#inputCarro").data("kendoComboBox").dataSource.data(data);
 
-        if ($("#inputCarro").data("kendoComboBox").dataSource._data.length == 2) {
-            $("#inputCarro").data("kendoComboBox").select(1);
+      
+        var carroID = getParameterByName('carroid');
+
+        if (carroID == null) {
+            if (data.length < 3) {
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].MedioTransporteID != 0) {
+                        medioTranporteId = data[i].MedioTransporteID;
+                    }
+                }
+                $("#inputCarro").data("kendoComboBox").value(medioTranporteId);
+                $("#inputCarro").data("kendoComboBox").trigger("change");
+                $("#btnMostrar").trigger("click");
+            }
+        } else {
+            $("#inputCarro").data("kendoComboBox").value(carroID);
             $("#inputCarro").data("kendoComboBox").trigger("change");
         }
+        loadingStop();
     });
 }
 
-function AjaxCargaListadoZona() {
-
-}
-
-function AjaxCargaListadoCuadrante() {
-
-}
-
 function ajaxGuardar(data) {
-
-    for (var i = 0; i < data.length; i++) {
-        data[i].RowOk = true;
-        data[i].Estatus = 1;
-        if (data[i].NombreCuadrante == "") {
-            data[i].RowOk = false;
-            data[i].Estatus = 0
-        }
-
-    }
-
-
-
     if (!ExistRowEmpty(data)) {
         displayNotify("", "se guardo correctamente la informacion", '0');
         opcionHabilitarView(true, "FieldSetView")
@@ -103,7 +99,16 @@ function AjaxCargarCuadrante(zonaID) {
             $("#inputCuadrante").data("kendoComboBox").dataSource.data(data);
             SustituirListaCuadranteGrid(data);
         }
-
         loadingStop();
+    });
+}
+
+function AjaxObtenerDetalleGrid(carroID)
+{
+    $DescargaCarro.DescargaCarro.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), carroID: carroID }).done(function (data) {
+        if (Error(data)) {
+            $("#grid").data("kendoGrid").dataSource.data([]);
+            $("#grid").data("kendoGrid").dataSource.data(data);
+        }
     });
 }
