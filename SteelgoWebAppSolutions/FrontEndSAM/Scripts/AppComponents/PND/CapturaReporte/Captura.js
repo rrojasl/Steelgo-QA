@@ -107,9 +107,11 @@ function CargarGrid() {
             { field: "TipoPrueba", title: _dictionary.CapturaReporteGridColumnTipoPrueba[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "120px" },
             { field: "Observaciones", title: _dictionary.CapturaReporteGridColumnObservaciones[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "150px" },
             { field: "CodigoAsme", title: _dictionary.CapturaReporteGridColumnCodigoAsme[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "120px" },
+            { field: "asd", title: "Equipo", filterable: getGridFilterableCellNumberMaftec(), width: "90px", editor: RenderDensidad, format: "{0:n4}", attributes: { style: "text-align:right;" } },
+            { field: "Densidad", title: "Turno", filterable: getGridFilterableCellNumberMaftec(), width: "90px", editor: RenderDensidad, format: "{0:n4}", attributes: { style: "text-align:right;" } },
+            { field: "Tipo", title: "Evaluación", filterable: getGridFilterableCellNumberMaftec(), width: "110px", template: "<input style='display:inline-block' type='radio'> <label style='display:inline-block'>Sector</label><br><input style='display:inline-block' type='radio'> <label style='display:inline-block'>Cte</label>", format: "{0:n4}", attributes: { style: "text-align:left;" } },
             { field: "NumeroPlacas", title: _dictionary.CapturaReporteGridColumnNumeroPlacas[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "90px", editor: RenderNumeroPlacas, attributes: { style: "text-align:right;" } },
-            { field: "Tamano", title: _dictionary.CapturaReporteGridColumnTamano[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "90px", editor: RenderTamano, format: "{0:n4}", attributes: { style: "text-align:right;" } },
-            { field: "Densidad", title: _dictionary.CapturaReporteGridColumnDensidad[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "90px", editor: RenderDensidad, format: "{0:n4}", attributes: { style: "text-align:right;" } },
+            { field: "Tamano", title: "Resultado", filterable: getGridFilterableCellNumberMaftec(), width: "110px", editor: RenderTamano, format: "{0:n4}", attributes: { style: "text-align:right;" } },
             { field: "ResultadoConciliacion", title: _dictionary.CapturaReporteGridColumnRusult1[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "170px" },
             { field: "RazonNoConciliacion", title: _dictionary.CapturaReporteGridColumnRusult2[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "170px" },
             { field: "TemplateDetalleElemento", title: _dictionary.CapturaReporteGridColumnInformacionResultados[$("#language").data("kendoDropDownList").value()], filterable: false, width: "150px"/*, editor: RenderGridDetallePorPlaca*/, template: "<div class='EnlacePorPlaca' style='text-align:center;'><a href='\\#'  > <span>#=TemplateDetalleElemento#</span></a></div> " },
@@ -148,7 +150,7 @@ function CargarGridPopUpDetallePorPlaca() {
         columns: [
           { field: "Ubicacion", title: _dictionary.ValidacionResultadosCabeceraUbicacion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "10px" },
           { field: "Resultado", title: _dictionary.CapturaReportePruebasHeaderResultado[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: comboBoxResultadoDetallePlaca, width: "10px" },
-          { field: "TemplateDetallePorPlaca", title: _dictionary.CapturaReportePruebasHeaderDetalleDefectos[$("#language").data("kendoDropDownList").value()], filterable: false, width: "10px", template: "<div class='EnlaceDefectoPorPlaca' style='text-align:center;'><a href='\\#'  > <span>#=TemplateDetallePorPlaca#</span></a></div> " }
+          { field: "TemplateDetallePorPlaca", title: "Hallazgos", filterable: false, width: "10px", template: "<div class='EnlaceDefectoPorPlaca' style='text-align:center;'><a href='\\#'  > <span>#=TemplateDetallePorPlaca#</span></a></div> " }
         ],
         editable: true,
         //toolbar: [{ name: "cancel" }],
@@ -216,10 +218,11 @@ function CargarGridPopUpDetallePorPlacaPorDefectos() {
         scrollable: true,
         filterable: getGridFilterableMaftec(),
         columns: [
-                { field: "Defecto", title: _dictionary.CapturaReportePruebasHeaderDefecto[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: comboBoxDefectos, width: "20px" },
+                { field: "Defecto", title: "Hallazgo", filterable: getGridFilterableCellMaftec(), editor: comboBoxDefectos, width: "20px" },
                 { field: "InicioMM", title: _dictionary.CapturaReportePruebasHeaderInicio[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "15px", editor: RenderInicioMM, attributes: { style: "text-align:right;" } },
-                { field: "FinMM", title: _dictionary.CapturaReportePruebasHeaderFin[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "15px", editor: RenderFinMM, attributes: { style: "text-align:right;" } }
-            ,
+                { field: "FinMM", title: _dictionary.CapturaReportePruebasHeaderFin[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "15px", editor: RenderFinMM, attributes: { style: "text-align:right;" } },
+                { field: "Resultado", title: "Resultado", filterable: getGridFilterableCellMaftec(), width: "20px" },
+            
           {
               command: {
                   //name: "",
