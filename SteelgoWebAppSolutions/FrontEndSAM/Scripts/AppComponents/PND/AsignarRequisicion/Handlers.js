@@ -27,7 +27,8 @@ function suscribirEventoJuntas() {
         e.preventDefault();
 
         if ($('#botonGuardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
-
+            $("#divSepararRequisicion").css("display", "block");
+            $("#gridPopUp").data("kendoGrid").showColumn("Agregar");
             var grid = $("#grid").data("kendoGrid"),
             dataItem = grid.dataItem($(e.target).closest("tr"));
             LlenarGridPopUp(dataItem);
@@ -41,7 +42,8 @@ function suscribirEventoElementosAsignados() {
         e.preventDefault();
 
         if ($('#botonGuardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
-
+            $("#divSepararRequisicion").css("display", "none");
+            $("#gridPopUp").data("kendoGrid").hideColumn("Agregar");
             var grid = $("#grid").data("kendoGrid"),
             dataItem = grid.dataItem($(e.target).closest("tr"));
             AjaxCargarElementosTurnoAsignados(dataItem.RequisicionID, dataItem.CapacidadTurnoEquipoID, dataItem.CapacidadTurnoProveedorID, dataItem);
