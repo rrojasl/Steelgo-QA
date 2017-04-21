@@ -10171,8 +10171,8 @@ _dictionary = {
         "en-US": "All"
     },
     "CapturaReporteGridColumnSpoolJunta": {
-        "es-MX": "Spool",
-        "en-US": "Spool"
+        "es-MX": "Spool ID",
+        "en-US": "Spool ID"
     },
     "CapturaReporteGridColumnNumeroPlacas": {
         "es-MX": "No Placas",
