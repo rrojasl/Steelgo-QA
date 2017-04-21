@@ -88,7 +88,7 @@ function SuscribirEventoCarro() {
         index: 3,
         change: function (e) {
             dataItem = this.dataItem(e.sender.selectedIndex);
-            if (dataItem != undefined && dataItem.MedioTransporteID != "0") {
+            
                 if (editado) {
                     ventanaConfirm = $("#ventanaConfirm").kendoWindow({
                         iframe: true,
@@ -109,20 +109,20 @@ function SuscribirEventoCarro() {
                     ventanaConfirm.open().center();
 
                     $("#yesButton").click(function () {
-                        $("#grid").data("kendoGrid").dataSource.data([]);
-                        $("#grid").data("kendoGrid").dataSource.sync();
+                        oldItem = dataItem;
                         AjaxObtenerDetalleGrid(dataItem.MedioTransporteID);
                         ventanaConfirm.close();
                     });
                     $("#noButton").click(function () {
-                        $("#inputCarro").data("kendoComboBox").value(oldItem);
+                        $("#inputCarro").data("kendoComboBox").value(oldItem.MedioTransporteID);
                         ventanaConfirm.close();
                     });
                 }
                 else {
+                    oldItem = dataItem;
                     AjaxObtenerDetalleGrid(dataItem.MedioTransporteID);
                 }
-            }
+            
         }
     });
 
@@ -141,39 +141,7 @@ function SuscribirEventoZona() {
         index: 3,
         change: function (e) {
             var dataItem = this.dataItem(e.sender.selectedIndex);
-            if (editado) {
-                ventanaConfirm = $("#ventanaConfirm").kendoWindow({
-                    iframe: true,
-                    title: _dictionary.WarningTitle[$("#language").data("kendoDropDownList").value()],
-                    visible: false, //the window will not appear before its .open method is called
-                    width: "auto",
-                    height: "auto",
-                    modal: true,
-                    animation: {
-                        close: false,
-                        open: false
-                    }
-                }).data("kendoWindow");
-
-                ventanaConfirm.content(_dictionary.CapturaReportePruebasMensajeEliminarDatosCapturados[$("#language").data("kendoDropDownList").value()] +
-                            "</br><center><button class='btn btn-blue' id='yesButton'>Si</button><button class='btn btn-blue' id='noButton'> No</button></center>");
-
-                ventanaConfirm.open().center();
-
-                $("#yesButton").click(function () {
-                    AjaxCargarCuadrante(dataItem.ZonaID);
-                    ventanaConfirm.close();
-
-                });
-                $("#noButton").click(function () {
-                    $("#inputZona").data("kendoComboBox").value(oldItem);
-                    ventanaConfirm.close();
-                });
-            }
-            else {
                 AjaxCargarCuadrante(dataItem.ZonaID);
-            };
-           
         }
     });
 }

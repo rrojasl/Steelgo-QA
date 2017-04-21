@@ -119,6 +119,10 @@ function AjaxObtenerDetalleGrid(carroID)
         if (Error(data)) {
             $("#grid").data("kendoGrid").dataSource.data([]);
             $("#grid").data("kendoGrid").dataSource.data(data);
+            if (data.length > 0)
+                editado = true;
+            else
+                editado = false;
             $("#grid").data("kendoGrid").dataSource.sync();
         }
     });
