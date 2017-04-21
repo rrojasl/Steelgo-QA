@@ -330,7 +330,7 @@ function ajaxGuardarPatio(arregloCaptura, guardarYNuevo) {
                     if (!guardarYNuevo) {
                         opcionHabilitarView(true, "FieldSetView");
                         AjaxObtenerDetalleCargaCarro($("#inputCarro").data("kendoComboBox").select() == -1 ? 0 : $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()).MedioTransporteID, $('input:radio[name=TipoVista]:checked').val(), '');
-                            displayNotify("PinturaCargaGuardar", "", '0');
+                        displayNotify("PinturaCargaGuardar", "", '0');
 
                     } else {
                         displayNotify("PinturaCargaGuardar", "", '0');
@@ -343,6 +343,9 @@ function ajaxGuardarPatio(arregloCaptura, guardarYNuevo) {
                 }
                 loadingStop();
             });
+        }
+        else {
+            displayNotify("MensajeAdverteciaExcepcionGuardado", "", '1');
         }
     } catch (e) {
         loadingStop();
@@ -425,6 +428,9 @@ function ajaxGuardarEscritorio(listaSpool, guardarYNuevo) {
             else {
                 displayNotify("PinturaCargaBackLogMensajeSeleccionaSpool", "", "1");
             }
+        }
+        else {
+            displayNotify("MensajeAdverteciaExcepcionGuardado", "", '1');
         }
     }
     else {
