@@ -163,7 +163,7 @@ function isEditable(fieldName, model) {
     {
         var AsignadoSpool = model.AsignadoSpool
         if (model.AsignadoSpool) {
-            displayNotify("SistemaPinturaAplicableYaAsigando", "", '1');
+            displayNotify("", _dictionary.PinturaSpoolCargadoEnCarro[$("#language").data("kendoDropDownList").value()].replace('?', model.NombreCarro), '1');
             return false;
         }
     }

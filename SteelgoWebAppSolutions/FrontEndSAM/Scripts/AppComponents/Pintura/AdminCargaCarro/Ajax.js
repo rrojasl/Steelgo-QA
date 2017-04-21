@@ -76,7 +76,7 @@ function AjaxCargarProyecto() {
 }
 
 function AjaxCargarMedioTransporte(ProyectoID, nuevoCarro) {
-    
+
     $PinturaGeneral.PinturaGeneral.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), proyectoID: ProyectoID }).done(function (data) {
         var medioTranporteId = 0;
 
@@ -113,7 +113,7 @@ function AjaxCargarMedioTransporte(ProyectoID, nuevoCarro) {
                 $("#chkCerrar")[0].checked = false;
             }
         }
-        
+
     });
 }
 
@@ -156,7 +156,7 @@ function AjaxObtenerDetalleCargaCarro(MedioTransporteID, tipoEscenario, valorBus
     var SpoolPerteneceProyecto = true;
     if ($("#inputProyecto").data("kendoComboBox").dataItem($("#inputProyecto").data("kendoComboBox").select()).ProyectoID > 0) {
         if ($("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()).MedioTransporteID > 0) {
-            if (valorBusqueda != "" && valorBusqueda.split('~')[1]=="Spool" && $("#inputProyecto").data("kendoComboBox").dataItem($("#inputProyecto").data("kendoComboBox").select()).PrefijoOrdenTrabajo != $("#InputOrdenTrabajo").val()[0]) {
+            if (valorBusqueda != "" && valorBusqueda.split('~')[1] == "Spool" && $("#inputProyecto").data("kendoComboBox").dataItem($("#inputProyecto").data("kendoComboBox").select()).PrefijoOrdenTrabajo != $("#InputOrdenTrabajo").val()[0]) {
                 SpoolPerteneceProyecto = false;
                 displayNotify("EmbarqueCargaMsjErrorSpoolAgregarProyectoIncorrecto", "", '1');
             }
@@ -190,14 +190,23 @@ function AjaxObtenerDetalleCargaCarro(MedioTransporteID, tipoEscenario, valorBus
 
                             for (var i = 0; i < array.length; i++) {
                                 if (!validarInformacion(array[i])) {
-                                    if (sistemaPinturaID == 0) {
+                                    if (sistemaPinturaID == 0) {//sistema de pintura que se encuentra en el grid
                                         array[i].MedioTransporteCargaDetalleID = CargaCarroID == 0 ? $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()).MedioTransporteCargaID : CargaCarroID;
                                         if (array[i].CarroID == 0) {
-                                            ds.add(array[i]);
-                                            if (elementosModificados != "")
-                                                elementosModificados += ", " + array[i].NumeroControl;
-                                            else
-                                                elementosModificados = array[i].NumeroControl;
+
+                                            if (array[i].SistemaPinturaID == 0 || array[i].SistemaPinturaID == undefined) {
+                                                displayNotify("", _dictionary.PinturaCargaCarroSinSpools[$("#language").data("kendoDropDownList").value()], '1');
+                                            }
+                                            else if (array[i].ColorPintura == null || array[i].ColorPintura == undefined) {
+                                                displayNotify("menuSistemaPinturaNoPintable", "", '1');
+                                            }
+                                            else {
+                                                ds.add(array[i]);
+                                                if (elementosModificados != "")
+                                                    elementosModificados += ", " + array[i].NumeroControl;
+                                                else
+                                                    elementosModificados = array[i].NumeroControl;
+                                            }
                                         }
                                         else {
                                             displayNotify("", _dictionary.PinturaSpoolCargadoEnCarro[$("#language").data("kendoDropDownList").value()].replace('?', array[i].MedioTransporte), '1');
@@ -206,11 +215,19 @@ function AjaxObtenerDetalleCargaCarro(MedioTransporteID, tipoEscenario, valorBus
                                     else if (sistemaPinturaID == array[i].SistemaPinturaID) {
                                         array[i].MedioTransporteCargaDetalleID = CargaCarroID == 0 ? $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()).MedioTransporteCargaID : CargaCarroID;
                                         if (array[i].CarroID == 0) {
-                                            ds.add(array[i]);
-                                            if (elementosModificados != "")
-                                                elementosModificados += ", " + array[i].NumeroControl;
-                                            else
-                                                elementosModificados = array[i].NumeroControl;
+                                            if (array[i].SistemaPinturaID == 0 || array[i].SistemaPinturaID == undefined) {
+                                                displayNotify("", _dictionary.PinturaCargaCarroSinSpools[$("#language").data("kendoDropDownList").value()], '1');
+                                            }
+                                            else if (array[i].ColorPintura == null || array[i].ColorPintura == undefined) {
+                                                displayNotify("menuSistemaPinturaNoPintable", "", '1');
+                                            }
+                                            else {
+                                                ds.add(array[i]);
+                                                if (elementosModificados != "")
+                                                    elementosModificados += ", " + array[i].NumeroControl;
+                                                else
+                                                    elementosModificados = array[i].NumeroControl;
+                                            }
                                         }
                                         else {
                                             displayNotify("", _dictionary.PinturaSpoolCargadoEnCarro[$("#language").data("kendoDropDownList").value()].replace('?', array[i].MedioTransporte), '1');
@@ -218,7 +235,11 @@ function AjaxObtenerDetalleCargaCarro(MedioTransporteID, tipoEscenario, valorBus
 
                                     }
                                     else {
-                                        displayNotify("PinturaSpoolSistemaPinturaNoCoincide", "", '1');
+                                        if (array[i].SistemaPinturaID == 0 || array[i].SistemaPinturaID == undefined) {
+                                            displayNotify("", _dictionary.PinturaCargaCarroSinSpools[$("#language").data("kendoDropDownList").value()], '1');
+                                        }
+                                        else
+                                            displayNotify("PinturaSpoolSistemaPinturaNoCoincide", "", '1');
                                     }
                                 }
                                 else {
@@ -399,7 +420,7 @@ function ajaxGuardarEscritorio(listaSpool, guardarYNuevo) {
                             if (!guardarYNuevo) {
                                 opcionHabilitarView(true, "FieldSetView");
                                 AjaxObtenerDetalleCargaCarro($("#inputCarro").data("kendoComboBox").select() == -1 ? 0 : $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()).MedioTransporteID, $('input:radio[name=TipoVista]:checked').val(), '');
-                                    displayNotify("PinturaCargaGuardar", "", '0');
+                                displayNotify("PinturaCargaGuardar", "", '0');
 
                             } else {
                                 displayNotify("PinturaCargaGuardar", "", '0');
@@ -422,7 +443,7 @@ function ajaxGuardarEscritorio(listaSpool, guardarYNuevo) {
                 else {
 
                     displayNotify("", _dictionary.PinturaCargaBackLogMensajeErrorServicioPintura[$("#language").data("kendoDropDownList").value()] + sistemaPinturaCarro, "1");
-                  
+
                 }
             }
             else {

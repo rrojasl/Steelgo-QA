@@ -8297,6 +8297,12 @@ _dictionary = {
         "es-MX": "Sistema Pintura",
         "en-US": "System Paint"
     },
+    "menuSistemaPinturaNoPintable": {
+        "es-MX": "El spool tiene un SP como no pintable",
+        "en-US": "The spool has an SP as unpaintable"
+    },
+   
+
     "menuListadoSistemaPintura": {
         "es-MX": "Sistemas de Pintura",
         "en-US": "Paint Systems"
@@ -10506,8 +10512,8 @@ _dictionary = {
         "en-US": "The spool is loaded in the cart '?' "
     },
     "PinturaCargaCarroSinSpools": {
-        "es-MX": "El spool seleccionado no tiene un sistema de pintura o el cuadrante del spool no es valido",
-        "en-US": "The selected spool does not have a paint system or the spool quadrant is not valid"
+        "es-MX": "El spool seleccionado no tiene un sistema de pintura",
+        "en-US": "The selected spool does not have a paint system"
     },
     "PinturaCargaCarroEscritorio": {
         "es-MX": "Escritorio",

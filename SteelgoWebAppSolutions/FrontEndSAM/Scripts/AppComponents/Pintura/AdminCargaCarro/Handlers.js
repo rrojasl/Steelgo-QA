@@ -196,16 +196,21 @@ function suscribirEventoWindowsConfirmaCapturaSinCambiarTipoBusquedaProyecto() {
 }
 
 function suscribirEventoCodigo() {
-    //$("#inputCodigo").keydown(function (e) {
-    //    if (e.keyCode == 13) {
-    //        var valorBusqueda = $("#inputCodigo").val() + '~' + "Codigo";
-    //        if ($("#inputProyecto").data("kendoComboBox").select() != 0) {
-    //            AjaxObtenerDetalleCargaCarro($("#inputCarro").data("kendoComboBox").select() == -1 ? 0 : $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()).MedioTransporteID, $('input:radio[name=TipoVista]:checked').val(), valorBusqueda);
-    //        }
-    //        else
-    //            displayNotify("SistemaPinturaMensajeErrorProyecto", "", '1');
-    //    }
-    //});
+    $("#inputCodigo").keydown(function (e) {
+        if (e.keyCode == 13) {
+            if (!$('#chkCerrar').is(':checked')) {
+                var valorBusqueda = $("#inputCodigo").val() + '~' + "Codigo";
+                if ($("#inputProyecto").data("kendoComboBox").select() != 0) {
+                    AjaxObtenerDetalleCargaCarro($("#inputCarro").data("kendoComboBox").select() == -1 ? 0 : $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()).MedioTransporteID, $('input:radio[name=TipoVista]:checked').val(), valorBusqueda);
+                }
+                else
+                    displayNotify("SistemaPinturaMensajeErrorProyecto", "", '1');
+            }
+            else {
+                displayNotify("PinturaCargaCarroCerrar", "", '1');
+            }
+        }
+    });
 }
 function SuscribirEventoAgregar() {
     $('#btnAgregar').click(function () {
@@ -263,7 +268,8 @@ function suscribirEventoMostrar() {
 function SuscribirEventoCerrarNuevoMedioTransporte() {
     $('#btnCerrarVentanaCrearMedioTransporte').click(function (e) {
         windowNewCarriage.close();
-        $("#InputNombre").blur();
+        if (carroActualSeleccionado != null)
+            $("#inputCarro").data("kendoComboBox").value(carroActualSeleccionado.MedioTransporteID)
     });
 };
 
@@ -325,25 +331,27 @@ function SuscribirEventoSpoolID() {
         else if (e.keyCode == 40) {
             $("#InputID").data("kendoComboBox").select();
         }
-        //else if (e.keyCode == 13) {
-        //    if ($('#InputID').data("kendoComboBox").value() != undefined) {
-        //        if ($("#inputProyecto").data("kendoComboBox").select() != 0) {
-        //            if (!InformacionMostrada) {
-        //                displayNotify("PinturaBotonMostrar", "", '1');
-        //            }
-        //            else {
-        //                var valorBusqueda = $("#InputID").val() + '~' + "Spool";
-        //                AjaxObtenerDetalleCargaCarro($("#inputCarro").data("kendoComboBox").select() == -1 ? 0 : $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()).MedioTransporteID, $('input:radio[name=TipoVista]:checked').val(), valorBusqueda);
-        //            }
-        //        }
-        //        else
-        //            displayNotify("SistemaPinturaMensajeErrorProyecto", "", '1');
-        //    }
-        //    else {
-        //        $("#InputID").data("kendoComboBox").value("");
-        //        displayNotify("PinturaCargaNoExisteSpoolID", '', '2');
-        //    }
-        //}
+        else if (e.keyCode == 13) {
+            if (!$('#chkCerrar').is(':checked')) {
+                if ($('#InputID').data("kendoComboBox").value() != undefined) {
+                    if ($("#inputProyecto").data("kendoComboBox").select() != 0) {
+
+                        var valorBusqueda = $("#InputID").val() + '~' + "Spool";
+                        AjaxObtenerDetalleCargaCarro($("#inputCarro").data("kendoComboBox").select() == -1 ? 0 : $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()).MedioTransporteID, $('input:radio[name=TipoVista]:checked').val(), valorBusqueda);
+
+                    }
+                    else
+                        displayNotify("SistemaPinturaMensajeErrorProyecto", "", '1');
+                }
+                else {
+                    $("#InputID").data("kendoComboBox").value("");
+                    displayNotify("PinturaCargaNoExisteSpoolID", '', '2');
+                }
+            }
+            else {
+                displayNotify("PinturaCargaCarroCerrar", "", '1');
+            }
+        }
     });
 
     $('#InputID').blur(function (e) {
