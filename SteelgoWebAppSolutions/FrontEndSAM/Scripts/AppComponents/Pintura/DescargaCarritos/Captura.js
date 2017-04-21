@@ -4,7 +4,7 @@ var editado = false;
 SuscribirEventos();
 
 function changeLanguageCall() {
-    //SiguienteProceso(paramReq);
+    
     CargarGrid();
     AjaxCargarCamposPredeterminados();
 }
@@ -23,14 +23,14 @@ function getParameterByName(name, url) {
 function SiguienteProceso(paramReq) {
     var url = "";
     if (paramReq == null) {
-        url = "/PND/CapturaReporteRT?leng=" + $("#language").data("kendoDropDownList").value();
+        url = "/Pintura/AvanceCuadrante?leng=" + $("#language").data("kendoDropDownList").value();
     } else {
-        url = "/PND/CapturaReporteRT?leng=" + $("#language").data("kendoDropDownList").value()
-            + "&requisicion=" + paramReq;
+        url = "/Pintura/AvanceCuadrante?leng=" + $("#language").data("kendoDropDownList").value()
+            + "&carroID=" + paramReq;
     }
 
-    $("#EntregaresultadosSup").attr("href", url);
-    $("#EntregaresultadosINF").attr("href", url);
+    $("#DescargaCarroSuperior").attr("href", url);
+    $("#DescargaCarroInferior").attr("href", url);
 }
 
 function CargarGrid() {
@@ -51,7 +51,7 @@ function CargarGrid() {
                         NombreSpool: { type: "string", editable: false },
                         SistemaPintura: { type: "string", editable: false },
                         Color: { type: "string", editable: false },
-                        M2: { type: "String", editable: false },
+                        M2: { type: "number", editable: false },
                         NombreCuadrante: { type: "string", editable: true }
                     }
                 }
@@ -61,7 +61,9 @@ function CargarGrid() {
                 logic: "or",
                 filters: [
                   { field: "Accion", operator: "eq", value: 1 },
-                  { field: "Accion", operator: "eq", value: 2 }
+                  { field: "Accion", operator: "eq", value: 2 },
+                    { field: "Accion", operator: "eq", value: 0 },
+                    { field: "Accion", operator: "eq", value: 4 }
                 ]
             },
             pageSize: 10,
@@ -130,14 +132,19 @@ function PlanchaCuadrante() {
         var data = query.filter(filters).data;
 
         if ($("#inputCuadrante").data("kendoComboBox").dataItem($("#inputCuadrante").data("kendoComboBox").select()) != undefined && $("#inputCuadrante").data("kendoComboBox").dataItem($("#inputCuadrante").data("kendoComboBox").select()).CuadranteID != 0) {
+            var cuadranteSeleccionado = $("#inputCuadrante").data("kendoComboBox").dataItem($("#inputCuadrante").data("kendoComboBox").select());
             for (var i = 0; i < data.length; i++) {
                 if ($('input:radio[name=LLena]:checked').val() === "Todos") {
-                    //data[i].NombreCuadrante = $("#inputCuadrante").data("kendoComboBox").text();
+                    data[i].CuadranteID = cuadranteSeleccionado.CuadranteID;
+                    data[i].NombreCuadrante = cuadranteSeleccionado.Nombre;
+                    data[i].Modificado = true;
                 }
 
                 else {
                     if (data[i].NombreCuadrante == "") {
-                      //  data[i].NombreCuadrante = $("#inputCuadrante").data("kendoComboBox").text();
+                        data[i].CuadranteID = cuadranteSeleccionado.CuadranteID;
+                        data[i].NombreCuadrante = cuadranteSeleccionado.Nombre;
+                        data[i].Modificado = true;
                     }
                 }
             }

@@ -88,7 +88,7 @@ function SuscribirEventoCarro() {
         index: 3,
         change: function (e) {
             dataItem = this.dataItem(e.sender.selectedIndex);
-            if (dataItem != undefined || dataItem.MedioTransporteID != "0") {
+            if (dataItem != undefined && dataItem.MedioTransporteID != "0") {
                 if (editado) {
                     ventanaConfirm = $("#ventanaConfirm").kendoWindow({
                         iframe: true,
@@ -140,12 +140,8 @@ function SuscribirEventoZona() {
         filter: "contains",
         index: 3,
         change: function (e) {
-
             var dataItem = this.dataItem(e.sender.selectedIndex);
-
-            
-
-            if (modificado) {
+            if (editado) {
                 ventanaConfirm = $("#ventanaConfirm").kendoWindow({
                     iframe: true,
                     title: _dictionary.WarningTitle[$("#language").data("kendoDropDownList").value()],
@@ -165,7 +161,7 @@ function SuscribirEventoZona() {
                 ventanaConfirm.open().center();
 
                 $("#yesButton").click(function () {
-                    cambiarOpcionesCuadranteComboBox(dataItem.ZonaID);
+                    AjaxCargarCuadrante(dataItem.ZonaID);
                     ventanaConfirm.close();
 
                 });
@@ -175,7 +171,7 @@ function SuscribirEventoZona() {
                 });
             }
             else {
-                cambiarOpcionesCuadranteComboBox(dataItem.ZonaID);
+                AjaxCargarCuadrante(dataItem.ZonaID);
             };
            
         }
@@ -277,16 +273,16 @@ function suscribirEventoDescargar() {
 
 function SuscribirEventoGuardar() {
 
-    $('#btnGuardarYNuevo').click(function (e) {
+    $('#btnGuardarYNuevo,#btnGuardarYNuevo1').click(function (e) {
         if ($("#grid").data("kendoGrid").dataSource._data.length > 0) {
-            $('#btnCancelar').trigger("click");
+            ajaxGuardar($("#grid").data("kendoGrid").dataSource._data,1);
         }
     });
 
     $('#btnGuardar,#Guardar, #btnGuardar1, #Guardar1 ').click(function (e) {
         if ($("#grid").data("kendoGrid").dataSource._data.length > 0) {
             if ($('#botonGuardar2').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
-                ajaxGuardar($("#grid").data("kendoGrid").dataSource._data);
+                ajaxGuardar($("#grid").data("kendoGrid").dataSource._data,0);
             }
             else if ($('#botonGuardar2').text() == _dictionary.textoEditar[$("#language").data("kendoDropDownList").value()]) {
                 opcionHabilitarView(false, "FieldSetView")

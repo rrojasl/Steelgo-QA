@@ -16,7 +16,7 @@
                     if (dataItem != undefined) {
                         options.model.NombreCuadrante = dataItem.Nombre;
                         options.model.CuadranteID = dataItem.CuadranteID;
-
+                        options.model.Modificado = true;
                     }
                     else {
                         options.model.NombreCuadrante = ObtenerDescCorrectaResultado(options.model.ListaCuandrantes, options.model.CuadranteID);

@@ -69,6 +69,7 @@
         public static string GUARDARREVISIONEMBARQUE = "Sam3_Embarque_RE_GuardarCaptura";
         public static string GUARDARCAPTURABUSCASPOOL = "Sam3_Ingenieria_GuardarLoop";
         public static string OBTIENEDETALLEAVANCECARRO = "Sam3_Pintura_AvanceCarro_Get_Detalle";
-        
+        public static string GUARDARCAPTURADECARGACARRO = "Sam3_Pintura_DesCargaCarro_Guardar";
+
     }
 }

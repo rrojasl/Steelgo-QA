@@ -1,7 +1,7 @@
 ﻿var editado = false;
 var ventanaConfirmEdicion;
 var windowNewCarriage;
-var InformacionMostrada = false;
+
 var filaSeleccionada;
 var CuadranteSpoolAnterior;
 var proyectoActualSeleccionado;
@@ -251,16 +251,21 @@ function CargaGrid() {
 function eliminarCaptura(e) {
     e.preventDefault();
     if ($('#Guardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()] && !$("#chkCerrar")[0].disabled) {
-        var filterValue = $(e.currentTarget).val();
-        dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+        if (!$("#chkCerrar")[0].checked) {
+            var filterValue = $(e.currentTarget).val();
+            dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
 
-        $("#inputZonaPopup").data("kendoComboBox").value(dataItem.ZonaAnteriorID == 0 && dataItem.CuadranteAnteriorID != 0 ? 1 : dataItem.ZonaAnteriorID);
-        $("#inputZonaPopup").data("kendoComboBox").trigger("change");
+            $("#inputZonaPopup").data("kendoComboBox").value(dataItem.ZonaAnteriorID == 0 && dataItem.CuadranteAnteriorID != 0 ? 1 : dataItem.ZonaAnteriorID);
+            $("#inputZonaPopup").data("kendoComboBox").trigger("change");
 
-        CuadranteSpoolAnterior = dataItem.CuadranteAnteriorID;
+            CuadranteSpoolAnterior = dataItem.CuadranteAnteriorID;
 
-         if (dataItem.Accion != 1 && $("#inputCarro").data("kendoComboBox").value() != "0") {
-            windowDownload.open().center();
+            if (dataItem.Accion != 1 && $("#inputCarro").data("kendoComboBox").value() != "0") {
+                windowDownload.open().center();
+            }
+        }
+        else {
+            displayNotify("PinturaCargaCarroCerrar", "", '1');
         }
     }
 }

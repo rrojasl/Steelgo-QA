@@ -1,8 +1,10 @@
 ﻿using BackEndSAM.Models.Pintura.DescargaCarro;
+using DatabaseManager.Constantes;
 using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 
@@ -29,26 +31,28 @@ namespace BackEndSAM.DataAcces.Pintura.DescargaCarroBD
             }
         }
 
-        public object ObtieneDetalle(int carroID)
+        public object ObtieneDetalle(int carroID,string lenguaje)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Pintura_DescargaCarro_DetalleCarro> result = ctx.Sam3_Pintura_DescargaCarro_DetalleCarro(carroID).ToList();
+                    List<Sam3_Pintura_DescargaCarro_DetalleCarroCerrado_Result> result = ctx.Sam3_Pintura_DescargaCarro_DetalleCarroCerrado(carroID,lenguaje).ToList();
 
                     List<DetalleCarro> ListadoDetalleSpool = new List<DetalleCarro>();
 
-                    foreach (Sam3_Pintura_DescargaCarro_DetalleCarro item in result)
+                    foreach (Sam3_Pintura_DescargaCarro_DetalleCarroCerrado_Result item in result)
                     {
                         ListadoDetalleSpool.Add(new DetalleCarro
                         {
-                            Color=item.Color,
-                            CuadranteID=item.CuadranteID,
-                            M2=item.Area,
-                            NombreCuadrante=item.NombreCuadrante,
-                            NombreSpool=item.NombreSpool,
-                            SistemaPintura=item.SistemaPintura
+                            Color = item.Color,
+                            M2 = item.Area,
+                            CuadranteID = item.CuadranteID,
+                            SpoolID=item.SpoolID,
+                            NombreCuadrante = item.Cuadrante,
+                            NombreSpool = item.NumeroControl,
+                            SistemaPintura = item.SistemaPintura,
+                            Modificado = false
                         });
                     }
                     return ListadoDetalleSpool;
@@ -66,5 +70,37 @@ namespace BackEndSAM.DataAcces.Pintura.DescargaCarroBD
             }
         }
 
+        public object Guardar(DataTable dtDetalleCaptura, int usuario, string lenguaje,string cargaCarroID,int carroID)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    ObjetosSQL _SQL = new ObjetosSQL();
+                    string[,] parametro = { { "@Usuario", usuario.ToString() }, { "@Lenguaje", lenguaje }, { "@cargaCarroID", cargaCarroID }, { "@CarroID", carroID.ToString() } };
+
+                    _SQL.Ejecuta(Stords.GUARDARCAPTURADECARGACARRO, dtDetalleCaptura, "@DetalleGuardado", parametro);
+
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add("Ok");
+
+                    result.ReturnCode = 200;
+                    result.ReturnStatus = true;
+                    result.IsAuthenicated = true;
+
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
     }
 }

@@ -9,83 +9,93 @@
         loadingStop();
     });
     AjaxCargarCarrosCargadosPorProceso(0);//el cliente no especifico si es por proceso de pintura por eso se pone el cero.
+    AjaxCargarZona();//se cargan las zonas por usuario
 };
 
 function AjaxCargarCarrosCargadosPorProceso(idProceso) {
     loadingStart();
     $CapturaAvance.CapturaAvance.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), procesoID: idProceso }).done(function (data) {
-        var medioTranporteId = 0;
-        $("#inputCarro").data("kendoComboBox").dataSource.data([]);
-        $("#inputCarro").data("kendoComboBox").dataSource.data(data);
+        if (Error(data)) {
+            if (data.length > 0) {
+                var medioTranporteId = 0;
+                $("#inputCarro").data("kendoComboBox").dataSource.data([]);
+                $("#inputCarro").data("kendoComboBox").dataSource.data(data);
 
-      
-        var carroID = getParameterByName('carroid');
 
-        if (carroID == null) {
-            if (data.length < 3) {
-                for (var i = 0; i < data.length; i++) {
-                    if (data[i].MedioTransporteID != 0) {
-                        medioTranporteId = data[i].MedioTransporteID;
+                var carroID = getParameterByName('carroID');
+
+                if (carroID == null) {
+                    if (data.length < 3) {
+                        for (var i = 0; i < data.length; i++) {
+                            if (data[i].MedioTransporteID != 0) {
+                                medioTranporteId = data[i].MedioTransporteID;
+                            }
+                        }
+                        $("#inputCarro").data("kendoComboBox").value(medioTranporteId);
+                        $("#inputCarro").data("kendoComboBox").trigger("change");
+                        $("#btnMostrar").trigger("click");
                     }
+                } else {
+                    $("#inputCarro").data("kendoComboBox").value(carroID);
+                    SiguienteProceso(carroID);
+                    $("#inputCarro").data("kendoComboBox").trigger("change");
                 }
-                $("#inputCarro").data("kendoComboBox").value(medioTranporteId);
-                $("#inputCarro").data("kendoComboBox").trigger("change");
-                $("#btnMostrar").trigger("click");
+             
             }
-        } else {
-            $("#inputCarro").data("kendoComboBox").value(carroID);
-            $("#inputCarro").data("kendoComboBox").trigger("change");
+            loadingStop();
         }
-        loadingStop();
     });
 }
 
-function ajaxGuardar(data) {
-    if (!ExistRowEmpty(data)) {
-        displayNotify("", "se guardo correctamente la informacion", '0');
-        opcionHabilitarView(true, "FieldSetView")
-        $("#grid").data('kendoGrid').dataSource.sync();
+function ajaxGuardar(data,tipoGuardado) {
+
+    Captura = [];
+    Captura[0] = { Detalles: "" };
+    ListaDetalles = [];
+    var i = 0;
+
+    for (var index = 0 ; index < data.length; index++) {
+        if (data[index].Modificado)
+        {
+            ListaDetalles[i] = { SpoolID: "", CuadranteID: "", NombreCuadrante:"" };
+            ListaDetalles[i].SpoolID = data[index].SpoolID;
+            ListaDetalles[i].CuadranteID = data[index].CuadranteID;
+            ListaDetalles[i].NombreCuadrante = data[index].NombreCuadrante;
+        }
     }
-    else {
-        loadingStop();
-        $("#grid").data("kendoGrid").dataSource.sync();
-        ventanaConfirm = $("#ventanaConfirm").kendoWindow({
-            iframe: true,
-            title: _dictionary.TituloPopUpError[$("#language").data("kendoDropDownList").value()],
-            visible: false, //the window will not appear before its .open method is called
-            width: "auto",
-            height: "auto",
-            modal: true,
-            animation: {
-                close: false,
-                open: false
+    Captura[0].Detalles = ListaDetalles;
+    if (ListaDetalles.length > 0) {
+        $DescargarCarro.DescargarCarro.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val(), cargaCarroID: $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()).MedioTransporteCargaID, carroID: $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()).MedioTransporteID }).done(function (data) {
+
+            if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
+                displayNotify("MensajeGuardadoExistoso", "", '0');
+
+                if (tipoGuardado == 1) {
+                    opcionHabilitarView(false, "FieldSetView");
+                    editado = false;
+                    AjaxCargarCamposPredeterminados();
+                    $("#inputZona").data("kendoComboBox").select(0);
+                    $("#inputZona").data("kendoComboBox").trigger("change");
+                }
+                else {
+                    opcionHabilitarView(true, "FieldSetView");
+                    $("#inputCarro").data("kendoComboBox").trigger("change");
+                    $("#inputZona").data("kendoComboBox").select(0);
+                    $("#inputZona").data("kendoComboBox").trigger("change");
+                    editado = false;
+                }
+                loadingStop();
             }
-        }).data("kendoWindow");
+            else {
+                //mensaje = "No se guardo la informacion el error es: " + data.ReturnMessage[0] + "-2";
+                displayNotify("MensajeGuardadoErroneo", "", '2');
+                loadingStop();
 
-        ventanaConfirm.content(_dictionary.MensajeConfirmacionGuardadoGeneral[$("#language").data("kendoDropDownList").value()] +
-            "</br><center><button class='btn btn-blue' id='yesButton'>Si</button><button class='btn btn-blue' id='noButton'> No</button></center>");
-
-        ventanaConfirm.open().center();
-
-        $("#yesButton").click(function () {
-            loadingStart();
-            displayNotify("", "se guardo correctamente la informacion", '0');
-            opcionHabilitarView(true, "FieldSetView");
-
-            for (var i = 0; i < $("#grid").data("kendoGrid").dataSource._data.length; i++) {
-                $("#grid").data("kendoGrid").dataSource._data[i].RowOk = true;
-                $("#grid").data("kendoGrid").dataSource._data[i].Estatus = 1;
             }
-
-            $("#grid").data('kendoGrid').dataSource.sync();
-            loadingStop();
-            ventanaConfirm.close();
-        });
-
-        $("#noButton").click(function () {
-            ventanaConfirm.close();
         });
     }
+    else
+        displayNotify("MensajeAdverteciaExcepcionGuardado", "", '1');
 
 };
 
@@ -105,10 +115,38 @@ function AjaxCargarCuadrante(zonaID) {
 
 function AjaxObtenerDetalleGrid(carroID)
 {
-    $DescargaCarro.DescargaCarro.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), carroID: carroID }).done(function (data) {
+    $DescargarCarro.DescargarCarro.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), carroID: carroID }).done(function (data) {
         if (Error(data)) {
             $("#grid").data("kendoGrid").dataSource.data([]);
             $("#grid").data("kendoGrid").dataSource.data(data);
+            $("#grid").data("kendoGrid").dataSource.sync();
         }
+    });
+}
+
+function AjaxCargarZona() {
+    loadingStart();
+    $Zona.Zona.read({ token: Cookies.get("token") }).done(function (data) {
+        var ZonaId = 0;
+        if (data.length > 0) {
+            $("#inputZona").data("kendoComboBox").dataSource.data([]);
+            $("#inputZona").data("kendoComboBox").dataSource.data(data);
+
+            if (data.length < 3) {
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].ZonaID != 0) {
+                        ZonaId = data[i].ZonaID;
+                    }
+                }
+            }
+            if (ZonaId != 0)
+            {
+                $("#inputZona").data("kendoComboBox").value(ZonaId);
+                $("#inputZona").data("kendoComboBox").trigger("change");
+            }
+          
+        }
+
+        loadingStop();
     });
 }
