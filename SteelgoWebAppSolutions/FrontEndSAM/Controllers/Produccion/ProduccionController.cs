@@ -18,5 +18,10 @@ namespace FrontEndSAM.Controllers.Produccion
         {
             return View();
         }
+
+        public ActionResult Soldadura()
+        {
+            return View();
+        }
     }
 }
