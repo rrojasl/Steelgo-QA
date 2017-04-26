@@ -113,6 +113,8 @@ function SuscribirEventoZona() {
                 if (dataItem.ZonaID != 0) {
                     AjaxCargarCuadrante(dataItem.ZonaID);
                 }
+                else
+                    windowDownload.open().center();
             }
             else {
                 $("#inputZonaPopup").data("kendoComboBox").value("");
@@ -388,7 +390,7 @@ function SuscribirEventoProyecto() {
                 if (dataItem != undefined) {
 
                     if (dataItem.ProyectoID != 0) {
-                        AjaxCargarZona($("#inputProyecto").data("kendoComboBox").dataItem($("#inputProyecto").data("kendoComboBox").select()).PatioID);
+                       
                         AjaxCargarMedioTransporte(dataItem.ProyectoID, null);
                         proyectoActualSeleccionado = dataItem;
                     }

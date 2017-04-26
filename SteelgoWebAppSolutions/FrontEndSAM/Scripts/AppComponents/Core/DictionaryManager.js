@@ -8298,8 +8298,8 @@ _dictionary = {
         "en-US": "System Paint"
     },
     "menuSistemaPinturaNoPintable": {
-        "es-MX": "El spool tiene un SP como no pintable",
-        "en-US": "The spool has an SP as unpaintable"
+        "es-MX": "El spool tiene un sistema de pintura como no pintable",
+        "en-US": "The spool has an Paint system as unpaintable"
     },
    
 
@@ -10650,7 +10650,10 @@ _dictionary = {
     //Finaliza Carga de Carro
 
     //Inicia Captura Avance de carro
-    
+    "PinturaCargaCarroSistemaPinturaCerradoSinSpools": {
+        "es-MX": "No puedes cerrar un carro vacio",
+        "en-US": "You can not close an empty car"
+    },
     
     "PinturaSpoolSistemaPinturaNoCoincide": {
         "es-MX": "El spool seleccionado tiene diferente Sistema de pintura",

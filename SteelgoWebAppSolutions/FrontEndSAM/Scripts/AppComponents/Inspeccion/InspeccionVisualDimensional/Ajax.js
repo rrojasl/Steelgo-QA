@@ -24,6 +24,10 @@ function AjaxValidarNumerosUnicos(arregloCaptura, tipoGuardar) {
         ListaDetalles[index].NumeroUnico2ID = arregloCaptura[index].NumeroUnico2ID;
         ListaDetalles[index].Localizacion1 = arregloCaptura[index].Localizacion.split("-")[0];
         ListaDetalles[index].Localizacion2 = arregloCaptura[index].Localizacion.split("-")[1];
+
+
+
+
     }
     Captura[0].Detalles = ListaDetalles;
 
@@ -33,13 +37,16 @@ function AjaxValidarNumerosUnicos(arregloCaptura, tipoGuardar) {
             ajaxGuardado(arregloCaptura, tipoGuardar)
         }
         else {
+
             for (var j = 0; j < data.length; j++) {
                 for (var i = 0; i < arregloCaptura.length; i++) {
-                    if (arregloCaptura[i].JuntaID == data[j] && arregloCaptura[i].NumeroUnico1ID != "0" && arregloCaptura[i].NumeroUnico2ID != "0") {    
+                    if (arregloCaptura[i].JuntaID == data[j] && arregloCaptura[i].NumeroUnico1ID != "0" && arregloCaptura[i].NumeroUnico2ID != "0") {
                         $("#grid").data("kendoGrid").dataSource._data[i].NUOk = false;
                     }
                 }
             }
+
+
 
             ValidarCaptura(arregloCaptura);
 

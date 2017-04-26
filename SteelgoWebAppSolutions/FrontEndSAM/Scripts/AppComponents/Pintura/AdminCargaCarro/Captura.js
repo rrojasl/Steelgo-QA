@@ -254,15 +254,8 @@ function eliminarCaptura(e) {
         if (!$("#chkCerrar")[0].checked) {
             var filterValue = $(e.currentTarget).val();
             dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
-
-            $("#inputZonaPopup").data("kendoComboBox").value(dataItem.ZonaAnteriorID == 0 && dataItem.CuadranteAnteriorID != 0 ? 1 : dataItem.ZonaAnteriorID);
-            $("#inputZonaPopup").data("kendoComboBox").trigger("change");
-
+            AjaxCargarZona($("#inputProyecto").data("kendoComboBox").dataItem($("#inputProyecto").data("kendoComboBox").select()).PatioID,dataItem);
             CuadranteSpoolAnterior = dataItem.CuadranteAnteriorID;
-
-            if (dataItem.Accion != 1 && $("#inputCarro").data("kendoComboBox").value() != "0") {
-                windowDownload.open().center();
-            }
         }
         else {
             displayNotify("PinturaCargaCarroCerrar", "", '1');

@@ -160,7 +160,7 @@ function RenderComboBoxNumeroUnico1(container, options) {
                 }
                 else {
                     options.model.NumeroUnico1 = "";
-                    options.model.NumeroUnico1ID = "";
+                    options.model.NumeroUnico1ID = 0;
                     //$("#grid").data("kendoGrid").dataSource.sync();
                 }
             }
@@ -220,7 +220,7 @@ function RenderComboBoxNumeroUnico2(container, options) {
                  }
                  else {
                      options.model.NumeroUnico2 = "";
-                     options.model.NumeroUnico2ID = "";
+                     options.model.NumeroUnico2ID = 0;
                      // $("#grid").data("kendoGrid").dataSource.sync();
                  }
              }
