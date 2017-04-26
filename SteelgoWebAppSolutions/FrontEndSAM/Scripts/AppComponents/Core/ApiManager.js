@@ -189,6 +189,9 @@ var $InspeccionVisualDimensional = new $.RestClient($BackEndSAMUri + '/backendsa
 var $CapturasRapidas = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Soldadura = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 
+/*General OK*/
+var $OK = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+
 //ServiciosTecnicos
 var $CamposPredeterminados = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 
@@ -432,5 +435,8 @@ $Ciclos.add('Ciclos');
 //Catalogos
 $Taller.add("Taller");
 $Secuencias.add("Secuencias");
+
+/*General OK*/
+$OK.add("OK");
 
 //#endregion

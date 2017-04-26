@@ -31,23 +31,20 @@ function AjaxGetListaProyectos() {
     });
 }
 
-function AjaxGetListaElementos(proyectoID, numControl) {
+function AjaxGetListaElementos(ProyectoID, NumControl) {
     loadingStart();
-    SpoolContiene = numControl;
-
-    $OKPND.OKPND.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), ProyectoID: proyectoID, NumControl: numControl, muestra: $('input:radio[name=Muestra]:checked').val() }).done(function (data) {
+    SpoolContiene = NumControl;
+    $OK.OK.read({token : Cookies.get("token"), Lenguaje : $("#language").val(), ProyectoID : ProyectoID, NumControl: NumControl, Muestra: $('input:radio[name=Muestra]:checked').val(), OPC: '1' }).done(function (data) {
         $("#grid").data("kendoGrid").dataSource.data([]);
-
-        var ds = $("#grid").data("kendoGrid").dataSource;
-
+        var dataSource = $("#grid").data("kendoGrid").dataSource;
         if (data.length > 0) {
             for (var i = 0; i < data.length; i++) {
-                ds.add(data[i]);
+                dataSource.add(data[i]);
             }
-            ds.page(1);
+            dataSource.page(1);
         } else {
             displayNotify("MensajeNoResultados", "", "1");
-            ds.page(0);
+            dataSource.page(0);
         }
         var mostrar = $('input:radio[name=Muestra]:checked').val();
         if (mostrar == 'SinCaptura')
@@ -59,61 +56,52 @@ function AjaxGetListaElementos(proyectoID, numControl) {
 }
 
 function AjaxGuardarCaptura(arregloCaptura, tipoGuardado) {
+    var proyectoID = $("#Proyecto").data("kendoComboBox").value();
     Captura = [];
-    Captura[0] = {
-        Detalle: ""
-    };
+    Captura[0] = { Detalle: "" };
     ListaCaptura = [];
-
     var cont = 0;
-    for (index = 0; index < arregloCaptura.length; index++) {
-        if (arregloCaptura[index].OkPND == true || arregloCaptura[index].OKPNDID != 0) {
-
-            ListaCaptura[cont] = {
-                OKPNDID: 0,
-                SpoolID: 0,
-                OrdenTrabajoSpoolID: 0,
-                OkPND: false
-            };
-
-            ListaCaptura[cont].OKPNDID = arregloCaptura[index].OKPNDID;
-            ListaCaptura[cont].OrdenTrabajoSpoolID = arregloCaptura[index].OrdenTrabajoSpoolID;
-            ListaCaptura[cont].SpoolID = arregloCaptura[index].SpoolID;
-            ListaCaptura[cont].OkPND = arregloCaptura[index].OkPND;
-
-            cont++;
+    for (var i = 0; i < arregloCaptura.length; i++) {
+        ListaCaptura[cont] = {
+            SpoolWorkStatusID: 0,
+            OrdenTrabajoSpoolID: 0,
+            SpoolID: 0,
+            OK: 0,            
         }
+        //ListaCaptura[cont].SpoolWorkStatusID = arregloCaptura[i].SpoolWorkStatusID;
+        ListaCaptura[cont].SpoolID = arregloCaptura[i].SpoolID;
+        ListaCaptura[cont].OrdenTrabajoSpoolID = arregloCaptura[i].OrdenTrabajoSpoolID;        
+        ListaCaptura[cont].OK = arregloCaptura[i].OK;        
+        cont++;
     }
 
     Captura[0].Detalle = ListaCaptura;
-
     var ds = $("#grid").data("kendoGrid").dataSource;
+    if (proyectoID != 0 && proyectoID != undefined && proyectoID != "") {
+        if (Captura[0].Detalle.length > 0) {
+            $("#InputNumeroControl").val(SpoolContiene);
+            $OK.OK.create(Captura[0], { lenguaje: $("#language").val(), ProyectoID: proyectoID, OPC: '1', token: Cookies.get("token"), param: true }).done(function (data) {
+                if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "OK") {
+                    if (data.ReturnMessage[0] != undefined) {
+                        if (tipoGuardado == 1) {
+                            Limpiar();
+                            opcionHabilitarView(false, "FieldSetView");
+                        }
+                        else {
+                            $('input[name="Muestra"][value="Todos"]').prop('checked', true);
+                            AjaxGetListaElementos($("#Proyecto").data("kendoComboBox").value(), $("#InputNumeroControl").val(), $('input:radio[name=Muestra]:checked').val());
+                            opcionHabilitarView(true, "FieldSetView");
+                        }
 
-    if (Captura[0].Detalle.length > 0) {
-        $("#InputNumeroControl").val(SpoolContiene);
-        $OKPND.OKPND.create(Captura[0], { lenguaje: $("#language").val(), token: Cookies.get("token") }).done(function (data) {
-            if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
-                if (data.ReturnMessage[0] != undefined) {
-                    if (tipoGuardado == 1) {
-                        Limpiar();
-                        opcionHabilitarView(false, "FieldSetView");
+                        displayNotify("MensajeGuardadoExistoso", "", "0");
                     }
-                    else {
-                        $('input[name="Muestra"][value="Todos"]').prop('checked', true);
-                        AjaxGetListaElementos($("#Proyecto").data("kendoComboBox").value(), $("#InputNumeroControl").val(), $('input:radio[name=Muestra]:checked').val());
-                        opcionHabilitarView(true, "FieldSetView");
-                    }
-
-                    displayNotify("MensajeGuardadoExistoso", "", "0");
+                } else {
+                    opcionHabilitarView(false, "FieldSetView");
                 }
-            }
-            else {
-                opcionHabilitarView(false, "FieldSetView");
-            }
-        });
-    }
-    else {
-        displayNotify("EditarRequisicionExcepcionGuardado", "", "1");
+            });
+        } else {
+            displayNotify("EditarRequisicionExcepcionGuardado", "", "1");
+        }
     }
 }
 
@@ -121,11 +109,12 @@ function AjaxGuardadoMasivo(data) {
     CapturaMasiva = [];
     CapturaMasiva[0] = { Detalle: "" };
     CapturaMasiva[0].Detalle = JSON.stringify(data);
-    var proyectoID = $("#Proyecto").data("kendoComboBox").value();
-    $OKPND.OKPND.create(CapturaMasiva[0], { lenguaje: $("#language").val(), token: Cookies.get("token"), ProyectoID: proyectoID }).done(function (data) {
+    var proyectoID = $("#Proyecto").data("kendoComboBox").value();    
+    //--------MANDO OPC PARA EJECUTAR EL IF DEL STORE CUANDO SEA OK PND----------//
+    $OK.OK.create(CapturaMasiva[0], { lenguaje: $("#language").val(), token: Cookies.get("token"), ProyectoID: proyectoID, OPC: '1' }).done(function (data) { 
         //if (data) {
         download(data, "ResultadoCargaMasiva.csv", "text/csv");
         displayNotify("MensajeGuardadoExistoso", "", "0");
         //}
-    });
+    });    
 };

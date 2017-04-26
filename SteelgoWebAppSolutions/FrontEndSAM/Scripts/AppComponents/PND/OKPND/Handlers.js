@@ -14,12 +14,13 @@ function SuscribirEventos() {
     suscribirEventoDescarGaCSV();
     suscribirEventoChangeRadio();
     suscribirEventoNumeroControl();
-    suscribirEventoElementosAsignados();
+    suscribirEventoElementosAsignados();    
     SuscribirEventoCerrarPopUpJuntas();
+    suscribirEventoDesactivaCheckOK();
 }
 
 function suscribirEventoGuardar() {
-    $('#BotonGuardar').click(function (e) {
+    $('#BotonGuardar, #BotonGuardar2, #BotonGuardar3, #BotonGuardar4').click(function (e) {
         $("#grid").data("kendoGrid").dataSource.sync();
         var ds = $("#grid").data("kendoGrid").dataSource;
         if ($('#BotonGuardar').text() == "Guardar") {
@@ -29,38 +30,7 @@ function suscribirEventoGuardar() {
             opcionHabilitarView(false, "FieldSetView");
     });
 
-    $('#BotonGuardar2').click(function (e) {
-        $("#grid").data("kendoGrid").dataSource.sync();
-        var ds = $("#grid").data("kendoGrid").dataSource;
-        if ($('#BotonGuardar').text() == "Guardar") {
-            AjaxGuardarCaptura(ds._data, 0);
-        }
-        else if ($('#BotonGuardar').text() == "Editar")
-            opcionHabilitarView(false, "FieldSetView");
-    });
-
-    $('#BotonGuardar3').click(function (e) {
-        $("#grid").data("kendoGrid").dataSource.sync();
-        var ds = $("#grid").data("kendoGrid").dataSource;
-        if ($('#BotonGuardar').text() == "Guardar") {
-            AjaxGuardarCaptura(ds._data, 0);
-        }
-        else if ($('#BotonGuardar').text() == "Editar") {
-            opcionHabilitarView(false, "FieldSetView");
-        }
-    });
-
-    $('#BotonGuardar4').click(function (e) {
-        $("#grid").data("kendoGrid").dataSource.sync();
-        var ds = $("#grid").data("kendoGrid").dataSource;
-        if ($('#BotonGuardar').text() == "Guardar") {
-            AjaxGuardarCaptura(ds._data, 0);
-        }
-        else if ($('#BotonGuardar').text() == "Editar")
-            opcionHabilitarView(false, "FieldSetView")
-    });
-
-    $('#BotonGuardarYNuevo').click(function (e) {
+    $('#BotonGuardarYNuevo, #BotonGuardarYNuevo1').click(function (e) {
         $("#grid").data("kendoGrid").dataSource.sync();
         var ds = $("#grid").data("kendoGrid").dataSource;
         if ($('#BotonGuardar').text() == "Guardar") {
@@ -68,17 +38,7 @@ function suscribirEventoGuardar() {
         }
         else if ($('#BotonGuardar').text() == "Editar")
             AjaxGuardarCaptura(ds._data, 1);
-    });
-
-    $('#BotonGuardarYNuevo1').click(function (e) {
-        $("#grid").data("kendoGrid").dataSource.sync();
-        var ds = $("#grid").data("kendoGrid").dataSource;
-        if ($('#BotonGuardar').text() == "Guardar") {
-            AjaxGuardarCaptura(ds._data, 1);
-        }
-        else if ($('#BotonGuardar').text() == "Editar")
-            AjaxGuardarCaptura(ds._data, 1);
-    });
+    });  
 }
 
 function suscribirEventoCancelar() {
@@ -181,26 +141,28 @@ function SuscribirEventoBuscar() {
 };
 
 function SuscribirEventoAplicar() {
-    $('#ButtonPlanchar').click(function (e) {
+    $('#ButtonPlanchar').click(function (e) {        
         var Check = $("#InputSeleccionTodos")[0].checked;
-
         var ds = $("#grid").data("kendoGrid").dataSource;
-
-        aplicarPlanchado(ds._data, Check);
-
-        ds.sync();
+        if (ds.length > 0) {
+            aplicarPlanchado(ds._data, Check);
+            ds.sync();
+        } else {
+            displayNotify("PinturaCargaBackLogMensajeSeleccionaSpool", "", "1");
+            return;
+        }
     });
 };
 
 function Limpiar() {
     $("#InputNumeroControl").val("");
-
     $("#grid").data('kendoGrid').dataSource.data([]);
 }
 
 function opcionHabilitarView(valor, name) {
     if (valor) {
-        $('#FieldSetView').find('*').attr('disabled', true);
+        //$('#FieldSetView').find('*').attr('disabled', true);        
+        $('#AgregadoDiv, #containerDiv').find('*').attr('disabled', true);
         $("#Proyecto").data("kendoComboBox").enable(false);
         $("#InputNumeroControl").addClass("k-state-disabled");
 
@@ -212,9 +174,11 @@ function opcionHabilitarView(valor, name) {
         $('#BotonGuardar').text("Editar");
         $('#BotonGuardar4').text("Editar");
         $('#BotonGuardar3').text("Editar");
+        $(".formNav").find("#Acciones").css("display", "none");
     }
     else {
-        $('#FieldSetView').find('*').attr('disabled', false);
+        //$('#FieldSetView').find('*').attr('disabled', false);
+        $('#AgregadoDiv, #containerDiv').find('*').attr('disabled', false);
         $("#Proyecto").data("kendoComboBox").enable(true);
         $("#InputNumeroControl").removeClass("k-state-disabled");
         $('#BotonGuardar').text("Guardar");
@@ -224,6 +188,7 @@ function opcionHabilitarView(valor, name) {
         $('#BotonGuardar').text("Guardar");
         $('#BotonGuardar4').text("Guardar");
         $('#BotonGuardar3').text("Guardar");
+        $(".formNav").find("#Acciones").css("display", "block");
     }
 }
 
@@ -234,14 +199,16 @@ function suscribirEventoDescarGaCSV() {
 }
 
 function suscribirEventoCarGaCSV() {
-    $('#btnCargaCsv, btnCargaCsv1').click(function (e) {
-        var proyectoID = $("#Proyecto").data("kendoComboBox").value();
-        if (proyectoID != 0 && proyectoID != undefined && proyectoID != "") {
-            $("#files").val("");
-            $("#files").click();
-        }
-        else {
-            displayNotify("SPAProyectoCargaMasiva", "", '1');
+    $('#btnCargaCsv, #btnCargaCsv1').click(function (e) {
+        if ($('#BotonGuardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
+            var proyectoID = $("#Proyecto").data("kendoComboBox").value();
+            if (proyectoID != 0 && proyectoID != undefined && proyectoID != "") {
+                $("#files").val("");
+                $("#files").click();
+            }
+            else {
+                displayNotify("SPAProyectoCargaMasiva", "", '1');
+            }
         }
     });
 
@@ -262,12 +229,17 @@ function suscribirEventoCarGaCSV() {
                         var csvData = event.target.result;
 
                         csvToJson(csvData, "").forEach(function (c) {
-                            //NumControlValido(c);
                             data.push(c);
                         });
 
-                        if (error == 0)
-                            AjaxGuardadoMasivo(data);
+                        if (error == 0)                            
+                            //OBTENEMOS UN ARRAY CON UN ORDEN DE EJECUCION 
+                            var newData = ObtenerNewData(data);
+                            if (newData.length > 0) {
+                                AjaxGuardadoMasivo(newData);                                
+                            } else {
+                                displayNotify("EditarRequisicionExcepcionGuardado", "", "1");
+                            }                            
                         error = 0;
                     };
                     reader.onerror = function () {
@@ -278,6 +250,7 @@ function suscribirEventoCarGaCSV() {
         }
     });
 }
+
 
 function csvToJson(data, field) {
     data = data.split("\n");
@@ -330,6 +303,13 @@ function suscribirEventoElementosAsignados() {
     });
 }
 
+function suscribirEventoDesactivaCheckOK() {
+    $("#grid").on('click', '.ob-paid', function (e) {        
+        if ($('#BotonGuardar').text() != _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
+            e.preventDefault();            
+        }
+    });
+}
 function SuscribirEventoCerrarPopUpJuntas() {
     $("#CerrarDetalleJunta").click(function (e) {
         e.preventDefault();
@@ -450,4 +430,53 @@ function suscribirEventoNumeroControl() {
             }
         }
     });
+}
+
+function ObtenerNewData(data) {    
+    try {
+        var tmpData = [];
+        elementos = [];
+        contador = {};
+        var tmpNumControl = {};
+        if (data.length > 0) {
+            for (n in data) {
+                tmpData[n] = {
+                    NumeroControl: "",
+                    //OKPND: "",
+                    OK: 0,
+                    OE: 0
+                };
+
+                if (!isNaN(parseInt(data[n].OKPND.toString().trim()))) {                    
+                    tmpNumControl[n] = data[n].NumeroControl.toString().toUpperCase().trim();                    
+                    if (!(tmpNumControl[n] in contador))
+                        contador[tmpNumControl[n]] = 0;
+                    contador[tmpNumControl[n]] += 1;                        
+                    
+                    tmpData[n].NumeroControl = tmpNumControl[n].toString().toUpperCase().trim();
+                    tmpData[n].OK = parseInt(data[n].OKPND.toString().trim());                    
+                    tmpData[n].OE = parseInt(contador[tmpNumControl[n]]);
+                    console.log("\t\t\t" + tmpData[n].NumeroControl + "\t\t\t" + tmpData[n].OK + "\t\t\t" + tmpData[n].OE);
+
+                } else {
+                    displayNotify("ErrorColumnaNoEsNumero", "", "2");
+                    return;
+                }
+                
+            }            
+        } else {
+            //no hay datos
+            tmpData = [];            
+        }
+    } catch (e) {
+        if (e !== -1) {
+            error = 1;
+            throw e;
+        } else {
+            displayNotify("ListadoCatalogos0012", "", '2');
+            error = 1;
+        }
+    }
+    loadingStop();
+    return tmpData;
 }

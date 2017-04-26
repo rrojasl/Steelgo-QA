@@ -7958,19 +7958,19 @@ _dictionary = {
     },
     "botonCargaExcel": {
         "es-MX": "Cargar CSV",
-        "en-US": "New"
+        "en-US": "Load CSV"
     },
     "botonDescargaExcel": {
         "es-MX": "Plantilla CSV",
-        "en-US": "New"
+        "en-US": "CSV Template"
     },
     "botonCargaExcel1": {
         "es-MX": "Cargar CSV",
-        "en-US": "New"
+        "en-US": "Load CSV"
     },
     "botonDescargaExcel1": {
         "es-MX": "Plantilla CSV",
-        "en-US": "New"
+        "en-US": "CSV Template"
     },
     "botonSeleccionarArchivo": {
         "es-MX": "Seleccionar Archivo",
@@ -9971,6 +9971,11 @@ _dictionary = {
         "es-MX": "Guardar OK PND",
         "en-US": "Save PND OK"
     },
+    "ErrorColumnaNoEsNumero": {
+        "es-MX": "Algún Registro de la columna OKPND no es un Número",
+        "en-US": "Some Record of the OKPND column is not a Number."
+    },
+
     //Finaliza Pantalla OKPND
 
     // Pantalla Entrega Placas-Graficas
