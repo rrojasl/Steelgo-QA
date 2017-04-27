@@ -61,13 +61,16 @@ function ajaxGuardar(data,tipoGuardado,liberar) {
 
         if (data[index].Modificado)
         {
-            ListaDetalles[i] = { SpoolID: "", CuadranteID: "", NombreCuadrante:"" };
+            ListaDetalles[i] = { SpoolID: "", CuadranteID: "", NombreCuadrante: "", Estatus:1 };
             ListaDetalles[i].SpoolID = data[index].SpoolID;
             ListaDetalles[i].CuadranteID = data[index].CuadranteID;
             ListaDetalles[i].NombreCuadrante = data[index].NombreCuadrante;
+            
 
-            if (ListaDetalles[i].CuadranteID == "0" || ListaDetalles[i].CuadranteID == undefined || ListaDetalles[i].CuadranteID == 0)
+            if (ListaDetalles[i].CuadranteID == "0" || ListaDetalles[i].CuadranteID == undefined || ListaDetalles[i].CuadranteID == 0) {
                 $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
+                ListaDetalles[i].Estatus = 0;
+            }
             i++;
 
         }
@@ -89,8 +92,8 @@ function ajaxGuardar(data,tipoGuardado,liberar) {
     }
     Captura[0].Detalles = ListaDetalles;
     if (ListaDetalles.length > 0) {
-        if (!ExistRowEmpty(ListaDetalles)) {
-            ajaxEjecutarGuardado(Captura[0], tipoGuardar)
+        if (!ExistRowErrors(data)) {
+            ajaxEjecutarGuardado(Captura[0], tipoGuardado, cerrarCarro)
         } else {
             loadingStop();
             $("#grid").data("kendoGrid").dataSource.sync();
@@ -129,7 +132,7 @@ function ajaxGuardar(data,tipoGuardado,liberar) {
                 Captura[0].Detalles = ArregloGuardado;
 
                 if (Captura[0].Detalles.length > 0) {
-                    ajaxEjecutarGuardado(Captura[0], tipoGuardar)
+                    ajaxEjecutarGuardado(Captura[0], tipoGuardado, cerrarCarro)
                     
                 }
                 else {
@@ -150,7 +153,7 @@ function ajaxGuardar(data,tipoGuardado,liberar) {
 
 };
 
-function ajaxEjecutarGuardado(captura, tipoGuardado)
+function ajaxEjecutarGuardado(captura, tipoGuardado, cerrarCarro)
 {
     $DescargarCarro.DescargarCarro.create(captura, { token: Cookies.get("token"), lenguaje: $("#language").val(), cargaCarroID: $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()).MedioTransporteCargaID, carroID: $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()).MedioTransporteID, cerrarCarro: cerrarCarro }).done(function (data) {
 
