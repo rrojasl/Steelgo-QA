@@ -57,13 +57,19 @@ function ajaxGuardar(data,tipoGuardado,liberar) {
     var i = 0;
 
     for (var index = 0 ; index < data.length; index++) {
+        $("#grid").data("kendoGrid").dataSource._data[index].RowOk = true;
+
         if (data[index].Modificado)
         {
             ListaDetalles[i] = { SpoolID: "", CuadranteID: "", NombreCuadrante:"" };
             ListaDetalles[i].SpoolID = data[index].SpoolID;
             ListaDetalles[i].CuadranteID = data[index].CuadranteID;
             ListaDetalles[i].NombreCuadrante = data[index].NombreCuadrante;
+
+            if (ListaDetalles[i].CuadranteID == "0" || ListaDetalles[i].CuadranteID == undefined || ListaDetalles[i].CuadranteID == 0)
+                $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
             i++;
+
         }
     }
     var cuadranteIDCarro=  $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()).CuadranteID;
@@ -83,49 +89,108 @@ function ajaxGuardar(data,tipoGuardado,liberar) {
     }
     Captura[0].Detalles = ListaDetalles;
     if (ListaDetalles.length > 0) {
-        $DescargarCarro.DescargarCarro.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val(), cargaCarroID: $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()).MedioTransporteCargaID, carroID: $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()).MedioTransporteID, cerrarCarro: cerrarCarro }).done(function (data) {
+        if (!ExistRowEmpty(ListaDetalles)) {
+            ajaxEjecutarGuardado(Captura[0], tipoGuardar)
+        } else {
+            loadingStop();
+            $("#grid").data("kendoGrid").dataSource.sync();
+            ventanaConfirm = $("#ventanaConfirm").kendoWindow({
+                iframe: true,
+                title: _dictionary.TituloPopUpError[$("#language").data("kendoDropDownList").value()],
+                visible: false, //the window will not appear before its .open method is called
+                width: "auto",
+                height: "auto",
+                modal: true,
+                actions: [],
+                animation: {
+                    close: false,
+                    open: false
+                }
+            }).data("kendoWindow");
 
-            if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
-                displayNotify("MensajeGuardadoExistoso", "", '0');
+            ventanaConfirm.content(_dictionary.MensajeConfirmacionGuardadoGeneral[$("#language").data("kendoDropDownList").value()] +
+                "</br><center><button class='btn btn-blue' id='yesButton'>" + _dictionary.EntregaPlacasGraficasbotonSi[$("#language").data("kendoDropDownList").value()] + "</button><button class='btn btn-blue' id='noButton'>" + _dictionary.EntregaPlacasGraficasbotonNo[$("#language").data("kendoDropDownList").value()] + "</button></center>");
 
-                if (tipoGuardado == 1) {
-                    Limpiar();
-                    editado = false;
-                    AjaxCargarCamposPredeterminados();
-                    $("#inputZona").data("kendoComboBox").select(0);
-                    $("#inputZona").data("kendoComboBox").trigger("change");
+            ventanaConfirm.open().center();
+
+            $("#yesButton").click(function () {
+                loadingStart();
+
+                ArregloGuardado = [];
+                var indice = 0;
+                for (var i = 0; i < Captura[0].Detalles.length; i++) {
+                    if (Captura[0].Detalles[i].Estatus == 1) {
+                        ArregloGuardado[indice] = ListaDetalles[i];
+                        indice++;
+                    }
+                }
+
+                Captura[0].Detalles = [];
+                Captura[0].Detalles = ArregloGuardado;
+
+                if (Captura[0].Detalles.length > 0) {
+                    ajaxEjecutarGuardado(Captura[0], tipoGuardar)
+                    
                 }
                 else {
-                    opcionHabilitarView(true, "FieldSetView");
-                    
-                    if (cerrarCarro == 0)//si ya no tiene spools el carro entonces ya no aparece en la pantalla.
-                    {
-                        Limpiar();// se limpia todo porque ya no existe la informacion del carro y el usuario tiene que volver a elegir todo para iniciar el proceso de descarga.
-                        $("#inputZona").data("kendoComboBox").select(0);
-                        $("#inputZona").data("kendoComboBox").trigger("change");
-
-                        AjaxCargarCamposPredeterminados();
-                    }
-                    else
-                        AjaxObtenerDetalleGrid(dataItem.MedioTransporteID);
-                    
-                    $("#inputZona").data("kendoComboBox").trigger("change");
-                    editado = false;
+                    loadingStop();
+                    displayNotify("AdverteciaExcepcionGuardado", "", '1');
                 }
-                loadingStop();
-            }
-            else {
-                //mensaje = "No se guardo la informacion el error es: " + data.ReturnMessage[0] + "-2";
-                displayNotify("MensajeGuardadoErroneo", "", '2');
-                loadingStop();
 
-            }
-        });
+                ventanaConfirm.close();
+            });
+
+            $("#noButton").click(function () {
+                ventanaConfirm.close();
+            });
+        }
     }
     else
         displayNotify("MensajeAdverteciaExcepcionGuardado", "", '1');
 
 };
+
+function ajaxEjecutarGuardado(captura, tipoGuardado)
+{
+    $DescargarCarro.DescargarCarro.create(captura, { token: Cookies.get("token"), lenguaje: $("#language").val(), cargaCarroID: $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()).MedioTransporteCargaID, carroID: $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()).MedioTransporteID, cerrarCarro: cerrarCarro }).done(function (data) {
+
+        if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
+            displayNotify("MensajeGuardadoExistoso", "", '0');
+
+            if (tipoGuardado == 1) {
+                Limpiar();
+                editado = false;
+                AjaxCargarCamposPredeterminados();
+                $("#inputZona").data("kendoComboBox").select(0);
+                $("#inputZona").data("kendoComboBox").trigger("change");
+            }
+            else {
+                opcionHabilitarView(true, "FieldSetView");
+
+                if (cerrarCarro == 0)//si ya no tiene spools el carro entonces ya no aparece en la pantalla.
+                {
+                    Limpiar();// se limpia todo porque ya no existe la informacion del carro y el usuario tiene que volver a elegir todo para iniciar el proceso de descarga.
+                    $("#inputZona").data("kendoComboBox").select(0);
+                    $("#inputZona").data("kendoComboBox").trigger("change");
+
+                    AjaxCargarCamposPredeterminados();
+                }
+                else
+                    AjaxObtenerDetalleGrid(dataItem.MedioTransporteID);
+
+                $("#inputZona").data("kendoComboBox").trigger("change");
+                editado = false;
+            }
+            loadingStop();
+        }
+        else {
+            //mensaje = "No se guardo la informacion el error es: " + data.ReturnMessage[0] + "-2";
+            displayNotify("MensajeGuardadoErroneo", "", '2');
+            loadingStop();
+
+        }
+    });
+}
 
 function AjaxCargarCuadrante(zonaID) {
     loadingStart();
