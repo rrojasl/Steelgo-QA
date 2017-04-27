@@ -7,6 +7,37 @@ var CuadranteSpoolAnterior;
 var proyectoActualSeleccionado;
 var carroActualSeleccionado
 
+function InsertarNuevoElemento()
+{
+    if (!$('#chkCerrar').is(':checked')) {
+        if ($('input:radio[name=TipoSeleccion]:checked').val() == "Spool" && ($("#InputID").val() == "" || $("#InputID").val() == "0")) {
+            displayNotify("PinturaCargaSeleccionaSpool", "", '1');
+        }
+        else if ($('input:radio[name=TipoSeleccion]:checked').val() == "Spool" && $("#InputID").val() != "") {
+            var valorBusqueda = $('input:radio[name=TipoSeleccion]:checked').val() == "Spool" ? $("#InputID").val() + '~' + "Spool" : $("#inputCodigo").val() + '~' + "Codigo";
+            if ($("#inputProyecto").data("kendoComboBox").select() != 0) {
+                AjaxObtenerDetalleCargaCarro($("#inputCarro").data("kendoComboBox").select() == -1 ? 0 : $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()).MedioTransporteID, $('input:radio[name=TipoVista]:checked').val(), valorBusqueda);
+            }
+            else
+                displayNotify("SistemaPinturaMensajeErrorProyecto", "", '1');
+        }
+        else if ($('input:radio[name=TipoSeleccion]:checked').val() == "Codigo" && $("#inputCodigo").val() != "") {
+            var valorBusqueda = $('input:radio[name=TipoSeleccion]:checked').val() == "Spool" ? $("#InputID").val() + '~' + "Spool" : $("#inputCodigo").val() + '~' + "Codigo";
+            if ($("#inputProyecto").data("kendoComboBox").select() != 0) {
+                AjaxObtenerDetalleCargaCarro($("#inputCarro").data("kendoComboBox").select() == -1 ? 0 : $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()).MedioTransporteID, $('input:radio[name=TipoVista]:checked').val(), valorBusqueda);
+            }
+            else
+                displayNotify("SistemaPinturaMensajeErrorProyecto", "", '1');
+        }
+        else if ($('input:radio[name=TipoSeleccion]:checked').val() == "Codigo" && $("#inputCodigo").val() == "") {
+            displayNotify("PinturaIngresaCodigoValido", "", '1');
+        }
+    }
+    else {
+        displayNotify("PinturaCargaCarroCerrar", "", '1');
+    }
+}
+
 function Limpiar() {
    
     $("#labelM2").text("");

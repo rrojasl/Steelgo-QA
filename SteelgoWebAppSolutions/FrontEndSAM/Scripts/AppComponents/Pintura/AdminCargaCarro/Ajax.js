@@ -384,7 +384,7 @@ function ajaxGuardarEscritorio(listaSpool, guardarYNuevo) {
     var contSave = 0;
     var proyectoID = $("#inputProyecto").data("kendoComboBox").value() != undefined ? $("#inputProyecto").data("kendoComboBox").value() : "";
     var CarroSeleccionado = $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select());
-    var CarroID =CarroSeleccionado==undefined?0: CarroSeleccionado.MedioTransporteID;
+    var CarroID = CarroSeleccionado == undefined ? 0 : CarroSeleccionado.MedioTransporteID;
     var CargaCarroID = CarroSeleccionado == undefined ? 0 : CarroSeleccionado.MedioTransporteCargaID;
     var carroCerrado = $("#inputCarro").attr("mediotransportecerrado");
 
@@ -412,8 +412,7 @@ function ajaxGuardarEscritorio(listaSpool, guardarYNuevo) {
                     sistemaPinturaCarro = listaSpool[index].SistemaPintura;
             }
 
-            if (sistemaPinturaCarro == "")
-            {
+            if (sistemaPinturaCarro == "") {
                 sistemaPinturaCarro = sistemaPinturaCarroPrimerElementoSeleccionado;
             }
 
@@ -509,7 +508,7 @@ function AjaxCargarCuadrante(zonaID) {
             if ($("#windowDownload").data("kendoWindow").element.is(":hidden"))
                 windowDownload.open().center();
 
-                $("#inputCuadrantePopup").data("kendoComboBox").dataSource.data(data);
+            $("#inputCuadrantePopup").data("kendoComboBox").dataSource.data(data);
 
             if (data.length < 3 && CuadranteSpoolAnterior == 0) {
                 for (var i = 0; i < data.length; i++) {
@@ -536,7 +535,9 @@ function AjaxDescargarSpool(dataItem, Cuadrante) {
             var dataSource = $("#grid").data("kendoGrid").dataSource;
             dataSource.remove(dataItem);
             loadingStop();
-            AjaxObtenerDetalleCargaCarro($("#inputCarro").data("kendoComboBox").select() == -1 ? 0 : $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()).MedioTransporteID, $('input:radio[name=TipoVista]:checked').val(), '');
+
+            if ($('input:radio[name=TipoVista]:checked').val() != "Patio")
+                AjaxObtenerDetalleCargaCarro($("#inputCarro").data("kendoComboBox").select() == -1 ? 0 : $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()).MedioTransporteID, $('input:radio[name=TipoVista]:checked').val(), '');
             displayNotify("EmbarqueCargaMsjDescargaSpoolExito", "", "0");
         } else {
             loadingStop();
