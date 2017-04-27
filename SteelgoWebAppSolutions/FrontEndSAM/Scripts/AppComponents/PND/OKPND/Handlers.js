@@ -5,11 +5,11 @@ var requisicionOriginal = 0;
 var error = 0;
 
 function SuscribirEventos() {
+    suscribirEventoProyecto();    
     SuscribirEventoBuscar();
     suscribirEventoGuardar();
     SuscribirEventoAplicar();
-    suscribirEventoCancelar();
-    suscribirEventoProyecto();
+    suscribirEventoCancelar();    
     suscribirEventoCarGaCSV();
     suscribirEventoDescarGaCSV();
     suscribirEventoChangeRadio();
@@ -52,14 +52,15 @@ function suscribirEventoProyecto() {
     $("#Proyecto").kendoComboBox({
         dataTextField: "Nombre",
         dataValueField: "ProyectoID",
-        delay: 10,
         suggest: true,
         filter: "contains",
-        index: 3,
+        index: 3,        
+        //delay: 10,        
         change: function (e) {
             var ds = $("#grid").data("kendoGrid").dataSource;
             var proyectoID = $("#Proyecto").data("kendoComboBox").value();
             var NumControl = $("#InputNumeroControl").val();
+            var elementoActual = this.dataItem(e.sender.selectedIndex);
 
             if (existenCambios(ds._data)) {
                 var ventanaConfirm = $("#ventanaConfirmCaptura").kendoWindow({
@@ -90,9 +91,12 @@ function suscribirEventoProyecto() {
                 });
             }
             else {
+                if (elementoActual == undefined) {
+                    $("#Proyecto").data("kendoComboBox").value("");
+                }
                 ProyectoIDAnterior = proyectoID;
                 Limpiar();
-            }
+            }                        
         }
     });
 }
@@ -296,9 +300,10 @@ function suscribirEventoElementosAsignados() {
         if ($('#BotonGuardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
 
             var grid = $("#grid").data("kendoGrid"),
-            dataItem = grid.dataItem($(e.target).closest("tr"));
-
-            LlenarGridPopUp(dataItem.ListaDetalle);
+            dataItem = grid.dataItem($(e.target).closest("tr"));            
+            console.log("ID: " + dataItem.SpoolID);
+            AjaxObtenerJuntas(dataItem.SpoolID);
+            //LlenarGridPopUp(dataItem.ListaDetalle);
         }
     });
 }

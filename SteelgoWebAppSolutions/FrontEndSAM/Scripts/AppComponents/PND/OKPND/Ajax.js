@@ -34,25 +34,28 @@ function AjaxGetListaProyectos() {
 function AjaxGetListaElementos(ProyectoID, NumControl) {
     loadingStart();
     SpoolContiene = NumControl;
-    $OK.OK.read({token : Cookies.get("token"), Lenguaje : $("#language").val(), ProyectoID : ProyectoID, NumControl: NumControl, Muestra: $('input:radio[name=Muestra]:checked').val(), OPC: '1' }).done(function (data) {
-        $("#grid").data("kendoGrid").dataSource.data([]);
-        var dataSource = $("#grid").data("kendoGrid").dataSource;
-        if (data.length > 0) {
-            for (var i = 0; i < data.length; i++) {
-                dataSource.add(data[i]);
+    try {
+        $OK.OK.read({ token: Cookies.get("token"), Lenguaje: $("#language").val(), ProyectoID: ProyectoID, NumControl: NumControl, Muestra: $('input:radio[name=Muestra]:checked').val(), OPC: '1' }).done(function (data) {        
+            $("#grid").data("kendoGrid").dataSource.data([]);
+            var dataSource = $("#grid").data("kendoGrid").dataSource;
+            if (data.length > 0) {
+                for (var i = 0; i < data.length; i++) {
+                    dataSource.add(data[i]);
+                }
+                dataSource.page(1);
+            } else {
+                displayNotify("MensajeNoResultados", "", "1");
+                dataSource.page(0);
             }
-            dataSource.page(1);
-        } else {
-            displayNotify("MensajeNoResultados", "", "1");
-            dataSource.page(0);
-        }
-        var mostrar = $('input:radio[name=Muestra]:checked').val();
-        if (mostrar == 'SinCaptura')
-            FiltroMostrar(0);
-        else FiltroMostrar(1);
-
-        loadingStop();
-    });
+            var mostrar = $('input:radio[name=Muestra]:checked').val();
+            if (mostrar == 'SinCaptura')
+                FiltroMostrar(0);
+            else FiltroMostrar(1);
+            loadingStop();
+        });
+    } catch (e) {
+        displayNotify("", "Error: " + e.message, "2");
+    }        
 }
 
 function AjaxGuardarCaptura(arregloCaptura, tipoGuardado) {
@@ -118,3 +121,17 @@ function AjaxGuardadoMasivo(data) {
         //}
     });    
 };
+
+function AjaxObtenerJuntas(SpoolID) {
+    try {
+        if (SpoolID != undefined || SpoolID != "" || SpoolID != null) {
+            $OK.OK.read({ token: Cookies.get("token"), Lenguaje: $("#language").val(), SpoolID: SpoolID }).done(function (data) {
+                //LlenarGridPopUp(data.ListaDetalles);
+                LlenarGridPopUp(data);
+            });
+        }
+    } catch (e) {
+        displayNotify("", "Ocurrion un Error: " + e.message, "2");
+        return;
+    }
+}

@@ -19,8 +19,9 @@ namespace BackEndSAM.Controllers.Sam3General.OK
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class OKController : ApiController
     {
-        [HttpGet]
-        public object ObtieneElementosOK(string token, string Lenguaje, int ProyectoID, string NumControl, string Muestra, int OPC)
+        //[HttpGet]
+        //public object ObtieneElementosOK(string token, string Lenguaje, int ProyectoID, string NumControl, string Muestra, int OPC)
+        public object Get(string token, string Lenguaje, int ProyectoID, string NumControl, string Muestra, int OPC)
         {
             try
             {
@@ -39,6 +40,38 @@ namespace BackEndSAM.Controllers.Sam3General.OK
                     result.ReturnStatus = false;
                     result.IsAuthenicated = false;
                     return result;                    
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+                return result;
+            }
+        }
+
+        [HttpGet]
+        public object GetJuntas(string token, string Lenguaje, int SpoolID)
+        {
+            try
+            {
+                string payLoad = "";
+                string newToken = "";
+                bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payLoad, out newToken);
+                if (tokenValido)
+                {
+                    return OKDB.Instance.ObtenerDetallesElementosOK(Lenguaje, SpoolID);
+                }else
+                {
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add(payLoad);
+                    result.ReturnCode = 401;
+                    result.ReturnStatus = false;
+                    result.IsAuthenicated = false;
+                    return result;
                 }
             }
             catch (Exception ex)

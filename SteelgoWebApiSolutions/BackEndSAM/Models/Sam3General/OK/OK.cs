@@ -28,10 +28,10 @@ namespace BackEndSAM.Models.Sam3General.OK
         public int ProyectoID { get; set; }
         public int OrdenTrabajoSpoolID { get; set; }
         public bool OK { get; set; }
-        public List<Detalle> ListaDetalle { get; set; }
+        //public List<Detalle> ListaDetalle { get; set; }
         public string Detalle { get; set; }
     }
-
+    
     public class Detalle
     {
         public int JuntaSpoolID { get; set; }

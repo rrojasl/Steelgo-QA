@@ -19,12 +19,13 @@
 
     @*Menu superior*@
     <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <div class="formNav clearfix">
-                <div class="button-section editButtonSection">
-                    <input type="hidden" value=@ViewBag.id id="idField" />
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">            
+            <div class="formNav clearfix">                
+                <input type="hidden" value=@ViewBag.id id="idField" />
+                <!--<div class="button-section editButtonSection ">                   -->
+                <section class="button-section editButtonSection">
                     <div class="btn-group save-group">
-                        <button id="BotonGuardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="botonGuardar"></span></button>
+                        <button id="BotonGuardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow" style="min-width:110px;"><span id="botonGuardar"></span></button>
                         <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="caretWhite"></span>
                         </button>
@@ -34,9 +35,10 @@
                         </ul>
                     </div>
                     <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar"></span></a>
-                </div>
+                    <!--</div>-->
+                </section>
                 <div id="CargaCarroSupDiv" class="button-section">
-                    <a id="CargaCarroSup" href="@Url.Action("CargaCarro", "Pintura")" class="btn btn-primary"><span id="PinturaCargaCarroSup"></span></a>
+                    <a id="CargaCarroSup" href="@Url.Action("AdminCargaCarro", "Pintura")" class="btn btn-primary"><span id="PinturaCargaCarroSup"></span></a>
                 </div>
                 <div class="button-section actionButtonSection">
                     <div class="dropdown action-group">
@@ -88,14 +90,17 @@
         <div class="row addedSectionInLine">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <div class="row" id="containerDiv">
-                    <div class="col-sm-2 col-md-2 col-lg-2" id="CapturaArmadoHeaderSpoolIDDiv">
-                        <center><label id="lblSeleccionarTodos"></label></center>
-                        <center><input type="checkbox" id="InputSeleccionTodos" /></center>
-                    </div>
-                    <div class="col-sm-1 col-md-1 col-lg-1">
-                        <button type="button" id="ButtonPlanchar" class="btn btn-blue"><span id="botonPlanchar"></span></button>
-                    </div>
-
+                    <div class="row">
+                        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                            <div class="col-sm-4 col-md-4 col-lg-4" id="CapturaArmadoHeaderSpoolIDDiv">
+                                <center><label id="lblSeleccionarTodos"></label></center>
+                                <center><input type="checkbox" id="InputSeleccionTodos" /></center>
+                            </div>
+                            <div class="col-sm-2 col-md-2 col-lg-2" style="padding-left: 15px;">
+                                <button type="button" id="ButtonPlanchar" class="btn btn-blue"><span id="botonPlanchar"></span></button>
+                            </div>
+                        </div>
+                    </div>                                        
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <div id="ContenedorGrid" class="row">
@@ -135,7 +140,7 @@
             <div class="formNav clearfix">
                 <div class="button-section editButtonSection">
                     <div class="btn-group save-group">
-                        <button id="BotonGuardar3" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="botonGuardar3"></span></button>
+                        <button id="BotonGuardar3" onclick="javascript:void(0);" type="button" class="btn btn-yellow" style="min-width:110px;"><span id="botonGuardar3"></span></button>
                         <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="caretWhite"></span>
                         </button>
@@ -147,7 +152,7 @@
                     <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar1"></span></a>
                 </div>
                 <div id="CargaCarroInfDiv" class="button-section">
-                    <a id="CargaCarroInf" href="@Url.Action("CargaCarro", "Pintura")" class="btn btn-primary"><span id="PinturaCargaCarroInf"></span></a>
+                    <a id="CargaCarroInf" href="@Url.Action("AdminCargaCarro", "Pintura")" class="btn btn-primary"><span id="PinturaCargaCarroInf"></span></a>
                 </div>
                 <div class="button-section actionButtonSection">
                     <div class="dropdown action-group">

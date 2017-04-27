@@ -1,23 +1,19 @@
 ﻿IniciarCaptura();
 
-function IniciarCaptura() {
+function IniciarCaptura() {    
     SuscribirEventos();
 };
 
-function changeLanguageCall() {
-    //endRangeDate.data("kendoDatePicker").setOptions({
-    //    format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()]
-    //});
-
+function changeLanguageCall() {    
     CargarGrid();
     CargarGridPopUp();
-    $("#Proyecto").data("kendoComboBox").value("");
-    $("#Proyecto").data("kendoComboBox").enable(true);
-    $('#grid').data('kendoGrid').dataSource.read();
+    //$("#Proyecto").data("kendoComboBox").value("");
+    //$("#Proyecto").data("kendoComboBox").enable(true);
+    //$('#grid').data('kendoGrid').dataSource.read();
 
-    setTimeout(function () { AjaxGetListaProyectos() }, 1000);
-    setTimeout(function () { AjaxCargarCamposPredeterminados() }, 1000);
     document.title = _dictionary.menuOKPND[$("#language").data("kendoDropDownList").value()];
+    setTimeout(function () { AjaxGetListaProyectos() }, 500);
+    setTimeout(function () { AjaxCargarCamposPredeterminados() }, 500);        
 };
 
 function FiltroMostrar(mostrar) {

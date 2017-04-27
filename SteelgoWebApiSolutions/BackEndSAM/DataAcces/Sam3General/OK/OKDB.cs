@@ -51,7 +51,7 @@ namespace BackEndSAM.DataAcces.Sam3General.OK
                             SpoolID = item.SpoolID,
                             OrdenTrabajoSpoolID = item.OrdenTrabajoSpoolID,
                             OK = item.OkPND.GetValueOrDefault(),
-                            ListaDetalle = ObtenerDetallesElementosOK(Lenguaje, item.SpoolID),
+                            //ListaDetalle = ObtenerDetallesElementosOK(Lenguaje, item.SpoolID),
                             Detalle = Lenguaje == "es-MX" ? "Ver Detalle" : "See Details"
                         });
                     }
@@ -76,8 +76,7 @@ namespace BackEndSAM.DataAcces.Sam3General.OK
             {
                 using(SamContext ctx = new SamContext())
                 {
-                    List<Detalle> ListaDetalles = new List<Detalle>();
-                    //List<Sam3_ST_OKPND_Get_DetalleElementos_Result> ListaDetallesOK = ctx.Sam3_ST_OKPND_Get_DetalleElementos(Lenguaje, SpoolID).ToList();
+                    List<Detalle> ListaDetalles = new List<Detalle>();                    
                     List<Sam3_Steelgo_OK_GET_DetallesElementosOK_Result> ListaDetallesOK = ctx.Sam3_Steelgo_OK_GET_DetallesElementosOK(SpoolID).ToList();
                     foreach (Sam3_Steelgo_OK_GET_DetallesElementosOK_Result item in ListaDetallesOK)
                     {
