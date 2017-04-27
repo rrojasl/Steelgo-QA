@@ -12,8 +12,10 @@ function changeLanguageCall() {
     //$('#grid').data('kendoGrid').dataSource.read();
 
     document.title = _dictionary.menuOKPND[$("#language").data("kendoDropDownList").value()];
-    setTimeout(function () { AjaxGetListaProyectos() }, 500);
-    setTimeout(function () { AjaxCargarCamposPredeterminados() }, 500);        
+    AjaxGetListaProyectos();
+    AjaxCargarCamposPredeterminados();
+    //setTimeout(function () { AjaxGetListaProyectos() }, 500);
+    //setTimeout(function () { AjaxCargarCamposPredeterminados() }, 500);        
 };
 
 function FiltroMostrar(mostrar) {
