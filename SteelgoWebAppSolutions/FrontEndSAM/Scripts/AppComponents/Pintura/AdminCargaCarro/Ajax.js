@@ -267,7 +267,7 @@ function AjaxObtenerDetalleCargaCarro(MedioTransporteID, tipoEscenario, valorBus
 
 
                         }
-                        ds.sync();
+                        $("#grid").data("kendoGrid").refresh();
 
                         ImprimirAreaTonelada();
                     }
@@ -384,8 +384,8 @@ function ajaxGuardarEscritorio(listaSpool, guardarYNuevo) {
     var contSave = 0;
     var proyectoID = $("#inputProyecto").data("kendoComboBox").value() != undefined ? $("#inputProyecto").data("kendoComboBox").value() : "";
     var CarroSeleccionado = $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select());
-    var CarroID = CarroSeleccionado.MedioTransporteID;
-    var CargaCarroID = CarroSeleccionado.MedioTransporteCargaID;
+    var CarroID =CarroSeleccionado==undefined?0: CarroSeleccionado.MedioTransporteID;
+    var CargaCarroID = CarroSeleccionado == undefined ? 0 : CarroSeleccionado.MedioTransporteCargaID;
     var carroCerrado = $("#inputCarro").attr("mediotransportecerrado");
 
     Captura = [];
@@ -393,6 +393,7 @@ function ajaxGuardarEscritorio(listaSpool, guardarYNuevo) {
 
     ListaGuardarDetalles = [];
     var sistemaPinturaCarro = "";
+    var sistemaPinturaCarroPrimerElementoSeleccionado = "";
     if (CarroID != "" && CarroID != "0" && CarroID != "-1") {
         if (listaSpool.length > 0) {
             for (var index = 0 ; index < listaSpool.length; index++) {
@@ -403,11 +404,19 @@ function ajaxGuardarEscritorio(listaSpool, guardarYNuevo) {
                     ListaGuardarDetalles[contSave].CuadranteID = listaSpool[index].CuadranteID;
                     ListaGuardarDetalles[contSave].MedioTransporteCargaID = listaSpool[index].MedioTransporteCargaDetalleID;
                     ListaGuardarDetalles[contSave].SistemaPinturaID = listaSpool[index].SistemaPinturaID;
+                    if (sistemaPinturaCarroPrimerElementoSeleccionado == "")
+                        sistemaPinturaCarroPrimerElementoSeleccionado = listaSpool[index].SistemaPintura;
                     contSave++;
                 }
-                if (listaSpool[index].Accion = 2 && sistemaPinturaCarro == "")
+                if (listaSpool[index].Accion == 2)
                     sistemaPinturaCarro = listaSpool[index].SistemaPintura;
             }
+
+            if (sistemaPinturaCarro == "")
+            {
+                sistemaPinturaCarro = sistemaPinturaCarroPrimerElementoSeleccionado;
+            }
+
 
             var carroCerrado = 0;
             if ($('#chkCerrar').is(':checked') /*&& carroCerrado == "false"*/) {

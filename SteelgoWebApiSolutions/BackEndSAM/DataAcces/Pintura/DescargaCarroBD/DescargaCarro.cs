@@ -70,14 +70,14 @@ namespace BackEndSAM.DataAcces.Pintura.DescargaCarroBD
             }
         }
 
-        public object Guardar(DataTable dtDetalleCaptura, int usuario, string lenguaje,string cargaCarroID,int carroID)
+        public object Guardar(DataTable dtDetalleCaptura, int usuario, string lenguaje,string cargaCarroID,int carroID,int cerrarCarro)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
                     ObjetosSQL _SQL = new ObjetosSQL();
-                    string[,] parametro = { { "@Usuario", usuario.ToString() }, { "@Lenguaje", lenguaje }, { "@cargaCarroID", cargaCarroID }, { "@CarroID", carroID.ToString() } };
+                    string[,] parametro = { { "@Usuario", usuario.ToString() }, { "@Lenguaje", lenguaje }, { "@cargaCarroID", cargaCarroID }, { "@CarroID", carroID.ToString() }, { "@CerrarCarro", cerrarCarro.ToString() } };
 
                     _SQL.Ejecuta(Stords.GUARDARCAPTURADECARGACARRO, dtDetalleCaptura, "@DetalleGuardado", parametro);
 

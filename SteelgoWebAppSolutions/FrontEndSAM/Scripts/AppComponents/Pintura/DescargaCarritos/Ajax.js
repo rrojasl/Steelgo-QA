@@ -18,6 +18,7 @@ function AjaxCargarCarrosCargadosPorProceso(idProceso) {
         if (Error(data)) {
             if (data.length > 0) {
                 var medioTranporteId = 0;
+                $("#inputCarro").data("kendoComboBox").value("");
                 $("#inputCarro").data("kendoComboBox").dataSource.data([]);
                 $("#inputCarro").data("kendoComboBox").dataSource.data(data);
 
@@ -33,7 +34,7 @@ function AjaxCargarCarrosCargadosPorProceso(idProceso) {
                         }
                         $("#inputCarro").data("kendoComboBox").value(medioTranporteId);
                         $("#inputCarro").data("kendoComboBox").trigger("change");
-                        $("#btnMostrar").trigger("click");
+                      
                     }
                 } else {
                     $("#inputCarro").data("kendoComboBox").value(carroID);
@@ -47,11 +48,12 @@ function AjaxCargarCarrosCargadosPorProceso(idProceso) {
     });
 }
 
-function ajaxGuardar(data,tipoGuardado) {
+function ajaxGuardar(data,tipoGuardado,liberar) {
 
     Captura = [];
     Captura[0] = { Detalles: "" };
     ListaDetalles = [];
+    var cerrarCarro = 1;//es uno porque por default son carros cerrados.
     var i = 0;
 
     for (var index = 0 ; index < data.length; index++) {
@@ -61,17 +63,33 @@ function ajaxGuardar(data,tipoGuardado) {
             ListaDetalles[i].SpoolID = data[index].SpoolID;
             ListaDetalles[i].CuadranteID = data[index].CuadranteID;
             ListaDetalles[i].NombreCuadrante = data[index].NombreCuadrante;
+            i++;
         }
+    }
+    var cuadranteIDCarro=  $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()).CuadranteID;
+    var estaCarroCompletamenteDescargado=true;
+
+    for (var i = 0; i < data.length; i++) {
+        if(data[i].CuadranteID==cuadranteIDCarro)
+        { 
+            estaCarroCompletamenteDescargado=false;
+            break;
+        }
+    }
+    //es para liberar el carro, si ya no tiene spools entonces se libera el carro.
+    if (liberar) {
+        if (estaCarroCompletamenteDescargado)
+            cerrarCarro = 0
     }
     Captura[0].Detalles = ListaDetalles;
     if (ListaDetalles.length > 0) {
-        $DescargarCarro.DescargarCarro.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val(), cargaCarroID: $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()).MedioTransporteCargaID, carroID: $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()).MedioTransporteID }).done(function (data) {
+        $DescargarCarro.DescargarCarro.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val(), cargaCarroID: $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()).MedioTransporteCargaID, carroID: $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()).MedioTransporteID, cerrarCarro: cerrarCarro }).done(function (data) {
 
             if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
                 displayNotify("MensajeGuardadoExistoso", "", '0');
 
                 if (tipoGuardado == 1) {
-                    opcionHabilitarView(false, "FieldSetView");
+                    Limpiar();
                     editado = false;
                     AjaxCargarCamposPredeterminados();
                     $("#inputZona").data("kendoComboBox").select(0);
@@ -79,8 +97,18 @@ function ajaxGuardar(data,tipoGuardado) {
                 }
                 else {
                     opcionHabilitarView(true, "FieldSetView");
-                    $("#inputCarro").data("kendoComboBox").trigger("change");
-                    $("#inputZona").data("kendoComboBox").select(0);
+                    
+                    if (cerrarCarro == 0)//si ya no tiene spools el carro entonces ya no aparece en la pantalla.
+                    {
+                        Limpiar();// se limpia todo porque ya no existe la informacion del carro y el usuario tiene que volver a elegir todo para iniciar el proceso de descarga.
+                        $("#inputZona").data("kendoComboBox").select(0);
+                        $("#inputZona").data("kendoComboBox").trigger("change");
+
+                        AjaxCargarCamposPredeterminados();
+                    }
+                    else
+                        AjaxObtenerDetalleGrid(dataItem.MedioTransporteID);
+                    
                     $("#inputZona").data("kendoComboBox").trigger("change");
                     editado = false;
                 }
@@ -107,7 +135,7 @@ function AjaxCargarCuadrante(zonaID) {
             $("#inputCuadrante").data("kendoComboBox").dataSource.data([]);
             $("#inputCuadrante").data("kendoComboBox").value("");
             $("#inputCuadrante").data("kendoComboBox").dataSource.data(data);
-            SustituirListaCuadranteGrid(data);
+           
         }
         loadingStop();
     });

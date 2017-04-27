@@ -153,3 +153,13 @@ function PlanchaCuadrante() {
     $("#grid").data("kendoGrid").dataSource.sync();
 }
 
+
+function Limpiar() {
+   
+    $("#inputCarro").data("kendoComboBox").dataSource.data([]);
+    $("#inputCarro").data("kendoComboBox").value("");
+    $("#inputCarro").val("");
+    $("#grid").data('kendoGrid').dataSource.data([]);
+    $("#grid").data('kendoGrid').dataSource.sync();
+    opcionHabilitarView(false, "FieldSetView");
+}

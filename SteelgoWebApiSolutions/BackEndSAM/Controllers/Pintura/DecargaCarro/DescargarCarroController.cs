@@ -41,7 +41,7 @@ namespace BackEndSAM.Controllers.Pintura.DecargaCarro
 
         }
 
-        public object Post(Captura listaCapturaDescarga, string token, string lenguaje,string cargaCarroID,int carroID)
+        public object Post(Captura listaCapturaDescarga, string token, string lenguaje,string cargaCarroID,int carroID,int cerrarCarro)
         {
             string payload = "";
             string newToken = "";
@@ -57,7 +57,7 @@ namespace BackEndSAM.Controllers.Pintura.DecargaCarro
 
                
                
-                return DescargaCarroBD.Instance.Guardar(capturaDescarga, usuario.UsuarioID, lenguaje, cargaCarroID, carroID);
+                return DescargaCarroBD.Instance.Guardar(capturaDescarga, usuario.UsuarioID, lenguaje, cargaCarroID, carroID, cerrarCarro);
             }
             else
             {

@@ -10339,7 +10339,10 @@ _dictionary = {
 
     // Inicia Módulo Pintura
     // Etiquetas Generales Pintura
-    
+    "MensajeAdvertenciaDatosMostradosNoGuardados": {
+        "es-MX": "Los registros mostrados no han sido guardados. ¿Desea continuar?",
+        "en-US": "The displayed records have not been saved. do you wish to continue?"
+    },
     "lblVersion": {
             "es-MX": "Version ",
             "en-US": "Version "
