@@ -33,7 +33,8 @@ function FiltroMostrar(mostrar) {
         var filters = ds.filter();
         filters.logic = "or"
 
-        filters.filters.push({ field: "OKPNDID", operator: "eq", value: 0 });
+        //filters.filters.push({ field: "OKPNDID", operator: "eq", value: 0 });
+        filters.filters.push({ field: "OK", operator: "eq", value: 0 });
         ds.sync();
     }
 }
@@ -45,7 +46,6 @@ function CargarGrid() {
         edit: function (e) {
             setTimeout(function () {
                 var inputName = e.container.find('input');
-
                 inputName.select();
             });
             if ($('#BotonGuardar').text() != _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()])
@@ -55,16 +55,16 @@ function CargarGrid() {
             data: '',
             schema: {
                 model: {
-                    fields: {
-                        OKPNDID: { type: "int", editable: false },
+                    fields: {                        
+                        //OKPNDID: { type: "int", editable: false },
+                        SpoolWorkStatus: { type: "int", editable: false },
                         NumeroControl: { type: "string", editable: false },
                         Cuadrante: { type: "string", editable: false },
                         Prioridad: { type: "number", editable: false },
-
                         SpoolID: { type: "int", editable: false },
                         OrdenTrabajoSpoolID: { type: "int", editable: false },
-                        OkPND: { type: "boolean", editable: false },
-
+                        //OkPND: { type: "boolean", editable: false },
+                        OK: { type: "boolean", editable: false },
                         Detalle: { type: "string", editable: false }
                     }
                 }
@@ -89,16 +89,18 @@ function CargarGrid() {
             pageSizes: [10, 25, 50, 100],
             info: false,
             input: false,
-            numeric: true,
+            numeric: true            
         },
         filterable: getGridFilterableMaftec(),
         columns: [
             { field: "NumeroControl", title: _dictionary.columnNumeroControl[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px" },
             { field: "Cuadrante", title: _dictionary.columnCuadrante[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "127px" },
             { field: "Prioridad", title: _dictionary.columnPrioridad[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "40px", attributes: { style: "text-align:right;" } },
+            //{ field: "OrdenTrabajoSpoolID", title: "Orden", filterable: getGridFilterableCellNumberMaftec(), width: "127px" },
             { field: "Detalle", title: _dictionary.columnDetalleJunta[$("#language").data("kendoDropDownList").value()], template: "<div class='EnlaceDetalleJunta' style='text-align:center;'><a href='\\#'  > <span>#=Detalle#</span></a></div>", filterable: false, width: "90px" },
             {
-                field: "OkPND", title: _dictionary.columnOkPND[$("#language").data("kendoDropDownList").value()], filterable: {
+                //field: "OkPND", title: _dictionary.columnOkPND[$("#language").data("kendoDropDownList").value()], filterable: {
+                field: "OK", title: _dictionary.columnOkPND[$("#language").data("kendoDropDownList").value()], filterable: {
                     multi: true,
                     messages: {
                         isTrue: _dictionary.lblVerdadero[$("#language").data("kendoDropDownList").value()],
@@ -106,7 +108,8 @@ function CargarGrid() {
                         style: "max-width:100px;"
                     },
                     dataSource: [{ Etiquetado: true }, { Etiquetado: false }]
-                }, template: "<input name='fullyPaid' class='ob-paid' type='checkbox' #= OkPND ? 'checked=checked':'' #/>", width: "50px", attributes: { style: "text-align:center;" }
+                    //}, template: "<input name='fullyPaid' class='ob-paid' type='checkbox' #= OkPND ? 'checked=checked':'' #/>", width: "50px", attributes: { style: "text-align:center;" }
+                }, template: "<input name='fullyPaid' class='ob-paid' type='checkbox' #= OK ? 'checked=checked':'' #/>", width: "50px", attributes: { style: "text-align:center;" }
             },
         ],
         dataBound: function (a) {
@@ -114,10 +117,14 @@ function CargarGrid() {
                 if ($('#BotonGuardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
                     var grid = $("#grid").data("kendoGrid");
                     dataItem = grid.dataItem($(e.target).closest("tr"));
-                    if (e.target.checked == true)
-                        dataItem.OkPND = true;
-                    else
-                        dataItem.OkPND = false;
+                    if (dataItem != null) {
+                        if (e.target.checked == true)
+                            //dataItem.OkPND = true;
+                            dataItem.OK = true;
+                        else
+                            //dataItem.OkPND = false;
+                            dataItem.OK = false;
+                    }                    
                 }
                 else
                     $("#grid").data("kendoGrid").closeCell();
@@ -182,7 +189,8 @@ function CargarGrid() {
                         style: "max-width:100px;"
                     },
                     dataSource: [{ Etiquetado: true }, { Etiquetado: false }]
-                }, template: "<input name='fullyPaid' class='ob-paid' type='checkbox' #= OkPND ? 'checked=checked':'' #/>", width: "50px", attributes: { style: "text-align:center;" }
+                    //}, template: "<input name='fullyPaid' class='ob-paid' type='checkbox' #= OkPND ? 'checked=checked':'' #/>", width: "50px", attributes: { style: "text-align:center;" }
+                }, template: "<input name='fullyPaid' class='ob-paid' type='checkbox' #= OK ? 'checked=checked':'' #/>", width: "50px", attributes: { style: "text-align:center;" }
             },
         ]
     });
