@@ -10413,6 +10413,10 @@ _dictionary = {
         "es-MX": "Descarga de Carro",
         "en-US": "Download Carriage"
     },
+    "PinturaDescargaCarroStatusAbierto": {
+        "es-MX": "El carro se encuentra abierto y se podra encontrar en el modulo Carga de carro",
+        "en-US": "The car is open and can be found in the Car Charging module"
+    },
     "PinturaCargaOpcionSpool": {
         "es-MX": "Spool",
         "en-US": "Spool"

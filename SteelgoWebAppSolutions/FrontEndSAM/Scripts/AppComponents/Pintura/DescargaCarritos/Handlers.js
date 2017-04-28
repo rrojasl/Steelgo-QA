@@ -221,21 +221,21 @@ function SuscribirEventoGuardar() {
         }
     });
     //solo guardar
-    //$('#btnGuardar,#Guardar').click(function (e) {
-    //    if ($("#grid").data("kendoGrid").dataSource._data.length > 0) {
-    //        if ($('#botonGuardar2').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
-    //            ajaxGuardar($("#grid").data("kendoGrid").dataSource._data, 0, false);
-    //        }
-    //        else if ($('#botonGuardar2').text() == _dictionary.textoEditar[$("#language").data("kendoDropDownList").value()]) {
-    //            opcionHabilitarView(false, "FieldSetView")
-    //        }
-    //    }
-    //    else {
-    //        opcionHabilitarView(false, "FieldSetView")
-    //    }
-    //});
+    $('#Guardar,#Guardar1').click(function (e) {
+        if ($("#grid").data("kendoGrid").dataSource._data.length > 0) {
+            if ($('#botonGuardar2').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
+                ajaxGuardar($("#grid").data("kendoGrid").dataSource._data, 0, false);
+            }
+            else if ($('#botonGuardar2').text() == _dictionary.textoEditar[$("#language").data("kendoDropDownList").value()]) {
+                opcionHabilitarView(false, "FieldSetView")
+            }
+        }
+        else {
+            opcionHabilitarView(false, "FieldSetView")
+        }
+    });
     //guardar y liberar
-    $('#btnGuardar1, #Guardar1,btnGuardar,#Guardar').click(function (e) {
+    $('#btnGuardar, #btnGuardar1').click(function (e) {
         if ($("#grid").data("kendoGrid").dataSource._data.length > 0) {
             if ($('#botonGuardar2').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
                 ajaxGuardar($("#grid").data("kendoGrid").dataSource._data, 0, true);

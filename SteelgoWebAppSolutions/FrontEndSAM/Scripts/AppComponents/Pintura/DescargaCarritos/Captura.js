@@ -34,6 +34,29 @@ function SiguienteProceso(paramReq) {
 }
 
 function CargarGrid() {
+    kendo.ui.Grid.fn.editCell = (function (editCell) {
+        return function (cell) {
+            cell = $(cell);
+
+            var that = this,
+                column = that.columns[that.cellIndex(cell)],
+                model = that._modelForContainer(cell),
+                event = {
+                    container: cell,
+                    model: model,
+                    preventDefault: function () {
+                        this.isDefaultPrevented = true;
+                    }
+                };
+
+            if (model && typeof this.options.beforeEdit === "function") {
+                this.options.beforeEdit.call(this, event);
+                if (event.isDefaultPrevented) return;
+            }
+
+            editCell.call(this, cell);
+        };
+    })(kendo.ui.Grid.fn.editCell);
     $("#grid").kendoGrid({
         autoBind: true,
         edit: function (e) {
@@ -107,12 +130,29 @@ function CargarGrid() {
                     grid.table.find("tr[data-uid='" + currentUid + "']").css("background-color", "#ffffff");
                 }
             }
+        },
+        beforeEdit: function (e) {
+            var columnIndex = this.cellIndex(e.container);
+            var fieldName = this.thead.find("th").eq(columnIndex).data("field");
+            if (!isEditable(fieldName, e.model)) {
+                e.preventDefault();
+            }
         }
     });
     CustomisaGrid($("#grid"));
 }
 
 
+function isEditable(fieldName, model) {
+    if (fieldName === "NombreCuadrante") {
+        var validarDefecto = true;
+        if ($("#inputCuadrante").data("kendoComboBox").dataSource._data.length == 0) {
+            displayNotify("MensajeSeleccionaZona", "", '1');
+            return false;
+        }
+    }
+    return true; // default to editable
+}
 
 
 function SustituirListaCuadranteGrid(listaCuadrante) {

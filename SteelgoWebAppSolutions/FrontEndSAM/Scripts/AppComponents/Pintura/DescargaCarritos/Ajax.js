@@ -55,7 +55,7 @@ function ajaxGuardar(data,tipoGuardado,liberar) {
     ListaDetalles = [];
     var cerrarCarro = 1;//es uno porque por default son carros cerrados.
     var i = 0;
-
+    tipoGuardado = liberar ? 1 : 0;// esto es por si el usuario selecciono liberar entonces se entiende que se abre el carro entonces es como si presionara guardar y nuevo.
     for (var index = 0 ; index < data.length; index++) {
         $("#grid").data("kendoGrid").dataSource._data[index].RowOk = true;
 
@@ -87,9 +87,17 @@ function ajaxGuardar(data,tipoGuardado,liberar) {
     }
     //es para liberar el carro, si ya no tiene spools entonces se libera el carro.
     if (liberar) {
+        //if (estaCarroCompletamenteDescargado)
+            cerrarCarro = 0
+    }
+    else {
         if (estaCarroCompletamenteDescargado)
             cerrarCarro = 0
     }
+
+  
+        
+
     Captura[0].Detalles = ListaDetalles;
     if (ListaDetalles.length > 0) {
         if (!ExistRowErrors(data)) {
@@ -159,6 +167,9 @@ function ajaxEjecutarGuardado(captura, tipoGuardado, cerrarCarro)
 
         if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
             displayNotify("MensajeGuardadoExistoso", "", '0');
+
+            if (cerrarCarro == 0)
+                displayNotify("PinturaDescargaCarroStatusAbierto", "", '1');
 
             if (tipoGuardado == 1) {
                 Limpiar();
