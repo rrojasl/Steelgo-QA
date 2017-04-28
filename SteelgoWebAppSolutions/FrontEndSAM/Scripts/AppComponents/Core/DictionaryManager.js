@@ -8212,7 +8212,12 @@ _dictionary = {
         "es-MX": "Dashboard PND",
         "en-US": "Dashboard PND"
     },
-    "menuPintura": {
+    
+    "PinturaIngresaCodigoValido": {
+        "es-MX": "Ingresa un codigo valido",
+        "en-US": "Enter a valid code"
+    },
+        "menuPintura": {
         "es-MX": "Pintura",
         "en-US": "Paint"
     },
