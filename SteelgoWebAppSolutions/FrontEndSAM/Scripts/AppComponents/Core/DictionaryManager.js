@@ -8759,7 +8759,7 @@ _dictionary = {
     },
     "columnOkPND": {
         "es-MX": "OK PND",
-        "en-US": "PND OK"
+        "en-US": "OK PND"
     },
     "columnOkPintura": {
         "es-MX": "OK Pintura",
@@ -9977,10 +9977,21 @@ _dictionary = {
         "en-US": "Save PND OK"
     },
     "ErrorColumnaNoEsNumero": {
-        "es-MX": "Algún Registro de la columna OKPND no es un Número",
-        "en-US": "Some Record of the OKPND column is not a Number."
+        "es-MX": "Algún registro de la columna OKPND no es un Número Válido, debe ser 0 ó 1",
+        "en-US": "Some record of the OKPND column is not a valid Number, it must be 0 or 1. "
     },
-
+    "ErrorColumnaTieneLetras": {
+        "es-MX": "Algún Registro de la columna OKPND no es un Número, Porfavor Verifique.",
+        "en-US": "Some record of the OKPND column is not a number, check please."
+    },
+    "ErrorColumnaTieneRegistroVacio": {
+        "es-MX": "Algún registro del template tiene alguna fila vacía, porfavor verifique.",
+        "en-US": "Some record of the template has some empty row, please check."
+    },
+    "ErrorNoDatosOtroProyecto": {
+        "es-MX": "El spool no pertenece al proyecto seleccionado ó No hay datos para mostrar.",
+        "en-US": "Spool does not belong to selected project or no data to display."
+    },
     //Finaliza Pantalla OKPND
 
     // Pantalla Entrega Placas-Graficas

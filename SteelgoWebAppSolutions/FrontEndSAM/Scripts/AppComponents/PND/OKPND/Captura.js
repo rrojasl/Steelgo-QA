@@ -6,32 +6,24 @@ function IniciarCaptura() {
 
 function changeLanguageCall() {    
     CargarGrid();
-    CargarGridPopUp();
-    //$("#Proyecto").data("kendoComboBox").value("");
-    //$("#Proyecto").data("kendoComboBox").enable(true);
-    //$('#grid').data('kendoGrid').dataSource.read();
-
+    CargarGridPopUp();    
     document.title = _dictionary.menuOKPND[$("#language").data("kendoDropDownList").value()];
     AjaxGetListaProyectos();
-    AjaxCargarCamposPredeterminados();
-    //setTimeout(function () { AjaxGetListaProyectos() }, 500);
-    //setTimeout(function () { AjaxCargarCamposPredeterminados() }, 500);        
+    AjaxCargarCamposPredeterminados();    
 };
 
 function FiltroMostrar(mostrar) {
     var ds = $("#grid").data("kendoGrid").dataSource;
-
-    if (mostrar == 1) {
-        var curr_filters = ds.filter().filters;
+    if (mostrar == 1) {        
+        //var curr_filters = ds.filter().filters;
+        var curr_filters = ds.filter();        
         if (curr_filters.length != 0)
             ds.filter().filters = [];
         ds.sync();
     }
     else {
         var filters = ds.filter();
-        filters.logic = "or"
-
-        //filters.filters.push({ field: "OKPNDID", operator: "eq", value: 0 });
+        filters.logic = "or"        
         filters.filters.push({ field: "OK", operator: "eq", value: 0 });
         ds.sync();
     }
@@ -55,7 +47,8 @@ function CargarGrid() {
                 model: {
                     fields: {                        
                         //OKPNDID: { type: "int", editable: false },
-                        SpoolWorkStatus: { type: "int", editable: false },
+                        //SpoolWorkStatus: { type: "int", editable: false },
+                        SpoolWorkStatusID: { type: "int", editable: false },
                         NumeroControl: { type: "string", editable: false },
                         Cuadrante: { type: "string", editable: false },
                         Prioridad: { type: "number", editable: false },
@@ -179,7 +172,7 @@ function CargarGrid() {
         columns: [
             { field: "NumeroControl", title: _dictionary.columnNumeroControl[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px" },
             {
-                field: "OkPND", title: _dictionary.columnOkPND[$("#language").data("kendoDropDownList").value()], filterable: {
+                field: "OkPND", title: _dictionary.columnOkPND[$("#language").data("kendoDropDownList").value()], filterable: {                
                     multi: true,
                     messages: {
                         isTrue: _dictionary.lblVerdadero[$("#language").data("kendoDropDownList").value()],
@@ -201,6 +194,16 @@ function existenCambios(arregloCaptura) {
             return true;
     }
     return false;
+}
+
+function existeCambioOK(dataSource) {
+    var Check = false;
+    var hasDirtyRow = $.grep(dataSource.view(), function (e) { return e.dirty === true; });
+    if (hasDirtyRow.length != 0) {
+        displayNotify("", "Hay Cambios", "1");
+        Check = true;
+    }
+    return Check;
 }
 
 function aplicarPlanchado(arregloCaptura, value) {
@@ -320,12 +323,12 @@ function VentanaModal() {
 
 };
 
-function existenCambios(arregloCaptura) {
-    for (index = 0; index < arregloCaptura.length; index++) {
-        if (arregloCaptura[index].OkPND == true && arregloCaptura[index].OKPNDID == 0)
-            return true;
-        else if (arregloCaptura[index].OkPND == false && arregloCaptura[index].OKPNDID != 0)
-            return true;
-    }
-    return false;
-}
+//function existenCambios(arregloCaptura) {
+//    for (index = 0; index < arregloCaptura.length; index++) {
+//        if (arregloCaptura[index].OkPND == true && arregloCaptura[index].OKPNDID == 0)
+//            return true;
+//        else if (arregloCaptura[index].OkPND == false && arregloCaptura[index].OKPNDID != 0)
+//            return true;
+//    }
+//    return false;
+//}

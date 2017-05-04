@@ -1,11 +1,13 @@
 ﻿using BackEndSAM.Models.Sam3General.OK;
 using BackEndSAM.Utilities.ConvertirDataTable;
 using DatabaseManager.Constantes;
+using DatabaseManager.Sam2;
 using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Web;
 using System.Web.Script.Serialization;
@@ -31,6 +33,28 @@ namespace BackEndSAM.DataAcces.Sam3General.OK
             }
         }
 
+        public object ObtenerNumeroElementosOK(int? ProyectoID, string NumControl, int? Muestra)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {                    
+                    ObjectResult<int?> elementos = ctx.Sam3_Steelgo_OK_GET_NumeroElementosOK(ProyectoID, NumControl, Muestra);                    
+                    var valor = elementos.Where(x => x.HasValue).Select(x => x.Value).ToList()[0];
+                    return valor;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+                return result;
+            }
+        }
+
         public object ObtenerListaElementos(string Lenguaje, int ProyectoID, string NumControl, int Muestra, int OPC)
         {
             try
@@ -40,20 +64,21 @@ namespace BackEndSAM.DataAcces.Sam3General.OK
                     List<ElementosOK> ListaElementos = new List<ElementosOK>();
                     List<Sam3_Steelgo_OK_GET_ElementosOK_Result> ListaElementosOK = ctx.Sam3_Steelgo_OK_GET_ElementosOK(Lenguaje, ProyectoID, NumControl, Muestra, OPC).ToList();
                     foreach (Sam3_Steelgo_OK_GET_ElementosOK_Result item in ListaElementosOK)                    
-                    {
+                    {                        
                         ListaElementos.Add(new ElementosOK
                         {
-                            SpoolWorkStatusID = item.SpoolWorkStatusID.GetValueOrDefault(),
+                            SpoolWorkStatusID = item.SpoolWorkStatusID,
                             NumeroControl = item.NumeroControl,
                             Cuadrante = item.Cuadrante,
                             Prioridad = item.Prioridad.GetValueOrDefault(),
                             ProyectoID = item.ProyectoID,
                             SpoolID = item.SpoolID,
                             OrdenTrabajoSpoolID = item.OrdenTrabajoSpoolID,
-                            OK = item.OkPND.GetValueOrDefault(),
+                            OK = item.OkPND.Value,
+                            Coincide = Convert.ToInt32(item.Coincide),
                             //ListaDetalle = ObtenerDetallesElementosOK(Lenguaje, item.SpoolID),
                             Detalle = Lenguaje == "es-MX" ? "Ver Detalle" : "See Details"
-                        });
+                        });                        
                     }
                     return ListaElementos;
                 }
@@ -79,7 +104,7 @@ namespace BackEndSAM.DataAcces.Sam3General.OK
                     List<Detalle> ListaDetalles = new List<Detalle>();                    
                     List<Sam3_Steelgo_OK_GET_DetallesElementosOK_Result> ListaDetallesOK = ctx.Sam3_Steelgo_OK_GET_DetallesElementosOK(SpoolID).ToList();
                     foreach (Sam3_Steelgo_OK_GET_DetallesElementosOK_Result item in ListaDetallesOK)
-                    {
+                    {                                                
                         ListaDetalles.Add(new Detalle {
                             JuntaSpoolID = item.JuntaSpoolID,
                             Etiqueta = item.Etiqueta,
