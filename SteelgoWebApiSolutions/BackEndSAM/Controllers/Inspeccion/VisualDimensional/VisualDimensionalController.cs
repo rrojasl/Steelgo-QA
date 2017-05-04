@@ -96,7 +96,7 @@ namespace BackEndSAM.Controllers.Inspeccion.VisualDimensional
 
                     listaDetalleDatos.Add(detalleDatos);
                 }
-                return serializer.Serialize(listaDetalleDatos.OrderBy(x => int.Parse(x.Junta)));
+                return serializer.Serialize(listaDetalleDatos.OrderBy(x => x.Junta));
             }
             else
             {

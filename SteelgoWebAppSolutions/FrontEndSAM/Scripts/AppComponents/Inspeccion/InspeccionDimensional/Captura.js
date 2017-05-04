@@ -491,10 +491,10 @@ function PlanchadoResultadoDimensional() {
         var data = query.filter(filters).data;
 
         for (var i = 0; i < data.length; i++) {
-            if ($('input:radio[name=LLena]:checked').val() === "Todos") {
+            if ($('input:radio[name=LLena]:checked').val() === "Todos" && $('input:radio[name=ResultadoDimensional]:checked').val() != "Ninguno") {
                 data[i].ResultadoID = $('input:radio[name=ResultadoDimensional]:checked').val() == "Aprobado" ? 1 : 2;
                 data[i].Resultado = $('input:radio[name=ResultadoDimensional]:checked').val();
-                if ($("#inputDefecto").data("kendoComboBox").text() != "" || $('input:radio[name=ResultadoDimensional]:checked').val() == "Aprobado") {
+                if ($("#inputDefecto").data("kendoComboBox").text() != "" || $('input:radio[name=ResultadoDimensional]:checked').val() == "Aprobado" ) {
                     data[i].DefectosID = $("#inputDefecto").data("kendoComboBox").text() == "" ? "" : $("#inputDefecto").val();
                     data[i].Defectos = $("#inputDefecto").data("kendoComboBox").text();
                     data[i].ListaJuntasSeleccionadas = [];
@@ -508,7 +508,7 @@ function PlanchadoResultadoDimensional() {
 
             }
             else {
-                if (data[i].Resultado == "" || data[i].Resultado == null || data[i].Resultado == undefined) {
+                if ((data[i].Resultado == "" || data[i].Resultado == null || data[i].Resultado == undefined) && $('input:radio[name=ResultadoDimensional]:checked').val() != "Ninguno") {
                     data[i].ResultadoID = $('input:radio[name=ResultadoDimensional]:checked').val() == "Aprobado" ? 1 : 2;
                     data[i].Resultado = $('input:radio[name=ResultadoDimensional]:checked').val();
                     if ($("#inputDefecto").val() != "") {

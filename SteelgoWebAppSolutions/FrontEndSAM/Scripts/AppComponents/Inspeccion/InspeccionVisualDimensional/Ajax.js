@@ -201,10 +201,17 @@ function ajaxCargaCamposPredeterminados() {
 
         }
         else if (data == "Rechazado") {
-            $('input:radio[name=ResultadoVisual]:nth(0)').attr('checked', false);
-            //$('input:radio[name=ResultadoVisual]:nth(1)').trigger("click");
+            //$('input:radio[name=ResultadoVisual]:nth(0)').attr('checked', false);
+            $('input:radio[name=ResultadoVisual]:nth(1)').trigger("click");
             $("input:radio[name=ResultadoVisual]:checked").change();
         }
+        else if (data == "Ninguno") {
+            $('input:radio[name=ResultadoVisual]:nth(0)').attr('checked', false);
+            $('input:radio[name=ResultadoVisual]:nth(1)').attr('checked', false);
+            $('input:radio[name=ResultadoVisual]:nth(2)').trigger("click");
+            $("input:radio[name=ResultadoVisual]:checked").change();
+        }
+
     });
     $CamposPredeterminados.CamposPredeterminados.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), id: CampoLlenadoPredeterminada }).done(function (data) {
         if (data == "Todos") {

@@ -4,7 +4,7 @@
     SuscribirEventoInspector();
     SuscribirEventoDefecto();
     SuscribirEventoResultadoDimensional();
-    suscribirEventoAgregar();
+    //suscribirEventoAgregar();
     suscribirEventoGuardar();
     suscribirEventoCancelar();
     SuscribirEventoResultadoVisual();
@@ -139,11 +139,12 @@ function SuscribirEventoSpoolID() {
                     ventanaConfirmCambiarCaptura.open().center();
                 }
                 else {
-                    if ($("#InputID").val() != '' && $("#InputOrdenTrabajo").val() != '') {
-                        
+                    if ($("#InputID").val() != "0" && $("#InputID").val() != "" && $("#InputOrdenTrabajo").val() != '') {
+                        ajaxobtenerDetalleDimensional($("#InputID").val());
+                        ajaxObtenerJSonGrid();
+                        ajaxObtenerListaTaller();
                         Cookies.set("Proyecto", dataItem.ProyectoID + '°' + dataItem.Proyecto);
-                    }
-                    ajaxObtenerListaTaller();
+                    }                    
                 }
             }
 
@@ -164,14 +165,17 @@ function SuscribirEventoSpoolID() {
             if ($("#InputID").val() != "" && $("#InputOrdenTrabajo").val()) {
                 if ($("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()).IDValido != "" && $("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()) != undefined) {
                     e.preventDefault();
+                    ordentrabajoSpoolID = $("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select());
+
                     if (!esSpoolMismoCaptura()) {
                         ventanaConfirmCambiarCaptura.open().center();
                     }
                     else {
-
-                        if ($("#InputID").val() != "" && $("#InputOrdenTrabajo").val()) {
-                            ajaxobtenerDetalleDimensional($("#InputID").val());
+                        if ($("#InputID").val() != "0" && $("#InputID").val() != "" && $("#InputOrdenTrabajo").val() != '') {
+                            ajaxobtenerDetalleDimensional($("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()).Valor);
                             ajaxObtenerJSonGrid();
+                            ajaxObtenerListaTaller();
+                            Cookies.set("Proyecto", $("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()).ProyectoID + '°' + $("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()).Proyecto);
                         }
                     }
                 }
@@ -425,24 +429,28 @@ function SuscribirEventoResultadoVisual() {
         $("#inputDefectosVisual").data("kendoComboBox").enable(true);
         $("#inputDefectosVisual").data("kendoComboBox").value("");
     });
+    $('input:radio[name=ResultadoVisual]:nth(2)').change(function () {
+        $("#inputDefectosVisual").data("kendoComboBox").enable(false);
+        $("#inputDefectosVisual").data("kendoComboBox").value("");
+    });
 };
 
-function suscribirEventoAgregar() {
-    $('#btnAgregar').click(function (e) {
-        e.preventDefault();
-        if (!esSpoolMismoCaptura()) {
-            ventanaConfirmCambiarCaptura.open().center();
-        }
-        else {
-            if ($("#InputID").val() != "0" && $("#InputID").val() != "" && $("#InputOrdenTrabajo").val()) {
-                //ajaxobtenerDetalleDimensional($("#InputID").val());
-                ajaxobtenerDetalleDimensional($("#InputID").val());
-                ajaxObtenerJSonGrid();
-                //deshabilitaSpool();
-            }
-        }
-    });
-}
+//function suscribirEventoAgregar() {
+//    $('#btnAgregar').click(function (e) {
+//        e.preventDefault();
+//        if (!esSpoolMismoCaptura()) {
+//            ventanaConfirmCambiarCaptura.open().center();
+//        }
+//        else {
+//            if ($("#InputID").val() != "0" && $("#InputID").val() != "" && $("#InputOrdenTrabajo").val()) {
+//                //ajaxobtenerDetalleDimensional($("#InputID").val());
+//                ajaxobtenerDetalleDimensional($("#InputID").val());
+//                ajaxObtenerJSonGrid();
+//                //deshabilitaSpool();
+//            }
+//        }
+//    });
+//}
 function SuscribirEventoEliminar(idtable) {
     $("#" + idtable + " .deleteRow").on("click", function () {
         var td = $(this).parent();

@@ -40,8 +40,8 @@ function AjaxCargaCamposPredetrminados() {
                 $('input#ResultadoDimensionalRechazado[name="ResultadoDimensional"]').click();
 
             }
-            else {
-                $('input#ResultadoDimensionalAprobado[name="ResultadoDimensional"]').click();
+            else if (data.Resultado == "Ninguno") {
+                $('input#ResultadoDimensionalNinguno[name="ResultadoDimensional"]').click();
             }
 
             if (data.Llena == "Todos") {
@@ -377,8 +377,9 @@ function AjaxGuardar(jSonCaptura, tipoGuardado) {
                     }
                     else {
                         displayNotify("CapturaMensajeGuardadoErroneo", "", '2');
+                        loadingStop();
                     }
-                    loadingStop();
+                   
                 }
             });
            
@@ -484,8 +485,8 @@ function AjaxGetSpoolGrid() {
         var listadogrid = $("#grid").data("kendoGrid").dataSource._data;
         $("#grid").data("kendoGrid").dataSource.data([]);
 
-        for (var i = 0; i < listadogrid.length; i++) {
-            $InspeccionDimensional.InspeccionDimensional.read({ OrdenTrabajoSpoolID: listadogrid[i].OrdenTrabajoSpoolID, OrdenTrabajoSpool: listadogrid[i].OrdenTrabajoSpool, ProyectoID: listadogrid[i].ProyectoID, token: Cookies.get("token"), Lenguaje: $("#language").val() }).done(function (data) {
+        for (var j = 0; j < listadogrid.length; j++) {
+            $InspeccionDimensional.InspeccionDimensional.read({ OrdenTrabajoSpoolID: listadogrid[j].OrdenTrabajoSpoolID, OrdenTrabajoSpool: listadogrid[j].OrdenTrabajoSpool, ProyectoID: listadogrid[j].ProyectoID, token: Cookies.get("token"), Lenguaje: $("#language").val() }).done(function (data) {
                 if (Error(data)) {
                     var ds = $("#grid").data("kendoGrid").dataSource;
                     var array = JSON.parse(data);
@@ -501,8 +502,10 @@ function AjaxGetSpoolGrid() {
                                 //displayNotify('', array[i].OrdenTrabajoSpool, '0');
 
                                 //como trae solo un registro se sincroniza se explica en el punto del comentario 1
-                                $("#grid").data("kendoGrid").dataSource.sync();
-                                $("#InputID").data("kendoComboBox").value("");
+                                if (i < listadogrid.length - 1) {
+                                    $("#grid").data("kendoGrid").dataSource.sync();
+                                    $("#InputID").data("kendoComboBox").value("");
+                                }
                             }
                             else {
                                 //MensajesSteelGO("SpoolIDExistente", '');

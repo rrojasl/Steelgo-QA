@@ -270,6 +270,11 @@ function SuscribirEventoResultadoDimensional() {
         $("#inputDefecto").data("kendoComboBox").value("");
         //PlanchadoResultadoDimensional();
     });
+    $('input:radio[name=ResultadoDimensional]:nth(2)').change(function () {
+        $("#inputDefecto").data("kendoComboBox").enable(false);
+        $("#inputDefecto").data("kendoComboBox").value("");
+        //PlanchadoResultadoDimensional();
+    });
 
 }
 

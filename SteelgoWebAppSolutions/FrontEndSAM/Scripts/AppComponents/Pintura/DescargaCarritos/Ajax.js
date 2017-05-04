@@ -48,14 +48,14 @@ function AjaxCargarCarrosCargadosPorProceso(idProceso) {
     });
 }
 
-function ajaxGuardar(data,tipoGuardado,liberar) {
+function ajaxGuardar(data,tipoGuardado) {
 
     Captura = [];
     Captura[0] = { Detalles: "" };
     ListaDetalles = [];
     var cerrarCarro = 1;//es uno porque por default son carros cerrados.
     var i = 0;
-    tipoGuardado = liberar ? 1 : 0;// esto es por si el usuario selecciono liberar entonces se entiende que se abre el carro entonces es como si presionara guardar y nuevo.
+    //tipoGuardado = liberar ? 1 : 0;// esto es por si el usuario selecciono liberar entonces se entiende que se abre el carro entonces es como si presionara guardar y nuevo.
     for (var index = 0 ; index < data.length; index++) {
         $("#grid").data("kendoGrid").dataSource._data[index].RowOk = true;
 
@@ -86,14 +86,14 @@ function ajaxGuardar(data,tipoGuardado,liberar) {
         }
     }
     //es para liberar el carro, si ya no tiene spools entonces se libera el carro.
-    if (liberar) {
-        //if (estaCarroCompletamenteDescargado)
-            cerrarCarro = 0
-    }
-    else {
+    //if (liberar) {
+    //    //if (estaCarroCompletamenteDescargado)
+    //        cerrarCarro = 0
+    //}
+    //else {
         if (estaCarroCompletamenteDescargado)
             cerrarCarro = 0
-    }
+    //}
 
   
         

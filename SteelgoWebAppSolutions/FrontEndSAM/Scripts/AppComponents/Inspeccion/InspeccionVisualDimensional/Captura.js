@@ -645,7 +645,7 @@ function PlanchadoResultadoVisual() {
         var data = query.filter(filters).data;
 
         for (var i = 0; i < data.length; i++) {
-            if ($('input:radio[name=LLena]:checked').val() === "Todos") {
+            if ($('input:radio[name=LLena]:checked').val() === "Todos" && $('input:radio[name=ResultadoDimensional]:checked').val() != "Ninguno") {
                 data[i].ResultadoID = $('input:radio[name=ResultadoVisual]:checked').val() == "Aprobado" ? 1 : 2;
                 if (data[i].ResultadoID == 1)
                     data[i].Resultado = _dictionary.DimensionalVisualAporbadoVisual[$("#language").data("kendoDropDownList").value()];
@@ -658,7 +658,7 @@ function PlanchadoResultadoVisual() {
                 }
             }
             else {
-                if (data[i].Resultado == "" || data[i].Resultado == null || data[i].Resultado == undefined) {
+                if ((data[i].Resultado == "" || data[i].Resultado == null || data[i].Resultado == undefined)&&  $('input:radio[name=ResultadoDimensional]:checked').val() != "Ninguno") {
                     data[i].ResultadoID = $('input:radio[name=ResultadoVisual]:checked').val() == "Aprobado" ? 1 : 2;
 
                     if (data[i].ResultadoID == 1)
