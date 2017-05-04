@@ -17,6 +17,7 @@ namespace BackEndSAM.Models.Sam3General.OK
             SpoolID = 0;
             OrdenTrabajoSpoolID = 0;
             OK = false;
+            Coincide = 0;
         }
 
         public int SpoolWorkStatusID { get; set; }
@@ -28,10 +29,11 @@ namespace BackEndSAM.Models.Sam3General.OK
         public int ProyectoID { get; set; }
         public int OrdenTrabajoSpoolID { get; set; }
         public bool OK { get; set; }
+        public int Coincide { get; set; }
         //public List<Detalle> ListaDetalle { get; set; }
         public string Detalle { get; set; }
     }
-    
+
     public class Detalle
     {
         public int JuntaSpoolID { get; set; }
@@ -61,7 +63,7 @@ namespace BackEndSAM.Models.Sam3General.OK
         public int SpoolID { get; set; }
         public int OrdenTrabajoSpoolID { get; set; }
         public bool OK { get; set; }
-        
+
     }
 
     public class ListaElementosMasivo
@@ -82,5 +84,5 @@ namespace BackEndSAM.Models.Sam3General.OK
         public string NumeroControl { get; set; }
         public string OK { get; set; }
         public string Actualizado { get; set; }
-    }
+    }  
 }
