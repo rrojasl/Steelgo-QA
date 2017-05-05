@@ -132,6 +132,7 @@ function AjaxObtenerJSonGrid() {
                             }
                             else {
                                 displayNotify("SpoolIDExistente", '', '1');
+                                $("#InputID").data("kendoComboBox").value("");
                             }
                         }
                     }
