@@ -79,15 +79,15 @@ function AjaxCheckNumControl(ProyectoID, NumControl) {
     loadingStart();
     LimpiaFiltro();
     $OK.OK.read({ token: Cookies.get("token"), ProyectoID: ProyectoID, NumControl: NumControl }).done(function (data) {
-        if (Error(data)) {
-            if (data == 1) { //Si Pertenece
+        //if (Error(data)) {
+            if (data === 1) { //Si Pertenece
                 AjaxGetNumeroElementos(ProyectoID, NumControl);
             } else {
                 //No pertenece al proyecto
                 displayNotify("EmbarqueCargaMsjErrorSpoolAgregarProyectoIncorrecto", "", "1");
                 $("#grid").data("kendoGrid").dataSource.data([]);
             }
-        }        
+        //}        
     });
 }
 
