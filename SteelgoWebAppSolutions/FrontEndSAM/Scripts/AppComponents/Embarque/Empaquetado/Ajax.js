@@ -219,6 +219,10 @@ function AjaxObtenerDetalleSpool(tipoConsulta, spoolID, codigo) {
                     displayNotify("SpoolIDExistente", "", '1');
                 }
             }
+            if (data.length == 0 && tipoConsulta == 2) {
+                displayNotify("CapturaSoldaduraNoExisteSpoolID", "", '2');
+            }
+
 
         }
 

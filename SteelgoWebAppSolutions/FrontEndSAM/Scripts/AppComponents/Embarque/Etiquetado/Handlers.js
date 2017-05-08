@@ -154,7 +154,7 @@ function SuscribirEventoCuadrante() {
 
     $('#inputCuadrante').closest('.k-widget').keydown(function (e) {
         if (e.keyCode == 13) {
-            var Todos = 1;
+            var Todos = $('input:radio[name=Muestra]:checked').val() == "Todos" ? 1 : 2;
             var TipoBusqueda = 1;
             var ZonaID = $("#inputZona").data("kendoComboBox").value();
             var Cuadrante = $("#inputCuadrante").data("kendoComboBox").dataItem($("#inputCuadrante").data("kendoComboBox").select());
@@ -241,7 +241,7 @@ function SuscribirEventoMostrar() {
         var ZonaID = 0;
         var CuadranteID = 0;
         var SpoolIDContiene = "";
-        var Todos = 1;
+        var Todos = $('input:radio[name=Muestra]:checked').val() == "Todos" ? 1 : 2;
 
         if (!existenCambios()) {
             if (TipoBusqueda === 1) {
@@ -325,7 +325,7 @@ function SuscribirEventoMostrar() {
     $('#SpoolIDCOntiene').keydown(function (e) {
         if (e.keyCode == 13) {
             if (!existenCambios()) {
-                var todos = 1;
+                var todos = $('input:radio[name=Muestra]:checked').val() == "Todos" ? 1 : 2;
                 var tipoBusqueda = 0;
                 var spoolIDContiene = $('#SpoolIDCOntiene').val();
                 LimpiarCargaSpoolContiene();
@@ -359,7 +359,7 @@ function SuscribirEventoMostrar() {
                 ventanaConfirm.open().center();
 
                 $("#yesButton").click(function (handler) {
-                    var todos = 1;
+                    var todos = $('input:radio[name=Muestra]:checked').val() == "Todos" ? 1 : 2;
                     var tipoBusqueda = 0;
                     var spoolIDContiene = $('#SpoolIDCOntiene').val();
                     LimpiarCargaSpoolContiene();
@@ -617,11 +617,11 @@ function suscribirEventoImprimirTravelerMasivo() {
 
 function SuscribirEventoMostrarDetalle() {
     $('input:radio[name=Muestra]:nth(0)').change(function () {
-        FiltroMostrar(0);
+        //FiltroMostrar(0);
     });
 
     $('input:radio[name=Muestra]:nth(1)').change(function () {
-        FiltroMostrar(1);
+        //FiltroMostrar(1);
     });
 }
 

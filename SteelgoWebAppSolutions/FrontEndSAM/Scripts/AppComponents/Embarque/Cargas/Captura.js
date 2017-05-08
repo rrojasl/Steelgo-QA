@@ -105,7 +105,7 @@ function CargarGrid() {
             { field: "Consecutivo", title: _dictionary.columnConsecutivoEmbarque[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "100px", attributes: { style: "text-align:right;" } },
             { field: "Spool", title: _dictionary.columnSpoolIDEmbarque[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "150px" },
             { field: "Paquete", title: _dictionary.columnPaqueteEmbarque[$("#language").data("kendoDropDownList").value()], template: "<div class='descargarPaquete' style='text-align:center;'><a href='\\#'> <span>#=Paquete#</span></a></div>", filterable: getGridFilterableCellMaftec(), width: "150px" },
-            { field: "Peso", title: _dictionary.columnPeso[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "130px", aggregates: ["sum"], footerTemplate: "<div style='text-align:right;'>SUM: #= kendo.toString(sum, 'n3')#</div>", attributes: { style: "text-align:right;" } },
+            { field: "Peso", title: _dictionary.columnPeso[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "130px", aggregates: ["sum"], footerTemplate: "<div style='text-align:right;'>SUM: #= kendo.toString(sum, 'n')#</div>", attributes: { style: "text-align:right;" } },
             { command: { text: _dictionary.botonDescarga[$("#language").data("kendoDropDownList").value()], click: DescargarSpool }, title: _dictionary.columnDescargar[$("#language").data("kendoDropDownList").value()], width: "70px", attributes: { style: "text-align:center;" } },
 
         ],
@@ -331,7 +331,7 @@ function ImprimirTotalToneladas(ds) {
 
         totalToneladas = totalToneladas / 1000;
         $("#lblEmbarqueCargaToneladasCargadas").css('text-align', 'right');
-        $("#lblEmbarqueCargaToneladasCargadas").text(totalToneladas != 0 ? kendo.toString(totalToneladas, 'n3') : "");
+        $("#lblEmbarqueCargaToneladasCargadas").text(totalToneladas != 0 ? kendo.toString(totalToneladas, 'n') : "");
     } else {
         $("#lblEmbarqueCargaToneladasCargadas").text("");
     }

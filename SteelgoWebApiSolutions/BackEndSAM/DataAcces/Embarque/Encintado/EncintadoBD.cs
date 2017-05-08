@@ -140,7 +140,7 @@ namespace BackEndSAM.DataAcces.Embarque.Encintado
                         });
                     }
 
-                    return listaDetalle.OrderByDescending(y => y.Encintado);
+                    return listaDetalle.OrderByDescending(y => y.Encintado).Take<DetalleEncintado>(10000);
                 }
             }
             catch (Exception ex)
@@ -206,7 +206,7 @@ namespace BackEndSAM.DataAcces.Embarque.Encintado
                         });
                     }
 
-                    return listaDetalle.OrderByDescending(y => y.Encintado);
+                    return listaDetalle.OrderByDescending(y => y.Encintado).Take<DetalleEncintado>(10000);
                 }
             }
             catch (Exception ex)

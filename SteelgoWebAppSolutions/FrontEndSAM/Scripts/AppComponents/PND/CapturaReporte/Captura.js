@@ -109,19 +109,20 @@ function CargarGrid() {
             { field: "CodigoAsme", title: _dictionary.CapturaReporteGridColumnCodigoAsme[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "120px" },
             { field: "asd", title: "Equipo", filterable: getGridFilterableCellNumberMaftec(), width: "90px", editor: RenderDensidad, format: "{0:n4}", attributes: { style: "text-align:right;" } },
             { field: "Densidad", title: "Turno", filterable: getGridFilterableCellNumberMaftec(), width: "90px", editor: RenderDensidad, format: "{0:n4}", attributes: { style: "text-align:right;" } },
-            { field: "Tipo", title: "Evaluación", filterable: getGridFilterableCellNumberMaftec(), width: "110px", template: "<input style='display:inline-block' type='radio'> <label style='display:inline-block'>Sector</label><br><input style='display:inline-block' type='radio'> <label style='display:inline-block'>Cte</label>", format: "{0:n4}", attributes: { style: "text-align:left;" } },
+            { field: "Tipo", title: "Evaluación", filterable: getGridFilterableCellNumberMaftec(), width: "110px", template: "<input style='display:inline-block' type='radio'> <label style='display:inline-block'>Sector</label><br><input style='display:inline-block' type='radio'> <label style='display:inline-block'>Cte</label>", attributes: { style: "text-align:left;" } },
             { field: "NumeroPlacas", title: _dictionary.CapturaReporteGridColumnNumeroPlacas[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "90px", editor: RenderNumeroPlacas, attributes: { style: "text-align:right;" } },
+            { field: "TemplateDetalleElemento", title: _dictionary.CapturaReporteGridColumnInformacionResultados[$("#language").data("kendoDropDownList").value()], filterable: false, width: "150px"/*, editor: RenderGridDetallePorPlaca*/, template: "<div class='EnlacePorPlaca' style='text-align:center;'><a href='\\#'  > <span>#=TemplateDetalleElemento#</span></a></div> " },
             { field: "Tamano", title: "Resultado", filterable: getGridFilterableCellNumberMaftec(), width: "110px", editor: RenderTamano, format: "{0:n4}", attributes: { style: "text-align:right;" } },
             { field: "ResultadoConciliacion", title: _dictionary.CapturaReporteGridColumnRusult1[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "170px" },
             { field: "RazonNoConciliacion", title: _dictionary.CapturaReporteGridColumnRusult2[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "170px" },
-            { field: "TemplateDetalleElemento", title: _dictionary.CapturaReporteGridColumnInformacionResultados[$("#language").data("kendoDropDownList").value()], filterable: false, width: "150px"/*, editor: RenderGridDetallePorPlaca*/, template: "<div class='EnlacePorPlaca' style='text-align:center;'><a href='\\#'  > <span>#=TemplateDetalleElemento#</span></a></div> " },
+            
 
         ],
 
         editable: true,
         navigatable: true
     });
-    CustomisaGrid($("#grid"));
+    CustomisaGrid($("#grid"));5
 };
 
 function CargarGridPopUpDetallePorPlaca() {

@@ -608,8 +608,15 @@ function SuscribirEventoSpoolID() {
         else if (e.keyCode == 13) {
             if ($('#InputProyecto').data("kendoComboBox").value() != "" && $('#InputProyecto').data("kendoComboBox").value() != "0") {
                 if ($("#InputOrdenTrabajo").val() != "") {
-                    if ($('#InputID').data("kendoComboBox").value() != "") {
+                    if ($("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()) != undefined) {
                         AjaxObtenerDetalleSpool(1, $('#InputID').data("kendoComboBox").value(), null);
+                    }
+                    else {
+                        if ($("#InputID").val() == "") {
+                            displayNotify("CapturaSoldaduraSpoolNoCapturado", "", '1');
+                        } else {
+                            displayNotify("CapturaSoldaduraNoExisteSpoolID", "", '2');
+                        }
                     }
                 }
             } else {

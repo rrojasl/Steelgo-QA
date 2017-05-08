@@ -151,7 +151,7 @@ function SuscribirEventoCuadrante() {
 
     $('#InputCuadrante').closest('.k-widget').keydown(function (e) {
         if (e.keyCode == 13) {
-            var Todos = 1;
+            var Todos = $('input:radio[name=Muestra]:checked').val() == "Todos" ? 1 : 2;
             var TipoBusqueda = 1;
             var ZonaID = $("#InputZona").data("kendoComboBox").value();
             var Cuadrante = $("#InputCuadrante").data("kendoComboBox").dataItem($("#InputCuadrante").data("kendoComboBox").select());
@@ -393,17 +393,17 @@ function SuscribirEventoCambiarVista() {
 
 function SuscribirEventoChangeRadio() {
     $('input:radio[name=Muestra]:nth(0)').change(function () {
-        FiltroMostrar(0);
+        //FiltroMostrar(0);
     });
     $('input:radio[name=Muestra]:nth(1)').change(function () {
-        FiltroMostrar(1);
+        //FiltroMostrar(1);
     });
 }
 
 function SuscribirEventoMostrar() {
     $("#btnMostrar").click(function (e) {
         var TipoBusqueda = $('input:radio[name=TipoBusqueda]:checked').val() == "Zona" ? 1 : 2;
-        var Todos = 1;
+        var Todos = $('input:radio[name=Muestra]:checked').val() == "Todos" ? 1 : 2;
         var ZonaID = 0;
         var CuadranteID = 0;
         var SpoolIDContiene = "";
@@ -490,7 +490,7 @@ function SuscribirEventoMostrar() {
 
     $('#InputSpoolIDCOntiene').keydown(function (e) {
         if (e.keyCode == 13) {
-            var Todos = 1;
+            var Todos = $('input:radio[name=Muestra]:checked').val() == "Todos" ? 1 : 2;
             var TipoBusqueda = 2;
             var SpoolIDContiene = $('#InputSpoolIDCOntiene').val();
 

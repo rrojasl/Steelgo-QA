@@ -344,6 +344,14 @@ function CargarGridPopUp() {
             serverSorting: false
 
         },
+        navigatable: true,
+        filterable: {
+            extra: false
+        },
+        editable: false,
+        autoHeight: true,
+        sortable: true,
+        scrollable: true,
         pageable: {
             refresh: false,
             pageSizes: [10, 25, 50, 100],
@@ -356,11 +364,11 @@ function CargarGridPopUp() {
 
         columns: [
             { field: "NumeroControl", title: _dictionary.columnNumeroControl[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "110px" },
-            { field: "EtiquetaJunta", title: _dictionary.columnJunta[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px", attributes: { style: "text-align:right;" } },
+            { field: "EtiquetaJunta", title: _dictionary.columnJunta[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "60px", attributes: { style: "text-align:right;" } },
             { field: "TipoJunta", title: _dictionary.columnTipoJta[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "122px" },
             { field: "NombreRequisicion", title: _dictionary.columnRequisicion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "145px" },
             { field: "Cuadrante", title: _dictionary.columnCuadrante[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px" },
-            { field: "Prioridad", title: _dictionary.columnPrioridad[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "130px", attributes: { style: "text-align:right;" } },
+            { field: "Prioridad", title: _dictionary.columnPrioridad[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "110px", attributes: { style: "text-align:right;" } },
             { field: "Clasificacion", title: _dictionary.columnClasificacion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px" },
             { field: "Diametro", title: _dictionary.columnDiametro[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "130px", attributes: { style: "text-align:right;" } },
             { field: "Espesor", title: _dictionary.columnEspesor[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "122px", attributes: { style: "text-align:right;" } },
@@ -376,7 +384,7 @@ function CargarGridPopUp() {
                 //    },
                 //    dataSource: [{ Etiquetado: true }, { Etiquetado: false }]
                 //},
-                template: "<input name='fullyPaid' class='ob-paid' type='checkbox'   #= (PermiteSeparar == 0) ? 'hidden=true': '' # />", width: "100px", attributes: { style: "text-align:center;" }
+                template: "<input name='fullyPaid' class='ob-paid' type='checkbox'   #= (PermiteSeparar == 0) ? 'hidden=true': '' # />", width: "100px",minResizableWidth: "0px", attributes: { style: "text-align:center;" }
             },
         ],
         editable: false,

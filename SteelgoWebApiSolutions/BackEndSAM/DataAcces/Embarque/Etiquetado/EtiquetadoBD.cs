@@ -98,7 +98,7 @@ namespace BackEndSAM.DataAcces.Embarque.Etiquetado
                             ListaCuadrantes = listCuadrantes
                         });
                     }
-                    return listaDetalle.OrderByDescending(y => y.Etiquetado);
+                    return listaDetalle.OrderByDescending(y => y.Etiquetado).Take<DetalleEtiquetado>(10000);
                 }
             }
             catch (Exception ex)
@@ -154,7 +154,7 @@ namespace BackEndSAM.DataAcces.Embarque.Etiquetado
                         });
                     }
 
-                    return listaDetalle.OrderByDescending(y => y.Etiquetado);
+                    return listaDetalle.OrderByDescending(y => y.Etiquetado).Take<DetalleEtiquetado>(10000);
                 }
             }
             catch (Exception ex)

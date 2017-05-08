@@ -17,7 +17,7 @@ function SuscribirEventos() {
 
 function suscribirEventoReady() {
     $(document).on('ready', function () {
-        
+
     });
 
 }
@@ -28,6 +28,12 @@ function suscribirEventoJuntas() {
 
         if ($('#botonGuardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
             $("#divSepararRequisicion").css("display", "block");
+
+            //var grid = $("#gridPopUp").data('kendoGrid');
+            //var newOptions = $.extend({}, grid.options);
+            //newOptions.columns[10].width = "100px";
+            //grid.setOptions(newOptions);
+
             $("#gridPopUp").data("kendoGrid").showColumn("Agregar");
             var grid = $("#grid").data("kendoGrid"),
             dataItem = grid.dataItem($(e.target).closest("tr"));
@@ -43,6 +49,12 @@ function suscribirEventoElementosAsignados() {
 
         if ($('#botonGuardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
             $("#divSepararRequisicion").css("display", "none");
+            //var grid = $("#gridPopUp").data('kendoGrid');
+            //var newOptions = $.extend({}, grid.options);
+            //newOptions.columns[10].width = "10px";
+            //grid.setOptions(newOptions);
+
+
             $("#gridPopUp").data("kendoGrid").hideColumn("Agregar");
             var grid = $("#grid").data("kendoGrid"),
             dataItem = grid.dataItem($(e.target).closest("tr"));
@@ -513,7 +525,7 @@ function suscribirEventoSepararRequisicion() {
 
             var modalTitle = "";
             modalTitle = _dictionary.MensajeNuevaRequisicion[$("#language").data("kendoDropDownList").value()];
-            
+
             var ventanaConfirm = $("#ventanaConfirm");
             var window = ventanaConfirm.kendoWindow({
                 modal: true,
@@ -553,7 +565,7 @@ function suscribirEventoSepararRequisicion() {
                                     '<div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">' +
                                         '<center><button class="btn btn-blue" id="YesButton">' + _dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()] + '</button>&nbsp;<button class="btn btn-blue" id="NoButton"> ' + _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()] + '</button></center>' +
                                     '</div>' +
-                                
+
                             '</div>');
 
             ventanaConfirm.data("kendoWindow").title(modalTitle);
