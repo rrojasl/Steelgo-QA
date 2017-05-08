@@ -36,77 +36,86 @@ function AjaxGetListaProyectos() {
     });
 }
 
-function AjaxGetNumeroElementos(ProyectoID, NumControl) {
-    loadingStart();    
-    $OK.OK.read({ token: Cookies.get("token"), ProyectoID: ProyectoID, NumControl: NumControl, Muestra: $('input:radio[name=Muestra]:checked').val() }).done(function (data) {        
-        if (data > 100) {
-            var ventanaConfirmBusqueda = $("#ventanaConfirm").kendoWindow({
-                iframe: true,
-                title: _dictionary.TituloPopupCancelar[$("#language").data("kendoDropDownList").value()],
-                visible: false,
-                width: "45%",
-                height: "auto",
-                draggable: false,
-                actions: [],
-                modal: true,
-                animation: {
-                    close: true,
-                    open: false
-                }
-            }).data("kendoWindow");
+function AjaxGetNumeroElementos(ProyectoID, NumControl) {    
+    $OK.OK.read({ token: Cookies.get("token"), ProyectoID: ProyectoID, NumControl: NumControl, Muestra: $('input:radio[name=Muestra]:checked').val() }).done(function (data) {
+        //if (Error(data)) {            
+            if (data > 100) {
+                var ventanaConfirmBusqueda = $("#ventanaConfirm").kendoWindow({
+                    iframe: true,
+                    title: _dictionary.TituloPopupCancelar[$("#language").data("kendoDropDownList").value()],
+                    visible: false,
+                    width: "45%",
+                    height: "auto",
+                    draggable: false,
+                    actions: [],
+                    modal: true,
+                    animation: {
+                        close: true,
+                        open: false
+                    }
+                }).data("kendoWindow");
 
-            ventanaConfirmBusqueda.content('<center>' + _dictionary.EmbarqueAlertaCantidadRegistros[$("#language").data("kendoDropDownList").value()] + '</center>' +
-                "</br><center><button class='btn btn-blue' id='btnContinuarBusqueda'>" + _dictionary.lblSi[$("#language").data("kendoDropDownList").value()] + "</button> <button class='btn btn-blue' id='btnCancelarBusqueda'>" + _dictionary.lblNo[$("#language").data("kendoDropDownList").value()] + "</button></center>");
+                ventanaConfirmBusqueda.content('<center>' + _dictionary.EmbarqueAlertaCantidadRegistros[$("#language").data("kendoDropDownList").value()] + '</center>' +
+                    "</br><center><button class='btn btn-blue' id='btnContinuarBusqueda'>" + _dictionary.lblSi[$("#language").data("kendoDropDownList").value()] + "</button> <button class='btn btn-blue' id='btnCancelarBusqueda'>" + _dictionary.lblNo[$("#language").data("kendoDropDownList").value()] + "</button></center>");
 
-            ventanaConfirmBusqueda.open().center();
-            $("#btnContinuarBusqueda").click(function (e) {
-                ventanaConfirmBusqueda.close();
-                AjaxGetListaElementos(ProyectoID, NumControl);
-            });
+                ventanaConfirmBusqueda.open().center();
+                $("#btnContinuarBusqueda").click(function (e) {
+                    ventanaConfirmBusqueda.close();
+                    AjaxGetListaElementos(ProyectoID, NumControl);
+                });
 
-            $("#btnCancelarBusqueda").click(function () {
-                ventanaConfirmBusqueda.close();
-                loadingStop();
-            });
-        } else {
-            if (parseInt(data) == 0) {
-                displayNotify("ErrorNoDatosOtroProyecto", "", "1");
-                $("#grid").data("kendoGrid").dataSource.data([]);
-                FiltroMostrar(0);
+                $("#btnCancelarBusqueda").click(function () {
+                    ventanaConfirmBusqueda.close();
+                    loadingStop();
+                });
             } else {
                 AjaxGetListaElementos(ProyectoID, NumControl);
-            }            
-        }
-    });    
+            }
+        //}        
+    });
+}
+
+function AjaxCheckNumControl(ProyectoID, NumControl) {
+    loadingStart();
+    LimpiaFiltro();
+    $OK.OK.read({ token: Cookies.get("token"), ProyectoID: ProyectoID, NumControl: NumControl }).done(function (data) {
+        if (Error(data)) {
+            if (data == 1) { //Si Pertenece
+                AjaxGetNumeroElementos(ProyectoID, NumControl);
+            } else {
+                //No pertenece al proyecto
+                displayNotify("EmbarqueCargaMsjErrorSpoolAgregarProyectoIncorrecto", "", "1");
+                $("#grid").data("kendoGrid").dataSource.data([]);
+            }
+        }        
+    });
 }
 
 function AjaxGetListaElementos(ProyectoID, NumControl) {
     loadingStart();
     SpoolContiene = NumControl;
-    try {
-        $OK.OK.read({ token: Cookies.get("token"), Lenguaje: $("#language").val(), ProyectoID: ProyectoID, NumControl: NumControl, Muestra: $('input:radio[name=Muestra]:checked').val(), OPC: '1' }).done(function (data) {
+    var totalRegistros = 0;    
+    $OK.OK.read({ token: Cookies.get("token"), Lenguaje: $("#language").val(), ProyectoID: ProyectoID, NumControl: NumControl, Muestra: $('input:radio[name=Muestra]:checked').val(), OPC: '1' }).done(function (data) {
+        try{
             $("#grid").data("kendoGrid").dataSource.data([]);
             var dataSource = $("#grid").data("kendoGrid").dataSource;
             if (Error(data)) {
-                $("#InputNumeroControl").val(SpoolContiene.toString().toUpperCase());
-                for (var i = 0; i < data.length; i++) {
-                    if (data[i].Coincide != 0 && data[i].Coincide > 1) {
+                $("#InputNumeroControl").val(SpoolContiene.toString().toUpperCase());                
+                if (data.length > 0) {
+                    for (var i = 0; i < data.length; i++) {
                         dataSource.add(data[i]);
-                    } else {
-                        displayNotify("EmbarqueCargaMsjErrorSpoolAgregarProyectoIncorrecto", "", "1");
-                        dataSource.page(0);
                     }
+                } else {
+                    displayNotify("NODATA", "", "1");
+                    $("#grid").data("kendoGrid").dataSource.data([]);
                 }
-                var mostrar = $('input:radio[name=Muestra]:checked').val();
-                if (mostrar == 'SinCaptura')
-                    FiltroMostrar(0);
-                else FiltroMostrar(1);
+                LimpiaFiltro();
             }
             loadingStop();
-        });
-    } catch (e) {
-        displayNotify("", "Error: " + e.message, "2");
-    }
+        } catch (e) {
+            displayNotify("", "Error: " + e.message, "2");
+        }
+    });
 }
 
 function AjaxGuardarCaptura(arregloCaptura, tipoGuardado) {
@@ -119,7 +128,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardado) {
         ListaCaptura[cont] = {
             //SpoolWorkStatusID: 0,
             SpoolID: 0,
-            OrdenTrabajoSpoolID: 0,            
+            OrdenTrabajoSpoolID: 0,
             OK: 0,
         }
         //ListaCaptura[cont].SpoolWorkStatusID = arregloCaptura[i].SpoolWorkStatusID;
@@ -174,6 +183,7 @@ function AjaxGuardadoMasivo(data) {
         if (Error(data)) {
             download(data, "ResultadoCargaMasiva.csv", "text/csv");
             $("#grid").data("kendoGrid").dataSource.data([]);
+            $("#InputNumeroControl").val("");
             displayNotify("MensajeGuardadoExistoso", "", "0");
             OK = true;
         }
@@ -184,7 +194,7 @@ function AjaxGuardadoMasivo(data) {
 function AjaxObtenerJuntas(SpoolID) {
     try {
         if (SpoolID != undefined || SpoolID != "" || SpoolID != null) {
-            $OK.OK.read({ token: Cookies.get("token"), Lenguaje: $("#language").val(), SpoolID: SpoolID }).done(function (data) {                
+            $OK.OK.read({ token: Cookies.get("token"), Lenguaje: $("#language").val(), SpoolID: SpoolID }).done(function (data) {
                 //LlenarGridPopUp(data.ListaDetalles);
                 if (Error) {
                     LlenarGridPopUp(data);

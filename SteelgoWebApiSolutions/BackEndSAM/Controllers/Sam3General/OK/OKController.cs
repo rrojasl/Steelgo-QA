@@ -20,6 +20,36 @@ namespace BackEndSAM.Controllers.Sam3General.OK
     public class OKController : ApiController
     {
         
+        public object Get(string token, int ProyectoID, string NumControl)
+        {
+            try
+            {
+                string payLoad = "";
+                string newToken = "";
+                bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payLoad, out newToken);
+                if (tokenValido)
+                {
+                    return OKDB.Instance.NumControlExisteEnProyecto(ProyectoID, NumControl);
+                }else
+                {
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add(payLoad);
+                    result.ReturnCode = 401;
+                    result.ReturnStatus = false;
+                    result.IsAuthenicated = false;
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+                return result;
+            }
+        }
         public object Get(string token, int ProyectoID, string NumControl, string Muestra)
         {
             try

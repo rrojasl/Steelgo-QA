@@ -32,16 +32,43 @@ namespace BackEndSAM.DataAcces.Sam3General.OK
                 return _Instance;
             }
         }
-
-        public object ObtenerNumeroElementosOK(int? ProyectoID, string NumControl, int? Muestra)
+        public object NumControlExisteEnProyecto(int ProyectoID, string NumControl)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
-                {                    
-                    ObjectResult<int?> elementos = ctx.Sam3_Steelgo_OK_GET_NumeroElementosOK(ProyectoID, NumControl, Muestra);                    
+                {
+                    //ObjectResult<int?> elementos = ctx.Sam3_Steelgo_OK_GET_NumeroElementosOK(ProyectoID, NumControl, Muestra);
+                    ObjectResult<int?> existe = ctx.Sam3_Steelgo_OK_GET_CheckNumControlExisteEnProyecto(ProyectoID, NumControl);
+                    var list = new List<int?>();
+                    list = (from a in existe select a).ToList();
+                    return list[0].Value;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+                return result;
+            }
+        }
+
+        public object ObtenerNumeroElementosOK(int ProyectoID, string NumControl, int Muestra)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    ObjectResult<int?> elementos = ctx.Sam3_Steelgo_OK_GET_NumeroElementosOK(ProyectoID, NumControl, Muestra);
                     var valor = elementos.Where(x => x.HasValue).Select(x => x.Value).ToList()[0];
                     return valor;
+                    //ObjectResult<int?> elementos = ctx.Sam3_Steelgo_OK_GET_NumeroElementosOK(ProyectoID, NumControl, Muestra);
+                    //var list = new List<int?>();
+                    //list = (from a in elementos select a).ToList();
+                    //return list[0].Value;
                 }
             }
             catch (Exception ex)
@@ -67,15 +94,15 @@ namespace BackEndSAM.DataAcces.Sam3General.OK
                     {                        
                         ListaElementos.Add(new ElementosOK
                         {
-                            SpoolWorkStatusID = item.SpoolWorkStatusID,
+                            SpoolWorkStatusID = item.SpoolWorkStatusID.GetValueOrDefault(),
                             NumeroControl = item.NumeroControl,
                             Cuadrante = item.Cuadrante,
                             Prioridad = item.Prioridad.GetValueOrDefault(),
-                            ProyectoID = item.ProyectoID,
-                            SpoolID = item.SpoolID,
-                            OrdenTrabajoSpoolID = item.OrdenTrabajoSpoolID,
+                            ProyectoID = item.ProyectoID.GetValueOrDefault(),
+                            SpoolID = item.SpoolID.GetValueOrDefault(),
+                            OrdenTrabajoSpoolID = item.OrdenTrabajoSpoolID.GetValueOrDefault(),
                             OK = item.OkPND.Value,
-                            Coincide = Convert.ToInt32(item.Coincide),
+                            //Coincide = Convert.ToInt32(item.Coincide),
                             //ListaDetalle = ObtenerDetallesElementosOK(Lenguaje, item.SpoolID),
                             Detalle = Lenguaje == "es-MX" ? "Ver Detalle" : "See Details"
                         });                        

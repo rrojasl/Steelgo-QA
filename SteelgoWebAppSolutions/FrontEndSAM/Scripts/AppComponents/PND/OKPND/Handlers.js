@@ -116,8 +116,9 @@ function SuscribirEventoBuscar() {
             if ( NumControl === "" || NumControl === undefined) {
                 displayNotify("SPAMensajeIngresaSpool", "", "1");
             } else {
-                if (cambiosCheckOK == 0) {                    
-                    AjaxGetNumeroElementos(proyectoID, NumControl);
+                if (cambiosCheckOK == 0) {
+                    //Verifico si el numero de control pertenece al proyecto
+                    AjaxCheckNumControl(proyectoID, NumControl);                    
                 } else {
                     var ventanaConfirm = $("#ventanaConfirmCaptura").kendoWindow({
                         iframe: true,
@@ -135,8 +136,8 @@ function SuscribirEventoBuscar() {
 
                     ventanaConfirm.open().center();
                     $("#yesButtonProy").click(function () {
-                        ventanaConfirm.close();
-                        AjaxGetNumeroElementos(proyectoID, NumControl);                        
+                        ventanaConfirm.close();                        
+                        AjaxCheckNumControl(proyectoID, NumControl);
                         cambiosCheckOK = 0;
                     });
 
@@ -332,8 +333,8 @@ function suscribirEventoChangeRadio() {
         var NumControl = $("#InputNumeroControl").val();
         
         if (cambiosCheckOK == 0) {
-            if (ds.data().length > 0) {
-                FiltroMostrar(0);
+            if (ds.data().length > 0) {                
+                ActualizaFiltro(0);
             }            
         }
         else {
@@ -372,7 +373,7 @@ function suscribirEventoChangeRadio() {
         
         if (cambiosCheckOK == 0) {
             if (ds.data().length > 0) {
-                FiltroMostrar(1);
+                ActualizaFiltro(1);                
             }            
         }
         else {
@@ -417,8 +418,8 @@ function suscribirEventoNumeroControl() {
                 if (NumControl === "" || NumControl === undefined) {
                     displayNotify("SPAMensajeIngresaSpool", "", "1");
                 } else {
-                    if (cambiosCheckOK == 0) {
-                        AjaxGetNumeroElementos(proyectoID, NumControl);
+                    if (cambiosCheckOK == 0) {                        
+                        AjaxCheckNumControl(proyectoID, NumControl);
                     } else {
                         var ventanaConfirm = $("#ventanaConfirmCaptura").kendoWindow({
                             iframe: true,
@@ -436,8 +437,8 @@ function suscribirEventoNumeroControl() {
 
                         ventanaConfirm.open().center();
                         $("#yesButtonProy").click(function () {
-                            ventanaConfirm.close();
-                            AjaxGetNumeroElementos(proyectoID, NumControl);
+                            ventanaConfirm.close();                            
+                            AjaxCheckNumControl(proyectoID, NumControl);
                             cambiosCheckOK = 0;
                         });
 

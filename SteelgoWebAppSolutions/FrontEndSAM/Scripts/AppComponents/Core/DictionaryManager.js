@@ -9989,8 +9989,12 @@ _dictionary = {
         "en-US": "Some record of the template has some empty row, please check."
     },
     "ErrorNoDatosOtroProyecto": {
-        "es-MX": "El spool no pertenece al proyecto seleccionado ó No hay datos para mostrar.",
-        "en-US": "Spool does not belong to selected project or no data to display."
+        "es-MX": "El spool no pertenece al proyecto seleccionado.",
+        "en-US": "Spool does not belong to selected project."
+    },
+    "NODATA":{
+        "es-MX": "No se han encontrado coincidencias.",
+        "en-US": "No matches found."
     },
     //Finaliza Pantalla OKPND
 

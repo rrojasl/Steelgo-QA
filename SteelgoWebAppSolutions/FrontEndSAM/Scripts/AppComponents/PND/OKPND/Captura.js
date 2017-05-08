@@ -29,6 +29,41 @@ function FiltroMostrar(mostrar) {
     }
 }
 
+function ActualizaFiltro(value) {
+    var newFilter = { field: "OK", operator: "eq", value: value };
+    var dataSource = $("#grid").data("kendoGrid").dataSource;
+    var filters = null;
+    if (dataSource.filter() != null) {
+        filters = dataSource.filter().filters;
+    }
+    if (filters == null) {
+        filters = [newFilter];
+    }
+    else {
+        var isNew = true;
+        var index = 0;
+        for (index = 0; index < filters.length; index++) {
+            if (filters[index].field == "OK") {
+                isNew = false;
+                break;
+            }
+        }
+        if (isNew) {
+            filters.push(newFilter);
+        }
+        else {
+            filters[index] = newFilter;
+        }
+    }
+    dataSource.filter(filters);
+}
+function LimpiaFiltro() {
+    var ds = $("#grid").data("kendoGrid").dataSource;
+    var filters = ds.filter();
+    ds.filter().filters = [];
+    ds.sync();
+}
+
 function CargarGrid() {
     $("#grid").kendoGrid({
         autoBind: true,
@@ -61,8 +96,8 @@ function CargarGrid() {
                 }
             },
             filter: {
-                logic: "or",
-                filters: []
+                logic: "or"//,
+                //filters: []
             },
             pageSize: 10,
             serverPaging: false,
