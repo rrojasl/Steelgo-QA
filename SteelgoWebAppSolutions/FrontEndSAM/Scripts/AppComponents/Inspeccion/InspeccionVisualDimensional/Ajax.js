@@ -235,6 +235,16 @@ function ajaxObtenerSpoolID() {
     try {
         $CapturasRapidas.CapturasRapidas.read({ ordenTrabajo: $("#InputOrdenTrabajo").val(), tipo: '1', token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
             loadingStart();
+
+
+            if (OrdenTrabajoSpoolAnterior == undefined) {
+                OrdenTrabajoSpoolAnterior = data;
+                OrdenTrabajoSpoolActual = data;
+            }
+            else {
+                OrdenTrabajoSpoolActual = data;
+            }
+
             $("#InputOrdenTrabajo").val(data.OrdenTrabajo);
             $("#InputID").data("kendoComboBox").dataSource.data(data.idStatus)
             Cookies.set("LetraProyecto", data.OrdenTrabajo.substring(0, 1), { path: '/' });
@@ -268,12 +278,12 @@ function ajaxobtenerDetalleDimensional(spoolID) {
             endRangeDate.val(data.ListaDetalleDimensional[0].FechaInspeccion);
 
 
-            
 
-            
-            
 
-           
+
+
+
+
             listadoJuntasInicialGlobal = data.ListaDetalleDimensional[0].ListaJuntasSeleccionadas.length > 0 ? data.ListaDetalleDimensional[0].ListaJuntasSeleccionadas : [];
             if (data.ListaDetalleDimensional[0].ListaJuntasSeleccionadas.length > 0) {
                 editado = true;
@@ -403,13 +413,13 @@ function ajaxObtenerJSonGrid() {
                         displayNotify("", _dictionary.DimensionalVisualMensajeJuntasRepetidas[$("#language").data("kendoDropDownList").value()].replace("?1", ExistenJuntasGrid), '2');
                     }
                     if (JuntasAgregadas.length > 0) {
-                        $("#InputID").data("kendoComboBox").value("");
-                        $("#InputID").val("")
+                        //$("#InputID").data("kendoComboBox").value("");
                         displayNotify("", _dictionary.DimensionalVisualMensajeJuntasAgregadas[$("#language").data("kendoDropDownList").value()] + JuntasAgregadas, '0');
                     }
+                    $("#InputID").data("kendoComboBox").value("");//se limpia sin importar si ya existe o no por regla de negocio.
                 }
 
-                
+
 
             }
 
@@ -617,7 +627,7 @@ function ajaxGuardado(jSonCaptura, tipoGuardar) {
     }
     else if (ResultadoDimensional == "Rechazado" && (inspeccionDimensional[0].DefectoID == "" || inspeccionDimensional[0].FechaInspeccion == "" || inspeccionDimensional[0].ObreroID == "" || (tipoDefecto == "NoEspecificarJunta" ? false : (inspeccionDimensional[0].ListaJuntas == undefined || JuntasValidas(inspeccionDimensional[0].ListaJuntas) == 0)))) {
 
-      
+
         existRowEmpty = true;
         $("#FechaInspeccion").css({ 'background-color': '#ffcccc' });
         $("#inputDefecto").data("kendoComboBox").input.css("background-color", "#ffcccc");
@@ -662,7 +672,7 @@ function ajaxGuardado(jSonCaptura, tipoGuardar) {
 
     if (existRowEmpty) {
         //windowTemplate = kendo.template($("#windowTemplate").html());
-        ventanaConfirm = $("#ventanaConfirm").kendoWindow({
+        ventanaConfirmGuardar = $("#ventanaConfirmGuardar").kendoWindow({
             iframe: true,
             title: _dictionary.TituloPopUpError[$("#language").data("kendoDropDownList").value()],
             visible: false, //the window will not appear before its .open method is called
@@ -678,18 +688,18 @@ function ajaxGuardado(jSonCaptura, tipoGuardar) {
         }).data("kendoWindow");
 
 
-        ventanaConfirm.content(_dictionary.MensajeConfirmacionGuardadoGeneral[$("#language").data("kendoDropDownList").value()] +
-                "</br><center><button class='btn btn-blue' id='yesButton'>" + _dictionary.EntregaPlacasGraficasbotonSi[$("#language").data("kendoDropDownList").value()] + "</button><button class='btn btn-blue' id='noButton'> " + _dictionary.EntregaPlacasGraficasbotonNo[$("#language").data("kendoDropDownList").value()] + "</button></center>");
+        ventanaConfirmGuardar.content(_dictionary.MensajeConfirmacionGuardadoGeneral[$("#language").data("kendoDropDownList").value()] +
+                "</br><center><button class='btn btn-blue' id='yesButtonConfirGuardar'>" + _dictionary.EntregaPlacasGraficasbotonSi[$("#language").data("kendoDropDownList").value()] + "</button><button class='btn btn-blue' id='noButtonConfirGuardar'> " + _dictionary.EntregaPlacasGraficasbotonNo[$("#language").data("kendoDropDownList").value()] + "</button></center>");
 
-        ventanaConfirm.open().center();
+        ventanaConfirmGuardar.open().center();
 
-        $("#yesButton").click(function () {
+        $("#yesButtonConfirGuardar").click(function () {
             ejecutaGuardado(Captura, capturaSinDimensional, capturaSinVisual, tipoGuardar);
-            ventanaConfirm.close();
+            ventanaConfirmGuardar.close();
         });
 
-        $("#noButton").click(function () {
-            ventanaConfirm.close();
+        $("#noButtonConfirGuardar").click(function () {
+            ventanaConfirmGuardar.close();
             //opcionHabilitarView(false, "FieldSetView");
         });
     }

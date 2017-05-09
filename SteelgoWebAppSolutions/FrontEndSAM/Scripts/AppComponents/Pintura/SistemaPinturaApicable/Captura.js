@@ -173,14 +173,19 @@ function eliminaCaptura(e) {
     if ($('#Guardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
         e.preventDefault();
         var itemToClean = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
-        itemToClean.SistemaPinturaColorID = 0;
-        itemToClean.SistemaPinturaID = 0
-        itemToClean.SistemaPintura = "";
-        itemToClean.ColorPinturaID = 0;
-        itemToClean.Color = "";
+        if (itemToClean.AsignadoSpool) {
+            displayNotify("", _dictionary.PinturaSpoolCargadoEnCarro[$("#language").data("kendoDropDownList").value()].replace('?', itemToClean.NombreCarro), '1');
+        }
+        else {
+            itemToClean.SistemaPinturaColorID = 0;
+            itemToClean.SistemaPinturaID = 0
+            itemToClean.SistemaPintura = "";
+            itemToClean.ColorPinturaID = 0;
+            itemToClean.Color = "";
 
-        var dataSource = $("#grid").data("kendoGrid").dataSource;
-        dataSource.sync();
+            var dataSource = $("#grid").data("kendoGrid").dataSource;
+            dataSource.sync();
+        }
     }
 }
 
@@ -204,8 +209,10 @@ function PlanchadoSistemaPintura(tipoLlenado) {
     var data = query.filter(filters).data;
     var itemColor = $("#inputColorPintura").data("kendoComboBox").dataItem($("#inputColorPintura").data("kendoComboBox").select());
 
+    
+
     for (var i = 0; i < data.length; i++) {
-        if (tipoLlenado === "Todos") {
+        if (tipoLlenado === "Todos" && !data[i].AsignadoSpool) {
             data[i].SistemaPintura = itemSistemaPintura.Nombre;
             data[i].SistemaPinturaID = itemSistemaPintura.SistemaPinturaID;
             data[i].NoPintable = itemSistemaPintura.NoPintable;
@@ -223,7 +230,7 @@ function PlanchadoSistemaPintura(tipoLlenado) {
                 data[i].SistemaPinturaColorID = itemColor.SistemaPinturaColorID;
             }
         }
-        else if (tipoLlenado === "Vacios") {
+        else if (tipoLlenado === "Vacios" && !data[i].AsignadoSpool) {
             if (data[i].SistemaPintura === "" || data[i].SistemaPintura === null || data[i].SistemaPintura === undefined) {
                 data[i].SistemaPintura = itemSistemaPintura.Nombre;
                 data[i].SistemaPinturaID = itemSistemaPintura.SistemaPinturaID;

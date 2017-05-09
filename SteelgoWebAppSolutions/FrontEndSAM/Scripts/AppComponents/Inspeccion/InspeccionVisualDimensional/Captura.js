@@ -11,8 +11,23 @@ var esNormal;
 var ordentrabajoSpoolID = 0;
 var ObjetoCapturaCliente=[];
 var OrdenTrabajoAnterior;
+var ventanaConfirmGuardar;
+var OrdenTrabajoSpoolAnterior;
+var OrdenTrabajoSpoolActual;
 
 IniciarCapturaInspecion();
+
+function EjecutarCambioElemento(dataItem) {
+    spooolAnterior = dataItem;
+    OrdenTrabajoAnterior = $("#InputOrdenTrabajo").val();
+
+    if (dataItem.Valor != "0" && dataItem.Valor != "" && $("#InputOrdenTrabajo").val() != '') {
+        ajaxobtenerDetalleDimensional(dataItem.Valor);
+        ajaxObtenerJSonGrid();
+        ajaxObtenerListaTaller();
+        Cookies.set("Proyecto", dataItem.ProyectoID + '°' + dataItem.Proyecto);
+    }
+}
 
 function esSpoolMismoCaptura()
 {
@@ -326,8 +341,7 @@ function ArregloListadoCaptura() {
     ObjetoCapturaCliente[0].InspectorID = $("#inputInspector").val();
     ObjetoCapturaCliente[0].Inspector = $("#inputInspector").data("kendoComboBox").text();
 
-    spooolAnterior = $("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select())
-    OrdenTrabajoAnterior = $("#InputOrdenTrabajo").val();
+   
     return ObjetoCapturaCliente[0];
 };
 function AplicarAsignacionAutomaticaNumeroUnico(rowitem, textoAnterior, comboboxItemSeleccionado, posicionSiguiente, jsonGridArmado, cantidadItems) {

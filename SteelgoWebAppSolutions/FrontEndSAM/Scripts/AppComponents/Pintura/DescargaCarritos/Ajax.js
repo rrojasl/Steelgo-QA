@@ -1,5 +1,5 @@
 ﻿function AjaxCargarCamposPredeterminados() {
-    $CamposPredeterminados.CamposPredeterminados.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), id: 5075 }).done(function (data) {
+    $CamposPredeterminados.CamposPredeterminados.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), id: 3076 }).done(function (data) {
         if (data == "Todos") {
             $('input:radio[name=LLena]:nth(1)').trigger("click");
         }

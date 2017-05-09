@@ -362,7 +362,7 @@ function AjaxGuardarAvanceCarro(arregloCaptura, guardarYNuevo) {
             ListaDetallesObrerosSeleccionados[j].ProcesoPinturaID = $('input:radio[name=ProcesoPintura]:checked').val();
         }
 
-        var ListaDetallesObrerosSeleccionados = [];
+        
         var existeObrero = false;
         for (var k = 0 ; k < arregloCaptura[index].ListaObrerosGuargados.length; k++) {
             for (var j = 0 ; j < arregloCaptura[index].ListaObrerosSeleccionados.length; j++) {
@@ -371,13 +371,14 @@ function AjaxGuardarAvanceCarro(arregloCaptura, guardarYNuevo) {
                     existeObrero = true;
                 }
             }
-            if (!existeObrero)
+            if (existeObrero)
             {
                 ListaDetallesObrerosSeleccionados[j] = { Accion: "", SpoolID: "", ObreroId: 0, ProcesoPinturaID: 0 };
                 ListaDetallesObrerosSeleccionados[j].Accion = 3;// se pone tres porque ya se borra.
-                ListaDetallesObrerosSeleccionados[j].SpoolID = arregloCaptura[index].ListaObrerosGuargados[k].SpoolID;
+                ListaDetallesObrerosSeleccionados[j].SpoolID = arregloCaptura[index].SpoolID;
                 ListaDetallesObrerosSeleccionados[j].ObreroId = arregloCaptura[index].ListaObrerosGuargados[k].ObreroID;
-                ListaDetallesObrerosSeleccionados[j].ProcesoPinturaID = arregloCaptura[index].ListaObrerosGuargados[k].ProcesoPinturaID;
+                ListaDetallesObrerosSeleccionados[j].ProcesoPinturaID = $('input:radio[name=ProcesoPintura]:checked').val();
+                existeObrero = false;
             }
         }
 
