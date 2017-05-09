@@ -96,8 +96,8 @@ function CargarGrid() {
                 }
             },
             filter: {
-                logic: "or"//,
-                //filters: []
+                logic: "or",
+                filters: []
             },
             pageSize: 10,
             serverPaging: false,
@@ -247,9 +247,8 @@ function aplicarPlanchado(arregloCaptura, value) {
     var allData = dataSource.data();
     var query = new kendo.data.Query(allData);
     var data = query.filter(filters).data;
-
     for (index = 0; index < data.length; index++) {
-        data[index].OkPND = value;
+        data[index].OK = value;
     }
 }
 

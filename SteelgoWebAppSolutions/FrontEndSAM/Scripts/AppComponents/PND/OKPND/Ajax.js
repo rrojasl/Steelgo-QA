@@ -150,11 +150,12 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardado) {
                             if (tipoGuardado == 1) {
                                 Limpiar();
                                 opcionHabilitarView(false, "FieldSetView");
+                                $("#Proyecto").data("kendoComboBox").value("");                                
                             }
-                            else {
-                                $('input[name="Muestra"][value="Todos"]').prop('checked', true);
+                            else {                                
+                                //$('input[name="Muestra"][value="Todos"]').prop('checked', true);
                                 AjaxGetListaElementos($("#Proyecto").data("kendoComboBox").value(), $("#InputNumeroControl").val(), $('input:radio[name=Muestra]:checked').val());
-                                opcionHabilitarView(true, "FieldSetView");
+                                opcionHabilitarView(true, "FieldSetView");                                
                             }
 
                             displayNotify("MensajeGuardadoExistoso", "", "0");

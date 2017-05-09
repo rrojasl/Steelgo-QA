@@ -36,6 +36,7 @@ function suscribirEventoGuardar() {
         var ds = $("#grid").data("kendoGrid").dataSource;
         if ($('#BotonGuardar').text() == "Guardar") {
             AjaxGuardarCaptura(ds._data, 1);
+            cambiosCheckOK = 0;
         }
         else if ($('#BotonGuardar').text() == "Editar")
             AjaxGuardarCaptura(ds._data, 1);
@@ -155,17 +156,16 @@ function SuscribirEventoAplicar() {
     $('#ButtonPlanchar').click(function (e) {        
         var Check = $("#InputSeleccionTodos")[0].checked;
         var ds = $("#grid").data("kendoGrid").dataSource;
-        if (ds.length > 0) {
+        if (ds.data().length > 0) {
             aplicarPlanchado(ds._data, Check);
             ds.sync();
         } else {
-            displayNotify("PinturaCargaBackLogMensajeSeleccionaSpool", "", "1");
-            return;
+            displayNotify("PinturaCargaBackLogMensajeSeleccionaSpool", "", "1");            
         }
     });
 };
 
-function Limpiar() {
+function Limpiar() {    
     $("#InputNumeroControl").val("");    
     $("#grid").data('kendoGrid').dataSource.data([]);
 }
@@ -373,7 +373,8 @@ function suscribirEventoChangeRadio() {
         
         if (cambiosCheckOK == 0) {
             if (ds.data().length > 0) {
-                ActualizaFiltro(1);                
+                LimpiaFiltro();
+                //ActualizaFiltro(1);                
             }            
         }
         else {
