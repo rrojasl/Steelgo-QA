@@ -235,6 +235,7 @@ function suscribirEventoCarGaCSV() {
                             if (newData != undefined) {
                                 if (newData.length > 0) {
                                     AjaxGuardadoMasivo(newData)
+                                    cambiosCheckOK = 0;
                                 } else {
                                     displayNotify("EditarRequisicionExcepcionGuardado", "", "1");
                                 }
