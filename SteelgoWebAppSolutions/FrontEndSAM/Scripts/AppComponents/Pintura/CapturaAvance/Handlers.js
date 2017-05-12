@@ -1,4 +1,5 @@
 ﻿var ventanaConfirmEdicion;
+var ventanaConfirmEdicionCambioProcesoPintura;
 
 function SuscribirEventos() {
     suscribirEventoCarro();
@@ -11,7 +12,8 @@ function SuscribirEventos() {
     suscribirEventoSeleccionMuestra();
     suscribirEventoSeleccionProcesoPintura();
     SuscribirEventoMostrar();
-    suscribirEventoWindowsConfirmaCaptura();
+    suscribirEventoWindowsConfirmaCapturaCambioProcesoPintura();
+    suscribirEventoWindowsConfirmaCapturaCambioCarro();
     suscribirEventoVersion();
     suscribirEventoDescargarCarro();
     SuscribirEventoZona();
@@ -134,7 +136,36 @@ function suscribirEventoVersion() {
         }
     });
 }
-function suscribirEventoWindowsConfirmaCaptura() {
+
+function suscribirEventoWindowsConfirmaCapturaCambioProcesoPintura() {
+    ventanaConfirmEdicionCambioProcesoPintura = $("#ventanaConfirmCapturaProcesoPintura").kendoWindow({
+        iframe: true,
+        title: _dictionary.CapturaArmadoTituloPopup[$("#language").data("kendoDropDownList").value()],
+        visible: false,
+        width: "auto",
+        height: "auto",
+        modal: true,
+        animation: false,
+        actions: []
+    }).data("kendoWindow");
+
+    ventanaConfirmEdicionCambioProcesoPintura.content(_dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] +
+        "</br><center><button class='btn btn-blue' id='yesButtonCambioProcesoPintura'>" + _dictionary.lblSi[$("#language").data("kendoDropDownList").value()] + "</button><button class='btn btn-blue' id='noButtonCambioProcesoPintura'>" + _dictionary.lblNo[$("#language").data("kendoDropDownList").value()] + "</button></center>");
+
+
+    $("#yesButtonCambioProcesoPintura").click(function (e) {
+        LimpiarDespuesCambioProcesoPintura();
+        CambiarProcesoPintura();
+        ventanaConfirmEdicionCambioProcesoPintura.close();
+        editado = false;
+    });
+    $("#noButtonCambioProcesoPintura").click(function (e) {
+        eventoRegresarTipoListado();
+        ventanaConfirmEdicionCambioProcesoPintura.close();
+    });
+}
+
+function suscribirEventoWindowsConfirmaCapturaCambioCarro() {
     ventanaConfirmEdicion = $("#ventanaConfirmCaptura").kendoWindow({
         iframe: true,
         title: _dictionary.CapturaArmadoTituloPopup[$("#language").data("kendoDropDownList").value()],
@@ -151,7 +182,7 @@ function suscribirEventoWindowsConfirmaCaptura() {
 
 
     $("#yesButtonProy").click(function (e) {
-        LimpiarDespuesCambioProcesoPintura();
+        
         var dataItem = $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select());
         AjaxCargarLayoutGrid(dataItem.SistemaPinturaProyectoID, $('input:radio[name=ProcesoPintura]:checked').val(), dataItem.MedioTransporteCargaID);
 
@@ -245,18 +276,13 @@ function suscribirEventoDescargar() {
 
 function suscribirEventoGuardarCarro() {
     $("#btnGuardarYNuevo, #btnGuardarYNuevo2").click(function () {
-
         var ds = $("#grid").data("kendoGrid").dataSource;
         AjaxGuardarAvanceCarro(ds._data, true);
-        Limpiar();
     });
 
     $('.accionGuardar').click(function (e) {
         e.stopPropagation();
-
-
         if ($('#Guardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
-            //opcionHabilitarView(true, "FieldSetView");
             var ds = $("#grid").data("kendoGrid").dataSource;
             AjaxGuardarAvanceCarro(ds._data, false);
         }
@@ -394,15 +420,7 @@ function SuscribirEventoAgregar() {
 
 function SuscribirEventoMostrar() {
     $("#btnMostrar").click(function () {
-        if ($("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()) != undefined) {
-            if (!editado) {
-                var dataItem = $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select());
-                AjaxCargarLayoutGrid(dataItem.SistemaPinturaProyectoID, $('input:radio[name=ProcesoPintura]:checked').val(), dataItem.MedioTransporteCargaID);
-            }
-            else {
-                ventanaConfirmEdicion.open().center();
-            }
-        }
+        BuscarDetalleCarro();
     });
 }
 
@@ -475,47 +493,11 @@ function SuscribirEventoSpoolID() {
 
 }
 
+
+
 function suscribirEventoSeleccionProcesoPintura() {
     $('input:radio[name=ProcesoPintura]').change(function () {
-        if (procesoPinturaSeleccionadoAnterior == "")
-            procesoPinturaSeleccionadoAnterior = $('input:radio[name=ProcesoPintura]:checked').val();
-
-        if ($('input:radio[name=ProcesoPintura]:checked').val() == "1") {
-            if (!editado) {
-                procesoPinturaSeleccionadoAnterior = $('input:radio[name=ProcesoPintura]:checked').val();
-                AjaxCargarCarrosCargadosPorProceso(1);
-            }
-            else {
-                ventanaConfirmEdicion.open().center();
-            }
-        }
-        else if ($('input:radio[name=ProcesoPintura]:checked').val() == "2") {
-            if (!editado) {
-                procesoPinturaSeleccionadoAnterior = $('input:radio[name=ProcesoPintura]:checked').val();
-                AjaxCargarCarrosCargadosPorProceso(2);
-            }
-            else {
-                ventanaConfirmEdicion.open().center();
-            }
-        }
-        else if ($('input:radio[name=ProcesoPintura]:checked').val() == "3") {
-            if (!editado) {
-                procesoPinturaSeleccionadoAnterior = $('input:radio[name=ProcesoPintura]:checked').val();
-                AjaxCargarCarrosCargadosPorProceso(3);
-            }
-            else {
-                ventanaConfirmEdicion.open().center();
-            }
-        }
-        else if ($('input:radio[name=ProcesoPintura]:checked').val() == "4") {
-            if (!editado) {
-                procesoPinturaSeleccionadoAnterior = $('input:radio[name=ProcesoPintura]:checked').val();
-                AjaxCargarCarrosCargadosPorProceso(4);
-            }
-            else {
-                ventanaConfirmEdicion.open().center();
-            }
-        }
+        CambiarProcesoPintura();
     });
 }
 

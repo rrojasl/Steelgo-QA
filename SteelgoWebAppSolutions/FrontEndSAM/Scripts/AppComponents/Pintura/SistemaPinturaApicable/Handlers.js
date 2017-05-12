@@ -560,6 +560,7 @@ function LimpiaTipoBusqueda() {
 
 
 function LimpiaCargaProyecto() {
+    editado = false;
     $("#inputSpool").val("");
     $("#inputNc").val("");
     $("#inputSistemaPintura").data("kendoComboBox").dataSource.data([]);

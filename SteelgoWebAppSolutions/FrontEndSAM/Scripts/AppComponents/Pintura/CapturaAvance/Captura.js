@@ -271,11 +271,74 @@ function PlanchaFechaProceso() {
 
 
 
+function CambiarProcesoPintura() {
+    if (procesoPinturaSeleccionadoAnterior == "")
+        procesoPinturaSeleccionadoAnterior = $('input:radio[name=ProcesoPintura]:checked').val();
 
+    if ($('input:radio[name=ProcesoPintura]:checked').val() == "1") {
+        if (!editado) {
+            procesoPinturaSeleccionadoAnterior = $('input:radio[name=ProcesoPintura]:checked').val();
+            AjaxCargarCarrosCargadosPorProceso(1);
+        }
+        else {
+            ventanaConfirmEdicionCambioProcesoPintura.open().center();
+        }
+    }
+    else if ($('input:radio[name=ProcesoPintura]:checked').val() == "2") {
+        if (!editado) {
+            procesoPinturaSeleccionadoAnterior = $('input:radio[name=ProcesoPintura]:checked').val();
+            AjaxCargarCarrosCargadosPorProceso(2);
+        }
+        else {
+            ventanaConfirmEdicionCambioProcesoPintura.open().center();
+        }
+    }
+    else if ($('input:radio[name=ProcesoPintura]:checked').val() == "3") {
+        if (!editado) {
+            procesoPinturaSeleccionadoAnterior = $('input:radio[name=ProcesoPintura]:checked').val();
+            AjaxCargarCarrosCargadosPorProceso(3);
+        }
+        else {
+            ventanaConfirmEdicionCambioProcesoPintura.open().center();
+        }
+    }
+    else if ($('input:radio[name=ProcesoPintura]:checked').val() == "4") {
+        if (!editado) {
+            procesoPinturaSeleccionadoAnterior = $('input:radio[name=ProcesoPintura]:checked').val();
+            AjaxCargarCarrosCargadosPorProceso(4);
+        }
+        else {
+            ventanaConfirmEdicionCambioProcesoPintura.open().center();
+        }
+    }
+}
 
-
+function BuscarDetalleCarro()
+{
+    if ($("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()) != undefined) {
+        if (!editado) {
+            var dataItem = $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select());
+            AjaxCargarLayoutGrid(dataItem.SistemaPinturaProyectoID, $('input:radio[name=ProcesoPintura]:checked').val(), dataItem.MedioTransporteCargaID);
+        }
+        else {
+            ventanaConfirmEdicion.open().center();
+        }
+    }
+}
 
 function LimpiarDespuesCambioProcesoPintura() {
+   
+    $("#inputCarro").data("kendoComboBox").dataSource.data([]);
+    $("#inputCarro").data("kendoComboBox").value("");
+    $("#inputCarro").val("");
+    $("#InputOrdenTrabajo").val("");
+    $("#InputID").data("kendoComboBox").value("");
+    $("#grid").empty();
+    CrearGrid();
+    CustomisaGrid($("#grid"));
+}
+
+function LimpiarDespuesCambioCarro() {
     $("#InputOrdenTrabajo").val("");
     $("#InputID").data("kendoComboBox").value("");
     $("#grid").empty();
@@ -298,23 +361,39 @@ function CrearGrid() {
 
         },
         dataBound: function (e) {
-            var ds = $("#grid").data("kendoGrid");
-            var gridData = ds.dataSource.view();
+            //var ds = $("#grid").data("kendoGrid");
+            //var gridData = ds.dataSource.view();
 
-            if (gridData.length > 0) {
-                for (var i = 0; i < gridData.length; i++) {
-                    var currentUid = gridData[i].uid;
-                    var currenRow = ds.table.find("tr[data-uid='" + currentUid + "']");
-                    var editButton = $(currenRow).find(".k-button");
-                    if (gridData[i].Accion == 2) {
-                        var classDescarga = $("#language").val() == "es-MX" ? "k-grid-Descarga" : "k-grid-Discharging";
-                        editButton[0].outerHTML = '<a class="k-button k-button-icontext ' + classDescarga + '" href="#/"><span class=""></span>' +
-                            _dictionary.botonDescarga[$("#language").data("kendoDropDownList").value()] + '</a>';
+            //if (gridData.length > 0) {
+            //    for (var i = 0; i < gridData.length; i++) {
+            //        var currentUid = gridData[i].uid;
+            //        var currenRow = ds.table.find("tr[data-uid='" + currentUid + "']");
+            //        var editButton = $(currenRow).find(".k-button");
+            //        if (gridData[i].Accion == 2) {
+            //            var classDescarga = $("#language").val() == "es-MX" ? "k-grid-Descarga" : "k-grid-Discharging";
+            //            editButton[0].outerHTML = '<a class="k-button k-button-icontext ' + classDescarga + '" href="#/"><span class=""></span>' +
+            //                _dictionary.botonDescarga[$("#language").data("kendoDropDownList").value()] + '</a>';
 
-                    } else {
-                        editButton[0].outerHTML = '<a class="k-button k-button-icontext k-grid-Cancelar" href="#/"><span class=""></span>' +
-                            _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()] + '</a>';
-                    }
+            //        } else {
+            //            editButton[0].outerHTML = '<a class="k-button k-button-icontext k-grid-Cancelar" href="#/"><span class=""></span>' +
+            //                _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()] + '</a>';
+            //        }
+            //    }
+            //}
+            var grid = $("#grid").data("kendoGrid");
+            var gridData = grid.dataSource.view();
+
+            for (var i = 0; i < gridData.length; i++) {
+                var currentUid = gridData[i].uid;
+                if (gridData[i].RowOk == false) {
+                    grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("k-alt");
+                    grid.table.find("tr[data-uid='" + currentUid + "']").addClass("kRowError");
+                    
+                }
+                else if (gridData[i].RowOk) {
+                    if (i % 2 == 0)
+                        grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("k-alt");
+                    grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("kRowError");
                 }
             }
 
