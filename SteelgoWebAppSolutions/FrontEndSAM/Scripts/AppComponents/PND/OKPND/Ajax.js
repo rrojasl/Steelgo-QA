@@ -183,8 +183,10 @@ function AjaxGuardadoMasivo(data) {
     $OK.OK.create(CapturaMasiva[0], { lenguaje: $("#language").val(), token: Cookies.get("token"), ProyectoID: proyectoID, OPC: '1' }).done(function (data) {
         if (Error(data)) {
             download(data, "ResultadoCargaMasiva.csv", "text/csv");
-            $("#grid").data("kendoGrid").dataSource.data([]);
-            $("#InputNumeroControl").val("");
+            if (!$("#InputNumeroControl").val().length > 0 && !$("#grid").data("kendoGrid").dataSource.data().length > 0 ) {
+                $("#grid").data("kendoGrid").dataSource.data([]);
+                $("#InputNumeroControl").val("");
+            }             
             displayNotify("MensajeGuardadoExistoso", "", "0");
             OK = true;
         }
