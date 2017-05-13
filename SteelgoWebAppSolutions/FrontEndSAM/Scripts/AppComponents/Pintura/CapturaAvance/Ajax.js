@@ -98,7 +98,6 @@ function AjaxCargarCarrosCargadosPorProceso(idProceso) {
             }
             $("#inputCarro").data("kendoComboBox").value(medioTranporteId);
             $("#inputCarro").data("kendoComboBox").trigger("change");
-            BuscarDetalleCarro();
         }
 
         loadingStop();

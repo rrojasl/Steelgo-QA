@@ -155,9 +155,10 @@ function suscribirEventoWindowsConfirmaCapturaCambioProcesoPintura() {
 
     $("#yesButtonCambioProcesoPintura").click(function (e) {
         LimpiarDespuesCambioProcesoPintura();
-        CambiarProcesoPintura();
         ventanaConfirmEdicionCambioProcesoPintura.close();
         editado = false;
+        
+        CambiarProcesoPintura();
     });
     $("#noButtonCambioProcesoPintura").click(function (e) {
         eventoRegresarTipoListado();
@@ -182,12 +183,9 @@ function suscribirEventoWindowsConfirmaCapturaCambioCarro() {
 
 
     $("#yesButtonProy").click(function (e) {
-        
-        var dataItem = $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select());
-        AjaxCargarLayoutGrid(dataItem.SistemaPinturaProyectoID, $('input:radio[name=ProcesoPintura]:checked').val(), dataItem.MedioTransporteCargaID);
-
         ventanaConfirmEdicion.close();
         editado = false;
+        BuscarDetalleCarro();
     });
     $("#noButtonProy").click(function (e) {
         eventoRegresarTipoListado();
@@ -362,12 +360,16 @@ function suscribirEventoCarro() {
         suggest: true,
         filter: "contains",
         change: function (e) {
-            if ($("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()) != undefined) {
-                var dataItem = this.dataItem(e.sender.selectedIndex);
-                AjaxCargarShotBlastero();
-            }
-            else {
-                $("#inputCarro").data("kendoComboBox").value("");
+            dataItem = this.dataItem(e.sender.selectedIndex);
+            if (dataItem != undefined && dataItem.MedioTransporteID!="0") {
+                if ($("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()) != undefined) {
+                    var dataItem = this.dataItem(e.sender.selectedIndex);
+                    AjaxCargarShotBlastero();
+                    BuscarDetalleCarro();
+                }
+                else {
+                    $("#inputCarro").data("kendoComboBox").value("");
+                }
             }
         }
     });
@@ -376,13 +378,7 @@ function suscribirEventoCarro() {
     $('#inputCarro').closest('.k-widget').keydown(function (e) {
         if (e.keyCode == 13) {
             if ($("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()) != undefined) {
-                if (!editado) {
-                    var dataItem = $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select());
-                    AjaxCargarLayoutGrid(dataItem.SistemaPinturaProyectoID, $('input:radio[name=ProcesoPintura]:checked').val(), dataItem.MedioTransporteCargaID);
-                }
-                else {
-                    ventanaConfirmEdicion.open().center();
-                }
+                BuscarDetalleCarro();
             }
             else {
                 $("#inputCarro").data("kendoComboBox").value("");

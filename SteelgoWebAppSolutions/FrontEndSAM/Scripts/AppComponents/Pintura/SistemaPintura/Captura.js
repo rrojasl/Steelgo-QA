@@ -329,7 +329,10 @@ function agregarComponentesAutomaticos()
 {
     if (dataItemRender.ListaDetalleComponentesAgregados != undefined) {
         for (var i = 0; i < dataItemRender.ListaDetalleComponentesAgregados.length; i++) {
-            dataItemRender.ListaDetalleComponentesAgregados[i].Accion = 3;
+            if (dataItemRender.ListaDetalleComponentesAgregados[i].Accion == 1)
+                dataItemRender.ListaDetalleComponentesAgregados.splice(i,1);// eliminamos el elemento.
+                else
+                dataItemRender.ListaDetalleComponentesAgregados[i].Accion = 3;
         }
     }
 
