@@ -272,6 +272,11 @@ namespace BackEndSAM.Controllers.PinturaControllers.CapturaAvance
                 dtDetalleSpool.Columns.Remove("ListaObrerosSeleccionados");
                 dtDetalleSpool.Columns.Remove("ListaComponentesDinamicos");
 
+                for (int i = 0; i < dtDetalleSpool.Rows.Count; i++)
+                {
+                    dtDetalleSpool.Rows[i]["ID"] = i + 1;
+                }
+
                 return CapturaAvanceBD.Instance.GuardarAvanceCarro(dtDetalleSpool, dtDetalleObreros, dtDetalleComponentes, usuario, lenguaje, cargaCarroID);
                
             }

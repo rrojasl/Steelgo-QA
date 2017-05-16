@@ -362,41 +362,41 @@ function CrearGrid() {
 
         },
         dataBound: function (e) {
-            //var ds = $("#grid").data("kendoGrid");
-            //var gridData = ds.dataSource.view();
+            var ds = $("#grid").data("kendoGrid");
+            var gridData = ds.dataSource.view();
 
-            //if (gridData.length > 0) {
-            //    for (var i = 0; i < gridData.length; i++) {
-            //        var currentUid = gridData[i].uid;
-            //        var currenRow = ds.table.find("tr[data-uid='" + currentUid + "']");
-            //        var editButton = $(currenRow).find(".k-button");
-            //        if (gridData[i].Accion == 2) {
-            //            var classDescarga = $("#language").val() == "es-MX" ? "k-grid-Descarga" : "k-grid-Discharging";
-            //            editButton[0].outerHTML = '<a class="k-button k-button-icontext ' + classDescarga + '" href="#/"><span class=""></span>' +
-            //                _dictionary.botonDescarga[$("#language").data("kendoDropDownList").value()] + '</a>';
+            if (gridData.length > 0) {
+                for (var i = 0; i < gridData.length; i++) {
+                    var currentUid = gridData[i].uid;
+                    var currenRow = ds.table.find("tr[data-uid='" + currentUid + "']");
+                    var editButton = $(currenRow).find(".k-button");
+                    if (gridData[i].CargaCarroID != 0) {
+                        var classDescarga = $("#language").val() == "es-MX" ? "k-grid-Descarga" : "k-grid-Discharging";
+                        editButton[0].outerHTML = '<a class="k-button k-button-icontext ' + classDescarga + '" href="#/"><span class=""></span>' +
+                            _dictionary.botonDescarga[$("#language").data("kendoDropDownList").value()] + '</a>';
 
-            //        } else {
-            //            editButton[0].outerHTML = '<a class="k-button k-button-icontext k-grid-Cancelar" href="#/"><span class=""></span>' +
-            //                _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()] + '</a>';
-            //        }
-            //    }
-            //}
-            var grid = $("#grid").data("kendoGrid");
-            var gridData = grid.dataSource.view();
-
-            for (var i = 0; i < gridData.length; i++) {
-                var currentUid = gridData[i].uid;
-                if (gridData[i].RowOk == false) {
-                    grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("k-alt");
-                    grid.table.find("tr[data-uid='" + currentUid + "']").addClass("kRowError");
-                    
-                }
-                else if (gridData[i].RowOk) {
-                    if (i % 2 == 0)
-                        grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("k-alt");
-                    grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("kRowError");
+                    } else {
+                        editButton[0].outerHTML = '<a class="k-button k-button-icontext k-grid-Cancelar" href="#/"><span class=""></span>' +
+                            _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()] + '</a>';
+                    }
                 }
             }
+            //var grid = $("#grid").data("kendoGrid");
+            //var gridData = grid.dataSource.view();
+
+            //for (var i = 0; i < gridData.length; i++) {
+            //    var currentUid = gridData[i].uid;
+            //    if (gridData[i].RowOk == false) {
+            //        grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("k-alt");
+            //        grid.table.find("tr[data-uid='" + currentUid + "']").addClass("kRowError");
+                    
+            //    }
+            //    else if (gridData[i].RowOk) {
+            //        if (i % 2 == 0)
+            //            grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("k-alt");
+            //        grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("kRowError");
+            //    }
+            //}
 
             if (esNormal) {
                 $(".k-grid-content td").css("white-space", "normal");

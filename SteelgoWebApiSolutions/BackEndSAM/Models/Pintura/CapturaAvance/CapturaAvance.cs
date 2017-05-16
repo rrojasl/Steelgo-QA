@@ -92,6 +92,7 @@ namespace BackEndSAM.Models.Pintura.CapturaAvance
 
     public class DetalleSpool
     {
+        public int? ID { get; set; }
         public int Accion { get; set; }
         public int SpoolID { get; set; }
         public int ProcesoPinturaID { get; set; }

@@ -171,7 +171,7 @@ function AjaxCargarLayoutGrid(sistemaPinturaProyectoId, procesoID, CargaCarroID)
                                     SistemaPintura: { type: "string", editable: false },
                                     Color: { type: "string", editable: false },
                                     Area: { type: "string", editable: false },
-                                    Lote: { type: "string", editable: false },
+                                    LoteID: { type: "string", editable: false },
                                     FechaShotblast: { type: "date", editable: true }
                                    
                                 }
@@ -348,7 +348,9 @@ function AjaxGuardarAvanceCarro(arregloCaptura, guardarYNuevo) {
 
     for (var index = 0 ; index < arregloCaptura.length; index++) {
         $("#grid").data("kendoGrid").dataSource._data[index].RowOk = true;
-        ListaDetalles[index] = { Accion: "", SpoolID: "", ProcesoPinturaID: 0, FechaProceso: "", SistemaPinturaID:"", Reductor: 0, ReductorLote: "", ListaObrerosSeleccionados: [], ListaComponentesDinamicos: [], Estatus: 1 };
+        ListaDetalles[index] = { ID:"", Accion: "", SpoolID: "", ProcesoPinturaID: 0, FechaProceso: "", SistemaPinturaID: "", Reductor: 0, ReductorLote: "", ListaObrerosSeleccionados: [], ListaComponentesDinamicos: [], Estatus: 1 };
+        ListaDetalles[index].ID = null;
+        ListaDetalles[index].Accion = arregloCaptura[index].Accion;
         ListaDetalles[index].Accion = arregloCaptura[index].Accion;
         ListaDetalles[index].SpoolID = arregloCaptura[index].SpoolID;
         ListaDetalles[index].ProcesoPinturaID = $('input:radio[name=ProcesoPintura]:checked').val();
