@@ -10679,6 +10679,11 @@ _dictionary = {
         "es-MX": "Carga de Carro",
         "en-US": "Load Carriage"
     },
+
+    "PinturaSpoolSistemaPinturaNoCoincideVersion": {
+        "es-MX": "El spool seleccionado tiene un sistema de pintura con una version diferente",
+        "en-US": "the selected spool has a paint system with a different version"
+    },
     //Finaliza Carga de Carro
 
     //Inicia Captura Avance de carro

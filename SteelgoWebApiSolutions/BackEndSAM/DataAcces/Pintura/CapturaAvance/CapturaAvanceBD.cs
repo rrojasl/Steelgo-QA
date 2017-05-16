@@ -156,7 +156,7 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
                             plantillaObrero = "",
                             CargaCarroID = item.CargaCarroID,
                             CarroID = item.CarroID,
-                            Lote = item.Lote,
+                            LoteID = item.Lote,
                             CuadranteAnteriorID = item.CuadranteAnteriorID,
                             ZonaAnteriorID = item.ZonaAnteriorID,
                             CuadranteID = item.CuadranteID,
@@ -166,7 +166,7 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
                             ListaObrerosGuargados = (List<PintorSpool>)listaObreros[0],
                             ListaObrerosSeleccionados = (List<PintorSpool>)listaObreros[0],
                             AvanceCarroID= item.AvanceCarroID,
-                            Banderastatus=item.BanderaStatus
+                            Banderastatus=item.BanderaStatus,
                         });
                     }
 

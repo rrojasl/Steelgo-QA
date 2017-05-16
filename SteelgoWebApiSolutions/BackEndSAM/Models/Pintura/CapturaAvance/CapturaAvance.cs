@@ -27,7 +27,7 @@ namespace BackEndSAM.Models.Pintura.CapturaAvance
         public int? ColorPinturaID { get; set; }
         public string Color { get; set; }
         public decimal Area { get; set; }
-        public string Lote { get; set; }
+        public int? LoteID { get; set; }
         public string FechaProceso { get; set; }
         public string plantillaObrero { get; set; }
         public List<PintorSpool> ListaObrerosGuargados { get; set; }

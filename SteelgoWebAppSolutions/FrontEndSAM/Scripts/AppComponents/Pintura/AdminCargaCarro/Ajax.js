@@ -171,7 +171,7 @@ function AjaxObtenerDetalleCargaCarro(MedioTransporteID, tipoEscenario, valorBus
                     var elementosModificados = "";
 
                     var sistemaPinturaID = 0;
-
+                    var sistemaPintura;
                     if (data.length > 0) {
                         editado = true;
                         if (valorBusqueda == "") {
@@ -186,9 +186,10 @@ function AjaxObtenerDetalleCargaCarro(MedioTransporteID, tipoEscenario, valorBus
                             //obtenemos el id de la carga
                             CargaCarroID = array.length > 0 ? array[0].MedioTransporteCargaDetalleID : 0;
 
-                            if (ds._data.length > 0)
+                            if (ds._data.length > 0) {
                                 sistemaPinturaID = ds._data[0].SistemaPinturaID;
-
+                                sistemaPintura = ds._data[0].SistemaPintura
+                            }
 
 
                             for (var i = 0; i < array.length; i++) {
@@ -225,13 +226,16 @@ function AjaxObtenerDetalleCargaCarro(MedioTransporteID, tipoEscenario, valorBus
                                             }
                                         }
                                         else {
-                                            if (array[i].SistemaPinturaID == 0 || array[i].SistemaPinturaID == undefined) {
+                                            if (sistemaPintura == array[i].SistemaPintura && sistemaPinturaID != array[i].SistemaPinturaID)
+                                            {
+                                                displayNotify("PinturaSpoolSistemaPinturaNoCoincideVersion", "", '1');
+                                            }
+                                            else if (array[i].SistemaPinturaID == 0 || array[i].SistemaPinturaID == undefined) {
                                                 displayNotify("", _dictionary.PinturaCargaCarroSinSpools[$("#language").data("kendoDropDownList").value()], '1');
                                             }
                                             else {
                                                 //alert("NO SE INSERTA SP DIFERENTE" + sistemaPinturaID + " " + array[i].SistemaPinturaID);
                                                 displayNotify("PinturaSpoolSistemaPinturaNoCoincide", "", '1');
-
                                             }
                                         }
                                     }

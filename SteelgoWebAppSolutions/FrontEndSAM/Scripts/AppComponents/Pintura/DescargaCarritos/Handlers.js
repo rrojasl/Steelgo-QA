@@ -256,20 +256,27 @@ function opcionHabilitarView(valor, name) {
         $('#FieldSetView').find('*').attr('disabled', true);
         $("#inputCarro").data("kendoComboBox").enable(false);
         $("#inputCuadrante").data("kendoComboBox").enable(false);
-        $('#botonGuardar').text(_dictionary.textoEditar[$("#language").data("kendoDropDownList").value()]);
-        $('#botonGuardar2').text(_dictionary.textoEditar[$("#language").data("kendoDropDownList").value()]);
         $("#inputZona").data("kendoComboBox").enable(false);
         $("input[name='LLena']").attr("disabled", true);
         $("#ButtonPlanchar").attr("disabled", true);
+
+        $('#botonGuardar').text(_dictionary.textoEditar[$("#language").data("kendoDropDownList").value()]);
+        $('#botonGuardar2').text(_dictionary.textoEditar[$("#language").data("kendoDropDownList").value()]);
+        $('#botonGuardar3').text(_dictionary.textoEditar[$("#language").data("kendoDropDownList").value()]);
+        $('#botonGuardar4').text(_dictionary.textoEditar[$("#language").data("kendoDropDownList").value()]);
+
     }
     else {
         $('#FieldSetView').find('*').attr('disabled', false);
         $("input[name='LLena']").attr("disabled", false);
         $("#inputCarro").data("kendoComboBox").enable(true);
         $("#inputCuadrante").data("kendoComboBox").enable(true);
-        $('#botonGuardar').text(_dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]);
-        $('#botonGuardar2').text(_dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]);
         $("#inputZona").data("kendoComboBox").enable(true);
         $("#ButtonPlanchar").attr("disabled", false);
+
+        $('#botonGuardar').text(_dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]);
+        $('#botonGuardar2').text(_dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]);
+        $('#botonGuardar3').text(_dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]);
+        $('#botonGuardar4').text(_dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]);
     }
 }
