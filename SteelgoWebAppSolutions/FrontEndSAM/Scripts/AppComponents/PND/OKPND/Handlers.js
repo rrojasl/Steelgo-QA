@@ -200,8 +200,36 @@ function suscribirEventoCarGaCSV() {
         if ($('#BotonGuardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
             var proyectoID = $("#Proyecto").data("kendoComboBox").value();
             if (proyectoID != 0 && proyectoID != undefined && proyectoID != "") {
-                $("#files").val("");
-                $("#files").click();
+                if (cambiosCheckOK == 0) {
+                    $("#files").val("");
+                    $("#files").click();
+                } else {
+                    var ventanaConfirm = $("#ventanaConfirmCaptura").kendoWindow({
+                        iframe: true,
+                        title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
+                        visible: false,
+                        animation: false,
+                        width: "auto",
+                        height: "auto",
+                        actions: [],
+                        modal: true
+                    }).data("kendoWindow");
+
+                    ventanaConfirm.content(_dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] +
+                        "</br><center><button class='btn btn-blue' id='yesButtonProy'>Si</button><button class='btn btn-blue' id='noButtonProy'>No</button></center>");
+
+                    ventanaConfirm.open().center();
+                    $("#yesButtonProy").click(function () {
+                        ventanaConfirm.close();
+                        $("#grid").data("kendoGrid").dataSource.data([]);
+                        $("#files").val("");
+                        $("#files").click();
+                        cambiosCheckOK = 0;
+                    });
+                    $("#noButtonProy").click(function () {                        
+                        ventanaConfirm.close();
+                    });
+                }
             }
             else {
                 displayNotify("SPAProyectoCargaMasiva", "", '1');
@@ -329,16 +357,7 @@ function SuscribirEventoCerrarPopUpJuntas() {
 
 function suscribirEventoChangeRadio() {
     $('input:radio[name=Muestra]:nth(0)').change(function () {
-        var ds = $("#grid").data("kendoGrid").dataSource;
-        var proyectoID = $("#Proyecto").data("kendoComboBox").value();
-        var NumControl = $("#InputNumeroControl").val();
-        
-        if (cambiosCheckOK == 0) {
-            if (ds.data().length > 0) {                
-                ActualizaFiltro(0);
-            }            
-        }
-        else {
+        if (cambiosCheckOK > 0) {
             var ventanaConfirm = $("#ventanaConfirmCaptura").kendoWindow({
                 iframe: true,
                 title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
@@ -355,30 +374,21 @@ function suscribirEventoChangeRadio() {
 
             ventanaConfirm.open().center();
             $("#yesButtonProy").click(function () {
-                ventanaConfirm.close();
-                AjaxGetListaElementos(proyectoID, NumControl);
+                ventanaConfirm.close();                
+                $("#grid").data("kendoGrid").dataSource.data([]);
                 cambiosCheckOK = 0;
             });
 
             $("#noButtonProy").click(function () {
                 $("#InputNumeroControl").val(SpoolContiene);
-                $('input[name="Muestra"][value="Todos"]').prop('checked', true);
+                $('input[name=Muestra]:nth(1)').prop('checked', true);                
                 ventanaConfirm.close();
             });
         }
+        //FiltroMostrar1(0);
     });
     $('input:radio[name=Muestra]:nth(1)').change(function () {
-        var ds = $("#grid").data("kendoGrid").dataSource;
-        var proyectoID = $("#Proyecto").data("kendoComboBox").value();
-        var NumControl = $("#InputNumeroControl").val();
-        
-        if (cambiosCheckOK == 0) {
-            if (ds.data().length > 0) {
-                LimpiaFiltro();
-                //ActualizaFiltro(1);                
-            }            
-        }
-        else {
+        if (cambiosCheckOK > 0) {
             var ventanaConfirm = $("#ventanaConfirmCaptura").kendoWindow({
                 iframe: true,
                 title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
@@ -386,8 +396,8 @@ function suscribirEventoChangeRadio() {
                 animation: false,
                 width: "auto",
                 height: "auto",
-                modal: true,
-                actions: []
+                actions: [],
+                modal: true
             }).data("kendoWindow");
 
             ventanaConfirm.content(_dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] +
@@ -395,17 +405,18 @@ function suscribirEventoChangeRadio() {
 
             ventanaConfirm.open().center();
             $("#yesButtonProy").click(function () {
-                ventanaConfirm.close();
-                AjaxGetListaElementos(proyectoID, NumControl);
+                ventanaConfirm.close();                
+                $("#grid").data("kendoGrid").dataSource.data([]);
                 cambiosCheckOK = 0;
             });
 
             $("#noButtonProy").click(function () {
                 $("#InputNumeroControl").val(SpoolContiene);
-                $('input[name="Muestra"][value="SinCaptura"]').prop('checked', true);
+                $('input[name=Muestra]:nth(0)').prop('checked', true);                
                 ventanaConfirm.close();
             });
         }
+        //FiltroMostrar1(1);
     });
 }
 function suscribirEventoNumeroControl() {

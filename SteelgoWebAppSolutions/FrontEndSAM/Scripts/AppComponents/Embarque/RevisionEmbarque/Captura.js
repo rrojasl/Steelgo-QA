@@ -67,9 +67,9 @@ function CargarGrid() {
                         Comentario: { type: "string", editable: true }
                     }
                 }
-            },
+            },            
             filter: {
-                logic: "or",
+                logic: "or",                
                 filters: [
                   { field: "Accion", operator: "eq", value: 1 },
                   { field: "Accion", operator: "eq", value: 2 }
@@ -168,7 +168,7 @@ function CargarGrid() {
         },
         dataBound: function (e) {
             var grid = $("#grid").data("kendoGrid");
-            var gridData = grid.dataSource.view();
+            var gridData = grid.dataSource.view();            
 
             for (var i = 0; i < gridData.length; i++) {
                 var currentUid = gridData[i].uid;
@@ -237,16 +237,16 @@ function CargarGrid() {
                     case 'LlegoComentario':
                         dataItem.set("Llego", false);
                         dataItem.set("NoLlego", false);
-                        dataItem.set("LlegoComentario", this.checked);
+                        dataItem.set("LlegoComentario", this.checked);                                                
                         dataItem.ModificadoPorUsuario = true;
                         grid.dataSource.sync();
 
                         break;
                 }
             } else {
-                //displayNotify('EmbarqueRevisionMsjRevisionCerrada', '', '1');
+                displayNotify('EmbarqueRevisionMsjRevisionCerrada', '', '1');                
                 grid.dataSource.sync();
-            }
+            }            
         }
         else {
             switch (this.name) {

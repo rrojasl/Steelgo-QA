@@ -327,7 +327,7 @@ function AjaxGuardarCaptura(ds, embarqueID, proyectoID, tipoGuardar) {
                     $("#grid").data("kendoGrid").dataSource._data[x].RowOk = true;
             } else {
                 if (!ds[x].Llego && !ds[x].NoLlego && !ds[x].LlegoComentario) {
-                    ListaDetalleCaptura[x].Accion = 3;
+                    //ListaDetalleCaptura[x].Accion = 3;
                     $("#grid").data("kendoGrid").dataSource._data[x].RowOk = true;
                 } else {
                     if ((ds[x].LlegoComentario && (ds[x].Comentario == null || ds[x].Comentario == ""))) {
@@ -358,9 +358,8 @@ function AjaxGuardarCaptura(ds, embarqueID, proyectoID, tipoGuardar) {
     $("#grid").data("kendoGrid").dataSource.sync();
     Captura.listaDetalle = ListaDetalleCaptura;
     Captura.EmbarqueID = embarqueID;
-    Captura.Cerrado = $("#InputCerrar").is(":checked") ? 1 : 0;
-
-    if (!ExistRowEmpty(ListaDetalleCaptura)) {
+    Captura.Cerrado = $("#InputCerrar").is(":checked") ? 1 : 0;    
+    //if (!ExistRowEmpty(ListaDetalleCaptura)) {        
         $RevisionEmbarque.RevisionEmbarque.create(Captura, { token: Cookies.get("token") }).done(function (data) {
             if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
                 if (tipoGuardar == 1) {
@@ -378,7 +377,7 @@ function AjaxGuardarCaptura(ds, embarqueID, proyectoID, tipoGuardar) {
                 loadingStop();
             }
         });
-    } else {
+    /*} else {
         loadingStop();
         ventanaConfirm = $("#ventanaConfirm").kendoWindow({
             iframe: true,
@@ -458,7 +457,7 @@ function AjaxGuardarCaptura(ds, embarqueID, proyectoID, tipoGuardar) {
         $("#noButton").click(function (e) {
             ventanaConfirm.close();
         });
-    }    
+    }*/
 }
 
 function obtieneEstatusSpool(llego, noLlego, llegoComentario){

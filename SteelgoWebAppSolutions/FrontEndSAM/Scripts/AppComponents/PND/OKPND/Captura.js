@@ -12,6 +12,29 @@ function changeLanguageCall() {
     AjaxCargarCamposPredeterminados();    
 };
 
+function FiltroMostrar1(mostrar) {
+    var ds = $("#grid").data("kendoGrid").dataSource;
+
+    if (mostrar == 0) {
+        var curr_filters = ds.filter().filters;
+        if (curr_filters[0].filters != undefined)
+            ds.filter(curr_filters[0].filters[0])
+        else
+            ds.filter(curr_filters[0])
+        ds.sync();
+    }
+    else {
+        var curr_filters = ds.filter().filters;
+        ds.filter(curr_filters[0])
+        ds.sync();
+        var filters = ds.filter();
+        filters.logic = "or"
+
+        filters.filters.push({ field: "OK", operator: "eq", value: 0 });
+        ds.sync();
+    }
+}
+
 function FiltroMostrar(mostrar) {
     var ds = $("#grid").data("kendoGrid").dataSource;
     if (mostrar == 1) {        
