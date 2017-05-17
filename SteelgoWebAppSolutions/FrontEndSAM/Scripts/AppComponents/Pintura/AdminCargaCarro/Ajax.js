@@ -255,13 +255,7 @@ function AjaxObtenerDetalleCargaCarro(MedioTransporteID, tipoEscenario, valorBus
                                 displayNotify("", _dictionary.SpoolAgregado[$("#language").data("kendoDropDownList").value()] +
                                    elementosModificados + _dictionary.CapturaArmadoMsgNuevoEnReporte[$("#language").data("kendoDropDownList").value()], '0');
                                 editado = true;
-                                if (valorBusqueda.split("~")[1] == "Spool") {
-                                    $("#InputID").data("kendoComboBox").value("");
-                                    $("#InputID").val("")
-                                }
-                                else {
-                                    $("#inputCodigo").val("")
-                                }
+                               
                             }
 
                             if (elementosNoModificados != "") {
@@ -269,6 +263,13 @@ function AjaxObtenerDetalleCargaCarro(MedioTransporteID, tipoEscenario, valorBus
                                     elementosNoModificados + _dictionary.CapturaArmadoMsgExisteReporte[$("#language").data("kendoDropDownList").value()], '1');
                             }
 
+                            if (valorBusqueda.split("~")[1] == "Spool") {
+                                $("#InputID").data("kendoComboBox").value("");
+                                $("#InputID").val("")
+                            }
+                            else {
+                                $("#inputCodigo").val("")
+                            }
 
                         }
                         $("#grid").data("kendoGrid").refresh();
