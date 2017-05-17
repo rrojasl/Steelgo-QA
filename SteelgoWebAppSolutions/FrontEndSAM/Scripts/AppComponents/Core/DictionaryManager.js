@@ -11957,6 +11957,10 @@ _dictionary = {
         "es-MX": "El paquete no se pudo agregar",
         "en-US": "Package could not be added"
     },
+    "EmbarqueRevisionMsjErrorNoPuedeGuardarGridSinCaptura": {
+        "es-MX": "No se puede cerrar el embarque ya que existen datos sin capturar.",
+        "en-US": "You can not close the shipment since there are data without capture."
+    },
     //Finaliza pantalla revision
     //Inicia pantalla Dashboard
     "EmbarqueDashboardBreadcrumb": {
