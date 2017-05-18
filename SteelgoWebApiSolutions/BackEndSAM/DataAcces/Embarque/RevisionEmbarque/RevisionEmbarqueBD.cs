@@ -241,13 +241,13 @@ namespace BackEndSAM.DataAcces.Embarque.RevisionEmbarque
             }
         }
 
-        public object ObtenerDetalleEmbarques(int EmbarqueID)
+        public object ObtenerDetalleEmbarques(int EmbarqueID, int Muestra)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Embarque_RE_Get_DetalleEmbarque_Result> result = ctx.Sam3_Embarque_RE_Get_DetalleEmbarque(EmbarqueID).ToList();
+                    List<Sam3_Embarque_RE_Get_DetalleEmbarque_Result> result = ctx.Sam3_Embarque_RE_Get_DetalleEmbarque(EmbarqueID, Muestra).ToList();
                     List<DetalleRevisionEmbarque> listaDetalle = new List<DetalleRevisionEmbarque>();
 
                     foreach (Sam3_Embarque_RE_Get_DetalleEmbarque_Result item in result)

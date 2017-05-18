@@ -149,7 +149,7 @@ namespace BackEndSAM.Controllers.Embarque.RevisionEmbarque
         }
 
         [HttpGet]
-        public object ObtenerDetalleEmbarque(string token, int EmbarqueID)
+        public object ObtenerDetalleEmbarque(string token, int EmbarqueID, int Muestra)
         {
             string payload = "";
             string newToken = "";
@@ -160,7 +160,7 @@ namespace BackEndSAM.Controllers.Embarque.RevisionEmbarque
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                return RevisionEmbarqueBD.Instance.ObtenerDetalleEmbarques(EmbarqueID);
+                return RevisionEmbarqueBD.Instance.ObtenerDetalleEmbarques(EmbarqueID, Muestra);
             }
             else
             {

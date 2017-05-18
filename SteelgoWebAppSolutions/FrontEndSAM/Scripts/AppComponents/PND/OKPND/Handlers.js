@@ -25,7 +25,8 @@ function suscribirEventoGuardar() {
         $("#grid").data("kendoGrid").dataSource.sync();
         var ds = $("#grid").data("kendoGrid").dataSource;
         if ($("#BotonGuardar").text() === "Guardar" || $("#BotonGuardar").text() === "Save") {            
-                AjaxGuardarCaptura(ds._data, 0);            
+            AjaxGuardarCaptura(ds._data, 0);
+            cambiosCheckOK = 0;
         }
         else if ($("#BotonGuardar").text() == "Editar" || $("#BotonGuardar").text() === "Edit")
             opcionHabilitarView(false, "FieldSetView");
