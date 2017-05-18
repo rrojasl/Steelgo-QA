@@ -53,7 +53,8 @@ namespace BackEndSAM.Models.Armado
         public string TipoCaptura { get; set; }
     }
 
-    public class JuntaSpool {
+    public class JuntaSpool
+    {
         public int JuntaSpoolID { get; set; }
         public string Etiqueta { get; set; }
 
@@ -66,7 +67,7 @@ namespace BackEndSAM.Models.Armado
 
     public class DetalleCaptura
     {
-       public int? IDProyecto { get; set; }
+        public int? IDProyecto { get; set; }
         public string Proyecto { get; set; }
         public string IdOrdenTrabajo { get; set; }
         public string OrdenTrabajo { get; set; }
@@ -75,11 +76,11 @@ namespace BackEndSAM.Models.Armado
         public string SpoolID { get; set; }
         public int? JuntaID { get; set; }
         public string Junta { get; set; }
-      
+
         public string FechaArmado { get; set; }
         public string TuberoID { get; set; }
         public string Tubero { get; set; }
-       
+
         public string TallerID { get; set; }
         public string Taller { get; set; }
         public string SinCaptura { get; set; }
@@ -122,13 +123,10 @@ namespace BackEndSAM.Models.Armado
         public List<DetalleTrabajoAdicional> ListaDetalleTrabajoAdicional { get; set; }
         public List<TrabajosAdicionalesXJunta> listadoTrabajosAdicionalesXJunta { get; set; }
         public string DetalleJunta { get; set; }
-
-        //public bool RowOk { get; set; }
-
         public string JuntaAnteriorNumeroUnicoGuardado { get; set; }
-
         public int? LongitudMaterial1 { get; set; }
         public int? LongitudMaterial2 { get; set; }
+        public bool? RevisionNU { get; set; }
     }
 
 
@@ -189,7 +187,7 @@ namespace BackEndSAM.Models.Armado
             LongitudMaterial = 0;
             ItemCodeID = 0;
             TipoMaterialID = 0;
-            Nombre="";
+            Nombre = "";
         }
     }
     public class DetalleTrabajoAdicional
@@ -226,7 +224,8 @@ namespace BackEndSAM.Models.Armado
         public List<Elementos> Detalles { get; set; }
     }
 
-    public class Elementos {   
+    public class Elementos
+    {
         public string OrdenTrabajoSpoolID { get; set; }
         public string JuntaID { get; set; }
     }

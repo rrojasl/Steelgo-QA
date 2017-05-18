@@ -91,7 +91,8 @@ namespace BackEndSAM.Controllers.Inspeccion.VisualDimensional
                         //EtiquetaMaterial1 = item.EtiquetaMaterial1,
                         //EtiquetaMaterial2 = item.EtiquetaMaterial2,
                         
-                        Localizacion = item.Localizacion
+                        Localizacion = item.Localizacion,
+                        RevisionNU = item.RevisionNU
                     };
 
                     listaDetalleDatos.Add(detalleDatos);
