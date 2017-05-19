@@ -9,11 +9,32 @@ var editado = false;
 var esNormal;
 var ComponentesDinamicos;
 var ReductorDinamico;
+var ComponentesDinamicosJSON =[];
+var ReductoresDinamicosJSON = [];
 
 IniciarCapturaArmado();
 
 function IniciarCapturaArmado() {
     AltaFecha();
+}
+
+function CrearControlesDinamicos()
+{
+    for (var i = 0; i < ComponentesDinamicosJSON.length; i++) {
+        $("#divAgregarComponentesReductoresDinamicos").append('<div class="col-xs-3" style="display: inline-block;"><label>' + ComponentesDinamicosJSON[i].NombreColumna + '</label><input id="' + ComponentesDinamicosJSON[i].NombreColumna + '" /></div>');
+
+        $('#' + ComponentesDinamicosJSON[i].NombreColumna).kendoComboBox({
+            dataTextField: "NombreLote",
+            dataValueField: "NombreLote",
+            dataSource: ComponentesDinamicosJSON[i].ListadoLotes,
+            suggest: true,
+            delay: 10,
+            filter: "contains",
+            index: 3,
+
+        });
+    }
+    
 }
 
 function changeLanguageCall() {

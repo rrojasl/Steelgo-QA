@@ -71,11 +71,70 @@ function tieneClase(item) {
 }
 
 function renderComboboxComponenteDinamico(container, options) {
-    AjaxGetLotesComponente(container, options);
+    var ListadoLotesComponentes;
+    for (var i = 0; i < ComponentesDinamicosJSON.length; i++) {
+        if (ComponentesDinamicosJSON[i].NombreColumna ==  options.field) {
+            ListadoLotesComponentes = ComponentesDinamicosJSON[i].ListadoLotes;
+        }
+    }
+
+    $('<input  data-text-field="NombreLote" id=' + options.model.uid + ' data-value-field="NombreLote" data-bind="value:' + options.field + '"/>')
+           .appendTo(container)
+           .kendoComboBox({
+               dataTextField: "NombreLote",
+               dataValueField: "NombreLote",
+               dataSource: ListadoLotesComponentes,
+               suggest: true,
+               filter: "contains",
+               change: function (e) {
+                   dataItem = this.dataItem(e.sender.selectedIndex);
+                   if (dataItem != undefined && dataItem.NombreLote != "") {
+                       options.model[options.field] = dataItem.NombreLote
+                   }
+                   // $("#grid").data("kendoGrid").dataSource.sync();
+               }
+           });
+
+    $(".k-combobox").on('mouseleave', function (send) {
+        var e = $.Event("keydown", { keyCode: 27 });
+        var item = this;
+        if (!tieneClase(item)) {
+            $(container).trigger(e);
+        }
+    });
 }
 
 function RendercomboReductor(container, options) {
-    AjaxGetLotesReductor(container, options);
+    var ListadoLotesReductor;
+    for (var i = 0; i < ReductoresDinamicosJSON.length; i++) {
+        if (ReductoresDinamicosJSON[i].NombreColumna ==  options.field) {
+            ListadoLotesReductor = ReductoresDinamicosJSON[i].ListadoLotes;
+
+        }
+    }
+    $('<input  data-text-field="NombreLote" id=' + options.model.uid + ' data-value-field="NombreLote" data-bind="value:' + options.field + '"/>')
+         .appendTo(container)
+         .kendoComboBox({
+             dataTextField: "NombreLote",
+             dataValueField: "NombreLote",
+             dataSource: ListadoLotesReductor,
+             suggest: true,
+             filter: "contains",
+             change: function (e) {
+                 dataItem = this.dataItem(e.sender.selectedIndex);
+                 if (dataItem != undefined && dataItem.NombreLote != "") {
+                     options.model[options.field] = dataItem.NombreLote;
+                 }
+             }
+         });
+
+    $(".k-combobox").on('mouseleave', function (send) {
+        var e = $.Event("keydown", { keyCode: 27 });
+        var item = this;
+        if (!tieneClase(item)) {
+            $(container).trigger(e);
+        }
+    });
 }
 
 function RenderDatePicker(container, options) {

@@ -153,6 +153,10 @@ function AjaxCargarLayoutGrid(sistemaPinturaProyectoId, procesoID, CargaCarroID)
         if (data.length > 0) {
             ComponentesDinamicos = data[0];
             ReductorDinamico = data[1];
+            ComponentesDinamicosJSON = data[2];
+            ReductoresDinamicosJSON = data[3];
+            CrearControlesDinamicos();
+
             CrearGrid();
 
             var grid = $("#grid").data("kendoGrid");
@@ -251,17 +255,10 @@ function AjaxCargarSpool(medioTransporteCargaID, sistemaPinturaProyectoID, proce
     $CapturaAvance.CapturaAvance.read({ token: Cookies.get("token"), medioTransporteCargaID: medioTransporteCargaID, lenguaje: $("#language").val(), sistemaPinturaProyectoID: sistemaPinturaProyectoID, procesopinturaID: procesopinturaID }).done(function (data) {
         $("#grid").data('kendoGrid').dataSource.data([]);
         var ds = $("#grid").data("kendoGrid").dataSource;
-        //var array = JSON.parse('[{"CargaCarroID":"3","SpoolID":"41704","Spool":"X002-005","plantillaObrero":"xd"}]');
-        var array = JSON.parse(data);
+         var array = JSON.parse(data);
 
 
         for (var i = 0; i < array.length; i++) {
-            //if (array[i].ListaShotblasteroGuargado.length > 0) {
-            //    array[i].plantillaShotblastero = _dictionary.CapturaAvancePintoresShotblastExistentes[$("#language").data("kendoDropDownList").value()] + array[i].ListaShotblasteroGuargado.length;
-            //}
-            //else {
-            //    array[i].plantillaShotblastero = _dictionary.CapturaAvancePintoresShotblastNoExistentes[$("#language").data("kendoDropDownList").value()];
-            //}
             if (array[i].FechaProceso != null) {
                 array[i].FechaProceso = new Date(ObtenerDato(array[i].FechaProceso, 1), ObtenerDato(array[i].FechaProceso, 2), ObtenerDato(array[i].FechaProceso, 3));//año, mes, dia
             }
@@ -270,7 +267,7 @@ function AjaxCargarSpool(medioTransporteCargaID, sistemaPinturaProyectoID, proce
         }
         if (array.length > 0)
             editado = true;
-
+       
         ds.sync();
         loadingStop();
     });
@@ -561,80 +558,6 @@ function AjaxDescargarSpool(dataItem, Cuadrante) {
         }
         loadingStop();
     });
-}
-
-function AjaxGetLotesComponente(container, options) {
-    if ($('#Guardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
-        var datos = null;
-
-        $CapturaAvance.CapturaAvance.read({ token: Cookies.get("token"), componente: options.field, lenguaje: $("#language").val(), tipoConsulta: 0 }).done(function (data) {
-
-            $('<input  data-text-field="NombreLote" id=' + options.model.uid + ' data-value-field="NombreLote" data-bind="value:' + options.field + '"/>')
-          .appendTo(container)
-          .kendoComboBox({
-              dataTextField: "NombreLote",
-              dataValueField: "NombreLote",
-              dataSource: data,
-              suggest: true,
-              filter: "contains",
-              change: function (e) {
-                  dataItem = this.dataItem(e.sender.selectedIndex);
-                  if (dataItem != undefined && dataItem.NombreLote != "") {
-                      options.model[options.field] = dataItem.NombreLote
-                  }
-                  // $("#grid").data("kendoGrid").dataSource.sync();
-              }
-          });
-
-            $(".k-combobox").on('mouseleave', function (send) {
-                var e = $.Event("keydown", { keyCode: 27 });
-                var item = this;
-                if (!tieneClase(item)) {
-                    $(container).trigger(e);
-                }
-            });
-
-            //loadingStop();
-        });
-    }
-}
-
-function AjaxGetLotesReductor(container, options) {
-    if ($('#Guardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
-        var datos = null;
-
-        var datos = null;
-
-        $CapturaAvance.CapturaAvance.read({ token: Cookies.get("token"), componente: options.field, lenguaje: $("#language").val(), tipoConsulta: 1 }).done(function (data) {
-
-            $('<input  data-text-field="NombreLote" id=' + options.model.uid + ' data-value-field="NombreLote" data-bind="value:' + options.field + '"/>')
-         .appendTo(container)
-         .kendoComboBox({
-             dataTextField: "NombreLote",
-             dataValueField: "NombreLote",
-             dataSource: data,
-             suggest: true,
-             filter: "contains",
-             change: function (e) {
-                 dataItem = this.dataItem(e.sender.selectedIndex);
-                 if (dataItem != undefined && dataItem.NombreLote != "") {
-                     options.model[options.field] = dataItem.NombreLote;
-                 }
-             }
-         });
-
-            $(".k-combobox").on('mouseleave', function (send) {
-                var e = $.Event("keydown", { keyCode: 27 });
-                var item = this;
-                if (!tieneClase(item)) {
-                    $(container).trigger(e);
-                }
-            });
-
-
-        });
-
-    }
 }
 
 function AjaxCargarZona(patioID) {

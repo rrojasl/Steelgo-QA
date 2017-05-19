@@ -159,4 +159,12 @@ namespace BackEndSAM.Models.Pintura.CapturaAvance
             Cantidad = 0;
         }
     }
+
+    public class ListadoLotesPorColumna
+    {
+        public string NombreColumna { get; set; }
+        public List<Lote> ListadoLotes { get; set; }
+    }
+
+
 }

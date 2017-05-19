@@ -311,13 +311,19 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
 
                     List<Componente> ListadoLayoutComponentes = new List<Componente>();
                     List<Reductor> ListadoLayoutReductor = new List<Reductor>();
-
-
+                    
+                    List<ListadoLotesPorColumna> listadoLotesPorColumnaComponentes = new List<ListadoLotesPorColumna>();
+                    List<ListadoLotesPorColumna> listadoLotesPorColumnaReductores = new List<ListadoLotesPorColumna>();
                     foreach (Sam3_Pintura_AvanceCarro_Get_LayoutComponentes_Result item in result)
                     {
                         ListadoLayoutComponentes.Add(new Componente
                         {
                             NombreComponente = item.NombreComponente
+                        });
+
+                        listadoLotesPorColumnaComponentes.Add(new ListadoLotesPorColumna {
+                            NombreColumna= item.NombreComponente,
+                            ListadoLotes = ObtenerLotesComponentes(item.NombreComponente, lenguaje)
                         });
                     }
 
@@ -327,10 +333,17 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
                             {
                                 NombreReductor = item.NombreReductor
                             });
+                        listadoLotesPorColumnaReductores.Add(new ListadoLotesPorColumna
+                        {
+                            NombreColumna = item.NombreReductor,
+                            ListadoLotes = ObtenerLotesReductor(item.NombreReductor, lenguaje)
+                        });
                     }
 
                     listadoColumns.Add(ListadoLayoutComponentes);
                     listadoColumns.Add(ListadoLayoutReductor);
+                    listadoColumns.Add(listadoLotesPorColumnaComponentes);
+                    listadoColumns.Add(listadoLotesPorColumnaReductores);
 
                     return listadoColumns;
                 }
@@ -349,7 +362,7 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
 
 
 
-        public object ObtenerLotesComponentes(string componente, string lenguaje)
+        public List<Lote> ObtenerLotesComponentes(string componente, string lenguaje)
         {
             try
             {
@@ -379,11 +392,11 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
                 result.ReturnStatus = false;
                 result.IsAuthenicated = true;
 
-                return result;
+                return new List<Lote>();
             }
         }
 
-        public object ObtenerLotesReductor(string componente, string lenguaje)
+        public List<Lote> ObtenerLotesReductor(string componente, string lenguaje)
         {
             try
             {
@@ -413,7 +426,7 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
                 result.ReturnStatus = false;
                 result.IsAuthenicated = true;
 
-                return result;
+                return new List<Lote>();
             }
         }
 
