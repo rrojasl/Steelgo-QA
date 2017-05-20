@@ -1,5 +1,5 @@
 ﻿var endRangeDateShotblast;
-
+var dataItemCuadranteNuevo;
 var plantillaShotblastero = "";
 var plantillaPintor = "";
 var currentDataItemGridDownload;
@@ -9,8 +9,10 @@ var editado = false;
 var esNormal;
 var ComponentesDinamicos;
 var ReductorDinamico;
-var ComponentesDinamicosJSON =[];
+var ComponentesDinamicosJSON = [];
 var ReductoresDinamicosJSON = [];
+var paramProcesoPinturaID;
+var paramCarroID;
 
 IniciarCapturaArmado();
 
@@ -18,8 +20,32 @@ function IniciarCapturaArmado() {
     AltaFecha();
 }
 
-function CrearControlesDinamicos()
-{
+function getParameterByName(name, url) {
+
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+
+function SiguienteProceso(paramReq) {
+    var url = "";
+    if (paramReq == null) {
+        url = "/Pintura/AvanceCuadrante?leng=" + $("#language").data("kendoDropDownList").value();
+    } else {
+        url = "/Pintura/AvanceCuadrante?leng=" + $("#language").data("kendoDropDownList").value()
+            + "&carroID=" + paramReq;
+    }
+
+    $("#DescargaCarroSuperior").attr("href", url);
+    $("#DescargaCarroInferior").attr("href", url);
+}
+
+function CrearControlesDinamicos() {
     for (var i = 0; i < ComponentesDinamicosJSON.length; i++) {
         $("#divAgregarComponentesReductoresDinamicos").append('<div class="col-xs-3" style="display: inline-block;"><label>' + ComponentesDinamicosJSON[i].NombreColumna + '</label><input id="' + ComponentesDinamicosJSON[i].NombreColumna + '" /></div>');
 
@@ -30,25 +56,84 @@ function CrearControlesDinamicos()
             suggest: true,
             delay: 10,
             filter: "contains",
-            index: 3,
-
+            index: 3
         });
     }
-    
+
+    for (var i = 0; i < ReductoresDinamicosJSON.length; i++) {
+        $("#divAgregarComponentesReductoresDinamicos").append('<div class="col-xs-3" style="display: inline-block;"><label>' + ReductoresDinamicosJSON[i].NombreColumna + '</label><input id="' + ReductoresDinamicosJSON[i].NombreColumna + '" /></div>');
+
+        $('#' + ReductoresDinamicosJSON[i].NombreColumna).kendoComboBox({
+            dataTextField: "NombreLote",
+            dataValueField: "NombreLote",
+            dataSource: ReductoresDinamicosJSON[i].ListadoLotes,
+            suggest: true,
+            delay: 10,
+            filter: "contains",
+            index: 3
+        });
+    }
+
+}
+
+function PlanchaElementosDinamicos() {
+    var dataSource = $("#grid").data("kendoGrid").dataSource;
+    var filters = dataSource.filter();
+    var allData = dataSource.data();
+    var query = new kendo.data.Query(allData);
+    var data = query.filter(filters).data;
+
+    for (var i = 0; i < data.length; i++) {
+        if ($('input:radio[name=LLena]:checked').val() === "Todos") {
+            for (var j = 0; j < ComponentesDinamicosJSON.length; j++) {
+                if ($("#" + ComponentesDinamicosJSON[j].NombreColumna).val() != undefined && $("#" + ComponentesDinamicosJSON[j].NombreColumna).val() != "")
+                    data[i][ComponentesDinamicosJSON[j].NombreColumna] = $("#" + ComponentesDinamicosJSON[j].NombreColumna).val();
+            }
+
+            for (var j = 0; j < ReductoresDinamicosJSON.length; j++) {
+                if ($("#" + ReductoresDinamicosJSON[j].NombreColumna).val() != undefined && $("#" + ReductoresDinamicosJSON[j].NombreColumna).val() != "")
+                    data[i][ReductoresDinamicosJSON[j].NombreColumna] = $("#" + ReductoresDinamicosJSON[j].NombreColumna).val();
+            }
+        }
+
+
+        else {
+            for (var j = 0; j < ComponentesDinamicosJSON.length; j++) {
+                if ($("#" + ComponentesDinamicosJSON[j].NombreColumna).val() != undefined && $("#" + ComponentesDinamicosJSON[j].NombreColumna).val() != "") {
+                    if (data[i][ComponentesDinamicosJSON[j].NombreColumna] == null || data[i][ComponentesDinamicosJSON[j].NombreColumna] == "" || data[i][ComponentesDinamicosJSON[j].NombreColumna] == undefined)
+                        data[i][ComponentesDinamicosJSON[j].NombreColumna] = $("#" + ComponentesDinamicosJSON[j].NombreColumna).val();
+                }
+            }
+
+            for (var j = 0; j < ReductoresDinamicosJSON.length; j++) {
+                if ($("#" + ReductoresDinamicosJSON[j].NombreColumna).val() != undefined && $("#" + ReductoresDinamicosJSON[j].NombreColumna).val() != "") {
+                    if (data[i][ReductoresDinamicosJSON[j].NombreColumna] == null || data[i][ReductoresDinamicosJSON[j].NombreColumna] == "" || data[i][ReductoresDinamicosJSON[j].NombreColumna] == undefined)
+                        data[i][ReductoresDinamicosJSON[j].NombreColumna] = $("#" + ReductoresDinamicosJSON[j].NombreColumna).val();
+                }
+            }
+        }
+    }
+    $("#grid").data("kendoGrid").dataSource.sync();
 }
 
 function changeLanguageCall() {
+
+     paramProcesoPinturaID = getParameterByName('ProcesoPinturaID') == undefined || getParameterByName('ProcesoPinturaID') == null ? "" : getParameterByName('ProcesoPinturaID').trim();
+     paramCarroID = getParameterByName('CarroID') == undefined || getParameterByName('CarroID') == null ? "" : getParameterByName('CarroID').trim();
+
+    
+
     endRangeDateShotblast.data("kendoDatePicker").setOptions({
         format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()]
     });
     SuscribirEventos();
-
     AjaxCargarCamposPredeterminados();
-
-
     document.title = _dictionary.lblCapturaAvance[$("#language").data("kendoDropDownList").value()];
     $('#Guardar1').text(_dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]);
     $("#Guardar").text(_dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]);
+
+  
+
 };
 
 function ObtenerDato(fecha, tipoDatoObtener) {
@@ -139,13 +224,13 @@ function limpiarFila(e) {
 
 function VentanaModalDescargarSpool(e) {
     e.preventDefault();
-  
-        if ($("#Guardar").text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
-            currentDataItemGridDownload = this.dataItem($(e.currentTarget).closest("tr"));
-            AjaxCargarZona(currentDataItemGridDownload.PatioID);
-            windowDownload.open().center();
-        }
-   
+
+    if ($("#Guardar").text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
+        currentDataItemGridDownload = this.dataItem($(e.currentTarget).closest("tr"));
+        AjaxCargarZona(currentDataItemGridDownload.PatioID);
+        windowDownload.open().center();
+    }
+
 };
 
 
@@ -334,8 +419,7 @@ function CambiarProcesoPintura() {
     }
 }
 
-function BuscarDetalleCarro()
-{
+function BuscarDetalleCarro() {
     if ($("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()) != undefined) {
         if (!editado) {
             LimpiarDespuesCambioCarro();
@@ -349,7 +433,7 @@ function BuscarDetalleCarro()
 }
 
 function LimpiarDespuesCambioProcesoPintura() {
-   
+
     $("#inputCarro").data("kendoComboBox").dataSource.data([]);
     $("#inputCarro").data("kendoComboBox").value("");
     $("#inputCarro").val("");
@@ -358,6 +442,8 @@ function LimpiarDespuesCambioProcesoPintura() {
     $("#grid").empty();
     CrearGrid();
     CustomisaGrid($("#grid"));
+    document.getElementById('divAgregarComponentesReductoresDinamicos').innerHTML = '';
+    $("#inputShotBlastero").data("kendoMultiSelect").value("");
 }
 
 function LimpiarDespuesCambioCarro() {
@@ -366,6 +452,8 @@ function LimpiarDespuesCambioCarro() {
     $("#grid").empty();
     CrearGrid();
     CustomisaGrid($("#grid"));
+    document.getElementById('divAgregarComponentesReductoresDinamicos').innerHTML = '';
+    $("#inputShotBlastero").data("kendoMultiSelect").value("");
 }
 
 function CrearGrid() {
@@ -410,7 +498,7 @@ function CrearGrid() {
             //    if (gridData[i].RowOk == false) {
             //        grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("k-alt");
             //        grid.table.find("tr[data-uid='" + currentUid + "']").addClass("kRowError");
-                    
+
             //    }
             //    else if (gridData[i].RowOk) {
             //        if (i % 2 == 0)

@@ -45,6 +45,8 @@ namespace BackEndSAM.Models.Pintura.CapturaAvance
 
         public string Banderastatus { get; set; }
 
+        public int? SistemaPinturaColorID { get; set; }
+
     }
 
     public class CamposPredeterminados
@@ -104,6 +106,20 @@ namespace BackEndSAM.Models.Pintura.CapturaAvance
         public List<ComponenteDinamico> ListaComponentesDinamicos { get; set; }
     }
 
+    public class CapturaLote
+    {
+        public List<LoteBaja> Detalles { get; set; }
+
+    }
+
+
+    public class LoteBaja
+    {
+        public int ProcesoPintura { get; set; }
+        public int SistemPinturaColorID { get; set; }
+        public double Area { get; set; }
+        public int LoteID { get; set; }
+    }
     public class ComponenteDinamico
     {
         public int Accion { get; set; }

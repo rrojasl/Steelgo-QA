@@ -8225,6 +8225,14 @@ _dictionary = {
         "es-MX": "Carga de Carro",
         "en-US": "Load Carriage"
     },
+    "LoteActualizado": {
+        "es-MX": "Se actualizo el Lote correctamente",
+        "en-US": "Lot successfully updated"
+    },
+    "NoLoteActualizado": {
+        "es-MX": "No se actualizo el Lote",
+        "en-US": "The lot was not updated"
+    },
     "menuPinturaCargaAvance": {
         "es-MX": "Avance de Carro",
         "en-US": "Car Advance"

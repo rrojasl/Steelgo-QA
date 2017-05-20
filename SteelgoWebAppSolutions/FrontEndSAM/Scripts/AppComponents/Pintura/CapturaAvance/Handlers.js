@@ -71,10 +71,7 @@ function SuscribirEventoCuadrante() {
         change: function (e) {
             var dataItem = this.dataItem(e.sender.selectedIndex);
             if (dataItem != undefined) {
-
-            }
-            else {
-                $("#inputCuadrantePopup").data("kendoComboBox").value("");
+                dataItemCuadranteNuevo = dataItem;
             }
         }
     });
@@ -105,7 +102,7 @@ function suscribirEventoDescargarCarro() {
         if (Zona != undefined && Zona.ZonaID != 0) {
             if (Cuadrante != undefined && Cuadrante.CuadranteID != 0) {
                 windowDownload.close();
-                AjaxDescargarSpool(dataItem, Cuadrante);
+                AjaxDescargarSpool(dataItemCuadranteNuevo, Cuadrante);
             } else {
                 displayNotify("EmbarqueCargaMsjErrorCuadrante", "", "1");
             }
@@ -262,7 +259,8 @@ function plancharTodo() {
     if ($("#FechaShotBlast").val() != "") {
         PlanchaFechaProceso();
     }
-  
+
+    PlanchaElementosDinamicos();
 }
 
 function suscribirEventoDescargar() {
@@ -370,6 +368,9 @@ function suscribirEventoCarro() {
                 else {
                     $("#inputCarro").data("kendoComboBox").value("");
                 }
+            }
+            else {
+                $("#inputCarro").data("kendoComboBox").value("");
             }
         }
     });

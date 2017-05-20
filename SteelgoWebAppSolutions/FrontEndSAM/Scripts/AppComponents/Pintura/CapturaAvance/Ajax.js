@@ -15,7 +15,7 @@
             $('input#LlenaVacios').attr('checked', true).trigger("change");
         }
 
-       
+
         AjaxCargaMostrarPredeterminado();
     });
 
@@ -23,7 +23,7 @@
 
 function AjaxCargaMostrarPredeterminado() {
     var TipoMuestraPredeterminadoID = 2048;
-    
+
     $CamposPredeterminados.CamposPredeterminados.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), id: TipoMuestraPredeterminadoID }).done(function (data) {
         if (data == "sin captura") {
             $('input:radio[name=Muestra]:nth(0)').trigger("click");
@@ -31,15 +31,31 @@ function AjaxCargaMostrarPredeterminado() {
         else if (data == "Todos") {
             $('input:radio[name=Muestra]:nth(1)').trigger("click");
         }
+        if (paramProcesoPinturaID == "" && paramCarroID == "")
+            AjaxCargaMostrarPredeterminadoseleciconProcesosPintura();
+        else
+        {
+            if (paramProcesoPinturaID == 1) {
+                $('input:radio[name=ProcesoPintura]:nth(0)').trigger("click");
+            }
+            else if (paramProcesoPinturaID ==2) {
+                $('input:radio[name=ProcesoPintura]:nth(1)').trigger("click");
 
-        AjaxCargaMostrarPredeterminadoseleciconProcesosPintura();
+            }
+            else if (paramProcesoPinturaID == 3) {
+                $('input:radio[name=ProcesoPintura]:nth(2)').trigger("click");
+            }
+            else if (paramProcesoPinturaID == 4) {
+                $('input:radio[name=ProcesoPintura]:nth(3)').trigger("click");
+            }
+        }
     });
 }
 
 function AjaxCargaMostrarPredeterminadoseleciconProcesosPintura() {
     var TipoMuestraPredeterminadoID = 3075;
     var procesoid = 0;
-    
+
     $CamposPredeterminados.CamposPredeterminados.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), id: TipoMuestraPredeterminadoID }).done(function (data) {
         if (data == "shotblast") {
 
@@ -96,7 +112,11 @@ function AjaxCargarCarrosCargadosPorProceso(idProceso) {
                     medioTranporteId = data[i].MedioTransporteID;
                 }
             }
-            $("#inputCarro").data("kendoComboBox").value(medioTranporteId);
+            $("#inputCarro").data("kendoComboBox").value(paramCarroID == "" ? medioTranporteId : paramCarroID);
+            $("#inputCarro").data("kendoComboBox").trigger("change");
+        }
+        else {
+            $("#inputCarro").data("kendoComboBox").value(paramCarroID);
             $("#inputCarro").data("kendoComboBox").trigger("change");
         }
 
@@ -128,7 +148,7 @@ function AjaxObtenerSpoolID() {
 
 function AjaxCargarShotBlastero() {
     loadingStart();
-    $CapturaAvance.CapturaAvance.read({ token: Cookies.get("token"),procesoPintura: $('input:radio[name=ProcesoPintura]:checked').val() }).done(function (data) {
+    $CapturaAvance.CapturaAvance.read({ token: Cookies.get("token"), procesoPintura: $('input:radio[name=ProcesoPintura]:checked').val() }).done(function (data) {
         if (Error(data)) {
             $("#inputShotBlastero").data("kendoMultiSelect").setDataSource(data);
         }
@@ -167,20 +187,20 @@ function AjaxCargarLayoutGrid(sistemaPinturaProyectoId, procesoID, CargaCarroID)
             ////////////////////
 
             options.dataSource = {
-                    schema: {
-                        model: {
-                                fields: {
-                                   
-                                    Spool: { type: "string", editable: false },
-                                    SistemaPintura: { type: "string", editable: false },
-                                    Color: { type: "string", editable: false },
-                                    Area: { type: "string", editable: false },
-                                    LoteID: { type: "string", editable: false },
-                                    FechaShotblast: { type: "date", editable: true }
-                                   
-                                }
+                schema: {
+                    model: {
+                        fields: {
+
+                            Spool: { type: "string", editable: false },
+                            SistemaPintura: { type: "string", editable: false },
+                            Color: { type: "string", editable: false },
+                            Area: { type: "string", editable: false },
+                            LoteID: { type: "string", editable: false },
+                            FechaShotblast: { type: "date", editable: true }
+
                         }
-                    },
+                    }
+                },
                 filter: {
                     logic: "or",
                     filters: [
@@ -255,7 +275,7 @@ function AjaxCargarSpool(medioTransporteCargaID, sistemaPinturaProyectoID, proce
     $CapturaAvance.CapturaAvance.read({ token: Cookies.get("token"), medioTransporteCargaID: medioTransporteCargaID, lenguaje: $("#language").val(), sistemaPinturaProyectoID: sistemaPinturaProyectoID, procesopinturaID: procesopinturaID }).done(function (data) {
         $("#grid").data('kendoGrid').dataSource.data([]);
         var ds = $("#grid").data("kendoGrid").dataSource;
-         var array = JSON.parse(data);
+        var array = JSON.parse(data);
 
 
         for (var i = 0; i < array.length; i++) {
@@ -267,12 +287,12 @@ function AjaxCargarSpool(medioTransporteCargaID, sistemaPinturaProyectoID, proce
         }
         if (array.length > 0)
             editado = true;
-       
+
         ds.sync();
         loadingStop();
     });
 }
- 
+
 function AjaxAgregarSpool(ordenTrabajoSpoolID) {
     loadingStart();
     $CapturaAvance.CapturaAvance.read({ token: Cookies.get("token"), OrdenTrabajoSpoolID: ordenTrabajoSpoolID, lenguaje: $("#language").val(), procesoPinturaID: $('input:radio[name=ProcesoPintura]:checked').val() }).done(function (data) {
@@ -340,12 +360,12 @@ function AjaxGuardarAvanceCarro(arregloCaptura, guardarYNuevo) {
     Captura = [];
     Captura[0] = { Detalles: "" };
     ListaDetalles = [];
-    
-   
+
+
 
     for (var index = 0 ; index < arregloCaptura.length; index++) {
         $("#grid").data("kendoGrid").dataSource._data[index].RowOk = true;
-        ListaDetalles[index] = { ID:"", Accion: "", SpoolID: "", ProcesoPinturaID: 0, FechaProceso: "", SistemaPinturaID: "", Reductor: 0, ReductorLote: "", ListaObrerosSeleccionados: [], ListaComponentesDinamicos: [], Estatus: 1 };
+        ListaDetalles[index] = { ID: "", Accion: "", SpoolID: "", ProcesoPinturaID: 0, FechaProceso: "", SistemaPinturaID: "", Reductor: 0, ReductorLote: "", ListaObrerosSeleccionados: [], ListaComponentesDinamicos: [], Estatus: 1 };
         ListaDetalles[index].ID = null;
         ListaDetalles[index].Accion = arregloCaptura[index].Accion;
         ListaDetalles[index].Accion = arregloCaptura[index].Accion;
@@ -356,8 +376,7 @@ function AjaxGuardarAvanceCarro(arregloCaptura, guardarYNuevo) {
         ListaDetalles[index].Reductor = ReductorDinamico[0].NombreReductor;
         ListaDetalles[index].ReductorLote = arregloCaptura[index][ReductorDinamico[0].NombreReductor];
 
-        if (ListaDetalles[index].FechaProceso == "")
-        {
+        if (ListaDetalles[index].FechaProceso == "") {
             ListaDetalles[index].Estatus = 0;
             $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
         }
@@ -376,7 +395,7 @@ function AjaxGuardarAvanceCarro(arregloCaptura, guardarYNuevo) {
             ListaDetallesObrerosSeleccionados[j].ProcesoPinturaID = $('input:radio[name=ProcesoPintura]:checked').val();
         }
 
-        
+
         var existeObrero = false;
         var posicionSiguiente = arregloCaptura[index].ListaObrerosSeleccionados.length;
         var elementoEliminado = 0;
@@ -387,8 +406,7 @@ function AjaxGuardarAvanceCarro(arregloCaptura, guardarYNuevo) {
                     existeObrero = true;
                 }
             }
-            if (!existeObrero)
-            {
+            if (!existeObrero) {
                 ListaDetallesObrerosSeleccionados[posicionSiguiente + elementoEliminado] = { Accion: "", SpoolID: "", ObreroId: 0, ProcesoPinturaID: 0 };
                 ListaDetallesObrerosSeleccionados[posicionSiguiente + elementoEliminado].Accion = 3;// se pone tres porque ya se borra.
                 ListaDetallesObrerosSeleccionados[posicionSiguiente + elementoEliminado].SpoolID = arregloCaptura[index].SpoolID;
@@ -489,12 +507,11 @@ function AjaxGuardarAvanceCarro(arregloCaptura, guardarYNuevo) {
 
     }
 
-   
+
 
 };
 
-function AjaxEjecutarGuardado(data, guardarYNuevo)
-{
+function AjaxEjecutarGuardado(data, guardarYNuevo) {
     $CapturaAvance.CapturaAvance.create(data, { token: Cookies.get("token"), lenguaje: $("#language").val(), cargaCarroID: $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()).MedioTransporteCargaID }).done(function (data) {
 
         if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
@@ -547,14 +564,47 @@ function AjaxDescargarSpool(dataItem, Cuadrante) {
     loadingStart();
     var dataSource = $("#grid").data("kendoGrid").dataSource;
     var elemento = 0;
-    $PinturaGeneral.PinturaGeneral.read({ token: Cookies.get("token"), CarroID: $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()).MedioTransporteID, SpoolID: dataItem.SpoolID, CuadranteID: Cuadrante.CuadranteID, CuadranteSam2ID: Cuadrante.CuadranteSam2ID, CuadranteAnterior: dataItem.CuadranteID }).done(function (data) {
+    $PinturaGeneral.PinturaGeneral.read({ token: Cookies.get("token"), CarroID: $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()).MedioTransporteID, SpoolID: currentDataItemGridDownload.SpoolID, CuadranteID: Cuadrante.CuadranteID, CuadranteSam2ID: Cuadrante.CuadranteSam2ID, CuadranteAnterior: dataItem.CuadranteID, Pantalla: 2 }).done(function (data) {
         if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "OK") {
             var dataSource = $("#grid").data("kendoGrid").dataSource;
             dataSource.remove(dataItem);
-            AjaxObtenerDetalleCargaCarro($("#inputCarro").data("kendoComboBox").select() == -1 ? 0 : $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()).MedioTransporteID, $('input:radio[name=TipoVista]:checked').val(), '');
+            AjaxActualizarLote($('input:radio[name=ProcesoPintura]:checked').val(), currentDataItemGridDownload.SistemaPinturaColorID, currentDataItemGridDownload.Area, currentDataItemGridDownload.LoteID);
+            editado = false;
+            BuscarDetalleCarro();
             displayNotify("EmbarqueCargaMsjDescargaSpoolExito", "", "0");
         } else {
             displayNotify("EmbarqueCargaMsjDescargaSpoolError", "", "2");
+            loadingStop();
+        }
+        
+    });
+}
+
+
+function AjaxActualizarLote(ProcesoPintura, SistemPinturaColorID, Area, LoteID) {
+    loadingStart();
+    Captura = [];
+    Captura[0] = { Detalles: "" };
+    ListaDetalles = [];
+
+    var index = 0;
+    ListaDetalles[index] = { ProcesoPintura: "", SistemPinturaColorID: "", Area: "", LoteID: "" };
+
+    ListaDetalles[index].ProcesoPintura = ProcesoPintura;
+    ListaDetalles[index].SistemPinturaColorID = SistemPinturaColorID;
+    ListaDetalles[index].Area = Area;
+    ListaDetalles[index].LoteID = LoteID;
+
+    Captura[0].Detalles = ListaDetalles;
+
+
+    $CapturaAvance.CapturaAvance.update(Captura[0], { token: Cookies.get("token")}).done(function (data) {
+        if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
+            displayNotify("LoteActualizado", "", '0');
+        }
+        else {
+            displayNotify("NoLoteActualizado", "", '2');
+            loadingStop();
         }
         loadingStop();
     });

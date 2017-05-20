@@ -163,7 +163,7 @@ namespace BackEndSAM.Controllers.Pintura.PinturaGeneral
         //}
 
         [HttpGet]
-        public object DescargaCuadranteSpool(string token,int CarroID, int SpoolID, int CuadranteID, int CuadranteSam2ID, int CuadranteAnterior)
+        public object DescargaCuadranteSpool(string token,int CarroID, int SpoolID, int CuadranteID, int CuadranteSam2ID, int CuadranteAnterior,int Pantalla)
         {
             string payload = "";
             string newToken = "";
@@ -174,7 +174,7 @@ namespace BackEndSAM.Controllers.Pintura.PinturaGeneral
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                return CargaCarroBD.Instance.DescargaCarroSpool(CarroID, SpoolID, CuadranteID, CuadranteSam2ID, usuario.UsuarioID);
+                return CargaCarroBD.Instance.DescargaCarroSpool(CarroID, SpoolID, CuadranteID, CuadranteSam2ID, usuario.UsuarioID, Pantalla);
             }
             else
             {

@@ -245,14 +245,14 @@ namespace BackEndSAM.DataAcces.Pintura.CargaCarro
             }
         }
 
-        public object DescargaCarroSpool(int CarroID, int SpoolID, int CuadranteID, int CuadranteSamID, int UsuarioID)
+        public object DescargaCarroSpool(int CarroID, int SpoolID, int CuadranteID, int CuadranteSamID, int UsuarioID,int Pantalla)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
 
-                    ctx.Sam3_Pintura_DescargaCuadranteSpool(CarroID, SpoolID, CuadranteID, CuadranteSamID, UsuarioID);
+                    ctx.Sam3_Pintura_DescargaCuadranteSpool(CarroID, SpoolID, CuadranteID, CuadranteSamID, UsuarioID, Pantalla);
 
                     TransactionalInformation result = new TransactionalInformation();
                     result.ReturnMessage.Add("OK");

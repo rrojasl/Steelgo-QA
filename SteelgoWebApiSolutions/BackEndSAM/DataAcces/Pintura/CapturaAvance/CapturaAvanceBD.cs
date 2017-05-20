@@ -167,6 +167,7 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
                             ListaObrerosSeleccionados = (List<PintorSpool>)listaObreros[0],
                             AvanceCarroID= item.AvanceCarroID,
                             Banderastatus=item.BanderaStatus,
+                            SistemaPinturaColorID=item.SistemaPinturaColorID
                         });
                     }
 
@@ -360,8 +361,6 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
             }
         }
 
-
-
         public List<Lote> ObtenerLotesComponentes(string componente, string lenguaje)
         {
             try
@@ -427,6 +426,37 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
                 result.IsAuthenicated = true;
 
                 return new List<Lote>();
+            }
+        }
+
+        public object ActualizarLote(DataTable dtCapturaLotes)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+
+                    ObjetosSQL _SQL = new ObjetosSQL();
+                    _SQL.Ejecuta(Stords.GUARDAACTUALIZACIONLOTE, dtCapturaLotes, "@CapturaLote");
+
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add("Ok");
+                    result.ReturnCode = 200;
+                    result.ReturnStatus = true;
+                    result.IsAuthenicated = true;
+
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
             }
         }
 
