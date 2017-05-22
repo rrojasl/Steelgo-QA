@@ -301,8 +301,10 @@ function csvToJson(data, field) {
                     if (cell !== "") {
                         tmp[encabezados[z]] = cell;
                     } else {                                                
-                        throw -1;
-                        csv = [];                        
+                        //throw -1;
+                        //csv = [];                        
+                        //si la celda esta vacía le agrego un espacio o un caracter
+                        tmp[encabezados[z]] = ' ';
                     }
                 });
                 csv.push(tmp);
@@ -385,6 +387,8 @@ function suscribirEventoChangeRadio() {
                 $('input[name=Muestra]:nth(1)').prop('checked', true);                
                 ventanaConfirm.close();
             });
+        } else {
+            $("#grid").data("kendoGrid").dataSource.data([]);
         }
         //FiltroMostrar1(0);
     });
@@ -416,6 +420,8 @@ function suscribirEventoChangeRadio() {
                 $('input[name=Muestra]:nth(0)').prop('checked', true);                
                 ventanaConfirm.close();
             });
+        } else {
+            $("#grid").data("kendoGrid").dataSource.data([]);
         }
         //FiltroMostrar1(1);
     });
@@ -481,8 +487,9 @@ function ObtenerNewData(data) {
                     OK: 0,
                     OE: 0
                 };
-                
-                if (!isNaN(parseInt(data[n].OKPND.toString().trim()))) {
+                if (data[n].OKPND.toString().trim() === "") { data[n].OKPND = 0 };
+
+                if (!isNaN(parseInt(data[n].OKPND.toString().trim()))) {                                        
                     if (parseInt(data[n].OKPND.toString().trim()) === 0 || parseInt(data[n].OKPND.toString().trim()) === 1) {                        
                         tmpNumControl[n] = data[n].NumeroControl.toString().toUpperCase().trim();
                         
