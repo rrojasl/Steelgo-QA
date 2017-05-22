@@ -303,7 +303,7 @@ function opcionHabilitarView(valor, name) {
         $("#stylePPIntermedio").attr("disabled", true);
         $("#stylePPAvanzado").attr("disabled", true);
 
-
+        BloquearElementosDinamicos(false);
 
 
         $("#inputShotBlastero").data("kendoMultiSelect").enable(false);
@@ -321,7 +321,7 @@ function opcionHabilitarView(valor, name) {
     else {
         $('.FieldSetView').find('*').attr('disabled', false);
         $("#inputCarro").data("kendoComboBox").enable(true);
-        
+        $("input[name='Muestra']").attr("disabled", false);
        
         $("#stylePPShotBlast").attr("disabled", false);
         $("#stylePPPrimario").attr("disabled", false);
@@ -329,12 +329,11 @@ function opcionHabilitarView(valor, name) {
         $("#stylePPAvanzado").attr("disabled", false);
 
         $("#btnMostrar").attr("disabled", false);
-        
+        BloquearElementosDinamicos(true);
         $("#InputOrdenTrabajo").attr('disabled', false);
         $("#InputID").data("kendoComboBox").enable(true);
         $("#FechaShotBlast").data("kendoDatePicker").enable(true);
         $("#inputShotBlastero").data("kendoMultiSelect").enable(true);
-        $("input[name='Muestra']").attr("disabled", true);
 
         $("input[name='LLena']").attr("disabled", false);
         $("#btnAgregar").attr("disabled", false);
@@ -347,7 +346,16 @@ function opcionHabilitarView(valor, name) {
     }
 }
 
+function BloquearElementosDinamicos(bloqueado)
+{
+    for (var i = 0; i < ComponentesDinamicosJSON.length; i++) {
+        $('#' + ComponentesDinamicosJSON[i].NombreColumna).data("kendoComboBox").enable(bloqueado);
+    }
 
+    for (var i = 0; i < ReductoresDinamicosJSON.length; i++) {
+        $('#' + ReductoresDinamicosJSON[i].NombreColumna).data("kendoComboBox").enable(bloqueado);
+    }
+}
 
 
 function suscribirEventoCarro() {
