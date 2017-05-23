@@ -59,17 +59,19 @@ function AjaxCargarEmbarques(proyectoID) {
     $RevisionEmbarque.RevisionEmbarque.read({ token: Cookies.get("token"), ProyectoID: proyectoID }).done(function (data) {
         $("#Embarque").data("kendoComboBox").dataSource.data([]);
             var EmbarqueID = 0;
-            if (data.length > 0) {
+            if (data.length > 0) {                
                 $("#Embarque").data("kendoComboBox").dataSource.data(data);
-
                 if (data.length < 3) {
                     for (var i = 0; i < data.length; i++) {
                         if (data[i].EmbarqueID != 0) {
                             EmbarqueID = data[i].EmbarqueID;
+                            //Activo Check si estaba cerrado el embarque                
+                            if (data[i].RevisionCerrada) {
+                                $("#InputCerrar").prop("checked", true);
+                            }
                         }
                     }
                 }
-
                 $("#Embarque").data("kendoComboBox").value(EmbarqueID);
                 $("#Embarque").data("kendoComboBox").trigger("change");
             }
@@ -112,15 +114,15 @@ function AjaxObtenerSpoolID() {
 function AjaxObtieneDetalle(EmbarqueID) {
     loadingStart();
     $RevisionEmbarque.RevisionEmbarque.read({ token: Cookies.get("token"), EmbarqueID: EmbarqueID, Muestra: $('input:radio[name=Muestra]:checked').val() == "Todos" ? 1 : 0 }).done(function (data) {
-            if (data.length > 0) {
-                $("#grid").data("kendoGrid").dataSource.data([]);                
-                var ds = $("#grid").data("kendoGrid").dataSource;
-                var array = data;
-                for (var i = 0; i < array.length; i++) {
-                    ds.add(array[i]);
-                }
-                ds.sync();
+        if (data.length > 0) {
+            $("#grid").data("kendoGrid").dataSource.data([]);                
+            var ds = $("#grid").data("kendoGrid").dataSource;
+            var array = data;
+            for (var i = 0; i < array.length; i++) {
+                ds.add(array[i]);
             }
+            ds.sync();
+        }
         loadingStop();
     });
 }
