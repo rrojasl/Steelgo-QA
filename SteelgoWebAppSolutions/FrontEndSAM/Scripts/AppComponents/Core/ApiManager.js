@@ -202,6 +202,7 @@ var $EntregaPlacasGraficas = new $.RestClient($BackEndSAMUri + '/backendsam/api/
 var $EditarRequisicion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $ValidacionRT = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $OKPND = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $FechasSpool = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 
 //Condiciones Climatologicas
 var $CondicionesClimatologicas = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
@@ -438,5 +439,7 @@ $Secuencias.add("Secuencias");
 
 /*General OK*/
 $OK.add("OK");
+
+$FechasSpool.add("FechasSpool");
 
 //#endregion
