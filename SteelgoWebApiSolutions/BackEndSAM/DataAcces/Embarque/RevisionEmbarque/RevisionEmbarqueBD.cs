@@ -112,7 +112,7 @@ namespace BackEndSAM.DataAcces.Embarque.RevisionEmbarque
                             Nombre = item.Embarque,
                             Destino = item.Destino,
                             Estatus = item.Estatus,
-                            ProyectoID = item.ProyectoID,
+                            ProyectoID = item.ProyectoID.GetValueOrDefault(),
                             RevisionEmbarqueID = item.RevisionEmbarqueID,
                             RevisionCerrada = item.RevisionCerrada
                         });
