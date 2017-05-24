@@ -162,7 +162,8 @@ function CargarGrid() {
         beforeEdit: function (e) {
             var columnIndex = this.cellIndex(e.container);
             var fieldName = this.thead.find("th").eq(columnIndex).data("field");
-            if (!isEditable(fieldName, e.model)) {
+            if (fieldName == "NoLlego") { e.preventDefault(); }
+            if (!isEditable(fieldName, e.model)) {            
                 e.preventDefault();
             }
         },
@@ -231,8 +232,9 @@ function CargarGrid() {
                             dataItem.Comentario = "";
                             dataItem.ModificadoPorUsuario = true;
                         }
-                        grid.dataSource.sync();
-
+                        e.stopPropagation();
+                        this.checked = false;
+                        grid.dataSource.sync();                        
                         break;
                     case 'LlegoComentario':
                         dataItem.set("Llego", false);
@@ -280,11 +282,9 @@ function isEditable(fieldName, model) {
         if(!model.LlegoComentario){
             return false;
         }
-    }
-
+    }    
     return true;
 }
-
 function ExisteSpool(row) {
     var jsonGrid = $("#grid").data("kendoGrid").dataSource._data;
 

@@ -302,6 +302,7 @@ function SuscribirEventoGuardar() {
                             //opcionHabilitarView(true, "");
                         } else {
                             displayNotify("EmbarqueRevisionMsjErrorNoPuedeGuardarGridSinCaptura", "", "1");
+                            $("#InputCerrar").prop("checked", false);
                         }
                     } else {
                         displayNotify("MensajeAdverteciaExcepcionGuardado", "", "2");
@@ -490,6 +491,7 @@ function SuscribirEventoEnterCodigo() {
 
 function SuscribirEventoAgregar() {
     $('#btnAgregar').click(function (e) {
+        e.preventDefault();
         var Proyecto = $("#Proyecto").data("kendoComboBox").dataItem($("#Proyecto").data("kendoComboBox").select());
         var Embarque = $("#Embarque").data("kendoComboBox").dataItem($("#Embarque").data("kendoComboBox").select());
         var RevisionCerrado = $("#InputCerrar").is(":checked");
@@ -670,6 +672,8 @@ function SuscribirEventoMostrarDetalle() {
                 $('input[name=Muestra]:nth(1)').prop('checked', true);
                 ventanaConfirm.close();                
             });
+        } else {
+            $("#grid").data("kendoGrid").dataSource.data([]);
         }
         //FiltroMostrar(0);
     });
@@ -708,6 +712,8 @@ function SuscribirEventoMostrarDetalle() {
                 $('input[name=Muestra]:nth(0)').prop('checked', true);
                 ventanaConfirm.close();
             });
+        } else {
+            $("#grid").data("kendoGrid").dataSource.data([]);
         }
     });
 }
