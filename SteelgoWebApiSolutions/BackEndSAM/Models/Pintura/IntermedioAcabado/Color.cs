@@ -9,7 +9,7 @@ namespace BackEndSAM.Models.Pintura.IntermedioAcabado
     {
         public int ColorID { get; set; }
         public string Nombre { get; set; }
-
+        public int SistemaPinturaColorID { get; set; }
         public Color()
         {
             ColorID = 0;

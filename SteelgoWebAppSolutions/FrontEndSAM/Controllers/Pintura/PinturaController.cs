@@ -76,5 +76,10 @@ namespace FrontEndSAM.Controllers.Pintura
         {
             return View();
         }
+
+        public ActionResult AvanceCuadrante()
+        {
+            return View();
+        }
     }
 }

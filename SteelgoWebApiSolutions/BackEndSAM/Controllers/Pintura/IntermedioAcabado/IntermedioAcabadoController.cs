@@ -16,7 +16,8 @@ namespace BackEndSAM.Controllers.Pintura.IntermedioAcabado
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class IntermedioAcabadoController : ApiController
     {
-        public object Get(string token)
+        //ObtenerListadoZonas
+        public object Get(string token,int procesoPintura)
         {
             string payload = "";
             string newToken = "";
@@ -27,7 +28,7 @@ namespace BackEndSAM.Controllers.Pintura.IntermedioAcabado
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
 
-                return IntermedioAcabadoBD.Instance.ObtenerListadoZonas(usuario);
+                return IntermedioAcabadoBD.Instance.ObtenerListadoZonas(usuario, procesoPintura);
             }
             else
             {
@@ -39,8 +40,8 @@ namespace BackEndSAM.Controllers.Pintura.IntermedioAcabado
                 return result;
             }
         }
-
-        public object Get(string token, int ZonaID)
+        //ObtenerListadoCuadrantes
+        public object Get(string token, int ZonaID,int procesoPintura)
         {
             string payload = "";
             string newToken = "";
@@ -51,7 +52,7 @@ namespace BackEndSAM.Controllers.Pintura.IntermedioAcabado
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
 
-                return IntermedioAcabadoBD.Instance.ObtenerListadoCuadrantes(usuario, ZonaID);
+                return IntermedioAcabadoBD.Instance.ObtenerListadoCuadrantes(usuario, ZonaID, procesoPintura);
             }
             else
             {
@@ -63,8 +64,8 @@ namespace BackEndSAM.Controllers.Pintura.IntermedioAcabado
                 return result;
             }
         }
-
-        public object Get(string token, int ZonaID, int CuadranteID)
+        //ObtenerListadoSistemaPintura
+        public object Get(string token, int ZonaID, int CuadranteID,int procesoPintura, string lenguaje)
         {
             string payload = "";
             string newToken = "";
@@ -75,7 +76,7 @@ namespace BackEndSAM.Controllers.Pintura.IntermedioAcabado
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
 
-                return IntermedioAcabadoBD.Instance.ObtenerListadoSistemaPintura(usuario, ZonaID, CuadranteID);
+                return IntermedioAcabadoBD.Instance.ObtenerListadoSistemaPintura(usuario, ZonaID, CuadranteID,procesoPintura,lenguaje);
             }
             else
             {
@@ -87,8 +88,8 @@ namespace BackEndSAM.Controllers.Pintura.IntermedioAcabado
                 return result;
             }
         }
-
-        public object Get(string token, int ZonaID, int CuadranteID, int SistemaPinturaID)
+        //ObtenerListadoColores
+        public object Get(string token, int SistemaPinturaID,string lenguaje)
         {
             string payload = "";
             string newToken = "";
@@ -99,7 +100,7 @@ namespace BackEndSAM.Controllers.Pintura.IntermedioAcabado
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
 
-                return IntermedioAcabadoBD.Instance.ObtenerListadoColores(SistemaPinturaID);
+                return IntermedioAcabadoBD.Instance.ObtenerListadoColores(SistemaPinturaID,lenguaje);
             }
             else
             {

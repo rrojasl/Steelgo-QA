@@ -7,16 +7,13 @@ namespace BackEndSAM.Models.Pintura.IntermedioAcabado
 {
     public class SistemaPintura
     {
-        public int SistemaPinturaID { get; set; }
+        public int? SistemaPinturaID { get; set; }
         public string Nombre { get; set; }
-        public int ColorID { get; set; }
-        public bool NoPintable { get; set; }
         public SistemaPintura()
         {
             SistemaPinturaID = 0;
             Nombre = "";
-            ColorID = 0;
-            NoPintable = false;
+         
         }
     }
 }

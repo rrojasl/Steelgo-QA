@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using BackEndSAM.Models.Pintura.IntermedioAcabado;
 
 namespace BackEndSAM.DataAcces.Pintura.IntermedioAcabado
 {
@@ -28,36 +29,28 @@ namespace BackEndSAM.DataAcces.Pintura.IntermedioAcabado
             }
         }
 
-        public object ObtenerListadoZonas(Sam3_Usuario usuario)
+        public object ObtenerListadoZonas(Sam3_Usuario usuario,int procesoPintura)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Zona> listaZonas = new List<Zona>();
-                    //List<Sam3_ST_CRRT_Get_ListaProyectos_Result> listaProyectosCTX = ctx.Sam3_ST_CRRT_Get_ListaProyectos(usuario.UsuarioID).ToList();
-                    listaZonas.Add(new Zona());
 
-                    for (int i = 1; i < 4; i++)
+                    List<Sam3_Pintura_AvanceCarro_Get_Zonas_Result> result = ctx.Sam3_Pintura_AvanceCarro_Get_Zonas(usuario.UsuarioID, procesoPintura).ToList();
+
+                    List<BackEndSAM.Models.Pintura.IntermedioAcabado.Zona> listaZonas = new List<BackEndSAM.Models.Pintura.IntermedioAcabado.Zona>();
+
+                    if (result.Count > 0)
+                        listaZonas.Add(new BackEndSAM.Models.Pintura.IntermedioAcabado.Zona());
+
+                    foreach (Sam3_Pintura_AvanceCarro_Get_Zonas_Result item in result)
                     {
-                        listaZonas.Add(new Zona
+                        listaZonas.Add(new BackEndSAM.Models.Pintura.IntermedioAcabado.Zona
                         {
-                            ZonaID = i,
-                            Nombre = "Zona " + i
+                            Nombre=item.Nombre,
+                            ZonaID=item.ZonaID
                         });
                     }
-
-                    //foreach (Sam3_ST_CRRT_Get_ListaProyectos_Result item in listaProyectosCTX)
-                    //{
-                    //    listaZonas.Add(new Zona
-                    //    {
-                    //        ProyectoID = item.ProyectoID,
-                    //        Nombre = item.Nombre,
-                    //        PatioID = item.PatioID,
-                    //        PrefijoOrdenTrabajo = item.PrefijoOrdenTrabajo
-                    //    });
-                    //}
-
                     return listaZonas;
                 }
             }
@@ -76,37 +69,29 @@ namespace BackEndSAM.DataAcces.Pintura.IntermedioAcabado
             }
         }
 
-        public object ObtenerListadoCuadrantes(Sam3_Usuario usuario, int ZonaID)
+        public object ObtenerListadoCuadrantes(Sam3_Usuario usuario, int ZonaID,int procesoPintura)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Cuadrante> listaCuadrante = new List<Cuadrante>();
-                    //List<Sam3_ST_CRRT_Get_ListaProyectos_Result> listaProyectosCTX = ctx.Sam3_ST_CRRT_Get_ListaProyectos(usuario.UsuarioID).ToList();
-                    listaCuadrante.Add(new Cuadrante());
+                    List<Sam3_Pintura_AvanceCarro_Get_Cuadrantes_Result> result = ctx.Sam3_Pintura_AvanceCarro_Get_Cuadrantes(usuario.UsuarioID, procesoPintura).ToList();
 
-                    for (int i = 1; i < 5; i++)
+                    List<BackEndSAM.Models.Pintura.IntermedioAcabado.Cuadrante> listaCuadrante = new List<BackEndSAM.Models.Pintura.IntermedioAcabado.Cuadrante>();
+
+                    if (result.Count > 0)
+                        listaCuadrante.Add(new BackEndSAM.Models.Pintura.IntermedioAcabado.Cuadrante());
+
+                    foreach (Sam3_Pintura_AvanceCarro_Get_Cuadrantes_Result item in result)
                     {
-                        listaCuadrante.Add(new Cuadrante
+                        listaCuadrante.Add(new BackEndSAM.Models.Pintura.IntermedioAcabado.Cuadrante
                         {
-                            CuadranteID = i,
-                            Nombre = "Cuadrante " + i
+                            Nombre = item.Nombre,
+                            CuadranteID=item.CuadranteID
                         });
                     }
-
-                    //foreach (Sam3_ST_CRRT_Get_ListaProyectos_Result item in listaProyectosCTX)
-                    //{
-                    //    listaZonas.Add(new Zona
-                    //    {
-                    //        ProyectoID = item.ProyectoID,
-                    //        Nombre = item.Nombre,
-                    //        PatioID = item.PatioID,
-                    //        PrefijoOrdenTrabajo = item.PrefijoOrdenTrabajo
-                    //    });
-                    //}
-
                     return listaCuadrante;
+                    
                 }
             }
             catch (Exception ex)
@@ -124,39 +109,30 @@ namespace BackEndSAM.DataAcces.Pintura.IntermedioAcabado
             }
         }
 
-        public object ObtenerListadoSistemaPintura(Sam3_Usuario usuario, int ZonaID, int CuadranteID)
+        public object ObtenerListadoSistemaPintura(Sam3_Usuario usuario, int ZonaID, int CuadranteID,int procesoPintura,string lenguaje)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<BackEndSAM.Models.Pintura.IntermedioAcabado.SistemaPintura> listaSistemaPintura = new List<BackEndSAM.Models.Pintura.IntermedioAcabado.SistemaPintura>();
-                    //List<Sam3_ST_CRRT_Get_ListaProyectos_Result> listaProyectosCTX = ctx.Sam3_ST_CRRT_Get_ListaProyectos(usuario.UsuarioID).ToList();
-                    listaSistemaPintura.Add(new BackEndSAM.Models.Pintura.IntermedioAcabado.SistemaPintura());
 
-                    for (int i = 1; i < 5; i++)
+                    List<Sam3_Pintura_AvanceCarro_Get_SP_Result> result = ctx.Sam3_Pintura_AvanceCarro_Get_SP(CuadranteID, lenguaje, procesoPintura).ToList();
+
+                    List<BackEndSAM.Models.Pintura.IntermedioAcabado.SistemaPintura> listaSP = new List<BackEndSAM.Models.Pintura.IntermedioAcabado.SistemaPintura>();
+
+                    if (result.Count > 0)
+                        listaSP.Add(new BackEndSAM.Models.Pintura.IntermedioAcabado.SistemaPintura());
+
+                    foreach (Sam3_Pintura_AvanceCarro_Get_SP_Result item in result)
                     {
-                        listaSistemaPintura.Add(new BackEndSAM.Models.Pintura.IntermedioAcabado.SistemaPintura
+                        listaSP.Add(new BackEndSAM.Models.Pintura.IntermedioAcabado.SistemaPintura
                         {
-                            SistemaPinturaID = i,
-                            Nombre = "SistemaPintura " + i,
-                            ColorID = i,
-                            NoPintable = false
+                            SistemaPinturaID = item.SistemaPinturaID,
+                            Nombre = item.Nombre,
                         });
                     }
-
-                    //foreach (Sam3_ST_CRRT_Get_ListaProyectos_Result item in listaProyectosCTX)
-                    //{
-                    //    listaZonas.Add(new Zona
-                    //    {
-                    //        ProyectoID = item.ProyectoID,
-                    //        Nombre = item.Nombre,
-                    //        PatioID = item.PatioID,
-                    //        PrefijoOrdenTrabajo = item.PrefijoOrdenTrabajo
-                    //    });
-                    //}
-
-                    return listaSistemaPintura;
+                   
+                    return listaSP;
                 }
             }
             catch (Exception ex)
@@ -174,37 +150,31 @@ namespace BackEndSAM.DataAcces.Pintura.IntermedioAcabado
             }
         }
 
-        public object ObtenerListadoColores(int ColorID)
+        public object ObtenerListadoColores(int SistemaPinturaID,string lenguaje)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Color> listaColores = new List<BackEndSAM.Models.Pintura.IntermedioAcabado.Color>();
-                    //List<Sam3_ST_CRRT_Get_ListaProyectos_Result> listaProyectosCTX = ctx.Sam3_ST_CRRT_Get_ListaProyectos(usuario.UsuarioID).ToList();
-                    listaColores.Add(new BackEndSAM.Models.Pintura.IntermedioAcabado.Color());
+                    List<Sam3_Pintura_AvanceCarro_Get_Color_Result> result = ctx.Sam3_Pintura_AvanceCarro_Get_Color(SistemaPinturaID, lenguaje).ToList();
 
-                    for (int i = 1; i < 5; i++)
+                    List<BackEndSAM.Models.Pintura.IntermedioAcabado.Color> listaColores = new List<BackEndSAM.Models.Pintura.IntermedioAcabado.Color>();
+
+                    if (result.Count > 0)
+                        listaColores.Add(new BackEndSAM.Models.Pintura.IntermedioAcabado.Color());
+
+                    foreach (Sam3_Pintura_AvanceCarro_Get_Color_Result item in result)
                     {
                         listaColores.Add(new BackEndSAM.Models.Pintura.IntermedioAcabado.Color
                         {
-                            ColorID = i,
-                            Nombre = "Color " + i
+                            SistemaPinturaColorID=item.SistemaPinturaColorID,
+                            ColorID=item.ColorID,
+                            Nombre=item.Nombre
                         });
                     }
 
-                    //foreach (Sam3_ST_CRRT_Get_ListaProyectos_Result item in listaProyectosCTX)
-                    //{
-                    //    listaZonas.Add(new Zona
-                    //    {
-                    //        ProyectoID = item.ProyectoID,
-                    //        Nombre = item.Nombre,
-                    //        PatioID = item.PatioID,
-                    //        PrefijoOrdenTrabajo = item.PrefijoOrdenTrabajo
-                    //    });
-                    //}
-
                     return listaColores;
+                    
                 }
             }
             catch (Exception ex)
