@@ -36,14 +36,14 @@ namespace BackEndSAM.DataAcces.Pintura.IntermedioAcabado
                 using (SamContext ctx = new SamContext())
                 {
 
-                    List<Sam3_Pintura_AvanceCarro_Get_Zonas_Result> result = ctx.Sam3_Pintura_AvanceCarro_Get_Zonas(usuario.UsuarioID, procesoPintura).ToList();
+                    List<Sam3_Pintura_AvanceCuadrante_Get_Zonas_Result> result = ctx.Sam3_Pintura_AvanceCuadrante_Get_Zonas(usuario.UsuarioID, procesoPintura).ToList();
 
                     List<BackEndSAM.Models.Pintura.IntermedioAcabado.Zona> listaZonas = new List<BackEndSAM.Models.Pintura.IntermedioAcabado.Zona>();
 
                     if (result.Count > 0)
                         listaZonas.Add(new BackEndSAM.Models.Pintura.IntermedioAcabado.Zona());
 
-                    foreach (Sam3_Pintura_AvanceCarro_Get_Zonas_Result item in result)
+                    foreach (Sam3_Pintura_AvanceCuadrante_Get_Zonas_Result item in result)
                     {
                         listaZonas.Add(new BackEndSAM.Models.Pintura.IntermedioAcabado.Zona
                         {
@@ -75,14 +75,14 @@ namespace BackEndSAM.DataAcces.Pintura.IntermedioAcabado
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Pintura_AvanceCarro_Get_Cuadrantes_Result> result = ctx.Sam3_Pintura_AvanceCarro_Get_Cuadrantes(usuario.UsuarioID, procesoPintura).ToList();
+                    List<Sam3_Pintura_AvanceCuadrante_Get_Cuadrantes_Result> result = ctx.Sam3_Pintura_AvanceCuadrante_Get_Cuadrantes(usuario.UsuarioID, procesoPintura).ToList();
 
                     List<BackEndSAM.Models.Pintura.IntermedioAcabado.Cuadrante> listaCuadrante = new List<BackEndSAM.Models.Pintura.IntermedioAcabado.Cuadrante>();
 
                     if (result.Count > 0)
                         listaCuadrante.Add(new BackEndSAM.Models.Pintura.IntermedioAcabado.Cuadrante());
 
-                    foreach (Sam3_Pintura_AvanceCarro_Get_Cuadrantes_Result item in result)
+                    foreach (Sam3_Pintura_AvanceCuadrante_Get_Cuadrantes_Result item in result)
                     {
                         listaCuadrante.Add(new BackEndSAM.Models.Pintura.IntermedioAcabado.Cuadrante
                         {
@@ -116,14 +116,14 @@ namespace BackEndSAM.DataAcces.Pintura.IntermedioAcabado
                 using (SamContext ctx = new SamContext())
                 {
 
-                    List<Sam3_Pintura_AvanceCarro_Get_SP_Result> result = ctx.Sam3_Pintura_AvanceCarro_Get_SP(CuadranteID, lenguaje, procesoPintura).ToList();
+                    List<Sam3_Pintura_AvanceCuadrante_Get_SP_Result> result = ctx.Sam3_Pintura_AvanceCuadrante_Get_SP(CuadranteID, lenguaje, procesoPintura).ToList();
 
                     List<BackEndSAM.Models.Pintura.IntermedioAcabado.SistemaPintura> listaSP = new List<BackEndSAM.Models.Pintura.IntermedioAcabado.SistemaPintura>();
 
                     if (result.Count > 0)
                         listaSP.Add(new BackEndSAM.Models.Pintura.IntermedioAcabado.SistemaPintura());
 
-                    foreach (Sam3_Pintura_AvanceCarro_Get_SP_Result item in result)
+                    foreach (Sam3_Pintura_AvanceCuadrante_Get_SP_Result item in result)
                     {
                         listaSP.Add(new BackEndSAM.Models.Pintura.IntermedioAcabado.SistemaPintura
                         {
@@ -156,14 +156,14 @@ namespace BackEndSAM.DataAcces.Pintura.IntermedioAcabado
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Pintura_AvanceCarro_Get_Color_Result> result = ctx.Sam3_Pintura_AvanceCarro_Get_Color(SistemaPinturaID, lenguaje).ToList();
+                    List<Sam3_Pintura_AvanceCuadrante_Get_Color_Result> result = ctx.Sam3_Pintura_AvanceCuadrante_Get_Color(SistemaPinturaID, lenguaje).ToList();
 
                     List<BackEndSAM.Models.Pintura.IntermedioAcabado.Color> listaColores = new List<BackEndSAM.Models.Pintura.IntermedioAcabado.Color>();
 
                     if (result.Count > 0)
                         listaColores.Add(new BackEndSAM.Models.Pintura.IntermedioAcabado.Color());
 
-                    foreach (Sam3_Pintura_AvanceCarro_Get_Color_Result item in result)
+                    foreach (Sam3_Pintura_AvanceCuadrante_Get_Color_Result item in result)
                     {
                         listaColores.Add(new BackEndSAM.Models.Pintura.IntermedioAcabado.Color
                         {
