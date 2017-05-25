@@ -166,6 +166,11 @@ function CargarGrid() {
             if (!isEditable(fieldName, e.model)) {            
                 e.preventDefault();
             }
+            if (fieldName == "Llego" || fieldName == "LlegoComentario" || fieldName == "NoLlego") {
+                if ($("#InputCerrar").is(":checked")) {                                    
+                    e.preventDefault();
+                }                
+            }
         },
         dataBound: function (e) {
             var grid = $("#grid").data("kendoGrid");
