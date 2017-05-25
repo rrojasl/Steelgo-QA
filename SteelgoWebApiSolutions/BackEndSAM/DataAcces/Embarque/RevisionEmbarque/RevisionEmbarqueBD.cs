@@ -112,9 +112,9 @@ namespace BackEndSAM.DataAcces.Embarque.RevisionEmbarque
                             Nombre = item.Embarque,
                             Destino = item.Destino,
                             Estatus = item.Estatus,
-                            ProyectoID = item.ProyectoID,
-                            RevisionEmbarqueID = item.RevisionEmbarqueID.GetValueOrDefault(),
-                            RevisionCerrada = item.RevisionCerrada.GetValueOrDefault()
+                            ProyectoID = item.ProyectoID.GetValueOrDefault(),
+                            RevisionEmbarqueID = item.RevisionEmbarqueID,
+                            RevisionCerrada = item.RevisionCerrada
                         });
                     }
 
@@ -255,10 +255,10 @@ namespace BackEndSAM.DataAcces.Embarque.RevisionEmbarque
                         listaDetalle.Add(new DetalleRevisionEmbarque
                         {
                             Accion = item.Accion,
-                            SpoolID = item.SpoolID.GetValueOrDefault(),
+                            SpoolID = item.SpoolID,
                             NumeroControl = item.NumeroControl,
-                            EmbarqueID = item.EmbarqueID.GetValueOrDefault(),
-                            EmbarqueEstatusID = item.EmbarqueEstatusID.GetValueOrDefault(),
+                            EmbarqueID = item.EmbarqueID,
+                            EmbarqueEstatusID = item.EmbarqueEstatusID,
                             Paquete = item.Paquete,
                             DetalleRevisionID = item.DetalleRevisionID,
                             Llego = item.Llego.GetValueOrDefault(),
