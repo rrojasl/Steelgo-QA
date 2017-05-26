@@ -4,7 +4,7 @@ var ventanaConfirmEdicionCambioProcesoPintura;
 function SuscribirEventos() {
     suscribirEventoCarro();
     suscribirEventoGuardarCarro();
-    suscribirEventoPlancharShotBlastero();
+    suscribirEventoShotBlastero();
     SuscribirEventoSpoolID();
     suscribirEventoDescargar();
     SuscribirEventoAgregar();
@@ -401,7 +401,7 @@ function suscribirEventoCarro() {
 
 
 
-function suscribirEventoPlancharShotBlastero() {
+function suscribirEventoShotBlastero() {
 
     $("#inputShotBlastero").kendoMultiSelect({
         dataSource: '',

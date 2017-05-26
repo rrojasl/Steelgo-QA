@@ -1,20 +1,22 @@
-﻿using BackEndSAM.Models.Pintura.IntermedioAcabado;
+﻿using BackEndSAM.Models.Pintura.AvanceCuadrante;
+using BackEndSAM.Models.Pintura.CapturaAvance;
+using DatabaseManager.Constantes;
 using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
-using BackEndSAM.Models.Pintura.IntermedioAcabado;
 
-namespace BackEndSAM.DataAcces.Pintura.IntermedioAcabado
+namespace BackEndSAM.DataAcces.Pintura.AvanceCuadrante
 {
-    public class IntermedioAcabadoBD
+    public class AvanceCuadranteBD
     {
-        private static readonly object _mutex = new object();
-        private static IntermedioAcabadoBD _instance;
+        private static readonly object _mutex = new Object();
+        private static AvanceCuadranteBD _instance;
 
-        public static IntermedioAcabadoBD Instance
+        public static AvanceCuadranteBD Instance
         {
             get
             {
@@ -22,21 +24,87 @@ namespace BackEndSAM.DataAcces.Pintura.IntermedioAcabado
                 {
                     if (_instance == null)
                     {
-                        _instance = new IntermedioAcabadoBD();
+
+                        _instance = new AvanceCuadranteBD();
                     }
                 }
                 return _instance;
             }
         }
 
-        public object ObtenerListadoZonas(Sam3_Usuario usuario,int procesoPintura)
+        public object ObtenerObrerosGuardados(int spoolID, int procesoID, int usuarioID)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Sam3_Pintura_AvanceCuadrante_Get_ObrerosProcesoPintura_Result> result = ctx.Sam3_Pintura_AvanceCuadrante_Get_ObrerosProcesoPintura(spoolID, procesoID).ToList();
+
+                    List<object> listaObreros = new List<object>();
+
+
+                    List<Models.Pintura.AvanceCuadrante.PintorSpool> ListadoPintores = new List<Models.Pintura.AvanceCuadrante.PintorSpool>();
+
+                    foreach (Sam3_Pintura_AvanceCuadrante_Get_ObrerosProcesoPintura_Result item in result)
+                    {
+                        ListadoPintores.Add(new Models.Pintura.AvanceCuadrante.PintorSpool
+                        {
+                            Accion = 2,
+                            ObreroID = item.ObreroID.GetValueOrDefault(),
+                            Codigo = item.Codigo,
+                            AvanceCuadranteObreroId = item.AvanceCuadranteObreroId,
+                        });
+                    }
+                    listaObreros.Add(ListadoPintores);
+                    listaObreros.Add(BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD.CapturaAvanceBD.Instance.ObtenerObreros(procesoID, usuarioID));
+                    return listaObreros;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object ObtenerDetalle(int cuadranteID, int sistemaPintura,int? sistemaPinturaColor,string lenguaje,int procesoPinturaID,int todosSinCaptura,int UsuarioID)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                   
+                    ObjetosSQL _SQL = new ObjetosSQL();
+                    string[,] parametro = { { "@CuadranteID", cuadranteID.ToString() }, { "@SistemaPintura", sistemaPintura.ToString() }, { "@SistemaPinturaColor", sistemaPinturaColor.ToString() }, { "@Lenguaje", lenguaje }, { "@ProcesoPinturaID", procesoPinturaID.ToString() }, { "@TodosSinCaptura", todosSinCaptura.ToString() }, { "@UsuarioID", UsuarioID.ToString() } };
+                    DataTable dtDetalle = _SQL.EjecutaDataAdapter(Stords.OBTIENEDETALLEAVANCECUADRANTE, parametro);
+                    return dtDetalle;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object ObtenerListadoZonas(Sam3_Usuario usuario, int procesoPintura, int ProyectoID)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
 
-                    List<Sam3_Pintura_AvanceCuadrante_Get_Zonas_Result> result = ctx.Sam3_Pintura_AvanceCuadrante_Get_Zonas(usuario.UsuarioID, procesoPintura).ToList();
+                    List<Sam3_Pintura_AvanceCuadrante_Get_Zonas_Result> result = ctx.Sam3_Pintura_AvanceCuadrante_Get_Zonas(usuario.UsuarioID, procesoPintura, ProyectoID).ToList();
 
                     List<BackEndSAM.Models.Pintura.IntermedioAcabado.Zona> listaZonas = new List<BackEndSAM.Models.Pintura.IntermedioAcabado.Zona>();
 
@@ -47,8 +115,8 @@ namespace BackEndSAM.DataAcces.Pintura.IntermedioAcabado
                     {
                         listaZonas.Add(new BackEndSAM.Models.Pintura.IntermedioAcabado.Zona
                         {
-                            Nombre=item.Nombre,
-                            ZonaID=item.ZonaID
+                            Nombre = item.Nombre,
+                            ZonaID = item.ZonaID
                         });
                     }
                     return listaZonas;
@@ -69,7 +137,7 @@ namespace BackEndSAM.DataAcces.Pintura.IntermedioAcabado
             }
         }
 
-        public object ObtenerListadoCuadrantes(Sam3_Usuario usuario, int ZonaID,int procesoPintura)
+        public object ObtenerListadoCuadrantes(Sam3_Usuario usuario, int ZonaID, int procesoPintura)
         {
             try
             {
@@ -87,11 +155,11 @@ namespace BackEndSAM.DataAcces.Pintura.IntermedioAcabado
                         listaCuadrante.Add(new BackEndSAM.Models.Pintura.IntermedioAcabado.Cuadrante
                         {
                             Nombre = item.Nombre,
-                            CuadranteID=item.CuadranteID
+                            CuadranteID = item.CuadranteID
                         });
                     }
                     return listaCuadrante;
-                    
+
                 }
             }
             catch (Exception ex)
@@ -109,7 +177,7 @@ namespace BackEndSAM.DataAcces.Pintura.IntermedioAcabado
             }
         }
 
-        public object ObtenerListadoSistemaPintura(Sam3_Usuario usuario, int ZonaID, int CuadranteID,int procesoPintura,string lenguaje)
+        public object ObtenerListadoSistemaPintura(Sam3_Usuario usuario, int ZonaID, int CuadranteID, int procesoPintura, string lenguaje)
         {
             try
             {
@@ -131,7 +199,7 @@ namespace BackEndSAM.DataAcces.Pintura.IntermedioAcabado
                             Nombre = item.Nombre,
                         });
                     }
-                   
+
                     return listaSP;
                 }
             }
@@ -150,7 +218,7 @@ namespace BackEndSAM.DataAcces.Pintura.IntermedioAcabado
             }
         }
 
-        public object ObtenerListadoColores(int SistemaPinturaID,string lenguaje)
+        public object ObtenerListadoColores(int SistemaPinturaID, string lenguaje)
         {
             try
             {
@@ -167,14 +235,14 @@ namespace BackEndSAM.DataAcces.Pintura.IntermedioAcabado
                     {
                         listaColores.Add(new BackEndSAM.Models.Pintura.IntermedioAcabado.Color
                         {
-                            SistemaPinturaColorID=item.SistemaPinturaColorID,
-                            ColorID=item.ColorID,
-                            Nombre=item.Nombre
+                            SistemaPinturaColorID = item.SistemaPinturaColorID,
+                            ColorID = item.ColorID,
+                            Nombre = item.Nombre
                         });
                     }
 
                     return listaColores;
-                    
+
                 }
             }
             catch (Exception ex)

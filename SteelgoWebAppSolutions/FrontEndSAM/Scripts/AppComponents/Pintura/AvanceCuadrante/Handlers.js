@@ -1,17 +1,28 @@
 ﻿function SuscribirEventos() {
-    
+    SuscribirEventoProyecto();
     SuscribirEventoZona();
     SuscribirEventoCuadrante();
     SuscribirEventoSistemaPintura();
     SuscribirEventoOrdenTrabajo();
     SuscribirEventoSpoolID();
-    SuscribirEventoLote();
     SuscribirEventoMostrar();
     SuscribirEventoGuardar();
     SuscribirEventoColor();
     suscribirEventoSeleccionProcesoPintura();
     suscribirEventoWindowsConfirmaCapturaCambioProcesoPintura();
+    suscribirEventoPintor();
 };
+
+function suscribirEventoPintor() {
+
+    $("#inputPintor").kendoMultiSelect({
+        dataSource: '',
+        dataTextField: "Codigo",
+        dataValueField: "ObreroID",
+        suggest: true,
+        filter: "contains"
+    }).data("kendoMultiSelect");
+}
 
 function suscribirEventoWindowsConfirmaCapturaCambioProcesoPintura() {
     ventanaConfirmEdicionCambioProcesoPintura = $("#ventanaConfirmCapturaProcesoPintura").kendoWindow({
@@ -173,61 +184,9 @@ function SuscribirEventoSpoolID() {
 
 }
 
-function SuscribirEventoLote() {
-
-    $("#inputLote").kendoComboBox({
-        dataTextField: "NumeroLote",
-        dataValueField: "LotePinturaID",
-        suggest: true,
-        filter: "contains",
-        index: 3,
-        delay: 10,
-        change: function (e) {
-            dataItem = this.dataItem(e.sender.selectedIndex);
-
-            if (dataItem != undefined) {
-                if ($("#inputLote").data("kendoComboBox").dataItem($("#inputLote").data("kendoComboBox").select()) != undefined) {
-                }
-                else {
-                    $("#inputLote").data("kendoComboBox").value("");
-                }
-            }
-            else {
-                $("#InputID").data("kendoComboBox").value("");
-            }
-        }
-    });
-
-   
-    //    .closest('.k-widget').keydown(function (e) {
-    //    if (e.keyCode == 13) {
-    //        if ($("#inputLote").data("kendoComboBox").dataItem($("#inputLote").data("kendoComboBox").select()) != undefined) {
-    //            //PlanchaLote();
-    //        }
-    //        else {
-    //            $("#inputLote").data("kendoComboBox").value("");
-    //        }
-    //    }
-    //});
-}
-
 function SuscribirEventoMostrar() {
     $("#btnMostrar").click(function () {
-        var _cuadranteId = $("#inputCuadrante").val();
-        if (_cuadranteId != "") {
-            var _paso;
-
-            if ($("input:radio[name='PasoTipo']:checked").val() == "intermedio") {
-                _paso = 3;
-            }
-            else if ($("input:radio[name='PasoTipo']:checked").val() == "acabado") {
-                _paso = 4;
-            }
-            ajaxMostrarCapturaAvanceIntAcabado(_cuadranteId, _paso);
-        }
-        else {
-            //displayMessage("ErrorCapturaAvanceIntAcabadoSeleccionarCuadrante", '', '2');
-        }
+        BuscarDetalle();
     });
 }
 
@@ -302,5 +261,40 @@ function opcionHabilitarView(valor, name) {
         $("#Guardar").text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
         $('#GuardarPie').text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
     }
+}
+
+function SuscribirEventoProyecto() {
+    $("#inputProyecto").kendoComboBox({
+        dataTextField: "Nombre",
+        dataValueField: "ProyectoID",
+        suggest: true,
+        delay: 10,
+        filter: "contains",
+        index: 3,
+        change: function (e) {
+            var dataItem = this.dataItem(e.sender.selectedIndex);
+
+            if (!editado) {
+                LimpiarDespuesCambioCaptura();
+                if (dataItem != undefined) {
+                    if (dataItem.ProyectoID != 0) {
+                        proyectoActualSeleccionado = dataItem;
+                        AjaxZona();
+                    }
+                } else {
+                    $("#inputProyecto").data("kendoComboBox").value("");
+                }
+            }
+            else {
+                ventanaConfirmEdicionSinTipoBusquedaProyecto.open().center();
+            }
+        }
+    });
+
+    $('#inputProyecto').closest('.k-widget').keydown(function (e) {
+        if (e.keyCode == 13) {
+            AjaxObtenerDetalleCargaCarro($("#inputCarro").data("kendoComboBox").select() == -1 ? 0 : $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()).MedioTransporteID, $('input:radio[name=TipoVista]:checked').val(), '');
+        }
+    });
 }
 
