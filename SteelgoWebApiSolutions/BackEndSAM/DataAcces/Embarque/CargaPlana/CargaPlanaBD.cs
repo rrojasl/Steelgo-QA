@@ -232,6 +232,39 @@ namespace BackEndSAM.DataAcces.Embarque.CargaPlana
             }
         }
 
+        public object ValidarCaptura(DataTable dtDetalle, int UsuarioID, int PlanaID)
+        {
+            try
+            {
+                ObjetosSQL _SQL = new ObjetosSQL();
+                string[,] parametros = { { "@UsuarioID", UsuarioID.ToString() }, { "@PlanaID", PlanaID.ToString() } };
+
+                DataTable identityResult = _SQL.Tabla(Stords.VALIDACIONSPOOLCARGAPLANA, dtDetalle, "@DetalleCarga", parametros);
+                
+                List<DetalleValidarCaptura> result = identityResult.AsEnumerable().Select(m => new DetalleValidarCaptura()
+                {
+                    SpoolID = m.Field<int>("SpoolID"),
+                    NumeroControl = m.Field<string>("NumeroControl"),
+                    NombrePaquete = m.Field<string>("NombrePaquete"),
+                    Plana = m.Field<string>("Plana"),
+                    EsCorrecto = m.Field<int>("EsCorrecto")
+                }).ToList();
+                
+                return result;
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+
         public object CerrarCargaPlana(DataTable dtDetalle, int UsuarioID)
         {
             try

@@ -31,6 +31,9 @@
                     </div>
                     <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar"></span></a>
                 </div>
+                <div id="PreparacionEmbarqueDivSup" class="button-section">
+                    <a id="" href=@Url.Action("PackingList", "Dynasol") class="btn btn-primary"><span id="">Packing List</span></a>
+                </div>
                 <div class="button-section actionButtonSection">
                     <div class="dropdown action-group">
                         <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
@@ -45,8 +48,21 @@
         </div>
     </div>
     @*Controles Superior*@
-    
 
+
+    @*Controles Superior*@
+    <div id="FieldSetView" class="row addedSectionInLineWithoutColor">
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 altoControl" id="divProyecto">
+            <label id="">Orden de compra</label>
+            <input id="inputProyecto" class="" />
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 altoControl">
+            <label id="lblMostrar"></label>
+            <input type="radio" name="Muestra" style="width:auto;" class="radio-responsive" value="C" checked />&nbsp;<span id="">Cecilia</span>&nbsp;
+            <input type="radio" name="Muestra" style="width:auto;" class="radio-responsive" value="G" />&nbsp;<span id="">Gerez </span>
+            <input type="radio" name="Muestra" style="width:auto;" class="radio-responsive" value="S" />&nbsp;<span id="">Steelgo</span>
+        </div>
+    </div>
 
     @*GRID PARA RT*@
     <div class="row addedSectionInLine" id="gridRT">
@@ -59,39 +75,43 @@
             </div>
         </div>
     </div>
-</div>
-@*Menu Inferior*@
-<div class="row">
-    <div class="col-sm-12 col-md-12 col-lg-12">
-        <div class="formNav clearfix">
-            <div class="button-section editButtonSection">
-                <div class="btn-group save-group">
-                    <button id="Guardar1" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="botonGuardar3"></span></button>
-                    <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="caretWhite"></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a href="#" id="btnGuardar1"><span id="botonGuardar4"></span></a></li>
-                        <li><a href="#" id="btnGuardarYNuevo1"><span id="botonGuardarYNuevo1"></span></a></li>
-                    </ul>
+
+    @*Menu Inferior*@
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <div class="formNav clearfix">
+                <div class="button-section editButtonSection">
+                    <div class="btn-group save-group">
+                        <button id="Guardar1" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="botonGuardar3"></span></button>
+                        <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="caretWhite"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" id="btnGuardar1"><span id="botonGuardar4"></span></a></li>
+                            <li><a href="#" id="btnGuardarYNuevo1"><span id="botonGuardarYNuevo1"></span></a></li>
+                        </ul>
+                    </div>
+                    <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar1"></span></a>
                 </div>
-                <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar1"></span></a>
-            </div>
-            <div class="button-section actionButtonSection">
-                <div class="dropdown action-group">
-                    <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
-                        <span id="botonAcciones2"></span>
-                        <span class="caretBlue"></span>
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="Acciones"></ul>
+                <div id="PreparacionEmbarqueDivInf" class="button-section">
+                    <a id="" href=@Url.Action("PackingList", "Dynasol") class="btn btn-primary"><span id="">Packing List</span></a>
                 </div>
+                <div class="button-section actionButtonSection">
+                    <div class="dropdown action-group">
+                        <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
+                            <span id="botonAcciones2"></span>
+                            <span class="caretBlue"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="Acciones"></ul>
+                    </div>
+                </div>
+                <a id="Imprimir" href="#" class="btn btn-fadeBlue actionButtonSection"></a>
             </div>
-            <a id="Imprimir" href="#" class="btn btn-fadeBlue actionButtonSection"></a>
         </div>
     </div>
 </div>
 </div>
-
+@*cecilia*@
 <div id="windowGrid" style="display: none; z-index:inherit;">
 
 
@@ -116,12 +136,69 @@
         </div>
     </div>
 </div>
-<div id="windowGridDefectos" style="display: none; z-index:inherit;">
+
+@*Gerez*@
+<div id="windowGridGerez" style="display: none; z-index:inherit;">
+
+
+    <div class="form-group">
+        <div id="ContenedorGridPopUpGerez">
+            <div id="gridPopUpGerez" data-role="grid" class="k-grid k-widget">
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-3 col-md-3 col-lg-3">
+        </div>
+        <div class="col-sm-3 col-md-3 col-lg-3">
+            <a class="btn btn-blue" href="#" id="GuardarPlacasGerez"><span id="">Agregar</span></a>
+
+        </div>
+        <div class="col-sm-3 col-md-3 col-lg-3">
+            <a class="btn btn-blue" href="#" id="CancelarPlacasGerez"><span id="">Cancelar</span></a>
+        </div>
+        <div class="col-sm-3 col-md-3 col-lg-3">
+        </div>
+    </div>
+</div>
+
+
+@*cecilia*@
+<div id="windowGridCecilia" style="display: none; z-index:inherit;">
+
+
+    <div class="form-group">
+        <div id="ContenedorGridPopUpCecilia">
+            <div id="gridPopUpCecilia" data-role="grid" class="k-grid k-widget">
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-2 col-md-2 col-lg-2">
+        </div>
+        <div class="col-sm-3 col-md-3 col-lg-3">
+            <a class="btn btn-blue" href="#" id="GuardarPlacasCecilia"><span id="">Agregar</span></a>
+
+        </div>
+        <div class="col-sm-3 col-md-3 col-lg-3">
+            <a class="btn btn-blue" href="#" id="CancelarPlacasCecilia"><span id="">Cancelar</span></a>
+        </div>
+        <div class="col-sm-3 col-md-3 col-lg-3">
+        </div>
+    </div>
+</div>
+
+
+
+@*Steelgo*@
+<div id="windowGridDefectos" style="display: none;  z-index:inherit;">
 
 
     <div class="form-group">
         <div id="ContenedorGridPopUpDefectos">
-            <div id="gridPopUpDefectos" data-role="grid" class="k-grid k-widget">
+            <div id="gridPopUpDefectos" data-role="grid" class="k-grid k-widget" style="padding-left: 0px; padding-right: 0px;">
             </div>
         </div>
     </div>
@@ -154,7 +231,7 @@
         </div>
         <div class="col-sm-3 col-md-3 col-lg-3">
             <a class="btn btn-blue" href="#" id="GuardarInspeccion"><span id="">Guardar</span></a>
-            
+
         </div>
         <div class="col-sm-3 col-md-3 col-lg-3">
             <a class="btn btn-blue" href="#" id="CancelarInspeccion"><span id="">Cancelar</span></a>
@@ -166,10 +243,10 @@
 
 
 
-<script type="text/javascript" src="~/Scripts/AppComponents/Dynasol/Ajax.js"></script>
-<script type="text/javascript" src="~/Scripts/AppComponents/Dynasol/Handlers.js"></script>
-<script type="text/javascript" src="~/Scripts/AppComponents/Dynasol/Render.js"></script>
-<script type="text/javascript" src="~/Scripts/AppComponents/Dynasol/Captura.js"> </script>
+<script type="text/javascript" src="~/Scripts/AppComponents/OrdenCompraDynasol/Dynasol/Ajax.js"></script>
+<script type="text/javascript" src="~/Scripts/AppComponents/OrdenCompraDynasol/Dynasol/Handlers.js"></script>
+<script type="text/javascript" src="~/Scripts/AppComponents/OrdenCompraDynasol/Dynasol/Render.js"></script>
+<script type="text/javascript" src="~/Scripts/AppComponents/OrdenCompraDynasol/Dynasol/Captura.js"> </script>
 @*<script type="text/javascript" src="~/Scripts/AppComponents/Dynasol/Seguridad.js"></script>*@
 
 
