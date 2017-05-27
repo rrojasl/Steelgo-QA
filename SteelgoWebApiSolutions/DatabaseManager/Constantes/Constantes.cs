@@ -74,6 +74,6 @@
         public static string STEELGO_SET_OK = "Sam3_Steelgo_SET_OK";
         public static string STEELGO_SET_OK_MASIVO = "Sam3_Steelgo_OK_SET_GuardaMasivo";
         public static string GUARDAACTUALIZACIONLOTE = "Sam3_Pintura_ActualizaLotesCarro";
-        public static string OBTIENEDETALLEAVANCECUADRANTE = "Sam3_Pintura_AvanceCuadrante_Get_Detalle";
+
     }
 }

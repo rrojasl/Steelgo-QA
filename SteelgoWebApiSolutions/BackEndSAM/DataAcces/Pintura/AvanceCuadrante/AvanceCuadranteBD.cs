@@ -43,16 +43,16 @@ namespace BackEndSAM.DataAcces.Pintura.AvanceCuadrante
                     List<object> listaObreros = new List<object>();
 
 
-                    List<Models.Pintura.AvanceCuadrante.PintorSpool> ListadoPintores = new List<Models.Pintura.AvanceCuadrante.PintorSpool>();
+                    List<PintorSpool> ListadoPintores = new List<PintorSpool>();
 
                     foreach (Sam3_Pintura_AvanceCuadrante_Get_ObrerosProcesoPintura_Result item in result)
                     {
-                        ListadoPintores.Add(new Models.Pintura.AvanceCuadrante.PintorSpool
+                        ListadoPintores.Add(new PintorSpool
                         {
                             Accion = 2,
                             ObreroID = item.ObreroID.GetValueOrDefault(),
                             Codigo = item.Codigo,
-                            AvanceCuadranteObreroId = item.AvanceCuadranteObreroId,
+                            AvanceCarroObreroId = item.AvanceCuadranteObreroId,
                         });
                     }
                     listaObreros.Add(ListadoPintores);
@@ -72,7 +72,7 @@ namespace BackEndSAM.DataAcces.Pintura.AvanceCuadrante
             }
         }
 
-        public object ObtenerDetalle(int cuadranteID, int sistemaPintura,int? sistemaPinturaColor,string lenguaje,int procesoPinturaID,int todosSinCaptura,int UsuarioID)
+        public object ObtenerDetalle(int cuadranteID, int sistemaPinturaProyectoID,int? sistemaPinturaColorID,string lenguaje,int procesoPinturaID,int todosSinCaptura,int UsuarioID)
         {
             try
             {
@@ -80,7 +80,7 @@ namespace BackEndSAM.DataAcces.Pintura.AvanceCuadrante
                 {
                    
                     ObjetosSQL _SQL = new ObjetosSQL();
-                    string[,] parametro = { { "@CuadranteID", cuadranteID.ToString() }, { "@SistemaPintura", sistemaPintura.ToString() }, { "@SistemaPinturaColor", sistemaPinturaColor.ToString() }, { "@Lenguaje", lenguaje }, { "@ProcesoPinturaID", procesoPinturaID.ToString() }, { "@TodosSinCaptura", todosSinCaptura.ToString() }, { "@UsuarioID", UsuarioID.ToString() } };
+                    string[,] parametro = { { "@CuadranteID", cuadranteID.ToString() }, { "@SistemaPinturaProyectoID", sistemaPinturaProyectoID.ToString() }, { "@SistemaPinturaColorID", sistemaPinturaColorID.ToString() }, { "@Lenguaje", lenguaje }, { "@ProcesoPinturaID", procesoPinturaID.ToString() }, { "@TodosSinCaptura", todosSinCaptura.ToString() }, { "@UsuarioID", UsuarioID.ToString() } };
                     DataTable dtDetalle = _SQL.EjecutaDataAdapter(Stords.OBTIENEDETALLEAVANCECUADRANTE, parametro);
                     return dtDetalle;
                 }
@@ -177,14 +177,14 @@ namespace BackEndSAM.DataAcces.Pintura.AvanceCuadrante
             }
         }
 
-        public object ObtenerListadoSistemaPintura(Sam3_Usuario usuario, int ZonaID, int CuadranteID, int procesoPintura, string lenguaje)
+        public object ObtenerListadoSistemaPintura(Sam3_Usuario usuario, int ZonaID, int CuadranteID, int procesoPintura, string lenguaje, int proyectoID)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
 
-                    List<Sam3_Pintura_AvanceCuadrante_Get_SP_Result> result = ctx.Sam3_Pintura_AvanceCuadrante_Get_SP(CuadranteID, lenguaje, procesoPintura).ToList();
+                    List<Sam3_Pintura_AvanceCuadrante_Get_SP_Result> result = ctx.Sam3_Pintura_AvanceCuadrante_Get_SP(CuadranteID, lenguaje, procesoPintura, proyectoID).ToList();
 
                     List<BackEndSAM.Models.Pintura.IntermedioAcabado.SistemaPintura> listaSP = new List<BackEndSAM.Models.Pintura.IntermedioAcabado.SistemaPintura>();
 
@@ -197,6 +197,7 @@ namespace BackEndSAM.DataAcces.Pintura.AvanceCuadrante
                         {
                             SistemaPinturaID = item.SistemaPinturaID,
                             Nombre = item.Nombre,
+                            SistemaPinturaProyectoID=item.SistemaPinturaProyectoID
                         });
                     }
 

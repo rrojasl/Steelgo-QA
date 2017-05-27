@@ -1,5 +1,6 @@
 ﻿using BackEndSAM.DataAcces.Pintura.AvanceCuadrante;
 using BackEndSAM.Models.Pintura.AvanceCuadrante;
+using BackEndSAM.Models.Pintura.CapturaAvance;
 using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
 using SecurityManager.TokenHandler;
@@ -46,7 +47,7 @@ namespace BackEndSAM.Controllers.Pintura.AvanceCuadrante
             }
         }
         //ObtenerListadoSistemaPintura
-        public object Get(string token, int ZonaID, int CuadranteID, int procesoPintura, string lenguaje)
+        public object Get(string token, int ZonaID, int CuadranteID, int procesoPintura, string lenguaje,int proyectoID)
         {
             string payload = "";
             string newToken = "";
@@ -57,7 +58,7 @@ namespace BackEndSAM.Controllers.Pintura.AvanceCuadrante
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
 
-                return AvanceCuadranteBD.Instance.ObtenerListadoSistemaPintura(usuario, ZonaID, CuadranteID, procesoPintura, lenguaje);
+                return AvanceCuadranteBD.Instance.ObtenerListadoSistemaPintura(usuario, ZonaID, CuadranteID, procesoPintura, lenguaje, proyectoID);
             }
             else
             {
@@ -95,7 +96,7 @@ namespace BackEndSAM.Controllers.Pintura.AvanceCuadrante
         }
 
         [HttpGet]
-        public object ObtenerDetalle(string token, int cuadranteID, int sistemaPintura, int? sistemaPinturaColor, string lenguaje, int procesoPinturaID, int todosSinCaptura)
+        public object ObtenerDetalle(string token, int cuadranteID, int sistemaPinturaProyectoID, int? sistemaPinturaColorID, string lenguaje, int procesoPinturaID, int todosSinCaptura)
         {
             string payload = "";
             string newToken = "";
@@ -104,7 +105,7 @@ namespace BackEndSAM.Controllers.Pintura.AvanceCuadrante
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                DataTable dtdetalle = (DataTable)AvanceCuadranteBD.Instance.ObtenerDetalle(cuadranteID, sistemaPintura, sistemaPinturaColor, lenguaje, procesoPinturaID, todosSinCaptura, usuario.UsuarioID);
+                DataTable dtdetalle = (DataTable)AvanceCuadranteBD.Instance.ObtenerDetalle(cuadranteID, sistemaPinturaProyectoID, sistemaPinturaColorID, lenguaje, procesoPinturaID, todosSinCaptura, usuario.UsuarioID);
 
                 string jsonConvertido = DataTableToJSON(dtdetalle, procesoPinturaID, usuario.UsuarioID);
 

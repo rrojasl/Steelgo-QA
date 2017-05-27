@@ -9,11 +9,5 @@ namespace BackEndSAM.Models.Pintura.AvanceCuadrante
     {
     }
 
-    public class PintorSpool
-    {
-        public int Accion { get; set; }
-        public int AvanceCuadranteObreroId { get; set; }
-        public int ObreroID { get; set; }
-        public string Codigo { get; set; }
-    }
+
 }

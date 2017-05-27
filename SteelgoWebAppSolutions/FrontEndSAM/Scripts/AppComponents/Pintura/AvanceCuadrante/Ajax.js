@@ -1,12 +1,48 @@
-﻿function AjaxZona() {
+﻿function AjaxCargarCamposPredeterminados() {
+
+    loadingStart();
+
+    var TipoMuestraPredeterminadoID = 4077;
+
+    $CamposPredeterminados.CamposPredeterminados.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), id: TipoMuestraPredeterminadoID }).done(function (data) {
+        if (data == "sin captura") {
+            $('input:radio[name=Muestra]:nth(0)').trigger("click");
+        }
+        else if (data == "Todos") {
+            $('input:radio[name=Muestra]:nth(1)').trigger("click");
+        }
+        AjaxCargarCamposPredeterminadosPlanchado();
+    });
+}
+
+function AjaxCargarCamposPredeterminadosPlanchado() {
+    var TipoMuestraPredeterminadoID = 4078;
+    $CamposPredeterminados.CamposPredeterminados.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), id: TipoMuestraPredeterminadoID }).done(function (data) {
+        if (data == "todos") {
+            $('input:radio[name=LLena]:nth(0)').trigger("click");
+        }
+        else if (data == "vacios") {
+            $('input:radio[name=LLena]:nth(1)').trigger("click");
+        }
+        AjaxCargaMostrarPredeterminadoseleciconProcesosPintura();
+    });
+}
+
+function AjaxZona() {
     loadingStart();
     $AvanceCuadrante.AvanceCuadrante.read({ token: Cookies.get("token"), procesoPintura: $('input:radio[name=ProcesoPintura]:checked').val(), ProyectoID: $("#inputProyecto").data("kendoComboBox").value(), ZonaID: 0, tipo :1}).done(function (data) {
         if (Error(data)) {
             $("#inputZona").data("kendoComboBox").dataSource.data(data);
             $("#inputZona").data("kendoComboBox").value("");
+            $("#inputCuadrante").data("kendoComboBox").dataSource.data([]);
+            $("#inputCuadrante").data("kendoComboBox").value("");
+            $("#inputSistemaPintura").data("kendoComboBox").dataSource.data([]);
+            $("#inputSistemaPintura").data("kendoComboBox").value("");
+            $("#inputColor").data("kendoComboBox").dataSource.data([]);
+            $("#inputColor").data("kendoComboBox").value("");
             if (data.length == 2) {
                 $("#inputZona").data("kendoComboBox").select(1);
-                AjaxCuadrante(data[1].ZonaID)
+                $("#inputZona").data("kendoComboBox").trigger("change");
             }
         }
         loadingStop();
@@ -18,6 +54,10 @@ function AjaxCuadrante(zonaID) {
         var cuadranteid = 0;
         $("#inputCuadrante").data("kendoComboBox").dataSource.data(data);
         $("#inputCuadrante").data("kendoComboBox").value("");
+        $("#inputSistemaPintura").data("kendoComboBox").dataSource.data([]);
+        $("#inputSistemaPintura").data("kendoComboBox").value("");
+        $("#inputColor").data("kendoComboBox").dataSource.data([]);
+        $("#inputColor").data("kendoComboBox").value("");
         if (data.length == 2) {
             $("#inputCuadrante").data("kendoComboBox").select(1);
             $("#inputCuadrante").data("kendoComboBox").trigger("change");
@@ -26,12 +66,14 @@ function AjaxCuadrante(zonaID) {
     });
 }
 
-function AjaxSistemaPintura(zonaID, cuadranteID) {
+function AjaxSistemaPintura(zonaID, cuadranteID,ProyectoID) {
     loadingStart();
-    $AvanceCuadrante.AvanceCuadrante.read({ token: Cookies.get("token"), ZonaID: zonaID, CuadranteID: cuadranteID, procesoPintura: $('input:radio[name=ProcesoPintura]:checked').val(), lenguaje: $("#language").val() }).done(function (data) {
+    $AvanceCuadrante.AvanceCuadrante.read({ token: Cookies.get("token"), ZonaID: zonaID, CuadranteID: cuadranteID, procesoPintura: $('input:radio[name=ProcesoPintura]:checked').val(), lenguaje: $("#language").val(), ProyectoID: ProyectoID }).done(function (data) {
         if (Error(data)) {
             $("#inputSistemaPintura").data("kendoComboBox").dataSource.data(data);
             $("#inputSistemaPintura").data("kendoComboBox").value("");
+            $("#inputColor").data("kendoComboBox").dataSource.data([]);
+            $("#inputColor").data("kendoComboBox").value("");
             if (data.length == 2) {
                 $("#inputSistemaPintura").data("kendoComboBox").select(1);
                 $("#inputSistemaPintura").data("kendoComboBox").trigger("change");
@@ -78,9 +120,10 @@ function AjaxCargaMostrarPredeterminadoseleciconProcesosPintura() {
     });
 }
 
-function AjaxCargarLayoutGrid(sistemaPinturaProyectoId, procesoID,CuadranteID, SistemaPinturaProyectoID, SistemaPinturaColorID, lenguaje, procesoPinturaID,mostrar) {
+                              
+function AjaxCargarLayoutGrid(CuadranteID, SistemaPinturaProyectoID, SistemaPinturaColorID, lenguaje, procesoPinturaID,mostrar) {
     loadingStart();
-    $CapturaAvance.CapturaAvance.read({ token: Cookies.get("token"), sistemaPinturaProyectoId: sistemaPinturaProyectoId, procesoID: procesoID, lenguaje: $("#language").val() }).done(function (data) {
+    $CapturaAvance.CapturaAvance.read({ token: Cookies.get("token"), sistemaPinturaProyectoId: SistemaPinturaProyectoID, procesoID: procesoPinturaID, lenguaje: $("#language").val() }).done(function (data) {
         if (data.length > 0) {
             ComponentesDinamicos = data[0];
             ReductorDinamico = data[1];
@@ -104,7 +147,7 @@ function AjaxCargarLayoutGrid(sistemaPinturaProyectoId, procesoID,CuadranteID, S
                             Spool: { type: "string", editable: false },
                             Area: { type: "string", editable: false },
                             LoteID: { type: "string", editable: false },
-                            FechaShotblast: { type: "date", editable: true }
+                            FechaProceso: { type: "date", editable: true }
                         }
                     }
                 },
@@ -151,7 +194,7 @@ function AjaxCargarLayoutGrid(sistemaPinturaProyectoId, procesoID,CuadranteID, S
             options.columns.push({ field: "Area", title: _dictionary.columnM2[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), attributes: { style: "text-align:right;" }, width: "80px" });
             options.columns.push({ field: "LoteID", title: _dictionary.columnLote[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), attributes: { style: "text-align:right;" }, width: "80px" });
             options.columns.push({ field: "FechaProceso", title: _dictionary.columnFechaShotblast[$("#language").data("kendoDropDownList").value()], type: "date", filterable: { cell: { showOperators: false } }, editor: RenderDatePicker, format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()], width: "160px" });
-            options.columns.push({ field: "ListaObrerosSeleccionados", title: _dictionary.columnShotblastero[$("#language").data("kendoDropDownList").value()], filterable: false, editor: RendercomboBoxShotBlastero, template: "#:plantillaObrero#", width: "280px" });
+            options.columns.push({ field: "ListaObrerosSeleccionados", title: _dictionary.columnShotblastero[$("#language").data("kendoDropDownList").value()], filterable: false, editor: RendercomboBoxPintor, template: "#:plantillaObrero#", width: "280px" });
 
             for (var i = 0; i < data[0].length; i++) {
                 options.columns.push({ field: data[0][i].NombreComponente, title: data[0][i].NombreComponente, filterable: getGridFilterableCellMaftec(), editor: renderComboboxComponenteDinamico, width: "140px" });
@@ -172,7 +215,7 @@ function AjaxCargarLayoutGrid(sistemaPinturaProyectoId, procesoID,CuadranteID, S
 }
 function AjaxCargarSpool(CuadranteID, sistemaPinturaProyectoId, SistemaPinturaColorID, lenguaje, ProcesoPinturaID, Mostrar) {
     loadingStart();
-    $AvanceCuadrante.AvanceCuadrante.read({ token: Cookies.get("token"), CuadranteID: CuadranteID, SistemaPinturaID: SistemaPinturaID, SistemaPinturaColorID: SistemaPinturaColorID, lenguaje: lenguaje, ProcesoPinturaID: ProcesoPinturaID, Mostrar: Mostrar }).done(function (data) {
+    $AvanceCuadrante.AvanceCuadrante.read({ token: Cookies.get("token"), cuadranteID: CuadranteID, sistemaPinturaProyectoID: sistemaPinturaProyectoId, sistemaPinturaColorID: SistemaPinturaColorID, lenguaje: lenguaje, procesoPinturaID: ProcesoPinturaID, todosSinCaptura: (Mostrar == "Todos" ? 1 : 0) }).done(function (data) {
         $("#grid").data('kendoGrid').dataSource.data([]);
         var ds = $("#grid").data("kendoGrid").dataSource;
         var array = JSON.parse(data);
