@@ -48,7 +48,7 @@ function SiguienteProceso(paramReq) {
 function CrearControlesDinamicos() {
     if ($('#Guardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
         for (var i = 0; i < ComponentesDinamicosJSON.length; i++) {
-            $("#divAgregarComponentesReductoresDinamicos").append('<div class="col-xs-3" style="display: inline-block;"><label>' + ComponentesDinamicosJSON[i].NombreColumna + '</label><input id="' + ComponentesDinamicosJSON[i].NombreColumna + '" /></div>');
+            $("#divAgregarComponentesReductoresDinamicos").append('<div class="col-xs-12 col-sm-4 col-md-2" style="display: inline-block;"><label>' + ComponentesDinamicosJSON[i].NombreColumna + '</label><input id="' + ComponentesDinamicosJSON[i].NombreColumna + '" /></div>');
 
             $('#' + ComponentesDinamicosJSON[i].NombreColumna).kendoComboBox({
                 dataTextField: "NombreLote",
@@ -62,7 +62,7 @@ function CrearControlesDinamicos() {
         }
 
         for (var i = 0; i < ReductoresDinamicosJSON.length; i++) {
-            $("#divAgregarComponentesReductoresDinamicos").append('<div class="col-xs-3" style="display: inline-block;"><label>' + ReductoresDinamicosJSON[i].NombreColumna + '</label><input id="' + ReductoresDinamicosJSON[i].NombreColumna + '" /></div>');
+            $("#divAgregarComponentesReductoresDinamicos").append('<div class="col-xs-12 col-sm-4 col-md-2" style="display: inline-block;"><label>' + ReductoresDinamicosJSON[i].NombreColumna + '</label><input id="' + ReductoresDinamicosJSON[i].NombreColumna + '" /></div>');
 
             $('#' + ReductoresDinamicosJSON[i].NombreColumna).kendoComboBox({
                 dataTextField: "NombreLote",
