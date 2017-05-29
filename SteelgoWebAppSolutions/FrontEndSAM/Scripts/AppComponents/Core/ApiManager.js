@@ -238,6 +238,11 @@ var $BuscaSpool = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $EmisionOT = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Ciclos = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 
+
+//Dynasol 
+
+var $Dynasol = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+
 //#region Declaracion
 //#region Catalogos
 var $TrabajoAdicional = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
@@ -441,5 +446,11 @@ $Secuencias.add("Secuencias");
 $OK.add("OK");
 
 $FechasSpool.add("FechasSpool");
+
+
+// Dynasol
+
+$Dynasol.add("Dynasol");
+$Dynasol.add("PackingList");
 
 //#endregion

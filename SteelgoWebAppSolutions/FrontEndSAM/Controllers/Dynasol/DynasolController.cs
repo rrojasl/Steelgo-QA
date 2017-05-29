@@ -13,5 +13,9 @@ namespace FrontEndSAM.Controllers.Dynasol
         {
             return View();
         }
+        public ActionResult PackingList()
+        {
+            return View();
+        }
     }
 }

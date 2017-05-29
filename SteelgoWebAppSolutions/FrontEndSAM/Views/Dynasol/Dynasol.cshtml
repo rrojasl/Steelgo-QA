@@ -5,12 +5,12 @@
 
 
 @section breadcrumb {
-<li>
-    <a href="@Url.Action(" landing", "Home" )"><span id="lblInicio"></span></a>
-</li>
-<li class="active">
-    <a href="#"><span id="">Seguimiento Dynasol</span></a>
-</li>
+    <li>
+        <a href="@Url.Action(" landing", "Home" )"><span id="lblInicio"></span></a>
+    </li>
+    <li class="active">
+        <a href="#"><span id="">Seguimiento Dynasol</span></a>
+    </li>
 }
 <div id="FormCapturaReportePruebas" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
     @*Menu superior*@
@@ -52,8 +52,8 @@
     @*Controles Superior*@
     <div id="FieldSetView" class="row addedSectionInLineWithoutColor">
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 altoControl" id="divProyecto">
-            <label id="">Orden de compra</label>
-            <input id="inputProyecto" class="" />
+            <label id="DynasolOrdenCompra"></label>
+            <input id="inputOrdenCompra" class="" />
         </div>
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 altoControl">
             <label id="lblMostrar"></label>
@@ -223,13 +223,15 @@
 <script type="text/javascript" src="~/Scripts/AppComponents/OrdenCompraDynasol/Dynasol/Render.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/OrdenCompraDynasol/Dynasol/Captura.js"> </script>
 @*
-<script type="text/javascript" src="~/Scripts/AppComponents/Dynasol/Seguridad.js"></script>*@
+    <script type="text/javascript" src="~/Scripts/AppComponents/Dynasol/Seguridad.js"></script>*@
 
 
 <script>
     Cookies.set("home", true, { path: '/' });
     Cookies.set("navegacion", "10042", { path: '/' });
-    @section JavascriptDocumentReadyFunctions {
-    //$authorizationModel["AsignarRequisicion"] = $AsignarRequisicionModel;
-    }
+
 </script>
+
+@section JavascriptDocumentReadyFunctions {
+    //$authorizationModel["AsignarRequisicion"] = $AsignarRequisicionModel;
+}

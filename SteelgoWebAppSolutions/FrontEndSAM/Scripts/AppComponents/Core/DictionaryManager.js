@@ -8153,7 +8153,7 @@ _dictionary = {
 
     // Menú lateral
     "menuFabricacion": {
-         "es-MX": "Produccción",
+        "es-MX": "Produccción",
         "en-US": "Production"
     },
     "menuArmado": {
@@ -8212,12 +8212,12 @@ _dictionary = {
         "es-MX": "Dashboard PND",
         "en-US": "Dashboard PND"
     },
-    
+
     "PinturaIngresaCodigoValido": {
         "es-MX": "Ingresa un codigo valido",
         "en-US": "Enter a valid code"
     },
-        "menuPintura": {
+    "menuPintura": {
         "es-MX": "Pintura",
         "en-US": "Paint"
     },
@@ -8314,7 +8314,7 @@ _dictionary = {
         "es-MX": "El spool tiene un sistema de pintura como no pintable",
         "en-US": "The spool has an Paint system as unpaintable"
     },
-   
+
 
     "menuListadoSistemaPintura": {
         "es-MX": "Sistemas de Pintura",
@@ -8325,7 +8325,7 @@ _dictionary = {
         "en-US": "Paint System"
     },
     "menuConfiguracionSoldadura": {
-         "es-MX": "Produccción",
+        "es-MX": "Produccción",
         "en-US": "Production"
     },
     "menuPQR": {
@@ -9578,7 +9578,7 @@ _dictionary = {
         "en-US": "Observation"
     },
     "ConfiguracionSoldaduraBreadcrumb": {
-         "es-MX": "Produccción",
+        "es-MX": "Produccción",
         "en-US": "Production"
     },
     "CapturaSoldaduraHeaderSoldadores": {
@@ -10000,7 +10000,7 @@ _dictionary = {
         "es-MX": "El spool no pertenece al proyecto seleccionado.",
         "en-US": "Spool does not belong to selected project."
     },
-    "NODATA":{
+    "NODATA": {
         "es-MX": "No se han encontrado coincidencias.",
         "en-US": "No matches found."
     },
@@ -10377,9 +10377,9 @@ _dictionary = {
         "en-US": "The displayed records have not been saved. do you wish to continue?"
     },
     "lblVersion": {
-            "es-MX": "Version ",
-            "en-US": "Version "
-        },
+        "es-MX": "Version ",
+        "en-US": "Version "
+    },
     "SpoolAgregado": {
         "es-MX": "El Spool ",
         "en-US": "The Spool "
@@ -10699,7 +10699,7 @@ _dictionary = {
         "es-MX": "No puedes cerrar un carro vacio",
         "en-US": "You can not close an empty car"
     },
-    
+
     "PinturaSpoolSistemaPinturaNoCoincide": {
         "es-MX": "El spool seleccionado tiene diferente Sistema de pintura",
         "en-US": "the selected spool has different paint system"
@@ -12649,7 +12649,111 @@ _dictionary = {
     "IngenieriaBuscaSpoolBreadcrumb": {
         "es-MX": "Busca Spool",
         "en-US": "Search Spool"
-    }
+    },
     //Finaliza Modulo Ingenieria
+
+    //Inicia Modulo Dynasol
+    "DynasolOrdenCompra": {
+        "es-MX": "Orden Compra",
+        "en-US": "Purchase Order"
+    },
+    "columnRev": {
+        "es-MX": "Rev",
+        "en-US": "Rev"
+    },
+    "columnDescripcion": {
+        "es-MX": "Descripción",
+        "en-US": "Description"
+    },
+    "columnMaterialNorma": {
+        "es-MX": "Material/ Norma",
+        "en-US": "Material/ Standard"
+    },
+    "columnD1": {
+        "es-MX": "D1",
+        "en-US": "D1"
+    },
+    "columnD2": {
+        "es-MX": "D2",
+        "en-US": "D2"
+    },
+    "columnSchedule": {
+        "es-MX": "Schedule",
+        "en-US": "Schedule"
+    },
+    "columnRating": {
+        "es-MX": "Rating",
+        "en-US": "Rating"
+    },
+    "columnPrepExt": {
+        "es-MX": "Prep. ext.",
+        "en-US": "Prep. ext."
+    },
+    "columnCant": {
+        "es-MX": "Cant",
+        "en-US": "Qty"
+    },
+    "columnPrecioU": {
+        "es-MX": "Precio U.",
+        "en-US": "U. Price"
+    },
+    "columnTotal": {
+        "es-MX": "Total",
+        "en-US": "Partida"
+    },
+    "columnPartida": {
+        "es-MX": "Partida",
+        "en-US": "Batch"
+    },
+    "columnColada": {
+        "es-MX": "Partida",
+        "en-US": "Batch"
+    },
+    "columnInsp": {
+        "es-MX": "Insp",
+        "en-US": "Insp"
+    },
+    "columnComentarioDynasol": {
+        "es-MX": "Comen",
+        "en-US": "Comen"
+    },
+    "columnFechaRecibido": {
+        "es-MX": "Fecha R",
+        "en-US": "R Date"
+    },
+    "columnFechaEnvio": {
+        "es-MX": "Fecha E",
+        "en-US": "E Date"
+    },
+    "columnFechaFactura": {
+        "es-MX": "Fecha F",
+        "en-US": "F Date"
+    },
+    
+    "columnShippingDate": {
+        "es-MX": "Shipping Date",
+        "en-US": "Shipping Date"
+    },
+    "columnFacturaProveedor": {
+        "es-MX": "Factura P",
+        "en-US": "P Bill"
+    },
+    "columnAcuerdo": {
+        "es-MX": "Acuerdo R",
+        "en-US": "Accord R"
+    },
+    "columnPedimento": {
+        "es-MX": "Ped",
+        "en-US": "Dem"
+    },
+    "columnCamion": {
+        "es-MX": "Camión",
+        "en-US": "Truck"
+    },
+
+
+    //Finaliza Modulo Dynasol
+
+
     //#endregion
 };

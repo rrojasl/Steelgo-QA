@@ -16,11 +16,11 @@ function suscribirEventoChangeRadio() {
 
         $("#gridPopUpSteelgo").data("kendoGrid").hideColumn("CantG");
         $("#gridPopUpSteelgo").data("kendoGrid").hideColumn("FechaRecibido");
-        $("#gridPopUpSteelgo").data("kendoGrid").hideColumn("CambionRecibido");
+        $("#gridPopUpSteelgo").data("kendoGrid").hideColumn("Camion");
         $("#gridPopUpSteelgo").data("kendoGrid").hideColumn("FacturaProveedor");
-        $("#gridPopUpSteelgo").data("kendoGrid").hideColumn("LiberacionInspeccion");
+        $("#gridPopUpSteelgo").data("kendoGrid").hideColumn("Acuerdo");
         $("#gridPopUpSteelgo").data("kendoGrid").hideColumn("FechaEnvio");
-        $("#gridPopUpSteelgo").data("kendoGrid").hideColumn("CantRecibidaS");
+        $("#gridPopUpSteelgo").data("kendoGrid").hideColumn("Pedimento");
         $("#gridPopUpSteelgo").data("kendoGrid").hideColumn("ShippingDate");
 
         //Steelgo
@@ -33,11 +33,11 @@ function suscribirEventoChangeRadio() {
         //Gerez
         $("#gridPopUpSteelgo").data("kendoGrid").showColumn("CantG");
         $("#gridPopUpSteelgo").data("kendoGrid").showColumn("FechaRecibido");
-        $("#gridPopUpSteelgo").data("kendoGrid").showColumn("CambionRecibido");
+        $("#gridPopUpSteelgo").data("kendoGrid").showColumn("Camion");
         $("#gridPopUpSteelgo").data("kendoGrid").showColumn("FacturaProveedor");
-        $("#gridPopUpSteelgo").data("kendoGrid").showColumn("LiberacionInspeccion");
+        $("#gridPopUpSteelgo").data("kendoGrid").showColumn("Acuerdo");
         $("#gridPopUpSteelgo").data("kendoGrid").showColumn("FechaEnvio");
-        $("#gridPopUpSteelgo").data("kendoGrid").showColumn("CantRecibidaS");
+        $("#gridPopUpSteelgo").data("kendoGrid").showColumn("Pedimento");
         $("#gridPopUpSteelgo").data("kendoGrid").showColumn("ShippingDate");
 
         //Steelgo
@@ -51,11 +51,11 @@ function suscribirEventoChangeRadio() {
         //Gerez
         $("#gridPopUpSteelgo").data("kendoGrid").showColumn("CantG");
         $("#gridPopUpSteelgo").data("kendoGrid").showColumn("FechaRecibido");
-        $("#gridPopUpSteelgo").data("kendoGrid").showColumn("CambionRecibido");
+        $("#gridPopUpSteelgo").data("kendoGrid").showColumn("Camion");
         $("#gridPopUpSteelgo").data("kendoGrid").showColumn("FacturaProveedor");
-        $("#gridPopUpSteelgo").data("kendoGrid").showColumn("LiberacionInspeccion");
+        $("#gridPopUpSteelgo").data("kendoGrid").showColumn("Acuerdo");
         $("#gridPopUpSteelgo").data("kendoGrid").showColumn("FechaEnvio");
-        $("#gridPopUpSteelgo").data("kendoGrid").showColumn("CantRecibidaS");
+        $("#gridPopUpSteelgo").data("kendoGrid").showColumn("Pedimento");
         $("#gridPopUpSteelgo").data("kendoGrid").showColumn("ShippingDate");
 
         //Steelgo
@@ -68,14 +68,27 @@ function suscribirEventoChangeRadio() {
 }
 
 
-$('#inputProyecto').kendoComboBox({
-    dataTextField: "Colada",
-    dataValueField: "ColadaID",
-    dataSource: [{ ColadaID: 0, Colada: "" }, { ColadaID: 1, Colada: "DT CS FIgthing  PO  279" }, { ColadaID: 2, Colada: "DT P22 FIgthing  PO  280" }],
+$('#inputOrdenCompra').kendoComboBox({
+    dataTextField: "Nombre",
+    dataValueField: "OrdenCompraID",
+    dataSource: [{ OrdenCompraID: 0, Nombre: "" }, { OrdenCompraID: 1, Nombre: "DT CS FIgthing  PO  279" }],
     suggest: true,
     filter: "contains",
     index: 3,
     change: function (e) {
+        //if (dataItem != undefined) {
+        //    AjaxRequisicion();
+        //    pruebaOriginal = $("#inputOrdenCompra").data("kendoComboBox").value();
+        //    if (dataItem.Nombre == "") {
+        //        $("#grid").data("kendoGrid").dataSource.data([]);
+        //    }
+        //}
+        //else {
+        //    $("#grid").data("kendoGrid").dataSource.data([]);
+        //}
+
+
+
         loadingStart();
         setTimeout(function () {
             $("#grid").data('kendoGrid').dataSource.data([]);
@@ -104,13 +117,13 @@ $('#inputProyecto').kendoComboBox({
                     Cant: 10,
                     CantG: 9,
                     FechaRecibido: "",
-                    CambionRecibido: "",
+                    Camion: "",
                     FacturaProveedor: "",
                     FechaLanzamiento: "",
                     FechaEnvio: "",
                     FechaRecibido: "",
                     CantRecibida: 10,
-                    LiberacionInspeccion: "",
+                    Acuerdo: "",
                     FechaFactura: "",
                     ListaDetalleInspeccion: [{
                         Inspeccion: "REJECTED",
@@ -128,13 +141,13 @@ $('#inputProyecto').kendoComboBox({
                     Cant: 3,
                     CantG: 2,
                     FechaRecibido: "",
-                    CambionRecibido: "",
+                    Camion: "",
                     FacturaProveedor: "",
                     FechaLanzamiento: "",
                     FechaEnvio: "",
                     FechaRecibidoS: "",
                     CantRecibida: 2,
-                    LiberacionInspeccion: "",
+                    Acuerdo: "",
                     FechaFactura: "",
                     ListaDetalleInspeccion: [{
                         Inspeccion: "REJECTED",
@@ -169,13 +182,13 @@ $('#inputProyecto').kendoComboBox({
                     Cant: 10,
                     CantG: 9,
                     FechaRecibido: "",
-                    CambionRecibido: "",
+                    Camion: "",
                     FacturaProveedor: "",
                     FechaLanzamiento: "",
                     FechaEnvio: "",
                     FechaRecibido: "",
                     CantRecibida: 10,
-                    LiberacionInspeccion: "",
+                    Acuerdo: "",
                     FechaFactura: "",
                     ListaDetalleInspeccion: [{
                         Inspeccion: "REJECTED",
@@ -193,13 +206,13 @@ $('#inputProyecto').kendoComboBox({
                     Cant: 3,
                     CantG: 2,
                     FechaRecibido: "",
-                    CambionRecibido: "",
+                    Camion: "",
                     FacturaProveedor: "",
                     FechaLanzamiento: "",
                     FechaEnvio: "",
                     FechaRecibidoS: "",
                     CantRecibida: 2,
-                    LiberacionInspeccion: "",
+                    Acuerdo: "",
                     FechaFactura: "",
                     ListaDetalleInspeccion: [{
                         Inspeccion: "REJECTED",
@@ -235,13 +248,13 @@ $('#inputProyecto').kendoComboBox({
                     Cant: 10,
                     CantG: 9,
                     FechaRecibido: "",
-                    CambionRecibido: "",
+                    Camion: "",
                     FacturaProveedor: "",
                     FechaLanzamiento: "",
                     FechaEnvio: "",
                     FechaRecibido: "",
                     CantRecibida: 10,
-                    LiberacionInspeccion: "",
+                    Acuerdo: "",
                     FechaFactura: "",
                     ListaDetalleInspeccion: [{
                         Inspeccion: "REJECTED",
@@ -259,13 +272,13 @@ $('#inputProyecto').kendoComboBox({
                     Cant: 3,
                     CantG: 2,
                     FechaRecibido: "",
-                    CambionRecibido: "",
+                    Camion: "",
                     FacturaProveedor: "",
                     FechaLanzamiento: "",
                     FechaEnvio: "",
                     FechaRecibidoS: "",
                     CantRecibida: 2,
-                    LiberacionInspeccion: "",
+                    Acuerdo: "",
                     FechaFactura: "",
                     ListaDetalleInspeccion: [{
                         Inspeccion: "REJECTED",
