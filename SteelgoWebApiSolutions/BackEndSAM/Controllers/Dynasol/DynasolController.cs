@@ -71,48 +71,7 @@ namespace BackEndSAM.Controllers.Dynasol
                 result.IsAuthenicated = false;
                 return result;
             }
-        }
-
-        [HttpGet]
-        public object ObtenerColadas(string token, int RevisionID)
-        {
-            string payLoad = "";
-            string newToken = "";
-            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payLoad, out newToken);
-            if (tokenValido)
-            {
-                return DynasolBD.Instance.ObtenerColadas(RevisionID);
-            }
-            else
-            {
-                TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add(payLoad);
-                result.ReturnCode = 401;
-                result.ReturnStatus = false;
-                result.IsAuthenicated = false;
-                return result;
-            }
-        }
-
-        [HttpGet]
-        public object ObtenerDetalleInspeccion(string token, int ColadaID)
-        {
-            string payLoad = "";
-            string newToken = "";
-            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payLoad, out newToken);
-            if (tokenValido)
-            {
-                return DynasolBD.Instance.ObtenerDetalleInspeccion(ColadaID);
-            }else
-            {
-                TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add(payLoad);
-                result.ReturnCode = 401;
-                result.ReturnStatus = false;
-                result.IsAuthenicated = false;
-                return result;
-            }
-        }
+        }               
 
     }
 }

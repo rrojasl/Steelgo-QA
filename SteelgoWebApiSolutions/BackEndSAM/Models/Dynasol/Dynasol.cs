@@ -34,9 +34,9 @@ namespace BackEndSAM.Models.Dynasol
             public int Cantidad { get; set; }
             public decimal PrecioUnidad { get; set; }
             public decimal Total { get; set; }
-            public string Partida { get; set; }                
-        }
-
+            public string Partida { get; set; }
+            public List<ColadaClass> ListaDetalleColadas { get; set;}
+        }        
         public class ColadaClass
         {
             public int ColadaID { get; set; }
@@ -54,6 +54,7 @@ namespace BackEndSAM.Models.Dynasol
             public int CantidadS { get; set; }
             public DateTime FechaRecibidoSteelgo { get; set; }
             public int InspeccionSteelgo { get; set; }
+            public List<DetalleInspeccionClass> ListaDetalleInspeccion { get; set; }
         }
 
         public class DetalleInspeccionClass

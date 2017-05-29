@@ -112,7 +112,8 @@ namespace BackEndSAM.DataAcces.Dynasol
                             Cantidad = item.Cantidad.GetValueOrDefault(),
                             PrecioUnidad = item.PrecioUnidad.GetValueOrDefault(),
                             Total = item.Total.GetValueOrDefault(),
-                            Partida = item.Partida
+                            Partida = item.Partida,
+                            ListaDetalleColadas = ObtenerColadas(item.RevisionID)
                         });
                     }
                     return listaRevision;
@@ -129,17 +130,17 @@ namespace BackEndSAM.DataAcces.Dynasol
             }
         }
 
-        public object ObtenerColadas(int RevisionID)
+        public List<ColadaClass> ObtenerColadas(int RevisionID)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
+                    List<ColadaClass> ListaColadas = new List<ColadaClass>();
                     List<Sam3_Dynasol_GET_Coladas_Result> result = ctx.Sam3_Dynasol_GET_Coladas(RevisionID).ToList();
-                    List<ColadaClass> listaColada = new List<ColadaClass>();
-                    foreach (Sam3_Dynasol_GET_Coladas_Result item in result)
+                    foreach(Sam3_Dynasol_GET_Coladas_Result item in result)
                     {
-                        listaColada.Add(new ColadaClass {
+                        ListaColadas.Add(new ColadaClass {
                             ColadaID = item.ColadaID,
                             RevisionID = item.RevisionID.GetValueOrDefault(),
                             CantidadC = item.CantidadC.GetValueOrDefault(),
@@ -154,50 +155,44 @@ namespace BackEndSAM.DataAcces.Dynasol
                             ShippingDate = item.ShippingDate.GetValueOrDefault(),
                             CantidadS = item.CantidadS.GetValueOrDefault(),
                             FechaRecibidoSteelgo = item.FechaRecibidoSteelgo.GetValueOrDefault(),
-                            InspeccionSteelgo = item.InspeccionSteelgo.GetValueOrDefault()                            
+                            InspeccionSteelgo = item.InspeccionSteelgo.GetValueOrDefault(),
+                            ListaDetalleInspeccion = ObtenerDetalleInspeccion(item.ColadaID)
                         });
                     }
-                    return listaColada;
+                    return ListaColadas;
                 }
             }
             catch (Exception ex)
             {
-                TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add(ex.Message);
-                result.ReturnCode = 500;
-                result.ReturnStatus = false;
-                result.IsAuthenicated = true;
+                List<ColadaClass> result = null;
                 return result;
             }
         }
 
-        public object ObtenerDetalleInspeccion(int ColadaID)
+        public List<DetalleInspeccionClass> ObtenerDetalleInspeccion(int ColadaID)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
+                    List<DetalleInspeccionClass> ListaDetalles = new List<DetalleInspeccionClass>();
                     List<Sam3_Dynasol_GET_DetalleInspecccion_Result> result = ctx.Sam3_Dynasol_GET_DetalleInspecccion(ColadaID).ToList();
-                    List<DetalleInspeccionClass> listaDetalleInspeccion = new List<DetalleInspeccionClass>();
-                    foreach(Sam3_Dynasol_GET_DetalleInspecccion_Result item in result)
+                    foreach (Sam3_Dynasol_GET_DetalleInspecccion_Result item in result)
                     {
-                        listaDetalleInspeccion.Add(new DetalleInspeccionClass {
+                        ListaDetalles.Add(new DetalleInspeccionClass
+                        {
                             DetalleInspeccionID = item.DetalleInspeccionID,
                             ColadaID = item.ColadaID,
                             InspeccionID = item.InspeccionID,
                             Comentario = item.Comentario
                         });
                     }
-                    return listaDetalleInspeccion;
+                    return ListaDetalles;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add(ex.Message);
-                result.ReturnCode = 500;
-                result.ReturnStatus = false;
-                result.IsAuthenicated = true;
+                List<DetalleInspeccionClass> result = null;
                 return result;
             }
         }
