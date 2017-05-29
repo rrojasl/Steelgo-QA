@@ -41,6 +41,7 @@ namespace BackEndSAM.Models.Dynasol
         {
             public int ColadaID { get; set; }
             public int RevisionID { get; set; }
+            public string Nombre { get; set; }
             public int CantidadC { get; set; }
             public int CantidadG { get; set; }
             public DateTime FechaRecibido { get; set; }

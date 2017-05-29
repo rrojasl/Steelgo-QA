@@ -143,6 +143,7 @@ namespace BackEndSAM.DataAcces.Dynasol
                         ListaColadas.Add(new ColadaClass {
                             ColadaID = item.ColadaID,
                             RevisionID = item.RevisionID.GetValueOrDefault(),
+                            Nombre = item.Nombre,
                             CantidadC = item.CantidadC.GetValueOrDefault(),
                             CantidadG = item.CantidadG.GetValueOrDefault(),
                             FechaRecibido = item.FechaRecibido.GetValueOrDefault(),
