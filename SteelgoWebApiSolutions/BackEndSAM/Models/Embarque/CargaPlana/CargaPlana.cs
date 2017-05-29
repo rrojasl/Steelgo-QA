@@ -5,16 +5,6 @@ using System.Web;
 
 namespace BackEndSAM.Models.Embarque.CargaPlana
 {
-    public class DetalleValidarCaptura
-    {
-        public int SpoolID { get; set; }
-        public string NumeroControl { get; set; }
-        public string NombrePaquete { get; set; }
-        public string Plana { get; set; }
-        public int EsCorrecto { get; set; }
-    }
-
-
     public class DetalleCargaPlana
     {
         public int Accion { get; set; }

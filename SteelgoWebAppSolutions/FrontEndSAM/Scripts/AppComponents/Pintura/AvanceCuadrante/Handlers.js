@@ -1,17 +1,88 @@
 ﻿function SuscribirEventos() {
-    
+    SuscribirEventoProyecto();
     SuscribirEventoZona();
     SuscribirEventoCuadrante();
     SuscribirEventoSistemaPintura();
     SuscribirEventoOrdenTrabajo();
     SuscribirEventoSpoolID();
-    SuscribirEventoLote();
     SuscribirEventoMostrar();
     SuscribirEventoGuardar();
     SuscribirEventoColor();
     suscribirEventoSeleccionProcesoPintura();
     suscribirEventoWindowsConfirmaCapturaCambioProcesoPintura();
+    suscribirEventoPintor();
+    suscribirEventoFechaProceso();
+    suscribirEventoWindowsConfirmaLineaCaptura();
 };
+
+
+function suscribirEventoWindowsConfirmaLineaCaptura() {
+    ventanaConfirmEdicionCaptura = $("#ventanaConfirmCapturaLineaCaptura").kendoWindow({
+        iframe: true,
+        title: _dictionary.CapturaArmadoTituloPopup[$("#language").data("kendoDropDownList").value()],
+        visible: false,
+        width: "auto",
+        height: "auto",
+        modal: true,
+        animation: false,
+        actions: []
+    }).data("kendoWindow");
+
+    ventanaConfirmEdicionCaptura.content(_dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] +
+        "</br><center><button class='btn btn-blue' id='yesButtonProySinTipoBusquedaProyecto'>" + _dictionary.lblSi[$("#language").data("kendoDropDownList").value()] + "</button><button class='btn btn-blue' id='noButtonProySinTipoBusquedaProyecto'>" + _dictionary.lblNo[$("#language").data("kendoDropDownList").value()] + "</button></center>");
+
+
+    $("#yesButtonProySinTipoBusquedaProyecto").click(function (e) {
+        ventanaConfirmEdicionCaptura.close();
+        editado = false;
+        LimpiarDespuesCambioCaptura();
+        switch (elementoEjecutoChange) {
+            case 1:
+                $("#inputProyecto").data("kendoComboBox").trigger("change");
+                break;
+            case 2:
+                $("#inputZona").data("kendoComboBox").trigger("change");
+                break;
+            case 3:
+                $("#inputCuadrante").data("kendoComboBox").trigger("change");
+                break;
+            case 4:
+                $("#inputSistemaPintura").data("kendoComboBox").trigger("change");
+                break;
+            case 5:
+                $("#inputColor").data("kendoComboBox").trigger("change");
+                break;
+        }
+    });
+    $("#noButtonProySinTipoBusquedaProyecto").click(function (e) {
+        $("#inputProyecto").data("kendoComboBox").value(LineaCaptura.proyectoIDSeleccionado);
+        $("#inputZona").data("kendoComboBox").value(LineaCaptura.zonaIDSeleccionado);
+        $("#inputCuadrante").data("kendoComboBox").value(LineaCaptura.cuadranteIDSeleccionado);
+        $("#inputSistemaPintura").data("kendoComboBox").value(LineaCaptura.sistemaPinturaIDSeleccionado);
+        $("#inputColor").data("kendoComboBox").value(LineaCaptura.ColorIDSeleccionado);
+        ventanaConfirmEdicionCaptura.close();
+    });
+}
+
+function suscribirEventoFechaProceso() {
+    $("#inputFechaProceso").kendoDatePicker({
+        max: new Date(),
+        change: function (e) {
+            ValidarFechaPrimario(e.sender._value);
+        }
+    });
+}
+
+function suscribirEventoPintor() {
+
+    $("#inputPintor").kendoMultiSelect({
+        dataSource: '',
+        dataTextField: "Codigo",
+        dataValueField: "ObreroID",
+        suggest: true,
+        filter: "contains"
+    }).data("kendoMultiSelect");
+}
 
 function suscribirEventoWindowsConfirmaCapturaCambioProcesoPintura() {
     ventanaConfirmEdicionCambioProcesoPintura = $("#ventanaConfirmCapturaProcesoPintura").kendoWindow({
@@ -42,6 +113,29 @@ function suscribirEventoWindowsConfirmaCapturaCambioProcesoPintura() {
     });
 }
 
+
+function eventoRegresarTipoListado() {
+
+    switch (procesoPinturaSeleccionadoAnterior) {
+        case "1":
+            $('input:radio[name=ProcesoPintura]:nth(0)').attr('checked', true);
+            $('input:radio[name=ProcesoPintura]:nth(0)').trigger("click");
+            break;
+        case "2":
+            $('input:radio[name=ProcesoPintura]:nth(1)').attr('checked', true);
+            $('input:radio[name=ProcesoPintura]:nth(1)').trigger("click");
+            break;
+        case "3":
+            $('input:radio[name=ProcesoPintura]:nth(2)').attr('checked', true);
+            $('input:radio[name=ProcesoPintura]:nth(2)').trigger("click");
+            break;
+        case "4":
+            $('input:radio[name=ProcesoPintura]:nth(3)').attr('checked', true);
+            $('input:radio[name=ProcesoPintura]:nth(3)').trigger("click");
+            break;
+    }
+}
+
 function suscribirEventoSeleccionProcesoPintura() {
     $('input:radio[name=ProcesoPintura]').change(function () {
         CambiarProcesoPintura();
@@ -49,7 +143,7 @@ function suscribirEventoSeleccionProcesoPintura() {
 }
 
 function SuscribirEventoZona() {
-    
+
     $("#inputZona").kendoComboBox({
         dataTextField: "Nombre",
         dataValueField: "ZonaID",
@@ -59,12 +153,20 @@ function SuscribirEventoZona() {
         index: 3,
         change: function (e) {
             var dataItem = this.dataItem(e.sender.selectedIndex);
-            if (dataItem != undefined) {
-                $("#inputCuadrante").data("kendoComboBox").dataSource.data([]);
-                $("#inputCuadrante").data("kendoComboBox").value("");
-                $("#inputSistemaPintura").data("kendoComboBox").value("");
-                $("#inputColor").data("kendoComboBox").value("");
-                AjaxCuadrante(dataItem.ZonaID);
+            elementoEjecutoChange = 2;
+            if (!editado) {
+                if (dataItem != undefined) {
+                    
+                    LineaCaptura.zonaIDSeleccionado = dataItem.ZonaID;
+                    $("#inputCuadrante").data("kendoComboBox").dataSource.data([]);
+                    $("#inputCuadrante").data("kendoComboBox").value("");
+                    $("#inputSistemaPintura").data("kendoComboBox").value("");
+                    $("#inputColor").data("kendoComboBox").value("");
+                    AjaxCuadrante(dataItem.ZonaID);
+                }
+            }
+            else {
+                ventanaConfirmEdicionCaptura.open().center();
             }
         }
     });
@@ -78,10 +180,17 @@ function SuscribirEventoCuadrante() {
         index: 3,
         change: function (e) {
             var dataItem = this.dataItem(e.sender.selectedIndex);
-            if (dataItem != undefined && dataItem.CuadranteID!=0) {
+            elementoEjecutoChange = 3;
+            if (!editado) {
+                if (dataItem != undefined && dataItem.CuadranteID != 0) {
+                    LineaCaptura.cuadranteIDSeleccionado = dataItem.CuadranteID;
                     $("#inputSistemaPintura").data("kendoComboBox").value("");
                     $("#inputColor").data("kendoComboBox").value("");
-                    AjaxSistemaPintura($("#inputZona").data("kendoComboBox").value(), dataItem.CuadranteID);
+                    AjaxSistemaPintura($("#inputZona").data("kendoComboBox").value(), dataItem.CuadranteID, $("#inputProyecto").data("kendoComboBox").value());
+                }
+            }
+            else {
+                ventanaConfirmEdicionCaptura.open().center();
             }
         }
     });
@@ -95,10 +204,16 @@ function SuscribirEventoSistemaPintura() {
         index: 3,
         change: function (e) {
             var dataItem = this.dataItem(e.sender.selectedIndex);
-
-            if (dataItem != undefined) {
+            elementoEjecutoChange = 4;
+            if (!editado) {
+                if (dataItem != undefined) {
+                    LineaCaptura.sistemaPinturaIDSeleccionado = dataItem.SistemaPinturaID;
                     $("#inputColor").data("kendoComboBox").value("");
                     AjaxColores($("#inputZona").data("kendoComboBox").value(), $("#inputCuadrante").data("kendoComboBox").value(), dataItem.SistemaPinturaID);
+                }
+            }
+            else {
+                ventanaConfirmEdicionCaptura.open().center();
             }
         }
 
@@ -141,12 +256,16 @@ function SuscribirEventoSpoolID() {
         delay: 10,
         change: function (e) {
             dataItem = this.dataItem(e.sender.selectedIndex);
+            if (!editado) {
+                if (dataItem != undefined) {
 
-            if (dataItem != undefined) {
-
+                }
+                else {
+                    $("#InputID").data("kendoComboBox").value("");
+                }
             }
             else {
-                $("#InputID").data("kendoComboBox").value("");
+                ventanaConfirmEdicionCaptura.open().center();
             }
         }
     });
@@ -173,61 +292,9 @@ function SuscribirEventoSpoolID() {
 
 }
 
-function SuscribirEventoLote() {
-
-    $("#inputLote").kendoComboBox({
-        dataTextField: "NumeroLote",
-        dataValueField: "LotePinturaID",
-        suggest: true,
-        filter: "contains",
-        index: 3,
-        delay: 10,
-        change: function (e) {
-            dataItem = this.dataItem(e.sender.selectedIndex);
-
-            if (dataItem != undefined) {
-                if ($("#inputLote").data("kendoComboBox").dataItem($("#inputLote").data("kendoComboBox").select()) != undefined) {
-                }
-                else {
-                    $("#inputLote").data("kendoComboBox").value("");
-                }
-            }
-            else {
-                $("#InputID").data("kendoComboBox").value("");
-            }
-        }
-    });
-
-   
-    //    .closest('.k-widget').keydown(function (e) {
-    //    if (e.keyCode == 13) {
-    //        if ($("#inputLote").data("kendoComboBox").dataItem($("#inputLote").data("kendoComboBox").select()) != undefined) {
-    //            //PlanchaLote();
-    //        }
-    //        else {
-    //            $("#inputLote").data("kendoComboBox").value("");
-    //        }
-    //    }
-    //});
-}
-
 function SuscribirEventoMostrar() {
     $("#btnMostrar").click(function () {
-        var _cuadranteId = $("#inputCuadrante").val();
-        if (_cuadranteId != "") {
-            var _paso;
-
-            if ($("input:radio[name='PasoTipo']:checked").val() == "intermedio") {
-                _paso = 3;
-            }
-            else if ($("input:radio[name='PasoTipo']:checked").val() == "acabado") {
-                _paso = 4;
-            }
-            ajaxMostrarCapturaAvanceIntAcabado(_cuadranteId, _paso);
-        }
-        else {
-            //displayMessage("ErrorCapturaAvanceIntAcabadoSeleccionarCuadrante", '', '2');
-        }
+        BuscarDetalle();
     });
 }
 
@@ -257,11 +324,19 @@ function SuscribirEventoColor() {
         suggest: true,
         index: 3,
         change: function (e) {
-            if ($("#inputColor").data("kendoComboBox").dataItem($("#inputColor").data("kendoComboBox").select()) != undefined) {
-
+            dataItem = this.dataItem(e.sender.selectedIndex);
+            elementoEjecutoChange = 5;
+            if (!editado) {
+                
+                if ($("#inputColor").data("kendoComboBox").dataItem($("#inputColor").data("kendoComboBox").select()) != undefined) {
+                    LineaCaptura.ColorIDSeleccionado = dataItem.ColorID;
+                }
+                else {
+                    $("#inputColor").data("kendoComboBox").value("");
+                }
             }
             else {
-                $("#inputColor").data("kendoComboBox").value("");
+                ventanaConfirmEdicionCaptura.open().center();
             }
         }
     });
@@ -302,5 +377,36 @@ function opcionHabilitarView(valor, name) {
         $("#Guardar").text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
         $('#GuardarPie').text(_dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]);
     }
+}
+
+function SuscribirEventoProyecto() {
+    $("#inputProyecto").kendoComboBox({
+        dataTextField: "Nombre",
+        dataValueField: "ProyectoID",
+        suggest: true,
+        delay: 10,
+        filter: "contains",
+        index: 3,
+        change: function (e) {
+            var dataItem = this.dataItem(e.sender.selectedIndex);
+            elementoEjecutoChange = 1;
+            if (!editado) {
+                LimpiarDespuesCambioCaptura();
+                if (dataItem != undefined) {
+                    if (dataItem.ProyectoID != 0) {
+                        LineaCaptura.proyectoIDSeleccionado = dataItem.ProyectoID;
+                        AjaxZona();
+                    }
+                } else {
+                    $("#inputProyecto").data("kendoComboBox").value("");
+                }
+            }
+            else {
+                ventanaConfirmEdicionCaptura.open().center();
+            }
+        }
+    });
+
+  
 }
 

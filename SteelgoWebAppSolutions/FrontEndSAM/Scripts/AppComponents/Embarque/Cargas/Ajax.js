@@ -469,17 +469,7 @@ function ajaxGuardar(arregloCaptura, tipoGuardar) {
 
         Captura[0].listaDetalle = ListaDetalles;
 
-
-
-
-
         if (Captura[0].listaDetalle.length > 0) {
-
-            //loadingStart();
-            //$CargaPlana.CargaPlana.create(Captura[0], { token: Cookies.get("token"), PlanaID: $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").value() }).done(function (data) {
-            //    loadingStop();
-            //});
-
             loadingStart();
             $CargaPlana.CargaPlana.create(Captura[0], { token: Cookies.get("token"), PlanaID: $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").value(), CerrarPlana: cerrar, CuadrantePlanaSam2: CuadrantePlanaSam2, CuadrantePlanaSam3: CuadrantePlanaSam3 }).done(function (data) {
                 editado = true;
@@ -504,9 +494,6 @@ function ajaxGuardar(arregloCaptura, tipoGuardar) {
                     loadingStop();
                 }
             });
-
-            
-
         }
         else {
             loadingStop();

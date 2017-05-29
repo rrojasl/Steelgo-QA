@@ -96,9 +96,6 @@ namespace BackEndSAM.Controllers.PinturaControllers.CapturaAvance
                 string jsonConvertido = DataTableToJSON(dtdetalle, procesopinturaID, usuario.UsuarioID);// Convertir(dtdetalle, procesopinturaID, usuario.UsuarioID);
 
                 return jsonConvertido;
-
-                //List<DetalleCapturaAvanceCarro> listaDetalleCapturaAvanceCarro = JsonConvert.DeserializeObject<List<DetalleCapturaAvanceCarro>>(jsonDinamico);
-
             }
             else
             {

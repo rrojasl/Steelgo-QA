@@ -10799,7 +10799,23 @@ _dictionary = {
     },
     //Finaliza Captura Avance
 
-    //Comienza Avance Intermedio Acabado
+    //Comienza Avance Cuadrante
+    "CapturaAvanceCuadranteNoSistemaPintura": {
+        "es-MX": "Selecciona un sistema de pintura",
+        "en-US": "Select a painting system"
+    },
+    "CapturaAvanceCuadranteNoCuadrante": {
+        "es-MX": "Selecciona un cuadrante",
+        "en-US": "Select a quadrant"
+    },
+    "CapturaAvanceCuadranteNoZona": {
+        "es-MX": "Selecciona una zona",
+        "en-US": "Select a zone"
+    },
+    "CapturaAvanceCuadranteNoProyecto": {
+        "es-MX": "Selecciona un proyecto",
+        "en-US": "Select a proyect"
+    },
     "lblLotesCapturaReporteSup": {
         "es-MX": "Captura de pruebas por Lotes",
         "en-US": "Batch Capture Test"
