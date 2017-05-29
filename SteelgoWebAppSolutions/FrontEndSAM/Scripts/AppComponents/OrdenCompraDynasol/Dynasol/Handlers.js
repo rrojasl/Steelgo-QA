@@ -71,7 +71,7 @@ function suscribirEventoChangeRadio() {
 $('#inputProyecto').kendoComboBox({
     dataTextField: "Colada",
     dataValueField: "ColadaID",
-    dataSource: [{ ColadaID: 0, Colada: "" },{ ColadaID: 1, Colada: "DT CS FIgthing  PO  279" }, { ColadaID: 2, Colada: "DT P22 FIgthing  PO  280" }],
+    dataSource: [{ ColadaID: 0, Colada: "" }, { ColadaID: 1, Colada: "DT CS FIgthing  PO  279" }, { ColadaID: 2, Colada: "DT P22 FIgthing  PO  280" }],
     suggest: true,
     filter: "contains",
     index: 3,
@@ -287,7 +287,7 @@ function suscribirEventoDetallePartida() {
 
     $(document).on('click', '.EnlacePorPlaca', function (e) {
         e.preventDefault();
-        
+
     });
 }
 
@@ -301,7 +301,7 @@ function suscribirEventoDetalleDefectoPorPlaca() {
 
             LlenarGridPopUpDetalleColadas(dataItem);
 
-            
+
         }
     });
 }
@@ -346,7 +346,7 @@ function suscribirEventoCancelar() {
     });
 
     $(document).on('click', '#CancelarInspeccion', function (e) {
-    
+
         $("#windowGridInspeccion").data("kendoWindow").close();
     });
 
@@ -355,7 +355,7 @@ function suscribirEventoCancelar() {
 
 function suscribirEventoGuardar() {
     $(document).on('click', '#GuardarPlacas', function (e) {
-    
+
         var ds = $("#gridPopUp").data("kendoGrid").dataSource;
         var window = $("#windowGrid");
         //actualizaGridGeneralPorPlaca();
@@ -381,21 +381,21 @@ function suscribirEventoGuardar() {
     });
 
     $(document).on('click', '#GuardarDefectos', function (e) {
-    
+
         var ds = $("#gridPopUpSteelgo").data("kendoGrid").dataSource;
         var window = $("#windowGridSteelgo");
         //actualizaGridGeneralPorDefectos();
         $("#windowGridSteelgo").data("kendoWindow").close();
 
-        
+
     });
 
     $(document).on('click', '#GuardarInspeccion', function (e) {
-    
+
         var ds = $("#gridPopUpInspeccion").data("kendoGrid").dataSource;
         var window = $("#windowGridInspeccion");
         //actualizaGridGeneralPorDefectos();
         $("#windowGridInspeccion").data("kendoWindow").close();
-        
+
     });
 }
