@@ -14,56 +14,56 @@ function suscribirEventoChangeRadio() {
     $('input:radio[name=Muestra]:nth(0)').change(function () {
         //Gerez
 
-        $("#gridPopUpDefectos").data("kendoGrid").hideColumn("CantG");
-        $("#gridPopUpDefectos").data("kendoGrid").hideColumn("FechaRecibido");
-        $("#gridPopUpDefectos").data("kendoGrid").hideColumn("CambionRecibido");
-        $("#gridPopUpDefectos").data("kendoGrid").hideColumn("FacturaProveedor");
-        $("#gridPopUpDefectos").data("kendoGrid").hideColumn("LiberacionInspeccion");
-        $("#gridPopUpDefectos").data("kendoGrid").hideColumn("FechaEnvio");
-        $("#gridPopUpDefectos").data("kendoGrid").hideColumn("CantRecibidaS");
-        $("#gridPopUpDefectos").data("kendoGrid").hideColumn("ShippingDate");
+        $("#gridPopUpSteelgo").data("kendoGrid").hideColumn("CantG");
+        $("#gridPopUpSteelgo").data("kendoGrid").hideColumn("FechaRecibido");
+        $("#gridPopUpSteelgo").data("kendoGrid").hideColumn("CambionRecibido");
+        $("#gridPopUpSteelgo").data("kendoGrid").hideColumn("FacturaProveedor");
+        $("#gridPopUpSteelgo").data("kendoGrid").hideColumn("LiberacionInspeccion");
+        $("#gridPopUpSteelgo").data("kendoGrid").hideColumn("FechaEnvio");
+        $("#gridPopUpSteelgo").data("kendoGrid").hideColumn("CantRecibidaS");
+        $("#gridPopUpSteelgo").data("kendoGrid").hideColumn("ShippingDate");
 
         //Steelgo
-        $("#gridPopUpDefectos").data("kendoGrid").hideColumn("CantS");
-        $("#gridPopUpDefectos").data("kendoGrid").hideColumn("FechaRecibidoS");
-        $("#gridPopUpDefectos").data("kendoGrid").hideColumn("InspeccionS");
-        $("#gridPopUpDefectos").data("kendoGrid").hideColumn("FechaFactura");
+        $("#gridPopUpSteelgo").data("kendoGrid").hideColumn("CantS");
+        $("#gridPopUpSteelgo").data("kendoGrid").hideColumn("FechaRecibidoS");
+        $("#gridPopUpSteelgo").data("kendoGrid").hideColumn("InspeccionS");
+        $("#gridPopUpSteelgo").data("kendoGrid").hideColumn("FechaFactura");
     });
     $('input:radio[name=Muestra]:nth(1)').change(function () {
         //Gerez
-        $("#gridPopUpDefectos").data("kendoGrid").showColumn("CantG");
-        $("#gridPopUpDefectos").data("kendoGrid").showColumn("FechaRecibido");
-        $("#gridPopUpDefectos").data("kendoGrid").showColumn("CambionRecibido");
-        $("#gridPopUpDefectos").data("kendoGrid").showColumn("FacturaProveedor");
-        $("#gridPopUpDefectos").data("kendoGrid").showColumn("LiberacionInspeccion");
-        $("#gridPopUpDefectos").data("kendoGrid").showColumn("FechaEnvio");
-        $("#gridPopUpDefectos").data("kendoGrid").showColumn("CantRecibidaS");
-        $("#gridPopUpDefectos").data("kendoGrid").showColumn("ShippingDate");
+        $("#gridPopUpSteelgo").data("kendoGrid").showColumn("CantG");
+        $("#gridPopUpSteelgo").data("kendoGrid").showColumn("FechaRecibido");
+        $("#gridPopUpSteelgo").data("kendoGrid").showColumn("CambionRecibido");
+        $("#gridPopUpSteelgo").data("kendoGrid").showColumn("FacturaProveedor");
+        $("#gridPopUpSteelgo").data("kendoGrid").showColumn("LiberacionInspeccion");
+        $("#gridPopUpSteelgo").data("kendoGrid").showColumn("FechaEnvio");
+        $("#gridPopUpSteelgo").data("kendoGrid").showColumn("CantRecibidaS");
+        $("#gridPopUpSteelgo").data("kendoGrid").showColumn("ShippingDate");
 
         //Steelgo
 
-        $("#gridPopUpDefectos").data("kendoGrid").hideColumn("CantS");
-        $("#gridPopUpDefectos").data("kendoGrid").hideColumn("FechaRecibidoS");
-        $("#gridPopUpDefectos").data("kendoGrid").hideColumn("InspeccionS");
-        $("#gridPopUpDefectos").data("kendoGrid").hideColumn("FechaFactura");
+        $("#gridPopUpSteelgo").data("kendoGrid").hideColumn("CantS");
+        $("#gridPopUpSteelgo").data("kendoGrid").hideColumn("FechaRecibidoS");
+        $("#gridPopUpSteelgo").data("kendoGrid").hideColumn("InspeccionS");
+        $("#gridPopUpSteelgo").data("kendoGrid").hideColumn("FechaFactura");
     });
     $('input:radio[name=Muestra]:nth(2)').change(function () {
         //Gerez
-        $("#gridPopUpDefectos").data("kendoGrid").showColumn("CantG");
-        $("#gridPopUpDefectos").data("kendoGrid").showColumn("FechaRecibido");
-        $("#gridPopUpDefectos").data("kendoGrid").showColumn("CambionRecibido");
-        $("#gridPopUpDefectos").data("kendoGrid").showColumn("FacturaProveedor");
-        $("#gridPopUpDefectos").data("kendoGrid").showColumn("LiberacionInspeccion");
-        $("#gridPopUpDefectos").data("kendoGrid").showColumn("FechaEnvio");
-        $("#gridPopUpDefectos").data("kendoGrid").showColumn("CantRecibidaS");
-        $("#gridPopUpDefectos").data("kendoGrid").showColumn("ShippingDate");
+        $("#gridPopUpSteelgo").data("kendoGrid").showColumn("CantG");
+        $("#gridPopUpSteelgo").data("kendoGrid").showColumn("FechaRecibido");
+        $("#gridPopUpSteelgo").data("kendoGrid").showColumn("CambionRecibido");
+        $("#gridPopUpSteelgo").data("kendoGrid").showColumn("FacturaProveedor");
+        $("#gridPopUpSteelgo").data("kendoGrid").showColumn("LiberacionInspeccion");
+        $("#gridPopUpSteelgo").data("kendoGrid").showColumn("FechaEnvio");
+        $("#gridPopUpSteelgo").data("kendoGrid").showColumn("CantRecibidaS");
+        $("#gridPopUpSteelgo").data("kendoGrid").showColumn("ShippingDate");
 
         //Steelgo
 
-        $("#gridPopUpDefectos").data("kendoGrid").showColumn("CantS");
-        $("#gridPopUpDefectos").data("kendoGrid").showColumn("FechaRecibidoS");
-        $("#gridPopUpDefectos").data("kendoGrid").showColumn("InspeccionS");
-        $("#gridPopUpDefectos").data("kendoGrid").showColumn("FechaFactura");
+        $("#gridPopUpSteelgo").data("kendoGrid").showColumn("CantS");
+        $("#gridPopUpSteelgo").data("kendoGrid").showColumn("FechaRecibidoS");
+        $("#gridPopUpSteelgo").data("kendoGrid").showColumn("InspeccionS");
+        $("#gridPopUpSteelgo").data("kendoGrid").showColumn("FechaFactura");
     });
 }
 
@@ -94,7 +94,56 @@ $('#inputProyecto').kendoComboBox({
                 Total: "$37,83 ",
                 PackingList: "35777-1",
                 Partida: "Partida 1",
-                TemplateDetalleElemento: "Ver coladas"
+                TemplateDetalleElemento: "Ver coladas",
+                ListaDetalleColadas: [
+                {
+
+                    Colada: "50015",
+                    InspeccionDetalle: "RELEASED",
+                    Comentario: "",
+                    Cant: 10,
+                    CantG: 9,
+                    FechaRecibido: "",
+                    CambionRecibido: "",
+                    FacturaProveedor: "",
+                    FechaLanzamiento: "",
+                    FechaEnvio: "",
+                    FechaRecibido: "",
+                    CantRecibida: 10,
+                    LiberacionInspeccion: "",
+                    FechaFactura: "",
+                    ListaDetalleInspeccion: [{
+                        Inspeccion: "REJECTED",
+                        Comentario: "mal elemento",
+                    }, {
+                        Inspeccion: "RELEASED",
+                        Comentario: "",
+                    }]
+                },
+                {
+
+                    Colada: "37LLLL",
+                    InspeccionDetalle: "RELEASED",
+                    Comentario: "",
+                    Cant: 3,
+                    CantG: 2,
+                    FechaRecibido: "",
+                    CambionRecibido: "",
+                    FacturaProveedor: "",
+                    FechaLanzamiento: "",
+                    FechaEnvio: "",
+                    FechaRecibidoS: "",
+                    CantRecibida: 2,
+                    LiberacionInspeccion: "",
+                    FechaFactura: "",
+                    ListaDetalleInspeccion: [{
+                        Inspeccion: "REJECTED",
+                        Comentario: "mal elemento",
+                    }, {
+                        Inspeccion: "RELEASED",
+                        Comentario: "",
+                    }]
+                }]
             },
             {
                 Rev: "CS",
@@ -105,13 +154,61 @@ $('#inputProyecto').kendoComboBox({
                 Registro: "SCH STD",
                 Rating: "#300",
                 PreparacionExtremos: "SW",
-                
                 Cant: 10,
                 PrecioUnidad: "$9,67",
                 Total: "$96,71",
                 PackingList: "",
                 Partida: "",
-                TemplateDetalleElemento: "Ver coladas"
+                TemplateDetalleElemento: "Ver coladas",
+                ListaDetalleColadas: [
+                {
+
+                    Colada: "50015",
+                    InspeccionDetalle: "RELEASED",
+                    Comentario: "",
+                    Cant: 10,
+                    CantG: 9,
+                    FechaRecibido: "",
+                    CambionRecibido: "",
+                    FacturaProveedor: "",
+                    FechaLanzamiento: "",
+                    FechaEnvio: "",
+                    FechaRecibido: "",
+                    CantRecibida: 10,
+                    LiberacionInspeccion: "",
+                    FechaFactura: "",
+                    ListaDetalleInspeccion: [{
+                        Inspeccion: "REJECTED",
+                        Comentario: "mal elemento",
+                    }, {
+                        Inspeccion: "RELEASED",
+                        Comentario: "",
+                    }]
+                },
+                {
+
+                    Colada: "37LLLL",
+                    InspeccionDetalle: "RELEASED",
+                    Comentario: "",
+                    Cant: 3,
+                    CantG: 2,
+                    FechaRecibido: "",
+                    CambionRecibido: "",
+                    FacturaProveedor: "",
+                    FechaLanzamiento: "",
+                    FechaEnvio: "",
+                    FechaRecibidoS: "",
+                    CantRecibida: 2,
+                    LiberacionInspeccion: "",
+                    FechaFactura: "",
+                    ListaDetalleInspeccion: [{
+                        Inspeccion: "REJECTED",
+                        Comentario: "mal elemento",
+                    }, {
+                        Inspeccion: "RELEASED",
+                        Comentario: "",
+                    }]
+                }]
             },
             {
                 Rev: "CS",
@@ -128,7 +225,56 @@ $('#inputProyecto').kendoComboBox({
                 Total: "$33,46",
                 PackingList: "",
                 Partida: "",
-                TemplateDetalleElemento: "Ver coladas"
+                TemplateDetalleElemento: "Ver coladas",
+                ListaDetalleColadas: [
+                {
+
+                    Colada: "50015",
+                    InspeccionDetalle: "RELEASED",
+                    Comentario: "",
+                    Cant: 10,
+                    CantG: 9,
+                    FechaRecibido: "",
+                    CambionRecibido: "",
+                    FacturaProveedor: "",
+                    FechaLanzamiento: "",
+                    FechaEnvio: "",
+                    FechaRecibido: "",
+                    CantRecibida: 10,
+                    LiberacionInspeccion: "",
+                    FechaFactura: "",
+                    ListaDetalleInspeccion: [{
+                        Inspeccion: "REJECTED",
+                        Comentario: "mal elemento",
+                    }, {
+                        Inspeccion: "RELEASED",
+                        Comentario: "",
+                    }]
+                },
+                {
+
+                    Colada: "37LLLL",
+                    InspeccionDetalle: "RELEASED",
+                    Comentario: "",
+                    Cant: 3,
+                    CantG: 2,
+                    FechaRecibido: "",
+                    CambionRecibido: "",
+                    FacturaProveedor: "",
+                    FechaLanzamiento: "",
+                    FechaEnvio: "",
+                    FechaRecibidoS: "",
+                    CantRecibida: 2,
+                    LiberacionInspeccion: "",
+                    FechaFactura: "",
+                    ListaDetalleInspeccion: [{
+                        Inspeccion: "REJECTED",
+                        Comentario: "mal elemento",
+                    }, {
+                        Inspeccion: "RELEASED",
+                        Comentario: "",
+                    }]
+                }]
             }]);
             loadingStop();
         }, 500);
@@ -147,22 +293,15 @@ function suscribirEventoDetallePartida() {
 
 function suscribirEventoDetalleDefectoPorPlaca() {
 
-    $(document).on('click', '.EnlaceDefectoPorPlaca', function (e) {
+    $(document).on('click', '.EnlaceDetalleColada', function (e) {
         e.preventDefault();
         if ($('#Guardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
-            var grid = $("#gridPopUpGerez").data("kendoGrid");
+            var grid = $("#grid").data("kendoGrid");
             dataItem = grid.dataItem($(e.target).closest("tr"));
 
-            if ($('input:radio[name=Muestra]:nth(0)').prop('checked')) {
-                VentanaModalDetalleCecilia();
+            LlenarGridPopUpDetalleColadas(dataItem);
 
-            }
-            else if ($('input:radio[name=Muestra]:nth(1)').prop('checked')) {
-                VentanaModalDetallePlaca();
-            }
-            else if ($('input:radio[name=Muestra]:nth(2)').prop('checked')) {
-                VentanaModalDetalleDefectoPorPlaca();
-            }
+            
         }
     });
 }
@@ -172,7 +311,20 @@ function suscribirEventoDetalleInspeccion() {
     $(document).on('click', '.EnlaceInspeccion', function (e) {
         e.preventDefault();
         if ($('#Guardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
-            var grid = $("#gridPopUpDefectos").data("kendoGrid");
+            var grid;
+
+            $("#gridPopUpInspeccion").data('kendoGrid').dataSource.data([]);
+            if ($('input:radio[name=Muestra]:nth(0)').prop('checked')) {
+                grid = $("#gridPopUpCecilia").data("kendoGrid");
+            }
+            else if ($('input:radio[name=Muestra]:nth(1)').prop('checked')) {
+                grid = $("#gridPopUpGerez").data("kendoGrid");
+            }
+            else if ($('input:radio[name=Muestra]:nth(2)').prop('checked')) {
+                grid = $("#gridPopUpSteelgo").data("kendoGrid");
+            }
+
+
             dataItem = grid.dataItem($(e.target).closest("tr"));
 
             LlenarGridPopUpDetalleInspeccion(dataItem);
@@ -190,7 +342,7 @@ function suscribirEventoCancelar() {
     });
 
     $(document).on('click', '#CancelarDefectos', function (e) {
-        $("#windowGridDefectos").data("kendoWindow").close();
+        $("#windowGridSteelgo").data("kendoWindow").close();
     });
 
     $(document).on('click', '#CancelarInspeccion', function (e) {
@@ -230,10 +382,10 @@ function suscribirEventoGuardar() {
 
     $(document).on('click', '#GuardarDefectos', function (e) {
     
-        var ds = $("#gridPopUpDefectos").data("kendoGrid").dataSource;
-        var window = $("#windowGridDefectos");
+        var ds = $("#gridPopUpSteelgo").data("kendoGrid").dataSource;
+        var window = $("#windowGridSteelgo");
         //actualizaGridGeneralPorDefectos();
-        $("#windowGridDefectos").data("kendoWindow").close();
+        $("#windowGridSteelgo").data("kendoWindow").close();
 
         
     });
@@ -244,7 +396,6 @@ function suscribirEventoGuardar() {
         var window = $("#windowGridInspeccion");
         //actualizaGridGeneralPorDefectos();
         $("#windowGridInspeccion").data("kendoWindow").close();
-        var grid = $("#gridPopUpInspeccion").data("kendoGrid");
-        grid.destroy();
+        
     });
 }

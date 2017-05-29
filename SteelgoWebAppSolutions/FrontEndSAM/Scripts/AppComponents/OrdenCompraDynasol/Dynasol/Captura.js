@@ -3,8 +3,8 @@
 function changeLanguageCall() {
     CargarGrid();
     CargarGridPopUpDetalleCecilia()
-    CargarGridPopUpDetallePartida();
-    CargarGridPopUpDetallePorPartidaColadas();
+    CargarGridPopUpDetalleGerez();
+    CargarGridPopUpDetalleSteelgo();
     CargarGridPopUpDetalleInspeccion();
     inicio();
 };
@@ -80,7 +80,7 @@ function CargarGrid() {
             { field: "Total", title: "Total", filterable: getGridFilterableCellMaftec(), width: "70px" },
             //{ field: "PackingList", title: "Packing List", filterable: getGridFilterableCellMaftec(), width: "100px" },
             { field: "Partida", title: "Partida", filterable: getGridFilterableCellMaftec(), width: "100px" },
-            { field: "Coladas", title: " ", filterable: false, width: "50px", template: "<div class='EnlaceDefectoPorPlaca' style='text-align:center;'><a href='\\#'> <span><img src='/Content/images/SAMC_ComplementoIcon.png'></img></span></a></div> " },
+            { field: "Coladas", title: " ", filterable: false, width: "50px", template: "<div class='EnlaceDetalleColada' style='text-align:center;'><a href='\\#'> <span><img src='/Content/images/SAMC_ComplementoIcon.png'></img></span></a></div> " },
 
 
         ],
@@ -97,40 +97,7 @@ function CargarGridPopUpDetalleCecilia() {
         autoBind: true,
         dataSource: {
             data: [
-                {
 
-                    Colada: "50015",
-                    InspeccionDetalle: "RELEASED",
-                    Comentario: "",
-                    Cant: 10,
-                    CantG: 9,
-                    FechaRecibido: "",
-                    CambionRecibido: "",
-                    FacturaProveedor: "",
-                    FechaLanzamiento: "",
-                    FechaEnvio: "",
-                    FechaRecibido: "",
-                    CantRecibida: 10,
-                    LiberacionInspeccion: "",
-                    FechaFactura: "",
-                },
-                {
-
-                    Colada: "37LLLL",
-                    InspeccionDetalle: "RELEASED",
-                    Comentario: "",
-                    Cant: 3,
-                    CantG: 2,
-                    FechaRecibido: "",
-                    CambionRecibido: "",
-                    FacturaProveedor: "",
-                    FechaLanzamiento: "",
-                    FechaEnvio: "",
-                    FechaRecibidoS: "",
-                    CantRecibida: 2,
-                    LiberacionInspeccion: "",
-                    FechaFactura: "",
-                }
             ],
             schema: {
                 model: {
@@ -181,23 +148,23 @@ function CargarGridPopUpDetalleCecilia() {
           { field: "InspeccionDetalle", title: "Insp", filterable: false, width: "70px", template: "<div class='EnlaceInspeccion' style='text-align:center;'><a href='\\#'  > <span>#=InspeccionDetalle#</span></a></div> " },
           { field: "Comentario", title: "Comen", filterable: false, width: "80px", },
           //Gerez
-          
+
 
           {
               command: {
                   text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()],
                   click: function (e) {
                       e.preventDefault();
-                      var dataItem = $("#gridPopUpDefectos").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+                      var dataItem = $("#gridPopUpCecilia").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
 
                       if ((dataItem.Accion == 1) || (dataItem.Accion == 0)) {
-                          $("#gridPopUpDefectos").data("kendoGrid").dataSource.remove(dataItem);
+                          $("#gridPopUpCecilia").data("kendoGrid").dataSource.remove(dataItem);
                       }
                       else {
                           dataItem.Accion = 3;
                       }
 
-                      $("#gridPopUpDefectos").data("kendoGrid").dataSource.sync();
+                      $("#gridPopUpCecilia").data("kendoGrid").dataSource.sync();
                   }
               },
               title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()],
@@ -213,47 +180,13 @@ function CargarGridPopUpDetalleCecilia() {
 
 };
 
-
-function CargarGridPopUpDetallePartida() {
+function CargarGridPopUpDetalleGerez() {
 
     $("#gridPopUpGerez").kendoGrid({
         autoBind: true,
         dataSource: {
             data: [
-                {
 
-                    Colada: "50015",
-                    InspeccionDetalle: "RELEASED",
-                    Comentario: "",
-                    Cant: 10,
-                    CantG: 9,
-                    FechaRecibido: "",
-                    CambionRecibido: "",
-                    FacturaProveedor: "",
-                    FechaLanzamiento: "",
-                    FechaEnvio: "",
-                    FechaRecibido: "",
-                    CantRecibida: 10,
-                    LiberacionInspeccion: "",
-                    FechaFactura: "",
-                },
-                {
-
-                    Colada: "37LLLL",
-                    InspeccionDetalle: "RELEASED",
-                    Comentario: "",
-                    Cant: 3,
-                    CantG: 2,
-                    FechaRecibido: "",
-                    CambionRecibido: "",
-                    FacturaProveedor: "",
-                    FechaLanzamiento: "",
-                    FechaEnvio: "",
-                    FechaRecibidoS: "",
-                    CantRecibida: 2,
-                    LiberacionInspeccion: "",
-                    FechaFactura: "",
-                }
             ],
             schema: {
                 model: {
@@ -312,22 +245,22 @@ function CargarGridPopUpDetallePartida() {
           { field: "FechaEnvio", title: "Fecha E.", filterable: getGridFilterableCellMaftec(), width: "82px", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()] },
           { field: "CantRecibidaS", title: "Ped", filterable: getGridFilterableCellMaftec(), width: "73px" },
           { field: "ShippingDate", title: "Shipping Date", filterable: getGridFilterableCellMaftec(), width: "100px", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()] },
-          
+
           {
               command: {
                   text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()],
                   click: function (e) {
                       e.preventDefault();
-                      var dataItem = $("#gridPopUpDefectos").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+                      var dataItem = $("#gridPopUpGerez").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
 
                       if ((dataItem.Accion == 1) || (dataItem.Accion == 0)) {
-                          $("#gridPopUpDefectos").data("kendoGrid").dataSource.remove(dataItem);
+                          $("#gridPopUpGerez").data("kendoGrid").dataSource.remove(dataItem);
                       }
                       else {
                           dataItem.Accion = 3;
                       }
 
-                      $("#gridPopUpDefectos").data("kendoGrid").dataSource.sync();
+                      $("#gridPopUpGerez").data("kendoGrid").dataSource.sync();
                   }
               },
               title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()],
@@ -343,46 +276,13 @@ function CargarGridPopUpDetallePartida() {
 
 };
 
-function CargarGridPopUpDetallePorPartidaColadas() {
+function CargarGridPopUpDetalleSteelgo() {
 
-    $("#gridPopUpDefectos").kendoGrid({
+    $("#gridPopUpSteelgo").kendoGrid({
         autoBind: true,
         dataSource: {
             data: [
-                {
 
-                    Colada: "50015",
-                    InspeccionDetalle: "RELEASED",
-                    Comentario: "",
-                    Cant: 10,
-                    CantG: 9,
-                    FechaRecibido: "27/04/2017",
-                    CambionRecibido: "14",
-                    FacturaProveedor: "208668",
-                    FechaEnvio: "",
-                    FechaRecibido: "",
-                    CantRecibida: 10,
-                    LiberacionInspeccion: "N/A",
-                    FechaFactura: "24/04/2017",
-                    ShippingDate: "27/04/2017"
-                },
-                {
-
-                    Colada: "37LLLL",
-                    InspeccionDetalle: "RELEASED",
-                    Comentario: "",
-                    Cant: 3,
-                    CantG: 2,
-                    FechaRecibido: "27/04/2017",
-                    CambionRecibido: "14",
-                    FacturaProveedor: "208668",
-                    FechaEnvio: "",
-                    FechaRecibidoS: "",
-                    CantRecibida: 2,
-                    LiberacionInspeccion: "N/A",
-                    FechaFactura: "24/04/2017",
-                    ShippingDate: "27/04/2017"
-                }
             ],
             schema: {
                 model: {
@@ -453,16 +353,16 @@ function CargarGridPopUpDetallePorPartidaColadas() {
                   text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()],
                   click: function (e) {
                       e.preventDefault();
-                      var dataItem = $("#gridPopUpDefectos").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+                      var dataItem = $("#gridPopUpSteelgo").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
 
                       if ((dataItem.Accion == 1) || (dataItem.Accion == 0)) {
-                          $("#gridPopUpDefectos").data("kendoGrid").dataSource.remove(dataItem);
+                          $("#gridPopUpSteelgo").data("kendoGrid").dataSource.remove(dataItem);
                       }
                       else {
                           dataItem.Accion = 3;
                       }
 
-                      $("#gridPopUpDefectos").data("kendoGrid").dataSource.sync();
+                      $("#gridPopUpSteelgo").data("kendoGrid").dataSource.sync();
                   }
               },
               title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()],
@@ -474,59 +374,9 @@ function CargarGridPopUpDetallePorPartidaColadas() {
         toolbar: [{ name: "create" }]
 
     });
-    CustomisaGrid($("#gridPopUpDefectos"));
-
-    //if ($('input:radio[name=Muestra]:nth(0)').prop('checked')) {
-    //    //Gerez
-    //    $("#gridPopUpDefectos").data("kendoGrid").hideColumn("CantG");
-    //    $("#gridPopUpDefectos").data("kendoGrid").hideColumn("FechaRecibido");
-    //    $("#gridPopUpDefectos").data("kendoGrid").hideColumn("CambionRecibido");
-    //    $("#gridPopUpDefectos").data("kendoGrid").hideColumn("FacturaProveedor");
-    //    $("#gridPopUpDefectos").data("kendoGrid").hideColumn("LiberacionInspeccion");
-    //    $("#gridPopUpDefectos").data("kendoGrid").hideColumn("FechaEnvio");
-    //    $("#gridPopUpDefectos").data("kendoGrid").hideColumn("CantRecibidaS");
-    //    $("#gridPopUpDefectos").data("kendoGrid").hideColumn("ShippingDate");
-    //    //Steelgo
-    //    $("#gridPopUpDefectos").data("kendoGrid").hideColumn("CantS");
-    //    $("#gridPopUpDefectos").data("kendoGrid").hideColumn("FechaRecibidoS");
-    //    $("#gridPopUpDefectos").data("kendoGrid").hideColumn("InspeccionS");
-    //    $("#gridPopUpDefectos").data("kendoGrid").hideColumn("FechaFactura");
-    //////}
-
-    //else if ($('input:radio[name=Muestra]:nth(1)').prop('checked')) {
-    //    //Gerez
-    //    $("#gridPopUpDefectos").data("kendoGrid").showColumn("CantG");
-    //    $("#gridPopUpDefectos").data("kendoGrid").showColumn("FechaRecibido");
-    //    $("#gridPopUpDefectos").data("kendoGrid").showColumn("CambionRecibido");
-    //    $("#gridPopUpDefectos").data("kendoGrid").showColumn("FacturaProveedor");
-    //    $("#gridPopUpDefectos").data("kendoGrid").showColumn("LiberacionInspeccion");
-    //    $("#gridPopUpDefectos").data("kendoGrid").showColumn("FechaEnvio");
-    //    $("#gridPopUpDefectos").data("kendoGrid").showColumn("CantRecibidaS");
-    //    $("#gridPopUpDefectos").data("kendoGrid").showColumn("ShippingDate");
-    //    //Steelgo
-    //    $("#gridPopUpDefectos").data("kendoGrid").hideColumn("CantS");
-    //    $("#gridPopUpDefectos").data("kendoGrid").hideColumn("FechaRecibidoS");
-    //    $("#gridPopUpDefectos").data("kendoGrid").hideColumn("InspeccionS");
-    //    $("#gridPopUpDefectos").data("kendoGrid").hideColumn("FechaFactura");
-    //}
+    CustomisaGrid($("#gridPopUpSteelgo"));
 
 
-    //$('input:radio[name=Muestra]:nth(2)').change(function () {
-    //    //Gerez
-    //    $("#gridPopUpDefectos").data("kendoGrid").showColumn("CantG");
-    //    $("#gridPopUpDefectos").data("kendoGrid").showColumn("FechaRecibido");
-    //    $("#gridPopUpDefectos").data("kendoGrid").showColumn("CambionRecibido");
-    //    $("#gridPopUpDefectos").data("kendoGrid").showColumn("FacturaProveedor");
-    //    $("#gridPopUpDefectos").data("kendoGrid").showColumn("LiberacionInspeccion");
-    //    $("#gridPopUpDefectos").data("kendoGrid").showColumn("FechaEnvio");
-    //    $("#gridPopUpDefectos").data("kendoGrid").showColumn("CantRecibidaS");
-    //    $("#gridPopUpDefectos").data("kendoGrid").showColumn("ShippingDate");
-    //    //Steelgo
-    //    $("#gridPopUpDefectos").data("kendoGrid").showColumn("CantS");
-    //    $("#gridPopUpDefectos").data("kendoGrid").showColumn("FechaRecibidoS");
-    //    $("#gridPopUpDefectos").data("kendoGrid").showColumn("InspeccionS");
-    //    $("#gridPopUpDefectos").data("kendoGrid").showColumn("FechaFactura");
-    //});
 };
 
 function CargarGridPopUpDetalleInspeccion() {
@@ -534,13 +384,7 @@ function CargarGridPopUpDetalleInspeccion() {
     $("#gridPopUpInspeccion").kendoGrid({
         ////autoBind: true,
         dataSource: {
-            data: [{
-                Inspeccion: "REJECTED",
-                Comentario: "mal elemento",
-            }, {
-                Inspeccion: "RELEASED",
-                Comentario: "",
-            }],//options.model.ListaDetallePorPlacas,
+            data: [],
             schema: {
                 model: {
                     fields: {
@@ -559,12 +403,12 @@ function CargarGridPopUpDetalleInspeccion() {
 
         ],
         editable: true,
-        //toolbar: [{ name: "create" }],
+        toolbar: [{ name: "create" }]
         navigatable: true,
         dataBound: function (a) {
 
         },
-        toolbar: [{ name: "create" }]
+        
 
     });
     CustomisaGrid($("#gridPopUpInspeccion"));
@@ -572,73 +416,90 @@ function CargarGridPopUpDetalleInspeccion() {
 };
 
 
-var currentPlaca = null;
-function LlenarGridPopUpDetallePartida(data) {
-    modeloRenglon = data;
-    currentPlaca = data;
-    //$("#gridPopUp").data('kendoGrid').dataSource.data([]);
 
-    var ds = $("#gridPopUpGerez").data("kendoGrid").dataSource;
-    //var array = data.ListaDetallePorPlacas;
-    //for (var i = 0; i < array.length; i++) {
-    //    ds.add(array[i]);
+
+
+function LlenarGridPopUpDetalleColadas(data) {
+    modeloRenglon = data;
+
+    //$("#gridPopUpSteelgo").data('kendoGrid').dataSource.data([]);
+
+    //if ($("#gridPopUpSteelgo").data('kendoGrid').dataSource._filter == undefined) {
+    //    //investigar porque al destruir una ventana se eliminan solo los filtros.
+    //    $("#gridPopUpSteelgo").data('kendoGrid').dataSource._filter = {
+    //        logic: "or",
+    //        filters: [
+    //          { field: "Accion", operator: "eq", value: 1 },
+    //          { field: "Accion", operator: "eq", value: 2 },
+    //            { field: "Accion", operator: "eq", value: 0 },
+    //            { field: "Accion", operator: "eq", value: undefined }
+    //        ]
+    //    };
     //}
-    VentanaModalDetallePlaca();
-}
 
-var currentDefectosPorPlaca = null;
-function LlenarGridPopUpDetalleDefectoPorPlaca(data) {
-    modeloRenglon = data;
-    currentDefectosPorPlaca = data;
-    
-    //$("#gridPopUpDefectos").data('kendoGrid').dataSource.data([]);
 
-    if ($("#gridPopUpDefectos").data('kendoGrid').dataSource._filter == undefined) {
-        //investigar porque al destruir una ventana se eliminan solo los filtros.
-        $("#gridPopUpDefectos").data('kendoGrid').dataSource._filter = {
-            logic: "or",
-            filters: [
-              { field: "Accion", operator: "eq", value: 1 },
-              { field: "Accion", operator: "eq", value: 2 },
-                { field: "Accion", operator: "eq", value: 0 },
-                { field: "Accion", operator: "eq", value: undefined }
-            ]
-        };
+    if ($('input:radio[name=Muestra]:nth(0)').prop('checked')) {
+        $("#gridPopUpCecilia").data('kendoGrid').dataSource.data([]);
+        var ds = $("#gridPopUpCecilia").data("kendoGrid").dataSource;
+        var array = data.ListaDetalleColadas;
+
+        for (var i = 0; i < array.length; i++) {
+            ds.add(array[i]);
+        }
+        $("#gridPopUpSteelgo").data('kendoGrid').dataSource.sync();
+        VentanaModalDetalleCecilia();
+
+    }
+    else if ($('input:radio[name=Muestra]:nth(1)').prop('checked')) {
+        $("#gridPopUpGerez").data('kendoGrid').dataSource.data([]);
+        var array = data.ListaDetalleColadas;
+        for (var i = 0; i < array.length; i++) {
+            ds.add(array[i]);
+        }
+        VentanaModalDetalleGerez();
+    }
+    else if ($('input:radio[name=Muestra]:nth(2)').prop('checked')) {
+        $("#gridPopUpSteelgo").data('kendoGrid').dataSource.data([]);
+
+        var ds = $("#gridPopUpSteelgo").data("kendoGrid").dataSource;
+        var array = data.ListaDetalleColadas;
+
+        for (var i = 0; i < array.length; i++) {
+            ds.add(array[i]);
+        }
+
+        VentanaModalDetalleSteelgo();
     }
 
 
-    //var ds = $("#gridPopUpDefectos").data("kendoGrid").dataSource;
-    //var array = data.ListaDetalleDefectos;
-    //listaDefectosAuxiliar = data.ListaDefectos;
-    //for (var i = 0; i < array.length; i++) {
-    //    ds.add(array[i]);
-    //}
-    //$("#gridPopUpDefectos").data('kendoGrid').dataSource.sync();
-    VentanaModalDetalleDefectoPorPlaca();
+
+
 }
 
-var currentPlaca = null;
+var coladaRow;
 function LlenarGridPopUpDetalleInspeccion(data) {
-    modeloRenglon = data;
-    currentPlaca = data;
-    
-    //$("#gridPopUp").data('kendoGrid').dataSource.data([]);
-    var ds = $("#gridPopUpDefectos").data("kendoGrid").dataSource;
-    //var array = data.ListaDetallePorPlacas;
-    //for (var i = 0; i < array.length; i++) {
-    //    ds.add(array[i]);
-    //}
+
+    coladaRow = data;
+    var ds;
+    $("#gridPopUpInspeccion").data('kendoGrid').dataSource.data([]);
+    ds = $("#gridPopUpInspeccion").data("kendoGrid").dataSource;
+
+
+    var array = data.ListaDetalleInspeccion;
+    for (var i = 0; i < array.length; i++) {
+        ds.add(array[i]);
+    }
     VentanaModalDetalleInspeccion();
 }
 
-function VentanaModalDetallePlaca() {
+function VentanaModalDetalleGerez() {
 
     var modalTitle = "";
     modalTitle = "Codo 45º Radio Largo 0.5 x, NeoData: NPS SW Codo 45º Radio Largo , #3000 A 105";
     var window = $("#windowGridGerez");
     var win = window.kendoWindow({
         modal: true,
-        title: "Codo 45º Radio Largo 0.5 x, NeoData: NPS SW Codo 45º Radio Largo , #3000 A 105",
+        title: "",
         resizable: false,
         visible: true,
         width: "80%",
@@ -686,28 +547,15 @@ function VentanaModalDetalleCecilia() {
 };
 
 
-function VentanaModalDetalleDefectoPorPlaca() {
-    var tipo = 0;
-
-    if ($('input:radio[name=Muestra]:nth(0)').prop('checked')) {
-        tipo = 1;
-    }
-    else if ($('input:radio[name=Muestra]:nth(1)').prop('checked')) {
-        tipo = 2;
-    }
-    else if ($('input:radio[name=Muestra]:nth(2)').prop('checked')) {
-        tipo = 3;
-    }
-
+function VentanaModalDetalleSteelgo() {
 
     var modalTitle = "";
     modalTitle = "Codo 45º Radio Largo 0.5 x, NeoData: NPS SW Codo 45º Radio Largo , #3000 A 105";
-    var window = $("#windowGridDefectos");
-    
+    var window = $("#windowGridSteelgo");
 
     var win = window.kendoWindow({
         modal: true,
-        title: "Codo 45º Radio Largo 0.5 x, NeoData: NPS SW Codo 45º Radio Largo , #3000 A 105",
+        title: "",
         resizable: false,
         visible: true,
         width: "99%",//tipo == 1 ? "30%" : tipo == 2 ? "80%" : "99%",
