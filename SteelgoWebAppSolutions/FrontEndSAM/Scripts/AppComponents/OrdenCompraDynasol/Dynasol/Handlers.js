@@ -76,221 +76,210 @@ $('#inputOrdenCompra').kendoComboBox({
     filter: "contains",
     index: 3,
     change: function (e) {
-        //if (dataItem != undefined) {
-        //    AjaxRequisicion();
-        //    pruebaOriginal = $("#inputOrdenCompra").data("kendoComboBox").value();
-        //    if (dataItem.Nombre == "") {
-        //        $("#grid").data("kendoGrid").dataSource.data([]);
-        //    }
-        //}
-        //else {
-        //    $("#grid").data("kendoGrid").dataSource.data([]);
-        //}
-
-
-
-        loadingStart();
-        setTimeout(function () {
-            $("#grid").data('kendoGrid').dataSource.data([]);
-            var ds = $("#grid").data("kendoGrid").dataSource;
-            ds.data([{
-                Rev: "CS",
-                Descripcion: "Codo 45º Radio Largo 0.5 x, NeoData: NPS SW Codo 45º Radio Largo  , #3000 A 105",
-                MaterialNorma: "A 105",
-                Diametro1: "0.5",
-                Diametro2: "",
-                Registro: "SCH STD",
-                Rating: "#300",
-                PreparacionExtremos: "SW",
-                Cant: 10,
-                PrecioUnidad: "$3,78 ",
-                Total: "$37,83 ",
-                PackingList: "35777-1",
-                Partida: "Partida 1",
-                TemplateDetalleElemento: "Ver coladas",
-                ListaDetalleColadas: [
-                {
-
-                    Colada: "50015",
-                    InspeccionDetalle: "RELEASED",
-                    Comentario: "",
-                    Cant: 10,
-                    CantG: 9,
-                    FechaRecibido: "",
-                    Camion: "",
-                    FacturaProveedor: "",
-                    FechaLanzamiento: "",
-                    FechaEnvio: "",
-                    FechaRecibido: "",
-                    CantRecibida: 10,
-                    Acuerdo: "",
-                    FechaFactura: "",
-                    ListaDetalleInspeccion: [{
-                        Inspeccion: "REJECTED",
-                        Comentario: "mal elemento",
-                    }, {
-                        Inspeccion: "RELEASED",
-                        Comentario: "",
-                    }]
-                },
-                {
-
-                    Colada: "37LLLL",
-                    InspeccionDetalle: "RELEASED",
-                    Comentario: "",
-                    Cant: 3,
-                    CantG: 2,
-                    FechaRecibido: "",
-                    Camion: "",
-                    FacturaProveedor: "",
-                    FechaLanzamiento: "",
-                    FechaEnvio: "",
-                    FechaRecibidoS: "",
-                    CantRecibida: 2,
-                    Acuerdo: "",
-                    FechaFactura: "",
-                    ListaDetalleInspeccion: [{
-                        Inspeccion: "REJECTED",
-                        Comentario: "mal elemento",
-                    }, {
-                        Inspeccion: "RELEASED",
-                        Comentario: "",
-                    }]
-                }]
-            },
-            {
-                Rev: "CS",
-                Descripcion: "Codo 45º Radio Largo, NeoData: 1.5 x  NPS SW Codo 45º Radio Largo  , #3000 A 105",
-                MaterialNorma: "A 105",
-                Diametro1: "1.5",
-                Diametro2: "",
-                Registro: "SCH STD",
-                Rating: "#300",
-                PreparacionExtremos: "SW",
-                Cant: 10,
-                PrecioUnidad: "$9,67",
-                Total: "$96,71",
-                PackingList: "",
-                Partida: "",
-                TemplateDetalleElemento: "Ver coladas",
-                ListaDetalleColadas: [
-                {
-
-                    Colada: "50015",
-                    InspeccionDetalle: "RELEASED",
-                    Comentario: "",
-                    Cant: 10,
-                    CantG: 9,
-                    FechaRecibido: "",
-                    Camion: "",
-                    FacturaProveedor: "",
-                    FechaLanzamiento: "",
-                    FechaEnvio: "",
-                    FechaRecibido: "",
-                    CantRecibida: 10,
-                    Acuerdo: "",
-                    FechaFactura: "",
-                    ListaDetalleInspeccion: [{
-                        Inspeccion: "REJECTED",
-                        Comentario: "mal elemento",
-                    }, {
-                        Inspeccion: "RELEASED",
-                        Comentario: "",
-                    }]
-                },
-                {
-
-                    Colada: "37LLLL",
-                    InspeccionDetalle: "RELEASED",
-                    Comentario: "",
-                    Cant: 3,
-                    CantG: 2,
-                    FechaRecibido: "",
-                    Camion: "",
-                    FacturaProveedor: "",
-                    FechaLanzamiento: "",
-                    FechaEnvio: "",
-                    FechaRecibidoS: "",
-                    CantRecibida: 2,
-                    Acuerdo: "",
-                    FechaFactura: "",
-                    ListaDetalleInspeccion: [{
-                        Inspeccion: "REJECTED",
-                        Comentario: "mal elemento",
-                    }, {
-                        Inspeccion: "RELEASED",
-                        Comentario: "",
-                    }]
-                }]
-            },
-            {
-                Rev: "CS",
-                Descripcion: "Codo 45º Radio Largo, NeoData: 4 x  NPS BW Codo 45º Radio Largo SCH STD ,  A234 Gr.WPB seamless",
-                MaterialNorma: "A 105",
-                Diametro1: "4",
-                Diametro2: "",
-                Registro: "SCH STD",
-                Rating: "#300",
-                PreparacionExtremos: "BW",
-                Neodata: "",
-                Cant: 4,
-                PrecioUnidad: "$8,37",
-                Total: "$33,46",
-                PackingList: "",
-                Partida: "",
-                TemplateDetalleElemento: "Ver coladas",
-                ListaDetalleColadas: [
-                {
-
-                    Colada: "50015",
-                    InspeccionDetalle: "RELEASED",
-                    Comentario: "",
-                    Cant: 10,
-                    CantG: 9,
-                    FechaRecibido: "",
-                    Camion: "",
-                    FacturaProveedor: "",
-                    FechaLanzamiento: "",
-                    FechaEnvio: "",
-                    FechaRecibido: "",
-                    CantRecibida: 10,
-                    Acuerdo: "",
-                    FechaFactura: "",
-                    ListaDetalleInspeccion: [{
-                        Inspeccion: "REJECTED",
-                        Comentario: "mal elemento",
-                    }, {
-                        Inspeccion: "RELEASED",
-                        Comentario: "",
-                    }]
-                },
-                {
-
-                    Colada: "37LLLL",
-                    InspeccionDetalle: "RELEASED",
-                    Comentario: "",
-                    Cant: 3,
-                    CantG: 2,
-                    FechaRecibido: "",
-                    Camion: "",
-                    FacturaProveedor: "",
-                    FechaLanzamiento: "",
-                    FechaEnvio: "",
-                    FechaRecibidoS: "",
-                    CantRecibida: 2,
-                    Acuerdo: "",
-                    FechaFactura: "",
-                    ListaDetalleInspeccion: [{
-                        Inspeccion: "REJECTED",
-                        Comentario: "mal elemento",
-                    }, {
-                        Inspeccion: "RELEASED",
-                        Comentario: "",
-                    }]
-                }]
-            }]);
-            loadingStop();
-        }, 500);
+        var dataItem = this.dataItem(e.sender.selectedIndex);
+        if (dataItem != undefined) {
+            //pruebaOriginal = $("#inputOrdenCompra").data("kendoComboBox").value();
+            AjaxCargarRevision();
+        }
+        else {
+            $("#grid").data("kendoGrid").dataSource.data([]);
+        }
+        //loadingStart();
+        //setTimeout(function () {
+        //    $("#grid").data('kendoGrid').dataSource.data([]);
+        //    var ds = $("#grid").data("kendoGrid").dataSource;
+        //    ds.data([{
+        //        Rev: "CS",
+        //        Descripcion: "Codo 45º Radio Largo 0.5 x, NeoData: NPS SW Codo 45º Radio Largo  , #3000 A 105",
+        //        MaterialNorma: "A 105",
+        //        Diametro1: "0.5",
+        //        Diametro2: "",
+        //        Registro: "SCH STD",
+        //        Rating: "#300",
+        //        PreparacionExtremos: "SW",
+        //        Cant: 10,
+        //        PrecioUnidad: "$3,78 ",
+        //        Total: "$37,83 ",
+        //        PackingList: "35777-1",
+        //        Partida: "Partida 1",
+        //        TemplateDetalleElemento: "Ver coladas",
+        //        ListaDetalleColadas: [
+        //        {
+        //            Colada: "50015",
+        //            InspeccionDetalle: "RELEASED",
+        //            Comentario: "",
+        //            Cant: 10,
+        //            CantG: 9,
+        //            FechaRecibido: "",
+        //            Camion: "",
+        //            FacturaProveedor: "",
+        //            FechaLanzamiento: "",
+        //            FechaEnvio: "",
+        //            FechaRecibido: "",
+        //            CantRecibida: 10,
+        //            Acuerdo: "",
+        //            FechaFactura: "",
+        //            ListaDetalleInspeccion: [{
+        //                Inspeccion: "REJECTED",
+        //                Comentario: "mal elemento",
+        //            }, {
+        //                Inspeccion: "RELEASED",
+        //                Comentario: "",
+        //            }]
+        //        },
+        //        {
+        //            Colada: "37LLLL",
+        //            InspeccionDetalle: "RELEASED",
+        //            Comentario: "",
+        //            Cant: 3,
+        //            CantG: 2,
+        //            FechaRecibido: "",
+        //            Camion: "",
+        //            FacturaProveedor: "",
+        //            FechaLanzamiento: "",
+        //            FechaEnvio: "",
+        //            FechaRecibidoS: "",
+        //            CantRecibida: 2,
+        //            Acuerdo: "",
+        //            FechaFactura: "",
+        //            ListaDetalleInspeccion: [{
+        //                Inspeccion: "REJECTED",
+        //                Comentario: "mal elemento",
+        //            }, {
+        //                Inspeccion: "RELEASED",
+        //                Comentario: "",
+        //            }]
+        //        }]
+        //    },
+        //    {
+        //        Rev: "CS",
+        //        Descripcion: "Codo 45º Radio Largo, NeoData: 1.5 x  NPS SW Codo 45º Radio Largo  , #3000 A 105",
+        //        MaterialNorma: "A 105",
+        //        Diametro1: "1.5",
+        //        Diametro2: "",
+        //        Registro: "SCH STD",
+        //        Rating: "#300",
+        //        PreparacionExtremos: "SW",
+        //        Cant: 10,
+        //        PrecioUnidad: "$9,67",
+        //        Total: "$96,71",
+        //        PackingList: "",
+        //        Partida: "",
+        //        TemplateDetalleElemento: "Ver coladas",
+        //        ListaDetalleColadas: [
+        //        {
+        //            Colada: "50015",
+        //            InspeccionDetalle: "RELEASED",
+        //            Comentario: "",
+        //            Cant: 10,
+        //            CantG: 9,
+        //            FechaRecibido: "",
+        //            Camion: "",
+        //            FacturaProveedor: "",
+        //            FechaLanzamiento: "",
+        //            FechaEnvio: "",
+        //            FechaRecibido: "",
+        //            CantRecibida: 10,
+        //            Acuerdo: "",
+        //            FechaFactura: "",
+        //            ListaDetalleInspeccion: [{
+        //                Inspeccion: "REJECTED",
+        //                Comentario: "mal elemento",
+        //            }, {
+        //                Inspeccion: "RELEASED",
+        //                Comentario: "",
+        //            }]
+        //        },
+        //        {
+        //            Colada: "37LLLL",
+        //            InspeccionDetalle: "RELEASED",
+        //            Comentario: "",
+        //            Cant: 3,
+        //            CantG: 2,
+        //            FechaRecibido: "",
+        //            Camion: "",
+        //            FacturaProveedor: "",
+        //            FechaLanzamiento: "",
+        //            FechaEnvio: "",
+        //            FechaRecibidoS: "",
+        //            CantRecibida: 2,
+        //            Acuerdo: "",
+        //            FechaFactura: "",
+        //            ListaDetalleInspeccion: [{
+        //                Inspeccion: "REJECTED",
+        //                Comentario: "mal elemento",
+        //            }, {
+        //                Inspeccion: "RELEASED",
+        //                Comentario: "",
+        //            }]
+        //        }]
+        //    },
+        //    {
+        //        Rev: "CS",
+        //        Descripcion: "Codo 45º Radio Largo, NeoData: 4 x  NPS BW Codo 45º Radio Largo SCH STD ,  A234 Gr.WPB seamless",
+        //        MaterialNorma: "A 105",
+        //        Diametro1: "4",
+        //        Diametro2: "",
+        //        Registro: "SCH STD",
+        //        Rating: "#300",
+        //        PreparacionExtremos: "BW",
+        //        Neodata: "",
+        //        Cant: 4,
+        //        PrecioUnidad: "$8,37",
+        //        Total: "$33,46",
+        //        PackingList: "",
+        //        Partida: "",
+        //        TemplateDetalleElemento: "Ver coladas",
+        //        ListaDetalleColadas: [
+        //        {
+        //            Colada: "50015",
+        //            InspeccionDetalle: "RELEASED",
+        //            Comentario: "",
+        //            Cant: 10,
+        //            CantG: 9,
+        //            FechaRecibido: "",
+        //            Camion: "",
+        //            FacturaProveedor: "",
+        //            FechaLanzamiento: "",
+        //            FechaEnvio: "",
+        //            FechaRecibido: "",
+        //            CantRecibida: 10,
+        //            Acuerdo: "",
+        //            FechaFactura: "",
+        //            ListaDetalleInspeccion: [{
+        //                Inspeccion: "REJECTED",
+        //                Comentario: "mal elemento",
+        //            }, {
+        //                Inspeccion: "RELEASED",
+        //                Comentario: "",
+        //            }]
+        //        },
+        //        {
+        //            Colada: "37LLLL",
+        //            InspeccionDetalle: "RELEASED",
+        //            Comentario: "",
+        //            Cant: 3,
+        //            CantG: 2,
+        //            FechaRecibido: "",
+        //            Camion: "",
+        //            FacturaProveedor: "",
+        //            FechaLanzamiento: "",
+        //            FechaEnvio: "",
+        //            FechaRecibidoS: "",
+        //            CantRecibida: 2,
+        //            Acuerdo: "",
+        //            FechaFactura: "",
+        //            ListaDetalleInspeccion: [{
+        //                Inspeccion: "REJECTED",
+        //                Comentario: "mal elemento",
+        //            }, {
+        //                Inspeccion: "RELEASED",
+        //                Comentario: "",
+        //            }]
+        //        }]
+        //    }]);
+        //    loadingStop();
+        //}, 500);
     }
 });
 
@@ -367,48 +356,120 @@ function suscribirEventoCancelar() {
 }
 
 function suscribirEventoGuardar() {
-    $(document).on('click', '#GuardarPlacas', function (e) {
-
-        var ds = $("#gridPopUp").data("kendoGrid").dataSource;
-        var window = $("#windowGrid");
-        //actualizaGridGeneralPorPlaca();
-        $("#windowGrid").data("kendoWindow").close();
-
-    });
-    $(document).on('click', '#GuardarPlacasGerez', function (e) {
-
-        var ds = $("#gridPopUpGerez").data("kendoGrid").dataSource;
-        var window = $("#windowGridGerez");
-        //actualizaGridGeneralPorPlaca();
-        $("#windowGridGerez").data("kendoWindow").close();
-
-    });
-
-    $(document).on('click', '#GuardarPlacasCecilia', function (e) {
-
-        var ds = $("#gridPopUpCecilia").data("kendoGrid").dataSource;
-        var window = $("#windowGridCecilia");
-        //actualizaGridGeneralPorPlaca();
-        $("#windowGridCecilia").data("kendoWindow").close();
-
-    });
-
-    $(document).on('click', '#GuardarDefectos', function (e) {
-
+    $(document).on('click', '#GuardarPlacasSteelgo', function (e) {
+        var coladasCorrectos = true;
         var ds = $("#gridPopUpSteelgo").data("kendoGrid").dataSource;
-        var window = $("#windowGridSteelgo");
-        //actualizaGridGeneralPorDefectos();
-        $("#windowGridSteelgo").data("kendoWindow").close();
+        var window = $("#windowGrid");
+        
+        for (var i = 0; i < ds._data.length; i++) {
+            if (ds._data[i].Accion == undefined || ds._data[i].Accion == 0)
+                ds._data[i].Accion = 1;
+            if ((ds._data[i].Colada == "" || ds._data[i].Cant == 0 || ds._data[i].Cant == "") && !(ds._data[i].Accion == 3 || ds._data[i].Accion == 4))
+                coladasCorrectos = false;
+        }
+        if (coladasCorrectos) {
+            modeloRenglon.ListaDetalleColadas = ds._data;
+
+            $("#grid").data("kendoGrid").dataSource.sync();
 
 
-    });
+            window.data("kendoWindow").close();
+        }
+        else 
+            displayNotify('DynasolColadaMandatorio', '', '2');
 
-    $(document).on('click', '#GuardarInspeccion', function (e) {
+        });
+        $(document).on('click', '#GuardarPlacasGerez', function (e) {
+            var coladasCorrectos = true;
+            var ds = $("#gridPopUpGerez").data("kendoGrid").dataSource;
+            var window = $("#windowGridGerez");
+            
+            for (var i = 0; i < ds._data.length; i++) {
+                if (ds._data[i].Accion == undefined || ds._data[i].Accion == 0)
+                    ds._data[i].Accion = 1;
+                if ((ds._data[i].Colada == "" || ds._data[i].Cant == 0 || ds._data[i].Cant == "") && !(ds._data[i].Accion == 3 || ds._data[i].Accion == 4))
+                    coladasCorrectos = false;
+            }
+            if (coladasCorrectos) {
+                modeloRenglon.ListaDetalleColadas = ds._data;
+                $("#grid").data("kendoGrid").dataSource.sync();
+                window.data("kendoWindow").close();
+            }
+            else
+                displayNotify('DynasolColadaMandatorio', '', '2');
 
-        var ds = $("#gridPopUpInspeccion").data("kendoGrid").dataSource;
-        var window = $("#windowGridInspeccion");
-        //actualizaGridGeneralPorDefectos();
-        $("#windowGridInspeccion").data("kendoWindow").close();
+            
 
-    });
-}
+        });
+
+        $(document).on('click', '#GuardarPlacasCecilia', function (e) {
+            var coladasCorrectos = true;
+            var ds = $("#gridPopUpCecilia").data("kendoGrid").dataSource;
+            var window = $("#windowGridCecilia");
+            
+            for (var i = 0; i < ds._data.length; i++) {
+                if (ds._data[i].Accion == undefined || ds._data[i].Accion == 0)
+                    ds._data[i].Accion = 1;
+                if ((ds._data[i].Colada == "" || ds._data[i].Cant == 0 || ds._data[i].Cant == "") && !(ds._data[i].Accion == 3 || ds._data[i].Accion == 4))
+                    coladasCorrectos = false;
+            }
+            if (coladasCorrectos) {
+                modeloRenglon.ListaDetalleColadas = ds._data;
+                $("#grid").data("kendoGrid").dataSource.sync();
+                window.data("kendoWindow").close();
+            }
+            else
+                displayNotify('DynasolColadaMandatorio', '', '2');
+
+
+            
+
+        });
+
+
+        $(document).on('click', '#GuardarInspeccion', function (e) {
+            var inspeccionCorrecta = true;
+            var ds = $("#gridPopUpInspeccion").data("kendoGrid").dataSource;
+            var window = $("#windowGridInspeccion");
+            
+
+            for (var i = 0; i < ds._data.length; i++) {
+                if (ds._data[i].Accion == undefined || ds._data[i].Accion == 0)
+                    ds._data[i].Accion = 1;
+                if ((ds._data[i].Inspeccion == "") && !(ds._data[i].Accion == 3 || ds._data[i].Accion == 4))
+                    inspeccionCorrecta = false;
+            }
+            if (inspeccionCorrecta) {
+                coladaRow.ListaDetalleInspeccion = ds._data;
+
+                var longitudInspeccion = ds._data.length;
+
+                if (longitudInspeccion > 0) {
+                    coladaRow.InspeccionDetalle = ds._data[longitudInspeccion - 1].Inspeccion;
+                    coladaRow.Comentario = ds._data[longitudInspeccion - 1].Comentario;
+                }
+                else {
+                    coladaRow.InspeccionDetalle = "Sin Inspeccion";
+                    coladaRow.Comentario = "";
+                }
+                
+
+                if ($('input:radio[name=Muestra]:nth(0)').prop('checked')) {
+                    $("#gridPopUpCecilia").data("kendoGrid").dataSource.sync();
+                }
+                else if ($('input:radio[name=Muestra]:nth(1)').prop('checked')) {
+                    $("#gridPopUpGerez").data("kendoGrid").dataSource.sync();
+                }
+                else if ($('input:radio[name=Muestra]:nth(2)').prop('checked')) {
+                    $("#gridPopUpSteelgo").data("kendoGrid").dataSource.sync();
+                }
+
+                window.data("kendoWindow").close();
+            }
+            else
+                displayNotify('DynasolInspeccionMandatorio', '', '2');
+
+            
+
+        });
+    }

@@ -4,18 +4,13 @@
     $Dynasol.Dynasol.read({ token: Cookies.get("token") }).done(function (data) {
         if (Error(data)) {
 
-
             $("#inputOrdenCompra").data("kendoComboBox").setDataSource([]);
             $("#inputOrdenCompra").data("kendoComboBox").text("");
-            
-
-
-
             $("#inputOrdenCompra").data("kendoComboBox").dataSource.data(data);
 
             if ($("#inputOrdenCompra").data("kendoComboBox").dataSource._data.length == 2) {
                 $("#inputOrdenCompra").data("kendoComboBox").select(1);
-                AjaxPruebas();
+                AjaxCargarRevision();
             }
             else {
                 $("#inputOrdenCompra").data("kendoComboBox").select(0);

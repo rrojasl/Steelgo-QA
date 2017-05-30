@@ -12703,15 +12703,15 @@ _dictionary = {
     },
     "columnTotal": {
         "es-MX": "Total",
-        "en-US": "Partida"
+        "en-US": "Total"
     },
     "columnPartida": {
         "es-MX": "Partida",
         "en-US": "Batch"
     },
     "columnColada": {
-        "es-MX": "Partida",
-        "en-US": "Batch"
+        "es-MX": "Colada",
+        "en-US": "Heat"
     },
     "columnInsp": {
         "es-MX": "Insp",
@@ -12754,7 +12754,14 @@ _dictionary = {
         "es-MX": "Camión",
         "en-US": "Truck"
     },
-
+    "DynasolColadaMandatorio": {
+        "es-MX": "El campo colada y cantidad es mandatorio",
+        "en-US": "The head and qty fiels has mandatory"
+    },
+    "DynasolInspeccionMandatorio": {
+        "es-MX": "El campo Inspecction es mandatorio",
+        "en-US": "The Inspection field has mandatory"
+    },
 
     //Finaliza Modulo Dynasol
 

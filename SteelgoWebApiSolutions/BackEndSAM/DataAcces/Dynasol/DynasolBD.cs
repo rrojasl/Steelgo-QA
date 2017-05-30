@@ -34,15 +34,15 @@ namespace BackEndSAM.DataAcces.Dynasol
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Dynasol_GET_OrdenesCompras_Result> result = ctx.Sam3_Dynasol_GET_OrdenesCompras().ToList();                    
+                    List<Sam3_Dynasol_GET_OrdenesCompras_Result> result = ctx.Sam3_Dynasol_GET_OrdenesCompras().ToList();
                     List<OrdenCompraClass> ListaOrdenes = new List<OrdenCompraClass>();
                     ListaOrdenes.Add(new OrdenCompraClass());
-                    foreach(Sam3_Dynasol_GET_OrdenesCompras_Result item in result)                    
+                    foreach (Sam3_Dynasol_GET_OrdenesCompras_Result item in result)
                     {
                         ListaOrdenes.Add(new OrdenCompraClass
                         {
                             OrdenCompraID = item.OrdenCompraID,
-                            Nombre = item.Nombre                            
+                            Nombre = item.Nombre
                         });
                     }
                     return ListaOrdenes;
@@ -68,9 +68,10 @@ namespace BackEndSAM.DataAcces.Dynasol
                     List<Sam3_Dynasol_GET_ListaInspeccion_Result> result = ctx.Sam3_Dynasol_GET_ListaInspeccion().ToList();
                     List<InspeccionClass> listaInspeccion = new List<InspeccionClass>();
                     listaInspeccion.Add(new InspeccionClass());
-                    foreach(Sam3_Dynasol_GET_ListaInspeccion_Result item in result)
+                    foreach (Sam3_Dynasol_GET_ListaInspeccion_Result item in result)
                     {
-                        listaInspeccion.Add(new InspeccionClass {
+                        listaInspeccion.Add(new InspeccionClass
+                        {
                             InspeccionID = item.InspeccionID,
                             Nombre = item.Nombre
                         });
@@ -89,31 +90,35 @@ namespace BackEndSAM.DataAcces.Dynasol
             }
         }
 
-        public object ObtenerRevision(int OrdenCompra) {
+        public object ObtenerRevision(int OrdenCompra)
+        {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
                     List<Sam3_Dynasol_GET_Revision_Result> result = ctx.Sam3_Dynasol_GET_Revision(OrdenCompra).ToList();
+                    List<InspeccionClass> listaInspeccion = (List<InspeccionClass>)ObtenerListaInspeccion();
                     List<RevisionClass> listaRevision = new List<RevisionClass>();
-                    foreach(Sam3_Dynasol_GET_Revision_Result item in result)
+                    foreach (Sam3_Dynasol_GET_Revision_Result item in result)
                     {
-                        listaRevision.Add(new RevisionClass {
+                        listaRevision.Add(new RevisionClass
+                        {
                             RevisionID = item.RevisionID,
                             OrdenCompraID = item.OrdenCompraID.GetValueOrDefault(),
-                            Revision = item.Revision,
+                            Rev = item.Revision,
                             Descripcion = item.Descripcion,
                             MaterialNorma = item.MaterialNorma,
-                            Diametro1 = (float) item.Diametro1.GetValueOrDefault(),
-                            Diametro2 = (float) item.Diametro2.GetValueOrDefault(),
-                            Shedule = item.Shedule,
+                            Diametro1 = (float)item.Diametro1.GetValueOrDefault(),
+                            Diametro2 = (float)item.Diametro2.GetValueOrDefault(),
+                            Schedule = item.Shedule,
                             Rating = item.Rating,
-                            PrepExt = item.PrepExt,
-                            Cantidad = item.Cantidad.GetValueOrDefault(),
+                            PreparacionExtremos = item.PrepExt,
+                            Cant = item.Cantidad.GetValueOrDefault(),
                             PrecioUnidad = item.PrecioUnidad.GetValueOrDefault(),
                             Total = item.Total.GetValueOrDefault(),
                             Partida = item.Partida,
-                            ListaDetalleColadas = ObtenerColadas(item.RevisionID)
+                            ListaDetalleColadas = ObtenerColadas(item.RevisionID),
+                            ListaInspeccion = listaInspeccion
                         });
                     }
                     return listaRevision;
@@ -137,15 +142,20 @@ namespace BackEndSAM.DataAcces.Dynasol
                 using (SamContext ctx = new SamContext())
                 {
                     List<ColadaClass> ListaColadas = new List<ColadaClass>();
+                    
                     List<Sam3_Dynasol_GET_Coladas_Result> result = ctx.Sam3_Dynasol_GET_Coladas(RevisionID).ToList();
-                    foreach(Sam3_Dynasol_GET_Coladas_Result item in result)
+                    foreach (Sam3_Dynasol_GET_Coladas_Result item in result)
                     {
-                        ListaColadas.Add(new ColadaClass {
+                        ListaColadas.Add(new ColadaClass
+                        {
                             ColadaID = item.ColadaID,
+                            Colada = item.Nombre,
                             RevisionID = item.RevisionID.GetValueOrDefault(),
-                            Nombre = item.Nombre,
-                            CantidadC = item.CantidadC.GetValueOrDefault(),
-                            CantidadG = item.CantidadG.GetValueOrDefault(),
+                            DetalleInspeccionID = item.DetalleInspeccionID.GetValueOrDefault(),
+                            InspeccionDetalle = item.NombreInspeccion,
+                            Comentario = item.Comentario,
+                            Cant = item.CantidadC.GetValueOrDefault(),
+                            CantG = item.CantidadG.GetValueOrDefault(),
                             FechaRecibido = item.FechaRecibido.GetValueOrDefault(),
                             Camion = item.Camion.GetValueOrDefault(),
                             FacturaProveedor = item.FacturaProveedor,
@@ -154,10 +164,12 @@ namespace BackEndSAM.DataAcces.Dynasol
                             FechaEnvio = item.FechaEnvio.GetValueOrDefault(),
                             Pedimento = item.Pedimento.GetValueOrDefault(),
                             ShippingDate = item.ShippingDate.GetValueOrDefault(),
-                            CantidadS = item.CantidadS.GetValueOrDefault(),
+                            CantS = item.CantidadS.GetValueOrDefault(),
                             FechaRecibidoSteelgo = item.FechaRecibidoSteelgo.GetValueOrDefault(),
                             InspeccionSteelgo = item.InspeccionSteelgo.GetValueOrDefault(),
-                            ListaDetalleInspeccion = ObtenerDetalleInspeccion(item.ColadaID)
+                            ListaDetalleInspeccion = ObtenerDetalleInspeccion(item.ColadaID),
+                            
+
                         });
                     }
                     return ListaColadas;
@@ -177,15 +189,19 @@ namespace BackEndSAM.DataAcces.Dynasol
                 using (SamContext ctx = new SamContext())
                 {
                     List<DetalleInspeccionClass> ListaDetalles = new List<DetalleInspeccionClass>();
+                    
                     List<Sam3_Dynasol_GET_DetalleInspecccion_Result> result = ctx.Sam3_Dynasol_GET_DetalleInspecccion(ColadaID).ToList();
+
                     foreach (Sam3_Dynasol_GET_DetalleInspecccion_Result item in result)
                     {
                         ListaDetalles.Add(new DetalleInspeccionClass
                         {
                             DetalleInspeccionID = item.DetalleInspeccionID,
                             ColadaID = item.ColadaID,
+                            Inspeccion = item.Nombre,
                             InspeccionID = item.InspeccionID,
-                            Comentario = item.Comentario
+                            Comentario = item.Comentario,
+                            
                         });
                     }
                     return ListaDetalles;
