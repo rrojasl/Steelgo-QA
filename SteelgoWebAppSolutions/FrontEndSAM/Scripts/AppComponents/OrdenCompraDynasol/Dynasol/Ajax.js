@@ -77,8 +77,8 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                         ShippingDate: "", CantidadS: "", FechaRecibidoSteelgo: "", InspeccionSteelgo: ""
                     }
 
-                    ListaColadas[j].Accion = arregloCaptura[index].ListaDetalleColadas[j].Accion;
-                    ListaColadas[j].RevisionID = arregloCaptura[index].ListaDetalleColadas[j].RevisionID;
+                    ListaColadas[j].Accion = arregloCaptura[index].ListaDetalleColadas[j].Accion ;
+                    ListaColadas[j].RevisionID = arregloCaptura[index].ListaDetalleColadas[j].RevisionID == undefined ? 0 : arregloCaptura[index].ListaDetalleColadas[j].RevisionID;
                     ListaColadas[j].ColadaID = arregloCaptura[index].ListaDetalleColadas[j].ColadaID;
                     ListaColadas[j].Nombre = arregloCaptura[index].ListaDetalleColadas[j].Colada;
                     ListaColadas[j].CantidadC = arregloCaptura[index].ListaDetalleColadas[j].Cant;
