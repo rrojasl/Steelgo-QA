@@ -79,7 +79,7 @@ namespace BackEndSAM.Controllers.Dynasol
         }
         
         [HttpPost]               
-        public object GuardarCaptura(CapturaDynasol ListaCaptura, string token, string lenguaje)
+        public object GuardarCaptura(Captura ListaCaptura, string token, string lenguaje)
         {
             string payLoad = "";
             string newToken = "";

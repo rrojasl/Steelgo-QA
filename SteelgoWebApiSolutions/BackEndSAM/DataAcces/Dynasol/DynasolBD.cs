@@ -122,7 +122,7 @@ namespace BackEndSAM.DataAcces.Dynasol
                             Partida = item.Partida,
                             ListaDetalleColadas = ObtenerColadas(item.RevisionID),
                             ListaInspeccion = listaInspeccion,
-                            RowOk = false
+                            RowOk = true
                         });
                     }
                     return listaRevision;
@@ -161,16 +161,16 @@ namespace BackEndSAM.DataAcces.Dynasol
                             Comentario = item.Comentario,
                             Cant = item.CantidadC.GetValueOrDefault(),
                             CantG = item.CantidadG.GetValueOrDefault(),
-                            FechaRecibido = item.FechaRecibido.GetValueOrDefault(),
+                            FechaRecibido = item.FechaRecibido,
                             Camion = item.Camion.GetValueOrDefault(),
                             FacturaProveedor = item.FacturaProveedor,
-                            FechaFactura = item.FechaFactura.GetValueOrDefault(),
+                            FechaFactura = item.FechaFactura,
                             Acuerdo = item.Acuerdo,
-                            FechaEnvio = item.FechaEnvio.GetValueOrDefault(),
+                            FechaEnvio = item.FechaEnvio,
                             Pedimento = item.Pedimento.GetValueOrDefault(),
-                            ShippingDate = item.ShippingDate.GetValueOrDefault(),
+                            ShippingDate = item.ShippingDate,
                             CantS = item.CantidadS.GetValueOrDefault(),
-                            FechaRecibidoSteelgo = item.FechaRecibidoSteelgo.GetValueOrDefault(),
+                            FechaRecibidoSteelgo = item.FechaRecibidoSteelgo,
                             InspeccionSteelgo = item.InspeccionSteelgo.GetValueOrDefault(),
                             ListaDetalleInspeccion = ObtenerDetalleInspeccion(item.ColadaID),
                             

@@ -418,6 +418,15 @@ function CargarGridPopUpDetalleInspeccion() {
                     }
                 }
             },
+            filter: {
+                logic: "or",
+                filters: [
+                  { field: "Accion", operator: "eq", value: 1 },
+                  { field: "Accion", operator: "eq", value: 2 },
+                    { field: "Accion", operator: "eq", value: 0 },
+                    { field: "Accion", operator: "eq", value: undefined }
+                ]
+            },
         },
         selectable: true,
         filterable: getGridFilterableMaftec(),

@@ -2,7 +2,7 @@
 
 function SuscribirEventos() {
     suscribirEventoDetalleInspeccion();
-    suscribirEventoDetallePartida();
+    
     suscribirEventoDetalleDefectoPorPlaca();
     suscribirEventoCancelar();
     suscribirEventoGuardar();
@@ -352,7 +352,7 @@ function suscribirEventoGuardar() {
     $(document).on('click', '#GuardarPlacasSteelgo', function (e) {
         var coladasCorrectos = true;
         var ds = $("#gridPopUpSteelgo").data("kendoGrid").dataSource;
-        var window = $("#windowGrid");
+        var window = $("#windowGridSteelgo");
         
         for (var i = 0; i < ds._data.length; i++) {
             if (ds._data[i].Accion == undefined || ds._data[i].Accion == 0)

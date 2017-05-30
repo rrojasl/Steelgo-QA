@@ -42,35 +42,6 @@ function AjaxCargarRevision() {
     });
 }
 
-
-
-function AjaxEjecutarGuardado(Captura, tipoGuardar) {
-    $Dynasol.Dynasol.create(Captura, { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
-        if (Error(data)) {
-            if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
-                displayNotify("CapturaMensajeGuardadoExitoso", "", '0');
-
-                if (tipoGuardar == 1) {
-                    //editado = false;
-                    Limpiar();
-                    loadingStop();
-                    AjaxCargarCamposPredeterminados();
-                }
-                else {
-                    opcionHabilitarView(true, "FieldSetView");
-                    loadingStop();
-                    AjaxCambiarAccionAModificacion();
-                }
-            }
-            else {
-                loadingStop();
-                displayNotify("CapturaMensajeGuardadoErroneo", "", '2');
-            }
-        }
-    });
-}
-
-
 function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
     loadingStart();
     try {
@@ -83,7 +54,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
         for (index = 0; index < arregloCaptura.length; index++) {
             $("#grid").data("kendoGrid").dataSource._data[index].RowOk = true;
             ListaDetalles[index] = {
-                Accion: "", RevisionID: "", Partida: "", Estatus: 1
+                Accion: "", RevisionID: "", Partida: "", ListaColadas: "", ListaDetalleInspeccion: "", Estatus: 1
             };
 
             var labelFecha = String(_dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()].replace('{', '').replace('}', '').replace("0:", ""));
@@ -91,61 +62,66 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
             ListaDetalles[index].Accion = arregloCaptura[index].Accion;
             ListaDetalles[index].RevisionID = arregloCaptura[index].RevisionID;
             ListaDetalles[index].Partida = arregloCaptura[index].Partida;
-            
-            ListaDetalles[index].FechaSoldadura =
-                kendo.toString(arregloCaptura[index].FechaSoldadura, labelFecha) == null ? "" :
-                kendo.toString(arregloCaptura[index].FechaSoldadura, labelFecha).trim();
+
 
             //-----------------------------------Lista Coladas--------------------------------------------
 
-            ListaTrabajosAdicionalesEditados = [];
-            if (arregloCaptura[index].ListaDetalleTrabajoAdicional != undefined) {
-                for (j = 0; j < arregloCaptura[index].ListaDetalleTrabajoAdicional.length; j++) {
-                    ListaTrabajosAdicionalesEditados[j] = {Accion: "", RevisionID: "", Partida: ""}
+            ListaColadas = [];
+            ListaInspeccion = [];
+            if (arregloCaptura[index].ListaDetalleColadas != undefined) {
+                var cont = 0;
+                for (j = 0; j < arregloCaptura[index].ListaDetalleColadas.length; j++) {
+                    ListaColadas[j] = {
+                        Accion: "", RevisionID: "", ColadaID: "", Nombre: "", CantidadC: "", CantidadG: "", FechaRecibido: "",
+                        Camion: "", FacturaProveedor: "", FechaFactura: "", Acuerdo: "", FechaEnvio: "", Pedimento: "",
+                        ShippingDate: "", CantidadS: "", FechaRecibidoSteelgo: "", InspeccionSteelgo: ""
+                    }
 
-                    if (arregloCaptura[index].ListaDetalleTrabajoAdicional[j].TrabajoAdicionalID == 0 || arregloCaptura[index].ListaDetalleTrabajoAdicional[j].ObreroID == 0)
-                        ListaTrabajosAdicionalesEditados[j].Accion = 0;
-                    else
-                        ListaTrabajosAdicionalesEditados[j].Accion = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].Accion;
+                    ListaColadas[j].Accion = arregloCaptura[index].ListaDetalleColadas[j].Accion;
+                    ListaColadas[j].RevisionID = arregloCaptura[index].ListaDetalleColadas[j].RevisionID;
+                    ListaColadas[j].ColadaID = arregloCaptura[index].ListaDetalleColadas[j].ColadaID;
+                    ListaColadas[j].Nombre = arregloCaptura[index].ListaDetalleColadas[j].Colada;
+                    ListaColadas[j].CantidadC = arregloCaptura[index].ListaDetalleColadas[j].Cant;
+                    ListaColadas[j].CantidadG = arregloCaptura[index].ListaDetalleColadas[j].CantG;
+                    ListaColadas[j].FechaRecibido = kendo.toString(arregloCaptura[index].ListaDetalleColadas[j].FechaRecibidoG, labelFecha) == null ? "" : kendo.toString(arregloCaptura[index].ListaDetalleColadas[j].FechaRecibidoG, labelFecha).trim();
+                    ListaColadas[j].Camion = arregloCaptura[index].ListaDetalleColadas[j].Camion;
+                    ListaColadas[j].FacturaProveedor = arregloCaptura[index].ListaDetalleColadas[j].FacturaProveedor;
+                    ListaColadas[j].FechaFactura = kendo.toString(arregloCaptura[index].ListaDetalleColadas[j].FechaFactura, labelFecha) == null ? "" : kendo.toString(arregloCaptura[index].ListaDetalleColadas[j].FechaFactura, labelFecha).trim();
+                    ListaColadas[j].Acuerdo = arregloCaptura[index].ListaDetalleColadas[j].Acuerdo;
+                    ListaColadas[j].FechaEnvio = kendo.toString(arregloCaptura[index].ListaDetalleColadas[j].FechaEnvio, labelFecha) == null ? "" : kendo.toString(arregloCaptura[index].ListaDetalleColadas[j].FechaEnvio, labelFecha).trim();;
+                    ListaColadas[j].Pedimento = arregloCaptura[index].ListaDetalleColadas[j].Pedimento;
+                    ListaColadas[j].ShippingDate = kendo.toString(arregloCaptura[index].ListaDetalleColadas[j].ShippingDate, labelFecha) == null ? "" : kendo.toString(arregloCaptura[index].ListaDetalleColadas[j].ShippingDate, labelFecha).trim();
+                    ListaColadas[j].CantidadS = arregloCaptura[index].ListaDetalleColadas[j].CantS;
+                    ListaColadas[j].FechaRecibidoSteelgo = kendo.toString(arregloCaptura[index].ListaDetalleColadas[j].FechaRecibidoS, labelFecha) == null ? "" : kendo.toString(arregloCaptura[index].ListaDetalleColadas[j].FechaRecibidoS, labelFecha).trim();;
+                    ListaColadas[j].InspeccionSteelgo = arregloCaptura[index].ListaDetalleColadas[j].InspeccionS;
 
-                    ListaTrabajosAdicionalesEditados[j].JuntaID = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].JuntaID;
-                    ListaTrabajosAdicionalesEditados[j].SoldaduraTrabajoAdicionalID = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].SoldaduraTrabajoAdicionalID;
-                    ListaTrabajosAdicionalesEditados[j].JuntaSoldaduraID = arregloCaptura[index].JuntaSoldaduraID;
-                    ListaTrabajosAdicionalesEditados[j].JuntaSpoolID = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].JuntaSpoolID;
-                    ListaTrabajosAdicionalesEditados[j].TrabajoAdicionalID = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].TrabajoAdicionalID;
-                    ListaTrabajosAdicionalesEditados[j].TallerID = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].TallerID
-                    ListaTrabajosAdicionalesEditados[j].ObreroID = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].ObreroID;
-                    ListaTrabajosAdicionalesEditados[j].Observacion = arregloCaptura[index].ListaDetalleTrabajoAdicional[j].Observacion;
+
+
+                    //-----------------------------------Lista Inspeccion--------------------------------------------
+                    if (arregloCaptura[index].ListaDetalleColadas[j].ListaDetalleInspeccion != undefined) {
+                        for (i = 0; i < arregloCaptura[index].ListaDetalleColadas[j].ListaDetalleInspeccion.length; i++) {
+                            ListaInspeccion[cont] = {
+                                Accion: "", DetalleInspeccion: "", InspeccionID: "", NombreColada: "", Comentario: ""
+
+                            }
+
+                            ListaInspeccion[cont].Accion = arregloCaptura[index].ListaDetalleColadas[j].ListaDetalleInspeccion[i].Accion;
+                            ListaInspeccion[cont].DetalleInspeccion = arregloCaptura[index].ListaDetalleColadas[j].ListaDetalleInspeccion[i].DetalleInspeccionID;
+                            ListaInspeccion[cont].InspeccionID = arregloCaptura[index].ListaDetalleColadas[j].ListaDetalleInspeccion[i].InspeccionID;
+                            ListaInspeccion[cont].NombreColada = arregloCaptura[index].ListaDetalleColadas[j].Colada;
+                            cont++;
+                        }
+                    }
+
+
                 }
             }
+            ListaDetalles[index].ListaColadas = ListaColadas;
+            ListaDetalles[index].ListaDetalleInspeccion = ListaInspeccion;
 
 
-            //-----------------------------------Lista Inspeccion--------------------------------------------
 
-            var listaSoldadoresFinal = arregloCaptura[index].ListaSoldadoresRaizCapturados;
-
-            ListaSoldadoresEditados = [];
-
-            for (j = 0; j < listaSoldadoresFinal.length; j++) {
-
-                ListaSoldadoresEditados[j] = {
-                    Accion: "", JuntaSpoolID: "",
-                    JuntaSoldaduraSoldadoID: "", JuntaSoldaduraID: "",
-                    EsRaiz: "", ObreroID: "", Comentario: "", ConsumibleID: ""
-                };
-
-                ListaSoldadoresEditados[j].Accion = listaSoldadoresFinal[j].Accion == undefined ? 1 : listaSoldadoresFinal[j].Accion;
-                ListaSoldadoresEditados[j].JuntaSpoolID = arregloCaptura[index].JuntaID;
-                ListaSoldadoresEditados[j].JuntaSoldaduraSoldadoID = listaSoldadoresFinal[j].JuntaSoldaduraSoldadoID == undefined ? 0 : listaSoldadoresFinal[j].JuntaSoldaduraSoldadoID;
-                ListaSoldadoresEditados[j].JuntaSoldaduraID = arregloCaptura[index].JuntaSoldaduraID == undefined ? 0 : arregloCaptura[index].JuntaSoldaduraID;
-                ListaSoldadoresEditados[j].EsRaiz = 1;
-                ListaSoldadoresEditados[j].ObreroID = listaSoldadoresFinal[j].ObreroID;
-                ListaSoldadoresEditados[j].Comentario = listaSoldadoresFinal[j].Observaciones == undefined ? "" : listaSoldadoresFinal[j].Observaciones;
-                ListaSoldadoresEditados[j].ConsumibleID = listaSoldadoresFinal[j].ColadaID;
-
-            }
-
-            if (true) {
+            if (arregloCaptura[index].Partida == "") {
                 ListaDetalles[index].Estatus = 0;
                 $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
                 $("#grid").data("kendoGrid").dataSource.sync();
@@ -160,15 +136,11 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
         Captura[0].Detalles = ListaDetalles;
 
 
-
-
-
-
-        ////        if (bandera) {
+        
         if (!ExistRowEmpty(ListaDetalles)) {
             if (Captura[0].Detalles.length > 0) {
                 AjaxEjecutarGuardado(Captura[0], tipoGuardar);
-                
+
             }
 
         }
@@ -233,4 +205,31 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
         displayNotify("", e.message, '2');
     }
 
-};
+}
+
+
+function AjaxEjecutarGuardado(Captura, tipoGuardar) {
+    $Dynasol.Dynasol.create(Captura, { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
+        if (Error(data)) {
+            if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "OK") {
+                displayNotify("CapturaMensajeGuardadoExitoso", "", '0');
+
+                if (tipoGuardar == 1) {
+                    //editado = false;
+                    
+                    loadingStop();
+                    AjaxCargarRevision();
+                }
+                else {
+                    opcionHabilitarView(true, "FieldSetView");
+                    loadingStop();  
+                    AjaxCargarRevision();
+                }
+            }
+            else {
+                loadingStop();
+                displayNotify("CapturaMensajeGuardadoErroneo", "", '2');
+            }
+        }
+    });
+}

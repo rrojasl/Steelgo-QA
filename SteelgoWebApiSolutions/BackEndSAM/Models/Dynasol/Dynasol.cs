@@ -63,16 +63,16 @@ namespace BackEndSAM.Models.Dynasol
             public string Comentario { get; set; }
             public int Cant { get; set; }
             public int CantG { get; set; }
-            public DateTime FechaRecibido { get; set; }
+            public string FechaRecibido { get; set; }
             public int Camion { get; set; }
             public string FacturaProveedor { get; set; }
-            public DateTime FechaFactura { get; set; }
+            public string FechaFactura { get; set; }
             public string Acuerdo { get; set; }
-            public DateTime FechaEnvio { get; set; }
+            public string FechaEnvio { get; set; }
             public int Pedimento { get; set; }
-            public DateTime ShippingDate { get; set; }
+            public string ShippingDate { get; set; }
             public int CantS { get; set; }
-            public DateTime FechaRecibidoSteelgo { get; set; }
+            public string FechaRecibidoSteelgo { get; set; }
             public int InspeccionSteelgo { get; set; }
             public List<DetalleInspeccionClass> ListaDetalleInspeccion { get; set; }
             
@@ -88,7 +88,7 @@ namespace BackEndSAM.Models.Dynasol
             public string Comentario { get; set; }
         }
 
-        public class CapturaDynasol
+        public class Captura
         {
             public List<JsonCapturaRevision> Detalles { get; set; }
         }
@@ -110,16 +110,16 @@ namespace BackEndSAM.Models.Dynasol
             public string Nombre { get; set; }
             public int CantidadC { get; set; }
             public int CantidadG { get; set; }
-            public DateTime FechaRecibido { get; set; }
+            public string FechaRecibido { get; set; }
             public int Camion { get; set; }
             public string FacturaProveedor { get; set; }
-            public DateTime FechaFactura { get; set; }
+            public string FechaFactura { get; set; }
             public string Acuerdo { get; set; }
-            public DateTime FechaEnvio { get; set; }
+            public string FechaEnvio { get; set; }
             public int Pedimento { get; set; }
-            public DateTime ShippingDate { get; set; }
+            public string ShippingDate { get; set; }
             public int CantidadS { get; set; }
-            public DateTime FechaRecibidoSteelgo { get; set; }
+            public string FechaRecibidoSteelgo { get; set; }
             public int InspeccionSteelgo { get; set; }
         }
 
