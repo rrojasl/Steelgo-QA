@@ -1,7 +1,9 @@
-﻿using DatabaseManager.Sam3;
+﻿using DatabaseManager.Constantes;
+using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using static BackEndSAM.Models.Dynasol.Dynasol;
@@ -210,6 +212,35 @@ namespace BackEndSAM.DataAcces.Dynasol
             catch (Exception)
             {
                 List<DetalleInspeccionClass> result = null;
+                return result;
+            }
+        }
+
+        public object GuardarCapturaDynasol(DataTable dtDynasolRevision, DataTable dtDynasolColada, DataTable dtDynasolDetalle, Sam3_Usuario Usuario, string lenguaje)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    ObjetosSQL _SQL = new ObjetosSQL();
+                    string[,] parametros = { { "@UsuarioID", Usuario.UsuarioID.ToString() }, { "@Lenguaje", lenguaje } };
+
+                    _SQL.Ejecuta(Stords.SAM3_DYNASOL_GUARDARCAPTURA, dtDynasolRevision, "@Dynasol_Revision", dtDynasolColada, "@Dynasol_Colada", dtDynasolDetalle, "@Dynasol_DetalleInspeccion", parametros);
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add("OK");
+                    result.ReturnCode = 200;
+                    result.ReturnStatus = true;
+                    result.IsAuthenicated = true;
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
                 return result;
             }
         }
