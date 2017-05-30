@@ -487,7 +487,7 @@ function SuscribirEventoSpoolID() {
         }
         else if (e.keyCode == 13) {
             if ($('#InputID').data("kendoComboBox").value() != undefined) {
-                AjaxAgregarCarga();
+                AjaxAgregarSpool($("#InputID").data("kendoComboBox").value());
             }
             else {
                 $("#InputID").data("kendoComboBox").value("");

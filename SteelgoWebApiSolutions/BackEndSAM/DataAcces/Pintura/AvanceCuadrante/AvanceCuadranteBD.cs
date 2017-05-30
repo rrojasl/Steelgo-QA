@@ -260,5 +260,63 @@ namespace BackEndSAM.DataAcces.Pintura.AvanceCuadrante
                 return result;
             }
         }
+
+        public object ObtenerSpoolNuevo(int OrdenTrabajoSpoolID, string lenguaje, int procesoPinturaID, int usuario)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Sam3_Pintura_AvanceCuadrante_Get_AgregarSpool_Result> result = ctx.Sam3_Pintura_AvanceCuadrante_Get_AgregarSpool(OrdenTrabajoSpoolID, lenguaje, procesoPinturaID).ToList();
+                    List<DetalleCapturaAvanceCarro> ListadoMedioTransporte = new List<DetalleCapturaAvanceCarro>();
+
+
+                    foreach (Sam3_Pintura_AvanceCuadrante_Get_AgregarSpool_Result item in result)
+                    {
+                        List<object> listaObreros = (List<object>)ObtenerObrerosGuardados(item.SpoolID, procesoPinturaID, usuario);
+                        ListadoMedioTransporte.Add(new DetalleCapturaAvanceCarro
+                        {
+                            FechaProceso = "",
+                            Accion = 1,
+                            SpoolID = item.SpoolID,
+                            Spool = item.Spool,
+                            SistemaPinturaID = item.SistemaPinturaID,
+                            SistemaPintura = item.SistemaPintura,
+                            SistemaPinturaProyectoID = item.SistemaPinturaProyectoID,
+                            ColorPinturaID = item.ColorID,
+                            Color = item.Color,
+                            Area = item.Area.GetValueOrDefault(),
+                            plantillaObrero = "",
+                            CargaCarroID = item.CargaCarroID,
+                            CarroID = item.CarroID,
+                            LoteID = item.Lote,
+                            CuadranteAnteriorID = item.CuadranteAnteriorID,
+                            ZonaAnteriorID = item.ZonaAnteriorID,
+                            CuadranteID = item.CuadranteID,
+                            Cuadrante = item.Cuadrante,
+                            PatioID = item.PatioID,
+                            ListaObreros = (List<PintorSpool>)listaObreros[1],
+                            ListaObrerosGuargados = (List<PintorSpool>)listaObreros[0],
+                            ListaObrerosSeleccionados = (List<PintorSpool>)listaObreros[0],
+                            AvanceCarroID = item.AvanceCarroID,
+                            Banderastatus = item.BanderaStatus,
+                            SistemaPinturaColorID = item.SistemaPinturaColorID
+                        });
+                    }
+
+                    return ListadoMedioTransporte;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
     }
 }

@@ -12,6 +12,15 @@ var elementoEjecutoChange;
 
 var LineaCaptura = {proyectoIDSeleccionado:"",zonaIDSeleccionado:"",cuadranteIDSeleccionado:"",sistemaPinturaIDSeleccionado:"",ColorIDSeleccionado:""}
 
+function existeSpool(spool, array) {
+    for (var index = 0; index < array._data.length; index++) {
+        if (array._data[index].Spool == spool) {
+            return true;
+        }
+    }
+    return false;
+}
+
 function limpiarFila(e) {
     e.preventDefault();
     var itemRow;
@@ -128,7 +137,12 @@ function BuscarDetalle() {
                 if ($("#inputZona").data("kendoComboBox").select() > 0) {
                     if ($("#inputCuadrante").data("kendoComboBox").select() > 0) {
                         if ($("#inputSistemaPintura").data("kendoComboBox").select() > 0) {
+                            if (!($('input:radio[name=ProcesoPintura]:checked').val()=="4" && $("#inputColor").data("kendoComboBox").select() <= 0)) {
                                 AjaxCargarLayoutGrid(dataItemCuadrante.CuadranteID, dataItemSP.SistemaPinturaProyectoID, dataItemColor.SistemaPinturaColorID, $("#language").val(), $('input:radio[name=ProcesoPintura]:checked').val(), $('input:radio[name=Muestra]:checked').val());
+                            }
+                            else {
+                                displayNotify("CapturaAvanceCuadranteNoColor", "", '1');
+                            }
                         }
                         else {
                             displayNotify("CapturaAvanceCuadranteNoSistemaPintura", "", '1');
@@ -147,7 +161,7 @@ function BuscarDetalle() {
             }
         }
         else {
-            ventanaConfirmEdicion.open().center();
+           ventanaConfirmEdicionCaptura.open().center();
         }
 }
 

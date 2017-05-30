@@ -13,7 +13,19 @@
     suscribirEventoPintor();
     suscribirEventoFechaProceso();
     suscribirEventoWindowsConfirmaLineaCaptura();
+    SuscribirEventoAgregar();
 };
+
+function SuscribirEventoAgregar() {
+    $("#btnAgregar").click(function () {
+        if ($("#InputID").data("kendoComboBox").value() > 0) {
+            AjaxAgregarSpool($("#InputID").data("kendoComboBox").value());
+        }
+        else {
+            displayNotify("PinturaCargaSeleccionaSpool", "", '1');
+        }
+    });
+}
 
 
 function suscribirEventoWindowsConfirmaLineaCaptura() {
@@ -253,21 +265,22 @@ function SuscribirEventoSpoolID() {
         suggest: true,
         filter: "contains",
         index: 3,
-        delay: 10,
-        change: function (e) {
-            dataItem = this.dataItem(e.sender.selectedIndex);
-            if (!editado) {
-                if (dataItem != undefined) {
+        delay: 10
+        //,
+        //change: function (e) {
+        //    dataItem = this.dataItem(e.sender.selectedIndex);
+        //    if (!editado) {
+        //        if (dataItem != undefined) {
 
-                }
-                else {
-                    $("#InputID").data("kendoComboBox").value("");
-                }
-            }
-            else {
-                ventanaConfirmEdicionCaptura.open().center();
-            }
-        }
+        //        }
+        //        else {
+        //            $("#InputID").data("kendoComboBox").value("");
+        //        }
+        //    }
+        //    else {
+        //        ventanaConfirmEdicionCaptura.open().center();
+        //    }
+        //}
     });
 
     $('#InputID').closest('.k-widget').keydown(function (e) {
@@ -280,12 +293,11 @@ function SuscribirEventoSpoolID() {
             $("#InputID").data("kendoComboBox").select();
         }
         else if (e.keyCode == 13) {
-            if ($('#InputID').data("kendoComboBox").value() != undefined) {
-
+            if ($("#InputID").data("kendoComboBox").value() > 0) {
+                AjaxAgregarSpool($("#InputID").data("kendoComboBox").value());
             }
             else {
-                $("#InputID").data("kendoComboBox").value("");
-                displayNotify("PinturaCargaNoExisteSpoolID", '', '2');
+                displayNotify("PinturaCargaSeleccionaSpool", "", '1');
             }
         }
     });

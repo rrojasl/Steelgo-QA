@@ -368,22 +368,22 @@ function AjaxGuardarAvanceCarro(arregloCaptura, guardarYNuevo) {
         ListaDetalles[index] = { ID: "", Accion: "", SpoolID: "", ProcesoPinturaID: 0, FechaProceso: "", SistemaPinturaID: "", Reductor: 0, ReductorLote: "", ListaObrerosSeleccionados: [], ListaComponentesDinamicos: [], Estatus: 1 };
         ListaDetalles[index].ID = null;
         ListaDetalles[index].Accion = arregloCaptura[index].Accion;
-        ListaDetalles[index].Accion = arregloCaptura[index].Accion;
         ListaDetalles[index].SpoolID = arregloCaptura[index].SpoolID;
         ListaDetalles[index].ProcesoPinturaID = $('input:radio[name=ProcesoPintura]:checked').val();
         ListaDetalles[index].FechaProceso = arregloCaptura[index].FechaProceso == null ? "" : kendo.toString(arregloCaptura[index].FechaProceso, String(_dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()].replace('{', '').replace('}', '').replace("0:", ""))).trim();
         ListaDetalles[index].SistemaPinturaID = arregloCaptura[index].SistemaPinturaID;
-        ListaDetalles[index].Reductor = ReductorDinamico[0].NombreReductor;
-        ListaDetalles[index].ReductorLote = arregloCaptura[index][ReductorDinamico[0].NombreReductor];
+        ListaDetalles[index].Reductor =ReductorDinamico.length>0? ReductorDinamico[0].NombreReductor:"";
+        ListaDetalles[index].ReductorLote = ReductorDinamico.length>0 ? arregloCaptura[index][ReductorDinamico[0].NombreReductor]:"";
 
         if (ListaDetalles[index].FechaProceso == "") {
             ListaDetalles[index].Estatus = 0;
             $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
         }
-
-        if (ListaDetalles[index].ReductorLote == "" || ListaDetalles[index].ReductorLote == undefined || ListaDetalles[index].ReductorLote == null) {
-            $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
-            ListaDetalles[index].Estatus = 0;
+        if (ReductorDinamico.length > 0) {
+            if (ListaDetalles[index].ReductorLote == "" || ListaDetalles[index].ReductorLote == undefined || ListaDetalles[index].ReductorLote == null) {
+                $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
+                ListaDetalles[index].Estatus = 0;
+            }
         }
 
         var ListaDetallesObrerosSeleccionados = [];
