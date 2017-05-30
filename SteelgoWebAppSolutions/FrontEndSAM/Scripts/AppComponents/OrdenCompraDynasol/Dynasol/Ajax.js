@@ -78,7 +78,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                     }
 
                     ListaColadas[j].Accion = arregloCaptura[index].ListaDetalleColadas[j].Accion ;
-                    ListaColadas[j].RevisionID = arregloCaptura[index].ListaDetalleColadas[j].RevisionID == undefined ? 0 : arregloCaptura[index].ListaDetalleColadas[j].RevisionID;
+                    ListaColadas[j].RevisionID = arregloCaptura[index].RevisionID;
                     ListaColadas[j].ColadaID = arregloCaptura[index].ListaDetalleColadas[j].ColadaID;
                     ListaColadas[j].Nombre = arregloCaptura[index].ListaDetalleColadas[j].Colada;
                     ListaColadas[j].CantidadC = arregloCaptura[index].ListaDetalleColadas[j].Cant;
