@@ -109,6 +109,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                             ListaInspeccion[cont].DetalleInspeccion = arregloCaptura[index].ListaDetalleColadas[j].ListaDetalleInspeccion[i].DetalleInspeccionID;
                             ListaInspeccion[cont].InspeccionID = arregloCaptura[index].ListaDetalleColadas[j].ListaDetalleInspeccion[i].InspeccionID;
                             ListaInspeccion[cont].NombreColada = arregloCaptura[index].ListaDetalleColadas[j].Colada;
+                            ListaInspeccion[cont].Comentario = arregloCaptura[index].ListaDetalleColadas[j].ListaDetalleInspeccion[i].Comentario;
                             cont++;
                         }
                     }
