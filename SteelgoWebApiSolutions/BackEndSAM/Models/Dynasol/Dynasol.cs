@@ -95,7 +95,9 @@ namespace BackEndSAM.Models.Dynasol
 
         public class JsonCapturaRevision
         {
-            
+            public int Accion { get; set; }
+            public int RevisionID { get; set; }
+            public string Partida { get; set; }
             public List<ListaGuardarColadas> ListaColadas { get; set; }
             public List<ListaGuardarDetalleInspeccion> ListaDetalleInspeccion { get; set; }
         }
