@@ -105,6 +105,7 @@ namespace BackEndSAM.DataAcces.Dynasol
                     {
                         listaRevision.Add(new RevisionClass
                         {
+                            Accion = 2,
                             RevisionID = item.RevisionID,
                             OrdenCompraID = item.OrdenCompraID.GetValueOrDefault(),
                             Rev = item.Revision,
@@ -120,7 +121,8 @@ namespace BackEndSAM.DataAcces.Dynasol
                             Total = item.Total.GetValueOrDefault(),
                             Partida = item.Partida,
                             ListaDetalleColadas = ObtenerColadas(item.RevisionID),
-                            ListaInspeccion = listaInspeccion
+                            ListaInspeccion = listaInspeccion,
+                            RowOk = false
                         });
                     }
                     return listaRevision;
@@ -150,6 +152,7 @@ namespace BackEndSAM.DataAcces.Dynasol
                     {
                         ListaColadas.Add(new ColadaClass
                         {
+                            Accion = 2,
                             ColadaID = item.ColadaID,
                             Colada = item.Nombre,
                             RevisionID = item.RevisionID.GetValueOrDefault(),
@@ -198,6 +201,7 @@ namespace BackEndSAM.DataAcces.Dynasol
                     {
                         ListaDetalles.Add(new DetalleInspeccionClass
                         {
+                            Accion = 2,
                             DetalleInspeccionID = item.DetalleInspeccionID,
                             ColadaID = item.ColadaID,
                             Inspeccion = item.Nombre,

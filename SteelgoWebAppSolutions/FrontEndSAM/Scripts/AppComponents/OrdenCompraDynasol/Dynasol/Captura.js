@@ -1,4 +1,5 @@
 ﻿var modeloRenglon;
+var esNormal;
 
 function changeLanguageCall() {
     CargarGrid();
@@ -56,6 +57,13 @@ function CargarGrid() {
             if ($('#Guardar').text() == _dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]) {
                 this.closeCell();
             };
+
+            if ($(".k-grid-content td").css("white-space") == "normal") {
+                esNormal = true;
+            }
+            else {
+                esNormal = false;
+            }
         },
         selectable: true,
         pageable: {
@@ -82,10 +90,31 @@ function CargarGrid() {
             //{ field: "PackingList", title: "Packing List", filterable: getGridFilterableCellMaftec(), width: "100px" },
             { field: "Partida", title: _dictionary.columnPartida[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "100px" },
             { field: "Coladas", title: " ", filterable: false, width: "50px", template: "<div class='EnlaceDetalleColada' style='text-align:center;'><a href='\\#'> <span><img src='/Content/images/SAMC_ComplementoIcon.png'></img></span></a></div> " },
-
-
         ],
+        dataBound: function () {
+            var grid = $("#grid").data("kendoGrid");
+            var gridData = grid.dataSource.view();
 
+            for (var i = 0; i < gridData.length; i++) {
+                var currentUid = gridData[i].uid;
+                if (gridData[i].RowOk == false) {
+                    grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("k-alt");
+                    grid.table.find("tr[data-uid='" + currentUid + "']").addClass("kRowError");
+                }
+                else if (gridData[i].RowOk) {
+                    if (i % 2 == 0)
+                        grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("k-alt");
+
+                    grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("kRowError");
+                }
+            }
+
+            if (esNormal)
+                $(".k-grid-content td").css("white-space", "normal");
+            else
+                $(".k-grid-content td").css("white-space", "nowrap");
+
+        },
         editable: true,
         navigatable: true
     });
