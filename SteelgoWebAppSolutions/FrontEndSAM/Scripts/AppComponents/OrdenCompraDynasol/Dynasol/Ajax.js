@@ -101,11 +101,12 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                     if (arregloCaptura[index].ListaDetalleColadas[j].ListaDetalleInspeccion != undefined) {
                         for (i = 0; i < arregloCaptura[index].ListaDetalleColadas[j].ListaDetalleInspeccion.length; i++) {
                             ListaInspeccion[cont] = {
-                                Accion: "", DetalleInspeccion: "", InspeccionID: "", NombreColada: "", Comentario: ""
+                                Accion: "",RevisionID: "", DetalleInspeccion: "", InspeccionID: "", NombreColada: "", Comentario: ""
 
                             }
 
                             ListaInspeccion[cont].Accion = arregloCaptura[index].ListaDetalleColadas[j].ListaDetalleInspeccion[i].Accion;
+                            ListaInspeccion[cont].RevisionID = arregloCaptura[index].RevisionID;
                             ListaInspeccion[cont].DetalleInspeccion = arregloCaptura[index].ListaDetalleColadas[j].ListaDetalleInspeccion[i].DetalleInspeccionID;
                             ListaInspeccion[cont].InspeccionID = arregloCaptura[index].ListaDetalleColadas[j].ListaDetalleInspeccion[i].InspeccionID;
                             ListaInspeccion[cont].NombreColada = arregloCaptura[index].ListaDetalleColadas[j].Colada;

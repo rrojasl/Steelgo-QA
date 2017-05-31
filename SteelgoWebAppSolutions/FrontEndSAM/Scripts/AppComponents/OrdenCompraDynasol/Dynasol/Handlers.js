@@ -360,18 +360,30 @@ function suscribirEventoGuardar() {
             if ((ds._data[i].Colada == "" || ds._data[i].Cant == 0 || ds._data[i].Cant == "") && !(ds._data[i].Accion == 3 || ds._data[i].Accion == 4))
                 coladasCorrectos = false;
         }
-        if (coladasCorrectos) {
-            modeloRenglon.ListaDetalleColadas = ds._data;
-
-            $("#grid").data("kendoGrid").dataSource.sync();
-
-
-            window.data("kendoWindow").close();
+        var RegistrosNoRepetidos = true;
+        for (var i = 0; i < ds._data.length; i++) {
+            for (var j = 0; j < ds._data.length; j++) {
+                if (ds._data[i].Colada == ds._data[j].Colada && i != j)
+                    RegistrosNoRepetidos = false;
+            }
         }
-        else 
-            displayNotify('DynasolColadaMandatorio', '', '2');
 
-        });
+        if (RegistrosNoRepetidos) {
+            if (coladasCorrectos) {
+                modeloRenglon.ListaDetalleColadas = ds._data;
+                $("#grid").data("kendoGrid").dataSource.sync();
+                window.data("kendoWindow").close();
+            }
+            else
+                displayNotify('DynasolColadaMandatorio', '', '2');
+
+        }
+        else
+            displayNotify('DynasolColadasRegistrosRepetidos', '', '2');
+
+    });
+
+
         $(document).on('click', '#GuardarPlacasGerez', function (e) {
             var coladasCorrectos = true;
             var ds = $("#gridPopUpGerez").data("kendoGrid").dataSource;
@@ -383,13 +395,26 @@ function suscribirEventoGuardar() {
                 if ((ds._data[i].Colada == "" || ds._data[i].Cant == 0 || ds._data[i].Cant == "") && !(ds._data[i].Accion == 3 || ds._data[i].Accion == 4))
                     coladasCorrectos = false;
             }
-            if (coladasCorrectos) {
-                modeloRenglon.ListaDetalleColadas = ds._data;
-                $("#grid").data("kendoGrid").dataSource.sync();
-                window.data("kendoWindow").close();
+            var RegistrosNoRepetidos = true;
+            for (var i = 0; i < ds._data.length; i++) {
+                for (var j = 0; j < ds._data.length; j++) {
+                    if (ds._data[i].Colada == ds._data[j].Colada && i != j)
+                        RegistrosNoRepetidos = false;
+                }
+            }
+
+            if (RegistrosNoRepetidos) {
+                if (coladasCorrectos) {
+                    modeloRenglon.ListaDetalleColadas = ds._data;
+                    $("#grid").data("kendoGrid").dataSource.sync();
+                    window.data("kendoWindow").close();
+                }
+                else
+                    displayNotify('DynasolColadaMandatorio', '', '2');
+
             }
             else
-                displayNotify('DynasolColadaMandatorio', '', '2');
+                displayNotify('DynasolColadasRegistrosRepetidos', '', '2');
 
             
 
@@ -406,15 +431,27 @@ function suscribirEventoGuardar() {
                 if ((ds._data[i].Colada == "" || ds._data[i].Cant == 0 || ds._data[i].Cant == "") && !(ds._data[i].Accion == 3 || ds._data[i].Accion == 4))
                     coladasCorrectos = false;
             }
-            if (coladasCorrectos) {
-                modeloRenglon.ListaDetalleColadas = ds._data;
-                $("#grid").data("kendoGrid").dataSource.sync();
-                window.data("kendoWindow").close();
+
+            var RegistrosNoRepetidos = true;
+            for (var i = 0; i < ds._data.length; i++) {
+                for (var j = 0; j < ds._data.length; j++) {
+                    if (ds._data[i].Colada == ds._data[j].Colada  && i != j)
+                        RegistrosNoRepetidos = false;
+                }
             }
-            else
-                displayNotify('DynasolColadaMandatorio', '', '2');
 
+            if (RegistrosNoRepetidos) {
+                if (coladasCorrectos) {
+                    modeloRenglon.ListaDetalleColadas = ds._data;
+                    $("#grid").data("kendoGrid").dataSource.sync();
+                    window.data("kendoWindow").close();
+                }
+                else
+                    displayNotify('DynasolColadaMandatorio', '', '2');
 
+            }
+            else 
+                displayNotify('DynasolColadasRegistrosRepetidos', '', '2');
             
 
         });

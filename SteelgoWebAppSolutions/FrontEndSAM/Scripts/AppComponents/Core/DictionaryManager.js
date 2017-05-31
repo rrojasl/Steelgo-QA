@@ -12762,6 +12762,10 @@ _dictionary = {
         "es-MX": "El campo Inspecction es mandatorio",
         "en-US": "The Inspection field has mandatory"
     },
+    "DynasolColadasRegistrosRepetidos": {
+        "es-MX": "El campo Colada, no pueden ser los mismos en mas de un registro",
+        "en-US": "The laver field cant be equals in more than one reccord"
+    },
 
     //Finaliza Modulo Dynasol
 
