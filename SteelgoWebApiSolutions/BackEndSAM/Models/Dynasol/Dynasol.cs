@@ -127,6 +127,7 @@ namespace BackEndSAM.Models.Dynasol
         {
             public int Accion { get; set; }
             public int DetalleInspeccion { get; set; }
+            public int RevisionID { get; set; }
             public string NombreColada { get; set; }
             public int InspeccionID { get; set; }
             public string Comentario { get; set; }
