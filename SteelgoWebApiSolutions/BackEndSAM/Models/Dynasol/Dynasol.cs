@@ -126,8 +126,9 @@ namespace BackEndSAM.Models.Dynasol
         public class ListaGuardarDetalleInspeccion
         {
             public int Accion { get; set; }
-            public int DetalleInspeccion { get; set; }
             public int RevisionID { get; set; }
+            public int DetalleInspeccion { get; set; }
+            
             public string NombreColada { get; set; }
             public int InspeccionID { get; set; }
             public string Comentario { get; set; }
