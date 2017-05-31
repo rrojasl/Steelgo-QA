@@ -88,7 +88,7 @@ function AjaxZona() {
 }
 
 function AjaxCuadrante(zonaID) {
-    $Cuadrante.Cuadrante.read({ token: Cookies.get("token"), procesoPintura: $('input:radio[name=ProcesoPintura]:checked').val(), ProyectoID: $("#inputProyecto").data("kendoComboBox").value(), ZonaID: zonaID, tipo: 2 }).done(function (data) {
+    $AvanceCuadrante.AvanceCuadrante.read({ token: Cookies.get("token"), procesoPintura: $('input:radio[name=ProcesoPintura]:checked').val(), ProyectoID: $("#inputProyecto").data("kendoComboBox").value(), ZonaID: zonaID, tipo: 2 }).done(function (data) {
         var cuadranteid = 0;
         $("#inputCuadrante").data("kendoComboBox").dataSource.data(data);
         $("#inputCuadrante").data("kendoComboBox").value("");
@@ -248,6 +248,7 @@ function AjaxCargarSpool(CuadranteID, sistemaPinturaProyectoId, SistemaPinturaCo
             editado = true;
 
         ds.sync();
+        AjaxCargarPintor();
         loadingStop();
     });
 }
@@ -317,19 +318,212 @@ function AjaxAgregarSpool(ordenTrabajoSpoolID) {
                 displayNotify("", _dictionary.SpoolAgregado[$("#language").data("kendoDropDownList").value()] +
                    elementosModificados + _dictionary.CapturaArmadoMsgNuevoEnReporte[$("#language").data("kendoDropDownList").value()], '0');
                 editado = true;
-                $("#inputCodigo").val("");
+                
             }
 
             if (elementosNoModificados != "") {
                 displayNotify("", _dictionary.SpoolAgregado[$("#language").data("kendoDropDownList").value()] +
                     elementosNoModificados + _dictionary.CapturaArmadoMsgExisteReporte[$("#language").data("kendoDropDownList").value()], '1');
             }
-
-
+            
+            $("#InputID").data("kendoComboBox").value("");
             loadingStop();
         });
     }
     else {
         displayNotify("CapturaAvanceCuadranteNoSistemaPintura", "", '1');
     }
+}
+
+function AjaxCargarPintor() {
+    loadingStart();
+    $CapturaAvance.CapturaAvance.read({ token: Cookies.get("token"), procesoPintura: $('input:radio[name=ProcesoPintura]:checked').val() }).done(function (data) {
+        if (Error(data)) {
+            $("#inputPintor").data("kendoMultiSelect").setDataSource(data);
+        }
+        loadingStop();
+    });
+}
+
+function AjaxGuardarAvanceCarro(arregloCaptura, guardarYNuevo) {
+    Captura = [];
+    Captura[0] = { Detalles: "" };
+    ListaDetalles = [];
+
+
+
+    for (var index = 0 ; index < arregloCaptura.length; index++) {
+        $("#grid").data("kendoGrid").dataSource._data[index].RowOk = true;
+        ListaDetalles[index] = { ID: "", Accion: "", SpoolID: "", ProcesoPinturaID: 0, FechaProceso: "", SistemaPinturaID: "", Reductor: 0, ReductorLote: "", ListaObrerosSeleccionados: [], ListaComponentesDinamicos: [], Estatus: 1 };
+        ListaDetalles[index].ID = null;
+        ListaDetalles[index].Accion = arregloCaptura[index].Accion;
+        ListaDetalles[index].SpoolID = arregloCaptura[index].SpoolID;
+        ListaDetalles[index].ProcesoPinturaID = $('input:radio[name=ProcesoPintura]:checked').val();
+        ListaDetalles[index].FechaProceso = arregloCaptura[index].FechaProceso == null ? "" : kendo.toString(arregloCaptura[index].FechaProceso, String(_dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()].replace('{', '').replace('}', '').replace("0:", ""))).trim();
+        ListaDetalles[index].SistemaPinturaID = arregloCaptura[index].SistemaPinturaID;
+        ListaDetalles[index].Reductor = ReductorDinamico.length > 0 ? ReductorDinamico[0].NombreReductor : "";
+        ListaDetalles[index].ReductorLote = ReductorDinamico.length > 0 ? arregloCaptura[index][ReductorDinamico[0].NombreReductor] : "";
+
+        if (ListaDetalles[index].FechaProceso == "") {
+            ListaDetalles[index].Estatus = 0;
+            $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
+        }
+        if (ReductorDinamico.length > 0) {
+            if (ListaDetalles[index].ReductorLote == "" || ListaDetalles[index].ReductorLote == undefined || ListaDetalles[index].ReductorLote == null) {
+                $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
+                ListaDetalles[index].Estatus = 0;
+            }
+        }
+
+        var ListaDetallesObrerosSeleccionados = [];
+        for (var j = 0 ; j < arregloCaptura[index].ListaObrerosSeleccionados.length; j++) {
+            ListaDetallesObrerosSeleccionados[j] = { Accion: "", SpoolID: "", ObreroId: 0, ProcesoPinturaID: 0 };
+            ListaDetallesObrerosSeleccionados[j].Accion = arregloCaptura[index].ListaObrerosSeleccionados[j].Accion;
+            ListaDetallesObrerosSeleccionados[j].SpoolID = arregloCaptura[index].SpoolID;
+            ListaDetallesObrerosSeleccionados[j].ObreroId = arregloCaptura[index].ListaObrerosSeleccionados[j].ObreroID;
+            ListaDetallesObrerosSeleccionados[j].ProcesoPinturaID = $('input:radio[name=ProcesoPintura]:checked').val();
+        }
+
+
+        var existeObrero = false;
+        var posicionSiguiente = arregloCaptura[index].ListaObrerosSeleccionados.length;
+        var elementoEliminado = 0;
+
+        for (var k = 0 ; k < arregloCaptura[index].ListaObrerosGuargados.length; k++) {
+            for (var j = 0 ; j < arregloCaptura[index].ListaObrerosSeleccionados.length; j++) {
+                if (arregloCaptura[index].ListaObrerosGuargados[k].ObreroID == arregloCaptura[index].ListaObrerosSeleccionados[j].ObreroID && arregloCaptura[index].ListaObrerosGuargados[k].SpoolID == arregloCaptura[index].ListaObrerosSeleccionados[k].SpoolID && arregloCaptura[index].ListaObrerosGuargados[k].ProcesoPinturaID == arregloCaptura[index].ListaObrerosSeleccionados[k].ProcesoPinturaID) {
+                    existeObrero = true;
+                }
+            }
+            if (!existeObrero) {
+                ListaDetallesObrerosSeleccionados[posicionSiguiente + elementoEliminado] = { Accion: "", SpoolID: "", ObreroId: 0, ProcesoPinturaID: 0 };
+                ListaDetallesObrerosSeleccionados[posicionSiguiente + elementoEliminado].Accion = 3;// se pone tres porque ya se borra.
+                ListaDetallesObrerosSeleccionados[posicionSiguiente + elementoEliminado].SpoolID = arregloCaptura[index].SpoolID;
+                ListaDetallesObrerosSeleccionados[posicionSiguiente + elementoEliminado].ObreroId = arregloCaptura[index].ListaObrerosGuargados[k].ObreroID;
+                ListaDetallesObrerosSeleccionados[posicionSiguiente + elementoEliminado].ProcesoPinturaID = $('input:radio[name=ProcesoPintura]:checked').val();
+                elementoEliminado++;
+            }
+            else {
+                existeObrero = false;
+            }
+        }
+
+        ListaDetalles[index].ListaObrerosSeleccionados = ListaDetallesObrerosSeleccionados;
+
+        if (ListaDetallesObrerosSeleccionados.length == 0) {
+            $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
+            ListaDetalles[index].Estatus = 0;
+        }
+
+        var ListaDetalleComponentesDinamicos = [];
+        for (var k = 0; k < ComponentesDinamicos.length; k++) {
+            ListaDetalleComponentesDinamicos[k] = { Accion: "", SpoolID: "", Componente: "", Lote: "", ProcesoPinturaID: 0 };
+            ListaDetalleComponentesDinamicos[k].Accion = arregloCaptura[index].Accion;
+            ListaDetalleComponentesDinamicos[k].SpoolID = arregloCaptura[index].SpoolID;
+            ListaDetalleComponentesDinamicos[k].Componente = ComponentesDinamicos[k].NombreComponente; //arregloCaptura[index][ComponentesDinamicos[k]]
+            ListaDetalleComponentesDinamicos[k].Lote = arregloCaptura[index][ComponentesDinamicos[k].NombreComponente];
+            ListaDetalleComponentesDinamicos[k].ProcesoPinturaID = $('input:radio[name=ProcesoPintura]:checked').val();
+
+            if (ListaDetalleComponentesDinamicos[k].Lote == "" || ListaDetalleComponentesDinamicos[k].Lote == undefined || ListaDetalleComponentesDinamicos[k].Lote == null) {
+                $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
+                ListaDetalles[index].Estatus = 0;
+            }
+        }
+        ListaDetalles[index].ListaComponentesDinamicos = ListaDetalleComponentesDinamicos;
+    }
+    Captura[0].Detalles = ListaDetalles;
+
+    if (!ExistRowEmpty(ListaDetalles)) {
+        if (Captura[0].Detalles.length > 0) {
+            AjaxEjecutarGuardado(Captura[0], guardarYNuevo);
+        }
+        else {
+            loadingStop();
+        }
+    }
+    else {
+        loadingStop();
+        $("#grid").data("kendoGrid").dataSource.sync();
+        ventanaConfirm = $("#ventanaConfirm").kendoWindow({
+            iframe: true,
+            title: _dictionary.TituloPopUpError[$("#language").data("kendoDropDownList").value()],
+            visible: false, //the window will not appear before its .open method is called
+            width: "auto",
+            height: "auto",
+            modal: true,
+            actions: [],
+            animation: {
+                close: false,
+                open: false
+            }
+        }).data("kendoWindow");
+
+        ventanaConfirm.content(_dictionary.MensajeConfirmacionGuardadoGeneral[$("#language").data("kendoDropDownList").value()] +
+            "</br><center><button class='btn btn-blue' id='yesButton'>" + _dictionary.EntregaPlacasGraficasbotonSi[$("#language").data("kendoDropDownList").value()] + "</button><button class='btn btn-blue' id='noButton'>" + _dictionary.EntregaPlacasGraficasbotonNo[$("#language").data("kendoDropDownList").value()] + "</button></center>");
+
+        ventanaConfirm.open().center();
+
+        $("#yesButton").click(function () {
+            loadingStart();
+
+            ArregloGuardado = [];
+            var indice = 0;
+            for (var i = 0; i < Captura[0].Detalles.length; i++) {
+                if (Captura[0].Detalles[i].Estatus == 1) {
+                    ArregloGuardado[indice] = ListaDetalles[i];
+                    indice++;
+                }
+            }
+
+            Captura[0].Detalles = [];
+            Captura[0].Detalles = ArregloGuardado;
+
+            if (Captura[0].Detalles.length > 0) {
+
+                AjaxEjecutarGuardado(Captura[0], guardarYNuevo);
+            }
+            else {
+                loadingStop();
+                displayNotify("AdverteciaExcepcionGuardado", "", '1');
+            }
+
+            ventanaConfirm.close();
+        });
+
+        $("#noButton").click(function () {
+            ventanaConfirm.close();
+        });
+
+    }
+
+
+
+};
+
+function AjaxEjecutarGuardado(data, guardarYNuevo) {
+    $AvanceCuadrante.AvanceCuadrante.create(data, { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
+
+        if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
+            displayNotify("MensajeGuardadoExistoso", "", '0');
+
+
+            if (guardarYNuevo == 1) {
+                opcionHabilitarView(false, "FieldSetView");
+                Limpiar();
+                AjaxCargarCamposPredeterminados();
+                editado = false;
+            }
+            else {
+                opcionHabilitarView(true, "FieldSetView");
+                var dataItem = $("#inputSistemaPintura").data("kendoComboBox").dataItem($("#inputSistemaPintura").data("kendoComboBox").select());
+                AjaxCargarLayoutGrid(dataItem.SistemaPinturaProyectoID, $('input:radio[name=ProcesoPintura]:checked').val(), dataItem.MedioTransporteCargaID);
+            }
+            loadingStop();
+        }
+        else {
+            displayNotify("MensajeGuardadoErroneo", "", '2');
+            loadingStop();
+
+        }
+    });
 }

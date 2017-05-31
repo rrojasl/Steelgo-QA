@@ -277,7 +277,6 @@ function suscribirEventoGuardarCarro() {
     });
 
     $('.accionGuardar').click(function (e) {
-        e.stopPropagation();
         if ($('#Guardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
             var ds = $("#grid").data("kendoGrid").dataSource;
             AjaxGuardarAvanceCarro(ds._data, false);
@@ -291,6 +290,8 @@ function suscribirEventoGuardarCarro() {
 function opcionHabilitarView(valor, name) {
     if (valor) {
         $('.FieldSetView').find('*').attr('disabled', true);
+       
+
         $("#inputCarro").data("kendoComboBox").enable(false);
         $("#InputOrdenTrabajo").attr('disabled', true);
         $("#InputID").data("kendoComboBox").enable(false);
@@ -302,7 +303,6 @@ function opcionHabilitarView(valor, name) {
         $("#stylePPPrimario").attr("disabled", true);
         $("#stylePPIntermedio").attr("disabled", true);
         $("#stylePPAvanzado").attr("disabled", true);
-
         BloquearElementosDinamicos(false);
 
 
@@ -320,14 +320,15 @@ function opcionHabilitarView(valor, name) {
     }
     else {
         $('.FieldSetView').find('*').attr('disabled', false);
+
+      
+
         $("#inputCarro").data("kendoComboBox").enable(true);
         $("input[name='Muestra']").attr("disabled", false);
-       
         $("#stylePPShotBlast").attr("disabled", false);
         $("#stylePPPrimario").attr("disabled", false);
         $("#stylePPIntermedio").attr("disabled", false);
         $("#stylePPAvanzado").attr("disabled", false);
-
         $("#btnMostrar").attr("disabled", false);
         BloquearElementosDinamicos(true);
         $("#InputOrdenTrabajo").attr('disabled', false);

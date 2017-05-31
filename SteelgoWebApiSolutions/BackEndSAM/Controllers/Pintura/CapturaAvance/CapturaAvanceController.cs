@@ -108,9 +108,6 @@ namespace BackEndSAM.Controllers.PinturaControllers.CapturaAvance
             }
         }
 
-
-  
-
         public static string DataTableToJSON(DataTable table, int procesopinturaID, int usuario)
         {
             var list = new List<Dictionary<string, object>>();

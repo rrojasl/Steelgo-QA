@@ -8153,7 +8153,7 @@ _dictionary = {
 
     // Menú lateral
     "menuFabricacion": {
-         "es-MX": "Produccción",
+        "es-MX": "Produccción",
         "en-US": "Production"
     },
     "menuArmado": {
@@ -8212,12 +8212,12 @@ _dictionary = {
         "es-MX": "Dashboard PND",
         "en-US": "Dashboard PND"
     },
-    
+
     "PinturaIngresaCodigoValido": {
         "es-MX": "Ingresa un codigo valido",
         "en-US": "Enter a valid code"
     },
-        "menuPintura": {
+    "menuPintura": {
         "es-MX": "Pintura",
         "en-US": "Paint"
     },
@@ -8314,7 +8314,7 @@ _dictionary = {
         "es-MX": "El spool tiene un sistema de pintura como no pintable",
         "en-US": "The spool has an Paint system as unpaintable"
     },
-   
+
 
     "menuListadoSistemaPintura": {
         "es-MX": "Sistemas de Pintura",
@@ -8325,7 +8325,7 @@ _dictionary = {
         "en-US": "Paint System"
     },
     "menuConfiguracionSoldadura": {
-         "es-MX": "Produccción",
+        "es-MX": "Produccción",
         "en-US": "Production"
     },
     "menuPQR": {
@@ -8392,8 +8392,6 @@ _dictionary = {
         "es-MX": "Dynasol",
         "en-US": "Dynasol"
     },
-
-
     // Finalizan Etiquetas de Menú General
 
 
@@ -9588,7 +9586,7 @@ _dictionary = {
         "en-US": "Observation"
     },
     "ConfiguracionSoldaduraBreadcrumb": {
-         "es-MX": "Produccción",
+        "es-MX": "Produccción",
         "en-US": "Production"
     },
     "CapturaSoldaduraHeaderSoldadores": {
@@ -10387,9 +10385,9 @@ _dictionary = {
         "en-US": "The displayed records have not been saved. do you wish to continue?"
     },
     "lblVersion": {
-            "es-MX": "Version ",
-            "en-US": "Version "
-        },
+        "es-MX": "Version ",
+        "en-US": "Version "
+    },
     "SpoolAgregado": {
         "es-MX": "El Spool ",
         "en-US": "The Spool "
@@ -10427,8 +10425,8 @@ _dictionary = {
         "en-US": "Car Advance"
     },
     "PinturaAvanceIntermedioAcabadoBreadcrumb": {
-        "es-MX": "Avance Intermedio Acabado",
-        "en-US": "Advance Intermediate Finish"
+        "es-MX": "Avance Cuadrante",
+        "en-US": "Advance Quadrant"
     },
     "PinturaEdicionSPBreadcrumb": {
         "es-MX": "Sistema de Pintura",
@@ -10709,7 +10707,7 @@ _dictionary = {
         "es-MX": "No puedes cerrar un carro vacio",
         "en-US": "You can not close an empty car"
     },
-    
+
     "PinturaSpoolSistemaPinturaNoCoincide": {
         "es-MX": "El spool seleccionado tiene diferente Sistema de pintura",
         "en-US": "the selected spool has different paint system"
@@ -12713,15 +12711,15 @@ _dictionary = {
     },
     "columnTotal": {
         "es-MX": "Total",
-        "en-US": "Total"
+        "en-US": "Partida"
     },
     "columnPartida": {
         "es-MX": "Partida",
         "en-US": "Batch"
     },
     "columnColada": {
-        "es-MX": "Colada",
-        "en-US": "Heat"
+        "es-MX": "Partida",
+        "en-US": "Batch"
     },
     "columnInsp": {
         "es-MX": "Insp",
@@ -12775,7 +12773,7 @@ _dictionary = {
     "DynasolColadasRegistrosRepetidos": {
         "es-MX": "El campo Colada, no pueden ser los mismos en mas de un registro",
         "en-US": "The laver field cant be equals in more than one reccord"
-    },
+    }
 
     //Finaliza Modulo Dynasol
 

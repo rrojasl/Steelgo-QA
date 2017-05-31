@@ -143,7 +143,7 @@ namespace BackEndSAM.DataAcces.Pintura.AvanceCuadrante
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Pintura_AvanceCuadrante_Get_Cuadrantes_Result> result = ctx.Sam3_Pintura_AvanceCuadrante_Get_Cuadrantes(usuario.UsuarioID, procesoPintura).ToList();
+                    List<Sam3_Pintura_AvanceCuadrante_Get_Cuadrantes_Result> result = ctx.Sam3_Pintura_AvanceCuadrante_Get_Cuadrantes(ZonaID, procesoPintura).ToList();
 
                     List<BackEndSAM.Models.Pintura.IntermedioAcabado.Cuadrante> listaCuadrante = new List<BackEndSAM.Models.Pintura.IntermedioAcabado.Cuadrante>();
 
@@ -305,6 +305,38 @@ namespace BackEndSAM.DataAcces.Pintura.AvanceCuadrante
                     }
 
                     return ListadoMedioTransporte;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object GuardarAvanceCarro(DataTable dtDetalleCaptura, DataTable dtDetalleObreros, DataTable dtDetalleComponentes, Sam3_Usuario usuario, string lenguaje)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+
+                    ObjetosSQL _SQL = new ObjetosSQL();
+                    string[,] parametro = { { "@Usuario", usuario.UsuarioID.ToString() }, { "@Lenguaje", lenguaje }};
+                    _SQL.Ejecuta(Stords.GUARDACAPTURAAVANCECUADRANTE, dtDetalleCaptura, "@TablaCapturaAvance", dtDetalleObreros, "@TablaObreros", dtDetalleComponentes, "@TablaComponentes", parametro);
+
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add("Ok");
+                    result.ReturnCode = 200;
+                    result.ReturnStatus = true;
+                    result.IsAuthenicated = true;
+
+                    return result;
                 }
             }
             catch (Exception ex)

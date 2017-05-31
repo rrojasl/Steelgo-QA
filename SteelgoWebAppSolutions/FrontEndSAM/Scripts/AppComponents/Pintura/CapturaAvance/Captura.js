@@ -120,10 +120,10 @@ function PlanchaElementosDinamicos() {
 
 function changeLanguageCall() {
 
-     paramProcesoPinturaID = getParameterByName('ProcesoPinturaID') == undefined || getParameterByName('ProcesoPinturaID') == null ? "" : getParameterByName('ProcesoPinturaID').trim();
-     paramCarroID = getParameterByName('CarroID') == undefined || getParameterByName('CarroID') == null ? "" : getParameterByName('CarroID').trim();
+    paramProcesoPinturaID = getParameterByName('ProcesoPinturaID') == undefined || getParameterByName('ProcesoPinturaID') == null ? "" : getParameterByName('ProcesoPinturaID').trim();
+    paramCarroID = getParameterByName('CarroID') == undefined || getParameterByName('CarroID') == null ? "" : getParameterByName('CarroID').trim();
 
-    
+
 
     endRangeDateShotblast.data("kendoDatePicker").setOptions({
         format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()]
@@ -134,7 +134,7 @@ function changeLanguageCall() {
     $('#Guardar1').text(_dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]);
     $("#Guardar").text(_dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]);
 
-  
+
 
 };
 
@@ -489,6 +489,16 @@ function CrearGrid() {
                     } else {
                         editButton[0].outerHTML = '<a class="k-button k-button-icontext k-grid-Cancelar" href="#/"><span class=""></span>' +
                             _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()] + '</a>';
+                    }
+
+                    if (gridData[i].RowOk == false) {
+                        ds.table.find("tr[data-uid='" + currentUid + "']").removeClass("k-alt");
+                        ds.table.find("tr[data-uid='" + currentUid + "']").addClass("kRowError");
+                    }
+                    else if (gridData[i].RowOk) {
+                        if (i % 2 == 0)
+                            ds.table.find("tr[data-uid='" + currentUid + "']").removeClass("k-alt");
+                        ds.table.find("tr[data-uid='" + currentUid + "']").removeClass("kRowError");
                     }
                 }
             }
