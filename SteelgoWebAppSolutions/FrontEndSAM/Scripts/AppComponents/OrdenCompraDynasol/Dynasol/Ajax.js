@@ -219,8 +219,10 @@ function AjaxEjecutarGuardado(Captura, tipoGuardar) {
                 if (tipoGuardar == 1) {
                     //editado = false;
                     
+                    $("#grid").data('kendoGrid').dataSource.data([]);
+                    AjaxObtenerOrdenesCompra();
                     loadingStop();
-                    AjaxCargarRevision();
+                    
                 }
                 else {
                     opcionHabilitarView(true, "FieldSetView");

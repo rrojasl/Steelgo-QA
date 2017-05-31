@@ -33,6 +33,7 @@ function CargarGrid() {
                         Diametro1: { type: "string", editable: false },
                         Diametro2: { type: "string", editable: false },
                         Registro: { type: "string", editable: false },
+                        Schedule: { type: "string", editable: false },
                         Rating: { type: "string", editable: false },
                         PreparacionExtremos: { type: "string", editable: false },
                         Neodata: { type: "string", editable: false },
@@ -47,6 +48,19 @@ function CargarGrid() {
                     }
                 }
             },
+            filter: {
+                logic: "or",
+                filters: [
+                  { field: "Accion", operator: "eq", value: 1 },
+                  { field: "Accion", operator: "eq", value: 2 },
+                    { field: "Accion", operator: "eq", value: 0 },
+                    { field: "Accion", operator: "eq", value: undefined }
+                ]
+            },
+            pageSize: 10,
+            serverPaging: false,
+            serverFiltering: false,
+            serverSorting: false,
         },
         edit: function (e) {
             setTimeout(function () {
@@ -150,7 +164,10 @@ function CargarGridPopUpDetalleCecilia() {
                     { field: "Accion", operator: "eq", value: undefined }
                 ]
             },
-
+            pageSize: 10,
+            serverPaging: false,
+            serverFiltering: false,
+            serverSorting: false,
         },
         navigatable: true,
         filterable: {
@@ -239,6 +256,10 @@ function CargarGridPopUpDetalleGerez() {
                     { field: "Accion", operator: "eq", value: undefined }
                 ]
             },
+            pageSize: 10,
+            serverPaging: false,
+            serverFiltering: false,
+            serverSorting: false,
 
         },
         navigatable: true,
@@ -291,7 +312,7 @@ function CargarGridPopUpDetalleGerez() {
 
         ],
         editable: "incell",
-        toolbar: [{ name: "create" }]
+        //toolbar: [{ name: "create" }]
 
     });
     CustomisaGrid($("#gridPopUpGerez"));
@@ -339,6 +360,10 @@ function CargarGridPopUpDetalleSteelgo() {
                     { field: "Accion", operator: "eq", value: undefined }
                 ]
             },
+            pageSize: 10,
+            serverPaging: false,
+            serverFiltering: false,
+            serverSorting: false,
 
         },
         navigatable: true,
@@ -396,7 +421,7 @@ function CargarGridPopUpDetalleSteelgo() {
 
         ],
         editable: "incell",
-        toolbar: [{ name: "create" }]
+        //toolbar: [{ name: "create" }]
 
     });
     CustomisaGrid($("#gridPopUpSteelgo"));
@@ -427,6 +452,10 @@ function CargarGridPopUpDetalleInspeccion() {
                     { field: "Accion", operator: "eq", value: undefined }
                 ]
             },
+            pageSize: 10,
+            serverPaging: false,
+            serverFiltering: false,
+            serverSorting: false,
         },
         selectable: true,
         filterable: getGridFilterableMaftec(),
