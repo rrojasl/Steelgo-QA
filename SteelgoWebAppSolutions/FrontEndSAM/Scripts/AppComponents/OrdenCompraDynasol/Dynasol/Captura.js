@@ -75,8 +75,8 @@ function CargarGrid() {
         },
         filterable: getGridFilterableMaftec(),
         columns: [
-            { field: "Rev", title: _dictionary.columnRev[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "50px" },
-            { field: "Descripcion", title: _dictionary.columnDescripcion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "120px" },
+            { field: "Rev", title: _dictionary.columnRev[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "100px" },
+            { field: "Descripcion", title: _dictionary.columnDescripcion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "160px" },
             { field: "MaterialNorma", title: _dictionary.columnMaterialNorma[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "100px" },
             { field: "Diametro1", title: _dictionary.columnD1[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "40px" },
             { field: "Diametro2", title: _dictionary.columnD2[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "40px" },
@@ -85,8 +85,8 @@ function CargarGrid() {
             { field: "PreparacionExtremos", title: _dictionary.columnPrepExt[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "70px" },
             //{ field: "Neodata", title: "Neodata", filterable: getGridFilterableCellMaftec(), width: "90px" },
             { field: "Cant", title: _dictionary.columnCant[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "60px" },
-            { field: "PrecioUnidad", title: _dictionary.columnPrecioU[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "80px" },
-            { field: "Total", title: _dictionary.columnTotal[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "70px" },
+            //{ field: "PrecioUnidad", title: _dictionary.columnPrecioU[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "80px" },
+            //{ field: "Total", title: _dictionary.columnTotal[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "70px" },
             //{ field: "PackingList", title: "Packing List", filterable: getGridFilterableCellMaftec(), width: "100px" },
             { field: "Partida", title: _dictionary.columnPartida[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "100px" },
             { field: "Coladas", title: " ", filterable: false, width: "50px", template: "<div class='EnlaceDetalleColada' style='text-align:center;'><a href='\\#'> <span><img src='/Content/images/SAMC_ComplementoIcon.png'></img></span></a></div> " },
@@ -551,7 +551,7 @@ function LlenarGridPopUpDetalleInspeccion(data) {
 function VentanaModalDetalleGerez() {
 
     var modalTitle = "";
-    modalTitle = "Codo 45º Radio Largo 0.5 x, NeoData: NPS SW Codo 45º Radio Largo , #3000 A 105";
+    modalTitle = modeloRenglon.Descripcion;
     var window = $("#windowGridGerez");
     var win = window.kendoWindow({
         modal: true,
@@ -578,7 +578,7 @@ function VentanaModalDetalleGerez() {
 function VentanaModalDetalleCecilia() {
 
     var modalTitle = "";
-    modalTitle = "Codo 45º Radio Largo 0.5 x, NeoData: NPS SW Codo 45º Radio Largo , #3000 A 105";
+    modalTitle = modeloRenglon.Descripcion;
     var window = $("#windowGridCecilia");
     var win = window.kendoWindow({
         modal: true,
@@ -606,7 +606,7 @@ function VentanaModalDetalleCecilia() {
 function VentanaModalDetalleSteelgo() {
 
     var modalTitle = "";
-    modalTitle = "Codo 45º Radio Largo 0.5 x, NeoData: NPS SW Codo 45º Radio Largo , #3000 A 105";
+    modalTitle = modeloRenglon.Descripcion;
     var window = $("#windowGridSteelgo");
 
     var win = window.kendoWindow({
