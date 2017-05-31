@@ -8238,8 +8238,8 @@ _dictionary = {
         "en-US": "Car Advance"
     },
     "menuCapturaAvanceIntAcabado": {
-        "es-MX": "Avance Intermedio Acabado",
-        "en-US": "Progress Intermediate Finishes"
+        "es-MX": "Avance cuadrante",
+        "en-US": "Quadrant advance"
     },
     "menuDescargaCarritos": {
         "es-MX": "Descarga de Carro",
