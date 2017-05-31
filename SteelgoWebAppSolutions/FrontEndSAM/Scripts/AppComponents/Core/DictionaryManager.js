@@ -8384,6 +8384,16 @@ _dictionary = {
         "es-MX": "Busca Spool",
         "en-US": "Spool Search"
     },
+    "menuDynasol": {
+        "es-MX": "Dynasol",
+        "en-US": "Dynasol"
+    },
+    "menuDynasolOrdenCompra": {
+        "es-MX": "Dynasol",
+        "en-US": "Dynasol"
+    },
+
+
     // Finalizan Etiquetas de Menú General
 
 
