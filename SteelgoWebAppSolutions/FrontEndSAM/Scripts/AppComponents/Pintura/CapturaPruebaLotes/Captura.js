@@ -73,8 +73,6 @@ function CargarGrid() {
             { field: "SistemaPintura", title: _dictionary.columnSistemaPintura[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec() },
             { field: "Color", title: _dictionary.columnColor[$("#language").data("kendoDropDownList").value()], width: "150px", filterable: getGridFilterableCellMaftec() },
             { field: "M2", title: _dictionary.columnM2[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), format: "{0:n2}", width: "95px", attributes: { style: "text-align:right;" } },
-            //{ field: "PruebasReq", title: "# Pruebas Req", filterable: getGridFilterableCellMaftec(), width: "150px"  },
-            //{ field: "PruebasEjec", title: "# Pruebas Ejec", filterable: getGridFilterableCellMaftec(), width: "150px" },
             { field: "NombreCuadrante", title: _dictionary.columnCuadrante[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec() },
             { field: "CapturaPrueba", title: _dictionary.columnSeRealizoPrueba[$("#language").data("kendoDropDownList").value()], filterable: false, template: "<div class='EnlaceDetallePrueba' style='text-align:center;'><a href='\\#'  > <span>#=CapturaPrueba#</span></a></div>", filterable: false, width: "190px" }
         ]
@@ -132,12 +130,7 @@ function CargarGridPopUp() {
 
 
 function LlenarGridPopUp() {
-    //$("#gridPopUp").data('kendoGrid').dataSource.data([]);
-    //var ds = $("#gridPopUp").data("kendoGrid").dataSource;
-    //var array = data;
-    //for (var i = 0; i < array.length; i++) {
-    //    ds.add(array[i]);
-    //}
+   
     VentanaModal();
 }
 

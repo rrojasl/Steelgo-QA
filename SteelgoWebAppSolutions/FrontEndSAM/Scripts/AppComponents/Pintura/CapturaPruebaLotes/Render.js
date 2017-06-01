@@ -1,6 +1,4 @@
 ﻿function RenderDatePicker(container, options) {
-    //container  contiene las propiedades de la celda
-    //options contiene el modelo del datasource ejemplo options.model.Junta
     var dataItem;
 
     $('<input   data-bind="value:' + options.field + '"/>')
@@ -9,7 +7,7 @@
             max: new Date(),
             change: function () {
                 var value = this.value();
-                //options.model.FechaArmado = value;
+                options.model.FechaProceso = value;
             }
         }
         );
@@ -24,9 +22,8 @@ function RenderAprobado(container, options) {
             format: "0",
             change: function () {
                 var value = this.value();
-                options.model.Aprobado = value >= 1 && value <= 5 ? "Aprobado" : "Rechazado";
+                options.model.Aprobado = value >= options.model.MetrosLoteProcesoPinturaID && value <= options.model.MetrosLoteProcesoPinturaID ? "Aprobado" : "Rechazado";
                 $("#gridPopUp").data("kendoGrid").dataSource.sync();
             }
-            //step: 0.01
         });
 }

@@ -1,33 +1,31 @@
 ﻿function SuscribirEventos() {
-    SuscribirEventoSistemaPintura();
-    SuscribirEventoProceso();
-    SuscribirEventoPrueba();
-    SuscribirEventoLote();
-    SuscribirEventoFechaLote();
-    //SuscribirEventoBuscar();
-    SuscribirEventoGuardar();
     SuscribirEventoProyecto();
-    suscribirEventoElementosAsignados();
+    SuscribirEventoProceso();
+    SuscribirEventoSistemaPintura();
+    SuscribirEventoPrueba();
+    SuscribirEventoFechaLote();
+    SuscribirEventoLote();
     suscribirEventoMostrar();
+    SuscribirEventoGuardar();
+    suscribirEventoElementosAsignados();
     SuscribirEventCerrarWindow();
 }
 
 function SuscribirEventCerrarWindow() {
     $("#GuardarDetallePopup").click(function (e) {
-      //  e.preventDefault();
+        //  e.preventDefault();
 
         $("#windowGrid").data("kendoWindow").close();
     });
 
     $("#CerrarDetallePopup").click(function (e) {
-       // e.preventDefault();
+        // e.preventDefault();
 
         $("#windowGrid").data("kendoWindow").close();
     });
 }
 
-function suscribirEventoMostrar()
-{
+function suscribirEventoMostrar() {
     $('#btnBuscar').click(function (e) {
         ajaxBuscarSpool();
     });
@@ -48,16 +46,15 @@ function SuscribirEventoProyecto() {
 function SuscribirEventoSistemaPintura() {
     $("#inputSistemaPintura").kendoComboBox({
         dataTextField: "Nombre",
-        dataValueField: "SistPintID",
+        dataValueField: "SistemaPinturaID",
         suggest: true,
         delay: 10,
         filter: "contains",
         index: 3,
         change: function (e) {
-        var dataItem = this.dataItem(e.sender.selectedIndex);
-
-        ajaxPruebas(dataItem.SistPintID, $("#inputProceso").data("kendoComboBox").dataItem($("#inputProceso").data("kendoComboBox").select()).ProcesoID)
-    }
+            var dataItem = this.dataItem(e.sender.selectedIndex);
+            ajaxPruebas(dataItem.SistPintID, $("#inputProceso").data("kendoComboBox").dataItem($("#inputProceso").data("kendoComboBox").select()).ProcesoID)
+        }
     });
 }
 
@@ -73,7 +70,7 @@ function SuscribirEventoProceso() {
             var dataItem = this.dataItem(e.sender.selectedIndex);
 
             ajaxObtenerSistemasPintura(dataItem.ProcesoID);
-            
+
         }
     });
 }
@@ -111,7 +108,7 @@ function SuscribirEventoFechaLote() {
         }
     });
 
-    
+
 
     $("#inputFechaLote").blur(function (e) {
 
@@ -171,15 +168,11 @@ function opcionHabilitarView(valor, name) {
 }
 
 function suscribirEventoElementosAsignados() {
-
     $(document).on('click', '.EnlaceDetallePrueba', function (e) {
         e.preventDefault();
-
         if ($('#Guardar').text() == _dictionary.textoGuardar[$("#language").data("kendoDropDownList").value()]) {
-
             var grid = $("#grid").data("kendoGrid"),
-            dataItem = grid.dataItem($(e.target).closest("tr"));
-            
+            dataItem = grid.dataItem($(e.target).closest("tr"))
             LlenarGridPopUp();
         }
     });
