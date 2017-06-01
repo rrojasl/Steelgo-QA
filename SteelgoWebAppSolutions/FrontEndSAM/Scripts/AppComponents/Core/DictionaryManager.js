@@ -12767,13 +12767,18 @@ _dictionary = {
         "en-US": "The head and qty fiels has mandatory"
     },
     "DynasolInspeccionMandatorio": {
-        "es-MX": "El campo Inspecction es mandatorio",
+        "es-MX": "El campo Inspeccion es mandatorio",
         "en-US": "The Inspection field has mandatory"
     },
     "DynasolColadasRegistrosRepetidos": {
         "es-MX": "El campo Colada, no pueden ser los mismos en mas de un registro",
         "en-US": "The laver field cant be equals in more than one reccord"
+    },
+    "DynasolInspeccionTitulo": {
+        "es-MX": "Inspección",
+        "en-US": "Inspection"
     }
+
 
     //Finaliza Modulo Dynasol
 

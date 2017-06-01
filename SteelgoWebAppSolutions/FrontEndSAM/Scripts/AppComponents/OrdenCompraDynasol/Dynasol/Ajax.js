@@ -221,6 +221,7 @@ function AjaxEjecutarGuardado(Captura, tipoGuardar) {
                     
                     $("#grid").data('kendoGrid').dataSource.data([]);
                     AjaxObtenerOrdenesCompra();
+                    opcionHabilitarView(false, "FieldSetView");
                     loadingStop();
                     
                 }

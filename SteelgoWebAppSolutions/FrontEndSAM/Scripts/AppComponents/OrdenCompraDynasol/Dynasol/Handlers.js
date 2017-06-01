@@ -520,12 +520,7 @@ function suscribirEventoGuardar() {
         $('.accionGuardarNuevo').click(function (e) {
             var ds = $("#grid").data("kendoGrid").dataSource;
             if (ds._data.length > 0) {
-                if ($('#Guardar').text() == "Guardar" || $('#Guardar').text() == "Save") {
                     AjaxGuardarCaptura(ds._data, 1);
-                }
-                else if ($('#Guardar').text() == "Editar" || $('#Guardar').text() == "Edit") {
-                    opcionHabilitarView(false)
-                }
             }
 
         });
