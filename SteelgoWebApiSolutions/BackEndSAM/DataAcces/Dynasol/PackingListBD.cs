@@ -59,6 +59,7 @@ namespace BackEndSAM.DataAcces.Dynasol
                             CantS = item.CantidadS.GetValueOrDefault(),
                             ColadaID = item.ColadaID,
                             Colada = item.Colada,
+                            Agregar = item.Agregar == 1 ? true : false,
                             RowOk = true
                         });
                     }
