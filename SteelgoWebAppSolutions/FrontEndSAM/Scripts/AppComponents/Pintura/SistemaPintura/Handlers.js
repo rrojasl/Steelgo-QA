@@ -569,8 +569,14 @@ function SuscribirEventoEliminarSistemaPintura() {
         $("#yesButtonEliminar").click(function () {
             
             if ($("#comboProyecto").data("kendoComboBox").select() > 0) {
-                
-                AjaxEliminaSistemaPintura(SistemaPinturaID, $("#comboProyecto").data("kendoComboBox").dataItem($("#comboProyecto").data("kendoComboBox").select()).ProyectoID);
+                if ($("#grid").data("kendoGrid").dataSource._data.length > 0) {
+                    if (!$("#grid").data("kendoGrid").dataSource._data[0].AsignadoSpool) {
+                        AjaxEliminaSistemaPintura(SistemaPinturaID, $("#comboProyecto").data("kendoComboBox").dataItem($("#comboProyecto").data("kendoComboBox").select()).ProyectoID);
+                    }
+                    else {
+                        displayNotify("SistemaPinturaErrorEliminado", "", '2');
+                    }
+                }
                 ventanaConfirmEliminarSP.close();
             }
             else

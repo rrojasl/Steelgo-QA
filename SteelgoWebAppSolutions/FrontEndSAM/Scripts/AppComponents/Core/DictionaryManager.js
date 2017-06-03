@@ -11049,6 +11049,10 @@ _dictionary = {
         "es-MX": "Los sistemas de pintura pintables requieren al menos un proceso",
         "en-US": "Paintable paint systems require at least one process"
     },
+    "SistemaPinturaMensajeErrorNoPuedeSerPintable": {
+        "es-MX": "El Sistema de pintura ya se encuentr asignado por lo tanto no puede ser No Pintable",
+        "en-US": "The Paint System is already assigned so it can not be Non-Paintable"
+    },
     "MensajeEliminarColoresSistemaNoPintable": {
         "es-MX": "Se eliminaran los datos de colores, ¿desea continuar?",
         "en-US": "color data is deleted, continue?"

@@ -43,20 +43,6 @@ function SuscribirEventoProyecto() {
 
 }
 
-function SuscribirEventoSistemaPintura() {
-    $("#inputSistemaPintura").kendoComboBox({
-        dataTextField: "Nombre",
-        dataValueField: "SistemaPinturaID",
-        suggest: true,
-        delay: 10,
-        filter: "contains",
-        index: 3,
-        change: function (e) {
-            var dataItem = this.dataItem(e.sender.selectedIndex);
-            ajaxPruebas(dataItem.SistPintID, $("#inputProceso").data("kendoComboBox").dataItem($("#inputProceso").data("kendoComboBox").select()).ProcesoID)
-        }
-    });
-}
 
 function SuscribirEventoProceso() {
 
@@ -74,6 +60,22 @@ function SuscribirEventoProceso() {
         }
     });
 }
+
+function SuscribirEventoSistemaPintura() {
+    $("#inputSistemaPintura").kendoComboBox({
+        dataTextField: "Nombre",
+        dataValueField: "SistemaPinturaID",
+        suggest: true,
+        delay: 10,
+        filter: "contains",
+        index: 3,
+        change: function (e) {
+            var dataItem = this.dataItem(e.sender.selectedIndex);
+            ajaxPruebas(dataItem.SistPintID, $("#inputProceso").data("kendoComboBox").dataItem($("#inputProceso").data("kendoComboBox").select()).ProcesoID)
+        }
+    });
+}
+
 
 function SuscribirEventoPrueba() {
 

@@ -267,7 +267,9 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
         ListasCaptura[0].ListaSPProyectoProceso = ListaDetalles;
         Captura[0].Detalles = ListasCaptura;
 
-        if (NoPintable == 0 && ListaDetalles.length == 0)
+        if (asignadoSpool && NoPintable == 1)
+            displayNotify("SistemaPinturaMensajeErrorNoPuedeSerPintable", "", '1');
+        else if (NoPintable == 0 && ListaDetalles.length == 0)
             displayNotify("SistemaPinturaMensajeErrorRequiereProceso", "", '1');
         else
             if (!ExistRowErrors(arregloCaptura)) {
