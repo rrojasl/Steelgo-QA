@@ -33,29 +33,19 @@ namespace BackEndSAM.Models.Dynasol
             public bool Agregar { get; set; }
             public bool RowOk { get; set; }
         }
-        public class CapturaDetallePL
+        public class Captura
         {
             public List<CapturaPL> Detalles { get; set; }
         }
         public class CapturaPL
         {
             public int Accion { get; set; }
-            public int DetallePackingList { get; set; }
+            public int DetallePackingListID { get; set; }
             public int OrdenCompraID { get; set; }
             public int PackingListID { get; set; }
             public int ColadaID { get; set; }
-            public float Cant { get; set; }
-            public bool RowOk { get; set; }
-            public CapturaPL()
-            {
-                Accion = 0;
-                DetallePackingList = 0;
-                OrdenCompraID = 0;
-                PackingListID = 0;
-                ColadaID = 0;
-                Cant = 0;
-                RowOk = true;
-            }
+            public float Cant { get; set; }         
+         
         }
     }
 }

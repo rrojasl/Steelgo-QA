@@ -41,7 +41,7 @@ namespace BackEndSAM.Controllers.Dynasol
         }
 
         [HttpPost]
-        public object GuardarDetallePackingList(CapturaDetallePL ListaCaptura, int OrdenCompraID, string NombrePL, string token, string Lenguaje)
+        public object GuardarDetallePackingList(Captura ListaCaptura, int OrdenCompraID, string NombrePL, string token, string Lenguaje)
         {
             string payLoad = "";
             string newToken = "";
