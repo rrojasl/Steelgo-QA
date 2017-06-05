@@ -12,6 +12,8 @@ namespace BackEndSAM.Models.Dynasol
             public int Accion { get; set; }
             public int RevisionID { get; set; }
             public int OrdenCompraID { get; set; }
+            public int DetallePackingListID { get; set; }
+            public int PackingListID { get; set; }
             public string Rev { get; set; }
             public string Descripcion { get; set; }
             public string MaterialNorma { get; set; }
@@ -20,16 +22,16 @@ namespace BackEndSAM.Models.Dynasol
             public string Schedule { get; set; }
             public string Rating { get; set; }
             public string PreparacionExtremos { get; set; }
-            public int Cant { get; set; }
+            public float Cant { get; set; }
             public decimal PrecioUnidad { get; set; }
             public decimal Total { get; set; }
             public string Partida { get; set; }
-            public int CantC { get; set; }
-            public int CantG { get; set; }
-            public int CantS { get; set; }
+            public float CantC { get; set; }
+            public float CantG { get; set; }
+            public float CantS { get; set; }
             public int ColadaID { get; set; }
             public string Colada { get; set; } 
-            public int CantPL { get; set; }   
+            public float CantPL { get; set; }   
             public bool Agregar { get; set; }
             public bool RowOk { get; set; }
         }
