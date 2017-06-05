@@ -76,6 +76,7 @@
         public static string GUARDAACTUALIZACIONLOTE = "Sam3_Pintura_ActualizaLotesCarro";
         public static string OBTIENEDETALLEAVANCECUADRANTE = "Sam3_Pintura_AvanceCuadrante_Get_Detalle";
         public static string SAM3_DYNASOL_GUARDARCAPTURA = "Sam3_Dynasol_GuardarCaptura";
+        public static string SAM3_DYNASIL_GUARDARDETALLEPACKINGLIST = "Sam3_Dynasol_SET_DetallePackingList";
         public static string GUARDACAPTURAAVANCECUADRANTE = "Sam3_Pintura_AvanceCuadrante_Guarda";
     }
 }

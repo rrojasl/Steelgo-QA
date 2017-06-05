@@ -1,7 +1,9 @@
-﻿using DatabaseManager.Sam3;
+﻿using DatabaseManager.Constantes;
+using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using static BackEndSAM.Models.Dynasol.PackingList;
@@ -65,6 +67,34 @@ namespace BackEndSAM.DataAcces.Dynasol
                         });
                     }
                     return listaRevision;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+                return result;
+            }
+        }
+
+        public object GuardarDetallePackingList(DataTable Dynasol_DetallePL, int OrdenCompraID, string NombrePL, string Lenguaje, Sam3_Usuario Usuario)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    ObjetosSQL _SQL = new ObjetosSQL();
+                    string[,] parametros = { { "@OrdenCompraID", OrdenCompraID.ToString() }, { "@NombrePL", NombrePL }, { "@Lenguaje", Lenguaje }, { "@Usuario", Usuario.UsuarioID.ToString() } };
+                    _SQL.Ejecuta(Stords.SAM3_DYNASIL_GUARDARDETALLEPACKINGLIST, Dynasol_DetallePL, "@Dynasol_DetallePL", parametros);
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add("OK");
+                    result.ReturnCode = 200;
+                    result.ReturnStatus = true;
+                    result.IsAuthenicated = true;
+                    return result;
                 }
             }
             catch (Exception ex)
