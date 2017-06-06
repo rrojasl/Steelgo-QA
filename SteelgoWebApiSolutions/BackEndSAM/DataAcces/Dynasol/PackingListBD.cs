@@ -45,7 +45,7 @@ namespace BackEndSAM.DataAcces.Dynasol
                             RevisionID = item.RevisionID,
                             OrdenCompraID = item.OrdenCompraID.GetValueOrDefault(),
                             DetallePackingListID = item.DetallePackingListID,
-                            PackingListID = item.PackingListID,                            
+                            PackingListID = item.PackingListID,
                             Rev = item.Revision,
                             Descripcion = item.Descripcion,
                             MaterialNorma = item.MaterialNorma,
@@ -64,6 +64,8 @@ namespace BackEndSAM.DataAcces.Dynasol
                             ColadaID = item.ColadaID,
                             Colada = item.Colada,
                             CantPL = (float)item.CantidadPackingList.GetValueOrDefault(),
+                            CantDisponible = (float)item.CantDisponible.GetValueOrDefault(),
+                            ListadoPacking = item.ListadoPacking,
                             Agregar = item.Agregar == 1 ? true : false,
                             RowOk = true
                         });

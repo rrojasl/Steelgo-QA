@@ -32,6 +32,8 @@ namespace BackEndSAM.Models.Dynasol
             public int ColadaID { get; set; }
             public string Colada { get; set; } 
             public float CantPL { get; set; }   
+            public float CantDisponible { get; set; }
+            public string ListadoPacking { get; set; }
             public bool Agregar { get; set; }
             public bool RowOk { get; set; }
         }
