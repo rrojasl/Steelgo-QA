@@ -1,4 +1,5 @@
 ﻿var modeloRenglon;
+var esNormal;
 
 function changeLanguageCall() {
     CargarGrid();
@@ -9,6 +10,7 @@ function changeLanguageCall() {
 
 function inicio() {
     SuscribirEventos();
+    AjaxObtenerOrdenesCompra();
 }
 
 
@@ -27,15 +29,18 @@ function CargarGrid() {
                         Diametro1: { type: "string", editable: false },
                         Diametro2: { type: "string", editable: false },
                         Registro: { type: "string", editable: false },
+                        Schedule: { type: "string", editable: false },
                         Rating: { type: "string", editable: false },
                         PreparacionExtremos: { type: "string", editable: false },
                         Neodata: { type: "string", editable: false },
                         Cant: { type: "string", editable: false },
+                        CantS: { type: "string", editable: false },
+                        CantPL: { type: "string", editable: true },
                         PrecioUnidad: { type: "string", editable: false },
                         Total: { type: "string", editable: false },
                         PackingList: { type: "string", editable: true },
-                        Partida: { type: "string", editable: true },
-                        Coladas: { type: "string", editable: false },
+                        Partida: { type: "string", editable: false },
+                        Colada: { type: "string", editable: false },    
                         Agregar: { type: "boolean", editable: false }
 
                     }
@@ -46,19 +51,28 @@ function CargarGrid() {
                 filters: [
                   { field: "Accion", operator: "eq", value: 1 },
                   { field: "Accion", operator: "eq", value: 2 },
-                  { field: "Accion", operator: "eq", value: 4 }
+                  { field: "Accion", operator: "eq", value: 3 },
+                    { field: "Accion", operator: "eq", value: 0 },
+                    { field: "Accion", operator: "eq", value: undefined }
                 ]
             },
+            pageSize: 10,
+            serverPaging: false,
+            serverFiltering: false,
+            serverSorting: false,
         },
         edit: function (e) {
-            setTimeout(function () {
-                var inputName = e.container.find('input');
-
-                inputName.select();
-            });
+            
             if ($('#Guardar').text() == _dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]) {
                 this.closeCell();
             };
+
+            if ($(".k-grid-content td").css("white-space") == "normal") {
+                esNormal = true;
+            }
+            else {
+                esNormal = false;
+            }
         },
         selectable: true,
         pageable: {
@@ -70,27 +84,29 @@ function CargarGrid() {
         },
         filterable: getGridFilterableMaftec(),
         columns: [
-            { field: "Rev", title: "Rev", filterable: getGridFilterableCellMaftec(), width: "50px" },
-            { field: "Descripcion", title: "Descripción", filterable: getGridFilterableCellMaftec(), width: "120px" },
-            { field: "MaterialNorma", title: "Material/ Norma", filterable: getGridFilterableCellMaftec(), width: "100px" },
-            { field: "Diametro1", title: "D1", filterable: getGridFilterableCellMaftec(), width: "40px" },
-            { field: "Diametro2", title: "D2", filterable: getGridFilterableCellMaftec(), width: "40px" },
-            { field: "Registro", title: "Schedule", filterable: getGridFilterableCellMaftec(), width: "90px" },
-            { field: "Rating", title: "Rating", filterable: getGridFilterableCellMaftec(), width: "80px" },
-            { field: "PreparacionExtremos", title: "Prep. ext.", filterable: getGridFilterableCellMaftec(), width: "70px" },
-            //{ field: "Neodata", title: "Neodata", filterable: getGridFilterableCellMaftec(), width: "90px" },
-            { field: "Cant", title: "Cant", filterable: getGridFilterableCellMaftec(), width: "60px" },
-            { field: "PrecioUnidad", title: "Precio U.", filterable: getGridFilterableCellMaftec(), width: "80px" },
-            { field: "Total", title: "Total", filterable: getGridFilterableCellMaftec(), width: "70px" },
+            { field: "Rev", title: _dictionary.columnRev[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "100px" },
+            { field: "Descripcion", title: _dictionary.columnDescripcion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "160px" },
+            { field: "MaterialNorma", title: _dictionary.columnMaterialNorma[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "100px" },
+            { field: "Diametro1", title: _dictionary.columnD1[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "40px" },
+            { field: "Diametro2", title: _dictionary.columnD2[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "40px" },
+            { field: "Schedule", title: _dictionary.columnSchedule[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "90px" },
+            { field: "Rating", title: _dictionary.columnRating[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "80px" },
+            { field: "PreparacionExtremos", title: _dictionary.columnPrepExt[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "70px" },
+            { field: "Partida", title: _dictionary.columnPartida[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "100px" },
+            { field: "Colada", title: _dictionary.columnColada[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "90px", template: "<div class='EnlaceDetalleColada' style='text-align:center;'><a href='\\#'  > <span>#=Colada#</span></a></div> " },
+            { field: "Cant", title: _dictionary.columnCant[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "60px" },
+            { field: "CantC", title: _dictionary.columnCantS[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "70px" },
+            { field: "CantPL", title: _dictionary.columnCantPL[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "70px", editor: RenderCantPL, attributes: { style: "text-align:right;" } },
+            
             //{ field: "PackingList", title: "Packing List", filterable: getGridFilterableCellMaftec(), width: "100px" },
-            { field: "Partida", title: "Partida", filterable: getGridFilterableCellMaftec(), width: "100px" },
+            
             {
                 field: "Agregar", title: _dictionary.columnAgregar[$("#language").data("kendoDropDownList").value()], filterable: {
                     multi: true,
                     messages: {
                         isTrue: _dictionary.lblVerdadero[$("#language").data("kendoDropDownList").value()],
                         isFalse: _dictionary.lblFalso[$("#language").data("kendoDropDownList").value()],
-                        style: "max-width:100px;"
+                        style: "max-width:50px;"
                     },
 
                 }, template: "<input name='fullyPaid' class='ob-paid' type='checkbox' data-bind='checked: Agregar' #= Agregar ? checked='checked' : '' # />", width: "112px", attributes: { style: "text-align:center;" }
@@ -102,14 +118,46 @@ function CargarGrid() {
         editable: true,
         navigatable: true,
         dataBound: function (a) {
+            var grid = $("#grid").data("kendoGrid");
+            var gridData = grid.dataSource.view();
+
+            for (var i = 0; i < gridData.length; i++) {
+                var currentUid = gridData[i].uid;
+                if (gridData[i].RowOk == false) {
+                    grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("k-alt");
+                    grid.table.find("tr[data-uid='" + currentUid + "']").addClass("kRowError");
+                }
+                else if (gridData[i].RowOk) {
+                    if (i % 2 == 0)
+                        grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("k-alt");
+
+                    grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("kRowError");
+                }
+            }
+
+            if (esNormal)
+                $(".k-grid-content td").css("white-space", "normal");
+            else
+                $(".k-grid-content td").css("white-space", "nowrap");
+
+
+
             $(".ob-paid").bind("change", function (e) {
                 if ($('#botonGuardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
-                    var grid = $("#grid").data("kendoGrid"),
+                     grid = $("#grid").data("kendoGrid"),
                         dataItem = grid.dataItem($(e.target).closest("tr"));
-                    if (e.target.checked == true)
-                        dataItem.Agregar = true;
-                    else
-                        dataItem.Agregar = false;
+                     if (e.target.checked == true) {
+                         if (dataItem.Accion == 3) {
+                             dataItem.Accion = 2;
+                         }
+                         dataItem.Agregar = true;
+                     }
+                     else {
+                         if (dataItem.Accion == 2) {
+                             dataItem.Accion = 3;
+                         }
+                         dataItem.Agregar = false;
+                     }
                 }
                 else {
                     if (e.target.checked) {

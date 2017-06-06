@@ -1,6 +1,7 @@
 ﻿
+
 @{
-    ViewBag.Title = "Packing List";
+    ViewBag.Title = "Camion";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -13,7 +14,7 @@
         <a><span id="menuDynasol"></span></a>
     </li>
     <li class="active">
-        <a href="@Url.Action("Dynasol", "Dynasol")"><span id="">Packing List</span></a>
+        <a href="@Url.Action("Camion", "Dynasol")"><span id="">Packing List</span></a>
     </li>
 }
 <div id="FormCapturaReportePruebas" class="form clearfix col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -60,7 +61,7 @@
             <input id="inputOrdenCompra" class="" />
         </div>
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 altoControl">
-            <label id="LlegadaMaterial0020"></label>
+            <label id="DynasolLabelCamion"></label>
             <input id="InputPackingList" class="item-select general-input" />
         </div>
         <div class="col-xs-12 col-sm-6 col-md-1 col-lg-1">
@@ -121,10 +122,10 @@
 
 
 
-<script type="text/javascript" src="~/Scripts/AppComponents/OrdenCompraDynasol/PackingList/Ajax.js"></script>
-<script type="text/javascript" src="~/Scripts/AppComponents/OrdenCompraDynasol/PackingList/Handlers.js"></script>
-<script type="text/javascript" src="~/Scripts/AppComponents/OrdenCompraDynasol/PackingList/Render.js"></script>
-<script type="text/javascript" src="~/Scripts/AppComponents/OrdenCompraDynasol/PackingList/Captura.js"> </script>
+<script type="text/javascript" src="~/Scripts/AppComponents/OrdenCompraDynasol/Camion/Ajax.js"></script>
+<script type="text/javascript" src="~/Scripts/AppComponents/OrdenCompraDynasol/Camion/Handlers.js"></script>
+<script type="text/javascript" src="~/Scripts/AppComponents/OrdenCompraDynasol/Camion/Render.js"></script>
+<script type="text/javascript" src="~/Scripts/AppComponents/OrdenCompraDynasol/Camion/Captura.js"> </script>
 @*<script type="text/javascript" src="~/Scripts/AppComponents/Dynasol/Seguridad.js"></script>*@
 
 

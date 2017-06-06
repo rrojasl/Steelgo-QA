@@ -17,5 +17,10 @@ namespace FrontEndSAM.Controllers.Dynasol
         {
             return View();
         }
+        public ActionResult Camion()
+        {
+            return View();
+        }
+
     }
 }

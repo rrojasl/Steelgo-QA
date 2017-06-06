@@ -8392,6 +8392,10 @@ _dictionary = {
         "es-MX": "Dynasol",
         "en-US": "Dynasol"
     },
+    "menuDynasolPackingList": {
+        "es-MX": "Packing List",
+        "en-US": "Packing List"
+    },
     // Finalizan Etiquetas de Menú General
 
 
@@ -12674,8 +12678,8 @@ _dictionary = {
         "en-US": "Purchase Order"
     },
     "columnRev": {
-        "es-MX": "Rev",
-        "en-US": "Rev"
+        "es-MX": "ItemCode",
+        "en-US": "ItemCode"
     },
     "columnDescripcion": {
         "es-MX": "Descripción",
@@ -12722,8 +12726,8 @@ _dictionary = {
         "en-US": "Batch"
     },
     "columnColada": {
-        "es-MX": "Partida",
-        "en-US": "Batch"
+        "es-MX": "Colada",
+        "en-US": "Heat"
     },
     "columnInsp": {
         "es-MX": "Insp",
@@ -12781,8 +12785,28 @@ _dictionary = {
     "DynasolInspeccionTitulo": {
         "es-MX": "Inspección",
         "en-US": "Inspection"
-    }
-
+    },
+      "columnCantS": {
+        "es-MX": "Cant C",
+        "en-US": "Qty C"
+    },
+    "columnCantPL": {
+        "es-MX": "Cant PL",
+        "en-US": "Qty PL"
+    },
+    "DynasolOrdenPedidoPackingMandatorio": {
+        "es-MX": "Los campos Packing List y Orden compra, son mandatorios",
+        "en-US": "The Packing List and Purchase Order fiels has mandatory"
+    },
+    "DynasolOrdenPedidoPackingListCantidad": {
+        "es-MX": "La colada se encuentra en los siguientes Packing List: \n",
+        "en-US": "The heat is in the next Packing List: \n"
+    },
+    "DynasolLabelCamion": {
+        "es-MX": "Camión",
+        "en-US": "Truck"
+    },
+    
 
     //Finaliza Modulo Dynasol
 

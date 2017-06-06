@@ -242,6 +242,7 @@ var $Ciclos = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 //Dynasol 
 
 var $Dynasol = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $PackingList = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 
 //#region Declaracion
 //#region Catalogos
@@ -451,6 +452,6 @@ $FechasSpool.add("FechasSpool");
 // Dynasol
 
 $Dynasol.add("Dynasol");
-$Dynasol.add("PackingList");
+$PackingList.add("PackingList");
 
 //#endregion
