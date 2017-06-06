@@ -147,8 +147,14 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
         ListaProyectos = [];
 
         var ds = $("#grid").data("kendoGrid").dataSource;
-        if (ds._data.length > 0)
-            asignadoSpool = ds._data[0].AsignadoSpool;
+        if (ds._data.length > 0) {
+            for (var i = 0; i < ds._data.length; i++) {
+                if (ds._data[i].AsignadoSpool) {
+                    asignadoSpool = true;
+                    break;
+                }
+            } 
+        }
 
         NoPintable = ($("#inputNoAplicable").is(':checked')) ? 1 : 0;
         var necesitaColor = false;
@@ -186,7 +192,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
 
                 ListaProyectos[0] = { ProyectoID: "", Accion: "" };
                 ListaProyectos[0].ProyectoID = ProyectoID;
-                ListaProyectos[0].Accion = 1;
+                ListaProyectos[0].Accion = asignadoSpool ? 2 : 1;
             }
             else {
                 displayNotify("SistemaPinturaMensajeErrorProyecto", "", '1');
@@ -202,7 +208,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                 for (var i = 0; i < $("#inputProyecto").data("kendoMultiSelect")._values.length; i++) {
                     ListaProyectos[i] = { ProyectoID: "", Accion: "" };
                     ListaProyectos[i].ProyectoID = $("#inputProyecto").data("kendoMultiSelect")._values[i];
-                    ListaProyectos[i].Accion = 1;
+                    ListaProyectos[i].Accion = asignadoSpool ? 2 : 1;
                 }
             }
         }
@@ -218,7 +224,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                 if (arregloCaptura[index].Agregar) {
                     ListaDetalles[i] = { Accion: "", ProcesoPinturaID: "", MetrosLote: "", NumeroPruebas: "", ProyectoID: "", ListadoPruebas: [], Estatus: 1, NumeroComponentes: "", ReductorID: "", ListaDetalleComponentesAgregados: [] };
 
-                    ListaDetalles[i].Accion = 1;
+                    ListaDetalles[i].Accion = arregloCaptura[index].AsignadoSpool ? 2:1;
                     ListaDetalles[i].ProcesoPinturaID = arregloCaptura[index].ProcesoPinturaID;
                     ListaDetalles[i].MetrosLote = arregloCaptura[index].MetrosLote;
                     ListaDetalles[i].NumeroPruebas = arregloCaptura[index].NumeroPruebas;
@@ -243,7 +249,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
 
                     for (var j = 0; j < arregloCaptura[index].listadoPruebasDetalle.length; j++) {
                         ListaDetalles[i].ListadoPruebas[j] = { Accion: "", UnidadMedidaID: "", UnidadMinima: "", UnidadMaxima: "", ProyectoID: "", ProcesoPinturaID: "", PruebaProcesoPinturaID: "" };
-                        ListaDetalles[i].ListadoPruebas[j].Accion = 1;
+                        ListaDetalles[i].ListadoPruebas[j].Accion = arregloCaptura[index].listadoPruebasDetalle[j].Accion;
                         ListaDetalles[i].ListadoPruebas[j].ProcesoPinturaID = ListaDetalles[i].ProcesoPinturaID;
                         ListaDetalles[i].ListadoPruebas[j].ProyectoID = ListaProyectos[k].ProyectoID;
                         ListaDetalles[i].ListadoPruebas[j].UnidadMedidaID = arregloCaptura[index].listadoPruebasDetalle[j].UnidadMedidaID;
