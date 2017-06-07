@@ -5,7 +5,7 @@ var windowNewCarriage;
 var filaSeleccionada;
 var CuadranteSpoolAnterior;
 var proyectoActualSeleccionado;
-var carroActualSeleccionado
+var carroActualSeleccionado;
 
 function InsertarNuevoElemento()
 {

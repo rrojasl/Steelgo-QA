@@ -152,8 +152,8 @@ function suscribirEventoWindowsConfirmaCapturaSinCambiarTipoBusqueda() {
     $("#yesButtonProySinTipoBusqueda").click(function (e) {
 
         proyectoActualSeleccionado = $("#inputProyecto").data("kendoComboBox").dataItem($("#inputProyecto").data("kendoComboBox").select());
-        carroActualSeleccionado = $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select());
         LimpiarInformacionAgregada();
+       
         AjaxObtenerDetalleCargaCarro($("#inputCarro").data("kendoComboBox").select() == -1 ? 0 : $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()).MedioTransporteID, $('input:radio[name=TipoVista]:checked').val(), '');
         ventanaConfirmEdicionSinTipoBusqueda.close();
         editado = false;
@@ -162,7 +162,8 @@ function suscribirEventoWindowsConfirmaCapturaSinCambiarTipoBusqueda() {
     });
     $("#noButtonProySinTipoBusqueda").click(function (e) {
         $("#inputProyecto").data("kendoComboBox").value(proyectoActualSeleccionado.ProyectoID);
-        $("#inputCarro").data("kendoComboBox").value(carroActualSeleccionado.MedioTransporteID)
+        $("#inputCarro").data("kendoComboBox").value(carroActualSeleccionado.MedioTransporteID);
+        $("#chkCerrar")[0].checked = carroActualSeleccionado.CarroCerrado;
         ventanaConfirmEdicionSinTipoBusqueda.close();
     });
 }
@@ -243,8 +244,10 @@ function suscribirEventoMostrar() {
 function SuscribirEventoCerrarNuevoMedioTransporte() {
     $('#btnCerrarVentanaCrearMedioTransporte').click(function (e) {
         windowNewCarriage.close();
-        if (carroActualSeleccionado != null)
+        if (carroActualSeleccionado != null) {
+            $("#chkCerrar")[0].checked = carroActualSeleccionado.CarroCerrado;
             $("#inputCarro").data("kendoComboBox").value(carroActualSeleccionado.MedioTransporteID)
+        }
     });
 };
 
@@ -387,7 +390,7 @@ function SuscribirEventoCarro() {
                 } else {
                     InformacionMostrada = true;
                     if (!editado) {
-                        carroActualSeleccionado = dataItemCarro;
+                      
                         AjaxObtenerDetalleCargaCarro(dataItemCarro.MedioTransporteID, $('input:radio[name=TipoVista]:checked').val(), '');
                     }
                     else {

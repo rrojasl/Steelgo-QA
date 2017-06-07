@@ -170,6 +170,7 @@ function AjaxCargarOrdenTrabajo() {
 function AjaxCargarLayoutGrid(sistemaPinturaProyectoId, procesoID, CargaCarroID) {
     loadingStart();
     $CapturaAvance.CapturaAvance.read({ token: Cookies.get("token"), sistemaPinturaProyectoId: sistemaPinturaProyectoId, procesoID: procesoID, lenguaje: $("#language").val() }).done(function (data) {
+        CarroAnterior = $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select());
         if (data.length > 0) {
             ComponentesDinamicos = data[0];
             ReductorDinamico = data[1];
@@ -258,7 +259,7 @@ function AjaxCargarLayoutGrid(sistemaPinturaProyectoId, procesoID, CargaCarroID)
 
 
             options.columns.push({ command: { text: _dictionary.botonDescarga[$("#language").data("kendoDropDownList").value()], click: VentanaModalDescargarSpool }, title: _dictionary.columnDescargar[$("#language").data("kendoDropDownList").value()], width: "60px", attributes: { style: "text-align:center;" } });
-            options.columns.push({ command: { text: _dictionary.botonLimpiar[$("#language").data("kendoDropDownList").value()], click: limpiarFila }, title: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()], width: "50px" });
+            options.columns.push({ command: { text: _dictionary.botonLimpiar[$("#language").data("kendoDropDownList").value()], click: limpiarFila }, title: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()], width: "50px", attributes: { style: "text-align:center;" } });
 
 
             grid.destroy();
@@ -335,14 +336,14 @@ function AjaxAgregarSpool(ordenTrabajoSpoolID) {
             displayNotify("", _dictionary.SpoolAgregado[$("#language").data("kendoDropDownList").value()] +
                elementosModificados + _dictionary.CapturaArmadoMsgNuevoEnReporte[$("#language").data("kendoDropDownList").value()], '0');
             editado = true;
-            $("#inputCodigo").val("");
         }
 
         if (elementosNoModificados != "") {
             displayNotify("", _dictionary.SpoolAgregado[$("#language").data("kendoDropDownList").value()] +
                 elementosNoModificados + _dictionary.CapturaArmadoMsgExisteReporte[$("#language").data("kendoDropDownList").value()], '1');
         }
-
+       
+        $("#InputID").data("kendoComboBox").value("");
         loadingStop();
     });
 }
@@ -375,12 +376,14 @@ function AjaxGuardarAvanceCarro(arregloCaptura, guardarYNuevo) {
         ListaDetalles[index].Reductor =ReductorDinamico.length>0? ReductorDinamico[0].NombreReductor:"";
         ListaDetalles[index].ReductorLote = ReductorDinamico.length>0 ? arregloCaptura[index][ReductorDinamico[0].NombreReductor]:"";
 
-        if (ListaDetalles[index].FechaProceso == "") {
+        
+
+        if (ListaDetalles[index].FechaProceso == "" && (arregloCaptura[index].Accion == 1 || arregloCaptura[index].Accion == 2)) {
             ListaDetalles[index].Estatus = 0;
             $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
         }
         if (ReductorDinamico.length > 0) {
-            if (ListaDetalles[index].ReductorLote == "" || ListaDetalles[index].ReductorLote == undefined || ListaDetalles[index].ReductorLote == null) {
+            if ((ListaDetalles[index].ReductorLote == "" || ListaDetalles[index].ReductorLote == undefined || ListaDetalles[index].ReductorLote == null) && (arregloCaptura[index].Accion == 1 || arregloCaptura[index].Accion == 2)) {
                 $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
                 ListaDetalles[index].Estatus = 0;
             }
@@ -403,6 +406,7 @@ function AjaxGuardarAvanceCarro(arregloCaptura, guardarYNuevo) {
         for (var k = 0 ; k < arregloCaptura[index].ListaObrerosGuargados.length; k++) {
             for (var j = 0 ; j < arregloCaptura[index].ListaObrerosSeleccionados.length; j++) {
                 if (arregloCaptura[index].ListaObrerosGuargados[k].ObreroID == arregloCaptura[index].ListaObrerosSeleccionados[j].ObreroID && arregloCaptura[index].ListaObrerosGuargados[k].SpoolID == arregloCaptura[index].ListaObrerosSeleccionados[k].SpoolID && arregloCaptura[index].ListaObrerosGuargados[k].ProcesoPinturaID == arregloCaptura[index].ListaObrerosSeleccionados[k].ProcesoPinturaID) {
+                    ListaDetallesObrerosSeleccionados[j].Accion = 0;//si existe en ambas listas guardadas y seleccionadas , no se hace nada.no tiene caso de insercion o actualizacion o borrado.
                     existeObrero = true;
                 }
             }
@@ -415,13 +419,14 @@ function AjaxGuardarAvanceCarro(arregloCaptura, guardarYNuevo) {
                 elementoEliminado++;
             }
             else {
+                
                 existeObrero = false;
             }
         }
 
         ListaDetalles[index].ListaObrerosSeleccionados = ListaDetallesObrerosSeleccionados;
 
-        if (ListaDetallesObrerosSeleccionados.length == 0) {
+        if (ListaDetallesObrerosSeleccionados.length == 0 && (arregloCaptura[index].Accion == 1 || arregloCaptura[index].Accion == 2)) {
             $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
             ListaDetalles[index].Estatus = 0;
         }
@@ -432,15 +437,34 @@ function AjaxGuardarAvanceCarro(arregloCaptura, guardarYNuevo) {
             ListaDetalleComponentesDinamicos[k].Accion = arregloCaptura[index].Accion;
             ListaDetalleComponentesDinamicos[k].SpoolID = arregloCaptura[index].SpoolID;
             ListaDetalleComponentesDinamicos[k].Componente = ComponentesDinamicos[k].NombreComponente; //arregloCaptura[index][ComponentesDinamicos[k]]
-            ListaDetalleComponentesDinamicos[k].Lote = arregloCaptura[index][ComponentesDinamicos[k].NombreComponente];
+            ListaDetalleComponentesDinamicos[k].Lote = arregloCaptura[index][ComponentesDinamicos[k].NombreComponente];//lote seleccionado por cada componente dinamico creado.
             ListaDetalleComponentesDinamicos[k].ProcesoPinturaID = $('input:radio[name=ProcesoPintura]:checked').val();
 
-            if (ListaDetalleComponentesDinamicos[k].Lote == "" || ListaDetalleComponentesDinamicos[k].Lote == undefined || ListaDetalleComponentesDinamicos[k].Lote == null) {
+            if ((ListaDetalleComponentesDinamicos[k].Lote == "" || ListaDetalleComponentesDinamicos[k].Lote == undefined || ListaDetalleComponentesDinamicos[k].Lote == null) && (arregloCaptura[index].Accion == 1 || arregloCaptura[index].Accion == 2)) {
                 $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
                 ListaDetalles[index].Estatus = 0;
             }
         }
         ListaDetalles[index].ListaComponentesDinamicos = ListaDetalleComponentesDinamicos;
+
+        //valido si el registro se limpio pero algun elemento editable esta completo entonces manda una advertencia.
+        var ListaDetalleComponentesDinamicosGuardados = [];
+        for (var k = 0; k < ComponentesDinamicos.length; k++) {
+            ListaDetalleComponentesDinamicosGuardados[k] = { Lote: "" };
+            ListaDetalleComponentesDinamicosGuardados[k].Lote = arregloCaptura[index][ComponentesDinamicos[k].NombreComponente];//lote seleccionado por cada componente dinamico creado.
+            if ((ListaDetalles[index].ReductorLote !="" || ListaDetalles[index].FechaProceso != "" || arregloCaptura[index].ListaObrerosSeleccionados.length > 0 || ListaDetalleComponentesDinamicosGuardados[k].Lote != "") && (arregloCaptura[index].Accion == 4)) {//si algun campo es capturado
+                if (!(ListaDetalles[index].ReductorLote != "" && ListaDetalles[index].FechaProceso != "" && arregloCaptura[index].ListaObrerosSeleccionados.length > 0 && ListaDetalleComponentesDinamicosGuardados[k].Lote != ""))//se valida los campos obligatorios.
+                {
+                    $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
+                    ListaDetalles[index].Estatus = 0;
+                }
+            }
+        }
+
+        //hago una validacion si tiene status 4 pero esta todo capturado entonces se cambia de status 2
+        if (arregloCaptura[index].Accion == 4 && ListaDetalles[index].Estatus == 1)
+            ListaDetalles[index].Accion = 2;
+
     }
     Captura[0].Detalles = ListaDetalles;
 

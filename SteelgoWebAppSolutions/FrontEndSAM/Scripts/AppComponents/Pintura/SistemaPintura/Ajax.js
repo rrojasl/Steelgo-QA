@@ -249,7 +249,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
 
                     for (var j = 0; j < arregloCaptura[index].listadoPruebasDetalle.length; j++) {
                         ListaDetalles[i].ListadoPruebas[j] = { Accion: "", UnidadMedidaID: "", UnidadMinima: "", UnidadMaxima: "", ProyectoID: "", ProcesoPinturaID: "", PruebaProcesoPinturaID: "" };
-                        ListaDetalles[i].ListadoPruebas[j].Accion = arregloCaptura[index].listadoPruebasDetalle[j].Accion;
+                        ListaDetalles[i].ListadoPruebas[j].Accion =asignadoSpool? arregloCaptura[index].listadoPruebasDetalle[j].Accion:1;
                         ListaDetalles[i].ListadoPruebas[j].ProcesoPinturaID = ListaDetalles[i].ProcesoPinturaID;
                         ListaDetalles[i].ListadoPruebas[j].ProyectoID = ListaProyectos[k].ProyectoID;
                         ListaDetalles[i].ListadoPruebas[j].UnidadMedidaID = arregloCaptura[index].listadoPruebasDetalle[j].UnidadMedidaID;

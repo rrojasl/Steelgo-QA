@@ -185,7 +185,7 @@ function suscribirEventoWindowsConfirmaCapturaCambioCarro() {
         BuscarDetalleCarro();
     });
     $("#noButtonProy").click(function (e) {
-        eventoRegresarTipoListado();
+        $("#inputCarro").data("kendoComboBox").value(CarroAnterior.MedioTransporteID);
         ventanaConfirmEdicion.close();
     });
 }
@@ -370,7 +370,7 @@ function suscribirEventoCarro() {
             dataItem = this.dataItem(e.sender.selectedIndex);
             if (dataItem != undefined && dataItem.MedioTransporteID!="0") {
                 if ($("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()) != undefined) {
-                    var dataItem = this.dataItem(e.sender.selectedIndex);
+                   // var dataItem = this.dataItem(e.sender.selectedIndex);
                     AjaxCargarShotBlastero();
                     BuscarDetalleCarro();
                 }

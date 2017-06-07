@@ -164,7 +164,7 @@ function AjaxObtenerDetalleCargaCarro(MedioTransporteID, tipoEscenario, valorBus
             if (SpoolPerteneceProyecto) {
 
                 $CargaCarro.CargaCarro.read({ medioTransporteID: MedioTransporteID, token: Cookies.get("token"), proyectoID: $("#inputProyecto").data("kendoComboBox").value(), lenguaje: $("#language").val(), escenario: tipoEscenario, valorBusqueda: valorBusqueda }).done(function (data) {
-
+                    carroActualSeleccionado = $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select());
                     var ds = $("#grid").data("kendoGrid").dataSource;
                     var array = data;
                     var elementosNoModificados = "";
@@ -173,6 +173,7 @@ function AjaxObtenerDetalleCargaCarro(MedioTransporteID, tipoEscenario, valorBus
                     var sistemaPinturaID = 0;
                     var sistemaPintura;
                     if (data.length > 0) {
+                        
                         editado = true;
                         if (valorBusqueda == "") {
 
@@ -351,6 +352,7 @@ function ajaxGuardarPatio(arregloCaptura, guardarYNuevo) {
             $CargaCarro.CargaCarro.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val(), medioTransporteID: CarroID, medioTransporteCargaID: CargaCarroID, cerrar: carroCerrado }).done(function (data) {
 
                 if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
+                    $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()).CarroCerrado = carroCerrado;
                     if (!guardarYNuevo) {
                         opcionHabilitarView(true, "FieldSetView");
                         AjaxObtenerDetalleCargaCarro($("#inputCarro").data("kendoComboBox").select() == -1 ? 0 : $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()).MedioTransporteID, $('input:radio[name=TipoVista]:checked').val(), '');
@@ -434,6 +436,7 @@ function ajaxGuardarEscritorio(listaSpool, guardarYNuevo) {
                     loadingStart();
                     $CargaCarro.CargaCarro.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val(), medioTransporteID: CarroID, medioTransporteCargaID: CargaCarroID, cerrar: carroCerrado }).done(function (data) {
                         if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
+                            $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()).CarroCerrado = carroCerrado;
                             if (!guardarYNuevo) {
                                 opcionHabilitarView(true, "FieldSetView");
                                 AjaxObtenerDetalleCargaCarro($("#inputCarro").data("kendoComboBox").select() == -1 ? 0 : $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()).MedioTransporteID, $('input:radio[name=TipoVista]:checked').val(), '');

@@ -13,6 +13,7 @@ var ComponentesDinamicosJSON = [];
 var ReductoresDinamicosJSON = [];
 var paramProcesoPinturaID;
 var paramCarroID;
+var CarroAnterior;
 
 IniciarCapturaArmado();
 
@@ -214,13 +215,6 @@ function ValidarFechaPrimario(valor) {
     if (fecha == null) {
         $("#Fechaprimario").data("kendoDatePicker").value('');
     }
-}
-
-function limpiarFila(e) {
-    e.preventDefault();
-    var itemRow;
-    itemRow = this.dataItem($(e.currentTarget).closest("tr"));
-    alert("falta funcionalidad");
 }
 
 
@@ -554,5 +548,37 @@ function FiltroMostrar(mostrar) {
                 ds.sync();
             }
         }
+    }
+}
+
+function limpiarFila(e) {
+    e.preventDefault();
+    if ($('#btnGuardar').text() == _dictionary.DetalleAvisoLlegada0017[$("#language").data("kendoDropDownList").value()]) {
+        var itemToClean;
+        itemToClean = this.dataItem($(e.currentTarget).closest("tr"));
+        itemToClean.Taller = "";
+        itemToClean.TallerID = 0;
+        itemToClean.FechaArmado = "";
+        itemToClean.Tubero = "";
+        itemToClean.TuberoID = 0;
+        
+
+        if (itemToClean.Accion == 2)
+            itemToClean.Accion = 4;
+
+        itemToClean.FechaProceso = "";
+        itemToClean.FechaProceso = "";
+        itemToClean.ListaObrerosSeleccionados = [];
+
+        for (var j = 0; j < ComponentesDinamicosJSON.length; j++) {
+            itemToClean[ComponentesDinamicosJSON[j].NombreColumna] = "";
+        }
+
+        for (var j = 0; j < ReductoresDinamicosJSON.length; j++) {
+                itemToClean[ReductoresDinamicosJSON[j].NombreColumna] = "";
+        }
+
+        itemToClean.plantillaObrero = _dictionary.CapturaAvancePintoresShotblastExistentes[$("#language").data("kendoDropDownList").value()] + "0";
+        $("#grid").data("kendoGrid").refresh();
     }
 }
