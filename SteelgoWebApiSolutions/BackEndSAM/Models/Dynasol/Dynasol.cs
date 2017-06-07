@@ -44,7 +44,7 @@ namespace BackEndSAM.Models.Dynasol
             public string Schedule { get; set; }
             public string Rating { get; set; }
             public string PreparacionExtremos { get; set; }
-            public int Cant { get; set; }
+            public float Cant { get; set; }
             public decimal PrecioUnidad { get; set; }
             public decimal Total { get; set; }
             public string Partida { get; set; }
@@ -61,8 +61,8 @@ namespace BackEndSAM.Models.Dynasol
             public int DetalleInspeccionID { get; set; }
             public string InspeccionDetalle { get; set; }
             public string Comentario { get; set; }
-            public int Cant { get; set; }
-            public int CantG { get; set; }
+            public float Cant { get; set; }
+            public float CantG { get; set; }
             public string FechaRecibido { get; set; }
             public int Camion { get; set; }
             public string FacturaProveedor { get; set; }
@@ -71,7 +71,7 @@ namespace BackEndSAM.Models.Dynasol
             public string FechaEnvio { get; set; }
             public int Pedimento { get; set; }
             public string ShippingDate { get; set; }
-            public int CantS { get; set; }
+            public float CantS { get; set; }
             public string FechaRecibidoSteelgo { get; set; }
             public int InspeccionSteelgo { get; set; }
             public List<DetalleInspeccionClass> ListaDetalleInspeccion { get; set; }
@@ -108,8 +108,8 @@ namespace BackEndSAM.Models.Dynasol
             public int RevisionID { get; set; }
             public int ColadaID { get; set; }
             public string Nombre { get; set; }
-            public int CantidadC { get; set; }
-            public int CantidadG { get; set; }
+            public float CantidadC { get; set; }
+            public float CantidadG { get; set; }
             public string FechaRecibido { get; set; }
             public int Camion { get; set; }
             public string FacturaProveedor { get; set; }
@@ -118,7 +118,7 @@ namespace BackEndSAM.Models.Dynasol
             public string FechaEnvio { get; set; }
             public int Pedimento { get; set; }
             public string ShippingDate { get; set; }
-            public int CantidadS { get; set; }
+            public float CantidadS { get; set; }
             public string FechaRecibidoSteelgo { get; set; }
             public int InspeccionSteelgo { get; set; }
         }
