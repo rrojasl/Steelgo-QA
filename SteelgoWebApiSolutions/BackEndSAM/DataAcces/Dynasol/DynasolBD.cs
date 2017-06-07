@@ -122,7 +122,7 @@ namespace BackEndSAM.DataAcces.Dynasol
             }
         }
 
-        public object ObtenerRevision(int OrdenCompra)
+        public object ObtenerRevision(int OrdenCompra, string Lenguaje)
         {
             try
             {
@@ -131,6 +131,7 @@ namespace BackEndSAM.DataAcces.Dynasol
                     List<Sam3_Dynasol_GET_Revision_Result> result = ctx.Sam3_Dynasol_GET_Revision(OrdenCompra).ToList();
                     List<InspeccionClass> listaInspeccion = (List<InspeccionClass>)ObtenerListaInspeccion();
                     List<RevisionClass> listaRevision = new List<RevisionClass>();
+                    List<MedidaClass> listaMedidas = (List<MedidaClass>)ObtenerMedidas(Lenguaje);
                     foreach (Sam3_Dynasol_GET_Revision_Result item in result)
                     {
                         listaRevision.Add(new RevisionClass
@@ -153,6 +154,7 @@ namespace BackEndSAM.DataAcces.Dynasol
                             Partida = item.Partida,
                             ListaDetalleColadas = ObtenerColadas(item.RevisionID),
                             ListaInspeccion = listaInspeccion,
+                            ListaMedidas = listaMedidas,
                             RowOk = true
                         });
                     }

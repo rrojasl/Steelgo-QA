@@ -51,6 +51,7 @@ namespace BackEndSAM.Models.Dynasol
             public string Partida { get; set; }
             public List<ColadaClass> ListaDetalleColadas { get; set; }
             public List<InspeccionClass> ListaInspeccion { get; set; }
+            public List<MedidaClass> ListaMedidas { get; set; }
             public bool RowOk { get; set; }
         }
         public class ColadaClass

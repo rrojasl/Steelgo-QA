@@ -79,14 +79,14 @@ namespace BackEndSAM.Controllers.Dynasol
         }
 
         [HttpGet]
-        public object ObtenerRevision(string token, int OrdenCompraID)
+        public object ObtenerRevision(string token, int OrdenCompraID, string Lenguaje)
         {
             string payLoad = "";
             string newToken = "";
             bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payLoad, out newToken);
             if (tokenValido)
             {
-                return DynasolBD.Instance.ObtenerRevision(OrdenCompraID);
+                return DynasolBD.Instance.ObtenerRevision(OrdenCompraID, Lenguaje);
             }else
             {
                 TransactionalInformation result = new TransactionalInformation();
