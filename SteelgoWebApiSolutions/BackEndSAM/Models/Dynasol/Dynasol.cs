@@ -35,6 +35,7 @@ namespace BackEndSAM.Models.Dynasol
         {
             public int Accion { get; set; }
             public int RevisionID { get; set; }
+            public int Consecutivo { get; set; }
             public int OrdenCompraID { get; set; }
             public string Rev { get; set; }
             public string Descripcion { get; set; }

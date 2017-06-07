@@ -107,6 +107,7 @@ namespace BackEndSAM.DataAcces.Dynasol
                         {
                             Accion = 2,
                             RevisionID = item.RevisionID,
+                            Consecutivo = item.Consecutivo.GetValueOrDefault(),
                             OrdenCompraID = item.OrdenCompraID.GetValueOrDefault(),
                             Rev = item.Revision,
                             Descripcion = item.Descripcion,
