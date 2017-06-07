@@ -96,7 +96,7 @@ namespace BackEndSAM.Controllers.Pintura.AvanceCuadrante
         }
 
         [HttpGet]
-        public object ObtenerDetalle(string token, int cuadranteID, int sistemaPinturaProyectoID, int? sistemaPinturaColorID, string lenguaje, int procesoPinturaID, int todosSinCaptura)
+        public object ObtenerDetalle(string token,int proyectoID, int cuadranteID, int sistemaPinturaProyectoID, int? sistemaPinturaColorID, string lenguaje, int procesoPinturaID, int todosSinCaptura)
         {
             string payload = "";
             string newToken = "";
@@ -105,7 +105,7 @@ namespace BackEndSAM.Controllers.Pintura.AvanceCuadrante
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                DataTable dtdetalle = (DataTable)AvanceCuadranteBD.Instance.ObtenerDetalle(cuadranteID, sistemaPinturaProyectoID, sistemaPinturaColorID, lenguaje, procesoPinturaID, todosSinCaptura, usuario.UsuarioID);
+                DataTable dtdetalle = (DataTable)AvanceCuadranteBD.Instance.ObtenerDetalle(proyectoID, cuadranteID, sistemaPinturaProyectoID, sistemaPinturaColorID, lenguaje, procesoPinturaID, todosSinCaptura, usuario.UsuarioID);
 
                 string jsonConvertido = DataTableToJSON(dtdetalle, procesoPinturaID, usuario.UsuarioID);
 

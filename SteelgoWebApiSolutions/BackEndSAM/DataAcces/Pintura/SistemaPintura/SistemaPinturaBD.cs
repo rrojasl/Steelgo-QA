@@ -56,10 +56,10 @@ namespace BackEndSAM.DataAcces.Pintura.SistemaPintura
 
                     foreach (Sam3_SP_Get_DetalleSistemaPintura_Result item in result)
                     {
-                        List<ComponenteAgregado> listaDetalleComponentesAgregados = (List<ComponenteAgregado>)AdminComponentesBD.Instance.ObtenerCatalogoComponentesAgregados(item.SistemaPinturaProyectoProcesoID,lenguaje,listadoComponentes, item.AsignadoSpool.GetValueOrDefault());
+                        List<ComponenteAgregado> listaDetalleComponentesAgregados = (List<ComponenteAgregado>)AdminComponentesBD.Instance.ObtenerCatalogoComponentesAgregados(item.SistemaPinturaProyectoProcesoID,lenguaje,listadoComponentes, item.AsignadoSpool);
                         listaSistemaPinturaNuevo.Add(new SistemaPinturaNuevo
                         {
-                            Accion = item.AsignadoSpool.GetValueOrDefault()? 2:1,
+                            Accion = item.AsignadoSpool? 2:1,
                             Agregar = item.SistemaPinturaProyectoProcesoID == 0 ? false : true,
                             Proceso = item.NombreProceso,
                             ProcesoPinturaID = item.ProcesoPinturaID,
@@ -78,9 +78,9 @@ namespace BackEndSAM.DataAcces.Pintura.SistemaPintura
                             ListadoReductores = listadoReductores,
                             TemplateDetalleComponentes = lenguaje == "es-MX" ? "Detalle componentes" : "components details",
                             listadoPruebasProceso = (List<PruebasProcesos>)ObtenerPruebasProceso(lenguaje, item.ProcesoPinturaID),
-                            listadoPruebasDetalle = item.SistemaPinturaProyectoProcesoID == 0 ? new List<DetallePruebas>() : (List<DetallePruebas>)ObtenerDetallePruebasProceso(lenguaje, item.SistemaPinturaProyectoProcesoID, item.AsignadoSpool.GetValueOrDefault()),
+                            listadoPruebasDetalle = item.SistemaPinturaProyectoProcesoID == 0 ? new List<DetallePruebas>() : (List<DetallePruebas>)ObtenerDetallePruebasProceso(lenguaje, item.SistemaPinturaProyectoProcesoID, item.AsignadoSpool),
                             
-                            AsignadoSpool = item.AsignadoSpool.GetValueOrDefault()
+                            AsignadoSpool = item.AsignadoSpool
                         });
                     }
 

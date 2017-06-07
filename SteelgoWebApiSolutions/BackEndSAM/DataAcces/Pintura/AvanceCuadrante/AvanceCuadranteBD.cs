@@ -72,7 +72,7 @@ namespace BackEndSAM.DataAcces.Pintura.AvanceCuadrante
             }
         }
 
-        public object ObtenerDetalle(int cuadranteID, int sistemaPinturaProyectoID,int? sistemaPinturaColorID,string lenguaje,int procesoPinturaID,int todosSinCaptura,int UsuarioID)
+        public object ObtenerDetalle(int proyectoID, int cuadranteID, int sistemaPinturaProyectoID,int? sistemaPinturaColorID,string lenguaje,int procesoPinturaID,int todosSinCaptura,int UsuarioID)
         {
             try
             {
@@ -80,7 +80,7 @@ namespace BackEndSAM.DataAcces.Pintura.AvanceCuadrante
                 {
                    
                     ObjetosSQL _SQL = new ObjetosSQL();
-                    string[,] parametro = { { "@CuadranteID", cuadranteID.ToString() }, { "@SistemaPinturaProyectoID", sistemaPinturaProyectoID.ToString() }, { "@SistemaPinturaColorID", sistemaPinturaColorID.ToString() }, { "@Lenguaje", lenguaje }, { "@ProcesoPinturaID", procesoPinturaID.ToString() }, { "@TodosSinCaptura", todosSinCaptura.ToString() }, { "@UsuarioID", UsuarioID.ToString() } };
+                    string[,] parametro = { { "@ProyectoID", proyectoID.ToString() }, { "@CuadranteID", cuadranteID.ToString() }, { "@SistemaPinturaProyectoID", sistemaPinturaProyectoID.ToString() }, { "@SistemaPinturaColorID", sistemaPinturaColorID.ToString() }, { "@Lenguaje", lenguaje }, { "@ProcesoPinturaID", procesoPinturaID.ToString() }, { "@TodosSinCaptura", todosSinCaptura.ToString() }, { "@UsuarioID", UsuarioID.ToString() } };
                     DataTable dtDetalle = _SQL.EjecutaDataAdapter(Stords.OBTIENEDETALLEAVANCECUADRANTE, parametro);
                     return dtDetalle;
                 }
