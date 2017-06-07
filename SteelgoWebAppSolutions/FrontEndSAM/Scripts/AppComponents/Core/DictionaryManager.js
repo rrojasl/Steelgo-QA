@@ -12775,7 +12775,7 @@ _dictionary = {
         "en-US": "The head and qty fiels has mandatory"
     },
     "DynasolInspeccionMandatorio": {
-        "es-MX": "El campo Inspeccion es mandatorio",
+        "es-MX": "El campo Inspección es mandatorio",
         "en-US": "The Inspection field has mandatory"
     },
     "DynasolColadasRegistrosRepetidos": {
@@ -12805,6 +12805,10 @@ _dictionary = {
     "DynasolLabelCamion": {
         "es-MX": "Camión",
         "en-US": "Truck"
+    },
+    "DynasolColumnUnidadMedida": {
+        "es-MX": "UM",
+        "en-US": "MU"
     },
     
 

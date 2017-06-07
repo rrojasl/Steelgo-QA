@@ -64,7 +64,7 @@ namespace BackEndSAM.Models.Dynasol
             public string Comentario { get; set; }
             public float Cant { get; set; }
             public float CantG { get; set; }
-            public string FechaRecibido { get; set; }
+            public string FechaRecibidoG { get; set; }
             public int Camion { get; set; }
             public string FacturaProveedor { get; set; }
             public string FechaFactura { get; set; }
@@ -73,7 +73,7 @@ namespace BackEndSAM.Models.Dynasol
             public int Pedimento { get; set; }
             public string ShippingDate { get; set; }
             public float CantS { get; set; }
-            public string FechaRecibidoSteelgo { get; set; }
+            public string FechaRecibidoS { get; set; }
             public int InspeccionSteelgo { get; set; }
             public List<DetalleInspeccionClass> ListaDetalleInspeccion { get; set; }
             

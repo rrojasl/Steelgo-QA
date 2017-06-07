@@ -49,6 +49,18 @@ function SuscribirEventoMostrar() {
             displayNotify('DynasolOrdenPedidoPackingMandatorio', '', '1');
         }
     });
+    $('#InputCuadrante').closest('.k-widget').keydown(function (e) {
+        if (e.keyCode == 13) {
+            if ($('#InputPackingList').val().trim() != "" && $("#inputOrdenCompra").data("kendoComboBox").text() != '' && $("#inputOrdenCompra").data("kendoComboBox").value() != undefined) {
+                AjaxCargarRevision();
+            }
+            else {
+                displayNotify('DynasolOrdenPedidoPackingMandatorio', '', '1');
+            }
+        }
+    });
+
+
 }
 
 
@@ -64,8 +76,8 @@ function suscribirEventoComboOrdenCompra() {
         index: 3,
         change: function (e) {
             var dataItem = this.dataItem(e.sender.selectedIndex);
+            $("#grid").data("kendoGrid").dataSource.data([]);
             if (dataItem == undefined) {
-                $("#grid").data("kendoGrid").dataSource.data([]);
                 $("#inputOrdenCompra").data("kendoComboBox").value("");
             }
         }

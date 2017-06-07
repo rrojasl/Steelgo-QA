@@ -110,7 +110,7 @@ function suscribirEventoDetalleInspeccion() {
 
     $(document).on('click', '.EnlaceInspeccion', function (e) {
         e.preventDefault();
-        if ($('#Guardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
+        if ($('#Guardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()] && $('input:radio[name=Muestra]:nth(0)').prop('checked')) {
             var grid;
 
             $("#gridPopUpInspeccion").data('kendoGrid').dataSource.data([]);
@@ -168,7 +168,7 @@ function suscribirEventoGuardar() {
         var RegistrosNoRepetidos = true;
         for (var i = 0; i < ds._data.length; i++) {
             for (var j = 0; j < ds._data.length; j++) {
-                if (ds._data[i].Colada == ds._data[j].Colada && i != j)
+                if (ds._data[i].Colada.trim() == ds._data[j].Colada.trim() && i != j)
                     RegistrosNoRepetidos = false;
             }
         }
@@ -240,7 +240,7 @@ function suscribirEventoGuardar() {
             var RegistrosNoRepetidos = true;
             for (var i = 0; i < ds._data.length; i++) {
                 for (var j = 0; j < ds._data.length; j++) {
-                    if (ds._data[i].Colada == ds._data[j].Colada  && i != j)
+                    if (ds._data[i].Colada.trim() == ds._data[j].Colada.trim() && i != j)
                         RegistrosNoRepetidos = false;
                 }
             }

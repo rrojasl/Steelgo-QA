@@ -162,7 +162,7 @@ namespace BackEndSAM.DataAcces.Dynasol
                             Comentario = item.Comentario,
                             Cant = (float)item.CantidadC.GetValueOrDefault(),
                             CantG = (float)item.CantidadG.GetValueOrDefault(),
-                            FechaRecibido = item.FechaRecibido,
+                            FechaRecibidoG = item.FechaRecibido,
                             Camion = item.Camion.GetValueOrDefault(),
                             FacturaProveedor = item.FacturaProveedor,
                             FechaFactura = item.FechaFactura,
@@ -171,7 +171,7 @@ namespace BackEndSAM.DataAcces.Dynasol
                             Pedimento = item.Pedimento.GetValueOrDefault(),
                             ShippingDate = item.ShippingDate,
                             CantS = (float)item.CantidadS.GetValueOrDefault(),
-                            FechaRecibidoSteelgo = item.FechaRecibidoSteelgo,
+                            FechaRecibidoS = item.FechaRecibidoSteelgo,
                             InspeccionSteelgo = item.InspeccionSteelgo.GetValueOrDefault(),
                             ListaDetalleInspeccion = ObtenerDetalleInspeccion(item.ColadaID),
                             

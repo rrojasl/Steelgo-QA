@@ -184,6 +184,7 @@ function CargarGridPopUpDetalleCecilia() {
           //Cecilia
           { field: "Colada", title: _dictionary.columnColada[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "90px" },
           { field: "Cant", title: _dictionary.columnCant[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "73px", editor: RenderCant, attributes: { style: "text-align:right;" } },
+          { field: "MedidaCecilia", title: _dictionary.DynasolColumnUnidadMedida[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "73px", editor: RenderCant },
           { field: "InspeccionDetalle", title: _dictionary.columnInsp[$("#language").data("kendoDropDownList").value()], filterable: false, width: "70px", template: "<div class='EnlaceInspeccion' style='text-align:center;'><a href='javascript:void(0)'  > <span>#=InspeccionDetalle == '' ? 'Sin Inspeccion': InspeccionDetalle #</span></a></div> " },
           { field: "Comentario", title: _dictionary.columnComentarioDynasol[$("#language").data("kendoDropDownList").value()], filterable: false, width: "80px", },
           //Gerez
@@ -276,39 +277,22 @@ function CargarGridPopUpDetalleGerez() {
         columns: [
           //Cecilia
           { field: "Colada", title: _dictionary.columnColada[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "90px" },
-          { field: "Cant", title: _dictionary.columnCant[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "73px", editor: RenderCant, attributes: { style: "text-align:right;" } },
-          { field: "InspeccionDetalle", title: _dictionary.columnInsp[$("#language").data("kendoDropDownList").value()], filterable: false, width: "70px", template: "<div class='EnlaceInspeccion' style='text-align:center;'><a href='\\#'  > <span>#=InspeccionDetalle#</span></a></div> " },
+          { field: "MedidaCecilia", title: _dictionary.DynasolColumnUnidadMedida[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "73px", editor: RenderCant },
+          { field: "Cant", title: _dictionary.columnCant[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "65px", editor: RenderCant, attributes: { style: "text-align:right;" } },
+          { field: "InspeccionDetalle", title: _dictionary.columnInsp[$("#language").data("kendoDropDownList").value()], filterable: false, width: "70px", template: "<div class='EnlaceInspeccion' style='text-align:center;'><a href='javascript:void(0)'  > <span>#=InspeccionDetalle == '' ? 'Sin Inspeccion': InspeccionDetalle #</span></a></div> " },
           { field: "Comentario", title: _dictionary.columnComentarioDynasol[$("#language").data("kendoDropDownList").value()], filterable: false, width: "80px", },
           //Gerez
+          { field: "MedidaGerez", title: _dictionary.DynasolColumnUnidadMedida[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "65px", editor: RenderCant },
           { field: "CantG", title: _dictionary.columnCant[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "73px", editor: RenderCantG, attributes: { style: "text-align:right;" } },
           { field: "FechaRecibidoG", title: _dictionary.columnFechaRecibido[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "82px", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()] },
-          { field: "Camion", title: _dictionary.columnCamion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "90px" },
+          //{ field: "Camion", title: _dictionary.columnCamion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "90px" },
           { field: "FacturaProveedor", title: _dictionary.columnFacturaProveedor[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "100px" },
           { field: "Acuerdo", title: _dictionary.columnAcuerdo[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "100px" },
           { field: "FechaEnvio", title: _dictionary.columnFechaEnvio[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "82px", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()] },
           { field: "Pedimento", title: _dictionary.columnPedimento[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "73px" },
           { field: "ShippingDate", title: _dictionary.columnShippingDate[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "100px", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()] },
 
-          {
-              command: {
-                  text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()],
-                  click: function (e) {
-                      e.preventDefault();
-                      var dataItem = $("#gridPopUpGerez").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
-
-                      if ((dataItem.Accion == 1) || (dataItem.Accion == 0)) {
-                          $("#gridPopUpGerez").data("kendoGrid").dataSource.remove(dataItem);
-                      }
-                      else {
-                          dataItem.Accion = 3;
-                      }
-
-                      $("#gridPopUpGerez").data("kendoGrid").dataSource.sync();
-                  }
-              },
-              title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()],
-              width: "50px", attributes: { style: "text-align:center;" }
-          },
+          
 
         ],
         editable: "incell",
@@ -379,45 +363,29 @@ function CargarGridPopUpDetalleSteelgo() {
         filterable: getGridFilterableMaftec(),
         columns: [
           //Cecilia
-          { field: "Colada", title: _dictionary.columnColada[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "90px" },
-          { field: "Cant", title: _dictionary.columnCant[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "73px", editor: RenderCant, attributes: { style: "text-align:right;" } },
+          { field: "Colada", title: _dictionary.columnColada[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "95px" },
+          { field: "MedidaCecilia", title: _dictionary.DynasolColumnUnidadMedida[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "55px", editor: RenderCant },
+          { field: "Cant", title: _dictionary.columnCant[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "75px", editor: RenderCant, attributes: { style: "text-align:right;" } },
           { field: "InspeccionDetalle", title: _dictionary.columnInsp[$("#language").data("kendoDropDownList").value()], filterable: false, width: "70px", template: "<div class='EnlaceInspeccion' style='text-align:center;'><a href='\\#'  > <span>#=InspeccionDetalle == '' ? 'Sin Inspeccion': InspeccionDetalle #</span></a></div> " },
           { field: "Comentario", title: _dictionary.columnComentarioDynasol[$("#language").data("kendoDropDownList").value()], filterable: false, width: "80px", },
           //Gerez
-          { field: "CantG", title: _dictionary.columnCant[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "73px", editor: RenderCantG, attributes: { style: "text-align:right;" } },
+          { field: "MedidaGerez", title: _dictionary.DynasolColumnUnidadMedida[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "55px", editor: RenderCant },
+          { field: "CantG", title: _dictionary.columnCant[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "75px", editor: RenderCantG, attributes: { style: "text-align:right;" } },
           { field: "FechaRecibidoG", title: _dictionary.columnFechaRecibido[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "82px", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()] },
-          { field: "Camion", title: _dictionary.columnCamion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "90px" },
+          //{ field: "Camion", title: _dictionary.columnCamion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "90px" },
           { field: "FacturaProveedor", title: _dictionary.columnFacturaProveedor[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "100px" },
           { field: "Acuerdo", title: _dictionary.columnAcuerdo[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "100px" },
           { field: "FechaEnvio", title: _dictionary.columnFechaEnvio[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "82px", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()] },
           { field: "Pedimento", title: _dictionary.columnPedimento[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "73px" },
           { field: "ShippingDate", title: _dictionary.columnShippingDate[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "100px", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()] },
           //Steelgo
-          { field: "CantS", title: _dictionary.columnCant[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "73px", editor: RenderCantS, attributes: { style: "text-align:right;" } },
+          { field: "MedidaSteelgo", title: _dictionary.DynasolColumnUnidadMedida[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "55px", editor: RenderCant },
+          { field: "CantS", title: _dictionary.columnCant[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "75px", editor: RenderCantS, attributes: { style: "text-align:right;" } },
           { field: "FechaRecibidoS", title: _dictionary.columnFechaRecibido[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "82px", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()] },
           { field: "InspeccionS", title: _dictionary.columnInsp[$("#language").data("kendoDropDownList").value()], filterable: false, width: "50px" },
           { field: "FechaFactura", title: _dictionary.columnFechaFactura[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "82px", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()] },
 
-          {
-              command: {
-                  text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()],
-                  click: function (e) {
-                      e.preventDefault();
-                      var dataItem = $("#gridPopUpSteelgo").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
-
-                      if ((dataItem.Accion == 1) || (dataItem.Accion == 0)) {
-                          $("#gridPopUpSteelgo").data("kendoGrid").dataSource.remove(dataItem);
-                      }
-                      else {
-                          dataItem.Accion = 3;
-                      }
-
-                      $("#gridPopUpSteelgo").data("kendoGrid").dataSource.sync();
-                  }
-              },
-              title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()],
-              width: "50px", attributes: { style: "text-align:center;" }
-          },
+        
 
         ],
         editable: "incell",
@@ -587,7 +555,7 @@ function VentanaModalDetalleGerez() {
         title: "",
         resizable: false,
         visible: true,
-        width: "80%",
+        width: "82%",
         minWidth: 30,
         position: {
             top: "10px",
@@ -624,7 +592,7 @@ function VentanaModalDetalleCecilia() {
             close: false,
             open: false
         },
-
+        actions: [],
     }).data("kendoWindow");
     window.data("kendoWindow").title(modalTitle);
     window.data("kendoWindow").center().open();
@@ -679,9 +647,7 @@ function VentanaModalDetalleInspeccion() {
             left: "10px"
         },
         content: "texto texto texto y mas texto",
-        actions: [
-
-        ],
+        actions: [],
         animation: {
             close: false,
             open: false

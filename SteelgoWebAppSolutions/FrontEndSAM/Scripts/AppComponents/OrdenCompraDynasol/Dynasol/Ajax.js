@@ -34,8 +34,9 @@ function AjaxCargarRevision() {
             if (data.length > 0) {
                 ds.data(data);
             }
+            ds.sync();
         }
-        ds.sync();
+        
         loadingStop();
 
 
