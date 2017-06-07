@@ -128,19 +128,19 @@ namespace BackEndSAM.Controllers.Pintura.AvanceCuadrante
             foreach (DataRow row in table.Rows)
             {
                 var dict = new Dictionary<string, object>();
-                List<object> listaObreros = (List<object>)AvanceCuadranteBD.Instance.ObtenerObrerosGuardados(int.Parse(row["SpoolID"].ToString()), procesopinturaID, usuario);
+                //List<object> listaObreros = (List<object>)AvanceCuadranteBD.Instance.ObtenerObrerosGuardados(int.Parse(row["SpoolID"].ToString()), procesopinturaID, usuario);
 
-                foreach (DataColumn col in table.Columns)
-                {
-                    if (col.ColumnName == "ListaObreros")
-                        dict[col.ColumnName] = (List<PintorSpool>)listaObreros[1];
-                    else if (col.ColumnName == "ListaObrerosGuargados")
-                        dict[col.ColumnName] = (List<PintorSpool>)listaObreros[0];
-                    else if (col.ColumnName == "ListaObrerosSeleccionados")
-                        dict[col.ColumnName] = (List<PintorSpool>)listaObreros[0];
-                    else
-                        dict[col.ColumnName] = row[col];
-                }
+                //foreach (DataColumn col in table.Columns)
+                //{
+                //    if (col.ColumnName == "ListaObreros")
+                //        dict[col.ColumnName] = (List<PintorSpool>)listaObreros[1];
+                //    else if (col.ColumnName == "ListaObrerosGuargados")
+                //        dict[col.ColumnName] = (List<PintorSpool>)listaObreros[0];
+                //    else if (col.ColumnName == "ListaObrerosSeleccionados")
+                //        dict[col.ColumnName] = (List<PintorSpool>)listaObreros[0];
+                //    else
+                //        dict[col.ColumnName] = row[col];
+                //}
                 list.Add(dict);
             }
             JavaScriptSerializer serializer = new JavaScriptSerializer();

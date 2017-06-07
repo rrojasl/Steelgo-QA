@@ -237,13 +237,16 @@ function AjaxCargarSpool(ProyectoID,CuadranteID, sistemaPinturaProyectoId, Siste
         var array = JSON.parse(data);
 
 
-        for (var i = 0; i < array.length; i++) {
-            if (array[i].FechaProceso != null) {
-                array[i].FechaProceso = new Date(ObtenerDato(array[i].FechaProceso, 1), ObtenerDato(array[i].FechaProceso, 2), ObtenerDato(array[i].FechaProceso, 3));//año, mes, dia
-            }
+        //for (var i = 0; i < array.length; i++) {
+        //    if (array[i].FechaProceso != null) {
+        //        array[i].FechaProceso = new Date(ObtenerDato(array[i].FechaProceso, 1), ObtenerDato(array[i].FechaProceso, 2), ObtenerDato(array[i].FechaProceso, 3));//año, mes, dia
+        //    }
+        //   // ds.add(array[i]);
+        //}
 
-            ds.add(array[i]);
-        }
+        
+        $("#grid").data("kendoGrid").dataSource.data(array);
+
         if (array.length > 0)
             editado = true;
 
@@ -514,9 +517,13 @@ function AjaxEjecutarGuardado(data, guardarYNuevo) {
                 editado = false;
             }
             else {
+                $("#grid").data("kendoGrid").dataSource.data([]);
                 opcionHabilitarView(true, "FieldSetView");
                 var dataItem = $("#inputSistemaPintura").data("kendoComboBox").dataItem($("#inputSistemaPintura").data("kendoComboBox").select());
-                AjaxCargarLayoutGrid($("#inputProyecto").data("kendoComboBox").value(), dataItem.SistemaPinturaProyectoID, $('input:radio[name=ProcesoPintura]:checked').val(), dataItem.MedioTransporteCargaID);
+                var dataItemCuadrante = $("#inputCuadrante").data("kendoComboBox").dataItem($("#inputCuadrante").data("kendoComboBox").select());
+                var dataItemSP = $("#inputSistemaPintura").data("kendoComboBox").dataItem($("#inputSistemaPintura").data("kendoComboBox").select());
+                var dataItemColor = $("#inputColor").data("kendoComboBox").dataItem($("#inputColor").data("kendoComboBox").select());
+                AjaxCargarSpool($("#inputProyecto").data("kendoComboBox").value(),dataItemCuadrante.CuadranteID, dataItemSP.SistemaPinturaProyectoID, dataItemColor.SistemaPinturaColorID, SistemaPinturaProyectoID, SistemaPinturaColorID, $("#language").val(), $('input:radio[name=ProcesoPintura]:checked').val(), $('input:radio[name=Muestra]:checked').val());
             }
             loadingStop();
         }
