@@ -51,16 +51,6 @@ namespace BackEndSAM.Models.Dynasol
             public float Cant { get; set; }         
          
         }
-
-        public class MedidaClass
-        {
-            public int MedidaID { get; set; }
-            public string Nombre { get; set; }
-            public MedidaClass()
-            {
-                MedidaID = 0;
-                Nombre = "";
-            }
-        }
+        
     }
 }

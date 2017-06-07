@@ -20,6 +20,26 @@ namespace BackEndSAM.Controllers.Dynasol
     public class DynasolController : ApiController
     {
         [HttpGet]
+        public object ObtenerMedidas(string token, string Lenguaje)
+        {
+            string payLoad = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payLoad, out newToken);
+            if (tokenValido)
+            {
+                return DynasolBD.Instance.ObtenerMedidas(Lenguaje);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payLoad);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
+        [HttpGet]
         public object ObtenerOrdenesCompra(string token)
         {
             string payLoad = "";

@@ -91,6 +91,36 @@ namespace BackEndSAM.DataAcces.Dynasol
                 return result;
             }
         }
+        public object ObtenerMedidas(string Lenguaje)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Sam3_Dynasol_GET_Medidas_Result> result = ctx.Sam3_Dynasol_GET_Medidas(Lenguaje).ToList();
+                    List<MedidaClass> ListaMedidas = new List<MedidaClass>();
+                    ListaMedidas.Add(new MedidaClass());
+                    foreach (Sam3_Dynasol_GET_Medidas_Result item in result)
+                    {
+                        ListaMedidas.Add(new MedidaClass
+                        {
+                            MedidaID = item.MedidaID,
+                            Nombre = item.Nombre
+                        });
+                    }
+                    return ListaMedidas;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+                return result;
+            }
+        }
 
         public object ObtenerRevision(int OrdenCompra)
         {
