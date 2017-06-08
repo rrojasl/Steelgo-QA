@@ -141,6 +141,7 @@ namespace BackEndSAM.DataAcces.Dynasol
                             Consecutivo = item.Consecutivo.GetValueOrDefault(),
                             OrdenCompraID = item.OrdenCompraID.GetValueOrDefault(),
                             Rev = item.Revision,
+                            EsTuberia = item.EsTuberia,
                             Descripcion = item.Descripcion,
                             MaterialNorma = item.MaterialNorma,
                             Diametro1 = (float)item.Diametro1.GetValueOrDefault(),
@@ -152,7 +153,7 @@ namespace BackEndSAM.DataAcces.Dynasol
                             PrecioUnidad = item.PrecioUnidad.GetValueOrDefault(),
                             Total = item.Total.GetValueOrDefault(),
                             Partida = item.Partida,
-                            ListaDetalleColadas = ObtenerColadas(item.RevisionID),
+                            ListaDetalleColadas = ObtenerColadas(item.RevisionID, Lenguaje, item.EsTuberia),
                             ListaInspeccion = listaInspeccion,
                             ListaMedidas = listaMedidas,
                             RowOk = true
@@ -172,7 +173,7 @@ namespace BackEndSAM.DataAcces.Dynasol
             }
         }
 
-        public List<ColadaClass> ObtenerColadas(int RevisionID)
+        public List<ColadaClass> ObtenerColadas(int RevisionID, string Lenguaje, int EsTuberia)
         {
             try
             {
@@ -180,7 +181,7 @@ namespace BackEndSAM.DataAcces.Dynasol
                 {
                     List<ColadaClass> ListaColadas = new List<ColadaClass>();
                     
-                    List<Sam3_Dynasol_GET_Coladas_Result> result = ctx.Sam3_Dynasol_GET_Coladas(RevisionID).ToList();
+                    List<Sam3_Dynasol_GET_Coladas_Result> result = ctx.Sam3_Dynasol_GET_Coladas(RevisionID, Lenguaje).ToList();
                     foreach (Sam3_Dynasol_GET_Coladas_Result item in result)
                     {
                         ListaColadas.Add(new ColadaClass
@@ -206,8 +207,12 @@ namespace BackEndSAM.DataAcces.Dynasol
                             FechaRecibidoS = item.FechaRecibidoSteelgo,
                             InspeccionSteelgo = item.InspeccionSteelgo.GetValueOrDefault(),
                             ListaDetalleInspeccion = ObtenerDetalleInspeccion(item.ColadaID),
-                            
-
+                            MedidaCeciliaID = item.MedidaCeciliaID,
+                            MedidaCecilia = (item.MedidaCecilia == "" && EsTuberia == 0 && Lenguaje == "es-MX") ? "Pza" : (item.MedidaCecilia == "" && EsTuberia == 0 && Lenguaje != "es-MX") ? "Pcs" : item.MedidaCecilia,
+                            MedidaGerezID = item.MedidaGerezID,
+                            MedidaGerez = (item.MedidaGerez == "" && EsTuberia == 0 && Lenguaje == "es-MX") ? "Pza" : (item.MedidaGerez == "" && EsTuberia == 0 && Lenguaje != "es-MX") ? "Pcs" : item.MedidaGerez,                            
+                            MedidaSteelgoID = item.MedidaSteelgoID,
+                            MedidaSteelgo = (item.MedidaSteelgo == "" && EsTuberia == 0 && Lenguaje == "es-MX") ? "Pza" : (item.MedidaSteelgo == "" && EsTuberia == 0 && Lenguaje != "es-MX") ? "Pcs" : item.MedidaSteelgo,                            
                         });
                     }
                     return ListaColadas;

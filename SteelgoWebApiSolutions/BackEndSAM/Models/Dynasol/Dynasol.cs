@@ -37,6 +37,7 @@ namespace BackEndSAM.Models.Dynasol
             public int RevisionID { get; set; }
             public int Consecutivo { get; set; }
             public int OrdenCompraID { get; set; }
+            public int EsTuberia { get; set; }
             public string Rev { get; set; }
             public string Descripcion { get; set; }
             public string MaterialNorma { get; set; }
@@ -77,7 +78,14 @@ namespace BackEndSAM.Models.Dynasol
             public string FechaRecibidoS { get; set; }
             public int InspeccionSteelgo { get; set; }
             public List<DetalleInspeccionClass> ListaDetalleInspeccion { get; set; }
-            
+            public int MedidaCeciliaID { get; set; }
+            public string MedidaCecilia { get; set; }
+            public int MedidaGerezID { get; set; }
+            public string MedidaGerez { get; set; }
+            public int MedidaSteelgoID { get; set; }
+            public string MedidaSteelgo { get; set; }
+
+
         }
 
         public class DetalleInspeccionClass
@@ -123,6 +131,9 @@ namespace BackEndSAM.Models.Dynasol
             public float CantidadS { get; set; }
             public string FechaRecibidoSteelgo { get; set; }
             public int InspeccionSteelgo { get; set; }
+            public int MedidaCeciliaID { get; set; }
+            public int MedidaGerezID { get; set; }
+            public int MedidaSteelgoID { get; set; }
         }
 
         public class ListaGuardarDetalleInspeccion
