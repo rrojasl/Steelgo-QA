@@ -26,7 +26,7 @@ function CargarGrid() {
             schema: {
                 model: {
                     fields: {
-
+                        Consecutivo: { type: "number", editable: false },
                         Rev: { type: "string", editable: false },
                         Descripcion: { type: "string", editable: false },
                         MaterialNorma: { type: "string", editable: false },
@@ -89,9 +89,10 @@ function CargarGrid() {
         },
         filterable: getGridFilterableMaftec(),
         columns: [
-            { field: "Rev", title: _dictionary.columnRev[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "100px" },
+            { field: "Consecutivo", title: _dictionary.columnConsecutivo[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "70px" },
+            { field: "Rev", title: _dictionary.columnRev[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px" },
             { field: "Descripcion", title: _dictionary.columnDescripcion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "160px" },
-            { field: "MaterialNorma", title: _dictionary.columnMaterialNorma[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "100px" },
+            { field: "MaterialNorma", title: _dictionary.columnMaterialNorma[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px" },
             { field: "Diametro1", title: _dictionary.columnD1[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "40px" },
             { field: "Diametro2", title: _dictionary.columnD2[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "40px" },
             { field: "Schedule", title: _dictionary.columnSchedule[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "90px" },
@@ -136,6 +137,30 @@ function CargarGrid() {
 };
 
 function CargarGridPopUpDetalleCecilia() {
+
+    kendo.ui.Grid.fn.editCell = (function (editCell) {
+        return function (cell) {
+            cell = $(cell);
+
+            var that = this,
+                column = that.columns[that.cellIndex(cell)],
+                model = that._modelForContainer(cell),
+                event = {
+                    container: cell,
+                    model: model,
+                    preventDefault: function () {
+                        this.isDefaultPrevented = true;
+                    }
+                };
+
+            if (model && typeof this.options.beforeEdit === "function") {
+                this.options.beforeEdit.call(this, event);
+                if (event.isDefaultPrevented) return;
+            }
+
+            editCell.call(this, cell);
+        };
+    })(kendo.ui.Grid.fn.editCell);
 
     $("#gridPopUpCecilia").kendoGrid({
         autoBind: true,
@@ -184,7 +209,7 @@ function CargarGridPopUpDetalleCecilia() {
           //Cecilia
           { field: "Colada", title: _dictionary.columnColada[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "90px" },
           { field: "Cant", title: _dictionary.columnCant[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "73px", editor: RenderCant, attributes: { style: "text-align:right;" } },
-          { field: "MedidaCecilia", title: _dictionary.DynasolColumnUnidadMedida[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "73px", editor: RenderCant },
+          { field: "MedidaCecilia", title: _dictionary.DynasolColumnUnidadMedida[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "73px", editor: RenderComboBoxUnidadMedidaCecilia },
           { field: "InspeccionDetalle", title: _dictionary.columnInsp[$("#language").data("kendoDropDownList").value()], filterable: false, width: "70px", template: "<div class='EnlaceInspeccion' style='text-align:center;'><a href='javascript:void(0)'  > <span>#=InspeccionDetalle == '' ? 'Sin Inspeccion': InspeccionDetalle #</span></a></div> " },
           { field: "Comentario", title: _dictionary.columnComentarioDynasol[$("#language").data("kendoDropDownList").value()], filterable: false, width: "80px", },
           //Gerez
@@ -197,7 +222,7 @@ function CargarGridPopUpDetalleCecilia() {
                       e.preventDefault();
                       var dataItem = $("#gridPopUpCecilia").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
 
-                      if ((dataItem.Accion == 1) || (dataItem.Accion == 0)) {
+                      if (dataItem.Accion != 2 ) {
                           $("#gridPopUpCecilia").data("kendoGrid").dataSource.remove(dataItem);
                       }
                       else {
@@ -213,7 +238,15 @@ function CargarGridPopUpDetalleCecilia() {
 
         ],
         editable: "incell",
-        toolbar: [{ name: "create" }]
+        toolbar: [{ name: "create" }],
+        beforeEdit: function (e) {
+            var columnIndex = this.cellIndex(e.container);
+            var fieldName = this.thead.find("th").eq(columnIndex).data("field");
+            if (!isEditable(fieldName, e.model)) {
+                e.preventDefault();
+            }
+        },
+
 
     });
     CustomisaGrid($("#gridPopUpCecilia"));
@@ -221,6 +254,30 @@ function CargarGridPopUpDetalleCecilia() {
 };
 
 function CargarGridPopUpDetalleGerez() {
+
+    kendo.ui.Grid.fn.editCell = (function (editCell) {
+        return function (cell) {
+            cell = $(cell);
+
+            var that = this,
+                column = that.columns[that.cellIndex(cell)],
+                model = that._modelForContainer(cell),
+                event = {
+                    container: cell,
+                    model: model,
+                    preventDefault: function () {
+                        this.isDefaultPrevented = true;
+                    }
+                };
+
+            if (model && typeof this.options.beforeEdit === "function") {
+                this.options.beforeEdit.call(this, event);
+                if (event.isDefaultPrevented) return;
+            }
+
+            editCell.call(this, cell);
+        };
+    })(kendo.ui.Grid.fn.editCell);
 
     $("#gridPopUpGerez").kendoGrid({
         autoBind: true,
@@ -277,12 +334,12 @@ function CargarGridPopUpDetalleGerez() {
         columns: [
           //Cecilia
           { field: "Colada", title: _dictionary.columnColada[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "90px" },
-          { field: "MedidaCecilia", title: _dictionary.DynasolColumnUnidadMedida[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "73px", editor: RenderCant },
+          { field: "MedidaCecilia", title: _dictionary.DynasolColumnUnidadMedida[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "73px", editor: RenderComboBoxUnidadMedidaCecilia },
           { field: "Cant", title: _dictionary.columnCant[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "65px", editor: RenderCant, attributes: { style: "text-align:right;" } },
           { field: "InspeccionDetalle", title: _dictionary.columnInsp[$("#language").data("kendoDropDownList").value()], filterable: false, width: "70px", template: "<div class='EnlaceInspeccion' style='text-align:center;'><a href='javascript:void(0)'  > <span>#=InspeccionDetalle == '' ? 'Sin Inspeccion': InspeccionDetalle #</span></a></div> " },
           { field: "Comentario", title: _dictionary.columnComentarioDynasol[$("#language").data("kendoDropDownList").value()], filterable: false, width: "80px", },
           //Gerez
-          { field: "MedidaGerez", title: _dictionary.DynasolColumnUnidadMedida[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "65px", editor: RenderCant },
+          { field: "MedidaGerez", title: _dictionary.DynasolColumnUnidadMedida[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "65px", editor: RenderComboBoxUnidadMedidaGerez },
           { field: "CantG", title: _dictionary.columnCant[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "73px", editor: RenderCantG, attributes: { style: "text-align:right;" } },
           { field: "FechaRecibidoG", title: _dictionary.columnFechaRecibido[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "82px", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()] },
           //{ field: "Camion", title: _dictionary.columnCamion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "90px" },
@@ -297,13 +354,43 @@ function CargarGridPopUpDetalleGerez() {
         ],
         editable: "incell",
         //toolbar: [{ name: "create" }]
-
+        beforeEdit: function (e) {
+            var columnIndex = this.cellIndex(e.container);
+            var fieldName = this.thead.find("th").eq(columnIndex).data("field");
+            if (!isEditable(fieldName, e.model)) {
+                e.preventDefault();
+            }
+        },
     });
     CustomisaGrid($("#gridPopUpGerez"));
 
 };
 
 function CargarGridPopUpDetalleSteelgo() {
+
+    kendo.ui.Grid.fn.editCell = (function (editCell) {
+        return function (cell) {
+            cell = $(cell);
+
+            var that = this,
+                column = that.columns[that.cellIndex(cell)],
+                model = that._modelForContainer(cell),
+                event = {
+                    container: cell,
+                    model: model,
+                    preventDefault: function () {
+                        this.isDefaultPrevented = true;
+                    }
+                };
+
+            if (model && typeof this.options.beforeEdit === "function") {
+                this.options.beforeEdit.call(this, event);
+                if (event.isDefaultPrevented) return;
+            }
+
+            editCell.call(this, cell);
+        };
+    })(kendo.ui.Grid.fn.editCell);
 
     $("#gridPopUpSteelgo").kendoGrid({
         autoBind: true,
@@ -364,12 +451,12 @@ function CargarGridPopUpDetalleSteelgo() {
         columns: [
           //Cecilia
           { field: "Colada", title: _dictionary.columnColada[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "95px" },
-          { field: "MedidaCecilia", title: _dictionary.DynasolColumnUnidadMedida[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "55px", editor: RenderCant },
+          { field: "MedidaCecilia", title: _dictionary.DynasolColumnUnidadMedida[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "55px", editor: RenderComboBoxUnidadMedidaCecilia },
           { field: "Cant", title: _dictionary.columnCant[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "75px", editor: RenderCant, attributes: { style: "text-align:right;" } },
           { field: "InspeccionDetalle", title: _dictionary.columnInsp[$("#language").data("kendoDropDownList").value()], filterable: false, width: "70px", template: "<div class='EnlaceInspeccion' style='text-align:center;'><a href='\\#'  > <span>#=InspeccionDetalle == '' ? 'Sin Inspeccion': InspeccionDetalle #</span></a></div> " },
           { field: "Comentario", title: _dictionary.columnComentarioDynasol[$("#language").data("kendoDropDownList").value()], filterable: false, width: "80px", },
           //Gerez
-          { field: "MedidaGerez", title: _dictionary.DynasolColumnUnidadMedida[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "55px", editor: RenderCant },
+          { field: "MedidaGerez", title: _dictionary.DynasolColumnUnidadMedida[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "55px", editor: RenderComboBoxUnidadMedidaGerez },
           { field: "CantG", title: _dictionary.columnCant[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "75px", editor: RenderCantG, attributes: { style: "text-align:right;" } },
           { field: "FechaRecibidoG", title: _dictionary.columnFechaRecibido[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "82px", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()] },
           //{ field: "Camion", title: _dictionary.columnCamion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "90px" },
@@ -379,7 +466,7 @@ function CargarGridPopUpDetalleSteelgo() {
           { field: "Pedimento", title: _dictionary.columnPedimento[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "73px" },
           { field: "ShippingDate", title: _dictionary.columnShippingDate[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "100px", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()] },
           //Steelgo
-          { field: "MedidaSteelgo", title: _dictionary.DynasolColumnUnidadMedida[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "55px", editor: RenderCant },
+          { field: "MedidaSteelgo", title: _dictionary.DynasolColumnUnidadMedida[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "55px", editor: RenderComboBoxUnidadMedidaSteelgo },
           { field: "CantS", title: _dictionary.columnCant[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "75px", editor: RenderCantS, attributes: { style: "text-align:right;" } },
           { field: "FechaRecibidoS", title: _dictionary.columnFechaRecibido[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "82px", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()] },
           { field: "InspeccionS", title: _dictionary.columnInsp[$("#language").data("kendoDropDownList").value()], filterable: false, width: "50px" },
@@ -390,12 +477,41 @@ function CargarGridPopUpDetalleSteelgo() {
         ],
         editable: "incell",
         //toolbar: [{ name: "create" }]
+        beforeEdit: function (e) {
+            var columnIndex = this.cellIndex(e.container);
+            var fieldName = this.thead.find("th").eq(columnIndex).data("field");
+            if (!isEditable(fieldName, e.model)) {
+                e.preventDefault();
+            }
+        },
 
     });
     CustomisaGrid($("#gridPopUpSteelgo"));
 
 
 };
+
+
+function isEditable(fieldName, model) {
+    if (fieldName === "MedidaGerez") {
+        if (modeloRenglon.EsTuberia == 0) {
+            return false;
+        }
+    }
+
+    else if (fieldName === "MedidaSteelgo") {
+        if (modeloRenglon.EsTuberia == 0) {
+            return false;
+        }
+    }
+    else if (fieldName === "MedidaCecilia") {
+        if (modeloRenglon.EsTuberia == 0) {
+            return false;
+        }
+    }
+    return true; // default to editable
+}
+
 
 function CargarGridPopUpDetalleInspeccion() {
 

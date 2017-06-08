@@ -49,7 +49,7 @@ function SuscribirEventoMostrar() {
             displayNotify('DynasolOrdenPedidoPackingMandatorio', '', '1');
         }
     });
-    $('#InputCuadrante').closest('.k-widget').keydown(function (e) {
+    $('#InputPackingList').keydown(function (e) {
         if (e.keyCode == 13) {
             if ($('#InputPackingList').val().trim() != "" && $("#inputOrdenCompra").data("kendoComboBox").text() != '' && $("#inputOrdenCompra").data("kendoComboBox").value() != undefined) {
                 AjaxCargarRevision();

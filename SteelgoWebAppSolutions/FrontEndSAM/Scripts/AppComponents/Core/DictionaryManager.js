@@ -12770,6 +12770,10 @@ _dictionary = {
         "es-MX": "Camión",
         "en-US": "Truck"
     },
+    "columnConsecutivo": {
+        "es-MX": "Cvo",
+        "en-US": "Cve"
+    },
     "DynasolColadaMandatorio": {
         "es-MX": "El campo colada y cantidad es mandatorio",
         "en-US": "The head and qty fiels has mandatory"

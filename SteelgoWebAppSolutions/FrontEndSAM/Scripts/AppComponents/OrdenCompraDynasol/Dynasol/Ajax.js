@@ -25,7 +25,7 @@
 function AjaxCargarRevision() {
 
     loadingStart();
-    $Dynasol.Dynasol.read({ token: Cookies.get("token"), OrdenCompraID: $("#inputOrdenCompra").data("kendoComboBox").value() }).done(function (data) {
+    $Dynasol.Dynasol.read({ token: Cookies.get("token"), OrdenCompraID: $("#inputOrdenCompra").data("kendoComboBox").value(), Lenguaje: $("#language").val() }).done(function (data) {
         if (Error(data)) {
             $("#grid").data("kendoGrid").dataSource.data([]);
 
@@ -75,7 +75,8 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                     ListaColadas[j] = {
                         Accion: "", RevisionID: "", ColadaID: "", Nombre: "", CantidadC: "", CantidadG: "", FechaRecibido: "",
                         Camion: "", FacturaProveedor: "", FechaFactura: "", Acuerdo: "", FechaEnvio: "", Pedimento: "",
-                        ShippingDate: "", CantidadS: "", FechaRecibidoSteelgo: "", InspeccionSteelgo: ""
+                        ShippingDate: "", CantidadS: "", FechaRecibidoSteelgo: "", InspeccionSteelgo: "", MedidaCeciliaID: "",
+                        MedidaGerezID: "", MedidaSteelgoID: ""
                     }
 
                     ListaColadas[j].Accion = arregloCaptura[index].ListaDetalleColadas[j].Accion ;
@@ -94,7 +95,9 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                     ListaColadas[j].ShippingDate = kendo.toString(arregloCaptura[index].ListaDetalleColadas[j].ShippingDate, labelFecha) == null ? "" : kendo.toString(arregloCaptura[index].ListaDetalleColadas[j].ShippingDate, labelFecha).trim();
                     ListaColadas[j].CantidadS = arregloCaptura[index].ListaDetalleColadas[j].CantS;
                     ListaColadas[j].FechaRecibidoSteelgo = kendo.toString(arregloCaptura[index].ListaDetalleColadas[j].FechaRecibidoS, labelFecha) == null ? "" : kendo.toString(arregloCaptura[index].ListaDetalleColadas[j].FechaRecibidoS, labelFecha).trim();;
-                    ListaColadas[j].InspeccionSteelgo = arregloCaptura[index].ListaDetalleColadas[j].InspeccionS;
+                    ListaColadas[j].MedidaCeciliaID = arregloCaptura[index].ListaDetalleColadas[j].MedidaCeciliaID;
+                    ListaColadas[j].MedidaGerezID = arregloCaptura[index].ListaDetalleColadas[j].MedidaGerezID;
+                    ListaColadas[j].MedidaSteelgoID = arregloCaptura[index].ListaDetalleColadas[j].MedidaSteelgoID;
 
 
 

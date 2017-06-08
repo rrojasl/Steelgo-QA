@@ -2,7 +2,7 @@
 
 function SuscribirEventos() {
     suscribirEventoDetalleInspeccion();
-    
+
     suscribirEventoDetalleDefectoPorPlaca();
     suscribirEventoCancelar();
     suscribirEventoGuardar();
@@ -85,7 +85,7 @@ function suscribirEventoComboOrdenCompra() {
             else {
                 $("#grid").data("kendoGrid").dataSource.data([]);
             }
-            
+
         }
     });
 }
@@ -94,7 +94,7 @@ function suscribirEventoComboOrdenCompra() {
 function suscribirEventoDetalleDefectoPorPlaca() {
 
     $(document).on('click', '.EnlaceDetalleColada', function (e) {
-        
+
         if ($('#Guardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
             var grid = $("#grid").data("kendoGrid");
             dataItem = grid.dataItem($(e.target).closest("tr"));
@@ -158,7 +158,7 @@ function suscribirEventoGuardar() {
         var coladasCorrectos = true;
         var ds = $("#gridPopUpSteelgo").data("kendoGrid").dataSource;
         var window = $("#windowGridSteelgo");
-        
+
         for (var i = 0; i < ds._data.length; i++) {
             if (ds._data[i].Accion == undefined || ds._data[i].Accion == 0)
                 ds._data[i].Accion = 1;
@@ -189,154 +189,160 @@ function suscribirEventoGuardar() {
     });
 
 
-        $(document).on('click', '#GuardarPlacasGerez', function (e) {
-            var coladasCorrectos = true;
-            var ds = $("#gridPopUpGerez").data("kendoGrid").dataSource;
-            var window = $("#windowGridGerez");
-            
-            for (var i = 0; i < ds._data.length; i++) {
-                if (ds._data[i].Accion == undefined || ds._data[i].Accion == 0)
-                    ds._data[i].Accion = 1;
-                if ((ds._data[i].Colada == "" || ds._data[i].Cant == 0 || ds._data[i].Cant == "") && !(ds._data[i].Accion == 3 || ds._data[i].Accion == 4))
-                    coladasCorrectos = false;
+    $(document).on('click', '#GuardarPlacasGerez', function (e) {
+        var coladasCorrectos = true;
+        var ds = $("#gridPopUpGerez").data("kendoGrid").dataSource;
+        var window = $("#windowGridGerez");
+
+        for (var i = 0; i < ds._data.length; i++) {
+            if (ds._data[i].Accion == undefined || ds._data[i].Accion == 0)
+                ds._data[i].Accion = 1;
+            if ((ds._data[i].Colada == "" || ds._data[i].Cant == 0 || ds._data[i].Cant == "") && !(ds._data[i].Accion == 3 || ds._data[i].Accion == 4))
+                coladasCorrectos = false;
+        }
+        var RegistrosNoRepetidos = true;
+        for (var i = 0; i < ds._data.length; i++) {
+            for (var j = 0; j < ds._data.length; j++) {
+                if (ds._data[i].Colada == ds._data[j].Colada && i != j)
+                    RegistrosNoRepetidos = false;
             }
-            var RegistrosNoRepetidos = true;
-            for (var i = 0; i < ds._data.length; i++) {
-                for (var j = 0; j < ds._data.length; j++) {
-                    if (ds._data[i].Colada == ds._data[j].Colada && i != j)
-                        RegistrosNoRepetidos = false;
-                }
-            }
+        }
 
-            if (RegistrosNoRepetidos) {
-                if (coladasCorrectos) {
-                    modeloRenglon.ListaDetalleColadas = ds._data;
-                    $("#grid").data("kendoGrid").dataSource.sync();
-                    window.data("kendoWindow").close();
-                }
-                else
-                    displayNotify('DynasolColadaMandatorio', '', '2');
-
-            }
-            else
-                displayNotify('DynasolColadasRegistrosRepetidos', '', '2');
-
-            
-
-        });
-
-        $(document).on('click', '#GuardarPlacasCecilia', function (e) {
-            var coladasCorrectos = true;
-            var ds = $("#gridPopUpCecilia").data("kendoGrid").dataSource;
-            var window = $("#windowGridCecilia");
-            
-            for (var i = 0; i < ds._data.length; i++) {
-                if (ds._data[i].Accion == undefined || ds._data[i].Accion == 0)
-                    ds._data[i].Accion = 1;
-                if ((ds._data[i].Colada == "" || ds._data[i].Cant == 0 || ds._data[i].Cant == "") && !(ds._data[i].Accion == 3 || ds._data[i].Accion == 4))
-                    coladasCorrectos = false;
-            }
-
-            var RegistrosNoRepetidos = true;
-            for (var i = 0; i < ds._data.length; i++) {
-                for (var j = 0; j < ds._data.length; j++) {
-                    if (ds._data[i].Colada.trim() == ds._data[j].Colada.trim() && i != j)
-                        RegistrosNoRepetidos = false;
-                }
-            }
-
-            if (RegistrosNoRepetidos) {
-                if (coladasCorrectos) {
-                    modeloRenglon.ListaDetalleColadas = ds._data;
-                    $("#grid").data("kendoGrid").dataSource.sync();
-                    window.data("kendoWindow").close();
-                }
-                else
-                    displayNotify('DynasolColadaMandatorio', '', '2');
-
-            }
-            else 
-                displayNotify('DynasolColadasRegistrosRepetidos', '', '2');
-            
-
-        });
-
-
-        $(document).on('click', '#GuardarInspeccion', function (e) {
-            var inspeccionCorrecta = true;
-            var ds = $("#gridPopUpInspeccion").data("kendoGrid").dataSource;
-            var window = $("#windowGridInspeccion");
-            
-
-            for (var i = 0; i < ds._data.length; i++) {
-                if (ds._data[i].Accion == undefined || ds._data[i].Accion == 0)
-                    ds._data[i].Accion = 1;
-                if ((ds._data[i].Inspeccion == "") && !(ds._data[i].Accion == 3 || ds._data[i].Accion == 4))
-                    inspeccionCorrecta = false;
-            }
-            if (inspeccionCorrecta) {
-                coladaRow.ListaDetalleInspeccion = ds._data;
-
-                var longitudInspeccion = ds._data.length;
-
-                if (longitudInspeccion > 0) {
-                    coladaRow.InspeccionDetalle = ds._data[0].Inspeccion;
-                    coladaRow.Comentario = ds._data[0].Comentario;
-                }
-                else {
-                    coladaRow.InspeccionDetalle = "Sin Inspeccion";
-                    coladaRow.Comentario = "";
-                }
-                
-
-                if ($('input:radio[name=Muestra]:nth(0)').prop('checked')) {
-                    $("#gridPopUpCecilia").data("kendoGrid").dataSource.sync();
-                }
-                else if ($('input:radio[name=Muestra]:nth(1)').prop('checked')) {
-                    $("#gridPopUpGerez").data("kendoGrid").dataSource.sync();
-                }
-                else if ($('input:radio[name=Muestra]:nth(2)').prop('checked')) {
-                    $("#gridPopUpSteelgo").data("kendoGrid").dataSource.sync();
-                }
-
+        if (RegistrosNoRepetidos) {
+            if (coladasCorrectos) {
+                modeloRenglon.ListaDetalleColadas = ds._data;
+                $("#grid").data("kendoGrid").dataSource.sync();
                 window.data("kendoWindow").close();
             }
             else
-                displayNotify('DynasolInspeccionMandatorio', '', '2');
+                displayNotify('DynasolColadaMandatorio', '', '2');
 
-            
+        }
+        else
+            displayNotify('DynasolColadasRegistrosRepetidos', '', '2');
 
-        });
+
+
+    });
+
+    $(document).on('click', '#GuardarPlacasCecilia', function (e) {
+        var coladasCorrectos = true;
+        var ds = $("#gridPopUpCecilia").data("kendoGrid").dataSource;
+        var window = $("#windowGridCecilia");
+
+        for (var i = 0; i < ds._data.length; i++) {
+            if (ds._data[i].Accion == undefined || ds._data[i].Accion == 0)
+                ds._data[i].Accion = 1;
+            if ((ds._data[i].Colada == "" || ds._data[i].Cant == 0 || ds._data[i].Cant == "") && !(ds._data[i].Accion == 3 || ds._data[i].Accion == 4))
+                coladasCorrectos = false;
+        }
+
+        var RegistrosNoRepetidos = true;
+        for (var i = 0; i < ds._data.length; i++) {
+            for (var j = 0; j < ds._data.length; j++) {
+                if (ds._data[i].Colada.trim() == ds._data[j].Colada.trim() && i != j)
+                    RegistrosNoRepetidos = false;
+            }
+        }
+
+        if (RegistrosNoRepetidos) {
+            if (coladasCorrectos) {
+                modeloRenglon.ListaDetalleColadas = ds._data;
+                $("#grid").data("kendoGrid").dataSource.sync();
+                window.data("kendoWindow").close();
+            }
+            else
+                displayNotify('DynasolColadaMandatorio', '', '2');
+
+        }
+        else
+            displayNotify('DynasolColadasRegistrosRepetidos', '', '2');
+
+
+    });
+
+
+    $(document).on('click', '#GuardarInspeccion', function (e) {
+        var inspeccionCorrecta = true;
+        var ds = $("#gridPopUpInspeccion").data("kendoGrid").dataSource;
+        var window = $("#windowGridInspeccion");
+
+
+        for (var i = 0; i < ds._data.length; i++) {
+            if (ds._data[i].Accion == undefined || ds._data[i].Accion == 0)
+                ds._data[i].Accion = 1;
+            if ((ds._data[i].Inspeccion == "") && !(ds._data[i].Accion == 3 || ds._data[i].Accion == 4))
+                inspeccionCorrecta = false;
+        }
+        if (inspeccionCorrecta) {
+            coladaRow.ListaDetalleInspeccion = ds._data;
+
+            var longitudInspeccion = ds._data.length;
+
+            if (longitudInspeccion > 0) {
+                coladaRow.InspeccionDetalle = ds._data[0].Inspeccion;
+                coladaRow.Comentario = ds._data[0].Comentario;
+            }
+            else {
+                coladaRow.InspeccionDetalle = "Sin Inspeccion";
+                coladaRow.Comentario = "";
+            }
+
+
+            if ($('input:radio[name=Muestra]:nth(0)').prop('checked')) {
+                $("#gridPopUpCecilia").data("kendoGrid").dataSource.sync();
+            }
+            else if ($('input:radio[name=Muestra]:nth(1)').prop('checked')) {
+                $("#gridPopUpGerez").data("kendoGrid").dataSource.sync();
+            }
+            else if ($('input:radio[name=Muestra]:nth(2)').prop('checked')) {
+                $("#gridPopUpSteelgo").data("kendoGrid").dataSource.sync();
+            }
+
+            window.data("kendoWindow").close();
+        }
+        else
+            displayNotify('DynasolInspeccionMandatorio', '', '2');
+
+
+
+    });
     //----------------------------------------GUARDAR CAPTURA TOTAL
 
-        $('.accionGuardar').click(function (e) {
-            var ds = $("#grid").data("kendoGrid").dataSource;
-            if (ds._data.length > 0) {
-                if ($('#Guardar').text() == "Guardar" || $('#Guardar').text() == "Save") {
-                    AjaxGuardarCaptura(ds._data, 0);
-                }
-                else if ($('#Guardar').text() == "Editar" || $('#Guardar').text() == "Edit") {
-                    opcionHabilitarView(false)
-                }
+    $('.accionGuardar').click(function (e) {
+        var ds = $("#grid").data("kendoGrid").dataSource;
+        if (ds._data.length > 0) {
+            if ($('#Guardar').text() == "Guardar" || $('#Guardar').text() == "Save") {
+                AjaxGuardarCaptura(ds._data, 0);
             }
+            else if ($('#Guardar').text() == "Editar" || $('#Guardar').text() == "Edit") {
+                opcionHabilitarView(false)
+            }
+        }
+        else {
+                displayNotify("AdverteciaExcepcionGuardado", "", '1');
+        }
 
         });
 
-        $('.accionGuardarNuevo').click(function (e) {
-            var ds = $("#grid").data("kendoGrid").dataSource;
-            if (ds._data.length > 0) {
-                    AjaxGuardarCaptura(ds._data, 1);
-            }
+    $('.accionGuardarNuevo').click(function (e) {
+        var ds = $("#grid").data("kendoGrid").dataSource;
+        if (ds._data.length > 0) {
+                AjaxGuardarCaptura(ds._data, 1);
+        }
+        else {
+            displayNotify("AdverteciaExcepcionGuardado", "", '1');
+        }
 
         });
 
-}
+    }
 
 
 
 function opcionHabilitarView(valor, name) {
 
-    if (valor) {
+    if(valor) {
         $('#FieldSetView').find('*').attr('disabled', true);
 
         $("#inputOrdenCompra").data("kendoComboBox").enable(false);
@@ -347,8 +353,8 @@ function opcionHabilitarView(valor, name) {
         $("#botonGuardar3").text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
         $('#botonGuardar4').text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
 
-    }
-    else {
+        }
+        else {
         $('#FieldSetView').find('*').attr('disabled', false);
 
         $("#inputOrdenCompra").data("kendoComboBox").enable(true);
@@ -360,5 +366,5 @@ function opcionHabilitarView(valor, name) {
         $('#botonGuardar4').text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);
 
 
-    }
-}
+        }
+        }
