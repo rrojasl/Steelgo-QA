@@ -12798,6 +12798,10 @@ _dictionary = {
         "es-MX": "Cant PL",
         "en-US": "Qty PL"
     },
+    "columnCantCM":{
+        "es-MX": "Cant CM",
+        "en-US": "Qty TK"
+    },
     "DynasolOrdenPedidoPackingMandatorio": {
         "es-MX": "Los campos Packing List y Orden compra, son mandatorios",
         "en-US": "The Packing List and Purchase Order fiels has mandatory"
@@ -12805,6 +12809,10 @@ _dictionary = {
     "DynasolOrdenPedidoPackingListCantidad": {
         "es-MX": "La colada se encuentra en los siguientes Packing List: \n",
         "en-US": "The heat is in the next Packing List: \n"
+    },
+    "DynasolOrdenPedidoCamionCantidad": {
+        "es-MX": "La colada se encuentra en los siguientes Camiones: \n",
+        "en-US": "The heat is in the next trucks: \n"
     },
     "DynasolLabelCamion": {
         "es-MX": "Camión",
@@ -12814,7 +12822,10 @@ _dictionary = {
         "es-MX": "UM",
         "en-US": "MU"
     },
-    
+    "lblCamionBotonIr": {
+        "es-MX": "Camión",
+        "en-US": "Truck"
+    },
 
     //Finaliza Modulo Dynasol
 
