@@ -8396,6 +8396,10 @@ _dictionary = {
         "es-MX": "Packing List",
         "en-US": "Packing List"
     },
+    "menuDynasolCamion": {
+        "es-MX": "Camion",
+        "en-US": "Truck"
+    },
     // Finalizan Etiquetas de Menú General
 
 
