@@ -12830,6 +12830,10 @@ _dictionary = {
         "es-MX": "Camión",
         "en-US": "Truck"
     },
+    "lblCamionBotonIr2": {
+        "es-MX": "Camión",
+        "en-US": "Truck"
+    },
 
     //Finaliza Modulo Dynasol
 

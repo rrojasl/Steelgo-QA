@@ -92,7 +92,7 @@ function CargarGrid() {
             { field: "Rating", title: _dictionary.columnRating[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "80px" },
             { field: "PreparacionExtremos", title: _dictionary.columnPrepExt[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "70px" },
             { field: "Partida", title: _dictionary.columnPartida[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "100px" },
-            { field: "Colada", title: _dictionary.columnColada[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "90px", template: "<div class='EnlaceDetalleColada' style='text-align:center;'><a href='\\#'  > <span>#=Colada#</span></a></div> " },
+            { field: "Colada", title: _dictionary.columnColada[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "90px", template: "<div class='EnlaceDetalleColada' style='text-align:center;'><a href='\\#'  > <span>#=Colada#</span></a></div> " },
             { field: "Cant", title: _dictionary.columnCant[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "60px" },
             { field: "CantC", title: _dictionary.columnCantS[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "70px" },
             { field: "CantCamion", title: _dictionary.columnCantCM[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "70px", editor: RenderCantPL, attributes: { style: "text-align:right;" } },
