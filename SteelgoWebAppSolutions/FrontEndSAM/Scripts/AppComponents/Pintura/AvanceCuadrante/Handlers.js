@@ -103,6 +103,9 @@ function suscribirEventoWindowsConfirmaLineaCaptura() {
             case 5:
                 $("#inputColor").data("kendoComboBox").trigger("change");
                 break;
+            case 6:
+                BuscarDetalle();
+                break;
         }
     });
     $("#noButtonProySinTipoBusquedaProyecto").click(function (e) {
@@ -349,6 +352,7 @@ function SuscribirEventoSpoolID() {
 
 function SuscribirEventoMostrar() {
     $("#btnMostrar").click(function () {
+        elementoEjecutoChange = 6;
         BuscarDetalle();
     });
 }

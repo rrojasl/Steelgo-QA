@@ -556,17 +556,10 @@ function limpiarFila(e) {
     if ($('#btnGuardar').text() == _dictionary.DetalleAvisoLlegada0017[$("#language").data("kendoDropDownList").value()]) {
         var itemToClean;
         itemToClean = this.dataItem($(e.currentTarget).closest("tr"));
-        itemToClean.Taller = "";
-        itemToClean.TallerID = 0;
-        itemToClean.FechaArmado = "";
-        itemToClean.Tubero = "";
-        itemToClean.TuberoID = 0;
-        
 
         if (itemToClean.Accion == 2)
             itemToClean.Accion = 4;
 
-        itemToClean.FechaProceso = "";
         itemToClean.FechaProceso = "";
         itemToClean.ListaObrerosSeleccionados = [];
 

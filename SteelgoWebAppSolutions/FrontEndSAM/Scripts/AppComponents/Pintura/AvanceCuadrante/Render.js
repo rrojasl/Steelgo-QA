@@ -11,7 +11,7 @@
                 var value = this.value();
                 options.model.FechaProceso = value;
 
-                $("#grid").data("kendoGrid").dataSource.sync();
+                $("#grid").data("kendoGrid").refresh();
             }
         }
         );
@@ -19,8 +19,9 @@
 }
 
 function RendercomboBoxPintor(container, options) {
+    options.model.ListaObreros = $("#inputPintor").data("kendoMultiSelect").dataSource._data;
 
-    $('<input  data-text-field="Codigo" id=' + options.model.uid + ' data-value-field="ObreroID" data-bind="value:' + options.field + '"/>')
+   var multiselect= $('<input  data-text-field="Codigo" id=' + options.model.uid + ' data-value-field="ObreroID" data-bind="value:' + options.field + '"/>')
             .appendTo(container)
             .kendoMultiSelect({
                 autoBind: false,
@@ -35,6 +36,16 @@ function RendercomboBoxPintor(container, options) {
                 value: options.model.ListaObrerosSeleccionados
             });
 
+   $(".k-multiselect").on('mouseleave', function (send) {
+       var e = $.Event("keydown", { keyCode: 27 });
+       var item = this;
+       if (!tieneClase(item)) {
+           $(container).trigger(e);
+       }
+   });
+   if ((options.model.ListaObrerosSeleccionados == undefined || options.model.ListaObrerosSeleccionados == "" || options.model.ListaObrerosSeleccionados == null) && (options.model.ListaObrerosGuargados == undefined || options.model.ListaObrerosGuargados == null || options.model.ListaObrerosGuargados == "")) {
+       ajaxObtenerListadoObrerosGuardados(multiselect, options.model, options.model.SpoolID, $('input:radio[name=ProcesoPintura]:checked').val())
+    }
 }
 
 function renderComboboxComponenteDinamico(container, options) {

@@ -56,7 +56,6 @@ namespace BackEndSAM.DataAcces.Pintura.AvanceCuadrante
                         });
                     }
                     listaObreros.Add(ListadoPintores);
-                    listaObreros.Add(BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD.CapturaAvanceBD.Instance.ObtenerObreros(procesoID, usuarioID));
                     return listaObreros;
                 }
             }
@@ -295,7 +294,7 @@ namespace BackEndSAM.DataAcces.Pintura.AvanceCuadrante
                             CuadranteID = item.CuadranteID,
                             Cuadrante = item.Cuadrante,
                             PatioID = item.PatioID,
-                            ListaObreros = (List<PintorSpool>)listaObreros[1],
+                            ListaObreros =null,
                             ListaObrerosGuargados = (List<PintorSpool>)listaObreros[0],
                             ListaObrerosSeleccionados = (List<PintorSpool>)listaObreros[0],
                             AvanceCarroID = item.AvanceCarroID,
