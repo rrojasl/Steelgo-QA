@@ -145,31 +145,31 @@ namespace BackEndSAM.Controllers.Pintura.AvanceCuadrante
         }
         public static string DataTableToJSON(DataTable table, int procesopinturaID, int usuario)
         {
-            //var list = new List<Dictionary<string, object>>();
-            //foreach (DataRow row in table.Rows)
-            //{
-            //    var dict = new Dictionary<string, object>();
-             //List<object> listaObreros = (List<object>)AvanceCuadranteBD.Instance.ObtenerObrerosGuardados(int.Parse(row["SpoolID"].ToString()), procesopinturaID, usuario);
+            var list = new List<Dictionary<string, object>>();
+            foreach (DataRow row in table.Rows)
+            {
+                var dict = new Dictionary<string, object>();
+                List<object> listaObreros = (List<object>)AvanceCuadranteBD.Instance.ObtenerObrerosGuardados(int.Parse(row["SpoolID"].ToString()), procesopinturaID, usuario);
 
-            //    foreach (DataColumn col in table.Columns)
-            //    {
-            //        //if (col.ColumnName == "ListaObreros")
-            //        //    dict[col.ColumnName] = " ";// (List<PintorSpool>)listaObreros[1];
-            //        //else if (col.ColumnName == "ListaObrerosGuargados")
-            //        //    dict[col.ColumnName] = " "; //(List<PintorSpool>)listaObreros[0];
-            //        //else if (col.ColumnName == "ListaObrerosSeleccionados")
-            //        //    dict[col.ColumnName] = " "; //(List<PintorSpool>)listaObreros[0];
-            //        //else
-            //            dict[col.ColumnName] = row[col];
-            //    }
-            //    list.Add(dict);
-            //}
-            //JavaScriptSerializer serializer = new JavaScriptSerializer();
+                foreach (DataColumn col in table.Columns)
+                {
+                    if (col.ColumnName == "ListaObreros")
+                        dict[col.ColumnName] = " ";// (List<PintorSpool>)listaObreros[1];
+                    else if (col.ColumnName == "ListaObrerosGuargados")
+                        dict[col.ColumnName] = (List<PintorSpool>)listaObreros[0];
+                    else if (col.ColumnName == "ListaObrerosSeleccionados")
+                        dict[col.ColumnName] =  (List<PintorSpool>)listaObreros[0];
+                    else
+                        dict[col.ColumnName] = row[col];
+                }
+                list.Add(dict);
+            }
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
 
-            string jsonString = string.Empty;
-            jsonString = JsonConvert.SerializeObject(table);
-            return jsonString;
-          //  return serializer.Serialize(list);
+            //string jsonString = string.Empty;
+            //jsonString = JsonConvert.SerializeObject(table);
+            //return jsonString;
+            return serializer.Serialize(list);
         }
         // ObtenerDetalleSpoolAgregar
         public object GET(string token, int OrdenTrabajoSpoolID, string lenguaje, int procesoPinturaID)

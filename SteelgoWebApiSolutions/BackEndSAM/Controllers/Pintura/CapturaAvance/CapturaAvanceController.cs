@@ -119,7 +119,7 @@ namespace BackEndSAM.Controllers.PinturaControllers.CapturaAvance
                 foreach (DataColumn col in table.Columns)
                 {
                     if (col.ColumnName == "ListaObreros")
-                        dict[col.ColumnName] = (List<PintorSpool>)listaObreros[1];
+                        dict[col.ColumnName] = " ";//(List<PintorSpool>)listaObreros[1];
                     else if (col.ColumnName == "ListaObrerosGuargados")
                         dict[col.ColumnName] = (List<PintorSpool>)listaObreros[0];
                     else if (col.ColumnName == "ListaObrerosSeleccionados")

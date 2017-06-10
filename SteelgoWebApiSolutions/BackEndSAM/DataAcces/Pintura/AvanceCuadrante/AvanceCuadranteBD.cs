@@ -39,10 +39,7 @@ namespace BackEndSAM.DataAcces.Pintura.AvanceCuadrante
                 using (SamContext ctx = new SamContext())
                 {
                     List<Sam3_Pintura_AvanceCuadrante_Get_ObrerosProcesoPintura_Result> result = ctx.Sam3_Pintura_AvanceCuadrante_Get_ObrerosProcesoPintura(spoolID, procesoID).ToList();
-
                     List<object> listaObreros = new List<object>();
-
-
                     List<PintorSpool> ListadoPintores = new List<PintorSpool>();
 
                     foreach (Sam3_Pintura_AvanceCuadrante_Get_ObrerosProcesoPintura_Result item in result)

@@ -79,45 +79,7 @@ function CrearControlesDinamicos() {
 
 }
 
-function PlanchaElementosDinamicos() {
-    var dataSource = $("#grid").data("kendoGrid").dataSource;
-    var filters = dataSource.filter();
-    var allData = dataSource.data();
-    var query = new kendo.data.Query(allData);
-    var data = query.filter(filters).data;
 
-    for (var i = 0; i < data.length; i++) {
-        if ($('input:radio[name=LLena]:checked').val() === "Todos") {
-            for (var j = 0; j < ComponentesDinamicosJSON.length; j++) {
-                if ($("#" + ComponentesDinamicosJSON[j].NombreColumna).val() != undefined && $("#" + ComponentesDinamicosJSON[j].NombreColumna).val() != "")
-                    data[i][ComponentesDinamicosJSON[j].NombreColumna] = $("#" + ComponentesDinamicosJSON[j].NombreColumna).val();
-            }
-
-            for (var j = 0; j < ReductoresDinamicosJSON.length; j++) {
-                if ($("#" + ReductoresDinamicosJSON[j].NombreColumna).val() != undefined && $("#" + ReductoresDinamicosJSON[j].NombreColumna).val() != "")
-                    data[i][ReductoresDinamicosJSON[j].NombreColumna] = $("#" + ReductoresDinamicosJSON[j].NombreColumna).val();
-            }
-        }
-
-
-        else {
-            for (var j = 0; j < ComponentesDinamicosJSON.length; j++) {
-                if ($("#" + ComponentesDinamicosJSON[j].NombreColumna).val() != undefined && $("#" + ComponentesDinamicosJSON[j].NombreColumna).val() != "") {
-                    if (data[i][ComponentesDinamicosJSON[j].NombreColumna] == null || data[i][ComponentesDinamicosJSON[j].NombreColumna] == "" || data[i][ComponentesDinamicosJSON[j].NombreColumna] == undefined)
-                        data[i][ComponentesDinamicosJSON[j].NombreColumna] = $("#" + ComponentesDinamicosJSON[j].NombreColumna).val();
-                }
-            }
-
-            for (var j = 0; j < ReductoresDinamicosJSON.length; j++) {
-                if ($("#" + ReductoresDinamicosJSON[j].NombreColumna).val() != undefined && $("#" + ReductoresDinamicosJSON[j].NombreColumna).val() != "") {
-                    if (data[i][ReductoresDinamicosJSON[j].NombreColumna] == null || data[i][ReductoresDinamicosJSON[j].NombreColumna] == "" || data[i][ReductoresDinamicosJSON[j].NombreColumna] == undefined)
-                        data[i][ReductoresDinamicosJSON[j].NombreColumna] = $("#" + ReductoresDinamicosJSON[j].NombreColumna).val();
-                }
-            }
-        }
-    }
-    $("#grid").data("kendoGrid").dataSource.sync();
-}
 
 function changeLanguageCall() {
 
@@ -231,124 +193,50 @@ function VentanaModalDescargarSpool(e) {
 
 
 
-function PlancharPintor(arregloCaptura) {
-
-
-
-    ListaPintorGuargado = [];
-
-    var dataPintor = $("#inputPintor").data("kendoMultiSelect")._dataItems;
+function PlanchaElementosDinamicos() {
     var dataSource = $("#grid").data("kendoGrid").dataSource;
     var filters = dataSource.filter();
     var allData = dataSource.data();
     var query = new kendo.data.Query(allData);
     var data = query.filter(filters).data;
 
-    for (var i = 0; i < data.length; i++) {
 
-        if ($('input:radio[name=LLena]:checked').val() === _dictionary.CapturaTodos[$("#language").data("kendoDropDownList").value()]) {
-            for (var j = 0; j < dataPintor.length; j++) {
-                ListaPintorGuargado[j] = {
-                    Accion: "",
-                    PinturaSpoolObreroID: "",
-                    ObreroID: "",
-                    Codigo: ""
-                };
-                ListaPintorGuargado[j].Accion = 1;
-                ListaPintorGuargado[j].PinturaSpoolObreroID = dataPintor[j].PinturaSpoolObreroID;
-                ListaPintorGuargado[j].ObreroID = dataPintor[j].ObreroID;
-                ListaPintorGuargado[j].Codigo = dataPintor[j].Codigo;
+    if ($('input:radio[name=LLena]:checked').val() === "Todos") {
+        for (var j = 0; j < ComponentesDinamicosJSON.length; j++) {
+            for (var i = 0; i < data.length; i++) {
+                if ($("#" + ComponentesDinamicosJSON[j].NombreColumna).val() != undefined && $("#" + ComponentesDinamicosJSON[j].NombreColumna).val() != "")
+                    data[i][ComponentesDinamicosJSON[j].NombreColumna] = $("#" + ComponentesDinamicosJSON[j].NombreColumna).val();
             }
-
-            arregloCaptura[i].ListaPintorGuargado = dataPintor;
-
-            arregloCaptura[i].plantillaPintor = _dictionary.CapturaAvancePintoresPrimariosExistentes[$("#language").data("kendoDropDownList").value()] + arregloCaptura[i].ListaPintorGuargado.length;
-
         }
-        else {
-            if (data[i].ListaPintorGuargado.length == 0) {
-                for (var k = 0; k < dataPintor.length; k++) {
-                    ListaPintorGuargado[k] = {
-                        Accion: "",
-                        PinturaSpoolObreroID: "",
-                        ObreroID: "",
-                        Codigo: ""
-                    };
-                    ListaPintorGuargado[k].Accion = 1;
-                    ListaPintorGuargado[k].PinturaSpoolObreroID = dataPintor[k].PinturaSpoolObreroID;
-                    ListaPintorGuargado[k].ObreroID = dataPintor[k].ObreroID;
-                    ListaPintorGuargado[k].Codigo = dataPintor[k].Codigo;
-                }
 
-                arregloCaptura[i].ListaPintorGuargado = dataPintor;
-
-                arregloCaptura[i].plantillaPintor = _dictionary.CapturaAvancePintoresPrimariosExistentes[$("#language").data("kendoDropDownList").value()] + arregloCaptura[i].ListaPintorGuargado.length;
+        for (var j = 0; j < ReductoresDinamicosJSON.length; j++) {
+            for (var i = 0; i < data.length; i++) {
+                if ($("#" + ReductoresDinamicosJSON[j].NombreColumna).val() != undefined && $("#" + ReductoresDinamicosJSON[j].NombreColumna).val() != "")
+                    data[i][ReductoresDinamicosJSON[j].NombreColumna] = $("#" + ReductoresDinamicosJSON[j].NombreColumna).val();
             }
         }
     }
-    $("#grid").data("kendoGrid").dataSource.sync();
-}
-
-function PlancharTrabajadores(arregloCaptura) {
-    ListaShotblasteroGuargado = [];
-    var dataShotBlast = $("#inputShotBlastero").data("kendoMultiSelect")._dataItems;
-    var dataSource = $("#grid").data("kendoGrid").dataSource;
-    var filters = dataSource.filter();
-    var allData = dataSource.data();
-    var query = new kendo.data.Query(allData);
-    var data = query.filter(filters).data;
-    for (var j = 0; j < data.length; j++) {
-        if ($('input:radio[name=LLena]:checked').val() === _dictionary.CapturaTodos[$("#language").data("kendoDropDownList").value()]) {
-            for (var i = 0; i < dataShotBlast.length; i++) {
-                ListaShotblasteroGuargado[i] = {
-                    Accion: "",
-                    PinturaSpoolObreroID: "",
-                    ObreroID: "",
-                    Codigo: ""
-                };
-                ListaShotblasteroGuargado[i].Accion = 1;
-                ListaShotblasteroGuargado[i].PinturaSpoolObreroID = dataShotBlast[i].PinturaSpoolObreroID;
-                ListaShotblasteroGuargado[i].ObreroID = dataShotBlast[i].ObreroID;
-                ListaShotblasteroGuargado[i].Codigo = dataShotBlast[i].Codigo;
-            }
-
-            if (dataShotBlast.length > 0) {
-
-                for (var i = 0; i < arregloCaptura.length; i++) {
-
-                    arregloCaptura[i].ListaObrerosSeleccionados = dataShotBlast;
-                    arregloCaptura[i].plantillaObrero = _dictionary.CapturaAvancePintoresShotblastExistentes[$("#language").data("kendoDropDownList").value()] + arregloCaptura[i].ListaObrerosSeleccionados.length;
+    else {
+        for (var j = 0; j < ComponentesDinamicosJSON.length; j++) {
+            for (var i = 0; i < data.length; i++) {
+                if ($("#" + ComponentesDinamicosJSON[j].NombreColumna).val() != undefined && $("#" + ComponentesDinamicosJSON[j].NombreColumna).val() != "") {
+                    if (data[i][ComponentesDinamicosJSON[j].NombreColumna] == null || data[i][ComponentesDinamicosJSON[j].NombreColumna] == "" || data[i][ComponentesDinamicosJSON[j].NombreColumna] == undefined)
+                        data[i][ComponentesDinamicosJSON[j].NombreColumna] = $("#" + ComponentesDinamicosJSON[j].NombreColumna).val();
                 }
-                $("#grid").data("kendoGrid").dataSource.sync();
             }
         }
-        else {
-            if (data[j].ListaObrerosSeleccionados.length == 0) {
-                for (var i = 0; i < dataShotBlast.length; i++) {
-                    ListaShotblasteroGuargado[i] = {
-                        Accion: "",
-                        PinturaSpoolObreroID: "",
-                        ObreroID: "",
-                        Codigo: ""
-                    };
-                    ListaShotblasteroGuargado[i].Accion = 1;
-                    ListaShotblasteroGuargado[i].PinturaSpoolObreroID = dataShotBlast[i].PinturaSpoolObreroID;
-                    ListaShotblasteroGuargado[i].ObreroID = dataShotBlast[i].ObreroID;
-                    ListaShotblasteroGuargado[i].Codigo = dataShotBlast[i].Codigo;
-                }
 
-                if (dataShotBlast.length > 0) {
-
-                    for (var i = 0; i < arregloCaptura.length; i++) {
-
-                        arregloCaptura[i].ListaObrerosSeleccionados = dataShotBlast;
-                        arregloCaptura[i].plantillaObrero = _dictionary.CapturaAvancePintoresShotblastExistentes[$("#language").data("kendoDropDownList").value()] + arregloCaptura[i].ListaObrerosSeleccionados.length;
-                    }
-                    $("#grid").data("kendoGrid").dataSource.sync();
+        for (var j = 0; j < ReductoresDinamicosJSON.length; j++) {
+            for (var i = 0; i < data.length; i++) {
+                if ($("#" + ReductoresDinamicosJSON[j].NombreColumna).val() != undefined && $("#" + ReductoresDinamicosJSON[j].NombreColumna).val() != "") {
+                    if (data[i][ReductoresDinamicosJSON[j].NombreColumna] == null || data[i][ReductoresDinamicosJSON[j].NombreColumna] == "" || data[i][ReductoresDinamicosJSON[j].NombreColumna] == undefined)
+                        data[i][ReductoresDinamicosJSON[j].NombreColumna] = $("#" + ReductoresDinamicosJSON[j].NombreColumna).val();
                 }
             }
         }
     }
+
+    $("#grid").data("kendoGrid").refresh();
 }
 
 function PlanchaFechaProceso() {
@@ -358,20 +246,51 @@ function PlanchaFechaProceso() {
     var query = new kendo.data.Query(allData);
     var data = query.filter(filters).data;
 
-    for (var i = 0; i < data.length; i++) {
-        if ($('input:radio[name=LLena]:checked').val() === "Todos") {
+    if ($('input:radio[name=LLena]:checked').val() === "Todos") {
+        for (var i = 0; i < data.length; i++) {
             data[i].FechaProceso = String(endRangeDateShotblast.val()).trim();
         }
-        else {
+    }
+    else {
+        for (var i = 0; i < data.length; i++) {
             if (data[i].FechaProceso === "" || data[i].FechaProceso === null || data[i].FechaProceso === undefined) {
                 data[i].FechaProceso = String(endRangeDateShotblast.val()).trim();
             }
         }
     }
-    $("#grid").data("kendoGrid").dataSource.sync();
+    $("#grid").data("kendoGrid").refresh();
 }
 
+function PlancharTrabajadores(arregloCaptura) {
 
+    var dataShotBlast = $("#inputShotBlastero").data("kendoMultiSelect")._dataItems;
+    var dataSource = $("#grid").data("kendoGrid").dataSource;
+    var filters = dataSource.filter();
+    var allData = dataSource.data();
+    var query = new kendo.data.Query(allData);
+    var data = query.filter(filters).data;
+
+    //obtenermos los obreros a planchar
+    if ($('input:radio[name=LLena]:checked').val() === _dictionary.CapturaTodos[$("#language").data("kendoDropDownList").value()]) {
+        for (var i = 0; i < data.length; i++) {
+            data[i].ListaObreros = $("#inputShotBlastero").data("kendoMultiSelect").dataSource._data;
+            data[i].ListaObrerosSeleccionados = dataShotBlast;
+            data[i].plantillaObrero = _dictionary.CapturaAvancePintoresShotblastExistentes[$("#language").data("kendoDropDownList").value()] + arregloCaptura[i].ListaObrerosSeleccionados.length;
+        }
+       
+    }
+    else {
+        for (var i = 0; i < data.length; i++) {
+            if (data[i].ListaObrerosSeleccionados.length == 0) {
+                data[i].ListaObreros = $("#inputShotBlastero").data("kendoMultiSelect").dataSource._data;
+                data[i].ListaObrerosSeleccionados = dataShotBlast;
+                data[i].plantillaObrero = _dictionary.CapturaAvancePintoresShotblastExistentes[$("#language").data("kendoDropDownList").value()] + arregloCaptura[i].ListaObrerosSeleccionados.length;
+            }
+        }
+
+    }
+    $("#grid").data("kendoGrid").dataSource.sync();
+}
 
 function CambiarProcesoPintura() {
     if (procesoPinturaSeleccionadoAnterior == "")

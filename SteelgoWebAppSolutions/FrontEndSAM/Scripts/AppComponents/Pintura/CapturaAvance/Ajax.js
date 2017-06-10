@@ -72,7 +72,7 @@ function AjaxCargaMostrarPredeterminadoseleciconProcesosPintura() {
         else if (data == "acabado") {
             $('input:radio[name=ProcesoPintura]:nth(3)').trigger("click");
         }
-        loadingStop();
+        
     });
 }
 
@@ -119,8 +119,6 @@ function AjaxCargarCarrosCargadosPorProceso(idProceso) {
             $("#inputCarro").data("kendoComboBox").value(paramCarroID);
             $("#inputCarro").data("kendoComboBox").trigger("change");
         }
-
-        loadingStop();
     });
 }
 
@@ -152,7 +150,6 @@ function AjaxCargarShotBlastero() {
         if (Error(data)) {
             $("#inputShotBlastero").data("kendoMultiSelect").setDataSource(data);
         }
-        loadingStop();
     });
 }
 

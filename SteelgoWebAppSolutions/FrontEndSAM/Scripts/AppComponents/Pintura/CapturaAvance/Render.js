@@ -1,22 +1,30 @@
 ﻿
-
 function RendercomboBoxShotBlastero(container, options) {
-   
+    options.model.ListaObreros = $("#inputShotBlastero").data("kendoMultiSelect").dataSource._data;
+
     $('<input  data-text-field="Codigo" id=' + options.model.uid + ' data-value-field="ObreroID" data-bind="value:' + options.field + '"/>')
-            .appendTo(container)
-            .kendoMultiSelect({
-                autoBind: false,
-                dataTextField: "Codigo",
-                dataValueField: "ObreroID",
-                dataSource: options.model.ListaObreros,
-                template: "<i class=\"fa fa-#=data.Codigo.toLowerCase()#\"></i> #=data.Codigo#",
-                change: function (e) {
-                    options.model.plantillaObrero = _dictionary.CapturaAvancePintoresShotblastExistentes[$("#language").data("kendoDropDownList").value()] + options.model.ListaObrerosSeleccionados.length;
-                    this.dataSource.sync();
-                },
-                value: options.model.ListaObrerosSeleccionados
-            });
-    
+             .appendTo(container)
+             .kendoMultiSelect({
+                 autoBind: true,
+                 dataTextField: "Codigo",
+                 dataValueField: "ObreroID",
+                 dataSource: options.model.ListaObreros,
+                 template: "<i class=\"fa fa-#=data.Codigo.toLowerCase()#\"></i> #=data.Codigo#",
+                 change: function (e) {
+                     options.model.plantillaObrero = _dictionary.CapturaAvancePintoresShotblastExistentes[$("#language").data("kendoDropDownList").value()] + options.model.ListaObrerosSeleccionados.length;
+                     $("#grid").data("kendoGrid").refresh();
+                 },
+                 value: options.model.ListaObrerosSeleccionados //[{ "Accion": "2", "AvanceCarroObreroId": "1", "Codigo	": "T-133", "ObreroID": "22" }]
+             });
+
+    $(".k-multiselect").on('mouseleave', function (send) {
+        var e = $.Event("keydown", { keyCode: 27 });
+        var item = this;
+        if (!tieneClase(item)) {
+            $(container).trigger(e);
+        }
+    });
+
 }
 
 

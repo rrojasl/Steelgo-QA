@@ -21,19 +21,19 @@
 function RendercomboBoxPintor(container, options) {
     options.model.ListaObreros = $("#inputPintor").data("kendoMultiSelect").dataSource._data;
 
-   var multiselect= $('<input  data-text-field="Codigo" id=' + options.model.uid + ' data-value-field="ObreroID" data-bind="value:' + options.field + '"/>')
+   $('<input  data-text-field="Codigo" id=' + options.model.uid + ' data-value-field="ObreroID" data-bind="value:' + options.field + '"/>')
             .appendTo(container)
             .kendoMultiSelect({
-                autoBind: false,
+                autoBind: true,
                 dataTextField: "Codigo",
                 dataValueField: "ObreroID",
                 dataSource: options.model.ListaObreros,
                 template: "<i class=\"fa fa-#=data.Codigo.toLowerCase()#\"></i> #=data.Codigo#",
                 change: function (e) {
                     options.model.plantillaObrero = _dictionary.CapturaAvancePintoresShotblastExistentes[$("#language").data("kendoDropDownList").value()] + options.model.ListaObrerosSeleccionados.length;
-                    this.dataSource.sync();
+                    $("#grid").data("kendoGrid").refresh();
                 },
-                value: options.model.ListaObrerosSeleccionados
+                value: options.model.ListaObrerosSeleccionados //[{ "Accion": "2", "AvanceCarroObreroId": "1", "Codigo	": "T-133", "ObreroID": "22" }]
             });
 
    $(".k-multiselect").on('mouseleave', function (send) {
@@ -43,9 +43,7 @@ function RendercomboBoxPintor(container, options) {
            $(container).trigger(e);
        }
    });
-   if ((options.model.ListaObrerosSeleccionados == undefined || options.model.ListaObrerosSeleccionados == "" || options.model.ListaObrerosSeleccionados == null) && (options.model.ListaObrerosGuargados == undefined || options.model.ListaObrerosGuargados == null || options.model.ListaObrerosGuargados == "")) {
-       ajaxObtenerListadoObrerosGuardados(multiselect, options.model, options.model.SpoolID, $('input:radio[name=ProcesoPintura]:checked').val())
-    }
+  
 }
 
 function renderComboboxComponenteDinamico(container, options) {

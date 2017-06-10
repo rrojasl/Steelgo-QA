@@ -518,12 +518,10 @@ function suscribirEventoSeleccionMuestra() {
 
 function Limpiar() {
     $("#inputCarro").data("kendoComboBox").value("");
-    $("#inputComponente").data("kendoComboBox").value("");
-    $("#inputComponente").data("kendoComboBox").dataSource.data([]);
     $("#InputOrdenTrabajo").val("");
-    $("#InputID").data("kendoComboBox").value("");
     $("#InputID").data("kendoComboBox").dataSource.data([]);
-    $("#Fechaprimario").data("kendoDatePicker").value(new Date());
+    $("#InputID").data("kendoComboBox").value("");
+    $("#FechaShotBlast").data("kendoDatePicker").value(new Date());
     $("#grid").data('kendoGrid').dataSource.data([]);
     opcionHabilitarView(false, "FieldSetView");
 }

@@ -380,12 +380,12 @@ function AjaxGuardarAvanceCarro(arregloCaptura, guardarYNuevo) {
         ListaDetalles[index].Reductor = ReductorDinamico.length > 0 ? ReductorDinamico[0].NombreReductor : "";
         ListaDetalles[index].ReductorLote = ReductorDinamico.length > 0 ? arregloCaptura[index][ReductorDinamico[0].NombreReductor] : "";
 
-        if (ListaDetalles[index].FechaProceso == "") {
+        if (ListaDetalles[index].FechaProceso == "" && (arregloCaptura[index].Accion == 1 || arregloCaptura[index].Accion == 2)) {
             ListaDetalles[index].Estatus = 0;
             $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
         }
         if (ReductorDinamico.length > 0) {
-            if (ListaDetalles[index].ReductorLote == "" || ListaDetalles[index].ReductorLote == undefined || ListaDetalles[index].ReductorLote == null) {
+            if ((ListaDetalles[index].ReductorLote == "" || ListaDetalles[index].ReductorLote == undefined || ListaDetalles[index].ReductorLote == null) && (arregloCaptura[index].Accion == 1 || arregloCaptura[index].Accion == 2)) {
                 $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
                 ListaDetalles[index].Estatus = 0;
             }
@@ -440,12 +440,30 @@ function AjaxGuardarAvanceCarro(arregloCaptura, guardarYNuevo) {
             ListaDetalleComponentesDinamicos[k].Lote = arregloCaptura[index][ComponentesDinamicos[k].NombreComponente];
             ListaDetalleComponentesDinamicos[k].ProcesoPinturaID = $('input:radio[name=ProcesoPintura]:checked').val();
 
-            if (ListaDetalleComponentesDinamicos[k].Lote == "" || ListaDetalleComponentesDinamicos[k].Lote == undefined || ListaDetalleComponentesDinamicos[k].Lote == null) {
+            if ((ListaDetalleComponentesDinamicos[k].Lote == "" || ListaDetalleComponentesDinamicos[k].Lote == undefined || ListaDetalleComponentesDinamicos[k].Lote == null) && (arregloCaptura[index].Accion == 1 || arregloCaptura[index].Accion == 2)) {
                 $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
                 ListaDetalles[index].Estatus = 0;
             }
         }
         ListaDetalles[index].ListaComponentesDinamicos = ListaDetalleComponentesDinamicos;
+
+        //valido si el registro se limpio pero algun elemento editable esta completo entonces manda una advertencia.
+        var ListaDetalleComponentesDinamicosGuardados = [];
+        for (var k = 0; k < ComponentesDinamicos.length; k++) {
+            ListaDetalleComponentesDinamicosGuardados[k] = { Lote: "" };
+            ListaDetalleComponentesDinamicosGuardados[k].Lote = arregloCaptura[index][ComponentesDinamicos[k].NombreComponente];//lote seleccionado por cada componente dinamico creado.
+            if ((ListaDetalles[index].ReductorLote != "" || ListaDetalles[index].FechaProceso != "" || arregloCaptura[index].ListaObrerosSeleccionados.length > 0 || ListaDetalleComponentesDinamicosGuardados[k].Lote != "") && (arregloCaptura[index].Accion == 4)) {//si algun campo es capturado
+                if (!(ListaDetalles[index].ReductorLote != "" && ListaDetalles[index].FechaProceso != "" && arregloCaptura[index].ListaObrerosSeleccionados.length > 0 && ListaDetalleComponentesDinamicosGuardados[k].Lote != ""))//se valida los campos obligatorios.
+                {
+                    $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
+                    ListaDetalles[index].Estatus = 0;
+                }
+            }
+        }
+
+        //hago una validacion si tiene status 4 pero esta todo capturado entonces se cambia de status 2
+        if (arregloCaptura[index].Accion == 4 && ListaDetalles[index].Estatus == 1)
+            ListaDetalles[index].Accion = 2;
     }
     Captura[0].Detalles = ListaDetalles;
 
@@ -536,7 +554,8 @@ function AjaxEjecutarGuardado(data, guardarYNuevo) {
                 var dataItemCuadrante = $("#inputCuadrante").data("kendoComboBox").dataItem($("#inputCuadrante").data("kendoComboBox").select());
                 var dataItemSP = $("#inputSistemaPintura").data("kendoComboBox").dataItem($("#inputSistemaPintura").data("kendoComboBox").select());
                 var dataItemColor = $("#inputColor").data("kendoComboBox").dataItem($("#inputColor").data("kendoComboBox").select());
-                AjaxCargarSpool($("#inputProyecto").data("kendoComboBox").value(),dataItemCuadrante.CuadranteID, dataItemSP.SistemaPinturaProyectoID, dataItemColor.SistemaPinturaColorID, SistemaPinturaProyectoID, SistemaPinturaColorID, $("#language").val(), $('input:radio[name=ProcesoPintura]:checked').val(), $('input:radio[name=Muestra]:checked').val());
+                AjaxCargarSpool($("#inputProyecto").data("kendoComboBox").value(), dataItemCuadrante.CuadranteID, dataItemSP.SistemaPinturaProyectoID, dataItemColor.SistemaPinturaColorID, $("#language").val(), $('input:radio[name=ProcesoPintura]:checked').val(), $('input:radio[name=Muestra]:checked').val());
+                
             }
             loadingStop();
         }
@@ -548,17 +567,17 @@ function AjaxEjecutarGuardado(data, guardarYNuevo) {
     });
 }
 
-function ajaxObtenerListadoObrerosGuardados(multiselect,model, spoolID, procesoPinturaID)
+function ajaxObtenerListadoObrerosGuardados(model, spoolID, procesoPinturaID)
 {
-    //loadingStart();
+    loadingStart();
    
         $AvanceCuadrante.AvanceCuadrante.read({ token: Cookies.get("token"), spoolID: spoolID, procesoPinturaID: procesoPinturaID }).done(function (data) {
 
-            if (data.length > 0 && multiselect.data("kendoMultiSelect")!=undefined) {
-                multiselect.data("kendoMultiSelect").value(data);
+            if (data.length > 0) {
                 model.ListaObrerosGuargados = data;
+                model.ListaObrerosSeleccionados = data;
             }
-      //      loadingStop();
+            loadingStop();
         });
 
 }
