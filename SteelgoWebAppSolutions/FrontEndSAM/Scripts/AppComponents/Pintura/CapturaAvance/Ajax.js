@@ -303,7 +303,7 @@ function AjaxAgregarSpool(ordenTrabajoSpoolID) {
         for (var i = 0; i < array.length; i++) {
             if (array[i].Banderastatus == "") {
                 if (!existeSpool(array[i].Spool, ds)) {
-                    if (sistemaPinturaProyectoID == array[i].SistemaPinturaProyectoID) {
+					if (array[i].SistemaPinturaProyectoID ==null ||  (sistemaPinturaProyectoID == array[i].SistemaPinturaProyectoID)) {
                         if (array[i].CarroID == 0) {
                             ds.add(array[i]);
                             if (elementosModificados != "")
