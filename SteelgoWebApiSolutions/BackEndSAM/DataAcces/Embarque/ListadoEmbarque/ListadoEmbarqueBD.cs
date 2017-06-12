@@ -92,7 +92,7 @@ namespace BackEndSAM.DataAcces.Embarque.ListadoEmbarque
                             DestinoID = item.DestinoID,
                             Destino = item.Destino,
                             SolicitudPermisoAnt = item.SolicitudPermiso,
-                            FolioSolicitudPermiso = item.RequiereAduana.GetValueOrDefault()?item.SolicitudPermiso:"NA",
+                            FolioSolicitudPermiso = item.RequiereAduana.GetValueOrDefault() ? item.SolicitudPermiso : "NA",
                             FechaSolicitudAnt = item.FechaPermiso,
                             FechaSolicitudPermiso = item.RequiereAduana.GetValueOrDefault() ? item.FechaPermiso : "NA",
                             RequierePapCliente = item.RequierePapCliente.GetValueOrDefault(),
@@ -106,8 +106,10 @@ namespace BackEndSAM.DataAcces.Embarque.ListadoEmbarque
                             AprobadoAduanaDesc = item.RequiereAduana.GetValueOrDefault() ? item.AprobadoAduanaDesc : "NA",
                             OkEmbarqueAnt = item.OkEmbarque,
                             OkEmbarque = item.OkEmbarque,
-                            Enviar = item.RequiereAduana.GetValueOrDefault() ? item.AprobadoAduana == 1 && item.OkCliente && item.OkEmbarque && item.EmbarqueEstatusID != 2 ? true : false : 
-                                item.OkCliente && ((item.OkEmbarque && item.OkClienteEmbarque.GetValueOrDefault()) || !item.OkClienteEmbarque.GetValueOrDefault())  && item.EmbarqueEstatusID != 2 ? true: false,
+                            Enviar = 
+                                item.OkEmbarque && (item.OkClienteEmbarque.GetValueOrDefault() && item.OkCliente) && !item.RequiereAduana.GetValueOrDefault() && item.RequierePapCliente.GetValueOrDefault() && item.EmbarqueEstatusID != 2 ? true : 
+                                (item.RequiereAduana.GetValueOrDefault() && !item.RequierePapCliente.GetValueOrDefault() && item.RequiereRevisionCliente.GetValueOrDefault() && item.OkEmbarque && (!item.OkClienteEmbarque.GetValueOrDefault() || !item.OkCliente)) ? true : 
+                                (item.EmbarqueEstatusID != 2 && item.RequierePapCliente.GetValueOrDefault() && item.RequiereAduana.GetValueOrDefault() && (item.SolicitudPermiso != "" && item.SolicitudPermiso != null) && (item.FechaPermiso != "" && item.FechaPermiso != null) && item.AprobadoAduana.GetValueOrDefault() != 0 && item.OkCliente && item.OkEmbarque ) ? true : false,
                             CapturaEnvioID = item.CapturaEnvioID.GetValueOrDefault(),
                             ModificadoPorUsuario = false,
                             RowOk = true,

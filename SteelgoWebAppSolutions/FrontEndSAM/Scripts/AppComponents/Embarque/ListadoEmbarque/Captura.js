@@ -56,7 +56,7 @@ function CargarGrid() {
                     grid.select(focusedCell);
                     grid.editCell(focusedCell);
                 }
-            }(), 200);
+            }(), 100);
         },
 
         edit: function (e) {
@@ -119,8 +119,9 @@ function CargarGrid() {
         navigatable: true,
         editable: true,
         autoHeight: true,
+        autoWidth: true,
         sortable: true,
-        scrollable: true,
+        scrollable: true,        
         pageable: {
             refresh: false,
             pageSizes: [10, 25, 50, 100],
@@ -168,7 +169,7 @@ function CargarGrid() {
             },
             {
                 field: "Enviar", title: _dictionary.columnEnviar[$("#language").data("kendoDropDownList").value()], filterable: false, template: "<center><button  type='button' class='btn btn-blue enviarEmbarque' Style='display: #= Enviar == true ?'block;' : 'none;' #' ><span>" +
-                   _dictionary.botonEnviar[$("#language").data("kendoDropDownList").value()] + "</span></button></center>", width: "115px"
+                   _dictionary.botonEnviar[$("#language").data("kendoDropDownList").value()] + "</span></button></center>", width: "60px"
             },
         ],
         dataBound: function (e) {
@@ -177,15 +178,18 @@ function CargarGrid() {
             }
             else {
                 $(".k-grid-content td").css("white-space", "nowrap");
-            }
+            }            
         },
         beforeEdit: function (e) {
             var columnIndex = this.cellIndex(e.container);
             var fieldName = this.thead.find("th").eq(columnIndex).data("field");
-            if (!isEditable(fieldName, e.model)) {
+            if (!e.model.OkClienteEmbarque) {
                 e.preventDefault();
             }
-        },
+            if (!isEditable(fieldName, e.model)) {
+                e.preventDefault();
+            }          
+        }        
     });
 
     $("#grid").on("change",  ":checkbox", function (e) {
@@ -207,11 +211,12 @@ function CargarGrid() {
                         if (dataItem.Accion == 2)
                             dataItem.ModificadoPorUsuario = true;
                     }
-
+                   
                     if (SetValueEnviar(dataItem))
                         dataItem.Enviar = true;
                     else
                         dataItem.Enviar = false;
+                        
                 } else {
                     if (e.target.checked)
                         $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).OkEmbarque = false;
@@ -225,8 +230,7 @@ function CargarGrid() {
                 else
                     $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).OkEmbarque = true;
             }
-
-            $("#grid").data("kendoGrid").dataSource.sync();
+            $("#grid").data("kendoGrid").dataSource.sync();            
         } else if ($(this)[0].className == "chk-OkCliente" || $(this)[0].name == "OkCliente") {
             if ($('#Guardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
                 var grid = $("#grid").data("kendoGrid");
@@ -264,19 +268,16 @@ function CargarGrid() {
                     $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).OkCliente = false;
                 else
                     $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).OkCliente = true;
-            }
-
+            }                                               
             $("#grid").data("kendoGrid").dataSource.sync();
-        }
-        
-    });
-
-    $("#grid").on("change", ":checkbox", function (e) {
-
-        
-    });
+        }        
+    });    
     CustomisaGrid($("#grid"));
 };
+
+function scrollEnColumnaActual(e) {
+
+}
 
 function isEditable(fieldName, model) {
     if (fieldName === "FolioSolicitudPermiso") {
@@ -311,9 +312,13 @@ function AltaFecha() {
 function SetValueEnviar(obj) {
     var retorno = false;
     if (obj != undefined) {
-        if ((obj.OkCliente && obj.OkClienteEmbarque || !obj.OkClienteEmbarque) && obj.AprobadoAduana == 1 && obj.OkEmbarque)
+        if (!obj.RequierePapCliente && obj.RequierePermisoAduana && obj.RequiereRevisionCliente && obj.OkEmbarque && !obj.OkClienteEmbarque && !obj.OkCliente) {
             retorno = true;
+        } else if (obj.RequierePapCliente && !obj.RequierePermisoAduana && obj.RequiereRevisionCliente && obj.OkEmbarque && obj.OkClienteEmbarque && obj.OkCliente) {
+            retorno = true;
+        } else if ((obj.AprobadoAduana && obj.AprobadoAduanaDesc == "Aprobado") && obj.EstatusEmbarqueID != 2 && (obj.FechaSolicitudPermiso != "" && obj.FechaSolicitudPermiso != null) && (obj.FolioSolicitudPermiso != "" && obj.FolioSolicitudPermiso != null) && obj.OkCliente && obj.OkClienteEmbarque && obj.OkEmbarque && obj.RequierePapCliente && obj.RequierePermisoAduana && !obj.RequiereRevisionCliente) {
+            retorno = true;
+        }            
     }
-
     return retorno;
 }
