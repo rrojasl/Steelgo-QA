@@ -79,5 +79,6 @@
         public static string SAM3_DYNASIL_GUARDARDETALLEPACKINGLIST = "Sam3_Dynasol_SET_DetallePackingList";
         public static string SAM3_DYNASOL_GUARDADETALLECAMION = "Sam3_Dynasol_SET_DetalleCamion";
         public static string GUARDACAPTURAAVANCECUADRANTE = "Sam3_Pintura_AvanceCuadrante_Guarda";
+        public static string VALIDARCAPTURACARGAPLANA = "Sam3_Embarque_CP_ValidacionSpoolsCargaPlana";
     }
 }

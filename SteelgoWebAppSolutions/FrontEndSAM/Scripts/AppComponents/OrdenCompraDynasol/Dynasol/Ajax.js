@@ -36,7 +36,7 @@ function AjaxCargarRevision() {
             }
             ds.sync();
         }
-        
+
         loadingStop();
 
 
@@ -79,7 +79,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                         MedidaGerezID: "", MedidaSteelgoID: ""
                     }
 
-                    ListaColadas[j].Accion = arregloCaptura[index].ListaDetalleColadas[j].Accion ;
+                    ListaColadas[j].Accion = arregloCaptura[index].ListaDetalleColadas[j].Accion;
                     ListaColadas[j].RevisionID = arregloCaptura[index].RevisionID;
                     ListaColadas[j].ColadaID = arregloCaptura[index].ListaDetalleColadas[j].ColadaID;
                     ListaColadas[j].Nombre = arregloCaptura[index].ListaDetalleColadas[j].Colada;
@@ -105,7 +105,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
                     if (arregloCaptura[index].ListaDetalleColadas[j].ListaDetalleInspeccion != undefined) {
                         for (i = 0; i < arregloCaptura[index].ListaDetalleColadas[j].ListaDetalleInspeccion.length; i++) {
                             ListaInspeccion[cont] = {
-                                Accion: "",RevisionID: "", DetalleInspeccion: "", InspeccionID: "", NombreColada: "", Comentario: ""
+                                Accion: "", RevisionID: "", DetalleInspeccion: "", InspeccionID: "", NombreColada: "", Comentario: ""
 
                             }
 
@@ -127,12 +127,24 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
 
 
 
+            for (var j = 0; j < arregloCaptura.length; j++) {
+                if (arregloCaptura[index].Partida.trim() == arregloCaptura[j].Partida.trim() && index != j && arregloCaptura[index].Partida != "" && arregloCaptura[j].Partida != "" ) {
+                    ListaDetalles[index].Estatus = 0;
+                    $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
+                    
+                    $("#grid").data("kendoGrid").dataSource.sync();
+                }
+            }
+
+
+
             if (arregloCaptura[index].Partida == "") {
                 ListaDetalles[index].Estatus = 0;
                 $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
                 $("#grid").data("kendoGrid").dataSource.sync();
                 //$('tr[data-uid="' + arregloCaptura[index].uid + '"] ').css("background-color", "#ffcccc");
             }
+
 
         }
 
@@ -142,7 +154,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
         Captura[0].Detalles = ListaDetalles;
 
 
-        
+
         if (!ExistRowEmpty(ListaDetalles)) {
             if (Captura[0].Detalles.length > 0) {
                 AjaxEjecutarGuardado(Captura[0], tipoGuardar);
@@ -222,16 +234,16 @@ function AjaxEjecutarGuardado(Captura, tipoGuardar) {
 
                 if (tipoGuardar == 1) {
                     //editado = false;
-                    
+
                     $("#grid").data('kendoGrid').dataSource.data([]);
                     AjaxObtenerOrdenesCompra();
                     opcionHabilitarView(false, "FieldSetView");
                     loadingStop();
-                    
+
                 }
                 else {
                     opcionHabilitarView(true, "FieldSetView");
-                    loadingStop();  
+                    loadingStop();
                     AjaxCargarRevision();
                 }
             }

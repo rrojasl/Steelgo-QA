@@ -34,7 +34,7 @@ namespace BackEndSAM.DataAcces.Embarque.CargaPlana
         {
             try
             {
-                using(SamContext ctx = new SamContext())
+                using (SamContext ctx = new SamContext())
                 {
                     List<Sam3_Embarque_CG_Get_ListadoPaquetes_Result> result = ctx.Sam3_Embarque_CG_Get_ListadoPaquetes(ProyectoID).ToList();
                     List<DetallePaquete> listaPaquete = new List<DetallePaquete>();
@@ -42,7 +42,8 @@ namespace BackEndSAM.DataAcces.Embarque.CargaPlana
 
                     foreach (Sam3_Embarque_CG_Get_ListadoPaquetes_Result item in result)
                     {
-                        listaPaquete.Add(new DetallePaquete {
+                        listaPaquete.Add(new DetallePaquete
+                        {
                             PaqueteID = item.PaqueteID,
                             Nombre = item.Nombre,
                             CuadranteID = item.CuadranteID.GetValueOrDefault(),
@@ -52,7 +53,8 @@ namespace BackEndSAM.DataAcces.Embarque.CargaPlana
                     return listaPaquete;
                 }
 
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
@@ -75,7 +77,8 @@ namespace BackEndSAM.DataAcces.Embarque.CargaPlana
 
                     foreach (Sam3_Embarque_Get_DetalleCargaPlana_Result item in result)
                     {
-                        listaDetalle.Add(new DetalleCargaPlana {
+                        listaDetalle.Add(new DetalleCargaPlana
+                        {
                             Accion = 2,
                             DetalleCargaID = item.DetalleCargaID,
                             SpoolID = item.SpoolID,
@@ -89,13 +92,15 @@ namespace BackEndSAM.DataAcces.Embarque.CargaPlana
                             CuadranteAnteriorID = item.CuadranteAnteriorID.GetValueOrDefault(),
                             CuadrantePaqueteAnteriorID = item.CuadrantePaqueteAnteriorID.GetValueOrDefault(),
                             ZonaPaqueteAnteriorID = item.ZonaPaqueteAnteriorID.GetValueOrDefault(),
-                            ModificadoPorUsuario = false
+                            ModificadoPorUsuario = false,
+                            RowOk = true
                         });
                     }
                     return listaDetalle;
                 }
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
                 result.ReturnCode = 500;
@@ -133,7 +138,8 @@ namespace BackEndSAM.DataAcces.Embarque.CargaPlana
                             CuadranteAnteriorID = item.CuadranteAnteriorID.GetValueOrDefault(),
                             ModificadoPorUsuario = true,
                             Cargado = item.Cargado,
-                            PlanaCargado = item.PlanaCargado
+                            PlanaCargado = item.PlanaCargado,
+                            RowOk = true
                         });
                     }
                     return listaDetalle;
@@ -176,7 +182,8 @@ namespace BackEndSAM.DataAcces.Embarque.CargaPlana
                             DetalleCargaID = item.DetalleCargaID,
                             Cargado = item.Cargado,
                             PlanaCargado = item.PlanaCargado,
-                            ModificadoPorUsuario = true
+                            ModificadoPorUsuario = true,
+                            RowOk = true
                         });
                     }
                     return listaDetalle;
@@ -199,7 +206,7 @@ namespace BackEndSAM.DataAcces.Embarque.CargaPlana
             try
             {
                 ObjetosSQL _SQL = new ObjetosSQL();
-                string[,] parametros = { { "@UsuarioID", UsuarioID.ToString() }, { "@PlanaID", PlanaID.ToString() }, 
+                string[,] parametros = { { "@UsuarioID", UsuarioID.ToString() }, { "@PlanaID", PlanaID.ToString() },
                     { "@CerrarPlana", CerrarPlana.ToString() }, { "@CuadrantePlanaSam2ID", CuadrantePlanaSam2ID.ToString() }, { "@CuadrantePlanaSam3ID", CuadrantePlanaSam3ID.ToString() } };
 
                 int identityResult = _SQL.EjecutaInsertUpdate(Stords.GUARDARCAPTURACARGAPLANA, dtDetalle, "@DetalleCarga", parametros);
@@ -213,7 +220,7 @@ namespace BackEndSAM.DataAcces.Embarque.CargaPlana
                 }
                 else
                     result.ReturnMessage.Add("Paquete Existe");
-                
+
                 result.ReturnCode = 200;
                 result.ReturnStatus = true;
                 result.IsAuthenicated = true;
@@ -324,5 +331,48 @@ namespace BackEndSAM.DataAcces.Embarque.CargaPlana
                 return result;
             }
         }
+        public object ValidarCapturaCargaPlana(DataTable dtDetalle, int UsuarioID, int PlanaID)
+        {
+            try
+            {
+                ObjetosSQL _SQL = new ObjetosSQL();
+                string[,] parametros = { { "@UsuarioID", UsuarioID.ToString() }, { "@PlanaID", PlanaID.ToString() } };
+
+                DataTable dataTableName = _SQL.Tabla(Stords.VALIDARCAPTURACARGAPLANA, dtDetalle, "@DetalleCarga", parametros);
+
+
+
+
+                List<DetalleSpoolValidar> listName = dataTableName.AsEnumerable().Select(m => new DetalleSpoolValidar()
+                {
+                    SpoolID = m.Field<int>("SpoolID"),
+                    NumeroControl = m.Field<string>("NumeroControl"),
+                    Paquete = m.Field<string>("NombrePaquete"),
+                    Plana = m.Field<string>("Plana"),
+                    EsCorrecto = m.Field<int>("EsCorrecto"),
+                }).ToList();
+                
+
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add("Ok");
+                result.ReturnMessage.Add("");
+                result.ReturnCode = 200;
+                result.ReturnStatus = true;
+                result.IsAuthenicated = true;
+
+                return listName;
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
     }
 }

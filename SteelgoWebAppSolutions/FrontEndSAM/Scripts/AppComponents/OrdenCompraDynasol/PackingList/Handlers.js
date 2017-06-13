@@ -19,6 +19,9 @@ function suscribirEventoGuardar() {
                 else
                     displayNotify("DynasolOrdenPedidoPackingMandatorio", "", "1");
             }
+            else {
+                displayNotify("AdverteciaExcepcionGuardado", "", '1');
+            }
         }
         else if ($('#Guardar').text() == "Editar" || $('#Guardar').text() == "Edit") {
             opcionHabilitarView(false)
@@ -35,6 +38,9 @@ function suscribirEventoGuardar() {
             }
             else
                 displayNotify("DynasolOrdenPedidoPackingMandatorio", "", "1");
+        }
+        else {
+            displayNotify("AdverteciaExcepcionGuardado", "", '1');
         }
     });
 

@@ -120,7 +120,7 @@ function CargarGrid() {
                     var editButton = $(currenRow).find(".k-button");
                     if (gridData[i].Accion == 2) {
                         var classDescarga = $("#language").val() == "es-MX" ? "k-grid-Descarga" : "k-grid-Discharging";
-                        editButton[0].outerHTML = '<a class="k-button k-button-icontext '+classDescarga+'" href="#/"><span class=""></span>' +
+                        editButton[0].outerHTML = '<a class="k-button k-button-icontext ' + classDescarga + '" href="#/"><span class=""></span>' +
                             _dictionary.botonDescarga[$("#language").data("kendoDropDownList").value()] + '</a>';
 
                     } else {
@@ -130,12 +130,27 @@ function CargarGrid() {
                 }
             }
 
-            if (esNormal) {
+
+            for (var i = 0; i < gridData.length; i++) {
+                var currentUid = gridData[i].uid;
+                if (gridData[i].RowOk == false) {
+                    grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("k-alt");
+                    grid.table.find("tr[data-uid='" + currentUid + "']").addClass("kRowErrorNU");
+                }
+                else if (gridData[i].RowOk) {
+                    if (i % 2 == 0)
+                        grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("k-alt");
+
+                    grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("kRowErrorNU");
+                }
+            }
+
+            if (esNormal)
                 $(".k-grid-content td").css("white-space", "normal");
-            }
-            else {
+            else
                 $(".k-grid-content td").css("white-space", "nowrap");
-            }
+
+
         }
     });
     CustomisaGrid($("#grid"));

@@ -471,29 +471,57 @@ function ajaxGuardar(arregloCaptura, tipoGuardar) {
 
         if (Captura[0].listaDetalle.length > 0) {
             loadingStart();
-            $CargaPlana.CargaPlana.create(Captura[0], { token: Cookies.get("token"), PlanaID: $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").value(), CerrarPlana: cerrar, CuadrantePlanaSam2: CuadrantePlanaSam2, CuadrantePlanaSam3: CuadrantePlanaSam3 }).done(function (data) {
-                editado = true;
-                if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
-                    if (tipoGuardar == 1) {
-                        Limpiar();
-                    }
-                    else {
-                        $("#grid").data("kendoGrid").dataSource.data([]);
-                        AjaxCargarPaquetes($("#inputProyecto").data("kendoComboBox").value());
-                        AjaxObtenerGrid();
-                        opcionHabilitarView(true, "FieldSetView");
 
+            //validacion de carga plana
+            $CargaPlana.CargaPlana.create(Captura[0], { token: Cookies.get("token"), PlanaID: $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").value() }).done(function (dataValidacion) {
+                loadingStop();
+                var esCorrectaValidacion = true;
+                for (var j = 0; j < arregloCaptura.length; j++) {
+                    for (var i = 0; i < dataValidacion.length; i++) {
 
                     }
-                    displayNotify("MensajeGuardadoExistoso", "", "0");
-                    editado = false;
+                    if (arregloCaptura[index].SpoolID == dataValidacion[j].SpoolID && dataValidacion[j].EsCorrecto == 0) {
+                        $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
+
+                        $("#grid").data("kendoGrid").dataSource.sync();
+                        esCorrectaValidacion = false;
+                    }
                 }
-                else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
-                    mensaje = "No se guardo la informacion el error es: " + data.ReturnMessage[0] + "-2"
-                    displayNotify("MensajeGuardadoErroneo", "", '2');
-                    loadingStop();
+
+
+                //guardado de carga plana
+                if (esCorrectaValidacion) {
+                    $CargaPlana.CargaPlana.create(Captura[0], { token: Cookies.get("token"), PlanaID: $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").value(), CerrarPlana: cerrar, CuadrantePlanaSam2: CuadrantePlanaSam2, CuadrantePlanaSam3: CuadrantePlanaSam3 }).done(function (data) {
+                        editado = true;
+                        if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
+                            if (tipoGuardar == 1) {
+                                Limpiar();
+                            }
+                            else {
+                                $("#grid").data("kendoGrid").dataSource.data([]);
+                                AjaxCargarPaquetes($("#inputProyecto").data("kendoComboBox").value());
+                                AjaxObtenerGrid();
+                                opcionHabilitarView(true, "FieldSetView");
+
+
+                            }
+                            displayNotify("MensajeGuardadoExistoso", "", "0");
+                            editado = false;
+                        }
+                        else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
+                            mensaje = "No se guardo la informacion el error es: " + data.ReturnMessage[0] + "-2"
+                            displayNotify("MensajeGuardadoErroneo", "", '2');
+                            loadingStop();
+                        }
+                    });
                 }
+                else 
+                    displayNotify("", "Los registros marcados, ya se encuentran en otro proceso de empaquetado, o carga de plana, favor de eliminarlos de la captura", "2");
+
             });
+
+
+            
         }
         else {
             loadingStop();
