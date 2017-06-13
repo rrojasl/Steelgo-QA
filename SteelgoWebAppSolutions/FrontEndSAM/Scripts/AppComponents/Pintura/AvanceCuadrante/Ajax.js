@@ -370,7 +370,7 @@ function AjaxGuardarAvanceCarro(arregloCaptura, guardarYNuevo) {
 
     for (var index = 0 ; index < arregloCaptura.length; index++) {
         $("#grid").data("kendoGrid").dataSource._data[index].RowOk = true;
-        ListaDetalles[index] = { ID: "", Accion: "", SpoolID: "", ProcesoPinturaID: 0, FechaProceso: "", SistemaPinturaID: "", Reductor: 0, ReductorLote: "", ListaObrerosSeleccionados: [], ListaComponentesDinamicos: [], Estatus: 1 };
+        ListaDetalles[index] = { ID: "", Accion: "", SpoolID: "", ProcesoPinturaID: 0, FechaProceso: "", SistemaPinturaID: "", Reductor: 0, ReductorLote: "", ListaObrerosSeleccionados: [], ListaComponentesDinamicos: [], Estatus: 1,CuadranteID:"" };
         ListaDetalles[index].ID = null;
         ListaDetalles[index].Accion = arregloCaptura[index].Accion;
         ListaDetalles[index].SpoolID = arregloCaptura[index].SpoolID;
@@ -379,7 +379,7 @@ function AjaxGuardarAvanceCarro(arregloCaptura, guardarYNuevo) {
         ListaDetalles[index].SistemaPinturaID = arregloCaptura[index].SistemaPinturaID;
         ListaDetalles[index].Reductor = ReductorDinamico.length > 0 ? ReductorDinamico[0].NombreReductor : "";
         ListaDetalles[index].ReductorLote = ReductorDinamico.length > 0 ? arregloCaptura[index][ReductorDinamico[0].NombreReductor] : "";
-
+        ListaDetalles[index].CuadranteID = $("#inputCuadrante").data("kendoComboBox").value();
         if (ListaDetalles[index].FechaProceso == "" && (arregloCaptura[index].Accion == 1 || arregloCaptura[index].Accion == 2)) {
             ListaDetalles[index].Estatus = 0;
             $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;

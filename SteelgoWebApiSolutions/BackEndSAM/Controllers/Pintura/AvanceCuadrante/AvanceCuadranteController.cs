@@ -237,7 +237,7 @@ namespace BackEndSAM.Controllers.Pintura.AvanceCuadrante
                     dtDetalleSpool.Rows[i]["ID"] = i + 1;
                 }
 
-                return AvanceCuadranteBD.Instance.GuardarAvanceCarro(dtDetalleSpool, dtDetalleObreros, dtDetalleComponentes, usuario, lenguaje);
+                return AvanceCuadranteBD.Instance.GuardarAvanceCuadrante(dtDetalleSpool, dtDetalleObreros, dtDetalleComponentes, usuario, lenguaje);
 
             }
             else

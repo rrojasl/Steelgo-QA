@@ -315,7 +315,7 @@ namespace BackEndSAM.DataAcces.Pintura.AvanceCuadrante
             }
         }
 
-        public object GuardarAvanceCarro(DataTable dtDetalleCaptura, DataTable dtDetalleObreros, DataTable dtDetalleComponentes, Sam3_Usuario usuario, string lenguaje)
+        public object GuardarAvanceCuadrante(DataTable dtDetalleCaptura, DataTable dtDetalleObreros, DataTable dtDetalleComponentes, Sam3_Usuario usuario, string lenguaje)
         {
             try
             {

@@ -340,7 +340,7 @@ function GenerarBusqueda()
 
     if (Proyecto != undefined && Proyecto.ProyectoID != "" && Proyecto.ProyectoID != 0) {
         if ($("#styleSpool").hasClass("active")) {
-            if (!ValidaInformacionCapturada()) {
+            if (!editado) {
                 $("#inputSpool").attr("saAttr", $("#inputSpool").val());
                 if ($("#inputSpool").val() != null && $("#inputSpool").val() != "") {
                     tipoBusqueda = 1;
@@ -387,7 +387,7 @@ function GenerarBusqueda()
             }
 
         } else if ($("#styleNc").hasClass("active")) {
-            if (!ValidaInformacionCapturada()) {
+            if (!editado) {
                 $("#inputNc").attr("ncaAttr", $("#inputNc").val());
                 if ($("#inputNc").val() != null && $("#inputNc").val() != "") {
                     tipoBusqueda = 2;

@@ -45,7 +45,7 @@ function suscribirEventoWindowsConfirmaCaptura() {
 }
 
 function suscribirEventoWindowsConfirmaCapturaSinCambiarTipoBusqueda() {
-    ventanaConfirmEdicionSinTipoBusqueda = $("#ventanaConfirmCaptura").kendoWindow({
+    ventanaConfirmEdicionSinTipoBusqueda = $("#ventanaConfirmMostrar").kendoWindow({
         iframe: true,
         title: _dictionary.CapturaArmadoTituloPopup[$("#language").data("kendoDropDownList").value()],
         visible: false,
@@ -61,9 +61,11 @@ function suscribirEventoWindowsConfirmaCapturaSinCambiarTipoBusqueda() {
 
 
     $("#yesButtonProySinTipoBusqueda").click(function (e) {
-        GenerarBusqueda();
         ventanaConfirmEdicionSinTipoBusqueda.close();
         editado = false;
+        GenerarBusqueda();
+        
+      
     });
     $("#noButtonProySinTipoBusqueda").click(function (e) {
         ventanaConfirmEdicionSinTipoBusqueda.close();
@@ -179,7 +181,7 @@ function SuscribirEventoPlanchado() {
         if ($("#grid").data("kendoGrid").dataSource._data.length > 0) {
             var tipoLlenado = $('input:radio[name=Planchar]:checked').val()
             if (tipoLlenado === "Todos") {
-                ventanaConfirmPlanchar = $("#ventanaConfirm").kendoWindow({
+                ventanaConfirmPlanchar = $("#ventanaConfirmPlanchar").kendoWindow({
                     iframe: true,
                     title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
                     visible: false,

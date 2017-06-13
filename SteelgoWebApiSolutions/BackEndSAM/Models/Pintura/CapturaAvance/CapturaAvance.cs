@@ -102,6 +102,7 @@ namespace BackEndSAM.Models.Pintura.CapturaAvance
         public int SistemaPinturaID { get; set; }
         public string Reductor { get; set; }
         public string ReductorLote { get; set; }
+        public int CuadranteID { get; set; }
         public List<ObrerosGuardar> ListaObrerosSeleccionados { get; set; }
         public List<ComponenteDinamico> ListaComponentesDinamicos { get; set; }
     }
