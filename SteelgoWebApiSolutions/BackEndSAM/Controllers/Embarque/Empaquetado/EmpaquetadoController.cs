@@ -248,5 +248,33 @@ namespace BackEndSAM.Controllers.Embarque.Empaquetado
                 return result;
             }
         }
+
+        [HttpPost]
+        public object ValidarCapturaEmpaquetado(Captura captura, string token, int PaqueteID)
+        {
+            string payload = "";
+            string newToken = "";
+
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                DataTable dtDetalle = Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(captura.listaDetalle);
+
+                return EmpaquetadoBD.Instance.ValidarCapturaCargaPlana(dtDetalle, usuario.UsuarioID, PaqueteID);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+
+                return result;
+            }
+        }
+
     }
 }

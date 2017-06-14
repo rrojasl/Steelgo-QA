@@ -22,6 +22,7 @@ namespace BackEndSAM.Models.Embarque.CargaPlana
         public int ZonaPaqueteAnteriorID { get; set; }
         public bool ModificadoPorUsuario { get; set; }
         public bool RowOk { get; set; }
+        public int EmpaquetadoInicial { get; set; }
     }
 
     public class DetalleSpoolAgregar
@@ -42,6 +43,7 @@ namespace BackEndSAM.Models.Embarque.CargaPlana
         public int Cargado { get; set; }
         public string PlanaCargado { get; set; }
         public bool RowOk { get; set; }
+        public int EmpaquetadoInicial { get; set; }
     }
 
     public class DetallePaqueteAgregar
@@ -60,6 +62,7 @@ namespace BackEndSAM.Models.Embarque.CargaPlana
         public int Cargado { get; set; }
         public string PlanaCargado { get; set; }
         public bool RowOk { get; set; }
+        public int EmpaquetadoInicial { get; set; }
     }
 
     public class Captura
@@ -75,6 +78,7 @@ namespace BackEndSAM.Models.Embarque.CargaPlana
         public int OrdenTrabajoID { get; set; }
         public int CuadranteActualID { get; set; }
         public int PaqueteID { get; set; }
+        public int EmpaquetadoInicial { get; set; }
     }
 
     public class DetallePaquete

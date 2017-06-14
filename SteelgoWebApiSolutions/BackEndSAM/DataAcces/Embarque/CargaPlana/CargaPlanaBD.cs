@@ -93,7 +93,8 @@ namespace BackEndSAM.DataAcces.Embarque.CargaPlana
                             CuadrantePaqueteAnteriorID = item.CuadrantePaqueteAnteriorID.GetValueOrDefault(),
                             ZonaPaqueteAnteriorID = item.ZonaPaqueteAnteriorID.GetValueOrDefault(),
                             ModificadoPorUsuario = false,
-                            RowOk = true
+                            RowOk = true,
+                            EmpaquetadoInicial = item.PaqueteID == 0 ? 0 : 1
                         });
                     }
                     return listaDetalle;
@@ -139,11 +140,12 @@ namespace BackEndSAM.DataAcces.Embarque.CargaPlana
                             ModificadoPorUsuario = true,
                             Cargado = item.Cargado,
                             PlanaCargado = item.PlanaCargado,
-                            RowOk = true
+                            RowOk = true,
+                            EmpaquetadoInicial = 0
                         });
                     }
                     return listaDetalle;
-                }
+                }   
             }
             catch (Exception ex)
             {
@@ -183,7 +185,8 @@ namespace BackEndSAM.DataAcces.Embarque.CargaPlana
                             Cargado = item.Cargado,
                             PlanaCargado = item.PlanaCargado,
                             ModificadoPorUsuario = true,
-                            RowOk = true
+                            RowOk = true,
+                            EmpaquetadoInicial = 1
                         });
                     }
                     return listaDetalle;
