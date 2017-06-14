@@ -76,6 +76,7 @@ namespace BackEndSAM.Models.Embarque.Empaquetado
         public int CuadranteAnteriorSam3ID { get; set; }
         public int ZonaAnteriorID { get; set; }
         public bool ModificadoPorUsuario { get; set; }
+        public bool RowOk { get; set; }
     }
 
     public class DetalleSpoolAgregar
@@ -98,6 +99,7 @@ namespace BackEndSAM.Models.Embarque.Empaquetado
         public int CargaPlana { get; set; }
         public string Plana { get; set; }
         public bool ModificadoPorUsuario { get; set; }
+        public bool RowOk { get; set; }
     }
 
     public class Captura

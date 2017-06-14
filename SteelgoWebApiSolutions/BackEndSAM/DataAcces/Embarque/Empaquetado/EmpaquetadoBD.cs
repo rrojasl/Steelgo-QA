@@ -167,7 +167,8 @@ namespace BackEndSAM.DataAcces.Embarque.Empaquetado
                             CuadranteAnteriorSam2ID = item.CuadranteAnteriorSam2ID.GetValueOrDefault(),
                             CuadranteAnteriorSam3ID = item.CuadranteAnteriorSam3ID.GetValueOrDefault(),
                             ZonaAnteriorID = item.ZonaAnteriorID.GetValueOrDefault(),
-                            ModificadoPorUsuario = false
+                            ModificadoPorUsuario = false,
+                            RowOk = true
                         });
                     }
                     return listaDetalle;
@@ -213,7 +214,8 @@ namespace BackEndSAM.DataAcces.Embarque.Empaquetado
                             Paquete = item.Paquete,
                             CargaPlana = item.CargaPlana,
                             Plana = item.Plana,
-                            ModificadoPorUsuario = true
+                            ModificadoPorUsuario = true,
+                            RowOk = true
                         });
                     }
 
@@ -379,5 +381,50 @@ namespace BackEndSAM.DataAcces.Embarque.Empaquetado
                 return result;
             }
         }
+
+
+        public object ValidarCapturaCargaPlana(DataTable dtDetalle, int UsuarioID, int PaqueteID)
+        {
+            try
+            {
+                ObjetosSQL _SQL = new ObjetosSQL();
+                string[,] parametros = { { "@UsuarioID", UsuarioID.ToString() }, { "@PaqueteID", PaqueteID.ToString() } };
+
+                DataTable dataTableName = _SQL.Tabla(Stords.VALIDARCAPTURACARGAPLANA, dtDetalle, "@DetalleCarga", parametros);
+
+
+
+
+                List<Models.Embarque.CargaPlana.DetalleSpoolValidar> listName = dataTableName.AsEnumerable().Select(m => new Models.Embarque.CargaPlana.DetalleSpoolValidar()
+                {
+                    SpoolID = m.Field<int>("SpoolID"),
+                    NumeroControl = m.Field<string>("NumeroControl"),
+                    Paquete = m.Field<string>("NombrePaquete"),
+                    Plana = m.Field<string>("Plana"),
+                    EsCorrecto = m.Field<int>("EsCorrecto"),
+                }).ToList();
+
+
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add("Ok");
+                result.ReturnMessage.Add("");
+                result.ReturnCode = 200;
+                result.ReturnStatus = true;
+                result.IsAuthenicated = true;
+
+                return listName;
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
     }
 }

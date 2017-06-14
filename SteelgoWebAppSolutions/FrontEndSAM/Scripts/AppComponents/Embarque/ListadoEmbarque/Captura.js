@@ -37,8 +37,8 @@ function CargarGrid() {
                 if (event.isDefaultPrevented) return;
             }
 
-            editCell.call(this, cell);
-        };
+            editCell.call(this, cell);            
+        };        
     })(kendo.ui.Grid.fn.editCell);
 
     $("#grid").kendoGrid({
@@ -56,7 +56,7 @@ function CargarGrid() {
                     grid.select(focusedCell);
                     grid.editCell(focusedCell);
                 }
-            }(), 100);
+            }(), 100);            
         },
 
         edit: function (e) {
@@ -73,6 +73,11 @@ function CargarGrid() {
             else {
                 esNormal = false;
             }
+            if (SetValueEnviar(e.model)) {
+                e.model.Enviar = true;                
+            } else {
+                e.model.Enviar = false;                
+            }            
         },
         dataSource: {
             schema: {
@@ -115,9 +120,9 @@ function CargarGrid() {
             serverPaging: false,
             serverFiltering: false,
             serverSorting: false
-        },
+        },        
         navigatable: true,
-        editable: true,
+        editable: true,        
         autoHeight: true,
         autoWidth: true,
         sortable: true,
@@ -169,7 +174,7 @@ function CargarGrid() {
             },
             {
                 field: "Enviar", title: _dictionary.columnEnviar[$("#language").data("kendoDropDownList").value()], filterable: false, template: "<center><button  type='button' class='btn btn-blue enviarEmbarque' Style='display: #= Enviar == true ?'block;' : 'none;' #' ><span>" +
-                   _dictionary.botonEnviar[$("#language").data("kendoDropDownList").value()] + "</span></button></center>", width: "60px"
+                   _dictionary.botonEnviar[$("#language").data("kendoDropDownList").value()] + "</span></button></center>", width: "100px"
             },
         ],
         dataBound: function (e) {
@@ -182,16 +187,13 @@ function CargarGrid() {
         },
         beforeEdit: function (e) {
             var columnIndex = this.cellIndex(e.container);
-            var fieldName = this.thead.find("th").eq(columnIndex).data("field");
-            if (!e.model.OkClienteEmbarque) {
-                e.preventDefault();
-            }
-            if (!isEditable(fieldName, e.model)) {
-                e.preventDefault();
-            }          
-        }        
+            var fieldName = this.thead.find("th").eq(columnIndex).data("field");            
+            if (!isEditable(fieldName, e.model)) {                               
+                e.preventDefault();                
+            }           
+        }
     });
-
+    
     $("#grid").on("change",  ":checkbox", function (e) {
         if ($(this)[0].className == "chk-OkEmbarque" || $(this)[0].name == "OkEmbarque") {
             if ($('#Guardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
@@ -200,23 +202,19 @@ function CargarGrid() {
                 if (dataItem.EstatusEmbarqueID != 2) {
                     if ($(this)[0].checked) {
                         dataItem.OkEmbarque = true;
-
                         if (dataItem.Accion == 1)
                             dataItem.ModificadoPorUsuario = true;
-
                     }
                     else {
                         dataItem.OkEmbarque = false;
 
                         if (dataItem.Accion == 2)
                             dataItem.ModificadoPorUsuario = true;
-                    }
-                   
+                    }                   
                     if (SetValueEnviar(dataItem))
                         dataItem.Enviar = true;
                     else
-                        dataItem.Enviar = false;
-                        
+                        dataItem.Enviar = false;                        
                 } else {
                     if (e.target.checked)
                         $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).OkEmbarque = false;
@@ -242,11 +240,9 @@ function CargarGrid() {
 
                         if (dataItem.Accion == 1)
                             dataItem.ModificadoPorUsuario = true;
-
                     }
                     else {
                         dataItem.OkCliente = false;
-
                         if (dataItem.Accion == 2)
                             dataItem.ModificadoPorUsuario = true;
                     }
@@ -254,8 +250,7 @@ function CargarGrid() {
                     if (SetValueEnviar(dataItem))
                         dataItem.Enviar = true;
                     else
-                        dataItem.Enviar = false;
-
+                        dataItem.Enviar = false;                                       
                 } else {
                     if (e.target.checked)
                         $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).OkCliente = false;
@@ -270,14 +265,10 @@ function CargarGrid() {
                     $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).OkCliente = true;
             }                                               
             $("#grid").data("kendoGrid").dataSource.sync();
-        }        
+        }
     });    
     CustomisaGrid($("#grid"));
 };
-
-function scrollEnColumnaActual(e) {
-
-}
 
 function isEditable(fieldName, model) {
     if (fieldName === "FolioSolicitudPermiso") {
@@ -300,6 +291,9 @@ function isEditable(fieldName, model) {
             return false;
         }
     }
+    if (fieldName === "OkCliente" && !model.OkClienteEmbarque) {
+        return false;
+    }
     return true;
 }
 
@@ -312,13 +306,15 @@ function AltaFecha() {
 function SetValueEnviar(obj) {
     var retorno = false;
     if (obj != undefined) {
-        if (!obj.RequierePapCliente && obj.RequierePermisoAduana && obj.RequiereRevisionCliente && obj.OkEmbarque && !obj.OkClienteEmbarque && !obj.OkCliente) {
+        if (!obj.RequierePapCliente && (obj.Destino != "" && obj.Destino != null && obj.Destino != undefined) && !obj.RequierePermisoAduana && obj.RequiereRevisionCliente && !obj.OkClienteEmbarque && !obj.OkCliente && obj.OkEmbarque) { //crossover
+            retorno = true; 
+        } else if (!obj.RequierePapCliente && (obj.Destino != "" && obj.Destino != null && obj.Destino != undefined) && (obj.FolioSolicitudPermiso != "" && obj.FolioSolicitudPermiso != null) && (obj.FechaSolicitudPermiso != "" && obj.FechaSolicitudPermiso != null) && (obj.AprobadoAduanaDesc == "Aprobado") && obj.RequierePermisoAduana && obj.RequiereRevisionCliente && !obj.OkClienteEmbarque && !obj.OkCliente && obj.OkEmbarque) { //pesqueria
             retorno = true;
-        } else if (obj.RequierePapCliente && !obj.RequierePermisoAduana && obj.RequiereRevisionCliente && obj.OkEmbarque && obj.OkClienteEmbarque && obj.OkCliente) {
+        } else if (obj.RequierePapCliente && (obj.Destino != "" && obj.Destino != null && obj.Destino != undefined) && !obj.RequierePermisoAduana && obj.RequiereRevisionCliente && obj.OkClienteEmbarque && obj.OkCliente && obj.OkEmbarque) {
+            retorno = true;            
+        } else if (obj.RequierePapCliente && (obj.Destino != "" && obj.Destino != null && obj.Destino != undefined) && (obj.FolioSolicitudPermiso != "" && obj.FolioSolicitudPermiso != null) && (obj.FechaSolicitudPermiso != "" && obj.FechaSolicitudPermiso != null) && (obj.AprobadoAduanaDesc == "Aprobado") && obj.RequierePermisoAduana && !obj.RequiereRevisionCliente && obj.OkClienteEmbarque && obj.OkCliente && obj.OkEmbarque) { //salamanca y etileno
             retorno = true;
-        } else if ((obj.AprobadoAduana && obj.AprobadoAduanaDesc == "Aprobado") && obj.EstatusEmbarqueID != 2 && (obj.FechaSolicitudPermiso != "" && obj.FechaSolicitudPermiso != null) && (obj.FolioSolicitudPermiso != "" && obj.FolioSolicitudPermiso != null) && obj.OkCliente && obj.OkClienteEmbarque && obj.OkEmbarque && obj.RequierePapCliente && obj.RequierePermisoAduana && !obj.RequiereRevisionCliente) {
-            retorno = true;
-        }            
+        }        
     }
     return retorno;
 }

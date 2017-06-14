@@ -110,13 +110,13 @@ function CargarGrid() {
 
         ],
         dataBound: function (e) {
-            var ds = $("#grid").data("kendoGrid");
-            var gridData = ds.dataSource.view();
+            var grid = $("#grid").data("kendoGrid");
+            var gridData = grid.dataSource.view();
 
             if (gridData.length > 0) {
                 for (var i = 0; i < gridData.length; i++) {
                     var currentUid = gridData[i].uid;
-                    var currenRow = ds.table.find("tr[data-uid='" + currentUid + "']");
+                    var currenRow = grid.table.find("tr[data-uid='" + currentUid + "']");
                     var editButton = $(currenRow).find(".k-button");
                     if (gridData[i].Accion == 2) {
                         var classDescarga = $("#language").val() == "es-MX" ? "k-grid-Descarga" : "k-grid-Discharging";
@@ -130,7 +130,7 @@ function CargarGrid() {
                 }
             }
 
-
+            
             for (var i = 0; i < gridData.length; i++) {
                 var currentUid = gridData[i].uid;
                 if (gridData[i].RowOk == false) {

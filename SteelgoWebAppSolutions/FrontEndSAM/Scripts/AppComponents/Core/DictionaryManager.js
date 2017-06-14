@@ -11654,6 +11654,12 @@ _dictionary = {
         "es-MX": "¿Esta seguro de eliminar el paquete?",
         "en-US": "Are you sure to delete the package?"
     },
+    "EmbarqueCargaValidacionCargaPlana": {
+        "es-MX": "Los registros marcados, ya se encuentran en otro proceso de empaquetado, favor de eliminarlos de la captura",
+        "en-US": "The marked records are already in another packing process, please remove them from the capture"
+    },
+
+
     //Finaliza pantalla carga plana
     //Inicia pantalla empaquetado
     "EmbarqueEmpaquetadoTituloPagina": {
@@ -11752,6 +11758,10 @@ _dictionary = {
     "EmbarqueEmpaquetadoErrorPaqueteVacio": {
         "es-MX": "No se puede cerrar un paquete vacío",
         "en-US": "Unable to close an empty package"
+    },
+    "EmbarqueEmpaquetadoValidacionEmpaquetado": {
+        "es-MX": "Los registros marcados, ya se encuentran en otro proceso de carga de plana, favor de eliminarlos de la captura",
+        "en-US": "The marked records are already in another flat charge process, please remove them from the capture"
     },
     //Finaliza Pantalla empaquetado
     //Inicia pantalla Preparacion Embarque

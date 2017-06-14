@@ -455,7 +455,7 @@ function ajaxGuardar(arregloCaptura, tipoGuardar) {
         var i = 0;
 
         for (index = 0; index < arregloCaptura.length; index++) {
-            ListaDetalles[i] = { Accion: "", DetalleCargaID: "", SpoolID: "", OrdenTrabajoID: "", CuadranteActualID: "", PaqueteID: "" };
+            ListaDetalles[i] = { Accion: "", DetalleCargaID: "", SpoolID: "", OrdenTrabajoID: "", CuadranteActualID: "", PaqueteID: "", EmpaquetadoInicial: "" };
 
             ListaDetalles[i].Accion = arregloCaptura[index].Accion;
             ListaDetalles[i].DetalleCargaID = arregloCaptura[index].DetalleCargaID;
@@ -463,6 +463,7 @@ function ajaxGuardar(arregloCaptura, tipoGuardar) {
             ListaDetalles[i].OrdenTrabajoID = arregloCaptura[index].OrdenTrabajoID;
             ListaDetalles[i].CuadranteActualID = arregloCaptura[index].CuadranteID;
             ListaDetalles[i].PaqueteID = arregloCaptura[index].PaqueteID;
+            ListaDetalles[i].EmpaquetadoInicial = arregloCaptura[index].EmpaquetadoInicial;
             i++;
 
         }
@@ -474,17 +475,18 @@ function ajaxGuardar(arregloCaptura, tipoGuardar) {
 
             //validacion de carga plana
             $CargaPlana.CargaPlana.create(Captura[0], { token: Cookies.get("token"), PlanaID: $("#inputEmbarqueCargaPLacaPlana").data("kendoComboBox").value() }).done(function (dataValidacion) {
-                loadingStop();
+                
                 var esCorrectaValidacion = true;
                 for (var j = 0; j < arregloCaptura.length; j++) {
                     for (var i = 0; i < dataValidacion.length; i++) {
 
-                    }
-                    if (arregloCaptura[index].SpoolID == dataValidacion[j].SpoolID && dataValidacion[j].EsCorrecto == 0) {
-                        $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
 
-                        $("#grid").data("kendoGrid").dataSource.sync();
-                        esCorrectaValidacion = false;
+                        if (arregloCaptura[j].SpoolID == dataValidacion[i].SpoolID && dataValidacion[i].EsCorrecto == 0) {
+                            $("#grid").data("kendoGrid").dataSource._data[j].RowOk = false;
+
+                            $("#grid").data("kendoGrid").dataSource.sync();
+                            esCorrectaValidacion = false;
+                        }
                     }
                 }
 
@@ -515,8 +517,10 @@ function ajaxGuardar(arregloCaptura, tipoGuardar) {
                         }
                     });
                 }
-                else 
-                    displayNotify("", "Los registros marcados, ya se encuentran en otro proceso de empaquetado, o carga de plana, favor de eliminarlos de la captura", "2");
+                else {
+                    displayNotify("EmbarqueCargaValidacionCargaPlana", "", "1");
+                    loadingStop();
+                }
 
             });
 
