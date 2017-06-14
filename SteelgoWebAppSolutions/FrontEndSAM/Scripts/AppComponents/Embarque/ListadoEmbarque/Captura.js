@@ -174,7 +174,7 @@ function CargarGrid() {
             },
             {
                 field: "Enviar", title: _dictionary.columnEnviar[$("#language").data("kendoDropDownList").value()], filterable: false, template: "<center><button  type='button' class='btn btn-blue enviarEmbarque' Style='display: #= Enviar == true ?'block;' : 'none;' #' ><span>" +
-                   _dictionary.botonEnviar[$("#language").data("kendoDropDownList").value()] + "</span></button></center>", width: "60px"
+                   _dictionary.botonEnviar[$("#language").data("kendoDropDownList").value()] + "</span></button></center>", width: "100px"
             },
         ],
         dataBound: function (e) {
