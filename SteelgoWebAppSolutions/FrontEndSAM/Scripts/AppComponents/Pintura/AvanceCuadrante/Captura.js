@@ -149,7 +149,17 @@ function Limpiar() {
     $("#InputPintor").val("");
     $("#InputSistemaPintura").val("");
     $("#InputPinturaComponenteComposicion").val("");
-    $("#grid").data('kendoGrid').dataSource.data([]);
+	$("#grid").data('kendoGrid').dataSource.data([]);
+
+
+	for (var i = 0; i < ComponentesDinamicosJSON.length; i++) {
+		$('#' + ComponentesDinamicosJSON[i].NombreColumna).data("kendoComboBox").value("");
+	}
+
+	for (var i = 0; i < ReductoresDinamicosJSON.length; i++) {
+		$('#' + ReductoresDinamicosJSON[i].NombreColumna).data("kendoComboBox").value("");
+	}
+
 }
 
 function tieneClase(item) {

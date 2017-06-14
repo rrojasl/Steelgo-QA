@@ -582,17 +582,15 @@ function removerRepetidos(origArr) {
 }
 
 function AjaxDescargarSpool(dataItem, Cuadrante) {
+	
     loadingStart();
     var dataSource = $("#grid").data("kendoGrid").dataSource;
     var elemento = 0;
     $PinturaGeneral.PinturaGeneral.read({ token: Cookies.get("token"), CarroID: $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()).MedioTransporteID, SpoolID: currentDataItemGridDownload.SpoolID, CuadranteID: Cuadrante.CuadranteID, CuadranteSam2ID: Cuadrante.CuadranteSam2ID, CuadranteAnterior: dataItem.CuadranteID, Pantalla: 2 }).done(function (data) {
         if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "OK") {
-            var dataSource = $("#grid").data("kendoGrid").dataSource;
-            dataSource.remove(dataItem);
+            
             AjaxActualizarLote($('input:radio[name=ProcesoPintura]:checked').val(), currentDataItemGridDownload.SistemaPinturaColorID, currentDataItemGridDownload.Area, currentDataItemGridDownload.LoteID);
-            editado = false;
-            BuscarDetalleCarro();
-            displayNotify("EmbarqueCargaMsjDescargaSpoolExito", "", "0");
+           
         } else {
             displayNotify("EmbarqueCargaMsjDescargaSpoolError", "", "2");
             loadingStop();
@@ -620,7 +618,17 @@ function AjaxActualizarLote(ProcesoPintura, SistemPinturaColorID, Area, LoteID) 
 
 
     $CapturaAvance.CapturaAvance.update(Captura[0], { token: Cookies.get("token")}).done(function (data) {
-        if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
+		if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
+			
+			
+			var dataSource = $("#grid").data("kendoGrid").dataSource;
+			dataSource.remove(currentDataItemGridDownload);
+			if (dataSource._data.length == 0) {
+				editado = false;
+				CambiarProcesoPintura();
+			}
+			$("#grid").data("kendoGrid").refresh();
+			displayNotify("EmbarqueCargaMsjDescargaSpoolExito", "", "0");
             displayNotify("LoteActualizado", "", '0');
         }
         else {

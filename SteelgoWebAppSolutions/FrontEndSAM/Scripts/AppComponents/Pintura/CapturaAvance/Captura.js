@@ -296,42 +296,13 @@ function CambiarProcesoPintura() {
     if (procesoPinturaSeleccionadoAnterior == "")
         procesoPinturaSeleccionadoAnterior = $('input:radio[name=ProcesoPintura]:checked').val();
 
-    if ($('input:radio[name=ProcesoPintura]:checked').val() == "1") {
-        if (!editado) {
-            procesoPinturaSeleccionadoAnterior = $('input:radio[name=ProcesoPintura]:checked').val();
-            AjaxCargarCarrosCargadosPorProceso(1);
-        }
-        else {
-            ventanaConfirmEdicionCambioProcesoPintura.open().center();
-        }
-    }
-    else if ($('input:radio[name=ProcesoPintura]:checked').val() == "2") {
-        if (!editado) {
-            procesoPinturaSeleccionadoAnterior = $('input:radio[name=ProcesoPintura]:checked').val();
-            AjaxCargarCarrosCargadosPorProceso(2);
-        }
-        else {
-            ventanaConfirmEdicionCambioProcesoPintura.open().center();
-        }
-    }
-    else if ($('input:radio[name=ProcesoPintura]:checked').val() == "3") {
-        if (!editado) {
-            procesoPinturaSeleccionadoAnterior = $('input:radio[name=ProcesoPintura]:checked').val();
-            AjaxCargarCarrosCargadosPorProceso(3);
-        }
-        else {
-            ventanaConfirmEdicionCambioProcesoPintura.open().center();
-        }
-    }
-    else if ($('input:radio[name=ProcesoPintura]:checked').val() == "4") {
-        if (!editado) {
-            procesoPinturaSeleccionadoAnterior = $('input:radio[name=ProcesoPintura]:checked').val();
-            AjaxCargarCarrosCargadosPorProceso(4);
-        }
-        else {
-            ventanaConfirmEdicionCambioProcesoPintura.open().center();
-        }
-    }
+	if (!editado) {
+		procesoPinturaSeleccionadoAnterior = $('input:radio[name=ProcesoPintura]:checked').val();
+		AjaxCargarCarrosCargadosPorProceso($('input:radio[name=ProcesoPintura]:checked').val());
+	}
+	else {
+		ventanaConfirmEdicionCambioProcesoPintura.open().center();
+	}
 }
 
 function BuscarDetalleCarro() {

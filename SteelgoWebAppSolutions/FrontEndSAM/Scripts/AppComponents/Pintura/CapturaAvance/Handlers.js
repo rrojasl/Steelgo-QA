@@ -521,7 +521,17 @@ function Limpiar() {
     $("#InputOrdenTrabajo").val("");
     $("#InputID").data("kendoComboBox").dataSource.data([]);
     $("#InputID").data("kendoComboBox").value("");
-    $("#FechaShotBlast").data("kendoDatePicker").value(new Date());
+	$("#FechaShotBlast").data("kendoDatePicker").value(new Date());
+	$("#inputShotBlastero").data("kendoMultiSelect").value("");
+
+	for (var i = 0; i < ComponentesDinamicosJSON.length; i++) {
+		$('#' + ComponentesDinamicosJSON[i].NombreColumna).data("kendoComboBox").value("");
+	}
+
+	for (var i = 0; i < ReductoresDinamicosJSON.length; i++) {
+		$('#' + ReductoresDinamicosJSON[i].NombreColumna).data("kendoComboBox").value("");
+	}
+
     $("#grid").data('kendoGrid').dataSource.data([]);
     opcionHabilitarView(false, "FieldSetView");
 }
