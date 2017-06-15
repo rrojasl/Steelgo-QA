@@ -8,34 +8,46 @@ namespace BackEndSAM.Models.Pintura.PruebasPorLote
     
     public class ProcesosPintura
     {
-        public int ProcesoID { get; set; }
-        public string Nombre { get; set; }
+        public int ProcesoPinturaID { get; set; }
+        public string ProcesoPintura { get; set; }
 
         public ProcesosPintura()
         {
-            this.ProcesoID = 0;
-            this.Nombre = "";
+            this.ProcesoPinturaID = 0;
+            this.ProcesoPintura = "";
         }
     }
     public class SistemaPinturaLotes
     {
         public int SistemaPinturaID { get; set; }
-        public string Nombre { get; set; }
+        public string SistemaPintura { get; set; }
 
         public SistemaPinturaLotes()
         {
             this.SistemaPinturaID = 0;
-            this.Nombre = "";
+            this.SistemaPintura = "";
         }
     }
-    public class Prueba
+    public class Pruebas
     {
-        public int PruebaID { get; set; }
+        public int ProcesoPinturaID { get; set; }
+        public string Prueba { get; set; }
+
+        public Pruebas()
+        {
+            this.ProcesoPinturaID = 0;
+            this.Prueba = "";
+        }
+    }
+
+    public class Lotes
+    {
+        public int LoteID { get; set; }
         public string Nombre { get; set; }
 
-        public Prueba()
+        public Lotes()
         {
-            this.PruebaID = 0;
+            this.LoteID = 0;
             this.Nombre = "";
         }
     }

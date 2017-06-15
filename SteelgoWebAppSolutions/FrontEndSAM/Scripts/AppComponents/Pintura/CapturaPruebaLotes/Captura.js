@@ -1,4 +1,5 @@
 ﻿IniciarCapturaLotesCapturaReporte();
+var ventanaConfirmEdicionCaptura;
 
 function IniciarCapturaLotesCapturaReporte() {
 

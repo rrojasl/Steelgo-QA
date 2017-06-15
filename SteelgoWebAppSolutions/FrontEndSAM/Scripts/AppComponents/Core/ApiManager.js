@@ -219,6 +219,7 @@ var $AdminComponentes = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $AdminReductores = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $RevisionPintura = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $DescargarCarro = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $PruebasPorLote = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 
 //Embarque
 var $Etiquetado = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
@@ -420,6 +421,7 @@ $AdminComponentes.add("AdminComponentes");
 $AdminReductores.add("AdminReductores");
 $RevisionPintura.add("RevisionPintura");
 $DescargarCarro.add("DescargarCarro");
+$PruebasPorLote.add("PruebasPorLote");
 //Embarque
 $Etiquetado.add("Etiquetado");
 $Encintado.add('Encintado');

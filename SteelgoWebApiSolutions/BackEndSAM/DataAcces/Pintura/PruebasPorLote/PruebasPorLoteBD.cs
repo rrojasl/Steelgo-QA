@@ -36,24 +36,24 @@ namespace BackEndSAM.DataAcces.Pintura.PruebasPorLote
         {
             try
             {
-                //using (SamContext ctx = new SamContext())
-                //{
-                //    List<Sam3_Pintura_PruebasLotes_Get_Procesos_Result> lista = ctx.Sam3_Pintura_PruebasLotes_Get_Procesos(proyectoID).ToList();
-                //    List<ProcesosPintura> lista = new List<ProcesosPintura>();
-                //    foreach (Sam3_Pintura_PruebasLotes_Get_Procesos_Result item in lista)
-                //    {
-                //        ProcesosPintura objeto = new ProcesosPintura
-                //        {
-                //           ProcesoID=item.ProcesoID,
-                //           Nombre=item.Nombre
-                //        };
-                //        lista.Add(objeto);
-                //    }
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Sam3_Pintura_PruebasLote_Get_Procesos_Result> lista = ctx.Sam3_Pintura_PruebasLote_Get_Procesos(proyectoID).ToList();
+                    List<ProcesosPintura> listaProceso = new List<ProcesosPintura>();
+                    foreach (Sam3_Pintura_PruebasLote_Get_Procesos_Result item in lista)
+                    {
+                        ProcesosPintura objeto = new ProcesosPintura
+                        {
+                            ProcesoPinturaID = item.ProcesoPinturaID,
+                            ProcesoPintura = item.ProcesoPintura
+                        };
+                        listaProceso.Add(objeto);
+                    }
 
 
-                //    return lista;
+                    return listaProceso;
 
-                //}
+                }
 
                 return null;
             }
@@ -76,24 +76,24 @@ namespace BackEndSAM.DataAcces.Pintura.PruebasPorLote
         {
             try
             {
-                //using (SamContext ctx = new SamContext())
-                //{
-                //    List<Sam3_Pintura_PruebasLotes_Get_SP_Result> lista = ctx.Sam3_Pintura_PruebasLotes_Get_SP(proyectoID, procesoPinturaID).ToList();
-                //    List<SistemaPinturaLotes> lista = new List<SistemaPinturaLotes>();
-                //    foreach (Sam3_Pintura_PruebasLotes_Get_SP_Result item in lista)
-                //    {
-                //        SistemaPinturaLotes objeto = new SistemaPinturaLotes
-                //        {
-                //            SistemaPinturaID = item.SistemaPinturaID,
-                //            Nombre = item.Nombre
-                //        };
-                //        lista.Add(objeto);
-                //    }
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Sam3_Pintura_PruebasLote_Get_SP_Result> lista = ctx.Sam3_Pintura_PruebasLote_Get_SP( procesoPinturaID, proyectoID).ToList();
+                    List<SistemaPinturaLotes> listaSP = new List<SistemaPinturaLotes>();
+                    foreach (Sam3_Pintura_PruebasLote_Get_SP_Result item in lista)
+                    {
+                        SistemaPinturaLotes objeto = new SistemaPinturaLotes
+                        {
+                            SistemaPinturaID = item.SistemaPinturaID,
+                            SistemaPintura = item.SistemaPintura
+                        };
+                        listaSP.Add(objeto);
+                    }
 
 
-                //    return lista;
+                    return lista;
 
-                //}
+                }
 
                 return null;
             }
@@ -112,28 +112,30 @@ namespace BackEndSAM.DataAcces.Pintura.PruebasPorLote
             }
         }
 
-        public object ObtenerPrueba(int sistemaProyectoID,int ProcesoPinturaID )
+        public object ObtenerPrueba( int ProcesoPinturaID ,int SistemaPinturaProyectoID, string lenguaje )
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    //List<Sam3_Pintura_PruebasLotes_Get_Pruebas_Result> lista = ctx.Sam3_Pintura_PruebasLotes_Get_Pruebas(sistemaProyectoID, ProcesoPinturaID).ToList();
-                    //List<Prueba> lista = new List<Prueba>();
-                    //foreach (Sam3_Pintura_PruebasLotes_Get_Pruebas_Result item in lista)
-                    //{
-                    //    Prueba objeto = new Prueba
-                    //    {
-                    //        PruebaID = item.SistemaPinturaID,
-                    //        Nombre = item.Nombre
-                    //    };
-                    //    lista.Add(objeto);
-                    //}
+                    List<Sam3_Pintura_PruebasLote_Get_Pruebas_Result> lista = ctx.Sam3_Pintura_PruebasLote_Get_Pruebas(ProcesoPinturaID, SistemaPinturaProyectoID, lenguaje).ToList();
+                    List<Pruebas> listaPrueba = new List<Pruebas>();
+                    foreach (Sam3_Pintura_PruebasLote_Get_Pruebas_Result item in lista)
+                    {
+                        Pruebas objeto = new Pruebas
+                        {
+                            ProcesoPinturaID = item.ProcesoPinturaID,
+                            Prueba = item.Prueba
+                        };
+                        listaPrueba.Add(objeto);
+                    }
 
 
-                    //return lista;
-                    return null;
+                    return lista;
+
                 }
+
+                return null;
             }
             catch (Exception ex)
             {
@@ -150,28 +152,29 @@ namespace BackEndSAM.DataAcces.Pintura.PruebasPorLote
             }
         }
 
-        public object ObtenerLotes(string fechaPrueba, int sistemaProyectoID, int pruebaID, int procesoPinturaID)
+        public object ObtenerLotes(int ProcesoPinturaID ,int SistemaPinturaProyectoID ,int PruebaProcesoID ,string FechaLote )
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    //List<Sam3_Pintura_PruebasLotes_Get_Pruebas_Result> lista = ctx.Sam3_Pintura_PruebasLotes_Get_Pruebas(fechaPrueba, sistemaProyectoID, pruebaID, procesoPinturaID).ToList();
-                    //List<Prueba> lista = new List<Prueba>();
-                    //foreach (Sam3_Pintura_PruebasLotes_Get_Pruebas_Result item in lista)
-                    //{
-                    //    Prueba objeto = new Prueba
-                    //    {
-                    //        PruebaID = item.SistemaPinturaID,
-                    //        Nombre = item.Nombre
-                    //    };
-                    //    lista.Add(objeto);
-                    //}
+                    List<Sam3_Pintura_PruebasLote_Get_Lotes_Result> lista = ctx.Sam3_Pintura_PruebasLote_Get_Lotes(ProcesoPinturaID, SistemaPinturaProyectoID, PruebaProcesoID, FechaLote).ToList();
+                    List<Lotes> listaPrueba = new List<Lotes>();
+                    foreach (Sam3_Pintura_PruebasLote_Get_Lotes_Result item in lista)
+                    {
+                        Lotes objeto = new Lotes
+                        {
+                            LoteID = item.LoteID,
+                            Nombre = item.Nombre
+                        };
+                        listaPrueba.Add(objeto);
+                    }
 
+                    return lista;
 
-                    //return lista;
-                    return null;
                 }
+
+                return null;
             }
             catch (Exception ex)
             {
