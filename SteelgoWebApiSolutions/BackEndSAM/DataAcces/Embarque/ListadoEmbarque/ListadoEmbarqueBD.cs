@@ -107,9 +107,9 @@ namespace BackEndSAM.DataAcces.Embarque.ListadoEmbarque
                             OkEmbarqueAnt = item.OkEmbarque,
                             OkEmbarque = item.OkEmbarque,
                             Enviar =
-                                !item.RequierePapCliente.GetValueOrDefault() && (!item.RequiereAduana.GetValueOrDefault() && item.AprobadoAduana == 0 ) && item.RequiereRevisionCliente.GetValueOrDefault() && !item.OkClienteEmbarque.GetValueOrDefault() && !item.OkCliente && item.OkEmbarque ? true : //CrossOver
+                                !item.RequierePapCliente.GetValueOrDefault() && (!item.RequiereAduana.GetValueOrDefault() && (item.AprobadoAduana == 0 || item.AprobadoAduana == null) ) && item.RequiereRevisionCliente.GetValueOrDefault() && !item.OkClienteEmbarque.GetValueOrDefault() && !item.OkCliente && item.OkEmbarque ? true : //CrossOver
                                 !item.RequierePapCliente.GetValueOrDefault() && (item.RequiereAduana.GetValueOrDefault() && item.AprobadoAduana == 1) && item.RequiereRevisionCliente.GetValueOrDefault() && !item.OkClienteEmbarque.GetValueOrDefault() && !item.OkCliente && item.OkEmbarque ? true : //Pesqueria
-                                item.RequierePapCliente.GetValueOrDefault() && (!item.RequiereAduana.GetValueOrDefault() && item.AprobadoAduana == 0) && item.RequiereRevisionCliente.GetValueOrDefault() && item.OkClienteEmbarque.GetValueOrDefault() && item.OkCliente && item.OkEmbarque ? true : //Ramones
+                                item.RequierePapCliente.GetValueOrDefault() && (!item.RequiereAduana.GetValueOrDefault() && (item.AprobadoAduana == 0 || item.AprobadoAduana == null) ) && item.RequiereRevisionCliente.GetValueOrDefault() && item.OkClienteEmbarque.GetValueOrDefault() && item.OkCliente && item.OkEmbarque ? true : //Ramones
                                 item.RequierePapCliente.GetValueOrDefault() && (item.RequiereAduana.GetValueOrDefault() && item.AprobadoAduana == 1) && !item.RequiereRevisionCliente.GetValueOrDefault() && item.OkClienteEmbarque.GetValueOrDefault() && item.OkCliente && item.OkEmbarque ? true : false, //Salamanca y etileno                            
                             CapturaEnvioID = item.CapturaEnvioID.GetValueOrDefault(),
                             ModificadoPorUsuario = false,
