@@ -285,7 +285,6 @@ function ObtenerTipoConsulta() {
 
 
 function SuscribirEventoGuardar() {
-
     $('.accionGuardar').click(function (e) {
         if ($('#Guardar').text() == _dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]) {
             var ds = $("#grid").data("kendoGrid").dataSource._data;
@@ -299,7 +298,6 @@ function SuscribirEventoGuardar() {
                             embarqueID = parseInt(embarqueID);
                             AjaxGuardarCaptura(ds, embarqueID, proyectoID, 1);
                             hayCambios = 0;
-                            //opcionHabilitarView(true, "");
                         } else {
                             displayNotify("EmbarqueRevisionMsjErrorNoPuedeGuardarGridSinCaptura", "", "1");
                             $("#InputCerrar").prop("checked", false);
@@ -328,8 +326,7 @@ function SuscribirEventoGuardar() {
                 if (ds.length > 0) {
                     embarqueID = parseInt(embarqueID);
                     AjaxGuardarCaptura(ds, embarqueID, proyectoID, 2);
-                    hayCambios = 0;
-                    //opcionHabilitarView(true, "");
+                    hayCambios = 0;                    
                 } else {
                     displayNotify("MensajeAdverteciaExcepcionGuardado", "", "2");
                 }
@@ -491,7 +488,6 @@ function SuscribirEventoEnterCodigo() {
 
 function SuscribirEventoAgregar() {
     $('#btnAgregar').click(function (e) {
-        e.preventDefault();
         var Proyecto = $("#Proyecto").data("kendoComboBox").dataItem($("#Proyecto").data("kendoComboBox").select());
         var Embarque = $("#Embarque").data("kendoComboBox").dataItem($("#Embarque").data("kendoComboBox").select());
         var RevisionCerrado = $("#InputCerrar").is(":checked");
@@ -674,12 +670,10 @@ function SuscribirEventoMostrarDetalle() {
             });
         } else {
             $("#grid").data("kendoGrid").dataSource.data([]);
-        }
-        //FiltroMostrar(0);
+        }       
     });
 
-    $('input:radio[name=Muestra]:nth(1)').change(function () {        
-        //FiltroMostrar(1);
+    $('input:radio[name=Muestra]:nth(1)').change(function () {                
         var ds = $("#grid").data("kendoGrid").dataSource._data;
         if (existenCambios(ds)) {
             ventanaConfirm = $("#ventanaConfirmCaptura").kendoWindow({

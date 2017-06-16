@@ -356,109 +356,27 @@ function AjaxGuardarCaptura(ds, embarqueID, proyectoID, tipoGuardar) {
         }
     }
 
-    $("#grid").data("kendoGrid").dataSource.sync();
+    //$("#grid").data("kendoGrid").dataSource.sync();
     Captura.listaDetalle = ListaDetalleCaptura;
     Captura.EmbarqueID = embarqueID;
-    Captura.Cerrado = $("#InputCerrar").is(":checked") ? 1 : 0;    
-    //if (!ExistRowEmpty(ListaDetalleCaptura)) {        
-        $RevisionEmbarque.RevisionEmbarque.create(Captura, { token: Cookies.get("token") }).done(function (data) {
-            if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
-                if (tipoGuardar == 1) {
-                    opcionHabilitarView(true, "FieldSetView");
-                    AjaxObtieneDetalle(embarqueID);
-                    AjaxCargarPaquetes(proyectoID);
-                } else {
-                    Limpiar();
-                    opcionHabilitarView(false, "FieldSetView");
-                    loadingStop();
-                }
-                displayNotify("MensajeGuardadoExistoso", "", '0');
+    Captura.Cerrado = $("#InputCerrar").is(":checked") ? 1 : 0;         
+    $RevisionEmbarque.RevisionEmbarque.create(Captura, { token: Cookies.get("token") }).done(function (data) {
+        if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
+            if (tipoGuardar == 1) {
+                opcionHabilitarView(true, "FieldSetView");
+                AjaxObtieneDetalle(embarqueID);
+                AjaxCargarPaquetes(proyectoID);
             } else {
-                displayNotify("MensajeGuardadoErroneo", "", '2');
+                Limpiar();
+                opcionHabilitarView(false, "FieldSetView");
                 loadingStop();
             }
-        });
-    /*} else {
-        loadingStop();
-        ventanaConfirm = $("#ventanaConfirm").kendoWindow({
-            iframe: true,
-            title: _dictionary.TituloPopupCancelar[$("#language").data("kendoDropDownList").value()],
-            visible: false,
-            width: "auto",
-            height: "auto",
-            draggable: false,
-            resizable: false,
-            modal: true,
-            animation: {
-                close: false,
-                open: false
-            },
-            actions: []
-        }).data("kendoWindow");
-
-        ventanaConfirm.content('<center>' + _dictionary.MensajeConfirmacionGuardadoGeneral[$("#language").data("kendoDropDownList").value()] + '</center>' +
-            "</br><center><button class='btn btn-blue' id='yesButton'>" + _dictionary.lblSi[$("#language").data("kendoDropDownList").value()]
-            + "</button><button class='btn btn-blue' id='noButton'>" + _dictionary.lblNo[$("#language").data("kendoDropDownList").value()]
-            + "</button></center>");
-
-        ventanaConfirm.open().center();
-
-        $("#yesButton").click(function (e) {
-            ventanaConfirm.close();
-            loadingStart();
-            var j = 0;
-            var listaDetalleGuardar = [];
-
-            for (var i = 0; i < ListaDetalleCaptura.length; i++) {
-                if (ListaDetalleCaptura[i].Estatus == 1) {
-
-                    listaDetalleGuardar[j] = {
-                        Accion: "", DetalleRevisionID: "", SpoolID: "", Llego: "", NoLlego: "", LlegoComentario: "",
-                        Comentario: "", CapturaManual: "", ModificadoPorUsuario: false
-                    };
-
-                    listaDetalleGuardar[j].Accion = ListaDetalleCaptura[i].Accion;
-                    listaDetalleGuardar[j].DetalleRevisionID = ListaDetalleCaptura[i].DetalleRevisionID;
-                    listaDetalleGuardar[j].SpoolID = ListaDetalleCaptura[i].SpoolID;
-                    listaDetalleGuardar[j].Llego = ListaDetalleCaptura[i].Llego;
-                    listaDetalleGuardar[j].NoLlego = ListaDetalleCaptura[i].NoLlego;
-                    listaDetalleGuardar[j].LlegoComentario = ListaDetalleCaptura[i].LlegoComentario;
-                    listaDetalleGuardar[j].Comentario = ListaDetalleCaptura[i].Comentario;
-                    listaDetalleGuardar[j].CapturaManual = ListaDetalleCaptura[i].CapturaManual;
-                    listaDetalleGuardar[j].ModificadoPorUsuario = ListaDetalleCaptura[i].ModificadoPorUsuario;
-                    j++;
-                }
-            }
-
-            Captura.listaDetalle = listaDetalleGuardar;
-
-            if (Captura.listaDetalle.length > 0) {
-                $RevisionEmbarque.RevisionEmbarque.create(Captura, { token: Cookies.get("token") }).done(function (data) {
-                    if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
-                        if (tipoGuardar == 1) {
-                            opcionHabilitarView(true, "FieldSetView");
-                            AjaxObtieneDetalle(embarqueID);
-                        } else {
-                            Limpiar();
-                            loadingStop();
-                        }
-                        displayNotify("MensajeGuardadoExistoso", "", '0');
-                    } else {
-                        displayNotify("MensajeGuardadoErroneo", "", '2');
-                        loadingStop();
-                    }
-                });
-            } else {
-                ventanaConfirm.close();
-                loadingStop();
-                displayNotify("MensajeAdverteciaExcepcionGuardado", "", '2');
-            }
-
-        });
-        $("#noButton").click(function (e) {
-            ventanaConfirm.close();
-        });
-    }*/
+            displayNotify("MensajeGuardadoExistoso", "", '0');
+        } else {
+            displayNotify("MensajeGuardadoErroneo", "", '2');
+            loadingStop();
+        }
+    });    
 }
 
 function obtieneEstatusSpool(llego, noLlego, llegoComentario){
