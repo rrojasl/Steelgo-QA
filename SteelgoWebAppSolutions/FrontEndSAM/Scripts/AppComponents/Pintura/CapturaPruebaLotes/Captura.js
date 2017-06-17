@@ -1,5 +1,10 @@
 ﻿IniciarCapturaLotesCapturaReporte();
 var ventanaConfirmEdicionCaptura;
+var editado=false;
+var disableDates;
+
+var LineaCaptura = { ProyectoIDSeleccionado: "", ProcesoIDSeleccionado: "", SistemaPinturaIDSeleccionado: "", PruebaIDSeleccionado: "",FechaSeleccionada:"",LoteIDSeleccionada:"" }
+
 
 function IniciarCapturaLotesCapturaReporte() {
 
@@ -8,13 +13,31 @@ function IniciarCapturaLotesCapturaReporte() {
     //setTimeout(function () { AjaxCargarLotes(); }, 1100);
 }
 
+function isInArray(date, dates) {
+	for (var idx = 0, length = dates.length; idx < length; idx++) {
+		var d = dates[idx];
+		if (date.getFullYear() == d.getFullYear() &&
+			date.getMonth() == d.getMonth() &&
+			date.getDate() == d.getDate()) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
+function LimpiarDespuesCambioCaptura() {
+	$("#grid").data('kendoGrid').dataSource.data([]);
+}
 
 function changeLanguageCall() {
-    CargarGrid();
-    CargarGridPopUp();
-    AjaxCargarProyecto();
-    AjaxCargarProcesos();
-    $('input:radio[name=Muestra]:nth(1)').trigger("click");
+	AjaxCargarProyecto();
+	CargarGrid();
+	CargarGridPopUp();
+
+	$("#inputFechaLote").data("kendoDatePicker").setOptions({
+		format: _dictionary.FormatoFecha2[$("#language").data("kendoDropDownList").value()]
+	});
 }
 
 function CargarGrid() {

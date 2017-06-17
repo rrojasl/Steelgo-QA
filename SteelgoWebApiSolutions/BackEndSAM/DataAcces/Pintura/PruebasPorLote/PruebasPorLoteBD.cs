@@ -40,6 +40,10 @@ namespace BackEndSAM.DataAcces.Pintura.PruebasPorLote
                 {
                     List<Sam3_Pintura_PruebasLote_Get_Procesos_Result> lista = ctx.Sam3_Pintura_PruebasLote_Get_Procesos(proyectoID).ToList();
                     List<ProcesosPintura> listaProceso = new List<ProcesosPintura>();
+
+                    if (lista.Count>0)
+                        listaProceso.Add(new ProcesosPintura());
+
                     foreach (Sam3_Pintura_PruebasLote_Get_Procesos_Result item in lista)
                     {
                         ProcesosPintura objeto = new ProcesosPintura
@@ -80,18 +84,23 @@ namespace BackEndSAM.DataAcces.Pintura.PruebasPorLote
                 {
                     List<Sam3_Pintura_PruebasLote_Get_SP_Result> lista = ctx.Sam3_Pintura_PruebasLote_Get_SP( procesoPinturaID, proyectoID).ToList();
                     List<SistemaPinturaLotes> listaSP = new List<SistemaPinturaLotes>();
+
+                    if (lista.Count > 0)
+                        listaSP.Add(new SistemaPinturaLotes());
+
                     foreach (Sam3_Pintura_PruebasLote_Get_SP_Result item in lista)
                     {
                         SistemaPinturaLotes objeto = new SistemaPinturaLotes
                         {
                             SistemaPinturaID = item.SistemaPinturaID,
-                            SistemaPintura = item.SistemaPintura
+                            SistemaPintura = item.SistemaPintura,
+                            SistemaPinturaProyectoID=item.SistemaPinturaProyectoID
                         };
                         listaSP.Add(objeto);
                     }
 
 
-                    return lista;
+                    return listaSP;
 
                 }
 
@@ -120,18 +129,22 @@ namespace BackEndSAM.DataAcces.Pintura.PruebasPorLote
                 {
                     List<Sam3_Pintura_PruebasLote_Get_Pruebas_Result> lista = ctx.Sam3_Pintura_PruebasLote_Get_Pruebas(ProcesoPinturaID, SistemaPinturaProyectoID, lenguaje).ToList();
                     List<Pruebas> listaPrueba = new List<Pruebas>();
+
+                    if (lista.Count > 0)
+                        listaPrueba.Add(new Pruebas());
+
                     foreach (Sam3_Pintura_PruebasLote_Get_Pruebas_Result item in lista)
                     {
                         Pruebas objeto = new Pruebas
                         {
-                            ProcesoPinturaID = item.ProcesoPinturaID,
+                            PruebaProcesoPinturaID = item.PruebaProcesoPinturaID,
                             Prueba = item.Prueba
                         };
                         listaPrueba.Add(objeto);
                     }
 
 
-                    return lista;
+                    return listaPrueba;
 
                 }
 
@@ -152,14 +165,18 @@ namespace BackEndSAM.DataAcces.Pintura.PruebasPorLote
             }
         }
 
-        public object ObtenerLotes(int ProcesoPinturaID ,int SistemaPinturaProyectoID ,int PruebaProcesoID ,string FechaLote )
+        public object ObtenerLotes(int ProcesoPinturaID ,int SistemaPinturaProyectoID ,int PruebaProcesoPinturaID, string FechaLote,string lenguaje )
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Pintura_PruebasLote_Get_Lotes_Result> lista = ctx.Sam3_Pintura_PruebasLote_Get_Lotes(ProcesoPinturaID, SistemaPinturaProyectoID, PruebaProcesoID, FechaLote).ToList();
-                    List<Lotes> listaPrueba = new List<Lotes>();
+                    List<Sam3_Pintura_PruebasLote_Get_Lotes_Result> lista = ctx.Sam3_Pintura_PruebasLote_Get_Lotes(ProcesoPinturaID, SistemaPinturaProyectoID, PruebaProcesoPinturaID, FechaLote, lenguaje).ToList();
+                    List<Lotes> listaLotes = new List<Lotes>();
+
+                    if (lista.Count > 0)
+                        listaLotes.Add(new Lotes());
+
                     foreach (Sam3_Pintura_PruebasLote_Get_Lotes_Result item in lista)
                     {
                         Lotes objeto = new Lotes
@@ -167,10 +184,10 @@ namespace BackEndSAM.DataAcces.Pintura.PruebasPorLote
                             LoteID = item.LoteID,
                             Nombre = item.Nombre
                         };
-                        listaPrueba.Add(objeto);
+                        listaLotes.Add(objeto);
                     }
 
-                    return lista;
+                    return listaLotes;
 
                 }
 

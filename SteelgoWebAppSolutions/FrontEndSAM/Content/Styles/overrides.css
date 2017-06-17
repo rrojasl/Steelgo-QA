@@ -61,6 +61,21 @@
  Class name:    $_k-widget
  Description:   Overrides for kendo widgets.
 **********************************************************************************/
+.party {
+    color: red
+}
+
+.disabledDay {
+    /* adding some CSS to match the normal days styling */
+    display: block;
+    overflow: hidden;
+    min-height: 22px;
+    line-height: 22px;
+    padding: 0 .45em 0 .1em;
+    cursor: default;
+    opacity: 0.5;
+}
+
 .form-group {
     margin-bottom: 29px;
 }

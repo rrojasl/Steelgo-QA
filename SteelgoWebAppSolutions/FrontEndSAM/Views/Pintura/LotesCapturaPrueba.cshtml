@@ -184,8 +184,13 @@
         </div>
     </div>
 </div>
+
 <script type="text/javascript" src="~/Scripts/AppComponents/Pintura/CapturaPruebaLotes/Render.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/Pintura/CapturaPruebaLotes/Seguridad.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/Pintura/CapturaPruebaLotes/Ajax.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/Pintura/CapturaPruebaLotes/Handlers.js"></script>
 <script type="text/javascript" src="~/Scripts/AppComponents/Pintura/CapturaPruebaLotes/Captura.js"></script>
+
+<script id="cell-template" type="text/x-kendo-template">
+    <span class="#= isInArray(data.date, data.dates) ? 'party' : '' #">#= data.value #</span>
+</script>

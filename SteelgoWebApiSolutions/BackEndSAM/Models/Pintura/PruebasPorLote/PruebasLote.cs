@@ -21,21 +21,22 @@ namespace BackEndSAM.Models.Pintura.PruebasPorLote
     {
         public int SistemaPinturaID { get; set; }
         public string SistemaPintura { get; set; }
-
+        public int SistemaPinturaProyectoID { get; set; }
         public SistemaPinturaLotes()
         {
             this.SistemaPinturaID = 0;
             this.SistemaPintura = "";
+            this.SistemaPinturaProyectoID = 0;
         }
     }
     public class Pruebas
     {
-        public int ProcesoPinturaID { get; set; }
+        public int PruebaProcesoPinturaID { get; set; }
         public string Prueba { get; set; }
 
         public Pruebas()
         {
-            this.ProcesoPinturaID = 0;
+            this.PruebaProcesoPinturaID = 0;
             this.Prueba = "";
         }
     }
