@@ -140,6 +140,7 @@ namespace BackEndSAM.DataAcces.Embarque.CargaPlana
                             ModificadoPorUsuario = true,
                             Cargado = item.Cargado,
                             PlanaCargado = item.PlanaCargado,
+                            CarroCargado = item.CarroCargado,
                             RowOk = true,
                             EmpaquetadoInicial = 0
                         });

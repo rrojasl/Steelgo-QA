@@ -98,6 +98,7 @@ namespace BackEndSAM.Models.Embarque.Empaquetado
         public string Paquete { get; set; }
         public int CargaPlana { get; set; }
         public string Plana { get; set; }
+        public string CarroCargado { get; set; }
         public bool ModificadoPorUsuario { get; set; }
         public bool RowOk { get; set; }
     }

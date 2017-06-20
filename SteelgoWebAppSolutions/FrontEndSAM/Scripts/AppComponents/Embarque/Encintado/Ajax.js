@@ -137,6 +137,7 @@ function AjaxCargarElementosPorConsulta(tipoBusqueda, zonaID, cuadranteID, spool
     }).done(function (data) {
         if (data != null) {
             if (data > 100) {
+                if (data < 5000) {
                 var ventanaConfirmBusqueda = $("#ventanaConfirm").kendoWindow({
                     iframe: true,
                     title: _dictionary.TituloPopupCancelar[$("#language").data("kendoDropDownList").value()],
@@ -166,6 +167,13 @@ function AjaxCargarElementosPorConsulta(tipoBusqueda, zonaID, cuadranteID, spool
                     ventanaConfirmBusqueda.close();
                     loadingStop();
                 });
+
+            } else {
+                    displayNotify("EmbarqueEtiquetadoMensajeNumeroElementosExcedente", "", '1');
+                loadingStop();
+            }
+
+
             } else {
                 AjaxCargarDetalleEncintado(tipoBusqueda, zonaID, cuadranteID, spoolContiene, todos);
                 if (tipoBusqueda != 1)

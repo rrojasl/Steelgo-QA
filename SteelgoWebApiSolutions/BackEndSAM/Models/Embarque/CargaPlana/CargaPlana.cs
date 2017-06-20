@@ -42,6 +42,7 @@ namespace BackEndSAM.Models.Embarque.CargaPlana
         public bool ModificadoPorUsuario { get; set; }
         public int Cargado { get; set; }
         public string PlanaCargado { get; set; }
+        public string CarroCargado { get; set; }
         public bool RowOk { get; set; }
         public int EmpaquetadoInicial { get; set; }
     }

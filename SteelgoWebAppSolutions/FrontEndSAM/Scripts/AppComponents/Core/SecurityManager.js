@@ -383,14 +383,15 @@ function authenticate(username, password) {
 function createUserSession(username, password) {
     //Create Login
     //loadingStart();
+    $('#username').css('border-color', "");
+    $('#password').css('border-color', "");
     $SecurityManager.authentication.create({}, { username: username, password: password }).done(function (data) {
         if (data.IsAuthenicated) {
             Cookies.set("home", false, { path: '/' });
             Cookies.set("user", username, { path: '/' });
             Cookies.set("nameUserLogged", data.ReturnMessage[0], { path: '/' });
             Cookies.set("token", data.ReturnMessage[1], { path: '/' });
-            $('#username').css('border-color', "");
-            $('#password').css('border-color', "");
+            
             //RedirectToLanding
             document.location.href = $homeURI;
         } else {

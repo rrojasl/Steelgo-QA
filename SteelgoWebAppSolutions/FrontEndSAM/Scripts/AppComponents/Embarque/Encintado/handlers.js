@@ -425,7 +425,12 @@ function SuscribirEventoMostrar() {
                 LimpiarCargaSpoolContiene();
 
                 if (SpoolIDContiene != "") {
-                    AjaxCargarElementosPorConsulta(TipoBusqueda, ZonaID, CuadranteID, SpoolIDContiene, Todos);
+                    if (SpoolIDContiene.length > 2) {
+                        AjaxCargarElementosPorConsulta(TipoBusqueda, ZonaID, CuadranteID, SpoolIDContiene, Todos);
+                    }
+                    else {
+                        displayNotify("EmbarqueEtiquetadoMensajeLongitudCadenaSpoolCorta", "", '1');
+                    }
                 } else {
                     displayNotify("MensajeSeleccionaSpoolcontiene", "", '1');
                 }
@@ -472,7 +477,13 @@ function SuscribirEventoMostrar() {
                     LimpiarCargaSpoolContiene();
 
                     if (SpoolIDContiene != "") {
-                        AjaxCargarElementosPorConsulta(TipoBusqueda, ZonaID, CuadranteID, SpoolIDContiene, Todos);
+                        if (SpoolIDContiene.length > 2) {
+                            AjaxCargarElementosPorConsulta(TipoBusqueda, ZonaID, CuadranteID, SpoolIDContiene, Todos);
+                        }
+                        else {
+                            displayNotify("EmbarqueEtiquetadoMensajeLongitudCadenaSpoolCorta", "", '1');
+                        }
+                        //AjaxCargarElementosPorConsulta(TipoBusqueda, ZonaID, CuadranteID, SpoolIDContiene, Todos);
                     } else {
                         displayNotify("MensajeSeleccionaSpoolcontiene", "", '1');
                     }
@@ -499,7 +510,13 @@ function SuscribirEventoMostrar() {
 
                 if (SpoolIDContiene != "") {
                     SpoolIDActual = SpoolIDContiene;
-                    AjaxCargarElementosPorConsulta(TipoBusqueda, 0, 0, SpoolIDContiene, Todos);
+                    if (SpoolIDContiene.length > 2) {
+                        AjaxCargarElementosPorConsulta(TipoBusqueda, 0, 0, SpoolIDContiene, Todos);
+                    }
+                    else {
+                        displayNotify("EmbarqueEtiquetadoMensajeLongitudCadenaSpoolCorta", "", '1');
+                    }
+
                 }
             } else {
                 ventanaConfirm = $("#ventanaConfirm").kendoWindow({
@@ -529,9 +546,14 @@ function SuscribirEventoMostrar() {
                     ventanaConfirm.close();
                     LimpiarCargaSpoolContiene();
 
-                    if (SpoolIDContiene != "") {
+                    if (SpoolIDContiene != "") {    
                         SpoolIDActual = SpoolIDContiene;
-                        AjaxCargarElementosPorConsulta(TipoBusqueda, 0, 0, SpoolIDContiene, Todos);
+                        if (SpoolIDContiene.length > 2) {
+                            AjaxCargarElementosPorConsulta(TipoBusqueda, 0, 0, SpoolIDContiene, Todos);
+                        }
+                        else {
+                            displayNotify("EmbarqueEtiquetadoMensajeLongitudCadenaSpoolCorta", "", '1');
+                        }
                     }
                 });
                 $("#noButton").click(function (handler) {

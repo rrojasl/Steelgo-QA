@@ -158,7 +158,7 @@ function SuscribirEventoCuadrante() {
             var TipoBusqueda = 1;
             var ZonaID = $("#inputZona").data("kendoComboBox").value();
             var Cuadrante = $("#inputCuadrante").data("kendoComboBox").dataItem($("#inputCuadrante").data("kendoComboBox").select());
-            
+
             if (!existenCambios()) {
                 LimpiarCargaCuadrante();
 
@@ -259,8 +259,13 @@ function SuscribirEventoMostrar() {
                 SpoolIDActual = $("#SpoolIDCOntiene").val();
                 LimpiarCargaSpoolContiene();
 
-                if(SpoolIDContiene != ""){
-                    AjaxGetElementosPorConsulta(TipoBusqueda, Todos, ZonaID, CuadranteID == "" ? 0 : CuadranteID, SpoolIDContiene);
+                if (SpoolIDContiene != "") {
+                    if (spoolIDContiene.length > 2) {
+                        AjaxGetElementosPorConsulta(TipoBusqueda, Todos, ZonaID, CuadranteID == "" ? 0 : CuadranteID, SpoolIDContiene);
+                    }
+                    else {
+                        displayNotify("EmbarqueEtiquetadoMensajeLongitudCadenaSpoolCorta", "", '1');
+                    }
                 } else {
                     displayNotify("MensajeSeleccionaSpoolcontiene", "", '1');
                 }
@@ -307,7 +312,11 @@ function SuscribirEventoMostrar() {
                     LimpiarCargaSpoolContiene();
 
                     if (SpoolIDContiene != "") {
-                        AjaxGetElementosPorConsulta(TipoBusqueda, Todos, ZonaID, CuadranteID == "" ? 0 : CuadranteID, SpoolIDContiene);
+                        if (SpoolIDContiene.length > 2)
+                            AjaxGetElementosPorConsulta(TipoBusqueda, Todos, ZonaID, CuadranteID == "" ? 0 : CuadranteID, SpoolIDContiene);
+                        else {
+                            displayNotify("EmbarqueEtiquetadoMensajeLongitudCadenaSpoolCorta", "", '1');
+                        }
                     } else {
                         displayNotify("MensajeSeleccionaSpoolcontiene", "", '1');
                     }
@@ -331,8 +340,12 @@ function SuscribirEventoMostrar() {
                 LimpiarCargaSpoolContiene();
 
                 if (spoolIDContiene != "") {
-                    SpoolIDActual = spoolIDContiene;
-                    AjaxGetElementosPorConsulta(tipoBusqueda, todos, 0, 0, spoolIDContiene);
+                    if (spoolIDContiene.length > 2) {
+                        SpoolIDActual = spoolIDContiene;
+                        AjaxGetElementosPorConsulta(tipoBusqueda, todos, 0, 0, spoolIDContiene);
+                    }
+                    else
+                        displayNotify("EmbarqueEtiquetadoMensajeLongitudCadenaSpoolCorta", "", '1');
                 }
             } else {
                 ventanaConfirm = $("#ventanaConfirm").kendoWindow({
@@ -365,8 +378,12 @@ function SuscribirEventoMostrar() {
                     LimpiarCargaSpoolContiene();
 
                     if (spoolIDContiene != "") {
-                        SpoolIDActual = spoolIDContiene;
-                        AjaxGetElementosPorConsulta(tipoBusqueda, todos, 0, 0, spoolIDContiene);
+                        if (spoolIDContiene.length > 2) {
+                            SpoolIDActual = spoolIDContiene;
+                            AjaxGetElementosPorConsulta(tipoBusqueda, todos, 0, 0, spoolIDContiene);
+                        }
+                        else
+                            displayNotify("EmbarqueEtiquetadoMensajeLongitudCadenaSpoolCorta", "", '1');
                     }
                     ventanaConfirm.close();
                 });
@@ -399,7 +416,7 @@ function SuscribirEventoGuardar() {
         var ds = $("#grid").data("kendoGrid").dataSource;
         if (ds._data.length > 0) {
             AjaxGuardarCaptura(ds._data, 1);
-        } else {            
+        } else {
             displayNotify("MensajeAdverteciaExcepcionGuardado", "", '2');
         }
     });
@@ -439,7 +456,7 @@ function SuscribirEventoPlanchar() {
 
                 $("#yesButton").click(function (handler) {
                     if (Cuadrante != undefined) {
-                        if(Cuadrante.CuadranteID!=0)
+                        if (Cuadrante.CuadranteID != 0)
                             PlanchaCuadrante(Cuadrante);
                     }
                     if (Etiquetado != "Ninguno") {
@@ -460,7 +477,7 @@ function SuscribirEventoPlanchar() {
                 if (Etiquetado != "Ninguno") {
                     PlanchaEtiquedo(Etiquetado);
                 }
-                
+
             }
         }
     });
@@ -503,7 +520,7 @@ function SuscribirEventoCambiarVista() {
             ventanaConfirm.content(_dictionary.MensajeAdvertenciaDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] +
                          "</br><center><button class='confirm_yes btn btn-blue' id='yesButton'>" + _dictionary.lblSi[$("#language").data("kendoDropDownList").value()]
                          + "</button><button class='confirm_yes btn btn-blue' id='noButton'>" + _dictionary.lblNo[$("#language").data("kendoDropDownList").value()]
-                         +"</button></center>");
+                         + "</button></center>");
 
             ventanaConfirm.open().center();
 
@@ -526,7 +543,7 @@ function SuscribirEventoCambiarVista() {
                 $("input[name='TipoBusqueda']").val(VistaActual);
                 if (VistaActual == "Spool") {
                     $("#styleSpool").addClass("active");
-                    $("#styleZona").removeClass("active");                    
+                    $("#styleZona").removeClass("active");
                 } else if (VistaActual == "Zona") {
                     $("#styleSpool").removeClass("active");
                     $("#styleZona").addClass("active");

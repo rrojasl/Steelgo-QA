@@ -209,8 +209,12 @@ function AjaxObtenerDetalleSpool(tipoConsulta, spoolID, codigo) {
                                     data[i].Paquete, '1');
                             }
                         } else {
-                            displayNotify("", _dictionary.EmbarqueEmpaquetadoErrorSpoolPlana[$("#language").data("kendoDropDownList").value()] +
-                                    data[i].Plana, '1');
+                            if (data[i].Plana != "")
+                                displayNotify("", _dictionary.EmbarqueEmpaquetadoErrorSpoolPlana[$("#language").data("kendoDropDownList").value()] +
+                                        data[i].Plana, '1');
+                            else
+                                displayNotify('', _dictionary.EmbarqueCargaMsjErrorSpoolAgregarCarro[$("#language").data("kendoDropDownList").value()]
+                                     + data[i].CarroCargado, '1');
                         }
                     } else {
                         displayNotify("EmbarqueEmpaquetadoErrorProyectoDiferente", "", '1');

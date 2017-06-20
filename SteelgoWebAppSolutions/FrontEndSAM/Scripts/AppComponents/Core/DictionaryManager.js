@@ -11286,6 +11286,14 @@ _dictionary = {
         "es-MX": "Etiquetado",
         "en-US": "Labeled"
     },
+    "EmbarqueEtiquetadoMensajeNumeroElementosExcedente": {
+        "es-MX": "La consulta arrojara mas de 5mil registros, especifica los parametros",
+        "en-US": "The query yields more than 5 thousand records, specifies the parameters"
+    },
+    "EmbarqueEtiquetadoMensajeLongitudCadenaSpoolCorta": {
+        "es-MX": "El minimo de caracteres de busqueda es 3, se mas especifico",
+        "en-US": "The minimum of search characters is 3, if more specific"
+    },
     //Finaliza Pantalla Etiquetado
     //Inicia Pantalla Encintado
     "EmbarqueEncintadoTituloPagina": {
@@ -11606,6 +11614,10 @@ _dictionary = {
     "EmbarqueCargaMsjErrorSpoolAgregar": {
         "es-MX": "El Spool se encuentra cargado en la plana ",
         "en-US": "The Spool is loaded on the flat "
+    },
+    "EmbarqueCargaMsjErrorSpoolAgregarCarro": {
+        "es-MX": "El Spool se encuentra cargado en el carro ",
+        "en-US": "The Spool is loaded on the car "
     },
     "EmbarqueCargaMsjErrorSpoolAgregarExiste": {
         "es-MX": "El Spool ya existe en la captura",

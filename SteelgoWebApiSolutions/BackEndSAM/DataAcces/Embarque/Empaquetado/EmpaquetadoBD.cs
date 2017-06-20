@@ -214,6 +214,7 @@ namespace BackEndSAM.DataAcces.Embarque.Empaquetado
                             Paquete = item.Paquete,
                             CargaPlana = item.CargaPlana,
                             Plana = item.Plana,
+                            CarroCargado = item.CarroCargado,
                             ModificadoPorUsuario = true,
                             RowOk = true
                         });

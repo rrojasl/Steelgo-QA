@@ -40,8 +40,8 @@
         event.preventDefault();
         if ($("#username").val() && $("#password").val()) {
             authenticate($("#username").val(), $("#password").val());
-            $('#username').css('border-color', "red");
-            $('#password').css('border-color', "red");
+            //$('#username').css('border-color', "red");
+            //$('#password').css('border-color', "red");
             validateCredentials();
         }
         else {
