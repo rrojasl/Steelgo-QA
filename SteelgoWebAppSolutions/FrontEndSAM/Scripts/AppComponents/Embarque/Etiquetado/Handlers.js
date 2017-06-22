@@ -260,7 +260,7 @@ function SuscribirEventoMostrar() {
                 LimpiarCargaSpoolContiene();
 
                 if (SpoolIDContiene != "") {
-                    if (spoolIDContiene.length > 2) {
+                    if (SpoolIDContiene.length > 2) {
                         AjaxGetElementosPorConsulta(TipoBusqueda, Todos, ZonaID, CuadranteID == "" ? 0 : CuadranteID, SpoolIDContiene);
                     }
                     else {
