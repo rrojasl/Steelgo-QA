@@ -90,6 +90,32 @@ namespace BackEndSAM.Controllers.Pintura
                 return result;
             }
         }
+
+        //obtener Fechas
+        [HttpGet]
+        public object Get(string token, int ProcesoPinturaID, int SistemaPinturaProyectoID, int PruebaProcesoPinturaID, string lenguaje)
+        {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                return PruebasPorLoteBD.Instance.ObtenerFechas(ProcesoPinturaID, SistemaPinturaProyectoID, PruebaProcesoPinturaID, lenguaje);
+
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
+
         //obtener lotes
         [HttpGet]
         public object Get(string token, int ProcesoPinturaID ,int SistemaPinturaProyectoID ,int PruebaProcesoPinturaID, string FechaLote, string lenguaje)

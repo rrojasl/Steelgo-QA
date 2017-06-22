@@ -1,4 +1,4 @@
-﻿IniciarCapturaLotesCapturaReporte();
+﻿
 var ventanaConfirmEdicionCaptura;
 var editado=false;
 var disableDates;
@@ -6,12 +6,6 @@ var disableDates;
 var LineaCaptura = { ProyectoIDSeleccionado: "", ProcesoIDSeleccionado: "", SistemaPinturaIDSeleccionado: "", PruebaIDSeleccionado: "",FechaSeleccionada:"",LoteIDSeleccionada:"" }
 
 
-function IniciarCapturaLotesCapturaReporte() {
-
-    SuscribirEventos();
-    //setTimeout(function () { AjaxCargarSistemaPintura(); }, 1000);
-    //setTimeout(function () { AjaxCargarLotes(); }, 1100);
-}
 
 function isInArray(date, dates) {
 	for (var idx = 0, length = dates.length; idx < length; idx++) {
@@ -30,14 +24,37 @@ function LimpiarDespuesCambioCaptura() {
 	$("#grid").data('kendoGrid').dataSource.data([]);
 }
 
+function ObtenerDato(fecha, tipoDatoObtener) {
+	var cultura = $("#language").val();
+
+	switch (tipoDatoObtener) {
+		case 1://anho
+			return fecha.split('/')[2]
+			break;
+		case 2://mes
+			if (cultura == 'es-MX')
+				return fecha.split('/')[1] - 1
+			else
+				return fecha.split('/')[0] - 1
+			break;
+		case 3://dia
+			if (cultura == 'es-MX')
+				return fecha.split('/')[0]
+			else
+				return fecha.split('/')[1]
+			break;
+	}
+}
+
 function changeLanguageCall() {
+	SuscribirEventos();//validar porque tantas veces se cambie el lenguaje se generarian los eventos.
 	AjaxCargarProyecto();
 	CargarGrid();
 	CargarGridPopUp();
 
-	$("#inputFechaLote").data("kendoDatePicker").setOptions({
-		format: _dictionary.FormatoFecha2[$("#language").data("kendoDropDownList").value()]
-	});
+	//$("#inputFechaLote").data("kendoDatePicker").setOptions({
+	//	format: _dictionary.FormatoFecha2[$("#language").data("kendoDropDownList").value()]
+	//});
 }
 
 function CargarGrid() {

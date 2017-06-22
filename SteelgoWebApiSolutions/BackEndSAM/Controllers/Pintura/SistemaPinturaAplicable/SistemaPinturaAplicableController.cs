@@ -43,7 +43,7 @@ namespace BackEndSAM.Controllers.Pintura.SistemaPinturaAplicable
         }
 
         [HttpGet]
-        public object ObtieneColorPintura(string token, int SistemaPinturaID, string Lenguaje)
+        public object ObtieneColorPintura(string token, int SistemaPinturaID, string Lenguaje,int proyectoID)
         {
             string payload = "";
             string newToken = "";
@@ -53,7 +53,7 @@ namespace BackEndSAM.Controllers.Pintura.SistemaPinturaAplicable
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                return SistemaPinturaAplicableBD.Instance.ObtieneListadoColorPintura(SistemaPinturaID, Lenguaje);
+                return SistemaPinturaAplicableBD.Instance.ObtieneListadoColorPintura(SistemaPinturaID, Lenguaje, proyectoID);
             }
             else
             {

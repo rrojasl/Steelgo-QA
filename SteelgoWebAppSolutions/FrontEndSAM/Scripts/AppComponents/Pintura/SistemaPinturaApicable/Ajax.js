@@ -62,7 +62,7 @@ function AjaxCargarSistemaPintura(proyectoID) {
 }
 
 function AjaxCargarColorPintura(sistemaPinturaID) {    
-    $SistemaPinturaAplicable.SistemaPinturaAplicable.read({ token: Cookies.get("token"), SistemaPinturaID: sistemaPinturaID, Lenguaje: $("#language").val() }).done(function (data) {
+	$SistemaPinturaAplicable.SistemaPinturaAplicable.read({ token: Cookies.get("token"), SistemaPinturaID: sistemaPinturaID, Lenguaje: $("#language").val(), proyectoID: $("#inputProyecto").data("kendoComboBox").dataItem($("#inputProyecto").data("kendoComboBox").select()).ProyectoID }).done(function (data) {
         if (data.length > 1) {
             $("#inputColorPintura").data("kendoComboBox").dataSource.data(data);
 

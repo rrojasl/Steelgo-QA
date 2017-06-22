@@ -17,7 +17,7 @@
 			}
 			else
 				loadingStop();
-			
+
 		}
 		else
 			loadingStop();
@@ -92,15 +92,49 @@ function ajaxPruebas(ProcesoPinturaID, SistemaPinturaProyectoID, lenguaje) {
 				}
 				$("#inputPrueba").data("kendoComboBox").value(datoID);
 
-				if ($("#inputFechaLote").val() != "") {	
+				if ($("#inputFechaLote").val() != "") {
 					$("#inputPrueba").data("kendoComboBox").trigger("change");
 				}
 				else
 					loadingStop();
+
+
+
 			}
 			else
 				loadingStop();
 
+		}
+		else
+			loadingStop();
+	});
+}
+
+function ajaxObtenerFechas(ProcesoPinturaID, SistemaPinturaProyectoID, PruebaProcesoPinturaID, lenguaje) {
+	loadingStart();
+	$PruebasPorLote.PruebasPorLote.read({ token: Cookies.get("token"), ProcesoPinturaID: ProcesoPinturaID, SistemaPinturaProyectoID: SistemaPinturaProyectoID, PruebaProcesoPinturaID: PruebaProcesoPinturaID, lenguaje: lenguaje }).done(function (data) {
+		//var disabledDays = [
+		//	new Date(2000, 01, 01),
+		//	new Date(2000, 01, 02)
+		//];
+		var arrayDates = [];
+
+		if (data.length > 0) {
+			for (var i = 0; i < data.length; i++) {
+				arrayDates[i] = new Date(ObtenerDato(data[i].Fecha, 1), ObtenerDato(data[i].Fecha, 2), ObtenerDato(data[i].Fecha, 3));
+			}
+
+			$("#inputFechaLote").data("kendoDatePicker").setOptions({
+				dates: arrayDates
+			});
+
+			if (arrayDates.length == 1)
+			{
+				
+				$("#inputFechaLote").data("kendoDatePicker").value(kendo.toString(arrayDates[0], String(_dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()].replace('{', '').replace('}', '').replace("0:", ""))).trim());
+				
+			}
+			$("#inputFechaLote").data("kendoDatePicker").trigger("change");
 		}
 		else
 			loadingStop();

@@ -11,7 +11,7 @@ namespace BackEndSAM.Models.Pintura.ListadoSistemaPintura
         public int SistemaPinturaID { get; set; }
         public string SistemaPintura { get; set; }
         //public int ProyectoID { get; set; }
-        public bool AsignadoSpool { get; set; }
+        
         public int ProyectoProcesoShotblastID { get; set; }
         public int ProyectoProcesoPrimarioID { get; set; }
         public int ProyectoProcesoIntermedioID { get; set; }

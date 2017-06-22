@@ -43,7 +43,7 @@ namespace BackEndSAM.Models.Pintura.SistemaPintura
         public List<UnidadMedida> listadoUnidadesMedida { get; set; }
         public List<PruebasProcesos> listadoPruebasProceso { get; set; }
         public List<DetallePruebas> listadoPruebasDetalle { get; set; }
-        public bool AsignadoSpool { get; set; }
+       
     }
 
    
@@ -183,6 +183,7 @@ namespace BackEndSAM.Models.Pintura.SistemaPintura
     public class SPColor
     {
         public int SistemaPintura { get; set; }
+        public int ProyectoID { get; set; }
         public int ColorID { get; set; }
         public int Accion { get; set; }
     }

@@ -165,6 +165,46 @@ namespace BackEndSAM.DataAcces.Pintura.PruebasPorLote
             }
         }
 
+        public object ObtenerFechas(int ProcesoPinturaID, int SistemaPinturaProyectoID, int PruebaProcesoPinturaID, string lenguaje)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<DateTime?> lista = ctx.Sam3_Pintura_PruebasLote_Get_Fechas(ProcesoPinturaID, SistemaPinturaProyectoID, PruebaProcesoPinturaID, lenguaje).ToList();
+                    List<FechasPrueba> listaFechas = new List<FechasPrueba>();
+
+
+                    foreach (DateTime fecha in lista)
+                    {
+                        FechasPrueba objeto = new FechasPrueba
+                        {
+                           Fecha= lenguaje=="es-MX"? fecha.ToString("dd/MM/yyyy"): fecha.ToString("MM/dd/yyyy")
+                        };
+                        listaFechas.Add(objeto);
+                    }
+
+                    return listaFechas;
+
+                }
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
         public object ObtenerLotes(int ProcesoPinturaID ,int SistemaPinturaProyectoID ,int PruebaProcesoPinturaID, string FechaLote,string lenguaje )
         {
             try
@@ -207,5 +247,7 @@ namespace BackEndSAM.DataAcces.Pintura.PruebasPorLote
                 return result;
             }
         }
+
+        
     }
 }

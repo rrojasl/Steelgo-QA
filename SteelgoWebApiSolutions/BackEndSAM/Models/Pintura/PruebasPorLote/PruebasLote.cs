@@ -52,4 +52,11 @@ namespace BackEndSAM.Models.Pintura.PruebasPorLote
             this.Nombre = "";
         }
     }
+
+    public class FechasPrueba
+    {
+        public string Fecha { get; set; }
+    }
+
+    
 }

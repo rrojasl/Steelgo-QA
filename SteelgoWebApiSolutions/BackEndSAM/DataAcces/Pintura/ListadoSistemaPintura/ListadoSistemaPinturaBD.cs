@@ -65,14 +65,14 @@ namespace BackEndSAM.DataAcces.Pintura.ListadoSistemaPintura
             }
         }
 
-        public object ObtieneListadoColorPintura(int SistemaPinturaID, string lenguaje)
+        public object ObtieneListadoColorPintura(int SistemaPinturaID, string lenguaje,int ProyectoID)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
                     string cadena = "";
-                    List<Sam3_SPA_Get_ColorPintura_Result> result = ctx.Sam3_SPA_Get_ColorPintura(SistemaPinturaID, lenguaje).ToList();
+                    List<Sam3_SPA_Get_ColorPintura_Result> result = ctx.Sam3_SPA_Get_ColorPintura(SistemaPinturaID, lenguaje, ProyectoID).ToList();
 
                     int posicion = 0;
                     foreach (Sam3_SPA_Get_ColorPintura_Result item in result)
@@ -115,14 +115,14 @@ namespace BackEndSAM.DataAcces.Pintura.ListadoSistemaPintura
                             Accion = 1,
                             SistemaPinturaID = item.SistemaPinturaID,
                             SistemaPintura = item.SistemaPintura.Split('~')[0],
-                            AsignadoSpool = item.AsignadoSpool.GetValueOrDefault(),
+                           
                             ProyectoProcesoShotblastID = item.ProyectoProcesoShotblastID.GetValueOrDefault(),
                             ProyectoProcesoPrimarioID = item.ProyectoProcesoPrimarioID.GetValueOrDefault(),
                             ProyectoProcesoIntermedioID = item.ProyectoProcesoIntermedioID.GetValueOrDefault(),
                             ProyectoProcesoAcabadoID = item.ProyectoProcesoAcabadoID.GetValueOrDefault(),
                             Proyecto = item.Proyecto,
                             ProyectoID=item.ProyectoID,
-                            Color = (string)ListadoSistemaPinturaBD.Instance.ObtieneListadoColorPintura(item.SistemaPinturaID, lenguaje),
+                            Color = (string)ListadoSistemaPinturaBD.Instance.ObtieneListadoColorPintura(item.SistemaPinturaID, lenguaje, item.ProyectoID),
                             PruebaPorLoteShotblast = item.PruebaPorLoteShotblast.GetValueOrDefault(),
                             MetrosPorLoteShotblast = item.MetrosPorLoteShotblast.GetValueOrDefault(),
                             PruebaShotblast = lenguaje.Equals("es-MX") ? "Detalle Pruebas" : "Detail Testing",
