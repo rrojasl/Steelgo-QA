@@ -188,9 +188,16 @@ function AjaxAgregarCarga() {
                                     }
                                 }
                                 else {
-                                    if (array[i].PlanaCargado != "")
+                                    if (array[i].PlanaCargado != "") {
+                                        var res = array[i].PlanaCargado.split(":");
+                                        if (res[0].trim() == 'MANUAL') {
+                                            displayNotify('', _dictionary.EmbarqueCargaMsjErrorSpoolManualRevisionEmbarque[$("#language").data("kendoDropDownList").value()]
+                                                 + res[1].trim(), '1');
+                                        }
+                                        else
                                         displayNotify('', _dictionary.EmbarqueCargaMsjErrorSpoolAgregar[$("#language").data("kendoDropDownList").value()]
                                              + array[i].PlanaCargado, '1');
+                                    }
                                     else
                                         displayNotify('', _dictionary.EmbarqueCargaMsjErrorSpoolAgregarCarro[$("#language").data("kendoDropDownList").value()]
                                              + array[i].CarroCargado, '1');

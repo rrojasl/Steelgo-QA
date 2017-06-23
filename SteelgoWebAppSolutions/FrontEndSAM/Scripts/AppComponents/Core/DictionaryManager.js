@@ -11634,6 +11634,10 @@ _dictionary = {
         "es-MX": "El spool no pertenece al proyecto seleccionado",
         "en-US": "Spool does not belong to selected project"
     },
+    "EmbarqueCargaMsjErrorSpoolManualRevisionEmbarque": {
+        "es-MX": "El spool, fue agregado manualmente al embarque: ",
+        "en-US": "The spool was added manually to shipment"
+    },
     "EmbarqueCargaMsjErrorCrearPlanaSeleccionaProveedor": {
         "es-MX": "Es necesario seleccionar un proveedor para crear una plana",
         "en-US": "You need to select a provider to create a flat"
