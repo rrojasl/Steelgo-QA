@@ -142,7 +142,7 @@ namespace BackEndSAM.DataAcces.Pintura.RevisionPintura
                         NoPintable =bool.Parse(row["NoPintable"].ToString()),
                         SistemaPinturaColorID= row["SistemaPinturaColorID"].ToString()=="" ? 0: int.Parse(row["SistemaPinturaColorID"].ToString()),
                         ListadoSistemaPinturaPorProyecto = GetSistemaPinturaPorProyecto(ctx.Sam3_SPA_Get_SistemaPintura(int.Parse(row["ProyectoID"].ToString())).ToList()),
-                        ListaColorPintura = (List<ColorPintura>)SistemaPinturaAplicableBD.Instance.ObtieneListadoColorPintura(int.Parse(row["SistemaPinturaID"].ToString()), lenguaje)
+                        ListaColorPintura = (List<ColorPintura>)SistemaPinturaAplicableBD.Instance.ObtieneListadoColorPintura(int.Parse(row["SistemaPinturaID"].ToString()), lenguaje, int.Parse(row["ProyectoID"].ToString()))
                     });
                 }
                 return listaRevisionSpool;
@@ -257,7 +257,7 @@ namespace BackEndSAM.DataAcces.Pintura.RevisionPintura
                             ListaMotivosRechazo = listaRechazos,
                             NoPintable=item.NoPintable,
                             SistemaPinturaColorID=item.SistemaPinturaColorID,
-                            ListaColorPintura = (List<ColorPintura>)SistemaPinturaAplicableBD.Instance.ObtieneListadoColorPintura(item.SistemaPinturaID.GetValueOrDefault(), lenguaje)
+                            ListaColorPintura = (List<ColorPintura>)SistemaPinturaAplicableBD.Instance.ObtieneListadoColorPintura(item.SistemaPinturaID.GetValueOrDefault(), lenguaje,item.ProyectoID.GetValueOrDefault())
                         });
                     }
                     return listaRevisionSpool;

@@ -109,4 +109,25 @@ namespace BackEndSAM.Models.Embarque.ListadoEmbarque
         public Nullable<bool> OkCliente { get; set; }
         public int? CapturaEnvioID { get; set; }
     }
+    public class DetalleListadoEmbarqueCerrado
+    {
+        public int EmbarqueID { get; set; }
+        public string Embarque { get; set; }
+        public int EmbarqueEstatusID { get; set; }
+        public int? ProyectoID { get; set; }
+        public string Proyecto { get; set; }
+        public int DestinoID { get; set; }
+        public string Destino { get; set; }
+        public string FolioSolicitudPermiso { get; set; }
+        public string FechaSolicitudPermiso { get; set; }
+        public string Planas { get; set; }
+        public Nullable<bool> RequierePapCliente { get; set; }
+        public Nullable<bool> RequierePermisoAduana { get; set; }
+        public Nullable<bool> RequiereRevisionCliente { get; set; }
+        public Nullable<bool> OkEmbarque { get; set; }
+        public int AprobadoAduana { get; set; }
+        public string AprobadoAduanaDesc { get; set; }
+        public Nullable<bool> OkCliente { get; set; }
+        public int? CapturaEnvioID { get; set; }
+    }
 }

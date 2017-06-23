@@ -73,11 +73,11 @@ function CargarGrid() {
             else {
                 esNormal = false;
             }
-            if (SetValueEnviar(e.model)) {
-                e.model.Enviar = true;                
-            } else {
-                e.model.Enviar = false;                
-            }            
+            //if (SetValueEnviar(e.model)) {
+            //    e.model.Enviar = true;                
+            //} else {
+            //    e.model.Enviar = false;                
+            //}            
         },
         dataSource: {
             schema: {
@@ -227,7 +227,7 @@ function CargarGrid() {
                     $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).OkEmbarque = false;
                 else
                     $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).OkEmbarque = true;
-            }
+            }            
             $("#grid").data("kendoGrid").dataSource.sync();            
         } else if ($(this)[0].className == "chk-OkCliente" || $(this)[0].name == "OkCliente") {
             if ($('#Guardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
@@ -265,7 +265,7 @@ function CargarGrid() {
                     $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).OkCliente = true;
             }                                               
             $("#grid").data("kendoGrid").dataSource.sync();
-        }
+        }       
     });    
     CustomisaGrid($("#grid"));
 };
@@ -312,7 +312,7 @@ function SetValueEnviar(obj) {
             retorno = true;
         } else if (obj.RequierePapCliente && (obj.Destino != "" && obj.Destino != null && obj.Destino != undefined) && !obj.RequierePermisoAduana && obj.RequiereRevisionCliente && obj.OkClienteEmbarque && obj.OkCliente && obj.OkEmbarque) {
             retorno = true;            
-        } else if (obj.RequierePapCliente && (obj.Destino != "" && obj.Destino != null && obj.Destino != undefined) && (obj.FolioSolicitudPermiso != "" && obj.FolioSolicitudPermiso != null) && (obj.FechaSolicitudPermiso != "" && obj.FechaSolicitudPermiso != null) && (obj.AprobadoAduanaDesc == "Aprobado") && obj.RequierePermisoAduana && !obj.RequiereRevisionCliente && obj.OkClienteEmbarque && obj.OkCliente && obj.OkEmbarque) { //salamanca y etileno
+        } else if (obj.RequierePapCliente && obj.DestinoID != 0 && (obj.FolioSolicitudPermiso != "" && obj.FolioSolicitudPermiso != null) && (obj.FechaSolicitudPermiso != "" && obj.FechaSolicitudPermiso != null) && (obj.AprobadoAduanaDesc == "Aprobado") && obj.RequierePermisoAduana && !obj.RequiereRevisionCliente && obj.OkClienteEmbarque && obj.OkCliente && obj.OkEmbarque) { //salamanca y etileno
             retorno = true;
         }        
     }

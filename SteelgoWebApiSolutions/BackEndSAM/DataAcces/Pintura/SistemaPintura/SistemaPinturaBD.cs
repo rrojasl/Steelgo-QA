@@ -56,10 +56,10 @@ namespace BackEndSAM.DataAcces.Pintura.SistemaPintura
 
                     foreach (Sam3_SP_Get_DetalleSistemaPintura_Result item in result)
                     {
-                        List<ComponenteAgregado> listaDetalleComponentesAgregados = (List<ComponenteAgregado>)AdminComponentesBD.Instance.ObtenerCatalogoComponentesAgregados(item.SistemaPinturaProyectoProcesoID,lenguaje,listadoComponentes, item.AsignadoSpool);
+                        List<ComponenteAgregado> listaDetalleComponentesAgregados = (List<ComponenteAgregado>)AdminComponentesBD.Instance.ObtenerCatalogoComponentesAgregados(item.SistemaPinturaProyectoProcesoID,lenguaje,listadoComponentes);
                         listaSistemaPinturaNuevo.Add(new SistemaPinturaNuevo
                         {
-                            Accion = item.AsignadoSpool? 2:1,
+                            Accion = item.Accion,
                             Agregar = item.SistemaPinturaProyectoProcesoID == 0 ? false : true,
                             Proceso = item.NombreProceso,
                             ProcesoPinturaID = item.ProcesoPinturaID,
@@ -78,9 +78,9 @@ namespace BackEndSAM.DataAcces.Pintura.SistemaPintura
                             ListadoReductores = listadoReductores,
                             TemplateDetalleComponentes = lenguaje == "es-MX" ? "Detalle componentes" : "components details",
                             listadoPruebasProceso = (List<PruebasProcesos>)ObtenerPruebasProceso(lenguaje, item.ProcesoPinturaID),
-                            listadoPruebasDetalle = item.SistemaPinturaProyectoProcesoID == 0 ? new List<DetallePruebas>() : (List<DetallePruebas>)ObtenerDetallePruebasProceso(lenguaje, item.SistemaPinturaProyectoProcesoID, item.AsignadoSpool),
+                            listadoPruebasDetalle = item.SistemaPinturaProyectoProcesoID == 0 ? new List<DetallePruebas>() : (List<DetallePruebas>)ObtenerDetallePruebasProceso(lenguaje, item.SistemaPinturaProyectoProcesoID),
                             
-                            AsignadoSpool = item.AsignadoSpool
+                           
                         });
                     }
 
@@ -173,7 +173,7 @@ namespace BackEndSAM.DataAcces.Pintura.SistemaPintura
             }
         }
 
-        public object ObtenerDetallePruebasProceso(string lenguaje, int ProcesoPinturaID,bool asignadoSpool)
+        public object ObtenerDetallePruebasProceso(string lenguaje, int ProcesoPinturaID)
         {
             try
             {
@@ -187,7 +187,7 @@ namespace BackEndSAM.DataAcces.Pintura.SistemaPintura
                     {
                         listaDetallePruebasProceso.Add(new DetallePruebas
                         {
-                            Accion = asignadoSpool?2:1,
+                            Accion = 2,
                             ProyectoProcesoPruebaID = item.ProyectoProcesoPruebaID,
                             SistemaPinturaProyectoProcesoID = item.SistemaPinturaProyectoProcesoID,
                             UnidadMaxima = item.UnidadMaxima,
@@ -287,6 +287,29 @@ namespace BackEndSAM.DataAcces.Pintura.SistemaPintura
             }
         }
 
+        public object TieneAvance(string sistemaPintura, int proyectoid)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Color> DetalleSistemaPintura = new List<Color>();
+                    return  ctx.Sam3_SP_GET_TieneAvance(sistemaPintura, proyectoid).FirstOrDefault();
+                   
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+        
         public object ObtenerProyectosSistemaPintura(string sistemaPintura)
         {
             try
@@ -350,14 +373,14 @@ namespace BackEndSAM.DataAcces.Pintura.SistemaPintura
             }
         }
 
-        public object CrearNuevoSistemaPintura(DataTable dtDetalleSPNuevo, DataTable dtDetalleSPColor, DataTable dtDetalleSPProyecto, DataTable dtDetalleProyectoProceso,DataTable dataTableComponentesAgregado, DataTable dtPruebasProceso,string lenguaje,int UsuarioID,bool asignadoSPASpool  )
+        public object CrearNuevoSistemaPintura(DataTable dtDetalleSPNuevo, DataTable dtDetalleSPColor, DataTable dtDetalleSPProyecto, DataTable dtDetalleProyectoProceso,DataTable dataTableComponentesAgregado, DataTable dtPruebasProceso,string lenguaje,int UsuarioID,bool tieneAvance)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
                     ObjetosSQL _SQL = new ObjetosSQL();
-                    string[,] parametro = { { "@UsuarioID", UsuarioID.ToString() }, { "@Lenguaje", lenguaje }, { "@SpoolAsignado", (asignadoSPASpool?1:0).ToString() } };
+                    string[,] parametro = { { "@UsuarioID", UsuarioID.ToString() }, { "@Lenguaje", lenguaje }, { "@SPTieneAvance", (tieneAvance ? 1:0).ToString() } };
 
                     int valorSPID= _SQL.Ejecuta(Stords.GUARDARCAPTURASISTEMAPINTURA, dtDetalleSPNuevo, "@TTSPNuevo", dtDetalleSPProyecto, "@TTSPProyecto", dtDetalleSPColor, "@TTSPColor", dtDetalleProyectoProceso, "@TTSPProyectoProceso", dataTableComponentesAgregado, "@TTSPProyectoProcesoComponentes", dtPruebasProceso, "@TTSPProyectoProcesoPrueba", parametro);
 

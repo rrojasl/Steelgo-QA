@@ -180,10 +180,8 @@ function SuscribirEventoPrueba() {
 			if (!editado) {
 				var dataItem = this.dataItem(e.sender.selectedIndex);
 				if (dataItem != undefined) {
-					if ($("#inputFechaLote").val() != "") {
 						LineaCaptura.PruebaIDSeleccionado = dataItem.PruebaIDSeleccionado;
-						ajaxLlenarLote(("#inputProceso").data("kendoComboBox").dataItem($("#inputProceso").data("kendoComboBox").select()).ProcesoPinturaID, ("#inputSistemaPintura").data("kendoComboBox").dataItem($("#inputSistemaPintura").data("kendoComboBox").select()).SistemaPinturaProyectoID, dataItem.PruebaProcesoPinturaID, $("#inputFechaLote").val())
-					}
+						ajaxObtenerFechas($("#inputProceso").data("kendoComboBox").dataItem($("#inputProceso").data("kendoComboBox").select()).ProcesoPinturaID, $("#inputSistemaPintura").data("kendoComboBox").dataItem($("#inputSistemaPintura").data("kendoComboBox").select()).SistemaPinturaProyectoID, dataItem.PruebaProcesoPinturaID, $("#language").val())
 				}
 				else {
 					$("#inputPrueba").data("kendoComboBox").value("");
@@ -199,18 +197,15 @@ function SuscribirEventoPrueba() {
 
 
 function SuscribirEventoFechaLote() {
-	var disabledDays = [
-		new Date(2000, 10, 10),
-		new Date(2000, 10, 30)
-	];
-
-	
-
+	//var disabledDays = [
+	//	new Date(2000, 01, 01),
+	//	new Date(2000, 01, 02)
+	//];
 
 	$("#inputFechaLote").kendoDatePicker({
-		
-		dates: disabledDays,
-		value: new Date(2000, 10, 1),
+		format: _dictionary.FormatoFecha2[$("#language").data("kendoDropDownList").value()],
+		//dates: disabledDays,
+		value: new Date(),
 		max: new Date(),
 		change: function (e) {
 			if (!editado) {

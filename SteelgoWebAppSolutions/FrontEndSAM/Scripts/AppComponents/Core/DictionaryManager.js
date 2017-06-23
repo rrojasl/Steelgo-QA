@@ -7692,7 +7692,7 @@ _dictionary = {
     "lblListadoEmbarque": {
         "es-MX": "Listado Embarque",
         "en-US": "Shipping list"
-    },
+    },    
     "lblColorCinta": {
         "es-MX": "Color Cinta",
         "en-US": "Ribbon color"
@@ -8375,6 +8375,10 @@ _dictionary = {
     "menuListadoEmbarqueEnviados": {
         "es-MX": "Listado Embarques Enviados",
         "en-US": "Shipped Shipment List"
+    },
+    "menuListadoEmbarquesCerrados": {
+        "es-MX": "Listado Embarques Cerrados",
+        "en-US": "Closed shipments"
     },
     "menuIngenieria": {
         "es-MX": "Ingeniería",
@@ -10997,8 +11001,8 @@ _dictionary = {
         "en-US": "Maximum you can enter ?1 components"
     },
     "MensajeSpoolAsignado": {
-        "es-MX": "No puedes editar el sistema de pintura el motivo es: ya se encuentra asignado a un spool",
-        "en-US": "You can not edit the painting system the reason is: it is already assigned to a spool"
+        "es-MX": "No puedes editar el sistema de pintura el motivo es: ya tiene capturado el avance",
+        "en-US": "You can not edit the painting system the reason is: Already has captured the advance"
     },
     "SistemaPinturaModificaNumeroComponentes": {
         "es-MX": "¿Deseas cambiar el numero de componentes?",
@@ -11966,6 +11970,16 @@ _dictionary = {
         "en-US": "Sent shipping list"
     },
     //Finaliza pantalla listado embarque enviados
+    //Inicia Pantalla Listado Embarques Cerrados    
+    "EmbarqueListadoCerradosLblEstatus": {
+        "es-MX": "Estatus",
+        "en-US": "Status"
+    },
+    "lblListadoEmbarquesCerrados": {
+        "es-MX": "Listado Embarques Cerrados",
+        "en-US": "Closed shipments"
+    },
+    //Finaliza Pantalla Listado Embarques Cerrados
     //Inicia pantalla revision
     "EmbarqueRevisionBreadcrumb": {
         "es-MX": "Revisión Embarque",

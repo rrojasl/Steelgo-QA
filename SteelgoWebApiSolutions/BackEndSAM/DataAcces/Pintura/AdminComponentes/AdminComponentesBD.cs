@@ -180,7 +180,7 @@ namespace BackEndSAM.DataAcces.Pintura.AdminComponentes
             }
         }
 
-        public object ObtenerCatalogoComponentesAgregados(int SistemaPinturaProyectoProcesoID, string lenguaje, List<Componentes> listadoComponentes,bool asignadoSpool)
+        public object ObtenerCatalogoComponentesAgregados(int SistemaPinturaProyectoProcesoID, string lenguaje, List<Componentes> listadoComponentes)
         {
             try
             {
@@ -196,7 +196,7 @@ namespace BackEndSAM.DataAcces.Pintura.AdminComponentes
                     {
                         ComponenteAgregado componentesAgregados = new ComponenteAgregado
                         {
-                            Accion = asignadoSpool?2:1,
+                            Accion = 2,
                             ComponenteAgregadoID = item.ComponenteAgregadoID,
                             ComponenteID = item.ComponenteID,
                             Nombre = item.Nombre,

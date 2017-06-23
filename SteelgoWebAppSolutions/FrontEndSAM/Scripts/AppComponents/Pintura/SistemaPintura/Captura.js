@@ -5,6 +5,8 @@ var modeloRenglon;
 var dataItemProcesoPintura;
 var paramReqProyectoID=0;
 var esNormal;
+var tieneAvance = false;
+
 
 function changeLanguageCall() {
     
@@ -96,7 +98,11 @@ function CargarGrid() {
 
             if ($('#botonGuardar').text() != _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()] || ($("#inputNoAplicable").is(':checked'))) {
                 this.closeCell();
-            }
+			}
+			if (tieneAvance)
+			{
+				this.closeCell();
+			}
             
 
             setTimeout(function () {
@@ -214,7 +220,7 @@ function CargarGrid() {
                 if ($('#Guardar').text() != "Editar") {
                     var grid = $("#grid").data("kendoGrid")
                     dataItem = grid.dataItem($(e.target).closest("tr"));
-                    if (dataItem.AsignadoSpool)
+                    if (tieneAvance)
                     {
                         if ($(this)[0].checked) {
                             $(this)[0].checked = false;
@@ -254,7 +260,7 @@ function CargarGrid() {
                 if ($('#Guardar').text() != "Edit") {
                     var grid = $("#grid").data("kendoGrid")
                     dataItem = grid.dataItem($(e.target).closest("tr"));
-                    if (dataItem.AsignadoSpool) {
+                    if (tieneAvance) {
                         if ($(this)[0].checked) {
                             $(this)[0].checked = false;
                         }
@@ -325,6 +331,12 @@ function isEditable(fieldName, model) {
     return true; // default to editable
 }
 
+function deshabilitar() {
+	$('#FieldSetView').find('*').attr('disabled', true);
+	$("#inputColor").data("kendoMultiSelect").enable(false);
+	$("#comboProyecto").data("kendoComboBox").enable(false);
+}
+
 function agregarComponentesAutomaticos()
 {
     if (dataItemRender.ListaDetalleComponentesAgregados != undefined) {
@@ -351,41 +363,46 @@ function agregarComponentesAutomaticos()
 }
 
 function cancelarCaptura(e) {
-    e.preventDefault();
-    var filterValue = $(e.currentTarget).val();
-    var dataItem = $("#gridPopUp").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
-    var dataSource = $("#gridPopUp").data("kendoGrid").dataSource;
-    if (dataItem.Accion == 2) {
-        dataItem.Accion = 3;
-    }
-    else {
-        dataSource.remove(dataItem);
-    }
-    $("#gridPopUp").data("kendoGrid").dataSource.sync();
+	if (!tieneAvance) {
+		e.preventDefault();
+		var filterValue = $(e.currentTarget).val();
+		var dataItem = $("#gridPopUp").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+		var dataSource = $("#gridPopUp").data("kendoGrid").dataSource;
+		if (dataItem.Accion == 2) {
+			dataItem.Accion = 3;
+		}
+		else {
+			dataSource.remove(dataItem);
+		}
+		$("#gridPopUp").data("kendoGrid").dataSource.sync();
+	}
+   
 }
 
 function limpiarRenglon(e) {
-    e.preventDefault();
-    if ($('#Guardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
+	if (!tieneAvance) {
 
-        var itemToClean = $("#gridPopUp").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+		e.preventDefault();
+		if ($('#Guardar').text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
 
-        if (itemToClean.Accion == 2)
-            itemToClean.Accion = 4;
+			var itemToClean = $("#gridPopUp").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
 
-        itemToClean.ProyectoProcesoPrueba = "";
-        itemToClean.ProyectoProcesoPruebaID = 0;
-        itemToClean.UnidadMedida = "";
-        itemToClean.UnidadMedidaID = 0;
-        itemToClean.UnidadMinima = 0;
-        itemToClean.UnidadMaxima = 0;
+			if (itemToClean.Accion == 2)
+				itemToClean.Accion = 4;
 
-        var dataSource = $("#gridPopUp").data("kendoGrid").dataSource;
-        dataSource.sync();
-        //alert(itemToClean);
-    }
+			itemToClean.ProyectoProcesoPrueba = "";
+			itemToClean.ProyectoProcesoPruebaID = 0;
+			itemToClean.UnidadMedida = "";
+			itemToClean.UnidadMedidaID = 0;
+			itemToClean.UnidadMinima = 0;
+			itemToClean.UnidadMaxima = 0;
 
+			var dataSource = $("#gridPopUp").data("kendoGrid").dataSource;
+			dataSource.sync();
+			//alert(itemToClean);
+		}
 
+	}
 }
 
 
@@ -396,7 +413,10 @@ function CargarGridPopUp() {
             setTimeout(function () {
                 var inputName = e.container.find('input');
                 inputName.select();
-            });
+			});
+			if (tieneAvance) {
+				this.closeCell();
+			}
         },
         dataSource: {
             data: [],
@@ -478,7 +498,10 @@ function CargarGridPopUpComponenteAgregado() {
     $("#gridPopUpComponentesAgregados").kendoGrid({
         edit: function (e) {
             var inputName = e.container.find('input');
-            inputName.select();
+			inputName.select();
+			if (tieneAvance) {
+				this.closeCell();
+			}
         },
         dataSource: { 
             data: [],

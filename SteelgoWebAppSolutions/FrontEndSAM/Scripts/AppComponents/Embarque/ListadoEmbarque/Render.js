@@ -4,12 +4,12 @@
         .appendTo(container)
         .kendoComboBox({
             autoBind: false,
-            dataSource: options.model.listaDestino,
+            dataSource: options.model.listaDestino,            
             template: "<i class=\"fa fa-#=data.Destino.toLowerCase()#\"></i> #=data.Destino#",
             change: function (e) {
-                e.preventDefault();
+                //e.preventDefault();
                 var dataItem = this.dataItem(e.sender.selectedIndex);
-
+                
                 if (dataItem != undefined && dataItem.DestinoID != 0) {
                     options.model.Destino = dataItem.Destino;
                     options.model.DestinoID = dataItem.DestinoID;
@@ -19,10 +19,28 @@
                 else {
                     options.model.Destino = "";
                     options.model.DestinoID = 0;
-                    options.model.ModificadoPorUsuario = true;
+                    options.model.ModificadoPorUsuario = true;                    
                 }
+                options.model.DestinoID != "" ? options.model.Enviar = true : options.model.Enviar = false;
+                $("#grid").data("kendoGrid").dataSource.sync();
             }
         });
+}
+
+function SetValueEnviar(obj) {
+    var retorno = false;
+    if (obj != undefined) {
+        if (!obj.RequierePapCliente && (obj.Destino != "" && obj.Destino != null && obj.Destino != undefined) && !obj.RequierePermisoAduana && obj.RequiereRevisionCliente && !obj.OkClienteEmbarque && !obj.OkCliente && obj.OkEmbarque) { //crossover
+            retorno = true;
+        } else if (!obj.RequierePapCliente && (obj.Destino != "" && obj.Destino != null && obj.Destino != undefined) && (obj.FolioSolicitudPermiso != "" && obj.FolioSolicitudPermiso != null) && (obj.FechaSolicitudPermiso != "" && obj.FechaSolicitudPermiso != null) && (obj.AprobadoAduanaDesc == "Aprobado") && obj.RequierePermisoAduana && obj.RequiereRevisionCliente && !obj.OkClienteEmbarque && !obj.OkCliente && obj.OkEmbarque) { //pesqueria
+            retorno = true;
+        } else if (obj.RequierePapCliente && (obj.Destino != "" && obj.Destino != null && obj.Destino != undefined) && !obj.RequierePermisoAduana && obj.RequiereRevisionCliente && obj.OkClienteEmbarque && obj.OkCliente && obj.OkEmbarque) {
+            retorno = true;
+        } else if (obj.RequierePapCliente && obj.DestinoID != 0 && (obj.FolioSolicitudPermiso != "" && obj.FolioSolicitudPermiso != null) && (obj.FechaSolicitudPermiso != "" && obj.FechaSolicitudPermiso != null) && (obj.AprobadoAduanaDesc == "Aprobado") && obj.RequierePermisoAduana && !obj.RequiereRevisionCliente && obj.OkClienteEmbarque && obj.OkCliente && obj.OkEmbarque) { //salamanca y etileno
+            retorno = true;
+        }
+    }
+    return retorno;
 }
 
 function RenderComboBoxAprobacionAduana(container, options) {

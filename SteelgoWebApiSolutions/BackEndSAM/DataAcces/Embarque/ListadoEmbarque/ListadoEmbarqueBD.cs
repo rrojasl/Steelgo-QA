@@ -108,9 +108,9 @@ namespace BackEndSAM.DataAcces.Embarque.ListadoEmbarque
                             OkEmbarque = item.OkEmbarque,
                             Enviar =
                                 !item.RequierePapCliente.GetValueOrDefault() && (!item.RequiereAduana.GetValueOrDefault() && (item.AprobadoAduana == 0 || item.AprobadoAduana == null) ) && item.RequiereRevisionCliente.GetValueOrDefault() && !item.OkClienteEmbarque.GetValueOrDefault() && !item.OkCliente && item.OkEmbarque ? true : //CrossOver
-                                !item.RequierePapCliente.GetValueOrDefault() && (item.RequiereAduana.GetValueOrDefault() && item.AprobadoAduana == 1) && item.RequiereRevisionCliente.GetValueOrDefault() && !item.OkClienteEmbarque.GetValueOrDefault() && !item.OkCliente && item.OkEmbarque ? true : //Pesqueria
-                                item.RequierePapCliente.GetValueOrDefault() && (!item.RequiereAduana.GetValueOrDefault() && (item.AprobadoAduana == 0 || item.AprobadoAduana == null) ) && item.RequiereRevisionCliente.GetValueOrDefault() && item.OkClienteEmbarque.GetValueOrDefault() && item.OkCliente && item.OkEmbarque ? true : //Ramones
-                                item.RequierePapCliente.GetValueOrDefault() && (item.RequiereAduana.GetValueOrDefault() && item.AprobadoAduana == 1) && !item.RequiereRevisionCliente.GetValueOrDefault() && item.OkClienteEmbarque.GetValueOrDefault() && item.OkCliente && item.OkEmbarque ? true : false, //Salamanca y etileno                            
+                                !item.RequierePapCliente.GetValueOrDefault() && (item.RequiereAduana.GetValueOrDefault() && item.AprobadoAduana == 1) && item.RequiereRevisionCliente.GetValueOrDefault() && !item.OkClienteEmbarque.GetValueOrDefault() && !item.OkCliente && item.OkEmbarque && item.DestinoID != 0 ? true : //Pesqueria
+                                item.RequierePapCliente.GetValueOrDefault() && (!item.RequiereAduana.GetValueOrDefault() && (item.AprobadoAduana == 0 || item.AprobadoAduana == null) ) && item.RequiereRevisionCliente.GetValueOrDefault() && item.OkClienteEmbarque.GetValueOrDefault() && item.OkCliente && item.OkEmbarque && item.DestinoID != 0 ? true : //Ramones
+                                item.RequierePapCliente.GetValueOrDefault() && (item.RequiereAduana.GetValueOrDefault() && item.AprobadoAduana == 1) && !item.RequiereRevisionCliente.GetValueOrDefault() && item.OkClienteEmbarque.GetValueOrDefault() && item.OkCliente && item.OkEmbarque && item.DestinoID != 0 ? true : false, //Salamanca y etileno                            
                             CapturaEnvioID = item.CapturaEnvioID.GetValueOrDefault(),
                             ModificadoPorUsuario = false,
                             RowOk = true,
@@ -166,6 +166,54 @@ namespace BackEndSAM.DataAcces.Embarque.ListadoEmbarque
                         });
                     }
 
+                    return listaDetalle;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+
+        public object ObtenerDetalleListadoEmbarquesCerrados(int UsuarioID, int ProyectoID, string Lenguaje, string FechaInicio, string FechaFin)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Sam3_Embarque_LE_Get_ListadoEmbarquesCerrados_Result> result = ctx.Sam3_Embarque_LE_Get_ListadoEmbarquesCerrados(Lenguaje, UsuarioID, ProyectoID, FechaInicio, FechaFin).ToList();
+                    List<DetalleListadoEmbarqueCerrado> listaDetalle = new List<DetalleListadoEmbarqueCerrado>();
+
+                    foreach (Sam3_Embarque_LE_Get_ListadoEmbarquesCerrados_Result item in result)
+                    {
+                        listaDetalle.Add(new DetalleListadoEmbarqueCerrado
+                        {
+                            EmbarqueID = item.EmbarqueID,
+                            Embarque = item.Embarque,
+                            EmbarqueEstatusID = item.EmbarqueEstatusID,
+                            ProyectoID = item.ProyectoID,
+                            Proyecto = item.Proyecto,                            
+                            DestinoID = item.DestinoID,
+                            Destino = item.Destino,
+                            FolioSolicitudPermiso = item.RequiereAduana.GetValueOrDefault() ? item.SolicitudPermiso : "NA",
+                            Planas = item.Planas,                            
+                            FechaSolicitudPermiso = item.RequiereAduana.GetValueOrDefault() ? item.FechaPermiso.ToString() : "NA",
+                            RequierePapCliente = item.RequierePapCliente,
+                            RequierePermisoAduana = item.RequiereAduana,
+                            RequiereRevisionCliente = item.RequiereRevisionCliente,
+                            OkEmbarque = item.OkEmbarque,
+                            AprobadoAduana = item.RequiereAduana.GetValueOrDefault() ? item.AprobadoAduana.GetValueOrDefault() : 1,
+                            AprobadoAduanaDesc = item.RequiereAduana.GetValueOrDefault() ? item.AprobadoAduanaDesc : "NA",
+                            OkCliente = item.OkCliente,                                                        
+                            CapturaEnvioID = item.CapturaEnvioID
+                        });
+                    }
                     return listaDetalle;
                 }
             }

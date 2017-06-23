@@ -108,10 +108,10 @@ function suscribirEventoChangeAplicable() {
 
         var isEmptyGrid = false;
         var isEmptyColor = false;
-        var asignadoSpool = false;
+
+		
         var ds = $("#grid").data("kendoGrid").dataSource;
-        if(ds._data.length>0)
-            asignadoSpool = ds._data[0].AsignadoSpool;
+       
 
         for (var i = 0; i < ds._data.length; i++) {
             if (ds._data[i].Agregar) {
@@ -122,7 +122,7 @@ function suscribirEventoChangeAplicable() {
         if ($("#inputColor").data("kendoMultiSelect")._values.length == 0) {
             isEmptyColor = true;
         }
-        if (asignadoSpool)
+		if (tieneAvance)
         {
             if (($("#inputNoAplicable").is(':checked')))
             {
@@ -465,13 +465,14 @@ function suscribirEventoGuardar() {
     $('#Guardar').click(function (e) {
         e.preventDefault();
         var ds = $("#grid").data("kendoGrid").dataSource;
-        if ($('#botonGuardar').text() == "Guardar") {
-            if ($("#inputSistemaPinturaID").val() == "") {
-                AjaxVerificarNombre($("#inputNombre").val(), ds._data, 0);
-            } else {
-                AjaxGuardarCaptura(ds._data, 0);
-            }
-
+		if ($('#botonGuardar').text() == "Guardar") {
+			
+				if ($("#inputSistemaPinturaID").val() == "") {
+					AjaxVerificarNombre($("#inputNombre").val(), ds._data, 0);
+				} else {
+					AjaxGuardarCaptura(ds._data, 0);
+				}
+			
         }
         else if ($('#botonGuardar').text() == "Editar")
             opcionHabilitarView(false, "FieldSetView")
@@ -480,25 +481,30 @@ function suscribirEventoGuardar() {
     $('#btnGuardar').click(function (e) {
         e.preventDefault();
         var ds = $("#grid").data("kendoGrid").dataSource;
-        if ($('#botonGuardar').text() == "Guardar") {
-            if ($("#inputSistemaPinturaID").val() == "") {
-                AjaxVerificarNombre($("#inputNombre").val(), ds._data, 0);
-            } else {
-                AjaxGuardarCaptura(ds._data, 0);
-            }
+		if ($('#botonGuardar').text() == "Guardar") {
+			
+				if ($("#inputSistemaPinturaID").val() == "") {
+					AjaxVerificarNombre($("#inputNombre").val(), ds._data, 0);
+				} else {
+					AjaxGuardarCaptura(ds._data, 0);
+				}
+			
         }
         else if ($('#botonGuardar').text() == "Editar")
             opcionHabilitarView(false, "FieldSetView")
     });
 
-    $('#btnGuardarYNuevo').click(function (e) {
-        e.preventDefault();
-        var ds = $("#grid").data("kendoGrid").dataSource;
-        if ($("#inputSistemaPinturaID").val() == "") {
-            AjaxVerificarNombre($("#inputNombre").val(), ds._data, 1);
-        } else {
-            AjaxGuardarCaptura(ds._data, 1);
-        }
+	$('#btnGuardarYNuevo').click(function (e) {
+
+		e.preventDefault();
+	
+			var ds = $("#grid").data("kendoGrid").dataSource;
+			if ($("#inputSistemaPinturaID").val() == "") {
+				AjaxVerificarNombre($("#inputNombre").val(), ds._data, 1);
+			} else {
+				AjaxGuardarCaptura(ds._data, 1);
+			}
+		
 
     });
 
@@ -506,12 +512,14 @@ function suscribirEventoGuardar() {
     $('#GuardarPie').click(function (e) {
         e.preventDefault();
         var ds = $("#grid").data("kendoGrid").dataSource;
-        if ($('#botonGuardar').text() == "Guardar") {
-            if ($("#inputSistemaPinturaID").val() == "") {
-                AjaxVerificarNombre($("#inputNombre").val(), ds._data, 0);
-            } else {
-                AjaxGuardarCaptura(ds._data, 0);
-            }
+		if ($('#botonGuardar').text() == "Guardar") {
+			
+				if ($("#inputSistemaPinturaID").val() == "") {
+					AjaxVerificarNombre($("#inputNombre").val(), ds._data, 0);
+				} else {
+					AjaxGuardarCaptura(ds._data, 0);
+				}
+			
         }
         else if ($('#botonGuardar').text() == "Editar")
             opcionHabilitarView(false, "FieldSetView")
@@ -520,25 +528,29 @@ function suscribirEventoGuardar() {
     $('#btnGuardar1').click(function (e) {
         e.preventDefault();
         var ds = $("#grid").data("kendoGrid").dataSource;
-        if ($('#botonGuardar').text() == "Guardar") {
-            if ($("#inputSistemaPinturaID").val() == "") {
-                AjaxVerificarNombre($("#inputNombre").val(), ds._data, 0);
-            } else {
-                AjaxGuardarCaptura(ds._data, 0);
-            }
+		if ($('#botonGuardar').text() == "Guardar") {
+		
+				if ($("#inputSistemaPinturaID").val() == "") {
+					AjaxVerificarNombre($("#inputNombre").val(), ds._data, 0);
+				} else {
+					AjaxGuardarCaptura(ds._data, 0);
+				}
+			
         }
         else if ($('#botonGuardar').text() == "Editar")
             opcionHabilitarView(false, "FieldSetView")
     });
 
     $('#btnGuardarYNuevo1').click(function (e) {
-        e.preventDefault();
-        var ds = $("#grid").data("kendoGrid").dataSource;
-        if ($("#inputSistemaPinturaID").val() == "") {
-            AjaxVerificarNombre($("#inputNombre").val(), ds._data, 1);
-        } else {
-            AjaxGuardarCaptura(ds._data, 1);
-        }
+		e.preventDefault();
+		
+			var ds = $("#grid").data("kendoGrid").dataSource;
+			if ($("#inputSistemaPinturaID").val() == "") {
+				AjaxVerificarNombre($("#inputNombre").val(), ds._data, 1);
+			} else {
+				AjaxGuardarCaptura(ds._data, 1);
+			}
+		
     });
 }
 
@@ -570,7 +582,7 @@ function SuscribirEventoEliminarSistemaPintura() {
             
             if ($("#comboProyecto").data("kendoComboBox").select() > 0) {
                 if ($("#grid").data("kendoGrid").dataSource._data.length > 0) {
-                    if (!$("#grid").data("kendoGrid").dataSource._data[0].AsignadoSpool) {
+					if (tieneAvance) {
                         AjaxEliminaSistemaPintura(SistemaPinturaID, $("#comboProyecto").data("kendoComboBox").dataItem($("#comboProyecto").data("kendoComboBox").select()).ProyectoID);
                     }
                     else {
@@ -615,3 +627,5 @@ function opcionHabilitarView(valor, name) {
         $('#botonGuardar4').text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);
     }
 }
+
+

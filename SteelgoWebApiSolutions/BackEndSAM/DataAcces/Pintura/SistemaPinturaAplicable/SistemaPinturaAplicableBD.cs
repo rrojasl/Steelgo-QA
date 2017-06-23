@@ -66,14 +66,14 @@ namespace BackEndSAM.DataAcces.Pintura.SistemaPinturaAplicable
             }
         }
 
-        public object ObtieneListadoColorPintura(int SistemaPinturaID, string lenguaje)
+        public object ObtieneListadoColorPintura(int SistemaPinturaID, string lenguaje,int proyectoID)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
                     List<ColorPintura> list = new List<ColorPintura>();
-                    List<Sam3_SPA_Get_ColorPintura_Result> result = ctx.Sam3_SPA_Get_ColorPintura(SistemaPinturaID, lenguaje).ToList();
+                    List<Sam3_SPA_Get_ColorPintura_Result> result = ctx.Sam3_SPA_Get_ColorPintura(SistemaPinturaID, lenguaje, proyectoID).ToList();
 
                     list.Add(new ColorPintura());
                     foreach (Sam3_SPA_Get_ColorPintura_Result item in result)
@@ -151,7 +151,7 @@ namespace BackEndSAM.DataAcces.Pintura.SistemaPinturaAplicable
                             Color = item.Color != null ? item.Color : "",
                             EstatusCaptura = item.EstatusCaptura,
                             ListaSistemPintura = (List<SistemaPinturaData>)SistemaPinturaAplicableBD.Instance.ObtieneListadoSistemaPintura(ProyectoID),
-                            ListaColorPintura = item.SistemaPinturaID.GetValueOrDefault() != 0 ? (List<ColorPintura>)SistemaPinturaAplicableBD.Instance.ObtieneListadoColorPintura(item.SistemaPinturaID.GetValueOrDefault(), Lenguaje) : null,
+                            ListaColorPintura = item.SistemaPinturaID.GetValueOrDefault() != 0 ? (List<ColorPintura>)SistemaPinturaAplicableBD.Instance.ObtieneListadoColorPintura(item.SistemaPinturaID.GetValueOrDefault(), Lenguaje,item.ProyectoID.GetValueOrDefault()) : null,
                             AsignadoSpool=item.AsignadoSpool,
                             NombreCarro=item.NombreCarro
                         });
