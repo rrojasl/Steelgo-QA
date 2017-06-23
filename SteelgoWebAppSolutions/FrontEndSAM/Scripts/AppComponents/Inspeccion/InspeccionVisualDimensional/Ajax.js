@@ -345,8 +345,7 @@ function ajaxobtenerDetalleDimensional(spoolID) {
 			else
 				$("#ListaJuntas").data("kendoMultiSelect").enable(false);
 
-			$("#InputID").data("kendoComboBox").value("");
-			$("#InputID").val("")
+			
 		}
 		else {
 			$("#ListaJuntas").data("kendoMultiSelect").value("");
@@ -452,7 +451,7 @@ function ajaxObtenerJSonGrid() {
 						//$("#InputID").data("kendoComboBox").value("");
 						displayNotify("", _dictionary.DimensionalVisualMensajeJuntasAgregadas[$("#language").data("kendoDropDownList").value()] + JuntasAgregadas, '0');
 					}
-					$("#InputID").data("kendoComboBox").value("");//se limpia sin importar si ya existe o no por regla de negocio.
+					
 				}
 
 
