@@ -7,10 +7,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using System.Web.Script.Serialization;
 
 namespace BackEndSAM.Controllers.Sam3General.Periodo
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class PeriodoController: ApiController
     {
         [HttpGet]

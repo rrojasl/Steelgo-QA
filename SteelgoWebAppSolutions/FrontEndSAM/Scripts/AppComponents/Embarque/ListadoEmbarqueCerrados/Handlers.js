@@ -1,5 +1,6 @@
 ﻿function SuscribirEventos() {
-    SuscribirEventoProyecto();    
+    SuscribirEventoProyecto();
+    SuscribirEventoPeriodo();
     SuscribirEventoFecha();
     SuscribirEventoMostrar();    
 }
@@ -14,11 +15,35 @@ function SuscribirEventoProyecto() {
         index: 3,
         change: function (e) {
             $("#grid").data("kendoGrid").dataSource.data([]);
+            $("#InputPeriodo").data("kendoComboBox").value("");
             $("#InputFechaInicio").val("");
             $("#InputFechaFin").val("");
             dataItem = this.dataItem(e.sender.selectedIndex);
             if (dataItem == undefined) {
                 $("#InputProyecto").data("kendoComboBox").value("");                
+            }
+        }
+    });
+}
+
+function SuscribirEventoPeriodo() {
+    $("#InputPeriodo").kendoComboBox({
+        dataTextField: "Periodo",
+        dataValueField: "PeriodoID",
+        suggest: true,
+        filter: "contains",
+        index: 3,
+        change: function (e) {
+            var dataItem = this.dataItem(e.sender.selectedIndex);
+            $("#InputFechaInicio").data("kendoDatePicker").value("");
+            $("#InputFechaFin").data("kendoDatePicker").value("");
+            if (dataItem != undefined) {
+                if (dataItem.PeriodoID != 0) {
+                    AjaxCargarRangoFechas(dataItem);
+                }
+            }
+            else {
+                $("#InputPeriodo").data("kendoComboBox").value("");
             }
         }
     });

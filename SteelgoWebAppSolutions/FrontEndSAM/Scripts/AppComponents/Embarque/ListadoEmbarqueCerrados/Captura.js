@@ -1,18 +1,36 @@
-﻿function IniciarListadoEmbarquesCerrados() {
+﻿var FechaInicio;
+var FechaFin;
+var esNormal;
+
+function IniciarListadoEmbarquesCerrados() {
     SuscribirEventos();
 }
-
-function changeLanguageCall() {
-    editado = false;
-    IniciarListadoEmbarquesCerrados();    
-    CargarGrid();    
+function changeLanguageCall() {    
+    CargarGrid();
+    IniciarListadoEmbarquesCerrados();
     AjaxCargaProyecto();
+    AjaxCargarPeriodos();
     document.title = _dictionary.lblListadoEmbarquesCerrados[$("#language").data("kendoDropDownList").value()];
+    FechaInicio.data("kendoDatePicker").setOptions({
+        format: _dictionary.FormatoFecha2[$("#language").data("kendoDropDownList").value()]
+    });
+
+    FechaFin.data("kendoDatePicker").setOptions({
+        format: _dictionary.FormatoFecha2[$("#language").data("kendoDropDownList").value()]
+    });
 }
 
 function CargarGrid() {
     $("#grid").kendoGrid({
-        autoBind: true,        
+        autoBind: true,
+        edit: function (e) {
+            if ($(".k-grid-content td").css("white-space") == "normal") {
+                esNormal = true;
+            }
+            else {
+                esNormal = false;
+            }
+        },
         dataSource: {
             schema: {
                 model: {
@@ -89,7 +107,15 @@ function CargarGrid() {
                     dataSource: [{ OkEmbarque: true }, { OkEmbarque: false }]
                 }, template: '<input type="checkbox" class="chk-OkEmbarque" #= OkEmbarque ? "checked=checked" : "" # class="chkbx" disabled></input>', width: "150px", attributes: { style: "text-align:center;" }
             }
-        ]
+        ],
+        dataBound: function (e) {
+            if (esNormal) {
+                $(".k-grid-content td").css("white-space", "normal");
+            }
+            else {
+                $(".k-grid-content td").css("white-space", "nowrap");
+            }
+        }
     });
     CustomisaGrid($("#grid"));
 };
