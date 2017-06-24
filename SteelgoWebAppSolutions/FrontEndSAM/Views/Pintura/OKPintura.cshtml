@@ -22,7 +22,7 @@
                 <div class="button-section editButtonSection">
                     <input type="hidden" value=@ViewBag.id id="idField" />
                     <div class="btn-group save-group">
-                        <button id="BotonGuardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="botonGuardar"></span></button>
+                        <button id="BotonGuardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow" style="min-width:110px;"><span id="botonGuardar"></span></button>
                         <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="caretWhite"></span>
                         </button>
@@ -83,12 +83,12 @@
                     <div class="col-sm-1 col-md-1 col-lg-1">
                         <button type="button" id="ButtonPlanchar" class="btn btn-blue"><span id="botonPlanchar"></span></button>
                     </div>
-
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <div id="ContenedorGrid" class="row">
                         <div id="grid" data-role="grid" class="k-grid k-widget"></div>
                         <input id="hdAccionFiltrado" type="hidden" />
+                        <div id="gridMasivo" type="hidden" data-role="grid" class="k-grid k-widget"></div>
                     </div>
                 </div>
             </div>
@@ -108,7 +108,7 @@
         </div>
         <div class="row col-sm-12 col-md-12 col-lg-12">
             <div class="col-sm-5 col-md-5 col-lg-5"></div>
-            <a class=" btn btn-primary col-sm-2 col-md-2 col-lg-2" href="#" id="CerrarDetalleJunta">
+            <a class="btn btn-primary col-sm-2 col-md-2 col-lg-2" href="#" id="CerrarDetalleJunta">
                 <span id="botonCerrar"></span>
             </a>
         </div>
@@ -119,7 +119,7 @@
             <div class="formNav clearfix">
                 <div class="button-section editButtonSection">
                     <div class="btn-group save-group">
-                        <button id="BotonGuardar3" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="botonGuardar3"></span></button>
+                        <button id="BotonGuardar3" onclick="javascript:void(0);" type="button" class="btn btn-yellow" style="min-width:110px;"><span id="botonGuardar3"></span></button>
                         <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span class="caretWhite"></span>
                         </button>

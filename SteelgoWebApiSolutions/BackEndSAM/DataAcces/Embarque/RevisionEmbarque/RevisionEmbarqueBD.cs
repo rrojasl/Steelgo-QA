@@ -146,7 +146,7 @@ namespace BackEndSAM.DataAcces.Embarque.RevisionEmbarque
                     {
                         listaDetalle.Add(new DetalleSpoolAgregar
                         {
-                            Accion = 1,
+                            Accion = 1,                            
                             ProyectoID = item.ProyectoID,
                             SpoolID = item.SpoolID,
                             NumeroControl = item.NumeroControl,

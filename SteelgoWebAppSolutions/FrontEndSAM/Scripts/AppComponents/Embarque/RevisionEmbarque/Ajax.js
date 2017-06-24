@@ -131,7 +131,7 @@ function AjaxAgregarDetalleSpool(tipoConsulta, ordenTrabajoSpoolID, codigo) {
     loadingStart();
     var proyectoID = parseInt($("#Proyecto").data("kendoComboBox").value());
     $RevisionEmbarque.RevisionEmbarque.read({ token: Cookies.get("token"), TipoConsulta: tipoConsulta, OrdenTrabajoSpoolID: ordenTrabajoSpoolID, Codigo: codigo}).done(function (data) {
-        var ds = $("#grid").data("kendoGrid").dataSource;
+        var ds = $("#grid").data("kendoGrid").dataSource;        
         var array = data;
         var cadena = "";
         if (array.length > 0) {
@@ -175,7 +175,7 @@ function AjaxAgregarDetalleSpool(tipoConsulta, ordenTrabajoSpoolID, codigo) {
                                         data[0].Plana + _dictionary.EmbarqueRevisionMsjDescargaSpoolConfirmacion[$("#language").data("kendoDropDownList").value()];
                                 }
                             }
-
+                            ds.sync();
                             $("#spanDescargaSpool").text(cadena);
                             $("#inputTipoDescarga").val(1);
                             windowDownloadSpool.title(_dictionary.TituloPopupCancelar[$("#language").data("kendoDropDownList").value()]);
