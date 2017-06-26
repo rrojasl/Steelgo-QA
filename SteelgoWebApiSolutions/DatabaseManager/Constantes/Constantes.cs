@@ -81,5 +81,7 @@
         public static string GUARDACAPTURAAVANCECUADRANTE = "Sam3_Pintura_AvanceCuadrante_Guarda";
         public static string VALIDARCAPTURACARGAPLANA = "Sam3_Embarque_CP_ValidacionSpoolsCargaPlana";
         public static string VALIDARCAPTURAEMPAQUETADO = "Sam3_Embarque_EMP_ValidacionSpoolsEmpaquetado";
+        public static string PINTURA_SET_OKPINTURA = "Sam3_Pintura_SET_OkPintura";
+        public static string PINTURA_SET_OKPINTURA_MASIVO = "Sam3_Pintura_SET_OkPinturaMasivo";
     }
 }

@@ -141,12 +141,15 @@ function CargarGrid() {
                                 e.preventDefault();                                
                                 var dataItem = this.dataItem($(e.currentTarget).closest("tr"));                                
                                 var dataSource = this.dataSource;
+                                if (dataItem.Accion == 1) {
+                                    dataSource.remove(dataItem);
+                                }
                                 if (dataItem.Accion == 2) {
                                     dataItem.Accion = 3;
                                     dataItem.ModificadoPorUsuario = true;                                    
                                 } else {                                
                                     dataSource.remove(dataItem);
-                                }                                                           
+                                }
                                 dataSource.sync();                                                                
                             }else
                                 displayNotify('EmbarqueRevisionMsjRevisionCerrada', '', '1');
@@ -293,16 +296,17 @@ function isEditable(fieldName, model) {
 function ExisteSpool(row) {    
     var jsonGrid = $("#grid").data("kendoGrid").dataSource._data;
     for (var i = 0; i < jsonGrid.length; i++) {
-        if (jsonGrid[i].SpoolID === row[0].SpoolID && (row[0].Accion === 1 && (row[0].NumeroControl === jsonGrid[i].NumeroControl))) {
-            return true
+        if(jsonGrid[i].SpoolID == row[0].SpoolID && jsonGrid[i].Accion == 2){        
+            return true;
+        } else if ((row[0].Accion == 1 && jsonGrid[i].Accion != 3) && (jsonGrid[i].SpoolID == row[0].SpoolID)) {
+            return true;
         }
     }
-    return false;
+    return false;    
 }
 
 function ExistePaquete(paquete) {
     var jsonGrid = $("#grid").data("kendoGrid").dataSource._data;
-
     for (var i = 0; i < jsonGrid.length; i++) {
         if (jsonGrid[i].Paquete == paquete) {
             return true
