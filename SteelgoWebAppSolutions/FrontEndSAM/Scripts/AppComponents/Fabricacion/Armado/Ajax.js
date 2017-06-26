@@ -301,7 +301,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
 
 			ObjetoNumeroUnicoAsignado = []
 			ObjetoNumeroUnicoAsignado[0] = { Accion: "", JuntaID: "", NumeroUnico1ID: "", NumeroUnico2ID: "" }
-			ObjetoNumeroUnicoAsignado[0].Accion = arregloCaptura[index].RevisionNU ? arregloCaptura[index].AccionNumeroUnico : 0;//(arregloCaptura[index].Accion == 3 || arregloCaptura[index].Accion == 4) ? 3 : arregloCaptura[index].AccionNumeroUnico;
+			ObjetoNumeroUnicoAsignado[0].Accion = arregloCaptura[index].AccionNumeroUnico;//arregloCaptura[index].RevisionNU ? arregloCaptura[index].AccionNumeroUnico : 0;//(arregloCaptura[index].Accion == 3 || arregloCaptura[index].Accion == 4) ? 3 : arregloCaptura[index].AccionNumeroUnico;
 			ObjetoNumeroUnicoAsignado[0].JuntaID = arregloCaptura[index].JuntaID;
 			ObjetoNumeroUnicoAsignado[0].NumeroUnico1ID = arregloCaptura[index].NumeroUnico1ID;
 			ObjetoNumeroUnicoAsignado[0].NumeroUnico2ID = arregloCaptura[index].NumeroUnico2ID;

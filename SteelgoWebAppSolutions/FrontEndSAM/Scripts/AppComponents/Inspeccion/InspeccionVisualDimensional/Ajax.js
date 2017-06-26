@@ -96,7 +96,7 @@ function ValidarCaptura(jSonCaptura) {
 
 		ObjetoNumeroUnicoAsignado = []
 		ObjetoNumeroUnicoAsignado[0] = { Accion: "", JuntaID: "", NumeroUnico1ID: "", NumeroUnico2ID: "" }
-		ObjetoNumeroUnicoAsignado[0].Accion = jSonCaptura[index].RevisionNU ? jSonCaptura[index].AccionNumeroUnico : 0;//(jSonCaptura[index].Accion == 3 || jSonCaptura[index].Accion == 4) ? jSonCaptura[index].Accion : jSonCaptura[index].AccionNumeroUnico;
+		ObjetoNumeroUnicoAsignado[0].Accion = jSonCaptura[index].AccionNumeroUnico;//jSonCaptura[index].RevisionNU ? jSonCaptura[index].AccionNumeroUnico : 0;//(jSonCaptura[index].Accion == 3 || jSonCaptura[index].Accion == 4) ? jSonCaptura[index].Accion : jSonCaptura[index].AccionNumeroUnico;
 		ObjetoNumeroUnicoAsignado[0].JuntaID = jSonCaptura[index].JuntaID;
 		ObjetoNumeroUnicoAsignado[0].NumeroUnico1ID = jSonCaptura[index].NumeroUnico1ID;
 		ObjetoNumeroUnicoAsignado[0].NumeroUnico2ID = jSonCaptura[index].NumeroUnico2ID;
