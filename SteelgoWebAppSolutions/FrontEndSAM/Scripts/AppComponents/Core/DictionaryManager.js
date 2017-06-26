@@ -12887,9 +12887,18 @@ _dictionary = {
         "es-MX": "Camión",
         "en-US": "Truck"
     },
-
     //Finaliza Modulo Dynasol
+     // Modulo Montaje
 
+    "MontajeBreadcrumb": {
+        "es-MX": "Montaje",
+        "en-US": "Montage"
+    },
+    "PlanchadoSoldaduraBreadcrumb": {
+        "es-MX": "Planchado Soldadura",
+        "en-US": "Welding Override"
+    },
+    //Finaliza Modulo Montaje
 
     //#endregion
 };
