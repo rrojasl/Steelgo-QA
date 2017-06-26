@@ -27,7 +27,7 @@
 
     public static class Stords
     {
-        
+
         public static string ACTUALIZARCAPTURAREVISIONPINTURA = "Sam3_Pintura_Update_Revision";
         public static string GUARDARCAPTURAREVISIONPINTURA = "Sam3_Pintura_Set_Revision";
         public static string GUARDARCAPTURAARMADOVALIDANUMEROSUNICOS = "Sam3_Armado_Valida_NumerosUnicos";
@@ -44,7 +44,7 @@
         public static string GUARDACAPTURANUEVOMEDIOTRANSPORTE = "Sam3_Pintura_Guardar_NuevoCarro";
         public static string GUARDACAPTURAPINTURASPOOLCARGA = "Sam3_Pintura_CargaCarro_Guardar";
         public static string SETCIERRACARRO = "Sam3_Pintura_Set_CierraCarro";
-        public static string GUARDACAPTURAAVANCE = "Sam3_Pintura_AvanceCarro_Guarda";
+        public static string GUARDACAPTURAAVANCE = "Sam3_Pintura_Avance_Guarda";
         public static string OKPND = "Sam3_ST_GuardaOKPND";
         public static string OKPNDMASIVO = "Sam3_ST_GuardaOKPND_Masivo";
         public static string GUARDACAPTURASISTEMAPINTURAAPLICABLE = "Sam3_SPA_GuardaCaptura";
@@ -68,13 +68,13 @@
         public static string ARMADOACTUALIZARINFORMACION = "Sam3_Armado_Get_ActualizarCaptura";
         public static string GUARDARREVISIONEMBARQUE = "Sam3_Embarque_RE_GuardarCaptura";
         public static string GUARDARCAPTURABUSCASPOOL = "Sam3_Ingenieria_GuardarLoop";
-        public static string OBTIENEDETALLEAVANCECARRO = "Sam3_Pintura_AvanceCarro_Get_Detalle";
+        public static string OBTIENEDETALLEAVANCE = "Sam3_Pintura_Avance_Get_Detalle";
+        public static string OBTIENEDETALLEAVANCECUADRANTE = "Sam3_Pintura_AvanceCuadrante_Get_Detalle";
         public static string GUARDARCAPTURADECARGACARRO = "Sam3_Pintura_DesCargaCarro_Guardar";
         public static string GUARDAREMBARQUEMARCADO = "";
         public static string STEELGO_SET_OK = "Sam3_Steelgo_SET_OK";
         public static string STEELGO_SET_OK_MASIVO = "Sam3_Steelgo_OK_SET_GuardaMasivo";
         public static string GUARDAACTUALIZACIONLOTE = "Sam3_Pintura_ActualizaLotesCarro";
-        public static string OBTIENEDETALLEAVANCECUADRANTE = "Sam3_Pintura_AvanceCuadrante_Get_Detalle";
         public static string SAM3_DYNASOL_GUARDARCAPTURA = "Sam3_Dynasol_GuardarCaptura";
         public static string SAM3_DYNASIL_GUARDARDETALLEPACKINGLIST = "Sam3_Dynasol_SET_DetallePackingList";
         public static string SAM3_DYNASOL_GUARDADETALLECAMION = "Sam3_Dynasol_SET_DetalleCamion";
