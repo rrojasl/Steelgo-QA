@@ -253,7 +253,7 @@ namespace BackEndSAM.Controllers.Fabricacion.Soldadura
                             //Proceso Raiz
                             ProcesoSoldaduraRaizID = item.ProcesoSoldaduraRaizID == null ? 0 : int.Parse(item.ProcesoSoldaduraRaizID.ToString()),
                             ProcesoSoldaduraRaiz = item.CodigoRaiz == null ? "" : item.CodigoRaiz,
-                            ListadoProcesoSoldaduraRaiz = ListadoProcesoSoldadura,
+                            ListadoProcesoSoldaduraRaiz = ListadoProcesoSoldadura.Where(x => x.Codigo != "N/A").OrderBy(x => x.Codigo).ToList<ProcesoSoldadura>(),
                             //Soldadores Raiz
                             ListaSoldadoresRaizCapturados = (List<Soldadores>)SoldaduraBD.Instance.ObtenerSoldadoresRaizCapturados(capturaDatosJson.IdOrdenTrabajo, capturaDatosJson.idVal, item.JuntaSoldaduraID.GetValueOrDefault(), 1),//el ultimo parametro es el tipo de soldadora o raiz o relleno.
                             ListadoSoldadoresRaiz =  new List<ObreroSoldador>(),
@@ -261,7 +261,7 @@ namespace BackEndSAM.Controllers.Fabricacion.Soldadura
                             //Proceso Relleno
                             ProcesoSoldaduraRellenoID = item.ProcesoSoldaduraRellenoID == null ? 0 : int.Parse(item.ProcesoSoldaduraRellenoID.ToString()),
                             ProcesoSoldaduraRelleno = item.CodigoRelleno == null ? "" : item.CodigoRelleno,
-                            ListadoProcesoSoldaduraRelleno = ListadoProcesoSoldadura,
+                            ListadoProcesoSoldaduraRelleno = ListadoProcesoSoldadura.OrderBy(x => x.Codigo).ToList<ProcesoSoldadura>(),
                             //Soldadores Relleno
                             ListaSoldadoresRellenoCapturados = (List<Soldadores>)SoldaduraBD.Instance.ObtenerSoldadoresRaizCapturados(capturaDatosJson.IdOrdenTrabajo, capturaDatosJson.idVal, item.JuntaSoldaduraID.GetValueOrDefault(), 0),//el ultimo parametro es el tipo de soldadora o raiz o relleno.
                             ListadoSoldadoresRelleno = new List<ObreroSoldador>(),
@@ -360,7 +360,7 @@ namespace BackEndSAM.Controllers.Fabricacion.Soldadura
                                                                                                 //Proceso Raiz
                         ProcesoSoldaduraRaizID = item.ProcesoSoldaduraRaizID == null ? 0 : int.Parse(item.ProcesoSoldaduraRaizID.ToString()),
                         ProcesoSoldaduraRaiz = item.CodigoRaiz == null ? "" : item.CodigoRaiz,
-                        ListadoProcesoSoldaduraRaiz = ListadoProcesoSoldadura,
+                        ListadoProcesoSoldaduraRaiz = ListadoProcesoSoldadura.Where(x => x.Codigo != "N/A").OrderBy(x => x.Codigo).ToList<ProcesoSoldadura>(),
                         //Soldadores Raiz
                         ListaSoldadoresRaizCapturados = (List<Soldadores>)SoldaduraBD.Instance.ObtenerSoldadoresRaizCapturados(capturaDatosJson.IdOrdenTrabajo, capturaDatosJson.idVal, item.JuntaSoldaduraID.GetValueOrDefault(), 1),//el ultimo parametro es el tipo de soldadora o raiz o relleno.
                         ListadoSoldadoresRaiz = new List<ObreroSoldador>(),
@@ -368,7 +368,7 @@ namespace BackEndSAM.Controllers.Fabricacion.Soldadura
                         //Proceso Relleno
                         ProcesoSoldaduraRellenoID = item.ProcesoSoldaduraRellenoID == null ? 0 : int.Parse(item.ProcesoSoldaduraRellenoID.ToString()),
                         ProcesoSoldaduraRelleno = item.CodigoRelleno == null ? "" : item.CodigoRelleno,
-                        ListadoProcesoSoldaduraRelleno = ListadoProcesoSoldadura,
+                        ListadoProcesoSoldaduraRelleno = ListadoProcesoSoldadura.OrderBy(x => x.Codigo).ToList<ProcesoSoldadura>(),
                         //Soldadores Relleno
                         ListaSoldadoresRellenoCapturados = (List<Soldadores>)SoldaduraBD.Instance.ObtenerSoldadoresRaizCapturados(capturaDatosJson.IdOrdenTrabajo, capturaDatosJson.idVal, item.JuntaSoldaduraID.GetValueOrDefault(), 2),//el ultimo parametro es el tipo de soldadora o raiz o relleno.
                         ListadoSoldadoresRelleno = new List<ObreroSoldador>(),

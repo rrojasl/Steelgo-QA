@@ -118,7 +118,7 @@ function suscribirEventoAgregar() {
                     displayNotify("CapturaSoldaduraSpoolNoCapturado", "", '1');
                 }
                 else
-                    displayNotify("CapturaSoldaduraNoExisteSpoolID", "", '2');
+                    displayNotify("CapturaSoldaduraNoExisteSpoolID", "", '1');
             }
         }
         else {
@@ -263,10 +263,10 @@ function SuscribirEventosJunta() {
                         }
                     }
                     else
-                        displayNotify("JuntaSinSeleccionar", "", '2');
+                        displayNotify("JuntaSinSeleccionar", "", '1');
                 }
                 else {
-                    displayNotify("Mensajes_error", "Favor de seleccionar un Tipo de Captura", '2');
+                    displayNotify("Mensajes_error", "Favor de seleccionar un Tipo de Captura", '1');
                 }
             }
             else {
@@ -322,7 +322,7 @@ function SuscribirEventoID() {
                 if ($("#InputID").val() == "") {
                     displayNotify("CapturaSoldaduraSpoolNoCapturado", "", '1');
                 } else {
-                    displayNotify("CapturaSoldaduraNoExisteSpoolID", "", '2');
+                    displayNotify("CapturaSoldaduraNoExisteSpoolID", "", '1');
                 }
             }
         }
@@ -404,7 +404,7 @@ function SuscribirEventosOrdenTrabajo() {
                 });
 
             } catch (e) {
-                displayNotify("Mensajes_error", e.message, '2');
+                displayNotify("Mensajes_error", e.message, '1');
 
             }
         } else {
@@ -549,7 +549,7 @@ function GuardarDetalleAdicional() {
 
         }
         else {
-            displayNotify('CapturaSoldaduraTrabajoMandatorio', '', '2');
+            displayNotify('CapturaSoldaduraTrabajoMandatorio', '', '1');
         }
     });
 }
@@ -598,11 +598,11 @@ function GuardarSoldadoresRaiz() {
                 $("#windowGridSoldadorRaiz").data("kendoWindow").close();
             }
             else {
-                displayNotify('CapturaSoldaduraGridSoldadoresRegistrosRepetidos', '', '2');
+                displayNotify('CapturaSoldaduraGridSoldadoresRegistrosRepetidos', '', '1');
             }
         }
         else {
-            displayNotify('CapturaSoldaduraGridSoldadores', '', '2');
+            displayNotify('CapturaSoldaduraGridSoldadores', '', '1');
         }
     });
 }
@@ -639,7 +639,7 @@ function GuardarSoldadoresRelleno() {
             $("#grid").data("kendoGrid").dataSource.sync();
         }
         else {
-            displayNotify('CapturaSoldaduraGridSoldadores', '', '2');
+            displayNotify('CapturaSoldaduraGridSoldadores', '', '1');
         }
     });
 }

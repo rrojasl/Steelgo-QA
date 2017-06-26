@@ -293,7 +293,7 @@ function renderDiametro(container, options) {
             if (diametroC < 25) {
                 options.model.DiametroMinimo = diametroC;
             }
-            else if (diametroC >= 25 && diametroC <= 75) {
+            else if (diametroC >= 25 && diametroC <= 73) {
                 options.model.DiametroMinimo = 25;
             }
             else {

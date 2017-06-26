@@ -215,7 +215,7 @@ function AjaxCargarReporteJuntas() {
                 }
                 if (elementosNoModificados != "") {
                     displayNotify("", _dictionary.CapturaSoldaduraMsgExiste[$("#language").data("kendoDropDownList").value()] +
-                        elementosNoModificados + _dictionary.CapturaArmadoMsgExisteReporte[$("#language").data("kendoDropDownList").value()], '2');
+                        elementosNoModificados + _dictionary.CapturaArmadoMsgExisteReporte[$("#language").data("kendoDropDownList").value()], '1');
                 }
             }
         });
@@ -223,7 +223,7 @@ function AjaxCargarReporteJuntas() {
         if ($('input:radio[name=Muestra]:checked').val() == "Sin Capturar") {
             displayNotify("CapturaSoldaduraNoExistenJuntasSpool", "", "1");
         } else {
-            displayNotify("CapturaSoldaduraNoTieneJuntas", "", "2");
+            displayNotify("CapturaSoldaduraNoTieneJuntas", "", "1");
         }
     }
     $('#ButtonAgregar').prop("disabled", false);
@@ -348,7 +348,7 @@ function ObtenerJSonGridSoldadura() {
                         displayNotify("",
                         _dictionary.CapturaSoldaduraMsgExiste[$("#language").data("kendoDropDownList").value()] +
                         array[0].Junta +
-                        _dictionary.CapturaSoldaduraMsgExisteListado[$("#language").data("kendoDropDownList").value()], '2');
+                        _dictionary.CapturaSoldaduraMsgExisteListado[$("#language").data("kendoDropDownList").value()], '1');
                 }
                 else {
                     //Proceso insertar elemento
@@ -749,7 +749,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
         loadingStop();
     } catch (e) {
         loadingStop();
-        displayNotify("", e.message, '2');
+        displayNotify("", e.message, '1');
     }
 
 };

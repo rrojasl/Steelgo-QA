@@ -116,7 +116,7 @@ function SuscribirEventoDiametroCertificado() {
         if (diametroC < 25) {
             $("#inputDiametroMinimo").data("kendoNumericTextBox").value(diametroC);
         }
-        else if (diametroC >= 25 && diametroC <= 75) {
+        else if (diametroC >= 25 && diametroC <= 73) {
             $("#inputDiametroMinimo").data("kendoNumericTextBox").value('25');
         }
         else {
