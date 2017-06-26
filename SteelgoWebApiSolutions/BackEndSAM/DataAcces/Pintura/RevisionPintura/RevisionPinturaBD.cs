@@ -257,7 +257,11 @@ namespace BackEndSAM.DataAcces.Pintura.RevisionPintura
                             ListaMotivosRechazo = listaRechazos,
                             NoPintable=item.NoPintable,
                             SistemaPinturaColorID=item.SistemaPinturaColorID,
-                            ListaColorPintura = (List<ColorPintura>)SistemaPinturaAplicableBD.Instance.ObtieneListadoColorPintura(item.SistemaPinturaID.GetValueOrDefault(), lenguaje,item.ProyectoID.GetValueOrDefault())
+                            ListaColorPintura = (List<ColorPintura>)SistemaPinturaAplicableBD.Instance.ObtieneListadoColorPintura(item.SistemaPinturaID.GetValueOrDefault(), lenguaje,item.ProyectoID.GetValueOrDefault()),
+                            CargaCarroID=item.CargaCarroID,
+                            CarroID=item.CarroID,
+                            CuadranteID=item.CuadranteID
+
                         });
                     }
                     return listaRevisionSpool;

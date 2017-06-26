@@ -221,7 +221,11 @@ function CambiarProcesoPintura() {
     if (!editado) {
         LimpiarDespuesCambioProcesoPintura();
         procesoPinturaSeleccionadoAnterior = $('input:radio[name=ProcesoPintura]:checked').val();
-        AjaxCargarProyecto();
+		AjaxCargarProyecto();
+		if (procesoPinturaSeleccionadoAnterior == 4)
+			$('#divColor').show();
+		else
+			$('#divColor').hide();
     }
     else {
         ventanaConfirmEdicionCambioProcesoPintura.open().center();

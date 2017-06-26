@@ -78,6 +78,11 @@ namespace BackEndSAM.Models.Pintura.PinturaGeneral
         
         public bool? NoPintable { get; set; }
 
+        public bool? CargaCarroID { get; set; }
+
+        public int? CarroID { get; set; }
+
+        public int? CuadranteID { get; set; }
         public PinturaRevision()
         {
             this.Accion = 0;
@@ -91,6 +96,9 @@ namespace BackEndSAM.Models.Pintura.PinturaGeneral
             this.Comentario = "";
             this.Version = 0;
             this.NoPintable = false;
+            this.CargaCarroID = false;
+            this.CarroID = 0;
+            this.CuadranteID = 0;
         }
     }
 

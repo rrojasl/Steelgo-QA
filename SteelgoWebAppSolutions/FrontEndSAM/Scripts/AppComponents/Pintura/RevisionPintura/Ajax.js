@@ -77,9 +77,34 @@ function AjaxEjecutarBusquedaSpoolConSP()
     });
 }
 
-function AjaxConsultarSpoolsConSP() {
-    tipoBusquedaSeleccionada = $('input:radio[name=TipoBusqueda]:checked').val() == "spool" ? 1 : 2;
-    datoSeleccionado= tipoBusquedaSeleccionada == 1 ? $("#inputSpool").val() : $("#inputNc").val();
+function AjaxEjecutarBusquedaSpoolConSPDespuesDescarga() {
+	$RevisionPintura.RevisionPintura.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), proyectoid: $("#inputProyecto").data("kendoComboBox").value(), dato: datoSeleccionado, tipoBusqueda: tipoBusquedaSeleccionada }).done(function (data) {
+		var array = data;
+		var elementosModificados = "";
+		
+		var ds = $("#grid").data("kendoGrid").dataSource;
+		for (var i = 0; i < array.length; i++) {
+			ds.insert(0, array[i]);
+			if (elementosModificados != "")
+				elementosModificados += ", " + array[i].NombreSpool;
+			else
+				elementosModificados = array[i].NombreSpool;
+		}
+
+		if ($('input:radio[name=TipoBusqueda]:checked').val() == "spool" && elementosModificados != "") {
+			editado = true;
+		}
+		else if (elementosModificados != "") {
+			editado = true;
+		}
+		else {
+			displayNotify("ErrorSpoolAgregarProyectoIncorrecto", "", '1');
+		}
+	});
+}
+
+function AjaxConsultarSpoolsConSP(tipoBusquedaSeleccionada, datoSeleccionado) {
+    
     $RevisionPintura.RevisionPintura.read({ token: Cookies.get("token"), proyectoid: $("#inputProyecto").data("kendoComboBox").value(), dato: datoSeleccionado, tipoBusqueda: tipoBusquedaSeleccionada }).done(function (numeroData) {
         if (numeroData > 0 && numeroData < 100) {
             AjaxEjecutarBusquedaSpoolConSP();
@@ -308,4 +333,77 @@ function AjaxCargarColorPinturaPlanchado(sistemaPinturaID) {
             $("#grid").data("kendoGrid").refresh();
         }
     });
+}
+
+function AjaxCargarZona(patioID, dataItem) {
+
+	$Zona.Zona.read({ token: Cookies.get("token"), PatioID: patioID }).done(function (data) {
+		var ZonaId = 0;
+		if (data.length > 0) {
+			$("#inputZonaPopup").data("kendoComboBox").dataSource.data(data);
+			if (data.length < 3) {//si solo tiene una zona asignada
+				for (var i = 0; i < data.length; i++) {
+					if (data[i].ZonaID != 0) {
+						ZonaId = data[i].ZonaID;
+					}
+				}
+				$("#inputZonaPopup").data("kendoComboBox").value(ZonaId);
+				$("#inputZonaPopup").data("kendoComboBox").trigger("change");
+			}
+			else {// si ya se tiene una zona asignada.
+				$("#inputZonaPopup").data("kendoComboBox").select(0);
+				$("#inputZonaPopup").data("kendoComboBox").trigger("change");
+			}
+		}
+	});
+}
+
+
+function AjaxCargarCuadrante(zonaID) {
+	$Cuadrante.Cuadrante.read({ token: Cookies.get("token"), ZonaID: zonaID }).done(function (data) {
+		var CuadranteId = 0;
+
+		if (data.length > 0) {
+
+			if ($("#windowDownload").data("kendoWindow").element.is(":hidden"))
+				windowDownload.open().center();
+
+			$("#inputCuadrantePopup").data("kendoComboBox").dataSource.data(data);
+
+			if (data.length < 3 && CuadranteSpoolAnterior == 0) {
+				for (var i = 0; i < data.length; i++) {
+					if (data[i].CuadranteID != 0) {
+						CuadranteId = data[i].CuadranteID;
+					}
+				}
+			}
+			else
+				CuadranteId = CuadranteSpoolAnterior;
+
+			$("#inputCuadrantePopup").data("kendoComboBox").value(CuadranteId);
+			$("#inputCuadrantePopup").data("kendoComboBox").trigger("change");
+		}
+	});
+}
+
+function AjaxDescargarSpool(dataItem, Cuadrante) {
+	loadingStart();
+	var dataSource = $("#grid").data("kendoGrid").dataSource;
+	var elemento = 0;
+	$PinturaGeneral.PinturaGeneral.read({ token: Cookies.get("token"), CarroID: dataItem.CarroID, SpoolID: dataItem.SpoolID, CuadranteID: Cuadrante.CuadranteID, CuadranteSam2ID: Cuadrante.CuadranteSam2ID, CuadranteAnterior: dataItem.CuadranteID, Pantalla: 1 }).done(function (data) {
+		if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "OK") {
+			var dataSource = $("#grid").data("kendoGrid").dataSource;
+			dataSource.remove(dataItem);
+			loadingStop();
+			tipoBusquedaSeleccionada = $('input:radio[name=TipoBusqueda]:checked').val() == "spool" ? 1 : 2;
+			datoSeleccionado = tipoBusquedaSeleccionada == 1 ? dataItem.NombreSpool : dataItem.NumeroControl;
+			AjaxEjecutarBusquedaSpoolConSPDespuesDescarga();
+
+			displayNotify("EmbarqueCargaMsjDescargaSpoolExito", "", "0");
+		} else {
+			loadingStop();
+			displayNotify("EmbarqueCargaMsjDescargaSpoolError", "", "2");
+		}
+
+	});
 }

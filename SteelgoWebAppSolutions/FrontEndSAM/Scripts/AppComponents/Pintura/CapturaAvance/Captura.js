@@ -14,6 +14,7 @@ var ReductoresDinamicosJSON = [];
 var paramProcesoPinturaID;
 var paramCarroID;
 var CarroAnterior;
+var ColorAnterior;
 
 IniciarCapturaArmado();
 
@@ -184,7 +185,9 @@ function VentanaModalDescargarSpool(e) {
     e.preventDefault();
 
     if ($("#Guardar").text() == _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
-        currentDataItemGridDownload = this.dataItem($(e.currentTarget).closest("tr"));
+		currentDataItemGridDownload = this.dataItem($(e.currentTarget).closest("tr"));
+		if (currentDataItemGridDownload.PatioID == 7)
+			displayNotify("PinturaNoSeCambiadecuadranteporpatiomovil", "", "1");
         AjaxCargarZona(currentDataItemGridDownload.PatioID);
         windowDownload.open().center();
     }
@@ -299,6 +302,11 @@ function CambiarProcesoPintura() {
 	if (!editado) {
 		procesoPinturaSeleccionadoAnterior = $('input:radio[name=ProcesoPintura]:checked').val();
 		AjaxCargarCarrosCargadosPorProceso($('input:radio[name=ProcesoPintura]:checked').val());
+		if (procesoPinturaSeleccionadoAnterior == 4)
+			$('#divColor').show();
+		else
+			$('#divColor').hide();
+
 	}
 	else {
 		ventanaConfirmEdicionCambioProcesoPintura.open().center();
@@ -307,10 +315,25 @@ function CambiarProcesoPintura() {
 
 function BuscarDetalleCarro() {
     if ($("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()) != undefined) {
-        if (!editado) {
-            LimpiarDespuesCambioCarro();
-            var dataItem = $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select());
-            AjaxCargarLayoutGrid(dataItem.SistemaPinturaProyectoID, $('input:radio[name=ProcesoPintura]:checked').val(), dataItem.MedioTransporteCargaID);
+		if (!editado) {
+			var dataItem = $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select());
+			if (ejecutadoPor == 0)//ejecutado por el carro
+			{
+				LimpiarDespuesCambioCarro();
+				if ($('input:radio[name=ProcesoPintura]:checked').val() != 4) {
+					AjaxCargarLayoutGrid(dataItem.SistemaPinturaProyectoID, $('input:radio[name=ProcesoPintura]:checked').val(), dataItem.MedioTransporteCargaID);
+				}
+				else {
+					AjaxColores(dataItem.SistemaPinturaProyectoID)
+				}
+			}
+			else
+			{
+				if ($("#inputColor").data("kendoComboBox").dataItem($("#inputColor").data("kendoComboBox").select()).ColorID != 0 && $("#inputColor").data("kendoComboBox").dataItem($("#inputColor").data("kendoComboBox").select()).ColorID != undefined && $("#inputColor").data("kendoComboBox").dataItem($("#inputColor").data("kendoComboBox").select()).ColorID != null)
+					AjaxCargarLayoutGrid(dataItem.SistemaPinturaProyectoID, $('input:radio[name=ProcesoPintura]:checked').val(), dataItem.MedioTransporteCargaID);
+				else
+					displayNotify("CapturaAvanceCuadranteNoColor", "", "1");
+			}
         }
         else {
             ventanaConfirmEdicion.open().center();
@@ -334,12 +357,20 @@ function LimpiarDespuesCambioProcesoPintura() {
 
 function LimpiarDespuesCambioCarro() {
     $("#InputOrdenTrabajo").val("");
-    $("#InputID").data("kendoComboBox").value("");
+	$("#InputID").data("kendoComboBox").value("");
     $("#grid").empty();
     CrearGrid();
     CustomisaGrid($("#grid"));
     document.getElementById('divAgregarComponentesReductoresDinamicos').innerHTML = '';
     $("#inputShotBlastero").data("kendoMultiSelect").value("");
+}
+
+function LimpiarDespuesCambioColor() {
+	$("#InputOrdenTrabajo").val("");
+	$("#InputID").data("kendoComboBox").value("");
+	$("#inputColor").data("kendoComboBox").dataSource.data([]);
+	$("#inputColor").data("kendoComboBox").value("");
+	$("#grid").empty();
 }
 
 function CrearGrid() {

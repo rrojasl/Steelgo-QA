@@ -7692,7 +7692,7 @@ _dictionary = {
     "lblListadoEmbarque": {
         "es-MX": "Listado Embarque",
         "en-US": "Shipping list"
-    },    
+    },
     "lblColorCinta": {
         "es-MX": "Color Cinta",
         "en-US": "Ribbon color"
@@ -10567,6 +10567,10 @@ _dictionary = {
 
     //Finaliza Captura Admin reductores
     //Inicia Carga de Carro
+    "PinturaSpoolenEmbarque": {
+        "es-MX": "El Spool se encuentra en un proceso de embarque (plana)",
+        "en-US": "The spool is in a boarding process (flat) '?' "
+    },
     "PinturaSpoolCargadoEnCarro": {
         "es-MX": "El spool se encuentra cargado en el carro '?'",
         "en-US": "The spool is loaded in the cart '?' "
@@ -10715,6 +10719,11 @@ _dictionary = {
     //Finaliza Carga de Carro
 
     //Inicia Captura Avance de carro
+
+    "PinturaNoSeCambiadecuadranteporpatiomovil": {
+        "es-MX": "No se cambiara la ubicacion si el spool se encuentra en un proceso de embarque",
+        "en-US": "The location will not be changed if the spool is in a shipping process"
+    },
     "PinturaCargaCarroSistemaPinturaCerradoSinSpools": {
         "es-MX": "No puedes cerrar un carro vacio",
         "en-US": "You can not close an empty car"
@@ -10820,6 +10829,10 @@ _dictionary = {
     //Finaliza Captura Avance
 
     //Comienza Avance Cuadrante
+    "CapturaAvanceCuadranteSpoolAgregadoaCuadrante": {
+        "es-MX": "El spool agregado se cambiara de ubicacion al  cuadrante ",
+        "en-US": "The added spool will be moved from location to quadrant "
+    },
     "CapturaAvanceCuadranteNoColor": {
         "es-MX": "Selecciona un color",
         "en-US": "Select a color"
@@ -12697,6 +12710,10 @@ _dictionary = {
         "es-MX": "Revision Pintura",
         "en-US": "Painting Revision"
     },
+    "RevisionPinturaNoEditarSP": {
+        "es-MX": "Necesitas descargar el spool del carro  para que puedas cambiar el sistema de pintura ",
+        "en-US": "you need to unload the spool of the cart  so you can change the paint system"
+    },
     "InformacionAgregada": {
         "es-MX": "Se agrego la informacion a la captura",
         "en-US": "The information was added to the catch"
@@ -12834,7 +12851,7 @@ _dictionary = {
         "es-MX": "Inspección",
         "en-US": "Inspection"
     },
-      "columnCantS": {
+    "columnCantS": {
         "es-MX": "Cant C",
         "en-US": "Qty C"
     },

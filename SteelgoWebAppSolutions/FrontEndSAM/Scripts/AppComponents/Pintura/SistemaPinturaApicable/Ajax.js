@@ -143,7 +143,7 @@ function AjaxCargarDetalleSpool(proyectoID, tipoBusqueda, cadena) {
 }
 
 function AjaxCargarColorPinturaRender(sistemaPinturaID, options) {
-    $SistemaPinturaAplicable.SistemaPinturaAplicable.read({ token: Cookies.get("token"), SistemaPinturaID: sistemaPinturaID, Lenguaje: $("#language").val() }).done(function (data) {
+	$SistemaPinturaAplicable.SistemaPinturaAplicable.read({ token: Cookies.get("token"), SistemaPinturaID: sistemaPinturaID, Lenguaje: $("#language").val(), proyectoID:$("#inputProyecto").val() }).done(function (data) {
         if(data.length>0){
             options.model.ListaColorPintura = data
             $("#grid").data("kendoGrid").dataSource.sync();

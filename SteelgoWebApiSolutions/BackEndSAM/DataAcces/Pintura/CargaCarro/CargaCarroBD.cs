@@ -91,6 +91,7 @@ namespace BackEndSAM.DataAcces.Pintura.CargaCarro
                     {
                         listaDetalle.Add(new DetalleCargaCarro
                         {
+                            PatioID=item.PatioID,
                             Accion = item.Accion,
                             MedioTransporteCargaDetalleID = item.MedioTransporteCargaDetalleID,
                             EstatusCarga = item.EstatusCarga,
@@ -140,6 +141,7 @@ namespace BackEndSAM.DataAcces.Pintura.CargaCarro
                     {
                         listaDetalle.Add( new DetalleCargaCarro
                         {
+                            PatioID=item.PatioID,
                             Accion = item.Accion,
                             MedioTransporteCargaDetalleID = item.MedioTransporteCargaDetalleID.GetValueOrDefault(),
                             OrdenTrabajoID = item.OrdenTrabajoID,

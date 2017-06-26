@@ -267,7 +267,7 @@ function SuscribirEventoSistemaPintura() {
                 if (dataItem != undefined) {
                     LineaCaptura.sistemaPinturaIDSeleccionado = dataItem.SistemaPinturaID;
                     $("#inputColor").data("kendoComboBox").value("");
-                    AjaxColores($("#inputZona").data("kendoComboBox").value(), $("#inputCuadrante").data("kendoComboBox").value(), dataItem.SistemaPinturaID);
+                    AjaxColores($("#inputZona").data("kendoComboBox").value(), $("#inputCuadrante").data("kendoComboBox").value(), dataItem.SistemaPinturaProyectoID);
                 }
             }
             else {

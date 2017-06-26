@@ -55,6 +55,7 @@ namespace BackEndSAM.Models.Pintura.CargaCarro
 
     public class DetalleCargaCarro
     {
+        public int? PatioID { get; set; }
         public int? Accion { get; set; }
         public int? MedioTransporteCargaDetalleID { get; set; }
         public bool? EstatusCarga { get; set; }

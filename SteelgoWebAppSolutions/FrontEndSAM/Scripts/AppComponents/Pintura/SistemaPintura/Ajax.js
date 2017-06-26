@@ -197,15 +197,34 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
 			return;
 		}
 		else {
-			for (var j = 0; j < $("#inputProyecto").data("kendoMultiSelect")._values.length; j++) {
-				for (var i = 0; i < $("#inputColor").data("kendoMultiSelect")._values.length; i++) {
-					ListaColor[i] = { Accion: "", ColorID: "", SistemaPintura: "", ProyectoID: "" };
-					ListaColor[i].ColorID = $("#inputColor").data("kendoMultiSelect")._values[i];
-					ListaColor[i].Accion = 1;
-					ListaColor[i].ProyectoID = $("#inputProyecto").data("kendoMultiSelect")._values[j];
-					ListaColor[i].SistemaPintura = SistemaPintura == 0 ? 0 : $("#inputhiddenSistemaPinturaID").val();
-				}
+			if ($('#divMultiselectProyecto').is(":visible")) {
+				var row = 0;
+				for (var j = 0; j < $("#inputProyecto").data("kendoMultiSelect")._values.length; j++) {
+					for (var i = 0; i < $("#inputColor").data("kendoMultiSelect")._values.length; i++) {
+						ListaColor[row] = { Accion: "", ColorID: "", SistemaPintura: "", ProyectoID: "" };
+						ListaColor[row].ColorID = $("#inputColor").data("kendoMultiSelect")._values[i];
+						ListaColor[row].Accion = 1;
+						ListaColor[row].ProyectoID = $("#inputProyecto").data("kendoMultiSelect")._values[j];
+						ListaColor[row].SistemaPintura = SistemaPintura == 0 ? 0 : $("#inputhiddenSistemaPinturaID").val();
+						row++;
+					}
 
+				}
+			}
+			else
+			{
+				var row = 0;
+				
+					for (var i = 0; i < $("#inputColor").data("kendoMultiSelect")._values.length; i++) {
+						ListaColor[row] = { Accion: "", ColorID: "", SistemaPintura: "", ProyectoID: "" };
+						ListaColor[row].ColorID = $("#inputColor").data("kendoMultiSelect")._values[i];
+						ListaColor[row].Accion = 1;
+						ListaColor[row].ProyectoID = $("#comboProyecto").val();
+						ListaColor[row].SistemaPintura = SistemaPintura == 0 ? 0 : $("#inputhiddenSistemaPinturaID").val();
+						row++;
+					}
+
+				
 			}
 		}
 

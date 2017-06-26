@@ -1,5 +1,6 @@
 ﻿var editado;
 var esNormal;
+var windowDownload;
 
 function IniciarSistemaPinturaAplicable() {
     SuscribirEventos();
@@ -58,9 +59,10 @@ function CargarGrid() {
     $("#grid").kendoGrid({
         edit: function (e) {
 
-            if ($('#Guardar').text() != _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
-                this.closeCell();
-            }
+			if ($('#Guardar').text() != _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
+				this.closeCell();
+			}
+			
             setTimeout(function () {
                 var inputName = e.container.find('input');
 
@@ -135,8 +137,8 @@ function CargarGrid() {
             }, width: "110px", template: "<input name='fullyPaid' class='ob-paid' type='checkbox' #= GenerarRevision ? 'checked=checked':'' #/>", width: "100px", attributes: { style: "text-align:center;" }
             },
             { field: "Comentario", title: _dictionary.HeaderComentario[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "110px", editor: renderComentario },
-            { field: "Version", title: _dictionary.columnVersion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "110px", attributes: { style: "text-align:center;" } }
-
+            { field: "Version", title: _dictionary.columnVersion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "110px", attributes: { style: "text-align:center;" } },
+			{ command: { text: _dictionary.botonDescarga[$("#language").data("kendoDropDownList").value()], click: eliminarCaptura }, title: _dictionary.columnDescargar[$("#language").data("kendoDropDownList").value()], attributes: { style: "text-align:center;" }, width: "90px" }
         ],
         beforeEdit: function (e) {
             var columnIndex = this.cellIndex(e.container);
@@ -150,7 +152,20 @@ function CargarGrid() {
             var gridData = grid.dataSource.view();
 
             for (var i = 0; i < gridData.length; i++) {
-                var currentUid = gridData[i].uid;
+				var currentUid = gridData[i].uid;
+
+				var currenRow = grid.table.find("tr[data-uid='" + currentUid + "']");
+				var editButton = $(currenRow).find(".k-button");
+				if (gridData[i].CargaCarroID==true) {
+					var classDescarga = $("#language").val() == "es-MX" ? "k-grid-Descarga" : "k-grid-Discharging";
+					editButton[0].outerHTML = '<a class="k-button k-button-icontext ' + classDescarga + '" href="#/"><span class=""></span>' +
+						_dictionary.botonDescarga[$("#language").data("kendoDropDownList").value()] + '</a>';
+
+				}
+				else {
+					editButton[0].outerHTML = '';
+				}
+
                 if (gridData[i].RowOk == false) {
                     grid.table.find("tr[data-uid='" + currentUid + "']").css("background-color", "#ffcccc");
                 }
@@ -164,7 +179,9 @@ function CargarGrid() {
             }
             else {
                 $(".k-grid-content td").css("white-space", "nowrap");
-            }
+			}
+
+			
 
         }
     });
@@ -187,12 +204,39 @@ function CargarGrid() {
     CustomisaGrid($("#grid"));
 }
 
+function eliminarCaptura(e) {
+	e.preventDefault();
+	if ($('#Guardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
+			var filterValue = $(e.currentTarget).val();
+			dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+			AjaxCargarZona($("#inputProyecto").data("kendoComboBox").dataItem($("#inputProyecto").data("kendoComboBox").select()).PatioID, dataItem);
+			CuadranteSpoolAnterior = dataItem.CuadranteAnteriorID;
+	}
+}
+
 function isEditable(fieldName, model) {
     if (fieldName === "Color") {
         if (model.ListaColorPintura.length <= 1) {
             return false;
         }
-    }
+
+	}
+	if (fieldName === "SistemaPintura") {
+		if (model.CargaCarroID == true) {
+			displayNotify("RevisionPinturaNoEditarSP", "", '1');
+
+			return false;
+		}
+
+	}
+	if (fieldName === "Color") {
+		if (model.CargaCarroID == true) {
+			displayNotify("RevisionPinturaNoEditarSP", "", '1');
+
+			return false;
+		}
+
+	}
     return true;
 }
 

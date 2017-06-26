@@ -32,78 +32,80 @@
 function renderSistemaPintura(container, options) {
 
     var dataItem;
+	
+		$('<input required data-text-field="NombreSistemaPintura" id=' + options.model.uid + ' data-value-field="SistemaPinturaID" data-bind="value:' + options.field + '"/>')
+			.appendTo(container)
+			.kendoComboBox({
+				autoBind: false,
+				dataSource: options.model.ListadoSistemaPinturaPorProyecto,
+				dataTextField: "NombreSistemaPintura",
+				dataValueField: "SistemaPinturaID",
+				template: "<i class=\"fa fa-#=data.NombreSistemaPintura#\"></i> #=data.NombreSistemaPintura#",
+				change: function (e) {
 
-    $('<input required data-text-field="NombreSistemaPintura" id=' + options.model.uid + ' data-value-field="SistemaPinturaID" data-bind="value:' + options.field + '"/>')
-        .appendTo(container)
-        .kendoComboBox({
-            autoBind: false,
-            dataSource: options.model.ListadoSistemaPinturaPorProyecto,
-            dataTextField: "NombreSistemaPintura",
-            dataValueField: "SistemaPinturaID",
-            template: "<i class=\"fa fa-#=data.NombreSistemaPintura#\"></i> #=data.NombreSistemaPintura#",
-            change: function (e) {
-
-                dataItem = this.dataItem(e.sender.selectedIndex);
-                if (dataItem != undefined && dataItem.SistemaPinturaID != undefined) {
-                    options.model.SistemaPinturaID = dataItem.SistemaPinturaID;
-                    options.model.SistemaPintura = dataItem.NombreSistemaPintura;
-                    options.model.NoPintable = dataItem.NoPintable;
-
-
-                    options.model.ListaColorPintura = [];
-                    options.model.SistemaPinturaColorID = 0;
-                    options.model.Color = "";
+					dataItem = this.dataItem(e.sender.selectedIndex);
+					if (dataItem != undefined && dataItem.SistemaPinturaID != undefined) {
+						options.model.SistemaPinturaID = dataItem.SistemaPinturaID;
+						options.model.SistemaPintura = dataItem.NombreSistemaPintura;
+						options.model.NoPintable = dataItem.NoPintable;
 
 
-                    if (dataItem.SistemaPinturaID != 0 && !dataItem.NoPintable) {
-                        AjaxCargarColorPinturaRender(dataItem.SistemaPinturaID, options);
-                    }
-                    else
-                        $("#grid").data("kendoGrid").refresh();
-                }
+						options.model.ListaColorPintura = [];
+						options.model.SistemaPinturaColorID = 0;
+						options.model.Color = "";
 
-            }
-        });
-    $(".k-combobox").parent().on('mouseleave', function (send) {
-        var e = $.Event("keydown", { keyCode: 27 });
-        var item = $(this).find(".k-combobox")[0];
-        if (item != undefined) {
-            if (!tieneClase(item)) {
-                $(container).trigger(e);
-            }
-        }
-    });
+
+						if (dataItem.SistemaPinturaID != 0 && !dataItem.NoPintable) {
+							AjaxCargarColorPinturaRender(dataItem.SistemaPinturaID, options);
+						}
+						else
+							$("#grid").data("kendoGrid").refresh();
+					}
+
+				}
+			});
+		$(".k-combobox").parent().on('mouseleave', function (send) {
+			var e = $.Event("keydown", { keyCode: 27 });
+			var item = $(this).find(".k-combobox")[0];
+			if (item != undefined) {
+				if (!tieneClase(item)) {
+					$(container).trigger(e);
+				}
+			}
+		});
+	
 }
 
 function renderColor(container, options) {
     var dataItem;
+	
+		$('<input required data-text-field="Nombre" id=' + options.model.uid + ' data-value-field="SistemaPinturaColorID" data-bind="value:' + options.field + '"/>')
+			.appendTo(container)
+			.kendoComboBox({
+				autoBind: false,
+				dataSource: options.model.ListaColorPintura,
+				dataTextField: "Nombre",
+				dataValueField: "SistemaPinturaColorID",
+				template: "<i class=\"fa fa-#=data.Nombre#\"></i> #=data.Nombre#",
+				change: function (e) {
 
-    $('<input required data-text-field="Nombre" id=' + options.model.uid + ' data-value-field="SistemaPinturaColorID" data-bind="value:' + options.field + '"/>')
-        .appendTo(container)
-        .kendoComboBox({
-            autoBind: false,
-            dataSource: options.model.ListaColorPintura,
-            dataTextField: "Nombre",
-            dataValueField: "SistemaPinturaColorID",
-            template: "<i class=\"fa fa-#=data.Nombre#\"></i> #=data.Nombre#",
-            change: function (e) {
+					dataItem = this.dataItem(e.sender.selectedIndex);
+					if (dataItem != undefined && dataItem.SistemaPinturaColorID != undefined) {
+						options.model.SistemaPinturaColorID = dataItem.SistemaPinturaColorID;
+						options.model.Color = dataItem.Nombre;
+						$("#grid").data("kendoGrid").refresh();
+					}
 
-                dataItem = this.dataItem(e.sender.selectedIndex);
-                if (dataItem != undefined && dataItem.SistemaPinturaColorID != undefined) {
-                    options.model.SistemaPinturaColorID = dataItem.SistemaPinturaColorID;
-                    options.model.Color = dataItem.Nombre;
-                    $("#grid").data("kendoGrid").refresh();
-                }
-
-            }
-        });
-    $(".k-combobox").parent().on('mouseleave', function (send) {
-        var e = $.Event("keydown", { keyCode: 27 });
-        var item = $(this).find(".k-combobox")[0];
-        if (item != undefined) {
-            if (!tieneClase(item)) {
-                $(container).trigger(e);
-            }
-        }
-    });
+				}
+			});
+		$(".k-combobox").parent().on('mouseleave', function (send) {
+			var e = $.Event("keydown", { keyCode: 27 });
+			var item = $(this).find(".k-combobox")[0];
+			if (item != undefined) {
+				if (!tieneClase(item)) {
+					$(container).trigger(e);
+				}
+			}
+		});
+	
 }

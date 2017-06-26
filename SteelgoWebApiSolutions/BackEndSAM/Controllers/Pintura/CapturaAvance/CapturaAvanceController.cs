@@ -82,7 +82,7 @@ namespace BackEndSAM.Controllers.PinturaControllers.CapturaAvance
         }
 
         [HttpGet]
-        public object ObtenerDetalleCarrosCargados(string token, int medioTransporteCargaID, string lenguaje, int sistemaPinturaProyectoID, int procesopinturaID)
+        public object ObtenerDetalleCarrosCargados(string token, int medioTransporteCargaID, string lenguaje, int sistemaPinturaProyectoID, int procesopinturaID,int colorID)
         {
             string payload = "";
             string newToken = "";
@@ -91,7 +91,7 @@ namespace BackEndSAM.Controllers.PinturaControllers.CapturaAvance
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                DataTable dtdetalle = (DataTable)CapturaAvanceBD.Instance.ObtenerListaMedioTransporteCargado(medioTransporteCargaID, lenguaje, sistemaPinturaProyectoID, procesopinturaID);
+                DataTable dtdetalle = (DataTable)CapturaAvanceBD.Instance.ObtenerListaMedioTransporteCargado(medioTransporteCargaID, lenguaje, sistemaPinturaProyectoID, procesopinturaID, colorID);
 
                 string jsonConvertido = DataTableToJSON(dtdetalle, procesopinturaID, usuario.UsuarioID);// Convertir(dtdetalle, procesopinturaID, usuario.UsuarioID);
 
@@ -285,32 +285,7 @@ namespace BackEndSAM.Controllers.PinturaControllers.CapturaAvance
             }
         }
 
-        public object Put(CapturaLote listaCapturaActualizar, string token)
-        {
-            string payload = "";
-            string newToken = "";
-            JavaScriptSerializer serializer = new JavaScriptSerializer();
-            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
-            if (tokenValido)
-            {
-
-                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                DataTable dtDetalle = new DataTable();
-                dtDetalle = BackEndSAM.Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(listaCapturaActualizar.Detalles);
-
-                return CapturaAvanceBD.Instance.ActualizarLote(dtDetalle);
-            }
-            else
-            {
-                TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add(payload);
-                result.ReturnCode = 401;
-                result.ReturnStatus = false;
-                result.IsAuthenicated = false;
-                return result;
-            }
-        }
-
+        
 
     }
 }

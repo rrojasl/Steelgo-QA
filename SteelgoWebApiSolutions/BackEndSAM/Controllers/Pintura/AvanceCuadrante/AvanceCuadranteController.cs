@@ -1,4 +1,5 @@
 ﻿using BackEndSAM.DataAcces.Pintura.AvanceCuadrante;
+using BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD;
 using BackEndSAM.Models.Pintura.AvanceCuadrante;
 using BackEndSAM.Models.Pintura.CapturaAvance;
 using DatabaseManager.Sam3;
@@ -72,7 +73,7 @@ namespace BackEndSAM.Controllers.Pintura.AvanceCuadrante
             }
         }
         //ObtenerListadoColores
-        public object Get(string token, int SistemaPinturaID, string lenguaje)
+        public object Get(string token, int sistemaPinturaProyectoID, string lenguaje)
         {
             string payload = "";
             string newToken = "";
@@ -83,7 +84,7 @@ namespace BackEndSAM.Controllers.Pintura.AvanceCuadrante
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
 
-                return AvanceCuadranteBD.Instance.ObtenerListadoColores(SistemaPinturaID, lenguaje);
+                return AvanceCuadranteBD.Instance.ObtenerListadoColores(sistemaPinturaProyectoID, lenguaje);
             }
             else
             {
@@ -131,7 +132,7 @@ namespace BackEndSAM.Controllers.Pintura.AvanceCuadrante
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return  (List<object>)AvanceCuadranteBD.Instance.ObtenerObrerosGuardados(spoolID, procesoPinturaID, usuario.UsuarioID);
+                return  (List<object>)CapturaAvanceBD.Instance.ObtenerObrerosGuardados(spoolID, procesoPinturaID, usuario.UsuarioID);
             }
             else
             {
@@ -149,7 +150,7 @@ namespace BackEndSAM.Controllers.Pintura.AvanceCuadrante
             foreach (DataRow row in table.Rows)
             {
                 var dict = new Dictionary<string, object>();
-                List<object> listaObreros = (List<object>)AvanceCuadranteBD.Instance.ObtenerObrerosGuardados(int.Parse(row["SpoolID"].ToString()), procesopinturaID, usuario);
+                List<object> listaObreros = (List<object>)CapturaAvanceBD.Instance.ObtenerObrerosGuardados(int.Parse(row["SpoolID"].ToString()), procesopinturaID, usuario);
 
                 foreach (DataColumn col in table.Columns)
                 {
@@ -181,7 +182,7 @@ namespace BackEndSAM.Controllers.Pintura.AvanceCuadrante
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return AvanceCuadranteBD.Instance.ObtenerSpoolNuevo(OrdenTrabajoSpoolID, lenguaje, procesoPinturaID, usuario.UsuarioID);
+                return CapturaAvanceBD.Instance.ObtenerSpoolNuevo(OrdenTrabajoSpoolID, lenguaje, procesoPinturaID, usuario.UsuarioID);
             }
             else
             {

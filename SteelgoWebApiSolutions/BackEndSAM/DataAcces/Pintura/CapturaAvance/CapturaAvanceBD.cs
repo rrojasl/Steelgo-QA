@@ -68,13 +68,13 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
                 using (SamContext ctx = new SamContext())
                 {
 
-                    List<Sam3_Pintura_AvanceCarro_Get_CarrosCerrados_Result> result = ctx.Sam3_Pintura_AvanceCarro_Get_CarrosCerrados(procesoID).ToList();
+                    List<Sam3_Pintura_Avance_Get_CarrosCerrados_Result> result = ctx.Sam3_Pintura_Avance_Get_CarrosCerrados(procesoID).ToList();
                     List<CarroCerrado> ListadoMedioTransporte = new List<CarroCerrado>();
 
                     if (result.Count > 0)
                         ListadoMedioTransporte.Add(new CarroCerrado());
 
-                    foreach (Sam3_Pintura_AvanceCarro_Get_CarrosCerrados_Result item in result)
+                    foreach (Sam3_Pintura_Avance_Get_CarrosCerrados_Result item in result)
                     {
                         ListadoMedioTransporte.Add(new CarroCerrado
                         {
@@ -101,7 +101,7 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
             }
         }
 
-        public object ObtenerListaMedioTransporteCargado(int cargaCarroID, string lenguaje, int sistemaPinturaProyectoID, int procesoPinturaID)
+        public object ObtenerListaMedioTransporteCargado(int cargaCarroID, string lenguaje, int sistemaPinturaProyectoID, int procesoPinturaID,int colorID)
         {
             try
             {
@@ -109,8 +109,8 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
                 {
                     RetornaDetalles detalles = new RetornaDetalles();
                     ObjetosSQL _SQL = new ObjetosSQL();
-                    string[,] parametro = { { "@cargaCarroID", cargaCarroID.ToString() }, { "@Lenguaje", lenguaje }, { "@sistemaPinturaProyectoID", sistemaPinturaProyectoID.ToString() }, { "@procesoPinturaID", procesoPinturaID.ToString() } };
-                    DataTable dtDetalle = _SQL.EjecutaDataAdapter(Stords.OBTIENEDETALLEAVANCECARRO, parametro);
+                    string[,] parametro = { { "@cargaCarroID", cargaCarroID.ToString() }, { "@Lenguaje", lenguaje }, { "@sistemaPinturaProyectoID", sistemaPinturaProyectoID.ToString() }, { "@procesoPinturaID", procesoPinturaID.ToString() }, { "@ColorID", colorID.ToString() } };
+                    DataTable dtDetalle = _SQL.EjecutaDataAdapter(Stords.OBTIENEDETALLEAVANCE, parametro);
                     return dtDetalle;
                    // return  JsonConvert.SerializeObject(dtDetalle);
 
@@ -134,11 +134,11 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Pintura_AvanceCarro_Get_AgregarSpool_Result> result = ctx.Sam3_Pintura_AvanceCarro_Get_AgregarSpool(OrdenTrabajoSpoolID, lenguaje, procesoPinturaID).ToList();
+                    List<Sam3_Pintura_Avance_Get_AgregarSpool_Result> result = ctx.Sam3_Pintura_Avance_Get_AgregarSpool(OrdenTrabajoSpoolID, lenguaje, procesoPinturaID).ToList();
                     List<DetalleCapturaAvanceCarro> ListadoMedioTransporte = new List<DetalleCapturaAvanceCarro>();
 
                    
-                    foreach (Sam3_Pintura_AvanceCarro_Get_AgregarSpool_Result item in result)
+                    foreach (Sam3_Pintura_Avance_Get_AgregarSpool_Result item in result)
                     {
                         List<object> listaObreros = (List<object>)ObtenerObrerosGuardados(item.SpoolID, procesoPinturaID, usuario);
                         ListadoMedioTransporte.Add(new DetalleCapturaAvanceCarro
@@ -231,14 +231,14 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Pintura_AvanceCarro_Get_ObrerosProcesoPintura_Result> result = ctx.Sam3_Pintura_AvanceCarro_Get_ObrerosProcesoPintura(spoolID, procesoID).ToList();
+                    List<Sam3_Pintura_Avance_Get_ObrerosProcesoPintura_Result> result = ctx.Sam3_Pintura_Avance_Get_ObrerosProcesoPintura(spoolID, procesoID).ToList();
 
                     List<object> listaObreros = new List<object>();
 
                    
                     List<PintorSpool> ListadoPintores = new List<PintorSpool>();
 
-                    foreach (Sam3_Pintura_AvanceCarro_Get_ObrerosProcesoPintura_Result item in result)
+                    foreach (Sam3_Pintura_Avance_Get_ObrerosProcesoPintura_Result item in result)
                     {
                         ListadoPintores.Add(new PintorSpool
                         {
@@ -304,9 +304,9 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
                 using (SamContext ctx = new SamContext())
                 {
 
-                    List<Sam3_Pintura_AvanceCarro_Get_LayoutComponentes_Result> result = ctx.Sam3_Pintura_AvanceCarro_Get_LayoutComponentes(sistemaPinturaProyectoId, procesoID, lenguaje).ToList();
+                    List<Sam3_Pintura_Avance_Get_LayoutComponentes_Result> result = ctx.Sam3_Pintura_Avance_Get_LayoutComponentes(sistemaPinturaProyectoId, procesoID, lenguaje).ToList();
 
-                    List<Sam3_Pintura_AvanceCarro_Get_LayoutReducores_Result> resultReductores = ctx.Sam3_Pintura_AvanceCarro_Get_LayoutReducores(sistemaPinturaProyectoId, procesoID, lenguaje).ToList();
+                    List<Sam3_Pintura_Avance_Get_LayoutReducores_Result> resultReductores = ctx.Sam3_Pintura_Avance_Get_LayoutReducores(sistemaPinturaProyectoId, procesoID, lenguaje).ToList();
 
                     List<object> listadoColumns = new List<object>();
 
@@ -315,7 +315,7 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
                     
                     List<ListadoLotesPorColumna> listadoLotesPorColumnaComponentes = new List<ListadoLotesPorColumna>();
                     List<ListadoLotesPorColumna> listadoLotesPorColumnaReductores = new List<ListadoLotesPorColumna>();
-                    foreach (Sam3_Pintura_AvanceCarro_Get_LayoutComponentes_Result item in result)
+                    foreach (Sam3_Pintura_Avance_Get_LayoutComponentes_Result item in result)
                     {
                         ListadoLayoutComponentes.Add(new Componente
                         {
@@ -328,7 +328,7 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
                         });
                     }
 
-                    foreach (Sam3_Pintura_AvanceCarro_Get_LayoutReducores_Result item in resultReductores)
+                    foreach (Sam3_Pintura_Avance_Get_LayoutReducores_Result item in resultReductores)
                     {
                             ListadoLayoutReductor.Add(new Reductor
                             {
@@ -367,12 +367,12 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Pintura_AvanceCarro_Get_LotesComponente_Result> result = ctx.Sam3_Pintura_AvanceCarro_Get_LotesComponente(componente, lenguaje).ToList();
+                    List<Sam3_Pintura_Avance_Get_LotesComponente_Result> result = ctx.Sam3_Pintura_Avance_Get_LotesComponente(componente, lenguaje).ToList();
                     List<Lote> ListadoLotes = new List<Lote>();
                     if (result.Count > 0)
                         ListadoLotes.Add(new Lote());
 
-                    foreach (Sam3_Pintura_AvanceCarro_Get_LotesComponente_Result item in result)
+                    foreach (Sam3_Pintura_Avance_Get_LotesComponente_Result item in result)
                     {
                         ListadoLotes.Add(new Lote
                         {
@@ -401,12 +401,12 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Pintura_AvanceCarro_Get_LotesReductor_Result> result = ctx.Sam3_Pintura_AvanceCarro_Get_LotesReductor(componente, lenguaje).ToList();
+                    List<Sam3_Pintura_Avance_Get_LotesReductor_Result> result = ctx.Sam3_Pintura_Avance_Get_LotesReductor(componente, lenguaje).ToList();
                     List<Lote> ListadoLotes = new List<Lote>();
                     if (result.Count > 0)
                         ListadoLotes.Add(new Lote());
 
-                    foreach (Sam3_Pintura_AvanceCarro_Get_LotesReductor_Result item in result)
+                    foreach (Sam3_Pintura_Avance_Get_LotesReductor_Result item in result)
                     {
                         ListadoLotes.Add(new Lote
                         {
@@ -429,36 +429,7 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
             }
         }
 
-        public object ActualizarLote(DataTable dtCapturaLotes)
-        {
-            try
-            {
-                using (SamContext ctx = new SamContext())
-                {
 
-                    ObjetosSQL _SQL = new ObjetosSQL();
-                    _SQL.Ejecuta(Stords.GUARDAACTUALIZACIONLOTE, dtCapturaLotes, "@CapturaLote");
-
-                    TransactionalInformation result = new TransactionalInformation();
-                    result.ReturnMessage.Add("Ok");
-                    result.ReturnCode = 200;
-                    result.ReturnStatus = true;
-                    result.IsAuthenicated = true;
-
-                    return result;
-                }
-            }
-            catch (Exception ex)
-            {
-                TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add(ex.Message);
-                result.ReturnCode = 500;
-                result.ReturnStatus = false;
-                result.IsAuthenicated = true;
-
-                return result;
-            }
-        }
 
     }
 }

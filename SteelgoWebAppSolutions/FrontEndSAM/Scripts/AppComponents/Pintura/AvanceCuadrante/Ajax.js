@@ -8,7 +8,7 @@
         }
         else if (data == "primario") {
             $('input:radio[name=ProcesoPintura]:nth(1)').trigger("click");
-        }
+        } 
         else if (data == "intermedio") {
             $('input:radio[name=ProcesoPintura]:nth(2)').trigger("click");
         }
@@ -131,9 +131,9 @@ function AjaxSistemaPintura(zonaID, cuadranteID, ProyectoID) {
     });
 }
 
-function AjaxColores(zonaID, cuadranteID, sistemaPinturaID) {
+function AjaxColores(zonaID, cuadranteID, sistemaPinturaProyectoID) {
     loadingStart();
-    $AvanceCuadrante.AvanceCuadrante.read({ token: Cookies.get("token"), SistemaPinturaID: sistemaPinturaID, lenguaje: $("#language").val() }).done(function (data) {
+	$AvanceCuadrante.AvanceCuadrante.read({ token: Cookies.get("token"), sistemaPinturaProyectoID: sistemaPinturaProyectoID, lenguaje: $("#language").val() }).done(function (data) {
         if (Error(data)) {
             $("#inputColor").data("kendoComboBox").dataSource.data(data);
             $("#inputColor").data("kendoComboBox").value("");
@@ -296,7 +296,7 @@ function AjaxAgregarSpool(ordenTrabajoSpoolID) {
     if ($("#inputSistemaPintura").data("kendoComboBox").select() > 0) {
         $AvanceCuadrante.AvanceCuadrante.read({ token: Cookies.get("token"), OrdenTrabajoSpoolID: ordenTrabajoSpoolID, lenguaje: $("#language").val(), procesoPinturaID: $('input:radio[name=ProcesoPintura]:checked').val() }).done(function (data) {
             var ds = $("#grid").data("kendoGrid").dataSource;
-
+			var PatioID = 0;
             var sistemaPinturaProyectoID = $("#inputSistemaPintura").data("kendoComboBox").dataItem($("#inputSistemaPintura").data("kendoComboBox").select()).SistemaPinturaProyectoID;
             var array = data;
             var elementosNoModificados = "";
@@ -306,7 +306,8 @@ function AjaxAgregarSpool(ordenTrabajoSpoolID) {
                     if (!existeSpool(array[i].Spool, ds)) {
                         if (sistemaPinturaProyectoID == array[i].SistemaPinturaProyectoID) {
                             if (array[i].CarroID == 0) {
-                                ds.add(array[i]);
+								PatioID = array[i].PatioID;
+								ds.add(array[i]);
                                 if (elementosModificados != "")
                                     elementosModificados += ", " + array[i].Spool;
                                 else
@@ -333,13 +334,18 @@ function AjaxAgregarSpool(ordenTrabajoSpoolID) {
             if (elementosModificados != "") {
                 displayNotify("", _dictionary.SpoolAgregado[$("#language").data("kendoDropDownList").value()] +
                    elementosModificados + _dictionary.CapturaArmadoMsgNuevoEnReporte[$("#language").data("kendoDropDownList").value()], '0');
-                editado = true;
-                
+				editado = true;
+				if (PatioID==7)
+					displayNotify("PinturaNoSeCambiadecuadranteporpatiomovil", "", "1");
+
+				displayNotify("", _dictionary.CapturaAvanceCuadranteSpoolAgregadoaCuadrante[$("#language").data("kendoDropDownList").value()] + $("#inputCuadrante").data("kendoComboBox").dataItem($("#inputCuadrante").data("kendoComboBox").select()).Nombre , "1");
+
             }
 
             if (elementosNoModificados != "") {
                 displayNotify("", _dictionary.SpoolAgregado[$("#language").data("kendoDropDownList").value()] +
-                    elementosNoModificados + _dictionary.CapturaArmadoMsgExisteReporte[$("#language").data("kendoDropDownList").value()], '1');
+					elementosNoModificados + _dictionary.CapturaArmadoMsgExisteReporte[$("#language").data("kendoDropDownList").value()], '1');
+				
             }
             
             $("#InputID").data("kendoComboBox").value("");
@@ -571,7 +577,7 @@ function ajaxObtenerListadoObrerosGuardados(model, spoolID, procesoPinturaID)
 {
     loadingStart();
    
-        $AvanceCuadrante.AvanceCuadrante.read({ token: Cookies.get("token"), spoolID: spoolID, procesoPinturaID: procesoPinturaID }).done(function (data) {
+        $AvanceCarro.AvanceCarro.read({ token: Cookies.get("token"), spoolID: spoolID, procesoPinturaID: procesoPinturaID }).done(function (data) {
 
             if (data.length > 0) {
                 model.ListaObrerosGuargados = data;
