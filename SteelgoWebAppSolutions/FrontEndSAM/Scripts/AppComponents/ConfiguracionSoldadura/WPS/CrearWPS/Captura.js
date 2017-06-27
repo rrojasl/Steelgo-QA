@@ -102,7 +102,7 @@ function ObtenerEspesorCorrecto(EspesorTotalT, PWHT, ProcesoSoldadura, esRaiz) {
     espesores[0] = { EspesorMaximo: "", EspesorMinimo: "" };
     if (PWHT == 1 || (PWHT == 0 && EspesorTotalT > 16)) {
 
-        if (ProcesoSoldadura == "GMAW STT" && EspesorTotalT < 13 && esRaiz) {
+        if (ProcesoSoldadura == "GMAW STT" && EspesorTotalT < 13 ) {
             espesores[0].EspesorMaximo = (2 * parseFloat(EspesorTotalT));
             espesores[0].EspesorMinimo = (1.1 * parseFloat(EspesorTotalT));
         }

@@ -87,7 +87,8 @@ function CargarGrid() {
                         ProcesoSoldaduraRelleno: { type: "string", editable: true },
                         TemplateSoldadoresRelleno: { type: "string", editable: false },
                         WPSNombre: { type: "string", editable: true },
-                        DetalleAdicional: { type: "string", editable: false }
+                        DetalleAdicional: { type: "string", editable: false },
+                        RequierePwht: { type: "boolean", editable: false }
                     }
                 }
             },
@@ -105,6 +106,7 @@ function CargarGrid() {
             serverFiltering: false,
             serverSorting: false
         },
+        //groupable: true,
         navigatable: true,
         editable: true,
         filterable: getGridFilterableMaftec(),
@@ -123,6 +125,16 @@ function CargarGrid() {
             { field: "SpoolID", title: _dictionary.columnNumeroControl[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "100px" },
             { field: "Junta", title: _dictionary.columnJunta[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "70px" },
             { field: "DetalleJunta", title: _dictionary.columnDetalleJunta[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "180px" },
+            {
+                field: "RequierePwht", title: _dictionary.columnPWHT[$("#language").data("kendoDropDownList").value()], filterable: {
+                    multi: true,
+                    messages: {
+                        isTrue: _dictionary.lblVerdadero[$("#language").data("kendoDropDownList").value()],
+                        isFalse: _dictionary.lblFalso[$("#language").data("kendoDropDownList").value()],
+                        style: "max-width:120px;"
+                    },
+                }, width: "73px", template: "<input  readonly disabled type='checkbox'   #= RequierePwht  ? checked='checked' : '' #/>", attributes: { style: "text-align:center;" }
+            },
             { field: "Diametro", title: _dictionary.columnDiametro[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "80px", attributes: { style: "text-align:right;" } },
             { field: "FechaSoldadura", title: _dictionary.columnFecha[$("#language").data("kendoDropDownList").value()], filterable: getKendoGridFilterableDateMaftec(), editor: RenderDatePicker, width: "110px", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()] },
             { field: "Taller", title: _dictionary.columnTaller[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxTaller, width: "130px" },

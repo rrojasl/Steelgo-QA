@@ -31,14 +31,14 @@ function AjaxCargarCamposPredeterminados() {
 };
 
 function AjaxObtenerListaTaller() {
-    loadingStart();
+    //loadingStart();
     if (Cookies.get("Proyecto") != undefined) {
         $Soldadura.Soldadura.read({ idProyecto: Cookies.get("Proyecto").split('°')[0], token: Cookies.get("token") }).done(function (data) {
             if (Error(data)) {
                 $("#inputTaller").data("kendoComboBox").value("");
                 $("#inputTaller").data("kendoComboBox").dataSource.data(data);
             }
-            loadingStop();
+            //loadingStop();
         });
     }
 }
@@ -103,7 +103,7 @@ function AjaxJuntaModoSpool(spoolID) {
             $("#Junta").data("kendoComboBox").value("");
             $("#Junta").data("kendoComboBox").dataSource.data(data);
         }
-        loadingStop();
+        
         AjaxCargarReporteJuntas();
     });
 }
@@ -234,7 +234,8 @@ function AjaxCargarReporteJuntas() {
 function AjaxObtenerListadoWPS(dataItem) {
 
     loadingStart();
-    $Soldadura.Soldadura.read({ ProyectoID: dataItem.IDProyecto, ProcesoRaizID: dataItem.ProcesoSoldaduraRaizID, ProcesoRellenoID: dataItem.ProcesoSoldaduraRellenoID, Espesor: dataItem.Espesor, lenguaje: $("#language").val(), token: Cookies.get("token") }).done(function (data) {
+    var pwht = dataItem.RequierePwht ? 1 : 0;
+    $Soldadura.Soldadura.read({ ProyectoID: dataItem.IDProyecto, ProcesoRaizID: dataItem.ProcesoSoldaduraRaizID, ProcesoRellenoID: dataItem.ProcesoSoldaduraRellenoID, Espesor: dataItem.Espesor, RequierePwht: pwht, lenguaje: $("#language").val(), token: Cookies.get("token") }).done(function (data) {
         if (Error(data)) {
             dataItem.ListaWPS = data;
         }

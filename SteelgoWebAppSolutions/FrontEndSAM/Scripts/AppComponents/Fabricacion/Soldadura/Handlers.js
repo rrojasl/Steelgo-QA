@@ -296,7 +296,9 @@ function SuscribirEventoID() {
                 if ($("#InputID").val() != '' && $("#InputOrdenTrabajo").val() != '') {
                     Cookies.set("Proyecto", dataItem.ProyectoID + '°' + dataItem.Proyecto);
                     $("#LabelProyecto").text(dataItem.Proyecto);
-                    AjaxJunta($("#InputID").val());
+                    if ($('input:radio[name=TipoAgregado]:checked').val() != "Reporte") {
+                        AjaxJunta($("#InputID").val());
+                    }
                     AjaxObtenerListaTaller();
                 }
             }

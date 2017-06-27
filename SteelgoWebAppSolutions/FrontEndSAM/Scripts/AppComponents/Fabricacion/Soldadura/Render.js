@@ -177,12 +177,21 @@ function RenderComboBoxWPS(container, options) {
             filter: "contains",
             autoBind: false,
             dataSource: options.model.ListaWPS,
-            template: "<i class=\"fa fa-#=data.WPSNombre#\"></i> #=data.WPSNombre#",
+            template: '<span class="#: data.SignoInformativo #"> #=data.WPSNombre#',
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
                 if (dataItem != undefined) {
-                    options.model.WPSNombre = dataItem.WPSNombre;
-                    options.model.WPSID = dataItem.WPSID;
+                    if (dataItem.SignoInformativo == "") {
+                        options.model.WPSNombre = dataItem.WPSNombre;
+                        options.model.WPSID = dataItem.WPSID;
+                    }
+                    else {
+                        if (dataItem.WPSNombre != "") {
+                            displayNotify("CapturaSoldaduraMensajeErrorWPSProyecto", "", "1");
+                            options.model.WPSNombre = "";
+                            options.model.WPSID = 0;
+                        }
+                    }
                 }
             }
         }

@@ -67,7 +67,7 @@ namespace BackEndSAM.DataAcces.Fabricacion.Soldadura
             }
         }
 
-        public object ObtenerListadoWPS(int proyectoID, int procesoRaizID, int procesoRellenoID, decimal espesor, string lenguaje)
+        public object ObtenerListadoWPS(int proyectoID, int procesoRaizID, int procesoRellenoID, decimal espesor,int pwht, string lenguaje)
         {
             try
             {
@@ -75,7 +75,7 @@ namespace BackEndSAM.DataAcces.Fabricacion.Soldadura
                 listaWPS.Add(new WPS());
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Soldadura_Get_WPS_Proyecto_Result> result = ctx.Sam3_Soldadura_Get_WPS_Proyecto(proyectoID,procesoRaizID,procesoRellenoID,espesor, lenguaje).ToList();
+                    List<Sam3_Soldadura_Get_WPS_Proyecto_Result> result = ctx.Sam3_Soldadura_Get_WPS_Proyecto(proyectoID,procesoRaizID,procesoRellenoID,espesor,pwht, lenguaje).ToList();
 
                     foreach (Sam3_Soldadura_Get_WPS_Proyecto_Result item in result)
                     {
@@ -101,10 +101,11 @@ namespace BackEndSAM.DataAcces.Fabricacion.Soldadura
                             ProcesoSoldaduraRelleno = item.ProcesoSoldaduraRelleno,
                             PREHEAT = item.PREHEAT,
                             PWHT = item.PWHT,
-                            Certificado = item.Certificado
+                            Certificado = item.Certificado == ""? "1": item.Certificado,
+                            SignoInformativo = item.Certificado == "" ? "MTrabajoAdicionalMas": ""
                         });
                     }
-                    return listaWPS.OrderBy(x => x.WPSNombre).ToList<WPS>();
+                    return listaWPS.OrderByDescending(x => x.Certificado).OrderBy(x => x.WPSNombre).ToList<WPS>();
                 }
             }
             catch (Exception ex)
@@ -579,7 +580,7 @@ namespace BackEndSAM.DataAcces.Fabricacion.Soldadura
                 using (SamContext ctx = new SamContext())
                 {
                     List<Sam3_Steelgo_Get_JuntaSpool_Result> lista = ctx.Sam3_Steelgo_Get_JuntaSpool(sinCaptura, int.Parse(id), 2).ToList();
-                    return lista.OrderBy(x => int.Parse(x.Etiqueta)).ToList<Sam3_Steelgo_Get_JuntaSpool_Result>();
+                    return lista.OrderBy(x => x.Etiqueta).ToList<Sam3_Steelgo_Get_JuntaSpool_Result>();
                 }
             }
             catch (Exception ex)

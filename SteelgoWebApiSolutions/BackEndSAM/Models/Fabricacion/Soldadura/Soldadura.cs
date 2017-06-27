@@ -101,6 +101,7 @@ namespace BackEndSAM.Models.Fabricacion.Soldadura
         public int FamiliaMaterialID { get; set; }
         public List<TrabajosAdicionalesSoldadura> ListaDetalleTrabajoAdicional { get; set; }
         public bool RowOk { get; set; }
+        public bool RequierePwht { get; set; }
     }
 
     public class Taller
@@ -304,11 +305,12 @@ namespace BackEndSAM.Models.Fabricacion.Soldadura
         {
             WPSID = 0;
             WPSNombre = "";
-            Certificado = "";
+            Certificado = "}";
             PQRRaizId = 0;
             NombrePQRRaiz = "";
             PQRRellenoId = 0;
             NombrePQRRelleno = "";
+            SignoInformativo = "";
         }
 
         public int WPSID { get; set; }
@@ -337,7 +339,8 @@ namespace BackEndSAM.Models.Fabricacion.Soldadura
         public string ProcesoSoldaduraRelleno { get; set; }
         public double EspesorMaximo { get; set; }
         public double EspesorMinimo { get; set; }
-        public string Certificado { get; set; } 
+        public string Certificado { get; set; }
+        public string SignoInformativo { get; set; }
     }
 
    

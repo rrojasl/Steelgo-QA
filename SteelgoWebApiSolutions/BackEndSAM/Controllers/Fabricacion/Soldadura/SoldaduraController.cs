@@ -256,7 +256,7 @@ namespace BackEndSAM.Controllers.Fabricacion.Soldadura
                             ListadoProcesoSoldaduraRaiz = ListadoProcesoSoldadura.Where(x => x.Codigo != "N/A").OrderBy(x => x.Codigo).ToList<ProcesoSoldadura>(),
                             //Soldadores Raiz
                             ListaSoldadoresRaizCapturados = (List<Soldadores>)SoldaduraBD.Instance.ObtenerSoldadoresRaizCapturados(capturaDatosJson.IdOrdenTrabajo, capturaDatosJson.idVal, item.JuntaSoldaduraID.GetValueOrDefault(), 1),//el ultimo parametro es el tipo de soldadora o raiz o relleno.
-                            ListadoSoldadoresRaiz =  new List<ObreroSoldador>(),
+                            ListadoSoldadoresRaiz = new List<ObreroSoldador>(),
                             TemplateSoldadoresRaiz = item.SoldadoresRaiz,
                             //Proceso Relleno
                             ProcesoSoldaduraRellenoID = item.ProcesoSoldaduraRellenoID == null ? 0 : int.Parse(item.ProcesoSoldaduraRellenoID.ToString()),
@@ -269,13 +269,14 @@ namespace BackEndSAM.Controllers.Fabricacion.Soldadura
                             //WPS
                             WPSID = item.WPSID.GetValueOrDefault(),
                             WPSNombre = item.WPSNombre,
-                            ListaWPS = item.ProcesoSoldaduraRaizID == null  || item.ProcesoSoldaduraRellenoID == null ?  new List<WPS>(): (List<WPS>)SoldaduraBD.Instance.ObtenerListadoWPS(capturaDatosJson.IDProyecto,item.ProcesoSoldaduraRaizID.GetValueOrDefault(),item.ProcesoSoldaduraRellenoID.GetValueOrDefault(),item.Espesor.GetValueOrDefault(), lenguaje),
+                            ListaWPS = item.ProcesoSoldaduraRaizID == null || item.ProcesoSoldaduraRellenoID == null ? new List<WPS>() : (List<WPS>)SoldaduraBD.Instance.ObtenerListadoWPS(capturaDatosJson.IDProyecto, item.ProcesoSoldaduraRaizID.GetValueOrDefault(), item.ProcesoSoldaduraRellenoID.GetValueOrDefault(), item.Espesor.GetValueOrDefault(),item.RequierePwht ? 1: 0, lenguaje),
                             //Trabajos adicionales.
                             listaTrabajosAdicionalesSoldadura = (List<TrabajosAdicionalesSoldadura>)SoldaduraBD.Instance.ObtenerTrabajosAdicionales(item.JuntaSpoolID),
                             TemplateTrabajosAdicionales = item.TabajosAdicionales,
                             ListaDetalleTrabajoAdicional = (List<TrabajosAdicionalesSoldadura>)SoldaduraBD.Instance.DetallaSoldaduraAdicional(item.JuntaSoldaduraID.GetValueOrDefault(), usuario),
                             FamiliaMaterialID = item.FamiliaMaterialID,
-                            RowOk = true
+                            RowOk = true,
+                            RequierePwht = item.RequierePwht 
                         };
 
                         listaDetalleDatos.Add(detalleDatos);
@@ -376,12 +377,13 @@ namespace BackEndSAM.Controllers.Fabricacion.Soldadura
                         //WPS
                         WPSID = item.WPSID.GetValueOrDefault(),
                         WPSNombre = item.WPSNombre,
-                        ListaWPS = item.ProcesoSoldaduraRaizID == null || item.ProcesoSoldaduraRellenoID == null ? new List<WPS>() : (List<WPS>)SoldaduraBD.Instance.ObtenerListadoWPS(capturaDatosJson.IDProyecto, item.ProcesoSoldaduraRaizID.GetValueOrDefault(), item.ProcesoSoldaduraRellenoID.GetValueOrDefault(), item.Espesor.GetValueOrDefault(), lenguaje),
+                        ListaWPS = item.ProcesoSoldaduraRaizID == null || item.ProcesoSoldaduraRellenoID == null ? new List<WPS>() : (List<WPS>)SoldaduraBD.Instance.ObtenerListadoWPS(capturaDatosJson.IDProyecto, item.ProcesoSoldaduraRaizID.GetValueOrDefault(), item.ProcesoSoldaduraRellenoID.GetValueOrDefault(), item.Espesor.GetValueOrDefault(), item.RequierePwht ? 1 : 0, lenguaje),
                         //Trabajos adicionales.
                         listaTrabajosAdicionalesSoldadura = (List<TrabajosAdicionalesSoldadura>)SoldaduraBD.Instance.ObtenerTrabajosAdicionales(item.JuntaSpoolID),
                         TemplateTrabajosAdicionales = item.TabajosAdicionales,
                         ListaDetalleTrabajoAdicional = (List<TrabajosAdicionalesSoldadura>)SoldaduraBD.Instance.DetallaSoldaduraAdicional(item.JuntaSoldaduraID.GetValueOrDefault(),usuario),  
-                        FamiliaMaterialID = item.FamiliaMaterialID
+                        FamiliaMaterialID = item.FamiliaMaterialID,
+                        RequierePwht = item.RequierePwht
                     };
                     listaDetalleDatos.Add(detalleDatos);
                 }
@@ -559,7 +561,7 @@ namespace BackEndSAM.Controllers.Fabricacion.Soldadura
         }
 
         [HttpGet]
-        public object getListadoWPS(int ProyectoID,int ProcesoRaizID, int ProcesoRellenoID, decimal Espesor, string lenguaje, string token)
+        public object getListadoWPS(int ProyectoID,int ProcesoRaizID, int ProcesoRellenoID, decimal Espesor, int RequierePwht, string lenguaje, string token)
         {
 
             string payload = "";
@@ -569,7 +571,7 @@ namespace BackEndSAM.Controllers.Fabricacion.Soldadura
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return SoldaduraBD.Instance.ObtenerListadoWPS(ProyectoID, ProcesoRaizID, ProcesoRellenoID, Espesor, lenguaje);
+                return SoldaduraBD.Instance.ObtenerListadoWPS(ProyectoID, ProcesoRaizID, ProcesoRellenoID, Espesor, RequierePwht, lenguaje);
             }
             else
             {

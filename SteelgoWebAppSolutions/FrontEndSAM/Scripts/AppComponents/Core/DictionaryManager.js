@@ -7541,6 +7541,10 @@ _dictionary = {
         "es-MX": "Diametro C.",
         "en-US": "Diameter Q."
     },
+    "SoldadorCertificacionDiametroMinimo": {
+      "es-MX": "Diametro Mínimo.",
+        "en-US": "Diameter Minimum."
+        },
     "lblTipoPrueba": {
         "es-MX": "Tipo Prueba",
         "en-US": "Test Type"
@@ -9585,6 +9589,11 @@ _dictionary = {
         "es-MX": " soldadores relleno",
         "en-US": " fill welders"
     },
+    "CapturaSoldaduraMensajeErrorWPSProyecto": {
+        "es-MX": "El WPS no esta asignado al proyecto",
+        "en-US": "The WPS isn't assign to proyect"
+    },
+
     "CapturaAvanceTitulo": {
         "es-MX": "Alerta!!!",
         "en-US": "Warning!!!"
