@@ -8372,10 +8372,10 @@ _dictionary = {
         "es-MX": "Captura Pruebas por Spool",
         "en-US": "Spool Capture Test"
     },
-    "menuListadoEmbarqueEnviados": {
-        "es-MX": "Listado Embarques Enviados",
-        "en-US": "Shipped Shipment List"
-    },
+    //"menuListadoEmbarqueEnviados": {
+    //    "es-MX": "Listado Embarques Enviados",
+    //    "en-US": "Shipped Shipment List"
+    //},
     "menuListadoEmbarquesCerrados": {
         "es-MX": "Listado Embarques Cerrados",
         "en-US": "Closed shipments"
