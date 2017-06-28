@@ -12067,6 +12067,10 @@ _dictionary = {
         "es-MX": "No se puede cerrar el embarque ya que existen datos sin capturar.",
         "en-US": "You can not close the shipment since there are data without capture."
     },
+    "EmbarqueRevisionMsjConfirmaEliminaPaquete": {
+        "es-MX": "¿El paquete será borrado de la captura, \n desea continuar?",
+        "en-US": "The package will be deleted from the capture, \n do you want to continue??"
+    },
     //Finaliza pantalla revision
     //Inicia pantalla Dashboard
     "EmbarqueDashboardBreadcrumb": {

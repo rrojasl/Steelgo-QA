@@ -114,14 +114,14 @@ function AjaxObtenerSpoolID() {
 function AjaxObtieneDetalle(EmbarqueID) {
     loadingStart();
     $RevisionEmbarque.RevisionEmbarque.read({ token: Cookies.get("token"), EmbarqueID: EmbarqueID, Muestra: $('input:radio[name=Muestra]:checked').val() == "Todos" ? 1 : 0 }).done(function (data) {
-        if (data.length > 0) {
+        if (data.length > 0) {            
             $("#grid").data("kendoGrid").dataSource.data([]);                
             var ds = $("#grid").data("kendoGrid").dataSource;
             var array = data;
             for (var i = 0; i < array.length; i++) {
                 ds.add(array[i]);
             }
-            ds.sync();
+            ds.sync();            
         }
         loadingStop();
     });

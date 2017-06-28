@@ -95,8 +95,9 @@ function CargarGrid() {
         },
         filterable: getGridFilterableMaftec(),
         columns: [
-            { field: "NumeroControl", title: _dictionary.columnSpool[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "110px" },            
-            { field: "Paquete", title: _dictionary.columnPaqueteEmbarque[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "110px" },
+            { field: "NumeroControl", title: _dictionary.columnSpool[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "110px" },
+            { field: "Paquete", title: _dictionary.columnPaqueteEmbarque[$("#language").data("kendoDropDownList").value()], template: "<div class='descargarPaquete' style='text-align:center;'><a href='\\#'> <span>#=Paquete#</span></a></div>", filterable: getGridFilterableCellMaftec(), width: "150px" },
+            //{ field: "Paquete", title: _dictionary.columnPaqueteEmbarque[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "110px" },
             {
                 field: "Llego", title: _dictionary.columnLlegoSpool[$("#language").data("kendoDropDownList").value()], filterable: {
                     multi: true,
@@ -141,16 +142,22 @@ function CargarGrid() {
                                 e.preventDefault();                                
                                 var dataItem = this.dataItem($(e.currentTarget).closest("tr"));                                
                                 var dataSource = this.dataSource;
-                                if (dataItem.Accion == 1) {
-                                    dataSource.remove(dataItem);
+                                
+                                if (dataItem.Paquete === "NA") { //solo spool manual
+                                    if (dataItem.Accion == 1) {
+                                        dataSource.remove(dataItem);
+                                    }
+                                    if (dataItem.Accion == 2) {
+                                        dataItem.Accion = 3;
+                                        dataItem.ModificadoPorUsuario = true;
+                                    } else {
+                                        dataSource.remove(dataItem);
+                                    }                                    
+                                } else {
+                                    //EliminarPaquete(dataItem);
+                                    e.preventDefault();
                                 }
-                                if (dataItem.Accion == 2) {
-                                    dataItem.Accion = 3;
-                                    dataItem.ModificadoPorUsuario = true;                                    
-                                } else {                                
-                                    dataSource.remove(dataItem);
-                                }
-                                dataSource.sync();                                                                
+                                dataSource.sync();
                             }else
                                 displayNotify('EmbarqueRevisionMsjRevisionCerrada', '', '1');
                         }                        
