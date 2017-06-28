@@ -1,4 +1,19 @@
-﻿function AjaxCargarProyecto() {
+﻿function AjaxCargarCamposPredeterminados() {
+    loadingStart();
+    var TipoMuestraPredeterminadoID = 4079;
+    $CamposPredeterminados.CamposPredeterminados.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), id: TipoMuestraPredeterminadoID }).done(function (data) {
+        if (data == "sin captura") {
+            $('input:radio[name=Muestra]:nth(0)').trigger("click");
+        }
+        else if (data == "Todos") {
+            $('input:radio[name=Muestra]:nth(1)').trigger("click");
+        }
+        loadingStop();
+    });
+
+}
+
+function AjaxCargarProyecto() {
 	loadingStart();
 	$Proyectos.Proyectos.read({ token: Cookies.get("token") }).done(function (data) {
 		$("#inputProyecto").data("kendoComboBox").dataSource.data([]);
@@ -76,6 +91,21 @@ function ajaxObtenerSistemasPintura(procesoid, ProyectoiD) {
 	});
 }
 
+function AjaxColores(sistemaPinturaProyectoID) {
+    loadingStart();
+    $AvanceCuadrante.AvanceCuadrante.read({ token: Cookies.get("token"), sistemaPinturaProyectoID: sistemaPinturaProyectoID, lenguaje: $("#language").val() }).done(function (data) {
+        if (Error(data)) {
+            $("#inputColor").data("kendoComboBox").dataSource.data(data);
+            $("#inputColor").data("kendoComboBox").value("");
+            if (data.length == 2) {
+                $("#inputColor").data("kendoComboBox").select(1);
+                $("#inputColor").data("kendoComboBox").trigger("change");
+            }
+        }
+        loadingStop();
+    });
+}
+
 function ajaxPruebas(ProcesoPinturaID, SistemaPinturaProyectoID, lenguaje) {
 	loadingStart();
 	$PruebasPorLote.PruebasPorLote.read({ token: Cookies.get("token"), ProcesoPinturaID: ProcesoPinturaID, SistemaPinturaProyectoID: SistemaPinturaProyectoID, lenguaje: lenguaje }).done(function (data) {
@@ -92,11 +122,11 @@ function ajaxPruebas(ProcesoPinturaID, SistemaPinturaProyectoID, lenguaje) {
 				}
 				$("#inputPrueba").data("kendoComboBox").value(datoID);
 
-				if ($("#inputFechaLote").val() != "") {
+			//	if ($("#inputFechaLote").val() != "") {
 					$("#inputPrueba").data("kendoComboBox").trigger("change");
-				}
-				else
-					loadingStop();
+				//}
+				//else
+				//	loadingStop();
 
 
 
@@ -113,10 +143,7 @@ function ajaxPruebas(ProcesoPinturaID, SistemaPinturaProyectoID, lenguaje) {
 function ajaxObtenerFechas(ProcesoPinturaID, SistemaPinturaProyectoID, PruebaProcesoPinturaID, lenguaje) {
 	loadingStart();
 	$PruebasPorLote.PruebasPorLote.read({ token: Cookies.get("token"), ProcesoPinturaID: ProcesoPinturaID, SistemaPinturaProyectoID: SistemaPinturaProyectoID, PruebaProcesoPinturaID: PruebaProcesoPinturaID, lenguaje: lenguaje }).done(function (data) {
-		//var disabledDays = [
-		//	new Date(2000, 01, 01),
-		//	new Date(2000, 01, 02)
-		//];
+		
 		var arrayDates = [];
 
 		if (data.length > 0) {
@@ -202,5 +229,16 @@ function ajaxBuscarSpool() {
 	//                 }
 	//];
 
-	//$("#grid").data('kendoGrid').dataSource.data(array);
+    //$("#grid").data('kendoGrid').dataSource.data(array);
+
+    loadingStart();
+    $PruebasPorLote.PruebasPorLote.read({ token: Cookies.get("token"), procesoPinturaID: procesoPinturaID, sistemaPinturaProyectoID: sistemaPinturaProyectoID, pruebaID: pruebaID, loteID: LoteID, lenguaje: lenguaje }).done(function (data) {
+        if (data.length > 0) {
+                $("#grid").data("kendoGrid").dataSource.data([]);
+                $("#grid").data("kendoGrid").dataSource.data(data);
+                editado = true;
+        }
+        loadingStop();
+    });
+
 }

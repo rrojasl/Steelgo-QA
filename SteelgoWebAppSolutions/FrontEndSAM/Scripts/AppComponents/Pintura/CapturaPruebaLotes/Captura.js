@@ -3,7 +3,7 @@ var ventanaConfirmEdicionCaptura;
 var editado=false;
 var disableDates;
 
-var LineaCaptura = { ProyectoIDSeleccionado: "", ProcesoIDSeleccionado: "", SistemaPinturaIDSeleccionado: "", PruebaIDSeleccionado: "",FechaSeleccionada:"",LoteIDSeleccionada:"" }
+var LineaCaptura = { ProyectoIDSeleccionado: "", ProcesoIDSeleccionado: "", SistemaPinturaIDSeleccionado: "",ColorIDSeleccionado:"", PruebaIDSeleccionado: "",FechaSeleccionada:"",LoteIDSeleccionada:"" }
 
 
 
@@ -51,7 +51,7 @@ function changeLanguageCall() {
 	AjaxCargarProyecto();
 	CargarGrid();
 	CargarGridPopUp();
-
+	AjaxCargarCamposPredeterminados();
 	//$("#inputFechaLote").data("kendoDatePicker").setOptions({
 	//	format: _dictionary.FormatoFecha2[$("#language").data("kendoDropDownList").value()]
 	//});

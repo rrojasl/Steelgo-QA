@@ -419,7 +419,7 @@ function suscribirEventoOrdenTrabajo() {
 
         if ($("#InputOrdenTrabajo").val().match("^[a-zA-Z][0-9]*$")) {
             try {
-                $("#InputID").data("kendoComboBox").enable(false);
+               // $("#InputID").data("kendoComboBox").enable(false);
                 AjaxObtenerSpoolID();
             } catch (e) {
                 displayNotify("Mensajes_error", e.message, '2');
@@ -468,7 +468,7 @@ function SuscribirEventoSpoolID() {
         $("#InputID").data("kendoComboBox").text("");
     });
 
-    $("#InputID").data("kendoComboBox").enable(false);
+   // $("#InputID").data("kendoComboBox").enable(false);
 
     $('#InputID').closest('.k-widget').keydown(function (e) {
         if (e.keyCode == 37) {

@@ -248,6 +248,51 @@ namespace BackEndSAM.DataAcces.Pintura.PruebasPorLote
             }
         }
 
+
+        public object ObtenerDetalle(int procesoPinturaID,int sistemaPinturaProyectoID,int pruebaID,int loteID, string lenguaje)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    //List<Sam3_Pintura_PruebasLote_Get_Lotes_Result> lista = ctx.Sam3_Pintura_PruebasLote_Get_Detalle(procesoPinturaID, sistemaPinturaProyectoID, pruebaID, loteID, lenguaje).ToList();
+                    //List<Detalle> listaLotes = new List<Detalle>();
+
+                    //if (lista.Count > 0)
+                    //    listaLotes.Add(new Lotes());
+
+                    //foreach (Sam3_Pintura_PruebasLote_Get_Lotes_Result item in lista)
+                    //{
+                    //    Lotes objeto = new Lotes
+                    //    {
+                    //        LoteID = item.LoteID,
+                    //        Nombre = item.Nombre
+                    //    };
+                    //    listaLotes.Add(objeto);
+                    //}
+
+                    return null;
+
+                }
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
         
+
+
     }
 }
