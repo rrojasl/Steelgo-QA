@@ -45,10 +45,12 @@ function CargarGrid() {
             var myElem = document.getElementById('trParentHeader');
             if (myElem == null) {
                 $("#grid").find("th.k-header").parent().before("<tr id='trParentHeader'> " +
-                    "<th scope='col' colspan='3' class='k-header'></th>  <th width='auto'  colspan='2' class='k-header' style='text-align: center;'><span id=''>" + _dictionary.columnEspesormm[$("#language").data("kendoDropDownList").value()] + "</span></th>" +
+                    "<th scope='col' colspan='8' class='k-header'></th>  <th width='auto'  colspan='2' class='k-header' style='text-align: center;'><span id=''>" + _dictionary.columnEspesormm[$("#language").data("kendoDropDownList").value()] + "</span></th>" +
                     "<th width='auto'  colspan='2' class='k-header' style='text-align: center;'><span>" + _dictionary.columnProceso[$("#language").data("kendoDropDownList").value()] + "</span></th>" +
                     "<th width='auto'  colspan='2' class='k-header' style='text-align: center;'><span id=''>" + _dictionary.columnGrupoP[$("#language").data("kendoDropDownList").value()] + "</span></th>" +
-                    "<th width='auto'  colspan='6' class='k-header' style='text-align: center;'><span id=''></span></th>" +
+                    "<th width='auto'  colspan='2' class='k-header' style='text-align: center;'><span id=''>" + _dictionary.columnAporte[$("#language").data("kendoDropDownList").value()] + "</span></th>" +
+                    "<th width='auto'  colspan='2' class='k-header' style='text-align: center;'><span id=''>" + _dictionary.columnGrupoF[$("#language").data("kendoDropDownList").value()] + "</span></th>" +
+                    "<th width='auto'  colspan='4' class='k-header' style='text-align: center;'><span id=''></span></th>" +
                     "</tr>");
             }
             var grid = $("#grid").data("kendoGrid");
@@ -88,6 +90,9 @@ function CargarGrid() {
                         Nombre: { type: "string", editable: true },
                         PREHEAT: { type: "boolean", editable: false },
                         PWHT: { type: "boolean", editable: false },
+                        CVN: { type: "boolean", editable: false },
+                        FN: { type: "boolean", editable: false },
+                        MacroTest: { type: "boolean", editable: false },
                         EspesorRelleno: { type: "number", editable: true },
                         EspesorRaiz: { type: "number", editable: true },
                         CodigoRelleno: { type: "string", editable: true },
@@ -166,16 +171,53 @@ function CargarGrid() {
                      dataSource: [{ Etiquetado: true }, { Etiquetado: false }]
                  }, template: "<input name='fullyPaid' class='chk-PWHT' type='checkbox' data-bind='checked: PWHT' #= PWHT ? checked='checked' : '' #/>", width: "111px", attributes: { style: "text-align:center;" }
              },
+             {
+                 width: "100px", field: "CVN", title: _dictionary.columnCVN[$("#language").data("kendoDropDownList").value()], filterable: {
+                     multi: true,
+                     messages: {
+                         isTrue: _dictionary.lblVerdadero[$("#language").data("kendoDropDownList").value()],
+                         isFalse: _dictionary.lblFalso[$("#language").data("kendoDropDownList").value()],
+                         style: "max-width:100px;"
+                     },
+                     dataSource: [{ Etiquetado: true }, { Etiquetado: false }]
+                 }, template: "<input name='fullyPaid' class='chk-CVN' type='checkbox' data-bind='checked: CVN' #= CVN ? checked='checked' : '' #/>", width: "111px", attributes: { style: "text-align:center;" }
+             },
+             {
+                 width: "100px", field: "FN", title: _dictionary.columnFN[$("#language").data("kendoDropDownList").value()], filterable: {
+                     multi: true,
+                     messages: {
+                         isTrue: _dictionary.lblVerdadero[$("#language").data("kendoDropDownList").value()],
+                         isFalse: _dictionary.lblFalso[$("#language").data("kendoDropDownList").value()],
+                         style: "max-width:100px;"
+                     },
+                     dataSource: [{ Etiquetado: true }, { Etiquetado: false }]
+                 }, template: "<input name='fullyPaid' class='chk-FN' type='checkbox' data-bind='checked: FN' #= FN ? checked='checked' : '' #/>", width: "111px", attributes: { style: "text-align:center;" }
+             },
+             {
+                 width: "100px", field: "MacroTest", title: _dictionary.columnMacroTest[$("#language").data("kendoDropDownList").value()], filterable: {
+                     multi: true,
+                     messages: {
+                         isTrue: _dictionary.lblVerdadero[$("#language").data("kendoDropDownList").value()],
+                         isFalse: _dictionary.lblFalso[$("#language").data("kendoDropDownList").value()],
+                         style: "max-width:100px;"
+                     },
+                     dataSource: [{ Etiquetado: true }, { Etiquetado: false }]
+                 }, template: "<input name='fullyPaid' class='chk-MacroTest' type='checkbox' data-bind='checked: MacroTest' #= MacroTest ? checked='checked' : '' #/>", width: "111px", attributes: { style: "text-align:center;" }
+             },
+             { width: "120px", field: "TipoPrueba", title: _dictionary.columnTipoPrueba[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxTipoPrueba },
+             { width: "120px", field: "TipoJunta", title: _dictionary.DimensionalVisualHeaderTipoJunta[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxTipoJunta },
              { width: "120px", field: "EspesorRelleno", title: _dictionary.columnRelleno[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), format: "{0}", editor: RenderEspesorRelleno, attributes: { style: "text-align:right;" } },
              { width: "120px", field: "EspesorRaiz", title: _dictionary.columnRaiz[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), format: "{0}", editor: RenderEspesorRaiz, attributes: { style: "text-align:right;" } },
              { width: "120px", field: "CodigoRelleno", title: _dictionary.columnRelleno[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px", editor: RenderComboBoxProcesoSoldaduraRelleno },
              { width: "120px", field: "CodigoRaiz", title: _dictionary.columnRaiz[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxProcesoSoldaduraRaiz },
              { width: "120px", field: "GrupoPMaterialBase1Nombre", title: _dictionary.columnBase1[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxMaterialesBase1 },
              { width: "120px", field: "GrupoPMaterialBase2Nombre", title: _dictionary.columnBase2[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxMaterialesBase2 },
-             { width: "120px", field: "Aporte", title: _dictionary.columnAporte[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec() },
-             { width: "120px", field: "Mezcla", title: _dictionary.columnMezcla[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec() },
-             { width: "120px", field: "Respaldo", title: _dictionary.columnRespaldo[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec() },
-             { width: "120px", field: "GrupoF", title: _dictionary.columnGrupoF[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec() },
+             { width: "120px", field: "Aporte", title: _dictionary.columnRaiz[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec() },
+             { width: "120px", field: "AporteRelleno", title: _dictionary.columnRelleno[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec() },
+             { width: "120px", field: "GrupoF", title: _dictionary.columnRaiz[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec() },
+             { width: "120px", field: "GrupoFRelleno", title: _dictionary.columnRelleno[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec() },
+             { width: "130px", field: "Mezcla", title: _dictionary.columnMezcla[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec() },
+             { width: "130px", field: "Respaldo", title: _dictionary.columnRespaldo[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec() },
              { width: "200px", field: "Especificacion", title: _dictionary.columnCodigo[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxEspecificacion },
              { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: cancelarCaptura }, width: "50px", title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], attributes: { style: "text-align:center;" } }
         ],

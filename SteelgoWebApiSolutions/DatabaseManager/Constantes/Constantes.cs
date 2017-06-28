@@ -83,5 +83,6 @@
         public static string VALIDARCAPTURAEMPAQUETADO = "Sam3_Embarque_EMP_ValidacionSpoolsEmpaquetado";
         public static string PINTURA_SET_OKPINTURA = "Sam3_Pintura_SET_OkPintura";
         public static string PINTURA_SET_OKPINTURA_MASIVO = "Sam3_Pintura_SET_OkPinturaMasivo";
+        public static string JUNTAMONAJESOLDADURA_MASIVO = "GuardaJuntaMontajeSoldadura_Masivo";
     }
 }

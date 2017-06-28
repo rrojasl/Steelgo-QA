@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using BackEndSAM.Models.ConfiguracionSoldadura.SoldadorCertificacion;
+using BackEndSAM.Models.Sam3General.TipoJunta;
+using System.Collections.Generic;
 
 namespace BackEndSAM.Models.ConfiguracionSoldadura.PQR
 {
@@ -9,15 +11,23 @@ namespace BackEndSAM.Models.ConfiguracionSoldadura.PQR
         public string Nombre { get; set; }
         public int PREHEAT { get; set; }
         public int PWHT { get; set; }
+        public int CVN { get; set; }
+        public int FN { get; set; }
+        public int MacroTest { get; set; }
         public double EspesorRelleno { get; set; }
         public double EspesorRaiz { get; set; }
         public string CodigoRelleno { get; set; }
         public string CodigoRaiz { get; set; }
         public string NumeroP { get; set; }
+        //RAIZ
         public string Aporte { get; set; }
+        public string GrupoF { get; set; }
+        //RELLENO
+        public string AporteRelleno { get; set; }
+        public string GrupoFRelleno { get; set; }
+
         public string Mezcla { get; set; }
         public string Respaldo { get; set; }
-        public string GrupoF { get; set; }
         public string Especificacion { get; set; }
         public string UsuarioModificacion { get; set; }
         public string FechaModificacion { get; set; }
@@ -27,29 +37,28 @@ namespace BackEndSAM.Models.ConfiguracionSoldadura.PQR
         public string GrupoPMaterialBase1Nombre { get; set; }
         public int GrupoPMaterialBase2 { get; set; }
         public string GrupoPMaterialBase2Nombre { get; set; }
-
-
         //ProcesoSoldadura
         public int ProcesoSoldaduraRellenoID { get; set; }
         public int ProcesoSoldaduraRaizID { get; set; }
-
         //Codigo
         public int CodigoASMEID { get; set; }
 
         //ValidaNombre
         public string Existe { get; set; }
-
         public int Accion { get; set; }
+        public int RegistrosWPS { get; set; }
+        public bool RowOk { get; set; }
+        public int TipoPruebaID { get; set; }
+        public int TipoJuntaID { get; set; }
+        public string TipoPrueba { get; set; }
+        public string TipoJunta { get; set; }
 
         public List<ListaProcesoSoldadura> ListaProcesosSoldadura { get; set; }
-
         public List<ListaMaterialesBase> ListaMaterialesBase { get; set; }
-
         public List<ListaCodigos> ListaCodigos { get; set; }
+        public List<TipoPrueba> listaTipoPrueba { get; set; }
+        public List<DetalleTipoJunta> listaTipoJunta { get; set; }
 
-        public int RegistrosWPS { get; set; }
-
-        public bool RowOk { get; set; }
 
         public PQR()
         {

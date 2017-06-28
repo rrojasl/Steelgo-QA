@@ -1,11 +1,17 @@
-﻿
+﻿var tiposCSV = ["application/csv", "application/excel", "application/lotus123", "application/msexcel", "application/vnd.lotus-1-2-3", "application/vnd.ms-excel", "application/vnd.ms-works", "application/vnd.msexcel", "application/wk1", "application/wks", "application/x-123", "application/x-dos_ms_excel", "application/x-excel", "application/x-lotus123", "application/x-ms-excel", "application/x-msexcel", "application/x-msworks", "application/x-wks", "application/x-xls", "application/xlc", "application/xls", "text/anytext", "text/comma-separated-values", "text/csv", "zz-application/zz-winassoc-wk1"];
+var error = 0;
+
 function SuscribirEventos() {
     suscribirEventoCarGaCSV();
-    //suscribirEventoDescarGaCSV();   
+    suscribirEventoDescarGaCSV();
 }
 
 
-
+function suscribirEventoDescarGaCSV() {
+    $("#btnDescargaCsv, #btnDescargaCsv1").click(function (e) {
+        window.location.href = "/TemplateOKPND.csv";
+    });
+}
 
 function suscribirEventoCarGaCSV() {
     $('#btnCargaCsv, #btnCargaCsv1').click(function (e) {
@@ -38,8 +44,9 @@ function suscribirEventoCarGaCSV() {
                             var newData = ObtenerNewData(data);
                         if (newData != undefined) {
                             if (newData.length > 0) {
-                                AjaxGuardadoMasivo(newData)
-                                
+                                var dataRevision = validarJuntaSpoolRepetido(newData);
+                                AjaxGuardadoMasivo(dataRevision);
+
                             } else {
                                 displayNotify("EditarRequisicionExcepcionGuardado", "", "1");
                             }
@@ -56,4 +63,84 @@ function suscribirEventoCarGaCSV() {
             } catch (e) { }
         }
     });
+}
+
+
+function ObtenerNewData(data) {
+    try {
+        var tmpData = [];
+        elementos = [];
+        contador = {};
+        var tmpNumControl = {};
+        if (data.length > 0) {
+            for (n in data) {
+                tmpData[n] = {
+                    JuntaSpoolid: 0,
+                    FechaEntregaReporteArmado: "",
+                    FechadeArmado: "",
+                    ClaveTubero: "",
+                    FechaEntregaReporteSoldadura: "",
+                    FechaSoldadura: "",
+                    ClaveSoldador1: "",
+                    ClaveSoldador2: "",
+                    Wps: "",
+                    Proceso: "",
+                    Material1: "",
+                    Material2: "",
+                    LiberacionArmado: "",
+                    FechaLiberacionArmado: "",
+                    LiberacionDimensional: "",
+                    FechaLiberacionDimensional: "",
+                    LiberacionVisual: "",
+                    FechaLiberacionVisual: "",
+                    Repetido: 0
+                };
+                //if (data[n].OKPND.toString().trim() === "") { data[n].OKPND = 0 };
+
+                if (!isNaN(parseInt(data[n].JuntaSpoolid.trim()))) {
+
+                    //tmpNumControl[n] = data[n].NumeroControl.toString().toUpperCase().trim();
+
+                    tmpData[n].JuntaSpoolid = parseInt(data[n].JuntaSpoolid.trim());
+                    tmpData[n].FechaEntregaReporteArmado = data[n].FechaEntregaReporteArmado.toString().trim();
+                    tmpData[n].FechadeArmado = data[n].FechadeArmado.toString().trim();
+                    tmpData[n].ClaveTubero = data[n].ClaveTubero.toString().trim();
+                    tmpData[n].FechaEntregaReporteSoldadura = data[n].FechaEntregaReporteSoldadura.toString().trim();
+                    tmpData[n].FechaSoldadura = data[n].FechaSoldadura.toString().trim();
+                    tmpData[n].ClaveSoldador1 = data[n].ClaveSoldador1.toString().trim();
+                    tmpData[n].ClaveSoldador2 = data[n].ClaveSoldador2.toString().trim();
+                    tmpData[n].Wps = data[n].Wps.toString().trim();
+                    tmpData[n].Proceso = data[n].Proceso.toString().trim();
+                    tmpData[n].Material1 = data[n].Material1.toString().trim();
+                    tmpData[n].Material2 = data[n].Material2.toString().trim();
+                    tmpData[n].LiberacionArmado = data[n].LiberacionArmado.toString().trim();
+                    tmpData[n].FechaLiberacionArmado = data[n].FechaLiberacionArmado.toString().trim();
+                    tmpData[n].LiberacionDimensional = data[n].LiberacionDimensional.toString().trim();
+                    tmpData[n].FechaLiberacionDimensional = data[n].FechaLiberacionDimensional.toString().trim();
+                    tmpData[n].LiberacionVisual = data[n].LiberacionVisual.toString().trim();
+                    tmpData[n].FechaLiberacionVisual = data[n].FechaLiberacionVisual.toString().trim();
+                    tmpData[n].Repetido = 0;
+
+                } else {
+                    displayNotify("ErrorColumnaTieneLetras", "", "2");
+                    return;
+                }
+
+            }
+        } else {
+            //no hay datos
+            tmpData = [];
+        }
+    } catch (e) {
+        if (e !== -1) {
+            error = 1;
+            throw e;
+        } else {
+            //displayNotify("ListadoCatalogos0012", "", '2');
+            displayNotify("ErrorColumnaTieneRegistroVacio", "", "2");
+            error = 1;
+        }
+    }
+    loadingStop();
+    return tmpData;
 }

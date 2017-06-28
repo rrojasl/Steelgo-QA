@@ -19,7 +19,7 @@ namespace BackEndSAM.Controllers.Montaje.PlanchadoSoldadura
     public class PlanchadoSoldaduraController : ApiController
     {
         [HttpPost]
-        public object Post(CapturaMasiva datos, string lenguaje, string token, int ProyectoID)
+        public object Post(CapturaMasiva datos, string lenguaje, string token)
         {
             string payload = "";
             string newToken = "";

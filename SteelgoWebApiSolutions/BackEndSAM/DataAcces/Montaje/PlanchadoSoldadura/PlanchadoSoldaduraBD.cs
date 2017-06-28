@@ -48,7 +48,7 @@ namespace BackEndSAM.DataAcces.Montaje.PlanchadoSoldadura
                         { "@UsuarioID", usuario.UsuarioID.ToString()},
                         { "@Lenguaje", lenguaje } };
 
-                    DataTable PlanchadoSoldaduraResult = _SQL.EjecutaDataAdapter(Stords.OKPNDMASIVO, data, "@TTOKPND", parametro);
+                    DataTable PlanchadoSoldaduraResult = _SQL.EjecutaDataAdapter(Stords.JUNTAMONAJESOLDADURA_MASIVO, data, "@TTJuntaSoldaduraMontaje", parametro);
                     return ToDataTable.table_to_csv(PlanchadoSoldaduraResult);
                 }
             }

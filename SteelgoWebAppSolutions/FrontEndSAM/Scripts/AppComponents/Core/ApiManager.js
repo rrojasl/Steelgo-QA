@@ -247,6 +247,10 @@ var $Dynasol = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $PackingList = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $DynasolCamion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 
+// Montaje 
+
+var $PlanchadoSoldadura = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+
 //#region Declaracion
 //#region Catalogos
 var $TrabajoAdicional = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
@@ -459,5 +463,8 @@ $FechasSpool.add("FechasSpool");
 $Dynasol.add("Dynasol");
 $PackingList.add("PackingList");
 $DynasolCamion.add("Camion");
+
+//Montaje
+$PlanchadoSoldadura.add("PlanchadoSoldadura");
 
 //#endregion

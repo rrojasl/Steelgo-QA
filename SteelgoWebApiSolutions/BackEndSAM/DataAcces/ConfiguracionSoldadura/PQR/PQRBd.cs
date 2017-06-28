@@ -1,4 +1,7 @@
-﻿using BackEndSAM.Models.ConfiguracionSoldadura.PQR;
+﻿using BackEndSAM.DataAcces.Sam3General.TipoJunta;
+using BackEndSAM.Models.ConfiguracionSoldadura.PQR;
+using BackEndSAM.Models.ConfiguracionSoldadura.SoldadorCertificacion;
+using BackEndSAM.Models.Sam3General.TipoJunta;
 using DatabaseManager.Constantes;
 using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
@@ -39,6 +42,17 @@ namespace BackEndSAM.DataAcces.ConfiguracionSoldadura
                 using (SamContext ctx = new SamContext())
                 {
                     List<Sam3_Soldadura_PQR_Result> listaPQRJson = ctx.Sam3_Soldadura_PQR(TipoAccion, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null).ToList();
+                    List<TipoPrueba> listaTipoPrueba = (from lTPS in ctx.Sam3_Soldadura_Get_TipoPrueba()
+
+                                                        select new TipoPrueba
+                                                        {
+                                                            TipoPruebaID = lTPS.TipoPruebaID.ToString(),
+                                                            TipoDePrueba = lTPS.Nombre
+                                                        }).AsParallel().ToList().Where(x => x.TipoDePrueba != "Ambos").OrderBy(x => x.TipoDePrueba).ToList<TipoPrueba>();
+                    listaTipoPrueba.Insert(0, new TipoPrueba());
+
+                    List<DetalleTipoJunta> listaTipoJunta = (List<DetalleTipoJunta>)TipoJuntaBD.Instance.ObtieneListadoTipoJunta();
+
 
                     if (listaPQRJson.Count > 0 && pantallaEnvia==2)
                         listaPQR.Add(new PQR());
@@ -51,6 +65,9 @@ namespace BackEndSAM.DataAcces.ConfiguracionSoldadura
                                 Nombre = item.Nombre,
                                 PREHEAT = Convert.ToInt32(item.PREHEAT),
                                 PWHT = Convert.ToInt32(item.PWHT),
+                                CVN= Convert.ToInt32(item.CVN),
+                                FN = Convert.ToInt32(item.FN),
+                                MacroTest = Convert.ToInt32(item.MacroTest),
                                 EspesorRaiz = Decimal.ToDouble(item.EspesorRaiz.GetValueOrDefault()),
                                 EspesorRelleno = Decimal.ToDouble(item.EspesorRelleno),
                                 ProcesoSoldaduraRaizID = item.ProcesoSoldaduraRaizID.GetValueOrDefault(),
@@ -62,9 +79,11 @@ namespace BackEndSAM.DataAcces.ConfiguracionSoldadura
                                 GrupoPMaterialBase2 = item.GrupoPMaterialBase2.GetValueOrDefault(),
                                 GrupoPMaterialBase2Nombre = item.GrupoPMaterialBase2Nombre,
                                 Aporte = item.Aporte,
+                                GrupoF = item.GrupoF,
+                                AporteRelleno = item.AporteRelleno,
+                                GrupoFRelleno = item.GrupoFRelleno,
                                 Mezcla = item.Mezcla,
                                 Respaldo = item.Respaldo,
-                                GrupoF = item.GrupoF,
                                 CodigoASMEID = item.CodigoID.GetValueOrDefault(),
                                 Especificacion = item.Especificacion,
                                 Accion = 2,
@@ -72,7 +91,14 @@ namespace BackEndSAM.DataAcces.ConfiguracionSoldadura
                                 ListaProcesosSoldadura = (List<ListaProcesoSoldadura>)obtenerListadoProcesos(TipoAccion),
                                 ListaMaterialesBase = (List<ListaMaterialesBase>)obtenerListadoMaterialesBase(TipoAccion),
                                 ListaCodigos = (List<ListaCodigos>)obtenerListadoCodigos(usuarioID, especificacion, codigo),
-                                RowOk = true
+                                RowOk = true,
+                                listaTipoJunta = listaTipoJunta,
+                                listaTipoPrueba = listaTipoPrueba,
+                                TipoJuntaID = item.TipoJuntaID.GetValueOrDefault(),
+                                TipoPruebaID = item.TipoPruebaID.GetValueOrDefault(),
+                                TipoJunta = item.TipoJunta,
+                                TipoPrueba = item.TipoPrueba
+                                
                             });
                     }
 

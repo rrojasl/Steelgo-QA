@@ -278,3 +278,81 @@ function tieneClase(item) {
     }
     return false;
 }
+
+function RenderComboBoxTipoPrueba(container, options) {
+    var dataItem;
+    $('<input  data-text-field="TipoDePrueba" data-value-field="TipoPruebaID" data-bind="value:' + options.field + '"/>')
+        .appendTo(container)
+        .kendoComboBox({
+            suggest: true,
+            delay: 10,
+            filter: "contains",
+            autoBind: false,
+            dataSource: options.model.listaTipoPrueba,
+            template: "<i class=\"fa fa-#=data.TipoDePrueba#\"></i> #=data.TipoDePrueba#",
+            change: function (e) {
+                e.preventDefault();
+                dataItem = this.dataItem(e.sender.selectedIndex);
+                if (dataItem != undefined) {
+                    options.model.TipoPrueba = dataItem.TipoDePrueba;
+                    options.model.TipoPruebaID = dataItem.TipoPruebaID;
+                }
+                else {
+                    // options.model.Taller = ObtenerDescCorrectaTaller(options.model.ListaTaller, options.model.TallerID);
+                    options.model.TipoPrueba = "";
+                    options.model.TipoPruebaID = null;
+                }
+                $("#grid").data("kendoGrid").dataSource.sync();
+            }
+        }
+        );
+    $(".k-combobox").parent().on('mouseleave', function (send) {
+        var e = $.Event("keydown", { keyCode: 27 });
+        var item = $(this).find(".k-combobox")[0];
+        if (item != undefined) {
+            if (!tieneClase(item)) {
+                $(container).trigger(e);
+            }
+        }
+    });
+
+}
+
+function RenderComboBoxTipoJunta(container, options) {
+    var dataItem;
+    $('<input  data-text-field="Nombre" data-value-field="TipoJuntaID" data-bind="value:' + options.field + '"/>')
+        .appendTo(container)
+        .kendoComboBox({
+            suggest: true,
+            delay: 10,
+            filter: "contains",
+            autoBind: false,
+            dataSource: options.model.listaTipoJunta,
+            template: "<i class=\"fa fa-#=data.Nombre#\"></i> #=data.Nombre#",
+            change: function (e) {
+                e.preventDefault();
+                dataItem = this.dataItem(e.sender.selectedIndex);
+                if (dataItem != undefined) {
+                    options.model.TipoJunta = dataItem.Nombre;
+                    options.model.TipoJuntaID = dataItem.TipoJuntaID;
+                }
+                else {
+                    // options.model.Taller = ObtenerDescCorrectaTaller(options.model.ListaTaller, options.model.TallerID);
+                    options.model.TipoJunta = "";
+                    options.model.TipoJuntaID = null;
+                }
+                $("#grid").data("kendoGrid").dataSource.sync();
+            }
+        }
+        );
+    $(".k-combobox").parent().on('mouseleave', function (send) {
+        var e = $.Event("keydown", { keyCode: 27 });
+        var item = $(this).find(".k-combobox")[0];
+        if (item != undefined) {
+            if (!tieneClase(item)) {
+                $(container).trigger(e);
+            }
+        }
+    });
+
+}

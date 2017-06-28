@@ -7486,8 +7486,8 @@ _dictionary = {
         "en-US": "filler"
     },
     "lblMezcla": {
-        "es-MX": "Mezcla",
-        "en-US": "Mix"
+        "es-MX": "Mezcla(gas)",
+        "en-US": "Mix(gas)"
     },
     "lblRespaldo": {
         "es-MX": "Respaldo",
@@ -8817,6 +8817,18 @@ _dictionary = {
         "es-MX": "PWHT",
         "en-US": "PWHT"
     },
+    "columnCVN": {
+        "es-MX": "CVN",
+        "en-US": "CVN"
+    },
+    "columnFN": {
+        "es-MX": "FN",
+        "en-US": "FN"
+    },
+    "columnMacroTest": {
+        "es-MX": "M test",
+        "en-US": "M test"
+    },
     "columnRelleno": {
         "es-MX": "RLL",
         "en-US": "Fll"
@@ -8838,8 +8850,8 @@ _dictionary = {
         "en-US": "filler"
     },
     "columnMezcla": {
-        "es-MX": "Mezcla",
-        "en-US": "Mix"
+        "es-MX": "Mezcla(gas)",
+        "en-US": "Mix(gas)"
     },
     "columnRespaldo": {
         "es-MX": "Respaldo",
