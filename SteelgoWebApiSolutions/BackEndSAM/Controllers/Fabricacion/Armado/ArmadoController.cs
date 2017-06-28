@@ -136,7 +136,7 @@ namespace BackEndSAM.Controllers
                     DetalleDatosJson detalleDatos = new DetalleDatosJson
                     {
 
-                        AccionNumeroUnico = (item.Clave1 != "" || item.Clave2 != "" || item.Clave1 != null || item.Clave2 != null || item.NumeroUnico1ID.ToString() != "" || item.NumeroUnico2ID.ToString() != "") ? 2 : 1,
+                        AccionNumeroUnico = (item.Clave1 != null || item.Clave2 != null  || item.NumeroUnico1ID.ToString() != "" || item.NumeroUnico2ID.ToString() != "") ? 2 : 1,
                         Accion = item.JuntaSpoolIDArmado == null ? 1 : 2,
                         IDProyecto = item.ProyectoID,
                         IdOrdenTrabajo = item.OrdenTrabajoID,
@@ -433,13 +433,14 @@ namespace BackEndSAM.Controllers
                     List<Sam3_Armado_Get_MaterialesSpool_Result> listaNumeroUnicos = (List<Sam3_Armado_Get_MaterialesSpool_Result>)ArmadoBD.Instance.listaNumeroUnicos(int.Parse(item["JuntaSpoolID"].ToString()), usuario, 2, SinCaptura == "Todos" ? "1" : "0");
                     List<NumeroUnico> listNumeroUnico1 = GenerarListaNumerosUnicos(listaNumeroUnicos, 1, int.Parse(item["LongitudMaterial1"].ToString()));
                     List<NumeroUnico> listNumeroUnico2 = GenerarListaNumerosUnicos(listaNumeroUnicos, 2, int.Parse(item["LongitudMaterial2"].ToString()));
+    
 
                     //item.TipoJunta
                     DetalleDatosJson detalleDatos = new DetalleDatosJson
                     {
 
                         Accion = item["JuntaSpoolIDArmado"].ToString() == "" ? 1 : 2,
-                        AccionNumeroUnico = (item["NumeroUnico1ID"].ToString() != "" || item["NumeroUnico1ID"].ToString() != ""|| item["Clave1"] != null || item["Clave2"] != null || item["Clave1"].ToString() != "" || item["Clave2"].ToString() != "") ? 2 : 1,
+                        AccionNumeroUnico = (item["NumeroUnico1ID"].ToString() != "" || item["NumeroUnico1ID"].ToString() != "" || item["Clave1"].ToString() != "" || item["Clave2"].ToString() != "") ? 2 : 1,
                         IDProyecto = int.Parse(item["ProyectoID"].ToString()),
                         IdOrdenTrabajo = int.Parse(item["OrdenTrabajoID"].ToString()),
                         OrdenTrabajo = item["OrdenTrabajo"].ToString(),
