@@ -136,7 +136,7 @@ namespace BackEndSAM.Controllers
                     DetalleDatosJson detalleDatos = new DetalleDatosJson
                     {
 
-                        AccionNumeroUnico = (item.Clave1 != null || item.Clave2 != null) ? 2 : 1,
+                        AccionNumeroUnico = (item.Clave1 != "" || item.Clave2 != "" || item.Clave1 != null || item.Clave2 != null || item.NumeroUnico1ID.ToString() != "" || item.NumeroUnico2ID.ToString() != "") ? 2 : 1,
                         Accion = item.JuntaSpoolIDArmado == null ? 1 : 2,
                         IDProyecto = item.ProyectoID,
                         IdOrdenTrabajo = item.OrdenTrabajoID,
@@ -439,7 +439,7 @@ namespace BackEndSAM.Controllers
                     {
 
                         Accion = item["JuntaSpoolIDArmado"].ToString() == "" ? 1 : 2,
-                        AccionNumeroUnico = (item["Clave1"] != null || item["Clave2"] != null) ? 2 : 1,
+                        AccionNumeroUnico = (item["NumeroUnico1ID"].ToString() != "" || item["NumeroUnico1ID"].ToString() != ""|| item["Clave1"] != null || item["Clave2"] != null || item["Clave1"].ToString() != "" || item["Clave2"].ToString() != "") ? 2 : 1,
                         IDProyecto = int.Parse(item["ProyectoID"].ToString()),
                         IdOrdenTrabajo = int.Parse(item["OrdenTrabajoID"].ToString()),
                         OrdenTrabajo = item["OrdenTrabajo"].ToString(),

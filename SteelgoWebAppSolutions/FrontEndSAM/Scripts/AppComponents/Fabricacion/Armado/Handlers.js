@@ -250,23 +250,31 @@ function suscribirEventoAgregar() {
                         displayNotify("NoExisteSpoolID", '', '2');
                 }
                 else {
-                    if ($('input:radio[name=TipoAgregado]:checked').val() == "Listado" && $("#Junta").val() != "") {
-                        if (dataItem != undefined && dataItem.Etiqueta != "") {
-                            if ($("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()) != undefined) {
-                                $('#ButtonAgregar').prop("disabled", true);
-                                AjaxObtenerJSonGridArmado();
-                            }
-                            else
-                                displayNotify("NoExisteSpoolID", '', '2');
+                    if ($('input:radio[name=TipoAgregado]:checked').val() == "Listado" ) {
+						if ($("#Junta").data("kendoComboBox").select() > 0 && $("#Junta").data("kendoComboBox").dataItem($("#Junta").data("kendoComboBox").select()).Etiqueta != "") {
+							if ($('input:radio[name=Muestra]:checked').val() != undefined) {
+								if ($('input:radio[name=TipoAgregado]:checked').val() == "Listado") {
+									if ($("#Junta").data("kendoComboBox").select() > 0 && $("#Junta").data("kendoComboBox").dataItem($("#Junta").data("kendoComboBox").select()).Etiqueta != "") {
 
-                        }
-                        else {
-                            if ($('input:radio[name=Muestra]:checked').val() == "Todos" && $("#Junta").val() != "") {
-                                displayNotify("CapturaArmadoNoExisteSpool", "", '2');
-                            }
-                            else
-                                displayNotify("CapturaArmadoNoExisteLista", "", '1');
-                        }
+										AjaxObtenerJSonGridArmado();
+
+									}
+									else
+										displayNotify("JuntaSinSeleccionar", "", '2');
+								}
+							}
+							else {
+								MensajesSteelGO('radioMostrar', '')
+
+							}
+						}
+						else {
+							if ($('input:radio[name=Muestra]:checked').val() == "Todos") {
+								displayNotify("CapturaArmadoNoExisteSpool", "", '2');
+							}
+							else
+								displayNotify("CapturaArmadoNoExistenJuntasSpool", "", '1');
+						}
                     }
                     else
                         displayNotify("JuntaSinSeleccionar", "", '2');
@@ -347,7 +355,7 @@ function SuscribirEventosJunta() {
         index: 3,
         change: function (e) {
             dataItem = this.dataItem(e.sender.selectedIndex);
-            if (dataItem == undefined) {
+            if (dataItem == undefined || dataItem.JuntaSpoolID==0) {
                 $("#Junta").data("kendoComboBox").value("");
             }
         }
@@ -363,19 +371,19 @@ function SuscribirEventosJunta() {
             $("#ButtonAgregar").focus();
         }
         else if (e.keyCode == 9) {
-            if ($("#Junta").data("kendoComboBox").text() == "" && tieneClase(e.currentTarget)) {
-                $("#Junta").data("kendoComboBox").select(0);
-                ObtenerJSonGridArmado();
-            }
+            //if ($("#Junta").data("kendoComboBox").text() == "" && tieneClase(e.currentTarget)) {
+            //    $("#Junta").data("kendoComboBox").select(0);
+            //    ObtenerJSonGridArmado();
+            //}
 
             //else if (tieneClase(e.currentTarget)) {
             //    $("#Junta").data("kendoComboBox").select(0);
             //    ObtenerJSonGridArmado();
             //}
 
-        }
+		} 
         else if (e.keyCode == 13) {
-            if ( dataItem!=undefined &&  dataItem.Etiqueta != "") {
+			if ($("#Junta").data("kendoComboBox").select() > 0 && $("#Junta").data("kendoComboBox").dataItem($("#Junta").data("kendoComboBox").select()).Etiqueta != "") {
                 if ($('input:radio[name=Muestra]:checked').val() != undefined) {
                     if ($('input:radio[name=TipoAgregado]:checked').val() == "Reporte") {
                         if ($("#Junta").data("kendoComboBox").select() != -1) {
@@ -383,10 +391,10 @@ function SuscribirEventosJunta() {
                         }
                     }
                     else if ($('input:radio[name=TipoAgregado]:checked').val() == "Listado") {
-                        if ($("#Junta").val() != "") {
-                            if ($("#Junta").data("kendoComboBox").select() != -1) {
+						if ($("#Junta").data("kendoComboBox").select() > 0 && $("#Junta").data("kendoComboBox").dataItem($("#Junta").data("kendoComboBox").select()).Etiqueta != "") {
+                            
                                 AjaxObtenerJSonGridArmado();
-                            }
+                            
                         }
                         else
                             displayNotify("JuntaSinSeleccionar", "", '2');
