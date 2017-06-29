@@ -8045,12 +8045,12 @@ _dictionary = {
         "en-US": "Delete package"
     },
     "botonEliminarEmbarque": {
-        "es-MX": "Eliminar embarque",
-        "en-US": "Delete shipment"
+        "es-MX": "Eliminar preparación",
+        "en-US": "Delete preparation"
     },
     "botonEliminarEmbarque1": {
-        "es-MX": "Eliminar embarque",
-        "en-US": "Delete shipment"
+        "es-MX": "Eliminar preparación",
+        "en-US": "Delete preparation"
     },
     "botonEliminarPaquetePopup": {
         "es-MX": "Eliminar",
@@ -11618,8 +11618,8 @@ _dictionary = {
         "en-US": "Create new plate"
     },
     "EmbarqueCargaNuevoProveedor": {
-        "es-MX": "Crear nuevo proveedor",
-        "en-US": "Create new provider"
+        "es-MX": "Crear nuevo",
+        "en-US": "Create new"
     },
     "EmarqueCargaMensajeEligePlana": {
         "es-MX": "Por favor seleccione una plana",

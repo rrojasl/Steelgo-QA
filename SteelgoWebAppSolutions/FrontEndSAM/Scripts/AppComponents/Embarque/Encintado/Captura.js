@@ -5,7 +5,7 @@ function IniciarEtiquetado() {
 }
 
 function changeLanguageCall() {
-    CargarGrid();    
+    CargarGrid();
     AjaxCargarCamposPredeterminados();
     document.title = _dictionary.EmbarqueEncintadoTituloPagina[$("#language").data("kendoDropDownList").value()];
     opcionHabilitarView(false, "FieldSetView");
@@ -125,7 +125,7 @@ function CargarGrid() {
                     dataSource: [{ OkPintura: true }, { OkPintura: false }]
                 }, template: "<input name='fullyPaid' class='chk-Lectura' type='checkbox' data-bind='checked: OkPintura' #= OkPintura ? checked='checked' : '' # disabled/>", width: "80px", attributes: { style: "text-align:center;" }
             },
-            { field: "NombreColor", title: _dictionary.columnColorCintaEmbarque[$("#language").data("kendoDropDownList").value()], editor: RenderComboBoxColorCinta, filterable: getGridFilterableCellMaftec(), width: "100px" },
+
 
              {
                  field: "Etiquetado", title: _dictionary.columnEtiquetadoEmbarque[$("#language").data("kendoDropDownList").value()], filterable: {
@@ -148,7 +148,8 @@ function CargarGrid() {
                     },
                     dataSource: [{ Encintado: true }, { Encintado: false }]
                 }, template: "<input name='fullyPaid' class='chk-Encintado' type='checkbox' data-bind='checked: Encintado' #= Encintado ? checked='checked' : '' #/>", width: "80px", attributes: { style: "text-align:center;" }
-            }
+            },
+        { field: "NombreColor", title: _dictionary.columnColorCintaEmbarque[$("#language").data("kendoDropDownList").value()], editor: RenderComboBoxColorCinta, filterable: getGridFilterableCellMaftec(), width: "100px" }
 
         ],
         beforeEdit: function (e) {
@@ -182,7 +183,7 @@ function CargarGrid() {
                 $(".k-grid-content td").css("white-space", "nowrap");
             }
         }
-    });    
+    });
 
     $("#grid").on("change", ":checkbox", function (e) {
         e.preventDefault();
@@ -222,7 +223,7 @@ function CargarGrid() {
                     $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Encintado = true;
             }
         }
-        
+
         $("#grid").data("kendoGrid").refresh();
     });
 
@@ -231,7 +232,7 @@ function CargarGrid() {
 
 function isEditable(fieldName, model) {
     if (fieldName === "NombreColor") {
-        if (!model.Encintado ) {
+        if (!model.Encintado) {
             return false;
         }
     }
@@ -244,19 +245,19 @@ function existenCambios() {
         for (var i = 0; i < ds.length; i++) {
             if (ds[i].ModificadoPorUsuario)
                 return true;
-        }     
+        }
     }
     return false;
 }
 
-function PlancharCuadrante(Cuadrante) {    
+function PlancharCuadrante(Cuadrante) {
     var dataSource = $("#grid").data("kendoGrid").dataSource;
     var filters = dataSource.filter();
     var allData = dataSource.data();
     var query = new kendo.data.Query(allData);
     var data = query.filter(filters).data;
 
-    
+
     for (var i = 0; i < data.length; i++) {
         if ($('input:radio[name=LLena]:checked').val() === "Todos") {
             data[i].CuadranteID = Cuadrante.CuadranteID;
@@ -349,7 +350,7 @@ function PlanchaColorCinta(ColorCinta) {
     var allData = dataSource.data();
     var query = new kendo.data.Query(allData);
     var data = query.filter(filters).data;
-    
+
     for (var i = 0; i < data.length; i++) {
         if ($('input:radio[name=LLena]:checked').val() === "Todos") {
             if (data[i].Encintado) {
