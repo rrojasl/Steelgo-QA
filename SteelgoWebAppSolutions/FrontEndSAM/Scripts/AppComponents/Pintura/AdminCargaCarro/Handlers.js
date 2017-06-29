@@ -284,7 +284,7 @@ function SuscribirEventoSpoolID() {
                 $("#InputID").data("kendoComboBox").enable(false);
                 AjaxObtenerSpoolID();
             } catch (e) {
-                displayNotify("Mensajes_error", e.message, '2');
+                displayNotify("Mensajes_error", e.message, '2');    
 
             }
         } else {
@@ -295,9 +295,11 @@ function SuscribirEventoSpoolID() {
 
 
     $("#InputOrdenTrabajo").focus(function (e) {
+        
         $("#InputOrdenTrabajo").val("");
+        $("#InputID").data("kendoComboBox").dataSource.data([]);
         $("#InputID").data("kendoComboBox").value("");
-
+        
     });
 
     $('#InputID').closest('.k-widget').keydown(function (e) {

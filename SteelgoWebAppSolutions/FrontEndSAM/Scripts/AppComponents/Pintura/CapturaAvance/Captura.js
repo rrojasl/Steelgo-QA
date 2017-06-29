@@ -307,6 +307,14 @@ function CambiarProcesoPintura() {
 		else
 			$('#divColor').hide();
 
+		if ($('input:radio[name=ProcesoPintura]:checked').val() != 4)
+		{
+		    $("#lbltrabajador").text(_dictionary.columnShotblastero[$("#language").data("kendoDropDownList").value()])
+		}
+		else {
+
+		    $("#lbltrabajador").text(_dictionary.columnPintor[$("#language").data("kendoDropDownList").value()])
+		}
 	}
 	else {
 		ventanaConfirmEdicionCambioProcesoPintura.open().center();

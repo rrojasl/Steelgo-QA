@@ -390,12 +390,12 @@ function AjaxGuardarAvanceCarro(arregloCaptura, guardarYNuevo) {
             ListaDetalles[index].Estatus = 0;
             $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
         }
-        if (ReductorDinamico.length > 0) {
-            if ((ListaDetalles[index].ReductorLote == "" || ListaDetalles[index].ReductorLote == undefined || ListaDetalles[index].ReductorLote == null) && (arregloCaptura[index].Accion == 1 || arregloCaptura[index].Accion == 2)) {
-                $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
-                ListaDetalles[index].Estatus = 0;
-            }
-        }
+        //if (ReductorDinamico.length > 0) {
+        //    if ((ListaDetalles[index].ReductorLote == "" || ListaDetalles[index].ReductorLote == undefined || ListaDetalles[index].ReductorLote == null) && (arregloCaptura[index].Accion == 1 || arregloCaptura[index].Accion == 2)) {
+        //        $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
+        //        ListaDetalles[index].Estatus = 0;
+        //    }
+        //}
 
         var ListaDetallesObrerosSeleccionados = [];
         for (var j = 0 ; j < arregloCaptura[index].ListaObrerosSeleccionados.length; j++) {

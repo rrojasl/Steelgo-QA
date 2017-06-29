@@ -58,5 +58,8 @@ namespace BackEndSAM.Models.Pintura.PruebasPorLote
         public string Fecha { get; set; }
     }
 
-    
+    public class Detalle
+    {
+
+    }
 }

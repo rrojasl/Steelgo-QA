@@ -141,7 +141,7 @@ namespace BackEndSAM.DataAcces.Pintura.RevisionPintura
                         SistemaPinturaID =int.Parse(row["SistemaPinturaID"].ToString()),
                         NoPintable =bool.Parse(row["NoPintable"].ToString()),
                         SistemaPinturaColorID= row["SistemaPinturaColorID"].ToString()=="" ? 0: int.Parse(row["SistemaPinturaColorID"].ToString()),
-                        ListadoSistemaPinturaPorProyecto = GetSistemaPinturaPorProyecto(ctx.Sam3_SPA_Get_SistemaPintura(int.Parse(row["ProyectoID"].ToString())).ToList()),
+                        ListadoSistemaPinturaPorProyecto = GetSistemaPinturaPorProyecto(ctx.Sam3_Pintura_Get_SP(int.Parse(row["ProyectoID"].ToString())).ToList()),
                         ListaColorPintura = (List<ColorPintura>)SistemaPinturaAplicableBD.Instance.ObtieneListadoColorPintura(int.Parse(row["SistemaPinturaID"].ToString()), lenguaje, int.Parse(row["ProyectoID"].ToString()))
                     });
                 }
@@ -151,20 +151,20 @@ namespace BackEndSAM.DataAcces.Pintura.RevisionPintura
           
         }
 
-        public List<Models.Pintura.SistemaPintura.SistemaPintura> GetSistemaPinturaPorProyecto(List<Sam3_SPA_Get_SistemaPintura_Result> listaSistemaPinturaProyecto)
+        public List<BackEndSAM.Models.Pintura.RevisionPintura.SistemaPintura> GetSistemaPinturaPorProyecto(List<Sam3_Pintura_Get_SP_Result> listaSistemaPinturaProyecto)
         {
-            List<Models.Pintura.SistemaPintura.SistemaPintura> listadoSistemaPintura = new List<Models.Pintura.SistemaPintura.SistemaPintura>();
+            List<BackEndSAM.Models.Pintura.RevisionPintura.SistemaPintura> listadoSistemaPintura = new List<BackEndSAM.Models.Pintura.RevisionPintura.SistemaPintura>();
 
             if(listaSistemaPinturaProyecto.Count>0)
-                listadoSistemaPintura.Add(new Models.Pintura.SistemaPintura.SistemaPintura());
+                listadoSistemaPintura.Add(new BackEndSAM.Models.Pintura.RevisionPintura.SistemaPintura());
 
-            foreach (Sam3_SPA_Get_SistemaPintura_Result item in listaSistemaPinturaProyecto)
+            foreach (Sam3_Pintura_Get_SP_Result item in listaSistemaPinturaProyecto)
             {
-                Models.Pintura.SistemaPintura.SistemaPintura sistemaPintura = new Models.Pintura.SistemaPintura.SistemaPintura
+                BackEndSAM.Models.Pintura.RevisionPintura.SistemaPintura sistemaPintura = new BackEndSAM.Models.Pintura.RevisionPintura.SistemaPintura
                 {
-                    NombreSistemaPintura = item.Nombre,
                     SistemaPinturaID = item.SistemaPinturaID,
-                    NoPintable=item.NoPintable
+                    Nombre = item.Nombre,
+                    SistemaPinturaProyectoID = item.SistemaPinturaProyectoID
                 };
                 listadoSistemaPintura.Add(sistemaPintura);
             }
@@ -247,7 +247,7 @@ namespace BackEndSAM.DataAcces.Pintura.RevisionPintura
                             NumeroControl = item.NumeroControl,
                             SistemaPinturaID = item.SistemaPinturaID,
                             SistemaPintura = item.SistemaPintura,
-                            ListadoSistemaPinturaPorProyecto = GetSistemaPinturaPorProyecto(ctx.Sam3_SPA_Get_SistemaPintura(proyectoID).ToList()),
+                            ListadoSistemaPinturaPorProyecto = GetSistemaPinturaPorProyecto(ctx.Sam3_Pintura_Get_SP(proyectoID).ToList()),
                             Color = item.Color,
                             Area = item.Area,
                             GenerarRevision = false,
@@ -307,7 +307,7 @@ namespace BackEndSAM.DataAcces.Pintura.RevisionPintura
             List<object> listaCatalogos = new List<object>();
             using (SamContext ctx = new SamContext())
             {
-                listaCatalogos.Add(GetSistemaPinturaPorProyecto(ctx.Sam3_SPA_Get_SistemaPintura(proyectoID).ToList()));
+                listaCatalogos.Add(GetSistemaPinturaPorProyecto(ctx.Sam3_Pintura_Get_SP(proyectoID).ToList()));
                 listaCatalogos.Add(GetRechazos(lenguaje));
                 return listaCatalogos;
             }

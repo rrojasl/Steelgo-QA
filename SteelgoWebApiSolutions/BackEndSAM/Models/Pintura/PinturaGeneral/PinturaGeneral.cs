@@ -64,7 +64,7 @@ namespace BackEndSAM.Models.Pintura.PinturaGeneral
         public string NumeroControl { get; set; }
         public int? SistemaPinturaID { get; set; }
         public string SistemaPintura { get; set; }
-        public  List<SistemaPintura.SistemaPintura> ListadoSistemaPinturaPorProyecto { get; set; }
+        public  List<BackEndSAM.Models.Pintura.RevisionPintura.SistemaPintura> ListadoSistemaPinturaPorProyecto { get; set; }
         public int? SistemaPinturaColorID { get; set; }
         public List<ColorPintura> ListaColorPintura { get; set; }
         public string Color { get; set; }

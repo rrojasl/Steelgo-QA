@@ -61,18 +61,24 @@ function AjaxGuardar(arregloCaptura, tipoGuardar) {
 
 }
 
-function AjaxValidarComponenteAsignado(ComponenteID, Lote,Cantidad,Accion,dataitem) {
-    $AdminComponentes.AdminComponentes.read({ token: Cookies.get("token"), ComponenteID: ComponenteID, Lote: Lote,Cantidad:Cantidad }).done(function (data) {
-        if (data.ReturnMessage.length > 0 && data.ReturnMessage[1] == "No") {
-            var dataSource = $("#grid").data("kendoGrid").dataSource;
-            if (Accion == 0 || Accion == undefined)
-                dataSource.remove(dataItem);
-            else
-                dataitem.Accion = 3;
-            dataSource.sync();
-        }
-        else  {
-            displayNotify("AdminComponenteComponenteAsignado", "", '2');
-        }
-    });
+function AjaxValidarComponenteAsignado(ComponenteID, Lote, Cantidad, Accion, dataitem) {
+    if (Accion != 0) {
+        $AdminComponentes.AdminComponentes.read({ token: Cookies.get("token"), ComponenteID: ComponenteID, Lote: Lote, Cantidad: Cantidad }).done(function (data) {
+            if (data.ReturnMessage.length > 0 && data.ReturnMessage[1] == "No") {
+                var dataSource = $("#grid").data("kendoGrid").dataSource;
+                if (Accion == 0 || Accion == undefined)
+                    dataSource.remove(dataitem);
+                else
+                    dataitem.Accion = 3;
+                dataSource.sync();
+            }
+            else {
+                displayNotify("AdminComponenteComponenteAsignado", "", '2');
+            }
+        });
+    }
+    else {
+        var dataSource = $("#grid").data("kendoGrid").dataSource;
+        dataSource.remove(dataitem);
+    }
 }

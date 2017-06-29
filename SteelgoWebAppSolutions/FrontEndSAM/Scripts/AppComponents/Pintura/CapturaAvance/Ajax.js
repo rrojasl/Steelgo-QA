@@ -245,7 +245,7 @@ function AjaxCargarLayoutGrid(sistemaPinturaProyectoId, procesoID, CargaCarroID)
             options.columns.push({ field: "Area", title: _dictionary.columnM2[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), attributes: { style: "text-align:right;" }, width: "80px" });
             options.columns.push({ field: "LoteID", title: _dictionary.columnLote[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), attributes: { style: "text-align:right;" }, width: "80px" });
             options.columns.push({ field: "FechaProceso", title: _dictionary.columnFechaShotblast[$("#language").data("kendoDropDownList").value()], type: "date", filterable: { cell: { showOperators: false } }, editor: RenderDatePicker, format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()], width: "160px" });
-            options.columns.push({ field: "ListaObrerosSeleccionados", title: _dictionary.columnShotblastero[$("#language").data("kendoDropDownList").value()], filterable: false, editor: RendercomboBoxShotBlastero, template: "#:plantillaObrero#", width: "280px" });
+            options.columns.push({ field: "ListaObrerosSeleccionados", title: $('input:radio[name=ProcesoPintura]:checked').val() != "4" ? _dictionary.columnShotblastero[$("#language").data("kendoDropDownList").value()] : _dictionary.columnPintor[$("#language").data("kendoDropDownList").value()], filterable: false, editor: RendercomboBoxShotBlastero, template: "#:plantillaObrero#", width: "280px" });
 
             for (var i = 0; i < data[0].length; i++) {
                 options.columns.push({ field: data[0][i].NombreComponente, title: data[0][i].NombreComponente, filterable: getGridFilterableCellMaftec(), editor: renderComboboxComponenteDinamico, width: "140px" });
@@ -387,12 +387,12 @@ function AjaxGuardarAvanceCarro(arregloCaptura, guardarYNuevo) {
             ListaDetalles[index].Estatus = 0;
             $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
         }
-        if (ReductorDinamico.length > 0) {
-            if ((ListaDetalles[index].ReductorLote == "" || ListaDetalles[index].ReductorLote == undefined || ListaDetalles[index].ReductorLote == null) && (arregloCaptura[index].Accion == 1 || arregloCaptura[index].Accion == 2)) {
-                $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
-                ListaDetalles[index].Estatus = 0;
-            }
-        }
+        //if (ReductorDinamico.length > 0) {
+        //    if ((ListaDetalles[index].ReductorLote == "" || ListaDetalles[index].ReductorLote == undefined || ListaDetalles[index].ReductorLote == null) && (arregloCaptura[index].Accion == 1 || arregloCaptura[index].Accion == 2)) {
+        //        $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
+        //        ListaDetalles[index].Estatus = 0;
+        //    }
+        //}
 
         var ListaDetallesObrerosSeleccionados = [];
         for (var j = 0 ; j < arregloCaptura[index].ListaObrerosSeleccionados.length; j++) {

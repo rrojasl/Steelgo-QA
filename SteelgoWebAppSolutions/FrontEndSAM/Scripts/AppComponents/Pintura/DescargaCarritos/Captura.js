@@ -181,7 +181,7 @@ function PlanchaCuadrante() {
                 }
 
                 else {
-                    if (data[i].NombreCuadrante == "") {
+                    if (data[i].NombreCuadrante == "" || data[i].NombreCuadrante == null || data[i].NombreCuadrante == undefined) {
                         data[i].CuadranteID = cuadranteSeleccionado.CuadranteID;
                         data[i].NombreCuadrante = cuadranteSeleccionado.Nombre;
                         data[i].Modificado = true;

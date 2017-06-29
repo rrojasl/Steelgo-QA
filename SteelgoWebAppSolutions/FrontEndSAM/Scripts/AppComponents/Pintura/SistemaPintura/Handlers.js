@@ -274,11 +274,12 @@ function GuardarDetallePruebas() {
                 displayNotify("SistemaPinturaMensajeCamposMandatorios", "", "1");
                 return;
             }
-            else if (parseInt(ds._data[i].UnidadMinima) > parseInt(ds._data[i].UnidadMaxima)) {
+            else if (parseInt(ds._data[i].UnidadMinima) >= parseInt(ds._data[i].UnidadMaxima)) {
                 displayNotify("SistemaPinturaMensajeUnidadMedidaError", "", "1");
                 return;
             }
 
+            
             ds._data[i].SistemaPinturaProyectoProcesoID = ds._data[i].SistemaPinturaProyectoProcesoID == undefined ? 0 : ds._data[i].SistemaPinturaProyectoProcesoID;
             ds._data[i].ProyectoProcesoPruebaID = ds._data[i].ProyectoProcesoPruebaID == undefined ? 0 : ds._data[i].ProyectoProcesoPruebaID;
             ds._data[i].Accion = ds._data[i].ProyectoProcesoPruebaID == 0 ? 1 : 2;

@@ -253,29 +253,29 @@ namespace BackEndSAM.DataAcces.Pintura.PruebasPorLote
         {
             try
             {
-                using (SamContext ctx = new SamContext())
-                {
-                    //List<Sam3_Pintura_PruebasLote_Get_Lotes_Result> lista = ctx.Sam3_Pintura_PruebasLote_Get_Detalle(procesoPinturaID, sistemaPinturaProyectoID, pruebaID, loteID, lenguaje).ToList();
-                    //List<Detalle> listaLotes = new List<Detalle>();
+                //using (SamContext ctx = new SamContext())
+                //{
+                //    List<Sam3_Pintura_PruebasLote_Get_Lotes_Result> lista = ctx.Sam3_Pintura_PruebasLote_Get_Detalle(procesoPinturaID, sistemaPinturaProyectoID, pruebaID, loteID, lenguaje).ToList();
+                //    List<Detalle> listaLotes = new List<Detalle>();
 
-                    //if (lista.Count > 0)
-                    //    listaLotes.Add(new Lotes());
+                //    if (lista.Count > 0)
+                //        listaLotes.Add(new Lotes());
 
-                    //foreach (Sam3_Pintura_PruebasLote_Get_Lotes_Result item in lista)
-                    //{
-                    //    Lotes objeto = new Lotes
-                    //    {
-                    //        LoteID = item.LoteID,
-                    //        Nombre = item.Nombre
-                    //    };
-                    //    listaLotes.Add(objeto);
-                    //}
+                //    foreach (Sam3_Pintura_PruebasLote_Get_Lotes_Result item in lista)
+                //    {
+                //        Lotes objeto = new Lotes
+                //        {
+                //            LoteID = item.LoteID,
+                //            Nombre = item.Nombre
+                //        };
+                //        listaLotes.Add(objeto);
+                //    }
 
-                    return null;
+                   return null;
 
-                }
+                //}
 
-                return null;
+                //return null;
             }
             catch (Exception ex)
             {

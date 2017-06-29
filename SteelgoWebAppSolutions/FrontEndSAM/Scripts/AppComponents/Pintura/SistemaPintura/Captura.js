@@ -368,12 +368,13 @@ function cancelarCaptura(e) {
 		var filterValue = $(e.currentTarget).val();
 		var dataItem = $("#gridPopUp").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
 		var dataSource = $("#gridPopUp").data("kendoGrid").dataSource;
-		if (dataItem.Accion == 2) {
-			dataItem.Accion = 3;
-		}
-		else {
-			dataSource.remove(dataItem);
-		}
+		//if (dataItem.Accion == 2) {
+		//	dataItem.Accion = 3;
+		//}
+		//else {
+		//	dataSource.remove(dataItem);
+	    //}
+		dataSource.remove(dataItem);
 		$("#gridPopUp").data("kendoGrid").dataSource.sync();
 	}
    

@@ -8262,8 +8262,8 @@ _dictionary = {
         "en-US": "Car Advance"
     },
     "menuCapturaAvanceIntAcabado": {
-        "es-MX": "Avance cuadrante",
-        "en-US": "Quadrant advance"
+        "es-MX": "Avance de Cuadrante",
+        "en-US": "Quadrant of Advance"
     },
     "menuDescargaCarritos": {
         "es-MX": "Descarga de Carro",
@@ -8337,6 +8337,10 @@ _dictionary = {
     "menuSistemaPinturaNoPintable": {
         "es-MX": "El spool tiene un sistema de pintura como no pintable",
         "en-US": "The spool has an Paint system as unpaintable"
+    },
+    "Unidadminimadebesermenoralaunidadmaxima": {
+        "es-MX": "La unidad minima tiene que ser menor a la unidad maxima",
+        "en-US": "The minimum unit must be less than the maximum unit"
     },
 
 
@@ -8662,9 +8666,10 @@ _dictionary = {
         "en-US": "Primary D."
     },
     "columnShotblastero": {
-        "es-MX": "Trabajador",
-        "en-US": "Employee"
+        "es-MX": "Shotblastero",
+        "en-US": "Shotblastero"
     },
+   
     "columnPintor": {
         "es-MX": "Pintor",
         "en-US": "Painter"
@@ -8837,18 +8842,6 @@ _dictionary = {
         "es-MX": "PWHT",
         "en-US": "PWHT"
     },
-    "columnCVN": {
-        "es-MX": "CVN",
-        "en-US": "CVN"
-    },
-    "columnFN": {
-        "es-MX": "FN",
-        "en-US": "FN"
-    },
-    "columnMacroTest": {
-        "es-MX": "M test",
-        "en-US": "M test"
-    },
     "columnRelleno": {
         "es-MX": "RLL",
         "en-US": "Fll"
@@ -8870,8 +8863,8 @@ _dictionary = {
         "en-US": "filler"
     },
     "columnMezcla": {
-        "es-MX": "Mezcla(gas)",
-        "en-US": "Mix(gas)"
+        "es-MX": "Mezcla",
+        "en-US": "Mix"
     },
     "columnRespaldo": {
         "es-MX": "Respaldo",
@@ -9193,7 +9186,7 @@ _dictionary = {
         "en-US": "No root welders"
     },
     "CapturaArmadoTemplateNoHaySoldadoresRelleno": {
-        "es-MX": "No hay soldadores de relleno",
+        "es-MX": "No hay soldadores de reelleno",
         "en-US": "No fill welders"
     },
     "CapturaArmadoMsgExiste": {
@@ -10808,12 +10801,12 @@ _dictionary = {
         "en-US": "Finish"
     },
     "CapturaAvanceIntermedioSup": {
-        "es-MX": "Avance Intermedio Acabado",
-        "en-US": "Progress Intermediate Finishes"
+        "es-MX": "Pruebas Por Lote",
+        "en-US": "Batch testing"
     },
     "CapturaAvanceIntermedioInf": {
-        "es-MX": "Avance Intermedio Acabado",
-        "en-US": "Progress Intermediate Finishes"
+        "es-MX": "Pruebas Por Lote",
+        "en-US": "Batch testing"
     },
     "lblFechaShotblast": {
         "es-MX": "Fecha Proceso",
@@ -11096,8 +11089,8 @@ _dictionary = {
         "en-US": "The maximum unit must be greater than or equal to the minimum"
     },
     "SistemaPinturaMensajeUnidadMedidaError": {
-        "es-MX": "La unidad maxima  debe ser mayor o igual a la minima",
-        "en-US": "The maximum unit must be greater than or equal to the minimum"
+        "es-MX": "La unidad maxima  debe ser mayor a la minima",
+        "en-US": "The maximum unit must be greater than to the minimum"
     },
     "SistemaPinturaMensajeErrorNombre": {
         "es-MX": "El campo nombre no puede ir vacio",
@@ -11618,8 +11611,8 @@ _dictionary = {
         "en-US": "Create new plate"
     },
     "EmbarqueCargaNuevoProveedor": {
-        "es-MX": "Crear nuevo",
-        "en-US": "Create new"
+        "es-MX": "Crear nuevo proveedor",
+        "en-US": "Create new provider"
     },
     "EmarqueCargaMensajeEligePlana": {
         "es-MX": "Por favor seleccione una plana",

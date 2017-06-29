@@ -312,21 +312,7 @@ function SuscribirEventoSpoolID() {
         filter: "contains",
         index: 3,
         delay: 10
-        //,
-        //change: function (e) {
-        //    dataItem = this.dataItem(e.sender.selectedIndex);
-        //    if (!editado) {
-        //        if (dataItem != undefined) {
-
-        //        }
-        //        else {
-        //            $("#InputID").data("kendoComboBox").value("");
-        //        }
-        //    }
-        //    else {
-        //        ventanaConfirmEdicionCaptura.open().center();
-        //    }
-        //}
+        
     });
 
     $('#InputID').closest('.k-widget').keydown(function (e) {
@@ -348,6 +334,21 @@ function SuscribirEventoSpoolID() {
         }
     });
 
+    $('#InputID').blur(function (e) {
+        var spoollIDValue = $("#InputID").val().trim();
+        var listaSpoolID = $("#InputID").data("kendoComboBox").dataSource._data;
+        var valorEncontrado = false;
+        if (listaSpoolID.length > 0) {
+            for (var i = 0; i < listaSpoolID.length; i++) {
+                if (TryParseInt(spoollIDValue, 0) != 0 && (TryParseInt(spoollIDValue, 0) == TryParseInt(listaSpoolID[i].IDValido, 0))) {
+                    valorEncontrado = true;
+                    $("#InputID").data("kendoComboBox").select(0);
+                    $("#InputID").data("kendoComboBox").value(listaSpoolID[i].Valor);
+                    break;
+                }
+            }
+        }
+    });
 }
 
 function SuscribirEventoMostrar() {

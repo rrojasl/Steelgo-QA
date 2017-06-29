@@ -324,8 +324,8 @@ function AjaxObtenerCatalogosPlanchado()
     });
 }
 
-function AjaxCargarColorPinturaPlanchado(sistemaPinturaID) {
-    $SistemaPinturaAplicable.SistemaPinturaAplicable.read({ token: Cookies.get("token"), SistemaPinturaID: sistemaPinturaID, Lenguaje: $("#language").val() }).done(function (data) {
+function AjaxCargarColorPinturaPlanchado(sistemaPinturaProyectoID) {
+    $AvanceCuadrante.AvanceCuadrante.read({ token: Cookies.get("token"), sistemaPinturaProyectoID: sistemaPinturaProyectoID, lenguaje: $("#language").val() }).done(function (data) {
         if (data.length > 0) {
             $("#inputPlanchadoColor").data("kendoComboBox").value("");
             $("#inputPlanchadoColor").data("kendoComboBox").dataSource.data([]);
@@ -333,6 +333,8 @@ function AjaxCargarColorPinturaPlanchado(sistemaPinturaID) {
             $("#grid").data("kendoGrid").refresh();
         }
     });
+
+   
 }
 
 function AjaxCargarZona(patioID, dataItem) {
