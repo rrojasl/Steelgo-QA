@@ -124,8 +124,13 @@ function CargarGrid() {
                             _dictionary.botonDescarga[$("#language").data("kendoDropDownList").value()] + '</a>';
 
                     } else {
-                        editButton[0].outerHTML = '<a class="k-button k-button-icontext k-grid-Cancelar" href="#/"><span class=""></span>' +
-                            _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()] + '</a>';
+                        if (gridData[i].PaqueteID == 0) {
+                            editButton[0].outerHTML = '<a class="k-button k-button-icontext k-grid-Cancelar" href="#/"><span class=""></span>' +
+                                _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()] + '</a>';
+                        }
+                        else {
+                            editButton[0].outerHTML = '<a href="#/"><span class=""></span></a>';
+                        }
                     }
                 }
             }
