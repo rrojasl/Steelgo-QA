@@ -21,7 +21,7 @@
                     options.model.DestinoID = 0;
                     options.model.ModificadoPorUsuario = true;                    
                 }
-                options.model.DestinoID != "" ? options.model.Enviar = true : options.model.Enviar = false;
+                SetValueEnviar(options.model) ? options.model.Enviar = true : options.model.Enviar = false;                
                 $("#grid").data("kendoGrid").dataSource.sync();
             }
         });
@@ -31,14 +31,14 @@ function SetValueEnviar(obj) {
     var retorno = false;
     if (obj != undefined) {
         if (!obj.RequierePapCliente && (obj.Destino != "" && obj.Destino != null && obj.Destino != undefined) && !obj.RequierePermisoAduana && obj.RequiereRevisionCliente && !obj.OkClienteEmbarque && !obj.OkCliente && obj.OkEmbarque) { //crossover
-            retorno = true;
-        } else if (!obj.RequierePapCliente && (obj.Destino != "" && obj.Destino != null && obj.Destino != undefined) && (obj.FolioSolicitudPermiso != "" && obj.FolioSolicitudPermiso != null) && (obj.FechaSolicitudPermiso != "" && obj.FechaSolicitudPermiso != null) && (obj.AprobadoAduanaDesc == "Aprobado") && obj.RequierePermisoAduana && obj.RequiereRevisionCliente && !obj.OkClienteEmbarque && !obj.OkCliente && obj.OkEmbarque) { //pesqueria
-            retorno = true;
-        } else if (obj.RequierePapCliente && (obj.Destino != "" && obj.Destino != null && obj.Destino != undefined) && !obj.RequierePermisoAduana && obj.RequiereRevisionCliente && obj.OkClienteEmbarque && obj.OkCliente && obj.OkEmbarque) {
-            retorno = true;
+            retorno = true; 
+        } else if (!obj.RequierePapCliente && (obj.Destino != "" && obj.Destino != null && obj.Destino != undefined) && (obj.FolioSolicitudPermiso != "" && obj.FolioSolicitudPermiso != null && noHayFolio) && (obj.FechaSolicitudPermiso != "" && obj.FechaSolicitudPermiso != null) && (obj.AprobadoAduanaDesc == "Aprobado") && obj.RequierePermisoAduana && obj.RequiereRevisionCliente && !obj.OkClienteEmbarque && !obj.OkCliente && obj.OkEmbarque) { //pesqueria
+            retorno = true;            
+        } else if (obj.RequierePapCliente && (obj.Destino != "" && obj.Destino != null && obj.Destino != undefined) && !obj.RequierePermisoAduana && obj.RequiereRevisionCliente && obj.OkClienteEmbarque && obj.OkCliente && obj.OkEmbarque) { //ramones            
+            retorno = true;            
         } else if (obj.RequierePapCliente && obj.DestinoID != 0 && (obj.FolioSolicitudPermiso != "" && obj.FolioSolicitudPermiso != null) && (obj.FechaSolicitudPermiso != "" && obj.FechaSolicitudPermiso != null) && (obj.AprobadoAduanaDesc == "Aprobado") && obj.RequierePermisoAduana && !obj.RequiereRevisionCliente && obj.OkClienteEmbarque && obj.OkCliente && obj.OkEmbarque) { //salamanca y etileno
             retorno = true;
-        }
+        }        
     }
     return retorno;
 }
@@ -89,6 +89,14 @@ function RenderDatePicker(container, options) {
                     options.model.FechaSolicitudPermiso = value;
                 else
                     options.model.FechaSolicitudPermiso = "";
+
+                if (SetValueEnviar(options.model)) {
+                    options.model.Enviar = true;
+                    $("#grid").data("kendoGrid").dataSource.sync();
+                } else {
+                    options.model.Enviar = false;
+                    $("#grid").data("kendoGrid").dataSource.sync();
+                }
             }
         }
     );
