@@ -8339,7 +8339,7 @@ _dictionary = {
         "en-US": "The spool has an Paint system as unpaintable"
     },
     "Unidadminimadebesermenoralaunidadmaxima": {
-        "es-MX": "La unidad minima tiene que ser menor a la unidad maxima",
+        "es-MX": "La unidad mínima tiene que ser menor a la unidad máxima",
         "en-US": "The minimum unit must be less than the maximum unit"
     },
 
@@ -11085,11 +11085,11 @@ _dictionary = {
         "en-US": "All fields has mandatory"
     },
     "SistemaPinturaMensajeUnidadMedidaError": {
-        "es-MX": "La unidad maxima  debe ser mayor o igual a la minima",
+        "es-MX": "La unidad máxima  debe ser mayor o igual a la minima",
         "en-US": "The maximum unit must be greater than or equal to the minimum"
     },
     "SistemaPinturaMensajeUnidadMedidaError": {
-        "es-MX": "La unidad maxima  debe ser mayor a la minima",
+        "es-MX": "La unidad máxima  debe ser mayor a la minima",
         "en-US": "The maximum unit must be greater than to the minimum"
     },
     "SistemaPinturaMensajeErrorNombre": {
