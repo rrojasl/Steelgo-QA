@@ -50,6 +50,17 @@ var $NuevoPQRModel = {
             visible: "#PQRCodigoDiv",
             editable: "#CodigoID",
             required: "#CodigoID",
-        }
+        },
+        //TipoPrueba: {
+        //    visible: "#TipoPruebaDiV",
+        //    editable: "#TipoPrueba",
+        //    required: "#TipoPrueba",
+        //},
+        //TipoJunta: {
+        //    visible: "#TipoJuntaDiV",
+        //    editable: "#TipoJunta",
+        //    required: "#TipoJunta",
+        //}
+
     }
 };

@@ -38,7 +38,12 @@ function AjaxGuardarListado() {
             Accion: "",
             Nombre: "",
             PWHT: "",
+            CVN: "",
+            FN: "",
+            MacroTest: "",
             PREHEAT: "",
+            TipoPruebaID: "",
+            TipoJuntaID: "",
             EspesorRelleno: "",
             EspesorRaiz: "",
             ProcesoSoldaduraRellenoID: "",
@@ -47,9 +52,11 @@ function AjaxGuardarListado() {
             GrupoMaterialesBase1: "",
             GrupoMaterialesBase2: "",
             Aporte: "",
+            AporteRelleno: "",
             Mezcla: "",
             Respaldo: "",
             GrupoF: "",
+            GrupoFRelleno: "",
             Especificacion: "",
             Estatus: 1
         };
@@ -57,7 +64,9 @@ function AjaxGuardarListado() {
         $("#grid").data("kendoGrid").dataSource._data[index].RowOk = true;
 
         if (((arregloCaptura[index].Nombre == "" || arregloCaptura[index].Nombre == undefined || arregloCaptura[index].Nombre == null) ||
-            (arregloCaptura[index].EspesorRaiz == null || arregloCaptura[index].EspesorRelleno == null) ||
+            
+            (arregloCaptura[index].TipoJunta == "" || arregloCaptura[index].TipoJunta == "") ||
+            (arregloCaptura[index].TipoPrueba == null || arregloCaptura[index].EspesorRelleno == null) ||
             (arregloCaptura[index].ProcesoSoldaduraRaizID == 0 || arregloCaptura[index].ProcesoSoldaduraRaizID == undefined || arregloCaptura[index].ProcesoSoldaduraRaizID == "" || arregloCaptura[index].ProcesoSoldaduraRaizID == null) ||
             (arregloCaptura[index].ProcesoSoldaduraRellenoID == 0 || arregloCaptura[index].ProcesoSoldaduraRellenoID == undefined || arregloCaptura[index].ProcesoSoldaduraRellenoID == "" || arregloCaptura[index].ProcesoSoldaduraRellenoID == null) ||
             (arregloCaptura[index].ProcesoSoldaduraRaizID == 6 && arregloCaptura[index].ProcesoSoldaduraRellenoID == 6) ||
@@ -104,6 +113,11 @@ function AjaxGuardarListado() {
         ListaDetalles[index].Nombre = arregloCaptura[index].Nombre.toLowerCase();
         ListaDetalles[index].PWHT = arregloCaptura[index].PWHT ? 1 : 0;
         ListaDetalles[index].PREHEAT = arregloCaptura[index].PREHEAT ? 1 : 0;
+        ListaDetalles[index].CVN = arregloCaptura[index].CVN ? 1 : 0;
+        ListaDetalles[index].FN = arregloCaptura[index].FN ? 1 : 0;
+        ListaDetalles[index].MacroTest = arregloCaptura[index].MacroTest ? 1 : 0;
+        ListaDetalles[index].TipoPruebaID = arregloCaptura[index].TipoPruebaID;
+        ListaDetalles[index].TipoJuntaID = arregloCaptura[index].TipoJuntaID;
         ListaDetalles[index].EspesorRelleno = arregloCaptura[index].EspesorRelleno;
         ListaDetalles[index].EspesorRaiz = arregloCaptura[index].EspesorRaiz;
         ListaDetalles[index].ProcesoSoldaduraRellenoID = arregloCaptura[index].ProcesoSoldaduraRellenoID;
@@ -112,11 +126,14 @@ function AjaxGuardarListado() {
         ListaDetalles[index].GrupoPMaterialBase1 = arregloCaptura[index].GrupoPMaterialBase1;
         ListaDetalles[index].GrupoPMaterialBase2 = arregloCaptura[index].GrupoPMaterialBase2;
         ListaDetalles[index].Aporte = arregloCaptura[index].Aporte;
+        ListaDetalles[index].AporteRelleno = arregloCaptura[index].AporteRelleno;
         ListaDetalles[index].Mezcla = arregloCaptura[index].Mezcla;
         ListaDetalles[index].Respaldo = arregloCaptura[index].Respaldo;
         ListaDetalles[index].GrupoF = arregloCaptura[index].GrupoF;
+        ListaDetalles[index].GrupoFRelleno = arregloCaptura[index].GrupoFRelleno;
         ListaDetalles[index].Codigo = arregloCaptura[index].CodigoASMEID;
         ListaDetalles[index].Accion = arregloCaptura[index].Accion;
+        
     }
     Captura[0].Detalles = ListaDetalles;
 

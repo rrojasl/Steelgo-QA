@@ -7421,6 +7421,18 @@ _dictionary = {
         "es-MX": "PWHT",
         "en-US": "PWHT"
     },
+    "lblCVN": {
+        "es-MX": "CVN",
+        "en-US": "CVN"
+    },
+    "lblFN": {
+        "es-MX": "FN",
+        "en-US": "FN"
+    },
+    "lblMacroTest": {
+        "es-MX": "MacroTest",
+        "en-US": "MacroTest"
+    },
     "lblPREHEAT1": {
         "es-MX": "PREHEAT",
         "en-US": "PREHEAT"
@@ -7482,8 +7494,12 @@ _dictionary = {
         "en-US": "Base 2"
     },
     "lblAporte": {
-        "es-MX": "Aporte",
-        "en-US": "filler"
+        "es-MX": "Aporte Raiz",
+        "en-US": "Root filler"
+    },
+    "lblAporteRelleno": {
+        "es-MX": "Aporte Relleno",
+        "en-US": "Fill filler "
     },
     "lblMezcla": {
         "es-MX": "Mezcla(gas)",
@@ -7494,8 +7510,12 @@ _dictionary = {
         "en-US": "Back"
     },
     "lblGrupoF": {
-        "es-MX": "Grupo F",
-        "en-US": "F group"
+        "es-MX": "Grupo F Raiz",
+        "en-US": "Root F group"
+    },
+    "lblGrupoFRelleno": {
+        "es-MX": "Grupo F Relleno",
+        "en-US": "Fill F group"
     },
     "lblEspesorMinimo": {
         "es-MX": "Espesor Aplicado(mm)",
@@ -9173,7 +9193,7 @@ _dictionary = {
         "en-US": "No root welders"
     },
     "CapturaArmadoTemplateNoHaySoldadoresRelleno": {
-        "es-MX": "No hay soldadores de reelleno",
+        "es-MX": "No hay soldadores de relleno",
         "en-US": "No fill welders"
     },
     "CapturaArmadoMsgExiste": {
@@ -9944,6 +9964,14 @@ _dictionary = {
     "lblPQRCodigoMandatorio": {
         "es-MX": "El campo CÓDIGO es mandatorio",
         "en-US": "The field CODE is mandatory"
+    },
+    "lblPQRTipoJuntaMandatorio": {
+        "es-MX": "El campo TIPO JUNTA es mandatorio",
+        "en-US": "The field JOINT TYPE is mandatory"
+    },
+    "lblPQRTipoPruebaMandatorio": {
+        "es-MX": "El campo TIPO PRUEBA es mandatorio",
+        "en-US": "The field TEST TYPE is mandatory"
     },
     "lblPQRNoRepetidos": {
         "es-MX": "El nombre del PQR no se puede repetir",

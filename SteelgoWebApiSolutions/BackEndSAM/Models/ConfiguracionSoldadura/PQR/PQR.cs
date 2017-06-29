@@ -115,6 +115,11 @@ namespace BackEndSAM.Models.ConfiguracionSoldadura.PQR
         public string Nombre { get; set; }
         public int PREHEAT { get; set; }
         public int PWHT { get; set; }
+        public int CVN { get; set; }
+        public int FN { get; set; }
+        public int MacroTest { get; set; }
+        public int TipoPruebaID { get; set; }
+        public int TipoJuntaID { get; set; }
         public double EspesorRelleno { get; set; }
         public double EspesorRaiz { get; set; }
         public int ProcesoSoldaduraRellenoID { get; set; }
@@ -123,9 +128,11 @@ namespace BackEndSAM.Models.ConfiguracionSoldadura.PQR
         public int GrupoPMaterialBase1 { get; set; }
         public int GrupoPMaterialBase2 { get; set; }
         public string Aporte { get; set; }
+        public string AporteRelleno { get; set; }
         public string Mezcla { get; set; }
         public string Respaldo { get; set; }
         public string GrupoF { get; set; }
+        public string GrupoFRelleno { get; set; }
         public int Codigo { get; set; }
 
     }

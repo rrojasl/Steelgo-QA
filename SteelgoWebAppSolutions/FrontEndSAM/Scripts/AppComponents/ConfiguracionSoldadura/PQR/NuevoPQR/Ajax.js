@@ -12,6 +12,8 @@ function ObtenerListasPQR() {
                 $("#GrupoPMaterialBase1ID").data("kendoComboBox").dataSource.data(data[0].ListaMaterialesBase);
                 $("#GrupoPMaterialBase2ID").data("kendoComboBox").dataSource.data(data[0].ListaMaterialesBase);
                 $("#CodigoID").data("kendoComboBox").dataSource.data(data[0].ListaCodigos);
+                $("#TipoJunta").data("kendoComboBox").dataSource.data(data[0].listaTipoJunta);
+                $("#TipoPrueba").data("kendoComboBox").dataSource.data(data[0].listaTipoPrueba);
             }
         }
     });
@@ -80,6 +82,16 @@ function AjaxGuardar(tipoGuardar) {
         correcto = false;
         displayNotify("lblPQRCodigoMandatorio", "", '1');
     }
+    else if ($('#TipoJunta').data("kendoComboBox").dataItem($("#TipoJunta").data("kendoComboBox").select()) == undefined
+      || $('#TipoJunta').data("kendoComboBox").dataItem($("#TipoJunta").data("kendoComboBox").select()).CodigoAsmeID == 0) {
+        correcto = false;
+        displayNotify("lblPQRTipoJuntaMandatorio", "", '1');
+    }
+    else if ($('#TipoPrueba').data("kendoComboBox").dataItem($("#TipoPrueba").data("kendoComboBox").select()) == undefined
+      || $('#TipoPrueba').data("kendoComboBox").dataItem($("#TipoPrueba").data("kendoComboBox").select()).CodigoAsmeID == 0) {
+        correcto = false;
+        displayNotify("lblPQRTipoPruebaMandatorio", "", '1');
+    }
     else if ($('#ProcesoSoldaduraRellenoID').data("kendoComboBox").dataItem($("#ProcesoSoldaduraRellenoID").data("kendoComboBox").select()).Codigo == "N/A"
       && $('#ProcesoSoldaduraRaizID').data("kendoComboBox").dataItem($("#ProcesoSoldaduraRaizID").data("kendoComboBox").select()).Codigo == "N/A") {
         correcto = false;
@@ -100,8 +112,13 @@ function AjaxGuardar(tipoGuardar) {
     ListaDetalles[0].PQRID = $("#PQRID").val() == "0" ? 0 : $("#PQRID").val();
     ListaDetalles[0].Accion = $("#PQRID").val() == "0" ? 1 : 2;
     ListaDetalles[0].Nombre = $('#NombreId').val();
-    ListaDetalles[0].PREHEAT = $('#chkPreheat').is(':checked') ? 1 : 0;;
+    ListaDetalles[0].PREHEAT = $('#chkPreheat').is(':checked') ? 1 : 0;
     ListaDetalles[0].PWHT = $('#chkPwht').is(':checked') ? 1 : 0;
+    ListaDetalles[0].CVN = $('#chkCVN').is(':checked') ? 1 : 0;
+    ListaDetalles[0].FN = $('#chkFN').is(':checked') ? 1 : 0;
+    ListaDetalles[0].MacroTest = $('#chkMacroTest').is(':checked') ? 1 : 0;
+    ListaDetalles[0].TipoPruebaID = $("#TipoPrueba").data("kendoComboBox").value();
+    ListaDetalles[0].TipoJuntaID = $("#TipoJunta").data("kendoComboBox").value();
     ListaDetalles[0].EspesorRelleno = $("#EspesorRelleno").val();
     ListaDetalles[0].EspesorRaiz = $("#EspesorRaiz").val();
     ListaDetalles[0].ProcesoSoldaduraRellenoID = $("#ProcesoSoldaduraRellenoID").data("kendoComboBox").value();
@@ -109,9 +126,11 @@ function AjaxGuardar(tipoGuardar) {
     ListaDetalles[0].GrupoPMaterialBase1 = $("#GrupoPMaterialBase1ID").data("kendoComboBox").value();
     ListaDetalles[0].GrupoPMaterialBase2 = $("#GrupoPMaterialBase2ID").data("kendoComboBox").value();
     ListaDetalles[0].Aporte = $("#AporteID").val();
+    ListaDetalles[0].AporteRelleno = $("#AporteRellenoID").val();
     ListaDetalles[0].Mezcla = $("#MezclaID").val();
     ListaDetalles[0].Respaldo = $("#RespaldoID").val();
     ListaDetalles[0].GrupoF = $("#GrupoFID").val();
+    ListaDetalles[0].GrupoFRelleno = $("#GrupoFRellenoID").val();
     ListaDetalles[0].Codigo = $("#CodigoID").data("kendoComboBox").value();
 
     Captura[0].Detalles = ListaDetalles;

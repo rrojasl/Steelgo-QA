@@ -133,7 +133,7 @@ function CargarGrid() {
                         isFalse: _dictionary.lblFalso[$("#language").data("kendoDropDownList").value()],
                         style: "max-width:120px;"
                     },
-                }, width: "73px", template: "<input  readonly disabled type='checkbox'   #= RequierePwht  ? checked='checked' : '' #/>", attributes: { style: "text-align:center;" }
+                }, width: "90px", template: "<input  readonly disabled type='checkbox'   #= RequierePwht  ? checked='checked' : '' #/>", attributes: { style: "text-align:center;" }
             },
             { field: "Diametro", title: _dictionary.columnDiametro[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "80px", attributes: { style: "text-align:right;" } },
             { field: "FechaSoldadura", title: _dictionary.columnFecha[$("#language").data("kendoDropDownList").value()], filterable: getKendoGridFilterableDateMaftec(), editor: RenderDatePicker, width: "110px", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()] },

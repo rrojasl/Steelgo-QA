@@ -97,7 +97,7 @@ function RenderComboBoxProcesoSoldaduraRaiz(container, options) {
                     $("#grid").data("kendoGrid").dataSource.sync();
                     AjaxObtenerListadoWPS(options.model);
                 }
-                    
+                $("#grid").data("kendoGrid").dataSource.sync();
             }
         }
         );
@@ -149,6 +149,7 @@ function RenderComboBoxProcesoSoldaduraRelleno(container, options) {
                     $("#grid").data("kendoGrid").dataSource.sync();
                     AjaxObtenerListadoWPS(options.model);
                 }
+                $("#grid").data("kendoGrid").dataSource.sync();
             }
 
         }
@@ -193,6 +194,7 @@ function RenderComboBoxWPS(container, options) {
                         }
                     }
                 }
+                $("#grid").data("kendoGrid").dataSource.sync();
             }
         }
         );

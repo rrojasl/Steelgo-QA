@@ -204,6 +204,50 @@ function ConvertirCombos() {
                 $("#CodigoID").data("kendoComboBox").select(0);
             }
     });
+
+    $("#TipoJunta").kendoComboBox({
+        suggest: true,
+        delay: 10,
+        filter: "contains",
+        autoBind: false,
+        dataTextField: "Nombre",
+        dataValueField: "TipoJuntaID",
+        select: function (e) {
+            dataItem = this.dataItem(e.item.index());
+            var PQRIDBuscar = dataItem.PQRID;
+        },
+        change: function (e) {
+            if (tieneClase(e.currentTarget)) {
+                $("#TipoJunta").data("kendoComboBox").select(0);
+            }
+            if ($('#TipoJunta').data("kendoComboBox").dataItem($("#TipoJunta").data("kendoComboBox").select()) == undefined) {
+                $("#TipoJunta").data("kendoComboBox").value("");
+            }
+        }
+    });
+
+    $("#TipoPrueba").kendoComboBox({
+        suggest: true,
+        delay: 10,
+        filter: "contains",
+        autoBind: false,
+        dataTextField: "TipoDePrueba",
+        dataValueField: "TipoPruebaID",
+        select: function (e) {
+            dataItem = this.dataItem(e.item.index());
+            var PQRIDBuscar = dataItem.PQRID;
+        },
+        change: function (e) {
+            if (tieneClase(e.currentTarget)) {
+                $("#TipoPrueba").data("kendoComboBox").select(0);
+            }
+            if ($('#TipoPrueba').data("kendoComboBox").dataItem($("#TipoPrueba").data("kendoComboBox").select()) == undefined) {
+                $("#TipoPrueba").data("kendoComboBox").value("");
+            }
+        }
+    });
+
+
 };
 
 function Limpiar() {

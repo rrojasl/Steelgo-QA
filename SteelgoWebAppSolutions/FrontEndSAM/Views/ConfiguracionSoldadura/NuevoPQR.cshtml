@@ -72,6 +72,15 @@
                     <label id="lblNombre"> </label>
                     <input type="text" id="NombreId" class="form-control general-input" />
                 </div>
+                <div class=" col-sm-6 col-md-6 col-lg-4" id="PQRCodigoDiv">
+                    <label id="lblCodigo"></label>
+                    <input id="CodigoID" class="" />
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <label id="">&nbsp;</label>
+                </div>
+            </div>
+            <div class="row">
                 <div class=" col-sm-6 col-md-6 col-lg-2" id="PQRPreheatDiv">
                     <label id="lblPREHEAT"></label>
                     <input type="checkbox" id="chkPreheat" data-bind="checked: optionCheck" />
@@ -80,6 +89,32 @@
                     <label id="lblPWHT"></label>
                     <input type="checkbox" id="chkPwht" data-bind="checked: optionCheckPWHT" />
                 </div>
+                <div class=" col-sm-6 col-md-6 col-lg-2" id="PQRCVNDiv">
+                    <label id="lblCVN"></label>
+                    <input type="checkbox" id="chkCVN" data-bind="checked: optionCheckCVN" />
+                </div>
+                <div class=" col-sm-6 col-md-6 col-lg-2" id="PQRFNDiv">
+                    <label id="lblFN"></label>
+                    <input type="checkbox" id="chkFN" data-bind="checked: optionCheckFN" />
+                </div>
+                <div class=" col-sm-6 col-md-6 col-lg-2" id="PQRMacroTestDiv">
+                    <label id="lblMacroTest"></label>
+                    <input type="checkbox" id="chkMacroTest" data-bind="checked: optionCheckMacroTest" />
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <label id="">&nbsp;</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-md-6 col-lg-4" id="TipoJuntaDiV">
+                    <label id="DimensionalVisualHeaderTipoJunta"></label>
+                    <input id="TipoJunta" />
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-4" id="TipoPruebaDiV">
+                    <label id="lblTipoPrueba"></label>
+                    <input id="TipoPrueba" />
+                </div>
+
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <label id="">&nbsp;</label>
                 </div>
@@ -93,7 +128,7 @@
                     <label id="lblEspesorRelleno"></label>
                     <input id="EspesorRelleno" />
                 </div>
-                
+
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <label id="">&nbsp;</label>
                 </div>
@@ -107,7 +142,7 @@
                     <label id="lblProcesoSoldaduraRelleno"></label>
                     <input id="ProcesoSoldaduraRellenoID" class="" />
                 </div>
-                
+
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <label id="">&nbsp;</label>
                 </div>
@@ -130,14 +165,29 @@
                     <label id="lblAporte"></label>
                     <input id="AporteID" class="form-control general-input" />
                 </div>
-                <div class=" col-sm-6 col-md-6 col-lg-4" id="PQRGrupoFDiv">
-                    <label id="lblGrupoF"></label>
-                    <input id="GrupoFID" class="form-control general-input" />
+                <div class=" col-sm-6 col-md-6 col-lg-4" id="PQRAporteRellenoDiv">
+                    <label id="lblAporteRelleno"></label>
+                    <input id="AporteRellenoID" class="form-control general-input" />
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <label id="">&nbsp;</label>
                 </div>
             </div>
+            <div class="row">
+                <div class=" col-sm-6 col-md-6 col-lg-4" id="PQRGrupoFDiv">
+                    <label id="lblGrupoF"></label>
+                    <input id="GrupoFID" class="form-control general-input" />
+                </div>
+                <div class=" col-sm-6 col-md-6 col-lg-4" id="PQRGrupoFRellenoDiv">
+                    <label id="lblGrupoFRelleno"></label>
+                    <input id="GrupoFRellenoID" class="form-control general-input" />
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <label id="">&nbsp;</label>
+                </div>
+            </div>
+
+
             <div class="row">
                 <div class=" col-sm-6 col-md-6 col-lg-4" id="PQRMezclaDiv">
                     <label id="lblMezcla"></label>
@@ -152,10 +202,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class=" col-sm-6 col-md-6 col-lg-4" id="PQRCodigoDiv">
-                    <label id="lblCodigo"></label>
-                    <input id="CodigoID" class="" />
-                </div>
+                
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <label id="">&nbsp;</label>
                 </div>

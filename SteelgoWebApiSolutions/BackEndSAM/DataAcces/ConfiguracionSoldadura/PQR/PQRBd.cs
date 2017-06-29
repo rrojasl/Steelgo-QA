@@ -172,29 +172,28 @@ namespace BackEndSAM.DataAcces.ConfiguracionSoldadura
 
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Soldadura_PQR_Result> listaPQRJson = ctx.Sam3_Soldadura_PQR(1, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null).ToList();
+                    List<TipoPrueba> listaTipoPrueba = (from lTPS in ctx.Sam3_Soldadura_Get_TipoPrueba()
 
-                    foreach (Sam3_Soldadura_PQR_Result item in listaPQRJson)
-                    {
+                                                        select new TipoPrueba
+                                                        {
+                                                            TipoPruebaID = lTPS.TipoPruebaID.ToString(),
+                                                            TipoDePrueba = lTPS.Nombre
+                                                        }).AsParallel().ToList().Where(x => x.TipoDePrueba != "Ambos").OrderBy(x => x.TipoDePrueba).ToList<TipoPrueba>();
+                    listaTipoPrueba.Insert(0, new TipoPrueba());
+
+                    List<DetalleTipoJunta> listaTipoJunta = (List<DetalleTipoJunta>)TipoJuntaBD.Instance.ObtieneListadoTipoJunta();
+                    
+                    
                         listaPQR.Add(
                             new PQR
                             {
                                 ListaProcesosSoldadura = (List<ListaProcesoSoldadura>)obtenerListadoProcesos(1),
                                 ListaMaterialesBase = (List<ListaMaterialesBase>)obtenerListadoMaterialesBase(1),
-                                ListaCodigos = (List<ListaCodigos>)obtenerListadoCodigos(usuarioID, null, null)
+                                ListaCodigos = (List<ListaCodigos>)obtenerListadoCodigos(usuarioID, null, null),
+                                listaTipoJunta = listaTipoJunta,
+                                listaTipoPrueba = listaTipoPrueba
                             });
-                    }
-
-                    if (listaPQRJson.Count == 0)
-                    {
-                        listaPQR.Add(
-                            new PQR
-                            {
-                                ListaProcesosSoldadura = (List<ListaProcesoSoldadura>)obtenerListadoProcesos(1),
-                                ListaMaterialesBase = (List<ListaMaterialesBase>)obtenerListadoMaterialesBase(1),
-                                ListaCodigos = (List<ListaCodigos>)obtenerListadoCodigos(usuarioID, null, null)
-                            });
-                    }
+                    
 
                     return listaPQR.OrderBy(x => x.Nombre).ToList<PQR>();
                 }
