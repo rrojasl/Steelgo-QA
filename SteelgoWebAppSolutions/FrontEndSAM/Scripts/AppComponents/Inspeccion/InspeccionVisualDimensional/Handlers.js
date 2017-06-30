@@ -383,6 +383,7 @@ function SuscribirEventoResultadoVisual() {
     $('input:radio[name=ResultadoVisual]:nth(2)').change(function () {
         $("#inputDefectosVisual").data("kendoComboBox").enable(false);
         $("#inputDefectosVisual").data("kendoComboBox").value("");
+
     });
 };
 

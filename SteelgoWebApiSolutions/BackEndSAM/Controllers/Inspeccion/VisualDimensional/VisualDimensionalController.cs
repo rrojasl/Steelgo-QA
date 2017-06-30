@@ -50,7 +50,7 @@ namespace BackEndSAM.Controllers.Inspeccion.VisualDimensional
                     CapturaVisualDimensional detalleDatos = new CapturaVisualDimensional
                     {
                         Accion = item.JuntaSpoolIDVisual == null ? 1 : 2,
-                        AccionNumeroUnico = (item.Clave1  != null || item.Clave2  != null) ? 2 : 1,
+                        AccionNumeroUnico = (item.Clave1 != null || item.Clave2 != null || item.NumeroUnico1ID.ToString() != "" || item.NumeroUnico2ID.ToString() != "") ? 2 : 1,
                         Proyecto = capturaDatosJson.Proyecto,
                         OrdenTrabajoID = capturaDatosJson.OrdenTrabajoID,
                         OrdenTrabajo = capturaDatosJson.OrdenTrabajo,
