@@ -8369,8 +8369,8 @@ _dictionary = {
         "en-US": "Welder Certification"
     },
     "menuOKPND": {
-        "es-MX": "OK PND",
-        "en-US": "OK PND"
+        "es-MX": "OK Fabricación",
+        "en-US": "OK Fabrication"
     },
     "menuSistemaAplicable": {
         "es-MX": "Sistema Pintura Aplicable",
@@ -8815,8 +8815,8 @@ _dictionary = {
         "en-US": "Visual Inspector"
     },
     "columnOkPND": {
-        "es-MX": "OK PND",
-        "en-US": "OK PND"
+        "es-MX": "OK Fabricacíon",
+        "en-US": "OK Fabrication"
     },
     "columnOkPintura": {
         "es-MX": "OK Pintura",
@@ -10035,24 +10035,24 @@ _dictionary = {
 
     //Comienza Pantalla OKPND
     "OKPNDBreadcrum": {
-        "es-MX": "OK PND",
-        "en-US": "OK PND"
+        "es-MX": "OK Fabricación",
+        "en-US": "OK Fabrication"
     },
     "msgGuardarCambios": {
         "es-MX": "¿Está seguro de guardar los cambios?",
         "en-US": "Are you sure to save the changes?"
     },
     "guardarCambiosOKPND": {
-        "es-MX": "Guardar OK PND",
-        "en-US": "Save PND OK"
+        "es-MX": "Guardar OK Fabricación",
+        "en-US": "Save Fabrication OK"
     },
     "ErrorColumnaNoEsNumero": {
-        "es-MX": "Algún registro de la columna OKPND no es un Número Válido, debe ser 0 ó 1",
-        "en-US": "Some record of the OKPND column is not a valid Number, it must be 0 or 1. "
+        "es-MX": "Algún registro de la columna OKFAB no es un Número Válido, debe ser 0 ó 1",
+        "en-US": "Some record of the OKFAB column is not a valid Number, it must be 0 or 1. "
     },
     "ErrorColumnaTieneLetras": {
-        "es-MX": "Algún Registro de la columna OKPND no es un Número, Porfavor Verifique.",
-        "en-US": "Some record of the OKPND column is not a number, check please."
+        "es-MX": "Algún Registro de la columna OKFAB no es un Número, Porfavor Verifique.",
+        "en-US": "Some record of the OKFAB column is not a number, check please."
     },
     "ErrorColumnaTieneRegistroVacio": {
         "es-MX": "Algún registro del template tiene alguna fila vacía, porfavor verifique.",
@@ -12101,8 +12101,8 @@ _dictionary = {
         "en-US": "You can not close the shipment since there are data without capture."
     },
     "EmbarqueRevisionMsjConfirmaEliminaPaquete": {
-        "es-MX": "¿El paquete será borrado de la captura, \n desea continuar?",
-        "en-US": "The package will be deleted from the capture, \n do you want to continue??"
+        "es-MX": "¿El paquete será eliminado de la captura, desea continuar?",
+        "en-US": "The package will be deleted from the capture, do you want to continue??"
     },
     //Finaliza pantalla revision
     //Inicia pantalla Dashboard
