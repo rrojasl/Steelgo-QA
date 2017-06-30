@@ -29,6 +29,9 @@ function AjaxExisteWPS(varGuardar) {
             loadingStop();
         });
     }
+    else {
+        displayNotify("WPSMensajeErrorNombreMandatorio", "", '1');
+    }
 }
 
 
@@ -87,64 +90,64 @@ function AjaxGuardar(tipoGuardar) {
     }
 
 
-    ListaDetalles[0].Accion = $("#WPSID").val() == "0" ? 1 : 2;
-    ListaDetalles[0].WPSId = $("#WPSID").val() == "0" ? 0 : $("#WPSID").val();
-    ListaDetalles[0].WPSNombre = $('#NomnreWPS').val();
-    ListaDetalles[0].PQRRaizId = $('#PQRRaizNombre').data("kendoComboBox").value();
-    ListaDetalles[0].PQRRellenoId = $('#PQRRellenoNombre').data("kendoComboBox").value();
-    ListaDetalles[0].PWHTId = $('#PREHEATRelleno').is(':checked') ? 1 : 0;
-    ListaDetalles[0].PREHEAT = $('#PWHRelleno').is(':checked') ? 1 : 0;
-    ListaDetalles[0].EspesorMaximoRaiz = $('#EspesorMaximoRaiz').text();
-    ListaDetalles[0].EspesorMinimoRaiz = $('#EspesorMinimoRaiz').text();
-    ListaDetalles[0].EspesorMaximoRelleno = $('#EspesorMaximoRelleno').text();
-    ListaDetalles[0].EspesorMinimoRelleno = $('#EspesorMinimoRelleno').text();
+    if (correcto) {
+        ListaDetalles[0].Accion = $("#WPSID").val() == "0" ? 1 : 2;
+        ListaDetalles[0].WPSId = $("#WPSID").val() == "0" ? 0 : $("#WPSID").val();
+        ListaDetalles[0].WPSNombre = $('#NomnreWPS').val();
+        ListaDetalles[0].PQRRaizId = $('#PQRRaizNombre').data("kendoComboBox").value();
+        ListaDetalles[0].PQRRellenoId = $('#PQRRellenoNombre').data("kendoComboBox").value();
+        ListaDetalles[0].PWHTId = $('#PREHEATRelleno').is(':checked') ? 1 : 0;
+        ListaDetalles[0].PREHEAT = $('#PWHRelleno').is(':checked') ? 1 : 0;
+        ListaDetalles[0].EspesorMaximoRaiz = $('#EspesorMaximoRaiz').text();
+        ListaDetalles[0].EspesorMinimoRaiz = $('#EspesorMinimoRaiz').text();
+        ListaDetalles[0].EspesorMaximoRelleno = $('#EspesorMaximoRelleno').text();
+        ListaDetalles[0].EspesorMinimoRelleno = $('#EspesorMinimoRelleno').text();
 
-    var arregloGrupos = obtenerGruposPLiberar($("#PQRRaizNombre").data("kendoComboBox").dataItem($("#PQRRaizNombre").data("kendoComboBox").select()).GrupoPMaterialBase1, $("#PQRRaizNombre").data("kendoComboBox").dataItem($("#PQRRaizNombre").data("kendoComboBox").select()).GrupoPMaterialBase2, $("#PQRRellenoNombre").data("kendoComboBox").dataItem($("#PQRRellenoNombre").data("kendoComboBox").select()).GrupoPMaterialBase1, $("#PQRRellenoNombre").data("kendoComboBox").dataItem($("#PQRRellenoNombre").data("kendoComboBox").select()).GrupoPMaterialBase2);
+        var arregloGrupos = obtenerGruposPLiberar($("#PQRRaizNombre").data("kendoComboBox").dataItem($("#PQRRaizNombre").data("kendoComboBox").select()).GrupoPMaterialBase1, $("#PQRRaizNombre").data("kendoComboBox").dataItem($("#PQRRaizNombre").data("kendoComboBox").select()).GrupoPMaterialBase2, $("#PQRRellenoNombre").data("kendoComboBox").dataItem($("#PQRRellenoNombre").data("kendoComboBox").select()).GrupoPMaterialBase1, $("#PQRRellenoNombre").data("kendoComboBox").dataItem($("#PQRRellenoNombre").data("kendoComboBox").select()).GrupoPMaterialBase2);
 
-    ListaDetalles[0].GrupoP1 = arregloGrupos[0];
-    ListaDetalles[0].GrupoP2 = arregloGrupos[1];
+        ListaDetalles[0].GrupoP1 = arregloGrupos[0];
+        ListaDetalles[0].GrupoP2 = arregloGrupos[1];
 
-    ListaDetalles[0].GrupoP1 = arregloGrupos[0];
-    ListaDetalles[0].GrupoP2 = arregloGrupos[1];
-    ListaDetalles[0].gruposCorrectos = obtenerGruposP($("#WPSID").val(), arregloGrupos[0], arregloGrupos[1], ListaDetalles[0].Accion);
-
-
-
-    Captura[0].Detalles = ListaDetalles;
+        ListaDetalles[0].GrupoP1 = arregloGrupos[0];
+        ListaDetalles[0].GrupoP2 = arregloGrupos[1];
+        ListaDetalles[0].gruposCorrectos = obtenerGruposP($("#WPSID").val(), arregloGrupos[0], arregloGrupos[1], ListaDetalles[0].Accion);
 
 
 
+        Captura[0].Detalles = ListaDetalles;
 
-    if (Captura[0].Detalles.length > 0 && correcto) {
-        loadingStart();
-        $WPS.WPS.create(Captura[0], { token: Cookies.get("token") }).done(function (data) {
-            if (Error(data)) {
-                if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "OK") {
-                    if (data.ReturnMessage[1] != undefined) {
-                        $("#WPSID").val(data.ReturnMessage[1]);
+
+        if (Captura[0].Detalles.length > 0) {
+
+            loadingStart();
+            $WPS.WPS.create(Captura[0], { token: Cookies.get("token") }).done(function (data) {
+                if (Error(data)) {
+                    if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "OK") {
+                        if (data.ReturnMessage[1] != undefined) {
+                            $("#WPSID").val(data.ReturnMessage[1]);
+                        }
+
+                        if (tipoGuardar == 1) {
+                            Limpiar();
+                            opcionHabilitarView(false, "FieldSetView");
+
+                        }
+                        else {
+                            opcionHabilitarView(true, "FieldSetView");
+
+                        }
+                        displayNotify("CapturaMensajeGuardadoExitoso", "", '0');
+
                     }
-                    
-                    if (tipoGuardar == 1) {
-                        Limpiar();
-                        opcionHabilitarView(false, "FieldSetView");
-                        
-                        
+                    else  /*(data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") */ {
+                        //mensaje = "No se guardo la informacion el error es: " + data.ReturnMessage[0] + "-2";
+                        displayNotify("CapturaMensajeGuardadoErroneo", "", '2');
+
                     }
-                    else {
-                        opcionHabilitarView(true, "FieldSetView");
-                        
-                    }
-                    displayNotify("CapturaMensajeGuardadoExitoso", "", '0');
-                 
                 }
-                else  /*(data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") */ {
-                    //mensaje = "No se guardo la informacion el error es: " + data.ReturnMessage[0] + "-2";
-                    displayNotify("CapturaMensajeGuardadoErroneo", "", '2');
-                    
-                }
-            }
-            loadingStop();
-        });
+                loadingStop();
+            });
+        }
     }
 
 }

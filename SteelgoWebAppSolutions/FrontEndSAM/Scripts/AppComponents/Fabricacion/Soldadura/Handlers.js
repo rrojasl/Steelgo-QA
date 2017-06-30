@@ -17,7 +17,7 @@ function SuscribirEventos() {
     suscribirEventoChangeRadioTipoListado();
     suscribirEventoWindowsConfirmaCaptura();
     SuscribirEventoMuestraJunta();
-    
+
 
     suscribirEventoGridPopupTrabajosAdicionales();
     suscribirEventoGridPopupSoldadoresRaiz();
@@ -571,7 +571,7 @@ function GuardarSoldadoresRaiz() {
         if (RaizCorrectos) {
             for (var i = 0; i < ds._data.length; i++) {
                 for (var j = 0; j < ds._data.length; j++) {
-                    if (ds._data[i].Colada == ds._data[j].Colada && ds._data[i].Soldador == ds._data[j].Soldador && i != j)
+                    if (ds._data[i].Colada == ds._data[j].Colada && ds._data[i].Soldador == ds._data[j].Soldador && i != j && ds._data[i].Accion != 3 && ds._data[j].Accion != 3)
                         RegistrosNoRepetidos = false;
                 }
             }
@@ -595,7 +595,7 @@ function GuardarSoldadoresRaiz() {
 
                 $("#grid").data("kendoGrid").dataSource.sync();
 
-                
+
 
                 $("#windowGridSoldadorRaiz").data("kendoWindow").close();
             }
@@ -612,6 +612,7 @@ function GuardarSoldadoresRaiz() {
 function GuardarSoldadoresRelleno() {
     $('#GuardarSoldadoresRelleno').click(function () {
         var RaizCorrectos = true;
+        var RegistrosNoRepetidos = true;
         var ds = $("#inputSoldadoresRelleno").data("kendoGrid").dataSource;
 
         for (var i = 0; i < ds._data.length; i++) {
@@ -620,25 +621,41 @@ function GuardarSoldadoresRelleno() {
             if (ds._data[i].Colada == "" || ds._data[i].Soldador == "" && !(ds._data[i].Accion == 3 || ds._data[i].Accion == 4))
                 RaizCorrectos = false;
         }
+
         if (RaizCorrectos) {
-            modeloRenglon.ListaSoldadoresRellenoCapturados = ds._data;
+            for (var i = 0; i < ds._data.length; i++) {
+                for (var j = 0; j < ds._data.length; j++) {
+                    if (ds._data[i].Colada == ds._data[j].Colada && ds._data[i].Soldador == ds._data[j].Soldador && i != j && ds._data[i].Accion != 3 && ds._data[j].Accion != 3)
+                        RegistrosNoRepetidos = false;
+                }
+            }
+        }
 
-            var dataSource = $("#inputSoldadoresRelleno").data("kendoGrid").dataSource;
-            var filters = dataSource.filter();
-            var allData = dataSource.data();
-            var query = new kendo.data.Query(allData);
-            var data = query.filter(filters).data;
 
-            actuallongitudSoldadoresRelleno = data.length;
-            if (actuallongitudSoldadoresRelleno == 0)
-                modeloRenglon.TemplateSoldadoresRelleno = _dictionary.CapturaArmadoTemplateNoHaySoldadoresRelleno[$("#language").data("kendoDropDownList").value()];
-            else
-                modeloRenglon.TemplateSoldadoresRelleno = _dictionary.CapturaSoldaduraMensajeCambioLongitud[$("#language").data("kendoDropDownList").value()] + actuallongitudSoldadoresRelleno + _dictionary.CapturaSoldaduraMensajeCambioSoldadoresRelleno[$("#language").data("kendoDropDownList").value()];
+        if (RaizCorrectos) {
+            if (RegistrosNoRepetidos) {
+                modeloRenglon.ListaSoldadoresRellenoCapturados = ds._data;
 
-            $("#grid").data("kendoGrid").dataSource.sync();
+                var dataSource = $("#inputSoldadoresRelleno").data("kendoGrid").dataSource;
+                var filters = dataSource.filter();
+                var allData = dataSource.data();
+                var query = new kendo.data.Query(allData);
+                var data = query.filter(filters).data;
 
-            $("#windowMultiselectSoldadorRelleno").data("kendoWindow").close();
-            $("#grid").data("kendoGrid").dataSource.sync();
+                actuallongitudSoldadoresRelleno = data.length;
+                if (actuallongitudSoldadoresRelleno == 0)
+                    modeloRenglon.TemplateSoldadoresRelleno = _dictionary.CapturaArmadoTemplateNoHaySoldadoresRelleno[$("#language").data("kendoDropDownList").value()];
+                else
+                    modeloRenglon.TemplateSoldadoresRelleno = _dictionary.CapturaSoldaduraMensajeCambioLongitud[$("#language").data("kendoDropDownList").value()] + actuallongitudSoldadoresRelleno + _dictionary.CapturaSoldaduraMensajeCambioSoldadoresRelleno[$("#language").data("kendoDropDownList").value()];
+
+                $("#grid").data("kendoGrid").dataSource.sync();
+
+                $("#windowMultiselectSoldadorRelleno").data("kendoWindow").close();
+
+            }
+            else {
+                displayNotify('CapturaSoldaduraGridSoldadoresRegistrosRepetidos', '', '1');
+            }
         }
         else {
             displayNotify('CapturaSoldaduraGridSoldadores', '', '1');

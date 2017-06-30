@@ -7425,6 +7425,10 @@ _dictionary = {
         "es-MX": "CVN",
         "en-US": "CVN"
     },
+    "lblCVN1": {
+        "es-MX": "CVN",
+        "en-US": "CVN"
+    },
     "lblFN": {
         "es-MX": "FN",
         "en-US": "FN"
@@ -7453,7 +7457,15 @@ _dictionary = {
         "es-MX": "E. Relleno(mm)",
         "en-US": "Fill Thk(mm)"
     },
+    "lblEspesorRelleno2": {
+        "es-MX": "E. Relleno(mm)",
+        "en-US": "Fill Thk(mm)"
+    },
     "lblEspesorRaiz1": {
+        "es-MX": "E. Raiz(mm)",
+        "en-US": "Root Thck(mm)"
+    },
+    "lblEspesorRaiz2": {
         "es-MX": "E. Raiz(mm)",
         "en-US": "Root Thck(mm)"
     },
@@ -7518,12 +7530,12 @@ _dictionary = {
         "en-US": "Fill F group"
     },
     "lblEspesorMinimo": {
-        "es-MX": "Espesor Aplicado(mm)",
-        "en-US": "Applied Thickness(mm)"
+        "es-MX": "Espesor min metal base(mm)",
+        "en-US": "Metal base min thickness(mm)"
     },
     "lblEspesorMaximo": {
-        "es-MX": "Espesor Máximo(mm)",
-        "en-US": "Max Thickness(mm)"
+        "es-MX": "Espesor max metal base(mm)",
+        "en-US": "Metal base min thickness(mm)"
     },
     "lblWPS": {
         "es-MX": "WPS",
@@ -7558,9 +7570,10 @@ _dictionary = {
         "en-US": "Certificate tube"
     },
     "lblDiametroCalificado": {
-        "es-MX": "Diametro C.",
-        "en-US": "Diameter Q."
+        "es-MX": " Diametro Nominal(mm).",
+        "en-US": "Nominal Diameter(mm)"
     },
+
     "SoldadorCertificacionDiametroMinimo": {
       "es-MX": "Diametro Mínimo.",
         "en-US": "Diameter Minimum."
@@ -8842,6 +8855,18 @@ _dictionary = {
         "es-MX": "PWHT",
         "en-US": "PWHT"
     },
+    "columnCVN": {
+        "es-MX": "CVN",
+        "en-US": "CVN"
+    },
+    "columnFN": {
+        "es-MX": "FN",
+        "en-US": "FN"
+    },
+    "columnMacroTest": {
+        "es-MX": "MacroTest",
+        "en-US": "MacroTest"
+    },
     "columnRelleno": {
         "es-MX": "RLL",
         "en-US": "Fll"
@@ -8947,8 +8972,8 @@ _dictionary = {
         "en-US": "Max T(mm)"
     },
     "columnDiametroCalificado": {
-        "es-MX": "Diametro C.",
-        "en-US": "Diameter Q."
+        "es-MX": "Diametro N.",
+        "en-US": "N. Diameter"
     },
     "columnDiametroMinimo": {
         "es-MX": "Diametro M.",
@@ -9725,6 +9750,12 @@ _dictionary = {
     //Finaliza PQR
 
     //Pantalla WPS
+
+
+    "WPSMensajeErrorNombreMandatorio": {
+        "es-MX": "El nombre del WPS es mandatorio",
+        "en-US": "The name of WPS is mandatory"
+    },
     "WPSMensajeErrorPreHitRelleno": {
         "es-MX": "Preheat no coincide",
         "en-US": "Do not match PreHeat"
@@ -11602,7 +11633,7 @@ _dictionary = {
         "en-US": "Flat charge"
     },
     "EmbarqueCargaAgregarNuevoProveedor": {
-        "es-MX": "Agregar nuevo proveedor",
+        "es-MX": "Agregar nuevo",
         "en-US": "Add new provider"
     },
 

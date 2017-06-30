@@ -97,14 +97,107 @@ function opcionHabilitarView(valor, name) {
     }
 }
 
-function ObtenerEspesorCorrecto(EspesorTotalT, PWHT, ProcesoSoldadura, esRaiz) {
+function ObtenerEspesorCorrecto(EspesorTotalT, PWHT, CVN, ProcesoSoldadura, esRaiz) {
     var espesores = [];
     espesores[0] = { EspesorMaximo: "", EspesorMinimo: "" };
-    if (PWHT == 1 || (PWHT == 0 && EspesorTotalT > 16)) {
+    
 
-        if (ProcesoSoldadura == "GMAW STT" && EspesorTotalT < 13 ) {
-            espesores[0].EspesorMaximo = (2 * parseFloat(EspesorTotalT));
-            espesores[0].EspesorMinimo = (1.1 * parseFloat(EspesorTotalT));
+    if (CVN) { 
+        if (!PWHT) {
+            // Caso CVN sin PWHT
+            // Si esta el valor entre 6 mm y 15.9999999 mm, se deja el espesor minimo es el valor de T,
+            // y para 16 y superiores, es 16 mm 
+            // si es menor de 6 mm el espesor minimo es: 1/2 T y los maximos se calculan con la tablota :v 
+            if (EspesorTotalT < 6) {
+                espesores[0].EspesorMinimo = (parseFloat(EspesorTotalT) / 2);
+            }
+            else if (EspesorTotalT >= 6 && EspesorTotalT < 16) {
+                espesores[0].EspesorMinimo = parseFloat(EspesorTotalT);
+            }
+            else {
+                espesores[0].EspesorMinimo = 16.0;
+            }
+
+            if (EspesorTotalT < 1.5) {
+                espesores[0].EspesorMaximo = (2 * parseFloat(EspesorTotalT));
+            }
+            else if (EspesorTotalT >= 1.5 && EspesorTotalT < 10) {
+                espesores[0].EspesorMaximo = (2 * parseFloat(EspesorTotalT));
+            }
+            else if (EspesorTotalT >= 10 && EspesorTotalT < 19) {
+                espesores[0].EspesorMaximo = (2 * parseFloat(EspesorTotalT));
+            }
+            else if (EspesorTotalT >= 19 && EspesorTotalT < 38) {
+                espesores[0].EspesorMaximo = (2 * parseFloat(EspesorTotalT));
+            }
+            else if (EspesorTotalT >= 38 && EspesorTotalT < 150) {
+                espesores[0].EspesorMaximo = 200.0000;
+            }
+            else if (EspesorTotalT >= 150) {
+                espesores[0].EspesorMaximo = (1.33 * parseFloat(EspesorTotalT));   
+            }
+
+        }
+        else {
+
+            if ((ProcesoSoldadura.toLowerCase().indexOf("stt") !== -1 || ProcesoSoldadura.toLowerCase().indexOf("rmd") !== -1
+        || ProcesoSoldadura.toLowerCase().indexOf("cmt") !== -1) && EspesorTotalT < 13) {  // CVN para la comparacion del corto circuito, deben tener el proceso un sufijo STT,RMD o CMT 
+                espesores[0].EspesorMaximo = (1.1 * parseFloat(EspesorTotalT));
+
+                if (EspesorTotalT < 1.5) { // me voy al valor de la tabla para minimo 
+                    espesores[0].EspesorMinimo = parseFloat(EspesorTotalT);
+                }
+                else if (EspesorTotalT >= 1.5 && EspesorTotalT < 10) {
+                    espesores[0].EspesorMinimo = 1.5000;
+                }
+                else if (EspesorTotalT >= 10 && EspesorTotalT < 19) {
+                    espesores[0].EspesorMinimo = 5.0000;
+                }
+                else if (EspesorTotalT >= 19 && EspesorTotalT < 38) {
+                    espesores[0].EspesorMinimo = 5.0000;
+                }
+                else if (EspesorTotalT >= 38 && EspesorTotalT < 150) {
+                    espesores[0].EspesorMinimo = 5.0000;
+                }
+                else if (EspesorTotalT >= 150) {
+                    espesores[0].EspesorMinimo = 5.0000;
+                }
+
+
+            }
+            else {
+                if (EspesorTotalT < 1.5) {
+                    espesores[0].EspesorMaximo = (2 * parseFloat(EspesorTotalT));
+                    espesores[0].EspesorMinimo = parseFloat(EspesorTotalT);
+                }
+                else if (EspesorTotalT >= 1.5 && EspesorTotalT < 10) {
+                    espesores[0].EspesorMaximo = (2 * parseFloat(EspesorTotalT));
+                    espesores[0].EspesorMinimo = 1.5000;
+                }
+                else if (EspesorTotalT >= 10 && EspesorTotalT < 19) {
+                    espesores[0].EspesorMaximo = (2 * parseFloat(EspesorTotalT));
+                    espesores[0].EspesorMinimo = 5.0000;
+                }
+                else if (EspesorTotalT >= 19 && EspesorTotalT < 38) {
+                    espesores[0].EspesorMaximo = (2 * parseFloat(EspesorTotalT));
+                    espesores[0].EspesorMinimo = 5.0000;
+                }
+                else if (EspesorTotalT >= 38 && EspesorTotalT < 150) {
+                    espesores[0].EspesorMaximo = 200.0000;
+                    espesores[0].EspesorMinimo = 5.0000;
+                }
+                else if (EspesorTotalT >= 150) {
+                    espesores[0].EspesorMaximo = (1.33 * parseFloat(EspesorTotalT));
+                    espesores[0].EspesorMinimo = 5.0000;
+                }
+            }
+        }
+    }
+    else {
+        if ((ProcesoSoldadura.toLowerCase().indexOf("stt") !== -1 || ProcesoSoldadura.toLowerCase().indexOf("rmd") !== -1
+        || ProcesoSoldadura.toLowerCase().indexOf("cmt") !== -1) && EspesorTotalT < 13) {  // Para la comparacion del corto circuito, deben tener el proceso un sufijo STT,RMD o CMT 
+            espesores[0].EspesorMaximo = (1.1 * parseFloat(EspesorTotalT));
+            espesores[0].EspesorMinimo = (1.1 * parseFloat(EspesorTotalT)); // me voy al valor de la tabla para minimo 
         }
         else {
             if (EspesorTotalT < 1.5) {
@@ -131,16 +224,6 @@ function ObtenerEspesorCorrecto(EspesorTotalT, PWHT, ProcesoSoldadura, esRaiz) {
                 espesores[0].EspesorMaximo = (1.33 * parseFloat(EspesorTotalT));
                 espesores[0].EspesorMinimo = 5.0000;
             }
-        }
-    }
-    else {
-        if (EspesorTotalT < 6) {
-            espesores[0].EspesorMaximo = (2 * parseFloat(EspesorTotalT));
-            espesores[0].EspesorMinimo = (parseFloat(EspesorTotalT) / 2);
-        }
-        else {
-            espesores[0].EspesorMaximo = (2 * parseFloat(EspesorTotalT));
-            espesores[0].EspesorMinimo = parseFloat(EspesorTotalT);
         }
     }
     return espesores;
@@ -176,42 +259,42 @@ function obtenerGruposP(wpsID, grupoP1, grupoP2, accion) {
     }
     var gruposCompletos = [];
 
-    if (grupoP1 == '15E' && grupoP2 == '15E') {
-        gruposCompletos[0] = { Accion: accion, WPSID: wpsID, GrupoP: '15E' };
-        gruposCompletos[1] = { Accion: accion, WPSID: wpsID, GrupoP: '5B' };
+    if (grupoP1 == 'P15E' && grupoP2 == 'P15E') {
+        gruposCompletos[0] = { Accion: accion, WPSID: wpsID, GrupoP: 'P15E' };
+        gruposCompletos[1] = { Accion: accion, WPSID: wpsID, GrupoP: 'P5B' };
     }
-    else if (grupoP1 == '15E' || grupoP2 == '15E') {
-        if (grupoP1 == '15E') {
-            gruposCompletos[0] = { Accion: accion, WPSID: wpsID, GrupoP: '15E' };
-            gruposCompletos[1] = { Accion: accion, WPSID: wpsID, GrupoP: '5B' };
+    else if (grupoP1 == 'P15E' || grupoP2 == 'P15E') {
+        if (grupoP1 == 'P15E') {
+            gruposCompletos[0] = { Accion: accion, WPSID: wpsID, GrupoP: 'P15E' };
+            gruposCompletos[1] = { Accion: accion, WPSID: wpsID, GrupoP: 'P5B' };
             gruposCompletos[2] = { Accion: accion, WPSID: wpsID, GrupoP: grupoP2 };
         }
-        else if (grupoP2 == '15E') {
-            gruposCompletos[0] = { Accion: accion, WPSID: wpsID, GrupoP: '15E' };
-            gruposCompletos[1] = { Accion: accion, WPSID: wpsID, GrupoP: '5B' };
+        else if (grupoP2 == 'P15E') {
+            gruposCompletos[0] = { Accion: accion, WPSID: wpsID, GrupoP: 'P15E' };
+            gruposCompletos[1] = { Accion: accion, WPSID: wpsID, GrupoP: 'P5B' };
             gruposCompletos[2] = { Accion: accion, WPSID: wpsID, GrupoP: grupoP1 };
         }
 
     }
-    else if (grupoP1 == '3' && grupoP2 == '3') {
-        gruposCompletos[0] = { Accion: accion, WPSID: wpsID, GrupoP: '1' };
-        gruposCompletos[1] = { Accion: accion, WPSID: wpsID, GrupoP: '3' };
+    else if (grupoP1 == 'P3' && grupoP2 == 'P3') {
+        gruposCompletos[0] = { Accion: accion, WPSID: wpsID, GrupoP: 'P1' };
+        gruposCompletos[1] = { Accion: accion, WPSID: wpsID, GrupoP: 'P3' };
     }
-    else if (grupoP1 == '4' && grupoP2 == '4') {
-        gruposCompletos[0] = { Accion: accion, WPSID: wpsID, GrupoP: '1' };
-        gruposCompletos[1] = { Accion: accion, WPSID: wpsID, GrupoP: '3' };
-        gruposCompletos[2] = { Accion: accion, WPSID: wpsID, GrupoP: '4' };
+    else if (grupoP1 == 'P4' && grupoP2 == 'P4') {
+        gruposCompletos[0] = { Accion: accion, WPSID: wpsID, GrupoP: 'P1' };
+        gruposCompletos[1] = { Accion: accion, WPSID: wpsID, GrupoP: 'P3' };
+        gruposCompletos[2] = { Accion: accion, WPSID: wpsID, GrupoP: 'P4' };
     }
-    else if ((grupoP1 == '5A' && (grupoP2 == '1' || grupoP2 == '3' || grupoP2 == '4')) || (grupoP2 == '5A' && (grupoP1 == '1' || grupoP1 == '3' || grupoP1 == '4'))) {
-        gruposCompletos[0] = { Accion: accion, WPSID: wpsID, GrupoP: '1' };
-        gruposCompletos[1] = { Accion: accion, WPSID: wpsID, GrupoP: '3' };
-        gruposCompletos[2] = { Accion: accion, WPSID: wpsID, GrupoP: '4' };
+    else if ((grupoP1 == 'P5A' && (grupoP2 == 'P1' || grupoP2 == 'P3' || grupoP2 == 'P4')) || (grupoP2 == 'P5A' && (grupoP1 == 'P1' || grupoP1 == 'P3' || grupoP1 == 'P4'))) {
+        gruposCompletos[0] = { Accion: accion, WPSID: wpsID, GrupoP: 'P1' };
+        gruposCompletos[1] = { Accion: accion, WPSID: wpsID, GrupoP: 'P3' };
+        gruposCompletos[2] = { Accion: accion, WPSID: wpsID, GrupoP: 'P4' };
 
     }
 
-    else if ((grupoP1 == '4' && (grupoP2 == '1' || grupoP2 == '3')) || (grupoP2 == '4' && (grupoP1 == '1' || grupoP1 == '3'))) {
-        gruposCompletos[0] = { Accion: accion, WPSID: wpsID, GrupoP: '1' };
-        gruposCompletos[1] = { Accion: accion, WPSID: wpsID, GrupoP: '3' };
+    else if ((grupoP1 == 'P4' && (grupoP2 == 'P1' || grupoP2 == 'P3')) || (grupoP2 == 'P4' && (grupoP1 == 'P1' || grupoP1 == 'P3'))) {
+        gruposCompletos[0] = { Accion: accion, WPSID: wpsID, GrupoP: 'P1' };
+        gruposCompletos[1] = { Accion: accion, WPSID: wpsID, GrupoP: 'P3' };
     }
     else {
         gruposCompletos[0] = { Accion: accion, WPSID: wpsID, GrupoP: grupoP1 };

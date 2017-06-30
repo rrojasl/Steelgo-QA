@@ -64,6 +64,20 @@ function suscribirEventoRaizNombre()
                         });
                         kendo.bind($("#PWHRaiz"), data);
                     }
+                    if (dataItem.CVN) {
+                        var data = kendo.observable({
+                            optionCheck: true
+                        });
+                        kendo.bind($("#CVNRaiz"), data);
+                    }
+                    else {
+                        var data = kendo.observable({
+                            optionCheck: false
+                        });
+                        kendo.bind($("#CVNRaiz"), data);
+                    }
+
+
                     $("#grupoPRaiz").val(dataItem.GrupoPMaterialBase1Nombre + " - " + dataItem.GrupoPMaterialBase2Nombre);
                     $("#RaizEspesorRaiz").text(parseFloat(dataItem.EspesorRaiz));
                     $("#RaizEspesorRelleno").text(parseFloat(dataItem.EspesorRelleno));
@@ -76,7 +90,7 @@ function suscribirEventoRaizNombre()
                     else {
                         EspesoresRelleno = ObtenerEspesorCorrecto(parseFloat($("#PQRRellenoNombre").data("kendoComboBox").dataItem($("#PQRRellenoNombre").data("kendoComboBox").select()).EspesorRelleno) +
                                                                   parseFloat(dataItem.EspesorRaiz),
-                                                                  $('#PWHRelleno').is(':checked'), $("#PQRRellenoNombre").data("kendoComboBox").dataItem($("#PQRRellenoNombre").data("kendoComboBox").select()).CodigoRelleno,
+                                                                  $('#PWHRelleno').is(':checked'), $('#CVNRelleno').is(':checked'), $("#PQRRellenoNombre").data("kendoComboBox").dataItem($("#PQRRellenoNombre").data("kendoComboBox").select()).CodigoRelleno,
                                                                   false);
                         $("#EspesorMaximoWPS").text(parseFloat(EspesoresRelleno[0].EspesorMaximo));
                         $("#EspesorMinimoWPS").text( parseFloat(EspesoresRelleno[0].EspesorMinimo) );
@@ -156,6 +170,21 @@ function suscribirEventoRellenoNombre() {
                         });
                         kendo.bind($("#PWHRelleno"), data);
                     }
+                    if (dataItem.CVN) {
+                        var data = kendo.observable({
+                            optionCheck: true
+                        });
+                        kendo.bind($("#CVNRelleno"), data);
+                    }
+                    else {
+                        var data = kendo.observable({
+                            optionCheck: false
+                        });
+                        kendo.bind($("#CVNRelleno"), data);
+                    }
+
+
+
                     $("#grupoPRelleno").val(dataItem.GrupoPMaterialBase1Nombre + " - " + dataItem.GrupoPMaterialBase2Nombre);
                     $("#RellenoEspesorRaiz").text(parseFloat(dataItem.EspesorRaiz));
                     $("#RellenoEspesorRelleno").text(parseFloat(dataItem.EspesorRelleno));
@@ -168,7 +197,7 @@ function suscribirEventoRellenoNombre() {
                     else {
                         EspesoresRaiz = ObtenerEspesorCorrecto(parseFloat($("#PQRRaizNombre").data("kendoComboBox").dataItem($("#PQRRaizNombre").data("kendoComboBox").select()).EspesorRelleno) +
                                                                   parseFloat(dataItem.EspesorRelleno),
-                                                                  $('#PWHRelleno').is(':checked'), $("#PQRRaizNombre").data("kendoComboBox").dataItem($("#PQRRaizNombre").data("kendoComboBox").select()).CodigoRelleno,
+                                                                  $('#PWHRelleno').is(':checked'),$('#CVNRelleno').is(':checked'), $("#PQRRaizNombre").data("kendoComboBox").dataItem($("#PQRRaizNombre").data("kendoComboBox").select()).CodigoRelleno,
                                                                   true);
                         $("#EspesorMaximoWPS").text(parseFloat(EspesoresRaiz[0].EspesorMaximo) );
                         $("#EspesorMinimoWPS").text(parseFloat(EspesoresRaiz[0].EspesorMinimo) );

@@ -44,11 +44,15 @@
                         options.model.GrupoPRaiz = dataItem.GrupoPMaterialBase1Nombre + " " + dataItem.GrupoPMaterialBase2Nombre;
                         options.model.PREHEATRaiz = dataItem.PREHEAT == 1 ? true : false;
                         options.model.PREHEATRaizId = dataItem.PREHEAT;
-                        var rootMax = ObtenerEspesorCorrecto((parseFloat(dataItem.EspesorRaiz) + parseFloat(dataItem.EspesorRelleno)), dataItem.PREHEAT, dataItem.CodigoRaiz.trim(), true);
-                        var fillMax = ObtenerEspesorCorrecto((parseFloat(options.model.RellenoEspesorRaiz) + parseFloat(options.model.RellenoEspesorRelleno)), dataItem.PREHEAT, dataItem.CodigoRaiz.trim(), false);
+                        
+                        var Espesores = ObtenerEspesorCorrecto((parseFloat(options.model.RaizEspesorRaiz) + parseFloat(dataItem.EspesorRelleno)), dataItem.PWHT, dataItem.CVN, dataItem.CodigoRaiz.trim(), true);
+                        
+                        var Espesores = ObtenerEspesorCorrecto((parseFloat(dataItem.EspesorRaiz) + parseFloat(options.model.RellenoEspesorRelleno)), dataItem.PWHT, dataItem.CVN, dataItem.CodigoRaiz.trim(), false);
 
-                        options.model.EspesorMaximo = rootMax[0].EspesorMaximo > fillMax[0].EspesorMaximo ? rootMax[0].EspesorMaximo : fillMax[0].EspesorMaximo;
-                        options.model.EspesorMinimo = rootMax[0].EspesorMinimo < fillMax[0].EspesorMinimo ? rootMax[0].EspesorMinimo : fillMax[0].EspesorMinimo;
+                        options.model.EspesorMaximo = Espesores[0].EspesorMaximo;
+                        options.model.EspesorMinimo = Espesores[0].EspesorMinimo;
+
+
                         options.model.RaizEspesorRaiz = parseFloat(dataItem.EspesorRaiz);
                         options.model.RaizEspesorRelleno = parseFloat(dataItem.EspesorRelleno);
                         
@@ -81,8 +85,9 @@
                     }
                     catch (e) {
                     }
-
+                    
                 }
+                options.model.EditadoUsuario = true;
             }
         }
         );
@@ -146,11 +151,11 @@ function RenderComboBoxPQRRelleno(container, options) {
                         options.model.GrupoPRelleno = dataItem.GrupoPMaterialBase1Nombre + " " + dataItem.GrupoPMaterialBase2Nombre;
                         options.model.PREHEATRelleno = dataItem.PREHEAT == 1 ? true : false;
                         options.model.PREHEATRellenoId = dataItem.PREHEAT;
-                        var rootMax = ObtenerEspesorCorrecto((parseFloat(dataItem.EspesorRaiz) + parseFloat(dataItem.EspesorRelleno)), dataItem.PREHEAT, dataItem.CodigoRaiz.trim(), true);
-                        var fillMax = ObtenerEspesorCorrecto((parseFloat(options.model.RaizEspesorRaiz) + parseFloat(options.model.RaizEspesorRelleno)), dataItem.PREHEAT, dataItem.CodigoRaiz.trim(), false);
 
-                        options.model.EspesorMaximo = rootMax[0].EspesorMaximo > fillMax[0].EspesorMaximo ? rootMax[0].EspesorMaximo : fillMax[0].EspesorMaximo;
-                        options.model.EspesorMinimo = rootMax[0].EspesorMinimo < fillMax[0].EspesorMinimo ? rootMax[0].EspesorMinimo : fillMax[0].EspesorMinimo;
+                        var Espesores = ObtenerEspesorCorrecto((parseFloat(options.model.RaizEspesorRaiz) + parseFloat(dataItem.EspesorRelleno)), dataItem.PWHT, dataItem.CVN, dataItem.CodigoRaiz.trim(), true);
+                        options.model.EspesorMaximo = Espesores[0].EspesorMaximo;
+                        options.model.EspesorMinimo = Espesores[0].EspesorMinimo;
+
                         options.model.RellenoEspesorRaiz = parseFloat(dataItem.EspesorRaiz);
                         options.model.RellenoEspesorRelleno = parseFloat(dataItem.EspesorRelleno);
                         $("#grid").data("kendoGrid").dataSource.sync();
