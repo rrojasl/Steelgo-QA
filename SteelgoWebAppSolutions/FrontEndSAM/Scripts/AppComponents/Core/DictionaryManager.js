@@ -8430,12 +8430,12 @@ _dictionary = {
         "en-US": "Spool Search"
     },
     "menuDynasol": {
-        "es-MX": "Dynasol",
-        "en-US": "Dynasol"
+        "es-MX": "Control ordenes de compra",
+        "en-US": "Buy order control"
     },
     "menuDynasolOrdenCompra": {
-        "es-MX": "Dynasol",
-        "en-US": "Dynasol"
+        "es-MX": "Compra de materiales",
+        "en-US": "Material buy"
     },
     "menuDynasolPackingList": {
         "es-MX": "Packing List",
@@ -8445,6 +8445,15 @@ _dictionary = {
         "es-MX": "Camion",
         "en-US": "Truck"
     },
+    "DynasolButtonControlOrdenCompra": {
+        "es-MX": "Control de ordenes de compra",
+        "en-US": "Buy order control"
+    },
+    "DynasolButtonControlOrdenCompra1": {
+        "es-MX": "Control de ordenes de compra",
+        "en-US": "Buy order control"
+    },
+
     // Finalizan Etiquetas de Menú General
 
 

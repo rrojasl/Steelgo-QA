@@ -5,7 +5,7 @@ var numeroPlacasAnteriorElemento;
 var dataItem;
 
 function RenderNumeroPlacas(container, options) {
-    
+
     if ($('#Guardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
 
 
@@ -86,20 +86,75 @@ function RenderTamano(container, options) {
     };
 }
 
-function RenderDensidad(container, options) {
-    if ($('#Guardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
 
-        var dataItem;
-        $('<input data-text-field="Densidad" id=' + options.model.uid + ' data-value-field="Densidad" data-bind="value:' + options.field + '"/>')
+function RenderEquipo(container, options) {
+    $('<input required data-text-field="NombreEquipo" id=' + options.model.uid + ' data-value-field="NombreEquipo" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
-        .kendoNumericTextBox({
-            format: "#.0000",
-            min: 0,
+        .kendoComboBox({
+            autoBind: false,
+            dataSource: listadoTurno ,//[{ EquipoID: 0, Equipo: '' }, { EquipoID: 1, Equipo: 'Matutino' }, { EquipoID: 2, Equipo: 'Vespertino' }, { EquipoID: 3, Equipo: 'NocEquipo' }],
+            dataTextField: "NombreEquipo",
+            dataValueField: "EquipoID",
+            template: "<i class=\"fa fa-#=data.NombreEquipo#\"></i> #=data.NombreEquipo#",
             change: function (e) {
-                hayDatosCapturados = true;
+                dataItem = this.dataItem(e.sender.selectedIndex);
+
+                if (dataItem != undefined) {
+                    options.model.EquipoID = dataItem.EquipoID;
+                    options.model.Equipo = dataItem.NombreEquipo;
+                }
+                else {
+                    options.model.EquipoID = 0;
+                    options.model.Equipo = '';
+                }
+
             }
-        });
-    }
+        }
+    );
+    $(".k-combobox").parent().on('mouseleave', function (send) {
+        var e = $.Event("keydown", { keyCode: 27 });
+        var item = $(this).find(".k-combobox")[0];
+        if (item != undefined) {
+            if (!tieneClase(item)) {
+                $(container).trigger(e);
+            }
+        }
+    });
+}
+
+function RenderTurno(container, options) {
+    $('<input required data-text-field="Turno" id=' + options.model.uid + ' data-value-field="Turno" data-bind="value:' + options.field + '"/>')
+        .appendTo(container)
+        .kendoComboBox({
+            autoBind: false,
+            dataSource: [{ TurnoID: 0, Turno: '' }, { TurnoID: 1, Turno: 'Matutino' }, { TurnoID: 2, Turno: 'Vespertino' }, { TurnoID: 3, Turno: 'Nocturno' }],
+            dataTextField: "Turno",
+            dataValueField: "TurnoID",
+            template: "<i class=\"fa fa-#=data.Turno#\"></i> #=data.Turno#",
+            change: function (e) {
+                dataItem = this.dataItem(e.sender.selectedIndex);
+
+                if (dataItem != undefined) {
+                    options.model.TurnoID = dataItem.TurnoID;
+                    options.model.Turno = dataItem.Turno;
+                }
+                else {
+                    options.model.TurnoID = 0;
+                    options.model.Turno = '';
+                }
+
+            }
+        }
+    );
+    $(".k-combobox").parent().on('mouseleave', function (send) {
+        var e = $.Event("keydown", { keyCode: 27 });
+        var item = $(this).find(".k-combobox")[0];
+        if (item != undefined) {
+            if (!tieneClase(item)) {
+                $(container).trigger(e);
+            }
+        }
+    });
 }
 
 function RenderInicioMM(container, options) {
@@ -110,7 +165,7 @@ function RenderInicioMM(container, options) {
         format: "{0: }",
         min: 0
     });
-    
+
 }
 
 function RenderFinMM(container, options) {
@@ -178,10 +233,15 @@ function comboBoxResultadoDetallePlaca(container, options) {
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
                 
+                if (dataItem != undefined) {
                     options.model.ResultadoID = dataItem.ResultadosID;
                     options.model.Resultado = dataItem.Resultado;
-                
-                
+                }
+                else {
+                    options.model.ResultadoID = 0;
+                    options.model.Resultado = '';
+                }
+
             }
         }
     );
@@ -263,23 +323,7 @@ function comboBoxDefectos(container, options) {
 }
 
 var hayDatosCapturados = false;
-//function hayDatosCapturados() {
-//    for (var i = 0; i < $("#grid").data("kendoGrid").dataSource._data.length; i++) {
-//        if ($("#grid").data("kendoGrid").dataSource._data[i].NumeroPlacas != 0) {
-//            for (var j = 0; j < $("#grid").data("kendoGrid").dataSource._data[i].InformacionResultados.length; j++) {
 
-//                if ($("#grid").data("kendoGrid").dataSource._data[i].InformacionResultados[j].DetalleResultados.length != 0) {
-//                    return true;
-//                    //for (var k = 0; k < defectosArray.length; k++) {
-//                    //    $("#grid").data("kendoGrid").dataSource._data[i].InformacionResultados[j].DetalleResultados[k] = { Defectos: defectosArray[k].Defectos, InicioMM: defectosArray[k].InicioMM, FinMM: defectosArray[k].FinMM };
-//                    //}
-//                }
-//            }
-//        }
-//    }
-
-//    return false;
-//}
 
 function filtraDatosCapturados(tipoFiltro) {
     loadingStart();
@@ -325,7 +369,7 @@ function disableEnableView(disable) {
         $("#btnGuardar").text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
         $("#Guardar1").text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
         $('#btnGuardar1').text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
-        
+
 
     } else {
         $(".addedSectionInLine").find('*').attr("disabled", false);
@@ -344,12 +388,12 @@ function disableEnableView(disable) {
         $("#btnGuardar").text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);
         $("#Guardar1").text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);
         $('#btnGuardar1').text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);
-        
+
     }
 }
 
 function cleanView() {
-    //var paramReq = getParameterByName('requisicion');
+
 
     $("#inputProyecto").data("kendoComboBox").value("");
     $("#inputProveedor").data("kendoComboBox").value("");
@@ -359,13 +403,8 @@ function cleanView() {
     $("#inputPrueba").data("kendoComboBox").value("");
 
     $("#grid").data("kendoGrid").dataSource.data([]);
-    //if (paramReq == null) {
-    //    AjaxCargaListaProyectos();
-    //} else {
-    //    AjaxObtenerElementoRequisicion(paramReq);
-    //}
     disableEnableView(false);
-    //AjaxCargarCamposPredeterminados();
+
 }
 
 function tieneClase(item) {

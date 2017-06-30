@@ -29,8 +29,7 @@ function suscribirEventoNombreWPS() {
     });
 }
 
-function suscribirEventoRaizNombre()
-{
+function suscribirEventoRaizNombre() {
     $("#PQRRaizNombre").kendoComboBox({
         dataTextField: "Nombre",
         dataValueField: "PQRID",
@@ -84,16 +83,20 @@ function suscribirEventoRaizNombre()
 
                     //var EspesoresRaiz = ObtenerEspesorCorrecto(parseFloat(dataItem.EspesorRaiz) + parseFloat(dataItem.EspesorRelleno), dataItem.PWHT, dataItem.CodigoRaiz, true);
                     var EspesoresRelleno;
-                    if ($("#PQRRellenoNombre").data("kendoComboBox").dataItem($("#PQRRellenoNombre").data("kendoComboBox").select()) == undefined) {
-                        
-                    }
-                    else {
+                    if ($("#PQRRellenoNombre").data("kendoComboBox").dataItem($("#PQRRellenoNombre").data("kendoComboBox").select()) != undefined) {
                         EspesoresRelleno = ObtenerEspesorCorrecto(parseFloat($("#PQRRellenoNombre").data("kendoComboBox").dataItem($("#PQRRellenoNombre").data("kendoComboBox").select()).EspesorRelleno) +
                                                                   parseFloat(dataItem.EspesorRaiz),
                                                                   $('#PWHRelleno').is(':checked'), $('#CVNRelleno').is(':checked'), $("#PQRRellenoNombre").data("kendoComboBox").dataItem($("#PQRRellenoNombre").data("kendoComboBox").select()).CodigoRelleno,
                                                                   false);
                         $("#EspesorMaximoWPS").text(parseFloat(EspesoresRelleno[0].EspesorMaximo));
-                        $("#EspesorMinimoWPS").text( parseFloat(EspesoresRelleno[0].EspesorMinimo) );
+                        $("#EspesorMinimoWPS").text(parseFloat(EspesoresRelleno[0].EspesorMinimo));
+
+                        EspesoresRelleno = ObtenerEspesorCorrecto(parseFloat($("#PQRRellenoNombre").data("kendoComboBox").dataItem($("#PQRRellenoNombre").data("kendoComboBox").select()).EspesorRelleno) +
+                                                                 parseFloat(dataItem.EspesorRaiz),
+                                                                 $('#PWHRelleno').is(':checked'), $('#CVNRelleno').is(':checked'), $("#PQRRellenoNombre").data("kendoComboBox").dataItem($("#PQRRellenoNombre").data("kendoComboBox").select()).CodigoRelleno,
+                                                                 false);
+                        $("#EspesorMaximoWPS").text(parseFloat(EspesoresRelleno[0].EspesorMaximo));
+
                     }
                 }
                 else {
@@ -192,15 +195,15 @@ function suscribirEventoRellenoNombre() {
                     //var EspesoresRelleno = ObtenerEspesorCorrecto(parseFloat(dataItem.EspesorRaiz) + parseFloat(dataItem.EspesorRelleno), dataItem.PWHT, dataItem.CodigoRelleno, false);
                     var EspesoresRaiz;
                     if ($("#PQRRaizNombre").data("kendoComboBox").dataItem($("#PQRRaizNombre").data("kendoComboBox").select()) == undefined) {
-                        
+
                     }
                     else {
                         EspesoresRaiz = ObtenerEspesorCorrecto(parseFloat($("#PQRRaizNombre").data("kendoComboBox").dataItem($("#PQRRaizNombre").data("kendoComboBox").select()).EspesorRelleno) +
                                                                   parseFloat(dataItem.EspesorRelleno),
-                                                                  $('#PWHRelleno').is(':checked'),$('#CVNRelleno').is(':checked'), $("#PQRRaizNombre").data("kendoComboBox").dataItem($("#PQRRaizNombre").data("kendoComboBox").select()).CodigoRelleno,
+                                                                  $('#PWHRelleno').is(':checked'), $('#CVNRelleno').is(':checked'), $("#PQRRaizNombre").data("kendoComboBox").dataItem($("#PQRRaizNombre").data("kendoComboBox").select()).CodigoRelleno,
                                                                   true);
-                        $("#EspesorMaximoWPS").text(parseFloat(EspesoresRaiz[0].EspesorMaximo) );
-                        $("#EspesorMinimoWPS").text(parseFloat(EspesoresRaiz[0].EspesorMinimo) );
+                        $("#EspesorMaximoWPS").text(parseFloat(EspesoresRaiz[0].EspesorMaximo));
+                        $("#EspesorMinimoWPS").text(parseFloat(EspesoresRaiz[0].EspesorMinimo));
                     }
                 }
                 else {

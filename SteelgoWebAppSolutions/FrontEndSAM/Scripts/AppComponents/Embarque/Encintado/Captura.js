@@ -192,7 +192,7 @@ function CargarGrid() {
 
                 var grid = $("#grid").data("kendoGrid");
                 var dataItem = grid.dataItem($(e.target).closest("tr"));
-
+                    
                 if ($(this)[0].checked) {
                     dataItem.Encintado = true;
                     dataItem.ModificadoPorUsuario = true;
