@@ -192,7 +192,8 @@ function opcionHabilitarView(valor, name) {
 
 function suscribirEventoDescarGaCSV() {
     $("#btnDescargaCsv, #btnDescargaCsv1").click(function (e) {
-        window.location.href = "/TemplateOKPND.csv";
+        window.location.href = "/TemplateOKFAB.csv";
+        //window.location.href = "/TemplateOKPND.csv";
     });
 }
 
@@ -487,10 +488,10 @@ function ObtenerNewData(data) {
                     OK: 0,
                     OE: 0
                 };
-                if (data[n].OKPND.toString().trim() === "") { data[n].OKPND = 0 };
+                if (data[n].OKFAB.toString().trim() === "") { data[n].OKFAB = 0 };
 
-                if (!isNaN(parseInt(data[n].OKPND.toString().trim()))) {                                        
-                    if (parseInt(data[n].OKPND.toString().trim()) === 0 || parseInt(data[n].OKPND.toString().trim()) === 1) {                        
+                if (!isNaN(parseInt(data[n].OKFAB.toString().trim()))) {
+                    if (parseInt(data[n].OKFAB.toString().trim()) === 0 || parseInt(data[n].OKFAB.toString().trim()) === 1) {
                         tmpNumControl[n] = data[n].NumeroControl.toString().toUpperCase().trim();
                         
                         if (!(tmpNumControl[n] in contador))
@@ -498,7 +499,7 @@ function ObtenerNewData(data) {
                         contador[tmpNumControl[n]] += 1;
 
                         tmpData[n].NumeroControl = tmpNumControl[n].toString().toUpperCase().trim();
-                        tmpData[n].OK = parseInt(data[n].OKPND.toString().trim());
+                        tmpData[n].OK = parseInt(data[n].OKFAB.toString().trim());
                         tmpData[n].OE = parseInt(contador[tmpNumControl[n]]);
                         //console.log("\t\t\t" + tmpData[n].NumeroControl + "\t\t\t" + tmpData[n].OK + "\t\t\t" + tmpData[n].OE);
                     } else {

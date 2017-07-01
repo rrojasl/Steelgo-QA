@@ -162,7 +162,12 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ReporteRT
                             ListaDefectos = listaDefectos,
                             TemplateDetalleElemento = lenguaje=="es-MX"? "Ver detalle" :" View detail ",
                             EstatusRequisicion = item.Estatus.GetValueOrDefault(),
-                            RequisicionID = item.RequisicionID
+                            RequisicionID = item.RequisicionID,
+                            EquipoID = item.EquipoID,
+                            Equipo = item.Equipo,
+                            Turno = item.TurnoLaboral,
+                            TurnoLaboralID = item.TurnoLaboralID.GetValueOrDefault(),
+                            TipoRT = item.ClasificacionPND == "RT" ? true: false
                         };
                         listaDetalleJunta.Add(detalle);
 

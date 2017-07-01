@@ -188,8 +188,9 @@ function AjaxAgregarDetalleSpool(tipoConsulta, ordenTrabajoSpoolID, codigo) {
             }else
                 displayNotify("SpoolIDExistente", "", '1');
 
+        } else {
+            displayNotify("NoExisteSpoolID", "", "1");
         }
-
         $("#InputID").data("kendoComboBox").value("");
         $("#inputCodigo").val("");
         loadingStop();

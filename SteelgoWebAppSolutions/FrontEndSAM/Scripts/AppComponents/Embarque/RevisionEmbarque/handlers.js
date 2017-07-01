@@ -23,54 +23,42 @@ function SuscribirEventos() {
 }
 
 function SuscribirEventoDescargarPaquete() {
-    $(document).on('click', '.descargarPaquete', function (e) {        
-        var grid = $("#grid").data("kendoGrid");
-        var dataItem = grid.dataItem($(e.currentTarget).closest("tr"));        
-        if (dataItem.Paquete !== "NA") {
-            windowDownloadPaquete = $("#ventanaConfirmCaptura").kendoWindow({
-                iframe: true,
-                title: _dictionary.EmbarqueCargaTituloPopupDescargaPaquete[$("#language").data("kendoDropDownList").value()],
-                visible: false,
-                animation: false,
-                width: "auto",
-                height: "auto",
-                actions: [],
-                modal: true,
-                position: {
-                    'left': (($(window).width() / 2) - ($(this).width() / 2) - 50) + 'px',
-                    'top': (($(window).height() / 2) - ($(this).height() / 2)) + 'px'
-                }
-            }).data("kendoWindow");
-            windowDownloadPaquete.content(_dictionary.EmbarqueRevisionMsjConfirmaEliminaPaquete[$("#language").data("kendoDropDownList").value()] + "</br><center><button class='btn btn-blue' id='yesButtonProy'>" + _dictionary.EntregaPlacasGraficasbotonSi[$("#language").data("kendoDropDownList").value()] + "</button><button class='btn btn-blue' id='noButtonProy'>" + _dictionary.EntregaPlacasGraficasbotonNo[$("#language").data("kendoDropDownList").value()] + "</button></center>");
-            //windowDownloadPaquete.open().center();                        
-            windowDownloadPaquete.open();
-            $("#yesButtonProy").click(function (e) {
-                EliminarPaquete(dataItem);
-                windowDownloadPaquete.close();
-            });
-            $("#noButtonProy").click(function (e) {
-                windowDownloadPaquete.close();
-            });
-        } else {
-            e.preventDefault();
-        }
-    });
-}
-function EliminarPaquete(dataItem) {
-    var gridActual = $("#grid").data("kendoGrid").dataSource._data;
-    var ds = $("#grid").data("kendoGrid").dataSource;    
-    var tmpEliminados = [];
-    if(dataItem.PaqueteID != 0 || dataItem.PaqueteID != undefined) {
-        for (var i = 0; i < gridActual.length; i++) {
-            if (gridActual[i].PaqueteID === dataItem.PaqueteID && gridActual[i].Paquete === dataItem.Paquete) {                
-                tmpEliminados[i] = gridActual[i];
+    $(document).on('click', '.descargarPaquete', function (e) {                
+        if (!$("#InputCerrar").is(":checked")) { //Si la revision esta abierta, permite eliminar
+            var grid = $("#grid").data("kendoGrid");
+            var dataItem = grid.dataItem($(e.currentTarget).closest("tr"));
+            if (dataItem.Paquete !== "NA" && dataItem.Accion != 2) {
+                windowDownloadPaquete = $("#ventanaConfirmCaptura").kendoWindow({
+                    iframe: true,
+                    title: _dictionary.DetalleAvisoLlegada0047[$("#language").data("kendoDropDownList").value()],
+                    visible: false,
+                    animation: false,
+                    width: "auto",
+                    height: "auto",
+                    actions: [],
+                    modal: true,
+                    position: {
+                        'left': (($(window).width() / 2) - ($(this).width() / 2) - 50) + 'px',
+                        'top': (($(window).height() / 2) - ($(this).height() / 2)) + 'px'
+                    }
+                }).data("kendoWindow");
+                windowDownloadPaquete.content(_dictionary.EmbarqueRevisionMsjConfirmaEliminaPaquete[$("#language").data("kendoDropDownList").value()] + "</br><center><button class='btn btn-blue' id='yesButtonProy'>" + _dictionary.EntregaPlacasGraficasbotonSi[$("#language").data("kendoDropDownList").value()] + "</button><button class='btn btn-blue' id='noButtonProy'>" + _dictionary.EntregaPlacasGraficasbotonNo[$("#language").data("kendoDropDownList").value()] + "</button></center>");
+                //windowDownloadPaquete.open().center();                        
+                windowDownloadPaquete.open();
+                $("#yesButtonProy").click(function (e) {                
+                    EliminarPaquete(dataItem);
+                    windowDownloadPaquete.close();              
+                });
+                $("#noButtonProy").click(function (e) {
+                    windowDownloadPaquete.close();
+                });
+            } else {
+                e.preventDefault();
             }
+        } else {
+            displayNotify("EmbarqueRevisionMsjRevisionCerrada", "", "1");
         }
-        for (var x = 0; x < tmpEliminados.length; x++) {
-            ds.remove(tmpEliminados[x]);
-        }
-        ds.sync();        
-    }    
+    });    
 }
 
 function SuscribirEventoPopUpDescarga() {
@@ -508,7 +496,7 @@ function SuscribirEventoEnterCodigo() {
         
             if (Proyecto != undefined && Proyecto.ProyectoID != 0) {
                 if (Embarque != undefined && Embarque.EmbarqueID != 0) {
-                    if (!RevisionCerrado) {
+                    if (!RevisionCerrado) {                        
                         var TipoConsulta = ObtenerTipoConsulta();
                         var codigo = "";
                         var ordenTrabajoSpoolID = 0;
@@ -524,8 +512,8 @@ function SuscribirEventoEnterCodigo() {
                         }else if(TipoConsulta == 2){
                             codigo = $("#inputCodigo").val();
 
-                            if (codigo != "" && codigo != undefined) {
-                                AjaxAgregarDetalleSpool(TipoConsulta, ordenTrabajoSpoolID, codigo);
+                            if (codigo != "" && codigo != undefined) {                                
+                                AjaxAgregarDetalleSpool(TipoConsulta, ordenTrabajoSpoolID, codigo.toString().trim().toUpperCase());
                             }
                         }
                         else if (TipoConsulta == 3) {
@@ -575,7 +563,7 @@ function SuscribirEventoAgregar() {
                         codigo = $("#inputCodigo").val();
 
                         if (codigo != "" && codigo != undefined) {
-                            AjaxAgregarDetalleSpool(TipoConsulta, ordenTrabajoSpoolID, codigo);
+                            AjaxAgregarDetalleSpool(TipoConsulta, ordenTrabajoSpoolID, codigo.toString().trim().toUpperCase());
                         }
                     }
                     else if (TipoConsulta == 3) {

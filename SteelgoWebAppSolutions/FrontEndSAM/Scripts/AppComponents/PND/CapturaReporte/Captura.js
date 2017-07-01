@@ -21,28 +21,7 @@ function validarReglasDeLlenado() {
             for (var j = 0; j < $("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas.length; j++) {
 
                 $('tr[data-uid="' + $("#grid").data("kendoGrid").dataSource._data[i].uid + '"] ').css("background-color", "#ffffff");
-                //if ($("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas[j].ResultadosID == (0)) {
-                //    //alert("Tienes por lo menos un resultado sin evaluar en la junta: " + $("#grid").data("kendoGrid").dataSource._data[i].EtiquetaJunta)
-                //    //displayNotify("MensajeGuardado", "", "0");
-                //    $('tr[data-uid="' + arregloCaptura[index].uid + '"] ').css("background-color", "#ffcccc");
-                //    return false;
-                //}
-                //else if ($("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas[j].Resultado == 0) {//Si esta evaluado pero hay que revisar si esta rechazado tiene que tenes defectos
-                //    if (!($("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas[j].DetalleResultados.length > 0)) {
-                //        //alert("Si calificas como rechazado un defecto, tiene que tener por lo menos un resultado, en la junta: " + $("#grid").data("kendoGrid").dataSource._data[i].EtiquetaJunta)
-                //        displayNotify("MensajeGuardadoExistoso", "", "0");
-                //        $('tr[data-uid="' + arregloCaptura[index].uid + '"] ').css("background-color", "#ffcccc");
-                //        return false;
-                //    }
-                //}
-                //for (var k = 0; k < $("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas[j].DetalleResultados.length; k++) {
-                //    if ($("#grid").data("kendoGrid").dataSource._data[i].InformacionResultados[j].DetalleResultados[k].DefectoID == (-1)) {
-                //        //alert("Tienes por lo menos un defecto sin evaluar en la junta: " + $("#grid").data("kendoGrid").dataSource._data[i].Etiqueta)
-                //        displayNotify("MensajeGuardadoExistoso", "", "0");
-                //        $('tr[data-uid="' + arregloCaptura[index].uid + '"] ').css("background-color", "#ffcccc");
-                //        return false;
-                //    }
-                //}
+              
             }
         }
         else {
@@ -75,7 +54,8 @@ function CargarGrid() {
                         Densidad: { type: "number", editable: true },
                         ResultadoConciliacion: { type: "string", editable: false },
                         RazonNoConciliacion: { type: "string", editable: false },
-                        TemplateDetalleElemento: { type: "string", editable: false }
+                        TemplateDetalleElemento: { type: "string", editable: false },
+                        TipoRT: {type: "boolean", editable: false}
                     }
                 }
             },
@@ -107,9 +87,20 @@ function CargarGrid() {
             { field: "TipoPrueba", title: _dictionary.CapturaReporteGridColumnTipoPrueba[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "120px" },
             { field: "Observaciones", title: _dictionary.CapturaReporteGridColumnObservaciones[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "150px" },
             { field: "CodigoAsme", title: _dictionary.CapturaReporteGridColumnCodigoAsme[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "120px" },
-            { field: "asd", title: "Equipo", filterable: getGridFilterableCellNumberMaftec(), width: "90px", editor: RenderDensidad, format: "{0:n4}", attributes: { style: "text-align:right;" } },
-            { field: "Densidad", title: "Turno", filterable: getGridFilterableCellNumberMaftec(), width: "90px", editor: RenderDensidad, format: "{0:n4}", attributes: { style: "text-align:right;" } },
-            { field: "Tipo", title: "Evaluación", filterable: getGridFilterableCellNumberMaftec(), width: "110px", template: "<input style='display:inline-block' type='radio'> <label style='display:inline-block'>Sector</label><br><input style='display:inline-block' type='radio'> <label style='display:inline-block'>Cte</label>", attributes: { style: "text-align:left;" } },
+            { field: "Equipo", title: "Equipo", filterable: getGridFilterableCellNumberMaftec(), width: "90px", editor: RenderEquipo, filterable: getGridFilterableCellMaftec() },
+            { field: "Turno", title: "Turno", filterable: getGridFilterableCellNumberMaftec(), width: "90px", editor: RenderTurno, filterable: getGridFilterableCellMaftec() },
+            {
+                field: "TipoRT", title: "Evaluación", width: "110px",filterable: {
+                    multi: true,
+                    messages: {
+                        isTrue: _dictionary.lblVerdadero[$("#language").data("kendoDropDownList").value()],
+                        isFalse: _dictionary.lblFalso[$("#language").data("kendoDropDownList").value()],
+                        style: "max-width:120px;"
+                    },
+                    dataSource: [{ Etiquetado: true }, { Etiquetado: false }],
+                },
+                template: "<input style=' display:inline-block; padding: 0px; margin-left:0px !important;'     type='radio' name='tipoEvaluacion' #= TipoRT ? checked='checked' : '' #> <label style='display:inline-block'>Sector</label><br><input style='display:inline-block' type='radio' name='tipoEvaluacion'  #= TipoRT ? checked='checked' : '' #> <label style='display:inline-block'>Cte</label>"
+            },
             { field: "NumeroPlacas", title: _dictionary.CapturaReporteGridColumnNumeroPlacas[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "90px", editor: RenderNumeroPlacas, attributes: { style: "text-align:right;" } },
             { field: "TemplateDetalleElemento", title: _dictionary.CapturaReporteGridColumnInformacionResultados[$("#language").data("kendoDropDownList").value()], filterable: false, width: "150px"/*, editor: RenderGridDetallePorPlaca*/, template: "<div class='EnlacePorPlaca' style='text-align:center;'><a href='\\#'  > <span>#=TemplateDetalleElemento#</span></a></div> " },
             { field: "Tamano", title: "Resultado", filterable: getGridFilterableCellNumberMaftec(), width: "110px", editor: RenderTamano, format: "{0:n4}", attributes: { style: "text-align:right;" } },
@@ -154,27 +145,13 @@ function CargarGridPopUpDetallePorPlaca() {
           { field: "TemplateDetallePorPlaca", title: "Hallazgos", filterable: false, width: "10px", template: "<div class='EnlaceDefectoPorPlaca' style='text-align:center;'><a href='\\#'  > <span>#=TemplateDetallePorPlaca#</span></a></div> " }
         ],
         editable: true,
-        //toolbar: [{ name: "cancel" }],
+        
         navigatable: true,
-        dataBound: function (a) {
-            //var that = this;
-            //$(that.tbody).on("click", "tr", function (e) {
-            //    var rowData = that.dataItem(this);
-            //    //var url = "@Url.Action("Index", "Home")/" + rowData.OrderID;
- 
-            //    //window.location.href = url;
-            //});
-            //$(that.tbody).on("click", "th", function (e) {
-            //    var rowData = that.dataItem(this);
-            //    //var url = "@Url.Action("Index", "Home")/" + rowData.OrderID;
-
-            //    //window.location.href = url;
-            //});
-        }
+        
     });
     CustomisaGrid($("#gridPopUp"));
 
-    //WindowModalGridDefectoDetalle(model);
+    
 };
 
 function CargarGridPopUpDetallePorPlacaPorDefectos() {
@@ -284,7 +261,6 @@ function CargarGridPopUpDetallePorPlacaPorDefectos() {
     });
     CustomisaGrid($("#gridPopUpDefectos"));
 
-    //WindowModalGridDefectoDetalle(model);
 };
 
 var currentPlaca = null;
@@ -399,16 +375,6 @@ function actualizaGridGeneralPorPlaca() {
             if ((currentPlaca.SpoolID == $("#grid").data("kendoGrid").dataSource._data[i].SpoolID) && (currentPlaca.JuntaSpoolID == $("#grid").data("kendoGrid").dataSource._data[i].JuntaSpoolID) && (currentPlaca.OrdenTrabajoID == $("#grid").data("kendoGrid").dataSource._data[i].OrdenTrabajoID)) {
                 for (var k = 0; k < $("#grid").data("kendoGrid").dataSource._data[i].NumeroPlacas; k++) {
                     if (($("#gridPopUp").data("kendoGrid").dataSource._data[k].ResultadoID != null) && ($("#gridPopUp").data("kendoGrid").dataSource._data[k].ResultadoID != 0)) {
-                        //para iterar por ubicaciones/placas
-                        //$("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas[k].ResultadoID = $("#gridPopUp").data("kendoGrid").dataSource._data[k].ResultadoID;
-                        //$("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas[k].Resultado = $("#gridPopUp").data("kendoGrid").dataSource._data[k].Resultado;
-                        //$("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas[k].ListaDetalleDefectos = $("#gridPopUp").data("kendoGrid").dataSource._data[k].ListaDetalleDefectos;
-
-                        //listaDetalleDefectos[itera] = { ResultadoID: 0, Resultado: "", ListaDetalleDefectos: [] };
-                        //listaDetalleDefectos[itera].ResultadoID = $("#gridPopUp").data("kendoGrid").dataSource._data[k].ResultadoID;
-                        //listaDetalleDefectos[itera].Resultado = $("#gridPopUp").data("kendoGrid").dataSource._data[k].Resultado;
-                        //listaDetalleDefectos[itera].ListaDetalleDefectos = $("#gridPopUp").data("kendoGrid").dataSource._data[k].ListaDetalleDefectos;
-                        //itera++;
                         $('tr[data-uid="' + $("#gridPopUp").data("kendoGrid").dataSource._data[k].uid + '"] ').css("background-color", "#ffffff");
                     }
                     else {
@@ -469,26 +435,6 @@ function actualizaGridGeneralPorPlaca() {
         //return false;
         return;
     }
-   
-    
-    //for (var i = 0; i < $("#grid").data("kendoGrid").dataSource._data.length; i++) {
-    //    if ((dataItem.SpoolID == $("#grid").data("kendoGrid").dataSource._data[i].SpoolID) && (dataItem.JuntaSpoolID == $("#grid").data("kendoGrid").dataSource._data[i].JuntaSpoolID) && (dataItem.OrdenTrabajoID == $("#grid").data("kendoGrid").dataSource._data[i].OrdenTrabajoID)) {
-    //        for (var j = 0; j < $("#grid").data("kendoGrid").dataSource._data[i].NumeroPlacas; j++) {
-
-    //            //if (j != ($("#grid").data("kendoGrid").dataSource._data[i].NumeroPlacas - 1))
-    //            //    ubicacionTemp = j + '-' + (j + 1);
-    //            //else 
-    //            //    ubicacionTemp = j + '-' + 0;
-    //            if ($("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas[j].Ubicacion == dataItem.Ubicacion) {
-    //                $("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas[j].Resultado = nuevoValor.Resultado;
-    //                $("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas[j].ResultadoID = nuevoValor.ResultadosID;
-    //                $("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas[j].TemplateDetallePorPlaca = $("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas[j].ListaDetalleDefectos.length > 0 ? "Tienes " + $("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas[j].ListaDetalleDefectos.length + "Defectos" : $("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas[j].TemplateDetallePorPlaca
-    //                break;
-    //            }
-    //        }
-    //        break;
-    //    }
-    //}
 }
 
 var validacionCorrecta = false;
@@ -613,29 +559,6 @@ function actualizaGridGeneralPorDefectos() {
         return false;
     }
 
-
-
-
-    //var dataItemsArrays = dataItemsStr.split("_");
-    //if (dataItemsArrays.length == 4) {
-    //    for (var i = 0; i < $("#grid").data("kendoGrid").dataSource._data.length; i++) {
-    //        if ((dataItemsArrays[0] == $("#grid").data("kendoGrid").dataSource._data[i].SpoolID) && (dataItemsArrays[1] == $("#grid").data("kendoGrid").dataSource._data[i].JuntaSpoolID) && (dataItemsArrays[2] == $("#grid").data("kendoGrid").dataSource._data[i].OrdenTrabajoID)) {
-    //            for (var j = 0; j < $("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas.length; j++) {
-
-    //                if ($("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas[j].Ubicacion == dataItemsArrays[3]) {
-    //                    $("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas[j].DetalleResultados = new Array(defectosArray.length);
-    //                    for (var k = 0; k < defectosArray.length; k++) {
-    //                        $("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas[j].DetalleResultados[k] = { ResultadosDefectoID: 0, ReporteResultadosID: 0, OrdenTrabajoID: $("#grid").data("kendoGrid").dataSource._data[i].OrdenTrabajoID, SpoolID: $("#grid").data("kendoGrid").dataSource._data[i].SpoolID, JuntaSpoolID: $("#grid").data("kendoGrid").dataSource._data[i].JuntaSpoolID, DefectoID: defectosArray[k].DefectoIDCombo, InicioMM: defectosArray[k].InicioMM, FinMM: defectosArray[k].FinMM, Accion: 1 };
-    //                    }
-    //                    //if ($("#grid").data("kendoGrid").dataSource._data[i].InformacionResultados[j].Ubicacion == dataItem.Ubicacion) {
-    //                    //$("#grid").data("kendoGrid").dataSource._data[i].InformacionResultados[j].Resultado = nuevoValor.Resultado;
-    //                    break;
-    //                }
-    //            }
-    //            break;
-    //        }
-    //    }
-    //}
 }
 
 
@@ -652,27 +575,4 @@ function actualizaDefectos() {
         return false;
     }
 
-
-
-
-    //var dataItemsArrays = dataItemsStr.split("_");
-    //if (dataItemsArrays.length == 4) {
-    //    for (var i = 0; i < $("#grid").data("kendoGrid").dataSource._data.length; i++) {
-    //        if ((dataItemsArrays[0] == $("#grid").data("kendoGrid").dataSource._data[i].SpoolID) && (dataItemsArrays[1] == $("#grid").data("kendoGrid").dataSource._data[i].JuntaSpoolID) && (dataItemsArrays[2] == $("#grid").data("kendoGrid").dataSource._data[i].OrdenTrabajoID)) {
-    //            for (var j = 0; j < $("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas.length; j++) {
-
-    //                if ($("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas[j].Ubicacion == dataItemsArrays[3]) {
-    //                    $("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas[j].DetalleResultados = new Array(defectosArray.length);
-    //                    for (var k = 0; k < defectosArray.length; k++) {
-    //                        $("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas[j].DetalleResultados[k] = { ResultadosDefectoID: 0, ReporteResultadosID: 0, OrdenTrabajoID: $("#grid").data("kendoGrid").dataSource._data[i].OrdenTrabajoID, SpoolID: $("#grid").data("kendoGrid").dataSource._data[i].SpoolID, JuntaSpoolID: $("#grid").data("kendoGrid").dataSource._data[i].JuntaSpoolID, DefectoID: defectosArray[k].DefectoIDCombo, InicioMM: defectosArray[k].InicioMM, FinMM: defectosArray[k].FinMM, Accion: 1 };
-    //                    }
-    //                    //if ($("#grid").data("kendoGrid").dataSource._data[i].InformacionResultados[j].Ubicacion == dataItem.Ubicacion) {
-    //                    //$("#grid").data("kendoGrid").dataSource._data[i].InformacionResultados[j].Resultado = nuevoValor.Resultado;
-    //                    break;
-    //                }
-    //            }
-    //            break;
-    //        }
-    //    }
-    //}
 }

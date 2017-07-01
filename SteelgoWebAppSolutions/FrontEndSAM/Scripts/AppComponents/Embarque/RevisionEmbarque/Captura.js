@@ -199,7 +199,7 @@ function CargarGrid() {
 
                 var currenRow = grid.table.find("tr[data-uid='" + currentUid + "']");
                 var editButton = $(currenRow).find(".k-button");
-                if (gridData[i].CapturaManual ) {
+                if (gridData[i].CapturaManual && gridData[i].Paquete == "NA" ) {                
                     var classDescarga = $("#language").val() == "es-MX" ? "k-grid-Cancelar" : "k-grid-Cancel";
                     editButton[0].outerHTML = '<a class="k-button k-button-icontext ' + classDescarga + '" href="#/"><span class=""></span>' +
                         _dictionary.botonDescarga[$("#language").data("kendoDropDownList").value()] + '</a>';
@@ -354,4 +354,20 @@ function existenCambios(ds) {
         }        
     }
     return false;
+}
+
+function EliminarPaquete(dataItem) {
+    var gridActual = $("#grid").data("kendoGrid").dataSource._data;
+    var ds = $("#grid").data("kendoGrid").dataSource;
+    var tmpEliminados = [];
+
+    if (dataItem.Paquete != "" && dataItem.Paquete != undefined) {
+        if (dataItem.Paquete != "NA") {            
+            for (var i = gridActual.length - 1 ; i >= 0; i--) {
+                if (gridActual[i].Paquete === dataItem.Paquete)
+                    ds.remove(gridActual[i]);                    
+            }           
+            ds.sync();
+        }
+    }
 }

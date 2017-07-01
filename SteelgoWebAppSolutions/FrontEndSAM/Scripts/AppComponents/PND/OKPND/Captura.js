@@ -204,7 +204,8 @@ function CargarGrid() {
                 model: {
                     fields: {
                         NumeroControl: { type: "string", editable: false },
-                        OKPND: { type: "boolean", editable: false }
+                        OKFAB: { type: "boolean", editable: false }
+                        //OKPND: { type: "boolean", editable: false }
                     }
                 }
             },
@@ -230,7 +231,8 @@ function CargarGrid() {
         columns: [
             { field: "NumeroControl", title: _dictionary.columnNumeroControl[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px" },
             {
-                field: "OkPND", title: _dictionary.columnOkPND[$("#language").data("kendoDropDownList").value()], filterable: {                
+                //field: "OkPND", title: _dictionary.columnOkPND[$("#language").data("kendoDropDownList").value()], filterable: {                
+                field: "OKFAB", title: _dictionary.columnOkPND[$("#language").data("kendoDropDownList").value()], filterable: {
                     multi: true,
                     messages: {
                         isTrue: _dictionary.lblVerdadero[$("#language").data("kendoDropDownList").value()],
@@ -239,7 +241,7 @@ function CargarGrid() {
                     },
                     dataSource: [{ Etiquetado: true }, { Etiquetado: false }]
                     //}, template: "<input name='fullyPaid' class='ob-paid' type='checkbox' #= OkPND ? 'checked=checked':'' #/>", width: "50px", attributes: { style: "text-align:center;" }
-                }, template: "<input name='fullyPaid' class='ob-paid' type='checkbox' #= OK ? 'checked=checked':'' #/>", width: "50px", attributes: { style: "text-align:center;" }
+                }, template: "<input name='fullyPaid' class='ob-paid' type='checkbox' #= OKFAB ? 'checked=checked':'' #/>", width: "50px", attributes: { style: "text-align:center;" }
             },
         ]
     });

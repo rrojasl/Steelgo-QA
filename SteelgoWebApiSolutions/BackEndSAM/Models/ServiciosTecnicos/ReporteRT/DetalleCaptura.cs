@@ -28,6 +28,11 @@ namespace BackEndSAM.Models.ServiciosTecnicos.ReporteRT
         public List<Resultados> ListaResultados { get; set; }
         public List<Defectos> ListaDefectos { get; set; }
         public string TemplateDetalleElemento { get; set; }
+        public int EquipoID { get; set; }
+        public string Equipo { get; set; }
+        public int TurnoLaboralID { get; set; }
+        public string Turno { get; set; }
+        public bool TipoRT { get; set; }
     }
 
 }

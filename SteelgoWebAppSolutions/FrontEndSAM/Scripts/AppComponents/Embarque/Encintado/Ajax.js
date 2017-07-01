@@ -138,40 +138,39 @@ function AjaxCargarElementosPorConsulta(tipoBusqueda, zonaID, cuadranteID, spool
         if (data != null) {
             if (data > 100) {
                 if (data < 5000) {
-                var ventanaConfirmBusqueda = $("#ventanaConfirm").kendoWindow({
-                    iframe: true,
-                    title: _dictionary.TituloPopupCancelar[$("#language").data("kendoDropDownList").value()],
-                    visible: false,
-                    width: "45%",
-                    height: "auto",
-                    draggable: false,
-                    actions: [],
-                    modal: true,
-                    animation: {
-                        close: false,
-                        open: false
-                    }
-                }).data("kendoWindow");
-                ventanaConfirmBusqueda.content('<center>' + _dictionary.EmbarqueAlertaCantidadRegistros[$("#language").data("kendoDropDownList").value()] + '</center>' +
-                    "</br><center><button class='btn btn-blue' id='btnContinuarBusqueda'>" + _dictionary.lblSi[$("#language").data("kendoDropDownList").value()] + "</button> <button class='btn btn-blue' id='btnCancelarBusqueda'>" + _dictionary.lblNo[$("#language").data("kendoDropDownList").value()] + "</button></center>");
+                    var ventanaConfirmBusqueda = $("#ventanaConfirm").kendoWindow({
+                        iframe: true,
+                        title: _dictionary.TituloPopupCancelar[$("#language").data("kendoDropDownList").value()],
+                        visible: false,
+                        width: "45%",
+                        height: "auto",
+                        draggable: false,
+                        actions: [],
+                        modal: true,
+                        animation: {
+                            close: false,
+                            open: false
+                        }
+                    }).data("kendoWindow");
+                    ventanaConfirmBusqueda.content('<center>' + _dictionary.EmbarqueAlertaCantidadRegistros[$("#language").data("kendoDropDownList").value()] + '</center>' +
+                        "</br><center><button class='btn btn-blue' id='btnContinuarBusqueda'>" + _dictionary.lblSi[$("#language").data("kendoDropDownList").value()] + "</button> <button class='btn btn-blue' id='btnCancelarBusqueda'>" + _dictionary.lblNo[$("#language").data("kendoDropDownList").value()] + "</button></center>");
 
-                ventanaConfirmBusqueda.open().center();
-                $("#btnContinuarBusqueda").click(function () {
-                    ventanaConfirmBusqueda.close();
-                    AjaxCargarDetalleEncintado(tipoBusqueda, zonaID, cuadranteID, spoolContiene, todos);
+                    ventanaConfirmBusqueda.open().center();
+                    $("#btnContinuarBusqueda").click(function () {
+                        ventanaConfirmBusqueda.close();
+                        AjaxCargarDetalleEncintado(tipoBusqueda, zonaID, cuadranteID, spoolContiene, todos);
 
-                    if (tipoBusqueda != 1)
-                        AjaxCargarCuadranteSpool(spoolContiene);
-                });
-                $("#btnCancelarBusqueda").click(function () {
-                    ventanaConfirmBusqueda.close();
-                    loadingStop();
-                });
 
-            } else {
+                    });
+                    $("#btnCancelarBusqueda").click(function () {
+                        ventanaConfirmBusqueda.close();
+                        loadingStop();
+                    });
+
+                } else {
                     displayNotify("EmbarqueEtiquetadoMensajeNumeroElementosExcedente", "", '1');
-                loadingStop();
-            }
+                    loadingStop();
+                }
 
 
             } else {
@@ -195,12 +194,16 @@ function AjaxCargarDetalleEncintado(tipoBusqueda, zonaID, cuadranteID, spoolCont
         if (data.length > 0) {
             ds.data(data);
             ds.page(1);
+            if (tipoBusqueda != 1)
+                AjaxCargarCuadranteSpool(spoolContiene);
+
+
         } else {
             ds.page(0);
         }
         ds.sync();
 
-        loadingStop();
+
     });
 }
 
@@ -212,45 +215,39 @@ function AjaxGuardarCaptura(rows, tipoGuardar) {
     var ListaDetalles = [];
     var index = 0;
     for (var i = 0; i < rows.length; i++) {
-            ListaDetalles[index] = { Accion: "", EncintadoID: 0, SpoolID: 0, Encintado: false, 
-                ColorID: 0, ColorAnteriorID: 0, CuadranteID: 0, CuadranteSam2ID: 0, CuadranteAnteriorID: 0,
-                CuadranteAnteriorSam2ID: 0, Estatus: 1 };
+        ListaDetalles[index] = {
+            Accion: "", EncintadoID: 0, SpoolID: 0, Encintado: false,
+            ColorID: 0, ColorAnteriorID: 0, CuadranteID: 0, CuadranteSam2ID: 0, CuadranteAnteriorID: 0,
+            CuadranteAnteriorSam2ID: 0, Estatus: 1
+        };
 
-            ListaDetalles[index].Accion = rows[i].Accion;
-            ListaDetalles[index].EncintadoID = rows[i].EncintadoID;
-            ListaDetalles[index].SpoolID = rows[i].SpoolID;
-            ListaDetalles[index].Encintado = rows[i].Encintado;
-            ListaDetalles[index].ColorID = rows[i].ColorID;
-            ListaDetalles[index].CuadranteID = rows[i].CuadranteID;
-            ListaDetalles[index].CuadranteSam2ID = rows[i].CuadranteSam2ID;
+        ListaDetalles[index].Accion = rows[i].Accion;
+        ListaDetalles[index].EncintadoID = rows[i].EncintadoID;
+        ListaDetalles[index].SpoolID = rows[i].SpoolID;
+        ListaDetalles[index].Encintado = rows[i].Encintado;
+        ListaDetalles[index].ColorID = rows[i].ColorID;
+        ListaDetalles[index].CuadranteID = rows[i].CuadranteID;
+        ListaDetalles[index].CuadranteSam2ID = rows[i].CuadranteSam2ID;
 
-            if (rows[i].CuadranteID != null && rows[i].CuadranteID == rows[i].CuadranteAnteriorSam3ID) {
-                ListaDetalles[index].CuadranteAnteriorID = 0;
-                ListaDetalles[index].CuadranteAnteriorSam2ID = 0;
-            } else {
-                ListaDetalles[index].CuadranteAnteriorID = rows[i].CuadranteAnteriorSam3ID == null ? -1 : rows[i].CuadranteAnteriorSam3ID;
-                ListaDetalles[index].CuadranteAnteriorSam2ID = rows[i].CuadranteAnteriorSam2ID == null ? -1 : rows[i].CuadranteAnteriorSam2ID;
-            }
+        if (rows[i].CuadranteID != null && rows[i].CuadranteID == rows[i].CuadranteAnteriorSam3ID) {
+            ListaDetalles[index].CuadranteAnteriorID = 0;
+            ListaDetalles[index].CuadranteAnteriorSam2ID = 0;
+        } else {
+            ListaDetalles[index].CuadranteAnteriorID = rows[i].CuadranteAnteriorSam3ID == null ? -1 : rows[i].CuadranteAnteriorSam3ID;
+            ListaDetalles[index].CuadranteAnteriorSam2ID = rows[i].CuadranteAnteriorSam2ID == null ? -1 : rows[i].CuadranteAnteriorSam2ID;
+        }
 
-            if (rows[i].ColorID == rows[i].ColorAnteriorID)
-                ListaDetalles[index].ColorAnteriorID = 0;
-            else
-                ListaDetalles[index].ColorAnteriorID = rows[i].ColorAnteriorID;
+        if (rows[i].ColorID == rows[i].ColorAnteriorID)
+            ListaDetalles[index].ColorAnteriorID = 0;
+        else
+            ListaDetalles[index].ColorAnteriorID = rows[i].ColorAnteriorID;
 
-            if (rows[i].Accion === 1 || rows[i].Accion === 2) {
-                if (rows[i].Accion === 2) {
-                    if (!rows[i].Encintado && rows[i].ColorID == 0) {
-                        ListaDetalles[index].Accion = 3;
-                        $("#grid").data("kendoGrid").dataSource._data[i].RowOk = true;
-                    } else {
-                        if (rows[i].Encintado && rows[i].ColorID == 0) {
-                            ListaDetalles[index].Estatus = 0;
-                            $("#grid").data("kendoGrid").dataSource._data[i].RowOk = false;
-                            //$('tr[data-uid="' + rows[i].uid + '"] ').css("background-color", "#ffcccc");
-                        } else 
-                            $("#grid").data("kendoGrid").dataSource._data[i].RowOk = true;
-                    }
-                }else if(rows[i].Accion === 1){
+        if (rows[i].Accion === 1 || rows[i].Accion === 2) {
+            if (rows[i].Accion === 2) {
+                if (!rows[i].Encintado && rows[i].ColorID == 0) {
+                    ListaDetalles[index].Accion = 3;
+                    $("#grid").data("kendoGrid").dataSource._data[i].RowOk = true;
+                } else {
                     if (rows[i].Encintado && rows[i].ColorID == 0) {
                         ListaDetalles[index].Estatus = 0;
                         $("#grid").data("kendoGrid").dataSource._data[i].RowOk = false;
@@ -258,9 +255,17 @@ function AjaxGuardarCaptura(rows, tipoGuardar) {
                     } else
                         $("#grid").data("kendoGrid").dataSource._data[i].RowOk = true;
                 }
+            } else if (rows[i].Accion === 1) {
+                if (rows[i].Encintado && rows[i].ColorID == 0) {
+                    ListaDetalles[index].Estatus = 0;
+                    $("#grid").data("kendoGrid").dataSource._data[i].RowOk = false;
+                    //$('tr[data-uid="' + rows[i].uid + '"] ').css("background-color", "#ffcccc");
+                } else
+                    $("#grid").data("kendoGrid").dataSource._data[i].RowOk = true;
             }
+        }
 
-            index++;
+        index++;
     };
 
     $("#grid").data("kendoGrid").dataSource.sync();
@@ -313,7 +318,7 @@ function AjaxGuardarCaptura(rows, tipoGuardar) {
                 actions: []
             }).data("kendoWindow");
 
-            ventanaConfirm.content('<center>'+_dictionary.MensajeConfirmacionGuardadoGeneral[$("#language").data("kendoDropDownList").value()] + '</center>'+
+            ventanaConfirm.content('<center>' + _dictionary.MensajeConfirmacionGuardadoGeneral[$("#language").data("kendoDropDownList").value()] + '</center>' +
                 "</br><center><button class='btn btn-blue' id='yesButton'>" + _dictionary.lblSi[$("#language").data("kendoDropDownList").value()]
                 + "</button><button class='btn btn-blue' id='noButton'>" + _dictionary.lblNo[$("#language").data("kendoDropDownList").value()]
                 + "</button></center>");
@@ -327,10 +332,12 @@ function AjaxGuardarCaptura(rows, tipoGuardar) {
 
                 for (var i = 0; i < ListaDetalles.length; i++) {
                     if (ListaDetalles[i].Estatus == 1) {
-                        
-                        listaDetallesGuardar[x] = { Accion: "", EncintadoID: 0, SpoolID: 0, Encintado: false, 
+
+                        listaDetallesGuardar[x] = {
+                            Accion: "", EncintadoID: 0, SpoolID: 0, Encintado: false,
                             ColorID: 0, ColorAnteriorID: 0, CuadranteID: 0, CuadranteSam2ID: 0, CuadranteAnteriorID: 0,
-                            CuadranteAnteriorSam2ID: 0, Estatus: 1 };
+                            CuadranteAnteriorSam2ID: 0, Estatus: 1
+                        };
 
                         listaDetallesGuardar[x].Accion = ListaDetalles[i].Accion;
                         listaDetallesGuardar[x].EncintadoID = ListaDetalles[i].EncintadoID;
@@ -402,7 +409,7 @@ function AjaxGuardarCaptura(rows, tipoGuardar) {
                 ventanaConfirm.close();
             });
         }
-        
+
     }
     else {
         loadingStop();
@@ -410,10 +417,9 @@ function AjaxGuardarCaptura(rows, tipoGuardar) {
     }
 }
 
-function AjaxObtenerColores()
-{
+function AjaxObtenerColores() {
     loadingStart();
-    $Encintado.Encintado.read({ token: Cookies.get("token"),lenguaje: $("#language").val() }).done(function (data) {
+    $Encintado.Encintado.read({ token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
         if (Error(data)) {
             $("#InputColorCintaPlanchado").data("kendoComboBox").dataSource.data([]);
             $("#InputColorCintaPlanchado").data("kendoComboBox").dataSource.data(data);
