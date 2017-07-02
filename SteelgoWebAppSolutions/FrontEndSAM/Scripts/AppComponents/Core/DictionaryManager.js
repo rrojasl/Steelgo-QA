@@ -8226,7 +8226,7 @@ _dictionary = {
         "en-US": "Set Requisition"
     },
     "menuServiciosTecnicosReporteRT": {
-        "es-MX": "Captura de Reporte",
+        "es-MX": "Captura de Resultados",
         "en-US": "Capture of Report"
     },
     "menuServiciosTecnicosEntregaPlacasGraficas": {
@@ -10279,7 +10279,7 @@ _dictionary = {
         "en-US": "Add"
     },
     "ReporteRTHeader": {
-        "es-MX": "Captura de Reporte",
+        "es-MX": "Captura de Resultados",
         "en-US": "Capture of Report"
     },
 

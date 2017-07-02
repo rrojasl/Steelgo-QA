@@ -1,4 +1,6 @@
-﻿IniciarCapturaPlacasGraficas();
+﻿var modeloRenglon = [];
+
+IniciarCapturaPlacasGraficas();
 function IniciarCapturaPlacasGraficas() {
     SuscribirEventos();
 }
@@ -6,6 +8,8 @@ function IniciarCapturaPlacasGraficas() {
 function changeLanguageCall() {
     var paramReq = getParameterByName('requisicion');
     
+    
+    CargarGridPopUpDetalleDanadas();
     cargarGrid();
 
     AjaxCargarCamposPredeterminados();
@@ -102,13 +106,12 @@ function cargarGrid() {
                         Observaciones: { type: "string", editable: false },
                         CodigoAsmeID: { type: "number", editable: false },
                         CodigoAsme: { type: "string", editable: false },
-                        DocumentoRecibidoID: { type: "number", editable: true },
-                        DocumentoRecibido: { type: "string", editable: true },
-                        DocumentoEstatusID: { type: "number", editable: true },
-                        DocumentoEstatus: { type: "string", editable: true },
-                        DocumentoDefectoID: { type: "number", editable: true },
-                        DocumentoDefecto: { type: "string", editable: true },
-                        EstatusCaptura: { type: "number", editable: true }
+
+                        Cantplacas: { type: "number", editable: false },
+                        Recibida: { type: "number", editable: true },
+                        Danada: { type: "number", editable: true },
+                        Falta: { type: "number", editable: false},
+                        Dan: { type: "string", editable: false },
                     }
                 }
             },
@@ -123,7 +126,7 @@ function cargarGrid() {
             pageSize: 10,
             serverPaging: false,
             serverFiltering: false,
-            serverSorting: false
+            serverSorting: false,
         },
         navigatable: true,
         editable: true,
@@ -140,15 +143,21 @@ function cargarGrid() {
         },
         filterable: getGridFilterableMaftec(),
         columns: [
-            { field: "NumeroControl", title: _dictionary.columnNumeroControl[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px" },
-            { field: "JuntaEtiqueta", title: _dictionary.columnJunta[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "100px" },
-            { field: "ClasificacionPnd", title: _dictionary.columnClasificacion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "100px" },
-            { field: "TipoPrueba", title: _dictionary.columnTipoPrueba[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "150px" },
-            { field: "Observaciones", title: _dictionary.columnObservacion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "150px" },
-            { field: "CodigoAsme", title: _dictionary.columnCodigoAsme[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "150px" },
-            { field: "DocumentoRecibido", title: _dictionary.columnRecibido[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxDocumentoRecibido, width: "120px" },
-            { field: "DocumentoEstatus", title: _dictionary.columnCondicionesPlacasOGraficas[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxDocumentoEstatus, width: "200px" },
-            { field: "DocumentoDefecto", title: _dictionary.columnDefectosRechazos[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxDefectoDocumento, width: "160px" },
+            { field: "NumeroControl", title: _dictionary.columnNumeroControl[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "110px" },
+            { field: "JuntaEtiqueta", title: _dictionary.columnJunta[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "70px" },
+            { field: "ClasificacionPnd", title: _dictionary.columnClasificacion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "80px" },
+            { field: "TipoPrueba", title: _dictionary.columnTipoPrueba[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px" },
+            { field: "Observaciones", title: _dictionary.columnObservacion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px" },
+            { field: "CodigoAsme", title: _dictionary.columnCodigoAsme[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px" },
+            { field: "Cantplacas", title: "Cant Placas", filterable: getGridFilterableCellMaftec(), width: "100px" },
+            { field: "Recibida", title: "R. Buen Estado", filterable: getGridFilterableCellMaftec(), width: "100px", editor: RenderRecibida },
+            //{ field: "Danada", title: "Rec. ME", filterable: getGridFilterableCellMaftec(), width: "100px", editor: RenderDanada },
+            //{ field: "Falta", title: "Falta", filterable: getGridFilterableCellMaftec(), width: "80px"},
+            { field: "Dan", title: "Detalle Placas", filterable: getGridFilterableCellMaftec(), width: "100px", template: "<div class='EnlaceDetalleColada1' style='text-align:center;'><a>Detalle</a></div>" },
+            
+            //{ field: "DocumentoRecibido", title: _dictionary.columnRecibido[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxDocumentoRecibido, width: "120px" },
+            //{ field: "DocumentoEstatus", title: _dictionary.columnCondicionesPlacasOGraficas[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxDocumentoEstatus, width: "200px" },
+            //{ field: "DocumentoDefecto", title: _dictionary.columnDefectosRechazos[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxDefectoDocumento, width: "160px" },
             { command: { text: _dictionary.botonLimpiar[$("#language").data("kendoDropDownList").value()], click: limpiarRenglon }, title: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()], width: "50px" }
         ],
         beforeEdit: function (e) {
@@ -338,3 +347,135 @@ function validaInformacionCapturada() {
         return false;
     }
 }
+
+
+
+
+
+
+//================================================================dañadas
+
+
+
+
+function CargarGridPopUpDetalleDanadas() {
+
+
+    $("#gridPopUpDanadas").kendoGrid({
+        autoBind: true,
+        dataSource: {
+            data: [],
+            schema: {
+                model: {
+                    fields: {
+                        Colada: { type: "string", editable: true },
+                        DocumentoDefecto: { type: "string", editable: true},
+                        
+                    }
+                }
+            }, filter: {
+                logic: "or",
+                filters: [
+                  { field: "Accion", operator: "eq", value: 1 },
+                  { field: "Accion", operator: "eq", value: 2 },
+                    { field: "Accion", operator: "eq", value: 0 },
+                    { field: "Accion", operator: "eq", value: undefined }
+                ]
+            },
+            pageSize: 10,
+            serverPaging: false,
+            serverFiltering: false,
+            serverSorting: false,
+            change: function (e) {
+                if (e.sender._data.length < (modeloRenglon.Cantplacas - modeloRenglon.Recibida)) {
+
+                }
+            }
+        },
+        navigatable: true,
+        filterable: {
+            extra: false
+        },
+        click: function (e) {
+        },
+        editable: true,
+        autoHeight: true,
+        sortable: true,
+        scrollable: true,
+        filterable: getGridFilterableMaftec(),
+        change: function (e) {
+            grid = e.sender;
+            var currentDataItem = grid.dataItem(this.select());
+            var currentIndexRow = $("#gridPopUp").data("kendoGrid").items().index(this.select());
+            // alert("evento change:" + currentIndexRow);
+            console.log("evento change:" + currentIndexRow);
+        },
+        columns: [
+          //Danadas
+          { field: "Placa", title: "Placa", filterable: getGridFilterableCellMaftec(), width: "90px", editor: RenderComboBoxPlaca },
+          { field: "DocumentoDefecto", title: "Defecto", filterable: getGridFilterableCellMaftec(), width: "110px", editor: RenderComboBoxDefectoDocumento },
+          {
+              command: {
+                  text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()],
+                  click: function (e) {
+                      e.preventDefault();
+                      var dataItem = $("#gridPopUpDanadas").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+
+                      if (dataItem.Accion != 2) {
+                          $("#gridPopUpDanadas").data("kendoGrid").dataSource.remove(dataItem);
+                      }
+                      else {
+                          dataItem.Accion = 3;
+                      }
+
+                      $("#gridPopUpDanadas").data("kendoGrid").dataSource.sync();
+                  }
+              },
+              title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()],
+              width: "50px", attributes: { style: "text-align:center;" }
+          },
+
+        ],
+        editable: "incell",
+        toolbar: [{ name: "create" }],
+        
+
+
+    });
+    CustomisaGrid($("#gridPopUpDanadas"));
+
+};
+
+function VentanaModalDetalleDan() {
+
+    var modalTitle = "";
+    modalTitle = modeloRenglon.Descripcion;
+    var window = $("#windowGridDanadas");
+    var win = window.kendoWindow({
+        modal: true,
+        title: "Placas dañadas",
+        resizable: false,
+        visible: true,
+        width: "40%",
+        minWidth: 30,
+        position: {
+            top: "10px",
+            left: "10px"
+        },
+        animation: {
+            close: false,
+            open: false
+        },
+        actions: [],
+    }).data("kendoWindow");
+    
+    window.data("kendoWindow").center().open();
+
+};
+
+function LlenarGridPopUpDetalleDan(data) {
+    modeloRenglon = data;
+
+    VentanaModalDetalleDan();
+}
+

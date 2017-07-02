@@ -78,6 +78,7 @@ namespace BackEndSAM.Models.ServiciosTecnicos.EntregaPlacasGraficas
         public int DocumentoDefectoID { get; set; }
         public string DocumentoDefecto { get; set; }
         public int EstatusCaptura { get; set; }
+        public int Cantplacas { get; set; }
         public List<DocumentoRecibido> ListaRecibido { get; set; }
         public List<DocumentoEstatus> ListaEstatusDocumento { get; set; }
         public List<DocumentoDefecto> ListaDefectoDocumento { get; set; }

@@ -316,7 +316,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EntregaPlacasGraficas
                             EntregaPlacasGraficasID = item.EntregaPlacasGraficasID,
                             RequisicionID = item.RequisicionID,
                             OrdenTrabajoID = item.OrdenTrabajoID,
-                            SpoolID = item.SpoolID,
+                            SpoolID = item.SpoolID.GetValueOrDefault(),
                             JuntaSpoolID = item.JuntaSpoolID.GetValueOrDefault(),
                             NumeroControl = item.NumeroControl,
                             JuntaEtiqueta = item.JuntaEtiqueta,
@@ -333,6 +333,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EntregaPlacasGraficas
                             DocumentoDefectoID = item.DocumentoDefectoID.GetValueOrDefault(),
                             DocumentoDefecto = item.DefectoDocumento,
                             EstatusCaptura = 0,
+                            Cantplacas = 3,
                             ListaRecibido = (List<DocumentoRecibido>)EntregaPlacasGraficasBD.Instance.ObtenerListadoDocumentoRecibido(lenguaje),
                             ListaEstatusDocumento = (List<DocumentoEstatus>)EntregaPlacasGraficasBD.Instance.ObtenerListadoDocumentoEstatus(lenguaje),
                             ListaDefectoDocumento = (List<DocumentoDefecto>)EntregaPlacasGraficasBD.Instance.ObtenerListadoDocumentoDefecto(lenguaje)

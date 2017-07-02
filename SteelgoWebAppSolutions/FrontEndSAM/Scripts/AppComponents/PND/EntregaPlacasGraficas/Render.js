@@ -23,7 +23,8 @@
                     options.model.EstatusCaptura = 1;
                 }
                 else {
-                    options.model.DocumentoRecibido = ObtenerDocumentoRecibidoCorrecto(options.model.ListaRecibido, options.model.DocumentoRecibidoID);
+                    options.model.DocumentoRecibido = "";
+                    options.model.DocumentoRecibidoID = 0;
                 }
             }
         });
@@ -38,6 +39,8 @@
     });
 
 }
+
+
 
 function RenderComboBoxDocumentoEstatus(container, options) {
     var dataItem;
@@ -97,7 +100,7 @@ function RenderComboBoxDefectoDocumento(container, options) {
             delay: 10,
             filter: "contains",
             autoBind: false,
-            dataSource: options.model.ListaDefectoDocumento,
+            dataSource: modeloRenglon.ListaDefectoDocumento,
             template: "<i class=\"fa fa-#=data.DocumentoDefectoNombre#\"></i> #=data.DocumentoDefectoNombre#",
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
@@ -154,3 +157,77 @@ function tieneClase(item) {
     }
     return false
 }
+
+
+
+function RenderComboBoxPlaca(container, options) {
+    var dataItem;
+    var textAnterior;
+    $('<input  data-text-field="Placa" data-value-field="PlacaID" data-bind="value:' + options.field + '"/>')
+        .appendTo(container)
+        .kendoComboBox({
+            suggest: true,
+            delay: 10,
+            filter: "contains",
+            autoBind: false,
+            dataSource: [{ PlacaID: 0, Placa: "" }, { PlacaID: 1, Placa: "0-1" }, { PlacaID: 2, Placa: "1-2" }, { PlacaID: 3, Placa: "2-1" }],
+            template: "<i class=\"fa fa-#=data.Placa#\"></i> #=data.Placa#",
+            select: function (e) {
+                dataItem = this.dataItem(e.item.index());
+                textAnterior = e.sender._prev;
+            }
+            ,
+            change: function (e) {
+                dataItem = this.dataItem(e.sender.selectedIndex);
+                if (dataItem != undefined) {
+                    options.model.Placa = dataItem.Placa;
+                    options.model.PlacaID = dataItem.PlacaID;
+                    options.model.EstatusCaptura = 1;
+                }
+                else {
+                    options.model.Placa = "";
+                    options.model.PlacaID = 0;
+                }
+            }
+        });
+    $(".k-combobox").parent().on('mouseleave', function (send) {
+        var e = $.Event("keydown", { keyCode: 27 });
+        var item = $(this).find(".k-combobox")[0];
+        if (item != undefined) {
+            if (!tieneClase(item)) {
+                $(container).trigger(e);
+            }
+        }
+    });
+
+}
+
+
+function RenderRecibida(container, options) {
+    var dataItem;
+    $('<input data-text-field="Recibida" id=' + options.model.uid + ' data-value-field="Recibida" data-bind="value:' + options.field + '"/>')
+    .appendTo(container)
+    .kendoNumericTextBox({
+        format: "#",
+        decimals: 0,
+        min: 0,
+        max: parseInt(options.model.Cantplacas)
+    });
+}
+
+//function RenderDanada(container, options) {
+//    var maximo = options.model.Cantplacas;
+
+//    if (options.model.Cantplacas != "") {
+//         maximo = options.model.Cantplacas - options.model.Recibida;
+//    }
+
+//    $('<input data-text-field="Danada" id=' + options.model.uid + ' data-value-field="Danada" data-bind="value:' + options.field + '"/>')
+//    .appendTo(container)
+//    .kendoNumericTextBox({
+//        format: "#",
+//        decimals: 0,
+//        min: 0,
+//        max: parseInt(maximo)
+//    });
+//}

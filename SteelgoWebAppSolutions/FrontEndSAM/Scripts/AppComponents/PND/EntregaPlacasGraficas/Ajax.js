@@ -126,68 +126,68 @@ function AjaxCargaListaRequisicion(proyectoID, tipoPruebaID, proveedorID) {
 
 function AjaxCargaListaDocumentoRecibido() {
     var respuesta = 1;
-    $EntregaPlacasGraficas.EntregaPlacasGraficas.read({ token: Cookies.get("token"), numeroCatalogo: respuesta, lenguaje: $("#language").val() }).done(function (data) {
-        $("#inputDocumentoRecibido").data("kendoComboBox").dataSource.data([]);
-        $("#inputDocumentoRecibido").data("kendoComboBox").dataSource.data(data);
+    //$EntregaPlacasGraficas.EntregaPlacasGraficas.read({ token: Cookies.get("token"), numeroCatalogo: respuesta, lenguaje: $("#language").val() }).done(function (data) {
+    //    $("#inputDocumentoRecibido").data("kendoComboBox").dataSource.data([]);
+    //    $("#inputDocumentoRecibido").data("kendoComboBox").dataSource.data(data);
 
-        var DocumentoRecibidoID = 0;
-        if (data.length < 3) {
-            for (var i = 0; i < data.length; i++) {
-                if (data[i].DocumentoRecibidoID != 0) {
-                    DocumentoRecibidoID = data[i].DocumentoRecibidoID;
-                }
-            }
-        }
+    //    var DocumentoRecibidoID = 0;
+    //    if (data.length < 3) {
+    //        for (var i = 0; i < data.length; i++) {
+    //            if (data[i].DocumentoRecibidoID != 0) {
+    //                DocumentoRecibidoID = data[i].DocumentoRecibidoID;
+    //            }
+    //        }
+    //    }
 
-        $("#inputDocumentoRecibido").data("kendoComboBox").value(DocumentoRecibidoID);
-        $("#inputDocumentoRecibido").data("kendoComboBox").trigger("change");
+    //    $("#inputDocumentoRecibido").data("kendoComboBox").value(DocumentoRecibidoID);
+    //    $("#inputDocumentoRecibido").data("kendoComboBox").trigger("change");
 
-        AjaxCargaListaDocumentoEstatus();
-    });
+    //    AjaxCargaListaDocumentoEstatus();
+    //});
 
 }
 
 function AjaxCargaListaDocumentoEstatus() {
     var respuesta = 2;
 
-    $EntregaPlacasGraficas.EntregaPlacasGraficas.read({ token: Cookies.get("token"), numeroCatalogo: respuesta, lenguaje: $("#language").val() }).done(function (data) {
-        $("#inputCondicionesFisicas").data("kendoComboBox").dataSource.data([]);
-        $("#inputCondicionesFisicas").data("kendoComboBox").dataSource.data(data);
-        var DocumentoEstatusID = 0;
+    //$EntregaPlacasGraficas.EntregaPlacasGraficas.read({ token: Cookies.get("token"), numeroCatalogo: respuesta, lenguaje: $("#language").val() }).done(function (data) {
+    //    $("#inputCondicionesFisicas").data("kendoComboBox").dataSource.data([]);
+    //    $("#inputCondicionesFisicas").data("kendoComboBox").dataSource.data(data);
+    //    var DocumentoEstatusID = 0;
 
-        if (data.length < 3) {
-            for (var i = 0; i < data.length; i++) {
-                if (data[i].DocumentoEstatusID != 0) {
-                    DocumentoEstatusID = data[i].DocumentoEstatusID;
-                }
-            }
-        }
+    //    if (data.length < 3) {
+    //        for (var i = 0; i < data.length; i++) {
+    //            if (data[i].DocumentoEstatusID != 0) {
+    //                DocumentoEstatusID = data[i].DocumentoEstatusID;
+    //            }
+    //        }
+    //    }
 
-        $("#inputCondicionesFisicas").data("kendoComboBox").value(DocumentoEstatusID);
-        $("#inputCondicionesFisicas").data("kendoComboBox").trigger("change");
+    //    $("#inputCondicionesFisicas").data("kendoComboBox").value(DocumentoEstatusID);
+    //    $("#inputCondicionesFisicas").data("kendoComboBox").trigger("change");
 
-        AjaxCargaListaDocumentoDefecto();
-    });
+    //    AjaxCargaListaDocumentoDefecto();
+    //});
 }
 
 function AjaxCargaListaDocumentoDefecto() {
     var respuesta = 3;
-    $EntregaPlacasGraficas.EntregaPlacasGraficas.read({ token: Cookies.get("token"), numeroCatalogo: respuesta, lenguaje: $("#language").val() }).done(function (data) {
-        $("#inputDefectos").data("kendoComboBox").dataSource.data([]);
-        $("#inputDefectos").data("kendoComboBox").dataSource.data(data);
+    //$EntregaPlacasGraficas.EntregaPlacasGraficas.read({ token: Cookies.get("token"), numeroCatalogo: respuesta, lenguaje: $("#language").val() }).done(function (data) {
+    //    $("#inputDefectos").data("kendoComboBox").dataSource.data([]);
+    //    $("#inputDefectos").data("kendoComboBox").dataSource.data(data);
 
-        var DocumentoDefectoID = 0;
-        if (data.length < 3) {
-            for (var i = 0; i < data.length; i++) {
-                if (data[i].DocumentoDefectoID != 0) {
-                    DocumentoDefectoID = data[i].DocumentoDefectoID;
-                }
-            }
-        }
+    //    var DocumentoDefectoID = 0;
+    //    if (data.length < 3) {
+    //        for (var i = 0; i < data.length; i++) {
+    //            if (data[i].DocumentoDefectoID != 0) {
+    //                DocumentoDefectoID = data[i].DocumentoDefectoID;
+    //            }
+    //        }
+    //    }
 
-        $("#inputDefectos").data("kendoComboBox").value(DocumentoDefectoID);
-        $("#inputDefectos").data("kendoComboBox").trigger("change");
-    });    
+    //    $("#inputDefectos").data("kendoComboBox").value(DocumentoDefectoID);
+    //    $("#inputDefectos").data("kendoComboBox").trigger("change");
+    //});    
 }
 
 function AjaxObtieneDetalleRequisicion() {
