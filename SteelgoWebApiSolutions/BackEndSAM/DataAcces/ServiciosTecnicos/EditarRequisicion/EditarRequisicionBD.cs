@@ -43,7 +43,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EditarRequisicion
                     {
                         listaElementos.Add(new ElementosPorClasificacion
                         {
-                            Accion = item.RequisicionID == null?1:2,
+                            Accion = item.RequisicionID == 0 ? 1 : 2,
                             NumeroControl = item.NumeroControl,
                             EtiquetaJunta = item.EtiquetaJunta,
                             TipoJunta = item.TipoJunta,
@@ -55,14 +55,14 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EditarRequisicion
                             Espesor = item.Espesor.GetValueOrDefault(),
                             Cedula = item.Cedula,                           
                             ElementoPorClasificacionPNDID = item.ElementoPorClasificacionPNDID,
-                            RequisicionID = item.RequisicionID.GetValueOrDefault(),
+                            RequisicionID = item.RequisicionID,
                             ProyectoID = item.ProyectoID,
                             SpoolID = item.SpoolID.GetValueOrDefault(),
                             JuntaSpoolID = item.JuntaSpoolID.GetValueOrDefault(),
                             OrdenTrabajoSpoolID = item.OrdenTrabajoSpoolID,
                             TipoPruebaID = item.TipoPruebaID.GetValueOrDefault(),
                             Especificacion = item.Especificacion,
-                            Agregar = item.RequisicionID.GetValueOrDefault() > 0 ? true : false,
+                            Agregar = item.RequisicionID > 0 ? true : false,
                             EstatusCaptura = 0
                             //Disposicion = item.Disposicion,                            
                             //ClasificacionPNDID = item.ClasificacionPNDID,
@@ -111,8 +111,8 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EditarRequisicion
                             Codigo = item.Codigo,
 
                             ElementoPorClasificacionPNDID = item.ElementoPorClasificacionPNDID,
-                            Agregar = item.RequisicionID.GetValueOrDefault() > 0 ? true : false,
-                            RequisicionID = item.RequisicionID.GetValueOrDefault(),
+                            Agregar = item.RequisicionID > 0 ? true : false,
+                            RequisicionID = item.RequisicionID,
                             ProyectoID = item.ProyectoID,
                             SpoolID = item.SpoolID.GetValueOrDefault(),
                             JuntaSpoolID = item.JuntaSpoolID.GetValueOrDefault(),

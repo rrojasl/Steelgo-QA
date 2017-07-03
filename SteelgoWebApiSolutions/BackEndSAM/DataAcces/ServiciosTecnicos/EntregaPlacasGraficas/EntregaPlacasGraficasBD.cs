@@ -316,7 +316,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EntregaPlacasGraficas
                             EntregaPlacasGraficasID = item.EntregaPlacasGraficasID,
                             RequisicionID = item.RequisicionID,
                             OrdenTrabajoID = item.OrdenTrabajoID,
-                            SpoolID = item.SpoolID.GetValueOrDefault(),
+                            SpoolID = item.SpoolID,
                             JuntaSpoolID = item.JuntaSpoolID.GetValueOrDefault(),
                             NumeroControl = item.NumeroControl,
                             JuntaEtiqueta = item.JuntaEtiqueta,

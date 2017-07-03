@@ -82,8 +82,8 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.GenerarRequisicion
                             Codigo = item.Codigo,
 
                             ElementoPorClasificacionPNDID = item.ElementoPorClasificacionPNDID,
-                            Agregar = item.RequisicionID.GetValueOrDefault() > 0 ? true : false,
-                            RequisicionID = item.RequisicionID.GetValueOrDefault(),
+                            Agregar = item.RequisicionID > 0 ? true : false,
+                            RequisicionID = item.RequisicionID,
                             ProyectoID = item.ProyectoID,
                             SpoolID = item.SpoolID.GetValueOrDefault(),
                             JuntaSpoolID = item.JuntaSpoolID.GetValueOrDefault(),
