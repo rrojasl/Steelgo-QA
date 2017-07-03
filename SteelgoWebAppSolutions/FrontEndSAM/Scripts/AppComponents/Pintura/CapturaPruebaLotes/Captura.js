@@ -21,6 +21,33 @@ function isInArray(date, dates) {
 	return false;
 }
 
+function Limpiar() {
+   
+    $("#inputProyecto").data("kendoComboBox").value("");
+
+    $("#inputProceso").data("kendoComboBox").dataSource.data([]);
+    $("#inputProceso").data("kendoComboBox").value("");
+
+    $("#inputSistemaPintura").data("kendoComboBox").dataSource.data([]);
+    $("#inputSistemaPintura").data("kendoComboBox").value("");
+
+    $("#inputColor").data("kendoComboBox").dataSource.data([]);
+    $("#inputColor").data("kendoComboBox").value("");
+
+    $("#inputPrueba").data("kendoComboBox").dataSource.data([]);
+    $("#inputPrueba").data("kendoComboBox").value("");
+
+    $("#inputFechaLote").data("kendoDatePicker").value("");
+
+
+    $("#inputLote").data("kendoComboBox").dataSource.data([]);
+    $("#inputLote").data("kendoComboBox").value("");
+
+    $("#grid").data("kendoGrid").dataSource.data([]);
+
+}
+
+
 function LimpiarDespuesCambioCaptura() {
 	$("#grid").data('kendoGrid').dataSource.data([]);
 }
@@ -156,7 +183,7 @@ function CargarGridPopUp() {
                         
                         FechaPrueba: { type: "date", editable: true },
                         UnidadMedida: { type: "number", editable: true },
-                        ResultadoEvaluacion: { type: "string", editable: false }
+                        ResultadoEvaluacion: { type: "boolean", editable: false }
                     }
                 }
             }, filter: {
@@ -175,9 +202,22 @@ function CargarGridPopUp() {
         selectable: true,
         filterable: getGridFilterableMaftec(),
         columns: [
-                  { field: "FechaPrueba", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()], editor: RenderDatePicker, title: _dictionary.columnFechaPrueba[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "20px" },
+                  { field: "FechaPrueba", title: _dictionary.columnFechaPrueba[$("#language").data("kendoDropDownList").value()], filterable: { cell: { showOperators: false } }, editor: RenderDatePicker, width: "20px", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()] },
                   { field: "UnidadMedida", editor: RenderAprobado, title: "Valor U. Medida", filterable: getGridFilterableCellNumberMaftec(), width: "20px", attributes: { style: "text-align:right;" },editor:RenderMedida },
-                  { field: "ResultadoEvaluacion", title: "Aprobado", filterable: getGridFilterableCellNumberMaftec(), width: "20px", attributes: { style: "text-align:center;" } },
+                 { field: "ResultadoEvaluacion", title: "Aprobado", filterable: getGridFilterableCellNumberMaftec(), width: "20px", attributes: { style: "text-align:center;" } },
+
+                   //{
+                   //    field: "ResultadoEvaluacion", title: "Aprobado", filterable: {
+                   //        multi: true,
+                   //        messages: {
+                   //            isTrue: _dictionary.lblVerdadero[$("#language").data("kendoDropDownList").value()],
+                   //            isFalse: _dictionary.lblFalso[$("#language").data("kendoDropDownList").value()],
+                   //            style: "max-width:100px;"
+                   //        },
+                   //        dataSource: [{ OkPND: true }, { OkPND: false }]
+                   //    }, template: "<input name='fullyPaid' class='chk-Lectura' type='checkbox' data-bind='checked: ResultadoEvaluacion' #= ResultadoEvaluacion ? checked='checked' : '' # disabled/>", width: "30px", attributes: { style: "text-align:center;" }
+                   //},
+
                   { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: eliminarCaptura }, title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], width: "10px", attributes: { style: "text-align:center;" } }
         ],
         editable: true,

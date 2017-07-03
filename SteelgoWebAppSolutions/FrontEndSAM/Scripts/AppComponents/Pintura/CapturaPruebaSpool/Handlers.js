@@ -243,7 +243,8 @@ function SuscribirEventoSpoolID() {
 
 function SuscribirEventoBuscar() {
     $('#btnBuscar').click(function (e) {
-        if ($("#InputID").data("kendoComboBox").select() > 0) {
+        
+        if ($("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()).Valor != "" || $("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()).Valor != 0) {
             if ($("#inputProceso").data("kendoComboBox").select() > 0) {
                 if ($("#inputProceso").data("kendoComboBox").dataItem($("#inputProceso").data("kendoComboBox").select()).ProcesoPinturaID == 4 ? $("#inputColor").data("kendoComboBox").select() > 0 : true) {
                     if ($("#inputPrueba").data("kendoComboBox").select() > 0) {
