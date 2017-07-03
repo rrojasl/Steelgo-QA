@@ -18,7 +18,7 @@ function AjaxCargaTipoLlenado() {
         }
         else if (data == "Todos") {
             $('input:radio[name=Planchar]:nth(1)').trigger("click");
-        }        
+        }
     });
 }
 
@@ -47,7 +47,7 @@ function AjaxObtenerElementoRequisicion(paramReq) {
     });
 }
 
-function AjaxCargaListaProyectos() {   
+function AjaxCargaListaProyectos() {
     $EntregaPlacasGraficas.EntregaPlacasGraficas.read({ token: Cookies.get("token") }).done(function (data) {
         var proyectoID = 0;
         $("#inputProyecto").data("kendoComboBox").dataSource.data([]);
@@ -84,13 +84,13 @@ function AjaxCargaListaTipoPrueba(ProyectoID) {
         $("#inputTipoPrueba").data("kendoComboBox").trigger("change");
     });
 }
-function AjaxCargaListaProveedores(proyectoID, tipoPruebaID) {    
+function AjaxCargaListaProveedores(proyectoID, tipoPruebaID) {
     $EntregaPlacasGraficas.EntregaPlacasGraficas.read({ token: Cookies.get("token"), ProyectoID: proyectoID, TipoPruebaID: tipoPruebaID }).done(function (data) {
         $("#inputProveedor").data("kendoComboBox").dataSource.data([]);
         $("#inputProveedor").data("kendoComboBox").dataSource.data(data);
 
         var ProveedorID = 0;
-        if(data.length < 3){            
+        if (data.length < 3) {
             for (var i = 0; i < data.length; i++) {
                 if (data[i].ProveedorID != 0) {
                     ProveedorID = data[i].ProveedorID;
@@ -100,7 +100,7 @@ function AjaxCargaListaProveedores(proyectoID, tipoPruebaID) {
         }
         $("#inputProveedor").data("kendoComboBox").value(ProveedorID);
         $("#inputProveedor").data("kendoComboBox").trigger("change");;
-        
+
     });
 }
 
@@ -110,7 +110,7 @@ function AjaxCargaListaRequisicion(proyectoID, tipoPruebaID, proveedorID) {
         $("#inputRequisicion").data("kendoComboBox").dataSource.data(data);
 
         var RequisicionID = 0;
-        if(data.length < 3){
+        if (data.length < 3) {
             for (var i = 0; i < data.length; i++) {
                 if (data[i].RequisicionID != 0) {
                     RequisicionID = data[i].RequisicionID;
@@ -196,15 +196,15 @@ function AjaxObtieneDetalleRequisicion() {
     var ProveedorID = $("#inputProveedor").data("kendoComboBox").value();
     var RequisicionID = $("#inputRequisicion").data("kendoComboBox").value();
 
-    if (ProyectoID != 0 && TipoPruebaID!=0 && ProveedorID != 0 && RequisicionID != 0) {
+    if (ProyectoID != 0 && TipoPruebaID != 0 && ProveedorID != 0 && RequisicionID != 0) {
         $EntregaPlacasGraficas.EntregaPlacasGraficas.read({ token: Cookies.get("token"), proyectoID: ProyectoID, proveedorID: ProveedorID, requisicionID: RequisicionID, lenguaje: $("#language").val(), tipoPruebaID: TipoPruebaID }).done(function (data) {
             var ds = $("#grid").data("kendoGrid").dataSource;
             var tipoPrueba;
-            if(data.length>0){
+            if (data.length > 0) {
                 for (var i = 0; i < data.length; i++) {
                     ds.add(data[i]);
                     tipoPrueba = data[i].TipoPruebaID;
-                }                
+                }
             }
         });
     }
@@ -214,16 +214,16 @@ function AjaxGuardarCaptura(ds, guardarYNuevo) {
     if (ds.length > 0) {
         var RequisicionID = 0;
         var Captura = [];
-        Captura[0]={Detalles: "" }
+        Captura[0] = { Detalles: "" }
         var listaDetalles = [];
         var cont = 0;
         for (var i = 0; i < ds.length; i++) {
 
-            listaDetalles[cont] = { 
+            listaDetalles[cont] = {
                 Accion: "",
                 EntregaPlacasGraficasID: "",
-                RequisicionID: "", 
-                OrdenTrabajoID: "", 
+                RequisicionID: "",
+                OrdenTrabajoID: "",
                 SpoolID: "",
                 JuntaID: "",
                 DocumentoRecibidoID: "",
@@ -242,28 +242,11 @@ function AjaxGuardarCaptura(ds, guardarYNuevo) {
             listaDetalles[cont].DocumentoEstatusID = ds[i].DocumentoEstatusID;
             listaDetalles[cont].DocumentoDefectoID = ds[i].DocumentoDefectoID;
 
-                if (listaDetalles[cont].DocumentoRecibidoID == 0 || listaDetalles[cont].DocumentoEstatusID == 0 || listaDetalles[cont].DocumentoDefectoID == 0) {
-                    if (listaDetalles[cont].Accion == 2) {
-                        if (listaDetalles[cont].DocumentoRecibidoID == 0 && listaDetalles[cont].DocumentoEstatusID == 0 && listaDetalles[cont].DocumentoDefectoID == 0) {
-                            listaDetalles[cont].Accion = 4;
-                        } else {
-                            if (listaDetalles[cont].DocumentoRecibidoID == 0) {
-                                listaDetalles[cont].Estatus = 0;
-                                $('tr[data-uid="' + ds[i].uid + '"] ').css("background-color", "#ffcccc");
-                            }
-                            if (listaDetalles[cont].DocumentoEstatusID == 0) {
-                                listaDetalles[cont].Estatus = 0;
-                                $('tr[data-uid="' + ds[i].uid + '"] ').css("background-color", "#ffcccc");
-                            }
-
-                            if (listaDetalles[cont].DocumentoEstatusID == 2 && listaDetalles[cont].DocumentoDefectoID == 0) {
-                                listaDetalles[cont].Estatus = 0;
-                                $('tr[data-uid="' + ds[i].uid + '"] ').css("background-color", "#ffcccc");
-                            }
-                        }
-                        
+            if (listaDetalles[cont].DocumentoRecibidoID == 0 || listaDetalles[cont].DocumentoEstatusID == 0 || listaDetalles[cont].DocumentoDefectoID == 0) {
+                if (listaDetalles[cont].Accion == 2) {
+                    if (listaDetalles[cont].DocumentoRecibidoID == 0 && listaDetalles[cont].DocumentoEstatusID == 0 && listaDetalles[cont].DocumentoDefectoID == 0) {
+                        listaDetalles[cont].Accion = 4;
                     } else {
-                        
                         if (listaDetalles[cont].DocumentoRecibidoID == 0) {
                             listaDetalles[cont].Estatus = 0;
                             $('tr[data-uid="' + ds[i].uid + '"] ').css("background-color", "#ffcccc");
@@ -278,115 +261,131 @@ function AjaxGuardarCaptura(ds, guardarYNuevo) {
                             $('tr[data-uid="' + ds[i].uid + '"] ').css("background-color", "#ffcccc");
                         }
                     }
-                    
-                }
-                if (ds[i].Accion != 2 && RequisicionID==0) {
-                    RequisicionID = $("#inputRequisicion").data("kendoComboBox").value();
-                }
-                cont++;
-        }
-        var TipoPrueba = $("#inputTipoPrueba").data("kendoComboBox").dataItem($("#inputTipoPrueba").data("kendoComboBox").select());
-        if (!ExistRowEmpty(listaDetalles)) {
-            Captura[0].Detalles = listaDetalles;
-            $EntregaPlacasGraficas.EntregaPlacasGraficas.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val(), requisicionID: RequisicionID, tipoPruebaPorSpool: TipoPrueba.TipoPruebaPorSpool }).done(function (data) {
-                if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
 
-                    if (guardarYNuevo) {
-                        cleanView();
-                    } else {
-                        $("#grid").data("kendoGrid").dataSource.data([]);
-                        AjaxObtieneDetalleRequisicion();
-                        disableEnableView(true);
+                } else {
+
+                    if (listaDetalles[cont].DocumentoRecibidoID == 0) {
+                        listaDetalles[cont].Estatus = 0;
+                        $('tr[data-uid="' + ds[i].uid + '"] ').css("background-color", "#ffcccc");
+                    }
+                    if (listaDetalles[cont].DocumentoEstatusID == 0) {
+                        listaDetalles[cont].Estatus = 0;
+                        $('tr[data-uid="' + ds[i].uid + '"] ').css("background-color", "#ffcccc");
                     }
 
-                    displayNotify("EntregaPlacasGraficasMensajeGuardadoExistoso", "", '0');
-                } else {
-                    displayNotify("EntregaPlacasGraficasMensajeGuardadoErroneo", "", '2');
-                }
-            
-            });
-        } else {
-            $("#ventanaConfirm").empty();
-            var ventanaConfirm = $("#ventanaConfirm").kendoWindow({
-                iframe: true,
-                title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
-                visible: false,
-                width: 450,
-                height: 70,
-                draggable: false,
-                modal: true,
-                animation: {
-                    close: false,
-                    open: false
-                }
-            }).data("kendoWindow");
-
-            ventanaConfirm.content(_dictionary.EntregaPlacasGraficasMensajePreguntaGuardado[$("#language").data("kendoDropDownList").value()] +
-                "</br><center><button class='btn btn-blue' id='yesButton'>Si</button><button class='btn btn-blue' id='noButton'>No</button></center>");
-
-            ventanaConfirm.open().center();
-            $("#yesButton").click(function () {
-                var x = 0;
-                var listaDetallesGuardar = [];
-                for (var i = 0; i < listaDetalles.length; i++) {
-                    if (listaDetalles[i].Estatus == 1) {
-                        listaDetallesGuardar[x] = {
-                            Accion: "",
-                            EntregaPlacasGraficasID: "",
-                            RequisicionID: "",
-                            OrdenTrabajoID: "",
-                            SpoolID: "",
-                            JuntaID: "",
-                            DocumentoRecibidoID: "",
-                            DocumentoEstatusID: "",
-                            DocumentoDefectoID: "",
-                            Estatus: 1
-                        };
-
-                        listaDetallesGuardar[x].Accion = listaDetalles[i].Accion;
-                        listaDetallesGuardar[x].EntregaPlacasGraficasID = listaDetalles[i].EntregaPlacasGraficasID;
-                        listaDetallesGuardar[x].RequisicionID = listaDetalles[i].RequisicionID;
-                        listaDetallesGuardar[x].OrdenTrabajoID = listaDetalles[i].OrdenTrabajoID;
-                        listaDetallesGuardar[x].SpoolID = listaDetalles[i].SpoolID;
-                        listaDetallesGuardar[x].JuntaID = listaDetalles[i].JuntaID;
-                        listaDetallesGuardar[x].DocumentoRecibidoID = listaDetalles[i].DocumentoRecibidoID;
-                        listaDetallesGuardar[x].DocumentoEstatusID = listaDetalles[i].DocumentoEstatusID;
-                        listaDetallesGuardar[x].DocumentoDefectoID = listaDetalles[i].DocumentoDefectoID;
-
-                        x++;
+                    if (listaDetalles[cont].DocumentoEstatusID == 2 && listaDetalles[cont].DocumentoDefectoID == 0) {
+                        listaDetalles[cont].Estatus = 0;
+                        $('tr[data-uid="' + ds[i].uid + '"] ').css("background-color", "#ffcccc");
                     }
                 }
 
-                Captura[0].Detalles = listaDetallesGuardar;
-                if(Captura[0].Detalles.length>0){
-                    $EntregaPlacasGraficas.EntregaPlacasGraficas.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val(), requisicionID: RequisicionID, tipoPruebaPorSpool: TipoPrueba.TipoPruebaPorSpool }).done(function (data) {
-                        if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
-
-                            if (guardarYNuevo) {
-                                cleanView();
-                            } else {
-                                $("#grid").data("kendoGrid").dataSource.data([]);
-                                AjaxObtieneDetalleRequisicion();
-                                disableEnableView(true);
-                            }
-
-                            displayNotify("EntregaPlacasGraficasMensajeGuardadoExistoso", "", '0');
-                        } else {
-                            displayNotify("EntregaPlacasGraficasMensajeGuardadoErroneo", "", '2');
-                        }
-                        ventanaConfirm.close();
-                    });
-                    ventanaConfirm.close();
-                } else {
-                    ventanaConfirm.close();
-                    displayNotify("EntregaPlacasGraficasExcepcionGuardado", "", '1');
-                }
-
-            });
-            $("#noButton").click(function () {
-                ventanaConfirm.close();
-            });
+            }
+            if (ds[i].Accion != 2 && RequisicionID == 0) {
+                RequisicionID = $("#inputRequisicion").data("kendoComboBox").value();
+            }
+            cont++;
         }
+
+        loadingStart();
+        setTimeout(function () {
+            disableEnableView(true);
+            displayNotify("EntregaPlacasGraficasMensajeGuardadoExistoso", "", '0');
+            loadingStop();
+        }, 500);
+
+
+        //var TipoPrueba = $("#inputTipoPrueba").data("kendoComboBox").dataItem($("#inputTipoPrueba").data("kendoComboBox").select());
+        //if (!ExistRowEmpty(listaDetalles)) {
+        //    Captura[0].Detalles = listaDetalles;
+        //    $EntregaPlacasGraficas.EntregaPlacasGraficas.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val(), requisicionID: RequisicionID, tipoPruebaPorSpool: TipoPrueba.TipoPruebaPorSpool }).done(function (data) {
+        //        if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
+        //            if (guardarYNuevo) {
+        //                cleanView();
+        //            } else {
+        //                $("#grid").data("kendoGrid").dataSource.data([]);
+        //                AjaxObtieneDetalleRequisicion();
+        //                disableEnableView(true);
+        //            }
+        //            displayNotify("EntregaPlacasGraficasMensajeGuardadoExistoso", "", '0');
+        //        } else {
+        //            displayNotify("EntregaPlacasGraficasMensajeGuardadoErroneo", "", '2');
+        //        }
+
+        //    });
+        //} else {
+        //    $("#ventanaConfirm").empty();
+        //    var ventanaConfirm = $("#ventanaConfirm").kendoWindow({
+        //        iframe: true,
+        //        title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
+        //        visible: false,
+        //        width: 450,
+        //        height: 70,
+        //        draggable: false,
+        //        modal: true,
+        //        animation: {
+        //            close: false,
+        //            open: false
+        //        }
+        //    }).data("kendoWindow");
+        //    ventanaConfirm.content(_dictionary.EntregaPlacasGraficasMensajePreguntaGuardado[$("#language").data("kendoDropDownList").value()] +
+        //        "</br><center><button class='btn btn-blue' id='yesButton'>Si</button><button class='btn btn-blue' id='noButton'>No</button></center>");
+        //    ventanaConfirm.open().center();
+        //    $("#yesButton").click(function () {
+        //        var x = 0;
+        //        var listaDetallesGuardar = [];
+        //        for (var i = 0; i < listaDetalles.length; i++) {
+        //            if (listaDetalles[i].Estatus == 1) {
+        //                listaDetallesGuardar[x] = {
+        //                    Accion: "",
+        //                    EntregaPlacasGraficasID: "",
+        //                    RequisicionID: "",
+        //                    OrdenTrabajoID: "",
+        //                    SpoolID: "",
+        //                    JuntaID: "",
+        //                    DocumentoRecibidoID: "",
+        //                    DocumentoEstatusID: "",
+        //                    DocumentoDefectoID: "",
+        //                    Estatus: 1
+        //                };
+        //                listaDetallesGuardar[x].Accion = listaDetalles[i].Accion;
+        //                listaDetallesGuardar[x].EntregaPlacasGraficasID = listaDetalles[i].EntregaPlacasGraficasID;
+        //                listaDetallesGuardar[x].RequisicionID = listaDetalles[i].RequisicionID;
+        //                listaDetallesGuardar[x].OrdenTrabajoID = listaDetalles[i].OrdenTrabajoID;
+        //                listaDetallesGuardar[x].SpoolID = listaDetalles[i].SpoolID;
+        //                listaDetallesGuardar[x].JuntaID = listaDetalles[i].JuntaID;
+        //                listaDetallesGuardar[x].DocumentoRecibidoID = listaDetalles[i].DocumentoRecibidoID;
+        //                listaDetallesGuardar[x].DocumentoEstatusID = listaDetalles[i].DocumentoEstatusID;
+        //                listaDetallesGuardar[x].DocumentoDefectoID = listaDetalles[i].DocumentoDefectoID;
+        //                x++;
+        //            }
+        //        }
+        //        Captura[0].Detalles = listaDetallesGuardar;
+        //        if(Captura[0].Detalles.length>0){
+        //            $EntregaPlacasGraficas.EntregaPlacasGraficas.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val(), requisicionID: RequisicionID, tipoPruebaPorSpool: TipoPrueba.TipoPruebaPorSpool }).done(function (data) {
+        //                if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
+        //                    if (guardarYNuevo) {
+        //                        cleanView();
+        //                    } else {
+        //                        $("#grid").data("kendoGrid").dataSource.data([]);
+        //                        AjaxObtieneDetalleRequisicion();
+        //                        disableEnableView(true);
+        //                    }
+        //                    displayNotify("EntregaPlacasGraficasMensajeGuardadoExistoso", "", '0');
+        //                } else {
+        //                    displayNotify("EntregaPlacasGraficasMensajeGuardadoErroneo", "", '2');
+        //                }
+        //                ventanaConfirm.close();
+        //            });
+        //            ventanaConfirm.close();
+        //        } else {
+        //            ventanaConfirm.close();
+        //            displayNotify("EntregaPlacasGraficasExcepcionGuardado", "", '1');
+        //        }
+        //    });
+        //    $("#noButton").click(function () {
+        //        ventanaConfirm.close();
+        //    });
+        //}
     } else {
         displayNotify("EntregaPlacasGraficasExcepcionGuardado", "", '2');
     }
