@@ -53,7 +53,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EditarRequisicion
                             Clasificacion = item.Clasificacion,
                             Diametro = item.DiametroPlano.GetValueOrDefault(),
                             Espesor = item.Espesor.GetValueOrDefault(),
-                            Cedula = item.Cedula,
+                            Cedula = item.Cedula,                           
                             ElementoPorClasificacionPNDID = item.ElementoPorClasificacionPNDID,
                             RequisicionID = item.RequisicionID.GetValueOrDefault(),
                             ProyectoID = item.ProyectoID,
@@ -64,7 +64,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EditarRequisicion
                             Especificacion = item.Especificacion,
                             Agregar = item.RequisicionID.GetValueOrDefault() > 0 ? true : false,
                             EstatusCaptura = 0
-                            //Disposicion = item.Disposicion,
+                            //Disposicion = item.Disposicion,                            
                             //ClasificacionPNDID = item.ClasificacionPNDID,
                             //OrdenTrabajoID = item.OrdenTrabajoID
                         });
@@ -200,7 +200,18 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EditarRequisicion
                 using (SamContext ctx = new SamContext())
                 {
                     List<Sam3_ST_Get_JuntaSpool_Result> lista = ctx.Sam3_ST_Get_JuntaSpool(int.Parse(id)).ToList();
-                    return lista.OrderBy(x => int.Parse(x.Etiqueta)).ToList<Sam3_ST_Get_JuntaSpool_Result>();
+                    List<JuntaSpool> Juntas = new List<JuntaSpool>();
+                    foreach(Sam3_ST_Get_JuntaSpool_Result item in lista)
+                    {
+                        Juntas.Add(new JuntaSpool
+                        {
+                            JuntaSpoolID = item.JuntaSpoolID,
+                            Etiqueta = item.Etiqueta
+                        });
+                    }
+                    return Juntas;
+                    //return lista.OrderBy(x => int.Parse(x.Etiqueta)).ToList<Sam3_ST_Get_JuntaSpool_Result>();
+
                 }
             }
             catch (Exception ex)
@@ -273,19 +284,17 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EditarRequisicion
             {
                 using (SamContext ctx = new SamContext())
                 {
-
-                   
+                    
                     ObjetosSQL _SQL = new ObjetosSQL();
-                    string[,] parametro = {
+                    string[,] parametro = {                         
                         { "@RequisicionID", RequisicionID.ToString() },
                         { "@NombreRequisicion", NombreRequisicion },
                         { "@ProyectoID", ProyectoID.ToString() },
                         { "@TipoPruebaID", TipoPruebaID.ToString() },
-                        { "@FechaRequisicion", "" },
-                        { "@CodigoAsme", CodigoAsme},
+                        { "@FechaRequisicion", FechaRequisicion },                        
                         { "@Observacion", Observacion == null ? "":Observacion },
-                        { "@Lenguaje", lenguaje },
-                        { "@UsuarioID", usuario.UsuarioID.ToString() }};
+                        { "@UsuarioID", usuario.UsuarioID.ToString() },
+                        { "@Lenguaje", lenguaje }};
 
                     int identityResult = _SQL.EjecutaInsertUpdate(Stords.GUARDARNUEVAREQUISICION, dtDetalleRequisicion, "@TTRequisicion", parametro);
 

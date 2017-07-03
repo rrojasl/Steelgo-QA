@@ -32,8 +32,8 @@ namespace BackEndSAM.Models.ServiciosTecnicos.EditarRequisicion
                 OrdenTrabajoSpoolID = 0;
                 TipoPruebaID = 0;
                 Especificacion = "";
-                EstatusCaptura = 0;
-            }
+                EstatusCaptura = 0;               
+        }
 
             
 
@@ -59,6 +59,7 @@ namespace BackEndSAM.Models.ServiciosTecnicos.EditarRequisicion
             public string Especificacion { get; set; }
             public int EstatusCaptura { get; set; }
             public string Codigo { get; set; }
+            
         }
 
         public class Captura
@@ -86,13 +87,14 @@ namespace BackEndSAM.Models.ServiciosTecnicos.EditarRequisicion
         {
             public DetalleCaptura()
             {
-                Accion = 0;
                 RequisicionID = 0;
                 ElementoPorClasificacionPNDID = 0;
+                Accion = 0;                                
                 OrdenTrabajoID = 0;
                 ClasificacionPNDID = 0;
                 SpoolID = 0;
                 JuntaSpool = 0;
+                ClasificacionManual = 0;
             }
 
             public int RequisicionID { get; set; }
@@ -102,6 +104,7 @@ namespace BackEndSAM.Models.ServiciosTecnicos.EditarRequisicion
             public int ClasificacionPNDID { get; set; }
             public int SpoolID { get; set; }
             public int JuntaSpool { get; set; }
+            public int ClasificacionManual { get; set; }
         }
 
         public class Proyecto
@@ -162,6 +165,18 @@ namespace BackEndSAM.Models.ServiciosTecnicos.EditarRequisicion
             public string FechaRequisicion { get; set; }
             public string Observacion { get; set; }
             public string NumeroControl { get; set; }
+        }
+
+        public class JuntaSpool
+        {
+            public JuntaSpool()
+            {
+                JuntaSpoolID = 0;
+                Etiqueta = "";
+            }
+               
+            public int JuntaSpoolID { get; set; }
+            public string Etiqueta { get; set; }
         }
     }
 }

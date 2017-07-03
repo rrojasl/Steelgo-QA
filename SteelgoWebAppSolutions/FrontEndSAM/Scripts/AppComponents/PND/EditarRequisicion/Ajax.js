@@ -92,7 +92,8 @@ function AjaxCargaListaTipoPrueba() {
 
 function AjaxCargaListaRequisicion(tipoPruebaID, proyectoID) {
     var requisicionId = 0;
-    $ServiciosTecnicosGeneral.ServiciosTecnicosGeneral.read({ token: Cookies.get("token"), ProyectoID: proyectoID, TipoPruebaID: tipoPruebaID, estatusID: 1 }).done(function (data) {
+    //$ServiciosTecnicosGeneral.ServiciosTecnicosGeneral.read({ token: Cookies.get("token"), ProyectoID: proyectoID, TipoPruebaID: tipoPruebaID, estatusID: 1 }).done(function (data) {
+    $ServiciosTecnicosGeneral.ServiciosTecnicosGeneral.read({ token: Cookies.get("token"), ProyectoID: proyectoID, TipoPruebaID: tipoPruebaID, estatusID: 1, lenguaje: $("#language").val() }).done(function (data) {
         $("#inputRequisicion").data("kendoComboBox").dataSource.data([]);
         $("#inputRequisicion").data("kendoComboBox").dataSource.data(data);
 
@@ -111,15 +112,14 @@ function AjaxCargaListaRequisicion(tipoPruebaID, proyectoID) {
 }
 
 function AjaxCargaDetalleRequisicion(_requisicionID, _tipoPruebaID, _proyectoID) {
-    $EditarRequisicion.EditarRequisicion.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), RequisicionID: _requisicionID, _TipoPruebaID: _tipoPruebaID, ProyectoID: _proyectoID, Muestra: 'todos' }).done(function (data) {
+    $EditarRequisicion.EditarRequisicion.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), RequisicionID: _requisicionID, TipoPruebaID: _tipoPruebaID, ProyectoID: _proyectoID, Muestra: $('input:radio[name=Muestra]').val() }).done(function (data) {
         $("#grid").data("kendoGrid").dataSource.data([]);
         var ds = $("#grid").data("kendoGrid").dataSource;
-
         if (data.length > 0) {
             for (var i = 0; i < data.length; i++) {
                 ds.add(data[i]);
             }
-        }
+        }        
         loadingStop();
     }); 
 }
@@ -146,21 +146,25 @@ function AjaxGuardaCaptura(arregloCaptura, guardaNuevo) {
                     RequisicionID: 0,
                     ElementoPorClasificacionPNDID: 0,
                     Accion: 0,
-                    Disposicion: 0,
-                    ClasificacionPNDID: 0,
                     OrdenTrabajoID: 0,
+                    //Disposicion: 0,
+                    ClasificacionPNDID: 0,
                     SpoolID: 0,
-                    JuntaSpool: 0
+                    JuntaSpool: 0,
+                    ClasificacionManual: 0
+                    //OrdenTrabajoID: 0,                                        
                 };
 
                 ListaCaptura[cont].RequisicionID = arregloCaptura[i].RequisicionID;
                 ListaCaptura[cont].ElementoPorClasificacionPNDID = arregloCaptura[i].ElementoPorClasificacionPNDID;
-                ListaCaptura[cont].Accion = arregloCaptura[i].Accion;
-                ListaCaptura[cont].Disposicion = arregloCaptura[i].Disposicion;
+                ListaCaptura[cont].Accion = arregloCaptura[i].Accion;                
+                //ListaCaptura[cont].Disposicion = arregloCaptura[i].Disposicion;
                 ListaCaptura[cont].OrdenTrabajoID = arregloCaptura[i].OrdenTrabajoID;
                 ListaCaptura[cont].ClasificacionPNDID = arregloCaptura[i].ClasificacionPNDID;
                 ListaCaptura[cont].SpoolID = arregloCaptura[i].SpoolID;
                 ListaCaptura[cont].JuntaSpool = arregloCaptura[i].JuntaSpool;
+                ListaCaptura[cont].ClasificacionManual = 0;
+                //ListaCaptura[cont].ClasificacionManual = arregloCaptura[i].Clasificacion;
                 cont++;
 
             } else if (arregloCaptura[i].Accion == 2 && !arregloCaptura[i].Agregar) {
@@ -168,21 +172,32 @@ function AjaxGuardaCaptura(arregloCaptura, guardaNuevo) {
                     RequisicionID: 0,
                     ElementoPorClasificacionPNDID: 0,
                     Accion: 0,
-                    Disposicion: 0,
-                    ClasificacionPNDID: 0,
                     OrdenTrabajoID: 0,
+                    ClasificacionPNDID: 0,
                     SpoolID: 0,
-                    JuntaSpool: 0
+                    JuntaSpool: 0,
+                    ClasificacionManual: 0
                 };
+                //ListaCaptura[cont] = {
+                //    RequisicionID: 0,
+                //    ElementoPorClasificacionPNDID: 0,
+                //    Accion: 0,
+                //    Disposicion: 0,
+                //    ClasificacionPNDID: 0,
+                //    OrdenTrabajoID: 0,
+                //    SpoolID: 0,
+                //    JuntaSpool: 0
+                //};
 
                 ListaCaptura[cont].RequisicionID = arregloCaptura[i].RequisicionID;
                 ListaCaptura[cont].ElementoPorClasificacionPNDID = arregloCaptura[i].ElementoPorClasificacionPNDID;
-                ListaCaptura[cont].Accion = 3;
-                ListaCaptura[cont].Disposicion = arregloCaptura[i].Disposicion;
+                ListaCaptura[cont].Accion = 3;                
                 ListaCaptura[cont].OrdenTrabajoID = arregloCaptura[i].OrdenTrabajoID;
                 ListaCaptura[cont].ClasificacionPNDID = arregloCaptura[i].ClasificacionPNDID;
                 ListaCaptura[cont].SpoolID = arregloCaptura[i].SpoolID;
                 ListaCaptura[cont].JuntaSpool = arregloCaptura[i].JuntaSpool;
+                ListaCaptura[cont].ClasificacionManual = 0;
+                //ListaCaptura[cont].ClasificacionManual = arregloCaptura[i].Clasificacion;
                 cont++;
             } 
             
@@ -264,7 +279,7 @@ function AjaxObtenerSpool() {
 
 function AjaxObtenerJunta() {
     loadingStart();
-    $EditarRequisicion.EditarRequisicion.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), IdOrdenTrabajo: $("#InputOrdenTrabajo").val(), OrdenTrabajoSpoolID: $("#InputID").val(), TipoPruebaID: $("#inputTipoPrueba").data("kendoComboBox").value() == "" ? 0 : $("#inputTipoPrueba").data("kendoComboBox").value(), ProyectoID: $("#inputProyecto").data("kendoComboBox").value() == "" ? 0 : $("#inputProyecto").data("kendoComboBox").value(), JuntaSpoolID: $("#Junta").val() }).done(function (data) {
+    $EditarRequisicion.EditarRequisicion.read({ token: Cookies.get("token"), IdOrdenTrabajo: $("#InputOrdenTrabajo").val(), OrdenTrabajoSpoolID: $("#InputID").val(), TipoPruebaID: $("#inputTipoPrueba").data("kendoComboBox").value() == "" ? 0 : $("#inputTipoPrueba").data("kendoComboBox").value(), ProyectoID: $("#inputProyecto").data("kendoComboBox").value() == "" ? 0 : $("#inputProyecto").data("kendoComboBox").value(), JuntaSpoolID: $("#Junta").val() }).done(function (data) {
         var ds = $("#grid").data("kendoGrid").dataSource;
         if (data.length > 0) {
             $("#Junta").data("kendoComboBox").value("");
@@ -280,7 +295,6 @@ function AjaxObtenerJunta() {
 
 function AjaxJunta(spoolID) {
     loadingStart();
-
     $EditarRequisicion.EditarRequisicion.read({ ordenTrabajo: $("#InputOrdenTrabajo").val(), id: spoolID, sinCaptura: $('input:radio[name=Muestra]:checked').val(), token: Cookies.get("token") }).done(function (data) {
         if (Error(data)) {
             $("#Junta").data("kendoComboBox").value("");

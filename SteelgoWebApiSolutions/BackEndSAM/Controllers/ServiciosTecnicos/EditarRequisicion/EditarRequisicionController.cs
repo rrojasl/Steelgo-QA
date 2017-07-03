@@ -18,7 +18,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.EditarRequisicion
     public class EditarRequisicionController : ApiController
     {
         [HttpGet]
-        public object ObtieneElementosPorPrueba(string token, string lenguaje, int RequisicionID, int TipoPruebaID, int ProyectoID, string Muestra)
+        public object ObtieneElementosPorPrueba(string token, string lenguaje, int RequisicionID, int TipoPruebaID, int ProyectoID, string Muestra)        
         {
             string payload = "";
             string newToken = "";
@@ -114,7 +114,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.EditarRequisicion
         }
 
         [HttpPost]
-        public object Post(Models.ServiciosTecnicos.EditarRequisicion.EditarRequisicion.Captura listaElementosPorReq, string token, string lenguaje)
+        public object Post(Captura listaElementosPorReq, string token, string lenguaje)
         {
             string payload = "";
             string newToken = "";

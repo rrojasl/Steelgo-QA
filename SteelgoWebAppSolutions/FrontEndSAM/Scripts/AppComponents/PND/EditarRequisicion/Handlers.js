@@ -1,7 +1,7 @@
 ﻿function SuscribirEventos() {
     SuscribirEventoRequisicion();
     SuscribirEventoProyecto();
-    SuscribirEventoTipoPrueba();
+    SuscribirEventoTipoPrueba();    
     suscribirOrdenTrabajo();
     SuscribirEventoSpoolID();
     SuscribirEventoJuntaSpool();
@@ -14,9 +14,12 @@
 
 
 function suscribirEventoAgregar() {
-    $('#ButtonAgregar').click(function (e) {
-
-        AgregarJuntaNueva();
+    $('#ButtonAgregar').click(function (e) {        
+        if ($("#Junta").data("kendoComboBox").value() != "") {
+            AgregarJuntaNueva();
+        } else {
+            displayNotify("JuntaSinSeleccionar", "", "1");
+        }
 
     });
 }
@@ -201,7 +204,7 @@ function SuscribirEventoRequisicion() {
         delay: 10,
         filter: "contains",
         index: 3,
-        change: function (e) {
+        change: function (e) {            
             var dataItem = this.dataItem(e.sender.selectedIndex);
             var paramReq = getParameterByName('requisicion');
 
@@ -211,8 +214,7 @@ function SuscribirEventoRequisicion() {
                     if (paramReq == null) {
                         if (dataItem.RequisicionID != 0) {
                             AjaxCargaDetalleRequisicion(dataItem.RequisicionID, dataItem.TipoPruebaID, dataItem.ProyectoID);
-                            if ($("#inputTipoPrueba").data("kendoComboBox").value() == 0 ||
-                                $("#inputTipoPrueba").data("kendoComboBox").value() == "") {
+                            if ($("#inputTipoPrueba").data("kendoComboBox").value() == 0 || $("#inputTipoPrueba").data("kendoComboBox").value() == "") {
                                 $("#inputTipoPrueba").data("kendoComboBox").value(dataItem.TipoPruebaID)
                             }
                             ocultaDivAgregaSpool(true);
@@ -264,8 +266,7 @@ function SuscribirEventoRequisicion() {
                         if (paramReq == null) {
                             if (dataItem.RequisicionID != 0) {
                                 AjaxCargaDetalleRequisicion(dataItem.RequisicionID, dataItem.TipoPruebaID, dataItem.ProyectoID);
-                                if ($("#inputTipoPrueba").data("kendoComboBox").value() == 0 ||
-                                $("#inputTipoPrueba").data("kendoComboBox").value() == "") {
+                                if ($("#inputTipoPrueba").data("kendoComboBox").value() == 0 || $("#inputTipoPrueba").data("kendoComboBox").value() == "") {
                                     $("#inputTipoPrueba").data("kendoComboBox").value(dataItem.TipoPruebaID)
                                 }
                                 ocultaDivAgregaSpool(true);
@@ -411,7 +412,7 @@ function suscribirEventoChangeRadio() {
 
             var ds = $("#grid").data("kendoGrid").dataSource;
             if (!existenCambios(ds._data)) {
-                AjaxObtenerElementoRequisicion(RequisicionID);
+                AjaxCargaDetalleRequisicion(RequisicionID, tipoPrueba, ProyectoID);
             }
             else {
                 var ventanaConfirm = $("#ventanaConfirmCaptura").kendoWindow({
@@ -432,7 +433,7 @@ function suscribirEventoChangeRadio() {
                 ventanaConfirm.open().center();
                 $("#yesButtonProy").click(function () {
                     ventanaConfirm.close();
-                    AjaxGetListaElementos(RequisicionID, tipoPrueba, ProyectoID, $('input:radio[name=Muestra]:checked').val());
+                    AjaxCargaDetalleRequisicion(RequisicionID, tipoPrueba, ProyectoID);
                 });
 
                 $("#noButtonProy").click(function () {
@@ -450,7 +451,7 @@ function suscribirEventoChangeRadio() {
 
             var ds = $("#grid").data("kendoGrid").dataSource;
             if (!existenCambios(ds._data)) {
-                AjaxGetListaElementos(RequisicionID, tipoPrueba, ProyectoID, $('input:radio[name=Muestra]:checked').val());
+                AjaxCargaDetalleRequisicion(RequisicionID, tipoPrueba, ProyectoID);
             }
             else {
                 var ventanaConfirm = $("#ventanaConfirmCaptura").kendoWindow({
@@ -470,7 +471,7 @@ function suscribirEventoChangeRadio() {
 
                 ventanaConfirm.open().center();
                 $("#yesButtonProy").click(function () {
-                    AjaxGetListaElementos(RequisicionID, tipoPrueba, ProyectoID, $('input:radio[name=Muestra]:checked').val());
+                    AjaxCargaDetalleRequisicion(RequisicionID, tipoPrueba, ProyectoID);
                     ventanaConfirm.close();
                 });
 

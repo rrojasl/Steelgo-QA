@@ -1,20 +1,19 @@
 ﻿IniciarEdicionRequisicion();
 function IniciarEdicionRequisicion() {
-    SuscribirEventos();
+    //SuscribirEventos();
+    setTimeout(function () { SuscribirEventos() }, 100);
 }
 
 function changeLanguageCall() {
-    var paramReq = getParameterByName('requisicion');
-
-    cargarGrid();   
-    AjaxCargarCamposPredeterminados();
+    var paramReq = getParameterByName('requisicion');        
     SiguienteProceso(paramReq);
     if(paramReq!=null){
         AjaxObtenerElementoRequisicion(paramReq);
     } else {
         AjaxCargaListaProyecto();
     }
-    
+    AjaxCargarCamposPredeterminados();
+    cargarGrid();    
     document.title = _dictionary.ServiciosTecnicosEditarRequisicionBreadcrumb[$("#language").data("kendoDropDownList").value()];
     
 }
@@ -98,11 +97,11 @@ function cargarGrid() {
                 this.closeCell();
         },
         dataSource: {
-            data: '',
+            data: [],
             schema: {
                 model: {
                     fields: {
-                        Accion: { type: "number", editable: true },
+                        Accion: { type: "number", editable: false },
                         NumeroControl: { type: "string", editable: false },
                         EtiquetaJunta: { type: "string", editable: false },
                         TipoJunta: { type: "string", editable: false },
@@ -121,19 +120,19 @@ function cargarGrid() {
                         OrdenTrabajoSpoolID: { type: "int", editable: false },
                         JuntaSpoolID: { type: "int", editable: false },
                         TipoPruebaID: { type: "int", editable: false },
-                        Especificacion: { type: "number", editable: false },
+                        Especificacion: { type: "string", editable: false },
                         Agregar: { type: "boolean", editable: false },
-                        EstatusCaptura: { type: "number", editable: false }
+                        EstatusCaptura: { type: "int", editable: false }
                     }
                 }
             },
-            filter: {
-                logic: "or",
-                filters: [
-                  { field: "accion", operator: "eq", value: 1 },
-                  { field: "accion", operator: "eq", value: 2 }
-                ]
-            },
+            //filter: {
+            //    logic: "or",
+            //    filters: [
+            //      { field: "accion", operator: "eq", value: 1 },
+            //      { field: "accion", operator: "eq", value: 2 }
+            //    ]
+            //},
             pageSize: 10,
             serverPaging: false,
             serverFiltering: false,
