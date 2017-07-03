@@ -2,9 +2,10 @@
 var ventanaConfirmEdicionCaptura;
 var editado=false;
 var disableDates;
-
+var gridRow;
 var LineaCaptura = { ProyectoIDSeleccionado: "", ProcesoIDSeleccionado: "", SistemaPinturaIDSeleccionado: "",ColorIDSeleccionado:"", PruebaIDSeleccionado: "",FechaSeleccionada:"",LoteIDSeleccionada:"" }
-
+var ventanaConfirmEdicionSinTipoBusqueda;
+var EjecutaChange = 0;
 
 
 function isInArray(date, dates) {
@@ -70,23 +71,17 @@ function CargarGrid() {
                 model: {
                     fields: {
                         Accion: { type: "number", editable: false },
-                        NombreSpool: { type: "string", editable: false },
+                        NumeroControl: { type: "string", editable: false },
                         SistemaPintura: { type: "string", editable: false },
                         Color: { type: "string", editable: false },
-                        M2: { type: "String", editable: false },
-                        PruebasReq: { type: "number", editable: false },
-                        PruebasEjec: { type: "number", editable: false },
-                        NombreCuadrante: { type: "string", editable: false },
-                        CapturaPrueba: { type: "string", editable: false }
+                        Area: { type: "String", editable: false },
+                        PruebasRequeridas: { type: "number", editable: false },
+                        PruebasEjecutadas: { type: "number", editable: false },
+                        Cuadrante: { type: "string", editable: false },
+                        Template: { type: "string", editable: false },
+                        Medida: { type: "string", editable: false }
                     }
                 }
-            },
-            filter: {
-                logic: "or",
-                filters: [
-                  { field: "Accion", operator: "eq", value: 1 },
-                  { field: "Accion", operator: "eq", value: 2 }
-                ]
             },
             pageSize: 10,
             serverPaging: false,
@@ -110,28 +105,58 @@ function CargarGrid() {
         },
         filterable: getGridFilterableMaftec(),
         columns: [
-            { field: "NombreSpool", title: _dictionary.columnNumeroControl[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec() },
+            { field: "NumeroControl", title: _dictionary.columnNumeroControl[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec() },
             { field: "SistemaPintura", title: _dictionary.columnSistemaPintura[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec() },
             { field: "Color", title: _dictionary.columnColor[$("#language").data("kendoDropDownList").value()], width: "150px", filterable: getGridFilterableCellMaftec() },
-            { field: "M2", title: _dictionary.columnM2[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), format: "{0:n2}", width: "95px", attributes: { style: "text-align:right;" } },
-            { field: "NombreCuadrante", title: _dictionary.columnCuadrante[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec() },
-            { field: "CapturaPrueba", title: _dictionary.columnSeRealizoPrueba[$("#language").data("kendoDropDownList").value()], filterable: false, template: "<div class='EnlaceDetallePrueba' style='text-align:center;'><a href='\\#'  > <span>#=CapturaPrueba#</span></a></div>", filterable: false, width: "190px" }
-        ]
+            { field: "PruebasEjecutadas", title: _dictionary.columnPruebasEjecutadas[$("#language").data("kendoDropDownList").value()], width: "150px", filterable: getGridFilterableCellNumberMaftec() },
+            { field: "Area", title: _dictionary.columnM2[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), format: "{0:n2}", width: "95px", attributes: { style: "text-align:right;" } },
+            { field: "Cuadrante", title: _dictionary.columnCuadrante[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec() },
+            { field: "Template", title: _dictionary.columnSeRealizoPrueba[$("#language").data("kendoDropDownList").value()], filterable: false, template: "<div class='EnlaceDetallePrueba' style='text-align:center;'><a href='\\#'  > <span>#=Template#</span></a></div>", filterable: false, width: "190px" }
+        ],
+            dataBound: function () {
+                var grid = $("#grid").data("kendoGrid");
+                var gridData = grid.dataSource.view();
+
+                for (var i = 0; i < gridData.length; i++) {
+                    var currentUid = gridData[i].uid;
+                    if (gridData[i].RowOk == false) {
+                        grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("k-alt");
+                        grid.table.find("tr[data-uid='" + currentUid + "']").addClass("kRowError");
+                     
+                    }
+                    else if (gridData[i].RowOk) {
+                        if (i % 2 == 0)
+                            grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("k-alt");
+                        grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("kRowError");
+                    }
+                }
+            }
     });
     CustomisaGrid($("#grid"));
 }
 
 function CargarGridPopUp() {
     $("#gridPopUp").kendoGrid({
+        edit: function (e) {
+            var inputName = e.container.find('input');
+            inputName.select();
+
+        },
         dataSource: {
-            data: [],
             schema: {
                 model: {
                     fields: {
                         Accion: { type: "number", editable: false },
-                        Fecha: { type: "date", editable: true },
-                        ValorUnidadMedida: { type: "number", editable: true },
-                        Aprobado: { type: "string", editable: false }
+                        SpoolID: { type: "number", editable: false },
+                        ProyectoProcesoPruebaID: { type: "number", editable: false },
+                        UnidadMaxima: { type: "number", editable: false },
+                        UnidadMinima: { type: "number", editable: false },
+                        Medida: { type: "string", editable: false },
+                        
+                        
+                        FechaPrueba: { type: "date", editable: true },
+                        UnidadMedida: { type: "number", editable: true },
+                        ResultadoEvaluacion: { type: "string", editable: false }
                     }
                 }
             }, filter: {
@@ -149,53 +174,59 @@ function CargarGridPopUp() {
         },
         selectable: true,
         filterable: getGridFilterableMaftec(),
-        change: function (e) {
-            grid = e.sender;
-            var currentDataItem = grid.dataItem(this.select());
-            var currentIndexRow = $("#gridPopUp").data("kendoGrid").items().index(this.select());
-            // alert("evento change:" + currentIndexRow);
-            console.log("evento change:" + currentIndexRow);
-        },
         columns: [
-                  { field: "Fecha", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()], editor: RenderDatePicker, title: _dictionary.columnFechaPrueba[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "20px" },
-                  { field: "ValorUnidadMedida", editor: RenderAprobado, title: "Valor U. Medida", filterable: getGridFilterableCellNumberMaftec(), width: "20px", attributes: { style: "text-align:right;" } },
-                  { field: "Aprobado", title: "Aprobado", filterable: getGridFilterableCellNumberMaftec(), width: "20px" }
+                  { field: "FechaPrueba", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()], editor: RenderDatePicker, title: _dictionary.columnFechaPrueba[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "20px" },
+                  { field: "UnidadMedida", editor: RenderAprobado, title: "Valor U. Medida", filterable: getGridFilterableCellNumberMaftec(), width: "20px", attributes: { style: "text-align:right;" },editor:RenderMedida },
+                  { field: "ResultadoEvaluacion", title: "Aprobado", filterable: getGridFilterableCellNumberMaftec(), width: "20px", attributes: { style: "text-align:center;" } },
+                  { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: eliminarCaptura }, title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], width: "10px", attributes: { style: "text-align:center;" } }
         ],
         editable: true,
         navigatable: true,
-        toolbar: [{ name: "create" }]
+        toolbar: [{ name: "create" }],
+            dataBound: function () {
+                var grid = $("#gridPopUp").data("kendoGrid");
+                var gridData = grid.dataSource.view();
+
+                for (var i = 0; i < gridData.length; i++) {
+                    var currentUid = gridData[i].uid;
+                    if (gridData[i].ResultadoEvaluacion == false) {
+                        gridData[i].ResultadoEvaluacion = "No";
+                     
+                    }
+                    else if (gridData[i].RowOk) {
+                        gridData[i].ResultadoEvaluacion = "Si";
+                    }
+                }
+            }
     });
     CustomisaGrid($("#gridPopUp"));
 };
 
 
+function eliminarCaptura(e) {
+    e.preventDefault();
+    if ($('#botonGuardar').text() == _dictionary.DetalleAvisoLlegada0017[$("#language").data("kendoDropDownList").value()]) {
 
-function LlenarGridPopUp() {
-   
-    VentanaModal();
+        var filterValue = $(e.currentTarget).val();
+        var dataItem = $("#gridPopUp").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+        var dataSource = $("#gridPopUp").data("kendoGrid").dataSource;
+
+        if (dataItem.Accion!=2)
+            dataSource.remove(dataItem);
+        else
+            dataItem.Accion=3
+        
+        dataSource.sync();
+    }
+
 }
 
-function VentanaModal() {
-    var modalTitle = "Prueba Adherencia(PLG)";
-    var window = $("#windowGrid");
-    var win = window.kendoWindow({
-        modal: true,
-        title: modalTitle,
-        resizable: false,
-        visible: true,
-        width: "70%",
-        position: {
-            top: "10px",
-            left: "10px"
-        },
-        actions: [
-            "Close"
-        ],
-        close: function onClose(e) {
-            //var gridDataSource = $("#gridPopUp").data("kendoGrid").dataSource;
-            //  gridDataSource.filter([]);
-        }
-    }).data("kendoWindow");
-    window.data("kendoWindow").center().open();
 
+
+function verVentanaPruebasPorSpool(NombrePrueba,unidadmedida) {
+    windowPopupPruebasSpool.setOptions({
+        title : NombrePrueba + '(' + unidadmedida + ')'
+    });
+
+    windowPopupPruebasSpool.center().open();
 };

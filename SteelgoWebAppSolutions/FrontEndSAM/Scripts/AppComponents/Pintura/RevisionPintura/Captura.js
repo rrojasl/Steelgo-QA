@@ -58,7 +58,7 @@ function CargarGrid() {
     })(kendo.ui.Grid.fn.editCell);
     $("#grid").kendoGrid({
         edit: function (e) {
-            displayNotify("", "Al modificar  la información actual, se eliminara y tendrá que ser recapturada los datos correspondientes a pintura para el spool seleccionado", '1');
+            displayNotify("RevisionPinturaGenerarRevision", "", '1');
             
 			if ($('#Guardar').text() != _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
 				this.closeCell();
@@ -295,14 +295,14 @@ function PlanchaSistemaPintura() {
     if ($("#inputPlanchadoSP").data("kendoComboBox").text() != "") {
         for (var i = 0; i < data.length; i++) {
             if ($('input:radio[name=LLena]:checked').val() === "Todos" && data[i].CargaCarroID==false) {
-                data[i].SistemaPinturaID = $("#inputPlanchadoSP").val();
+                data[i].SistemaPinturaID = $("#inputPlanchadoSP").data("kendoComboBox").dataItem($("#inputPlanchadoSP").data("kendoComboBox").select()).SistemaPinturaID;
                 data[i].SistemaPintura = $("#inputPlanchadoSP").data("kendoComboBox").text();
                 data[i].ListaColorPintura = $("#inputPlanchadoColor").data("kendoComboBox").dataSource._data;
                 data[i].NoPintable =$("#inputPlanchadoSP").data("kendoComboBox").dataItem($("#inputPlanchadoSP").data("kendoComboBox").select()).NoPintable;
             }
             else {
                 if ((data[i].SistemaPintura === "" || data[i].SistemaPintura === null || data[i].SistemaPintura === undefined) && data[i].CargaCarroID == false) {
-                    data[i].SistemaPinturaID = $("#inputPlanchadoSP").val();
+                    data[i].SistemaPinturaID = $("#inputPlanchadoSP").data("kendoComboBox").dataItem($("#inputPlanchadoSP").data("kendoComboBox").select()).SistemaPinturaID;
                     data[i].SistemaPintura = $("#inputPlanchadoSP").data("kendoComboBox").text();
                     data[i].ListaColorPintura = $("#inputPlanchadoColor").data("kendoComboBox").dataSource._data;
                     data[i].NoPintable = $("#inputPlanchadoSP").data("kendoComboBox").dataItem($("#inputPlanchadoSP").data("kendoComboBox").select()).NoPintable;
@@ -322,12 +322,12 @@ function PlanchaColor() {
     if ($("#inputPlanchadoColor").data("kendoComboBox").text() != "") {
         for (var i = 0; i < data.length; i++) {
             if ($('input:radio[name=LLena]:checked').val() === "Todos" && data[i].CargaCarroID == false) {
-                data[i].SistemaPinturaColorID = $("#inputPlanchadoColor").val();
+                data[i].SistemaPinturaColorID = $("#inputPlanchadoColor").data("kendoComboBox").dataItem($("#inputPlanchadoColor").data("kendoComboBox").select()).SistemaPinturaColorID;
                 data[i].Color = $("#inputPlanchadoColor").data("kendoComboBox").text();
             }
             else {
                 if (data[i].CargaCarroID == false && data[i].SistemaPinturaID == $("#inputPlanchadoSP").val() && (data[i].Color === "" || data[i].Color === null || data[i].Color === undefined)) {
-                    data[i].SistemaPinturaColorID = $("#inputPlanchadoColor").val();
+                    data[i].SistemaPinturaColorID = $("#inputPlanchadoColor").data("kendoComboBox").dataItem($("#inputPlanchadoColor").data("kendoComboBox").select()).SistemaPinturaColorID;
                     data[i].Color = $("#inputPlanchadoColor").data("kendoComboBox").text();
                 }
             }

@@ -84,5 +84,7 @@
         public static string PINTURA_SET_OKPINTURA = "Sam3_Pintura_SET_OkPintura";
         public static string PINTURA_SET_OKPINTURA_MASIVO = "Sam3_Pintura_SET_OkPinturaMasivo";
         public static string JUNTAMONAJESOLDADURA_MASIVO = "GuardaJuntaMontajeSoldadura_Masivo";
+        public static string GUARDARCAPTURAPRUEBASSPOOL = "Sam3_Pintura_PruebasLote_Guardar";
+        
     }
 }

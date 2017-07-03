@@ -5,7 +5,37 @@ using System.Web;
 
 namespace BackEndSAM.Models.Pintura.PruebasPorLote
 {
-    
+
+    public class PruebasSpool
+    {
+        public int ProyectoProcesoPruebaID { get; set; }
+        public string Prueba { get; set; }
+        public PruebasSpool()
+        {
+            ProyectoProcesoPruebaID = 0;
+            Prueba = "";
+        }
+
+    }
+    public class ProcesosPinturaSpool
+    {
+        public int SpoolID { get; set; }
+        public int? ProcesoPinturaID { get; set; }
+        public string ProcesoPintura { get; set; }
+        public string Status { get; set; }
+        public int? SistemaPinturaProyectoProcesoID { get; set; }
+        public int? SistemaPinturaProyectoID { get; set; }
+
+        public ProcesosPinturaSpool()
+        {
+            SpoolID = 0;
+            ProcesoPinturaID = 0;
+            ProcesoPintura = "";
+            Status = "";
+            SistemaPinturaProyectoProcesoID = 0;
+            SistemaPinturaProyectoID = 0;
+        }
+    }
     public class ProcesosPintura
     {
         public int ProcesoPinturaID { get; set; }
@@ -58,8 +88,52 @@ namespace BackEndSAM.Models.Pintura.PruebasPorLote
         public string Fecha { get; set; }
     }
 
-    public class Detalle
+    public class DetalleLote
     {
+        public int SpoolID { get; set; }
+        public string NumeroControl { get; set; }
+        public string SistemaPintura { get; set; }
+        public string Color { get; set; }
+        public Double Area { get; set; }
+        public string Cuadrante { get; set; }
+        public int? PruebaProcesoPinturaID { get; set; }
+        public Double UnidadMinima { get; set; }
+        public Double UnidadMaxima { get; set; }
+        public int PruebasRequeridas { get; set; }
+        public int? PruebasEjecutadas { get; set; }
+        public bool? CerrarLote { get; set; }
+        public int ProyectoProcesoPruebaID { get; set; }
+        public string Template { get; set; }
+        public List<DetallePruebasPorSpool> ListaDetallePruebas { get; set; }
+        public string Medida { get; set; }
+    }
 
+    public class DetallePruebasPorSpool
+    {
+        public int Accion { get; set; }
+        public int? SpoolID { get; set; }
+        public int? ProyectoProcesoPruebaID { get; set; }
+        public double UnidadMedida { get; set; }
+        public bool? ResultadoEvaluacion { get; set; }
+        public string FechaPrueba { get; set; }
+        public double? UnidadMaxima { get; set; }
+        public double? UnidadMinima { get; set; }
+        public string Medida { get; set; }
+    }
+
+
+    public class Captura
+    {
+        public List<DetalleGuardarPruebasPorSpool> Detalles { get; set; }
+    }
+    public class DetalleGuardarPruebasPorSpool
+    {
+        public int Accion { get; set; }
+        public int SpoolID { get; set; }
+        public int ProyectoProcesoPruebaID { get; set; }
+        public double UnidadMedida { get; set; }
+        public string FechaPrueba { get; set; }
+        public bool ResultadoEvaluacion { get; set; }
+        public int SistemaPinturaColorID { get; set; }
     }
 }

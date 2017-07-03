@@ -404,7 +404,7 @@ function SuscribirEventoPlanchar() {
     $("#ButtonPlanchar").click(function (e) {
         e.preventDefault();
         if ($("#grid").data("kendoGrid").dataSource._data.length > 0) {
-            displayNotify("", "Al modificar  la información actual, se eliminara y tendrá que ser recapturada los datos correspondientes a pintura para el spool seleccionado", '1');
+            displayNotify("RevisionPinturaGenerarRevision", "", '1');
              if ($('input:radio[name=LLena]:checked').val() === "Todos") {
                 //windowTemplate = kendo.template($("#windowTemplate").html());
 

@@ -11,7 +11,7 @@
         <a href="#"><span id="PinturaBreadcrumb"></span></a>
     </li>
     <li class="active">
-        <a href="@Url.Action("LotesCapturaReporte", "Pintura")"><span id="PinturaLotesCapturaPruebaBreadcrumb"></span></a>
+        <a href="@Url.Action("LotesCapturaPrueba", "Pintura")"><span id="PinturaLotesCapturaPruebaBreadcrumb"></span></a>
     </li>
 }
 
@@ -60,31 +60,31 @@
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="row">
                 <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 altoControl" id="CapturaArmadoHeaderSpoolIDDiv">
-                        <label id="lblProyecto"></label>
-                        <input id="inputProyecto" class="" />
+                        <label id="lblProyecto"  class="security_required"></label>
+                        <input id="inputProyecto"  />
                 </div>
                 <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 altoControl" id="CapturaArmadoHeaderSpoolIDDiv1">
-                    <label>Proceso</label>
+                    <label  class="security_required">Proceso</label>
                     <input id="inputProceso" class="" />
                 </div>
                 <div class="col-xs-12 col-sm-4 col-md-2 col-lg-2 altoControl" id="CapturaArmadoHeaderSpoolIDDiv">
-                    <label id="lblSistemaPintura"></label>
+                    <label id="lblSistemaPintura"  class="security_required"></label>
                     <input id="inputSistemaPintura" class="" />
                 </div>
                 <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 altoControl" id="divColor" style="display:none">
-                    <label id="lblColor"></label>
+                    <label id="lblColor"  class="security_required"></label>
                     <input id="inputColor" />
                 </div>
                 <div class="col-xs-12 col-sm- col-md-2 col-lg-2 altoControl" id="CapturaArmadoHeaderSpoolIDDiv1">
-                    <label id="lblPrueba"></label>
+                    <label id="lblPrueba"  class="security_required"></label>
                     <input id="inputPrueba" class="" />
                 </div>
                 <div class="col-xs-12 col-sm- col-md-2 col-lg-2 altoControl" id="CapturaArmadoHeaderSpoolIDDiv1">
-                    <label>Fecha Lote</label>
+                    <label  class="security_required">Fecha Lote</label>
                     <input id="inputFechaLote" class="" />
                 </div>
                 <div class="col-xs-12 col-sm- col-md-2 col-lg-2 altoControl" id="CapturaArmadoHeaderSpoolIDDiv1">
-                    <label id="lblLote"></label>
+                    <label id="lblLote"  class="security_required"></label>
                     <input id="inputLote" class="" />
                 </div>
                 <div class="col-xs-12 col-sm-8 col-md-3 col-lg-2 altoControl">
@@ -98,13 +98,13 @@
                 </div>
                 <div class="col-xs-12 col-sm-4 col-md-1 col-lg-2" id="CapturaArmadoHeaderSpoolIDDiv1">
                     <label id=""># Pruebas Req</label>
-                    <label id="">2</label>
+                    <label id="labelPruebasRequeridas"></label>
                 </div>
-                <div class="col-xs-12 col-sm-4 col-md-1 col-lg-2" id="CapturaArmadoHeaderSpoolIDDiv1">
+                @*<div class="col-xs-12 col-sm-4 col-md-1 col-lg-2" id="CapturaArmadoHeaderSpoolIDDiv1">
                     <label id=""># Pruebas Ejec</label>
                     <label id="">0</label>
-                </div>
-                <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2" id="CapturaArmadoHeaderSpoolIDDiv1">
+                </div>*@
+                <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2" id="CapturaArmadoHeaderSpoolIDDiv1" style="display:none">
                     <label id="lblCerrarLote"></label>
                     <input type="checkbox" style="width:auto;" id="chkCerrarLote" />
                 </div>
@@ -136,7 +136,7 @@
                     <div class="col-sm-12 col-md-12 col-lg-12">
                         <div class="button-section editButtonSection">
                             <div class="btn-group save-group">
-                                <button id="Guardar" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="botonGuardar3"></span></button>
+                                <button id="Guardar1" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="botonGuardar3"></span></button>
                                 <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="caretWhite"></span>
                                 </button>

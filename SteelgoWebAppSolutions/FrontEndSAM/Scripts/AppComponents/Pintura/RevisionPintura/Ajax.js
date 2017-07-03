@@ -260,7 +260,11 @@ function AjaxEjecutarGuardado(rows, tipoGuardar) {
             }
             else {
                 opcionHabilitarView(true, "FieldSetView");
-                AjaxCambiarAccionAModificacion();
+                //  AjaxCambiarAccionAModificacion();
+
+               var  tipoBusquedaSeleccionada = $('input:radio[name=TipoBusqueda]:checked').val() == "spool" ? 1 : 2;
+               var  datoSeleccionado = tipoBusquedaSeleccionada == 1 ? $("#inputSpool").val() : $("#inputNc").val();
+                AjaxConsultarSpoolsConSP(tipoBusquedaSeleccionada, datoSeleccionado);
             }
         }
         else {

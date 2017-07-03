@@ -1,96 +1,104 @@
-﻿IniciarCapturaPruebaSpool();
+﻿var editado = false;
+var ventanaConfirmEdicionSinTipoBusqueda;
 
-function IniciarCapturaPruebaSpool() {
-    SuscribirEventos();
-}
+var LineaCaptura = {OrdenTrabajoSpool:"", ProcesoIDSeleccionado: "", ColorIDSeleccionado: "", ProyectoProcesoPruebaIDSeleccionado: "", InputIDSeleccionado: "" }
+var EjecutaChange = 0;
+
 
 
 function changeLanguageCall() {
+    SuscribirEventos();
     CargarGrid();
-    LlenarCombo();
+}
+
+function TryParseInt(str, defaultValue) {
+    var retValue = defaultValue;
+    if (str !== null) {
+        if (str.length > 0) {
+            if (!isNaN(str)) {
+                retValue = parseInt(str);
+            }
+        }
+    }
+    return retValue;
+}
+
+function Limpiar()
+{
+    $("#InputOrdenTrabajo").val("");
+    $("#InputID").data("kendoComboBox").dataSource.data([]);
+    $("#InputID").data("kendoComboBox").value("");
+
+    $("#inputProceso").data("kendoComboBox").dataSource.data([]);
+    $("#inputProceso").data("kendoComboBox").value("");
+
+    $("#inputPrueba").data("kendoComboBox").dataSource.data([]);
+    $("#inputPrueba").data("kendoComboBox").value("");
+
+    $("#inputColor").data("kendoComboBox").dataSource.data([]);
+    $("#inputColor").data("kendoComboBox").value("");
+
+    $("#grid").data("kendoGrid").dataSource.data([]);
+    
 }
 
 function CargarGrid() {
-    //BeforeEdit
-    kendo.ui.Grid.fn.editCell = (function (editCell) {
-        return function (cell) {
-            cell = $(cell);
-
-            var that = this,
-                column = that.columns[that.cellIndex(cell)],
-                model = that._modelForContainer(cell),
-                event = {
-                    container: cell,
-                    model: model,
-                    preventDefault: function () {
-                        this.isDefaultPrevented = true;
-                    }
-                };
-
-            if (model && typeof this.options.beforeEdit === "function") {
-                this.options.beforeEdit.call(this, event);
-                if (event.isDefaultPrevented) return;
-            }
-
-            editCell.call(this, cell);
-        };
-    })(kendo.ui.Grid.fn.editCell);
     $("#grid").kendoGrid({
-        edit: function (e) {
-            var inputName = e.container.find('input');
-            inputName.select();
-
-        },
-        autoBind: true,
         dataSource: {
             schema: {
                 model: {
                     fields: {
                         Accion: { type: "number", editable: false },
-                        FechaPrueba: { type: "date", editable: true }, 
-                        ValorUnidadMedida: { type: "number", editable: true },
-                        Aprobado: { type: "string", editable: false }
+                        SpoolID: { type: "number", editable: false },
+                        ProyectoProcesoPruebaID: { type: "number", editable: false },
+                        UnidadMaxima: { type: "number", editable: false },
+                        UnidadMinima: { type: "number", editable: false },
+                        Medida: { type: "string", editable: false },
+
+
+                        FechaPrueba: { type: "date", editable: true },
+                        UnidadMedida: { type: "number", editable: true },
+                        ResultadoEvaluacion: { type: "string", editable: false }
                     }
                 }
-            },
-            filter: {
+            }, filter: {
                 logic: "or",
                 filters: [
                   { field: "Accion", operator: "eq", value: 1 },
-                  { field: "Accion", operator: "eq", value: 2 }
+                  { field: "Accion", operator: "eq", value: 2 },
+                  { field: "Accion", operator: "eq", value: 0 },
+                  { field: "Accion", operator: "eq", value: 4 },
+                  { field: "Accion", operator: "eq", value: undefined }
                 ]
-            },
-            pageSize: 10,
-            serverPaging: false,
-            serverFiltering: false,
-            serverSorting: false
+            }
+
+
         },
-        navigatable: true,
-        filterable: {
-            extra: false
-        },
-        editable: true,
-        autoHeight: true,
-        sortable: true,
-        scrollable: true,
-        pageable: {
-            refresh: false,
-            pageSizes: [10, 25, 50, 100],
-            info: false,
-            input: false,
-            numeric: true,
-        },
+        selectable: true,
         filterable: getGridFilterableMaftec(),
         columns: [
-            { field: "FechaPrueba", title: _dictionary.columnFechaPrueba[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "110px", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()] },
-            { field: "ValorUnidadMedida", editor: RenderAprobado, title: "Valor U. Medida", filterable: getGridFilterableCellNumberMaftec(), width: "170px", attributes: { style: "text-align:right;" } },
-            { field: "Aprobado" , title: "Aprobado", filterable: getGridFilterableCellMaftec(), width: "130px", attributes: { style: "text-align:center;" } },
-            { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: eliminarCaptura }, title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], width: "50px" },
+                  { field: "FechaPrueba", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()], editor: RenderDatePicker, title: _dictionary.columnFechaPrueba[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "20px" },
+                  { field: "UnidadMedida", title: "Valor U. Medida", filterable: getGridFilterableCellNumberMaftec(), width: "20px", attributes: { style: "text-align:right;" }, editor: RenderMedida },
+                  { field: "ResultadoEvaluacion", title: "Aprobado", filterable: getGridFilterableCellNumberMaftec(), width: "20px", attributes: { style: "text-align:center;" } },
+                  { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: eliminarCaptura }, title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], width: "10px", attributes: { style: "text-align:center;" } }
         ],
-        beforeEdit: function (e) {
-            var columnIndex = this.cellIndex(e.container);
-            var fieldName = this.thead.find("th").eq(columnIndex).data("field");
-            //isApproved(fieldName, e.model);
+        editable: true,
+        navigatable: true,
+        toolbar: [{ name: "create" }],
+        dataBound: function () {
+            var grid = $("#grid").data("kendoGrid");
+            var gridData = grid.dataSource.view();
+
+            for (var i = 0; i < gridData.length; i++) {
+                var currentUid = gridData[i].uid;
+                if (gridData[i].ResultadoEvaluacion == false) {
+                    gridData[i].ResultadoEvaluacion = "No";
+
+                }
+                else if (gridData[i].RowOk) {
+                    gridData[i].ResultadoEvaluacion = "Si";
+                }
+            }
         }
     });
     CustomisaGrid($("#grid"));
@@ -110,69 +118,19 @@ function eliminarCaptura(e) {
         var filterValue = $(e.currentTarget).val();
         var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
         var dataSource = $("#grid").data("kendoGrid").dataSource;
-        dataSource.remove(dataItem);
+
+        if (dataItem.Accion != 2)
+            dataSource.remove(dataItem);
+        else
+            dataItem.Accion = 3
+
         dataSource.sync();
     }
 
 }
 
-function llenarGrid() {
-    var grid = $("#grid").data("kendoGrid").dataSource;
-
-    var ds = [
-                  {
-                      Accion: 1,
-                      FechaPrueba : new Date(),
-                      ValorUnidadMedida: 0,
-                      Aprobado: ""
-                  }
-    ]
-    grid.data(ds);
-    grid.sync();
-}
-
-function LlenarCombo(){
-    var p = [
-        { Proyecto: 0, Nombre: "" },
-        { Proyecto: 16, Nombre: "ETILENO XXI" }
-    ];
-
-    var sp = [
-        { SistPintID: 0, Nombre: "" },
-        { SistPintID: 1, Nombre: "A1" },
-        { SistPintID: 2, Nombre: "A2" },
-        { SistPintID: 3, Nombre: "18.1" }
-    ];
-
-    var pp = [
-             { ProcesoPinturaID: 0, ProcesoPintura: "" },
-             { ProcesoPinturaID: 1, ProcesoPintura: "ShotBlast" },
-             { ProcesoPinturaID: 2, ProcesoPintura: "Primario" },
-             { ProcesoPinturaID: 3, ProcesoPintura: "Intermedio" },
-             { ProcesoPinturaID: 4, ProcesoPintura: "Acabado" }
-    ];
-
-    var pr = [
-             { PruebaID: 0, Prueba: "" },
-             { PruebaID: 1, Prueba: "Adherencia" }
-    ];
 
 
-
-    //$("#inputProyecto").data("kendoComboBox").dataSource.data([]);
-    //$("#inputProyecto").data("kendoComboBox").dataSource.data(p);
-    //$("#inputProyecto").data("kendoComboBox").value(16);
-    //$("#inputProyecto").data("kendoComboBox").trigger('changes');
-
-    //$("#inputSistemaPintura").data("kendoComboBox").dataSource.data([]);
-    //$("#inputSistemaPintura").data("kendoComboBox").dataSource.data(sp);
-
-    $("#inputProceso").data("kendoComboBox").dataSource.data([]);
-    $("#inputProceso").data("kendoComboBox").dataSource.data(pp);
-
-    $("#inputPrueba").data("kendoComboBox").dataSource.data([]);
-    $("#inputPrueba").data("kendoComboBox").dataSource.data(pr);
-}
 
 function convertirImagen() {
     var file = document.querySelector('input[type=file]').files[0];

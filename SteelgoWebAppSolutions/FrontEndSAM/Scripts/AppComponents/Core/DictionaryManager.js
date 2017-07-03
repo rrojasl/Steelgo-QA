@@ -7575,9 +7575,9 @@ _dictionary = {
     },
 
     "SoldadorCertificacionDiametroMinimo": {
-      "es-MX": "Diametro Mínimo.",
+        "es-MX": "Diametro Mínimo.",
         "en-US": "Diameter Minimum."
-        },
+    },
     "lblTipoPrueba": {
         "es-MX": "Tipo Prueba",
         "en-US": "Test Type"
@@ -8691,7 +8691,7 @@ _dictionary = {
         "es-MX": "Shotblastero",
         "en-US": "Shotblastero"
     },
-   
+
     "columnPintor": {
         "es-MX": "Pintor",
         "en-US": "Painter"
@@ -9013,6 +9013,10 @@ _dictionary = {
     "columnPruebasLote": {
         "es-MX": "Pbas. lote",
         "en-US": "Lote Test"
+    },
+    "columnPruebasEjecutadas": {
+        "es-MX": "Pruebas Ejecutadas",
+        "en-US": "Test executed"
     },
     "columnUnidadMedida": {
         "es-MX": "U. medida",
@@ -10739,6 +10743,10 @@ _dictionary = {
         "es-MX": "El sistema de pintura debe ser ",
         "en-US": "The paint system should be "
     },
+    "PinturaReqSistemaPintura": {
+        "es-MX": "Selecciona un sistema de pintura",
+        "en-US": "Select a painting system"
+    },
     "PinturaCargaBackLogMensajeGuardadoExitoso": {
         "es-MX": "Se subio al carro correctamente",
         "en-US": "uploaded to car correctly"
@@ -10914,6 +10922,14 @@ _dictionary = {
     "CapturaAvanceCuadranteSpoolAgregadoaCuadrante": {
         "es-MX": "El spool agregado se cambiara de ubicacion al  cuadrante ",
         "en-US": "The added spool will be moved from location to quadrant "
+    },
+    "PinturaNoPrueba": {
+        "es-MX": "Selecciona una prueba",
+        "en-US": "Select a test"
+    },
+    "PinturaNolote": {
+        "es-MX": "Selecciona un lote",
+        "en-US": "Select a lot"
     },
     "CapturaAvanceCuadranteNoColor": {
         "es-MX": "Selecciona un color",
@@ -11155,6 +11171,10 @@ _dictionary = {
     "SistemaPinturaMensajeErrorRequiereProceso": {
         "es-MX": "Los sistemas de pintura pintables requieren al menos un proceso",
         "en-US": "Paintable paint systems require at least one process"
+    },
+    "SistemaPinturaMensajeReqProcesoPintura": {
+        "es-MX": "Selecciona un proceso de pintura",
+        "en-US": "Select a painting process"
     },
     "SistemaPinturaMensajeErrorNoPuedeSerPintable": {
         "es-MX": "El Sistema de pintura ya se encuentr asignado por lo tanto no puede ser No Pintable",
@@ -12792,6 +12812,10 @@ _dictionary = {
         "es-MX": "Revision Pintura",
         "en-US": "Painting Revision"
     },
+    "RevisionPinturaGenerarRevision": {
+        "es-MX": "Al generar una revision se cancelará la informacion capturada en carga de carro,Avance y Pruebas",
+        "en-US": " "
+    },
     "RevisionPinturaNoEditarSP": {
         "es-MX": "Necesitas descargar el spool del carro  para que puedas cambiar el sistema de pintura ",
         "en-US": "you need to unload the spool of the cart  so you can change the paint system"
@@ -12974,7 +12998,7 @@ _dictionary = {
         "en-US": "Truck"
     },
     //Finaliza Modulo Dynasol
-     // Modulo Montaje
+    // Modulo Montaje
 
     "MontajeBreadcrumb": {
         "es-MX": "Montaje",

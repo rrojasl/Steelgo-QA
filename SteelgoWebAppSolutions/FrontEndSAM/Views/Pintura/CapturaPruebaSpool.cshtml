@@ -60,28 +60,24 @@
     <div class="row " id="FieldSetView">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="row addedSectionInLineWithoutColor">
-                @*<div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 altoControl" id="CapturaArmadoHeaderSpoolIDDiv">
-                        <label id="lblProyecto"></label>
-                        <input id="inputProyecto" class="" />
-                    </div>*@
-                @*<div class="col-xs-12 col-sm-4 col-md-2 col-lg-2 altoControl" id="CapturaArmadoHeaderSpoolIDDiv">
-                        <label id="lblSistemaPintura"></label>
-                        <input id="inputSistemaPintura" class="" />
-                    </div>*@
                 <div class="col-xs-12 col-sm- col-md-2 col-lg-2 altoControl" id="CapturaArmadoHeaderSpoolIDDiv1">
-                    <label id="lblSpoolID"></label>
+                    <label id="lblSpoolID" class="security_required"></label>
                     <input style="width:40%" id="InputOrdenTrabajo" class="item-select general-input" />-<input id="InputID" placeholder="ID" style="width:40%;" />
                 </div>
                 <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 altoControl" id="CapturaArmadoHeaderSpoolIDDiv1">
-                    <label>Proceso</label>
+                    <label class="security_required">Proceso</label>
                     <input id="inputProceso" class="" />
                 </div>
+                <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 altoControl" id="divColor" style="display:none">
+                    <label id="lblColor" class="security_required"></label>
+                    <input id="inputColor" />
+                </div>
                 <div class="col-xs-12 col-sm- col-md-2 col-lg-2 altoControl" id="CapturaArmadoHeaderSpoolIDDiv1">
-                    <label id="lblPrueba"></label>
+                    <label id="lblPrueba" class="security_required"></label>
                     <input id="inputPrueba" class="" />
                 </div>
 
-                <div class="col-xs-12 col-sm- col-md-2 col-lg-2 altoControl" id="CapturaArmadoHeaderSpoolIDDiv1">
+                <div class="col-xs-12 col-sm- col-md-2 col-lg-2 altoControl" id="CapturaArmadoHeaderSpoolIDDiv1" style="display:none">
                     <label id="lblBtnExaminar">&nbsp;</label>
                     @*<button id="btnExaminar" onclick="javascript:void(0);" type="button" class="btn btn-blue"><span>Examinar</span></button>*@
                     <label class="btn btn-blue " id="lblExaminar" > <input type="file" name="File Upload" id="inputFile" accept=".jpg" class="hidden" /> Examinar</label>
@@ -109,7 +105,7 @@
                 <label id="labelSistemaPintura">A4</label>
             </div>
             <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 altoControl">
-                <label id="lblColor"></label>
+                <label id="lblColorDesc"></label>
                 <label id="labelColor">Aluminiio</label>
             </div>
             <div class="col-xs-12 col-sm-2 col-md-2 col-lg-1 altoControl">
@@ -138,10 +134,10 @@
                             <label id="lblSpoolID1"></label>
                             <input style="width:40%" id="InputOrdenTrabajo1" class="item-select general-input" />-<input id="InputID1" placeholder="ID" style="width:40%;" />
                         </div>*@
-                    <div class="col-xs-12 col-sm-4 col-md-2 col-lg-2" id="">
+                    @*<div class="col-xs-12 col-sm-4 col-md-2 col-lg-2" id="">
                         <label id="">&nbsp;</label>
                         <button id="btnAgregar" onclick="javascript:void(0);" type="button" class="btn btn-blue"><span>Agregar Prueba</span></button>
-                    </div>
+                    </div>*@
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <div id="ContenedorGrid" class="row">
                             <div id="grid" name="grid-Patio" data-role="grid" class="k-grid k-widget">
@@ -168,7 +164,8 @@
                                     <span class="caretWhite"></span>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#/" id="btnGenerarReporte1"><span id="botonGenerarReporte1"></span></a></li>
+                                    <li><a href="#" id="btnGuardar1"><span id="botonGuardar4"></span></a></li>
+                                    <li><a href="#" id="btnGuardarYNuevo1"><span id="botonGuardarYNuevo1"></span></a></li>
                                 </ul>
                             </div>
                             <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar1"></span></a>
