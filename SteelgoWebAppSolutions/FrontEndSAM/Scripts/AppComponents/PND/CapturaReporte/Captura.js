@@ -5,7 +5,7 @@ function changeLanguageCall() {
     CargarGrid();
     CargarGridPopUpDetallePorPlaca();
     CargarGridPopUpDetallePorPlacaPorDefectos();
-  
+
     inicio();
 };
 
@@ -193,8 +193,8 @@ function CargarGridPopUpDetallePorPlacaPorDefectos() {
                         FinMM: { type: "number", editable: true },
                         InicioCuadrante: { type: "string", editable: true },
                         FinCuadrante: { type: "string", editable: true },
-                        Resultado: { type: "string", editable: true},
-                     
+                        Resultado: { type: "string", editable: true },
+
                     }
                 }
             }, filter: {
@@ -225,31 +225,30 @@ function CargarGridPopUpDetallePorPlacaPorDefectos() {
                 { field: "FinMM", title: _dictionary.CapturaReportePruebasHeaderFin[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "205px", editor: RenderFinMM, attributes: { style: "text-align:right;" } },
                 { field: "InicioCuadrante", title: "Cte Fin", filterable: getGridFilterableCellNumberMaftec(), width: "205px", editor: RenderInicioMM, attributes: { style: "text-align:right;" } },
                 { field: "FinCuadrante", title: "Cte Ini.", filterable: getGridFilterableCellNumberMaftec(), width: "205px", editor: RenderFinMM, attributes: { style: "text-align:right;" } },
-                { field: "Resultado", title: "Resultado", filterable: getGridFilterableCellMaftec(), width: "205px" },
+                { field: "Resultado", title: "Resultado", filterable: getGridFilterableCellMaftec(), width: "205px", editor: comboBoxResultadoDetalleDefecto },
+                {
+                    command: {
+                        //name: "",
+                        //title: "",
+                        text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()],
+                        click: function (e) {
+                            e.preventDefault();
+                            //var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+                            var dataItem = $("#gridPopUpDefectos").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
 
-          {
-              command: {
-                  //name: "",
-                  //title: "",
-                  text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()],
-                  click: function (e) {
-                      e.preventDefault();
-                      //var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-                      var dataItem = $("#gridPopUpDefectos").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+                            if ((dataItem.Accion == 1) || (dataItem.Accion == 0)) {
+                                $("#gridPopUpDefectos").data("kendoGrid").dataSource.remove(dataItem);
+                            }
+                            else {
+                                dataItem.Accion = 3;
+                            }
 
-                      if ((dataItem.Accion == 1) || (dataItem.Accion == 0)) {
-                          $("#gridPopUpDefectos").data("kendoGrid").dataSource.remove(dataItem);
-                      }
-                      else {
-                          dataItem.Accion = 3;
-                      }
-
-                      $("#gridPopUpDefectos").data("kendoGrid").dataSource.sync();
-                  }
-              },
-              title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()],
-              width: "5px"
-          },
+                            $("#gridPopUpDefectos").data("kendoGrid").dataSource.sync();
+                        }
+                    },
+                    title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()],
+                    width: "5px"
+                },
             {
                 command: {
                     text: _dictionary.botonLimpiar[$("#language").data("kendoDropDownList").value()],
