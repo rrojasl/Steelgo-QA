@@ -5,15 +5,32 @@ using System.Web;
 
 namespace BackEndSAM.Models.Pintura.PruebasPorLote
 {
+    
+    public class InformacionSpool
+    {
+        public string NumeroControl { get; set; }
+        public string SistemaPintura { get; set; }
+        public string Color { get; set; }
+        public decimal? Area { get; set; }
+        public int? LoteID { get; set; }
+        public string NombreCuadrante { get; set; }
 
+    }
     public class PruebasSpool
     {
         public int ProyectoProcesoPruebaID { get; set; }
         public string Prueba { get; set; }
+        public double UnidadMaxima { get; set; }
+        public double UnidadMinima { get; set; }
+
+        public string UnidadMedida { get; set; }
         public PruebasSpool()
         {
             ProyectoProcesoPruebaID = 0;
             Prueba = "";
+            UnidadMaxima = 0;
+            UnidadMinima = 0;
+            UnidadMedida = "";
         }
 
     }
@@ -63,11 +80,14 @@ namespace BackEndSAM.Models.Pintura.PruebasPorLote
     {
         public int PruebaProcesoPinturaID { get; set; }
         public string Prueba { get; set; }
-
+        public double UnidadMaxima { get; set; }
+        public double UnidadMinima { get; set; }
         public Pruebas()
         {
             this.PruebaProcesoPinturaID = 0;
             this.Prueba = "";
+            this.UnidadMaxima = 0;
+            this.UnidadMinima = 0;
         }
     }
 
