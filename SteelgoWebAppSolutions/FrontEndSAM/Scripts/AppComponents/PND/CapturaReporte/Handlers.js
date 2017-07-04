@@ -175,7 +175,7 @@ function suscribirEventoProyecto() {
             if (dataItem != undefined) {
                 var hacerAjax = false;
                 if (hayDatosCapturados) {
-                
+
 
                     ventanaConfirm = $("#ventanaConfirm").kendoWindow({
                         iframe: true,
@@ -197,7 +197,7 @@ function suscribirEventoProyecto() {
 
                     $("#yesButton").click(function () {
                         $("#grid").data('kendoGrid').dataSource.data([]);
-                        AjaxProveedor(dataItem.ProyectoID, dataItem.PatioID);
+                        AjaxPruebas(data[1].ProyectoID);
 
                         $("#inputRequisicion").data("kendoComboBox").value("");
                         $("#inputRequisicion").data("kendoComboBox").dataSource.data([]);
@@ -218,7 +218,7 @@ function suscribirEventoProyecto() {
 
                 if (hacerAjax) {
                     $("#grid").data('kendoGrid').dataSource.data([]);
-                    AjaxProveedor(dataItem.ProyectoID, dataItem.PatioID);
+                    AjaxPruebas(dataItem.ProyectoID);
 
                     $("#inputRequisicion").data("kendoComboBox").value("");
                     $("#inputRequisicion").data("kendoComboBox").dataSource.data([]);
@@ -292,12 +292,12 @@ function suscribirEventoProveedor() {
                     $("#grid").data('kendoGrid').dataSource.data([]);
                     AjaxRequisicion($("#inputProyecto").data("kendoComboBox").value(), dataItem.ProveedorID);
 
-                    
+
                     $("#inputFuente").data("kendoComboBox").value("");
                     $("#inputTurno").data("kendoComboBox").value("");
                 }
             }
-         
+
         }
     });
 
@@ -344,9 +344,21 @@ function SuscribirEventoComboPrueba() {
                         $("#grid").data('kendoGrid').dataSource.data([]);
 
                         //$("#inputRequisicion").data("kendoComboBox").dataSource.data([]);
+
+                        if (dataItem.Nombre.indexOf("RT") !== -1) {
+                            $("#grid").data("kendoGrid").showColumn("TipoRT");
+                            $("#grid").data("kendoGrid").showColumn("NumeroPlacas");
+                            $("#grid").data("kendoGrid").shoColumn("TemplateDetalleElemento");
+                        }
+                        else {
+                            $("#grid").data("kendoGrid").hideColumn("TipoRT");
+                            $("#grid").data("kendoGrid").hideColumn("NumeroPlacas");
+                            $("#grid").data("kendoGrid").hideColumn("TemplateDetalleElemento");
+                        }
+
                         $("#inputFuente").data("kendoComboBox").value("");
                         $("#inputTurno").data("kendoComboBox").value("");
-
+                        AjaxProveedor($("#inputProyecto").data("kendoComboBox").dataItem($("#inputProyecto").data("kendoComboBox").select()).ProyectoID, $("#inputProyecto").data("kendoComboBox").dataItem($("#inputProyecto").data("kendoComboBox").select()).PatioID)
                         hayDatosCapturados = false;
                         ventanaConfirm.close();
 
@@ -364,8 +376,21 @@ function SuscribirEventoComboPrueba() {
                     $("#grid").data('kendoGrid').dataSource.data([]);
 
                     //$("#inputRequisicion").data("kendoComboBox").dataSource.data([]);
+                    if (dataItem.Nombre.indexOf("RT") !== -1) {
+                        $("#grid").data("kendoGrid").showColumn("TipoRT");
+                        $("#grid").data("kendoGrid").showColumn("NumeroPlacas");
+                        $("#grid").data("kendoGrid").showColumn("TemplateDetalleElemento");
+                    }
+                    else {
+                        $("#grid").data("kendoGrid").hideColumn("TipoRT");
+                        $("#grid").data("kendoGrid").hideColumn("NumeroPlacas");
+                        $("#grid").data("kendoGrid").hideColumn("TemplateDetalleElemento");
+                    }
+
+
                     $("#inputFuente").data("kendoComboBox").value("");
                     $("#inputTurno").data("kendoComboBox").value("");
+                    AjaxProveedor($("#inputProyecto").data("kendoComboBox").dataItem($("#inputProyecto").data("kendoComboBox").select()).ProyectoID, $("#inputProyecto").data("kendoComboBox").dataItem($("#inputProyecto").data("kendoComboBox").select()).PatioID);
                 }
                 //else
                 //    $('#inputPrueba').data("kendoComboBox").value(previousCurrentItem);

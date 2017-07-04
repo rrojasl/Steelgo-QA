@@ -60,7 +60,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ReporteRT
             }
         }
 
-        public object ObtenerListadoProveedores(int proyectoID, int patioID)
+        public object ObtenerListadoProveedores(int proyectoID,int tipoPruebaID, int patioID)
         {
             try
             {
@@ -68,10 +68,19 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ReporteRT
                 using (SamContext ctx = new SamContext())
                 {
 
-                    List<Sam3_ReportesRT_ST_Get_Proveedores_Result> result = ctx.Sam3_ReportesRT_ST_Get_Proveedores(proyectoID, 0, patioID).ToList();
+                    List<Proveedor> listaProveedores = new List<Proveedor>();
+                    List<Sam3_ReportesRT_ST_Get_Proveedores_Result> result = ctx.Sam3_ReportesRT_ST_Get_Proveedores(proyectoID, tipoPruebaID, patioID).ToList();
+                    listaProveedores.Add(new Proveedor());
+                    foreach (Sam3_ReportesRT_ST_Get_Proveedores_Result item in result)
+                    {
+                        listaProveedores.Add(new Proveedor
+                        {
+                            ProveedorID = item.ProveedorID,
+                            Nombre = item.Proveedor
+                        });
+                    }
 
-
-                    return result;
+                    return listaProveedores;
                 }
 
             }
