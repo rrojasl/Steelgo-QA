@@ -11,8 +11,8 @@ function changeLanguageCall() {
 function inicio() {
     SuscribirEventos();
     AjaxProyecto();
-    AjaxFuente();
-    AjaxTurno();
+    //AjaxFuente();
+    AjaxTurno(0,0,0);
 }
 
 function validarReglasDeLlenado() {
@@ -134,7 +134,7 @@ function CargarGrid() {
             { field: "ClasificacionPND", title: _dictionary.CapturaReporteGridColumnClasificacionPND[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "60px" },
             { field: "TipoPrueba", title: _dictionary.CapturaReporteGridColumnTipoPrueba[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "120px" },
             { field: "Observaciones", title: _dictionary.CapturaReporteGridColumnObservaciones[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "150px" },
-            { field: "CodigoAsme", title: _dictionary.CapturaReporteGridColumnCodigoAsme[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "120px" },
+            //{ field: "CodigoAsme", title: _dictionary.CapturaReporteGridColumnCodigoAsme[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "120px" },
             { field: "NumeroPlacas", title: _dictionary.CapturaReporteGridColumnNumeroPlacas[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "90px", editor: RenderNumeroPlacas, attributes: { style: "text-align:right;" } },
             { field: "Tamano", title: _dictionary.CapturaReporteGridColumnTamano[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "90px", editor: RenderTamano, format: "{0:n4}", attributes: { style: "text-align:right;" } },
             { field: "Densidad", title: _dictionary.CapturaReporteGridColumnDensidad[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "90px", editor: RenderDensidad, format: "{0:n4}", attributes: { style: "text-align:right;" } },
@@ -143,7 +143,7 @@ function CargarGrid() {
             { field: "TemplateDetalleElemento", title: _dictionary.CapturaReporteGridColumnInformacionResultados[$("#language").data("kendoDropDownList").value()], filterable: false, width: "150px"/*, editor: RenderGridDetallePorPlaca*/, template: "<div class='EnlacePorPlaca' style='text-align:center;'><a href='\\#'  > <span>#=TemplateDetalleElemento#</span></a></div> " },
             { field: "ResultadoConciliacion", title: _dictionary.CapturaReporteGridColumnRusult1[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: comboBoxResultadoConciliacion, width: "170px" },
             { field: "RazonNoConciliacion", title: _dictionary.CapturaReporteGridColumnRusult2[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: comboBoxRazonNoConciliacion, width: "170px" },
-            { field: "Comentarios", title: _dictionary.columnComentario[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "170px" },
+            //{ field: "Comentarios", title: _dictionary.columnComentario[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "170px" },
         ],
         beforeEdit: function (e) {
             var columnIndex = this.cellIndex(e.container);
@@ -405,7 +405,7 @@ function VentanaModalDetallePlaca() {
         ],
         close: function onClose(e) {
             var gridDataSource = $("#gridPopUp").data("kendoGrid").dataSource;
-            gridDataSource.filter([]);
+            gridDataSource.filter([]);            
         }
     }).data("kendoWindow");
     window.data("kendoWindow").title(modalTitle);
@@ -429,7 +429,7 @@ function VentanaModalDetalleDefectoPorPlaca() {
             top: "10px",
             left: "10px"
         },
-        content:"texto texto texto y mas texto",
+        //content:"texto texto texto y mas texto",
         actions: [
             "Close"
         ],
@@ -729,4 +729,43 @@ function actualizaDefectos() {
     //        }
     //    }
     //}
+}
+
+function opcionHabilitarView(valor, name) {
+
+    if (valor) {
+        $('.addedSectionInLine').find('*').attr('disabled', true);
+
+        $("#inputProyecto").data("kendoComboBox").enable(false);
+        $("#inputUsuarioVR").data("kendoComboBox").enable(false);
+        $("#inputPrueba").data("kendoComboBox").enable(false);
+        $("#inputProveedor").data("kendoComboBox").enable(false);
+        $("#inputRequisicion").data("kendoComboBox").enable(false);
+        $("#inputFuente").data("kendoComboBox").enable(false);
+        $("#inputTurno").data("kendoComboBox").enable(false);
+        $("input[name='Muestra']").attr('disabled', false);
+                
+        $("#Guardar").text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
+        $("#btnGuardar").text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
+        $("#Guardar1").text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
+        $('#btnGuardar1').text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
+    }
+    else {
+        $('.addedSectionInLine').find('*').attr('disabled', false);
+
+        $("#inputProyecto").data("kendoComboBox").enable(true);
+        $("#inputUsuarioVR").data("kendoComboBox").enable(true);
+        $("#inputPrueba").data("kendoComboBox").enable(true);
+        $("#inputProveedor").data("kendoComboBox").enable(true);
+        $("#inputRequisicion").data("kendoComboBox").enable(true);
+        $("#inputFuente").data("kendoComboBox").enable(true);
+        $("#inputTurno").data("kendoComboBox").enable(true);
+        $("input[name='Muestra']").attr('disabled', true);
+
+        //$('#botonGuardar').text("Guardar");
+        $("#Guardar").text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);
+        $("#btnGuardar").text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);
+        $("#Guardar1").text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);
+        $('#btnGuardar1').text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);
+    }
 }
