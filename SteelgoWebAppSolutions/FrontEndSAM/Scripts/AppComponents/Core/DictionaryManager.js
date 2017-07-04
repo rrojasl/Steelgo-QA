@@ -10562,9 +10562,13 @@ _dictionary = {
         "es-MX": "Captura Pruebas por Spool",
         "en-US": "Spool Capture Test"
     },
-    "PinturaLotesCapturaPruebaBreadcrumb1": {
-        "es-MX": "Captura Pruebas por Lotes",
-        "en-US": "Batch Capture Test"
+    "PinturaCapturaPruebaSpoolUnidadMinima": {
+        "es-MX": "Unidad Minima",
+        "en-US": "Minimum unit"
+        },
+    "PinturaCapturaPruebaSpoolUnidadMaxima": {
+        "es-MX": "Unidada Maxima",
+        "en-US": "Maximum unit"
     },
     "PinturaCapturaPruebaSpoolBreadcrumb1": {
         "es-MX": "Captura Pruebas por Spool",

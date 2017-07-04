@@ -11,7 +11,7 @@ function RenderMedida(container, options) {
             min: 0,
             change: function (e) {
                 var value = this.value();
-                options.model.ResultadoEvaluacion = value >= options.model.UnidadMinima && value <= options.model.UnidadMaxima ? "Si" : "No";
+                options.model.ResultadoEvaluacion = (parseFloat(value) >= parseFloat($("#inputPrueba").data("kendoComboBox").dataItem($("#inputPrueba").data("kendoComboBox").select()).UnidadMinima) && parseFloat(value) <= parseFloat($("#inputPrueba").data("kendoComboBox").dataItem($("#inputPrueba").data("kendoComboBox").select()).UnidadMaxima)) ? true: false;
                 $("#grid").data("kendoGrid").dataSource.sync();
             }
         });

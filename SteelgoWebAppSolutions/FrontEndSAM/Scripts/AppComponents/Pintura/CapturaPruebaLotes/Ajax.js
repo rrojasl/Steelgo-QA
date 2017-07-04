@@ -219,7 +219,7 @@ function ajaxGuardar(data, guardarYNuevo) {
             ListaDetalles[index].SpoolID = data[i].SpoolID;
             ListaDetalles[index].ProyectoProcesoPruebaID = data[i].ProyectoProcesoPruebaID;
             ListaDetalles[index].UnidadMedida = data[i].ListaDetallePruebas[j].UnidadMedida;
-            ListaDetalles[index].ResultadoEvaluacion = data[i].ListaDetallePruebas[j].ResultadoEvaluacion == "No" ? 0 : 1;
+            ListaDetalles[index].ResultadoEvaluacion = data[i].ListaDetallePruebas[j].ResultadoEvaluacion;
             ListaDetalles[index].FechaPrueba = data[i].ListaDetallePruebas[j].FechaPrueba == null ? "" : kendo.toString(data[i].ListaDetallePruebas[j].FechaPrueba, String(_dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()].replace('{', '').replace('}', '').replace("0:", ""))).trim().split(" ")[0];
             ListaDetalles[index].SistemaPinturaColorID = $("#inputProceso").data("kendoComboBox").dataItem($("#inputProceso").data("kendoComboBox").select()).ProcesoPinturaID != 4 ? 0 : $("#inputColor").data("kendoComboBox").dataItem($("#inputColor").data("kendoComboBox").select()).SistemaPinturaColorID;
             index++;

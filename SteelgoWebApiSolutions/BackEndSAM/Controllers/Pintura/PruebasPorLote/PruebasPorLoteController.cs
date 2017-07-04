@@ -243,6 +243,29 @@ namespace BackEndSAM.Controllers.Pintura
             }
         }
 
+        [HttpGet]
+        public object Get(string token, int ordentrabajospoolid ,int sistemapinturacolorid, string lenguaje,int variable)
+        {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+                
+                    return PruebasPorLoteBD.Instance.ObtenerDetalleSpool(ordentrabajospoolid, sistemapinturacolorid, lenguaje);
 
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
     }
 }

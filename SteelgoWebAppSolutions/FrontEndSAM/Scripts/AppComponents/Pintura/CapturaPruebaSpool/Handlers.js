@@ -176,6 +176,7 @@ function SuscribirEventoSpoolID() {
             if (!editado) {
                 if (dataItem != undefined) {
                     LineaCaptura.InputIDSeleccionado = dataItem.Valor;
+                    $('#InformacionSpoolDiv').hide();
                     $("#inputProceso").data("kendoComboBox").dataSource.data([]);
                     $("#inputProceso").data("kendoComboBox").value("");
                     $("#inputPrueba").data("kendoComboBox").dataSource.data([]);
@@ -249,6 +250,7 @@ function SuscribirEventoBuscar() {
                 if ($("#inputProceso").data("kendoComboBox").dataItem($("#inputProceso").data("kendoComboBox").select()).ProcesoPinturaID == 4 ? $("#inputColor").data("kendoComboBox").select() > 0 : true) {
                     if ($("#inputPrueba").data("kendoComboBox").select() > 0) {
                         AjaxObtenerPruebasSpoolID($("#inputProceso").data("kendoComboBox").dataItem($("#inputProceso").data("kendoComboBox").select()).SpoolID, $("#inputPrueba").data("kendoComboBox").dataItem($("#inputPrueba").data("kendoComboBox").select()).ProyectoProcesoPruebaID, $("#inputProceso").data("kendoComboBox").dataItem($("#inputProceso").data("kendoComboBox").select()).ProcesoPinturaID != 4 ? 0 : $("#inputColor").data("kendoComboBox").dataItem($("#inputColor").data("kendoComboBox").select()).SistemaPinturaColorID);
+                        AjaxMostrarInformacionSpool($("#inputPrueba").data("kendoComboBox").dataItem($("#inputPrueba").data("kendoComboBox").select()).UnidadMedida, $("#inputPrueba").data("kendoComboBox").dataItem($("#inputPrueba").data("kendoComboBox").select()).UnidadMinima, $("#inputPrueba").data("kendoComboBox").dataItem($("#inputPrueba").data("kendoComboBox").select()).UnidadMaxima);
                     }
                     else
                         displayNotify("PinturaNoPrueba", "", '1');

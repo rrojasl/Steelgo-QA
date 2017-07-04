@@ -58,11 +58,6 @@ function AjaxObtenerPruebasSpoolID(SpoolID, ProyectoProcesoPruebaID, SistemaPint
         }
         loadingStop();
     });
-   
-
-
-
-
 }
 
 function ajaxGuardar(data, guardarYNuevo) {
@@ -84,7 +79,7 @@ function ajaxGuardar(data, guardarYNuevo) {
         ListaDetalles[index].SpoolID = $("#inputProceso").data("kendoComboBox").dataItem($("#inputProceso").data("kendoComboBox").select()).SpoolID;
         ListaDetalles[index].ProyectoProcesoPruebaID = $("#inputPrueba").data("kendoComboBox").dataItem($("#inputPrueba").data("kendoComboBox").select()).ProyectoProcesoPruebaID;
         ListaDetalles[index].UnidadMedida = data[i].UnidadMedida;
-        ListaDetalles[index].ResultadoEvaluacion = data[i].ResultadoEvaluacion == "No" ? 0 : 1;
+        ListaDetalles[index].ResultadoEvaluacion = data[i].ResultadoEvaluacion;
         ListaDetalles[index].FechaPrueba = data[i].FechaPrueba == null ? "" : kendo.toString(data[i].FechaPrueba, String(_dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()].replace('{', '').replace('}', '').replace("0:", ""))).trim();
         ListaDetalles[index].SistemaPinturaColorID = $("#inputProceso").data("kendoComboBox").dataItem($("#inputProceso").data("kendoComboBox").select()).ProcesoPinturaID != 4 ? 0 : $("#inputColor").data("kendoComboBox").dataItem($("#inputColor").data("kendoComboBox").select()).SistemaPinturaColorID;
 
@@ -233,6 +228,30 @@ function AjaxEjecutarGuardado(data, guardarYNuevo) {
             loadingStop();
 
         }
+    });
+}
+
+
+function AjaxMostrarInformacionSpool(unidadMedida,unidadMinima,unidadMaxima) {
+    loadingStart();
+    $PruebasPorLote.PruebasPorLote.read({ token: Cookies.get("token"), ordentrabajospoolid: $("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()).Valor, sistemapinturacolorid: $("#inputProceso").data("kendoComboBox").dataItem($("#inputProceso").data("kendoComboBox").select()).ProcesoPinturaID == 4 ? $("#inputColor").data("kendoComboBox").dataItem($("#inputColor").data("kendoComboBox").select()).SistemaPinturaColorID : 0, lenguaje: $("#language").val(), variable: 0 }).done(function (data) {
+        if (Error(data)) {
+            if (data.length > 0) {
+                $('#InformacionSpoolDiv').show();
+                $("#labelSpool").text(data[0].NumeroControl);
+                $("#labelSistemaPintura").text(data[0].SistemaPintura);
+                $("#labelColor").text(data[0].Color);
+                $("#labelM2").text(data[0].Area);
+                $("#labelLote").text(data[0].LoteID);
+                $("#labelCuadrante").text(data[0].NombreCuadrante);
+                $("#labelUnidadMedida").text(unidadMedida);
+                $("#labelUnidadMinima").text(unidadMinima);
+                $("#labelUnidadMaxima").text(unidadMaxima);
+            }
+            else
+                $('#InformacionSpoolDiv').hide();
+        }
+        loadingStop();
     });
 }
 

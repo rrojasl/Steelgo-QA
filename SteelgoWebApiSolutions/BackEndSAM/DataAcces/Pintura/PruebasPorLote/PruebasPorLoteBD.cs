@@ -140,7 +140,10 @@ namespace BackEndSAM.DataAcces.Pintura.PruebasPorLote
                         Pruebas objeto = new Pruebas
                         {
                             PruebaProcesoPinturaID = item.PruebaProcesoPinturaID,
-                            Prueba = item.Prueba
+                            Prueba = item.Prueba,
+                            UnidadMaxima=item.UnidadMaxima,
+                            UnidadMinima = item.UnidadMinima
+
                         };
                         listaPrueba.Add(objeto);
                     }
@@ -445,7 +448,10 @@ namespace BackEndSAM.DataAcces.Pintura.PruebasPorLote
                         PruebasSpool objeto = new PruebasSpool
                         {
                             ProyectoProcesoPruebaID = item.ProyectoProcesoPruebaID,
-                            Prueba = item.Prueba
+                            Prueba = item.Prueba,
+                            UnidadMaxima = item.UnidadMaxima,
+                            UnidadMinima = item.UnidadMinima,
+                            UnidadMedida=item.UnidadMedida
                         };
                         listaLotes.Add(objeto);
                     }
@@ -471,7 +477,48 @@ namespace BackEndSAM.DataAcces.Pintura.PruebasPorLote
             }
         }
 
+        public object ObtenerDetalleSpool(int? ordentrabajospoolid,int? sistemapinturacolorid,string lenguaje)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Sam3_Pintura_InformacionSpool_Result> lista = ctx.Sam3_Pintura_InformacionSpool(ordentrabajospoolid, lenguaje, sistemapinturacolorid).ToList();
+                    List<BackEndSAM.Models.Pintura.PruebasPorLote.InformacionSpool> listaInformacionSpool= new List<BackEndSAM.Models.Pintura.PruebasPorLote.InformacionSpool>();
 
+                  
+                    foreach (Sam3_Pintura_InformacionSpool_Result item in lista)
+                    {
+                        BackEndSAM.Models.Pintura.PruebasPorLote.InformacionSpool objeto = new BackEndSAM.Models.Pintura.PruebasPorLote.InformacionSpool
+                        {
+                            Area=item.Area,
+                            Color=item.Color,
+                            LoteID=item.LoteID,
+                            NombreCuadrante=item.NombreCuadrante,
+                            NumeroControl=item.NumeroControl,
+                            SistemaPintura=item.SistemaPintura
+                        };
+                        listaInformacionSpool.Add(objeto);
+                    }
+                    return lista;
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
+        
 
 
 

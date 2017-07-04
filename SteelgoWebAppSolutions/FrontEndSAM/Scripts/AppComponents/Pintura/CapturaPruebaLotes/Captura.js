@@ -204,7 +204,9 @@ function CargarGridPopUp() {
         columns: [
                   { field: "FechaPrueba", title: _dictionary.columnFechaPrueba[$("#language").data("kendoDropDownList").value()], filterable: { cell: { showOperators: false } }, editor: RenderDatePicker, width: "20px", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()] },
                   { field: "UnidadMedida", editor: RenderAprobado, title: "Valor U. Medida", filterable: getGridFilterableCellNumberMaftec(), width: "20px", attributes: { style: "text-align:right;" },editor:RenderMedida },
-                 { field: "ResultadoEvaluacion", title: "Aprobado", filterable: getGridFilterableCellNumberMaftec(), width: "20px", attributes: { style: "text-align:center;" } },
+                 {
+                     field: "ResultadoEvaluacion", title: "Aprobado", filterable: getGridFilterableCellNumberMaftec(), width: "20px", attributes: { style: "text-align:center;" }, template: "<span>  #= ResultadoEvaluacion ? 'Si' : 'No' #</span></div>"
+                 },
 
                    //{
                    //    field: "ResultadoEvaluacion", title: "Aprobado", filterable: {
@@ -227,16 +229,16 @@ function CargarGridPopUp() {
                 var grid = $("#gridPopUp").data("kendoGrid");
                 var gridData = grid.dataSource.view();
 
-                for (var i = 0; i < gridData.length; i++) {
-                    var currentUid = gridData[i].uid;
-                    if (gridData[i].ResultadoEvaluacion == false) {
-                        gridData[i].ResultadoEvaluacion = "No";
+                //for (var i = 0; i < gridData.length; i++) {
+                //    var currentUid = gridData[i].uid;
+                //    if (gridData[i].ResultadoEvaluacion == ) {
+                //        gridData[i].ResultadoEvaluacion = "No";
                      
-                    }
-                    else if (gridData[i].RowOk) {
-                        gridData[i].ResultadoEvaluacion = "Si";
-                    }
-                }
+                //    }
+                //    else if (gridData[i].ResultadoEvaluacion=="Si") {
+                //        gridData[i].ResultadoEvaluacion = "Si";
+                //    }
+                //}
             }
     });
     CustomisaGrid($("#gridPopUp"));

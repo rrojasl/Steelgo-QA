@@ -40,7 +40,7 @@ function RenderMedida(container, options) {
             min: 0,
             change: function (e) {
                 var value = this.value();
-                options.model.ResultadoEvaluacion = value >= gridRow.UnidadMinima && value <= gridRow.UnidadMaxima ? "Si" : "No";
+                options.model.ResultadoEvaluacion = (parseFloat(value) >= parseFloat(gridRow.UnidadMinima) && parseFloat(value) <= parseFloat(gridRow.UnidadMaxima)) ? true : false;
                 $("#gridPopUp").data("kendoGrid").dataSource.sync();
             }
         });

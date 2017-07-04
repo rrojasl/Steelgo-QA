@@ -58,7 +58,7 @@ function CargarGrid() {
 
                         FechaPrueba: { type: "date", editable: true },
                         UnidadMedida: { type: "number", editable: true },
-                        ResultadoEvaluacion: { type: "string", editable: false }
+                        ResultadoEvaluacion: { type: "boolean", editable: false }
                     }
                 }
             }, filter: {
@@ -79,7 +79,9 @@ function CargarGrid() {
         columns: [
                   { field: "FechaPrueba", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()], editor: RenderDatePicker, title: _dictionary.columnFechaPrueba[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "20px" },
                   { field: "UnidadMedida", title: "Valor U. Medida", filterable: getGridFilterableCellNumberMaftec(), width: "20px", attributes: { style: "text-align:right;" }, editor: RenderMedida },
-                  { field: "ResultadoEvaluacion", title: "Aprobado", filterable: getGridFilterableCellNumberMaftec(), width: "20px", attributes: { style: "text-align:center;" } },
+                   {
+                       field: "ResultadoEvaluacion", title: "Aprobado", filterable: getGridFilterableCellNumberMaftec(), width: "20px", attributes: { style: "text-align:center;" }, template: "<span>  #= ResultadoEvaluacion ? 'Si' : 'No' #</span></div>"
+                   },
                   { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: eliminarCaptura }, title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], width: "10px", attributes: { style: "text-align:center;" } }
         ],
         editable: true,
@@ -89,14 +91,21 @@ function CargarGrid() {
             var grid = $("#grid").data("kendoGrid");
             var gridData = grid.dataSource.view();
 
+            
+
+          
+
             for (var i = 0; i < gridData.length; i++) {
                 var currentUid = gridData[i].uid;
-                if (gridData[i].ResultadoEvaluacion == false) {
-                    gridData[i].ResultadoEvaluacion = "No";
+                if (gridData[i].RowOk == false) {
+                    grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("k-alt");
+                    grid.table.find("tr[data-uid='" + currentUid + "']").addClass("kRowError");
 
                 }
                 else if (gridData[i].RowOk) {
-                    gridData[i].ResultadoEvaluacion = "Si";
+                    if (i % 2 == 0)
+                        grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("k-alt");
+                    grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("kRowError");
                 }
             }
         }
@@ -104,12 +113,7 @@ function CargarGrid() {
     CustomisaGrid($("#grid"));
 }
 
-function isApproved(fieldName, model) {
-    if (fieldName === "ValorUnidadMedida") {
-        alert(model.ValorUnidadMedida)
-        //model.Aprobado 
-    }
-}
+
 
 function eliminarCaptura(e) {
     e.preventDefault();
