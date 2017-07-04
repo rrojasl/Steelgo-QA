@@ -363,7 +363,7 @@ function disableEnableView(disable) {
         $("#inputPrueba").data("kendoComboBox").enable(false);
         //$("input[name='Muestra']").attr("disabled", true);
         $("#btnAgregar").attr("disabled", true);
-
+        $("#btnPlanchar").attr("disabled", true);
 
         $("#Guardar").text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
         $("#btnGuardar").text(_dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]);
@@ -382,6 +382,7 @@ function disableEnableView(disable) {
         $("#inputPrueba").data("kendoComboBox").enable(true);
 
         $("#btnAgregar").attr("disabled", false);
+        $("#btnPlanchar").attr("disabled", false);
 
 
         $("#Guardar").text(_dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]);

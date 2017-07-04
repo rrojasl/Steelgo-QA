@@ -40,7 +40,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.ReporteRT
         }
 
         [HttpGet]
-        public object GetProveedores(string token, int proyectoID)
+        public object GetProveedores(string token, int proyectoID, int tipoPruebaID, int patioID)
         {
             string payload = "";
             string newToken = "";
@@ -51,7 +51,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.ReporteRT
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
 
-                return ReporteRTBD.Instance.ObtenerListadoProveedores(proyectoID);
+                return ReporteRT_BD.Instance.ObtenerListadoProveedores(proyectoID,tipoPruebaID,patioID);
             }
             else
             {
