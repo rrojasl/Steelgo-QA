@@ -59,5 +59,9 @@ namespace FrontEndSAM.Controllers.PND
         {
             return View();
         }
+        public ActionResult AsignacionDefectos()
+        {
+            return View();
+        }
     }
 }
