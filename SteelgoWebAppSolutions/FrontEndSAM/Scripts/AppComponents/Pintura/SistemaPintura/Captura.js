@@ -340,10 +340,14 @@ function deshabilitar() {
 function agregarComponentesAutomaticos()
 {
     if (dataItemRender.ListaDetalleComponentesAgregados != undefined) {
-        for (var i = 0; i < dataItemRender.ListaDetalleComponentesAgregados.length; i++) {
-            if (dataItemRender.ListaDetalleComponentesAgregados[i].Accion == 1)
-                dataItemRender.ListaDetalleComponentesAgregados.splice(i,1);// eliminamos el elemento.
-                else
+        var longitudElementos=  dataItemRender.ListaDetalleComponentesAgregados.length;
+        for (var i = 0; i < longitudElementos; i++) {
+            if (dataItemRender.ListaDetalleComponentesAgregados[i].Accion == 1) {
+                dataItemRender.ListaDetalleComponentesAgregados.splice(i, 1);// eliminamos el elemento.
+                i = 0;
+                longitudElementos = dataItemRender.ListaDetalleComponentesAgregados.length;
+            }
+            else
                 dataItemRender.ListaDetalleComponentesAgregados[i].Accion = 3;
         }
     }

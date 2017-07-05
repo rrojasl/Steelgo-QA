@@ -1,6 +1,7 @@
 ﻿
 var esNormal;
 var editado = false;
+var lineaCaptura = { ProyectoID: "", dato: "" }
 
 function IniciarSistemaPinturaAplicable() {
 	SuscribirEventos();
@@ -340,7 +341,9 @@ function GenerarBusqueda() {
 
 	if (Proyecto != undefined && Proyecto.ProyectoID != "" && Proyecto.ProyectoID != 0) {
 		if ($("#styleSpool").hasClass("active")) {
-			if (!editado) {
+		    if (!editado) {
+		        lineaCaptura.dato = $("#inputSpool").val().trim();
+		        
 				$("#inputSpool").attr("saAttr", $("#inputSpool").val());
 				if ($("#inputSpool").val() != null && $("#inputSpool").val() != "") {
 					tipoBusqueda = 1;
@@ -387,7 +390,8 @@ function GenerarBusqueda() {
 			}
 
 		} else if ($("#styleNc").hasClass("active")) {
-			if (!editado) {
+		    if (!editado) {
+		        lineaCaptura.dato = $("#inputNc").val().trim();
 				$("#inputNc").attr("ncaAttr", $("#inputNc").val());
 				if ($("#inputNc").val() != null && $("#inputNc").val() != "") {
 					tipoBusqueda = 2;

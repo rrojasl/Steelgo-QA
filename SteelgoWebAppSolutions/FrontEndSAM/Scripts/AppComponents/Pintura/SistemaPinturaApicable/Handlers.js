@@ -69,6 +69,12 @@ function suscribirEventoWindowsConfirmaCapturaSinCambiarTipoBusqueda() {
     });
     $("#noButtonProySinTipoBusqueda").click(function (e) {
         ventanaConfirmEdicionSinTipoBusqueda.close();
+        if ($("#styleSpool").hasClass("active")) {
+            $("#inputSpool").val(lineaCaptura.dato);
+        }
+        else if ($("#styleNc").hasClass("active")) {
+            $("#inputNc").val(lineaCaptura.dato);
+        }
     });
 }
 
@@ -82,9 +88,10 @@ function SuscribirEventoProyecto() {
         index: 3,
         change: function (e) {
             var dataItem = this.dataItem(e.sender.selectedIndex);
-            if (!ValidaInformacionCapturada()) {
+            if (!editado) {
                 LimpiaCargaProyecto();
                 if (dataItem != undefined) {
+                    lineaCaptura.ProyectoID = dataItem.ProyectoID;
                     $("#inputProyecto").attr("proyectoAntrior", dataItem.ProyectoID);
                     if (dataItem.ProyectoID != 0) {
                         AjaxCargarSistemaPintura(dataItem.ProyectoID);
@@ -95,17 +102,13 @@ function SuscribirEventoProyecto() {
             } else {
                 var ventanaConfirm = $("#ventanaConfirmCaptura").kendoWindow({
                     iframe: true,
-                    title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],
+                    title: _dictionary.CapturaArmadoTituloPopup[$("#language").data("kendoDropDownList").value()],
                     visible: false,
-                    width: "40%",
+                    width: "auto",
                     height: "auto",
-                    draggable: false,
                     modal: true,
-                    actions: [],
-                    animation: {
-                        open: false,
-                        close: false
-                    },
+                    animation: false,
+                    actions: []
                 }).data("kendoWindow");
 
                 ventanaConfirm.content('<center>' + _dictionary.EntregaPlacasGraficasMensajeDatosCapturadosNoGuardados[$("#language").data("kendoDropDownList").value()] + '</center>' +
@@ -455,6 +458,7 @@ function SuscribirEventoBusqueda() {
         if (e.keyCode == 13) {
 
             if (!editado) {
+                
                 GenerarBusqueda();
             }
             else {
@@ -467,6 +471,7 @@ function SuscribirEventoBusqueda() {
         if (e.keyCode == 13) {
 
             if (!editado) {
+                
                 GenerarBusqueda();
             }
             else {
