@@ -272,6 +272,32 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.ReporteRT
 
         }
 
+        /*METODO PARA TRAER DATOS CUANDO SEA LLAMADO DEL DASHBOARD*/
+        [HttpGet]
+        public object GetDetalleRequisicion(string lenguaje, string token, int RequisicionID, bool Flag)
+        {
+            //Create a generic return object
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido && Flag)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+
+                return ReporteRTBD.Instance.ObtieneElementosRequisicion(lenguaje, RequisicionID);
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+
+        }
 
         public static DataTable ToDataTable<T>(List<T> l_oItems)
         {

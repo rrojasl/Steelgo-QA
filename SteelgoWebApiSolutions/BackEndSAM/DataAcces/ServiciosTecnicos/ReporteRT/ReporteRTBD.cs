@@ -254,5 +254,80 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ReporteRT
                 return result;
             }
         }
+
+
+        public object ObtieneElementosRequisicion(string lenguaje, int requisicionID)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    ElementoRequisicion elemento = null;
+                    //Sam3_ST_Get_AR_RequisicionParametro_Result result = ctx.Sam3_ST_Get_AR_RequisicionParametro(lenguaje, requisicionID).SingleOrDefault();
+                    Sam3_ST_Get_CR_RequisicionParametro_Result result = ctx.Sam3_ST_Get_CR_RequisicionParametro(lenguaje, requisicionID).SingleOrDefault();
+
+                    if (result != null && result.RequisicionID != 0)
+                    {
+                        elemento = new ElementoRequisicion();
+
+                        List<Proyecto> listaProyecto = new List<Proyecto>();
+                        listaProyecto.Add(new Proyecto());
+                        listaProyecto.Add(new Proyecto
+                        {
+                            ProyectoID = result.ProyectoID,
+                            Nombre = result.Proyecto,
+                            PatioID = result.PatioID,
+                            ProveedorID = result.ProveedorID
+
+                        });
+
+                        List<TipoPrueba> listaTipoPrueba = new List<TipoPrueba>();
+                        listaTipoPrueba.Add(new TipoPrueba());
+                        listaTipoPrueba.Add(new TipoPrueba
+                        {
+                            TipoPruebaID = result.TipoPruebaID.GetValueOrDefault(),
+                            Nombre = result.TipoPrueba
+                        });
+
+                        List<Proveedor> ListaProveedor = new List<Proveedor>();
+                        ListaProveedor.Add(new Proveedor());
+                        ListaProveedor.Add(new Proveedor {
+                            ProveedorID = result.ProveedorID,
+                            Nombre = result.Proveedor
+                        });
+
+                        List<Requisicion2> listaRequisicion = new List<Requisicion2>();
+                        listaRequisicion.Add(new Requisicion2());
+                        listaRequisicion.Add(new Requisicion2
+                        {
+                            RequisicionID = result.RequisicionID,
+                            ProyectoID = result.ProyectoID,
+                            NombreRequisicion = result.NumeroRequisicion,
+                            TipoPruebaID = result.TipoPruebaID.GetValueOrDefault(),
+                        });
+
+
+                        elemento.RequisicionID = result.RequisicionID;
+                        elemento.ProyectoID = result.ProyectoID;
+                        elemento.TipoPruebaID = result.TipoPruebaID.GetValueOrDefault();
+                        elemento.listaProyecto = listaProyecto;
+                        elemento.listaTipoPrueba = listaTipoPrueba;
+                        elemento.listaProveedor = ListaProveedor;
+                        elemento.listaRequisicion = listaRequisicion;
+                    }
+                    return elemento;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
     }
 }

@@ -1,15 +1,21 @@
 ﻿IniciarDashboardPND();
 function IniciarDashboardPND() {
-    SuscribirEventos();
-    
+    SuscribirEventos();    
 }
-
-function changeLanguageCall() {
+function changeLanguageCall() {    
     AjaxCargarHeaderDashboard();
+    AjaxObtenerProyectos();
+    AjaxCargarPeriodos();
     CargarGrid();
     CargarGridPopUp();
     document.title = _dictionary.menuServiciosTecnicosDashboardPND[$("#language").data("kendoDropDownList").value()];
-    
+    $("#inputFechaInicio").data("kendoDatePicker").setOptions({
+        format: _dictionary.FormatoFecha2[$("#language").data("kendoDropDownList").value()]
+    });
+    $("#inputFechaFin").data("kendoDatePicker").setOptions({
+        format: _dictionary.FormatoFecha2[$("#language").data("kendoDropDownList").value()]
+    });
+    OcultarCampos(true);
 }
 
 function AgregarStatusDinamicos(listaStatus) {
@@ -203,5 +209,15 @@ function VentanaModal() {
     }).data("kendoWindow");
     window.data("kendoWindow").title(modalTitle);
     window.data("kendoWindow").center().open();
-
 };
+
+function OcultarCampos(Visible) {
+    if (!Visible) {
+        $("#tabEstatus").css("display", "block");
+        $("#ContenedorGrid").css("display", "block");
+        $("#contenidoDashboard").css("display", "none");
+    } else {
+        $("#tabEstatus").css("display", "none");        
+        $("#ContenedorGrid").css("display", "none");        
+    }
+}

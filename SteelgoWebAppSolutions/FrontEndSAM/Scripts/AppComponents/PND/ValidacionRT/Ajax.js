@@ -54,7 +54,7 @@ function AjaxRequisicion(proyectoID, proveedorID) {
 
 function AjaxFuente(tipoPruebaID, proveedorID) {//Equipo
     loadingStart();    
-    $ValidacionRT.ValidacionRT.read({ token: Cookies.get("token"), TipoPruebaID: tipoPruebaID, ProveedorID: proveedorID, lenguaje: "es-MX", x: "" }).done(function (data) {
+    $ValidacionRT.ValidacionRT.read({ token: Cookies.get("token"), TipoPruebaID: tipoPruebaID, ProveedorID: proveedorID, Lenguaje: "es-MX" }).done(function (data) {
         if (Error(data)) {            
             $("#inputFuente").data("kendoComboBox").value("");
             $("#inputFuente").data("kendoComboBox").dataSource.data(data);

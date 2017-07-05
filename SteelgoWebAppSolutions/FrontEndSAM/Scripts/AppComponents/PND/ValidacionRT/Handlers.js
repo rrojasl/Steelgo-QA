@@ -174,8 +174,8 @@ function Limpiar() {
     $("#inputPrueba").data("kendoComboBox").dataSource.data([]);
     $("#inputProveedor").data("kendoComboBox").dataSource.data([]);
     $("#inputRequisicion").data("kendoComboBox").dataSource.data([]);
-    $("#inputFuente").data("kendoComboBox").dataSource.data([]);
-    $("#inputTurno").data("kendoComboBox").dataSource.data([]);
+    //$("#inputFuente").data("kendoComboBox").dataSource.data([]);
+    //$("#inputTurno").data("kendoComboBox").dataSource.data([]);
     $("#grid").data("kendoGrid").dataSource.data([]);
 }
 

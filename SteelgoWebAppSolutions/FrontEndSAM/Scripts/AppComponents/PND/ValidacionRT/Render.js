@@ -247,19 +247,25 @@ function comboBoxResultadoDetallePlaca(container, options) {
 function comboBoxResultadoConciliacion(container, options) {
     var dataItem;
 
-    $('<input required data-text-field="Descripcion" id=' + options.model.uid + ' data-value-field="Descripcion" data-bind="value:' + options.field + '"/>')
+    //$('<input required data-text-field="Descripcion" id=' + options.model.uid + ' data-value-field="Descripcion" data-bind="value:' + options.field + '"/>')
+    $('<input required data-text-field="Resultado" id=' + options.model.uid + ' data-value-field="Resultado" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoComboBox({
             autoBind: false,
-            dataSource: options.model.ListaResultadoConciliacion,
-            dataTextField: "Descripcion",
-            dataValueField: "ResultadoConciliacionID",
-            template: "<i class=\"fa fa-#=data.Descripcion#\"></i> #=data.Descripcion#",
+            //dataSource: options.model.ListaResultadoConciliacion,
+            dataSource: options.model.ListaResultados,
+            //dataTextField: "Descripcion",
+            //dataValueField: "ResultadoConciliacionID",
+            //template: "<i class=\"fa fa-#=data.Descripcion#\"></i> #=data.Descripcion#",
+            dataTextField: "Resultado",
+            dataValueField: "ResultadosID",
+            template: "<i class=\"fa fa-#=data.Resultado#\"></i> #=data.Resultado#",
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
-
-                options.model.ResultadoConciliacionID = dataItem.ResultadoConciliacionID;
-                options.model.Descripcion = dataItem.Descripcion;
+                options.model.ResultadosID = dataItem.ResultadosID;
+                options.model.Resultado = dataItem.Resultado;
+                //options.model.ResultadoConciliacionID = dataItem.ResultadoConciliacionID;
+                //options.model.Descripcion = dataItem.Descripcion;
 
 
             }
@@ -279,19 +285,27 @@ function comboBoxResultadoConciliacion(container, options) {
 function comboBoxRazonNoConciliacion(container, options) {
     var dataItem;
 
-    $('<input required data-text-field="Descripcion" id=' + options.model.uid + ' data-value-field="Descripcion" data-bind="value:' + options.field + '"/>')
+    //$('<input required data-text-field="Descripcion" id=' + options.model.uid + ' data-value-field="Descripcion" data-bind="value:' + options.field + '"/>')
+    $('<input required data-text-field="Resultado" id=' + options.model.uid + ' data-value-field="Resultado" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoComboBox({
             autoBind: false,
-            dataSource: options.model.ListaRazonNoConciliacion,
-            dataTextField: "Descripcion",
-            dataValueField: "RazonNoConciliacionID",
-            template: "<i class=\"fa fa-#=data.Descripcion#\"></i> #=data.Descripcion#",
+            //dataSource: options.model.ListaRazonNoConciliacion,
+            dataSource: options.model.ListaResultados,
+            //dataTextField: "Descripcion",
+            //dataValueField: "RazonNoConciliacionID",
+            //template: "<i class=\"fa fa-#=data.Descripcion#\"></i> #=data.Descripcion#",
+            dataTextField: "Resultado",
+            dataValueField: "ResultadosID",
+            template: "<i class=\"fa fa-#=data.Resultado#\"></i> #=data.Resultado#",
             change: function (e) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
 
-                options.model.RazonNoConciliacionID = dataItem.RazonNoConciliacionID;
-                options.model.Descripcion = dataItem.Descripcion;
+                options.model.ResultadosID = dataItem.ResultadosID;
+                options.model.Resultado = dataItem.Resultado;                
+
+                //options.model.RazonNoConciliacionID = dataItem.RazonNoConciliacionID;
+                //options.model.Descripcion = dataItem.Descripcion;
 
 
             }

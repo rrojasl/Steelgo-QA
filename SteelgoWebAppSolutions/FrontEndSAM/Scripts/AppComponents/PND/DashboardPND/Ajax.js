@@ -1,5 +1,6 @@
-﻿function AjaxCargarHeaderDashboard() {
-    $Dashboard.Dashboard.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), modulo: 1}).done(function (data) {
+﻿function AjaxCargarHeaderDashboard() {    
+    //$Dashboard.Dashboard.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), modulo: 1}).done(function (data) {
+    $Dashboard.Dashboard.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), modulo: 1, ProyectoID: ($("#inputProyecto").data("kendoComboBox").value() == "" || $("#inputProyecto").data("kendoComboBox").value() == undefined) ? 0 : $("#inputProyecto").data("kendoComboBox").value()  }).done(function (data) {
         if (data.length > 0) {
             $("#tabEstatus").html("");
             var tab = '';
@@ -22,12 +23,42 @@
             }
             $("#tabEstatus").append(option);
             AgregarStatusDinamicos(data);
-            AjaxObtenerProyectos();
+            //AjaxObtenerProyectos();
         }
 
     });
 }
 
+
+function AjaxCargarPeriodos() {
+    loadingStart();
+    $Periodo.Periodo.read({ token: Cookies.get("token"), Lenguaje: $("#language").val() }).done(function (data) {
+        $("#InputPeriodo").data("kendoComboBox").dataSource.data([]);
+
+        if (data.length > 0) {
+            $("#InputPeriodo").data("kendoComboBox").dataSource.data(data);
+
+            $("#InputPeriodo").data("kendoComboBox").value(0);
+            $("#InputPeriodo").data("kendoComboBox").trigger("change");
+        }
+        loadingStop();
+    });
+}
+
+
+function AjaxCargarRangoFechas(dataItem) {
+    loadingStart();
+    $Periodo.Periodo.read({
+        token: Cookies.get("token"), Lenguaje: $("#language").val(), Minuendo: dataItem.Minuendo,
+        Sustraendo: dataItem.Sustraendo, FechaFinal: $("#inputFechaFin").val()
+    }).done(function (data) {
+        if (data != undefined) {
+            $("#inputFechaInicio").val(data.FechaInicio);
+            $("#inputFechaFin").val(data.FechaFin);
+        }
+        loadingStop();
+    });
+}
 
 
 function AjaxObtenerProyectos() {

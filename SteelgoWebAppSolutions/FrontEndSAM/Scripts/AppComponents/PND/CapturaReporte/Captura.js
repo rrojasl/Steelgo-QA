@@ -1,12 +1,19 @@
 ﻿var modeloRenglon;
 
 function changeLanguageCall() {
-    document.title = _dictionary.menuServiciosTecnicosReporteRT[$("#language").data("kendoDropDownList").value()];
     CargarGrid();
     CargarGridPopUpDetallePorPlaca();
     CargarGridPopUpDetallePorPlacaPorDefectos();
 
-    inicio();
+    var paramReq = getParameterByName('requisicion');
+    var requisicionID = getParameterByName('requisicion');
+    if (requisicionID != null) {
+        inicio();
+        AjaxObtenerElementoRequisicion(requisicionID)        
+    } else {
+        inicio();
+    }
+    document.title = _dictionary.menuServiciosTecnicosReporteRT[$("#language").data("kendoDropDownList").value()];    
 };
 
 function inicio() {
@@ -14,6 +21,18 @@ function inicio() {
     AjaxProyecto();
     AjaxFuente();
     AjaxTurno();
+}
+
+
+function getParameterByName(name, url) {
+
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
 function validarReglasDeLlenado() {

@@ -16,7 +16,8 @@ namespace BackEndSAM.Controllers.Sam3General.Dashboard
     public class DashboardController: ApiController
     {
         [HttpGet]
-        public object getHeaderDashboard(string token, string lenguaje, int modulo)
+        //public object getHeaderDashboard(string token, string lenguaje, int modulo)
+        public object getHeaderDashboard(string token, string lenguaje, int modulo, int ProyectoID )
         {
             string payload = "";
             string newToken = "";
@@ -25,8 +26,14 @@ namespace BackEndSAM.Controllers.Sam3General.Dashboard
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-
-                return DashboardBD.Instance.ObtieneHeaderDashBoard(modulo, lenguaje,16,0,0);
+                if(ProyectoID == 0)
+                {
+                    return DashboardBD.Instance.ObtieneHeaderDashBoard(modulo, lenguaje, 16, 0, 0);
+                }else
+                {
+                    return DashboardBD.Instance.ObtieneHeaderDashBoard(modulo, lenguaje, ProyectoID, 0, 0);
+                }                
+                //return DashboardBD.Instance.ObtieneHeaderDashBoard(modulo, lenguaje,16,0,0);
             }
             else
             {
