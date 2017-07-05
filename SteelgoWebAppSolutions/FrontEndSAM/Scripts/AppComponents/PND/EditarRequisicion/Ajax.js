@@ -92,7 +92,7 @@ function AjaxCargaListaTipoPrueba() {
 
 function AjaxCargaListaRequisicion(tipoPruebaID, proyectoID) {
     var requisicionId = 0;
-    //$ServiciosTecnicosGeneral.ServiciosTecnicosGeneral.read({ token: Cookies.get("token"), ProyectoID: proyectoID, TipoPruebaID: tipoPruebaID, estatusID: 1 }).done(function (data) {
+    //$ServiciosTecnicosGeneral.ServiciosTecnicosGeneral.read({ token: Cookies.get("token"), ProyectoID: proyectoID, TipoPruebaID: tipoPruebaID, estatusID: 1 }).done(function (data) {    
     $ServiciosTecnicosGeneral.ServiciosTecnicosGeneral.read({ token: Cookies.get("token"), ProyectoID: proyectoID, TipoPruebaID: tipoPruebaID, estatusID: 1, lenguaje: $("#language").val() }).done(function (data) {
         $("#inputRequisicion").data("kendoComboBox").dataSource.data([]);
         $("#inputRequisicion").data("kendoComboBox").dataSource.data(data);
@@ -111,131 +111,167 @@ function AjaxCargaListaRequisicion(tipoPruebaID, proyectoID) {
     });
 }
 
-function AjaxCargaDetalleRequisicion(_requisicionID, _tipoPruebaID, _proyectoID) {
-    $EditarRequisicion.EditarRequisicion.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), RequisicionID: _requisicionID, TipoPruebaID: _tipoPruebaID, ProyectoID: _proyectoID, Muestra: $('input:radio[name=Muestra]').val() }).done(function (data) {
+
+function AjaxCargaDetalleRequisicion(requisicionID, tipoPruebaID, proyectoID, muestra) {
+    loadingStart();
+    $RequisicionPND.RequisicionPND.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), RequisicionID: requisicionID, TipoPruebaID: tipoPruebaID, ProyectoID: proyectoID, Muestra: muestra }).done(function (data) {      
         $("#grid").data("kendoGrid").dataSource.data([]);
         var ds = $("#grid").data("kendoGrid").dataSource;
         if (data.length > 0) {
             for (var i = 0; i < data.length; i++) {
                 ds.add(data[i]);
+                tipoPrueba = data[i].TipoPruebaID;
             }
-        }        
+            ds.page(1);
+        } else {
+            ds.page(0);
+        }
+        ds.sync();
         loadingStop();
-    }); 
+    });
 }
 
+//function AjaxCargaDetalleRequisicion(_requisicionID, _tipoPruebaID, _proyectoID) {    
+//    var Muestra = $("input:radio[name=Muestra]").val().toString().toLowerCase() == "todos" ? 1 : 0;
+//    $EditarRequisicion.EditarRequisicion.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), RequisicionID: _requisicionID, TipoPruebaID: _tipoPruebaID, ProyectoID: _proyectoID, Muestra: Muestra }).done(function (data) {    
+//        $("#grid").data("kendoGrid").dataSource.data([]);
+//        var ds = $("#grid").data("kendoGrid").dataSource;
+//        if (data.length > 0) {
+//            for (var i = 0; i < data.length; i++) {
+//                ds.add(data[i]);
+//            }
+//        }        
+//        loadingStop();
+//    }); 
+//}
+
 function AjaxGuardaCaptura(arregloCaptura, guardaNuevo) {
-    if (arregloCaptura.length > 0) {
-        var ListaCaptura = [];
-        var Captura = [];
-        Captura[0] = {
-            RequisicionID: 0,
-            Requisicion: "",
-            ProyectoID: 0,
-            TipoPruebaID: 0,
-            FechaRequisicion: "",
-            CodigoAsme: "",
-            Observacion: "",
-
-            ListaDetalle: ""
-        };
-        var cont = 0;
-        for (var i = 0; i < arregloCaptura.length; i++) {
-            if ((arregloCaptura[i].Accion == 1 || arregloCaptura[i].Accion == 2) && arregloCaptura[i].Agregar == true) {
-                ListaCaptura[cont] = {
-                    RequisicionID: 0,
-                    ElementoPorClasificacionPNDID: 0,
-                    Accion: 0,
-                    OrdenTrabajoID: 0,
-                    //Disposicion: 0,
-                    ClasificacionPNDID: 0,
-                    SpoolID: 0,
-                    JuntaSpool: 0,
-                    ClasificacionManual: 0
-                    //OrdenTrabajoID: 0,                                        
-                };
-
-                ListaCaptura[cont].RequisicionID = arregloCaptura[i].RequisicionID;
-                ListaCaptura[cont].ElementoPorClasificacionPNDID = arregloCaptura[i].ElementoPorClasificacionPNDID;
-                ListaCaptura[cont].Accion = arregloCaptura[i].Accion;                
-                //ListaCaptura[cont].Disposicion = arregloCaptura[i].Disposicion;
-                ListaCaptura[cont].OrdenTrabajoID = arregloCaptura[i].OrdenTrabajoID;
-                ListaCaptura[cont].ClasificacionPNDID = arregloCaptura[i].ClasificacionPNDID;
-                ListaCaptura[cont].SpoolID = arregloCaptura[i].SpoolID;
-                ListaCaptura[cont].JuntaSpool = arregloCaptura[i].JuntaSpool;
-                ListaCaptura[cont].ClasificacionManual = 0;
-                //ListaCaptura[cont].ClasificacionManual = arregloCaptura[i].Clasificacion;
-                cont++;
-
-            } else if (arregloCaptura[i].Accion == 2 && !arregloCaptura[i].Agregar) {
-                ListaCaptura[cont] = {
-                    RequisicionID: 0,
-                    ElementoPorClasificacionPNDID: 0,
-                    Accion: 0,
-                    OrdenTrabajoID: 0,
-                    ClasificacionPNDID: 0,
-                    SpoolID: 0,
-                    JuntaSpool: 0,
-                    ClasificacionManual: 0
-                };
-                //ListaCaptura[cont] = {
-                //    RequisicionID: 0,
-                //    ElementoPorClasificacionPNDID: 0,
-                //    Accion: 0,
-                //    Disposicion: 0,
-                //    ClasificacionPNDID: 0,
-                //    OrdenTrabajoID: 0,
-                //    SpoolID: 0,
-                //    JuntaSpool: 0
-                //};
-
-                ListaCaptura[cont].RequisicionID = arregloCaptura[i].RequisicionID;
-                ListaCaptura[cont].ElementoPorClasificacionPNDID = arregloCaptura[i].ElementoPorClasificacionPNDID;
-                ListaCaptura[cont].Accion = 3;                
-                ListaCaptura[cont].OrdenTrabajoID = arregloCaptura[i].OrdenTrabajoID;
-                ListaCaptura[cont].ClasificacionPNDID = arregloCaptura[i].ClasificacionPNDID;
-                ListaCaptura[cont].SpoolID = arregloCaptura[i].SpoolID;
-                ListaCaptura[cont].JuntaSpool = arregloCaptura[i].JuntaSpool;
-                ListaCaptura[cont].ClasificacionManual = 0;
-                //ListaCaptura[cont].ClasificacionManual = arregloCaptura[i].Clasificacion;
-                cont++;
-            } 
-            
-        }
-
-        if (ListaCaptura.length > 0) {
-            var Requisicion = $("#inputRequisicion").data("kendoComboBox").dataItem($("#inputRequisicion").data("kendoComboBox").select());
-            Captura[0].RequisicionID = Requisicion.RequisicionID;
-            Captura[0].Requisicion = Requisicion.NombreRequisicion;
-            Captura[0].ProyectoID = $("#inputProyecto").data("kendoComboBox").value();
-            Captura[0].TipoPruebaID = $("#inputTipoPrueba").data("kendoComboBox").value();
-            Captura[0].CodigoAsme = Requisicion.CodigoAsme;
-            Captura[0].Observacion = Requisicion.Observacion;
-            Captura[0].FechaRequisicion = Requisicion.FechaRequisicion;
-            Captura[0].ListaDetalle = ListaCaptura;
-
-            $EditarRequisicion.EditarRequisicion.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
-                if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "OK") {
-                    if (guardaNuevo) {
-                        Limpiar();
-                        displayNotify("MensajeGuardadoExistoso", "", "0");
-                    } else {
-                        AjaxCargaDetalleRequisicion(Captura[0].RequisicionID, Captura[0].TipoPruebaID, Captura[0].ProyectoID);
-                        opcionHabilitarView(true, '');
-                        displayNotify("MensajeGuardadoExistoso", "", "0");
-                    }
-                }
-                else {
-                    displayNotify("MensajeGuardadoErroneo", "", '2');
-                }
-            });
-        } else {
-            displayNotify("EditarRequisicionExcepcionGuardado", "", "2");
-        }    
-           
+    loadingStart();            
+    if (guardaNuevo) {
+        setTimeout(function (e) {
+            loadingStop();
+            Limpiar();
+            displayNotify("MensajeGuardadoExistoso", "", "0");
+        }, 700);        
     } else {
-        displayNotify("EditarRequisicionExcepcionGuardado", "", "2");
+        setTimeout(function (e) {
+            loadingStop();
+            opcionHabilitarView(true, '');
+            displayNotify("MensajeGuardadoExistoso", "", "0");
+        }, 700);        
     }
+
+    //if (arregloCaptura.length > 0) {
+    //    var ListaCaptura = [];
+    //    var Captura = [];
+    //    Captura[0] = {
+    //        RequisicionID: 0,
+    //        Requisicion: "",
+    //        ProyectoID: 0,
+    //        TipoPruebaID: 0,
+    //        FechaRequisicion: "",
+    //        CodigoAsme: "",
+    //        Observacion: "",
+
+    //        ListaDetalle: ""
+    //    };
+    //    var cont = 0;
+    //    for (var i = 0; i < arregloCaptura.length; i++) {
+    //        if ((arregloCaptura[i].Accion == 1 || arregloCaptura[i].Accion == 2) && arregloCaptura[i].Agregar == true) {
+    //            ListaCaptura[cont] = {
+    //                RequisicionID: 0,
+    //                ElementoPorClasificacionPNDID: 0,
+    //                Accion: 0,
+    //                OrdenTrabajoID: 0,
+    //                //Disposicion: 0,
+    //                ClasificacionPNDID: 0,
+    //                SpoolID: 0,
+    //                JuntaSpool: 0,
+    //                ClasificacionManual: 0
+    //                //OrdenTrabajoID: 0,                                        
+    //            };
+
+    //            ListaCaptura[cont].RequisicionID = arregloCaptura[i].RequisicionID;
+    //            ListaCaptura[cont].ElementoPorClasificacionPNDID = arregloCaptura[i].ElementoPorClasificacionPNDID;
+    //            ListaCaptura[cont].Accion = arregloCaptura[i].Accion;                
+    //            //ListaCaptura[cont].Disposicion = arregloCaptura[i].Disposicion;
+    //            ListaCaptura[cont].OrdenTrabajoID = arregloCaptura[i].OrdenTrabajoID;
+    //            ListaCaptura[cont].ClasificacionPNDID = arregloCaptura[i].ClasificacionPNDID;
+    //            ListaCaptura[cont].SpoolID = arregloCaptura[i].SpoolID;
+    //            ListaCaptura[cont].JuntaSpool = arregloCaptura[i].JuntaSpool;
+    //            ListaCaptura[cont].ClasificacionManual = 0;
+    //            //ListaCaptura[cont].ClasificacionManual = arregloCaptura[i].Clasificacion;
+    //            cont++;
+
+    //        } else if (arregloCaptura[i].Accion == 2 && !arregloCaptura[i].Agregar) {
+    //            ListaCaptura[cont] = {
+    //                RequisicionID: 0,
+    //                ElementoPorClasificacionPNDID: 0,
+    //                Accion: 0,
+    //                OrdenTrabajoID: 0,
+    //                ClasificacionPNDID: 0,
+    //                SpoolID: 0,
+    //                JuntaSpool: 0,
+    //                ClasificacionManual: 0
+    //            };
+    //            //ListaCaptura[cont] = {
+    //            //    RequisicionID: 0,
+    //            //    ElementoPorClasificacionPNDID: 0,
+    //            //    Accion: 0,
+    //            //    Disposicion: 0,
+    //            //    ClasificacionPNDID: 0,
+    //            //    OrdenTrabajoID: 0,
+    //            //    SpoolID: 0,
+    //            //    JuntaSpool: 0
+    //            //};
+
+    //            ListaCaptura[cont].RequisicionID = arregloCaptura[i].RequisicionID;
+    //            ListaCaptura[cont].ElementoPorClasificacionPNDID = arregloCaptura[i].ElementoPorClasificacionPNDID;
+    //            ListaCaptura[cont].Accion = 3;                
+    //            ListaCaptura[cont].OrdenTrabajoID = arregloCaptura[i].OrdenTrabajoID;
+    //            ListaCaptura[cont].ClasificacionPNDID = arregloCaptura[i].ClasificacionPNDID;
+    //            ListaCaptura[cont].SpoolID = arregloCaptura[i].SpoolID;
+    //            ListaCaptura[cont].JuntaSpool = arregloCaptura[i].JuntaSpool;
+    //            ListaCaptura[cont].ClasificacionManual = 0;
+    //            //ListaCaptura[cont].ClasificacionManual = arregloCaptura[i].Clasificacion;
+    //            cont++;
+    //        } 
+            
+    //    }
+
+    //    if (ListaCaptura.length > 0) {
+    //        var Requisicion = $("#inputRequisicion").data("kendoComboBox").dataItem($("#inputRequisicion").data("kendoComboBox").select());
+    //        Captura[0].RequisicionID = Requisicion.RequisicionID;
+    //        Captura[0].Requisicion = Requisicion.NombreRequisicion;
+    //        Captura[0].ProyectoID = $("#inputProyecto").data("kendoComboBox").value();
+    //        Captura[0].TipoPruebaID = $("#inputTipoPrueba").data("kendoComboBox").value();
+    //        Captura[0].CodigoAsme = Requisicion.CodigoAsme;
+    //        Captura[0].Observacion = Requisicion.Observacion;
+    //        Captura[0].FechaRequisicion = Requisicion.FechaRequisicion;
+    //        Captura[0].ListaDetalle = ListaCaptura;
+
+    //        $EditarRequisicion.EditarRequisicion.create(Captura[0], { token: Cookies.get("token"), lenguaje: $("#language").val() }).done(function (data) {
+    //            if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "OK") {
+    //                if (guardaNuevo) {
+    //                    Limpiar();
+    //                    displayNotify("MensajeGuardadoExistoso", "", "0");
+    //                } else {
+    //                    AjaxCargaDetalleRequisicion(Captura[0].RequisicionID, Captura[0].TipoPruebaID, Captura[0].ProyectoID);
+    //                    opcionHabilitarView(true, '');
+    //                    displayNotify("MensajeGuardadoExistoso", "", "0");
+    //                }
+    //            }
+    //            else {
+    //                displayNotify("MensajeGuardadoErroneo", "", '2');
+    //            }
+    //        });
+    //    } else {
+    //        displayNotify("EditarRequisicionExcepcionGuardado", "", "2");
+    //    }    
+           
+    //} else {
+    //    displayNotify("EditarRequisicionExcepcionGuardado", "", "2");
+    //}
 
 }
 

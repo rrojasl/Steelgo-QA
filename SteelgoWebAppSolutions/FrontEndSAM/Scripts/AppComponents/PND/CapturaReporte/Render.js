@@ -256,6 +256,43 @@ function comboBoxResultadoDetallePlaca(container, options) {
     });
 }
 
+function comboBoxResultadoDetalleDefecto(container, options) {
+    var dataItem;
+
+    $('<input required data-text-field="Resultado" id=' + options.model.uid + ' data-value-field="Resultado" data-bind="value:' + options.field + '"/>')
+        .appendTo(container)
+        .kendoComboBox({
+            autoBind: false,
+            dataSource: modeloRenglon.ListaResultados,
+            dataTextField: "Resultado",
+            dataValueField: "ResultadosID",
+            template: "<i class=\"fa fa-#=data.Resultado#\"></i> #=data.Resultado#",
+            change: function (e) {
+                dataItem = this.dataItem(e.sender.selectedIndex);
+
+                if (dataItem != undefined) {
+                    options.model.ResultadoID = dataItem.ResultadosID;
+                    options.model.Resultado = dataItem.Resultado;
+                }
+                else {
+                    options.model.ResultadoID = 0;
+                    options.model.Resultado = '';
+                }
+
+            }
+        }
+    );
+    $(".k-combobox").parent().on('mouseleave', function (send) {
+        var e = $.Event("keydown", { keyCode: 27 });
+        var item = $(this).find(".k-combobox")[0];
+        if (item != undefined) {
+            if (!tieneClase(item)) {
+                $(container).trigger(e);
+            }
+        }
+    });
+}
+
 
 
 function WindowModalGridDefectoDetalle(model) {
