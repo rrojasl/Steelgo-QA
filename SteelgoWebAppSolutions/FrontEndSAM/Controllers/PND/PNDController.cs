@@ -63,5 +63,10 @@ namespace FrontEndSAM.Controllers.PND
         {
             return View();
         }
+        public ActionResult CortesOnDemand()
+        {
+            return View();
+        }
+        
     }
 }

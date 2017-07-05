@@ -8249,6 +8249,14 @@ _dictionary = {
         "es-MX": "Dashboard PND",
         "en-US": "Dashboard PND"
     },
+    "menuServiciosTecnicosCortesOnDemand": {
+        "es-MX": "Cortes On Demand",
+        "en-US": "Cuts On Demand"
+    },
+    "menuServiciosTecnicosAsignacionDefectos": {
+        "es-MX": "Asignación Defectos",
+        "en-US": "Assignment Defects."
+    },
 
     "PinturaIngresaCodigoValido": {
         "es-MX": "Ingresa un codigo valido",
@@ -9143,6 +9151,16 @@ _dictionary = {
         "es-MX": "Dashboard PND",
         "en-US": "Dashboard PND"
     },
+
+    "lblCortesOnDemandTitle": {
+        "es-MX": "Cortes On Demand",
+        "en-US": "Cuts On Demand"
+    },
+    "btnAgregarGenerarCorte": {
+        "es-MX": "Generar Corte",
+        "en-US": "Generate Cut"
+    },
+
     // Finalizan Etiquetas Generales PND
 
     //Pantalla Armado
@@ -9294,6 +9312,7 @@ _dictionary = {
         "en-US": "The only number is already assigned in the joint: ?1"
 
     },
+
     "MensajeErrorSpoolHold":
     {
         "es-MX": "No se permite su captura, debido a que transcurrieron 2 dias despues de salir de retención",
