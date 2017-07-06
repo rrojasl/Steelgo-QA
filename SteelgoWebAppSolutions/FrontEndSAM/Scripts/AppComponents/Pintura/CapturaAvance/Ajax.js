@@ -147,7 +147,9 @@ function AjaxObtenerSpoolID() {
 function AjaxCargarShotBlastero() {
     loadingStart();
     $CapturaAvance.CapturaAvance.read({ token: Cookies.get("token"), procesoPintura: $('input:radio[name=ProcesoPintura]:checked').val() }).done(function (data) {
-        if (Error(data)) {
+		if (Error(data)) {
+			$("#inputShotBlastero").data("kendoMultiSelect").dataSource.data([]);
+			$("#inputShotBlastero").data("kendoMultiSelect").value("");
             $("#inputShotBlastero").data("kendoMultiSelect").setDataSource(data);
         }
     });
@@ -458,18 +460,16 @@ function AjaxGuardarAvanceCarro(arregloCaptura, guardarYNuevo) {
             ListaDetalleComponentesDinamicosGuardados[k] = { Lote: "" };
             ListaDetalleComponentesDinamicosGuardados[k].Lote = arregloCaptura[index][ComponentesDinamicos[k].NombreComponente];//lote seleccionado por cada componente dinamico creado.
             if ((ListaDetalles[index].ReductorLote !="" || ListaDetalles[index].FechaProceso != "" || arregloCaptura[index].ListaObrerosSeleccionados.length > 0 || ListaDetalleComponentesDinamicosGuardados[k].Lote != "") && (arregloCaptura[index].Accion == 4)) {//si algun campo es capturado
-                if (!(ListaDetalles[index].ReductorLote != "" && ListaDetalles[index].FechaProceso != "" && arregloCaptura[index].ListaObrerosSeleccionados.length > 0 && ListaDetalleComponentesDinamicosGuardados[k].Lote != ""))//se valida los campos obligatorios.
-                {
-                    $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
-                    ListaDetalles[index].Estatus = 0;
-                }
+				if (!(ListaDetalles[index].ReductorLote != "" && ListaDetalles[index].FechaProceso != "" && arregloCaptura[index].ListaObrerosSeleccionados.length > 0 && ListaDetalleComponentesDinamicosGuardados[k].Lote != ""))//se valida los campos obligatorios.
+				{
+					$("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
+					ListaDetalles[index].Estatus = 0;
+				}
+				else
+					ListaDetalles[index].Accion = 2;
             }
         }
-
-        //hago una validacion si tiene status 4 pero esta todo capturado entonces se cambia de status 2
-        if (arregloCaptura[index].Accion == 4 && ListaDetalles[index].Estatus == 1)
-            ListaDetalles[index].Accion = 2;
-
+		
     }
     Captura[0].Detalles = ListaDetalles;
 

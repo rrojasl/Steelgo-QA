@@ -70,7 +70,7 @@
         public static string GUARDARCAPTURABUSCASPOOL = "Sam3_Ingenieria_GuardarLoop";
         public static string OBTIENEDETALLEAVANCE = "Sam3_Pintura_Avance_Get_Detalle";
         public static string OBTIENEDETALLEAVANCECUADRANTE = "Sam3_Pintura_AvanceCuadrante_Get_Detalle";
-        public static string GUARDARCAPTURADECARGACARRO = "Sam3_Pintura_DesCargaCarro_Guardar";
+        public static string GUARDARCAPTURADECARGACARRO = "Sam3_Pintura_DescargaCarro_Guardar";
         public static string GUARDAREMBARQUEMARCADO = "";
         public static string STEELGO_SET_OK = "Sam3_Steelgo_SET_OK";
         public static string STEELGO_SET_OK_MASIVO = "Sam3_Steelgo_OK_SET_GuardaMasivo";

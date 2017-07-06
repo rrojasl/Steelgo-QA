@@ -8421,6 +8421,14 @@ _dictionary = {
         "es-MX": "Captura Pruebas por Spool",
         "en-US": "Spool Capture Test"
     },
+    "ErrorColumnaNoEsNumeroOKPINTURA": {
+        "es-MX": "Algún registro de la columna OKPINTURA no es un Número Válido, debe ser 0 ó 1",
+        "en-US": "Some record of the OKFAB column is not a valid Number, it must be 0 or 1. "
+    },
+    "ErrorColumnaTieneLetrasOKPINTURA": {
+        "es-MX": "Algún Registro de la columna OKPINTURA no es un Número, Porfavor Verifique.",
+        "en-US": "Some record of the OKFAB column is not a number, check please."
+    },
     //"menuListadoEmbarqueEnviados": {
     //    "es-MX": "Listado Embarques Enviados",
     //    "en-US": "Shipped Shipment List"
@@ -9160,7 +9168,6 @@ _dictionary = {
         "es-MX": "Generar Corte",
         "en-US": "Generate Cut"
     },
-
     // Finalizan Etiquetas Generales PND
 
     //Pantalla Armado
@@ -9312,7 +9319,6 @@ _dictionary = {
         "en-US": "The only number is already assigned in the joint: ?1"
 
     },
-
     "MensajeErrorSpoolHold":
     {
         "es-MX": "No se permite su captura, debido a que transcurrieron 2 dias despues de salir de retención",
@@ -10584,7 +10590,7 @@ _dictionary = {
     "PinturaCapturaPruebaSpoolUnidadMinima": {
         "es-MX": "Unidad Minima",
         "en-US": "Minimum unit"
-        },
+    },
     "PinturaCapturaPruebaSpoolUnidadMaxima": {
         "es-MX": "Unidada Maxima",
         "en-US": "Maximum unit"
@@ -10677,8 +10683,8 @@ _dictionary = {
     //Finaliza Captura Admin reductores
     //Inicia Carga de Carro
     "PinturaSpoolenEmbarque": {
-        "es-MX": "El Spool se encuentra en un proceso de embarque (plana)",
-        "en-US": "The spool is in a boarding process (flat) '?' "
+        "es-MX": "El Spool se encuentra en:",
+        "en-US": "The spool is in:"
     },
     "PinturaSpoolCargadoEnCarro": {
         "es-MX": "El spool se encuentra cargado en el carro '?'",

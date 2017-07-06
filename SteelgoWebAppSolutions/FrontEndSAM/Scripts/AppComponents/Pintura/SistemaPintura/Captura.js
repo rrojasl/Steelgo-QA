@@ -344,7 +344,7 @@ function agregarComponentesAutomaticos()
         for (var i = 0; i < longitudElementos; i++) {
             if (dataItemRender.ListaDetalleComponentesAgregados[i].Accion == 1) {
                 dataItemRender.ListaDetalleComponentesAgregados.splice(i, 1);// eliminamos el elemento.
-                i = 0;
+                i = -1;
                 longitudElementos = dataItemRender.ListaDetalleComponentesAgregados.length;
             }
             else

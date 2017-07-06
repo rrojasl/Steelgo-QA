@@ -506,11 +506,11 @@ function ObtenerNewData(data) {
                         tmpData[n].OE = parseInt(contador[tmpNumControl[n]]);
                         //console.log("\t\t\t" + tmpData[n].SPOOLID + "\t\t\t" + tmpData[n].OkPintura + "\t\t\t" + tmpData[n].OE);
                     } else {
-                        displayNotify("ErrorColumnaNoEsNumero", "", "2");
+                        displayNotify("ErrorColumnaNoEsNumeroOKPINTURA", "", "2");
                         return;
                     }
                 } else {
-                    displayNotify("ErrorColumnaTieneLetras", "", "2");
+                    displayNotify("ErrorColumnaTieneLetrasOKPINTURA", "", "2");
                     return;
                 }
 

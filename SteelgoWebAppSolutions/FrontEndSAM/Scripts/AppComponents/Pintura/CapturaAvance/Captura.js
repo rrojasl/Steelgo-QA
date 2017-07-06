@@ -301,7 +301,9 @@ function CambiarProcesoPintura() {
 
 	if (!editado) {
 		procesoPinturaSeleccionadoAnterior = $('input:radio[name=ProcesoPintura]:checked').val();
+		LimpiarDespuesCambioProcesoPintura();
 		AjaxCargarCarrosCargadosPorProceso($('input:radio[name=ProcesoPintura]:checked').val());
+
 		if (procesoPinturaSeleccionadoAnterior == 4)
 			$('#divColor').show();
 		else
@@ -312,7 +314,6 @@ function CambiarProcesoPintura() {
 		    $("#lbltrabajador").text(_dictionary.columnShotblastero[$("#language").data("kendoDropDownList").value()])
 		}
 		else {
-
 		    $("#lbltrabajador").text(_dictionary.columnPintor[$("#language").data("kendoDropDownList").value()])
 		}
 	}
@@ -357,20 +358,27 @@ function LimpiarDespuesCambioProcesoPintura() {
     $("#InputOrdenTrabajo").val("");
     $("#InputID").data("kendoComboBox").value("");
     $("#grid").empty();
-    CrearGrid();
+	$("#inputColor").data("kendoComboBox").dataSource.data([]);
+	$("#inputColor").data("kendoComboBox").value("");
+	CrearGrid();
     CustomisaGrid($("#grid"));
-    document.getElementById('divAgregarComponentesReductoresDinamicos').innerHTML = '';
-    $("#inputShotBlastero").data("kendoMultiSelect").value("");
+	document.getElementById('divAgregarComponentesReductoresDinamicos').innerHTML = '';
+	$("#divAgregarComponentesReductoresDinamicos").empty();
+	$("#inputShotBlastero").data("kendoMultiSelect").dataSource.data([]);
+	$("#inputShotBlastero").data("kendoMultiSelect").value("");
 }
 
 function LimpiarDespuesCambioCarro() {
     $("#InputOrdenTrabajo").val("");
 	$("#InputID").data("kendoComboBox").value("");
     $("#grid").empty();
-    CrearGrid();
+	$("#inputColor").data("kendoComboBox").dataSource.data([]);
+	$("#inputColor").data("kendoComboBox").value("");
+	CrearGrid();
     CustomisaGrid($("#grid"));
     document.getElementById('divAgregarComponentesReductoresDinamicos').innerHTML = '';
-    $("#inputShotBlastero").data("kendoMultiSelect").value("");
+	$("#divAgregarComponentesReductoresDinamicos").empty();
+	$("#inputShotBlastero").data("kendoMultiSelect").value("");
 }
 
 function LimpiarDespuesCambioColor() {
@@ -425,23 +433,7 @@ function CrearGrid() {
                     }
                 }
             }
-            //var grid = $("#grid").data("kendoGrid");
-            //var gridData = grid.dataSource.view();
-
-            //for (var i = 0; i < gridData.length; i++) {
-            //    var currentUid = gridData[i].uid;
-            //    if (gridData[i].RowOk == false) {
-            //        grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("k-alt");
-            //        grid.table.find("tr[data-uid='" + currentUid + "']").addClass("kRowError");
-
-            //    }
-            //    else if (gridData[i].RowOk) {
-            //        if (i % 2 == 0)
-            //            grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("k-alt");
-            //        grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("kRowError");
-            //    }
-            //}
-
+            
             if (esNormal) {
                 $(".k-grid-content td").css("white-space", "normal");
             }
@@ -491,7 +483,7 @@ function limpiarFila(e) {
 
         itemToClean.FechaProceso = "";
         itemToClean.ListaObrerosSeleccionados = [];
-
+		itemToClean.LoteID = "";
         for (var j = 0; j < ComponentesDinamicosJSON.length; j++) {
             itemToClean[ComponentesDinamicosJSON[j].NombreColumna] = "";
         }

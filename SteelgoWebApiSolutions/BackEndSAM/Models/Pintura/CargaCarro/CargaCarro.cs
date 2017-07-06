@@ -77,6 +77,7 @@ namespace BackEndSAM.Models.Pintura.CargaCarro
         public bool CarroCerrado { get; set; }
         public bool Seleccionado { get; set; }
         public int? ZonaAnteriorID { get; set; }
+        public bool? NoPintable { get; set; }
     }
 
   

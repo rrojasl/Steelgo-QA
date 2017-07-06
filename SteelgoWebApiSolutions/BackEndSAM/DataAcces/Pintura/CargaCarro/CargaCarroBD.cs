@@ -109,7 +109,8 @@ namespace BackEndSAM.DataAcces.Pintura.CargaCarro
                             EstatusCaptura = 0,
                             ZonaAnteriorID=item.ZonaAnteriorID,
                             CarroID = item.CarroID,
-                            MedioTransporte = item.MedioTransporte
+                            MedioTransporte = item.MedioTransporte,
+                            NoPintable=item.NoPintable
                         });
                         
 
