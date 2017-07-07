@@ -62,6 +62,7 @@ namespace BackEndSAM.Models.Embarque.RevisionEmbarque
         public int EmbarqueID { get; set; }
         public int EmbarqueEstatusID { get; set; }
         public string Paquete { get; set; }
+        public int PaqueteID { get; set; }
         public int DetalleRevisionID { get; set; }
         public bool Llego { get; set; }
         public bool NoLlego { get; set; }
@@ -145,5 +146,10 @@ namespace BackEndSAM.Models.Embarque.RevisionEmbarque
         public int EmbarqueID { get; set; }
         public int Cerrado { get; set; }
         public List<DetalleJsonGuardar> listaDetalle { get; set; }
+    }
+    public class IDS
+    {
+        public int CuadranteID { get; set; }
+        public int PaqueteID { get; set; }
     }
 }

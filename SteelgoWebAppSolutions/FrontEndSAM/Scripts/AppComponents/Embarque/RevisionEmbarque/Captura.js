@@ -1,4 +1,4 @@
-﻿var EmbarquePlanaID = 0;
+var EmbarquePlanaID = 0;
 var esNormal;
 IniciarCapturaEmbarqueCarga();
 function IniciarCapturaEmbarqueCarga() {
@@ -192,11 +192,10 @@ function CargarGrid() {
                     grid.table.find("tr[data-uid='" + currentUid + "']").addClass("kRowError");
                 }
                 else if (gridData[i].RowOk) {
-                    grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("kRowError");
-                    if (i % 2 == 0)
-                        grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("k-alt");
+                    grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("kRowError");                    
+                    grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("k-alt");
                 }
-
+                
                 var currenRow = grid.table.find("tr[data-uid='" + currentUid + "']");
                 var editButton = $(currenRow).find(".k-button");
                 if (gridData[i].CapturaManual && gridData[i].Paquete == "NA" ) {                
@@ -354,20 +353,4 @@ function existenCambios(ds) {
         }        
     }
     return false;
-}
-
-function EliminarPaquete(dataItem) {
-    var gridActual = $("#grid").data("kendoGrid").dataSource._data;
-    var ds = $("#grid").data("kendoGrid").dataSource;
-    var tmpEliminados = [];
-
-    if (dataItem.Paquete != "" && dataItem.Paquete != undefined) {
-        if (dataItem.Paquete != "NA") {            
-            for (var i = gridActual.length - 1 ; i >= 0; i--) {
-                if (gridActual[i].Paquete === dataItem.Paquete)
-                    ds.remove(gridActual[i]);                    
-            }           
-            ds.sync();
-        }
-    }
 }

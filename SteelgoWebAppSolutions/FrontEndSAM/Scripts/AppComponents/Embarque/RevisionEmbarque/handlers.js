@@ -1,4 +1,4 @@
-﻿var ProyectoInicial = 0;
+var ProyectoInicial = 0;
 var EmbarqueInicial = 0;
 var windowDownloadSpool;
 var hayCambios = 0;
@@ -25,35 +25,47 @@ function SuscribirEventos() {
 function SuscribirEventoDescargarPaquete() {
     $(document).on('click', '.descargarPaquete', function (e) {                
         if (!$("#InputCerrar").is(":checked")) { //Si la revision esta abierta, permite eliminar
-            var grid = $("#grid").data("kendoGrid");
-            var dataItem = grid.dataItem($(e.currentTarget).closest("tr"));
-            if (dataItem.Paquete !== "NA" && dataItem.Accion != 2) {
-                windowDownloadPaquete = $("#ventanaConfirmCaptura").kendoWindow({
-                    iframe: true,
-                    title: _dictionary.DetalleAvisoLlegada0047[$("#language").data("kendoDropDownList").value()],
-                    visible: false,
-                    animation: false,
-                    width: "auto",
-                    height: "auto",
-                    actions: [],
-                    modal: true,
-                    position: {
-                        'left': (($(window).width() / 2) - ($(this).width() / 2) - 50) + 'px',
-                        'top': (($(window).height() / 2) - ($(this).height() / 2)) + 'px'
-                    }
-                }).data("kendoWindow");
-                windowDownloadPaquete.content(_dictionary.EmbarqueRevisionMsjConfirmaEliminaPaquete[$("#language").data("kendoDropDownList").value()] + "</br><center><button class='btn btn-blue' id='yesButtonProy'>" + _dictionary.EntregaPlacasGraficasbotonSi[$("#language").data("kendoDropDownList").value()] + "</button><button class='btn btn-blue' id='noButtonProy'>" + _dictionary.EntregaPlacasGraficasbotonNo[$("#language").data("kendoDropDownList").value()] + "</button></center>");
-                //windowDownloadPaquete.open().center();                        
-                windowDownloadPaquete.open();
-                $("#yesButtonProy").click(function (e) {                
-                    EliminarPaquete(dataItem);
-                    windowDownloadPaquete.close();              
-                });
-                $("#noButtonProy").click(function (e) {
-                    windowDownloadPaquete.close();
-                });
-            } else {
-                e.preventDefault();
+            if ($('#Guardar').text() == _dictionary.botonGuardar[$("#language").data("kendoDropDownList").value()]) {
+                var grid = $("#grid").data("kendoGrid");
+                var dataItem = grid.dataItem($(e.currentTarget).closest("tr"));
+                if (dataItem.Paquete !== "NA" && dataItem.CapturaManual) {
+                    windowDownloadPaquete = $("#ventanaConfirmCaptura").kendoWindow({
+                        iframe: true,
+                        title: _dictionary.DetalleAvisoLlegada0047[$("#language").data("kendoDropDownList").value()],
+                        visible: false,
+                        animation: false,
+                        width: "auto",
+                        height: "auto",
+                        actions: [],
+                        modal: true,
+                        position: {
+                            'left': (($(window).width() / 2) - ($(this).width() / 2) - 50) + 'px',
+                            'top': (($(window).height() / 2) - ($(this).height() / 2)) + 'px'
+                        }
+                    }).data("kendoWindow");
+                    windowDownloadPaquete.content(_dictionary.EmbarqueRevisionMsjConfirmaEliminaPaquete[$("#language").data("kendoDropDownList").value()] + "</br><center><button class='btn btn-blue' id='yesButtonProy'>" + _dictionary.EntregaPlacasGraficasbotonSi[$("#language").data("kendoDropDownList").value()] + "</button><button class='btn btn-blue' id='noButtonProy'>" + _dictionary.EntregaPlacasGraficasbotonNo[$("#language").data("kendoDropDownList").value()] + "</button></center>");
+                    //windowDownloadPaquete.open().center();                        
+                    windowDownloadPaquete.open();
+                    $("#yesButtonProy").click(function (e) {                        
+                        var Accion = dataItem.Accion;
+                        var CapturaManual = dataItem.CapturaManual;                        
+                        if (Accion == 2 && CapturaManual) { // Ya esan guardados en bd pero son manuales 
+                            if (dataItem.Paquete != "NA" && dataItem.Paquete != "") {
+                                EliminarPaquete(dataItem, 1); //El paquete ya esta guardado en la BD
+                            }                            
+                        } else if (Accion == 1 && CapturaManual) {
+                            if (dataItem.Paquete != "NA" && dataItem.Paquete != "") {
+                                EliminarPaquete(dataItem, 0); //El paquete solamente se agregó al grid pero no se ha guardado
+                            }
+                        }                        
+                        windowDownloadPaquete.close();
+                    });
+                    $("#noButtonProy").click(function (e) {
+                        windowDownloadPaquete.close();
+                    });
+                } else {
+                    e.preventDefault();
+                }
             }
         } else {
             displayNotify("EmbarqueRevisionMsjRevisionCerrada", "", "1");
@@ -83,7 +95,7 @@ function SuscribirEventoPopUpDescarga() {
         if(tipoDescarga == "1"){
             AjaxDescargarSpool();
         } else if (tipoDescarga == "2") {
-            AjaxDescargarPaquete();
+            //AjaxDescargarPaquete();
         }
     });
     $("#btnCancelarDescarga").click(function (e) {
@@ -112,7 +124,7 @@ function SuscribirEventoProyecto() {
                     ProyectoInicial = dataItem.ProyectoID;
                     if (dataItem.ProyectoID != 0) {
                         AjaxCargarEmbarques(dataItem.ProyectoID);
-                        AjaxCargarPaquetes(dataItem.ProyectoID);
+                        AjaxCargarPaquetes(dataItem.ProyectoID);                        
                     }
                 }
                 else {
@@ -180,19 +192,8 @@ function SuscribirEventoEmbarque() {
                     EmbarqueInicial = dataItem.EmbarqueID;
                     if (dataItem.EmbarqueID != 0) {
                         Destino = dataItem.Destino;
-                        if (dataItem.RevisionCerrada)
-                            Cerrado = true;
-                        else
-                            Cerrado = false;
-                    }
-                    /*if (dataItem.EmbarqueID != 0) {
-                        $("#EmbarqueDestino").text(dataItem.Destino);
-                        if (dataItem.RevisionCerrada)
-                            $("#InputCerrar")[0].checked = true;
-                        else
-                            $("#InputCerrar")[0].checked = false;
-                    } */  
-
+                        Cerrado = dataItem.RevisionCerrada ? true : false;
+                    }                    
                 }
                 else {
                     $("#Embarque").data("kendoComboBox").value("");
@@ -422,7 +423,7 @@ function SuscribirEventoBuscar() {
         if (!existenCambios(ds)) {
             if ($("#Proyecto").data("kendoComboBox").text() != "") {
                 if ($("#Embarque").data("kendoComboBox").text() != "") {
-                    AjaxObtieneDetalle($("#Embarque").data("kendoComboBox").value());
+                    AjaxObtieneDetalle($("#Embarque").data("kendoComboBox").value());                    
                     $("#EmbarqueDestino").text(Destino);
                     $("#InputCerrar")[0].checked = Cerrado;                    
                 }
@@ -468,8 +469,7 @@ function SuscribirEventoBuscar() {
             $("#noButtonProy").click(function () {
                 ventanaConfirm.close();
             });
-        }
-        
+        }        
     });
 }
 

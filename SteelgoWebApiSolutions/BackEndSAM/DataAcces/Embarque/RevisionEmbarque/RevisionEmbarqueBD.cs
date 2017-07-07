@@ -5,6 +5,7 @@ using SecurityManager.Api.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Web;
 
@@ -260,6 +261,7 @@ namespace BackEndSAM.DataAcces.Embarque.RevisionEmbarque
                             EmbarqueID = item.EmbarqueID,
                             EmbarqueEstatusID = item.EmbarqueEstatusID,
                             Paquete = item.Paquete,
+                            PaqueteID = item.PaqueteID,
                             DetalleRevisionID = item.DetalleRevisionID,
                             Llego = item.Llego.GetValueOrDefault(),
                             NoLlego = item.NoLlego.GetValueOrDefault(),
@@ -391,7 +393,7 @@ namespace BackEndSAM.DataAcces.Embarque.RevisionEmbarque
                 estatus = "LlegoComentario";
 
             return estatus;
-        }
+        }        
 
     }
 }
