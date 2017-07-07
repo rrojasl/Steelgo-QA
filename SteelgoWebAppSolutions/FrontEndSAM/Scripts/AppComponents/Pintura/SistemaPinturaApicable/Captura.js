@@ -254,7 +254,7 @@ function PlanchadoSistemaPintura(tipoLlenado) {
 					data[i].ColorPinturaID = 0;
 					data[i].SistemaPinturaColorID = 0;
 				} else {
-					if (data[i].Color == "") {
+				    if (itemColor != undefined && data[i].Color == "") {
 						data[i].Color = itemColor.Nombre;
 						data[i].ColorPinturaID = itemColor.ColorPinturaID;
 						data[i].SistemaPinturaColorID = itemColor.SistemaPinturaColorID;

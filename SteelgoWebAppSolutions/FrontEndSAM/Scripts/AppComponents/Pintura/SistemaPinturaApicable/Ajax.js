@@ -208,7 +208,9 @@ function AjaxGuardarCaptura(listaCaptura, GuardarYNuevo) {
             if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "OK") {
 
                 if (GuardarYNuevo) {
+                    
                     LimpiarPantalla();
+                    editado = false;
                 } else {
                     var tipoBusqueda = 0;
                     var cadena = "";
@@ -284,6 +286,7 @@ function AjaxGuardarCaptura(listaCaptura, GuardarYNuevo) {
 
                         if (GuardarYNuevo) {
                             LimpiarPantalla();
+                            editado = false;
                         } else {
                             var tipoBusqueda = 0;
                             var cadena = "";

@@ -216,7 +216,7 @@ function AjaxObtenerDetalleCargaCarro(MedioTransporteID, tipoEscenario, valorBus
 												if (array[i].SistemaPinturaID == 0 || array[i].SistemaPinturaID == undefined) {
 													displayNotify("", _dictionary.PinturaCargaCarroSinSpools[$("#language").data("kendoDropDownList").value()], '1');
 												}
-												else if (array[i].ColorPintura == null || array[i].ColorPintura == undefined) {
+												else if (array[i].NoPintable) {
 													displayNotify("menuSistemaPinturaNoPintable", "", '1');
 												}
 												else {

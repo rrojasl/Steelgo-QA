@@ -189,7 +189,13 @@ namespace BackEndSAM.Controllers.PinturaControllers.CapturaAvance
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return CapturaAvanceBD.Instance.ObtenerSpoolNuevo(OrdenTrabajoSpoolID, lenguaje, procesoPinturaID, usuario.UsuarioID);
+              
+                DataTable dtdetalle = (DataTable)CapturaAvanceBD.Instance.ObtenerSpoolNuevo(OrdenTrabajoSpoolID, lenguaje, procesoPinturaID, usuario.UsuarioID);
+
+                string jsonConvertido = DataTableToJSON(dtdetalle, procesoPinturaID, usuario.UsuarioID);// Convertir(dtdetalle, procesopinturaID, usuario.UsuarioID);
+
+                return jsonConvertido;
+
             }
             else
             {
