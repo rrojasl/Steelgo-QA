@@ -58,9 +58,10 @@ function CargarGrid() {
     })(kendo.ui.Grid.fn.editCell);
     $("#grid").kendoGrid({
         edit: function (e) {
-            displayNotify("RevisionPinturaGenerarRevision", "", '1');
             
-			if ($('#Guardar').text() != _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
+            
+            if ($('#Guardar').text() != _dictionary.lblGuardar[$("#language").data("kendoDropDownList").value()]) {
+                displayNotify("RevisionPinturaGenerarRevision", "", '1');
 				this.closeCell();
 			}
 			

@@ -287,7 +287,7 @@ function BuscarDetalle() {
                 if ($("#inputCuadrante").data("kendoComboBox").select() > 0) {
                     if ($("#inputSistemaPintura").data("kendoComboBox").select() > 0) {
                         if (!($('input:radio[name=ProcesoPintura]:checked').val() == "4" && $("#inputColor").data("kendoComboBox").select() <= 0)) {
-                            AjaxCargarLayoutGrid(dataItemCuadrante.CuadranteID, dataItemSP.SistemaPinturaProyectoID, dataItemColor.SistemaPinturaColorID, $("#language").val(), $('input:radio[name=ProcesoPintura]:checked').val(), $('input:radio[name=Muestra]:checked').val());
+                            AjaxCargarLayoutGrid(dataItemCuadrante.CuadranteID, dataItemSP.SistemaPinturaProyectoID,$('input:radio[name=ProcesoPintura]:checked').val() == "4" ? dataItemColor.SistemaPinturaColorID:0, $("#language").val(), $('input:radio[name=ProcesoPintura]:checked').val(), $('input:radio[name=Muestra]:checked').val());
                         }
                         else {
                             displayNotify("CapturaAvanceCuadranteNoColor", "", '1');
@@ -450,7 +450,7 @@ function limpiarFila(e) {
 
         itemToClean.FechaProceso = "";
         itemToClean.ListaObrerosSeleccionados = [];
-
+        itemToClean.LoteID = "";
         for (var j = 0; j < ComponentesDinamicosJSON.length; j++) {
             itemToClean[ComponentesDinamicosJSON[j].NombreColumna] = "";
         }

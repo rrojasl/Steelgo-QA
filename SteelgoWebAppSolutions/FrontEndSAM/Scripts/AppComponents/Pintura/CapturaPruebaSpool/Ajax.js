@@ -22,12 +22,6 @@
     });
 };
 
-function ajaxGuardar(data) {
-    loadingStart();
-    displayNotify("", "se guardo correctamente la informacion", '0');
-    opcionHabilitarView(true, "FieldSetView");
-    loadingStop();
-};
 
 function AjaxEnviarImagenBase64(imgSerializada) {
     loadingStart();
@@ -49,12 +43,16 @@ function AjaxEnviarImagenBase64(imgSerializada) {
 
 function AjaxObtenerPruebasSpoolID(SpoolID, ProyectoProcesoPruebaID, SistemaPinturaColorID) {
     loadingStart();
-    $PruebasPorLote.PruebasPorLote.read({ token: Cookies.get("token"), spoolID: SpoolID, proyectoProcesoPruebaID: ProyectoProcesoPruebaID, SistemaPinturaColorID: SistemaPinturaColorID, lenguaje: $("#language").val(), tipo: 1/*Para diferenciar entre el controler de pruebas por proceso y pruebas de un spool*/ }).done(function (data) {
+    $PruebasPorLote.PruebasPorLote.read({ token: Cookies.get("token"), spoolID: SpoolID, proyectoProcesoPruebaID: ProyectoProcesoPruebaID, SistemaPinturaColorID: SistemaPinturaColorID, lenguaje: $("#language").val(), loteID: 0 }).done(function (data) {
         if (Error(data)) {
             $("#grid").data("kendoGrid").dataSource.data([]);
-            $("#grid").data("kendoGrid").dataSource.data(data);
-            $("#grid").data("kendoGrid").dataSource.sync();
-            editado = true;
+            if (data.length > 0) {
+                $("#grid").data("kendoGrid").dataSource.data(data);
+                $("#grid").data("kendoGrid").dataSource.sync();
+                editado = true;
+            }
+            else
+                displayNotify("PinturaSpoolSinPruebas", "", '1');
         }
         loadingStop();
     });
@@ -74,7 +72,7 @@ function ajaxGuardar(data, guardarYNuevo) {
     var index = 0;
     for (var i = 0; i < data.length; i++) {
         $("#grid").data("kendoGrid").dataSource._data[i].RowOk = true;
-        ListaDetalles[index] = { Accion: "", SpoolID: "", ProyectoProcesoPruebaID: "", UnidadMedida: "", FechaPrueba: "", ResultadoEvaluacion: "", Estatus: 1, SistemaPinturaColorID: "" };
+        ListaDetalles[index] = { Accion: "", SpoolID: "", ProyectoProcesoPruebaID: "", UnidadMedida: "", FechaPrueba: "", ResultadoEvaluacion: "", Estatus: 1, SistemaPinturaColorID: "", PruebaLoteID: "" };
         ListaDetalles[index].Accion = (data[i].Accion == undefined || data[i].Accion == 0 || data[i].Accion == null) ? 1 : data[i].Accion;
         ListaDetalles[index].SpoolID = $("#inputProceso").data("kendoComboBox").dataItem($("#inputProceso").data("kendoComboBox").select()).SpoolID;
         ListaDetalles[index].ProyectoProcesoPruebaID = $("#inputPrueba").data("kendoComboBox").dataItem($("#inputPrueba").data("kendoComboBox").select()).ProyectoProcesoPruebaID;
@@ -82,6 +80,7 @@ function ajaxGuardar(data, guardarYNuevo) {
         ListaDetalles[index].ResultadoEvaluacion = data[i].ResultadoEvaluacion;
         ListaDetalles[index].FechaPrueba = data[i].FechaPrueba == null ? "" : kendo.toString(data[i].FechaPrueba, String(_dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()].replace('{', '').replace('}', '').replace("0:", ""))).trim();
         ListaDetalles[index].SistemaPinturaColorID = $("#inputProceso").data("kendoComboBox").dataItem($("#inputProceso").data("kendoComboBox").select()).ProcesoPinturaID != 4 ? 0 : $("#inputColor").data("kendoComboBox").dataItem($("#inputColor").data("kendoComboBox").select()).SistemaPinturaColorID;
+        ListaDetalles[index].PruebaLoteID = (data[i].Accion == undefined || data[i].Accion == 0 || data[i].Accion == null) ? 0 : data[i].PruebaLoteID;
 
         if (data[i].UnidadMedida == "" || data[i].FechaPrueba == "" || data[i].UnidadMedida == undefined || data[i].FechaPrueba == undefined || data[i].UnidadMedida == null || data[i].FechaPrueba == null)
             $("#grid").data("kendoGrid").dataSource._data[i].RowOk = false;
@@ -95,6 +94,9 @@ function ajaxGuardar(data, guardarYNuevo) {
             AjaxEjecutarGuardado(Captura[0], guardarYNuevo);
         }
         else {
+            displayNotify("MensajeGuardadoExistoso", "", '0');
+            opcionHabilitarView(false, "FieldSetView");
+            editado = false;
             loadingStop();
         }
     }
@@ -155,8 +157,7 @@ function ajaxGuardar(data, guardarYNuevo) {
 
 };
 
-function ajaxObtenerProcesosPorSpool(dato,catalogo)
-{
+function ajaxObtenerProcesosPorSpool(dato, catalogo) {
     loadingStart();
     $PruebasPorLote.PruebasPorLote.read({ token: Cookies.get("token"), dato: dato, lenguaje: $("#language").val(), catalogo: catalogo }).done(function (data) {
         if (Error(data)) {
@@ -177,8 +178,7 @@ function ajaxObtenerProcesosPorSpool(dato,catalogo)
 
                 }
             }
-            else if (catalogo == 2)
-            {
+            else if (catalogo == 2) {
                 $("#inputPrueba").data("kendoComboBox").dataSource.data(data);
                 $("#inputPrueba").data("kendoComboBox").value("");
                 if (data.length == 2) {
@@ -232,7 +232,7 @@ function AjaxEjecutarGuardado(data, guardarYNuevo) {
 }
 
 
-function AjaxMostrarInformacionSpool(unidadMedida,unidadMinima,unidadMaxima) {
+function AjaxMostrarInformacionSpool(unidadMedida, unidadMinima, unidadMaxima) {
     loadingStart();
     $PruebasPorLote.PruebasPorLote.read({ token: Cookies.get("token"), ordentrabajospoolid: $("#InputID").data("kendoComboBox").dataItem($("#InputID").data("kendoComboBox").select()).Valor, sistemapinturacolorid: $("#inputProceso").data("kendoComboBox").dataItem($("#inputProceso").data("kendoComboBox").select()).ProcesoPinturaID == 4 ? $("#inputColor").data("kendoComboBox").dataItem($("#inputColor").data("kendoComboBox").select()).SistemaPinturaColorID : 0, lenguaje: $("#language").val(), variable: 0 }).done(function (data) {
         if (Error(data)) {
@@ -248,8 +248,10 @@ function AjaxMostrarInformacionSpool(unidadMedida,unidadMinima,unidadMaxima) {
                 $("#labelUnidadMinima").text(unidadMinima);
                 $("#labelUnidadMaxima").text(unidadMaxima);
             }
-            else
+            else {
+
                 $('#InformacionSpoolDiv').hide();
+            }
         }
         loadingStop();
     });

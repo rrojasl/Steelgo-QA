@@ -270,7 +270,7 @@ namespace BackEndSAM.DataAcces.Pintura.PruebasPorLote
                         DetalleLote objeto = new DetalleLote
                         {
                             SpoolID = item.SpoolID,
-                            Area =double.Parse( item.Area.ToString()),
+                            Area = double.Parse(item.Area.ToString()),
                             Cuadrante = item.Cuadrante,
                             NumeroControl = item.NumeroControl,
                             UnidadMinima = item.UnidadMinima,
@@ -278,12 +278,13 @@ namespace BackEndSAM.DataAcces.Pintura.PruebasPorLote
                             SistemaPintura = item.SistemaPintura,
                             Color = item.Color,
                             PruebasRequeridas = item.PruebasRequeridas,
-                            PruebasEjecutadas=item.PruebasEjecutadas,
+                            PruebasEjecutadas = item.PruebasEjecutadas,
                             PruebaProcesoPinturaID = item.PruebaProcesoPinturaID,
                             CerrarLote = item.CerrarLote,
-                            ProyectoProcesoPruebaID=item.ProyectoProcesoPruebaID,
-                            Template=item.Template,
-                            Medida=item.Medida
+                            ProyectoProcesoPruebaID = item.ProyectoProcesoPruebaID,
+                            Template = item.Template,
+                            Medida = item.Medida,
+                            Accion = 2
                         };
                         listaDetalle.Add(objeto);
                     }
@@ -305,13 +306,13 @@ namespace BackEndSAM.DataAcces.Pintura.PruebasPorLote
             }
         }
 
-        public object ObtenerPruebasPorSpool(int spoolID,int proyectoProcesoPruebaID,int SistemaPinturaColorID,  string lenguaje)
+        public object ObtenerPruebasPorSpool(int spoolID,int proyectoProcesoPruebaID,int SistemaPinturaColorID,  string lenguaje,int loteID)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Pintura_PruebasLote_Get_PruebasSpool_Result> lista = ctx.Sam3_Pintura_PruebasLote_Get_PruebasSpool(spoolID, proyectoProcesoPruebaID, SistemaPinturaColorID, lenguaje).ToList();
+                    List<Sam3_Pintura_PruebasLote_Get_PruebasSpool_Result> lista = ctx.Sam3_Pintura_PruebasLote_Get_PruebasSpool(spoolID, proyectoProcesoPruebaID, SistemaPinturaColorID, lenguaje,loteID).ToList();
                     List<DetallePruebasPorSpool> listaDetallePruebasSpool = new List<DetallePruebasPorSpool>();
 
 
@@ -328,7 +329,8 @@ namespace BackEndSAM.DataAcces.Pintura.PruebasPorLote
                             Medida=item.Medida,
                             UnidadMaxima=item.UnidadMaxima,
                             UnidadMinima=item.UnidadMinima,
-                            Accion =2//es dos porque si ya existe entonces se actualiza.
+                            Accion =2,//es dos porque si ya existe entonces se actualiza.
+                            PruebaLoteID=item.PruebaLoteID
                         };
                         listaDetallePruebasSpool.Add(objeto);
                     }

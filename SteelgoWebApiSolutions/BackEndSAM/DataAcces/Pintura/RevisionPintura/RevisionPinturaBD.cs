@@ -164,7 +164,8 @@ namespace BackEndSAM.DataAcces.Pintura.RevisionPintura
                 {
                     SistemaPinturaID = item.SistemaPinturaID,
                     Nombre = item.Nombre,
-                    SistemaPinturaProyectoID = item.SistemaPinturaProyectoID
+                    SistemaPinturaProyectoID = item.SistemaPinturaProyectoID,
+                    NoPintable= item.NoPintable
                 };
                 listadoSistemaPintura.Add(sistemaPintura);
             }

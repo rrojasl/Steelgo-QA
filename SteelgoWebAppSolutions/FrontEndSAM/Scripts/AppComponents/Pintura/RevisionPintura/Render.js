@@ -33,14 +33,14 @@ function renderSistemaPintura(container, options) {
 
     var dataItem;
 	
-		$('<input required data-text-field="NombreSistemaPintura" id=' + options.model.uid + ' data-value-field="SistemaPinturaID" data-bind="value:' + options.field + '"/>')
+    $('<input required data-text-field="Nombre" id=' + options.model.uid + ' data-value-field="SistemaPinturaID" data-bind="value:' + options.field + '"/>')
 			.appendTo(container)
 			.kendoComboBox({
 				autoBind: false,
 				dataSource: options.model.ListadoSistemaPinturaPorProyecto,
-				dataTextField: "NombreSistemaPintura",
+				dataTextField: "Nombre",
 				dataValueField: "SistemaPinturaID",
-				template: "<i class=\"fa fa-#=data.NombreSistemaPintura#\"></i> #=data.NombreSistemaPintura#",
+				template: "<i class=\"fa fa-#=data.Nombre#\"></i> #=data.Nombre#",
 				change: function (e) {
 
 					dataItem = this.dataItem(e.sender.selectedIndex);

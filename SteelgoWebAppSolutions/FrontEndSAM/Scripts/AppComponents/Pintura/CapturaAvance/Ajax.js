@@ -336,9 +336,9 @@ function AjaxAgregarSpool(ordenTrabajoSpoolID) {
                                 else {
                                     ds.add(array[i]);
                                     if (elementosModificados != "")
-                                        elementosModificados += ", " + array[i].NumeroControl;
+                                        elementosModificados += ", " + array[i].Spool;
                                     else
-                                        elementosModificados = array[i].NumeroControl;
+                                        elementosModificados = array[i].Spool;
                                 }
                             } else if (sistemaPinturaID == array[i].SistemaPinturaID) {
                                 array[i].MedioTransporteCargaDetalleID = CargaCarroID == 0 ? $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()).MedioTransporteCargaID : CargaCarroID;
@@ -351,9 +351,9 @@ function AjaxAgregarSpool(ordenTrabajoSpoolID) {
                                 else {
                                     ds.add(array[i]);
                                     if (elementosModificados != "")
-                                        elementosModificados += ", " + array[i].NumeroControl;
+                                        elementosModificados += ", " + array[i].Spool;
                                     else
-                                        elementosModificados = array[i].NumeroControl;
+                                        elementosModificados = array[i].Spool;
                                 }
                             }
                             else {

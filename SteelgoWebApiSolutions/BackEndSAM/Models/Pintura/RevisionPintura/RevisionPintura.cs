@@ -11,11 +11,14 @@ namespace BackEndSAM.Models.Pintura.RevisionPintura
         public string Nombre { get; set; }
         public int SistemaPinturaProyectoID { get; set; }
 
+        public bool? NoPintable { get; set; }
+
         public SistemaPintura()
         {
             SistemaPinturaID = 0;
             Nombre = "";
             SistemaPinturaProyectoID = 0;
+            NoPintable= false;
         }
     }
 }

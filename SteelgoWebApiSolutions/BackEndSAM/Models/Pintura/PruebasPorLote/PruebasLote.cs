@@ -12,7 +12,7 @@ namespace BackEndSAM.Models.Pintura.PruebasPorLote
         public string SistemaPintura { get; set; }
         public string Color { get; set; }
         public decimal? Area { get; set; }
-        public int? LoteID { get; set; }
+        public string LoteID { get; set; }
         public string NombreCuadrante { get; set; }
 
     }
@@ -82,18 +82,21 @@ namespace BackEndSAM.Models.Pintura.PruebasPorLote
         public string Prueba { get; set; }
         public double UnidadMaxima { get; set; }
         public double UnidadMinima { get; set; }
+
+        
         public Pruebas()
         {
             this.PruebaProcesoPinturaID = 0;
             this.Prueba = "";
             this.UnidadMaxima = 0;
             this.UnidadMinima = 0;
+           
         }
     }
 
     public class Lotes
     {
-        public int LoteID { get; set; }
+        public int? LoteID { get; set; }
         public string Nombre { get; set; }
 
         public Lotes()
@@ -126,6 +129,9 @@ namespace BackEndSAM.Models.Pintura.PruebasPorLote
         public string Template { get; set; }
         public List<DetallePruebasPorSpool> ListaDetallePruebas { get; set; }
         public string Medida { get; set; }
+      
+
+        public int Accion { get; set; }
     }
 
     public class DetallePruebasPorSpool
@@ -139,6 +145,7 @@ namespace BackEndSAM.Models.Pintura.PruebasPorLote
         public double? UnidadMaxima { get; set; }
         public double? UnidadMinima { get; set; }
         public string Medida { get; set; }
+        public int PruebaLoteID { get; set; }
     }
 
 
@@ -155,5 +162,6 @@ namespace BackEndSAM.Models.Pintura.PruebasPorLote
         public string FechaPrueba { get; set; }
         public bool ResultadoEvaluacion { get; set; }
         public int SistemaPinturaColorID { get; set; }
+        public int PruebaLoteID { get; set; }
     }
 }

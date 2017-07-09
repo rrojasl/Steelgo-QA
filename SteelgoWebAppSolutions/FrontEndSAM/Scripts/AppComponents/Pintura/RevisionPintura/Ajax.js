@@ -160,7 +160,7 @@ function AjaxGuardar(arregloCaptura, tipoGuardar) {
                 ListaDetalles[row].Estatus = 0;
                 arregloCaptura[index].RowOk = false;
             }
-            if (arregloCaptura[index].NoPintable == false && (arregloCaptura[index].Color == "" || arregloCaptura[index].Color == undefined || arregloCaptura[index].Color == null))
+            if (arregloCaptura[index].NoPintable == true && (arregloCaptura[index].Color == "" || arregloCaptura[index].Color == undefined || arregloCaptura[index].Color == null))
             {
                 ListaDetalles[row].Estatus = 0;
                 arregloCaptura[index].RowOk = false;

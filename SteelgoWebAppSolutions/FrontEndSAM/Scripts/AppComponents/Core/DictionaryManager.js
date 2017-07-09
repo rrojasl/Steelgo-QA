@@ -8744,6 +8744,10 @@ _dictionary = {
         "es-MX": "U. Max",
         "en-US": "U. Max"
     },
+    "PinturaSpoolSinPruebas": {
+        "es-MX": "El spool no tiene pruebas capturadas",
+        "en-US": "The spool has not captured evidence"
+    },
     "columnPruebasPorLote": {
         "es-MX": "Pbas. lote",
         "en-US": "Test lot"

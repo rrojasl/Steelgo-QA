@@ -97,6 +97,7 @@ function CargarGrid() {
             schema: {
                 model: {
                     fields: {
+                        PruebaLoteID: { type: "number", editable: false },
                         Accion: { type: "number", editable: false },
                         NumeroControl: { type: "string", editable: false },
                         SistemaPintura: { type: "string", editable: false },
@@ -163,12 +164,14 @@ function CargarGrid() {
 }
 
 function CargarGridPopUp() {
+
     $("#gridPopUp").kendoGrid({
         edit: function (e) {
             var inputName = e.container.find('input');
             inputName.select();
 
         },
+        autoBind: true,
         dataSource: {
             schema: {
                 model: {
@@ -179,69 +182,72 @@ function CargarGridPopUp() {
                         UnidadMaxima: { type: "number", editable: false },
                         UnidadMinima: { type: "number", editable: false },
                         Medida: { type: "string", editable: false },
-                        
-                        
                         FechaPrueba: { type: "date", editable: true },
                         UnidadMedida: { type: "number", editable: true },
                         ResultadoEvaluacion: { type: "boolean", editable: false }
                     }
                 }
-            }, filter: {
-                logic: "or",
-                filters: [
-                  { field: "Accion", operator: "eq", value: 1 },
-                  { field: "Accion", operator: "eq", value: 2 },
-                  { field: "Accion", operator: "eq", value: 0 },
-                  { field: "Accion", operator: "eq", value: 4 },
-                  { field: "Accion", operator: "eq", value: undefined }
-                ]
-            }
-
-
+            },
+            pageSize: 10,
+            serverPaging: false,
+            serverFiltering: false,
+            serverSorting: false
         },
-        selectable: true,
+        navigatable: true,
+        filterable: {
+            extra: false
+        },
+        editable: true,
+        autoHeight: true,
+        sortable: true,
+        scrollable: true,
+        pageable: {
+            refresh: false,
+            pageSizes: [10, 25, 50, 100],
+            info: false,
+            input: false,
+            numeric: true,
+        },
         filterable: getGridFilterableMaftec(),
         columns: [
-                  { field: "FechaPrueba", title: _dictionary.columnFechaPrueba[$("#language").data("kendoDropDownList").value()], filterable: { cell: { showOperators: false } }, editor: RenderDatePicker, width: "20px", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()] },
-                  { field: "UnidadMedida", editor: RenderAprobado, title: "Valor U. Medida", filterable: getGridFilterableCellNumberMaftec(), width: "20px", attributes: { style: "text-align:right;" },editor:RenderMedida },
-                 {
-                     field: "ResultadoEvaluacion", title: "Aprobado", filterable: getGridFilterableCellNumberMaftec(), width: "20px", attributes: { style: "text-align:center;" }, template: "<span>  #= ResultadoEvaluacion ? 'Si' : 'No' #</span></div>"
-                 },
-
-                   //{
-                   //    field: "ResultadoEvaluacion", title: "Aprobado", filterable: {
-                   //        multi: true,
-                   //        messages: {
-                   //            isTrue: _dictionary.lblVerdadero[$("#language").data("kendoDropDownList").value()],
-                   //            isFalse: _dictionary.lblFalso[$("#language").data("kendoDropDownList").value()],
-                   //            style: "max-width:100px;"
-                   //        },
-                   //        dataSource: [{ OkPND: true }, { OkPND: false }]
-                   //    }, template: "<input name='fullyPaid' class='chk-Lectura' type='checkbox' data-bind='checked: ResultadoEvaluacion' #= ResultadoEvaluacion ? checked='checked' : '' # disabled/>", width: "30px", attributes: { style: "text-align:center;" }
-                   //},
-
+             { field: "FechaPrueba", title: _dictionary.columnFechaPrueba[$("#language").data("kendoDropDownList").value()], filterable: { cell: { showOperators: false } }, editor: RenderDatePicker, width: "15px", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()] },
+                  { field: "UnidadMedida", editor: RenderAprobado, title: "Valor U. Medida", filterable: getGridFilterableCellNumberMaftec(), width: "20px", attributes: { style: "text-align:right;" }, editor: RenderMedida },
+                   {
+                       field: "ResultadoEvaluacion", title: "Aprobado", filterable: {
+                           multi: true,
+                           messages: {
+                               isTrue: _dictionary.lblVerdadero[$("#language").data("kendoDropDownList").value()],
+                               isFalse: _dictionary.lblFalso[$("#language").data("kendoDropDownList").value()],
+                               style: "max-width:100px;"
+                           },
+                           dataSource: [{ OkPND: true }, { OkPND: false }]
+                       }, template: "#= ResultadoEvaluacion ? 'Si' : 'No' #", width: "30px", attributes: { style: "text-align:center;" }
+                   },
                   { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: eliminarCaptura }, title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], width: "10px", attributes: { style: "text-align:center;" } }
         ],
-        editable: true,
-        navigatable: true,
-        toolbar: [{ name: "create" }],
-            dataBound: function () {
-                var grid = $("#gridPopUp").data("kendoGrid");
-                var gridData = grid.dataSource.view();
+        dataBound: function () {
+            var grid = $("#grid").data("kendoGrid");
+            var gridData = grid.dataSource.view();
 
-                //for (var i = 0; i < gridData.length; i++) {
-                //    var currentUid = gridData[i].uid;
-                //    if (gridData[i].ResultadoEvaluacion == ) {
-                //        gridData[i].ResultadoEvaluacion = "No";
-                     
-                //    }
-                //    else if (gridData[i].ResultadoEvaluacion=="Si") {
-                //        gridData[i].ResultadoEvaluacion = "Si";
-                //    }
-                //}
+            for (var i = 0; i < gridData.length; i++) {
+                var currentUid = gridData[i].uid;
+                if (gridData[i].RowOk == false) {
+                    grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("k-alt");
+                    grid.table.find("tr[data-uid='" + currentUid + "']").addClass("kRowError");
+
+                }
+                else if (gridData[i].RowOk) {
+                    if (i % 2 == 0)
+                        grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("k-alt");
+                    grid.table.find("tr[data-uid='" + currentUid + "']").removeClass("kRowError");
+                }
             }
+        },
+        toolbar: [{ name: "create" }]
     });
     CustomisaGrid($("#gridPopUp"));
+
+
 };
 
 

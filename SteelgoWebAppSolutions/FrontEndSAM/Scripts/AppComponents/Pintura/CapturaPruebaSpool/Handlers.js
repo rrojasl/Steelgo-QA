@@ -127,12 +127,12 @@ function SuscribirEventoColor() {
     });
     $('#inputColor').closest('.k-widget').keydown(function (e) {
         if (e.keyCode == 13) {
-            if ($("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()) != undefined) {
-                BuscarDetalleCarro();
-            }
-            else {
-                $("#inputCarro").data("kendoComboBox").value("");
-            }
+            //if ($("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()) != undefined) {
+            //    BuscarDetalleCarro();
+            //}
+            //else {
+            //    $("#inputCarro").data("kendoComboBox").value("");
+            //}
         }
     });
 }
@@ -307,6 +307,8 @@ function opcionHabilitarView(valor, name) {
         $('#botonGuardar').text("Editar");
         $('#botonGuardar3').text("Editar");
         $('#botonGuardar4').text("Editar");
+        $('.k-grid-add').click(function () { return false; });
+       
     }
     else {
         $('#FieldSetView').find('*').attr('disabled', false);
@@ -321,6 +323,7 @@ function opcionHabilitarView(valor, name) {
         $('#botonGuardar').text("Guardar");
         $('#botonGuardar3').text("Guardar");
         $('#botonGuardar4').text("Guardar");
+        $('.k-grid-add').unbind('click');
     }
 
 }

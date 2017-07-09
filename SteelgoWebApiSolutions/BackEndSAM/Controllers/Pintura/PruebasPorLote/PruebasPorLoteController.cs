@@ -167,7 +167,7 @@ namespace BackEndSAM.Controllers.Pintura
         }
 
         //obtener pruebas por spool realizadas
-        public object Get(string token, int spoolID, int proyectoProcesoPruebaID,int SistemaPinturaColorID, string lenguaje, int tipo)
+        public object Get(string token, int spoolID, int proyectoProcesoPruebaID,int SistemaPinturaColorID, string lenguaje,int loteID )
         {
             string payload = "";
             string newToken = "";
@@ -176,7 +176,7 @@ namespace BackEndSAM.Controllers.Pintura
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return PruebasPorLoteBD.Instance.ObtenerPruebasPorSpool(spoolID, proyectoProcesoPruebaID, SistemaPinturaColorID, lenguaje);
+                return PruebasPorLoteBD.Instance.ObtenerPruebasPorSpool(spoolID, proyectoProcesoPruebaID, SistemaPinturaColorID, lenguaje, loteID);
 
             }
             else

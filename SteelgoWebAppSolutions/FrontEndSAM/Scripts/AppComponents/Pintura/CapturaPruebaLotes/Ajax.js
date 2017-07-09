@@ -214,7 +214,7 @@ function ajaxGuardar(data, guardarYNuevo) {
         }
 
         for (var j = 0; j < (data[i].ListaDetallePruebas == null ? 0 : data[i].ListaDetallePruebas.length) ; j++) {
-            ListaDetalles[index] = { Accion: "", SpoolID: "", ProyectoProcesoPruebaID: "", UnidadMedida: "", FechaPrueba: "", ResultadoEvaluacion: "", Estatus: 1, SistemaPinturaColorID: "" };
+            ListaDetalles[index] = { Accion: "", SpoolID: "", ProyectoProcesoPruebaID: "", UnidadMedida: "", FechaPrueba: "", ResultadoEvaluacion: "", Estatus: 1, SistemaPinturaColorID: "",PruebaLoteID:"" };
             ListaDetalles[index].Accion = (data[i].ListaDetallePruebas[j].Accion == undefined || data[i].ListaDetallePruebas[j].Accion == 0 || data[i].ListaDetallePruebas[j].Accion == null) ? 1 : data[i].ListaDetallePruebas[j].Accion;
             ListaDetalles[index].SpoolID = data[i].SpoolID;
             ListaDetalles[index].ProyectoProcesoPruebaID = data[i].ProyectoProcesoPruebaID;
@@ -222,6 +222,7 @@ function ajaxGuardar(data, guardarYNuevo) {
             ListaDetalles[index].ResultadoEvaluacion = data[i].ListaDetallePruebas[j].ResultadoEvaluacion;
             ListaDetalles[index].FechaPrueba = data[i].ListaDetallePruebas[j].FechaPrueba == null ? "" : kendo.toString(data[i].ListaDetallePruebas[j].FechaPrueba, String(_dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()].replace('{', '').replace('}', '').replace("0:", ""))).trim().split(" ")[0];
             ListaDetalles[index].SistemaPinturaColorID = $("#inputProceso").data("kendoComboBox").dataItem($("#inputProceso").data("kendoComboBox").select()).ProcesoPinturaID != 4 ? 0 : $("#inputColor").data("kendoComboBox").dataItem($("#inputColor").data("kendoComboBox").select()).SistemaPinturaColorID;
+            ListaDetalles[index].PruebaLoteID = (data[i].ListaDetallePruebas[j].Accion == undefined || data[i].ListaDetallePruebas[j].Accion == 0 || data[i].ListaDetallePruebas[j].Accion == null) ? $("#inputLote").data("kendoComboBox").dataItem($("#inputLote").data("kendoComboBox").select()).LoteID : data[i].ListaDetallePruebas[j].PruebaLoteID;
             index++;
         }
     }
@@ -302,7 +303,12 @@ function ajaxGuardar(data, guardarYNuevo) {
             editado = false;
         }
         else
-            displayNotify("AdverteciaExcepcionGuardado", "", '1');
+        {
+            displayNotify("MensajeGuardadoExistoso", "", '0');
+            opcionHabilitarView(false, "FieldSetView");
+            editado = false;
+        }
+        
     }
 };
 
@@ -355,9 +361,9 @@ function ajaxBuscarPorLote() {
 
 }
 
-function AjaxObtenerPruebasSpoolID(SpoolID, ProyectoProcesoPruebaID, SistemaPinturaColorID, unidadMedida, gridRow) {
+function AjaxObtenerPruebasSpoolID(SpoolID, ProyectoProcesoPruebaID, SistemaPinturaColorID, unidadMedida, gridRow,loteID) {
     loadingStart();
-    $PruebasPorLote.PruebasPorLote.read({ token: Cookies.get("token"), spoolID: SpoolID, proyectoProcesoPruebaID: ProyectoProcesoPruebaID, SistemaPinturaColorID: SistemaPinturaColorID, lenguaje: $("#language").val(), tipo: 1/*Para diferenciar entre el controler de pruebas por proceso y pruebas de un spool*/ }).done(function (data) {
+    $PruebasPorLote.PruebasPorLote.read({ token: Cookies.get("token"), spoolID: SpoolID, proyectoProcesoPruebaID: ProyectoProcesoPruebaID, SistemaPinturaColorID: SistemaPinturaColorID, lenguaje: $("#language").val(), loteID: loteID }).done(function (data) {
         if (Error(data)) {
             gridRow.ListaDetallePruebas = data;
             $("#gridPopUp").data("kendoGrid").dataSource.data(data);

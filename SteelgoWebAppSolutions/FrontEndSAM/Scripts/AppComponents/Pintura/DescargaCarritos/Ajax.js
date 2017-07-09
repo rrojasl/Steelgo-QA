@@ -79,7 +79,7 @@ function ajaxGuardar(data,tipoGuardado) {
     var estaCarroCompletamenteDescargado=true;
 
     for (var i = 0; i < data.length; i++) {
-        if(data[i].CuadranteID==cuadranteIDCarro)
+        if (data[i].CuadranteID == 0 || data[i].CuadranteID == undefined || data[i].CuadranteID == null || data[i].CuadranteID == "")
         { 
             estaCarroCompletamenteDescargado=false;
             break;

@@ -353,7 +353,7 @@ function SuscribirEventoFechaLote() {
                 $("#inputLote").data("kendoComboBox").value("");
 
                 var dataItem = e.sender._oldText;
-                if (dataItem != "" && $("#inputPrueba").data("kendoComboBox").select() > 0) {
+                if (dataItem != "" ) {
                     LineaCaptura.FechaSeleccionada = e.sender._oldText;
                     var ProcesoPinturaID = $("#inputProceso").data("kendoComboBox").dataItem($("#inputProceso").data("kendoComboBox").select()).ProcesoPinturaID;
                     var SistemaPinturaProyectoID = $("#inputSistemaPintura").data("kendoComboBox").dataItem($("#inputSistemaPintura").data("kendoComboBox").select()).SistemaPinturaProyectoID;
@@ -361,9 +361,7 @@ function SuscribirEventoFechaLote() {
                     var fecha = e.sender._oldText;
                     ajaxLlenarLote(ProcesoPinturaID, SistemaPinturaProyectoID, PruebaProcesoPinturaID, fecha, $("#language").val());
                 }
-                else {
-                    $("#inputPrueba").data("kendoComboBox").value("");
-                }
+               
             }
             else {
                 ventanaConfirmEdicionSinTipoBusqueda.open().center();
@@ -465,7 +463,7 @@ function suscribirEventoEnlaceDetallePrueba() {
             gridRow = $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr"));
 
             if (gridRow.ListaDetallePruebas == null || gridRow.ListaDetallePruebas == undefined || gridRow.ListaDetallePruebas == "")
-                AjaxObtenerPruebasSpoolID(gridRow.SpoolID, gridRow.ProyectoProcesoPruebaID, $("#inputProceso").data("kendoComboBox").dataItem($("#inputProceso").data("kendoComboBox").select()).ProcesoPinturaID != 4 ? 0 : $("#inputColor").data("kendoComboBox").dataItem($("#inputColor").data("kendoComboBox").select()).SistemaPinturaColorID, gridRow.Medida, gridRow);
+                AjaxObtenerPruebasSpoolID(gridRow.SpoolID, gridRow.ProyectoProcesoPruebaID, $("#inputProceso").data("kendoComboBox").dataItem($("#inputProceso").data("kendoComboBox").select()).ProcesoPinturaID != 4 ? 0 : $("#inputColor").data("kendoComboBox").dataItem($("#inputColor").data("kendoComboBox").select()).SistemaPinturaColorID, gridRow.Medida, gridRow, $("#inputLote").data("kendoComboBox").dataItem($("#inputLote").data("kendoComboBox").select()).LoteID);
             else {
                 $("#gridPopUp").data("kendoGrid").dataSource.data(gridRow.ListaDetallePruebas);
                 verVentanaPruebasPorSpool($("#inputPrueba").data("kendoComboBox").dataItem($("#inputPrueba").data("kendoComboBox").select()).Prueba, gridRow.Medida);

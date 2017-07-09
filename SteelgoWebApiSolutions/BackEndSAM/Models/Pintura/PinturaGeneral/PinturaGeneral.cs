@@ -83,6 +83,8 @@ namespace BackEndSAM.Models.Pintura.PinturaGeneral
         public int? CarroID { get; set; }
 
         public int? CuadranteID { get; set; }
+        
+
         public PinturaRevision()
         {
             this.Accion = 0;
