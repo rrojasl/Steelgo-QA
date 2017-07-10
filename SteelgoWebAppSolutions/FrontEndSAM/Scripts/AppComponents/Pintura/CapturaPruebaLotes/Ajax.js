@@ -319,7 +319,7 @@ function ajaxBuscarPorLote() {
             if ($("#inputSistemaPintura").data("kendoComboBox").select() > 0) {
                 if ($("#inputProceso").data("kendoComboBox").dataItem($("#inputProceso").data("kendoComboBox").select()).ProcesoPinturaID == 4 ? $("#inputColor").data("kendoComboBox").select() > 0 : true) {
                     if ($("#inputPrueba").data("kendoComboBox").select() > 0) {
-                        if ($("#inputLote").data("kendoComboBox").select() > 0) {
+                        if ($("#inputLote").data("kendoComboBox").dataItem($("#inputLote").data("kendoComboBox").select()) != undefined && $("#inputLote").data("kendoComboBox").dataItem($("#inputLote").data("kendoComboBox").select()).LoteID != 0) {
                             loadingStart();
                             $PruebasPorLote.PruebasPorLote.read({ token: Cookies.get("token"), procesoPinturaID: $("#inputProceso").data("kendoComboBox").dataItem($("#inputProceso").data("kendoComboBox").select()).ProcesoPinturaID, sistemaPinturaProyectoID: $("#inputSistemaPintura").data("kendoComboBox").dataItem($("#inputSistemaPintura").data("kendoComboBox").select()).SistemaPinturaProyectoID, pruebaProcesoPinturaID: $("#inputPrueba").data("kendoComboBox").dataItem($("#inputPrueba").data("kendoComboBox").select()).PruebaProcesoPinturaID, sistemaPinturaColorID: ($("#inputColor").data("kendoComboBox").select() <= 0) ? 0 : $("#inputColor").data("kendoComboBox").dataItem($("#inputColor").data("kendoComboBox").select()).SistemaPinturaColorID, loteID: $("#inputLote").data("kendoComboBox").dataItem($("#inputLote").data("kendoComboBox").select()).LoteID, lenguaje: $("#language").val() }).done(function (array) {
                                 if (array.length > 0) {

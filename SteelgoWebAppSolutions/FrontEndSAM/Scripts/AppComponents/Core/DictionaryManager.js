@@ -12796,7 +12796,10 @@ _dictionary = {
     },
     //#endregion
     //#region Inicia modulo RevisionPintura
-
+    "BusquedaSinAvance": {
+        "es-MX": "No se encontraron coincidencias en avance con la busqueda seleccionada",
+        "en-US": "No matches found in 'advance' with the selected search"
+    },
     "lblGenerarRevision": {
         "es-MX": "Generar Revision",
         "en-US": "Generate Revision"

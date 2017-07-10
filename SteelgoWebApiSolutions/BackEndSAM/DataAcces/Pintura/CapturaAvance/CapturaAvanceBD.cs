@@ -128,7 +128,7 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
             }
         }
 
-        public object ObtenerSpoolNuevo(int OrdenTrabajoSpoolID, string lenguaje,int procesoPinturaID,int usuario)
+        public object ObtenerSpoolNuevo(int OrdenTrabajoSpoolID, string lenguaje,int procesoPinturaID,int usuario, int CargaCarroID)
         {
             try
             {
@@ -136,7 +136,7 @@ namespace BackEndSAM.DataAcces.PinturaBD.CapturaAvanceBD
                 {
                     RetornaDetalles detalles = new RetornaDetalles();
                     ObjetosSQL _SQL = new ObjetosSQL();
-                    string[,] parametro = { { "@OrdenTrabajoSpoolID", OrdenTrabajoSpoolID.ToString() }, { "@Lenguaje", lenguaje }, { "@procesoPinturaID", procesoPinturaID.ToString() }};
+                    string[,] parametro = { { "@OrdenTrabajoSpoolID", OrdenTrabajoSpoolID.ToString() }, { "@Lenguaje", lenguaje }, { "@procesoPinturaID", procesoPinturaID.ToString() }, { "@cargaCarroID", CargaCarroID.ToString() } };
                     DataTable dtDetalle = _SQL.EjecutaDataAdapter(Stords.AGREGARSPOOLSAVANCE, parametro);
                     return dtDetalle;
                    

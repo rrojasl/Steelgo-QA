@@ -33,7 +33,7 @@ function RenderMedida(container, options) {
     if ($('#Guardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
 
         var dataItem;
-        var numeroComponentesNumeric = $('<input data-text-field="UnidadMedida" id=' + options.model.uid + ' data-value-field="UnidadMedida" data-bind="value:' + options.field + '"/>')
+        var numeroComponentesNumeric = $('<input  id=' + options.model.uid + 'data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoNumericTextBox({
             format: "#",

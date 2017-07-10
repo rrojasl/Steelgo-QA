@@ -180,7 +180,7 @@ namespace BackEndSAM.Controllers.PinturaControllers.CapturaAvance
         }
 
         [HttpGet]
-        public object ObtenerDetalleSpoolAgregar(string token, int OrdenTrabajoSpoolID, string lenguaje, int procesoPinturaID)
+        public object ObtenerDetalleSpoolAgregar(string token, int OrdenTrabajoSpoolID, string lenguaje, int procesoPinturaID,int CargaCarroID)
         {
             string payload = "";
             string newToken = "";
@@ -190,7 +190,7 @@ namespace BackEndSAM.Controllers.PinturaControllers.CapturaAvance
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
               
-                DataTable dtdetalle = (DataTable)CapturaAvanceBD.Instance.ObtenerSpoolNuevo(OrdenTrabajoSpoolID, lenguaje, procesoPinturaID, usuario.UsuarioID);
+                DataTable dtdetalle = (DataTable)CapturaAvanceBD.Instance.ObtenerSpoolNuevo(OrdenTrabajoSpoolID, lenguaje, procesoPinturaID, usuario.UsuarioID, CargaCarroID);
 
                 string jsonConvertido = DataTableToJSON(dtdetalle, procesoPinturaID, usuario.UsuarioID);// Convertir(dtdetalle, procesopinturaID, usuario.UsuarioID);
 

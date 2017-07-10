@@ -72,7 +72,7 @@ function AjaxEjecutarBusquedaSpoolConSP()
             //displayNotify("InformacionAgregada", "", '0');
         }
         else {
-            displayNotify("ErrorSpoolAgregarProyectoIncorrecto", "", '1');
+            displayNotify("BusquedaSinAvance", "", '1');
         }
     });
 }
@@ -98,7 +98,7 @@ function AjaxEjecutarBusquedaSpoolConSPDespuesDescarga() {
 			editado = true;
 		}
 		else {
-			displayNotify("ErrorSpoolAgregarProyectoIncorrecto", "", '1');
+		    displayNotify("BusquedaSinAvance", "", '1');
 		}
 	});
 }

@@ -338,6 +338,7 @@ function BuscarDetalleCarro() {
 			}
 			else
 			{
+			    LimpiarDespuesCambioColor();
 				if ($("#inputColor").data("kendoComboBox").dataItem($("#inputColor").data("kendoComboBox").select()).ColorID != 0 && $("#inputColor").data("kendoComboBox").dataItem($("#inputColor").data("kendoComboBox").select()).ColorID != undefined && $("#inputColor").data("kendoComboBox").dataItem($("#inputColor").data("kendoComboBox").select()).ColorID != null)
 					AjaxCargarLayoutGrid(dataItem.SistemaPinturaProyectoID, $('input:radio[name=ProcesoPintura]:checked').val(), dataItem.MedioTransporteCargaID);
 				else
@@ -384,9 +385,9 @@ function LimpiarDespuesCambioCarro() {
 function LimpiarDespuesCambioColor() {
 	$("#InputOrdenTrabajo").val("");
 	$("#InputID").data("kendoComboBox").value("");
-	$("#inputColor").data("kendoComboBox").dataSource.data([]);
-	$("#inputColor").data("kendoComboBox").value("");
-	$("#grid").empty();
+	document.getElementById('divAgregarComponentesReductoresDinamicos').innerHTML = '';
+	$("#divAgregarComponentesReductoresDinamicos").empty();
+
 }
 
 function CrearGrid() {
@@ -412,7 +413,7 @@ function CrearGrid() {
                     var currentUid = gridData[i].uid;
                     var currenRow = ds.table.find("tr[data-uid='" + currentUid + "']");
                     var editButton = $(currenRow).find(".k-button");
-                    if (gridData[i].CargaCarroID != 0) {
+                    if (gridData[i].PerteneceCarro) {
                         var classDescarga = $("#language").val() == "es-MX" ? "k-grid-Descarga" : "k-grid-Discharging";
                         editButton[0].outerHTML = '<a class="k-button k-button-icontext ' + classDescarga + '" href="#/"><span class=""></span>' +
                             _dictionary.botonDescarga[$("#language").data("kendoDropDownList").value()] + '</a>';

@@ -606,10 +606,7 @@ function opcionHabilitarView(valor, name) {
     if (valor) {
         $('#FieldSetView').find('*').attr('disabled', true);
 
-        if ($("#inputNoAplicable").is(':checked'))
-            $("#inputColor").data("kendoMultiSelect").enable(false);
-        else
-            $("#inputColor").data("kendoMultiSelect").enable(true);
+        $("#inputColor").data("kendoMultiSelect").enable(false);
 
         $("#comboProyecto").data("kendoComboBox").enable(false);
        

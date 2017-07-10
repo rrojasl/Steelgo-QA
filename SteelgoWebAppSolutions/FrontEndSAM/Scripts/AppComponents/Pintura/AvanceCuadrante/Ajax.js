@@ -38,7 +38,7 @@ function AjaxCargarCamposPredeterminados() {
 }
 
 function AjaxCargarCamposPredeterminadosPlanchado() {
-    var TipoMuestraPredeterminadoID = 4078;
+    var TipoMuestraPredeterminadoID = 4079;
     $CamposPredeterminados.CamposPredeterminados.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), id: TipoMuestraPredeterminadoID }).done(function (data) {
         if (data == "todos") {
             $('input:radio[name=LLena]:nth(0)').trigger("click");
@@ -293,7 +293,7 @@ function AjaxObtenerSpoolID() {
 
 function AjaxAgregarSpool(ordenTrabajoSpoolID) {
     loadingStart();
-    $CapturaAvance.CapturaAvance.read({ token: Cookies.get("token"), OrdenTrabajoSpoolID: ordenTrabajoSpoolID, lenguaje: $("#language").val(), procesoPinturaID: $('input:radio[name=ProcesoPintura]:checked').val() }).done(function (data) {
+    $CapturaAvance.CapturaAvance.read({ token: Cookies.get("token"), OrdenTrabajoSpoolID: ordenTrabajoSpoolID, lenguaje: $("#language").val(), procesoPinturaID: $('input:radio[name=ProcesoPintura]:checked').val(), CargaCarroID:0 }).done(function (data) {
         var ds = $("#grid").data("kendoGrid").dataSource;
         var PatioID = 0;
         //var carroID = $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()).MedioTransporteID;
@@ -326,6 +326,11 @@ function AjaxAgregarSpool(ordenTrabajoSpoolID) {
                                     displayNotify("menuSistemaPinturaNoPintable", "", '1');
                                 }
                                 else {
+
+                                    if (array[i].ListaObrerosSeleccionados == undefined || array[i].ListaObrerosSeleccionados == undefined || array[i].ListaObrerosSeleccionados.length == 0) {
+                                        array[i].plantillaObrero = _dictionary.CapturaAvancePintoresShotblastExistentes[$("#language").data("kendoDropDownList").value()] + array[i].ListaObrerosSeleccionados.length;
+                                    }
+
                                     ds.add(array[i]);
                                     if (elementosModificados != "")
                                         elementosModificados += ", " + array[i].Spool;
@@ -341,6 +346,9 @@ function AjaxAgregarSpool(ordenTrabajoSpoolID) {
                                     displayNotify("menuSistemaPinturaNoPintable", "", '1');
                                 }
                                 else {
+                                    if (array[i].ListaObrerosSeleccionados == undefined || array[i].ListaObrerosSeleccionados == undefined || array[i].ListaObrerosSeleccionados.length == 0) {
+                                        array[i].plantillaObrero = _dictionary.CapturaAvancePintoresShotblastExistentes[$("#language").data("kendoDropDownList").value()] + array[i].ListaObrerosSeleccionados.length;
+                                    }
                                     ds.add(array[i]);
                                     if (elementosModificados != "")
                                         elementosModificados += ", " + array[i].Spool;

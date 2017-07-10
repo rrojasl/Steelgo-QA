@@ -49,6 +49,23 @@ function getGridFilterableCellNumberMaftec() {
         }
     }
 }
+function getGridFilterableCellNumberMaftecPopup() {
+    return {
+        extra: true,
+        cell: {
+            operator: "equals",
+            template: function (args) {
+                $(args).prop('type', 'number');
+                args.css("width", "95%").addClass("general-input").keydown(function (e) {
+                    setTimeout(function () {
+                        $(e.target).trigger("change");
+                    });
+                });
+            },
+            showOperators: false
+        }
+    }
+}
 
 function getGridFilterableCellMaftecpopUp() {
     return {
