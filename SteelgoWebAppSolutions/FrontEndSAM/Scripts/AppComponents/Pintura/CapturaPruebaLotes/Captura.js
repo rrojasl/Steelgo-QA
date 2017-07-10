@@ -207,18 +207,18 @@ function CargarGridPopUp() {
         },
         filterable: getGridFilterableMaftec(),
         columns: [
-                       { field: "FechaPrueba", title: _dictionary.columnFechaPrueba[$("#language").data("kendoDropDownList").value()], filterable: getKendoGridFilterableDateMaftec(), editor: RenderDatePicker, width: "15px", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()] },
-                       { field: "UnidadMedida", editor: RenderAprobado, title: "Valor U. Medida", filterable: getGridFilterableCellNumberMaftecPopup(), width: "20px", attributes: { style: "text-align:right;" }, editor: RenderMedida },
+                       { field: "FechaPrueba", title: _dictionary.columnFechaPrueba[$("#language").data("kendoDropDownList").value()], filterable: getKendoGridFilterableDateMaftec(), editor: RenderDatePicker, width: "12px", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()] },
+                       { field: "UnidadMedida", editor: RenderAprobado, title: "Valor U. Medida", filterable: getGridFilterableCellNumberMaftecPopup(), width: "25px", attributes: { style: "text-align:right;" }, editor: RenderMedida },
                        {
                            field: "ResultadoEvaluacion", title: "Aprobado", filterable: {
                                multi: true,
                                messages: {
                                    isTrue: _dictionary.lblVerdadero[$("#language").data("kendoDropDownList").value()],
                                    isFalse: _dictionary.lblFalso[$("#language").data("kendoDropDownList").value()],
-                                   style: "max-width:100px;"
+                                   style: "max-width:120px;"
                                },
-                               dataSource: [{ OkPND: true }, { OkPND: false }]
-                           }, template: "#= ResultadoEvaluacion ? 'Si' : 'No' #", width: "30px", attributes: { style: "text-align:center;" }
+                               dataSource: [{ ResultadoEvaluacion: true }, { ResultadoEvaluacion: false }]
+                           }, template: "#= ResultadoEvaluacion ? 'Si' : 'No' #", width: "15px", attributes: { style: "text-align:center;" }
                        },
                       { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: eliminarCaptura }, title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], width: "10px", attributes: { style: "text-align:center;" } }
         ],

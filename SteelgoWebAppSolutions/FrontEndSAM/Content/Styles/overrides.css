@@ -65,6 +65,18 @@
     color: red
 }
 
+.inputtext-popup {
+    border-radius: 0;
+    min-height: 34px;
+    height: 34px;
+    font-weight: normal;
+    font-size: 14px;
+    color: #1B3F70;
+    width: 100%;
+    padding: 2px 0;
+}
+
+
 .disabledDay {
     /* adding some CSS to match the normal days styling */
     display: block;

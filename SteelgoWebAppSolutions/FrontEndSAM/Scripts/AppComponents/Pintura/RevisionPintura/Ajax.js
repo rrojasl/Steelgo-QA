@@ -136,6 +136,9 @@ function AjaxConsultarSpoolsConSP(tipoBusquedaSeleccionada, datoSeleccionado) {
                 ventanaConfirmBusqueda.close();
             });
         }
+        else {
+            displayNotify("BusquedaSinAvance", "", '1');
+        }
     });
 };
 

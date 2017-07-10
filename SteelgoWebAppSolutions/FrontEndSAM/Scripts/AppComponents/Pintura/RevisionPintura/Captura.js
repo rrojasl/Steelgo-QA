@@ -1,6 +1,12 @@
-﻿var editado;
+﻿
 var esNormal;
 var windowDownload;
+
+var editado = false;
+var ventanaConfirmEdicionSinTipoBusqueda;
+var EjecutaChange = 0;
+
+var LineaCaptura = { ProyectoIDSeleccionado: "", BusquedaSeleccionada: "" }
 
 function IniciarSistemaPinturaAplicable() {
     SuscribirEventos();

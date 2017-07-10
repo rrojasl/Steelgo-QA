@@ -15,8 +15,12 @@ function SuscribirEventos() {
 	SuscribirEventoZona();
 	SuscribirEventoCuadrante();
 	suscribirEventoDescargarCarro();
+
 	
 }
+
+
+
 
 function SuscribirEventoCuadrante() {
 	$('#inputCuadrantePopup').kendoComboBox({
@@ -180,13 +184,28 @@ function suscribirEventoWindowsConfirmaCapturaSinCambiarTipoBusqueda()
 
 
 	$("#yesButtonProySinTipoBusqueda").click(function (e) {
-		tipoBusquedaSeleccionada = $('input:radio[name=TipoBusqueda]:checked').val() == "spool" ? 1 : 2;
-		datoSeleccionado = tipoBusquedaSeleccionada == 1 ? $("#inputSpool").val() : $("#inputNc").val();
-		AjaxConsultarSpoolsConSP(tipoBusquedaSeleccionada, datoSeleccionado);
+		//tipoBusquedaSeleccionada = $('input:radio[name=TipoBusqueda]:checked').val() == "spool" ? 1 : 2;
+		//datoSeleccionado = tipoBusquedaSeleccionada == 1 ? $("#inputSpool").val() : $("#inputNc").val();
+		//AjaxConsultarSpoolsConSP(tipoBusquedaSeleccionada, datoSeleccionado);
+      
+
         ventanaConfirmEdicionSinTipoBusqueda.close();
         editado = false;
+
+       // $("#grid").data("kendoGrid").dataSource.data([]);
+        switch (EjecutaChange) {
+            case 1:
+                $("#inputProyecto").data("kendoComboBox").trigger("change");
+                break;
+            case 2:
+                //$("#inputCarro").data("kendoComboBox").trigger("change");
+                //$("#inputZona").data("kendoComboBox").trigger("change");
+                break;
+
+        }
     });
-    $("#noButtonProySinTipoBusqueda").click(function (e) {
+	$("#noButtonProySinTipoBusqueda").click(function (e) {
+	    $("#inputProyecto").data("kendoComboBox").value(LineaCaptura.ProyectoIDSeleccionado);
         ventanaConfirmEdicionSinTipoBusqueda.close();
     });
 }
@@ -247,12 +266,26 @@ function SuscribirEventoProyecto() {
         filter: "contains",
         index: 3,
         change: function (e) {
-            dataItem = this.dataItem(e.sender.selectedIndex);
-            if (dataItem == undefined) {
-                $("#inputProyecto").data("kendoComboBox").value("");
+            EjecutaChange = 1;
+            if (!editado) {
+                dataItem = this.dataItem(e.sender.selectedIndex);
+                if (dataItem == undefined) {
+                   
+                    $("#inputProyecto").data("kendoComboBox").value("");
+                }
+                else {
+
+                    LineaCaptura.ProyectoIDSeleccionado = dataItem.ProyectoID;
+                    if (tipoBusquedaSeleccionada == 1)
+                        $("#inputSpool").val("");
+                    else
+                        $("#inputNc").val("");
+                    $("#grid").data("kendoGrid").dataSource.data([]);
+                    AjaxObtenerCatalogosPlanchado();
+                }
             }
             else {
-                AjaxObtenerCatalogosPlanchado();
+                ventanaConfirmEdicionSinTipoBusqueda.open().center();
             }
         }
     });

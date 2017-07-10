@@ -1,10 +1,12 @@
 ﻿
 var editado = false;
+var ventanaConfirmEdicionSinTipoBusqueda;
 
-SuscribirEventos();
+var EjecutaChange = 0;
+var LineaCaptura = { CarroIDseleccionado:"",ZonaIDSeleccionada:"" }
 
 function changeLanguageCall() {
-    
+    SuscribirEventos();
     CargarGrid();
     AjaxCargarCamposPredeterminados();
 }
