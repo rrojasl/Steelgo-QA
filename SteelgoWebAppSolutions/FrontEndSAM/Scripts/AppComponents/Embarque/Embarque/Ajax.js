@@ -90,6 +90,7 @@ function AjaxEmbarqueCargaTractos(ProveedorID, nuevoTracto) {
     $EmbarqueGeneral.EmbarqueGeneral.read({ token: Cookies.get("token"), ProveedorID: ProveedorID, Tractos: 1 }).done(function (data) {
         var TractoID = 0;
         $("#Tracto").data("kendoComboBox").dataSource.data([]);
+        $("#TractoEnvio").data("kendoComboBox").dataSource.data([]); //Add
 
         if (data.length > 0) {
             if (data.length == 2 && nuevoTracto == null) {
@@ -110,8 +111,11 @@ function AjaxEmbarqueCargaTractos(ProveedorID, nuevoTracto) {
 
             data.splice(1, 0, { TractoID: -1, Nombre: _dictionary.EmarquePreparacionAgregarTracto[$("#language").data("kendoDropDownList").value()] });
             $("#Tracto").data("kendoComboBox").dataSource.data(data);
+            $("#TractoEnvio").data("kendoComboBox").dataSource.data(data); //add
             $("#Tracto").data("kendoComboBox").value(TractoID);
-            $("#Tracto").data("kendoComboBox").trigger("change");
+            $("#TractoEnvio").data("kendoComboBox").value(TractoID); //add
+            $("#Tracto").data("kendoComboBox").trigger("change");                        
+            $("#TractoEnvio").data("kendoComboBox").trigger("change"); //add
             
         }
         loadingStop();
@@ -124,6 +128,7 @@ function AjaxEmbarqueCargaChofer(ProveedorID, nuevoChofer) {
 
     $EmbarqueGeneral.EmbarqueGeneral.read({ token: Cookies.get("token"), ProveedorID: ProveedorID, Chofer: 2 }).done(function (data) {
         $("#Chofer").data("kendoComboBox").dataSource.data([]);
+        $("#ChoferEnvio").data("kendoComboBox").dataSource.data([]); //add
         if (data.length > 0) {
             var ChoferID = 0;
 
@@ -147,9 +152,11 @@ function AjaxEmbarqueCargaChofer(ProveedorID, nuevoChofer) {
                 ChoferID: -1, Nombre: _dictionary.EmarquePreparacionAgregarChofer[$("#language").data("kendoDropDownList").value()]
             });
             $("#Chofer").data("kendoComboBox").dataSource.data(data);
-
+            $("#ChoferEnvio").data("kendoComboBox").dataSource.data(data); //add
             $("#Chofer").data("kendoComboBox").value(ChoferID);
-            $("#Chofer").data("kendoComboBox").trigger("change");
+            $("#ChoferEnvio").data("kendoComboBox").value(ChoferID); //add
+            $("#Chofer").data("kendoComboBox").trigger("change");                        
+            $("#ChoferEnvio").data("kendoComboBox").trigger("change"); //add
         }
         loadingStop();
     });
@@ -338,6 +345,8 @@ function AjaxGuardarCaptura(ds, tipoGuardado, proveedorID) {
     var nombreEmbarqueCliente = $("#inputNombreEmbarqueCliente").val();
     var tractoID = $("#Tracto").data("kendoComboBox").value();
     var choferID = $("#Chofer").data("kendoComboBox").value();
+    var tractoEnvioID = $("#TractoEnvio").data("kendoComboBox").value();
+    var choferEnvioID = $("#ChoferEnvio").data("kendoComboBox").value();
     var fechaCreacion = $("#inputFechaEmbarque").val();
 
 
@@ -362,7 +371,7 @@ function AjaxGuardarCaptura(ds, tipoGuardado, proveedorID) {
     if (cont > 0) {
         $PreparacionEmbarque.PreparacionEmbarque.create(Captura[0], {
             token: Cookies.get("token"), lenguaje: $("#language").val(), EmbarqueID: embarqueID,
-            NombreEmbarque: nombreEmbarque, NombreEmbarqueCliente: nombreEmbarqueCliente, TractoID: tractoID, ChoferID: choferID, FechaCreacion: fechaCreacion
+            NombreEmbarque: nombreEmbarque, NombreEmbarqueCliente: nombreEmbarqueCliente, TractoID: tractoID, ChoferID: choferID, TractoEnvioID: tractoEnvioID, ChoferEnvioID: choferEnvioID, FechaCreacion: fechaCreacion
         }).done(function (data) {
             if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
                 if (tipoGuardado != "1") {
@@ -371,7 +380,6 @@ function AjaxGuardarCaptura(ds, tipoGuardado, proveedorID) {
                     var paqueteID = parseInt(data.ReturnMessage[1]);
                     opcionHabilitarView(true, "FieldSetView");
                     $("#grid").data("kendoGrid").dataSource.data([]);
-
                     AjaxObtenerEmbarque(proveedorID, nombreEmbarque);
                     AjaxObtenerPlanas($("#Proyecto").data("kendoComboBox").value());
                 }

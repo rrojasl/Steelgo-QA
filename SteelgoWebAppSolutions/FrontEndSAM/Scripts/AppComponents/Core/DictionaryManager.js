@@ -7726,6 +7726,14 @@ _dictionary = {
         "es-MX": "Chofer",
         "en-US": "Driver"
     },
+    "lblTractoEnvio": {
+        "es-MX": "Tracto Envío",
+        "en-US": "Tract Send"
+    },
+    "lblChoferEnvio": {
+        "es-MX": "Chofer Envío",
+        "en-US": "Driver Send"
+    },
     "lblChofer1": {
         "es-MX": "Chofer",
         "en-US": "Driver"
@@ -8177,6 +8185,14 @@ _dictionary = {
     "MensajeSeleccionaChofer": {
         "es-MX": "Por favor seleccione un chofer",
         "en-US": "Please select to driver"
+    },
+    "MensajeSeleccionaTractoEnvio": {
+        "es-MX": "Por favor seleccione un tracto de envío",
+        "en-US": "Please select a tract send"
+    },
+    "MensajeSeleccionaChoferEnvio": {
+        "es-MX": "Por favor seleccione un chofer de envio",
+        "en-US": "Please select a driver send"
     },
     "MensajeSeleccionaEmbarque": {
         "es-MX": "Por favor seleccione un embarque",

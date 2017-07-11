@@ -94,7 +94,9 @@ namespace BackEndSAM.DataAcces.Embarque.CargaPlana
                             ZonaPaqueteAnteriorID = item.ZonaPaqueteAnteriorID.GetValueOrDefault(),
                             ModificadoPorUsuario = false,
                             RowOk = true,
-                            EmpaquetadoInicial = item.PaqueteID == 0 ? 0 : 1
+                            EmpaquetadoInicial = item.PaqueteID == 0 ? 0 : 1,
+                            Pdi = item.Pdis.GetValueOrDefault(),
+                            Peq = item.Peqs.GetValueOrDefault()
                         });
                     }
                     return listaDetalle;
@@ -142,7 +144,9 @@ namespace BackEndSAM.DataAcces.Embarque.CargaPlana
                             PlanaCargado = item.PlanaCargado,
                             CarroCargado = item.CarroCargado,
                             RowOk = true,
-                            EmpaquetadoInicial = 0
+                            EmpaquetadoInicial = 0,
+                            Pdi = item.Pdis.GetValueOrDefault(),
+                            Peq = item.Peqs.GetValueOrDefault()
                         });
                     }
                     return listaDetalle;
@@ -187,7 +191,9 @@ namespace BackEndSAM.DataAcces.Embarque.CargaPlana
                             PlanaCargado = item.PlanaCargado,
                             ModificadoPorUsuario = true,
                             RowOk = true,
-                            EmpaquetadoInicial = 1
+                            EmpaquetadoInicial = 1,
+                            Pdi = item.Pdis.GetValueOrDefault(),
+                            Peq = item.Peqs.GetValueOrDefault()
                         });
                     }
                     return listaDetalle;

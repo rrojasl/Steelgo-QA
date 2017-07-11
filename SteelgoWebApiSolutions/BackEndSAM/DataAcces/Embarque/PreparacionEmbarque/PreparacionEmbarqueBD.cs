@@ -143,7 +143,9 @@ namespace BackEndSAM.DataAcces.Embarque.PreparacionEmbarque
                             ChoferID = item.ChoferID,
                             TractoID = item.TractoID,
                             Estatus = item.Estatus,
-                            FechaCreacion = item.FechaCreacion
+                            FechaCreacion = item.FechaCreacion,
+                            TractoEnvioID = item.TractoEnvioID,
+                            ChoferEnvioID = item.ChoferEnvioID
                         });
                     }
 
@@ -193,16 +195,25 @@ namespace BackEndSAM.DataAcces.Embarque.PreparacionEmbarque
 
 
 
-        public object InsertarCaptura(DataTable dtDetalleCaptura, Sam3_Usuario usuario, string lenguaje, int EmbarqueID, string NombreEmbarque, string NombreEmbarqueCliente, int TractoID, int ChoferID, string FechaCreacion)
+        public object InsertarCaptura(DataTable dtDetalleCaptura, Sam3_Usuario usuario, string lenguaje, int EmbarqueID, string NombreEmbarque, string NombreEmbarqueCliente, int TractoID, int ChoferID, int TractoEnvioID, int ChoferEnvioID, string FechaCreacion)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
                     ObjetosSQL _SQL = new ObjetosSQL();
-                    string[,] parametro = { { "@EmbarqueID", EmbarqueID.ToString() }, { "@NombreEmbarque", NombreEmbarque },
-                        { "@NombreCliente", NombreEmbarqueCliente ==  null ?"": NombreEmbarqueCliente }, { "@TractoID", TractoID.ToString() }, { "@ChoferID", ChoferID.ToString() },
-                        { "@FechaCreacion", FechaCreacion } ,{ "@Usuario", usuario.UsuarioID.ToString() }, { "@Lenguaje", lenguaje } };
+                    string[,] parametro = { 
+                        { "@EmbarqueID", EmbarqueID.ToString() }, 
+                        { "@NombreEmbarque", NombreEmbarque },
+                        { "@NombreCliente", NombreEmbarqueCliente ==  null ?"": NombreEmbarqueCliente }, 
+                        { "@TractoID", TractoID.ToString() }, 
+                        { "@ChoferID", ChoferID.ToString() },
+                        { "@TractoEnvioID", TractoEnvioID.ToString() },
+                        { "@ChoferEnvioID", ChoferEnvioID.ToString() },
+                        { "@FechaCreacion", FechaCreacion },
+                        { "@Usuario", usuario.UsuarioID.ToString() }, 
+                        { "@Lenguaje", lenguaje }
+                    };
                     int valor = _SQL.EjecutaInsertUpdate(Stords.GUARDARPREPARACIONEMBARQUE, dtDetalleCaptura, "@TTDetalleEmbarque", parametro);
                     TransactionalInformation result = new TransactionalInformation();
 

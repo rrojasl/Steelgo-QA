@@ -37,6 +37,8 @@ namespace BackEndSAM.Models.Embarque.PreparacionEmbarque
             Estatus = 0;
             TractoID = 0;
             ChoferID = 0;
+            TractoEnvioID = 0;
+            ChoferEnvioID = 0;
         }
 
         public int EmbarqueID { get; set; }
@@ -45,6 +47,8 @@ namespace BackEndSAM.Models.Embarque.PreparacionEmbarque
         public int Estatus { get; set; }
         public int TractoID { get; set; }
         public int ChoferID { get; set; }
+        public int TractoEnvioID { get; set; }
+        public int ChoferEnvioID { get; set; }
         public string FechaCreacion { get; set; }
     }
 

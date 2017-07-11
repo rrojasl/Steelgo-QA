@@ -33,6 +33,16 @@ var $EmbarqueModel = {
             visible: "#EmbarqueDiv",
             editable: "#Embarque",
             required: "#Embarque",
-        }
+        },
+        TractoEnvio: {
+            visible: "#TractoEnvioDiv",
+            editable: "#TractoEnvio",
+            required: "#TractoEnvio",
+        },
+        ChoferEnvio: {
+            visible: "#ChoferEnvioDiv",
+            editable: "#ChoferEnvio",
+            required: "#ChoferEnvio",
+        },
     }
 };

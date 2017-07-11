@@ -23,6 +23,8 @@ namespace BackEndSAM.Models.Embarque.CargaPlana
         public bool ModificadoPorUsuario { get; set; }
         public bool RowOk { get; set; }
         public int EmpaquetadoInicial { get; set; }
+        public decimal Pdi { get; set; }
+        public decimal Peq { get; set; }
     }
 
     public class DetalleSpoolAgregar
@@ -45,6 +47,8 @@ namespace BackEndSAM.Models.Embarque.CargaPlana
         public string CarroCargado { get; set; }
         public bool RowOk { get; set; }
         public int EmpaquetadoInicial { get; set; }
+        public decimal Pdi { get; set; }
+        public decimal Peq { get; set; }
     }
 
     public class DetallePaqueteAgregar
@@ -64,6 +68,8 @@ namespace BackEndSAM.Models.Embarque.CargaPlana
         public string PlanaCargado { get; set; }
         public bool RowOk { get; set; }
         public int EmpaquetadoInicial { get; set; }
+        public decimal Pdi { get; set; }
+        public decimal Peq { get; set; }
     }
 
     public class Captura
