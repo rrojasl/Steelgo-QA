@@ -7602,6 +7602,10 @@ _dictionary = {
         "es-MX": "Spool ID Contiene",
         "en-US": "Contain Spool ID"
     },
+    "lblOKFABObservacion": {
+        "es-MX": "Observaciones",
+        "en-US": "Observations"
+    },
     "lblNcContiene": {
         "es-MX": "No. de Control Contiene",
         "en-US": "Contain Control No."
@@ -7693,6 +7697,10 @@ _dictionary = {
     "lblEmbarque1": {
         "es-MX": "Embarque",
         "en-US": "Shipment"
+    },
+    "lblPreparacion": {
+        "es-MX": "Preparación",
+        "en-US": "Preparation"
     },
     "lblEmpaquetado": {
         "es-MX": "Empaquetado",
@@ -8683,6 +8691,10 @@ _dictionary = {
         "es-MX": "KG",
         "en-US": "KG"
     },
+    "columnTonelada": {
+        "es-MX": "Tn",
+        "en-US": "Tn"
+    },
     "columnPeso1": {
         "es-MX": "KG",
         "en-US": "KG"
@@ -9073,6 +9085,10 @@ _dictionary = {
     "columnEmbarque": {
         "es-MX": "Embarque",
         "en-US": "Shipment"
+    },
+    "columnPreparacion": {
+        "es-MX": "Preparación",
+        "en-US": "Preparation"
     },
     "columnPlanasEmb": {
         "es-MX": "Planas",

@@ -37,6 +37,8 @@ function CargarGrid() {
                         CantidadElementos: { type: "number", editable: false },
                         Peso: { type: "number", editable: false },
                         M2: { type: "number", editable: false },
+                        Pdi: { type: "number", editable: false },
+                        Peq: { type: "number", editable: false }
                     }
                 }
             },
@@ -53,7 +55,9 @@ function CargarGrid() {
             serverSorting: false,
             aggregate: [
                 { field: "M2", aggregate: "sum" },
-                { field: "Peso", aggregate: "sum" }
+                { field: "Peso", aggregate: "sum" },
+                { field: "Pdi", aggregate: "sum" },
+                { field: "Peq", aggregate: "sum" }
             ]
         },
         navigatable: true,
@@ -76,7 +80,9 @@ function CargarGrid() {
             { field: "Nombre", title: _dictionary.columnPlana[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec() },
             { field: "CantidadElementos", title: _dictionary.columnCantidadSpools[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), attributes: { style: "text-align:right;" } },
             { field: "M2", title: _dictionary.columnM2[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), aggregates: ["sum"], footerTemplate: "<div style='text-align:right;'>SUM: #= kendo.toString(sum, 'n') #</div>", attributes: { style: "text-align:right;" } },
-            { field: "Peso", title: _dictionary.columnPeso[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), aggregates: ["sum"], footerTemplate: "<div style='text-align:right;'>SUM: #= kendo.toString(sum, 'n') #</div>", attributes: { style: "text-align:right;" } },
+            { field: "Peso", title: _dictionary.columnTonelada[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), aggregates: ["sum"], footerTemplate: "<div style='text-align:right;'>SUM: #= kendo.toString(sum, 'n') #</div>", attributes: { style: "text-align:right;" } },
+            { field: "Pdi", title: "PDI", filterable: getGridFilterableCellNumberMaftec(), aggregates: ["sum"], footerTemplate: "<div style='text-align:right;'>SUM: #= kendo.toString(sum, 'n') #</div>", attributes: { style: "text-align:right;" } },
+            { field: "Peq", title: "PEQ", filterable: getGridFilterableCellNumberMaftec(), aggregates: ["sum"], footerTemplate: "<div style='text-align:right;'>SUM: #= kendo.toString(sum, 'n') #</div>", attributes: { style: "text-align:right;" } },
              {
                  command: {
                      text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()],

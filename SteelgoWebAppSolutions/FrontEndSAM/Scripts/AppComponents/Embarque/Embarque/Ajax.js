@@ -187,7 +187,7 @@ function AjaxObtenerEmbarque(ProveedorID, nombreEmbarque) {
 
 
 
-function GuardarNuevoProveedor() {
+function GuardarNuevoProveedor() {        
     $Proveedores.Proveedores.read({ token: Cookies.get("token"), NombreProveedor: $("#inputNombreNuevoProveedor").val(), ProyectoID: $("#Proyecto").data("kendoComboBox").value(), Descripcion: "", Direccion: "", Telefono: "", TipoProveedor: 2 }).done(function (data) {
         if (Error(data)) {
             if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
@@ -196,10 +196,8 @@ function GuardarNuevoProveedor() {
                 displayNotify("MensajeGuardadoExistoso", "", "0");
             }
             else if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] != "Ok") {
-
                 displayNotify("EmbarquePreparacionErrorExisteProveedor", "", '2');
             }
-
         }
     });
 }

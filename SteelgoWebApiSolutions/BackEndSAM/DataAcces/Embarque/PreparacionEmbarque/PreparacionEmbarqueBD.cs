@@ -56,6 +56,8 @@ namespace BackEndSAM.DataAcces.Embarque.PreparacionEmbarque
                             CantidadElementos = item.CantidadElementos.GetValueOrDefault(),
                             M2 = item.M2.GetValueOrDefault(),
                             Peso = item.Peso.GetValueOrDefault(),
+                            Pdi = item.Pdis.GetValueOrDefault(),
+                            Peq = item.Peqs.GetValueOrDefault(),
                             ModificadoPorUsuario = true
                         });
                     }
@@ -100,6 +102,8 @@ namespace BackEndSAM.DataAcces.Embarque.PreparacionEmbarque
                             CantidadElementos = item.CantidadElementos.GetValueOrDefault(),
                             M2 = item.M2.GetValueOrDefault(),
                             Peso = item.Peso.GetValueOrDefault(),
+                            Pdi = item.Pdis.GetValueOrDefault(),
+                            Peq = item.Peqs.GetValueOrDefault(),
                             ModificadoPorUsuario = false
                         });
                     }

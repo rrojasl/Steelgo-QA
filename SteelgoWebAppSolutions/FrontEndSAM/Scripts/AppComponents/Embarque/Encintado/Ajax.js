@@ -130,10 +130,10 @@ function AjaxCargarCuadranteSpool(spool) {
 }
 
 function AjaxCargarElementosPorConsulta(tipoBusqueda, zonaID, cuadranteID, spoolContiene, todos) {
-    loadingStart();
+    loadingStart();    
     $Encintado.Encintado.read({
         token: Cookies.get("token"), TipoConsulta: tipoBusqueda, ZonaID: zonaID, CuadranteID: cuadranteID,
-        NumeroControl: spoolContiene, lenguaje: $("#language").val()
+        NumeroControl: spoolContiene
     }).done(function (data) {
         if (data != null) {
             if (data > 100) {
