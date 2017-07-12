@@ -7021,6 +7021,10 @@ _dictionary = {
         "es-MX": "El spool no pertenece al proyecto seleccionado",
         "en-US": "Spool does not belong to selected project"
     },
+     "ErrorSpoolAgregar": {
+        "es-MX": "El spool pertenece a otro proyecto",
+        "en-US": "Spool  belong to another  project"
+    },
     "lblInicio": {
         "es-MX": "Inicio",
         "en-US": "Home"
