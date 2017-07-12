@@ -230,7 +230,7 @@ namespace BackEndSAM.DataAcces.Pintura.SistemaPintura
                         {
                             Nombre = item.Nombre.Split('~')[0],
                             SistemaPinturaID = item.SistemaPinturaID,
-                            NoPintable = item.NoPintable.GetValueOrDefault(),
+                            NoPintable = item.NoPintable,
                             listadoColor = (List<Color>)ObtenerColoresSistemaPintura(lenguaje, sistemaPintura, proyectoID),
                             listadoProyectos = (List<Proyectos>)ObtenerProyectosSistemaPintura(sistemaPintura)
 

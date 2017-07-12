@@ -307,12 +307,14 @@ function AjaxAgregarSpool(ordenTrabajoSpoolID) {
             var sistemaPintura;
             var CargaCarroID = 0;
             var proyectoID = 0;
+            var Color = "";
             //obtenemos el id de la carga
             CargaCarroID = array.length > 0 ? array[0].MedioTransporteCargaDetalleID : 0;
             if (ds._data.length > 0) {
                 sistemaPinturaID = ds._data[0].SistemaPinturaID;
                 sistemaPintura = ds._data[0].SistemaPintura
                 proyectoID = ds._data[0].ProyectoID;
+                Color = ds._data[0].color;
             }
             for (var i = 0; i < array.length; i++) {
                 if ((proyectoID == 0 ? true : (proyectoID == array[i].ProyectoID ? true : false))) {
@@ -333,7 +335,15 @@ function AjaxAgregarSpool(ordenTrabajoSpoolID) {
                                             array[i].plantillaObrero = _dictionary.CapturaAvancePintoresShotblastExistentes[$("#language").data("kendoDropDownList").value()] + array[i].ListaObrerosSeleccionados.length;
                                         }
 
-                                        ds.insert(0, array[i]);
+                                        if ($('input:radio[name=ProcesoPintura]:checked').val() == "4") {
+                                            if (array[i].Color == Color)
+                                                ds.insert(0, array[i]);
+                                            else
+                                                displayNotify("menuPinturaSpoolColorDiferente", "", '1');
+                                        }
+                                        else
+                                            ds.insert(0, array[i]);
+
                                         if (elementosModificados != "")
                                             elementosModificados += ", " + array[i].Spool;
                                         else
@@ -351,7 +361,14 @@ function AjaxAgregarSpool(ordenTrabajoSpoolID) {
                                         if (array[i].ListaObrerosSeleccionados == undefined || array[i].ListaObrerosSeleccionados == undefined || array[i].ListaObrerosSeleccionados.length == 0) {
                                             array[i].plantillaObrero = _dictionary.CapturaAvancePintoresShotblastExistentes[$("#language").data("kendoDropDownList").value()] + array[i].ListaObrerosSeleccionados.length;
                                         }
-                                        ds.insert(0, array[i]);
+                                        if ($('input:radio[name=ProcesoPintura]:checked').val() == "4") {
+                                            if (array[i].Color == Color)
+                                                ds.insert(0, array[i]);
+                                            else
+                                                displayNotify("menuPinturaSpoolColorDiferente", "", '1');
+                                        }
+                                        else
+                                            ds.insert(0, array[i]);
                                         if (elementosModificados != "")
                                             elementosModificados += ", " + array[i].Spool;
                                         else

@@ -7021,7 +7021,7 @@ _dictionary = {
         "es-MX": "El spool no pertenece al proyecto seleccionado",
         "en-US": "Spool does not belong to selected project"
     },
-     "ErrorSpoolAgregar": {
+    "ErrorSpoolAgregar": {
         "es-MX": "El spool pertenece a otro proyecto",
         "en-US": "Spool  belong to another  project"
     },
@@ -8310,6 +8310,10 @@ _dictionary = {
         "es-MX": "Avance de Carro",
         "en-US": "Car Advance"
     },
+    "menuPinturaSpoolColorDiferente": {
+        "es-MX": "No puedes agregar un spool con un color diferente",
+        "en-US": "You can not add a spool with a different color"
+    },
     "menuCapturaAvanceIntAcabado": {
         "es-MX": "Avance de Cuadrante",
         "en-US": "Quadrant of Advance"
@@ -8413,7 +8417,7 @@ _dictionary = {
         "es-MX": "WPS",
         "en-US": "WPS"
     },
-    "menuSoldadorCertificacion": {
+   "menuSoldadorCertificacion": {
         "es-MX": "WPQ",
         "en-US": "WPQ"
     },
@@ -9976,18 +9980,18 @@ _dictionary = {
         "es-MX": "El número de pasos debe ser mayor a 0",
         "en-US": "The number of steps must be greater than 0"
     },
-    "CapturaSoldadorCertificacionPreguntaBorradoCaptura": {
+     "CapturaSoldadorCertificacionPreguntaBorradoCaptura": {
         "es-MX": "¿Está seguro de cancelar el detalle de la captura de WPQ?",
         "en-US": "Are you sure you want to cancel the detail of the capture of WPQ?"
-    },
+        },
     "SoldadorCertificacionPreguntaBorradoCaptura": {
         "es-MX": "¿Está seguro de cancelar el detalle de la captura de WPQ?",
         "en-US": "You are sure you want to cancel the capture detail of WPQ?"
-    },
+        },
     "SoldadorCertificacionMensajeEspesorMinimo": {
         "es-MX": "El Espesor M. tiene que ser mayor a cero",
         "en-US": " The M. thickness must be greater than zero"
-    },
+        },
     "SoldadorCertificacionMensajeDiametroCalificado": {
         "es-MX": "El diametro c. tiene que ser mayor a cero",
         "en-US": " The c. diameter must be greater than zero"
@@ -9996,8 +10000,8 @@ _dictionary = {
     "AdverteciaExcepcionGuardado": {
         "es-MX": "No hay cambios por guardar",
         "en-US": "There aren´t any change"
-    },
-    //Finaliza Soldador Certificacion
+        },
+            //Finaliza Soldador Certificacion
 
     //Pantalla Nuevo Soldador Certificacion
     "lblNuevoSoldadorCertificacionBreadCrum": {

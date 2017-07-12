@@ -37,6 +37,8 @@ namespace BackEndSAM.Models.Pintura.AdminComponentes
         public int Accion { get; set; }
         public List<Componentes> ListadoComponentes { get; set; }
         public int? ProcesoPinturaID { get; set; }
+
+        public int ProyectoProcesoComponenteID { get; set; }
     }
     public class GuardarGrid
     {

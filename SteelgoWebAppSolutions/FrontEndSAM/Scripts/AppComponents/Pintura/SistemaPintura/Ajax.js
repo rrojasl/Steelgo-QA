@@ -158,7 +158,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
 		ListasCaptura = [];
 		Captura[0] = { Detalles: "", ListadoColor: "", ListadoProyectos: "" };
 		ListaSPNuevo = [];
-		ListaSPNuevo[0] = { Nombre: "", NoPintable: "", Accion: "" };
+		ListaSPNuevo[0] = { Nombre: "", Accion: "" };
 
 		ListasCaptura[0] = { ListaSPNuevo: "", ListaSPProyecto: "", ListaSPColor: "", ListaSPProyectoProceso: "" };
 		ListaDetalles = [];
@@ -232,9 +232,10 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
 			if ($("#comboProyecto").data("kendoComboBox").text() != "") {
 				ProyectoID = $("#comboProyecto").data("kendoComboBox").value();
 
-				ListaProyectos[0] = { ProyectoID: "", Accion: "" };
+				ListaProyectos[0] = { ProyectoID: "", Accion: "",NoPintable: "" };
 				ListaProyectos[0].ProyectoID = ProyectoID;
 				ListaProyectos[0].Accion = tieneAvance ? 2 : 1;
+				ListaProyectos[0].NoPintable = NoPintable
 			}
 			else {
 				displayNotify("SistemaPinturaMensajeErrorProyecto", "", '1');
@@ -256,7 +257,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
 		}
 
 		ListaSPNuevo[0].Nombre = Nombre;
-		ListaSPNuevo[0].NoPintable = NoPintable;
+		//ListaSPNuevo[0].NoPintable = NoPintable;
 		ListaSPNuevo[0].Accion = tieneAvance ? 2 : 1;
 
 		var i = 0;
@@ -279,7 +280,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
 							ListaDetalles[i].ListaDetalleComponentesAgregados[g] = { ProyectoID: "", ProcesoPinturaID: "", ComponenteAgregadoID: "", ComponenteID: "", Accion: "" };
 							ListaDetalles[i].ListaDetalleComponentesAgregados[g].ProyectoID = ListaProyectos[k].ProyectoID;
 							ListaDetalles[i].ListaDetalleComponentesAgregados[g].ProcesoPinturaID = arregloCaptura[index].ProcesoPinturaID;
-							ListaDetalles[i].ListaDetalleComponentesAgregados[g].ComponenteAgregadoID = arregloCaptura[index].ListaDetalleComponentesAgregados[g].ComponenteAgregadoID;
+							ListaDetalles[i].ListaDetalleComponentesAgregados[g].ComponenteAgregadoID = arregloCaptura[index].ListaDetalleComponentesAgregados[g].ProyectoProcesoComponenteID;
 							ListaDetalles[i].ListaDetalleComponentesAgregados[g].ComponenteID = arregloCaptura[index].ListaDetalleComponentesAgregados[g].ComponenteID;
 							ListaDetalles[i].ListaDetalleComponentesAgregados[g].Accion = arregloCaptura[index].ListaDetalleComponentesAgregados[g].Accion;
 						}

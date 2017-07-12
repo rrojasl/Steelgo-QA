@@ -190,19 +190,20 @@ namespace BackEndSAM.DataAcces.Pintura.AdminComponentes
                     List<Sam3_Pintura_Get_ComponentesAgregados_Result> listaComponentes = ctx.Sam3_Pintura_Get_ComponentesAgregados(lenguaje, SistemaPinturaProyectoProcesoID).ToList();
 
                     List<ComponenteAgregado> listaComponentesAgregados = new List<ComponenteAgregado>();
-
+                    int numeroComponente = 0;
 
                     foreach (Sam3_Pintura_Get_ComponentesAgregados_Result item in listaComponentes)
                     {
                         ComponenteAgregado componentesAgregados = new ComponenteAgregado
                         {
+                            ProyectoProcesoComponenteID = item.ProyectoProcesoComponenteID,
                             Accion = 2,
-                            ComponenteAgregadoID = item.ComponenteAgregadoID,
+                            ComponenteAgregadoID = numeroComponente+1,
                             ComponenteID = item.ComponenteID,
                             Nombre = item.Nombre,
                             ListadoComponentes = listadoComponentes
                         };
-
+                        numeroComponente++;
                         listaComponentesAgregados.Add(componentesAgregados);
                     };
                     

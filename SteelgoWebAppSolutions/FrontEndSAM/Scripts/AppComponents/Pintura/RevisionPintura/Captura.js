@@ -333,7 +333,7 @@ function PlanchaColor() {
                 data[i].Color = $("#inputPlanchadoColor").data("kendoComboBox").text();
             }
             else {
-                if (data[i].CargaCarroID == false && data[i].SistemaPinturaID == $("#inputPlanchadoSP").val() && (data[i].Color === "" || data[i].Color === null || data[i].Color === undefined)) {
+                if ( data[i].SistemaPinturaID == $("#inputPlanchadoSP").val() && (data[i].Color === "" || data[i].Color === null || data[i].Color === undefined)) {
                     data[i].SistemaPinturaColorID = $("#inputPlanchadoColor").data("kendoComboBox").dataItem($("#inputPlanchadoColor").data("kendoComboBox").select()).SistemaPinturaColorID;
                     data[i].Color = $("#inputPlanchadoColor").data("kendoComboBox").text();
                 }

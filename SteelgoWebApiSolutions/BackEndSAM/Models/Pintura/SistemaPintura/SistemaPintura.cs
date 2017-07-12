@@ -171,13 +171,13 @@ namespace BackEndSAM.Models.Pintura.SistemaPintura
     public class SPNuevo
     {
         public string Nombre { get; set; }
-        public int NoPintable { get; set; }
         public int Accion { get; set; }
     }
 
     public class SPProyecto {
         public int ProyectoID { get; set; }
         public int Accion { get; set; }
+        public int NoPintable { get; set; }
     }
 
     public class SPColor
