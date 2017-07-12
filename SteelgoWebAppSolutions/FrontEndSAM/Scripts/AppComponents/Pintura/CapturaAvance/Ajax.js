@@ -313,18 +313,20 @@ function AjaxAgregarSpool(ordenTrabajoSpoolID) {
 
         var sistemaPinturaID = 0;
         var sistemaPintura;
+        var proyectoID = 0;
         var CargaCarroID = 0;
         //obtenemos el id de la carga
         CargaCarroID = array.length > 0 ? array[0].MedioTransporteCargaDetalleID : 0;
         if (ds._data.length > 0) {
             sistemaPinturaID = ds._data[0].SistemaPinturaID;
-            sistemaPintura = ds._data[0].SistemaPintura
+            sistemaPintura = ds._data[0].SistemaPintura;
+            proyectoID = ds._data[0].ProyectoID;
         }
         for (var i = 0; i < array.length; i++) {
-            
+            if ((proyectoID == 0 ? true : (proyectoID == array[i].ProyectoID ? true : false))) {
                 if (!existeSpool(array[i].Spool, ds)) {
                     //
-                    if (array[i].CarroID == 0 || array[i].CarroID==undefined) {
+                    if (array[i].CarroID == 0 || array[i].CarroID == undefined) {
                         if (array[i].PatioID != 7) {
                             if (sistemaPinturaID == 0) {
                                 if (array[i].SistemaPinturaID == 0 || array[i].SistemaPinturaID == undefined) {
@@ -337,7 +339,9 @@ function AjaxAgregarSpool(ordenTrabajoSpoolID) {
                                     if (array[i].ListaObrerosSeleccionados == undefined || array[i].ListaObrerosSeleccionados == undefined || array[i].ListaObrerosSeleccionados.length == 0) {
                                         array[i].plantillaObrero = _dictionary.CapturaAvancePintoresShotblastExistentes[$("#language").data("kendoDropDownList").value()] + array[i].ListaObrerosSeleccionados.length;
                                     }
-                                    ds.add(array[i]);
+                                    ds.insert(0, array[i]);
+                                   
+                                   
                                     if (elementosModificados != "")
                                         elementosModificados += ", " + array[i].Spool;
                                     else
@@ -355,7 +359,7 @@ function AjaxAgregarSpool(ordenTrabajoSpoolID) {
                                     if (array[i].ListaObrerosSeleccionados == undefined || array[i].ListaObrerosSeleccionados == undefined || array[i].ListaObrerosSeleccionados.length == 0) {
                                         array[i].plantillaObrero = _dictionary.CapturaAvancePintoresShotblastExistentes[$("#language").data("kendoDropDownList").value()] + array[i].ListaObrerosSeleccionados.length;
                                     }
-                                    ds.add(array[i]);
+                                    ds.insert(0, array[i]);
                                     if (elementosModificados != "")
                                         elementosModificados += ", " + array[i].Spool;
                                     else
@@ -390,7 +394,8 @@ function AjaxAgregarSpool(ordenTrabajoSpoolID) {
                     else
                         elementosNoModificados = array[i].Spool;
                 }
-            
+            } else
+                displayNotify("ErrorSpoolAgregar", "", "1");
         }
 
         if (elementosModificados != "") {
@@ -516,8 +521,8 @@ function AjaxGuardarAvanceCarro(arregloCaptura, guardarYNuevo) {
         for (var k = 0; k < ComponentesDinamicos.length; k++) {
             ListaDetalleComponentesDinamicosGuardados[k] = { Lote: "" };
             ListaDetalleComponentesDinamicosGuardados[k].Lote = arregloCaptura[index][ComponentesDinamicos[k].NombreComponente];//lote seleccionado por cada componente dinamico creado.
-            if ((ListaDetalles[index].ReductorLote !="" || ListaDetalles[index].FechaProceso != "" || arregloCaptura[index].ListaObrerosSeleccionados.length > 0 || ListaDetalleComponentesDinamicosGuardados[k].Lote != "") && (arregloCaptura[index].Accion == 4)) {//si algun campo es capturado
-				if (!(ListaDetalles[index].ReductorLote != "" && ListaDetalles[index].FechaProceso != "" && arregloCaptura[index].ListaObrerosSeleccionados.length > 0 && ListaDetalleComponentesDinamicosGuardados[k].Lote != ""))//se valida los campos obligatorios.
+            if (( ReductorDinamico.length>0 ? ListaDetalles[index].ReductorLote !="":false || ListaDetalles[index].FechaProceso != "" || arregloCaptura[index].ListaObrerosSeleccionados.length > 0 || ListaDetalleComponentesDinamicosGuardados[k].Lote != "") && (arregloCaptura[index].Accion == 4)) {//si algun campo es capturado
+                if (!( ReductorDinamico.length>0 ?ListaDetalles[index].ReductorLote != "":true && ListaDetalles[index].FechaProceso != "" && arregloCaptura[index].ListaObrerosSeleccionados.length > 0 && ListaDetalleComponentesDinamicosGuardados[k].Lote != ""))//se valida los campos obligatorios.
 				{
 					$("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
 					ListaDetalles[index].Estatus = 0;
