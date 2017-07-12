@@ -64,17 +64,17 @@ function CargarGrid() {
         filterable: getGridFilterableMaftec(),
         columns: [
             { field: "CodigoObrero", title: _dictionary.columnSoldador[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "145px", editor: RenderComboBoxSoldador },
-            { field: "NombreWPS", title: _dictionary.columnNombreWPS[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "140px" },
-            { field: "ProcesoSoldadura", title: _dictionary.columnProcesoSoldadura[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "150px", editor: RenderComboBoxProcesoSoldadura },
-            { field: "FechaInicioCertificado", title: _dictionary.columnDesde[$("#language").data("kendoDropDownList").value()], filterable: { cell: { showOperators: false } }, width: "120px", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()], editor: RenderFechaInicio },
-            { field: "FechaFinCertificado", title: _dictionary.columnHasta[$("#language").data("kendoDropDownList").value()], filterable: { cell: { showOperators: false } }, width: "120px", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()], editor: RenderFechaFin },
-            { field: "PasosSoldadura", title: _dictionary.columnNumeroPasos[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "110px", editor: renderNoPasos, attributes: { style: "text-align:right;" } },
-            { field: "CedulaTuboCalificado", title: _dictionary.columnCedulaTubo[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "150px", editor: RenderComboBoxCedulaTuboCalificado },
-            { field: "EspesorMinimo", title: _dictionary.columnEspesorMin[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "130px", editor: renderEmin, attributes: { style: "text-align:right;" } },
-            { field: "EspesorMaximo", title: _dictionary.columnEspesorMax[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "130px", attributes: { style: "text-align:right;" } },
+            { field: "NombreWPS", title: _dictionary.columnNombreWPS[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "120px" },
+            { field: "ProcesoSoldadura", title: _dictionary.columnProcesoSoldadura[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "120px", editor: RenderComboBoxProcesoSoldadura },
+            { field: "FechaInicioCertificado", title: _dictionary.columnDesde[$("#language").data("kendoDropDownList").value()], filterable: getKendoGridFilterableDateMaftec(), width: "100px", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()], editor: RenderFechaInicio },
+            { field: "FechaFinCertificado", title: _dictionary.columnHasta[$("#language").data("kendoDropDownList").value()], filterable: getKendoGridFilterableDateMaftec(), width: "100px", format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()], editor: RenderFechaFin },
+            { field: "PasosSoldadura", title: _dictionary.columnNumeroPasos[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "90px", editor: renderNoPasos, attributes: { style: "text-align:right;" } },
+            { field: "CedulaTuboCalificado", title: _dictionary.columnCedulaTubo[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "90px", editor: RenderComboBoxCedulaTuboCalificado },
+            { field: "EspesorMinimo", title: _dictionary.columnEspesorMin[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "110px", editor: renderEmin, attributes: { style: "text-align:right;" } },
+            { field: "EspesorMaximo", title: _dictionary.columnEspesorMax[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "110px", attributes: { style: "text-align:right;" } },
             { field: "DiametroCalificado", title: _dictionary.columnDiametroCalificado[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "130px", attributes: { style: "text-align:right;" }, editor: renderDiametro },
             { field: "DiametroMinimo", title: _dictionary.columnDiametroMinimo[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "130px", attributes: { style: "text-align:right;" }, },
-            { field: "TipoDePrueba", title: _dictionary.columnTipoPrueba[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "145px", editor: RenderComboBoxTipoPrueba },
+            { field: "TipoDePrueba", title: _dictionary.columnTipoPrueba[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "100px", editor: RenderComboBoxTipoPrueba },
             { field: "Posicion", title: _dictionary.columnPosicion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "120px", editor: renderPosicion, format: "{0} °", attributes: { style: "text-align:right;" } },
             { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: EliminaSoldadorCertificacion }, title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], width: "50px" }
         ],
@@ -422,6 +422,8 @@ function startChange(row) {
         start.max(endDate);
         end.min(endDate);
     }
+
+    
 }
 
 function endChange(row) {

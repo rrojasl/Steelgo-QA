@@ -8414,8 +8414,8 @@ _dictionary = {
         "en-US": "WPS"
     },
     "menuSoldadorCertificacion": {
-        "es-MX": "Soldador Certificación",
-        "en-US": "Welder Certification"
+        "es-MX": "WPQ",
+        "en-US": "WPQ"
     },
     "menuOKPND": {
         "es-MX": "OK Fabricación",
@@ -9977,12 +9977,12 @@ _dictionary = {
         "en-US": "The number of steps must be greater than 0"
     },
     "CapturaSoldadorCertificacionPreguntaBorradoCaptura": {
-        "es-MX": "¿Está seguro de cancelar el detalle de la captura de Certificación?",
-        "en-US": "Are you sure you want to cancel the detail of the capture of Certification?"
+        "es-MX": "¿Está seguro de cancelar el detalle de la captura de WPQ?",
+        "en-US": "Are you sure you want to cancel the detail of the capture of WPQ?"
     },
     "SoldadorCertificacionPreguntaBorradoCaptura": {
-        "es-MX": "¿Está seguro de cancelar el detalle de la captura de Soldador Certificación?",
-        "en-US": "You are sure you want to cancel the capture detail of Welder Certification?"
+        "es-MX": "¿Está seguro de cancelar el detalle de la captura de WPQ?",
+        "en-US": "You are sure you want to cancel the capture detail of WPQ?"
     },
     "SoldadorCertificacionMensajeEspesorMinimo": {
         "es-MX": "El Espesor M. tiene que ser mayor a cero",
@@ -10001,8 +10001,8 @@ _dictionary = {
 
     //Pantalla Nuevo Soldador Certificacion
     "lblNuevoSoldadorCertificacionBreadCrum": {
-        "es-MX": "Nuevo Soldador Certificación",
-        "en-US": "New Welder Certification"
+        "es-MX": "Nuevo WPQ",
+        "en-US": "New WPQ"
     },
     "WPSMensajeErrorPQRNoAplicaRaiz": {
         "es-MX": "El WPS no aplica para raiz",

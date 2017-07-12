@@ -48,6 +48,12 @@ function SuscribirEventoFechaVigenciaInicio() {
         change: function (e) {
             if (ValidarFecha(this, e.sender._value))
                 startChange();
+            var startControl = $('#inputFechaInicioCertificado').data('kendoDatePicker');
+            var startDate = startControl.value();
+
+            startDate.setMonth(startDate.getMonth() + 6);
+
+            $('#inputFechaFinCertificado').data('kendoDatePicker').value(startDate);
         }
     });
 
@@ -240,7 +246,7 @@ function SuscribirEventoProcesoSoldadura() {
 
 function SuscribirEventoNompreWPS() {
     $("#inputNombreWPS").kendoComboBox({
-        dataTextField: "Nombre",
+        dataTextField: "WPSNombre",
         dataValueField: "WPSID",
         suggest: true,
 
@@ -251,9 +257,19 @@ function SuscribirEventoNompreWPS() {
         change: function (e) {
             dataItem = this.dataItem(e.sender.selectedIndex);
             if (dataItem == undefined) {
+                $('#ProcesoRaiz').text("");
+                $('#ProcesoRelleno').text("");
                 $("#inputNombreWPS").data("kendoComboBox").text("");
             }
             else {
+                if (dataItem.WPSNombre != "") {
+                    $('#ProcesoRaiz').text(dataItem.ProcesoSoldaduraRaiz);
+                    $('#ProcesoRelleno').text(dataItem.ProcesoSoldaduraRelleno);
+                }
+                else {
+                    $('#ProcesoRaiz').text("");
+                    $('#ProcesoRelleno').text("");
+                }
                 $("#inputProcesoSol").data("kendoComboBox").select(0);
             }
         }

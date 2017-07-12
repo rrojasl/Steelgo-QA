@@ -8,6 +8,14 @@ namespace BackEndSAM.Models.ConfiguracionSoldadura.WPS
 {
     public class WPS
     {
+        public WPS()
+        {
+            Accion = 0;
+            WPSID = 0;
+            WPSNombre = "";
+        }
+
+
         public int Accion { get; set; }
         public int WPSID { get; set; }
         public string WPSNombre { get; set; }

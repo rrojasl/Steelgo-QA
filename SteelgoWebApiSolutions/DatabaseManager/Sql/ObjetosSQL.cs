@@ -16,6 +16,10 @@ namespace DatabaseManager.Sam3
         {
             return new SqlConnection(ConfigurationManager.ConnectionStrings["SqlServer"].ConnectionString);
         }
+        protected SqlConnection ConexionSam2()
+        {
+            return new SqlConnection("server=LAP6;initial catalog=SAM;User=sa;Password=maftec06;MultipleActiveResultSets=True;Connect Timeout=2000");
+        }
         /// <summary>
         /// Retorna un DatatTable con la información de BD
         /// </summary>
@@ -510,5 +514,50 @@ namespace DatabaseManager.Sam3
                
             }
         }
+
+        public DataTable EjecutaDataAdapterSam2(string Stord, DataTable TablaSube, String NombreTabla, string[,] Parametros = null)
+        {
+            using (SqlCommand cmd = new SqlCommand(Stord, ConexionSam2()))
+            {
+                DataTable dt = new DataTable();
+                if (Parametros != null)
+                    for (int i = Numeros.CERO; i < Parametros.Length / Numeros.DOS; i++)
+                        cmd.Parameters.AddWithValue(Parametros[i, Numeros.CERO].ToString(), Parametros[i, Numeros.UNO].ToString());
+                cmd.Parameters.Add(new SqlParameter(NombreTabla, TablaSube));
+                cmd.CommandType = CommandType.StoredProcedure;
+                try
+                {
+                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                    {
+                        cmd.CommandTimeout = 0;
+                        cmd.Connection.Open();
+                        da.Fill(dt);
+                        cmd.Connection.Close();
+                    }
+
+
+                    return dt;
+                }
+                catch (Exception e)
+                {
+                    cmd.Connection.Close();
+
+                    DataTable dtError = new DataTable("error");
+                    DataColumn dataColumn = null;
+                    for (int i = 0; i < 2; i++)
+                    {
+                        dataColumn = new DataColumn(i.ToString());
+                        dtError.Columns.Add(dataColumn);
+                    }
+
+                    DataRow row = dtError.NewRow();
+                    row["0"] = "error";
+                    row["1"] = "error";
+                    dtError.Rows.Add(row);
+                    return dtError;
+                }
+            }
+        }
+
     }
 }

@@ -154,7 +154,7 @@ namespace BackEndSAM.DataAcces.ConfiguracionSoldadura.SoldCertBd
                 NuevoSoldadorCertificacion nuevoSoldadorCertificacion = new NuevoSoldadorCertificacion
                 {
                     ListaCedulaTuboCalificado = listaCedulaTuboCalificado,
-                    ListaWPS = (List<DetalleWPS>)WPSBd.Instance.ObtenerCatalogoWPS(1),
+                    ListaWPS = (List<BackEndSAM.Models.ConfiguracionSoldadura.WPS.WPS>)WPSBd.Instance.ObtenerCatalogoWPS(1),
                     ListaTipoProcesosSoldadura = listaTipoProcesosSoldadura,
                     ListaTipoPrueba = listaTipoPrueba,
                     ListaObrero = listaObreros

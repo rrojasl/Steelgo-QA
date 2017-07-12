@@ -48,8 +48,9 @@ namespace BackEndSAM.DataAcces.Montaje.PlanchadoSoldadura
                         { "@UsuarioID", usuario.UsuarioID.ToString()},
                         { "@Lenguaje", lenguaje } };
 
-                    DataTable PlanchadoSoldaduraResult = _SQL.EjecutaDataAdapter(Stords.JUNTAMONAJESOLDADURA_MASIVO, data, "@TTJuntaSoldaduraMontaje", parametro);
+                    DataTable PlanchadoSoldaduraResult = _SQL.EjecutaDataAdapterSam2(Stords.JUNTAMONAJESOLDADURA_MASIVO, data, "@TTJuntaSoldaduraMontaje", parametro);
                     return ToDataTable.table_to_csv(PlanchadoSoldaduraResult);
+                    //return ToDataTable.table_to_csv(data);
                 }
             }
             catch (Exception ex)

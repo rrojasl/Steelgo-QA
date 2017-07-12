@@ -196,8 +196,28 @@ function ObtenerEspesorCorrecto(EspesorTotalT, PWHT, CVN, ProcesoSoldadura, esRa
     else {
         if ((ProcesoSoldadura.toLowerCase().indexOf("stt") !== -1 || ProcesoSoldadura.toLowerCase().indexOf("rmd") !== -1
         || ProcesoSoldadura.toLowerCase().indexOf("cmt") !== -1) && EspesorTotalT < 13) {  // Para la comparacion del corto circuito, deben tener el proceso un sufijo STT,RMD o CMT 
+
             espesores[0].EspesorMaximo = (1.1 * parseFloat(EspesorTotalT));
-            espesores[0].EspesorMinimo = (1.1 * parseFloat(EspesorTotalT)); // me voy al valor de la tabla para minimo 
+
+            if (EspesorTotalT < 1.5) { // me voy al valor de la tabla para minimo 
+                espesores[0].EspesorMinimo = parseFloat(EspesorTotalT);
+            }
+            else if (EspesorTotalT >= 1.5 && EspesorTotalT < 10) {
+                espesores[0].EspesorMinimo = 1.5000;
+            }
+            else if (EspesorTotalT >= 10 && EspesorTotalT < 19) {
+                espesores[0].EspesorMinimo = 5.0000;
+            }
+            else if (EspesorTotalT >= 19 && EspesorTotalT < 38) {
+                espesores[0].EspesorMinimo = 5.0000;
+            }
+            else if (EspesorTotalT >= 38 && EspesorTotalT < 150) {
+                espesores[0].EspesorMinimo = 5.0000;
+            }
+            else if (EspesorTotalT >= 150) {
+                espesores[0].EspesorMinimo = 5.0000;
+            }
+
         }
         else {
             if (EspesorTotalT < 1.5) {
