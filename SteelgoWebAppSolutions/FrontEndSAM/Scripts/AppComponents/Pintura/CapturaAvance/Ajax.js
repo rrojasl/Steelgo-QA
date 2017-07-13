@@ -292,10 +292,13 @@ function AjaxCargarSpool(medioTransporteCargaID, sistemaPinturaProyectoID, proce
 
             ds.add(array[i]);
         }
-        if (array.length > 0)
+        if (array.length > 0) {
             editado = true;
-
+            ds.page(1);
+        }
         ds.sync();
+    
+    
         loadingStop();
     });
 }
@@ -322,7 +325,7 @@ function AjaxAgregarSpool(ordenTrabajoSpoolID) {
             sistemaPinturaID = ds._data[0].SistemaPinturaID;
             sistemaPintura = ds._data[0].SistemaPintura;
             proyectoID = ds._data[0].ProyectoID;
-            Color = ds._data[0].color;
+            Color = ds._data[0].Color;
         }
         for (var i = 0; i < array.length; i++) {
             if ((proyectoID == 0 ? true : (proyectoID == array[i].ProyectoID ? true : false))) {
@@ -344,8 +347,13 @@ function AjaxAgregarSpool(ordenTrabajoSpoolID) {
 
                                     if ($('input:radio[name=ProcesoPintura]:checked').val() == "4")
                                     {
-                                        if (array[i].Color == Color)
+                                        if (array[i].Color == Color) {
                                             ds.insert(0, array[i]);
+                                            if (elementosModificados != "")
+                                                elementosModificados += ", " + array[i].Spool;
+                                            else
+                                                elementosModificados = array[i].Spool;
+                                        }
                                         else
                                             displayNotify("menuPinturaSpoolColorDiferente", "", '1');
                                     }
@@ -353,10 +361,7 @@ function AjaxAgregarSpool(ordenTrabajoSpoolID) {
                                         ds.insert(0, array[i]);
                                    
                                    
-                                    if (elementosModificados != "")
-                                        elementosModificados += ", " + array[i].Spool;
-                                    else
-                                        elementosModificados = array[i].Spool;
+                                    
                                 }
                             } else if (sistemaPinturaID == array[i].SistemaPinturaID) {
                                 array[i].MedioTransporteCargaDetalleID = CargaCarroID == 0 ? $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()).MedioTransporteCargaID : CargaCarroID;
@@ -371,17 +376,19 @@ function AjaxAgregarSpool(ordenTrabajoSpoolID) {
                                         array[i].plantillaObrero = _dictionary.CapturaAvancePintoresShotblastExistentes[$("#language").data("kendoDropDownList").value()] + array[i].ListaObrerosSeleccionados.length;
                                     }
                                     if ($('input:radio[name=ProcesoPintura]:checked').val() == "4") {
-                                        if (array[i].Color == Color)
+                                        if (array[i].Color == Color) {
                                             ds.insert(0, array[i]);
+                                            if (elementosModificados != "")
+                                                elementosModificados += ", " + array[i].Spool;
+                                            else
+                                                elementosModificados = array[i].Spool;
+                                        }
                                         else
                                             displayNotify("menuPinturaSpoolColorDiferente", "", '1');
                                     }
                                     else
                                         ds.insert(0, array[i]);
-                                    if (elementosModificados != "")
-                                        elementosModificados += ", " + array[i].Spool;
-                                    else
-                                        elementosModificados = array[i].Spool;
+                                    
                                 }
                             }
                             else {
@@ -492,7 +499,7 @@ function AjaxGuardarAvanceCarro(arregloCaptura, guardarYNuevo) {
 
         for (var k = 0 ; k < arregloCaptura[index].ListaObrerosGuargados.length; k++) {
             for (var j = 0 ; j < arregloCaptura[index].ListaObrerosSeleccionados.length; j++) {
-                if (arregloCaptura[index].ListaObrerosGuargados[k].ObreroID == arregloCaptura[index].ListaObrerosSeleccionados[j].ObreroID && arregloCaptura[index].ListaObrerosGuargados[k].SpoolID == arregloCaptura[index].ListaObrerosSeleccionados[k].SpoolID && arregloCaptura[index].ListaObrerosGuargados[k].ProcesoPinturaID == arregloCaptura[index].ListaObrerosSeleccionados[k].ProcesoPinturaID) {
+                if (arregloCaptura[index].ListaObrerosGuargados[k].ObreroID == arregloCaptura[index].ListaObrerosSeleccionados[j].ObreroID) {
                     ListaDetallesObrerosSeleccionados[j].Accion = 0;//si existe en ambas listas guardadas y seleccionadas , no se hace nada.no tiene caso de insercion o actualizacion o borrado.
                     existeObrero = true;
                 }

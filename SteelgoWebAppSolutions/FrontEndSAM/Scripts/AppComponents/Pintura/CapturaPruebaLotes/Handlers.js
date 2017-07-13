@@ -35,6 +35,7 @@ function suscribirEventoWindowsConfirmaCapturaSinCambiarTipoBusqueda() {
         editado = false;
         ventanaConfirmEdicionSinTipoBusqueda.close();
         $("#grid").data("kendoGrid").dataSource.data([]);
+        
         switch (EjecutaChange) {
             case 1:
                 $("#inputProyecto").data("kendoComboBox").trigger("change");
@@ -52,7 +53,7 @@ function suscribirEventoWindowsConfirmaCapturaSinCambiarTipoBusqueda() {
                 $("#inputPrueba").data("kendoComboBox").trigger("change");
                 break;
             case 6:
-                $("#inputFechaLote").data("kendoComboBox").trigger("change");
+                $("#inputFechaLote").data("kendoDatePicker").trigger("change");
                 break;
             case 7:
                 $("#inputLote").data("kendoComboBox").trigger("change");
@@ -136,7 +137,7 @@ function SuscribirEventoProyecto() {
             EjecutaChange = 1;
             var dataItem = this.dataItem(e.sender.selectedIndex);
             if (!editado) {
-
+                $("#labelPruebasRequeridas").text("");
                 $("#inputProceso").data("kendoComboBox").dataSource.data([]);
                 $("#inputProceso").data("kendoComboBox").value("");
 
@@ -185,7 +186,7 @@ function SuscribirEventoProceso() {
             EjecutaChange = 2;
             if (!editado) {
                 var dataItem = this.dataItem(e.sender.selectedIndex);
-
+                $("#labelPruebasRequeridas").text("");
                 $("#inputSistemaPintura").data("kendoComboBox").dataSource.data([]);
                 $("#inputSistemaPintura").data("kendoComboBox").value("");
 
@@ -231,7 +232,7 @@ function SuscribirEventoSistemaPintura() {
         change: function (e) {
             EjecutaChange = 3;
             if (!editado) {
-
+                $("#labelPruebasRequeridas").text("");
                 $("#inputColor").data("kendoComboBox").dataSource.data([]);
                 $("#inputColor").data("kendoComboBox").value("");
 
@@ -277,6 +278,7 @@ function SuscribirEventoColor() {
             if (!editado) {
                 var dataItem = this.dataItem(e.sender.selectedIndex);
                 if (dataItem != undefined) {
+                    $("#labelPruebasRequeridas").text("");
                     LineaCaptura.ColorIDSeleccionado = dataItem.ColorID;
                 }
                 else {
@@ -311,6 +313,7 @@ function SuscribirEventoPrueba() {
         change: function (e) {
             EjecutaChange = 5;
             if (!editado) {
+                $("#labelPruebasRequeridas").text("");
                 $("#inputFechaLote").data("kendoDatePicker").value("");
 
 
@@ -349,6 +352,7 @@ function SuscribirEventoFechaLote() {
         change: function (e) {
             EjecutaChange = 6;
             if (!editado) {
+                $("#labelPruebasRequeridas").text("");
                 $("#inputLote").data("kendoComboBox").dataSource.data([]);
                 $("#inputLote").data("kendoComboBox").value("");
 
@@ -386,6 +390,7 @@ function SuscribirEventoLote() {
         change: function (e) {
             EjecutaChange = 7;
             if (!editado) {
+                $("#labelPruebasRequeridas").text("");
                 var dataItem = this.dataItem(e.sender.selectedIndex);
                 if (dataItem != undefined && $("#inputLote").val() != "") {
                     LineaCaptura.LoteIDSeleccionada = dataItem.LoteID;

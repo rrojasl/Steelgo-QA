@@ -293,7 +293,7 @@ function ajaxGuardar(data, guardarYNuevo) {
         }
     }
     else {
-
+        loadingStart();
         if (guardarYNuevo == 1) {
             if (editado)
                 displayNotify("MensajeGuardadoExistoso", "", '0');
@@ -305,10 +305,10 @@ function ajaxGuardar(data, guardarYNuevo) {
         else
         {
             displayNotify("MensajeGuardadoExistoso", "", '0');
-            opcionHabilitarView(false, "FieldSetView");
+            opcionHabilitarView(true, "FieldSetView");
             editado = false;
         }
-        
+        loadingStop();
     }
 };
 

@@ -26,13 +26,18 @@ function SuscribirEventoEliminaRegistro() {
     $(document).on('click', '.k-grid-Cancelar', function (e) {
 
         if ($('#Guardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
-            var dataSource = $("#grid").data("kendoGrid").dataSource;
-            var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+            if (!$('#chkCerrar').is(':checked')) {
+                var dataSource = $("#grid").data("kendoGrid").dataSource;
+                var dataItem = $("#grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
 
-            if (dataItem.Accion == 1 || dataItem.Accion == undefined) {
-                dataSource.remove(dataItem);
-                if (dataSource._data.length == 0) // si borro y es el ultimo elemento entonces se dice que el usuario no ah editado nada.
-                    editado = false;
+                if (dataItem.Accion == 1 || dataItem.Accion == undefined) {
+                    dataSource.remove(dataItem);
+                    if (dataSource._data.length == 0) // si borro y es el ultimo elemento entonces se dice que el usuario no ah editado nada.
+                        editado = false;
+                }
+            }
+            else {
+                displayNotify("PinturaCargaCarroCerrar", "", '1');
             }
         }
 
@@ -87,7 +92,7 @@ function SuscribirEventoCuadrante() {
         filter: "contains",
         change: function (e) {
             var dataItem = this.dataItem(e.sender.selectedIndex);
-            if (dataItem != undefined) {
+            if (dataItem != undefined && dataItem.Cuadrante!="") {
 
             }
             else {
@@ -153,7 +158,7 @@ function suscribirEventoWindowsConfirmaCapturaSinCambiarTipoBusqueda() {
 
         proyectoActualSeleccionado = $("#inputProyecto").data("kendoComboBox").dataItem($("#inputProyecto").data("kendoComboBox").select());
         LimpiarInformacionAgregada();
-       
+
         AjaxObtenerDetalleCargaCarro($("#inputCarro").data("kendoComboBox").select() == -1 ? 0 : $("#inputCarro").data("kendoComboBox").dataItem($("#inputCarro").data("kendoComboBox").select()).MedioTransporteID, $('input:radio[name=TipoVista]:checked').val(), '');
         ventanaConfirmEdicionSinTipoBusqueda.close();
         editado = false;
@@ -284,7 +289,7 @@ function SuscribirEventoSpoolID() {
                 $("#InputID").data("kendoComboBox").enable(false);
                 AjaxObtenerSpoolID();
             } catch (e) {
-                displayNotify("Mensajes_error", e.message, '2');    
+                displayNotify("Mensajes_error", e.message, '2');
 
             }
         } else {
@@ -295,11 +300,11 @@ function SuscribirEventoSpoolID() {
 
 
     $("#InputOrdenTrabajo").focus(function (e) {
-        
+
         $("#InputOrdenTrabajo").val("");
         $("#InputID").data("kendoComboBox").dataSource.data([]);
         $("#InputID").data("kendoComboBox").value("");
-        
+
     });
 
     $('#InputID').closest('.k-widget').keydown(function (e) {
@@ -392,7 +397,7 @@ function SuscribirEventoCarro() {
                 } else {
                     InformacionMostrada = true;
                     if (!editado) {
-                      
+
                         AjaxObtenerDetalleCargaCarro(dataItemCarro.MedioTransporteID, $('input:radio[name=TipoVista]:checked').val(), '');
                     }
                     else {

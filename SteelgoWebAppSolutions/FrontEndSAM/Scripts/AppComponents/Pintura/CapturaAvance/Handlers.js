@@ -117,8 +117,11 @@ function SuscribirEventoCuadrante() {
 		filter: "contains",
 		change: function (e) {
 			var dataItem = this.dataItem(e.sender.selectedIndex);
-			if (dataItem != undefined) {
-				dataItemCuadranteNuevo = dataItem;
+			if (dataItem != undefined && dataItem.Cuadrante != "") {
+			    dataItemCuadranteNuevo = dataItem;
+			}
+			else {
+			    $("#inputCuadrantePopup").data("kendoComboBox").value("");
 			}
 		}
 	});

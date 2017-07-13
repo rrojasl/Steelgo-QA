@@ -22,7 +22,7 @@ function isInArray(date, dates) {
 }
 
 function Limpiar() {
-   
+    $("#labelPruebasRequeridas").text("");
     $("#inputProyecto").data("kendoComboBox").value("");
 
     $("#inputProceso").data("kendoComboBox").dataSource.data([]);

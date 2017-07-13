@@ -70,10 +70,12 @@ function AjaxCargarNuevoSistemaPintura() {
 function AjaxCargarEdicionSistemaPintura() {
 	var SistemaPintura = "", ProyectoID = 0;;
 	SistemaPintura = $("#inputSistemaPinturaID").val();
-	if ($("#comboProyecto").data("kendoComboBox").value() == "") {
+	if ($("#comboProyecto").data("kendoComboBox").value() == "" && paramReqProyectoID!=0) {
 		ProyectoID = paramReqProyectoID;
 	}
-	else {
+	else if($("#inputProyecto").data("kendoMultiSelect")._values.length==1 )
+	    ProyectoID = $("#inputProyecto").data("kendoMultiSelect")._values[0];
+	else if ($("#comboProyecto").data("kendoComboBox").value()!="") {
 		ProyectoID = parseInt($("#comboProyecto").data("kendoComboBox").value());
 	}
 
@@ -249,9 +251,10 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
 			}
 			else {
 				for (var i = 0; i < $("#inputProyecto").data("kendoMultiSelect")._values.length; i++) {
-					ListaProyectos[i] = { ProyectoID: "", Accion: "" };
+				    ListaProyectos[i] = { ProyectoID: "", Accion: "", NoPintable: "" };
 					ListaProyectos[i].ProyectoID = $("#inputProyecto").data("kendoMultiSelect")._values[i];
 					ListaProyectos[i].Accion = tieneAvance ? 2 : 1;
+					ListaProyectos[i].NoPintable = NoPintable
 				}
 			}
 		}
@@ -327,10 +330,12 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
 					if (Error(data)) {
 						var SistemaPintura = "", ProyectoID = 0;;
 						SistemaPintura = $("#inputSistemaPinturaID").val();
-						if ($("#comboProyecto").data("kendoComboBox").value() == "") {
+						if ($("#comboProyecto").data("kendoComboBox").value() == "" && paramReqProyectoID!=0) {
 							ProyectoID = paramReqProyectoID;
 						}
-						else {
+						else if($("#inputProyecto").data("kendoMultiSelect")._values.length==1 )
+						    ProyectoID = $("#inputProyecto").data("kendoMultiSelect")._values[0];
+						else if ($("#comboProyecto").data("kendoComboBox").value()!="") {
 							ProyectoID = parseInt($("#comboProyecto").data("kendoComboBox").value());
 						}
 						$SistemaPintura.SistemaPintura.read({ token: Cookies.get("token"), SistemaPintura: SistemaPintura, ProyectoID: ProyectoID }).done(function (result) {
@@ -416,10 +421,12 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
 							if (Error(data)) {
 								var SistemaPintura = "", ProyectoID = 0;;
 								SistemaPintura = $("#inputSistemaPinturaID").val();
-								if ($("#comboProyecto").data("kendoComboBox").value() == "") {
-									ProyectoID = paramReqProyectoID;
+								if ($("#comboProyecto").data("kendoComboBox").value() == "" && paramReqProyectoID != 0) {
+								    ProyectoID = paramReqProyectoID;
 								}
-								else {
+								else if ($("#inputProyecto").data("kendoMultiSelect")._values.length == 1)
+								    ProyectoID = $("#inputProyecto").data("kendoMultiSelect")._values[0];
+								else if ($("#comboProyecto").data("kendoComboBox").value()!="") {
 									ProyectoID = parseInt($("#comboProyecto").data("kendoComboBox").value());
 								}
 								$SistemaPintura.SistemaPintura.read({ token: Cookies.get("token"), SistemaPintura: SistemaPintura, ProyectoID: ProyectoID }).done(function (result) {
