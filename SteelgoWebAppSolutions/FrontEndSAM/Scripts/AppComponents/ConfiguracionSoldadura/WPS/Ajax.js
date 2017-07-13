@@ -84,6 +84,7 @@ function AjaxGuardarCaptura() {
             GrupoP2: "",
             gruposCorrectos: "",
             ModificadoUsuario: "",
+            QuitarCVN: "",
             Estatus: 1
         };
 
@@ -126,6 +127,7 @@ function AjaxGuardarCaptura() {
         ListaDetalles[index].EspesorMinimoRelleno = arregloCaptura[index].EspesorMinimoRelleno;
         ListaDetalles[index].EspesorMaximoRelleno = arregloCaptura[index].EspesorMaximoRelleno;
         ListaDetalles[index].ProyectoID = arregloCaptura[index].ProyectoID;
+        ListaDetalles[index].QuitarCVN = arregloCaptura[index].QuitarCVN;
 
         if (arregloCaptura[index].WPSNombre != arregloCaptura[index].WPSNombreOriginal)
             arregloCaptura[index].EditadoUsuario = true;

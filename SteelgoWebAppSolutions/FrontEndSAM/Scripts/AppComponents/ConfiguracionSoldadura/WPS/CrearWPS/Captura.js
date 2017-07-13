@@ -97,12 +97,12 @@ function opcionHabilitarView(valor, name) {
     }
 }
 
-function ObtenerEspesorCorrecto(EspesorTotalT, PWHT, CVN, ProcesoSoldadura, esRaiz) {
+function ObtenerEspesorCorrecto(EspesorTotalT, PWHT, CVN, ProcesoSoldadura, bloquearCVN) {
     var espesores = [];
     espesores[0] = { EspesorMaximo: "", EspesorMinimo: "" };
     
 
-    if (CVN) { 
+    if (CVN && !bloquearCVN) { 
         if (!PWHT) {
             // Caso CVN sin PWHT
             // Si esta el valor entre 6 mm y 15.9999999 mm, se deja el espesor minimo es el valor de T,

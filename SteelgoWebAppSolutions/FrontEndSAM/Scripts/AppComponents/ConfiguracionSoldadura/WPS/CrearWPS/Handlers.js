@@ -3,6 +3,7 @@
     suscribirEventoNombreWPS();
     suscribirEventoRaizNombre();
     suscribirEventoRellenoNombre();
+    suscribirEventoChangeCVN();
 }
 
 function suscribirEventoGuardar() {
@@ -82,22 +83,40 @@ function suscribirEventoRaizNombre() {
                     $("#RaizEspesorRelleno").text(parseFloat(dataItem.EspesorRelleno));
 
                     //var EspesoresRaiz = ObtenerEspesorCorrecto(parseFloat(dataItem.EspesorRaiz) + parseFloat(dataItem.EspesorRelleno), dataItem.PWHT, dataItem.CodigoRaiz, true);
-                    var EspesoresRelleno;
+                    var EspesoresRelleno, EspesorMaximoRaiz, EspesorMaximoRelleno;
                     if ($("#PQRRellenoNombre").data("kendoComboBox").dataItem($("#PQRRellenoNombre").data("kendoComboBox").select()) != undefined) {
                         EspesoresRelleno = ObtenerEspesorCorrecto(parseFloat($("#PQRRellenoNombre").data("kendoComboBox").dataItem($("#PQRRellenoNombre").data("kendoComboBox").select()).EspesorRelleno) +
                                                                   parseFloat(dataItem.EspesorRaiz),
                                                                   $('#PWHRelleno').is(':checked'), $('#CVNRelleno').is(':checked'), $("#PQRRellenoNombre").data("kendoComboBox").dataItem($("#PQRRellenoNombre").data("kendoComboBox").select()).CodigoRelleno,
-                                                                  false);
+                                                                  $('#QuitarCVN').is(':checked'));
                         $("#EspesorMaximoWPS").text(parseFloat(EspesoresRelleno[0].EspesorMaximo));
                         $("#EspesorMinimoWPS").text(parseFloat(EspesoresRelleno[0].EspesorMinimo));
 
-                        EspesoresRelleno = ObtenerEspesorCorrecto(parseFloat($("#PQRRellenoNombre").data("kendoComboBox").dataItem($("#PQRRellenoNombre").data("kendoComboBox").select()).EspesorRelleno) +
-                                                                 parseFloat(dataItem.EspesorRaiz),
-                                                                 $('#PWHRelleno').is(':checked'), $('#CVNRelleno').is(':checked'), $("#PQRRellenoNombre").data("kendoComboBox").dataItem($("#PQRRellenoNombre").data("kendoComboBox").select()).CodigoRelleno,
-                                                                 false);
-                        $("#EspesorMaximoWPS").text(parseFloat(EspesoresRelleno[0].EspesorMaximo));
+                        EspesorMaximoRaiz = ObtenerEspesorCorrecto(parseFloat($("#PQRRaizNombre").data("kendoComboBox").dataItem($("#PQRRaizNombre").data("kendoComboBox").select()).EspesorRaiz),
+                                                     $('#PWHRelleno').is(':checked'), $('#CVNRelleno').is(':checked'), $("#PQRRellenoNombre").data("kendoComboBox").dataItem($("#PQRRellenoNombre").data("kendoComboBox").select()).CodigoRelleno,
+                                                     $('#QuitarCVN').is(':checked'));
+                        $("#EspesorRaiz").text(parseFloat(EspesorMaximoRaiz[0].EspesorMaximo));
+
+
+                        EspesorMaximoRelleno = ObtenerEspesorCorrecto(parseFloat($("#PQRRellenoNombre").data("kendoComboBox").dataItem($("#PQRRellenoNombre").data("kendoComboBox").select()).EspesorRelleno),
+                                                      $('#PWHRelleno').is(':checked'), $('#CVNRelleno').is(':checked'), $("#PQRRellenoNombre").data("kendoComboBox").dataItem($("#PQRRellenoNombre").data("kendoComboBox").select()).CodigoRelleno,
+                                                      $('#QuitarCVN').is(':checked'));
+                        $("#EspesorRelleno").text(parseFloat(EspesorMaximoRelleno[0].EspesorMaximo));
+
+                        if (dataItem.CVN == 1 && $("#PQRRellenoNombre").data("kendoComboBox").dataItem($("#PQRRellenoNombre").data("kendoComboBox").select()).CVN == 1) {
+                            $('#QuitarCVN').prop("disabled", false);
+                        }
+                        else {
+                            $('#QuitarCVN').prop("disabled", true);
+                            var data = kendo.observable({
+                                optionCheck: false
+                            });
+                            kendo.bind($("#QuitarCVN"), data);
+                        }
 
                     }
+                    
+
                 }
                 else {
                     displayNotify("WPSMensajeErrorPQRNoAplicaRaiz", "", "1");
@@ -193,7 +212,7 @@ function suscribirEventoRellenoNombre() {
                     $("#RellenoEspesorRelleno").text(parseFloat(dataItem.EspesorRelleno));
 
                     //var EspesoresRelleno = ObtenerEspesorCorrecto(parseFloat(dataItem.EspesorRaiz) + parseFloat(dataItem.EspesorRelleno), dataItem.PWHT, dataItem.CodigoRelleno, false);
-                    var EspesoresRaiz;
+                    var EspesoresRaiz, EspesorMaximoRaiz, EspesorMaximoRelleno;
                     if ($("#PQRRaizNombre").data("kendoComboBox").dataItem($("#PQRRaizNombre").data("kendoComboBox").select()) == undefined) {
 
                     }
@@ -201,9 +220,36 @@ function suscribirEventoRellenoNombre() {
                         EspesoresRaiz = ObtenerEspesorCorrecto(parseFloat($("#PQRRaizNombre").data("kendoComboBox").dataItem($("#PQRRaizNombre").data("kendoComboBox").select()).EspesorRelleno) +
                                                                   parseFloat(dataItem.EspesorRelleno),
                                                                   $('#PWHRelleno').is(':checked'), $('#CVNRelleno').is(':checked'), $("#PQRRaizNombre").data("kendoComboBox").dataItem($("#PQRRaizNombre").data("kendoComboBox").select()).CodigoRelleno,
-                                                                  true);
+                                                                  $('#QuitarCVN').is(':checked'));
                         $("#EspesorMaximoWPS").text(parseFloat(EspesoresRaiz[0].EspesorMaximo));
                         $("#EspesorMinimoWPS").text(parseFloat(EspesoresRaiz[0].EspesorMinimo));
+
+
+
+
+                        EspesorMaximoRaiz = ObtenerEspesorCorrecto(parseFloat($("#PQRRaizNombre").data("kendoComboBox").dataItem($("#PQRRaizNombre").data("kendoComboBox").select()).EspesorRaiz),
+                                                      $('#PWHRelleno').is(':checked'), $('#CVNRelleno').is(':checked'), $("#PQRRellenoNombre").data("kendoComboBox").dataItem($("#PQRRellenoNombre").data("kendoComboBox").select()).CodigoRelleno,
+                                                      $('#QuitarCVN').is(':checked'));
+                        $("#EspesorRaiz").text(parseFloat(EspesorMaximoRaiz[0].EspesorMaximo));
+
+
+                        EspesorMaximoRelleno = ObtenerEspesorCorrecto(parseFloat($("#PQRRellenoNombre").data("kendoComboBox").dataItem($("#PQRRellenoNombre").data("kendoComboBox").select()).EspesorRelleno),
+                                                      $('#PWHRelleno').is(':checked'), $('#CVNRelleno').is(':checked'), $("#PQRRellenoNombre").data("kendoComboBox").dataItem($("#PQRRellenoNombre").data("kendoComboBox").select()).CodigoRelleno,
+                                                      $('#QuitarCVN').is(':checked'));
+                        $("#EspesorRelleno").text(parseFloat(EspesorMaximoRelleno[0].EspesorMaximo));
+
+                        if (dataItem.CVN == 1 && $("#PQRRaizNombre").data("kendoComboBox").dataItem($("#PQRRaizNombre").data("kendoComboBox").select()).CVN == 1) {
+                            $('#QuitarCVN').prop("disabled", false);
+                        }
+                        else {
+                            $('#QuitarCVN').prop("disabled", true);
+                            var data = kendo.observable({
+                                optionCheck: false
+                            });
+                            kendo.bind($("#QuitarCVN"), data);
+                        }
+
+
                     }
                 }
                 else {
@@ -243,3 +289,30 @@ function suscribirEventoRellenoNombre() {
         },
     });
 };
+
+function suscribirEventoChangeCVN() {
+    $('#QuitarCVN').change(function (e) {
+        var Espesores, EspesorMaximoRaiz, EspesorMaximoRelleno;
+        if ($("#PQRRellenoNombre").data("kendoComboBox").dataItem($("#PQRRellenoNombre").data("kendoComboBox").select()) != undefined && $("#PQRRaizNombre").data("kendoComboBox").dataItem($("#PQRRaizNombre").data("kendoComboBox").select()) != undefined) {
+            Espesores = ObtenerEspesorCorrecto(parseFloat($("#PQRRellenoNombre").data("kendoComboBox").dataItem($("#PQRRellenoNombre").data("kendoComboBox").select()).EspesorRelleno) +
+                                                      parseFloat($("#PQRRaizNombre").data("kendoComboBox").dataItem($("#PQRRaizNombre").data("kendoComboBox").select()).EspesorRaiz),
+                                                      $('#PWHRelleno').is(':checked'), $('#CVNRelleno').is(':checked'), $("#PQRRellenoNombre").data("kendoComboBox").dataItem($("#PQRRellenoNombre").data("kendoComboBox").select()).CodigoRelleno,
+                                                      $('#QuitarCVN').is(':checked'));
+            $("#EspesorMaximoWPS").text(parseFloat(Espesores[0].EspesorMaximo));
+            $("#EspesorMinimoWPS").text(parseFloat(Espesores[0].EspesorMinimo));
+
+            EspesorMaximoRaiz = ObtenerEspesorCorrecto(parseFloat($("#PQRRaizNombre").data("kendoComboBox").dataItem($("#PQRRaizNombre").data("kendoComboBox").select()).EspesorRaiz),
+                                                      $('#PWHRelleno').is(':checked'), $('#CVNRelleno').is(':checked'), $("#PQRRellenoNombre").data("kendoComboBox").dataItem($("#PQRRellenoNombre").data("kendoComboBox").select()).CodigoRelleno,
+                                                      $('#QuitarCVN').is(':checked'));
+            $("#EspesorRaiz").text(parseFloat(EspesorMaximoRaiz[0].EspesorMaximo));
+
+
+            EspesorMaximoRelleno = ObtenerEspesorCorrecto(parseFloat($("#PQRRellenoNombre").data("kendoComboBox").dataItem($("#PQRRellenoNombre").data("kendoComboBox").select()).EspesorRelleno),
+                                                      $('#PWHRelleno').is(':checked'), $('#CVNRelleno').is(':checked'), $("#PQRRellenoNombre").data("kendoComboBox").dataItem($("#PQRRellenoNombre").data("kendoComboBox").select()).CodigoRelleno,
+                                                      $('#QuitarCVN').is(':checked'));
+            $("#EspesorRelleno").text(parseFloat(EspesorMaximoRelleno[0].EspesorMaximo));
+            
+
+        }
+    });
+}

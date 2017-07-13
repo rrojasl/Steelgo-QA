@@ -7433,9 +7433,9 @@ _dictionary = {
         "es-MX": "CVN",
         "en-US": "CVN"
     },
-    "lblFN": {
-        "es-MX": "FN",
-        "en-US": "FN"
+    "lblCVNCalculo": {
+        "es-MX": "Remover calc CVN",
+        "en-US": "Remove calc CVN"
     },
     "lblMacroTest": {
         "es-MX": "MacroTest",
@@ -7462,16 +7462,16 @@ _dictionary = {
         "en-US": "Fill Thk(mm)"
     },
     "lblEspesorRelleno2": {
-        "es-MX": "E. Relleno(mm)",
-        "en-US": "Fill Thk(mm)"
+        "es-MX": "E. max. Relleno(mm)",
+        "en-US": "Fill max. T.(mm)"
     },
     "lblEspesorRaiz1": {
         "es-MX": "E. Raiz(mm)",
         "en-US": "Root Thck(mm)"
     },
     "lblEspesorRaiz2": {
-        "es-MX": "E. Raiz(mm)",
-        "en-US": "Root Thck(mm)"
+        "es-MX": "E. max. raiz(mm)",
+        "en-US": "Root max. T.(mm)"
     },
     "lblProcesoSoldaduraRelleno": {
         "es-MX": "Proc Relleno",

@@ -31,7 +31,7 @@ function csvToJson(data, field) {
     data = data.split("\n");
     data.shift();
     //data.pop();
-    data = data.join("\n");
+    data = data.join("\n"); 
     data = data.split("\r").join("");
 
     var cabeceras = ["JuntaSpoolid", "FechaEntregaReporteArmado", "FechadeArmado", "ClaveTubero", "FechaEntregaReporteSoldadura",

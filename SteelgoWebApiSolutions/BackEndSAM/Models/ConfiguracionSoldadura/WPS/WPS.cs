@@ -67,6 +67,7 @@ namespace BackEndSAM.Models.ConfiguracionSoldadura.WPS
         public bool RowOk { get; set; }
         public bool EditadoUsuario { get; set; }
         public int RegistrosWPS { get; set; }
+        public int QuitarCVN { get; set; }
     }
 
 
@@ -91,6 +92,7 @@ namespace BackEndSAM.Models.ConfiguracionSoldadura.WPS
         public double EspesorMinimoRelleno { get; set; }
         public string GrupoP1 { get; set; }
         public string GrupoP2 { get; set; }
+        public int QuitarCVN { get; set; }
         public List<GruposP> gruposCorrectos { get; set; }
     }
 

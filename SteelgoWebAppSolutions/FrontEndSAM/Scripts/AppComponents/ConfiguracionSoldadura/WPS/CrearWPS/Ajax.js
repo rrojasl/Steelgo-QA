@@ -57,7 +57,8 @@ function AjaxGuardar(tipoGuardar) {
         ProyectoID: "",
         GrupoP1: "",
         GrupoP2: "",
-        gruposCorrectos: ""
+        gruposCorrectos: "",
+        QuitarCVN: "",
     };
 
     if ($('#NomnreWPS').val() == "" || $('#NomnreWPS').val() == undefined || $('#NomnreWPS').val() == null) {
@@ -102,7 +103,7 @@ function AjaxGuardar(tipoGuardar) {
         ListaDetalles[0].EspesorMinimoRaiz = $('#EspesorMinimoRaiz').text();
         ListaDetalles[0].EspesorMaximoRelleno = $('#EspesorMaximoRelleno').text();
         ListaDetalles[0].EspesorMinimoRelleno = $('#EspesorMinimoRelleno').text();
-
+        ListaDetalles[0].QuitarCVN = $('#QuitarCVN').is(':checked') ? 1 : 0;
         var arregloGrupos = obtenerGruposPLiberar($("#PQRRaizNombre").data("kendoComboBox").dataItem($("#PQRRaizNombre").data("kendoComboBox").select()).GrupoPMaterialBase1, $("#PQRRaizNombre").data("kendoComboBox").dataItem($("#PQRRaizNombre").data("kendoComboBox").select()).GrupoPMaterialBase2, $("#PQRRellenoNombre").data("kendoComboBox").dataItem($("#PQRRellenoNombre").data("kendoComboBox").select()).GrupoPMaterialBase1, $("#PQRRellenoNombre").data("kendoComboBox").dataItem($("#PQRRellenoNombre").data("kendoComboBox").select()).GrupoPMaterialBase2);
 
         ListaDetalles[0].GrupoP1 = arregloGrupos[0];
