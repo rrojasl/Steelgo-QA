@@ -280,7 +280,7 @@ namespace BackEndSAM.DataAcces.Pintura.PruebasPorLote
                             PruebasRequeridas = item.PruebasRequeridas,
                             PruebasEjecutadas = item.PruebasEjecutadas,
                             PruebaProcesoPinturaID = item.PruebaProcesoPinturaID,
-                            CerrarLote = item.CerrarLote,
+                            CerrarLote =  item.CerrarLote==1?true:false,
                             ProyectoProcesoPruebaID = item.ProyectoProcesoPruebaID,
                             Template = item.Template,
                             Medida = item.Medida,

@@ -113,19 +113,19 @@ namespace BackEndSAM.Models.Pintura.PruebasPorLote
 
     public class DetalleLote
     {
-        public int SpoolID { get; set; }
+        public int? SpoolID { get; set; }
         public string NumeroControl { get; set; }
         public string SistemaPintura { get; set; }
         public string Color { get; set; }
         public Double Area { get; set; }
         public string Cuadrante { get; set; }
         public int? PruebaProcesoPinturaID { get; set; }
-        public Double UnidadMinima { get; set; }
-        public Double UnidadMaxima { get; set; }
-        public int PruebasRequeridas { get; set; }
+        public decimal? UnidadMinima { get; set; }
+        public decimal? UnidadMaxima { get; set; }
+        public int? PruebasRequeridas { get; set; }
         public int? PruebasEjecutadas { get; set; }
         public bool? CerrarLote { get; set; }
-        public int ProyectoProcesoPruebaID { get; set; }
+        public int? ProyectoProcesoPruebaID { get; set; }
         public string Template { get; set; }
         public List<DetallePruebasPorSpool> ListaDetallePruebas { get; set; }
         public string Medida { get; set; }

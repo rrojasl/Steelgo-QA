@@ -72,7 +72,7 @@ function PlanchaElementosDinamicos() {
         for (var j = 0; j < ComponentesDinamicosJSON.length; j++) {
             for (var i = 0; i < data.length; i++) {
                 if ($("#" + ComponentesDinamicosJSON[j].NombreColumna).val() != undefined && $("#" + ComponentesDinamicosJSON[j].NombreColumna).val() != "") {
-                    if (data[i][ComponentesDinamicosJSON[j].NombreColumna] == null || data[i][ComponentesDinamicosJSON[j].NombreColumna] == "" || data[i][ComponentesDinamicosJSON[j].NombreColumna] == undefined)
+                    if (data[i][ComponentesDinamicosJSON[j].NombreColumna] == null || data[i][ComponentesDinamicosJSON[j].NombreColumna].trim() == "" || data[i][ComponentesDinamicosJSON[j].NombreColumna] == undefined)
                         data[i][ComponentesDinamicosJSON[j].NombreColumna] = $("#" + ComponentesDinamicosJSON[j].NombreColumna).val();
                 }
             }
@@ -81,7 +81,7 @@ function PlanchaElementosDinamicos() {
         for (var j = 0; j < ReductoresDinamicosJSON.length; j++) {
             for (var i = 0; i < data.length; i++) {
                 if ($("#" + ReductoresDinamicosJSON[j].NombreColumna).val() != undefined && $("#" + ReductoresDinamicosJSON[j].NombreColumna).val() != "") {
-                    if (data[i][ReductoresDinamicosJSON[j].NombreColumna] == null || data[i][ReductoresDinamicosJSON[j].NombreColumna] == "" || data[i][ReductoresDinamicosJSON[j].NombreColumna] == undefined)
+                    if (data[i][ReductoresDinamicosJSON[j].NombreColumna] == null || data[i][ReductoresDinamicosJSON[j].NombreColumna].trim() == "" || data[i][ReductoresDinamicosJSON[j].NombreColumna] == undefined)
                         data[i][ReductoresDinamicosJSON[j].NombreColumna] = $("#" + ReductoresDinamicosJSON[j].NombreColumna).val();
                 }
             }
