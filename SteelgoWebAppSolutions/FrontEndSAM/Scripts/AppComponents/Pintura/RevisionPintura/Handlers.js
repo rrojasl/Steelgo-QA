@@ -192,14 +192,18 @@ function suscribirEventoWindowsConfirmaCapturaSinCambiarTipoBusqueda()
         ventanaConfirmEdicionSinTipoBusqueda.close();
         editado = false;
 
-       // $("#grid").data("kendoGrid").dataSource.data([]);
+        $("#grid").data("kendoGrid").dataSource.data([]);
         switch (EjecutaChange) {
             case 1:
                 $("#inputProyecto").data("kendoComboBox").trigger("change");
                 break;
             case 2:
-                //$("#inputCarro").data("kendoComboBox").trigger("change");
-                //$("#inputZona").data("kendoComboBox").trigger("change");
+                tipoBusquedaSeleccionada = $('input:radio[name=TipoBusqueda]:checked').val() == "spool" ? 1 : 2;
+                datoSeleccionado = tipoBusquedaSeleccionada == 1 ? $("#inputSpool").val() : $("#inputNc").val();
+                AjaxConsultarSpoolsConSP(tipoBusquedaSeleccionada, datoSeleccionado);
+                break;
+            case 3:
+                $("#btnBuscar").trigger("click");
                 break;
 
         }
@@ -350,6 +354,7 @@ function eventoRegresarTipoListado() {
 
 function SuscribirEventoBusqueda() {
     $("#btnBuscar").click(function (e) {
+        EjecutaChange=3
         if (!editado) {
             var Proyecto = $("#inputProyecto").data("kendoComboBox").dataItem($("#inputProyecto").data("kendoComboBox").select());
             var tipoBusqueda = 0;
@@ -392,6 +397,7 @@ function SuscribirEventoBusqueda() {
     });
 
     $("#inputSpool").keydown(function (e) {
+        EjecutaChange = 2;
         var Proyecto = $("#inputProyecto").data("kendoComboBox").dataItem($("#inputProyecto").data("kendoComboBox").select());
         if (e.keyCode == 13) {
             if (!editado) {
@@ -413,6 +419,7 @@ function SuscribirEventoBusqueda() {
 
 
     $("#inputNc").keydown(function (e) {
+        EjecutaChange = 2;
         var Proyecto = $("#inputProyecto").data("kendoComboBox").dataItem($("#inputProyecto").data("kendoComboBox").select());
         if (e.keyCode == 13) {
             if (!editado) {

@@ -347,7 +347,8 @@ function opcionHabilitarView(valor, name) {
 		$("#InputOrdenTrabajo").attr('disabled', true);
 		$("#InputID").data("kendoComboBox").enable(false);
 		$("#FechaShotBlast").data("kendoDatePicker").enable(false);
-
+		$("#inputColor").data("kendoComboBox").enable(false);
+		
 		$("input[name='Muestra']").attr("disabled", true);
 
 		$("#stylePPShotBlast").attr("disabled", true);
@@ -373,7 +374,7 @@ function opcionHabilitarView(valor, name) {
 		$('.FieldSetView').find('*').attr('disabled', false);
 
 
-
+		$("#inputColor").data("kendoComboBox").enable(true);
 		$("#inputCarro").data("kendoComboBox").enable(true);
 		$("input[name='Muestra']").attr("disabled", false);
 		$("#stylePPShotBlast").attr("disabled", false);
