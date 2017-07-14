@@ -8253,6 +8253,10 @@ _dictionary = {
         "es-MX": "Asignar Requisición",
         "en-US": "Set Requisition"
     },
+    "menuServiciosTecnicosCapturaPreeliminar": {
+        "es-MX": "Captura Preliminar",
+        "en-US": "Preliminary Capture"
+    },
     "menuServiciosTecnicosReporteRT": {
         "es-MX": "Captura de Resultados",
         "en-US": "Capture of Report"

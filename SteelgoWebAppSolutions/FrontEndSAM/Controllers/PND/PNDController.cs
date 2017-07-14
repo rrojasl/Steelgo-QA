@@ -67,6 +67,10 @@ namespace FrontEndSAM.Controllers.PND
         {
             return View();
         }
-        
+        public ActionResult CapturaPreeliminar()
+        {
+            return View();
+        }
+
     }
 }
