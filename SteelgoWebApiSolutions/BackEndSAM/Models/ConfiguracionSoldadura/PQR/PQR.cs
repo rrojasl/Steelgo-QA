@@ -150,6 +150,9 @@ namespace BackEndSAM.Models.ConfiguracionSoldadura.PQR
             Nombre = "";
             PREHEAT = 0;
             PWHT = 0;
+            CVN = false;
+            FN = 0;
+            MacroTest = 0;
             EspesorRaiz = 0;
             EspesorRelleno = 0;
             GrupoPMaterialBase1 = 0;
@@ -167,6 +170,9 @@ namespace BackEndSAM.Models.ConfiguracionSoldadura.PQR
         public string Nombre { get; set; }
         public int PREHEAT { get; set; }
         public int PWHT { get; set; }
+        public bool CVN { get; set; }
+        public int FN { get; set; }
+        public int MacroTest { get; set; }
         public double EspesorRelleno { get; set; }
         public double EspesorRaiz { get; set; }
         public int GrupoPMaterialBase1 { get; set; }

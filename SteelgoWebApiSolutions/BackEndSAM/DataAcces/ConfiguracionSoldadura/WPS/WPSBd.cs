@@ -61,7 +61,8 @@ namespace BackEndSAM.DataAcces.ConfiguracionSoldadura
                                              RaizEspesorRelleno = WPS.RaizEspesorRelleno,
                                              RellenoEspesorRaiz = WPS.RellenoEspesorRaiz.GetValueOrDefault(),
                                              RellenoEspesorRelleno = WPS.RellenoEspesorRelleno,
-
+                                             EspesorMaximoRaiz =WPS.EspesorMaximoRaiz.GetValueOrDefault(),
+                                             EspesorMaximoRelleno = WPS.EspesorMaximoRelleno.GetValueOrDefault(),
                                              PWHTRaizId = Convert.ToInt32(WPS.PWHTId),
                                              PWHTRaiz = WPS.PWHTId,
                                              PWHTRellenoId = Convert.ToInt32(WPS.PWHTId),
@@ -71,6 +72,8 @@ namespace BackEndSAM.DataAcces.ConfiguracionSoldadura
                                              PREHEATRaiz = WPS.PREHEATId,
                                              PREHEATRellenoId = Convert.ToInt32(WPS.PREHEATId),
                                              PREHEATRelleno = WPS.PREHEATId,
+                                             CVNRaiz = WPS.CVN.GetValueOrDefault(),
+                                             CVNRelleno = WPS.CVN.GetValueOrDefault(),
 
                                              GrupoMaterialBase1RaizD = WPS.GrupoMaterialBase1RaizD,
                                              GrupoMaterialBase1RaizDID = WPS.GrupoMaterialBase1RaizDID.GetValueOrDefault(),
@@ -88,7 +91,8 @@ namespace BackEndSAM.DataAcces.ConfiguracionSoldadura
                                              listadoRellenoPQR = (List<DetallePQR>)PQRBd.ObtenerListadoPQRActivos(),
                                              RowOk = true,
                                              EditadoUsuario = false,
-                                             RegistrosWPS = WPS.RegistrosWPS.GetValueOrDefault()
+                                             RegistrosWPS = WPS.RegistrosWPS.GetValueOrDefault(), 
+                                             QuitarCVN = WPS.QuitarCVN.GetValueOrDefault() ? 1 : 0
 
                                          }).AsParallel().ToList();
                 data.Insert(0, new WPS());
@@ -124,11 +128,16 @@ namespace BackEndSAM.DataAcces.ConfiguracionSoldadura
                                       RaizEspesorRelleno = WPS.RaizEspesorRelleno,
                                       RellenoEspesorRaiz = WPS.RellenoEspesorRaiz.GetValueOrDefault(),
                                       RellenoEspesorRelleno = WPS.RellenoEspesorRelleno,
+                                      EspesorMaximoRaiz = WPS.EspesorMaximoRaiz.GetValueOrDefault(),
+                                      EspesorMaximoRelleno = WPS.EspesorMaximoRelleno.GetValueOrDefault(),
 
                                       PWHTRaizId = Convert.ToInt32(WPS.PWHTId),
                                       PWHTRaiz = WPS.PWHTId,
                                       PWHTRellenoId = Convert.ToInt32(WPS.PWHTId),
                                       PWHTRelleno = WPS.PWHTId,
+
+                                      CVNRaiz = WPS.CVN.GetValueOrDefault(),
+                                      CVNRelleno = WPS.CVN.GetValueOrDefault(),
 
                                       PREHEATRaizId = Convert.ToInt32(WPS.PREHEATId),
                                       PREHEATRaiz = WPS.PREHEATId,

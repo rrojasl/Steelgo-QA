@@ -8977,8 +8977,12 @@ _dictionary = {
         "en-US": "PROC"
     },
     "columnEspesormm": {
-        "es-MX": "ESPESOR (mm)",
-        "en-US": "THICKNESS (mm)"
+        "es-MX": "ESPESOR METAL BASE(mm)",
+        "en-US": "BASE METAL THICKNESS (mm)"
+    },
+    "columnEspesorMax": {
+        "es-MX": "ESPESOR MAX(mm)",
+        "en-US": "MAX THINKNESS(mm)"
     },
     "columnPQR": {
         "es-MX": "PQR",
@@ -9876,6 +9880,10 @@ _dictionary = {
     "WPSMensajeErrorPREHEAT": {
         "es-MX": "Los PREHEAT no coinciden",
         "en-US": "PREHEAT don't match "
+    },
+    "WPSMensajeErrorCVN": {
+        "es-MX": "Los CVN no coinciden",
+        "en-US": "CVN don't match "
     },
     "WPSMensajeErrorPQRNoAplicaRelleno": {
         "es-MX": "El WPS no aplica para relleno",

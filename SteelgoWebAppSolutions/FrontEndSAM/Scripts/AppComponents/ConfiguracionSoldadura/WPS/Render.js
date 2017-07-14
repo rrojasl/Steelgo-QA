@@ -30,6 +30,9 @@
                         if (options.model.PREHEATRellenoId != dataItem.PREHEAT) {
                             cadenaError += "\n " + _dictionary.WPSMensajeErrorPREHEAT[$("#language").data("kendoDropDownList").value()];
                         }
+                        if (options.model.CVNRelleno != dataItem.CVN) {
+                            cadenaError += "\n " + _dictionary.WPSMensajeErrorCVN[$("#language").data("kendoDropDownList").value()];
+                        }
                         if (cadenaError != "") {
                             displayNotify("", cadenaError, "1");
                         }
@@ -44,14 +47,18 @@
                         options.model.GrupoPRaiz = dataItem.GrupoPMaterialBase1Nombre + " " + dataItem.GrupoPMaterialBase2Nombre;
                         options.model.PREHEATRaiz = dataItem.PREHEAT == 1 ? true : false;
                         options.model.PREHEATRaizId = dataItem.PREHEAT;
+                        options.model.CVNRaiz = dataItem.CVN;
                         
-                        var Espesores = ObtenerEspesorCorrecto((parseFloat(options.model.RaizEspesorRaiz) + parseFloat(dataItem.EspesorRelleno)), dataItem.PWHT, dataItem.CVN, dataItem.CodigoRaiz.trim(), true);
                         
-                        var Espesores = ObtenerEspesorCorrecto((parseFloat(dataItem.EspesorRaiz) + parseFloat(options.model.RellenoEspesorRelleno)), dataItem.PWHT, dataItem.CVN, dataItem.CodigoRaiz.trim(), false);
+                        var Espesores = ObtenerEspesorCorrecto((parseFloat(dataItem.EspesorRaiz) + parseFloat(options.model.RellenoEspesorRelleno)), dataItem.PWHT, dataItem.CVN, dataItem.CodigoRaiz.trim(), options.model.QuitarCVN);
 
                         options.model.EspesorMaximo = Espesores[0].EspesorMaximo;
                         options.model.EspesorMinimo = Espesores[0].EspesorMinimo;
 
+                        var EspesoresRaiz = ObtenerEspesorCorrecto(parseFloat(dataItem.EspesorRaiz) , dataItem.PWHT, dataItem.CVN, dataItem.CodigoRaiz.trim(), options.model.QuitarCVN);
+
+                        options.model.EspesorMaximoRaiz = EspesoresRaiz[0].EspesorMaximo;
+                        
 
                         options.model.RaizEspesorRaiz = parseFloat(dataItem.EspesorRaiz);
                         options.model.RaizEspesorRelleno = parseFloat(dataItem.EspesorRelleno);
@@ -77,6 +84,8 @@
                     options.model.PREHEATRaiz = false;
                     options.model.PREHEATRaizId = 0;
                     options.model.EspesorMaximo = 0;
+                    options.model.EspesorMaximoRaiz = 0;
+                    options.model.EspesorMaximoRelleno = 0;
                     options.model.EspesorMinimo = 0;
                     options.model.RaizEspesorRaiz = 0;
                     options.model.RaizEspesorRelleno = 0;
@@ -139,6 +148,9 @@ function RenderComboBoxPQRRelleno(container, options) {
                         if (options.model.PREHEATRaizId != dataItem.PREHEAT) {
                             cadenaError += "\n " + _dictionary.WPSMensajeErrorPREHEAT[$("#language").data("kendoDropDownList").value()];
                         }
+                        if (options.model.CVNRaiz != dataItem.CVN) {
+                            cadenaError += "\n " + _dictionary.WPSMensajeErrorCVN[$("#language").data("kendoDropDownList").value()];
+                        }
                         if (cadenaError != "") {
                             displayNotify("", cadenaError, "1");
                         }
@@ -151,10 +163,17 @@ function RenderComboBoxPQRRelleno(container, options) {
                         options.model.GrupoPRelleno = dataItem.GrupoPMaterialBase1Nombre + " " + dataItem.GrupoPMaterialBase2Nombre;
                         options.model.PREHEATRelleno = dataItem.PREHEAT == 1 ? true : false;
                         options.model.PREHEATRellenoId = dataItem.PREHEAT;
+                        options.model.CVNRelleno = dataItem.CVN;
 
-                        var Espesores = ObtenerEspesorCorrecto((parseFloat(options.model.RaizEspesorRaiz) + parseFloat(dataItem.EspesorRelleno)), dataItem.PWHT, dataItem.CVN, dataItem.CodigoRaiz.trim(), true);
+                        var Espesores = ObtenerEspesorCorrecto((parseFloat(options.model.RaizEspesorRaiz) + parseFloat(dataItem.EspesorRelleno)), dataItem.PWHT, dataItem.CVN, dataItem.CodigoRaiz.trim(), options.model.QuitarCVN);
                         options.model.EspesorMaximo = Espesores[0].EspesorMaximo;
                         options.model.EspesorMinimo = Espesores[0].EspesorMinimo;
+
+                        var EspesoresRelleno = ObtenerEspesorCorrecto(parseFloat(dataItem.EspesorRelleno), dataItem.PWHT, dataItem.CVN, dataItem.CodigoRaiz.trim(), options.model.QuitarCVN);
+
+                        options.model.EspesorMaximoRelleno = EspesoresRelleno[0].EspesorMaximo;
+
+
 
                         options.model.RellenoEspesorRaiz = parseFloat(dataItem.EspesorRaiz);
                         options.model.RellenoEspesorRelleno = parseFloat(dataItem.EspesorRelleno);
@@ -180,6 +199,8 @@ function RenderComboBoxPQRRelleno(container, options) {
                     options.model.PREHEATRelleno = false;
                     options.model.PREHEATRellenoId = 0;
                     options.model.EspesorMaximo = 0;
+                    options.model.EspesorMaximoRaiz = 0;
+                    options.model.EspesorMaximoRelleno = 0;
                     options.model.EspesorMinimo = 0;
                     options.model.RellenoEspesorRaiz = 0;
                     options.model.RellenoEspesorRelleno = 0;

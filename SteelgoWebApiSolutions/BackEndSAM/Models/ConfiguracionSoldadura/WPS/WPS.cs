@@ -41,8 +41,13 @@ namespace BackEndSAM.Models.ConfiguracionSoldadura.WPS
         public int PREHEATRaizId { get; set; }
         public bool PREHEATRaiz { get; set; }
 
+        public bool CVNRaiz { get; set; }
+        public bool CVNRelleno { get; set; }
+
         public double EspesorMaximo { get; set; }
         public double EspesorMinimo { get; set; }
+        public double EspesorMaximoRaiz { get; set; }
+        public double EspesorMaximoRelleno { get; set; }
 
         public decimal RaizEspesorRaiz { get; set; }
         public decimal RaizEspesorRelleno { get; set; }
