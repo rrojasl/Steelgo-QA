@@ -35,6 +35,7 @@ function SuscribirEventoEliminaRegistro() {
                     if (dataSource._data.length == 0) // si borro y es el ultimo elemento entonces se dice que el usuario no ah editado nada.
                         editado = false;
                 }
+                ImprimirAreaTonelada();
             }
             else {
                 displayNotify("PinturaCargaCarroCerrar", "", '1');
