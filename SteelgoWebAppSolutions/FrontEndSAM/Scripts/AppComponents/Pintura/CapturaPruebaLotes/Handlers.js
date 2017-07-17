@@ -109,8 +109,32 @@ function SuscribirEventoVentanaPopupPruebas() {
 function SuscribirEventCerrarWindow() {
     $("#GuardarDetallePopup").click(function (e) {
         //  e.preventDefault();
-        gridRow.ListaDetallePruebas = $("#gridPopUp").data("kendoGrid").dataSource._data;
-        $("#windowGrid").data("kendoWindow").close();
+        var tieneErrores = false;
+        var data = $("#gridPopUp").data("kendoGrid").dataSource._data;
+
+        for (var i = 0; i < $("#gridPopUp").data("kendoGrid").dataSource._data.length; i++) {
+            $("#gridPopUp").data("kendoGrid").dataSource._data[i].RowOk = true;
+            if ((data[i].Accion == undefined || data[i].Accion == 1 || data[i].Accion == 2) && (data[i].Medida == "" || data[i].FechaPrueba == "" || data[i].Medida == undefined || data[i].FechaPrueba == undefined || data[i].Medida == null || data[i].UnidadMedida == 0 || data[i].FechaPrueba == null)) {
+                $("#gridPopUp").data("kendoGrid").dataSource._data[i].RowOk = false;
+                tieneErrores = true;
+            }
+        }
+
+        if (!tieneErrores) {
+            var numeroPruebas = sumarPruebasTotalesPorSpool();
+            gridRow.PruebasEjecutadas = numeroPruebas;
+            gridRow.ListaDetallePruebas = $("#gridPopUp").data("kendoGrid").dataSource._data;
+            $("#windowGrid").data("kendoWindow").close();
+            sumarPruebasTotales();
+            $("#grid").data("kendoGrid").dataSource.sync();
+        }
+        else {
+            displayNotify("MensajeCamposIncorrectorEnRojo", "", '2');
+            $("#gridPopUp").data("kendoGrid").dataSource.sync();
+        }
+        
+
+        
     });
 
     $("#CerrarDetallePopup").click(function (e) {
@@ -250,7 +274,7 @@ function SuscribirEventoSistemaPintura() {
                     LineaCaptura.SistemaPinturaIDSeleccionado = dataItem.SistemaPinturaID;
 
                     if ($("#inputProceso").data("kendoComboBox").dataItem($("#inputProceso").data("kendoComboBox").select()).ProcesoPinturaID == 4)
-                        AjaxColores(dataItem.SistemaPinturaProyectoID);
+                        AjaxColores(dataItem.SistemaPinturaProyectoID, 0);
 
                     ajaxPruebas($("#inputProceso").data("kendoComboBox").dataItem($("#inputProceso").data("kendoComboBox").select()).ProcesoPinturaID, dataItem.SistemaPinturaProyectoID, $("#language").val());
                 }

@@ -502,6 +502,7 @@ function AjaxGuardarAvanceCarro(arregloCaptura, guardarYNuevo) {
                 if (arregloCaptura[index].ListaObrerosGuargados[k].ObreroID == arregloCaptura[index].ListaObrerosSeleccionados[j].ObreroID) {
                     ListaDetallesObrerosSeleccionados[j].Accion = 0;//si existe en ambas listas guardadas y seleccionadas , no se hace nada.no tiene caso de insercion o actualizacion o borrado.
                     existeObrero = true;
+                    break;
                 }
             }
             if (!existeObrero) {
@@ -727,9 +728,9 @@ function AjaxCargarZona(patioID) {
     });
 }
 
-function AjaxColores(sistemaPinturaProyectoID) {
+function AjaxColores(sistemaPinturaProyectoID,cuadranteID) {
 	loadingStart();
-	$AvanceCuadrante.AvanceCuadrante.read({ token: Cookies.get("token"), sistemaPinturaProyectoID: sistemaPinturaProyectoID, lenguaje: $("#language").val() }).done(function (data) {
+	$AvanceCuadrante.AvanceCuadrante.read({ token: Cookies.get("token"), sistemaPinturaProyectoID: sistemaPinturaProyectoID, lenguaje: $("#language").val(), cuadranteID: cuadranteID }).done(function (data) {
 		if (Error(data)) {
 			$("#inputColor").data("kendoComboBox").dataSource.data(data);
 			$("#inputColor").data("kendoComboBox").value("");

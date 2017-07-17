@@ -180,13 +180,13 @@ namespace BackEndSAM.DataAcces.Pintura.AvanceCuadrante
             }
         }
 
-        public object ObtenerListadoColores(int SistemaPinturaProyectoID, string lenguaje)
+        public object ObtenerListadoColores(int SistemaPinturaProyectoID, string lenguaje,int cuadranteID)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Pintura_Avance_Get_Color_Result> result = ctx.Sam3_Pintura_Avance_Get_Color(SistemaPinturaProyectoID, lenguaje).ToList();
+                    List<Sam3_Pintura_Avance_Get_Color_Result> result = ctx.Sam3_Pintura_Avance_Get_Color(SistemaPinturaProyectoID, lenguaje, cuadranteID).ToList();
 
                     List<BackEndSAM.Models.Pintura.IntermedioAcabado.Color> listaColores = new List<BackEndSAM.Models.Pintura.IntermedioAcabado.Color>();
 

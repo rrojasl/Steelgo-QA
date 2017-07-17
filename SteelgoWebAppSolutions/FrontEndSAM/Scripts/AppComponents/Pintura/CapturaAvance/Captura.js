@@ -333,7 +333,7 @@ function BuscarDetalleCarro() {
 					AjaxCargarLayoutGrid(dataItem.SistemaPinturaProyectoID, $('input:radio[name=ProcesoPintura]:checked').val(), dataItem.MedioTransporteCargaID);
 				}
 				else {
-					AjaxColores(dataItem.SistemaPinturaProyectoID)
+				    AjaxColores(dataItem.SistemaPinturaProyectoID, dataItem.CuadranteID)
 				}
 			}
 			else

@@ -21,6 +21,27 @@ function isInArray(date, dates) {
 	return false;
 }
 
+function sumarPruebasTotalesPorSpool()
+{
+    var numeroPruebas = 0;
+    var rows = $("#gridPopUp").data('kendoGrid').dataSource._data;
+    for (var i = 0; i < rows.length; i++) {
+        if (rows[i].Accion == undefined || rows[i].Accion == 1 || rows[i].Accion == 2 || rows[i].Accion == 0)
+        numeroPruebas += 1;
+    }
+    return numeroPruebas;
+}
+
+function sumarPruebasTotales() {
+    var numeroPruebas = 0;
+    var rows = $("#grid").data('kendoGrid').dataSource._data;
+    for (var i = 0; i < rows.length; i++) {
+            numeroPruebas += rows[i].PruebasEjecutadas;
+    }
+
+    $("#labelPruebasEjecutadas").text(numeroPruebas);
+}
+
 function Limpiar() {
     $("#labelPruebasRequeridas").text("");
     $("#inputProyecto").data("kendoComboBox").value("");
@@ -188,6 +209,17 @@ function CargarGridPopUp() {
                     }
                 }
             },
+            filter: {
+                logic: "or",
+                filters: [
+					{ field: "Accion", operator: "eq", value: 1 },
+					{ field: "Accion", operator: "eq", value: 2 },
+					{ field: "Accion", operator: "eq", value: 4 },
+                    { field: "Accion", operator: "eq", value: undefined },
+                    { field: "Accion", operator: "eq", value: null },
+                    { field: "Accion", operator: "eq", value: 0 }
+                ]
+            },
             pageSize: 10,
             serverPaging: false,
             serverFiltering: false,
@@ -223,7 +255,7 @@ function CargarGridPopUp() {
                       { command: { text: _dictionary.botonCancelar[$("#language").data("kendoDropDownList").value()], click: eliminarCaptura }, title: _dictionary.columnELM[$("#language").data("kendoDropDownList").value()], width: "10px", attributes: { style: "text-align:center;" } }
         ],
         dataBound: function () {
-            var grid = $("#grid").data("kendoGrid");
+            var grid = $("#gridPopUp").data("kendoGrid");
             var gridData = grid.dataSource.view();
 
             for (var i = 0; i < gridData.length; i++) {

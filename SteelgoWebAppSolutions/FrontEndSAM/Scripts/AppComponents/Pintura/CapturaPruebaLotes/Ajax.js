@@ -91,9 +91,9 @@ function ajaxObtenerSistemasPintura(procesoid, ProyectoiD) {
     });
 }
 
-function AjaxColores(sistemaPinturaProyectoID) {
+function AjaxColores(sistemaPinturaProyectoID,cuadranteID) {
     loadingStart();
-    $AvanceCuadrante.AvanceCuadrante.read({ token: Cookies.get("token"), sistemaPinturaProyectoID: sistemaPinturaProyectoID, lenguaje: $("#language").val() }).done(function (data) {
+    $AvanceCuadrante.AvanceCuadrante.read({ token: Cookies.get("token"), sistemaPinturaProyectoID: sistemaPinturaProyectoID, lenguaje: $("#language").val(),cuadranteID:0 }).done(function (data) {
         if (Error(data)) {
             $("#inputColor").data("kendoComboBox").dataSource.data(data);
             $("#inputColor").data("kendoComboBox").value("");
@@ -321,9 +321,9 @@ function ajaxBuscarPorLote() {
                     if ($("#inputPrueba").data("kendoComboBox").select() > 0) {
                         if ($("#inputLote").data("kendoComboBox").dataItem($("#inputLote").data("kendoComboBox").select()) != undefined && $("#inputLote").data("kendoComboBox").dataItem($("#inputLote").data("kendoComboBox").select()).LoteID != 0) {
                             loadingStart();
-                            $PruebasPorLote.PruebasPorLote.read({ token: Cookies.get("token"), procesoPinturaID: $("#inputProceso").data("kendoComboBox").dataItem($("#inputProceso").data("kendoComboBox").select()).ProcesoPinturaID, sistemaPinturaProyectoID: $("#inputSistemaPintura").data("kendoComboBox").dataItem($("#inputSistemaPintura").data("kendoComboBox").select()).SistemaPinturaProyectoID, pruebaProcesoPinturaID: $("#inputPrueba").data("kendoComboBox").dataItem($("#inputPrueba").data("kendoComboBox").select()).PruebaProcesoPinturaID, sistemaPinturaColorID: ($("#inputColor").data("kendoComboBox").select() <= 0) ? 0 : $("#inputColor").data("kendoComboBox").dataItem($("#inputColor").data("kendoComboBox").select()).SistemaPinturaColorID, loteID: $("#inputLote").data("kendoComboBox").dataItem($("#inputLote").data("kendoComboBox").select()).LoteID, lenguaje: $("#language").val() }).done(function (array) {
+                            $PruebasPorLote.PruebasPorLote.read({ token: Cookies.get("token"), procesoPinturaID: $("#inputProceso").data("kendoComboBox").dataItem($("#inputProceso").data("kendoComboBox").select()).ProcesoPinturaID, sistemaPinturaProyectoID: $("#inputSistemaPintura").data("kendoComboBox").dataItem($("#inputSistemaPintura").data("kendoComboBox").select()).SistemaPinturaProyectoID, pruebaProcesoPinturaID: $("#inputPrueba").data("kendoComboBox").dataItem($("#inputPrueba").data("kendoComboBox").select()).PruebaProcesoPinturaID, sistemaPinturaColorID: ($("#inputColor").data("kendoComboBox").select() <= 0) ? 0 : $("#inputColor").data("kendoComboBox").dataItem($("#inputColor").data("kendoComboBox").select()).SistemaPinturaColorID, loteID: $("#inputLote").data("kendoComboBox").dataItem($("#inputLote").data("kendoComboBox").select()).LoteID, lenguaje: $("#language").val(), todosSinCaptura: ($('input:radio[name=Muestra]:checked').val() == "Todos" ? 1 : 0) }).done(function (array) {
+                                $("#grid").data("kendoGrid").dataSource.data([]);
                                 if (array.length > 0) {
-                                    $("#grid").data("kendoGrid").dataSource.data([]);
                                     $("#labelPruebasRequeridas").text(array[0].PruebasRequeridas);
                                     var ds = $("#grid").data("kendoGrid").dataSource;
                                     for (var i = 0; i < array.length; i++) {
@@ -334,6 +334,7 @@ function ajaxBuscarPorLote() {
                                     }
                                     //$("#grid").data("kendoGrid").dataSource.data(array);
                                     $("#grid").data("kendoGrid").dataSource.sync();
+                                    sumarPruebasTotales();
                                     editado = true;
                                 }
                                 loadingStop();

@@ -254,13 +254,13 @@ namespace BackEndSAM.DataAcces.Pintura.PruebasPorLote
         }
 
 
-        public object ObtenerDetalle(int? procesoPinturaID,int? sistemaPinturaProyectoID,int? pruebaProcesoPinturaID,int? sistemaPinturaColorID, int? loteID, string lenguaje)
+        public object ObtenerDetalle(int? procesoPinturaID,int? sistemaPinturaProyectoID,int? pruebaProcesoPinturaID,int? sistemaPinturaColorID, int? loteID, string lenguaje,int todosSinCaptura)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_Pintura_PruebasLote_Get_Detalle_Result> lista = ctx.Sam3_Pintura_PruebasLote_Get_Detalle(procesoPinturaID, sistemaPinturaProyectoID,sistemaPinturaColorID, pruebaProcesoPinturaID, loteID, lenguaje).ToList();
+                    List<Sam3_Pintura_PruebasLote_Get_Detalle_Result> lista = ctx.Sam3_Pintura_PruebasLote_Get_Detalle(procesoPinturaID, sistemaPinturaProyectoID,sistemaPinturaColorID, pruebaProcesoPinturaID, loteID, lenguaje, todosSinCaptura).ToList();
                     List<DetalleLote> listaDetalle = new List<DetalleLote>();
 
                 

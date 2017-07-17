@@ -73,7 +73,7 @@ namespace BackEndSAM.Controllers.Pintura.AvanceCuadrante
             }
         }
         //ObtenerListadoColores
-        public object Get(string token, int sistemaPinturaProyectoID, string lenguaje)
+        public object Get(string token, int sistemaPinturaProyectoID, string lenguaje,int cuadranteID)
         {
             string payload = "";
             string newToken = "";
@@ -84,7 +84,7 @@ namespace BackEndSAM.Controllers.Pintura.AvanceCuadrante
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
 
-                return AvanceCuadranteBD.Instance.ObtenerListadoColores(sistemaPinturaProyectoID, lenguaje);
+                return AvanceCuadranteBD.Instance.ObtenerListadoColores(sistemaPinturaProyectoID, lenguaje, cuadranteID);
             }
             else
             {

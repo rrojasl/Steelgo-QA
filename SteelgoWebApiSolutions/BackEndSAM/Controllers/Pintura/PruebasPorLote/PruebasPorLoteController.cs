@@ -143,7 +143,7 @@ namespace BackEndSAM.Controllers.Pintura
         }
 
         //obtener lotes
-        public object Get(string token, int procesoPinturaID, int sistemaPinturaProyectoID, int sistemaPinturaColorID, int pruebaProcesoPinturaID, int loteID, string lenguaje)
+        public object Get(string token, int procesoPinturaID, int sistemaPinturaProyectoID, int sistemaPinturaColorID, int pruebaProcesoPinturaID, int loteID, string lenguaje,int todosSinCaptura)
         {
             string payload = "";
             string newToken = "";
@@ -152,7 +152,7 @@ namespace BackEndSAM.Controllers.Pintura
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return PruebasPorLoteBD.Instance.ObtenerDetalle(procesoPinturaID, sistemaPinturaProyectoID, pruebaProcesoPinturaID, sistemaPinturaColorID, loteID, lenguaje);
+                return PruebasPorLoteBD.Instance.ObtenerDetalle(procesoPinturaID, sistemaPinturaProyectoID, pruebaProcesoPinturaID, sistemaPinturaColorID, loteID, lenguaje, todosSinCaptura);
 
             }
             else

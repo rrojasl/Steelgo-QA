@@ -82,7 +82,7 @@ function ajaxGuardar(data, guardarYNuevo) {
         ListaDetalles[index].SistemaPinturaColorID = $("#inputProceso").data("kendoComboBox").dataItem($("#inputProceso").data("kendoComboBox").select()).ProcesoPinturaID != 4 ? 0 : $("#inputColor").data("kendoComboBox").dataItem($("#inputColor").data("kendoComboBox").select()).SistemaPinturaColorID;
         ListaDetalles[index].PruebaLoteID = (data[i].Accion == undefined || data[i].Accion == 0 || data[i].Accion == null) ? 0 : data[i].PruebaLoteID;
 
-        if (data[i].UnidadMedida == "" || data[i].FechaPrueba == "" || data[i].UnidadMedida == undefined || data[i].FechaPrueba == undefined || data[i].UnidadMedida == null || data[i].FechaPrueba == null)
+        if (data[i].UnidadMedida == "" || data[i].FechaPrueba == "" || data[i].UnidadMedida == undefined || data[i].FechaPrueba == undefined || data[i].UnidadMedida == null || data[i].UnidadMedida == 0 || data[i].FechaPrueba == null)
             $("#grid").data("kendoGrid").dataSource._data[i].RowOk = false;
         index++;
     }
