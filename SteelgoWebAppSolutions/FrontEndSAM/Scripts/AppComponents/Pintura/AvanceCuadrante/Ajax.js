@@ -541,12 +541,10 @@ function AjaxGuardarAvanceCarro(arregloCaptura, guardarYNuevo) {
                     $("#grid").data("kendoGrid").dataSource._data[index].RowOk = false;
                     ListaDetalles[index].Estatus = 0;
                 }
+                else
+                    ListaDetalles[index].Accion = 2;
             }
         }
-
-        //hago una validacion si tiene status 4 pero esta todo capturado entonces se cambia de status 2
-        if (arregloCaptura[index].Accion == 4 && ListaDetalles[index].Estatus == 1)
-            ListaDetalles[index].Accion = 2;
     }
     Captura[0].Detalles = ListaDetalles;
 
