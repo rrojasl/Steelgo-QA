@@ -35,7 +35,7 @@ function suscribirEventoWindowsConfirmaCapturaSinCambiarTipoBusqueda() {
         editado = false;
         ventanaConfirmEdicionSinTipoBusqueda.close();
         $("#grid").data("kendoGrid").dataSource.data([]);
-        
+
         switch (EjecutaChange) {
             case 1:
                 $("#inputProyecto").data("kendoComboBox").trigger("change");
@@ -132,9 +132,9 @@ function SuscribirEventCerrarWindow() {
             displayNotify("MensajeCamposIncorrectorEnRojo", "", '2');
             $("#gridPopUp").data("kendoGrid").dataSource.sync();
         }
-        
 
-        
+
+
     });
 
     $("#CerrarDetallePopup").click(function (e) {
@@ -300,24 +300,24 @@ function SuscribirEventoColor() {
         change: function (e) {
             EjecutaChange = 4;
             if (!editado) {
-                    var dataItem = this.dataItem(e.sender.selectedIndex);
-                    $("#labelPruebasRequeridas").text("");
-                    LineaCaptura.ColorIDSeleccionado = dataItem.ColorID;
+                var dataItem = this.dataItem(e.sender.selectedIndex);
+                $("#labelPruebasRequeridas").text("");
+                LineaCaptura.ColorIDSeleccionado = dataItem.ColorID;
 
-                    $("#inputFechaLote").data("kendoDatePicker").value("");
+                $("#inputFechaLote").data("kendoDatePicker").value("");
 
 
-                    $("#inputLote").data("kendoComboBox").dataSource.data([]);
-                    $("#inputLote").data("kendoComboBox").value("");
+                $("#inputLote").data("kendoComboBox").dataSource.data([]);
+                $("#inputLote").data("kendoComboBox").value("");
 
-                    var dataItem = this.dataItem(e.sender.selectedIndex);
-                    if (dataItem != undefined && $("#inputPrueba").data("kendoComboBox").dataItem($("#inputPrueba").data("kendoComboBox").select())!=undefined) {
-                        LineaCaptura.PruebaIDSeleccionado = dataItem.PruebaIDSeleccionado;
-                        ajaxObtenerFechas($("#inputProceso").data("kendoComboBox").dataItem($("#inputProceso").data("kendoComboBox").select()).ProcesoPinturaID, $("#inputSistemaPintura").data("kendoComboBox").dataItem($("#inputSistemaPintura").data("kendoComboBox").select()).SistemaPinturaProyectoID, $("#inputPrueba").data("kendoComboBox").dataItem($("#inputPrueba").data("kendoComboBox").select()).PruebaProcesoPinturaID, $("#language").val(), $("#inputProceso").data("kendoComboBox").dataItem($("#inputProceso").data("kendoComboBox").select()).ProcesoPinturaID != 4 ? 0 : $("#inputColor").data("kendoComboBox").dataItem($("#inputColor").data("kendoComboBox").select()).SistemaPinturaColorID)
-                    }
-                    else {
-                        $("#inputColor").data("kendoComboBox").value("");
-                    }
+                var dataItem = this.dataItem(e.sender.selectedIndex);
+                if (dataItem != undefined && $("#inputPrueba").data("kendoComboBox").dataItem($("#inputPrueba").data("kendoComboBox").select()) != undefined) {
+                    LineaCaptura.PruebaIDSeleccionado = dataItem.PruebaIDSeleccionado;
+                    ajaxObtenerFechas($("#inputProceso").data("kendoComboBox").dataItem($("#inputProceso").data("kendoComboBox").select()).ProcesoPinturaID, $("#inputSistemaPintura").data("kendoComboBox").dataItem($("#inputSistemaPintura").data("kendoComboBox").select()).SistemaPinturaProyectoID, $("#inputPrueba").data("kendoComboBox").dataItem($("#inputPrueba").data("kendoComboBox").select()).PruebaProcesoPinturaID, $("#language").val(), $("#inputProceso").data("kendoComboBox").dataItem($("#inputProceso").data("kendoComboBox").select()).ProcesoPinturaID != 4 ? 0 : $("#inputColor").data("kendoComboBox").dataItem($("#inputColor").data("kendoComboBox").select()).SistemaPinturaColorID)
+                }
+                else {
+                    $("#inputColor").data("kendoComboBox").value("");
+                }
             }
             else {
                 ventanaConfirmEdicionSinTipoBusqueda.open().center();
@@ -356,8 +356,10 @@ function SuscribirEventoPrueba() {
 
                 var dataItem = this.dataItem(e.sender.selectedIndex);
                 if (dataItem != undefined) {
-                    LineaCaptura.PruebaIDSeleccionado = dataItem.PruebaIDSeleccionado;
-                    ajaxObtenerFechas($("#inputProceso").data("kendoComboBox").dataItem($("#inputProceso").data("kendoComboBox").select()).ProcesoPinturaID, $("#inputSistemaPintura").data("kendoComboBox").dataItem($("#inputSistemaPintura").data("kendoComboBox").select()).SistemaPinturaProyectoID, dataItem.PruebaProcesoPinturaID, $("#language").val(), $("#inputProceso").data("kendoComboBox").dataItem($("#inputProceso").data("kendoComboBox").select()).ProcesoPinturaID != 4 ? 0 : $("#inputColor").data("kendoComboBox").dataItem($("#inputColor").data("kendoComboBox").select()).SistemaPinturaColorID)
+                    if ($("#inputProceso").data("kendoComboBox").dataItem($("#inputProceso").data("kendoComboBox").select()).ProcesoPinturaID == 4 ? $("#inputColor").data("kendoComboBox").dataItem($("#inputColor").data("kendoComboBox").select()) != undefined :true) {
+                        LineaCaptura.PruebaIDSeleccionado = dataItem.PruebaIDSeleccionado;
+                        ajaxObtenerFechas($("#inputProceso").data("kendoComboBox").dataItem($("#inputProceso").data("kendoComboBox").select()).ProcesoPinturaID, $("#inputSistemaPintura").data("kendoComboBox").dataItem($("#inputSistemaPintura").data("kendoComboBox").select()).SistemaPinturaProyectoID, dataItem.PruebaProcesoPinturaID, $("#language").val(), $("#inputProceso").data("kendoComboBox").dataItem($("#inputProceso").data("kendoComboBox").select()).ProcesoPinturaID != 4 ? 0 : $("#inputColor").data("kendoComboBox").dataItem($("#inputColor").data("kendoComboBox").select()).SistemaPinturaColorID)
+                    }
                 }
                 else {
                     $("#inputPrueba").data("kendoComboBox").value("");
@@ -391,7 +393,7 @@ function SuscribirEventoFechaLote() {
                 $("#inputLote").data("kendoComboBox").value("");
 
                 var dataItem = e.sender._oldText;
-                if (dataItem != "" ) {
+                if (dataItem != "") {
                     LineaCaptura.FechaSeleccionada = e.sender._oldText;
                     var ProcesoPinturaID = $("#inputProceso").data("kendoComboBox").dataItem($("#inputProceso").data("kendoComboBox").select()).ProcesoPinturaID;
                     var SistemaPinturaProyectoID = $("#inputSistemaPintura").data("kendoComboBox").dataItem($("#inputSistemaPintura").data("kendoComboBox").select()).SistemaPinturaProyectoID;
@@ -399,7 +401,7 @@ function SuscribirEventoFechaLote() {
                     var fecha = e.sender._oldText;
                     ajaxLlenarLote(ProcesoPinturaID, SistemaPinturaProyectoID, PruebaProcesoPinturaID, fecha, $("#language").val());
                 }
-               
+
             }
             else {
                 ventanaConfirmEdicionSinTipoBusqueda.open().center();
@@ -473,7 +475,7 @@ function opcionHabilitarView(valor, name) {
         $('#botonGuardar2').text("Editar");
         $('#botonGuardar').text("Editar");
         $('#botonGuardar3').text("Editar");
-        $('#botonGuardar4').text("Editar");   
+        $('#botonGuardar4').text("Editar");
     }
 
     else {
@@ -486,7 +488,7 @@ function opcionHabilitarView(valor, name) {
         $("#inputPrueba").data("kendoComboBox").enable(true);
         $("#inputFechaLote").data("kendoDatePicker").enable(true);
         $("#inputLote").data("kendoComboBox").enable(true);
-      
+
         $('#botonGuardar2').text("Guardar");
         $('#botonGuardar').text("Guardar");
         $('#botonGuardar3').text("Guardar");
