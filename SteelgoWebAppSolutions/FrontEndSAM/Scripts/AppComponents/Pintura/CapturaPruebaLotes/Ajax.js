@@ -142,7 +142,7 @@ function ajaxPruebas(ProcesoPinturaID, SistemaPinturaProyectoID, lenguaje) {
 
 function ajaxObtenerFechas(ProcesoPinturaID, SistemaPinturaProyectoID, PruebaProcesoPinturaID, lenguaje, SistemaPinturaColorID) {
     loadingStart();
-    $PruebasPorLote.PruebasPorLote.read({ token: Cookies.get("token"), ProcesoPinturaID: ProcesoPinturaID, SistemaPinturaProyectoID: SistemaPinturaProyectoID, PruebaProcesoPinturaID: PruebaProcesoPinturaID, lenguaje: lenguaje, sistemaPinturaColorID: SistemaPinturaColorID }).done(function (data) {
+    $PruebasPorLote.PruebasPorLote.read({ token: Cookies.get("token"), ProcesoPinturaID: ProcesoPinturaID, SistemaPinturaProyectoID: SistemaPinturaProyectoID, PruebaProcesoPinturaID: PruebaProcesoPinturaID, sistemaPinturaColorID: SistemaPinturaColorID, lenguaje: lenguaje }).done(function (data) {
 
         var arrayDates = [];
 

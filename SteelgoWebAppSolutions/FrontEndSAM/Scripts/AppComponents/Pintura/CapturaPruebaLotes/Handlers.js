@@ -300,14 +300,24 @@ function SuscribirEventoColor() {
         change: function (e) {
             EjecutaChange = 4;
             if (!editado) {
-                var dataItem = this.dataItem(e.sender.selectedIndex);
-                if (dataItem != undefined) {
+                    var dataItem = this.dataItem(e.sender.selectedIndex);
                     $("#labelPruebasRequeridas").text("");
                     LineaCaptura.ColorIDSeleccionado = dataItem.ColorID;
-                }
-                else {
-                    $("#inputColor").data("kendoComboBox").value("");
-                }
+
+                    $("#inputFechaLote").data("kendoDatePicker").value("");
+
+
+                    $("#inputLote").data("kendoComboBox").dataSource.data([]);
+                    $("#inputLote").data("kendoComboBox").value("");
+
+                    var dataItem = this.dataItem(e.sender.selectedIndex);
+                    if (dataItem != undefined && $("#inputPrueba").data("kendoComboBox").dataItem($("#inputPrueba").data("kendoComboBox").select())!=undefined) {
+                        LineaCaptura.PruebaIDSeleccionado = dataItem.PruebaIDSeleccionado;
+                        ajaxObtenerFechas($("#inputProceso").data("kendoComboBox").dataItem($("#inputProceso").data("kendoComboBox").select()).ProcesoPinturaID, $("#inputSistemaPintura").data("kendoComboBox").dataItem($("#inputSistemaPintura").data("kendoComboBox").select()).SistemaPinturaProyectoID, $("#inputPrueba").data("kendoComboBox").dataItem($("#inputPrueba").data("kendoComboBox").select()).PruebaProcesoPinturaID, $("#language").val(), $("#inputProceso").data("kendoComboBox").dataItem($("#inputProceso").data("kendoComboBox").select()).ProcesoPinturaID != 4 ? 0 : $("#inputColor").data("kendoComboBox").dataItem($("#inputColor").data("kendoComboBox").select()).SistemaPinturaColorID)
+                    }
+                    else {
+                        $("#inputColor").data("kendoComboBox").value("");
+                    }
             }
             else {
                 ventanaConfirmEdicionSinTipoBusqueda.open().center();

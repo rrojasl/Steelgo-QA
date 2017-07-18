@@ -170,7 +170,7 @@ namespace BackEndSAM.DataAcces.Pintura.PruebasPorLote
             }
         }
 
-        public object ObtenerFechas(int ProcesoPinturaID, int SistemaPinturaProyectoID, int PruebaProcesoPinturaID, string lenguaje,int sistemaPinturaColorID)
+        public object ObtenerFechas(int ProcesoPinturaID, int SistemaPinturaProyectoID, int PruebaProcesoPinturaID,int sistemaPinturaColorID, string lenguaje)
         {
             try
             {
