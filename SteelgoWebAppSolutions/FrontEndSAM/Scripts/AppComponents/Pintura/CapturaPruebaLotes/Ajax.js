@@ -93,7 +93,7 @@ function ajaxObtenerSistemasPintura(procesoid, ProyectoiD) {
 
 function AjaxColores(sistemaPinturaProyectoID,cuadranteID) {
     loadingStart();
-    $AvanceCuadrante.AvanceCuadrante.read({ token: Cookies.get("token"), sistemaPinturaProyectoID: sistemaPinturaProyectoID, lenguaje: $("#language").val(),cuadranteID:0 }).done(function (data) {
+    $PruebasPorLote.PruebasPorLote.read({ token: Cookies.get("token"), sistemaPinturaProyectoID: sistemaPinturaProyectoID, lenguaje: $("#language").val()}).done(function (data) {
         if (Error(data)) {
             $("#inputColor").data("kendoComboBox").dataSource.data(data);
             $("#inputColor").data("kendoComboBox").value("");

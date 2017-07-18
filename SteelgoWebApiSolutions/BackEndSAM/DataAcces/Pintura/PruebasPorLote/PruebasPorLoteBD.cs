@@ -170,13 +170,13 @@ namespace BackEndSAM.DataAcces.Pintura.PruebasPorLote
             }
         }
 
-        public object ObtenerFechas(int ProcesoPinturaID, int SistemaPinturaProyectoID, int PruebaProcesoPinturaID, string lenguaje)
+        public object ObtenerFechas(int ProcesoPinturaID, int SistemaPinturaProyectoID, int PruebaProcesoPinturaID, string lenguaje,int sistemaPinturaColorID)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<DateTime?> lista = ctx.Sam3_Pintura_PruebasLote_Get_Fechas(ProcesoPinturaID, SistemaPinturaProyectoID, PruebaProcesoPinturaID, lenguaje).ToList();
+                    List<DateTime?> lista = ctx.Sam3_Pintura_PruebasLote_Get_Fechas(ProcesoPinturaID, SistemaPinturaProyectoID, PruebaProcesoPinturaID, lenguaje, sistemaPinturaColorID).ToList();
                     List<FechasPrueba> listaFechas = new List<FechasPrueba>();
 
 
@@ -520,8 +520,48 @@ namespace BackEndSAM.DataAcces.Pintura.PruebasPorLote
                 return result;
             }
         }
-        
 
+        public object ObtenerListadoColores(int SistemaPinturaProyectoID, string lenguaje)
+        {
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Sam3_Pintura_Pruebas_Get_Color_Result> result = ctx.Sam3_Pintura_Pruebas_Get_Color(SistemaPinturaProyectoID, lenguaje).ToList();
+
+                    List<BackEndSAM.Models.Pintura.IntermedioAcabado.Color> listaColores = new List<BackEndSAM.Models.Pintura.IntermedioAcabado.Color>();
+
+                    if (result.Count > 0)
+                        listaColores.Add(new BackEndSAM.Models.Pintura.IntermedioAcabado.Color());
+
+                    foreach (Sam3_Pintura_Pruebas_Get_Color_Result item in result)
+                    {
+                        listaColores.Add(new BackEndSAM.Models.Pintura.IntermedioAcabado.Color
+                        {
+                            SistemaPinturaColorID = item.SistemaPinturaColorID,
+                            ColorID = item.ColorID,
+                            Nombre = item.Nombre
+                        });
+                    }
+
+                    return listaColores;
+
+                }
+            }
+            catch (Exception ex)
+            {
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                LoggerBd.Instance.EscribirLog(ex);
+                //-----------------Agregar mensaje al Log -----------------------------------------------
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return result;
+            }
+        }
 
 
     }

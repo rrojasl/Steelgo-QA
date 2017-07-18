@@ -94,7 +94,7 @@ namespace BackEndSAM.Controllers.Pintura
 
         //obtener Fechas
         [HttpGet]
-        public object Get(string token, int ProcesoPinturaID, int SistemaPinturaProyectoID, int PruebaProcesoPinturaID, string lenguaje)
+        public object Get(string token, int ProcesoPinturaID, int SistemaPinturaProyectoID, int PruebaProcesoPinturaID, string lenguaje, int sistemaPinturaColorID)
         {
             string payload = "";
             string newToken = "";
@@ -103,7 +103,7 @@ namespace BackEndSAM.Controllers.Pintura
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return PruebasPorLoteBD.Instance.ObtenerFechas(ProcesoPinturaID, SistemaPinturaProyectoID, PruebaProcesoPinturaID, lenguaje);
+                return PruebasPorLoteBD.Instance.ObtenerFechas(ProcesoPinturaID, SistemaPinturaProyectoID, PruebaProcesoPinturaID, lenguaje, sistemaPinturaColorID);
 
             }
             else
@@ -256,6 +256,31 @@ namespace BackEndSAM.Controllers.Pintura
                 
                     return PruebasPorLoteBD.Instance.ObtenerDetalleSpool(ordentrabajospoolid, sistemapinturacolorid, lenguaje);
 
+            }
+            else
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(payload);
+                result.ReturnCode = 401;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = false;
+                return result;
+            }
+        }
+
+        //ObtenerListadoColores
+        public object Get(string token, int sistemaPinturaProyectoID, string lenguaje)
+        {
+            string payload = "";
+            string newToken = "";
+            bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payload, out newToken);
+            if (tokenValido)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+                Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
+
+
+                return PruebasPorLoteBD.Instance.ObtenerListadoColores(sistemaPinturaProyectoID, lenguaje);
             }
             else
             {

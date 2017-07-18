@@ -194,7 +194,7 @@ function ajaxObtenerProcesosPorSpool(dato, catalogo) {
 
 function AjaxColores(sistemaPinturaProyectoID) {
     loadingStart();
-    $AvanceCuadrante.AvanceCuadrante.read({ token: Cookies.get("token"), sistemaPinturaProyectoID: sistemaPinturaProyectoID, lenguaje: $("#language").val() }).done(function (data) {
+    $PruebasPorLote.PruebasPorLote.read({ token: Cookies.get("token"), sistemaPinturaProyectoID: sistemaPinturaProyectoID, lenguaje: $("#language").val() }).done(function (data) {
         if (Error(data)) {
             $("#inputColor").data("kendoComboBox").dataSource.data(data);
             $("#inputColor").data("kendoComboBox").value("");
