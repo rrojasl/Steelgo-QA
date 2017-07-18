@@ -43,6 +43,7 @@ function sumarPruebasTotales() {
 }
 
 function Limpiar() {
+    $("#labelPruebasEjecutadas").text("");
     $("#labelPruebasRequeridas").text("");
     $("#inputProyecto").data("kendoComboBox").value("");
 

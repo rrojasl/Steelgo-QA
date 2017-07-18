@@ -161,6 +161,7 @@ function SuscribirEventoProyecto() {
             EjecutaChange = 1;
             var dataItem = this.dataItem(e.sender.selectedIndex);
             if (!editado) {
+                $("#labelPruebasEjecutadas").text("");
                 $("#labelPruebasRequeridas").text("");
                 $("#inputProceso").data("kendoComboBox").dataSource.data([]);
                 $("#inputProceso").data("kendoComboBox").value("");
@@ -210,6 +211,7 @@ function SuscribirEventoProceso() {
             EjecutaChange = 2;
             if (!editado) {
                 var dataItem = this.dataItem(e.sender.selectedIndex);
+                $("#labelPruebasEjecutadas").text("");
                 $("#labelPruebasRequeridas").text("");
                 $("#inputSistemaPintura").data("kendoComboBox").dataSource.data([]);
                 $("#inputSistemaPintura").data("kendoComboBox").value("");
@@ -256,6 +258,7 @@ function SuscribirEventoSistemaPintura() {
         change: function (e) {
             EjecutaChange = 3;
             if (!editado) {
+                $("#labelPruebasEjecutadas").text("");
                 $("#labelPruebasRequeridas").text("");
                 $("#inputColor").data("kendoComboBox").dataSource.data([]);
                 $("#inputColor").data("kendoComboBox").value("");
@@ -301,6 +304,7 @@ function SuscribirEventoColor() {
             EjecutaChange = 4;
             if (!editado) {
                 var dataItem = this.dataItem(e.sender.selectedIndex);
+                $("#labelPruebasEjecutadas").text("");
                 $("#labelPruebasRequeridas").text("");
                 LineaCaptura.ColorIDSeleccionado = dataItem.ColorID;
 
@@ -348,6 +352,7 @@ function SuscribirEventoPrueba() {
             EjecutaChange = 5;
             if (!editado) {
                 $("#labelPruebasRequeridas").text("");
+                $("#labelPruebasEjecutadas").text("");
                 $("#inputFechaLote").data("kendoDatePicker").value("");
 
 
@@ -388,6 +393,7 @@ function SuscribirEventoFechaLote() {
         change: function (e) {
             EjecutaChange = 6;
             if (!editado) {
+                $("#labelPruebasEjecutadas").text("");
                 $("#labelPruebasRequeridas").text("");
                 $("#inputLote").data("kendoComboBox").dataSource.data([]);
                 $("#inputLote").data("kendoComboBox").value("");
@@ -426,6 +432,7 @@ function SuscribirEventoLote() {
         change: function (e) {
             EjecutaChange = 7;
             if (!editado) {
+                $("#labelPruebasEjecutadas").text("");
                 $("#labelPruebasRequeridas").text("");
                 var dataItem = this.dataItem(e.sender.selectedIndex);
                 if (dataItem != undefined && $("#inputLote").val() != "") {
