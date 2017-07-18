@@ -21,7 +21,9 @@ function suscribirEventoDetallePlaca() {
         if ($('#Guardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
             var grid = $("#grid").data("kendoGrid");
             dataItem = grid.dataItem($(e.target).closest("tr"));
-            LlenarGridPopUpDetallePlaca(dataItem);
+            if (dataItem.NumeroPlacas  != null )
+                if (dataItem.NumeroPlacas > 0)
+                    LlenarGridPopUpDetallePlaca(dataItem);
         }
     });
 }
@@ -349,11 +351,13 @@ function SuscribirEventoComboPrueba() {
                             $("#grid").data("kendoGrid").showColumn("TipoRT");
                             $("#grid").data("kendoGrid").showColumn("NumeroPlacas");
                             $("#grid").data("kendoGrid").shoColumn("TemplateDetalleElemento");
+                            $("#EvaluacionDiv").css("display", "block");
                         }
                         else {
                             $("#grid").data("kendoGrid").hideColumn("TipoRT");
                             $("#grid").data("kendoGrid").hideColumn("NumeroPlacas");
                             $("#grid").data("kendoGrid").hideColumn("TemplateDetalleElemento");
+                            $("#EvaluacionDiv").css("display", "none");
                         }
 
                         $("#inputFuente").data("kendoComboBox").value("");
@@ -380,11 +384,13 @@ function SuscribirEventoComboPrueba() {
                         $("#grid").data("kendoGrid").showColumn("TipoRT");
                         $("#grid").data("kendoGrid").showColumn("NumeroPlacas");
                         $("#grid").data("kendoGrid").showColumn("TemplateDetalleElemento");
+                        $("#EvaluacionDiv").css("display", "block");
                     }
                     else {
                         $("#grid").data("kendoGrid").hideColumn("TipoRT");
                         $("#grid").data("kendoGrid").hideColumn("NumeroPlacas");
                         $("#grid").data("kendoGrid").hideColumn("TemplateDetalleElemento");
+                        $("#EvaluacionDiv").css("display", "none");
                     }
 
 

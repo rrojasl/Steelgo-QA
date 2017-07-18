@@ -103,7 +103,7 @@ function CargarGrid() {
                         CantidadJuntas: { type: "number", editable: false },
                         Proveedor: { type: "string", editable: true },
                         ProveedorID: { type: "int", editable: true },
-                        //Equipo: { type: "string", editable: true },
+                        Equipo: {  hidden: true, type: "string", editable: true, },
                         TurnoLaboral: { type: "string", editable: true },
                         Capacidad: { type: "string", editable: false },
                         JuntasAsignadas: { type: "string", editable: false }

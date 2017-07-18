@@ -58,22 +58,8 @@ function CargarGrid() {
             { field: "EtiquetaJunta", title: "Jta", filterable: getGridFilterableCellMaftec(), width: "70px" },
             { field: "TipoJunta", title: "Tipo Jta", filterable: getGridFilterableCellMaftec(), width: "100px" },
             { field: "Diametro", title: "Diam", filterable: getGridFilterableCellNumberMaftec(), width: "90px" },
-            { field: "Clasificacion", title: "Clasificación", filterable: getGridFilterableCellNumberMaftec(), width: "90px" },
-            
-            
-            {
-                field: "Preeliminar", title: "Captura preeliminar", width: "70px",
-                filterable: {
-                    multi: true,
-                    messages: {
-                        isTrue: _dictionary.lblVerdadero[$("#language").data("kendoDropDownList").value()],
-                        isFalse: _dictionary.lblFalso[$("#language").data("kendoDropDownList").value()],
-                        style: "max-width:100px;"
-                    },
-                    dataSource: [{ Etiquetado: true }, { Etiquetado: false }]
-                },
-                template: "<input name='fullyPaid' class='ob-paid' disabled type='checkbox'  />", width: "100px", attributes: { style: "text-align:center;" }
-            },
+            { field: "Clasificacion", title: "Clasificación", filterable: getGridFilterableCellMaftec(), width: "90px" },
+            { field: "Preliminar", title: "Captura preliminar", width: "70px", filterable: getGridFilterableCellMaftec(), width: "100px", editor: RenderComboBoxPreliminar },
 
         ],
 

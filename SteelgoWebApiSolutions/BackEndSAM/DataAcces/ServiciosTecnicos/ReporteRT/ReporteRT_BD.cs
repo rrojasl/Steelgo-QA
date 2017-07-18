@@ -176,7 +176,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ReporteRT
                             Equipo = item.Equipo,
                             Turno = item.TurnoLaboral,
                             TurnoLaboralID = item.TurnoLaboralID.GetValueOrDefault(),
-                            TipoRT = item.ClasificacionPND == "RT" ? true: false
+                            EsSector = true
                         };
                         listaDetalleJunta.Add(detalle);
 
@@ -291,7 +291,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ReporteRT
                             ResultadoID = int.Parse(item.ResultadosID.ToString()),
                             Resultado = item.Resultado,
                             ListaDetalleDefectos = listadoDetalleResultadoDefectos,
-                            TemplateDetallePorPlaca = (lenguaje== "es-MX" ?"Tienes ": "You have ")+  listadoDetalleResultadoDefectos.Count + (lenguaje == "es-MX" ? " Defecto (s)" : " Defects"),
+                            TemplateDetallePorPlaca = lenguaje== "es-MX" ?"Detalle": "Detail",
                             Accion=2,
                             ListaResultados= listaResultados,
                             ListaDefectos= listaDefectos
