@@ -103,63 +103,83 @@ function suscribirEventoGuardar() {
     $('#btnAgregar').click(function (e) {
         var hacerAjax = false;
 
-        if ($('input:radio[name=Muestra]:checked').val() == "SinCaptura") {
-            filtraDatosCapturados($('input:radio[name=Muestra]:checked').val());
-        }
-        else if ($('input:radio[name=Muestra]:checked').val() == "Todos") {
-            if ((llamadasATodos >= 1) || (infoGridTemp == null)) {
-                if (hayDatosCapturados) {
+        var proyecto = $("#inputProyecto").data("kendoComboBox").value();
+        var tipoPrueba = $("#inputPrueba").data("kendoComboBox").value();
+        var proveedor = $("#inputProveedor").data("kendoComboBox").value();
+        var requisicion = $("#inputRequisicion").data("kendoComboBox").value();        
 
-                    ventanaConfirm = $("#ventanaConfirm").kendoWindow({
-                        iframe: true,
-                        title: _dictionary.WarningTitle[$("#language").data("kendoDropDownList").value()],
-                        visible: false, //the window will not appear before its .open method is called
-                        width: "auto",
-                        height: "auto",
-                        modal: true,
-                        animation: {
-                            close: false,
-                            open: false
+        if (proyecto != 0) {
+            if (tipoPrueba != 0) {
+                if (proveedor != 0) {
+                    if (requisicion != 0) {
+                        if ($('input:radio[name=Muestra]:checked').val() == "SinCaptura") {
+                            filtraDatosCapturados($('input:radio[name=Muestra]:checked').val());
                         }
-                    }).data("kendoWindow");
+                        else if ($('input:radio[name=Muestra]:checked').val() == "Todos") {
+                            if ((llamadasATodos >= 1) || (infoGridTemp == null)) {
+                                if (hayDatosCapturados) {
 
-                    ventanaConfirm.content(_dictionary.CapturaReportePruebasMensajeEliminarDatosCapturados[$("#language").data("kendoDropDownList").value()] +
-                                "</br><center><button class='btn btn-blue' id='yesButton'>" + _dictionary.EntregaPlacasGraficasbotonSi[$("#language").data("kendoDropDownList").value()] + "</button><button class='btn btn-blue' id='noButton'>" + _dictionary.EntregaPlacasGraficasbotonNo[$("#language").data("kendoDropDownList").value()] + "</button></center>");
+                                    ventanaConfirm = $("#ventanaConfirm").kendoWindow({
+                                        iframe: true,
+                                        title: _dictionary.WarningTitle[$("#language").data("kendoDropDownList").value()],
+                                        visible: false, //the window will not appear before its .open method is called
+                                        width: "auto",
+                                        height: "auto",
+                                        modal: true,
+                                        animation: {
+                                            close: false,
+                                            open: false
+                                        }
+                                    }).data("kendoWindow");
 
-                    ventanaConfirm.open().center();
+                                    ventanaConfirm.content(_dictionary.CapturaReportePruebasMensajeEliminarDatosCapturados[$("#language").data("kendoDropDownList").value()] +
+                                                "</br><center><button class='btn btn-blue' id='yesButton'>" + _dictionary.EntregaPlacasGraficasbotonSi[$("#language").data("kendoDropDownList").value()] + "</button><button class='btn btn-blue' id='noButton'>" + _dictionary.EntregaPlacasGraficasbotonNo[$("#language").data("kendoDropDownList").value()] + "</button></center>");
 
-                    $("#yesButton").click(function () {
-                        ajaxResultadosDetalle($("#inputProyecto").data("kendoComboBox").value(), $("#inputProveedor").data("kendoComboBox").value(), $("#inputRequisicion").data("kendoComboBox").value());
-                        infoGridTemp = null;
-                        llamadasATodos = 0;
+                                    ventanaConfirm.open().center();
 
-                        hayDatosCapturados = false;
-                        ventanaConfirm.close();
+                                    $("#yesButton").click(function () {
+                                        ajaxResultadosDetalle($("#inputProyecto").data("kendoComboBox").value(), $("#inputProveedor").data("kendoComboBox").value(), $("#inputRequisicion").data("kendoComboBox").value());
+                                        infoGridTemp = null;
+                                        llamadasATodos = 0;
 
-                    });
-                    $("#noButton").click(function () {
-                        //$('#inputProyecto').data("kendoComboBox").value(previousCurrentItem);
-                        llamadasATodos++;
-                        ventanaConfirm.close();
-                    });
+                                        hayDatosCapturados = false;
+                                        ventanaConfirm.close();
 
+                                    });
+                                    $("#noButton").click(function () {
+                                        //$('#inputProyecto').data("kendoComboBox").value(previousCurrentItem);
+                                        llamadasATodos++;
+                                        ventanaConfirm.close();
+                                    });
+
+                                }
+                                else
+                                    hacerAjax = true;
+
+                                if (hacerAjax) {
+                                    ajaxResultadosDetalle($("#inputProyecto").data("kendoComboBox").value(), $("#inputProveedor").data("kendoComboBox").value(), $("#inputRequisicion").data("kendoComboBox").value());
+                                    infoGridTemp = null;
+                                    llamadasATodos = 0;
+                                    hayDatosCapturados = false;
+                                }
+                            }
+                            else {//Filtra los capturados
+                                filtraDatosCapturados($('input:radio[name=Muestra]:checked').val());
+                                llamadasATodos++;
+                            }
+                        }
+                    } else {
+                        displayNotify("MensajeSeleccionaRequisicion", "", "1");
+                    }
+                } else {
+                    displayNotify("MensajeSeleccionaProveedor", "", "1");
                 }
-                else
-                    hacerAjax = true;
-
-                if (hacerAjax) {
-                    ajaxResultadosDetalle($("#inputProyecto").data("kendoComboBox").value(), $("#inputProveedor").data("kendoComboBox").value(), $("#inputRequisicion").data("kendoComboBox").value());
-                    infoGridTemp = null;
-                    llamadasATodos = 0;
-                    hayDatosCapturados = false;
-                }
+            } else {
+                displayNotify("MensajeSeleccionaTipoPrueba", "", "1");
             }
-            else {//Filtra los capturados
-                filtraDatosCapturados($('input:radio[name=Muestra]:checked').val());
-                llamadasATodos++;
-            }
-        }
-
+        } else {
+            displayNotify("MensajeSeleccionaProyecto", "", "1");
+        }        
     });
 }
 
@@ -374,7 +394,7 @@ function SuscribirEventoComboPrueba() {
                         $("#grid").data("kendoGrid").showColumn("ResultadoConciliacion");
                         $("#grid").data("kendoGrid").showColumn("RazonNoConciliacion");
                         $("#grid").data("kendoGrid").hideColumn("TemplateDetalleElemento");
-                        $("#EvaluacionDiv").css("display", "none");
+                        $("#EvaluacionDiv").css("display", "none");                       
                     }
                     
                     AjaxProveedor($("#inputProyecto").data("kendoComboBox").dataItem($("#inputProyecto").data("kendoComboBox").select()).ProyectoID, $("#inputProyecto").data("kendoComboBox").dataItem($("#inputProyecto").data("kendoComboBox").select()).PatioID);

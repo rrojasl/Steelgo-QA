@@ -267,12 +267,20 @@ function ajaxResultadosDetalle(proyectoID, proveedorID, requisicionID) {
             Turno: "Vespertino",
             TurnoLaboralID: 2
         }];
-        $("#grid").data('kendoGrid').dataSource.data([]);
-        var ds = $("#grid").data("kendoGrid").dataSource;
+    
+    var tipoPrueba = $("#inputPrueba").data("kendoComboBox").value();
+    var ds = $("#grid").data("kendoGrid").dataSource;
+    if (tipoPrueba == 2) {                
         for (var i = 0; i < data.length; i++) {
+            data[i].TipoPrueba = "Reporte de PT";
             ds.add(data[i]);
         }
-        loadingStop();
+    } else {                
+        for (var i = 0; i < data.length; i++) {         
+            ds.add(data[i]);
+        }
+    }       
+    loadingStop();
     //$ReporteRT.ReporteRT.read({
     //    token: Cookies.get("token"),
     //    proyectoID: (($("#inputProyecto").data("kendoComboBox").value() != "") ? ($("#inputProyecto").data("kendoComboBox").value()) : (0)),
