@@ -348,15 +348,19 @@ function SuscribirEventoComboPrueba() {
                         //$("#inputRequisicion").data("kendoComboBox").dataSource.data([]);
 
                         if (dataItem.Nombre.indexOf("RT") !== -1) {
-                            $("#grid").data("kendoGrid").showColumn("TipoRT");
+                            $("#grid").data("kendoGrid").showColumn("EsSector");
                             $("#grid").data("kendoGrid").showColumn("NumeroPlacas");
-                            $("#grid").data("kendoGrid").shoColumn("TemplateDetalleElemento");
+                            $("#grid").data("kendoGrid").showColumn("TemplateDetalleElemento");
+                            $("#grid").data("kendoGrid").hideColumn("ResultadoConciliacion");
+                            $("#grid").data("kendoGrid").hideColumn("RazonNoConciliacion");
                             $("#EvaluacionDiv").css("display", "block");
                         }
                         else {
-                            $("#grid").data("kendoGrid").hideColumn("TipoRT");
+                            $("#grid").data("kendoGrid").hideColumn("EsSector");
                             $("#grid").data("kendoGrid").hideColumn("NumeroPlacas");
                             $("#grid").data("kendoGrid").hideColumn("TemplateDetalleElemento");
+                            $("#grid").data("kendoGrid").showColumn("ResultadoConciliacion");
+                            $("#grid").data("kendoGrid").showColumn("RazonNoConciliacion");
                             $("#EvaluacionDiv").css("display", "none");
                         }
 
@@ -381,15 +385,19 @@ function SuscribirEventoComboPrueba() {
 
                     //$("#inputRequisicion").data("kendoComboBox").dataSource.data([]);
                     if (dataItem.Nombre.indexOf("RT") !== -1) {
-                        $("#grid").data("kendoGrid").showColumn("TipoRT");
+                        $("#grid").data("kendoGrid").showColumn("EsSector");
                         $("#grid").data("kendoGrid").showColumn("NumeroPlacas");
                         $("#grid").data("kendoGrid").showColumn("TemplateDetalleElemento");
+                        $("#grid").data("kendoGrid").hideColumn("ResultadoConciliacion");
+                        $("#grid").data("kendoGrid").hideColumn("RazonNoConciliacion");
                         $("#EvaluacionDiv").css("display", "block");
                     }
                     else {
-                        $("#grid").data("kendoGrid").hideColumn("TipoRT");
+                        $("#grid").data("kendoGrid").hideColumn("EsSector");
                         $("#grid").data("kendoGrid").hideColumn("NumeroPlacas");
                         $("#grid").data("kendoGrid").hideColumn("TemplateDetalleElemento");
+                        $("#grid").data("kendoGrid").showColumn("ResultadoConciliacion");
+                        $("#grid").data("kendoGrid").showColumn("RazonNoConciliacion");
                         $("#EvaluacionDiv").css("display", "none");
                     }
 

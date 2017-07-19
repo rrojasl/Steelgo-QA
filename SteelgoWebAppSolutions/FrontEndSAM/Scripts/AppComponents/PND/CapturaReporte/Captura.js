@@ -72,8 +72,8 @@ function CargarGrid() {
                         CodigoAsme: { type: "string", editable: false },
                         NumeroPlacas: { type: "number", editable: true },
                         Resultado: { type: "string", editable: false },
-                        ResultadoConciliacion: { type: "string", editable: false },
-                        RazonNoConciliacion: { type: "string", editable: false },
+                        ResultadoConciliacion: { type: "string", editable: false, hidden: true },
+                        RazonNoConciliacion: { type: "string", editable: false,  hidden: true },
                         TemplateDetalleElemento: { type: "string", editable: false },
                         EsSector: { type: "boolean", editable: false }
                     }
@@ -131,7 +131,7 @@ function CargarGrid() {
                     + "<input class='RadioSector' value='cuadrante' style='display:inline-block; width:33% !important;' type='radio' name='tipoEvaluacion#= NumeroControl##=Junta#'  #= !EsSector ? checked='checked' : '' #> "
                         + "<label style='display:inline-block;  width:70% !important;'>Cte</label>"
             },
-            { field: "NumeroPlacas", title: _dictionary.CapturaReporteGridColumnNumeroPlacas[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "70px", editor: RenderNumeroPlacas, attributes: { style: "text-align:right;" } },
+            { field: "NumeroPlacas", title: _dictionary.CapturaReporteGridColumnNumeroPlacas[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "90px", editor: RenderNumeroPlacas, attributes: { style: "text-align:right;" } },
             { field: "TemplateDetalleElemento", title: _dictionary.CapturaReporteGridColumnInformacionResultados[$("#language").data("kendoDropDownList").value()], filterable: false, width: "100px"/*, editor: RenderGridDetallePorPlaca*/, template: "<div class='EnlacePorPlaca' style='text-align:center;'><a href='\\#'  > <span>#=TemplateDetalleElemento#</span></a></div> " },
             { field: "Resultado", title: "Resultado", filterable: getGridFilterableCellMaftec(), width: "110px", editor: comboBoxResultadoDetallePlaca },
             //{ field: "Indicacion", title: "Indicacion", filterable: getGridFilterableCellNumberMaftec(), minWidth: "100px", editor: RenderTurno, filterable: getGridFilterableCellMaftec() },
@@ -179,6 +179,8 @@ function CargarGridPopUpDetallePorPlaca() {
                     fields: {
                         Ubicacion: { type: "string", editable: false },
                         Resultado: { type: "String", editable: true },
+                        ResultadoConciliacion: { type: "string", editable: false, hidden: true },
+                        RazonNoConciliacion: { type: "string", editable: false, hidden: true },
                         TemplateDetallePorPlaca: { type: "String", editable: false },
                     }
                 }
@@ -189,6 +191,8 @@ function CargarGridPopUpDetallePorPlaca() {
         columns: [
           { field: "Ubicacion", title: _dictionary.ValidacionResultadosCabeceraUbicacion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "10px" },
           { field: "Resultado", title: _dictionary.CapturaReportePruebasHeaderResultado[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: comboBoxResultadoDetallePlaca, width: "10px" },
+          { field: "ResultadoConciliacion", title: _dictionary.CapturaReporteGridColumnRusult1[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "10px" },
+            { field: "RazonNoConciliacion", title: _dictionary.CapturaReporteGridColumnRusult2[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "10px" },
           { field: "TemplateDetallePorPlaca", title: "Indicaciones", filterable: false, width: "10px", template: "<div class='EnlaceDefectoPorPlaca' style='text-align:center;'><a href='\\#'  > <span>#=TemplateDetallePorPlaca#</span></a></div> " }
         ],
         editable: true,
