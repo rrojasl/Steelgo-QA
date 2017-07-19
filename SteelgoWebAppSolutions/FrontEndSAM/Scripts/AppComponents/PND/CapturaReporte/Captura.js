@@ -79,6 +79,7 @@ function CargarGrid() {
                     }
                 }
             },
+            pageSize: 10,
         },
         edit: function (e) {
             setTimeout(function () {
@@ -185,6 +186,7 @@ function CargarGridPopUpDetallePorPlaca() {
                     }
                 }
             },
+            pageSize: 10,
         },
         selectable: true,
         filterable: getGridFilterableMaftec(),
@@ -232,7 +234,7 @@ function CargarGridPopUpDetallePorPlacaPorDefectos() {
                     { field: "Accion", operator: "eq", value: undefined }
                 ]
             },
-
+            pageSize: 10,
         },
         navigatable: true,
         editable: true,

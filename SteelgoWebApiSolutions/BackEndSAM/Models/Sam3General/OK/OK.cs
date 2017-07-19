@@ -17,7 +17,7 @@ namespace BackEndSAM.Models.Sam3General.OK
             SpoolID = 0;
             OrdenTrabajoSpoolID = 0;
             OK = false;
-            //Coincide = 0;
+            Observaciones = "";
         }
 
         public int SpoolWorkStatusID { get; set; }
@@ -29,14 +29,47 @@ namespace BackEndSAM.Models.Sam3General.OK
         public int ProyectoID { get; set; }
         public int OrdenTrabajoSpoolID { get; set; }
         public bool OK { get; set; }
-        //public int Coincide { get; set; }
-        //public List<Detalle> ListaDetalle { get; set; }
+        public string Observaciones { get; set; }
         public string Detalle { get; set; }
     }
+
+    public class ElementosPorNombre
+    {
+        public ElementosPorNombre()
+        {
+            SpoolWorkStatusID = 0;
+            NombreSpool = "";
+            Cuadrante = "";
+            Prioridad = 0;
+            ProyectoID = 0;
+            SpoolID = 0;
+            OrdenTrabajoSpoolID = 0;
+            OK = false;
+            Observaciones = "";
+            ModificadoPorUsuario = false;
+        }
+
+        public int SpoolWorkStatusID { get; set; }
+        public string NombreSpool { get; set; }
+        public string Cuadrante { get; set; }
+        public int Prioridad { get; set; }
+
+        public int SpoolID { get; set; }
+        public int ProyectoID { get; set; }
+        public int OrdenTrabajoSpoolID { get; set; }
+        public bool OK { get; set; }
+        public string Observaciones { get; set; }
+        public string Detalle { get; set; }
+        public bool ModificadoPorUsuario { get; set; }
+    }
+
 
     public class Detalle
     {
         public int JuntaSpoolID { get; set; }
+        public int SpoolID { get; set; }
+        public int OrdenTrabajoSpoolID { get; set; }
+        public string NumeroControl { get; set; }
         public string Etiqueta { get; set; }
         public string Codigo { get; set; }
         public string Cedula { get; set; }
@@ -44,6 +77,7 @@ namespace BackEndSAM.Models.Sam3General.OK
         public decimal Espesor { get; set; }
         public string Nombre { get; set; }
         public string TipoPrueba { get; set; }
+        public bool OkFabricacion { get; set; }
         public string NumeroRequisicion { get; set; }
     }
 
@@ -63,6 +97,8 @@ namespace BackEndSAM.Models.Sam3General.OK
         public int SpoolID { get; set; }
         public int OrdenTrabajoSpoolID { get; set; }
         public bool OK { get; set; }
+        public string Observaciones { get; set; }
+        public bool ModificadoPorUsuario { get; set; }
 
     }
 

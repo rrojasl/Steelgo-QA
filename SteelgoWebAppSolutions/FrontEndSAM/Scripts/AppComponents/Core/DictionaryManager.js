@@ -7606,6 +7606,10 @@ _dictionary = {
         "es-MX": "Spool ID Contiene",
         "en-US": "Contain Spool ID"
     },
+    "lblSpoolContiene2": {
+        "es-MX": "Spool Contiene",
+        "en-US": "Contain Spool"
+    },
     "lblOKFABObservacion": {
         "es-MX": "Observaciones",
         "en-US": "Observations"
@@ -8421,7 +8425,7 @@ _dictionary = {
         "es-MX": "WPS",
         "en-US": "WPS"
     },
-    "menuSoldadorCertificacion": {
+   "menuSoldadorCertificacion": {
         "es-MX": "WPQ",
         "en-US": "WPQ"
     },
@@ -9992,18 +9996,18 @@ _dictionary = {
         "es-MX": "El número de pasos debe ser mayor a 0",
         "en-US": "The number of steps must be greater than 0"
     },
-    "CapturaSoldadorCertificacionPreguntaBorradoCaptura": {
+     "CapturaSoldadorCertificacionPreguntaBorradoCaptura": {
         "es-MX": "¿Está seguro de cancelar el detalle de la captura de WPQ?",
         "en-US": "Are you sure you want to cancel the detail of the capture of WPQ?"
-    },
+        },
     "SoldadorCertificacionPreguntaBorradoCaptura": {
         "es-MX": "¿Está seguro de cancelar el detalle de la captura de WPQ?",
         "en-US": "You are sure you want to cancel the capture detail of WPQ?"
-    },
+        },
     "SoldadorCertificacionMensajeEspesorMinimo": {
         "es-MX": "El Espesor M. tiene que ser mayor a cero",
         "en-US": " The M. thickness must be greater than zero"
-    },
+        },
     "SoldadorCertificacionMensajeDiametroCalificado": {
         "es-MX": "El diametro c. tiene que ser mayor a cero",
         "en-US": " The c. diameter must be greater than zero"
@@ -10012,8 +10016,8 @@ _dictionary = {
     "AdverteciaExcepcionGuardado": {
         "es-MX": "No hay cambios por guardar",
         "en-US": "There aren´t any change"
-    },
-    //Finaliza Soldador Certificacion
+        },
+            //Finaliza Soldador Certificacion
 
     //Pantalla Nuevo Soldador Certificacion
     "lblNuevoSoldadorCertificacionBreadCrum": {
@@ -10468,10 +10472,9 @@ _dictionary = {
         "es-MX": "Defectos",
         "en-US": "Defects"
     },
-
     "ValidacionResultadosComboRechazado": {
         "es-MX": "Rechazado",
-        "en-US": "Rejected"
+        "en-US": "Rechazado"
     },
     "ValidacionResultadosComboAceptado": {
         "es-MX": "Aceptado",
@@ -10508,8 +10511,8 @@ _dictionary = {
         "en-US": "Cancel"
     },
     "CapturaReporteValidacionErroneaDefecto": {
-        "es-MX": "Los campos marcados en rojo son incorrectos, no se puede guardar la información",
-        "en-US": "The fields marked in red are wrong, can't be save the information"
+        "es-MX": "Error de validación,  le recormamos que Inicio mm y Fin mm, deben de ser mayores a cero y Fin mm debe de ser mayor a Inicio mm.",
+        "en-US": "Error validation remind you that Home and End mm mm, must be greater than zero and End mm must be greater than Start mm."
     },
     "CapturaReporteGuardadoErroneo": {
         "es-MX": "No hay elementos por guardar.",
