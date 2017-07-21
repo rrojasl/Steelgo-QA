@@ -1086,10 +1086,10 @@ function desplegarNotificacion() {
         displayNotify("JuntaSinSeleccionar", "", '1');
     }
     else if (!spoolIDDefinido) {
-        displayNotify("NoExisteSpoolID", "", '2');
+        displayNotify("NoExisteSpoolID", "", '1');
     }
     else if (tipoCapturaSpool) {
-        displayNotify("NoExisteSpoolID", "", '2');
+        displayNotify("NoExisteSpoolID", "", '1');
     }
     else if (!tipoCapturaSpool) {
         if (JuntaDefinida) {

@@ -121,8 +121,7 @@ function AjaxGetElementosPorConsulta(tipoConsulta, todos, zonaID, cuadranteID, s
                         $("#btnContinuarBusqueda").click(function () {
                             ventanaConfirmBusqueda.close();
                             AjaxGetDetalleEtiquetado(tipoConsulta, todos, zonaID, cuadranteID, spoolIDContiene);
-                            if (tipoConsulta != 1)
-                                AjaxGetCuadranteListadoPorSpool(spoolIDContiene);
+                           
                         });
                         $("#btnCancelarBusqueda").click(function () {
                             ventanaConfirmBusqueda.close();
@@ -136,8 +135,7 @@ function AjaxGetElementosPorConsulta(tipoConsulta, todos, zonaID, cuadranteID, s
 
                 } else {
                     AjaxGetDetalleEtiquetado(tipoConsulta, todos, zonaID, cuadranteID, spoolIDContiene);
-                    if (tipoConsulta != 1)
-                        AjaxGetCuadranteListadoPorSpool(spoolIDContiene);
+                  
                 }
             }
         }
@@ -154,6 +152,8 @@ function AjaxGetDetalleEtiquetado(tipoConsulta, todos, zonaID, cuadranteID, spoo
         if (data.length > 0) {
             ds.data(data);
             ds.page(1);
+            if (tipoConsulta != 1)
+                AjaxGetCuadranteListadoPorSpool(spoolIDContiene);
         } else {
             ds.page(0);
         }

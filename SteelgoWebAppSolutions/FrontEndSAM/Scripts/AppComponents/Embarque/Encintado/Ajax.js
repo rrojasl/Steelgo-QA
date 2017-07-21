@@ -175,8 +175,7 @@ function AjaxCargarElementosPorConsulta(tipoBusqueda, zonaID, cuadranteID, spool
 
             } else {
                 AjaxCargarDetalleEncintado(tipoBusqueda, zonaID, cuadranteID, spoolContiene, todos);
-                if (tipoBusqueda != 1)
-                    AjaxCargarCuadranteSpool(spoolContiene);
+
             }
         }
     });
@@ -190,7 +189,7 @@ function AjaxCargarDetalleEncintado(tipoBusqueda, zonaID, cuadranteID, spoolCont
     }).done(function (data) {
         $("#grid").data('kendoGrid').dataSource.data([]);
         var ds = $("#grid").data("kendoGrid").dataSource;
-
+        loadingStart();
         if (data.length > 0) {
             ds.data(data);
             ds.page(1);
