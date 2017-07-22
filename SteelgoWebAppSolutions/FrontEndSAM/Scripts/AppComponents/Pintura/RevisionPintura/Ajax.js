@@ -109,7 +109,7 @@ function AjaxConsultarSpoolsConSP(tipoBusquedaSeleccionada, datoSeleccionado) {
         if (numeroData > 0 && numeroData < 100) {
             AjaxEjecutarBusquedaSpoolConSP();
         }
-        else if (numeroData > 0) {
+        else if (numeroData >= 100) {
             var ventanaConfirmBusqueda = $("#ventanaConfirm").kendoWindow({
                 iframe: true,
                 title: _dictionary.EntregaPlacasGraficasTituloPopup[$("#language").data("kendoDropDownList").value()],

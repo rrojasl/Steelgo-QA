@@ -21,7 +21,8 @@ function EjecutarCambioElemento(dataItem) {
     spooolAnterior = dataItem;
     OrdenTrabajoAnterior = $("#InputOrdenTrabajo").val();
 
-    if (dataItem.Valor != "0" && dataItem.Valor != "" && $("#InputOrdenTrabajo").val() != '') {
+    if ($("#InputOrdenTrabajo").val() != '') {
+        ordentrabajoSpoolID = dataItem;
         ajaxobtenerDetalleDimensional(dataItem.Valor);
         ajaxObtenerJSonGrid();
         ajaxObtenerListaTaller();

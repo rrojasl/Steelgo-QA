@@ -119,7 +119,7 @@ namespace BackEndSAM.Controllers.Pintura
 
         //obtener lotes
         [HttpGet]
-        public object Get(string token, int ProcesoPinturaID, int SistemaPinturaProyectoID, int PruebaProcesoPinturaID, string FechaLote, string lenguaje)
+        public object Get(string token, int ProcesoPinturaID, int SistemaPinturaProyectoID, int PruebaProcesoPinturaID, string FechaLote, string lenguaje,int sistemaPinturaColorID)
         {
             string payload = "";
             string newToken = "";
@@ -128,7 +128,7 @@ namespace BackEndSAM.Controllers.Pintura
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                return PruebasPorLoteBD.Instance.ObtenerLotes(ProcesoPinturaID, SistemaPinturaProyectoID, PruebaProcesoPinturaID, FechaLote, lenguaje);
+                return PruebasPorLoteBD.Instance.ObtenerLotes(ProcesoPinturaID, SistemaPinturaProyectoID, PruebaProcesoPinturaID, FechaLote, lenguaje, sistemaPinturaColorID);
 
             }
             else

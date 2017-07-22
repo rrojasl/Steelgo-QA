@@ -167,9 +167,9 @@ function ajaxObtenerFechas(ProcesoPinturaID, SistemaPinturaProyectoID, PruebaPro
     });
 }
 
-function ajaxLlenarLote(ProcesoPinturaID, SistemaPinturaProyectoID, PruebaProcesoPinturaID, FechaLote, lenguaje) {
+function ajaxLlenarLote(ProcesoPinturaID, SistemaPinturaProyectoID, PruebaProcesoPinturaID, FechaLote, lenguaje, sistemaPinturaColorID) {
     loadingStart();
-    $PruebasPorLote.PruebasPorLote.read({ token: Cookies.get("token"), ProcesoPinturaID: ProcesoPinturaID, SistemaPinturaProyectoID: SistemaPinturaProyectoID, PruebaProcesoPinturaID: PruebaProcesoPinturaID, FechaLote: FechaLote, lenguaje: lenguaje }).done(function (data) {
+    $PruebasPorLote.PruebasPorLote.read({ token: Cookies.get("token"), ProcesoPinturaID: ProcesoPinturaID, SistemaPinturaProyectoID: SistemaPinturaProyectoID, PruebaProcesoPinturaID: PruebaProcesoPinturaID, FechaLote: FechaLote, lenguaje: lenguaje, sistemaPinturaColorID: sistemaPinturaColorID }).done(function (data) {
         $("#inputLote").data("kendoComboBox").dataSource.data([]);
         var datoID = 0;
 
