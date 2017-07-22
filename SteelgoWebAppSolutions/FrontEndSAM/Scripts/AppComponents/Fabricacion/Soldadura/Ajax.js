@@ -750,7 +750,7 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
         loadingStop();
     } catch (e) {
         loadingStop();
-        displayNotify("", e.message, '1');
+        displayNotify("", e.message, '2');
     }
 
 };

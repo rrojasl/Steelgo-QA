@@ -5,18 +5,20 @@ var numeroPlacasAnteriorElemento;
 var dataItem;
 
 function RenderNumeroPlacas(container, options) {
-
+    var max = 9999;
     if ($('#Guardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
 
-
+        if (!options.model.EsSector) {
+            max = 3;
+        }
 
         numeroPlacasAnteriorElemento = { NumeroPlacas: options.model.NumeroPlacas, OrdenTrabajoID: options.model.OrdenTrabajoID, SpoolID: options.model.SpoolID, JuntaSpoolID: options.model.JuntaSpoolID };
         $('<input data-text-field="NumeroPlacas" id=' + options.model.uid + ' data-value-field="NumeroPlacas" data-bind="value:' + options.field + '" />')
         .appendTo(container)
         .kendoNumericTextBox({
             format: "#",
-            min: 0
-            ,
+            min: 0,
+            max: max,
             change: function (e) {
                 var grid = $("#grid").data("kendoGrid");
                 dataItem = grid.dataItem($(e.target).closest("tr"));
@@ -45,7 +47,7 @@ function RenderNumeroPlacas(container, options) {
                     ventanaConfirm.open().center();
 
                     $("#yesButton").click(function () {
-                        renderGenerarJsonNumeroPlacas(options.model.SpoolID, options.model.JuntaSpoolID, options.model.OrdenTrabajoID);
+                        renderGenerarJsonNumeroPlacas(options.model.SpoolID, options.model.JuntaSpoolID, options.model.OrdenTrabajoID, options.model.EsSector);
 
                         ventanaConfirm.close();
                     });
@@ -63,7 +65,7 @@ function RenderNumeroPlacas(container, options) {
                     });
                 }
                 else if (numeroPlacasAnteriorElemento.NumeroPlacas == null) {
-                    renderGenerarJsonNumeroPlacas(options.model.SpoolID, options.model.JuntaSpoolID, options.model.OrdenTrabajoID);
+                    renderGenerarJsonNumeroPlacas(options.model.SpoolID, options.model.JuntaSpoolID, options.model.OrdenTrabajoID, options.model.EsSector);
                 }
             }
         });
@@ -179,7 +181,7 @@ function RenderFinMM(container, options) {
 
 }
 
-function renderGenerarJsonNumeroPlacas(spoolJunta, junta, numeroControl) {
+function renderGenerarJsonNumeroPlacas(spoolJunta, junta, numeroControl, EsSector) {
     //alert(spoolJunta);
     //var infoResults = new Array($("#grid").data("kendoGrid").dataSource._data.NumeroPlacas);
     for (var i = 0; i < $("#grid").data("kendoGrid").dataSource._data.length; i++) {
@@ -187,9 +189,27 @@ function renderGenerarJsonNumeroPlacas(spoolJunta, junta, numeroControl) {
             $("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas = new Array($("#grid").data("kendoGrid").dataSource._data[i].NumeroPlacas);
             for (var j = 0; j < $("#grid").data("kendoGrid").dataSource._data[i].NumeroPlacas; j++) {
                 if (j != ($("#grid").data("kendoGrid").dataSource._data[i].NumeroPlacas - 1))
-                    $("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas[j] = { OrdenTrabajoID: $("#grid").data("kendoGrid").dataSource._data[i].OrdenTrabajoID, SpoolID: $("#grid").data("kendoGrid").dataSource._data[i].SpoolID, JuntaSpoolID: $("#grid").data("kendoGrid").dataSource._data[i].JuntaSpoolID, Ubicacion: j + '-' + (j + 1), ResultadoID: undefined, Resultado: '', ListaDetalleDefectos: [], Accion: $("#grid").data("kendoGrid").dataSource._data[i].Accion, ListaResultados: $("#grid").data("kendoGrid").dataSource._data[i].ListaResultados, ListaDefectos: $("#grid").data("kendoGrid").dataSource._data[i].ListaDefectos, TemplateDetallePorPlaca: _dictionary.ServiciosTecnicosCapturaReporteTemplatePlacasDefecto[$("#language").data("kendoDropDownList").value()], Posicion: j };
+                    $("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas[j] = {
+                        OrdenTrabajoID: $("#grid").data("kendoGrid").dataSource._data[i].OrdenTrabajoID,
+                        SpoolID: $("#grid").data("kendoGrid").dataSource._data[i].SpoolID,
+                        JuntaSpoolID: $("#grid").data("kendoGrid").dataSource._data[i].JuntaSpoolID,
+                        Ubicacion: EsSector ?  j + '-' + (j + 1): String.fromCharCode(65+j), ResultadoID: undefined, Resultado: '',
+                        ListaDetalleDefectos: [],
+                        Accion: $("#grid").data("kendoGrid").dataSource._data[i].Accion,
+                        ListaResultados: $("#grid").data("kendoGrid").dataSource._data[i].ListaResultados,
+                        ListaDefectos: $("#grid").data("kendoGrid").dataSource._data[i].ListaDefectos,
+                        TemplateDetallePorPlaca: _dictionary.ServiciosTecnicosCapturaReporteTemplatePlacasDefecto[$("#language").data("kendoDropDownList").value()], Posicion: j
+                    };
                 else
-                    $("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas[j] = { OrdenTrabajoID: $("#grid").data("kendoGrid").dataSource._data[i].OrdenTrabajoID, SpoolID: $("#grid").data("kendoGrid").dataSource._data[i].SpoolID, JuntaSpoolID: $("#grid").data("kendoGrid").dataSource._data[i].JuntaSpoolID, Ubicacion: j + '-' + 0, ResultadoID: undefined, Resultado: '', ListaDetalleDefectos: [], Accion: $("#grid").data("kendoGrid").dataSource._data[i].Accion, ListaResultados: $("#grid").data("kendoGrid").dataSource._data[i].ListaResultados, ListaDefectos: $("#grid").data("kendoGrid").dataSource._data[i].ListaDefectos, TemplateDetallePorPlaca: _dictionary.ServiciosTecnicosCapturaReporteTemplatePlacasDefecto[$("#language").data("kendoDropDownList").value()], Posicion: j };
+                    $("#grid").data("kendoGrid").dataSource._data[i].ListaDetallePorPlacas[j] = {
+                        OrdenTrabajoID: $("#grid").data("kendoGrid").dataSource._data[i].OrdenTrabajoID,
+                        SpoolID: $("#grid").data("kendoGrid").dataSource._data[i].SpoolID,
+                        JuntaSpoolID: $("#grid").data("kendoGrid").dataSource._data[i].JuntaSpoolID,
+                        Ubicacion: EsSector ? j + '-' + 0 : String.fromCharCode(65 + j), ResultadoID: undefined, Resultado: '',
+                        ListaDetalleDefectos: [], Accion: $("#grid").data("kendoGrid").dataSource._data[i].Accion,
+                        ListaResultados: $("#grid").data("kendoGrid").dataSource._data[i].ListaResultados,
+                        ListaDefectos: $("#grid").data("kendoGrid").dataSource._data[i].ListaDefectos, TemplateDetallePorPlaca: _dictionary.ServiciosTecnicosCapturaReporteTemplatePlacasDefecto[$("#language").data("kendoDropDownList").value()], Posicion: j
+                    };
             }
             break;
         }
@@ -452,4 +472,40 @@ function tieneClase(item) {
         }
     }
     return false
+}
+
+
+function RenderCuadrantes(container, options) {
+    $('<input required data-text-field="Cuadrante" id=' + options.model.uid + ' data-value-field="Cuadrante" data-bind="value:' + options.field + '"/>')
+        .appendTo(container)
+        .kendoComboBox({
+            autoBind: false,
+            dataSource: [{ CuadranteID: 0, Cuadrante: '' }, { CuadranteID: 1, Cuadrante: 'A' }, { CuadranteID: 2, Cuadrante: 'B' }, { CuadranteID: 3, Cuadrante: 'C' }],
+            dataTextField: "Cuadrante",
+            dataValueField: "CuadranteID",
+            template: "<i class=\"fa fa-#=data.Cuadrante#\"></i> #=data.Cuadrante#",
+            change: function (e) {
+                dataItem = this.dataItem(e.sender.selectedIndex);
+
+                if (dataItem != undefined) {
+                    options.model.CuadranteID = dataItem.CuadranteID;
+                    options.model.Cuadrante = dataItem.Cuadrante;
+                }
+                else {
+                    options.model.CuadranteID = 0;
+                    options.model.Cuadrante = '';
+                }
+
+            }
+        }
+    );
+    $(".k-combobox").parent().on('mouseleave', function (send) {
+        var e = $.Event("keydown", { keyCode: 27 });
+        var item = $(this).find(".k-combobox")[0];
+        if (item != undefined) {
+            if (!tieneClase(item)) {
+                $(container).trigger(e);
+            }
+        }
+    });
 }

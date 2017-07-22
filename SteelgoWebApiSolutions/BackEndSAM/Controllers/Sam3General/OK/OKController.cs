@@ -19,38 +19,72 @@ namespace BackEndSAM.Controllers.Sam3General.OK
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class OKController : ApiController
     {
-        
-        public object Get(string token, int ProyectoID, string NumControl)
-        {
-            try
-            {
-                string payLoad = "";
-                string newToken = "";
-                bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payLoad, out newToken);
-                if (tokenValido)
-                {
-                    return OKDB.Instance.NumControlExisteEnProyecto(ProyectoID, NumControl);
-                }else
-                {
-                    TransactionalInformation result = new TransactionalInformation();
-                    result.ReturnMessage.Add(payLoad);
-                    result.ReturnCode = 401;
-                    result.ReturnStatus = false;
-                    result.IsAuthenicated = false;
-                    return result;
-                }
-            }
-            catch (Exception ex)
-            {
-                TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add(ex.Message);
-                result.ReturnCode = 500;
-                result.ReturnStatus = false;
-                result.IsAuthenicated = true;
-                return result;
-            }
-        }
-        public object Get(string token, int ProyectoID, string NumControl, string Muestra)
+
+        //public object Get(string token, int ProyectoID, string NumControl)
+        //{
+        //    try
+        //    {
+        //        string payLoad = "";
+        //        string newToken = "";
+        //        bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payLoad, out newToken);
+        //        if (tokenValido)
+        //        {
+        //            return OKDB.Instance.NumControlExisteEnProyecto(ProyectoID, NumControl);
+        //        }else
+        //        {
+        //            TransactionalInformation result = new TransactionalInformation();
+        //            result.ReturnMessage.Add(payLoad);
+        //            result.ReturnCode = 401;
+        //            result.ReturnStatus = false;
+        //            result.IsAuthenicated = false;
+        //            return result;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TransactionalInformation result = new TransactionalInformation();
+        //        result.ReturnMessage.Add(ex.Message);
+        //        result.ReturnCode = 500;
+        //        result.ReturnStatus = false;
+        //        result.IsAuthenicated = true;
+        //        return result;
+        //    }
+        //}
+        //public object Get(string token, int ProyectoID, string NumControl, string Muestra)
+        //{
+        //    try
+        //    {
+        //        string payLoad = "";
+        //        string newToken = "";
+        //        int MuestraInt = Muestra.ToLower() == "todos" ? 1 : 0;
+        //        bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payLoad, out newToken);
+        //        if (tokenValido)
+        //        {
+        //            return OKDB.Instance.ObtenerNumeroElementosOK(ProyectoID, NumControl, MuestraInt);
+        //        }
+        //        else
+        //        {
+        //            TransactionalInformation result = new TransactionalInformation();
+        //            result.ReturnMessage.Add(payLoad);
+        //            result.ReturnCode = 401;
+        //            result.ReturnStatus = false;
+        //            result.IsAuthenicated = false;
+
+        //            return result;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TransactionalInformation result = new TransactionalInformation();
+        //        result.ReturnMessage.Add(ex.Message);
+        //        result.ReturnCode = 500;
+        //        result.ReturnStatus = false;
+        //        result.IsAuthenicated = true;
+        //        return result;
+        //    }
+        //}
+        [HttpGet]
+        public object ObtenerCantidadSpoolXNombre(bool Relleno, string token, int ProyectoID, string NombreSpool, string Muestra, string Otro)
         {
             try
             {
@@ -58,9 +92,9 @@ namespace BackEndSAM.Controllers.Sam3General.OK
                 string newToken = "";
                 int MuestraInt = Muestra.ToLower() == "todos" ? 1 : 0;
                 bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payLoad, out newToken);
-                if (tokenValido)
+                if (tokenValido && Relleno)
                 {
-                    return OKDB.Instance.ObtenerNumeroElementosOK(ProyectoID, NumControl, MuestraInt);
+                    return OKDB.Instance.ObtenerCantidadElementosNombreSpool(ProyectoID, NombreSpool, MuestraInt);
                 }
                 else
                 {
@@ -83,7 +117,8 @@ namespace BackEndSAM.Controllers.Sam3General.OK
                 return result;
             }
         }
-        public object Get(string token, string Lenguaje, int ProyectoID, string NumControl, string Muestra, int OPC)
+        [HttpGet]
+        public object ObtenerElementosPorNombre(string token, string Lenguaje, int ProyectoID, string NombreSpool, string Muestra)
         {
             try
             {
@@ -93,15 +128,16 @@ namespace BackEndSAM.Controllers.Sam3General.OK
                 bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payLoad, out newToken);
                 if (tokenValido)
                 {
-                    return OKDB.Instance.ObtenerListaElementos(Lenguaje, ProyectoID, NumControl, muestra, OPC);
-                }else
+                    return OKDB.Instance.ObtenerListaElementosPorNombreSpool(Lenguaje, ProyectoID, NombreSpool, muestra);
+                }
+                else
                 {
                     TransactionalInformation result = new TransactionalInformation();
                     result.ReturnMessage.Add(payLoad);
                     result.ReturnCode = 401;
                     result.ReturnStatus = false;
                     result.IsAuthenicated = false;
-                    return result;                    
+                    return result;
                 }
             }
             catch (Exception ex)
@@ -116,6 +152,72 @@ namespace BackEndSAM.Controllers.Sam3General.OK
         }
 
         [HttpGet]
+        public object ObtenerElementosPorOrdenTrabajo(string token, string Lenguaje, int ProyectoID, string Spool, int Muestra, string Relleno2)
+        {
+            try
+            {
+                string payLoad = "";
+                string newToken = "";
+                bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payLoad, out newToken);
+                if (tokenValido)
+                {
+                    return OKDB.Instance.ObtenerListaElementosPorOrdenTrabajo(Lenguaje, ProyectoID, Spool, Muestra);
+                }
+                else
+                {
+                    TransactionalInformation result = new TransactionalInformation();
+                    result.ReturnMessage.Add(payLoad);
+                    result.ReturnCode = 401;
+                    result.ReturnStatus = false;
+                    result.IsAuthenicated = false;
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+                return result;
+            }
+        }
+
+
+        //public object Get(string token, string Lenguaje, int ProyectoID, string NumControl, string Muestra, int OPC)
+        //{
+        //    try
+        //    {
+        //        string payLoad = "";
+        //        string newToken = "";
+        //        int muestra = Muestra.ToLower() == "todos" ? 1 : 0;
+        //        bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payLoad, out newToken);
+        //        if (tokenValido)
+        //        {
+        //            return OKDB.Instance.ObtenerListaElementos(Lenguaje, ProyectoID, NumControl, muestra, OPC);
+        //        }else
+        //        {
+        //            TransactionalInformation result = new TransactionalInformation();
+        //            result.ReturnMessage.Add(payLoad);
+        //            result.ReturnCode = 401;
+        //            result.ReturnStatus = false;
+        //            result.IsAuthenicated = false;
+        //            return result;                    
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TransactionalInformation result = new TransactionalInformation();
+        //        result.ReturnMessage.Add(ex.Message);
+        //        result.ReturnCode = 500;
+        //        result.ReturnStatus = false;
+        //        result.IsAuthenicated = true;
+        //        return result;
+        //    }
+        //}
+
+        [HttpGet]
         public object GetJuntas(string token, string Lenguaje, int SpoolID)
         {
             try
@@ -126,7 +228,8 @@ namespace BackEndSAM.Controllers.Sam3General.OK
                 if (tokenValido)
                 {
                     return OKDB.Instance.ObtenerDetallesElementosOK(Lenguaje, SpoolID);
-                }else
+                }
+                else
                 {
                     TransactionalInformation result = new TransactionalInformation();
                     result.ReturnMessage.Add(payLoad);
@@ -151,7 +254,7 @@ namespace BackEndSAM.Controllers.Sam3General.OK
 
 
         [HttpPost]
-        public object InsertaOK(Datos ListaElementos, string Lenguaje, int ProyectoID, int OPC, string token, bool param)
+        public object InsertaOK(Datos ListaElementos, string Lenguaje, int ProyectoID, string token, bool param)
         {
             try
             {
@@ -167,7 +270,7 @@ namespace BackEndSAM.Controllers.Sam3General.OK
                     {
                         dtListaDatos = ToDataTable(ListaElementos.Detalle);
                     }
-                    return OKDB.Instance.InsertarOK(dtListaDatos, Lenguaje, Usuario, ProyectoID, OPC);
+                    return OKDB.Instance.InsertarOK(dtListaDatos, Lenguaje, Usuario, ProyectoID);
                 }
                 else
                 {
@@ -187,11 +290,11 @@ namespace BackEndSAM.Controllers.Sam3General.OK
                 result.ReturnStatus = false;
                 result.IsAuthenicated = true;
                 return result;
-            }            
+            }
         }
 
         [HttpPost]
-        public object InsertaOKMasivo(CapturaOKMasiva Datos, string Lenguaje, string Token, int ProyectoID, int OPC)
+        public object InsertaOKMasivo(CapturaOKMasiva Datos, string Lenguaje, string Token, int ProyectoID)
         {
             try
             {
@@ -202,14 +305,15 @@ namespace BackEndSAM.Controllers.Sam3General.OK
                 {
                     JavaScriptSerializer serializer = new JavaScriptSerializer();
                     Sam3_Usuario Usuario = serializer.Deserialize<Sam3_Usuario>(payLoad);
-                    List<ElementosOKMasivo> Elementos = serializer.Deserialize < List<ElementosOKMasivo>>(Datos.Detalle);
+                    List<ElementosOKMasivo> Elementos = serializer.Deserialize<List<ElementosOKMasivo>>(Datos.Detalle);
                     DataTable dtDatosMasivos = new DataTable();
-                    if(Elementos != null)
+                    if (Elementos != null)
                     {
                         dtDatosMasivos = ToDataTable(Elementos);
                     }
-                    return OKDB.Instance.actualizarOKMasivo(dtDatosMasivos, ProyectoID, Lenguaje, Usuario, OPC);
-                }else
+                    return OKDB.Instance.actualizarOKMasivo(dtDatosMasivos, ProyectoID, Lenguaje, Usuario);
+                }
+                else
                 {
                     TransactionalInformation result = new TransactionalInformation();
                     result.ReturnMessage.Add(payLoad);

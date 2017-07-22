@@ -103,7 +103,7 @@ function CargarGrid() {
                         CantidadJuntas: { type: "number", editable: false },
                         Proveedor: { type: "string", editable: true },
                         ProveedorID: { type: "int", editable: true },
-                        //Equipo: { type: "string", editable: true },
+                        Equipo: {  hidden: true, type: "string", editable: true, },
                         TurnoLaboral: { type: "string", editable: true },
                         Capacidad: { type: "string", editable: false },
                         JuntasAsignadas: { type: "string", editable: false }
@@ -144,7 +144,7 @@ function CargarGrid() {
             { field: "Fecha", title: _dictionary.columnFecha[$("#language").data("kendoDropDownList").value()], filterable: { cell: { showOperators: false } }, format: _dictionary.FormatoFecha[$("#language").data("kendoDropDownList").value()], width: "110px" },
             { field: "CantidadJuntas", title: _dictionary.columnJuntas[$("#language").data("kendoDropDownList").value()], template: "<div class='EnlaceDetalleJuntas' style='text-align:center;'><a href='\\#'  > <span>#=CantidadJuntas#</span></a></div>", filterable: getGridFilterableCellNumberMaftec(), width: "90px" },
             { field: "Proveedor", title: _dictionary.columnProveedor[$("#language").data("kendoDropDownList").value()], editor: RenderComboBoxProveedor, filterable: getGridFilterableCellMaftec(), width: "140px" },
-            //{ field: "Equipo", title: _dictionary.columnEquipo[$("#language").data("kendoDropDownList").value()], editor: RenderComboBoxHerramientaPrueba, filterable: getGridFilterableCellMaftec(), width: "130px" },
+            { field: "Equipo", title: _dictionary.columnEquipo[$("#language").data("kendoDropDownList").value()], editor: RenderComboBoxHerramientaPrueba, filterable: getGridFilterableCellMaftec(), width: "130px" },
             { field: "TurnoLaboral", title: _dictionary.columnTurnoLaboral[$("#language").data("kendoDropDownList").value()], editor: RenderComboBoxTurnoLaboral, filterable: getGridFilterableCellMaftec(), width: "120px" },
             { field: "Capacidad", title: _dictionary.columnCapacidad[$("#language").data("kendoDropDownList").value()], editor: RenderComboBoxTurnoLaboral, filterable: getGridFilterableCellMaftec(), width: "80px" },
             { field: "JuntasAsignadas", title: _dictionary.columnJuntasAsignadas[$("#language").data("kendoDropDownList").value()], editor: RenderComboBoxTurnoLaboral, template: "<div class='EnlaceDetalleElementosAsignados' style='text-align:center;'><a href='\\#'  > <span>#=JuntasAsignadas#</span></a></div>", filterable: getGridFilterableCellMaftec(), width: "110px" },

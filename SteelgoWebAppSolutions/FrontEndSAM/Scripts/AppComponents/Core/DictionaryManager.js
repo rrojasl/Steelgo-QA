@@ -7606,6 +7606,10 @@ _dictionary = {
         "es-MX": "Spool ID Contiene",
         "en-US": "Contain Spool ID"
     },
+    "lblSpoolContiene2": {
+        "es-MX": "Spool Contiene",
+        "en-US": "Contain Spool"
+    },
     "lblOKFABObservacion": {
         "es-MX": "Observaciones",
         "en-US": "Observations"

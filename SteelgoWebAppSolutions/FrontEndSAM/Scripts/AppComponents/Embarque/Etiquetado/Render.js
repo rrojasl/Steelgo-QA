@@ -26,13 +26,13 @@
                         //        options.model.ModificadoPorUsuario = true;
                         //}
                         //else                        
-                        $("#grid").data("kendoGrid").refresh();
+                        $("#grid").data("kendoGrid").dataSource.sync();
                     } else {
                         options.model.CuadranteID = 0;
                         options.model.CuadranteSam2ID = 0;
                         options.model.Cuadrante = "";
                         options.model.ModificadoPorUsuario = true;
-
+                        $("#grid").data("kendoGrid").dataSource.sync();
                         //if ((options.model.Accion == 1 && !options.model.Etiquetado) || (options.model.Accion == 2 && options.model.Etiquetado))
                         //    options.model.ModificadoPorUsuario = false;
                         //else                          

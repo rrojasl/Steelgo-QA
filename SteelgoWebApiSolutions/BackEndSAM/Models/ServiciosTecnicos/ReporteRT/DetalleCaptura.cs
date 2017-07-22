@@ -32,7 +32,7 @@ namespace BackEndSAM.Models.ServiciosTecnicos.ReporteRT
         public string Equipo { get; set; }
         public int TurnoLaboralID { get; set; }
         public string Turno { get; set; }
-        public bool TipoRT { get; set; }
+        public bool EsSector { get; set; }
     }
 
 }
