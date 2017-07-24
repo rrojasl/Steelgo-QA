@@ -139,7 +139,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos
                             PermiteSeparar = item.PermiteSeparar,
                             Agregar = false,
                             ClasificacionPNDID = item.ClasificacionPNDID.GetValueOrDefault(),
-                            ClasificacionManual = item.ClasificacionManual.GetValueOrDefault(),
+                            ClasificacionManual = item.ClasificacionManual.GetValueOrDefault() ? 1: 0,
                             OrdenTrabajoID = item.OrdenTrabajoID
 
                         });
