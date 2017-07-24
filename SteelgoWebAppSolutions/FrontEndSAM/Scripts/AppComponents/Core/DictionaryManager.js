@@ -7105,6 +7105,10 @@ _dictionary = {
         "es-MX": "Proveedor",
         "en-US": "Provider"
     },
+    "lblProveedorEnvio": {
+        "es-MX": "Proveedor Envío",
+        "en-US": "Provider Send"
+    },
     "lblGuardar": {
         "es-MX": "Guardar",
         "en-US": "Save"

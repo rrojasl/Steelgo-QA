@@ -72,6 +72,8 @@ namespace BackEndSAM.Models.Embarque.RevisionEmbarque
         public string ComentarioActual { get; set; }
         public bool CapturaManual { get; set; }
         public bool ModificadoPorUsuario { get; set; }
+        public bool Empaquetado { get; set; }
+        
         public bool RowOk { get; set; }
     }
 
@@ -99,7 +101,7 @@ namespace BackEndSAM.Models.Embarque.RevisionEmbarque
         public string ComentarioActual { get; set; }
         public bool CapturaManual { get; set; }
         public bool ModificadoPorUsuario { get; set; }
-        public bool RowOk { get; set; }
+        public bool RowOk { get; set; }        
     }
 
     public class DetallePaqueteAgregar
@@ -125,7 +127,7 @@ namespace BackEndSAM.Models.Embarque.RevisionEmbarque
         public string ComentarioActual { get; set; }
         public bool CapturaManual { get; set; }
         public bool ModificadoPorUsuario { get; set; }
-        public bool RowOk { get; set; }
+        public bool RowOk { get; set; }        
     }
 
     public class DetalleJsonGuardar

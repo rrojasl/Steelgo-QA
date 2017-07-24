@@ -123,7 +123,7 @@ namespace BackEndSAM.Controllers.Embarque
         }
 
         [HttpPost]
-        public object GuardarCaptura(Captura listaCaptura, string token, string lenguaje, int EmbarqueID, string NombreEmbarque, string NombreEmbarqueCliente, int TractoID, int ChoferID, int TractoEnvioID, int ChoferEnvioID, string FechaCreacion)
+        public object GuardarCaptura(Captura listaCaptura, string token, string lenguaje, int EmbarqueID, string NombreEmbarque, string NombreEmbarqueCliente, int TractoID, int ChoferID, int TractoEnvioID, int ChoferEnvioID, int ProveedorEnvioID, string FechaCreacion)
         {
             string payload = "";
             string newToken = "";
@@ -135,7 +135,7 @@ namespace BackEndSAM.Controllers.Embarque
             {
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
                 DataTable dtDetalle = Utilities.ConvertirDataTable.ToDataTable.Instance.toDataTable(listaCaptura.Detalles);
-                return PreparacionEmbarqueBD.Instance.InsertarCaptura(dtDetalle, usuario, lenguaje, EmbarqueID,NombreEmbarque,NombreEmbarqueCliente,TractoID,ChoferID,TractoEnvioID, ChoferEnvioID, FechaCreacion);
+                return PreparacionEmbarqueBD.Instance.InsertarCaptura(dtDetalle, usuario, lenguaje, EmbarqueID,NombreEmbarque,NombreEmbarqueCliente,TractoID,ChoferID,TractoEnvioID, ChoferEnvioID, ProveedorEnvioID, FechaCreacion);
             }
             else
             {

@@ -47,18 +47,17 @@ function AjaxObtenerPlanas(ProyectoID) {
 
 function AjaxEmbarqueCargaProveedores(ProyectoID, nuevoProveedor) {
     loadingStart();
-
     $Proveedores.Proveedores.read({ token: Cookies.get("token"), ProyectoID: ProyectoID, TipoProveedor: 2 }).done(function (data) {
         var ProveedorId = 0;
         $("#Proveedor").data("kendoComboBox").dataSource.data([]);
-
+        $("#ProveedorEnvio").data("kendoComboBox").dataSource.data([]);
         if (data.length > 0) {
             $("#Proveedor").data("kendoComboBox").dataSource.data(data);
+            $("#ProveedorEnvio").data("kendoComboBox").dataSource.data(data);
             if (data.length == 2 && nuevoProveedor == null) {
                 for (var i = 0; i < data.length; i++) {
                     if (data[i].ProveedorID != 0) {
                         ProveedorId = data[i].ProveedorID;
-
                     }
                 }
             }
@@ -69,29 +68,25 @@ function AjaxEmbarqueCargaProveedores(ProyectoID, nuevoProveedor) {
                     }
                 }
             }
-
             data.splice(1, 0, {
                 ProveedorID: -1, Nombre: _dictionary.EmarquePreparacionAgregarProveedor[$("#language").data("kendoDropDownList").value()]
             });
-            $("#Proveedor").data("kendoComboBox").dataSource.data(data);
-
-            $("#Proveedor").data("kendoComboBox").value(ProveedorId);
+            $("#Proveedor").data("kendoComboBox").dataSource.data(data);            
+            $("#Proveedor").data("kendoComboBox").value(ProveedorId);            
             $("#Proveedor").data("kendoComboBox").trigger("change");
-
+            $("#ProveedorEnvio").data("kendoComboBox").dataSource.data(data);
+            $("#ProveedorEnvio").data("kendoComboBox").value(ProveedorId);
+            $("#ProveedorEnvio").data("kendoComboBox").trigger("change");
         }
         loadingStop();
     });
 }
 
-
-
 function AjaxEmbarqueCargaTractos(ProveedorID, nuevoTracto) {
     loadingStart();
     $EmbarqueGeneral.EmbarqueGeneral.read({ token: Cookies.get("token"), ProveedorID: ProveedorID, Tractos: 1 }).done(function (data) {
         var TractoID = 0;
-        $("#Tracto").data("kendoComboBox").dataSource.data([]);
-        $("#TractoEnvio").data("kendoComboBox").dataSource.data([]); //Add
-
+        $("#Tracto").data("kendoComboBox").dataSource.data([]);        
         if (data.length > 0) {
             if (data.length == 2 && nuevoTracto == null) {
                 for (var i = 0; i < data.length; i++) {
@@ -110,17 +105,44 @@ function AjaxEmbarqueCargaTractos(ProveedorID, nuevoTracto) {
             }
 
             data.splice(1, 0, { TractoID: -1, Nombre: _dictionary.EmarquePreparacionAgregarTracto[$("#language").data("kendoDropDownList").value()] });
-            $("#Tracto").data("kendoComboBox").dataSource.data(data);
-            $("#TractoEnvio").data("kendoComboBox").dataSource.data(data); //add
-            $("#Tracto").data("kendoComboBox").value(TractoID);
-            $("#TractoEnvio").data("kendoComboBox").value(TractoID); //add
-            $("#Tracto").data("kendoComboBox").trigger("change");                        
-            $("#TractoEnvio").data("kendoComboBox").trigger("change"); //add
-            
+            $("#Tracto").data("kendoComboBox").dataSource.data(data);            
+            $("#Tracto").data("kendoComboBox").value(TractoID);            
+            $("#Tracto").data("kendoComboBox").trigger("change");                                                
         }
         loadingStop();
     });
 }
+
+
+function AjaxEmbarqueCargaTractosEnvio(ProveedorID, nuevoTracto) {
+    loadingStart();
+    $EmbarqueGeneral.EmbarqueGeneral.read({ token: Cookies.get("token"), ProveedorID: ProveedorID, Tractos: 1 }).done(function (data) {
+        var TractoID = 0;        
+        $("#TractoEnvio").data("kendoComboBox").dataSource.data([]); //Add
+        if (data.length > 0) {
+            if (data.length == 2 && nuevoTracto == null) {
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].TractoID != 0) {
+                        TractoID = data[i].TractoID;
+                    }
+                }
+            }
+            else {
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].Nombre == nuevoTracto || data[i].TractoID == TractoEmbarque) {
+                        TractoID = data[i].TractoID;
+                    }
+                }
+            }
+            data.splice(1, 0, { TractoID: -1, Nombre: _dictionary.EmarquePreparacionAgregarTracto[$("#language").data("kendoDropDownList").value()] });            
+            $("#TractoEnvio").data("kendoComboBox").dataSource.data(data); //add            
+            $("#TractoEnvio").data("kendoComboBox").value(TractoID); //add            
+            $("#TractoEnvio").data("kendoComboBox").trigger("change"); //add
+        }
+        loadingStop();
+    });
+}
+
 
 
 function AjaxEmbarqueCargaChofer(ProveedorID, nuevoChofer) {
@@ -128,7 +150,7 @@ function AjaxEmbarqueCargaChofer(ProveedorID, nuevoChofer) {
 
     $EmbarqueGeneral.EmbarqueGeneral.read({ token: Cookies.get("token"), ProveedorID: ProveedorID, Chofer: 2 }).done(function (data) {
         $("#Chofer").data("kendoComboBox").dataSource.data([]);
-        $("#ChoferEnvio").data("kendoComboBox").dataSource.data([]); //add
+        //$("#ChoferEnvio").data("kendoComboBox").dataSource.data([]); //add
         if (data.length > 0) {
             var ChoferID = 0;
 
@@ -152,10 +174,44 @@ function AjaxEmbarqueCargaChofer(ProveedorID, nuevoChofer) {
                 ChoferID: -1, Nombre: _dictionary.EmarquePreparacionAgregarChofer[$("#language").data("kendoDropDownList").value()]
             });
             $("#Chofer").data("kendoComboBox").dataSource.data(data);
-            $("#ChoferEnvio").data("kendoComboBox").dataSource.data(data); //add
+            //$("#ChoferEnvio").data("kendoComboBox").dataSource.data(data); //add
             $("#Chofer").data("kendoComboBox").value(ChoferID);
-            $("#ChoferEnvio").data("kendoComboBox").value(ChoferID); //add
+            //$("#ChoferEnvio").data("kendoComboBox").value(ChoferID); //add
             $("#Chofer").data("kendoComboBox").trigger("change");                        
+            //$("#ChoferEnvio").data("kendoComboBox").trigger("change"); //add
+        }
+        loadingStop();
+    });
+}
+
+
+function AjaxEmbarqueCargaChoferEnvio(ProveedorID, nuevoChofer) {
+    loadingStart();
+
+    $EmbarqueGeneral.EmbarqueGeneral.read({ token: Cookies.get("token"), ProveedorID: ProveedorID, Chofer: 2 }).done(function (data) {        
+        $("#ChoferEnvio").data("kendoComboBox").dataSource.data([]); //add
+        if (data.length > 0) {
+            var ChoferID = 0;
+            if (data.length == 2 && nuevoChofer == null) {
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].ChoferID != 0) {
+                        ChoferID = data[i].ChoferID;
+
+                    }
+                }
+            }
+            else {
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].Nombre == nuevoChofer || data[i].ChoferID == ChoferEmbarque) {
+                        ChoferID = data[i].ChoferID;
+                    }
+                }
+            }
+            data.splice(1, 0, {
+                ChoferID: -1, Nombre: _dictionary.EmarquePreparacionAgregarChofer[$("#language").data("kendoDropDownList").value()]
+            });            
+            $("#ChoferEnvio").data("kendoComboBox").dataSource.data(data); //add            
+            $("#ChoferEnvio").data("kendoComboBox").value(ChoferID); //add            
             $("#ChoferEnvio").data("kendoComboBox").trigger("change"); //add
         }
         loadingStop();
@@ -347,6 +403,7 @@ function AjaxGuardarCaptura(ds, tipoGuardado, proveedorID) {
     var choferID = $("#Chofer").data("kendoComboBox").value();
     var tractoEnvioID = $("#TractoEnvio").data("kendoComboBox").value();
     var choferEnvioID = $("#ChoferEnvio").data("kendoComboBox").value();
+    var proveedorEnvioID = $("#ProveedorEnvio").data("kendoComboBox").value();
     var fechaCreacion = $("#inputFechaEmbarque").val();
 
 
@@ -371,7 +428,7 @@ function AjaxGuardarCaptura(ds, tipoGuardado, proveedorID) {
     if (cont > 0) {
         $PreparacionEmbarque.PreparacionEmbarque.create(Captura[0], {
             token: Cookies.get("token"), lenguaje: $("#language").val(), EmbarqueID: embarqueID,
-            NombreEmbarque: nombreEmbarque, NombreEmbarqueCliente: nombreEmbarqueCliente, TractoID: tractoID, ChoferID: choferID, TractoEnvioID: tractoEnvioID, ChoferEnvioID: choferEnvioID, FechaCreacion: fechaCreacion
+            NombreEmbarque: nombreEmbarque, NombreEmbarqueCliente: nombreEmbarqueCliente, TractoID: tractoID, ChoferID: choferID, TractoEnvioID: tractoEnvioID, ChoferEnvioID: choferEnvioID, ProveedorEnvioID: proveedorEnvioID, FechaCreacion: fechaCreacion
         }).done(function (data) {
             if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "Ok") {
                 if (tipoGuardado != "1") {

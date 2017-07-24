@@ -7,7 +7,7 @@ function IniciarCapturaOkPintura() {
 function changeLanguageCall() {
     CargarGrid();
     CargarGridPopUp();
-    document.title = "OK Pintura";
+    document.title = _dictionary.menuOkPintura[$("#language").val()]
     AjaxGetListaProyectos();
     $('input:radio[name=Muestra]:nth(1)').trigger("click");
 }
@@ -21,19 +21,7 @@ function CargarGrid() {
             inputName.select();
             if ($('#BotonGuardar').text() != _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()])
                 this.closeCell();
-        },
-        dataBound: function () {
-            var myElem = document.getElementById('trParentHeader');
-            if (myElem == null) {
-                $("#grid").find("th.k-header").parent().before("<tr id='trParentHeader'> " +
-                    "<th scope='col' colspan='3' class='k-header'></th><th width='auto'  colspan='2' class='k-header' style='text-align: center;'><span id=''>" + _dictionary.lblShotblast[$("#language").data("kendoDropDownList").value()] + "</span></th>" +
-                    "<th width='auto'  colspan='2' class='k-header' style='text-align: center;'><span>" + _dictionary.lblPrimario[$("#language").data("kendoDropDownList").value()] + "</span></th>" +
-                    "<th width='auto'  colspan='2' class='k-header' style='text-align: center;'><span id=''>" + _dictionary.lblIntermedio[$("#language").data("kendoDropDownList").value()] + "</span></th>" +
-                    "<th width='auto'  colspan='2' class='k-header' style='text-align: center;'><span id=''>" + _dictionary.lblAcabado[$("#language").data("kendoDropDownList").value()] + "</span></th>" +
-                    "<th width='auto'  colspan='1' class='k-header' style='text-align: center;'><span id=''></span></th>" +
-                    "</tr>");
-            }
-        },
+        },        
         dataSource: {
             schema: {
                 model: {
@@ -106,6 +94,18 @@ function CargarGrid() {
             }
         ],
         dataBound: function (a) {
+            var myElem = document.getElementById('trParentHeader');
+            if (myElem === null) {
+                $("#grid").find("th.k-header").parent().before("<tr id='trParentHeader'> " +
+                    "<th scope='col' colspan='3' class='k-header'></th> <th width='auto'  colspan='2' class='k-header' style='text-align: center;'><span id=''>" + _dictionary.lblShotblast[$("#language").data("kendoDropDownList").value()] + "</span></th>" +
+                    "<th width='auto'  colspan='2' class='k-header' style='text-align: center;'><span>" + _dictionary.lblPrimario[$("#language").data("kendoDropDownList").value()] + "</span></th>" +
+                    "<th width='auto'  colspan='2' class='k-header' style='text-align: center;'><span id=''>" + _dictionary.lblIntermedio[$("#language").data("kendoDropDownList").value()] + "</span></th>" +
+                    "<th width='auto'  colspan='2' class='k-header' style='text-align: center;'><span id=''>" + _dictionary.lblAcabado[$("#language").data("kendoDropDownList").value()] + "</span></th>" +
+                    "<th width='auto'  colspan='1' class='k-header' style='text-align: center;'><span id=''></span></th>" +
+                    "</tr>");
+            }
+
+
             $(".ob-paid").bind("change", function (e) {
                 if ($('#BotonGuardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
                     var grid = $("#grid").data("kendoGrid");

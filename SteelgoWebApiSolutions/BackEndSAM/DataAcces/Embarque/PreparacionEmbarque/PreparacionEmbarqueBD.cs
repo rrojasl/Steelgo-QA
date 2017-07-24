@@ -195,7 +195,7 @@ namespace BackEndSAM.DataAcces.Embarque.PreparacionEmbarque
 
 
 
-        public object InsertarCaptura(DataTable dtDetalleCaptura, Sam3_Usuario usuario, string lenguaje, int EmbarqueID, string NombreEmbarque, string NombreEmbarqueCliente, int TractoID, int ChoferID, int TractoEnvioID, int ChoferEnvioID, string FechaCreacion)
+        public object InsertarCaptura(DataTable dtDetalleCaptura, Sam3_Usuario usuario, string lenguaje, int EmbarqueID, string NombreEmbarque, string NombreEmbarqueCliente, int TractoID, int ChoferID, int TractoEnvioID, int ChoferEnvioID, int ProveedorEnvioID, string FechaCreacion)
         {
             try
             {
@@ -210,6 +210,7 @@ namespace BackEndSAM.DataAcces.Embarque.PreparacionEmbarque
                         { "@ChoferID", ChoferID.ToString() },
                         { "@TractoEnvioID", TractoEnvioID.ToString() },
                         { "@ChoferEnvioID", ChoferEnvioID.ToString() },
+                        { "@ProveedorEnvioID", ProveedorEnvioID.ToString() },
                         { "@FechaCreacion", FechaCreacion },
                         { "@Usuario", usuario.UsuarioID.ToString() }, 
                         { "@Lenguaje", lenguaje }

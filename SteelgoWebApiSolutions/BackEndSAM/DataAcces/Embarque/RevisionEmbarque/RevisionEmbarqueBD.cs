@@ -169,7 +169,7 @@ namespace BackEndSAM.DataAcces.Embarque.RevisionEmbarque
                             ComentarioActual = item.Comentario,
                             CapturaManual = true,
                             ModificadoPorUsuario = true,
-                            RowOk = true
+                            RowOk = true                            
                         });
                     }
 
@@ -222,7 +222,7 @@ namespace BackEndSAM.DataAcces.Embarque.RevisionEmbarque
                             ComentarioActual = item.Comentario,
                             CapturaManual = true,
                             ModificadoPorUsuario = true,
-                            RowOk = true
+                            RowOk = true                            
                         });
                     }
 
@@ -271,7 +271,8 @@ namespace BackEndSAM.DataAcces.Embarque.RevisionEmbarque
                             ComentarioActual = item.Comentario,
                             CapturaManual = item.CapturaManual.GetValueOrDefault(),
                             ModificadoPorUsuario = false,
-                            RowOk = true
+                            RowOk = true,
+                            Empaquetado = item.EstuvoEnPaquete.GetValueOrDefault()
                         });
                     }
 

@@ -64,7 +64,7 @@ function CargarGrid() {
                         Llego: { type: "boolean", editable: true },
                         LlegoComentario: { type: "boolean", editable: true },
                         NoLlego: { type: "boolean", editable: true },
-                        Comentario: { type: "string", editable: true }
+                        Comentario: { type: "string", editable: true }                        
                     }
                 }
             },            
@@ -153,8 +153,7 @@ function CargarGrid() {
                                     } else {
                                         dataSource.remove(dataItem);
                                     }                                    
-                                } else {
-                                    //EliminarPaquete(dataItem);
+                                } else {                                    
                                     e.preventDefault();
                                 }
                                 dataSource.sync();
@@ -198,7 +197,7 @@ function CargarGrid() {
                 
                 var currenRow = grid.table.find("tr[data-uid='" + currentUid + "']");
                 var editButton = $(currenRow).find(".k-button");
-                if (gridData[i].CapturaManual && gridData[i].Paquete == "NA" ) {                
+                if (gridData[i].CapturaManual && gridData[i].Paquete == "NA" && !gridData[i].Empaquetado ) {
                     var classDescarga = $("#language").val() == "es-MX" ? "k-grid-Cancelar" : "k-grid-Cancel";
                     editButton[0].outerHTML = '<a class="k-button k-button-icontext ' + classDescarga + '" href="#/"><span class=""></span>' +
                         _dictionary.botonDescarga[$("#language").data("kendoDropDownList").value()] + '</a>';

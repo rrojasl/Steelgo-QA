@@ -213,7 +213,7 @@ function AjaxAgregarDetallePaquete(paqueteID) {
             if (array.length > 0) {
                 if (array[0].ProyectoID == proyectoID) {
                     if (array[0].EmbarqueID == 0 && array[0].CargaPlanaID == 0) {
-                        for (var i = 0; i < array.length; i++) {
+                        for (var i = 0; i < array.length; i++) {                            
                             ds.insert(0, array[i]);   
                         }
                         ds.sync();
@@ -314,7 +314,7 @@ function AjaxGuardarCaptura(ds, embarqueID, proyectoID, tipoGuardar) {
         ListaDetalleCaptura[x].NoLlego = ds[x].NoLlego;
         ListaDetalleCaptura[x].LlegoComentario = ds[x].LlegoComentario;
         ListaDetalleCaptura[x].Comentario = ds[x].Comentario == "" ? null : ds[x].Comentario;
-        ListaDetalleCaptura[x].CapturaManual = ds[x].CapturaManual;
+        ListaDetalleCaptura[x].CapturaManual = ds[x].CapturaManual;        
 
         if (obtieneEstatusSpool(ds[x].Llego, ds[x].NoLlego, ds[x].LlegoComentario) != ds[x].EstatusSpool || 
             ds[x].Comentario != ds[x].ComentarioActual) {
