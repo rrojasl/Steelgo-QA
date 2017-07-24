@@ -286,7 +286,7 @@ namespace BackEndSAM.DataAcces.Pintura.RevisionPintura
                 using (SamContext ctx = new SamContext())
                 {
                     List<PinturaRevision> listaRevisionSpool = new List<PinturaRevision>();
-                    int cantidadDatos= ctx.Sam3_Pintura_Get_CountRevision(proyectoID, dato, tipoBusqueda);
+                    int cantidadDatos= ctx.Sam3_Pintura_Revison_CantidadSpools(proyectoID, dato, tipoBusqueda);
                     return cantidadDatos;
 
                 }
