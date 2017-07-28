@@ -222,7 +222,8 @@ namespace BackEndSAM.DataAcces.Embarque.RevisionEmbarque
                             ComentarioActual = item.Comentario,
                             CapturaManual = true,
                             ModificadoPorUsuario = true,
-                            RowOk = true                            
+                            RowOk = true,
+                            EstuvoEnPaquete = item.EstuvoEnPaquete.GetValueOrDefault()
                         });
                     }
 
@@ -272,7 +273,7 @@ namespace BackEndSAM.DataAcces.Embarque.RevisionEmbarque
                             CapturaManual = item.CapturaManual.GetValueOrDefault(),
                             ModificadoPorUsuario = false,
                             RowOk = true,
-                            Empaquetado = item.EstuvoEnPaquete.GetValueOrDefault()
+                            Empaquetado = item.EstuvoEnPaquete
                         });
                     }
 

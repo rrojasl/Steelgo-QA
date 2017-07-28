@@ -128,6 +128,7 @@ namespace BackEndSAM.Models.Embarque.RevisionEmbarque
         public bool CapturaManual { get; set; }
         public bool ModificadoPorUsuario { get; set; }
         public bool RowOk { get; set; }        
+        public bool EstuvoEnPaquete { get; set; }
     }
 
     public class DetalleJsonGuardar
@@ -141,6 +142,7 @@ namespace BackEndSAM.Models.Embarque.RevisionEmbarque
         public string Comentario { get; set; }
         public bool CapturaManual { get; set; }
         public bool ModificadoPorUsuario { get; set; }
+        public bool EstuvoEnPaquete { get; set; }
     }
 
     public class CapturaRevisionEmbarque

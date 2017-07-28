@@ -213,7 +213,8 @@ function AjaxAgregarDetallePaquete(paqueteID) {
             if (array.length > 0) {
                 if (array[0].ProyectoID == proyectoID) {
                     if (array[0].EmbarqueID == 0 && array[0].CargaPlanaID == 0) {
-                        for (var i = 0; i < array.length; i++) {                            
+                        for (var i = 0; i < array.length; i++) {
+                            array[i].EstuvoEnPaquete = true;
                             ds.insert(0, array[i]);   
                         }
                         ds.sync();
@@ -304,7 +305,7 @@ function AjaxGuardarCaptura(ds, embarqueID, proyectoID, tipoGuardar) {
     for (var x = 0; x < ds.length; x++) {
         ListaDetalleCaptura[x] = {
             Accion: "", DetalleRevisionID: "", SpoolID: "", Llego: "", NoLlego: "", LlegoComentario: "",
-            Comentario: "", CapturaManual: "", Estatus: 1, ModificadoPorUsuario: false
+            Comentario: "", CapturaManual: "", Estatus: 1, ModificadoPorUsuario: false, EstuvoEnPaquete: false
         }
 
         ListaDetalleCaptura[x].Accion = ds[x].Accion;
@@ -314,9 +315,28 @@ function AjaxGuardarCaptura(ds, embarqueID, proyectoID, tipoGuardar) {
         ListaDetalleCaptura[x].NoLlego = ds[x].NoLlego;
         ListaDetalleCaptura[x].LlegoComentario = ds[x].LlegoComentario;
         ListaDetalleCaptura[x].Comentario = ds[x].Comentario == "" ? null : ds[x].Comentario;
-        ListaDetalleCaptura[x].CapturaManual = ds[x].CapturaManual;        
+        ListaDetalleCaptura[x].CapturaManual = ds[x].CapturaManual;
+        if (ds[x].EstuvoEnPaquete || !ds[x].EstuvoEnPaquete) {
+            if (ds[x].EstuvoEnPaquete == undefined) {
+                if (ds[x].Empaquetado != undefined) {
+                    ListaDetalleCaptura[x].EstuvoEnPaquete = ds[x].Empaquetado;
+                } else {
+                    ListaDetalleCaptura[x].EstuvoEnPaquete = false;
+                }                
+            } else {
+                ListaDetalleCaptura[x].EstuvoEnPaquete = ds[x].EstuvoEnPaquete;
+            }            
+        } else if (ds[x].Empaquetado || !ds[x].Empaquetado) {
+            if (ds[x].Empaquetado == undefined) {
+                ListaDetalleCaptura[x].EstuvoEnPaquete = false;
+            } else {
+                ListaDetalleCaptura[x].EstuvoEnPaquete = ds[x].Empaquetado;
+            }            
+        } else {
+            ListaDetalleCaptura[x].EstuvoEnPaquete = false;
+        }
 
-        if (obtieneEstatusSpool(ds[x].Llego, ds[x].NoLlego, ds[x].LlegoComentario) != ds[x].EstatusSpool || 
+        if (obtieneEstatusSpool(ds[x].Llego, ds[x].NoLlego, ds[x].LlegoComentario) != ds[x].EstatusSpool ||
             ds[x].Comentario != ds[x].ComentarioActual) {
             ListaDetalleCaptura[x].ModificadoPorUsuario = true
         }

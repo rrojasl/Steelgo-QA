@@ -64,7 +64,8 @@ function CargarGrid() {
                         Llego: { type: "boolean", editable: true },
                         LlegoComentario: { type: "boolean", editable: true },
                         NoLlego: { type: "boolean", editable: true },
-                        Comentario: { type: "string", editable: true }                        
+                        Comentario: { type: "string", editable: true },
+                        EstuvoEnPaquete: { type: "boolean", editable: false }
                     }
                 }
             },            
@@ -238,6 +239,13 @@ function CargarGrid() {
                         break;
                     case 'NoLlego':
                         if (!dataItem.CapturaManual) {
+                            dataItem.set("Llego", false);
+                            dataItem.set("NoLlego", this.checked);
+                            dataItem.set("LlegoComentario", false);
+                            dataItem.Comentario = "";
+                            dataItem.ModificadoPorUsuario = true;
+                        }
+                        if (dataItem.CapturaManual && dataItem.EstuvoEnPaquete) {
                             dataItem.set("Llego", false);
                             dataItem.set("NoLlego", this.checked);
                             dataItem.set("LlegoComentario", false);

@@ -232,7 +232,11 @@ function AjaxGuardadoMasivo(data) {
             if (!$("#InputNumeroControl").val().length > 0 && !$("#grid").data("kendoGrid").dataSource.data().length > 0 ) {
                 $("#grid").data("kendoGrid").dataSource.data([]);
                 $("#InputNumeroControl").val("");
-            }             
+            } else {
+                if ($("#Proyecto").data("kendoComboBox").value() != 0 && $("#InputNumeroControl").val() != "") {
+                    AjaxObtenerDetalleXNombreSpool($("#Proyecto").data("kendoComboBox").value(), $("#InputNumeroControl").val());
+                }                
+            }
             displayNotify("MensajeGuardadoExistoso", "", "0");
             OK = true;
         }
