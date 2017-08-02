@@ -251,12 +251,12 @@ function CargarGridPopUpDetallePorPlacaPorDefectos() {
         },
         filterable: getGridFilterableMaftec(),
         columns: [
-                { field: "Defecto", title: "Hallazgo", filterable: getGridFilterableCellMaftec(), editor: comboBoxDefectos },
+                { field: "Defecto", title: "Indicación", filterable: getGridFilterableCellMaftec(), editor: comboBoxDefectos },
                 { field: "Resultado", title: "Resultado", filterable: getGridFilterableCellMaftec(), editor: comboBoxResultadoDetalleDefecto },
                 { field: "InicioMM", title: _dictionary.CapturaReportePruebasHeaderInicio[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), editor: RenderInicioMM, attributes: { style: "text-align:right;" } },
                 { field: "FinMM", title: _dictionary.CapturaReportePruebasHeaderFin[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(),  editor: RenderFinMM, attributes: { style: "text-align:right;" } },
-                { field: "InicioCuadrante", title: "Cte Fin", filterable: getGridFilterableCellMaftec(), editor: RenderCuadrantes },
-                { field: "FinCuadrante", title: "Cte Ini.", filterable: getGridFilterableCellMaftec(), editor: RenderCuadrantes },
+                { field: "InicioCuadrante", title: "Cte Ini", filterable: getGridFilterableCellMaftec(), editor: RenderCuadrantes },
+                { field: "FinCuadrante", title: "Cte Fin", filterable: getGridFilterableCellMaftec(), editor: RenderCuadrantes },
                 //{ field: "Soldador", title: "Soldador", filterable: getGridFilterableCellMaftec(),  },
                 {
                     command: {

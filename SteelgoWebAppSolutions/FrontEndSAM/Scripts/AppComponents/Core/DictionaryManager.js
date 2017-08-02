@@ -7433,6 +7433,10 @@ _dictionary = {
         "es-MX": "CVN",
         "en-US": "CVN"
     },
+    "lblFN": {
+        "es-MX": "FN",
+        "en-US": "FN"
+    },
     "lblCVN1": {
         "es-MX": "CVN",
         "en-US": "CVN"

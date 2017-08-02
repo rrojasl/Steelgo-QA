@@ -191,7 +191,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EntregaPlacasGraficas
                         {
                             TipoPruebaID = item.TipoPruebaID,
                             Nombre = item.Nombre,
-                            TipoPruebaPorSpool = item.TipoPruebaPorSpool.GetValueOrDefault()
+                            TipoPruebaPorSpool = item.TipoPruebaPorSpool
                         });
                     }
 
@@ -382,7 +382,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EntregaPlacasGraficas
                         listaTipoPrueba.Add(new TipoPrueba {
                             TipoPruebaID = result.TipoPruebaID.GetValueOrDefault(),
                             Nombre = result.TipoPrueba,
-                            TipoPruebaPorSpool = result.TipoPruebaPorSpool.GetValueOrDefault()
+                            TipoPruebaPorSpool = result.TipoPruebaPorSpool
                         });
 
                         List<Proveedor> listaProveedor = new List<Proveedor>();

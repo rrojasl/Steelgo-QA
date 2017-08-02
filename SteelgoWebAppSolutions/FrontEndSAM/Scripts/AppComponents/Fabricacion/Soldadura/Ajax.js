@@ -525,7 +525,6 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
             //                banderaSoldadores = true;
             //            else
             //                banderaExisteSoldador = true;
-
             //            var soldadorDetalle = $.grep(listaSoldadoresDetalle, function (e) {
             //                return e.ObreroID == listaSoldadoresNueva[i].ObreroID;
             //            });

@@ -27,8 +27,8 @@ function CargarGrid() {
                         Junta: { type: "string", editable: false },
                         Descripcion: { type: "string", editable: false },
                         Diametro: { type: "number", editable: false },
-                        DefectosAsignados: { type: "boolean", editable: false },
-                        TemplateDetalleElemento: { type: "string", editable: false },
+                        JtaSeg1: { type: "string", editable: true },
+                        JtaSeg2: { type: "string", editable: true },
                     }
                 }
             },
@@ -57,23 +57,11 @@ function CargarGrid() {
             { field: "Junta", title: "Jta", filterable: getGridFilterableCellMaftec(), width: "100px" },
             { field: "Descripcion", title: _dictionary.columnDetalleJunta[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "200px" },
             { field: "Diametro", title: "Diam", filterable: getGridFilterableCellNumberMaftec(), width: "70px" },
-            {
-                field: "DefectosAsignados", title: "Def. asignados", width: "70px",
-                filterable: {
-                    multi: true,
-                    messages: {
-                        isTrue: _dictionary.lblVerdadero[$("#language").data("kendoDropDownList").value()],
-                        isFalse: _dictionary.lblFalso[$("#language").data("kendoDropDownList").value()],
-                        style: "max-width:100px;"
-                    },
-                    dataSource: [{ Etiquetado: true }, { Etiquetado: false }]
-                },
-                template: "<input name='fullyPaid' class='ob-paid' disabled type='checkbox'   #= DefectosAsignados ? 'checked=checked': '' # />", width: "100px", attributes: { style: "text-align:center;" }
-            },
-            { field: "TemplateDetalleElemento", title: "Detalle", filterable: false, width: "105px", template: "<div class='EnlacePorPlaca' style='text-align:center;'><a href='\\#'  > <span>Detalle</span></a></div> " },
-
-
-            ],
+            { field: "JtaSeg1", title: "Jta seg 1", filterable: getGridFilterableCellMaftec(), width: "100px", editor: RenderComboBoxJunta },
+            { field: "JtaSeg2", title: "Jta seg 2", filterable: getGridFilterableCellMaftec(), width: "100px", editor: RenderComboBoxJunta2 },
+            { command: { text: _dictionary.botonLimpiar[$("#language").data("kendoDropDownList").value()], click: limpiarRenglon }, filterable: false, title: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()], width: "50px", attributes: { style: "text-align:center;" } }
+            //{ field: "TemplateDetalleElemento", title: "Detalle", filterable: false, width: "105px", template: "<div class='EnlacePorPlaca' style='text-align:center;'><a href='\\#'  > <span>Detalle</span></a></div> " },
+           ],
 
             editable: true,
             navigatable: true
@@ -152,8 +140,7 @@ function CargarGridPopUpDetallePartida() {
                         InicioMM: { type: "number", editable: false },
                         FinMM: { type: "number", editable: false },
                         Soldador: { type: "string", editable: true },
-                        JtaSeg1: { type: "string", editable: true },
-                        JtaSeg2: { type: "string", editable: true },
+                        
                     }
                 }
             },
@@ -166,9 +153,7 @@ function CargarGridPopUpDetallePartida() {
           { field: "InicioMM", title: _dictionary.CapturaReportePruebasHeaderInicio[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "80px", editor: RenderInicioMM, attributes: { style: "text-align:right;" } },
           { field: "FinMM", title: _dictionary.CapturaReportePruebasHeaderFin[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "80px", editor: RenderFinMM, attributes: { style: "text-align:right;" } },
           { field: "Soldador", title: "Soldador", filterable: getGridFilterableCellMaftec(), width: "100px", editor: RenderComboBoxSoldador },
-          { field: "JtaSeg1", title: "Ad 1", filterable: getGridFilterableCellMaftec(), width: "100px", editor: RenderComboBoxJunta },
-          { field: "JtaSeg2", title: "Ad 2", filterable: getGridFilterableCellMaftec(), width: "100px", editor: RenderComboBoxJunta2 },
-          { command: { text: _dictionary.botonLimpiar[$("#language").data("kendoDropDownList").value()], click: limpiarRenglon }, filterable: false, title: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()], width: "50px", attributes: { style: "text-align:center;" } }
+          
         ],
         editable: true,
         //toolbar: [{ name: "create" }],
@@ -194,8 +179,7 @@ function limpiarRenglon(e) {
     e.preventDefault();
     if ($('#botonGuardar').text() == _dictionary.DetalleAvisoLlegada0017[$("#language").data("kendoDropDownList").value()]) {
         var itemToClean = $("#gridPopUp").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
-        itemToClean.Soldador = "";
-        itemToClean.SoldadorID = 0;
+        
         itemToClean.JtaSeg1 = "";
         itemToClean.JuntaSpoolID = 0;
         itemToClean.JtaSeg2 = "";

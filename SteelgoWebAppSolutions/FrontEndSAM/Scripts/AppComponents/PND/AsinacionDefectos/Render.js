@@ -47,12 +47,9 @@ function RenderComboBoxSoldador(container, options) {
 function RenderComboBoxJunta(container, options) {
     var dataItem;
     var valores;
-    if (options.model.SoldadorID == 1) {
+    
         options.model.listaJuntas = JuntasSoldador1;
-    }
-    else {
-        options.model.listaJuntas = JuntasSoldador2;
-    }
+    
     $('<input  data-text-field="Junta" id=' + options.model.uid + ' data-value-field="Junta" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoComboBox({
@@ -93,12 +90,9 @@ function RenderComboBoxJunta(container, options) {
 function RenderComboBoxJunta2(container, options) {
     var dataItem;
     var valores;
-    if (options.model.SoldadorID == 1) {
-        options.model.listaJuntas = JuntasSoldador1;
-    }
-    else {
+    
         options.model.listaJuntas = JuntasSoldador2;
-    }
+    
     $('<input  data-text-field="Junta" id=' + options.model.uid + ' data-value-field="Junta" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoComboBox({

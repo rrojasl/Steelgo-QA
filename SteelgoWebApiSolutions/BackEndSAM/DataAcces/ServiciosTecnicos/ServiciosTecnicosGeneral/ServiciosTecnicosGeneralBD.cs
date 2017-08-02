@@ -45,7 +45,9 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ServiciosTecnicosGeneral
                             Nombre = item.Nombre,
                             Categoria = item.Categoria,
                             TipoPruebaPorSpool = item.TipoPruebaPorSpool.GetValueOrDefault() ? 1 : 0,
-                            RequiereEquipo = (bool)item.RequiereEquipo
+                            RequiereEquipo = (bool)item.RequiereEquipo,
+                            ClasificacionManual = item.ClasificacionManual,
+                            ClasificacionManualID = item.ClasificacionManualID
                         });
                     }
 

@@ -151,14 +151,9 @@ function cargarGrid() {
             { field: "CodigoAsme", title: _dictionary.columnCodigoAsme[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px" },
             { field: "Cantplacas", title: "Cant Placas", filterable: getGridFilterableCellMaftec(), width: "100px" },
             { field: "Recibida", title: "R. Buen Estado", filterable: getGridFilterableCellMaftec(), width: "100px", editor: RenderRecibida },
-            //{ field: "Danada", title: "Rec. ME", filterable: getGridFilterableCellMaftec(), width: "100px", editor: RenderDanada },
-            //{ field: "Falta", title: "Falta", filterable: getGridFilterableCellMaftec(), width: "80px"},
             { field: "Dan", title: "Detalle Placas", filterable: getGridFilterableCellMaftec(), width: "100px", template: "<div class='EnlaceDetalleColada1' style='text-align:center;'><a>Detalle</a></div>" },
-            
-            //{ field: "DocumentoRecibido", title: _dictionary.columnRecibido[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxDocumentoRecibido, width: "120px" },
-            //{ field: "DocumentoEstatus", title: _dictionary.columnCondicionesPlacasOGraficas[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxDocumentoEstatus, width: "200px" },
-            //{ field: "DocumentoDefecto", title: _dictionary.columnDefectosRechazos[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), editor: RenderComboBoxDefectoDocumento, width: "160px" },
-            { command: { text: _dictionary.botonLimpiar[$("#language").data("kendoDropDownList").value()], click: limpiarRenglon }, title: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()], width: "50px" }
+            { field: "DocumentoDefecto", title: "Defecto", filterable: getGridFilterableCellMaftec(), width: "110px", editor: RenderComboBoxDefectoDocumento },
+            //{ command: { text: _dictionary.botonLimpiar[$("#language").data("kendoDropDownList").value()], click: limpiarRenglon }, title: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()], width: "50px" }
         ],
         beforeEdit: function (e) {
             var columnIndex = this.cellIndex(e.container);
@@ -199,103 +194,92 @@ function limpiarRenglon(e) {
         dataSource.sync();
     }
 }
-function PlanchaDocumentoRecibido(tipoLlenado) {
-    var ds = $("#grid").data("kendoGrid").dataSource;
-    var filters = ds.filter();
-    var allData = ds.data();
-    var query = new kendo.data.Query(allData);
-    var data = query.filter(filters).data;
-
-    for (var i = 0; i < data.length; i++) {
-        if (tipoLlenado === "Todos") {
-            data[i].DocumentoRecibido = $("#inputDocumentoRecibido").data("kendoComboBox").text();
-            data[i].DocumentoRecibidoID = $("#inputDocumentoRecibido").data("kendoComboBox").value();
-            data[i].EstatusCaptura = 1;
-        }
-        else if (tipoLlenado === "Vacios") {
-            if (data[i].DocumentoRecibido === "" || data[i].DocumentoRecibido === null || data[i].DocumentoRecibido === undefined) {
-                data[i].DocumentoRecibido = $("#inputDocumentoRecibido").data("kendoComboBox").text();
-                data[i].DocumentoRecibidoID = $("#inputDocumentoRecibido").data("kendoComboBox").value();
-                data[i].EstatusCaptura = 1;
-            }
-        }
-    }
-
-    $("#grid").data("kendoGrid").dataSource.sync();
-}
-
-function PlanchaDocumentoEstatus(tipoLlenado) {
-
-    var ds = $("#grid").data("kendoGrid").dataSource;
-    var filters = ds.filter();
-    var allData = ds.data();
-    var query = new kendo.data.Query(allData);
-    var data = query.filter(filters).data;
-
-    for (var i = 0; i < data.length; i++) {
-        if (tipoLlenado === "Todos") {
-            data[i].DocumentoEstatus = $("#inputCondicionesFisicas").data("kendoComboBox").text();
-            data[i].DocumentoEstatusID = $("#inputCondicionesFisicas").data("kendoComboBox").value();
-            data[i].EstatusCaptura = 1;
-            if ($("#inputCondicionesFisicas").data("kendoComboBox").value()!="2") {
-                data[i].DocumentoDefecto = "";
-                data[i].DocumentoDefectoID = 0;
-            }
-        }
-        else if (tipoLlenado === "Vacios") {
-            if (data[i].DocumentoEstatus === "" || data[i].DocumentoEstatus === null || data[i].DocumentoEstatus === undefined) {
-                data[i].DocumentoEstatus = $("#inputCondicionesFisicas").data("kendoComboBox").text();
-                data[i].DocumentoEstatusID = $("#inputCondicionesFisicas").data("kendoComboBox").value();
-                data[i].EstatusCaptura = 1;
-                if ($("#inputCondicionesFisicas").data("kendoComboBox").value() != "2") {
-                    data[i].DocumentoDefecto = "";
-                    data[i].DocumentoDefectoID = 0;
-                }
-            }
-        }        
-    }
-
-    $("#grid").data("kendoGrid").dataSource.sync();
-}
-
-function PlanchaDocumentoDefecto(tipoLlenado) {
-
-    var ds = $("#grid").data("kendoGrid").dataSource;
-    var filters = ds.filter();
-    var allData = ds.data();
-    var query = new kendo.data.Query(allData);
-    var data = query.filter(filters).data;
-
-    for (var i = 0; i < data.length; i++) {
-        if (tipoLlenado === "Todos") {
-            if (data[i].DocumentoEstatusID==2) {
-                data[i].DocumentoDefecto = $("#inputDefectos").data("kendoComboBox").text();
-                data[i].DocumentoDefectoID = $("#inputDefectos").data("kendoComboBox").value();
-                data[i].EstatusCaptura = 1;
-            } else {
-                data[i].DocumentoDefecto = "";
-                data[i].DocumentoDefectoID = 0;
-                data[i].EstatusCaptura = 1;
-            }
-        }
-        else if (tipoLlenado === "Vacios") {
-            if (data[i].DocumentoDefecto === "" || data[i].DocumentoDefecto === null || data[i].DocumentoDefecto === undefined) {
-                if (data[i].DocumentoEstatusID == 2) {
-                    data[i].DocumentoDefecto = $("#inputDefectos").data("kendoComboBox").text();
-                    data[i].DocumentoDefectoID = $("#inputDefectos").data("kendoComboBox").value();
-                    data[i].EstatusCaptura = 1;
-                } else {
-                    data[i].DocumentoDefecto = "";
-                    data[i].DocumentoDefectoID = 0;
-                    data[i].EstatusCaptura = 1;
-                }
-                
-            }
-        }
-    }
-
-    $("#grid").data("kendoGrid").dataSource.sync();
-}
+//function PlanchaDocumentoRecibido(tipoLlenado) {
+//    var ds = $("#grid").data("kendoGrid").dataSource;
+//    var filters = ds.filter();
+//    var allData = ds.data();
+//    var query = new kendo.data.Query(allData);
+//    var data = query.filter(filters).data;
+//    for (var i = 0; i < data.length; i++) {
+//        if (tipoLlenado === "Todos") {
+//            data[i].DocumentoRecibido = $("#inputDocumentoRecibido").data("kendoComboBox").text();
+//            data[i].DocumentoRecibidoID = $("#inputDocumentoRecibido").data("kendoComboBox").value();
+//            data[i].EstatusCaptura = 1;
+//        }
+//        else if (tipoLlenado === "Vacios") {
+//            if (data[i].DocumentoRecibido === "" || data[i].DocumentoRecibido === null || data[i].DocumentoRecibido === undefined) {
+//                data[i].DocumentoRecibido = $("#inputDocumentoRecibido").data("kendoComboBox").text();
+//                data[i].DocumentoRecibidoID = $("#inputDocumentoRecibido").data("kendoComboBox").value();
+//                data[i].EstatusCaptura = 1;
+//            }
+//        }
+//    }
+//    $("#grid").data("kendoGrid").dataSource.sync();
+//}
+//function PlanchaDocumentoEstatus(tipoLlenado) {
+//    var ds = $("#grid").data("kendoGrid").dataSource;
+//    var filters = ds.filter();
+//    var allData = ds.data();
+//    var query = new kendo.data.Query(allData);
+//    var data = query.filter(filters).data;
+//    for (var i = 0; i < data.length; i++) {
+//        if (tipoLlenado === "Todos") {
+//            data[i].DocumentoEstatus = $("#inputCondicionesFisicas").data("kendoComboBox").text();
+//            data[i].DocumentoEstatusID = $("#inputCondicionesFisicas").data("kendoComboBox").value();
+//            data[i].EstatusCaptura = 1;
+//            if ($("#inputCondicionesFisicas").data("kendoComboBox").value()!="2") {
+//                data[i].DocumentoDefecto = "";
+//                data[i].DocumentoDefectoID = 0;
+//            }
+//        }
+//        else if (tipoLlenado === "Vacios") {
+//            if (data[i].DocumentoEstatus === "" || data[i].DocumentoEstatus === null || data[i].DocumentoEstatus === undefined) {
+//                data[i].DocumentoEstatus = $("#inputCondicionesFisicas").data("kendoComboBox").text();
+//                data[i].DocumentoEstatusID = $("#inputCondicionesFisicas").data("kendoComboBox").value();
+//                data[i].EstatusCaptura = 1;
+//                if ($("#inputCondicionesFisicas").data("kendoComboBox").value() != "2") {
+//                    data[i].DocumentoDefecto = "";
+//                    data[i].DocumentoDefectoID = 0;
+//                }
+//            }
+//        }        
+//    }
+//    $("#grid").data("kendoGrid").dataSource.sync();
+//}
+//function PlanchaDocumentoDefecto(tipoLlenado) {
+//    var ds = $("#grid").data("kendoGrid").dataSource;
+//    var filters = ds.filter();
+//    var allData = ds.data();
+//    var query = new kendo.data.Query(allData);
+//    var data = query.filter(filters).data;
+//    for (var i = 0; i < data.length; i++) {
+//        if (tipoLlenado === "Todos") {
+//            if (data[i].DocumentoEstatusID==2) {
+//                data[i].DocumentoDefecto = $("#inputDefectos").data("kendoComboBox").text();
+//                data[i].DocumentoDefectoID = $("#inputDefectos").data("kendoComboBox").value();
+//                data[i].EstatusCaptura = 1;
+//            } else {
+//                data[i].DocumentoDefecto = "";
+//                data[i].DocumentoDefectoID = 0;
+//                data[i].EstatusCaptura = 1;
+//            }
+//        }
+//        else if (tipoLlenado === "Vacios") {
+//            if (data[i].DocumentoDefecto === "" || data[i].DocumentoDefecto === null || data[i].DocumentoDefecto === undefined) {
+//                if (data[i].DocumentoEstatusID == 2) {
+//                    data[i].DocumentoDefecto = $("#inputDefectos").data("kendoComboBox").text();
+//                    data[i].DocumentoDefectoID = $("#inputDefectos").data("kendoComboBox").value();
+//                    data[i].EstatusCaptura = 1;
+//                } else {
+//                    data[i].DocumentoDefecto = "";
+//                    data[i].DocumentoDefectoID = 0;
+//                    data[i].EstatusCaptura = 1;
+//                }   
+//            }
+//        }
+//    }
+//    $("#grid").data("kendoGrid").dataSource.sync();
+//}
 
 function FiltroMostrar(mostrar) {
     var ds = $("#grid").data("kendoGrid").dataSource;

@@ -63,6 +63,10 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.GenerarRequisicion
                 using (SamContext ctx = new SamContext())
                 {
                     List<ElementosPorClasificacion> listaElementos = new List<ElementosPorClasificacion>();
+                    if(TipoPruebaID == 0)
+                    {
+                        return listaElementos;
+                    }
                     List<Sam3_ST_Get_ElementosPorPrueba_Result> listaElementosCTX = ctx.Sam3_ST_Get_ElementosPorPrueba(lenguaje, ProyectoID, TipoPruebaID, RequisicionID, Muestra).ToList();
                     
                     foreach(Sam3_ST_Get_ElementosPorPrueba_Result item in listaElementosCTX)

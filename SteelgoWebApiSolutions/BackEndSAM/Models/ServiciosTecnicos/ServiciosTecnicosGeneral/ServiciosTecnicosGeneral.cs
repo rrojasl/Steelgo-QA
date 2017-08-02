@@ -13,6 +13,8 @@ namespace BackEndSAM.Models.ServiciosTecnicos.ServiciosTecnicosGeneral
             Categoria = "";
             TipoPruebaPorSpool = 0;
             RequiereEquipo = false;
+            ClasificacionManual = "";
+            ClasificacionManualID = 0;
         }
 
         public int TipoPruebaID { get; set; }
@@ -20,6 +22,8 @@ namespace BackEndSAM.Models.ServiciosTecnicos.ServiciosTecnicosGeneral
         public string Categoria { get; set; }
         public int TipoPruebaPorSpool { get; set; }
         public bool RequiereEquipo { get; set; }
+        public int ClasificacionManualID { get; set; }
+        public string ClasificacionManual { get; set; }
     }
 
     public class Requisicion
