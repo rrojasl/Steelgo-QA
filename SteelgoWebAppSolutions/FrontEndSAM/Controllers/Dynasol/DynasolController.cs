@@ -21,6 +21,14 @@ namespace FrontEndSAM.Controllers.Dynasol
         {
             return View();
         }
+        public ActionResult CompraPagoOC()
+        {
+            return View();
+        }
+        public ActionResult RecepcionOC()
+        {
+            return View();
+        }
 
     }
 }

@@ -14,6 +14,7 @@ namespace SecurityManager.Api.Models
         public int TotalRows;
         public int PageSize;
         public Boolean IsAuthenicated;
+        public int PerfilID { get; set; } //agregado para traer perfiles (ORDENES DE COMPRA)
 
         public TransactionalInformation()
         {

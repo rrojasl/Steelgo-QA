@@ -203,6 +203,7 @@ var $EditarRequisicion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $ValidacionRT = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $OKPND = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $FechasSpool = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $OkDocumental = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 
 //Condiciones Climatologicas
 var $CondicionesClimatologicas = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
@@ -246,7 +247,8 @@ var $Ciclos = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $Dynasol = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $PackingList = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $DynasolCamion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
-
+var $RecepcionOC = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $CompraPagoOC = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 // Montaje 
 
 var $PlanchadoSoldadura = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
@@ -410,6 +412,7 @@ $EditarRequisicion.add("EditarRequisicion");
 $ValidacionRT.add("ValidacionRT");
 $ReporteRT.add("ReporteRT");
 $OKPND.add("OKPND");
+$OkDocumental.add("OkDocumental");
 
 //CondicionesClimatologicas
 $CondicionesClimatologicas.add("CondicionesClimatologicas");
@@ -463,6 +466,8 @@ $FechasSpool.add("FechasSpool");
 $Dynasol.add("Dynasol");
 $PackingList.add("PackingList");
 $DynasolCamion.add("Camion");
+$RecepcionOC.add("RecepcionOC");
+$CompraPagoOC.add("CompraPagoOC");
 
 //Montaje
 $PlanchadoSoldadura.add("PlanchadoSoldadura");

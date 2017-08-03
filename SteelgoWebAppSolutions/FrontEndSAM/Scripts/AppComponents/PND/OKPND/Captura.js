@@ -155,35 +155,35 @@ function CargarGrid() {
             { field: "Prioridad", title: _dictionary.columnPrioridad[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "40px", attributes: { style: "text-align:right;" } },            
             { field: "Detalle", title: _dictionary.columnDetalleJunta[$("#language").data("kendoDropDownList").value()], template: "<div class='EnlaceDetalleJunta' style='text-align:center;'><a href='\\#'  > <span>#=Detalle#</span></a></div>", filterable: false, width: "90px" },
             //{ field: "Observaciones", title: _dictionary.lblOKFABObservacion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "127px" }
-            //{                
-            //    field: "OK", title: _dictionary.columnOkPND[$("#language").data("kendoDropDownList").value()], filterable: {
-            //        multi: true,
-            //        messages: {
-            //            isTrue: _dictionary.lblVerdadero[$("#language").data("kendoDropDownList").value()],
-            //            isFalse: _dictionary.lblFalso[$("#language").data("kendoDropDownList").value()],
-            //            style: "max-width:100px;"
-            //        },
-            //        dataSource: [{ Etiquetado: true }, { Etiquetado: false }]                    
-            //    }, template: "<input name='fullyPaid' class='ob-paid' type='checkbox' #= OK ? 'checked=checked':'' #/>", width: "50px", attributes: { style: "text-align:center;" }
-            //},
+            {                
+                field: "OK", title: _dictionary.columnOkPND[$("#language").data("kendoDropDownList").value()], filterable: {
+                    multi: true,
+                    messages: {
+                        isTrue: _dictionary.lblVerdadero[$("#language").data("kendoDropDownList").value()],
+                        isFalse: _dictionary.lblFalso[$("#language").data("kendoDropDownList").value()],
+                        style: "max-width:100px;"
+                    },
+                    dataSource: [{ Etiquetado: true }, { Etiquetado: false }]                    
+                }, template: "<input name='fullyPaid' class='ob-paid' type='checkbox' #= OK ? 'checked=checked':'' #/>", width: "50px", attributes: { style: "text-align:center;" }
+            },
         ],
-        //dataBound: function (a) {
-        //    $(".ob-paid").bind("change", function (e) {
-        //        if ($('#BotonGuardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
-        //            var grid = $("#grid").data("kendoGrid");
-        //            dataItem = grid.dataItem($(e.target).closest("tr"));
-        //            if (dataItem != null) {
-        //                if (e.target.checked == true)                            
-        //                    dataItem.OK = true;
-        //                else                            
-        //                    dataItem.OK = false;
-        //            }                    
-        //        }
-        //        else {
-        //            $("#grid").data("kendoGrid").closeCell();
-        //        }                    
-        //    });
-        //}
+        dataBound: function (a) {
+            $(".ob-paid").bind("change", function (e) {
+                if ($('#BotonGuardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
+                    var grid = $("#grid").data("kendoGrid");
+                    dataItem = grid.dataItem($(e.target).closest("tr"));
+                    if (dataItem != null) {
+                        if (e.target.checked == true)                            
+                            dataItem.OK = true;
+                        else                            
+                            dataItem.OK = false;
+                    }                    
+                }
+                else {
+                    $("#grid").data("kendoGrid").closeCell();
+                }                    
+            });
+        }
     });
 
     $("#grid").on("change", ":checkbox", function (e) {

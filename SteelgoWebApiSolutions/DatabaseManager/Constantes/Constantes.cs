@@ -73,6 +73,8 @@
         public static string GUARDARCAPTURADECARGACARRO = "Sam3_Pintura_DescargaCarro_Guardar";
         public static string GUARDAREMBARQUEMARCADO = "";
         public static string STEELGO_SET_OK = "Sam3_Steelgo_SET_OK";
+        public static string CALIDAD_OKDOCUMENTAL_GUARDACAPTURA = "Sam3_Calidad_OKDOCUMENTAL_GuardaCaptura";
+        public static string CALIDAD_OKDOCUMENTAL_GUARDAMASIVO = "Sam3_Calidad_OKDOCUMENTAL_GuardaMasivo";
         public static string STEELGO_SET_OK_MASIVO = "Sam3_Steelgo_OK_SET_GuardaMasivo";
         public static string GUARDAACTUALIZACIONLOTE = "Sam3_Pintura_ActualizaLotesCarro";
         public static string SAM3_DYNASOL_GUARDARCAPTURA = "Sam3_Dynasol_GuardarCaptura";
@@ -86,6 +88,8 @@
         public static string JUNTAMONAJESOLDADURA_MASIVO = "GuardaJuntaMontajeSoldadura_Masivo";
         public static string GUARDARCAPTURAPRUEBASSPOOL = "Sam3_Pintura_PruebasLote_Guardar";
         public static string AGREGARSPOOLSAVANCE = "Sam3_Pintura_Avance_Get_AgregarSpool";
+        public static string GUARDACAPTURA_RECEPCIONOC = "Sam3_OrdenCompras_SET_GuardarCapturaRecepcionOC";
+        public static string GUARDACAPTURA_COMPRAPAGOOC = "Sam3_OrdenCompras_SET_GuardarCapturaCompraPagoOC";
 
     }
 }

@@ -1,6 +1,11 @@
 ﻿var modeloRenglon;
 var esNormal;
-
+/*PERFILES:
+    1008 ---> CECILIA
+    1009 ---> GEREZ
+    1010 ---> STEELGO
+*/
+var PerfilLogueado = Cookies.get("PerfilID");
 function changeLanguageCall() {
     CargarGrid();
     CargarGridPopUpDetalleCecilia()
@@ -8,6 +13,10 @@ function changeLanguageCall() {
     CargarGridPopUpDetalleSteelgo();
     CargarGridPopUpDetalleInspeccion();
     inicio();
+
+    //console.log("Usuario Cookie: " + Cookies.get("user"));
+    //console.log("PerfilID: " + Cookies.get("PerfilID"));
+
 };
 
 
@@ -610,40 +619,77 @@ function LlenarGridPopUpDetalleColadas(data) {
     //    };
     //}
 
+    if (PerfilLogueado != undefined) {
+        if (PerfilLogueado == 1008 || PerfilLogueado == "1008") { //CECILIA
+                $("#gridPopUpCecilia").data('kendoGrid').dataSource.data([]);
+                var ds = $("#gridPopUpCecilia").data("kendoGrid").dataSource;
+                var array = data.ListaDetalleColadas;
 
-    if ($('input:radio[name=Muestra]:nth(0)').prop('checked')) {
-        $("#gridPopUpCecilia").data('kendoGrid').dataSource.data([]);
-        var ds = $("#gridPopUpCecilia").data("kendoGrid").dataSource;
-        var array = data.ListaDetalleColadas;
-
-        for (var i = 0; i < array.length; i++) {
-            ds.add(array[i]);
+                for (var i = 0; i < array.length; i++) {
+                    ds.add(array[i]);
+                }
+                $("#gridPopUpSteelgo").data('kendoGrid').dataSource.sync();
+                VentanaModalDetalleCecilia();
+        } else if (PerfilLogueado == 1009 || PerfilLogueado == "1009") { //GEREZ
+            $("#gridPopUpGerez").data('kendoGrid').dataSource.data([]);
+                var ds = $("#gridPopUpGerez").data('kendoGrid').dataSource;
+                var array = data.ListaDetalleColadas;
+                for (var i = 0; i < array.length; i++) {
+                    ds.add(array[i]);
+                }
+                VentanaModalDetalleGerez();
+        } else if (PerfilLogueado == 1010 || PerfilLogueado == "1010") { //STEELGO
+            $("#gridPopUpSteelgo").data('kendoGrid').dataSource.data([]);
+                var ds = $("#gridPopUpSteelgo").data("kendoGrid").dataSource;
+                var array = data.ListaDetalleColadas;
+                for (var i = 0; i < array.length; i++) {
+                    ds.add(array[i]);
+                }
+                VentanaModalDetalleSteelgo();
+        } else { //NINGUNO DE LOS 3 PUEDE SER SAMADMIN U OTROS
+            $("#gridPopUpSteelgo").data('kendoGrid').dataSource.data([]);
+                var ds = $("#gridPopUpSteelgo").data("kendoGrid").dataSource;
+                var array = data.ListaDetalleColadas;
+                for (var i = 0; i < array.length; i++) {
+                    ds.add(array[i]);
+                }
+                VentanaModalDetalleSteelgo();
         }
-        $("#gridPopUpSteelgo").data('kendoGrid').dataSource.sync();
-        VentanaModalDetalleCecilia();
-
     }
-    else if ($('input:radio[name=Muestra]:nth(1)').prop('checked')) {
-        $("#gridPopUpGerez").data('kendoGrid').dataSource.data([]);
-        var ds = $("#gridPopUpGerez").data('kendoGrid').dataSource;
-        var array = data.ListaDetalleColadas;
-        for (var i = 0; i < array.length; i++) {
-            ds.add(array[i]);
-        }
-        VentanaModalDetalleGerez();
-    }
-    else if ($('input:radio[name=Muestra]:nth(2)').prop('checked')) {
-        $("#gridPopUpSteelgo").data('kendoGrid').dataSource.data([]);
 
-        var ds = $("#gridPopUpSteelgo").data("kendoGrid").dataSource;
-        var array = data.ListaDetalleColadas;
+    //if ($('input:radio[name=Muestra]:nth(0)').prop('checked')) {
+    //    $("#gridPopUpCecilia").data('kendoGrid').dataSource.data([]);
+    //    var ds = $("#gridPopUpCecilia").data("kendoGrid").dataSource;
+    //    var array = data.ListaDetalleColadas;
 
-        for (var i = 0; i < array.length; i++) {
-            ds.add(array[i]);
-        }
+    //    for (var i = 0; i < array.length; i++) {
+    //        ds.add(array[i]);
+    //    }
+    //    $("#gridPopUpSteelgo").data('kendoGrid').dataSource.sync();
+    //    VentanaModalDetalleCecilia();
 
-        VentanaModalDetalleSteelgo();
-    }
+    //}
+    //else if ($('input:radio[name=Muestra]:nth(1)').prop('checked')) {
+    //    $("#gridPopUpGerez").data('kendoGrid').dataSource.data([]);
+    //    var ds = $("#gridPopUpGerez").data('kendoGrid').dataSource;
+    //    var array = data.ListaDetalleColadas;
+    //    for (var i = 0; i < array.length; i++) {
+    //        ds.add(array[i]);
+    //    }
+    //    VentanaModalDetalleGerez();
+    //}
+    //else if ($('input:radio[name=Muestra]:nth(2)').prop('checked')) {
+    //    $("#gridPopUpSteelgo").data('kendoGrid').dataSource.data([]);
+
+    //    var ds = $("#gridPopUpSteelgo").data("kendoGrid").dataSource;
+    //    var array = data.ListaDetalleColadas;
+
+    //    for (var i = 0; i < array.length; i++) {
+    //        ds.add(array[i]);
+    //    }
+
+    //    VentanaModalDetalleSteelgo();
+    //}
 
 
 

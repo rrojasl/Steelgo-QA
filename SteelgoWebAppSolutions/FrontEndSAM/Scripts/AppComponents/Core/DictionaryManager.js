@@ -8433,7 +8433,7 @@ _dictionary = {
         "es-MX": "WPS",
         "en-US": "WPS"
     },
-   "menuSoldadorCertificacion": {
+    "menuSoldadorCertificacion": {
         "es-MX": "WPQ",
         "en-US": "WPQ"
     },
@@ -8501,6 +8501,14 @@ _dictionary = {
         "es-MX": "Compra de materiales",
         "en-US": "Material buy"
     },
+    "menuRecepcionOC":{
+        "es-MX": "Recepción Ordenes de Compra",
+        "en-US": "Purchase Orders"
+    },
+    "menuComprarPagarOC":{
+        "es-MX": "Compra y Pago de Ordenes de Compra",
+        "en-US": "Purchase and payment of purchase orders"
+    },
     "menuDynasolPackingList": {
         "es-MX": "Packing List",
         "en-US": "Packing List"
@@ -8516,6 +8524,10 @@ _dictionary = {
     "DynasolButtonControlOrdenCompra1": {
         "es-MX": "Control de ordenes de compra",
         "en-US": "Buy order control"
+    },
+    "menuOKDOC": {
+        "es-MX": "OK Documental",
+        "en-US": "Documentary OK"
     },
 
     // Finalizan Etiquetas de Menú General
@@ -8911,6 +8923,10 @@ _dictionary = {
     "columnOkPND": {
         "es-MX": "OK Fabricacíon",
         "en-US": "OK Fabrication"
+    },
+    "columnOkDocumental": {
+        "es-MX": "OK Documental",
+        "en-US": "Documentary OK"
     },
     "columnOkPintura": {
         "es-MX": "OK Pintura",
@@ -10004,18 +10020,18 @@ _dictionary = {
         "es-MX": "El número de pasos debe ser mayor a 0",
         "en-US": "The number of steps must be greater than 0"
     },
-     "CapturaSoldadorCertificacionPreguntaBorradoCaptura": {
+    "CapturaSoldadorCertificacionPreguntaBorradoCaptura": {
         "es-MX": "¿Está seguro de cancelar el detalle de la captura de WPQ?",
         "en-US": "Are you sure you want to cancel the detail of the capture of WPQ?"
-        },
+    },
     "SoldadorCertificacionPreguntaBorradoCaptura": {
         "es-MX": "¿Está seguro de cancelar el detalle de la captura de WPQ?",
         "en-US": "You are sure you want to cancel the capture detail of WPQ?"
-        },
+    },
     "SoldadorCertificacionMensajeEspesorMinimo": {
         "es-MX": "El Espesor M. tiene que ser mayor a cero",
         "en-US": " The M. thickness must be greater than zero"
-        },
+    },
     "SoldadorCertificacionMensajeDiametroCalificado": {
         "es-MX": "El diametro c. tiene que ser mayor a cero",
         "en-US": " The c. diameter must be greater than zero"
@@ -10024,8 +10040,8 @@ _dictionary = {
     "AdverteciaExcepcionGuardado": {
         "es-MX": "No hay cambios por guardar",
         "en-US": "There aren´t any change"
-        },
-            //Finaliza Soldador Certificacion
+    },
+    //Finaliza Soldador Certificacion
 
     //Pantalla Nuevo Soldador Certificacion
     "lblNuevoSoldadorCertificacionBreadCrum": {
@@ -10204,6 +10220,24 @@ _dictionary = {
         "en-US": "No matches found."
     },
     //Finaliza Pantalla OKPND
+    //Inicia Pantalla OkDocumental
+    "OKDOCUMENTALBreadcrum": {
+        "es-MX": "OK Documental",
+        "en-US": "Documentary OK"
+    },
+    "guardarCambiosOKDocumental": {
+        "es-MX": "Guardar OK Documental",
+        "en-US": "Save Documentary OK"
+    },
+    "ErrorColumnaNoEsNumeroOKDOC": {
+        "es-MX": "Algún registro de la columna OKDOC no es un Número Válido, debe ser 0 ó 1",
+        "en-US": "Some record of the OKDOC column is not a valid Number, it must be 0 or 1. "
+    },
+    "ErrorColumnaTieneLetrasOKDOC": {
+        "es-MX": "Algún Registro de la columna OKDOC no es un Número, Porfavor Verifique.",
+        "en-US": "Some record of the OKDOC column is not a number, check please."
+    },
+    //Finaliza Pantalla OkDocumental
 
     // Pantalla Entrega Placas-Graficas
     "ServiciosTecnicosValidarResultadosSup": {
@@ -13081,6 +13115,10 @@ _dictionary = {
         "es-MX": "La colada se encuentra en los siguientes Camiones: \n",
         "en-US": "The heat is in the next trucks: \n"
     },
+    "msgFaltaOrdenCompra":{
+        "es-MX": "Selecciona una Orden de Compra",
+        "en-US": "Select a Purchase Order"
+    },
     "DynasolLabelCamion": {
         "es-MX": "Camión",
         "en-US": "Truck"
@@ -13096,6 +13134,58 @@ _dictionary = {
     "lblCamionBotonIr2": {
         "es-MX": "Camión",
         "en-US": "Truck"
+    },
+    "columnCantAP": {
+        "es-MX": "CANT AP",
+        "en-US": "AP QTY"
+    },
+    "columnCantRDO": {
+        "es-MX": "CANT RDO",
+        "en-US": "REJ QTY"
+    },
+    "columnCantCOND": {
+        "es-MX": "CANT COND",
+        "en-US": "COND QTY"
+    },
+    "columnCantSteelgo": {
+        "es-MX": "CANT S",
+        "en-US": "S QTY"
+    },
+    "columnCantC":{
+        "es-MX": "CANT C",
+        "en-US": "P QTY"
+    },
+    "columnCantP": {
+        "es-MX": "CANT P",
+        "en-US": "PYMT QTY"
+    },
+    "msgErrorSumaMayorCantS":{
+        "es-MX": "La Suma total de CantAP, CantRDO y CantCOND no debe ser mayor a la cantidad de Steelgo (Cant S)",
+        "en-US": "The total sum of AP QTY, REJ QTY and COND QTY must not be greater than the  Steelgo quantity (S QTY)"
+    },
+    "msgErrorCapturaCantidad":{
+        "es-MX": "Debes ingresar al menos una cantidad en las siguientes columnas CANT AP, CANT RDO ó CANT COND",
+        "en-US": "You must enter at least one amount in the following columns AP QTY, REJ QTY or COND QTY "
+    },
+    "msgErrorCantidadSteelgoCero": {
+        "es-MX": "No se puede modificar este campo debido a que la cantidad de Steelgo es 0",
+        "en-US": "You can not change this field because the amount of Steelgo is 0"
+    },
+    "msgErrorCantidadCompraMayor": {
+        "es-MX": "La cantidad de compra Cant C no debe ser mayor a la cantidad de Steelgo (Cant S)",
+        "en-US": "The amount of purchase P QTY must not be greater than the  Steelgo quantity (S QTY)"
+    },
+    "msgErrorCantidadPagoMayor": {
+        "es-MX": "La cantidad de Pago Cant P no debe ser mayor a la cantidad de Steelgo (Cant S)",
+        "en-US": "The amount of payment PYMT QTY must not be greater than the  Steelgo quantity (S QTY)"
+    },
+    "titleRecepcionOC":{
+        "es-MX": "Recepción Ordenes de Compra",
+        "en-US": "Purchase Orders"
+    },
+    "titleCompraPagoOC": {
+        "es-MX": "Compra y Pago OC",
+        "en-US": "Purchase and payment OP"
     },
     //Finaliza Modulo Dynasol
     // Modulo Montaje

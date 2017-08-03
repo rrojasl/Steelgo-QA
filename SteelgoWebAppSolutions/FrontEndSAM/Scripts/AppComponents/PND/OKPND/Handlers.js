@@ -71,6 +71,15 @@ function SuscribirEventoTipoBusqueda() {
             $("#noButtonProy").click(function () {
                 $("#InputNumeroControl").val(SpoolContiene);
                 $("#Proyecto").data("kendoComboBox").value(ProyectoIDAnterior);
+                if ($('input:radio[name=TipoAgregado]:checked').val() == "SpoolContiene") {
+                    $('input:radio[name=TipoAgregado]:nth(1)').prop("checked", true);
+                    $("#styleSpoolContiene").removeClass("active");
+                    $("#styleNombreSpool").addClass("active");
+                } else {
+                    $('input:radio[name=TipoAgregado]:nth(0)').prop("checked", true);
+                    $("#styleSpoolContiene").addClass("active");
+                    $("#styleNombreSpool").removeClass("active");
+                }
                 ventanaConfirm.close();
             });
         } else {
