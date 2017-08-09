@@ -7730,6 +7730,14 @@ _dictionary = {
         "es-MX": "Preparación Embarque",
         "en-US": "Shipping Preparation"
     },
+    "titleAsignacionEnvio":{
+        "es-MX": "Asignacion de Envío",
+        "en-US": "Shipping Assignment"
+    },
+    "menuEmbarqueAsignacionEnvio": {
+        "es-MX": "Asignacion de Envío",
+        "en-US": "Shipping Assignment"
+    },
     "lblTracto": {
         "es-MX": "Tracto",
         "en-US": "Tract"
@@ -8193,6 +8201,10 @@ _dictionary = {
     "MensajeSeleccionaProveedor": {
         "es-MX": "Por favor seleccione un proveedor",
         "en-US": "Please select to provider"
+    },
+    "MensajeSeleccionaProveedorEnvio": {
+        "es-MX": "Por favor seleccione un proveedor de envío",
+        "en-US": "Please select to provider send"
     },
     "MensajeSeleccionaTracto": {
         "es-MX": "Por favor seleccione un tracto",
@@ -12059,13 +12071,25 @@ _dictionary = {
         "es-MX": "Agregar nuevo proveedor",
         "en-US": "Add new provider"
     },
+    "EmarquePreparacionAgregarProveedorEnvio": {
+        "es-MX": "Agregar nuevo proveedor envio",
+        "en-US": "Add new provider send"
+    },
     "EmarquePreparacionAgregarTracto": {
         "es-MX": "Agregar nuevo tracto",
         "en-US": "Add new tract"
     },
+    "EmarquePreparacionAgregarTractoEnvio": {
+        "es-MX": "Agregar nuevo tracto envio",
+        "en-US": "Add new tract send"
+    },
     "EmarquePreparacionAgregarChofer": {
         "es-MX": "Agregar nuevo chofer",
         "en-US": "Add new driver"
+    },
+    "EmarquePreparacionAgregarChoferEnvio": {
+        "es-MX": "Agregar nuevo chofer envio",
+        "en-US": "Add new driver send"
     },
     "EmarquePreparacionErrorSeleccionaPlana": {
         "es-MX": "Por favor seleccione una plana a agregar",

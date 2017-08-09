@@ -63,5 +63,9 @@ namespace FrontEndSAM.Controllers.Embarque
         {
             return View();
         }
+        public ActionResult AsignacionEnvio()
+        {
+            return View();
+        }
     }
 }
