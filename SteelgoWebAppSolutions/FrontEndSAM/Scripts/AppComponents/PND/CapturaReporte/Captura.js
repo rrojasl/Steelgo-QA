@@ -18,9 +18,8 @@ function changeLanguageCall() {
 
 function inicio() {
     SuscribirEventos();
-    AjaxProyecto();
-    AjaxFuente();
-    AjaxTurno();
+    AjaxCargarCamposPredeterminados();
+    
 }
 
 
@@ -55,6 +54,29 @@ function validarReglasDeLlenado() {
 
 function CargarGrid() {
 
+    kendo.ui.Grid.fn.editCell = (function (editCell) {
+        return function (cell) {
+            cell = $(cell);
+
+            var that = this,
+                column = that.columns[that.cellIndex(cell)],
+                model = that._modelForContainer(cell),
+                event = {
+                    container: cell,
+                    model: model,
+                    preventDefault: function () {
+                        this.isDefaultPrevented = true;
+                    }
+                };
+
+            if (model && typeof this.options.beforeEdit === "function") {
+                this.options.beforeEdit.call(this, event);
+                if (event.isDefaultPrevented) return;
+            }
+
+            editCell.call(this, cell);
+        };
+    })(kendo.ui.Grid.fn.editCell);
     $("#grid").kendoGrid({
         dataSource: {
             data: [],
@@ -110,7 +132,7 @@ function CargarGrid() {
             { field: "NumeroControl", title: _dictionary.CapturaReporteGridColumnSpoolJunta[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "100px" },
             { field: "Junta", title: _dictionary.CapturaReporteGridColumnJunta[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "70px" },
             { field: "ClasificacionPND", title: _dictionary.CapturaReporteGridColumnClasificacionPND[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "70px" },
-            { field: "TipoPrueba", title: _dictionary.CapturaReporteGridColumnTipoPrueba[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px" },
+            { field: "TipoPrueba", title: _dictionary.CapturaReporteGridColumnTipoPrueba[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "90px" },
             { field: "Observaciones", title: _dictionary.CapturaReporteGridColumnObservaciones[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "140px" },
             { field: "CodigoAsme", title: _dictionary.CapturaReporteGridColumnCodigoAsme[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "100px" },
             { field: "Equipo", title: "Equipo", filterable: getGridFilterableCellNumberMaftec(), width: "100px", editor: RenderEquipo, filterable: getGridFilterableCellMaftec() },
@@ -164,10 +186,38 @@ function CargarGrid() {
             });
         },
         editable: true,
-        navigatable: true
+        navigatable: true,
+        beforeEdit: function (e) {
+            var columnIndex = this.cellIndex(e.container);
+            var fieldName = this.thead.find("th").eq(columnIndex).data("field");
+            if (!isEditable(fieldName, e.model)) {
+                e.preventDefault();
+            }
+        },
     });
     CustomisaGrid($("#grid")); 5
 };
+
+function isEditable(fieldName, model) {
+    if (fieldName === "Equipo") {
+        
+        var respuesta = $("#inputPrueba").data("kendoComboBox").dataItem($("#inputPrueba").data("kendoComboBox").select()).RequiereEquipoCaptura;
+        return respuesta;
+    }
+    if (fieldName === "Turno") {
+        
+        if (model.Equipo == "")
+            if ($("#inputPrueba").data("kendoComboBox").dataItem($("#inputPrueba").data("kendoComboBox").select()).RequiereEquipoCaptura)
+                return false;
+            else
+                return true;
+        else
+            return true;
+    }
+
+    return true; // default to editable
+}
+
 
 function CargarGridPopUpDetallePorPlaca() {
 
@@ -389,13 +439,11 @@ function VentanaModalDetallePlaca() {
             top: "10px",
             left: "10px"
         },
-        actions: [
-            "Close"
-        ],
-        close: function onClose(e) {
-            var gridDataSource = $("#gridPopUp").data("kendoGrid").dataSource;
-            gridDataSource.filter([]);
-        }
+        actions: [],
+        //close: function onClose(e) {
+        //    var gridDataSource = $("#gridPopUp").data("kendoGrid").dataSource;
+        //    gridDataSource.filter([]);
+        //}
     }).data("kendoWindow");
     window.data("kendoWindow").title(modalTitle);
     window.data("kendoWindow").center().open();
@@ -636,10 +684,6 @@ function actualizaGridGeneralPorDefectos() {
                 break;
             }
         }
-
-
-
-        //return true;
     } catch (e) {
         return false;
     }
@@ -679,3 +723,140 @@ function obtenerResultadoDefecto(data) {
 }
 
 
+function PlanchaEvaluacion(EsSector) {
+    var dataSource = $("#grid").data("kendoGrid").dataSource;
+    var filters = dataSource.filter();
+    var allData = dataSource.data();
+    var query = new kendo.data.Query(allData);
+    var data = query.filter(filters).data;
+
+    for (var i = 0; i < data.length; i++) {
+        if ($('input:radio[name=LLena]:checked').val() == "Todos") {
+            if (EsSector == "Si") {
+                data[i].EsSector = true;
+                data[i].ModificadoPorUsuario = true;
+            } else if (EsSector == "No") {
+                data[i].EsSector = false;
+                data[i].ModificadoPorUsuario = true;
+            }
+        } else if ($('input:radio[name=LLena]:checked').val() == "Vacios") {
+            if (!data[i].EsSector) {
+                if (EsSector == "Si") {
+                    data[i].EsSector = true;
+                    data[i].ModificadoPorUsuario = true;
+                } else if (EsSector == "No") {
+                    data[i].EsSector = false;
+                    data[i].ModificadoPorUsuario = true;
+
+                }
+            }
+        }
+
+        $("#grid").data("kendoGrid").refresh();
+    }
+}
+
+function PlanchaResultado(Resultado) {
+    var dataSource = $("#grid").data("kendoGrid").dataSource;
+    var filters = dataSource.filter();
+    var allData = dataSource.data();
+    var query = new kendo.data.Query(allData);
+    var data = query.filter(filters).data;
+
+    for (var i = 0; i < data.length; i++) {
+        if ($('input:radio[name=LLena]:checked').val() == "Todos") {
+            if (Resultado == "Si") {
+                data[i].Resultado = true;
+                data[i].ModificadoPorUsuario = true;
+            } else if (Resultado == "No") {
+                data[i].Resultado = false;
+                data[i].ModificadoPorUsuario = true;
+            }
+        } else if ($('input:radio[name=LLena]:checked').val() == "Vacios") {
+            if (!data[i].Resultado == "") {
+                if (Resultado == "Si") {
+                    data[i].Resultado = true;
+                    data[i].ModificadoPorUsuario = true;
+                } else if (Resultado == "No") {
+                    data[i].Resultado = false;
+                    data[i].ModificadoPorUsuario = true;
+
+                }
+            }
+        }
+
+        $("#grid").data("kendoGrid").refresh();
+    }
+}
+
+
+function PlanchaEquipoTurno(Equipo,Turno) {
+    var dataSource = $("#grid").data("kendoGrid").dataSource;
+    var filters = dataSource.filter();
+    var allData = dataSource.data();
+    var query = new kendo.data.Query(allData);
+    var data = query.filter(filters).data;
+
+    var Prueba = $("#inputPrueba").data("kendoComboBox").dataItem($("#inputPrueba").data("kendoComboBox").select())
+    if (Prueba != undefined && Prueba.Nombre != "") {
+        if (Prueba.RequiereEquipoCaptura) {
+
+            for (var i = 0; i < data.length; i++) {
+                if ($('input:radio[name=LLena]:checked').val() == "Todos") {
+                    data[i].EquipoID = Equipo.EquipoID;
+                    data[i].Equipo = Equipo.NombreEquipo;
+                    data[i].ProveedorEquipoID = Equipo.ProveedorEquipoID;
+                    if (Turno != undefined) {
+                        data[i].TurnoID = Turno.TurnoID;
+                        data[i].Turno = Turno.Turno;
+                        data[i].CapacidadTurnoEquipoID = Turno.CapacidadTurnoEquipoID;
+                        data[i].CapacidadTurnoProveedorID = Turno.CapacidadTurnoProveedorID;
+                    }
+
+                    data[i].ModificadoPorUsuario = true;
+
+                }
+                else if ($('input:radio[name=LLena]:checked').val() == "Vacios") {
+                    if (data[i].Equipo == "" || data[i].Equipo === null || data[i].Equipo === undefined) {
+                        data[i].EquipoID = Equipo.EquipoID;
+                        data[i].Equipo = Equipo.NombreEquipo;
+                        data[i].ProveedorEquipoID = Equipo.ProveedorEquipoID;
+                        if (Turno != undefined) {
+                            data[i].TurnoID = Turno.TurnoID;
+                            data[i].Turno = Turno.Turno;
+                            data[i].CapacidadTurnoEquipoID = Turno.CapacidadTurnoEquipoID;
+                            data[i].CapacidadTurnoProveedorID = Turno.CapacidadTurnoProveedorID;
+                        }
+                        data[i].ModificadoPorUsuario = true;
+                    }
+                }
+            }
+        }
+        else {
+            for (var i = 0; i < data.length; i++) {
+                if ($('input:radio[name=LLena]:checked').val() == "Todos") {
+                    if (Turno != undefined) {
+                        data[i].TurnoID = Turno.TurnoID;
+                        data[i].Turno = Turno.Turno;
+                        data[i].CapacidadTurnoEquipoID = Turno.CapacidadTurnoEquipoID;
+                        data[i].CapacidadTurnoProveedorID = Turno.CapacidadTurnoProveedorID;
+                    }
+                    data[i].ModificadoPorUsuario = true;
+
+                }
+                else if ($('input:radio[name=LLena]:checked').val() == "Vacios") {
+                    if (data[i].Turno == "" || data[i].Turno === null || data[i].Turno === undefined) {
+                        if (Turno != undefined) {
+                            data[i].TurnoID = Turno.TurnoID;
+                            data[i].Turno = Turno.Turno;
+                            data[i].CapacidadTurnoEquipoID = Turno.CapacidadTurnoEquipoID;
+                            data[i].CapacidadTurnoProveedorID = Turno.CapacidadTurnoProveedorID;
+                        }
+                        data[i].ModificadoPorUsuario = true;
+                    }
+                }
+            }
+        }
+        $("#grid").data("kendoGrid").refresh();
+    }
+}

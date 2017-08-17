@@ -34,18 +34,20 @@ namespace BackEndSAM.Models.ServiciosTecnicos.ServiciosTecnicosGeneral
             ProyectoID = 0;
             TipoPruebaID = 0;
             NombreRequisicion = "";
-            CodigoAsme = "";
+            FolioCliente = "";
             FechaRequisicion = "";
             Observacion = "";
+        
         }
 
         public int RequisicionID { get; set; }
         public int ProyectoID { get; set; }
         public int TipoPruebaID { get; set; }
         public string NombreRequisicion { get; set; }
-        public string CodigoAsme { get; set; }
+        public string FolioCliente { get; set; }
         public string FechaRequisicion { get; set; }
         public string Observacion { get; set; }
+        
     }
 
 

@@ -78,8 +78,8 @@
 
         </div>
         <div class="col-xs-12 col-sm-6 col-md-2 col-lg-1 altoControl">
-            <label id="">Turno </label>
-            <label id=""> Matutino</label>
+            <label id="">Turno</label>
+            <label id="lblTurno"></label>
         </div>
         
         <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
@@ -100,16 +100,22 @@
                     <label id="CapturaReporteTurno"> </label>
                     <input id="inputTurno" />
                 </div>
-                <div class="col-sm-2 col-md-2 col-lg-2" id="EvaluacionDiv">
+                <div class="col-sm-2 col-md-2 col-lg-2" id="EvaluacionDiv" >
                     <label id="">Evaluación</label>
-                    <input type="radio" id="SelectTodosSi" name="SelectTodos" style="width:auto;" value="Si" /><span id="">Sector</span><br />
-                    <input type="radio" id="SelectTodosNo" name="SelectTodos" style="width:auto;" value="No" /><span id="">Cuadrante</span><br />
-                    <input type="radio" id="SelectTodosNinguno" name="SelectTodos" style="width:auto;" value="Ninguno" /><span id="lblNinguno"></span>
+                    <input type="radio" id="SelectTodosSi" name="SelectSector" style="width:auto;" value="Si" /><span id="">Sector</span><br />
+                    <input type="radio" id="SelectTodosNo" name="SelectSector" style="width:auto;" value="No" /><span id="">Cuadrante</span><br />
+                    <input type="radio" id="SelectTodosNinguno" name="SelectSector" style="width:auto;" value="Ninguno" checked /><span id="lblNinguno"></span>
+                </div>
+                <div class="col-sm-2 col-md-2 col-lg-2" id="divRes" >
+                    <label id="">Resultado</label>
+                    <input type="radio" id="SelectTodosSi" name="SelectTodos" style="width:auto;" value="Si" /><span id="">Aprobado</span><br />
+                    <input type="radio" id="SelectTodosNo" name="SelectTodos" style="width:auto;" value="No" /><span id="">Rechazado</span><br />
+                    <input type="radio" id="SelectTodosNinguno" name="SelectTodos" style="width:auto;" value="Ninguno"  checked/><span id="">Ninguno</span>
                 </div>
                 <div class="btn-group col-xs-12 col-sm-6 col-md-2 col-lg-2" role="group" id="LlenaCapturaAvanceIntAcabadoDiv">
                     <label id="lblPlanchar"></label>
-                    <input type="radio" id="LlenaTodos" name="LLena" style="width:auto;" value="Todos" checked /><span id="lblTodos1"></span>
-                    <input type="radio" id="LlenaVacios" name="LLena" style="width:auto;" value="Vacios" /><span id="lblVacios"></span>
+                    <input type="radio" id="LlenaTodos" name="LLena" style="width:auto;" value="Todos" /><span id="lblTodos1"></span>
+                    <input type="radio" id="LlenaVacios" name="LLena" style="width:auto;" value="Vacios" checked="checked"   /><span id="lblVacios"></span>
 
                 </div>
                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
@@ -159,15 +165,35 @@
 
 <div id="windowGrid" style="display: none; z-index:inherit;">
 
+    <div class="row">
+        <div class="col-sm-2 col-md-2 col-lg-2" id="ResultadoDiv">
+            <label id="">Resultado</label><br />
+            <input type="radio" id="SelectTodosSi" name="SelectTodos" style="width:auto;" value="Si" /><span id="">Aprobado</span><br />
+            <input type="radio" id="SelectTodosNo" name="SelectTodos" style="width:auto;" value="No" /><span id="">Rechazado</span><br />
+            <input type="radio" id="SelectTodosNinguno" name="SelectTodos" style="width:auto;" value="Ninguno" /><span id="">Ninguno</span>
+        </div>
+        <div class="btn-group col-xs-12 col-sm-6 col-md-2 col-lg-2" role="group" id="">
+            <label id="">Planchado</label><br />
+            <input type="radio" id="LlenaTodos" name="LLena" style="width:auto;" value="Todos" checked /><span id="">Todos</span>
+            <input type="radio" id="LlenaVacios" name="LLena" style="width:auto;" value="Vacios" /><span id="">Vacios</span>
 
-    <div class="form-group">
-        <div id="ContenedorGridPopUp">
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+            <button type="button" id="btnPlancharPopUp" class="btn btn-blue"><span id="">Aplicar</span></button>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <label></label>   
+        </div>
+    </div>
+
+    <div class="form-group row" style="padding-right:2%;">
+        <div id="ContenedorGridPopUp" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div id="gridPopUp" data-role="grid" class="k-grid k-widget">
             </div>
         </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group row">
         <div class="col-sm-3 col-md-3 col-lg-3">
         </div>
         <div class="col-sm-3 col-md-3 col-lg-3">

@@ -73,6 +73,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.GenerarRequisicion
                     {
                         listaElementos.Add(new ElementosPorClasificacion
                         {
+                            Accion = item.RequisicionID == 0 ? 1: 2,
                             NumeroControl = item.NumeroControl,
                             EtiquetaJunta = item.EtiquetaJunta,
                             TipoJunta = item.TipoJunta,
@@ -96,14 +97,15 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.GenerarRequisicion
                             Especificacion = item.Especificacion,
                             //Disposicion = item.Disposicion,
                             ClasificacionPNDID = item.ClasificacionPNDID,
-                            OrdenTrabajoID = item.OrdenTrabajoID
+                            OrdenTrabajoID = item.OrdenTrabajoID,
+                            
                         });
                     }
 
                     return listaElementos;
                 }
             }
-            catch (Exception ex)
+             catch (Exception ex)
             {
                 TransactionalInformation result = new TransactionalInformation();
                 result.ReturnMessage.Add(ex.Message);
@@ -115,7 +117,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.GenerarRequisicion
             }
         }
 
-        public object InsertarNuevaRequisicion(DataTable dtDetalleRequisicion, int RequisicionID, string NombreRequisicion, int ProyectoID, int TipoPruebaID, string FechaRequisicion, /*string CodigoAsme,*/ string Observacion, string lenguaje, Sam3_Usuario usuario)
+        public object InsertarNuevaRequisicion(DataTable dtDetalleRequisicion, int RequisicionID, string NombreRequisicion, int ProyectoID, int TipoPruebaID, string FechaRequisicion, string folioCliente, string Observacion, string lenguaje, Sam3_Usuario usuario)
         {
             try
             {
@@ -127,6 +129,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.GenerarRequisicion
                     string[,] parametro = {
                         { "@RequisicionID", RequisicionID.ToString() },
                         { "@NombreRequisicion", NombreRequisicion },
+                        { "@FolioCliente", folioCliente },
                         { "@ProyectoID", ProyectoID.ToString() },
                         { "@TipoPruebaID", TipoPruebaID.ToString() },
                         { "@FechaRequisicion",FechaRequisicion},
@@ -174,6 +177,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.GenerarRequisicion
                     {
                         listaElementos.Add(new ElementosPorClasificacion
                         {
+                            Accion = 1,
                             NumeroControl = item.NumeroControl,
                             EtiquetaJunta = item.EtiquetaJunta,
                             TipoJunta = item.TipoJunta,
@@ -186,7 +190,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.GenerarRequisicion
                             Cedula = item.Cedula,
 
                             ElementoPorClasificacionPNDID = item.ElementoPorClasificacionPNDID,
-                            Agregar = item.RequisicionID > 0 ? true : false,
+                            Agregar =  true ,
                             RequisicionID = item.RequisicionID,
                             ProyectoID = item.ProyectoID,
                             SpoolID = item.SpoolID,
@@ -195,7 +199,9 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.GenerarRequisicion
                             TipoPruebaID = item.TipoPruebaID.GetValueOrDefault(),
                             Especificacion = item.Especificacion,
                             ClasificacionPNDID=item.ClasificacionPNDID,
-                            OrdenTrabajoID=item.OrdenTrabajoID
+                            OrdenTrabajoID=item.OrdenTrabajoID,
+                            ClasificacionManual = 1,
+                           
 
                         });
                     }
@@ -256,6 +262,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.GenerarRequisicion
                     {
                         listaElementos.Add(new ElementosPorClasificacion
                         {
+                            Accion = 1,
                             NumeroControl = item.NumeroControl,
                             EtiquetaJunta = item.EtiquetaJunta,
                             TipoJunta = item.TipoJunta,
@@ -268,7 +275,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.GenerarRequisicion
                             Cedula = item.Cedula,
 
                             ElementoPorClasificacionPNDID = item.ElementoPorClasificacionPNDID,
-                            Agregar = item.RequisicionID > 0 ? true : false,
+                            Agregar =  true ,
                             RequisicionID = item.RequisicionID,
                             ProyectoID = item.ProyectoID,
                             SpoolID = item.SpoolID,

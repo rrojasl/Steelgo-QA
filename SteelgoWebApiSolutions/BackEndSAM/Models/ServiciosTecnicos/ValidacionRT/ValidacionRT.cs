@@ -110,9 +110,8 @@ namespace BackEndSAM.Models.ServiciosTecnicos.ValidacionRT
 
     public class DetallePorPlacas
     {
-        public int OrdenTrabajoID { get; set; }
-        public int SpoolID { get; set; }
-        public int JuntaSpoolID { get; set; }
+        public int CapturaResultadoID { get; set; }
+        public int CapturaResultadoPlacaID { get; set; }
         public string Ubicacion { get; set; }
         public int? ResultadoID { get; set; }
         public string Resultado { get; set; }

@@ -452,7 +452,7 @@ function suscribirEventoSepararRequisicion() {
             ProyectoID: 0,
             TipoPruebaID: 0,
             FechaRequisicion: "",
-            //CodigoAsme: "",
+            FolioCliente: "",
             Observacion: "",
             Lenguaje: "",
             ListaDetalle: ""
@@ -585,6 +585,7 @@ function suscribirEventoSepararRequisicion() {
                 if ($("#FechaRequisicion").val() != "" && $("#NombreRequisicion").val() != "") {
                     Captura[0].RequisicionID = 0;
                     Captura[0].Requisicion = $("#NombreRequisicion").val();
+                    Captura[0].FolioCliente = $("#CodigoAsme").val();
                     Captura[0].ProyectoID = $("#inputProyecto").data("kendoComboBox").value();
                     Captura[0].TipoPruebaID = $("#inputPrueba").data("kendoComboBox").value() == "" ? 0 : $("#inputPrueba").data("kendoComboBox").value();
                     Captura[0].Observacion = "";

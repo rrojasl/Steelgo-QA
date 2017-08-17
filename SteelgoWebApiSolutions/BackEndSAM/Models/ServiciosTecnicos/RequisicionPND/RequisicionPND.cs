@@ -30,6 +30,7 @@ namespace BackEndSAM.Models.ServiciosTecnicos.RequisicionPND
             ClasificacionManual = 0;
         }
 
+        public int Accion { get; set; }
         public string NumeroControl { get; set; }
         public string EtiquetaJunta { get; set; }
         public string TipoJunta { get; set; }
@@ -44,7 +45,7 @@ namespace BackEndSAM.Models.ServiciosTecnicos.RequisicionPND
 
         public int? ElementoPorClasificacionPNDID { get; set; }
         public int? RequisicionID { get; set; }
-        public int? ProyectoID { get; set; }
+        public int ProyectoID { get; set; }
         public int? SpoolID { get; set; }
         public int JuntaSpoolID { get; set; }
         public int? OrdenTrabajoSpoolID { get; set; }
@@ -54,6 +55,7 @@ namespace BackEndSAM.Models.ServiciosTecnicos.RequisicionPND
         public int? OrdenTrabajoID { get; set; }
         public int? ClasificacionPNDID { get; set; }
         public int? ClasificacionManual { get; set; }
+        
     }
 
     public class Captura
@@ -64,7 +66,7 @@ namespace BackEndSAM.Models.ServiciosTecnicos.RequisicionPND
             Requisicion = "";
             ProyectoID = 0;
             TipoPruebaID = 0;
-            CodigoAsme = "";
+            FolioCliente = "";
             Observacion = "";
             Lenguaje = "";
         }
@@ -73,7 +75,7 @@ namespace BackEndSAM.Models.ServiciosTecnicos.RequisicionPND
         public int ProyectoID { get; set; }
         public int TipoPruebaID { get; set; }
         public string FechaRequisicion { get; set; }
-        public string CodigoAsme { get; set; }
+        public string FolioCliente { get; set; }
         public string Observacion { get; set; }
         public string Lenguaje { get; set; }
         public List<DetalleCaptura> listaDetalle { get; set; }

@@ -497,7 +497,7 @@ function Error(data) {
                     removeUserSession();
                     return false;
                 } else {
-                    displayMessage("notificationslabel0008", data.ReturnMessage, '2');
+                    displayNotify("notificationslabel0008", data.ReturnMessage, '2');
                     return false;
                 }
             } else {

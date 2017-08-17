@@ -31,16 +31,17 @@ function suscribirOrdenTrabajo() {
             try {
                 AjaxObtenerSpoolID();
             } catch (e) {
-                displayNotify("Mensajes_error", e.message, '2');
+                displayNotify("", e.message, '2');
             }
         } else {
-            displayNotify("CapturaSoldaduraMensajeOrdenTrabajo", "", '1');
+            displayNotify("MensajeOrdenTrabajoNoValida", "", '1');
         }
     });
 
     $("#InputOrdenTrabajo").focus(function (e) {
         $("#InputOrdenTrabajo").val("");
-        $("#InputID").data("kendoComboBox").select(0);
+        $("#InputID").data("kendoComboBox").text("");
+        $("#Junta").data("kendoComboBox").text("");
         $("#Junta").data("kendoComboBox").setDataSource();
         $("#InputID").data("kendoComboBox").setDataSource();
     });
@@ -482,12 +483,7 @@ function suscribirEventoChangeRadio() {
             }
         }
     });
-    //$('input:radio[name=Muestra]:nth(0)').change(function () {
-    //    FiltroMostrar(0);
-    //});
-    //$('input:radio[name=Muestra]:nth(1)').change(function () {
-    //    FiltroMostrar(1);
-    //});
+   
 }
 
 function SuscribirEventoGuardar() {

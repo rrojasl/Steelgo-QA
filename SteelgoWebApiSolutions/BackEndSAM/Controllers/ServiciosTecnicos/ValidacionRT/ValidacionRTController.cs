@@ -164,7 +164,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.ValidacionRT
 
 
                 //return ValidacionRTDB.Instance.ObtenerEquipos(TipoPruebaID, ProveedorID, Lenguaje);
-                return ValidacionRTDB.Instance.ObtenerListadoEquipos(Lenguaje);
+                return ValidacionRTDB.Instance.ObtenerListadoEquipos(TipoPruebaID, ProveedorID, Lenguaje);
             }
             else
             {
@@ -190,7 +190,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.ValidacionRT
 
 
                 //return ValidacionRTDB.Instance.ObtenerTurnos(TipoPruebaID, ProveedorID, EquipoID, Lenguaje);
-                return ValidacionRTDB.Instance.ObtenerListadoTurnos(Lenguaje);
+                return ValidacionRTDB.Instance.ObtenerListadoTurnos(TipoPruebaID,ProveedorID,EquipoID, Lenguaje);
             }
             else
             {

@@ -1,4 +1,5 @@
 ﻿using BackEndSAM.DataAcces.ServiciosTecnicos.ReporteRT;
+using BackEndSAM.Models.ServiciosTecnicos.ReporteRT;
 using DatabaseManager.Sam3;
 using SecurityManager.Api.Models;
 using SecurityManager.TokenHandler;
@@ -51,7 +52,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.ReporteRT
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
 
-                return ReporteRT_BD.Instance.ObtenerListadoProveedores(proyectoID,tipoPruebaID,patioID);
+                return ReporteRTBD.Instance.ObtenerListadoProveedores(proyectoID,tipoPruebaID,patioID);
             }
             else
             {
@@ -115,7 +116,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.ReporteRT
         }
 
         [HttpGet]
-        public object GetEquipos(string token, string lenguaje, string x)
+        public object GetEquipos(string token,int TipoPruebaID, int ProveedorID, string lenguaje)
         {
             string payload = "";
             string newToken = "";
@@ -126,7 +127,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.ReporteRT
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
 
-                return ReporteRTBD.Instance.ObtenerListadoEquipos(lenguaje);
+                return ReporteRTBD.Instance.ObtenerListadoEquipos(TipoPruebaID,ProveedorID, lenguaje);
             }
             else
             {
@@ -140,7 +141,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.ReporteRT
         }
 
         [HttpGet]
-        public object GetTurnos(string token, string lenguaje)
+        public object GetTurnos(string token,int TipoPruebaID, int ProveedorID, int EquipoID, string lenguaje)
         {
             string payload = "";
             string newToken = "";
@@ -151,7 +152,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.ReporteRT
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
 
-                return ReporteRTBD.Instance.ObtenerListadoTurnos(lenguaje);
+                return ReporteRTBD.Instance.ObtenerListadoTurnos(TipoPruebaID,ProveedorID,EquipoID,lenguaje);
             }
             else
             {
@@ -176,7 +177,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.ReporteRT
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
 
-                return ReporteRT_BD.Instance.ObtenerRequisicionesDetalle(proyectoID, tipoPruebaID, proveedorID, requisicionID, equipoID, turnoID,lenguaje);
+                return ReporteRTBD.Instance.ObtenerDetalleRequisicion(proyectoID, tipoPruebaID, proveedorID, requisicionID, equipoID, turnoID,lenguaje);
             }
             else
             {
@@ -189,7 +190,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.ReporteRT
             }
         }
 
-        public object Post(Models.ServiciosTecnicos.ReporteRT.CapturaReporteRT Captura, string token, string lenguaje)
+        public object Post(CapturaResultados Captura, string token, string lenguaje)
         {
             string payload = "";
             string newToken = "";
@@ -257,7 +258,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.ReporteRT
                     dtDetalleDefectos.Columns.RemoveAt(8);
                     dtDetalleDefectos.Columns.RemoveAt(4);
                 }
-                return ReporteRT_BD.Instance.InsertarCapturaReportesRT(dtDetalleCaptura, dtDetalleResultados, dtDetalleDefectos, usuario.UsuarioID, lenguaje);
+                return ReporteRTBD.Instance.InsertarCapturaResultados(dtDetalleCaptura, dtDetalleResultados, dtDetalleDefectos, usuario.UsuarioID, lenguaje);
             }
             else
             {
@@ -285,7 +286,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.ReporteRT
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
-                return ReporteRTBD.Instance.ObtieneElementosRequisicion(lenguaje, RequisicionID);
+                return ReporteRTBD.Instance.ObtieneElementosRequisicionParametro(lenguaje, RequisicionID);
             }
             else
             {

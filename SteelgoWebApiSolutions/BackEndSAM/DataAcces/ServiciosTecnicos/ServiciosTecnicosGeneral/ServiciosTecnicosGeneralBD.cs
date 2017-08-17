@@ -88,7 +88,8 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ServiciosTecnicosGeneral
                             TipoPruebaID = item.TipoPruebaID.GetValueOrDefault(),
                             NombreRequisicion = item.NombreRequisicion,
                             FechaRequisicion = item.FechaRequisicion.ToString(),
-                            Observacion = item.Observaciones
+                            Observacion = item.Observaciones,
+                            FolioCliente = item.FolioCliente
                         });
                     }
 
