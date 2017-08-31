@@ -7642,9 +7642,45 @@ _dictionary = {
         "es-MX": "Spool Contiene",
         "en-US": "Contain Spool"
     },
+    "lblRevisionOCCerrada": {
+        "es-MX": "La Orden de compra está cerrada, debe abrirla para realizar alguna modificación",
+        "en-US": "The purchase order is closed, you must open to modify"
+    },
+    "lblAgregarCliente": {
+        "es-MX": "Agregar Cliente",
+        "en-US": "Add Client"
+    },
+    "lblNoCoincideCliente": {
+        "es-MX": "El Cliente no coincide con la orden de compra, por favor registre los datos del nuevo cliente",
+        "en-US": "The customer does not match the purchase order. Please register the new customer data"
+    },
+    "lblFaltaCliente": {
+        "es-MX": "Ingrese nombre de cliente",
+        "en-US": "Enter client name"
+    },
     "lblOKFABObservacion": {
         "es-MX": "Observaciones",
         "en-US": "Observations"
+    },
+    "lblCliente1": {
+        "es-MX": "Cliente",
+        "en-US": "Client"
+    },
+    "lblDireccion": {
+        "es-MX": "Dirección",
+        "en-US": "Address"
+    },
+    "lblCiudad": {
+        "es-MX": "Ciudad",
+        "en-US": "City"
+    },
+    "lblEstado": {
+        "es-MX": "Estado",
+        "en-US": "State"
+    },
+    "lblPais": {
+        "es-MX": "Pais",
+        "en-US": "Country"
     },
     "lblNcContiene": {
         "es-MX": "No. de Control Contiene",
@@ -13270,6 +13306,34 @@ _dictionary = {
     "titleCompraPagoOC": {
         "es-MX": "Compra y Pago OC",
         "en-US": "Purchase and payment OP"
+    },
+    "titleCobroOC": {
+        "es-MX": "Cobro de OC",
+        "en-US": "OP Charge "
+    },
+    "titlePagoOC": {
+        "es-MX": "Pago de OC",
+        "en-US": "OP Payment"
+    },
+    "columnCobrado": {
+        "es-MX": "Cobrado",
+        "en-US": "Charged"
+    },
+    "columnPagado": {
+        "es-MX": "Pagado",
+        "en-US": "Paid out"
+    },
+    "columnPorCobrar": {
+        "es-MX": "Por Cobrar",
+        "en-US": "To Charge"
+    },
+    "columnPorPagar": {
+        "es-MX": "Por Pagar",
+        "en-US": "To Charge"
+    },
+    "lblMoneda": {
+        "es-MX": "Moneda",
+        "en-US": "Coin"
     },
     //Finaliza Modulo Dynasol
     // Modulo Montaje
