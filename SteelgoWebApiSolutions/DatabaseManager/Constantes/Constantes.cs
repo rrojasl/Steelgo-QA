@@ -89,7 +89,7 @@
         public static string GUARDARCAPTURAPRUEBASSPOOL = "Sam3_Pintura_PruebasLote_Guardar";
         public static string AGREGARSPOOLSAVANCE = "Sam3_Pintura_Avance_Get_AgregarSpool";
         public static string GUARDACAPTURA_RECEPCIONOC = "Sam3_OrdenCompras_SET_GuardarCapturaRecepcionOC";
-        public static string GUARDACAPTURA_COMPRAPAGOOC = "Sam3_OrdenCompras_SET_GuardarCapturaCompraPagoOC";
+        public static string GUARDACAPTURA_COBROOC = "Sam3_Materiales_SET_GuardaCobroOC";
         public static string GUARDARCAPTURA_ASIGNACIONENVIO = "Sam3_Embarque_AE_SET_GuardaAsignacionEnvio";
 
     }
