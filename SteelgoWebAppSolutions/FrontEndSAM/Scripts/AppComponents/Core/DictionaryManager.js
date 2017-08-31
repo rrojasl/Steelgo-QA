@@ -7085,7 +7085,15 @@ _dictionary = {
         "es-MX": "Todos",
         "en-US": "All"
     },
+    "lblTodos2": {
+        "es-MX": "Todos",
+        "en-US": "All"
+    },
     "lblVacios": {
+        "es-MX": "Vacíos",
+        "en-US": "Empty"
+    },
+    "lblVacios2": {
         "es-MX": "Vacíos",
         "en-US": "Empty"
     },
@@ -7373,9 +7381,25 @@ _dictionary = {
         "es-MX": "Aprobado",
         "en-US": "Approved"
     },
+    "lblAprobado2": {
+        "es-MX": "Aprobado",
+        "en-US": "Approved"
+    },
     "lblRechazado": {
         "es-MX": "  Rechazado",
         "en-US": "  Rejected"
+    },
+    "lblRechazado2": {
+        "es-MX": "  Rechazado",
+        "en-US": "  Rejected"
+    },
+    "lblResultado": {
+        "es-MX": "Resultado",
+        "en-US": "Result"
+    },
+    "lblResultado2": {
+        "es-MX": "Resultado",
+        "en-US": "Result"
     },
     "lblAprobadoVisual": {
         "es-MX": "Aprobado",
@@ -7698,6 +7722,18 @@ _dictionary = {
         "es-MX": "Ninguno",
         "en-US": "Any"
     },
+    "lblNinguno2": {
+        "es-MX": "Ninguno",
+        "en-US": "Any"
+    },
+    "lblNinguno3": {
+        "es-MX": "Ninguno",
+        "en-US": "Any"
+    },
+    "lblNinguno4": {
+        "es-MX": "Ninguno",
+        "en-US": "Any"
+    },
     "lblPaquete": {
         "es-MX": "Paquete",
         "en-US": "Package"
@@ -7974,6 +8010,10 @@ _dictionary = {
         "en-US": "Clean"
     },
     "botonPlanchar": {
+        "es-MX": "Aplicar",
+        "en-US": "Apply"
+    },
+    "botonPlanchar2": {
         "es-MX": "Aplicar",
         "en-US": "Apply"
     },
@@ -9227,6 +9267,10 @@ _dictionary = {
         "es-MX": "Entrega de Placas o Gráficas",
         "en-US": "Delivering Plate or Graphics"
     },
+    "ServiciosTecnicosEntregaPG": {
+        "es-MX": "Entrega de Placas o Gráficas",
+        "en-US": "Delivering Plate or Graphics"
+    },
     "ServiciosTecnicosRequisicionPNDBreadcrumb": {
         "es-MX": "Requisición PND",
         "en-US": "PND Requisition"
@@ -10261,8 +10305,20 @@ _dictionary = {
         "en-US": "Validation Results"
     },
     "EntregaPlacasGraficasTituloPopup": {
-        "es-MX": "Error!!!",
-        "en-US": "Error to save!!!"
+        "es-MX": "Error al guardar",
+        "en-US": "Error to save"
+    },
+    "EntregaPlacasColumnDetallePlacas": {
+        "es-MX": "Detalle Placas",
+        "en-US": "Plate detail"
+    },
+    "EntregaPlacasColumnRBuenEstado": {
+        "es-MX": "R. Buen Estado",
+        "en-US": "Well State R."
+    },
+    "EntregaPlacasColumnCantPlacas": {
+        "es-MX": "Cant Placas",
+        "en-US": "Plate Qty"
     },
 
     "EntregaPlacasGraficasPlancharTodos": {
@@ -10412,10 +10468,14 @@ _dictionary = {
         "en-US": "No data to save."
     },
 
-    // Pantalla Captura Reporte RT PND
+    // Pantalla Captura ResultadosPND
     "CapturaReporteModificarNoPlacas": {
-        "es-MX": "¿Deseas cambiar el numero de placas?",
-        "en-US": "¿Do You want to change the number plates?"
+        "es-MX": "¿Deseas cambiar el numero de placas?, el contenido de las placas e indicaciones capturados anteriormente, serán eliminado",
+        "en-US": "¿Do You want to change the number plates?, the contain of plates and indicationes previously captured,  will be deleted"
+    },
+    "CapturaReporteModificarNoPlacas": {
+        "es-MX": "¿Deseas cambiar el tipo de evaluacion?, el contenido de las placas e indicaciones capturados anteriormente, serán eliminado",
+        "en-US": "¿Do You want to change the evaluation type?, the contain of plates and indicationes previously captured,  will be deleted"
     },
     "CapturaReporteGuardarDefectosPopup": {
         "es-MX": "Agregar",
@@ -10565,8 +10625,8 @@ _dictionary = {
         "en-US": "Cancel"
     },
     "CapturaReporteValidacionErroneaDefecto": {
-        "es-MX": "Error de validación,  le recormamos que Inicio mm y Fin mm, deben de ser mayores a cero y Fin mm debe de ser mayor a Inicio mm.",
-        "en-US": "Error validation remind you that Home and End mm mm, must be greater than zero and End mm must be greater than Start mm."
+        "es-MX": "Los registros marcados no estan capturados correctamente, favor de completarlos",
+        "en-US": "The marked records, are not captured correctly, please complete them"
     },
     "CapturaReporteGuardadoErroneo": {
         "es-MX": "No hay elementos por guardar.",

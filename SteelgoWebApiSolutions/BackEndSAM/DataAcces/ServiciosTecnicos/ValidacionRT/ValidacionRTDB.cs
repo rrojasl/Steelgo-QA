@@ -74,17 +74,17 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ValidacionRT
                 using (SamContext ctx = new SamContext())
                 {
                     List<Proveedor> listaProveedores = new List<Proveedor>();
-                    List<Sam3_ST_VR_Get_Proveedores_Result> listaProveedorCTX = ctx.Sam3_ST_VR_Get_Proveedores(ProyectoID, TipoPruebaID).ToList();
-                    //listaProveedores.Add(new Proveedor());
-                    foreach (Sam3_ST_VR_Get_Proveedores_Result item in listaProveedorCTX)
-                    {
-                        listaProveedores.Add(new Proveedor
-                        {
-                            ProveedorID = item.ProveedorID,
-                            TipoPruebaProveedorID = item.TipoPruebaProveedorID,
-                            Nombre = item.Proveedor
-                        });
-                    }
+                    //List<Sam3_ST_VR_Get_Proveedores_Result> listaProveedorCTX = ctx.Sam3_ST_VR_Get_Proveedores(ProyectoID, TipoPruebaID).ToList();
+                    ////listaProveedores.Add(new Proveedor());
+                    //foreach (Sam3_ST_VR_Get_Proveedores_Result item in listaProveedorCTX)
+                    //{
+                    //    listaProveedores.Add(new Proveedor
+                    //    {
+                    //        ProveedorID = item.ProveedorID,
+                    //        TipoPruebaProveedorID = item.TipoPruebaProveedorID,
+                    //        Nombre = item.Proveedor
+                    //    });
+                    //}
                     return listaProveedores;
                 }
             }

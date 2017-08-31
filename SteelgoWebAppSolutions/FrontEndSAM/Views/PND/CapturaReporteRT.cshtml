@@ -7,7 +7,7 @@
 </style>
 
 @{
-    
+
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -39,6 +39,9 @@
                         </ul>
                     </div>
                     <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar"></span></a>
+                </div>
+                <div id="EntregaPlcasDivSuperior" class="button-section">
+                    <a id="" href="@Url.Action("EntregaPlacasGraficas", "PND")" class="btn btn-primary"><span id="menuServiciosTecnicosEntregaPlacasGraficas"></span></a>
                 </div>
                 <div class="button-section actionButtonSection">
                     <div class="dropdown action-group">
@@ -81,9 +84,9 @@
             <label id="">Turno</label>
             <label id="lblTurno"></label>
         </div>
-        
+
         <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
-            <button type="button" id="btnAgregar" class="btn btn-blue"><span id="CapturaReporteBotonBuscar"></span></button>
+            <button type="button" id="btnAgregar" class="btn btn-blue"><span id="botonMostrar"></span></button>
         </div>
     </div>
 
@@ -100,22 +103,22 @@
                     <label id="CapturaReporteTurno"> </label>
                     <input id="inputTurno" />
                 </div>
-                <div class="col-sm-2 col-md-2 col-lg-2" id="EvaluacionDiv" >
+                <div class="col-sm-2 col-md-2 col-lg-2" id="EvaluacionDiv">
                     <label id="">Evaluación</label>
                     <input type="radio" id="SelectTodosSi" name="SelectSector" style="width:auto;" value="Si" /><span id="">Sector</span><br />
                     <input type="radio" id="SelectTodosNo" name="SelectSector" style="width:auto;" value="No" /><span id="">Cuadrante</span><br />
                     <input type="radio" id="SelectTodosNinguno" name="SelectSector" style="width:auto;" value="Ninguno" checked /><span id="lblNinguno"></span>
                 </div>
-                <div class="col-sm-2 col-md-2 col-lg-2" id="divRes" >
-                    <label id="">Resultado</label>
-                    <input type="radio" id="SelectTodosSi" name="SelectTodos" style="width:auto;" value="Si" /><span id="">Aprobado</span><br />
-                    <input type="radio" id="SelectTodosNo" name="SelectTodos" style="width:auto;" value="No" /><span id="">Rechazado</span><br />
-                    <input type="radio" id="SelectTodosNinguno" name="SelectTodos" style="width:auto;" value="Ninguno"  checked/><span id="">Ninguno</span>
+                <div class="col-sm-2 col-md-2 col-lg-2" id="divRes">
+                    <label id="lblResultado"></label>
+                    <input type="radio" id="SelectTodosSi" name="SelectTodos" style="width:auto;" value="Si" /><span id="lblAprobado2"></span><br />
+                    <input type="radio" id="SelectTodosNo" name="SelectTodos" style="width:auto;" value="No" /><span id="lblRechazado2"></span><br />
+                    <input type="radio" id="SelectTodosNinguno" name="SelectTodos" style="width:auto;" value="Ninguno" checked /><span id="lblNinguno2"></span>
                 </div>
                 <div class="btn-group col-xs-12 col-sm-6 col-md-2 col-lg-2" role="group" id="LlenaCapturaAvanceIntAcabadoDiv">
                     <label id="lblPlanchar"></label>
                     <input type="radio" id="LlenaTodos" name="LLena" style="width:auto;" value="Todos" /><span id="lblTodos1"></span>
-                    <input type="radio" id="LlenaVacios" name="LLena" style="width:auto;" value="Vacios" checked="checked"   /><span id="lblVacios"></span>
+                    <input type="radio" id="LlenaVacios" name="LLena" style="width:auto;" value="Vacios" checked="checked" /><span id="lblVacios"></span>
 
                 </div>
                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
@@ -130,59 +133,62 @@
             </div>
         </div>
     </div>
-</div>
-@*Menu Inferior*@
-<div class="row">
-    <div class="col-sm-12 col-md-12 col-lg-12">
-        <div class="formNav clearfix">
-            <div class="button-section editButtonSection">
-                <div class="btn-group save-group">
-                    <button id="Guardar1" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="botonGuardar3"></span></button>
-                    <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="caretWhite"></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a href="#" id="btnGuardar1"><span id="botonGuardar4"></span></a></li>
-                        <li><a href="#" id="btnGuardarYNuevo1"><span id="botonGuardarYNuevo1"></span></a></li>
-                    </ul>
+
+    @*Menu Inferior*@
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <div class="formNav clearfix">
+                <div class="button-section editButtonSection">
+                    <div class="btn-group save-group">
+                        <button id="Guardar1" onclick="javascript:void(0);" type="button" class="btn btn-yellow"><span id="botonGuardar3"></span></button>
+                        <button id="dropdown-toggle" type="button" class="btn btn-yellow dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="caretWhite"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" id="btnGuardar1"><span id="botonGuardar4"></span></a></li>
+                            <li><a href="#" id="btnGuardarYNuevo1"><span id="botonGuardarYNuevo1"></span></a></li>
+                        </ul>
+                    </div>
+                    <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar1"></span></a>
                 </div>
-                <a id="btnCancelar" class="btn btn-black"><span id="botonCancelar1"></span></a>
-            </div>
-            <div class="button-section actionButtonSection">
-                <div class="dropdown action-group">
-                    <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
-                        <span id="botonAcciones2"></span>
-                        <span class="caretBlue"></span>
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="Acciones"></ul>
+                <div id="EntregaPlcasDivInferior" class="button-section">
+                    <a id="" href="@Url.Action("EntregaPlacasGraficas", "PND")" class="btn btn-primary"><span id="ServiciosTecnicosEntregaPG"></span></a>
                 </div>
+                <div class="button-section actionButtonSection">
+                    <div class="dropdown action-group">
+                        <a id="Acciones" data-target="#" href="#" data-toggle="dropdown" role="button" ariahaspopup="true" aria-expanded="false" class="btn btn-default">
+                            <span id="botonAcciones2"></span>
+                            <span class="caretBlue"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="Acciones"></ul>
+                    </div>
+                </div>
+                <a id="Imprimir" href="#" class="btn btn-fadeBlue actionButtonSection"></a>
             </div>
-            <a id="Imprimir" href="#" class="btn btn-fadeBlue actionButtonSection"></a>
         </div>
     </div>
-</div>
 </div>
 
 <div id="windowGrid" style="display: none; z-index:inherit;">
 
     <div class="row">
-        <div class="col-sm-2 col-md-2 col-lg-2" id="ResultadoDiv">
-            <label id="">Resultado</label><br />
-            <input type="radio" id="SelectTodosSi" name="SelectTodos" style="width:auto;" value="Si" /><span id="">Aprobado</span><br />
-            <input type="radio" id="SelectTodosNo" name="SelectTodos" style="width:auto;" value="No" /><span id="">Rechazado</span><br />
-            <input type="radio" id="SelectTodosNinguno" name="SelectTodos" style="width:auto;" value="Ninguno" /><span id="">Ninguno</span>
-        </div>
-        <div class="btn-group col-xs-12 col-sm-6 col-md-2 col-lg-2" role="group" id="">
-            <label id="">Planchado</label><br />
-            <input type="radio" id="LlenaTodos" name="LLena" style="width:auto;" value="Todos" checked /><span id="">Todos</span>
-            <input type="radio" id="LlenaVacios" name="LLena" style="width:auto;" value="Vacios" /><span id="">Vacios</span>
+        @*<div class="col-sm-2 col-md-2 col-lg-2" id="ResultadoDiv">
+                <label id="lblResultado2"></label><br />
+                <input type="radio" id="SelectTodosSi" name="SelectTodosPop" style="width:auto;" value="Si" /><span id="lblAprobado"></span><br />
+                <input type="radio" id="SelectTodosNo" name="SelectTodosPop" style="width:auto;" value="No" /><span id="lblRechazado"></span><br />
+                <input type="radio" id="SelectTodosNinguno" name="SelectTodos" style="width:auto;" value="Ninguno" /><span id="lblNinguno3"></span>
+            </div>
+            <div class="btn-group col-xs-12 col-sm-6 col-md-2 col-lg-2" role="group" id="">
+                <label id="">Planchado</label><br />
+                <input type="radio" id="LlenaTodos" name="LLenaPop" style="width:auto;" value="Todos" checked /><span id="lblTodos2"></span>
+                <input type="radio" id="LlenaVacios" name="LLenaPop" style="width:auto;" value="Vacios" /><span id="lblVacios2"></span>
 
-        </div>
-        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-            <button type="button" id="btnPlancharPopUp" class="btn btn-blue"><span id="">Aplicar</span></button>
-        </div>
+            </div>
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                <button type="button" id="btnPlancharPopUp" class="btn btn-blue"><span id="botonPlanchar2"></span></button>
+            </div>*@
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-            <label></label>   
+            <label></label>
         </div>
     </div>
 

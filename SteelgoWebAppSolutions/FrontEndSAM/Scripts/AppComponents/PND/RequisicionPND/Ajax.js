@@ -8,7 +8,7 @@ function AjaxCargarCamposPredeterminados() {
             if (data == "sin captura") {
                 $('input:radio[name=Muestra]:nth(0)').trigger("click");
             }
-            else if (data == "Todos") {
+            else if (data == "todos") {
                 $('input:radio[name=Muestra]:nth(1)').trigger("click");
             }
             loadingStop();
@@ -333,7 +333,7 @@ function AjaxObtenerJunta() {
     loadingStart();
     $RequisicionPND.RequisicionPND.read({ token: Cookies.get("token"), lenguaje: $("#language").val(), IdOrdenTrabajo: $("#InputOrdenTrabajo").val(), OrdenTrabajoSpoolID: $("#InputID").val(), TipoPruebaID: $("#inputTipoPrueba").data("kendoComboBox").value() == "" ? 0 : $("#inputTipoPrueba").data("kendoComboBox").value(), ProyectoID: $("#inputProyecto").data("kendoComboBox").value() == "" ? 0 : $("#inputProyecto").data("kendoComboBox").value(), JuntaSpoolID: $("#Junta").val() }).done(function (data) {
         if (Error(data)) {
-            if (data[0].ProyectoID == parseInt($("#inputProyecto").data("kendoComboBox").value())) 
+            if (data[0].ProyectoID == parseInt($("#inputProyecto").data("kendoComboBox").value())){ 
                 var ds = $("#grid").data("kendoGrid").dataSource;
                 if (data.length > 0) {
                     $("#Junta").data("kendoComboBox").value("");
@@ -344,6 +344,7 @@ function AjaxObtenerJunta() {
                     ds.page(1);
                 }
                 ds.sync();
+            
             }
             else {
                 displayNotify("", "El elemento manual, debe ser del mismo proyecto", 1);

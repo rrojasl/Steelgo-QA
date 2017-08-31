@@ -56,11 +56,10 @@ namespace BackEndSAM.Models.ServiciosTecnicos.EntregaPlacasGraficas
         
     public class RequisicionDetalle
     {
+        public int Accion { get; set; }
         public int EntregaPlacasGraficasID { get; set; }
         public int RequisicionID { get; set; }
-        public int OrdenTrabajoID { get; set; }
-        public int SpoolID { get; set; }
-        public int JuntaSpoolID { get; set; }
+        public int ElementoClasificacionPNDID { get; set; }
         public string NumeroControl { get; set; }
         public string JuntaEtiqueta { get; set; }
         public int ClasificacionPndID { get; set; }
@@ -70,17 +69,14 @@ namespace BackEndSAM.Models.ServiciosTecnicos.EntregaPlacasGraficas
         public string Observaciones { get; set; }
         public int CodigoAsmeID { get; set; }
         public string CodigoAsme { get; set; }
-        public int Accion { get; set; }
-        public int DocumentoRecibidoID { get; set; }
-        public string DocumentoRecibido { get; set; }
-        public int DocumentoEstatusID { get; set; }
-        public string DocumentoEstatus { get; set; }
+        public int NumeroBuenEstado { get; set; }
+        public bool BuenEstado { get; set; }
         public int DocumentoDefectoID { get; set; }
         public string DocumentoDefecto { get; set; }
         public int EstatusCaptura { get; set; }
         public int Cantplacas { get; set; }
-        public List<DocumentoRecibido> ListaRecibido { get; set; }
-        public List<DocumentoEstatus> ListaEstatusDocumento { get; set; }
+        //public List<DocumentoRecibido> ListaRecibido { get; set; }
+        //public List<DocumentoEstatus> ListaEstatusDocumento { get; set; }
         public List<DocumentoDefecto> ListaDefectoDocumento { get; set; }
         
     }
@@ -139,11 +135,11 @@ namespace BackEndSAM.Models.ServiciosTecnicos.EntregaPlacasGraficas
         {
             TipoPruebaID = 0;
             Nombre = "";
-            TipoPruebaPorSpool = 0;
+            TipoPruebaPorSpool = false;
         }
         public int TipoPruebaID { get; set; }
         public string Nombre { get; set; }
-        public int TipoPruebaPorSpool { get; set; }
+        public bool TipoPruebaPorSpool { get; set; }
     }
 
     public class ElementoRequisicion

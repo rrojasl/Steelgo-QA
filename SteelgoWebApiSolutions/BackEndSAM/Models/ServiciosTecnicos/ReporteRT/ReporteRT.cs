@@ -178,7 +178,7 @@ namespace BackEndSAM.Models.ServiciosTecnicos.ReporteRT
 
     public class CapturaResultados
     {
-        public List<DetalleCaptura> Detalles { get; set; }
+        public List<CapturaResultado> Detalles { get; set; }
     }
 
     public class DetallePorPlacas
@@ -193,6 +193,7 @@ namespace BackEndSAM.Models.ServiciosTecnicos.ReporteRT
         public List<Resultados> ListaResultados { get; set; }
         public List<Defectos> ListaDefectos { get; set; }
         public string TemplateDetallePorPlaca { get; set; }
+        public int ElementoPorClasificacionPNDID { get; set; }
     }
 
 
@@ -234,31 +235,42 @@ namespace BackEndSAM.Models.ServiciosTecnicos.ReporteRT
         public List<DetallePorPlacas> ListaDetallePorPlacas { get; set; }
         public List<Resultados> ListaResultados { get; set; }
         public List<Defectos> ListaDefectos { get; set; }
+        public List<RangoCuadrante> listaRangoCuadrantes { get; set; }
         public string TemplateDetalleElemento { get; set; }
         public bool EsSector { get; set; }
-        public int Evaluacion { get; set; }
         public int NoPlacas { get; set; }
         public List<TurnoLaboral> listadoTurno { get; set; }
         public List<Equipo> listadoEquipo { get; set; }
         public int ProveedorEquipoID { get; set; }
         public int CapacidadTurnoProveedorID { get; set; }
         public int CapacidadTurnoEquipoID { get; set; }
+        public int ResultadoID { get; set; }
+        public string Resultado { get; set; }
+
+        public int MinimoPlacasCuadrante { get; set; }
+        public int MaximoPlacasCuadrante { get; set; }
+        public int MinimoPlacasSector { get; set; }
+        public int MaximoPlacasSector { get; set; }
+        public bool RowOk { get; set; }
     }
 
 
 
     public class DetalleResultadosDefectos
     {
-        public int OrdenTrabajoID { get; set; }
-        public int SpoolID { get; set; }
-        public int JuntaSpoolID { get; set; }
-        public int? DefectoID { get; set; }
-        public string Defecto { get; set; }
-        public decimal? InicioMM { get; set; }
-        public decimal? FinMM { get; set; }
         public int Accion { get; set; }
-        public int Posicion { get; set; }
+        public int CapturaResultadoPlacaDefectoID { get; set; }
+        public int CapturaResultadoPlacaID { get; set; }
+        public int ResultadoID { get; set; }
+        public string Resultado { get; set; }
+        public int DefectoID { get; set; }
+        public string Defecto { get; set; }
+        public decimal InicioMM { get; set; }
+        public decimal FinMM { get; set; }
+        public int RangoCuadranteID { get; set; }
         public string Ubicacion { get; set; }
+        public int ElementoPorClasificacionPNDID { get; set; }
+        public string Cuadrante { get; set; }
     }
 
     public class Defectos
@@ -271,5 +283,59 @@ namespace BackEndSAM.Models.ServiciosTecnicos.ReporteRT
             DefectoID = 0;
             Defecto = "";
         }
+    }
+
+    public class RangoCuadrante
+    {
+        public int RangoCuadranteID { get; set; }
+        public string Cuadrante { get; set; }
+
+        public RangoCuadrante()
+        {
+            RangoCuadranteID = 0;
+            Cuadrante = "";
+        }
+    }
+
+    public class CapturaResultado
+    {
+        public int CapturaResultadoID { get; set; }
+        public int RequisicionID { get; set; }
+        public int ElementoClasificacionPNDID { get; set; }
+        public int ProveedorEquipoID { get; set; }
+        public int CapacidadTurnoEquipoID { get; set; }
+        public int CapacidadTurnoProveedorID { get; set; }
+	    public int Status { get; set; }
+        public int Evaluacion { get; set; }
+        public int NoPlacas { get; set; }
+        public int ResultadoID { get; set; }
+        public int Accion { get; set; }
+        public List<CapturaResultadoPlaca> ListaDetallePorPlacas { get; set; }
+        public List<CapturaResultadoIndicacion> listaDetalleIndicacion { get; set; }
+    }
+
+    public class CapturaResultadoPlaca
+    {
+        public int CapturaResultadoPlacaID { get; set; }
+        public int ElementoClasificacionPNDID { get; set; }
+        public int CapturaResultadoID { get; set; }
+        public string Ubicacion { get; set; }
+        public int ResultadoID { get; set; }
+        public int Accion { get; set; }
+        
+    }
+
+    public class CapturaResultadoIndicacion
+    {
+        public int CapturaResultadoPlacaDefectoID { get; set; }
+        public int CapturaResultadoPlacaID { get; set; }
+        public int ElementoClasificacionPNDID { get; set; }
+        public string Ubicacion { get; set; }
+        public int ResultadoID { get; set; }
+        public int DefectoID { get; set; }
+        public decimal InicioMM { get; set; }
+        public decimal FinMM { get; set; }
+        public int RangoCuadranteID { get; set; }
+        public int Accion { get; set; }
     }
 }

@@ -322,13 +322,11 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ReporteRT
                         numPlacas = 0;
 
                         List<Defectos> listaDefectos = ObtenerListadoDefectos(lenguaje);//por junta
-
+                        List<RangoCuadrante> listaRangoCuadrantes = ObtenerListadoRangoCuadrantes();
                         List<DetallePorPlacas> listaDetallePorPlacas = ObtenerDetallePorPlacas(item.CapturaResultadoID.GetValueOrDefault(), out numPlacas, lenguaje, listaResultados, listaDefectos);
 
                         numPlacas = (numPlacas == 0 ? null : numPlacas);
-
-
-
+                        
                         detalle = new DetalleCaptura
                         {
                             CapturaResultadoID = item.CapturaResultadoID.GetValueOrDefault(),
@@ -341,13 +339,13 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ReporteRT
                             TipoPrueba = item.TipoPrueba,
                             Observaciones = item.Observaciones,
                             NumeroPlacas = numPlacas,
-                            
                             ResultadoConciliacion = item.ResultadoConciliacion,
                             RazonNoConciliacion = item.RazonNoConciliacion,
                             ListaDetallePorPlacas = listaDetallePorPlacas,
                             Accion = item.CapturaResultadoID  == null ? 1 : 2,//falta negocio.
                             ListaResultados = listaResultados,
                             ListaDefectos = listaDefectos,
+                            listaRangoCuadrantes = listaRangoCuadrantes,
                             TemplateDetalleElemento = lenguaje == "es-MX" ? "Ver detalle" : " View detail ",
                             EstatusRequisicion = item.Estatus.GetValueOrDefault(),
                             RequisicionID = item.RequisicionID,
@@ -361,8 +359,15 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ReporteRT
                             listadoTurno = (List<TurnoLaboral>)ObtenerTurnoLaboralTotal(lenguaje,tipoPruebaID),
                             ProveedorEquipoID = item.ProveedorEquipoID,
                             CapacidadTurnoEquipoID = item.CapacidadTurnoEquipoID,
-                            CapacidadTurnoProveedorID = item.CapacidadTurnoProveedorID
-                            
+                            CapacidadTurnoProveedorID = item.CapacidadTurnoProveedorID,
+                            Resultado  = item.Resultado,
+                            ResultadoID = item.ResultadoID,
+                            MinimoPlacasCuadrante = item.MinimoPlacasCuadrante.GetValueOrDefault(),
+                            MaximoPlacasCuadrante = item.MaximoPlacasCuadrante.GetValueOrDefault(),
+                            MinimoPlacasSector = item.MinimoPlacasSector.GetValueOrDefault(),
+                            MaximoPlacasSector = item.MaximoPlacasSector.GetValueOrDefault(),
+                            CodigoAsme = "",
+                            RowOk = true
                         };
                         listaDetalleJunta.Add(detalle);
 
@@ -458,15 +463,15 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ReporteRT
             }
         }
 
-        public object InsertarCapturaResultados(DataTable dtDetalleCaptura, DataTable dtDetalleResultados, DataTable dtDetalleDefectos, int usuario, string lenguaje)
+        public object InsertarCapturaResultados(DataTable dtDetalleCaptura, DataTable dtDetalleResultados, DataTable dtDetalleDefectos, int usuario, string lenguaje, int RequisicionID)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
                     ObjetosSQL _SQL = new ObjetosSQL();
-                    string[,] parametro = { { "@UsuarioID", usuario.ToString() }, { "@lenguaje", lenguaje } };
-                    _SQL.Ejecuta(Stords.GUARDARCAPTURAREPORTE, dtDetalleCaptura, "@ReporteRT", dtDetalleResultados, "@ReporteRTResultados", dtDetalleDefectos, "@ReporteRTResultadosDefectos", parametro);
+                    string[,] parametro = { { "@RequisicionID", RequisicionID.ToString() }, { "@UsuarioID", usuario.ToString() }, { "@lenguaje", lenguaje } };
+                    _SQL.Ejecuta(Stords.GUARDARCAPTURAREPORTE, dtDetalleCaptura, "@CapturaResultados", dtDetalleResultados, "@CapturaResultadosPlacas", dtDetalleDefectos, "@CapturaResultadosDefectos", parametro);
                     TransactionalInformation result = new TransactionalInformation();
                     result.ReturnMessage.Add("Ok");
                     result.ReturnCode = 200;
@@ -548,7 +553,10 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ReporteRT
                             TemplateDetallePorPlaca = lenguaje == "es-MX" ? "Detalle" : "Detail",
                             Accion = 2,
                             ListaResultados = listaResultados,
-                            ListaDefectos = listaDefectos
+                            ListaDefectos = listaDefectos,
+                            CapturaResultadoID = item.CapturaResultadoID,
+                            CapturaResultadoPlacaID = item.CapturaResultadoPlacaID,
+                            ElementoPorClasificacionPNDID = item.ElementoPorClasificacionPNDID
                         };
                         listaDetalleResultado.Add(detalleResultado);
                     }
@@ -563,7 +571,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ReporteRT
             }
         }
 
-        public List<DetalleResultadosDefectos> ObtenerDetalleIndicaciones(int capturaResultadoID, List<Defectos> listaDefectos, string lenguaje)
+        public List<DetalleResultadosDefectos> ObtenerDetalleIndicaciones(int capturaResultadoPlacaID, List<Defectos> listaDefectos, string lenguaje)
         {
             List<DetalleResultadosDefectos> listaDetalleDefectos = new List<DetalleResultadosDefectos>();
             try
@@ -571,27 +579,29 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ReporteRT
 
                 using (SamContext ctx = new SamContext())
                 {
-                    //List<Sam3_ReportesRT_Get_Resultados_Detalle_Result> result = ctx.Sam3_ReportesRT_Get_Resultados_Detalle(resultadosDefectoID, ordenTrabajoID, spoolID, juntaSpoolID,lenguaje).ToList();
-                    DetalleResultadosDefectos detalleDefecto = null;
-
-                    int posicion = 0;
-                    //foreach (Sam3_ReportesRT_Get_Resultados_Detalle_Result item in result)
-                    //{
-                    //    posicion++;
-                    //    detalleDefecto = new DetalleResultadosDefectos
-                    //    {
-                    //        OrdenTrabajoID = item.OrdenTrabajoID,
-                    //        SpoolID = item.SpoolID,
-                    //        JuntaSpoolID = item.JuntaSpoolID.GetValueOrDefault(),
-                    //        DefectoID = item.DefectoID,
-                    //        Defecto = item.Defecto,
-                    //        InicioMM =item.InicioMM,
-                    //        FinMM = item.FinMM,
-                    //        Accion = 2,
-                    //        Posicion = posicion,//item.Posicion.GetValueOrDefault(),
-                    //    };
-                    //    listaDetalleDefectos.Add(detalleDefecto);
-                    //}
+                    List<Sam3_ST_ReportesRT_Get_Resultados_Detalle_Result> result = ctx.Sam3_ST_ReportesRT_Get_Resultados_Detalle(capturaResultadoPlacaID,lenguaje).ToList();
+                    
+                    foreach (Sam3_ST_ReportesRT_Get_Resultados_Detalle_Result item in result)
+                    {
+                        
+                        listaDetalleDefectos.Add(new DetalleResultadosDefectos
+                        {
+                            Accion = 2,
+                            CapturaResultadoPlacaID = item.CapturaResultadoPlacaID,
+                            CapturaResultadoPlacaDefectoID = item.CapturaResultadoPlacaDefectoID,
+                            ElementoPorClasificacionPNDID = item.ElementoPorClasificacionPNDID,
+                            DefectoID = item.DefectoID,
+                            Defecto = item.Defecto,
+                            InicioMM = item.InicioMM.GetValueOrDefault(),
+                            FinMM = item.FinMM.GetValueOrDefault(),
+                            RangoCuadranteID = item.RangoCuadranteID.GetValueOrDefault(),
+                            ResultadoID = item.ResultadoID,
+                            Resultado = item.Resultado,
+                            Ubicacion = item.Ubicacion,
+                            Cuadrante = item.Cuadrante
+                            
+                        });
+                    }
 
                     return listaDetalleDefectos;
                 }
@@ -632,6 +642,39 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ReporteRT
             catch (Exception ex)
             {
                 return listaDefectos;
+            }
+        }
+
+
+        public List<RangoCuadrante> ObtenerListadoRangoCuadrantes()
+        {
+            List<RangoCuadrante> listaRangoCuadrantes = new List<RangoCuadrante>();
+            try
+            {
+
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Sam3_ST_ReportesRT_Get_RangoCuadrantes_Result> result = ctx.Sam3_ST_ReportesRT_Get_RangoCuadrantes().ToList();
+
+                    RangoCuadrante elemento = null;
+                    listaRangoCuadrantes.Add(new RangoCuadrante());
+                    foreach (Sam3_ST_ReportesRT_Get_RangoCuadrantes_Result item in result)
+                    {
+                        elemento = new RangoCuadrante
+                        {
+                            RangoCuadranteID = item.RangoCuadranteID,
+                            Cuadrante = item.Cuadrante
+                        };
+
+                        listaRangoCuadrantes.Add(elemento);
+                    }
+                    return listaRangoCuadrantes;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return listaRangoCuadrantes;
             }
         }
 

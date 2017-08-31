@@ -52,7 +52,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.ReporteRT
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
 
-                return ReporteRTBD.Instance.ObtenerListadoProveedores(proyectoID,tipoPruebaID,patioID);
+                return ReporteRTBD.Instance.ObtenerListadoProveedores(proyectoID, tipoPruebaID, patioID);
             }
             else
             {
@@ -116,7 +116,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.ReporteRT
         }
 
         [HttpGet]
-        public object GetEquipos(string token,int TipoPruebaID, int ProveedorID, string lenguaje)
+        public object GetEquipos(string token, int TipoPruebaID, int ProveedorID, string lenguaje)
         {
             string payload = "";
             string newToken = "";
@@ -127,7 +127,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.ReporteRT
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
 
-                return ReporteRTBD.Instance.ObtenerListadoEquipos(TipoPruebaID,ProveedorID, lenguaje);
+                return ReporteRTBD.Instance.ObtenerListadoEquipos(TipoPruebaID, ProveedorID, lenguaje);
             }
             else
             {
@@ -141,7 +141,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.ReporteRT
         }
 
         [HttpGet]
-        public object GetTurnos(string token,int TipoPruebaID, int ProveedorID, int EquipoID, string lenguaje)
+        public object GetTurnos(string token, int TipoPruebaID, int ProveedorID, int EquipoID, string lenguaje)
         {
             string payload = "";
             string newToken = "";
@@ -152,7 +152,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.ReporteRT
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
 
-                return ReporteRTBD.Instance.ObtenerListadoTurnos(TipoPruebaID,ProveedorID,EquipoID,lenguaje);
+                return ReporteRTBD.Instance.ObtenerListadoTurnos(TipoPruebaID, ProveedorID, EquipoID, lenguaje);
             }
             else
             {
@@ -166,7 +166,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.ReporteRT
         }
 
         [HttpGet]
-        public object GetRequisicionesDetalle(string token, int proyectoID, int tipoPruebaID, int proveedorID, int requisicionID, int equipoID, int turnoID,string lenguaje)
+        public object GetRequisicionesDetalle(string token, int proyectoID, int tipoPruebaID, int proveedorID, int requisicionID, int equipoID, int turnoID, string lenguaje)
         {
             string payload = "";
             string newToken = "";
@@ -177,7 +177,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.ReporteRT
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
 
 
-                return ReporteRTBD.Instance.ObtenerDetalleRequisicion(proyectoID, tipoPruebaID, proveedorID, requisicionID, equipoID, turnoID,lenguaje);
+                return ReporteRTBD.Instance.ObtenerDetalleRequisicion(proyectoID, tipoPruebaID, proveedorID, requisicionID, equipoID, turnoID, lenguaje);
             }
             else
             {
@@ -190,7 +190,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.ReporteRT
             }
         }
 
-        public object Post(CapturaResultados Captura, string token, string lenguaje)
+        public object Post(CapturaResultados Captura, string token, string lenguaje, int RequisicionID)
         {
             string payload = "";
             string newToken = "";
@@ -200,65 +200,32 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.ReporteRT
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
                 Sam3_Usuario usuario = serializer.Deserialize<Sam3_Usuario>(payload);
-                DataTable dtDetalleCaptura = ReporteRTController.ToDataTable(Captura.Detalles);    
-                DataTable dtDetalleResultados = new DataTable("detalleResultados");
-                DataTable dtDetalleDefectos = new DataTable("detalleDefectos");
+                DataTable dtDetalleCaptura = ReporteRTController.ToDataTable(Captura.Detalles);
+                DataTable dtDetalleResultados = null;
+                DataTable dtDetalleDefectos = null;
 
-                for (int i = 0; i < Captura.Detalles.Count; i++)
+                foreach (CapturaResultado item in Captura.Detalles)
                 {
-                    DataTable dtResultados = null;
-                    
-                    DataTable dtDefectos = null;
 
-                    if (Captura.Detalles[i].ListaDetallePorPlacas != null)
+                    if (item.ListaDetallePorPlacas != null)
                     {
-                        for (int j = 0; j < Captura.Detalles[i].ListaDetallePorPlacas.Count; j++)
-                        {
-                            if (Captura.Detalles[i].ListaDetallePorPlacas[j].ListaDetalleDefectos != null)
-                            {
-                                dtDefectos = ReporteRTController.ToDataTable(Captura.Detalles[i].ListaDetallePorPlacas[j].ListaDetalleDefectos);
-                                dtDetalleDefectos.Merge(dtDefectos);
-                            }
-                        }
+                        if (dtDetalleResultados == null)
+                            dtDetalleResultados = ReporteRTController.ToDataTable(item.ListaDetallePorPlacas);
+                        else
+                            dtDetalleResultados.Merge(ReporteRTController.ToDataTable(item.ListaDetallePorPlacas));
+                    }
 
-                        dtResultados = ReporteRTController.ToDataTable(Captura.Detalles[i].ListaDetallePorPlacas);
-                        dtDetalleResultados.Merge(dtResultados);
+                    if (item.listaDetalleIndicacion != null)
+                    {
+                        if (dtDetalleDefectos == null)
+                            dtDetalleDefectos = ReporteRTController.ToDataTable(item.listaDetalleIndicacion);
+                        else
+                            dtDetalleDefectos.Merge(ReporteRTController.ToDataTable(item.listaDetalleIndicacion));
                     }
                 }
-
-              
-
-                dtDetalleCaptura.Columns.RemoveAt(11);
-                dtDetalleCaptura.Columns.RemoveAt(11);
-                dtDetalleCaptura.Columns.RemoveAt(11);
-                dtDetalleCaptura.Columns.RemoveAt(11);
-                dtDetalleCaptura.Columns.RemoveAt(11);
-                dtDetalleCaptura.Columns.RemoveAt(11);
-                dtDetalleCaptura.Columns.RemoveAt(11);
-                dtDetalleCaptura.Columns.RemoveAt(11);
-                dtDetalleCaptura.Columns.RemoveAt(11);
-                dtDetalleCaptura.Columns.RemoveAt(7);
-                dtDetalleCaptura.Columns.RemoveAt(7);
-                dtDetalleCaptura.Columns.RemoveAt(7);
-                dtDetalleCaptura.Columns.RemoveAt(7);
-                dtDetalleCaptura.Columns.RemoveAt(7);
-
-                if (dtDetalleResultados.Rows.Count > 0)
-                {
-                    dtDetalleResultados.Columns.RemoveAt(8);
-                    dtDetalleResultados.Columns.RemoveAt(7);
-                    dtDetalleResultados.Columns.RemoveAt(7);
-                    dtDetalleResultados.Columns.RemoveAt(5);
-                    dtDetalleResultados.Columns.RemoveAt(6);
-                }
-
-                if (dtDetalleDefectos.Rows.Count > 0)
-                {
-                    dtDetalleDefectos.Columns.RemoveAt(9);
-                    dtDetalleDefectos.Columns.RemoveAt(8);
-                    dtDetalleDefectos.Columns.RemoveAt(4);
-                }
-                return ReporteRTBD.Instance.InsertarCapturaResultados(dtDetalleCaptura, dtDetalleResultados, dtDetalleDefectos, usuario.UsuarioID, lenguaje);
+                dtDetalleCaptura.Columns.Remove("ListaDetallePorPlacas");
+                dtDetalleCaptura.Columns.Remove("listaDetalleIndicacion");
+                return ReporteRTBD.Instance.InsertarCapturaResultados(dtDetalleCaptura, dtDetalleResultados, dtDetalleDefectos, usuario.UsuarioID, lenguaje, RequisicionID);
             }
             else
             {
