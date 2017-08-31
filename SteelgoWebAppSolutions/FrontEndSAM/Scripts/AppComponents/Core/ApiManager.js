@@ -250,6 +250,7 @@ var $PackingList = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $DynasolCamion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $RecepcionOC = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $CompraPagoOC = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $CobroOC = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 // Montaje 
 
 var $PlanchadoSoldadura = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
@@ -470,6 +471,7 @@ $PackingList.add("PackingList");
 $DynasolCamion.add("Camion");
 $RecepcionOC.add("RecepcionOC");
 $CompraPagoOC.add("CompraPagoOC");
+$CobroOC.add("CobroOC");
 
 //Montaje
 $PlanchadoSoldadura.add("PlanchadoSoldadura");
