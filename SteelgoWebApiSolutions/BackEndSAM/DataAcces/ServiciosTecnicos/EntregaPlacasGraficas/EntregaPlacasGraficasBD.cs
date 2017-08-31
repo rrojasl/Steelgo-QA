@@ -191,7 +191,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EntregaPlacasGraficas
                         {
                             TipoPruebaID = item.TipoPruebaID,
                             Nombre = item.Nombre,
-                            TipoPruebaPorSpool = item.TipoPruebaPorSpool
+                            TipoPruebaPorSpool = item.TipoPruebaPorSpool.GetValueOrDefault()
                         });
                     }
 
@@ -307,7 +307,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EntregaPlacasGraficas
                     }
 
                     List<RequisicionDetalle> listaDetalle = new List<RequisicionDetalle>();
-                    List<Sam3_ST_EPG_ObtieneRequisicionDetalle_Result> result = ctx.Sam3_ST_EPG_ObtieneRequisicionDetalle(proyectoID, tipoPruebaID, proveedorID, requisicionID, lenguaje).ToList();
+                    List<Sam3_ST_EPG_ObtieneRequisicionDetalle_Result> result = ctx.Sam3_ST_EPG_ObtieneRequisicionDetalle( requisicionID, lenguaje).ToList();
                     foreach (Sam3_ST_EPG_ObtieneRequisicionDetalle_Result item in result)
                     {
                         listaDetalle.Add(new RequisicionDetalle
@@ -315,9 +315,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EntregaPlacasGraficas
                             Accion = item.EntregaPlacasGraficasID==0?1:2,
                             EntregaPlacasGraficasID = item.EntregaPlacasGraficasID.GetValueOrDefault(),
                             RequisicionID = item.RequisicionID,
-                            OrdenTrabajoID = item.OrdenTrabajoID,
-                            SpoolID = item.SpoolID.GetValueOrDefault(),
-                            JuntaSpoolID = item.JuntaSpoolID.GetValueOrDefault(),
+                            ElementoClasificacionPNDID = item.ElementoClasificacionPNDID,
                             NumeroControl = item.NumeroControl,
                             JuntaEtiqueta = item.JuntaEtiqueta,
                             ClasificacionPndID = item.ClasificacionPNDID.GetValueOrDefault(),
@@ -326,16 +324,15 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EntregaPlacasGraficas
                             TipoPrueba = item.TipoPrueba,
                             Observaciones = item.Observaciones,
                             CodigoAsmeID = 1,
-                            DocumentoRecibidoID = item.DocumentoRecibidoID.GetValueOrDefault(),
-                            DocumentoRecibido = item.DocumentoRecibido,
-                            DocumentoEstatusID = item.EntregaPlacasGraficasID.GetValueOrDefault() == 0 ? 1 : item.DocumentoEstatusID.GetValueOrDefault(),   
-                            DocumentoEstatus = item.EntregaPlacasGraficasID == 0 ? estatusDefault : item.DocumentoEstatus,
                             DocumentoDefectoID = item.DocumentoDefectoID.GetValueOrDefault(),
                             DocumentoDefecto = item.DefectoDocumento,
+                            BuenEstado = item.BuenEstado,
+                            CodigoAsme = "",
+                            NumeroBuenEstado = item.NumeroBuenEstado,
                             EstatusCaptura = 0,
-                            Cantplacas = 3,
-                            ListaRecibido = (List<DocumentoRecibido>)EntregaPlacasGraficasBD.Instance.ObtenerListadoDocumentoRecibido(lenguaje),
-                            ListaEstatusDocumento = (List<DocumentoEstatus>)EntregaPlacasGraficasBD.Instance.ObtenerListadoDocumentoEstatus(lenguaje),
+                            Cantplacas = item.Cantplacas.GetValueOrDefault(),
+                            //ListaRecibido = (List<DocumentoRecibido>)EntregaPlacasGraficasBD.Instance.ObtenerListadoDocumentoRecibido(lenguaje),
+                            //ListaEstatusDocumento = (List<DocumentoEstatus>)EntregaPlacasGraficasBD.Instance.ObtenerListadoDocumentoEstatus(lenguaje),
                             ListaDefectoDocumento = (List<DocumentoDefecto>)EntregaPlacasGraficasBD.Instance.ObtenerListadoDocumentoDefecto(lenguaje)
                         });
                     }
@@ -382,7 +379,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EntregaPlacasGraficas
                         listaTipoPrueba.Add(new TipoPrueba {
                             TipoPruebaID = result.TipoPruebaID.GetValueOrDefault(),
                             Nombre = result.TipoPrueba,
-                            TipoPruebaPorSpool = result.TipoPruebaPorSpool
+                            TipoPruebaPorSpool = result.TipoPruebaPorSpool == 1 ? true : false
                         });
 
                         List<Proveedor> listaProveedor = new List<Proveedor>();

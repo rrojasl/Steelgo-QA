@@ -146,13 +146,13 @@ function cargarGrid() {
             { field: "NumeroControl", title: _dictionary.columnNumeroControl[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "110px" },
             { field: "JuntaEtiqueta", title: _dictionary.columnJunta[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "70px" },
             { field: "ClasificacionPnd", title: _dictionary.columnClasificacion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "80px" },
-            { field: "TipoPrueba", title: _dictionary.columnTipoPrueba[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px" },
+            { field: "TipoPrueba", title: _dictionary.columnTipoPrueba[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "100px" },
             { field: "Observaciones", title: _dictionary.columnObservacion[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px" },
             { field: "CodigoAsme", title: _dictionary.columnCodigoAsme[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px" },
-            { field: "Cantplacas", title: "Cant Placas", filterable: getGridFilterableCellMaftec(), width: "100px" },
-            { field: "Recibida", title: "R. Buen Estado", filterable: getGridFilterableCellMaftec(), width: "100px", editor: RenderRecibida },
-            { field: "Dan", title: "Detalle Placas", filterable: getGridFilterableCellMaftec(), width: "100px", template: "<div class='EnlaceDetalleColada1' style='text-align:center;'><a>Detalle</a></div>" },
-            { field: "DocumentoDefecto", title: "Defecto", filterable: getGridFilterableCellMaftec(), width: "110px", editor: RenderComboBoxDefectoDocumento },
+            { field: "Cantplacas", title: _dictionary.EntregaPlacasColumnCantPlacas[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "100px" },
+            { field: "Recibida", title: _dictionary.EntregaPlacasColumnRBuenEstado[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "100px", editor: RenderRecibida },
+            { field: "Dan", title: _dictionary.EntregaPlacasColumnDetallePlacas[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "100px", template: "<div class='EnlaceDetalleColada1' style='text-align:center;'><a>Detalle</a></div>" },
+            { field: "DocumentoDefecto", title: _dictionary.DimensionalVisualHeaderDefecto[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "110px", editor: RenderComboBoxDefectoDocumento },
             //{ command: { text: _dictionary.botonLimpiar[$("#language").data("kendoDropDownList").value()], click: limpiarRenglon }, title: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()], width: "50px" }
         ],
         beforeEdit: function (e) {

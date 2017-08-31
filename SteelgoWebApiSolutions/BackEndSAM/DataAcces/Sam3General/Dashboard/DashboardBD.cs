@@ -61,9 +61,9 @@ namespace BackEndSAM.DataAcces.Sam3General.Dashboard
                 using (SamContext ctx = new SamContext())
                 {
                     List<DetalleDashboard> listadoDetalleDashboard = new List<DetalleDashboard>();
-                    List<Sam3_GET_RequisicionesDashboard_Result> result =  ctx.Sam3_GET_RequisicionesDashboard(lenguaje,ProyectoID,TipoPruebaID,ProveedorID,FechaInicial,FechaInicial,EstatusID).ToList();
+                    List<Sam3_ST_DASH_GET_RequisicionesDashboard_Result> result =  ctx.Sam3_ST_DASH_GET_RequisicionesDashboard(lenguaje,ProyectoID,TipoPruebaID,ProveedorID,FechaInicial,FechaInicial,EstatusID).ToList();
 
-                    foreach (Sam3_GET_RequisicionesDashboard_Result item in result)
+                    foreach (Sam3_ST_DASH_GET_RequisicionesDashboard_Result item in result)
                     {
                         listadoDetalleDashboard.Add( new DetalleDashboard{
                             RequisicionID = item.RequisicionID,

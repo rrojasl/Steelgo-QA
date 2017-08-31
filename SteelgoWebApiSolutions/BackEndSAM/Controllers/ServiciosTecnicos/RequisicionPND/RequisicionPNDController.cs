@@ -64,7 +64,7 @@ namespace BackEndSAM.Controllers.ServiciosTecnicos.RequisicionPND
                 return RequisicionPNDDB.Instance.InsertarNuevaRequisicion(
                     dtDetalleCaptura, listaElementosPorReq.RequisicionID, listaElementosPorReq.Requisicion, 
                     listaElementosPorReq.ProyectoID, listaElementosPorReq.TipoPruebaID, listaElementosPorReq.FechaRequisicion, 
-                    //listaElementosPorReq.CodigoAsme, 
+                    listaElementosPorReq.FolioCliente == null ? "" : listaElementosPorReq.FolioCliente, 
                     listaElementosPorReq.Observacion, listaElementosPorReq.Lenguaje, usuario);
             }
             else

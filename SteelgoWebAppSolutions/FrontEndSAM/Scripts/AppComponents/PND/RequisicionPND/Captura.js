@@ -328,3 +328,35 @@ function existenCambios(arregloCaptura) {
     }
     return false;
 }
+
+
+
+function PlanchaAgregar(Agregar) {
+
+    var dataSource = $("#grid").data("kendoGrid").dataSource;
+    var filters = dataSource.filter();
+    var allData = dataSource.data();
+    var query = new kendo.data.Query(allData);
+    var data = query.filter(filters).data;
+
+    for (var i = 0; i < data.length; i++) {
+        if ($('input:radio[name=LLena]:checked').val() === "Todos") {
+            if (Agregar == "Si" && data[i].RequisicionID == 0) {
+                data[i].Agregar = true;
+                
+
+
+            } else if (Agregar == "No" && data[i].RequisicionID == 0) {
+                data[i].Agregar = false;
+
+            }
+        } else if ($('input:radio[name=LLena]:checked').val() === "Vacios") {
+            if (!data[i].Agregar && data[i].RequisicionID == 0) {
+                if (Agregar == "Si") {
+                    data[i].Agregar = true;
+                }
+            }
+        }
+    }
+    $("#grid").data("kendoGrid").refresh();
+}

@@ -5,17 +5,17 @@ function IniciarEdicionRequisicion() {
 }
 
 function changeLanguageCall() {
-    var paramReq = getParameterByName('requisicion');        
+    var paramReq = getParameterByName('requisicion');
     SiguienteProceso(paramReq);
-    if(paramReq!=null){
+    if (paramReq != null) {
         AjaxObtenerElementoRequisicion(paramReq);
     } else {
         AjaxCargaListaProyecto();
     }
     AjaxCargarCamposPredeterminados();
-    cargarGrid();    
+    cargarGrid();
     document.title = _dictionary.ServiciosTecnicosEditarRequisicionBreadcrumb[$("#language").data("kendoDropDownList").value()];
-    
+
 }
 
 function AgregarJuntaNueva() {
@@ -126,13 +126,6 @@ function cargarGrid() {
                     }
                 }
             },
-            //filter: {
-            //    logic: "or",
-            //    filters: [
-            //      { field: "accion", operator: "eq", value: 1 },
-            //      { field: "accion", operator: "eq", value: 2 }
-            //    ]
-            //},
             pageSize: 10,
             serverPaging: false,
             serverFiltering: false,
@@ -177,16 +170,27 @@ function cargarGrid() {
         ],
         dataBound: function (a) {
             $(".ob-paid").bind("change", function (e) {
-                if ($('#botonGuardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
+                if ($('#btnGuardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
                     var grid = $("#grid").data("kendoGrid"),
-                        dataItem = grid.dataItem($(e.target).closest("tr"));
-                    if (dataItem.RequisicionID == 0 && e.target.checked == true)
+                    dataItem = grid.dataItem($(e.target).closest("tr"));
+
+                    
+                    if (dataItem.RequisicionID != 0) {
+                        if (dataItem.Agregar && !e.target.checked) {
+                            dataItem.Accion = 3;
+                        }
+                        else if(!dataItem.Agregar && e.target.checked) {
+                            dataItem.Accion = 2;
+                        }
+                    }
+                    if (e.target.checked == true)
                         dataItem.Agregar = true;
                     else
                         dataItem.Agregar = false;
+
+                    
                 }
-                else
-                {
+                else {
                     if (e.target.checked) {
                         e.target.checked = false;
                         $("#grid").data("kendoGrid").dataItem($(e.target).closest("tr")).Agregar = false;

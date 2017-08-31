@@ -42,7 +42,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ReporteRT
             {
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_ReportesRT_Get_ListaProyectos_Result> result = ctx.Sam3_ReportesRT_Get_ListaProyectos(usuarioID).ToList();
+                    List<Sam3_ST_ReportesRT_Get_ListaProyectos_Result> result = ctx.Sam3_ST_ReportesRT_Get_ListaProyectos(usuarioID).ToList();
 
 
                     return result;
@@ -69,9 +69,9 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ReporteRT
                 {
 
                     List<Proveedor> listaProveedores = new List<Proveedor>();
-                    List<Sam3_ReportesRT_ST_Get_Proveedores_Result> result = ctx.Sam3_ReportesRT_ST_Get_Proveedores(proyectoID, tipoPruebaID, patioID).ToList();
+                    List<Sam3_ST_ReportesRT_Get_Proveedores_Result> result = ctx.Sam3_ST_ReportesRT_Get_Proveedores(proyectoID, tipoPruebaID, patioID).ToList();
                     listaProveedores.Add(new Proveedor());
-                    foreach (Sam3_ReportesRT_ST_Get_Proveedores_Result item in result)
+                    foreach (Sam3_ST_ReportesRT_Get_Proveedores_Result item in result)
                     {
                         listaProveedores.Add(new Proveedor
                         {
@@ -103,7 +103,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ReporteRT
 
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_ReportesRT_ST_Get_Requisiciones_Result> result = ctx.Sam3_ReportesRT_ST_Get_Requisiciones(proyectoID, proveedorID).ToList();
+                    List<Sam3_ST_ReportesRT_Get_Requisiciones_Result> result = ctx.Sam3_ST_ReportesRT_Get_Requisiciones(proyectoID, proveedorID).ToList();
 
 
                     return result;
@@ -129,7 +129,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ReporteRT
 
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_ReportesRT_ST_Get_Requisiciones_Detalle_Result> result = ctx.Sam3_ReportesRT_ST_Get_Requisiciones_Detalle(proyectoID, tipoPruebaID, proveedorID, requisicionID, equipoID, turnoID, lenguaje).ToList();
+                    List<Sam3_ST_ReportesRT_Get_Requisiciones_Detalle_Result> result = ctx.Sam3_ST_ReportesRT_Get_Requisiciones_Detalle(proyectoID, tipoPruebaID, proveedorID, requisicionID, equipoID, turnoID, lenguaje).ToList();
 
                     int? numPlacas = 0;
 
@@ -138,7 +138,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ReporteRT
                     
                     List<DetalleCaptura> listaDetalleJunta = new List<DetalleCaptura>();
                     DetalleCaptura detalle = null;
-                    foreach (Sam3_ReportesRT_ST_Get_Requisiciones_Detalle_Result item in result)
+                    foreach (Sam3_ST_ReportesRT_Get_Requisiciones_Detalle_Result item in result)
                     {
                         numPlacas = 0;
 
@@ -239,11 +239,11 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ReporteRT
 
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_ReportesRT_ST_CRRT_Get_Resultado_Result> result = ctx.Sam3_ReportesRT_ST_CRRT_Get_Resultado(lenguaje).ToList();
+                    List<Sam3_ST_CRRT_Get_Resultado_Result> result = ctx.Sam3_ST_CRRT_Get_Resultado(lenguaje).ToList();
 
                     Resultados resultado = null;
                     listaResultados.Add(new Resultados());
-                    foreach (Sam3_ReportesRT_ST_CRRT_Get_Resultado_Result item in result)
+                    foreach (Sam3_ST_CRRT_Get_Resultado_Result item in result)
                     {
                         resultado = new Resultados
                         {
@@ -272,13 +272,13 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.ReporteRT
 
                 using (SamContext ctx = new SamContext())
                 {
-                    List<Sam3_ReportesRT_Get_Resultados_Result> result = ctx.Sam3_ReportesRT_Get_Resultados(ordenTrabajoID, spoolID, juntaSpoolID, lenguaje).ToList();
+                    List<Sam3_ST_ReportesRT_Get_Resultados_Result> result = ctx.Sam3_ST_ReportesRT_Get_Resultados(ordenTrabajoID, spoolID, juntaSpoolID, lenguaje).ToList();
 
                     numeroPlacas = result.Count;
 
                     DetallePorPlacas detalleResultado = null;
 
-                    foreach (Sam3_ReportesRT_Get_Resultados_Result item in result)
+                    foreach (Sam3_ST_ReportesRT_Get_Resultados_Result item in result)
                     {
                         List<DetalleResultadosDefectos> listadoDetalleResultadoDefectos = ObtenerReportesRTResultadosDetalle(item.ResultadosID, item.OrdenTrabajoID, item.SpoolID, item.JuntaSpoolID.GetValueOrDefault(), listaDefectos, lenguaje);
 
