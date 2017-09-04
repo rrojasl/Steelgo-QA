@@ -145,11 +145,11 @@ function RenderCantG(container, options) {
 }
 
 function RenderPorCobrar(container, options) {
-    var max = options.model.CantS - options.model.Cobrado;
+    var max = options.model.CantS - options.model.Pagado;
     if (max < 0)
         max = 0;
     var dataItem;
-    $('<input data-text-field="PorCobrar" id=' + options.model.uid + ' data-value-field="PorCobrar" data-bind="value:' + options.field + '"/>')
+    $('<input data-text-field="PorPagar" id=' + options.model.uid + ' data-value-field="PorPagar" data-bind="value:' + options.field + '"/>')
     .appendTo(container)
     .kendoNumericTextBox({
         format: "#",

@@ -37,6 +37,10 @@ namespace FrontEndSAM.Controllers.Dynasol
         {
             return View();
         }
+        public ActionResult CreacionOC()
+        {
+            return View();
+        }
 
     }
 }

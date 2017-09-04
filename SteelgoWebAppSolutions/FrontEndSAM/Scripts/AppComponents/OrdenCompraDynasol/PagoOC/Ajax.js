@@ -8,7 +8,7 @@
     var pais = $("#inputPais").val();    
     if (OrdenCompra != undefined || OrdenCompra != 0) {
         if (nombreCliente != "") {
-            $CobroOC.CobroOC.read({ token: Cookies.get("token"), OrdenCompraID: OrdenCompra, Nombre: nombreCliente, Direccion: dir, Ciudad: ciudad, Estado: estado, Pais: pais }).done(function (data) {
+            $PagoOC.PagoOC.read({ token: Cookies.get("token"), OrdenCompraID: OrdenCompra, Nombre: nombreCliente, Direccion: dir, Ciudad: ciudad, Estado: estado, Pais: pais }).done(function (data) {
                 if (data != null) {                    
                         //AjaxGetClienteByOC(0);
                         setTimeout(function () {
@@ -47,7 +47,7 @@ function AjaxObtenerOrdenesCompra() {
 
 //function AjaxObtenerCatalogoMoneda() {
 //    loadingStart();
-//    $CobroOC.CobroOC.read({ token: Cookies.get("token") }).done(function (data) {
+//    $PagoOC.PagoOC.read({ token: Cookies.get("token") }).done(function (data) {
 //        if (Error(data)) {
 //            $("#inputMoneda").data("kendoComboBox").setDataSource([]);
 //            $("#inputMoneda").data("kendoComboBox").text("");
@@ -58,7 +58,7 @@ function AjaxObtenerOrdenesCompra() {
 //}
 function AjaxGetClienteByOC(OrdenCompra) {
     loadingStart();
-    $CobroOC.CobroOC.read({ token: Cookies.get("token"), OrdenCompraID: OrdenCompra, Relleno: true }).done(function (data) {
+    $PagoOC.PagoOC.read({ token: Cookies.get("token"), OrdenCompraID: OrdenCompra, Relleno: true }).done(function (data) {
         if (Error(data)) {
             $("#inputCliente").data("kendoComboBox").setDataSource([]);
             $("#inputCliente").data("kendoComboBox").text("");
@@ -77,13 +77,13 @@ function AjaxGetClienteByOC(OrdenCompra) {
 function AjaxCargarRevision() {
     loadingStart();
     var OrdenCompra = $("#inputOrdenCompra").data("kendoComboBox").value() == undefined ? 0 : $("#inputOrdenCompra").data("kendoComboBox").value();
-    $CobroOC.CobroOC.read({ token: Cookies.get("token"), OrdenCompraID: OrdenCompra }).done(function (data) {
+    $PagoOC.PagoOC.read({ token: Cookies.get("token"), OrdenCompraID: OrdenCompra }).done(function (data) {
         if (Error(data)) {
             $("#grid").data("kendoGrid").dataSource.data([]);
             var ds = $("#grid").data("kendoGrid").dataSource;
             var array = data;
             if (data.length > 0) {
-               
+                
                 ds.data(data);
             }
             ds.sync();
@@ -94,25 +94,23 @@ function AjaxCargarRevision() {
 
 function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
     loadingStart();
-
     var cerrar = $("#inputCerrar").is(":checked") ? 1 : 0;
-
     var Captura = { Detalle: "" };
     var Datos = [];
     for (var i = 0; i < arregloCaptura.length; i++) {
         Datos[i] =
         {
             ColadaID: 0,
-            Cobrado: 0,            
+            Pagado: 0,            
             ModificadoPorUsuario: false
         }
         Datos[i].ColadaID = arregloCaptura[i].RevisionID;        
-        Datos[i].Cobrado = arregloCaptura[i].Cobrado + arregloCaptura[i].PorCobrar;
+        Datos[i].Pagado = arregloCaptura[i].Pagado + arregloCaptura[i].PorPagar;
         Datos[i].ModificadoPorUsuario = arregloCaptura[i].ModificadoPorUsuario;
     }
     Captura.Detalle = Datos;
     var OrdenCompraID = $("#inputOrdenCompra").data("kendoComboBox").value();
-    $CobroOC.CobroOC.create(Captura, { OrdenCompraID: OrdenCompraID, Cerrada: cerrar, token: Cookies.get("token") }).done(function (data) {
+    $PagoOC.PagoOC.create(Captura, { OrdenCompraID: OrdenCompraID, Cerrada: cerrar, token: Cookies.get("token") }).done(function (data) {
         if (data.ReturnMessage.length > 0 && data.ReturnMessage[0] == "OK") {
             if (data.ReturnMessage[1] == "1") {
                 $('#inputCerrar').prop('checked', true);
@@ -120,8 +118,6 @@ function AjaxGuardarCaptura(arregloCaptura, tipoGuardar) {
             else {
                 $('#inputCerrar').prop('checked', false);
             }
-
-
             if (tipoGuardar == 0) {
                 opcionHabilitarView(true);
                 AjaxCargarRevision();

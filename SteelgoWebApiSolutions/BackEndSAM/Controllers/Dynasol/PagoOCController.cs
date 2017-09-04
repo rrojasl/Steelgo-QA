@@ -12,15 +12,15 @@ using System.Reflection;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Script.Serialization;
-using static BackEndSAM.Models.Dynasol.CobroOC;
+using static BackEndSAM.Models.Dynasol.PagoOC;
 
 namespace BackEndSAM.Controllers.Dynasol
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
-    public class CobroOCController : ApiController
-    {
+    public class PagoOCController : ApiController
+    {   
         [HttpGet]
-        public object GetMonedas(string token)
+        public object GetPagoOC(string token, int OrdenCompraID)
         {
             try
             {
@@ -29,7 +29,7 @@ namespace BackEndSAM.Controllers.Dynasol
                 bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payLoad, out newToken);
                 if (tokenValido)
                 {
-                    return CobroOCDB.Instance.ObtenerCatalogoMoneda();                        
+                    return PagoOCBD.Instance.ObtenerDetallePagoOC(OrdenCompraID);
                 }
                 else
                 {
@@ -51,110 +51,8 @@ namespace BackEndSAM.Controllers.Dynasol
                 return result;
             }
         }
-
-        [HttpGet]
-        public object GetCobroOC(string token, int OrdenCompraID)
-        {
-            try
-            {
-                string payLoad = "";
-                string newToken = "";
-                bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payLoad, out newToken);
-                if (tokenValido)
-                {
-                    return CobroOCDB.Instance.ObtenerDetalleCobroOC(OrdenCompraID);
-                }
-                else
-                {
-                    TransactionalInformation result = new TransactionalInformation();
-                    result.ReturnMessage.Add(payLoad);
-                    result.ReturnCode = 401;
-                    result.ReturnStatus = false;
-                    result.IsAuthenicated = false;
-                    return result;
-                }
-            }
-            catch (Exception ex)
-            {
-                TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add(ex.Message);
-                result.ReturnCode = 500;
-                result.ReturnStatus = false;
-                result.IsAuthenicated = true;
-                return result;
-            }
-        }
-
-        [HttpGet]
-        public object GetClienteByOC(string token, int OrdenCompraID, bool Relleno)
-        {
-            try
-            {
-                string payLoad = "";
-                string newToken = "";
-                bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payLoad, out newToken);
-                if (tokenValido && Relleno)
-                {
-                    return CobroOCDB.Instance.ObtenerClienteByOrdenCompraID(OrdenCompraID);
-                }
-                else
-                {
-                    TransactionalInformation result = new TransactionalInformation();
-                    result.ReturnMessage.Add(payLoad);
-                    result.ReturnCode = 401;
-                    result.ReturnStatus = false;
-                    result.IsAuthenicated = false;
-                    return result;
-                }
-            }
-            catch (Exception ex)
-            {
-                TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add(ex.Message);
-                result.ReturnCode = 500;
-                result.ReturnStatus = false;
-                result.IsAuthenicated = true;
-                return result;
-            }
-        }
-
-        [HttpGet]
-        public object GuardaCliente(string token, int OrdenCompraID, string Nombre, string Direccion, string Ciudad, string Estado, string Pais)
-        {
-            try
-            {
-                string payLoad = "";
-                string newToken = "";                
-                bool tokenValido = ManageTokens.Instance.ValidateToken(token, out payLoad, out newToken);
-                if (tokenValido)
-                {
-                    JavaScriptSerializer serializer = new JavaScriptSerializer();
-                    Sam3_Usuario Usuario = serializer.Deserialize<Sam3_Usuario>(payLoad);
-                    return CobroOCDB.Instance.GuardaCliente(OrdenCompraID, Usuario.UsuarioID, Nombre, Direccion, Ciudad, Estado, Pais);
-                }
-                else
-                {
-                    TransactionalInformation result = new TransactionalInformation();
-                    result.ReturnMessage.Add(payLoad);
-                    result.ReturnCode = 401;
-                    result.ReturnStatus = false;
-                    result.IsAuthenicated = false;
-                    return result;
-                }
-            }
-            catch (Exception ex)
-            {
-                TransactionalInformation result = new TransactionalInformation();
-                result.ReturnMessage.Add(ex.Message);
-                result.ReturnCode = 500;
-                result.ReturnStatus = false;
-                result.IsAuthenicated = true;
-                return result;
-            }
-        }
-
         [HttpPost]
-        public object GuardaCapturaCobro(DataTableCobro ListaCaptura, int OrdenCompraID,int Cerrada, string token)
+        public object GuardaCapturaPago(DataTablePago ListaCaptura, int OrdenCompraID, int Cerrada, string token)
         {
             string payLoad = "";
             string newToken = "";
@@ -175,7 +73,9 @@ namespace BackEndSAM.Controllers.Dynasol
                         dtDatos.Merge(ToDataTable(ListaCaptura.Detalle));
                     }
                 }
-                return CobroOCDB.Instance.GuardaOC(dtDatos,OrdenCompraID,Cerrada, Usuario.UsuarioID);
+
+                
+                return PagoOCBD.Instance.GuardaOC(dtDatos, OrdenCompraID, Cerrada, Usuario.UsuarioID);
             }
             else
             {
@@ -239,7 +139,6 @@ namespace BackEndSAM.Controllers.Dynasol
                 return oType;
             }
         }
-
 
     }
 }

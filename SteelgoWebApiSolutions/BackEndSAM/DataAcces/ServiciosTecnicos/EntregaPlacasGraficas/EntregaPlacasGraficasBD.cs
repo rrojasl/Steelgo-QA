@@ -136,6 +136,42 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EntregaPlacasGraficas
             }
         }
 
+        public object ObtenerListadoPlacasJunta(int capturaResultadoID, string lenguaje)
+        {
+            List<PlacasJunta> lista = new List<PlacasJunta>();
+            try
+            {
+                using (SamContext ctx = new SamContext())
+                {
+                    List<Sam3_ST_EPG_ObtienePlacasJunta_Result> result = ctx.Sam3_ST_EPG_ObtienePlacasJunta(capturaResultadoID,lenguaje).ToList();
+                    lista.Add(new PlacasJunta());
+
+                    foreach (Sam3_ST_EPG_ObtienePlacasJunta_Result item in result)
+                    {
+                        lista.Add(new PlacasJunta
+                        {
+                            Placa = item.Ubicacion,
+                            CapturaResultadoID = item.CapturaResultadoID,
+                            CapturaResultadoPlacaID = item.CapturaResultadoPlacaID
+                        });
+                    }
+
+                    return lista;
+                }
+            }
+            catch (Exception ex)
+            {
+                TransactionalInformation result = new TransactionalInformation();
+                result.ReturnMessage.Add(ex.Message);
+                result.ReturnCode = 500;
+                result.ReturnStatus = false;
+                result.IsAuthenicated = true;
+
+                return lista;
+            }
+        }
+
+
         public object ObtenerListadoProyecto(int usuario)
         {
             try
@@ -315,6 +351,7 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EntregaPlacasGraficas
                             Accion = item.EntregaPlacasGraficasID==0?1:2,
                             EntregaPlacasGraficasID = item.EntregaPlacasGraficasID.GetValueOrDefault(),
                             RequisicionID = item.RequisicionID,
+                            CapturaResultadoID = item.CapturaResultadoID,
                             ElementoClasificacionPNDID = item.ElementoClasificacionPNDID,
                             NumeroControl = item.NumeroControl,
                             JuntaEtiqueta = item.JuntaEtiqueta,
@@ -331,9 +368,10 @@ namespace BackEndSAM.DataAcces.ServiciosTecnicos.EntregaPlacasGraficas
                             NumeroBuenEstado = item.NumeroBuenEstado,
                             EstatusCaptura = 0,
                             Cantplacas = item.Cantplacas.GetValueOrDefault(),
+                            ListaPlacas =  (List<PlacasJunta>)ObtenerListadoPlacasJunta(item.CapturaResultadoID,lenguaje),
                             //ListaRecibido = (List<DocumentoRecibido>)EntregaPlacasGraficasBD.Instance.ObtenerListadoDocumentoRecibido(lenguaje),
                             //ListaEstatusDocumento = (List<DocumentoEstatus>)EntregaPlacasGraficasBD.Instance.ObtenerListadoDocumentoEstatus(lenguaje),
-                            ListaDefectoDocumento = (List<DocumentoDefecto>)EntregaPlacasGraficasBD.Instance.ObtenerListadoDocumentoDefecto(lenguaje)
+                            ListaDefectoDocumento = (List<DocumentoDefecto>)ObtenerListadoDocumentoDefecto(lenguaje)
                         });
                     }
 

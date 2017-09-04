@@ -48,7 +48,7 @@ function CargarGrid() {
             //} else {
             //    e.model.RowOk = true;                       
             //}
-            //if (e.model.Cobrado != e.values.Cobrado) {
+            //if (e.model.Pagado != e.values.Pagado) {
             //    e.model.ModificadoPorUsuario = true;
             //} else {
                 //e.model.ModificadoPorUsuario = false;
@@ -99,8 +99,8 @@ function CargarGrid() {
                         CantC: { type: "int", editable: false },
                         CantG: { type: "int", editable: false },
                         CantS: { type: "int", editable: false },
-                        Cobrado: { type: "int", editable: false },
-                        PorCobrar: { type: "number", editable: true },
+                        Pagado: { type: "int", editable: false },
+                        PorPagar: { type: "number", editable: true },
                         Deficit: { type: "int", editable: false }
                     }
                 }
@@ -124,7 +124,7 @@ function CargarGrid() {
                 { field: "CantG", aggregate: "sum" },
                 { field: "CantS", aggregate: "sum" },
                 { field: "Deficit", aggregate: "sum" },
-                { field: "Cobrado", aggregate: "sum" }
+                { field: "Pagado", aggregate: "sum" }
             ]
         },
         edit: function (e) {
@@ -132,7 +132,7 @@ function CargarGrid() {
                 var inputName = e.container.find('input');
                 inputName.select();
             });
-            if ($('#Guardar').text() == _dictionary.botonEditar[$("#language").data("kendoDropDownList").value()] || $("#inputCerrar").is(":checked")) {
+            if ($('#Guardar').text() == _dictionary.botonEditar[$("#language").data("kendoDropDownList").value()]) {
                 this.closeCell();
             };
             if ($(".k-grid-content td").css("white-space") == "normal") {
@@ -161,8 +161,8 @@ function CargarGrid() {
             { field: "CantC", title: "Cant Cecilia", filterable: getGridFilterableCellNumberMaftec(), width: "90px", aggregates: ["sum"], footerTemplate: "<div style='text-align:right;'>SUM: #= kendo.toString(sum, 'n') #</div>", },
             { field: "CantG", title: "Cant Gerez", filterable: getGridFilterableCellNumberMaftec(), width: "90px", aggregates: ["sum"], footerTemplate: "<div style='text-align:right;'>SUM: #= kendo.toString(sum, 'n') #</div>", },
             { field: "CantS", title: "Cant Steelgo", filterable: getGridFilterableCellNumberMaftec(), width: "90px", aggregates: ["sum"], footerTemplate: "<div style='text-align:right;'>SUM: #= kendo.toString(sum, 'n') #</div>", },
-            { field: "Cobrado", title: "Cobrado", filterable: getGridFilterableCellNumberMaftec(), width: "90px", aggregates: ["sum"], footerTemplate: "<div style='text-align:right;'>SUM: #= kendo.toString(sum, 'n') #</div>", },
-            { field: "PorCobrar", title: _dictionary.columnPorCobrar[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "73px", editor: RenderPorCobrar, attributes: { style: "text-align:right;" } },
+            { field: "Pagado", title: "Pagado", filterable: getGridFilterableCellNumberMaftec(), width: "90px", aggregates: ["sum"], footerTemplate: "<div style='text-align:right;'>SUM: #= kendo.toString(sum, 'n') #</div>", },
+            { field: "PorPagar", title: _dictionary.columnPorCobrar[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellNumberMaftec(), width: "73px", editor: RenderPorCobrar, attributes: { style: "text-align:right;" } },
             { field: "Deficit", title: "Deficit", filterable: getGridFilterableCellNumberMaftec(), width: "90px", aggregates: ["sum"], footerTemplate: "<div style='text-align:right;'>SUM: #= kendo.toString(sum, 'n') #</div>", }
         ],
         dataBound: function () {
@@ -197,7 +197,7 @@ function CargarGrid() {
 };
 
 function isEditable(fieldName) {
-    if (fieldName === "PorCobrar") {
+    if (fieldName === "PorPagar") {
         return true;
     }
     return false;
@@ -213,8 +213,8 @@ function VerificaCantidadSteelgo(model) {
 }
 function ChecaCantidadIgualSteelgo(model) {
     var CantS = (model.CantS == undefined || isNaN(model.CantS)) ? 0 : model.CantS;
-    var Cobrado = (model.Cobrado == undefined || isNaN(model.Cobrado)) ? 0 : model.Cobrado;
-    if (Cobrado == CantS) {
+    var Pagado = (model.Pagado == undefined || isNaN(model.Pagado)) ? 0 : model.Pagado;
+    if (Pagado == CantS) {
         return true;
     } else {        
         return false;
@@ -223,8 +223,8 @@ function ChecaCantidadIgualSteelgo(model) {
 
 function VerificaDeficit(model) {
     var CantS = (model.CantS == undefined || isNaN(model.CantS)) ? 0 : model.CantS;
-    var Cobrado = (model.Cobrado == undefined || isNaN(model.Cobrado)) ? 0 : model.Cobrado;
-    if (Cobrado > CantS) {
+    var Pagado = (model.Pagado == undefined || isNaN(model.Pagado)) ? 0 : model.Pagado;
+    if (Pagado > CantS) {
         return true;
     } else {
         return false;
@@ -232,15 +232,15 @@ function VerificaDeficit(model) {
 }
 
 function ValidaCantPorCobrar(model, value) {
-    var porCobrar = value.PorCobrar;
-    var cobrado = model.Cobrado == undefined ? 0 : model.Cobrado;
-    if (isNaN(porCobrar) || porCobrar == undefined) {
-        porCobrar = 0;
+    var PorPagar = value.PorPagar;
+    var Pagado = model.Pagado == undefined ? 0 : model.Pagado;
+    if (isNaN(PorPagar) || PorPagar == undefined) {
+        PorPagar = 0;
     }
-    if ((porCobrar + cobrado) > model.CantS) {        
+    if ((PorPagar + Pagado) > model.CantS) {        
         return false;
     } else {
-        model.Cobrado = (cobrado + porCobrar);
+        model.Pagado = (Pagado + PorPagar);
         return true;
     }
 }

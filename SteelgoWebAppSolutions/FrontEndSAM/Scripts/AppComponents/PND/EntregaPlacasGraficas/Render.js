@@ -40,8 +40,6 @@
 
 }
 
-
-
 function RenderComboBoxDocumentoEstatus(container, options) {
     var dataItem;
     var textAnterior;
@@ -163,14 +161,14 @@ function tieneClase(item) {
 function RenderComboBoxPlaca(container, options) {
     var dataItem;
     var textAnterior;
-    $('<input  data-text-field="Placa" data-value-field="PlacaID" data-bind="value:' + options.field + '"/>')
+    $('<input  data-text-field="Placa" data-value-field="CapturaResultadoPlacaID" data-bind="value:' + options.field + '"/>')
         .appendTo(container)
         .kendoComboBox({
             suggest: true,
             delay: 10,
             filter: "contains",
             autoBind: false,
-            dataSource: [{ PlacaID: 0, Placa: "" }, { PlacaID: 1, Placa: "0-1" }, { PlacaID: 2, Placa: "1-2" }, { PlacaID: 3, Placa: "2-1" }],
+            dataSource: ModeloRenglon.ListaPlacas,
             template: "<i class=\"fa fa-#=data.Placa#\"></i> #=data.Placa#",
             select: function (e) {
                 dataItem = this.dataItem(e.item.index());
@@ -181,7 +179,7 @@ function RenderComboBoxPlaca(container, options) {
                 dataItem = this.dataItem(e.sender.selectedIndex);
                 if (dataItem != undefined) {
                     options.model.Placa = dataItem.Placa;
-                    options.model.PlacaID = dataItem.PlacaID;
+                    options.model.CapturaResultadoPlacaID = dataItem.CapturaResultadoPlacaID;
                     options.model.EstatusCaptura = 1;
                 }
                 else {
@@ -215,19 +213,3 @@ function RenderRecibida(container, options) {
     });
 }
 
-//function RenderDanada(container, options) {
-//    var maximo = options.model.Cantplacas;
-
-//    if (options.model.Cantplacas != "") {
-//         maximo = options.model.Cantplacas - options.model.Recibida;
-//    }
-
-//    $('<input data-text-field="Danada" id=' + options.model.uid + ' data-value-field="Danada" data-bind="value:' + options.field + '"/>')
-//    .appendTo(container)
-//    .kendoNumericTextBox({
-//        format: "#",
-//        decimals: 0,
-//        min: 0,
-//        max: parseInt(maximo)
-//    });
-//}

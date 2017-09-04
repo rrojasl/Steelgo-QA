@@ -53,13 +53,28 @@ namespace BackEndSAM.Models.ServiciosTecnicos.EntregaPlacasGraficas
             DocumentoDefectoNombre = "";
         }
     }
-        
+
+    public class PlacasJunta
+    {
+        public PlacasJunta()
+        {
+            CapturaResultadoID = 0;
+            CapturaResultadoPlacaID = 0;
+            Placa = "";
+        }
+
+        public int CapturaResultadoID { get; set; }
+        public int CapturaResultadoPlacaID { get; set; }
+        public string Placa { get; set; }
+    }
+
     public class RequisicionDetalle
     {
         public int Accion { get; set; }
         public int EntregaPlacasGraficasID { get; set; }
         public int RequisicionID { get; set; }
         public int ElementoClasificacionPNDID { get; set; }
+        public int CapturaResultadoID { get; set; }
         public string NumeroControl { get; set; }
         public string JuntaEtiqueta { get; set; }
         public int ClasificacionPndID { get; set; }
@@ -78,7 +93,8 @@ namespace BackEndSAM.Models.ServiciosTecnicos.EntregaPlacasGraficas
         //public List<DocumentoRecibido> ListaRecibido { get; set; }
         //public List<DocumentoEstatus> ListaEstatusDocumento { get; set; }
         public List<DocumentoDefecto> ListaDefectoDocumento { get; set; }
-        
+        public List<PlacasJunta> ListaPlacas { get; set; }
+
     }
 
     public class CapturaPlacasGraficas

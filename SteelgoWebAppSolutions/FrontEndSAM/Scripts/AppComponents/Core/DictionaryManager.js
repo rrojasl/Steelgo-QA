@@ -8590,12 +8590,16 @@ _dictionary = {
         "en-US": "Material buy"
     },
     "menuRecepcionOC":{
-        "es-MX": "Recepción Ordenes de Compra",
-        "en-US": "Purchase Orders"
+        "es-MX": "Cobro de OC",
+        "en-US": "OC Cover"
     },
     "menuComprarPagarOC":{
-        "es-MX": "Compra y Pago de Ordenes de Compra",
-        "en-US": "Purchase and payment of purchase orders"
+        "es-MX": "Pago de OC",
+        "en-US": "OC Purchase"
+    },
+    "menuComprarCreacionOC": {
+        "es-MX": "Creación de OC",
+        "en-US": "OC Creation"
     },
     "menuDynasolPackingList": {
         "es-MX": "Packing List",
@@ -8605,6 +8609,11 @@ _dictionary = {
         "es-MX": "Camion",
         "en-US": "Truck"
     },
+    "menuAbastecimiento": {
+        "es-MX": "Abastecimiento",
+        "en-US": "Supplying"
+    },
+
     "DynasolButtonControlOrdenCompra": {
         "es-MX": "Control de ordenes de compra",
         "en-US": "Buy order control"
@@ -13315,6 +13324,10 @@ _dictionary = {
         "es-MX": "Pago de OC",
         "en-US": "OP Payment"
     },
+    "titleCreacionOC": {
+        "es-MX": "Creación de OC",
+        "en-US": "OC Creation"
+    },
     "columnCobrado": {
         "es-MX": "Cobrado",
         "en-US": "Charged"
@@ -13334,6 +13347,10 @@ _dictionary = {
     "lblMoneda": {
         "es-MX": "Moneda",
         "en-US": "Coin"
+    },
+    "MensajeErrorCreacionOCLlenarCampos": {
+        "es-MX": "Los campos de orden de compra, cliente y moneda, son mandatorios",
+        "en-US": "The fields, order buy, client and money, are be mandatory"
     },
     //Finaliza Modulo Dynasol
     // Modulo Montaje

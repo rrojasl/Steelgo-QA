@@ -11,11 +11,16 @@ namespace BackEndSAM.Models.Dynasol
         {
             public int OrdenCompraID { get; set; }
             public string Nombre { get; set; }
+            public int Cerrada { get; set; }
+            public int CerradaPago { get; set; }
+            
 
             public OrdenCompraClass()
             {
                 OrdenCompraID = 0;
                 Nombre = "";
+                Cerrada = 0;
+                CerradaPago = 0;
             }
         }
 

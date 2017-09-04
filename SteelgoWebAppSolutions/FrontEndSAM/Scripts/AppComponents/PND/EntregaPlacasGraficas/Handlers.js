@@ -1,4 +1,7 @@
-﻿function SuscribirEventos() {
+﻿var ModeloRenglon;
+
+function SuscribirEventos() {
+
     SuscribirEventoProyecto();
     SuscribirEventoProveedor();
     SuscribirEventoTipoPrueba();
@@ -662,14 +665,16 @@ function changeLabel(tipoPruebaID) {
 
 
 function suscribirEventoDetalleRec() {
-    $(document).on('click', '.EnlaceDetalleColada1', function (e) {
+    $(document).on('click', '.EnlaceDetalle', function (e) {
 
         if ($('#Guardar').text() == _dictionary.MensajeGuardar[$("#language").data("kendoDropDownList").value()]) {
             var grid = $("#grid").data("kendoGrid");
             dataItem = grid.dataItem($(e.target).closest("tr"));
 
-            if (dataItem.Recibida != "" && dataItem.Recibida != undefined)
+            if (dataItem.Recibida != "" && dataItem.Recibida != undefined) {
+                ModeloRenglon = dataItem;
                 LlenarGridPopUpDetalleDan(dataItem);
+            }
         }
     });
 

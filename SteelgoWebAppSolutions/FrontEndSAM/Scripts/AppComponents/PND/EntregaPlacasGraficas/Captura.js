@@ -151,7 +151,7 @@ function cargarGrid() {
             { field: "CodigoAsme", title: _dictionary.columnCodigoAsme[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "130px" },
             { field: "Cantplacas", title: _dictionary.EntregaPlacasColumnCantPlacas[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "100px" },
             { field: "Recibida", title: _dictionary.EntregaPlacasColumnRBuenEstado[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "100px", editor: RenderRecibida },
-            { field: "Dan", title: _dictionary.EntregaPlacasColumnDetallePlacas[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "100px", template: "<div class='EnlaceDetalleColada1' style='text-align:center;'><a>Detalle</a></div>" },
+            { field: "Dan", title: _dictionary.EntregaPlacasColumnDetallePlacas[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "100px", template: "<div class='EnlaceDetalle' style='text-align:center;'><a>Detalle</a></div>" },
             { field: "DocumentoDefecto", title: _dictionary.DimensionalVisualHeaderDefecto[$("#language").data("kendoDropDownList").value()], filterable: getGridFilterableCellMaftec(), width: "110px", editor: RenderComboBoxDefectoDocumento },
             //{ command: { text: _dictionary.botonLimpiar[$("#language").data("kendoDropDownList").value()], click: limpiarRenglon }, title: _dictionary.columnLimpiar[$("#language").data("kendoDropDownList").value()], width: "50px" }
         ],

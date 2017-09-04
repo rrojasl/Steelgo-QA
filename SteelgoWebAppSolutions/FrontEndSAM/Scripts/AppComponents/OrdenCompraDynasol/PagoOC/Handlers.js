@@ -169,17 +169,17 @@ function suscribirEventoComboOrdenCompra() {
 
                 ventanaConfirm.open().center();
                 $("#yesButtonProy").click(function () {
-                    ventanaConfirm.close();
-                    OrdenCompraAnterior = $("#inputOrdenCompra").data("kendoComboBox").value();
-                    $("#inputOrdenCompra").data("kendoComboBox").value(OrdenCompraAnterior);
-                    $("#grid").data("kendoGrid").dataSource.data([]);
-                    cambiosCheckOK = 0;
-                    if (dataItem.Cerrada == 1) {
+                    if (dataItem.CerradaPago == 1) {
                         $('#inputCerrar').prop('checked', true);
                     }
                     else {
                         $('#inputCerrar').prop('checked', false);
                     }
+                    ventanaConfirm.close();
+                    OrdenCompraAnterior = $("#inputOrdenCompra").data("kendoComboBox").value();
+                    $("#inputOrdenCompra").data("kendoComboBox").value(OrdenCompraAnterior);
+                    $("#grid").data("kendoGrid").dataSource.data([]);
+                    cambiosCheckOK = 0;
                 });
 
                 $("#noButtonProy").click(function () {
@@ -189,7 +189,7 @@ function suscribirEventoComboOrdenCompra() {
             } else {
                 OrdenCompraAnterior = $("#inputOrdenCompra").data("kendoComboBox").value();
                 if (dataItem != null) {
-                    if (dataItem.Cerrada == 1) {
+                    if (dataItem.CerradaPago == 1) {
                         $('#inputCerrar').prop('checked', true);
                     }
                     else {

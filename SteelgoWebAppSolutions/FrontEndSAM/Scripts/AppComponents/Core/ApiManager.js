@@ -251,6 +251,8 @@ var $DynasolCamion = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $RecepcionOC = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $CompraPagoOC = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 var $CobroOC = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $PagoOC = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
+var $CreacionOC = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
 // Montaje 
 
 var $PlanchadoSoldadura = new $.RestClient($BackEndSAMUri + '/backendsam/api/');
@@ -472,6 +474,8 @@ $DynasolCamion.add("Camion");
 $RecepcionOC.add("RecepcionOC");
 $CompraPagoOC.add("CompraPagoOC");
 $CobroOC.add("CobroOC");
+$PagoOC.add("PagoOC");
+$CreacionOC.add("CreacionOC");
 
 //Montaje
 $PlanchadoSoldadura.add("PlanchadoSoldadura");

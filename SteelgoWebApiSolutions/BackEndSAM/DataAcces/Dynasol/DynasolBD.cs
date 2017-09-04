@@ -44,7 +44,9 @@ namespace BackEndSAM.DataAcces.Dynasol
                         ListaOrdenes.Add(new OrdenCompraClass
                         {
                             OrdenCompraID = item.OrdenCompraID,
-                            Nombre = item.Nombre
+                            Nombre = item.Nombre,
+                            Cerrada = item.Cerrada.GetValueOrDefault() ? 1: 0,
+                            CerradaPago = item.CerradaPago.GetValueOrDefault() ? 1 : 0
                         });
                     }
                     return ListaOrdenes;

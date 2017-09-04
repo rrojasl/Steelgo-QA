@@ -160,20 +160,38 @@ namespace BackEndSAM.DataAcces.Dynasol
             }
         }
 
-        public object GuardaOC(DataTable Datos, int UsuarioID)
+        public object GuardaOC(DataTable Datos,int OrdenCompraID,int cerrada, int UsuarioID)
         {
             try
             {
                 using (SamContext ctx = new SamContext())
                 {
+                    ObjectParameter op = new ObjectParameter("Retorna", typeof(string));
+                    op.Value = null;
+                    var oMyString = new ObjectParameter("Retorna", typeof(string));
+                    var res = ctx.Sam3_OrdenCompra_Cobrar_GET_OrdenCompraCerrada(OrdenCompraID, oMyString);
+                    var data = oMyString.Value.ToString();
+                    
+                    if (data.Equals("ok"))
+                    {
+                        cerrada = 1;
+                    }
+
+
                     ObjetosSQL _SQL = new ObjetosSQL();
                     string[,] Parametros =
                     {
-                        { "@UsuarioID", UsuarioID.ToString() }
+                        { "@UsuarioID", UsuarioID.ToString() },
+                        { "@Cerrar", cerrada.ToString() },
+                        { "@OrdenCompraID", OrdenCompraID.ToString() }
                     };
                     _SQL.Ejecuta(Stords.GUARDACAPTURA_COBROOC, Datos, "@DATOS", Parametros);
+                    
+
+
                     TransactionalInformation result = new TransactionalInformation();
                     result.ReturnMessage.Add("OK");
+                    result.ReturnMessage.Add(cerrada+"");
                     result.ReturnCode = 200;
                     result.ReturnStatus = true;
                     result.IsAuthenicated = true;
